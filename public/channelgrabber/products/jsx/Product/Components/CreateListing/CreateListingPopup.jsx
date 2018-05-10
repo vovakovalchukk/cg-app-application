@@ -284,7 +284,7 @@ define([
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
-            submissionStatuses: state.submissionStatuses
+            submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses))
         };
     };
 

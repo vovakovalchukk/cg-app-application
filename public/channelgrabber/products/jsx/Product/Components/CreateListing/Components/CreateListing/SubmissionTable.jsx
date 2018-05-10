@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Common/Components/Popup/Message'
 ], function (
-    React
+    React,
+    PopupMessage
 ) {
     "use strict";
 
@@ -14,6 +16,11 @@ define([
                 categoryTemplates: {},
                 statuses: {}
             };
+        },
+        getInitialState: function () {
+            return {
+                showErrors: null
+            }
         },
         renderTableHeader: function () {
             return <tr>
@@ -71,6 +78,18 @@ define([
             return category.status ? category.status : defaultStatus;
         },
         getResponseForAccountAndCategory: function (accountId, categoryId) {
+            var status = this.getStatusForAccountAndCategory(accountId, categoryId);
+            if (status == "error") {
+                return <a href="#" onClick={this.onShowErrorsClick.bind(this, accountId, categoryId)}>
+                    Click here to show errors
+                </a>;
+            } else if (status == "completed") {
+                return "Successful";
+            }
+
+            return null;
+
+            // Old code
             if (!this.props.statuses.accounts || Object.keys(this.props.statuses.accounts).length === 0) {
                 return null;
             }
@@ -92,6 +111,52 @@ define([
 
             return null;
         },
+        onShowErrorsClick: function (accountId, categoryId) {
+            this.setState({
+                showErrors: {
+                    accountId: accountId,
+                    categoryId: categoryId
+                }
+            });
+        },
+        renderErrorMessage: function() {
+            if (!this.state.showErrors) {
+                return null;
+            }
+            return (
+                <PopupMessage
+                    initiallyActive={true}
+                    headerText="There were errors when trying to create the listing"
+                    className="error"
+                    onCloseButtonPressed={this.onErrorMessageClosed}
+                >
+                    <h4>Errors</h4>
+                    <ul>
+                        {this.findErrorsForAccountAndCategory(this.state.showErrors.accountId, this.state.showErrors.categoryId).map(function (error) {
+                            return (<li>{error}</li>);
+                        })}
+                    </ul>
+                    <h4>Warnings</h4>
+                    <ul>
+                        {this.findWarningForAccountAndCategory(this.state.showErrors.accountId, this.state.showErrors.categoryId).map(function (warning) {
+                            return (<li>{warning}</li>);
+                        })}
+                    </ul>
+                    <p>Please address these errors then try again.</p>
+                </PopupMessage>
+            );
+        },
+        findErrorsForAccountAndCategory: function(accountId, categoryId) {
+            return this.props.statuses.accounts[accountId][categoryId].errors;
+        },
+        findWarningForAccountAndCategory: function(accountId, categoryId) {
+            return this.props.statuses.accounts[accountId][categoryId].warnings;
+        },
+        onErrorMessageClosed: function () {
+            this.setState({
+                showErrors: null
+            });
+        },
         render: function () {
             return (
                 <div className={"variation-picker"}>
@@ -101,6 +166,7 @@ define([
                         </thead>
                         {this.renderStatusRows()}
                     </table>
+                    {this.renderErrorMessage()}
                 </div>
             );
         }
