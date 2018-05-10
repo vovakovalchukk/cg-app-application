@@ -179,6 +179,12 @@
   .textarea-description {
     padding: 9px 35px 8px 5px;
   }
+
+  .input-error {
+    color: $color-red;
+    font-size: 1.1em;
+    display: table;
+  }
 }
 
 .react-image-picker {
