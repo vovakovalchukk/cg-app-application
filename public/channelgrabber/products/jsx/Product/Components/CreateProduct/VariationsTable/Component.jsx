@@ -53,7 +53,7 @@ define([
         variationRowFieldOnChange: function(event, variationId) {
             if (this.shouldCreateNewVariationRow(variationId)) {
                 this.props.newVariationRowCreate();
-                this.props.setNewVariationDimensions(this.getNewVariationId());
+                this.props.setDefaultValuesForNewVariations(this.getNewVariationId());
             }
         },
         resetFieldValueInReduxForm:function(fieldPath){
@@ -78,7 +78,7 @@ define([
             this.unsetAttributeFieldOnAllVariations(field);
             this.props.attributeColumnRemove(field.name);
         },
-        variationRowRemove: function(variationId, event) {
+        variationRowRemove: function(variationId) {
             console.log('in variaitonRowRemove with this.props:  ', this.props);
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);

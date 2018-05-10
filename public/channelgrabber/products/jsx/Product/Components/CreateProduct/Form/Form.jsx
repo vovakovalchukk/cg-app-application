@@ -144,9 +144,6 @@ define([
             errors.variations = {};
             for(var i = 0; i < variationIdentifiers.length; i++){
                 var variation = values.variations[variationIdentifiers[i]]
-//                if(!variation){
-//                    continue;
-//                }
                 errors.variations[variationIdentifiers[i]] = {};
                 if (!variation.sku) {
                     errors.variations[variationIdentifiers[i]].sku = 'Required'

@@ -57,29 +57,42 @@ define([
                     }
                 };
             },
-            setNewVariationDimensions: function(newVariationId) {
+            setDefaultValuesForNewVariations: function(newVariationId) {
+                console.log(' in setDefaultValuesForNewVariations ');
                 return function(dispatch, getState) {
-                    var state = getState();
-                    if(!state.form.createProductForm.values || !state.form.createProductForm.values.variations){
-                        return;
-                    }
-                    var firstRowVariationValues = getFirstRowVariationValues(state.form.createProductForm.values.variations);
-                    var firstRowDimensionOnlyValues = stateFilters.getDimensionOnlyFieldsFromVariationRow(firstRowVariationValues, state.variationsTable.fields);
-                    for (var variationProperty in firstRowDimensionOnlyValues) {
-                        dispatch(
-                            ReduxForm.change(
-                                'createProductForm',
-                                'variations.variation-' + newVariationId.toString() + "." + variationProperty,
-                                firstRowDimensionOnlyValues[variationProperty]
-                            )
-                        );
-                    }
+                    setDefaultStockModeValues(dispatch, newVariationId);
+                    setDimensionFieldsFromFirstRow(dispatch, getState(), newVariationId);
                 };
             }
         };
 
         return ActionCreators;
 
+        function setDimensionFieldsFromFirstRow(dispatch, state, newVariationId) {
+            if (!state.form.createProductForm.values || !state.form.createProductForm.values.variations) {
+                return;
+            }
+            var firstRowVariationValues = getFirstRowVariationValues(state.form.createProductForm.values.variations);
+            var firstRowDimensionOnlyValues = stateFilters.getDimensionOnlyFieldsFromVariationRow(firstRowVariationValues, state.variationsTable.fields);
+            for (var variationProperty in firstRowDimensionOnlyValues) {
+                dispatch(
+                    ReduxForm.change(
+                        'createProductForm',
+                        'variations.variation-' + newVariationId.toString() + "." + variationProperty,
+                        firstRowDimensionOnlyValues[variationProperty]
+                    )
+                );
+            }
+        }
+        function setDefaultStockModeValues(dispatch, variationId) {
+            dispatch(
+                ReduxForm.change(
+                    'createProductForm',
+                    'variations.variation-' + variationId.toString() + "." + 'stockModeType',
+                    'all'
+                )
+            );
+        }
         function getFirstRowVariationValues(variations) {
             var sortedVariationIdentifiers = Object.keys(variations).sort();
             return variations[sortedVariationIdentifiers[0]];

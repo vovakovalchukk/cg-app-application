@@ -20,13 +20,14 @@ define([
         },
         handleContainerSubmit: function() {
             console.log('in handleContainerSubmit');
-            this.props.formSubmitDispatch()
+            this.handleSubmit();
         },
-        handleSubmit: function(values) {
-            console.log('in handleSubmit with values: ' , values)
-            if (values.productImage) {
-                this.postImageDataToApi(values.productImage.binaryDataString);
-            }
+        handleSubmit: function() {
+            console.log('in handleSubmit')
+//            if (values.productImage) {
+//                this.postImageDataToApi(values.productImage.binaryDataString);
+//            }
+            this.props.formSubmitDispatch();
         },
         render: function() {
             return (
