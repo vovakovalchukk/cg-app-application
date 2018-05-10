@@ -32,6 +32,7 @@ define([
                     return;
                 }
                 var formattedValues = formatFormValuesForPostRequest(formValues);
+                console.log('formattedValues: ' , formattedValues);
                 submitProductForCreation(formattedValues);
             }
         }

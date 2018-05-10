@@ -36,20 +36,16 @@ define([
             var variations = this.props.variationValues;
             if (!variations) {
                 console.log('no variations');
-
                 return true;
             }
             var variationValues = variations['variation-' + variationId.toString()];
             if (!variationValues) {
                 console.log('no variation values');
-
                 return true;
             } else {
                 var nonDimensionalFieldNames = getNonDimensionalVariationFields(variationValues, this.props.variationsTable.fields);
-                console.log('nonDImensionalFieldNames: ' , nonDimensionalFieldNames);
                 if (nonDimensionalFieldNames.length == 0) {
                     console.log('non.dimensionalfieldnames.length == variation values');
-
                     return true;
                 }
             }
@@ -66,7 +62,35 @@ define([
                 this.props.setNewVariationDimensions(this.getNewVariationId());
             }
         },
+        unsetAttributeFieldOnAllVariations: function(field){
+          console.log('in unsetAttributeFieldOnAllVariations with field: ' , field, ' this.props : ' , this.props);
+          var variationValues = this.props.variationValues;
+          console.log('variationValues: ' , variationValues);
+          for(var variation in variationValues){
+
+              if(variation.indexOf('variation-') < 0 ){
+                  continue;
+              }
+
+              console.log(variationValues[variation]);
+          }
+
+        },
+        attributeColumnRemove: function(field){
+            console.log('in attributeColumnRemove with field: ' , field , ' this.props: ' , this.props);
+            var formSectionPrefix = 'variations.c-table-with-inputs__headings.';
+
+            this.props.unregister(formSectionPrefix+field.name);
+            this.props.change(formSectionPrefix+field.name, null);
+            this.props.untouch(formSectionPrefix+field.name);
+
+            // unregister , change and untouch all values of custom attribute for the variation rows
+            this.unsetAttributeFieldOnAllVariations(field);
+
+            this.props.attributeColumnRemove(field.name);
+        },
         variationRowRemove: function(variationId, event) {
+            console.log('in variaitonRowRemove with this.props:  ' , this.props);
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);
         },
@@ -89,7 +113,9 @@ define([
                                 }.bind(this))}
                             />
                             <button type="button" className={'c-table-with-inputs__remove-button'}
-                                    onClick={this.props.attributeColumnRemove.bind(this, field.name)}>❌
+                                    onClick={
+                                        this.attributeColumnRemove.bind(this,field)
+                                    }>❌
                             </button>
                         </div>
 
@@ -309,7 +335,6 @@ define([
     return VariationsTableComponent;
 
     function getNonDimensionalVariationFields(values, fields) {
-        console.log(' in getNonDimensionalVariationFields with values: ', values , ' and fields:', fields);
         var fieldsToReturn = [];
         for (var field in values) {
             if (isNonDimensionField(field, fields)) {

@@ -12,6 +12,10 @@ define([
     formActionCreators
 ) {
     var resetSection = ReduxForm.resetSection;
+    var untouch = ReduxForm.untouch;
+    var change = ReduxForm.change;
+    var unregister = ReduxForm.unregisterField;
+
     "use strict";
     const mapStateToProps = function(state){
         return{
@@ -22,7 +26,10 @@ define([
     };
     const mapDispatchToProps = function(dispatch) {
         var combinedActionCreators = Object.assign({}, formActionCreators, {
-            resetSection: resetSection
+            resetSection: resetSection,
+            untouch:untouch,
+            change:change,
+            unregister:unregister
         });
         return Redux.bindActionCreators(combinedActionCreators, dispatch);
     };

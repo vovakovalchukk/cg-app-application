@@ -98,6 +98,9 @@ define([
                     <fieldset className={'margin-bottom-small'}>
                         <VariationsTable
                             resetSection={this.props.resetSection}
+                            untouch={this.props.untouch}
+                            change={this.props.change}
+                            unregister={this.props.unregister}
                         />
                         <DimensionsTable
                             stateSelectors={{
@@ -128,7 +131,11 @@ define([
     })(createFormComponent);
 
     function validate(values) {
+        console.log('in validate with values:  '  ,values);
         const errors = {};
+        if(!values.variations){
+            return;
+        }
         const variationIdentifiers = Object.keys(values.variations);
 //        console.log('in validation with values: ', values);
         if (!values.title) {
@@ -143,6 +150,11 @@ define([
 
 
                 var variation = values.variations[variationIdentifiers[i]]
+
+//                if(!variation){
+//                    continue;
+//                }
+
                 errors.variations[variationIdentifiers[i]] = {};
 
 //                console.log('variation: ' , variation)
