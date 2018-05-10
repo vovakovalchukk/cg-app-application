@@ -174,14 +174,14 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
-                $this->generateCreateSimpleListingJobs($accounts, $categories, $siteId, $product, $guid);
+                $this->generateCreateSimpleListingJobs($accounts, $categories, $siteId, $product, $guid, $categoryTemplates);
             } else {
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
                     $variations = $this->getSelectedVariations($product, $skus);
                 }
-                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid);
+                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $siteId, $variations, $guid, $categoryTemplates);
             }
 
             return true;
@@ -556,9 +556,13 @@ class MultiCreationService implements LoggerAwareInterface
     /**
      * @param Account[] $accounts
      * @param Category[] $categories
+     * @param CategoryTemplate[] $categoryTemplates
      */
-    protected function getAccountCategoryIterator(Accounts $accounts, Categories $categories): \Generator
-    {
+    protected function getAccountCategoryIterator(
+        Accounts $accounts,
+        Categories $categories,
+        CategoryTemplates $categoryTemplates
+    ): \Generator {
         foreach ($categories as $category) {
             $accountId = $category->getAccountId();
             if ($accountId) {
@@ -567,11 +571,29 @@ class MultiCreationService implements LoggerAwareInterface
                     yield [$account, $category];
                 }
             } else {
-                foreach ($accounts->getBy('channel', $category->getChannel()) as $account) {
-                    yield [$account, $category];
+                if ($accountId = $this->findAccountInCategoryTemplates($categoryTemplates, $category->getId())) {
+                    $account = $accounts->getById($accountId);
+                    if ($account) {
+                        yield [$account, $category];
+                    }
                 }
             }
         }
+    }
+
+    /**
+     * @param CategoryTemplate[] $categoryTemplates
+     */
+    protected function findAccountInCategoryTemplates(CategoryTemplates $categoryTemplates, int $categoryId)
+    {
+        foreach ($categoryTemplates as $categoryTemplate) {
+            foreach ($categoryTemplate->getAccountCategories() as $accountCategory) {
+                if ($accountCategory->getCategoryId() === $categoryId) {
+                    return $accountCategory->getAccountId();
+                }
+            }
+        }
+        return null;
     }
 
     protected function generateCreateSimpleListingJobs(
@@ -579,13 +601,14 @@ class MultiCreationService implements LoggerAwareInterface
         Categories $categories,
         string $siteId,
         Product $product,
-        string $guid
+        string $guid,
+        CategoryTemplates $categoryTemplates
     ) {
         /**
          * @var Account $account
          * @var Category $category
          */
-        foreach ($this->getAccountCategoryIterator($accounts, $categories) as [$account, $category]) {
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates) as [$account, $category]) {
             $this->createListingJobGenerator->generateJob(
                 $account,
                 $category,
@@ -605,13 +628,14 @@ class MultiCreationService implements LoggerAwareInterface
         Product $product,
         string $siteId,
         array $variations,
-        string $guid
+        string $guid,
+        CategoryTemplates $categoryTemplates
     ) {
         /**
          * @var Account $account
          * @var Category $category
          */
-        foreach ($this->getAccountCategoryIterator($accounts, $categories) as [$account, $category]) {
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates) as [$account, $category]) {
             $this->createListingJobGenerator->generateJob(
                 $account,
                 $category,
