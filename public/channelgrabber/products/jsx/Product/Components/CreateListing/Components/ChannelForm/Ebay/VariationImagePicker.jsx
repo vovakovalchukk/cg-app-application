@@ -87,15 +87,16 @@ define([
             return selectedOption;
         },
         renderVariationImagePickers: function() {
-            return this.state.selectedAttributeValues.length > 0 ?
-                this.state.selectedAttributeValues.map(attributeValue => {
-                    return <Field
-                        name={"attributeImageMap." + attributeValue}
-                        component={this.renderImagePickerField}
-                        attributeValue={attributeValue}
-                    />
-                })
-                : null;
+            if (this.state.selectedAttributeValues.length == 0) {
+                return null;
+            }
+            return this.state.selectedAttributeValues.map(attributeValue => {
+                return <Field
+                    name={"attributeImageMap." + attributeValue}
+                    component={this.renderImagePickerField}
+                    attributeValue={attributeValue}
+                />
+            });
         },
         renderImagePickerField: function(field) {
             return (<label className="input-container">
