@@ -6,7 +6,6 @@ define([
     "use strict";
 
     var formatFormValuesForSubmission = function(values, props) {
-        console.log(values, props);
         return {
             accountIds: props.accounts,
             categoryTemplateIds: props.categories,
@@ -104,24 +103,43 @@ define([
     };
 
     var progressPolling = {
+        polling: null,
         fetchListingProgress: function(dispatch, guid) {
             $.ajax({
+                context: this,
                 url: '/products/listing/submitMultiple/progress/' + guid,
                 type: 'GET',
                 success: function(response) {
                     dispatch(ResponseActions.listingProgressFetched(response.accounts));
+                    if (progressPolling.shouldStopPolling(response.accounts)) {
+                        progressPolling.stopPolling();
+                    }
                 }
             });
         },
         startListingProgressPolling: function(dispatch, guid) {
-            this.polling = setInterval(progressPolling.fetchListingProgress, 3000, dispatch, guid);
+            this.polling = setInterval(progressPolling.fetchListingProgress, 5000, dispatch, guid);
         },
         stopPolling: function () {
-            setTimeout(function() {
-                clearInterval(progressPolling.polling);
-            }, 20000);
+            clearInterval(progressPolling.polling);
         },
-        polling: null
+        shouldStopPolling: function(accounts) {
+            if (Object.keys(accounts).length === 0) {
+                return true;
+            }
+
+            for (var accountId in accounts) {
+                var account = accounts[accountId];
+                for (var categoryId in account.categories) {
+                    var category = account.categories[categoryId];
+                    if (category.status === "started") {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
     };
 
     return {
@@ -147,7 +165,6 @@ define([
                     if (response.allowed) {
                         dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid));
                         progressPolling.startListingProgressPolling(dispatch, response.guid);
-                        progressPolling.stopPolling();
                     } else {
                         dispatch(ResponseActions.listingFormSubmittedNotAllowed());
                     }
