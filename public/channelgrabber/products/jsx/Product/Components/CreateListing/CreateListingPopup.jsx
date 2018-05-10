@@ -66,7 +66,7 @@ define([
                 <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
                 <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
                 <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
-                <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions}/>
+                <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions} validate={Validators.required} />
                 <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
                 {this.renderChannelFormInputs()}
                 {this.renderCategoryFormInputs()}
@@ -83,8 +83,12 @@ define([
                         name={field.input.name}
                         value={field.input.value}
                         onChange={this.onInputChange.bind(this, field.input)}
+                        className={Validators.shouldShowError(field) ? 'error' : null}
                     />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         renderTextAreaComponent: function(field) {
@@ -95,9 +99,12 @@ define([
                         name={field.input.name}
                         value={field.input.value}
                         onChange={this.onInputChange.bind(this, field.input)}
-                        className={"textarea-description"}
+                        className={"textarea-description " + (Validators.shouldShowError(field) ? 'error' : '')}
                     />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         renderSelectComponent: function(field) {
@@ -109,8 +116,12 @@ define([
                         onOptionChange={this.onSelectOptionChange.bind(this, field.input)}
                         options={field.options}
                         selectedOption={this.findSelectedOption(field.input.value, field.options)}
+                        className={Validators.shouldShowError(field) ? 'error' : null}
                     />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         findSelectedOption: function(value, options) {
@@ -153,6 +164,7 @@ define([
                     multiSelect={false}
                     images={this.props.product.images}
                     onImageSelected={this.onImageSelected.bind(this, field.input)}
+                    className={Validators.shouldShowError(field) ? 'error' : null}
                 />
             );
         },

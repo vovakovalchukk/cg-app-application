@@ -3,13 +3,15 @@ define([
     'react-redux',
     'redux-form',
     'Common/Components/Select',
-    'Common/Components/ImagePicker'
+    'Common/Components/ImagePicker',
+    '../../../Validators'
 ], function(
     React,
     ReactRedux,
     ReduxForm,
     Select,
-    ImagePicker
+    ImagePicker,
+    Validators
 ) {
     "use strict";
 
@@ -93,6 +95,7 @@ define([
                         name={"attributeImageMap." + attributeValue}
                         component={this.renderImagePickerField}
                         attributeValue={attributeValue}
+                        validate={Validators.required}
                     />
                 })
                 : null;
@@ -101,6 +104,9 @@ define([
             return (<label className="input-container">
                 <span className={"inputbox-label"}>{field.attributeValue}</span>
                 {this.renderImagePicker(field)}
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>);
         },
         renderImagePicker: function (field) {
@@ -116,11 +122,13 @@ define([
                     multiSelect={false}
                     images={this.props.product.images}
                     onImageSelected={this.onImageSelected.bind(this, field.input)}
+                    className={Validators.shouldShowError(field) ? 'error' : null}
                 />
             );
         },
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
+            input.onBlur(selectedImageIds);
         },
         render: function() {
             return <span>

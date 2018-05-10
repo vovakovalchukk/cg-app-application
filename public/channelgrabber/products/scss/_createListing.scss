@@ -29,6 +29,17 @@
     }
   }
 
+  div.error > .custom-select > .selected {
+    border-color: $color-red;
+  }
+
+  .react-image-picker
+  {
+    &.error {
+      border-color: $color-red;
+    }
+  }
+
   .editable-field {
     width: 100%;
   }

@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    '../../../Validators'
 ], function(
     React,
     ReduxForm,
-    Select
+    Select,
+    Validators
 ) {
     "use strict";
 
@@ -30,8 +32,12 @@ define([
                         title="Shipping Service"
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
+                        className={Validators.shouldShowError(field) ? 'error' : null}
                     />
                 </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         buildShippingServiceOptions: function(shippingServices) {
@@ -56,7 +62,7 @@ define([
             input.onChange(selectedOption.value);
         },
         render: function() {
-            return <Field name="shippingMethod" component={this.renderSelect} />;
+            return <Field name="shippingMethod" component={this.renderSelect} validate={Validators.required} />;
         }
     });
     return EbayShippingService;
