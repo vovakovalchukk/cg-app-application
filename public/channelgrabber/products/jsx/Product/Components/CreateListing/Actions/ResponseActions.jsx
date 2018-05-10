@@ -19,7 +19,10 @@ define([], function() {
             };
         },
         accountSettingsFetched: function (accountId, response) {
-            'bodyTag' in response ? delete response.bodyTag : null;
+            if ('bodyTag' in response) {
+                delete response.bodyTag;
+            }
+
             return {
                 type: "ACCOUNT_SETTINGS_FETCHED",
                 payload: {
