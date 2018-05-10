@@ -13,7 +13,7 @@ define([
             product: {
                 id: props.product.id,
                 etag: "@TODO",
-                imageId: values.imageId[0],
+                imageId: values.imageId ? values.imageId[0] : null,
                 variations: formatVariationData(values, props),
                 title: values.title,
                 description: values.description,
@@ -66,7 +66,40 @@ define([
     };
 
     var formatProductCategoryDetail = function(values, props) {
-        return [];
+        if (!values.category|| Object.keys(values.category).length === 0) {
+            return [];
+        }
+        var details = [];
+        for (var categoryId in values.category) {
+            var category = values.category[categoryId];
+            var categoryDetail = Object.assign({}, category, {
+                categoryId: categoryId
+            });
+
+            categoryDetail.itemSpecifics = formatItemSpecificsForCategory(categoryDetail.itemSpecifics);
+
+            details.push(categoryDetail);
+        }
+        return details;
+    };
+
+    var formatItemSpecificsForCategory = function(itemSpecifics) {
+        if (!itemSpecifics) {
+            return {};
+        }
+
+        itemSpecifics = Object.assign({}, itemSpecifics);
+        if (itemSpecifics.customItemSpecifics && itemSpecifics.customItemSpecifics instanceof Array) {
+            itemSpecifics.customItemSpecifics.forEach(function(itemSpecific) {
+                if (itemSpecific.name && itemSpecific.value) {
+                    itemSpecifics[itemSpecific.name] = itemSpecific.value;
+                }
+            });
+        }
+
+        delete itemSpecifics.customItemSpecifics;
+        delete itemSpecifics.optionalItemSpecifics;
+        return itemSpecifics;
     };
 
     return {

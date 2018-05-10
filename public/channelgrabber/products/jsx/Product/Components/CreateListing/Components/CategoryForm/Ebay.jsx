@@ -1,13 +1,17 @@
 define([
     'react',
+    'redux-form',
     './Ebay/ListingDuration',
     './Ebay/ItemSpecifics'
 ], function(
     React,
+    ReduxForm,
     ListingDuration,
     ItemSpecifics
 ) {
     "use strict";
+
+    var FormSection = ReduxForm.FormSection;
 
     var EbayCategoryFormComponent = React.createClass({
         getDefaultProps: function() {
@@ -21,7 +25,12 @@ define([
             return (
                 <div className="ebay-category-form-container">
                     <ListingDuration listingDurations={this.props.listingDuration} />
-                    <ItemSpecifics categoryId={this.props.categoryId} itemSpecifics={this.props.itemSpecifics} />
+                    <FormSection
+                        name="itemSpecifics"
+                        component={ItemSpecifics}
+                        categoryId={this.props.categoryId}
+                        itemSpecifics={this.props.itemSpecifics}
+                    />
                 </div>
             );
         }

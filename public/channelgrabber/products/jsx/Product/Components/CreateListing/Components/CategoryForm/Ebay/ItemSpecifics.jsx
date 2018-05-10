@@ -75,7 +75,7 @@ define([
 
             return <FieldArray
                 component={this.renderOptionsItemSpecificComponents}
-                name={"item-specifics-optional"}
+                name={"optionalItemSpecifics"}
                 itemSpecifics={optionalItems}
             />;
         },
@@ -85,7 +85,7 @@ define([
                 <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
                 <div className={"order-inputbox-holder"}>
                     <Select
-                        name="item-specifics-optional"
+                        name="optionalItemSpecifics"
                         options={options}
                         autoSelectFirst={false}
                         title="Item Specifics (Optional)"
@@ -230,7 +230,7 @@ define([
         },
         renderCustomItemSpecificField: function() {
             return <FieldArray
-                name="custom-item-specifics"
+                name="customItemSpecifics"
                 component={this.renderCustomItemSpecificComponent}
             />
         },

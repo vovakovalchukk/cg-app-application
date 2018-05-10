@@ -50,12 +50,11 @@ define([
                 if (category.channel !== 'ebay') {
                     continue;
                 }
-                var categoryKey = 'id-' + categoryId;
                 var defaultsForCategory = {};
                 if (account.listingDuration) {
                     defaultsForCategory.listingDuration = account.listingDuration;
                 }
-                defaults[categoryKey] = defaultsForCategory;
+                defaults[categoryId] = defaultsForCategory;
             }
         }
 
