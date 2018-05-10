@@ -44,5 +44,4 @@ define([], function() {
     function variationIsEmpty(currState,variationId){
         return currState.form.createProductForm.values && currState.form.createProductForm.values.variations["variation-" + variationId];
     }
-
 });
