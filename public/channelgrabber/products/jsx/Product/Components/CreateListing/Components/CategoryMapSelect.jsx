@@ -65,6 +65,7 @@ define([
                         onOptionChange={this.onCategorySelected.bind(this, this.props.input)}
                         options={this.getCategorySelectOptions()}
                         selectedOptions={this.getSelectedOptions()}
+                        disabled={this.props.disabled}
                     />
                     {this.renderErrorMessage(this.props.meta)}
                 </div>

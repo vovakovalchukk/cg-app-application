@@ -63,6 +63,7 @@ define([
                 onAddNewCategoryClick={this.props.showAddNewCategoryMapComponent}
                 addNewCategoryMapButtonVisible={true}
                 onCategorySelected={this.props.categoryMapSelected}
+                disabled={this.isAccountSelectDisabled()}
             />
         },
         renderAccountSelectField: function() {
@@ -110,6 +111,15 @@ define([
             if (this.props.invalid) {
                 return true;
             }
+            for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (account.isFetching) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        isAccountSelectDisabled: function() {
             for (var accountId in this.props.accounts) {
                 var account = this.props.accounts[accountId];
                 if (account.isFetching) {

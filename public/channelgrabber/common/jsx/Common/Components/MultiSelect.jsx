@@ -48,7 +48,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         onClick: function (e) {
-            if (this.state.disabled) {
+            if (this.props.disabled) {
                 return;
             }
 
@@ -58,7 +58,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         onInputFocus: function (e) {
-            if (this.state.disabled) {
+            if (this.props.disabled) {
                 return;
             }
 
@@ -85,7 +85,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
         },
         onCustomOption: function(e) {
             const ENTER_KEY_CODE = 13;
-            if (this.state.disabled || e.which !== ENTER_KEY_CODE) {
+            if (this.props.disabled || e.which !== ENTER_KEY_CODE) {
                 return;
             }
             if (!e.target.value) {
@@ -107,7 +107,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         onOptionSelected: function (option) {
-            if (this.state.disabled) {
+            if (this.props.disabled) {
                 return;
             }
 
@@ -125,7 +125,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         onSelectAll: function (e) {
-            if (this.state.disabled) {
+            if (this.props.disabled) {
                 return;
             }
 
@@ -136,7 +136,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             });
         },
         onClearAll: function (e) {
-            if (this.state.disabled) {
+            if (this.props.disabled) {
                 return;
             }
 
@@ -181,7 +181,7 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
             </div>;
         },
         getOptions: function () {
-            if (this.state.disabled) {
+            if (this.props.disabled) {
                 return [];
             }
 
@@ -217,9 +217,15 @@ define(['react', 'Common/Components/ClickOutside'], function(React, ClickOutside
 
             return <div className="results-none">{this.props.filterable ? 'No results' : ''}</div>
         },
+        getClassName: function() {
+            return "custom-select custom-select-group large "+ (this.state.active ? 'active' : '') + (this.props.disabled ? 'disabled' : '');
+        },
         render: function () {
             return <ClickOutside onClickOutside={this.onClickOutside}>
-                <div className={"custom-select custom-select-group large "+ (this.state.active ? 'active' : '')} title={this.props.title}>
+                <div
+                    className={this.getClassName()}
+                    title={this.props.title}
+                >
                     <div className="selected" onClick={this.onClick}>
                         <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelected()}</span>
                         <span className="sprite-arrow-down-10-black">&nbsp;</span>
