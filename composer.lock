@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13ac1969a9da8d2879106b29761ce258",
+    "content-hash": "704dc302a653e713a465a66f1f22753c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1519,16 +1519,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.17",
+            "version": "1.0.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "c706431f2e4d449ad40315ddfc3007faf6b9ff46"
+                "reference": "371b8397cb37b175ad6f8f46fa62b611621002a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.17-e6adf7.zip",
-                "reference": "c706431f2e4d449ad40315ddfc3007faf6b9ff46",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.18-6c924f.zip",
+                "reference": "371b8397cb37b175ad6f8f46fa62b611621002a2",
                 "shasum": null
             },
             "require": {
@@ -1548,7 +1548,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-02-08T16:50:43+00:00"
+            "time": "2018-05-11T09:31:51+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -3566,16 +3566,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.0.0",
+            "version": "dev-CGIV-9215-disabled_select_btn",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "f36798492c8d7f0bcbf1d066c37e7258be982933"
+                "reference": "2bb2f47b0e16bb75cc4a6cdc15f2fb549c6cbc17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.0-36c068.zip",
-                "reference": "f36798492c8d7f0bcbf1d066c37e7258be982933",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9215-disabled_select_btn-11a19d.zip",
+                "reference": "2bb2f47b0e16bb75cc4a6cdc15f2fb549c6cbc17",
                 "shasum": null
             },
             "require": {
@@ -3585,6 +3585,7 @@
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.24.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
+                "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
                 "channelgrabber/zf2-v4-ui": "^1.23.0",
                 "zendframework/zend-config": "~2.3",
@@ -3609,7 +3610,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-04-30T08:41:04+00:00"
+            "time": "2018-05-11T09:41:12+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9913,10 +9914,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-CGIV-9215-disabled_select_btn",
+            "package": "channelgrabber/zf2-billing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
