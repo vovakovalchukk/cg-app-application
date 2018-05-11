@@ -12,17 +12,15 @@ define([
                 className: ''
             };
         },
-        onUploadButtonClick: function(e) {
-            e.target.value = null;
+        onUploadButtonClick: function(event) {
+            event.target.value = null;
         },
         render: function() {
             return (
                 <div>
-
                     <input type="file" onChange={this.props.uploadImageHandler} onClick={this.onUploadButtonClick}
                            name="fileupload" className={this.props.className}
                            id="fileupload"/>
-
                 </div>
             );
         }

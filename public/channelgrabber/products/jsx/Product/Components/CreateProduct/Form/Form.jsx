@@ -32,22 +32,23 @@ define([
                 <Field type="text" name="title" component={InputWithValidation}/>
             )
         },
-        mainImage: function() {
+        renderMainImageComponent: function(props){
             var uploadedImages = this.props.uploadedImages.images;
             return (
+                <ImagePicker
+                    images={
+                        uploadedImages
+                    }
+                    onImageSelected={props.input.onChange}
+                    multiSelect={false}
+                />
+            );
+        },
+        mainImage: function() {
+            return (
                 <div>
-                    <Field name="mainImage" type="text" component={function(props) {
-                        return (
-                            <ImagePicker
-                                images={
-                                    uploadedImages
-                                }
-                                onImageSelected={props.input.onChange}
-                                multiSelect={false}
-                            />
-                        );
-                    }}/>
-                    <ImageUploader className={'form-row__input'}/>
+                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
+                    <ImageUploader className={"u-float-left"}/>
                 </div>
             );
         },
