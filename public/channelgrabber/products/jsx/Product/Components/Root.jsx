@@ -418,7 +418,6 @@ define([
             />
         },
         redirectToProducts:function(){
-            console.log('in redirectTOProducts');
             this.state.currentView = PRODUCT_LIST_VIEW;
             this.forceUpdate();
         },
@@ -433,7 +432,6 @@ define([
         renderProductListView: function() {
             return (
                 <div id='products-app'>
-
                     {this.renderSearchBox()}
                     {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
 
@@ -453,7 +451,6 @@ define([
             );
         },
         render: function() {
-            console.log('in root render()');
             var viewRenderers = this.getViewRenderers();
             var viewRenderer = viewRenderers[this.state.currentView];
             return viewRenderer();

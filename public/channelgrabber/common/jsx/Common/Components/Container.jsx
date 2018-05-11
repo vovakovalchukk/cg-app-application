@@ -11,11 +11,9 @@ define([
                 className: null,
                 headerText: null,
                 subHeaderText: null,
-                yesButtonDisabled: false
             }
         },
         render: function() {
-            console.log('in conatiner render with this.props.yesButtonDisabled: ', this.props.yesButtonDisabled)
             return <div className={'container-wrapper ' + this.props.className}>
                 <div className={'container-content ' + this.props.className}>
                     <div className="container-header">
@@ -29,9 +27,6 @@ define([
                         : null
                     }
                     <div className="container-children">{this.props.children}</div>
-
-                    {this.props.yesButtonDisabled ? <div>disabled!</div> : <div> not disabled </div>}
-
                     <div className="container-buttons">
                         <div style={{margin: "0px auto"}}>
                             <div className="button container-btn no"
@@ -39,7 +34,6 @@ define([
                             <div className="button container-btn yes"
                                  onClick={this.props.onYesButtonPressed}>
                                 {this.props.yesButtonText}
-
                             </div>
                         </div>
                     </div>

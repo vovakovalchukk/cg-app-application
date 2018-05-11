@@ -163,7 +163,6 @@ define([
             return newState;
         },
         "ATTRIBUTE_COLUMN_REMOVE": function(state, action) {
-            console.log('in ATTRIBUTE_COLUMN_REMOVE with state: ' , state , ' and action : ' , action);
             var fieldsCopy = state.fields.slice();
             var indexOfField = fieldsCopy.map(function(field) {
                 return field.name;
@@ -210,11 +209,9 @@ define([
             return newState;
         },
         "FORM_SUBMIT_REQUEST": function(state,action){
-            console.log('in form_submit_request');
             var newState = Object.assign({}, state, {
                 isSubmitting: true
             });
-            console.log('newState: ' , newState);
             return newState;
         }
     });

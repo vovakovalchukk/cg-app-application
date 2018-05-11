@@ -4,10 +4,7 @@ define([
     ReduxForm
 ) {
     "use strict";
-
     var submitForm = ReduxForm.submit('createProductForm');
-
-    console.log('submitForm:  ', submitForm);
 
     var actionCreators = {
         initialAccountDataLoaded: function(taxRates, stockModeOptions) {
@@ -40,32 +37,7 @@ define([
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
-                $.ajax({
-                    url: '/products/create/save',
-                    data: formattedValues,
-                    type: 'POST',
-                    context: this,
-                    dataType: "json",
-                    success: function() {
-                        console.log('in success');
-                        dispatch({
-                            type: 'FORM_SUBMIT_SUCCESS'
-                        });
-                        n.success("successfully saved new product");
-                        redirectToProducts();
-                    },
-                    error: function(xhr, status, errorThrown) {
-                        dispatch({
-                            type: 'FORM_SUBMIT_ERROR',
-                            payload: {
-                                xhr:xhr,
-                                status:status,
-                                errorThrown:errorThrown
-                            }
-                        });
-                        n.error("error saving new product")
-                    }
-                })
+                submitFormViaAjax(dispatch,formattedValues,redirectToProducts);
             }
         }
 
@@ -90,11 +62,9 @@ define([
     }
 
     function formatFormValuesForPostRequest(values) {
-        console.log('in formatFormValuesForPostRequest with values: ', values);
         var attributeNames = getAttributeNamesFromFormData(values);
         var formattedVariations = formatVariationFormValuesForPostRequest(values.variations, attributeNames);
         var formattedImages = formatImagesFormValuesForPostRequest(values);
-
         var formattedValues = {
             product: {
                 name: values.title,
@@ -157,8 +127,35 @@ define([
         return imageIds;
     };
 
-    function submitProductForCreation(values) {
-        console.log('in submitProductForCreation with values: ', values);
-        // TODO
-    };
+    function submitFormViaAjax(dispatch,values,redirectToProducts){
+        $.ajax({
+            url: '/products/create/save',
+            data: values,
+            type: 'POST',
+            context: this,
+            dataType: "json",
+            success: function() {
+                dispatch({
+                    type: 'FORM_SUBMIT_SUCCESS'
+                });
+                n.success("successfully saved new product");
+                redirectToProducts();
+                dispatch({
+                    type: 'USER_LEAVES_CREATE_PRODUCT'
+                })
+
+            },
+            error: function(xhr, status, errorThrown) {
+                dispatch({
+                    type: 'FORM_SUBMIT_ERROR',
+                    payload: {
+                        xhr:xhr,
+                        status:status,
+                        errorThrown:errorThrown
+                    }
+                });
+                n.error("error saving new product")
+            }
+        })
+    }
 });

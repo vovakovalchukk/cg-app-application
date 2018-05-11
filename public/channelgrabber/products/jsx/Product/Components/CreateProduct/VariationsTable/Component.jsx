@@ -62,9 +62,7 @@ define([
             this.props.untouch(fieldPath);
         },
         unsetAttributeFieldOnAllVariations: function(field) {
-            console.log('in unsetAttributeFieldOnAllVariations with field: ');
             var variationValues = this.props.variationValues;
-            console.log('variationValues: ', variationValues);
             for (var variation in variationValues) {
                 if (variation.indexOf('variation-') < 0) {
                     continue;
@@ -73,7 +71,6 @@ define([
             }
         },
         attributeColumnRemove: function(field) {
-            console.log('in attributeColumnRemove with field: ', field, ' this.props: ', this.props);
             this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.'+field.name);
             this.unsetAttributeFieldOnAllVariations(field);
             this.props.attributeColumnRemove(field.name);

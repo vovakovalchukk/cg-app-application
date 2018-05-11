@@ -52,14 +52,13 @@ define([
             store.dispatch(ActionCreators.initialAccountDataLoaded(this.props.taxRates, this.props.stockModeOptions))
         },
         render: function() {
-            var isSubmitting = store.getState().variationsTable.isSubmitting;
             return (
                 <Provider store={store}>
                     <CreateProduct
                         onCreateProductClose={this.props.onCreateProductClose}
                         formSubmit={this.formSubmit}
                         formContainerSubmitClick={this.formContainerSubmitClick}
-                        isSubmitting={isSubmitting}
+                        redirectToProducts={this.props.redirectToProducts}
                     />
                 </Provider>
             );

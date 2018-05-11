@@ -10,7 +10,6 @@ define([
     CreateProductForm
 ) {
     "use strict";
-    var submitForm = reduxForm.submit;
 
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -20,21 +19,19 @@ define([
             };
         },
         handleContainerSubmit: function() {
-            console.log('in handleContainerSubmitClick');
+            console.log('in handleCOntainer submit')
             this.props.formContainerSubmitClick();
         },
-        handleSubmit:function(values,dispatch,props){
-            console.log('in handleSubmit with values: ' , values , ' dispatch : ' , dispatch , ' and props : ' , props);
-            this.props.formSubmit(values);
+        handleSubmit:function(values){
+            console.log('in handleSubmit');
+            this.props.formSubmit(values,this.props.redirectToProducts);
         },
         render: function() {
-            console.log('in render with isSubmitting : ', this.props.isSubmitting);
             return (
                 <Container
                     initiallyActive={true}
                     className="editor-popup "
                     onYesButtonPressed={this.handleContainerSubmit}
-                    yesButtonDisabled={this.props.isSubmitting}
                     onNoButtonPressed={this.props.onCreateProductClose}
                     closeOnYes={false}
                     headerText={"Create New Product"}
