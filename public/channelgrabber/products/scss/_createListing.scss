@@ -343,5 +343,7 @@
 }
 
 .container-wrapper .react-popup-message {
-  border-width: 1px;
+  border-width: 1px !important;
+  margin-top: 15px;
+  max-width: 1200px;
 }

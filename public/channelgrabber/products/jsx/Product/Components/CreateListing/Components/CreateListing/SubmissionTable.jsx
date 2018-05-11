@@ -88,28 +88,6 @@ define([
             }
 
             return null;
-
-            // Old code
-            if (!this.props.statuses.accounts || Object.keys(this.props.statuses.accounts).length === 0) {
-                return null;
-            }
-
-            var accounts = this.props.statuses.accounts;
-            if (!accounts[accountId]) {
-                return null;
-            }
-
-            var account = accounts[accountId];
-            if (!account[categoryId]) {
-                return null;
-            }
-
-            var category = account[categoryId];
-            if (category.errors.length > 0) {
-                return category.errors.join(", ");
-            }
-
-            return null;
         },
         onShowErrorsClick: function (accountId, categoryId) {
             this.setState({
@@ -118,6 +96,7 @@ define([
                     categoryId: categoryId
                 }
             });
+            $("html, body").scrollTop($(document).height());
         },
         renderErrorMessage: function() {
             if (!this.state.showErrors) {
