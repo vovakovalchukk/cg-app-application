@@ -27,7 +27,8 @@ define([
             };
         },
         renderHeadings: function() {
-            return this.props.fields.map(function(field) {
+            var orderedFields = orderFields(this.props.fields);
+            return orderedFields.map(function(field) {
                 return this.renderHeading(field);
             }.bind(this));
         },
@@ -241,10 +242,11 @@ define([
         },
         renderRow: function(variationId) {
             var fields = this.props.fields;
+            var orderedFields = orderFields(fields);
             return (
                 <FormSection name={"variation-" + variationId}>
                     <tr>
-                        {fields.map(function(field) {
+                        {orderedFields.map(function(field) {
                             return this.renderField(variationId, field);
                         }.bind(this))}
                     </tr>
@@ -254,13 +256,13 @@ define([
         renderRows: function() {
             var rows = this.props.rows;
             var rowsToRender = [];
-            for (var i = 0; i < rows.length-1; i++) {
+            for (var i = 0; i < rows.length - 1; i++) {
                 rowsToRender.push(this.renderRow(rows[i].id));
             }
             return rowsToRender;
         },
         renderTable: function() {
-            if(this.props.rows.length <= 1){
+            if (this.props.rows.length <= 1) {
                 return <div></div>
             }
             return (
@@ -278,4 +280,26 @@ define([
     });
 
     return DimensionsTableComponent;
+
+    function orderFields(fields) {
+        var sortedFields = sortCustomAttributesToBeAfterSKUField(fields);
+        return sortedFields;
+    }
+    function sortCustomAttributesToBeAfterSKUField(fields) {
+        var customAttributeFields = [];
+        var nonAttributeFields = [];
+        for (var field in fields) {
+            if (fields[field].isCustomAttribute) {
+                customAttributeFields.push(fields[field]);
+            } else {
+                nonAttributeFields.push(fields[field]);
+            }
+        }
+        var orderedFields = mergeArrayIntoArrayAtSpecifiedPosition(nonAttributeFields, customAttributeFields, 2);
+        return orderedFields;
+    }
+    function mergeArrayIntoArrayAtSpecifiedPosition(array1, array2, position) {
+        Array.prototype.splice.apply(array1, [position, 0].concat(array2));
+        return array1
+    }
 });
