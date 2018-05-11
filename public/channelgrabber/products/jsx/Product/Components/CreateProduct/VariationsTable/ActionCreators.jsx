@@ -58,7 +58,6 @@ define([
                 };
             },
             setDefaultValuesForNewVariations: function(newVariationId) {
-                console.log(' in setDefaultValuesForNewVariations ');
                 return function(dispatch, getState) {
                     setDefaultStockModeValues(dispatch, newVariationId);
                     setDimensionFieldsFromFirstRow(dispatch, getState(), newVariationId);

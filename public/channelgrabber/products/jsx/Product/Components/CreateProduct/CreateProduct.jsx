@@ -19,11 +19,9 @@ define([
             };
         },
         handleContainerSubmit: function() {
-            console.log('in handleCOntainer submit')
             this.props.formContainerSubmitClick();
         },
         handleSubmit:function(values){
-            console.log('in handleSubmit');
             this.props.formSubmit(values,this.props.redirectToProducts);
         },
         render: function() {

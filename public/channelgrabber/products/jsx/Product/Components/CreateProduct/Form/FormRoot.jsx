@@ -36,4 +36,4 @@ define([
 
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return FormConnector(CreateProductForm);
-})
+});

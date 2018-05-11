@@ -46,7 +46,6 @@ define([
     return actionCreators;
 
     function isFormValid(values) {
-        console.log('in isFormValid with values: ', values);
         if (!values.variations || !values.title) {
             return false;
         }

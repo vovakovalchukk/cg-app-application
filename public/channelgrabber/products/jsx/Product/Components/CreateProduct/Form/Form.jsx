@@ -131,7 +131,6 @@ define([
     })(createFormComponent);
 
     function validate(values) {
-//        console.log('in validate with values:  '  ,values);
         const errors = {};
         if(!values.variations){
             return;

@@ -76,7 +76,6 @@ define([
             this.props.attributeColumnRemove(field.name);
         },
         variationRowRemove: function(variationId) {
-            console.log('in variaitonRowRemove with this.props:  ', this.props);
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);
         },
