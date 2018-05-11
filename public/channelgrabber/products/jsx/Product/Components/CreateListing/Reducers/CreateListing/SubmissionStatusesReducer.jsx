@@ -19,11 +19,15 @@ define([
         },
         "LISTING_FORM_SUBMITTED_ERROR": function(state, action) {
             n.error(action.payload.error);
-            return state;
+            return Object.assign({}, state, {
+                inProgress: false
+            });
         },
         "LISTING_FORM_SUBMITTED_NOT_ALLOWED": function (state, action) {
             n.error("You do not have permission to do this.");
-            return state;
+            return Object.assign({}, state, {
+                inProgress: false
+            });
         },
         "LISTING_PROGRESS_FETCHED": function(state, action) {
             var accounts = action.payload.accounts;
@@ -50,6 +54,6 @@ define([
             return Object.assign({}, state, {
                 inProgress: false
             });
-        }
+        },
     });
 });

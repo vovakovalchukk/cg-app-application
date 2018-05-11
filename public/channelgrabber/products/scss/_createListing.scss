@@ -209,6 +209,11 @@
   input.error {
     border-color: $color-red;
   }
+
+  .view-errors-button {
+    color: $color-lblue;
+    cursor: pointer;
+  }
 }
 
 .react-image-picker {
@@ -347,3 +352,4 @@
   margin-top: 15px;
   max-width: 1200px;
 }
+

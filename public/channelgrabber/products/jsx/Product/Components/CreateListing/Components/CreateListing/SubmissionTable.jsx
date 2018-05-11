@@ -80,9 +80,9 @@ define([
         getResponseForAccountAndCategory: function (accountId, categoryId) {
             var status = this.getStatusForAccountAndCategory(accountId, categoryId);
             if (status == "error") {
-                return <a href="#" onClick={this.onShowErrorsClick.bind(this, accountId, categoryId)}>
+                return <span className="view-errors-button" onClick={this.onShowErrorsClick.bind(this, accountId, categoryId)}>
                     Click here to show errors
-                </a>;
+                </span>;
             } else if (status == "completed") {
                 return "Successful";
             }
