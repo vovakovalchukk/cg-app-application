@@ -96,7 +96,6 @@ define([
                     categoryId: categoryId
                 }
             });
-            $("html, body").scrollTop($(document).height());
         },
         renderErrorMessage: function() {
             if (!this.state.showErrors) {

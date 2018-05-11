@@ -250,16 +250,21 @@ define([
             });
             return accounts;
         },
+        isSubmitButtonDisabled: function () {
+            return this.props.submissionStatuses.inProgress;
+        },
         render: function() {
+            var isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return (
                 <Container
                     initiallyActive={true}
                     className="editor-popup product-create-listing"
                     closeOnYes={false}
                     headerText={"Create a listing"}
-                    yesButtonText="Submit"
+                    yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
                     noButtonText="Cancel"
                     onYesButtonPressed={this.props.submitForm}
+                    yesButtonDisabled={isSubmitButtonDisabled}
                 >
                     {this.renderForm()}
                     {this.renderSubmissionTable()}

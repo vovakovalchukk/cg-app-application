@@ -5,7 +5,11 @@ define([
 ) {
     "use strict";
 
-    var initialState = {};
+    var initialState = {
+        guid: null,
+        accounts: {},
+        inProgress: false
+    };
 
     return reducerCreator(initialState, {
         "LISTING_FORM_SUBMITTED_SUCCESSFUL": function(state, action) {
@@ -36,6 +40,16 @@ define([
                 }
             }
             return newState;
+        },
+        "SUBMIT_LISTING_FORM": function(state, action) {
+            return Object.assign({}, state, {
+                inProgress: true
+            });
+        },
+        "LISTING_SUBMISSION_FINISHED": function(state, action) {
+            return Object.assign({}, state, {
+                inProgress: false
+            });
         }
     });
 });

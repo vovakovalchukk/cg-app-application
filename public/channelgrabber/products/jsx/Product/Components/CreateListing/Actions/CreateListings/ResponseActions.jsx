@@ -31,6 +31,12 @@ define([], function() {
                     accounts: accounts
                 }
             };
+        },
+        listingSubmissionFinished: function() {
+            return {
+                type: "LISTING_SUBMISSION_FINISHED",
+                payload: {}
+            };
         }
     };
 });

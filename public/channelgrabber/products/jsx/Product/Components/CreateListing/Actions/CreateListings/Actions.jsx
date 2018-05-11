@@ -113,6 +113,7 @@ define([
                     dispatch(ResponseActions.listingProgressFetched(response.accounts));
                     if (progressPolling.shouldStopPolling(response.accounts)) {
                         progressPolling.stopPolling();
+                        dispatch(ResponseActions.listingSubmissionFinished());
                     }
                 }
             });
@@ -176,6 +177,7 @@ define([
                 }
             });
 
+            n.notice("Please wait while we are creating the listings on the selected channels, it might take a while...", true);
             return {
                 type: "SUBMIT_LISTING_FORM",
                 payload: {
