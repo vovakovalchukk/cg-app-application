@@ -202,6 +202,10 @@
     display: table;
   }
 
+  .input-array-error {
+    float: left;
+  }
+
   input.error {
     border-color: $color-red;
   }

@@ -159,7 +159,6 @@ define([
             }
             return (
                 <ImagePicker
-                    className={"main-image-picker"}
                     name={field.input.name}
                     multiSelect={false}
                     images={this.props.product.images}

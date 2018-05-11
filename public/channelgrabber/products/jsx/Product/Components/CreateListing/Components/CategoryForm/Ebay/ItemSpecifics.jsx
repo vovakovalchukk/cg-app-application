@@ -215,6 +215,9 @@ define([
                         hideLabel={(index > 0)}
                     />;
                 })}
+                {input.meta.error && input.meta.dirty && (
+                    <span className="input-error input-array-error">{input.meta.error}</span>
+                )}
             </span>;
         },
         renderSelectInput: function(field) {
