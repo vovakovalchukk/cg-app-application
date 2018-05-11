@@ -576,7 +576,7 @@ class MultiCreationService implements LoggerAwareInterface
                     yield [$account, $category];
                 }
             } else {
-                if ($accountId = $this->findAccountInCategoryTemplates($categoryTemplates, $category->getId())) {
+                foreach ($this->findAccountIdsInCategoryTemplates($categoryTemplates, $category->getId()) as $accountId) {
                     $account = $accounts->getById($accountId);
                     if ($account) {
                         yield [$account, $category];
@@ -589,16 +589,15 @@ class MultiCreationService implements LoggerAwareInterface
     /**
      * @param CategoryTemplate[] $categoryTemplates
      */
-    protected function findAccountInCategoryTemplates(CategoryTemplates $categoryTemplates, int $categoryId)
+    protected function findAccountIdsInCategoryTemplates(CategoryTemplates $categoryTemplates, int $categoryId)
     {
         foreach ($categoryTemplates as $categoryTemplate) {
             foreach ($categoryTemplate->getAccountCategories() as $accountCategory) {
                 if ($accountCategory->getCategoryId() === $categoryId) {
-                    return $accountCategory->getAccountId();
+                    yield $accountCategory->getAccountId();
                 }
             }
         }
-        return null;
     }
 
     protected function generateCreateSimpleListingJobs(
