@@ -5,6 +5,9 @@
 .u-float-left {
     float: left;
 }
+.u-float-none{
+    float:none;
+}
 .no-margin {
     margin: 0px auto;
 }
@@ -32,4 +35,15 @@
 .u-margin-left-small{
     margin-left:$margin--distance-small;
 }
+.u-margin-center{
+    float:none;
+    margin-left:auto;
+    margin-right:auto;
+}
 
+.u-inline-block{
+    display:inline-block;
+}
+.u-display-none{
+    display:none !important;
+}

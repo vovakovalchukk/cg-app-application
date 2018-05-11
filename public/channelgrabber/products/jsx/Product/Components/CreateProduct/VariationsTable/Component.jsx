@@ -24,6 +24,12 @@ define([
     var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
 
+    var firstColumnCellStyle = {
+        width:'2rem',
+        minWidth:'0px',
+        textAlign:'center'
+    };
+
     var VariationsTableComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -131,6 +137,7 @@ define([
             return (
                 <FormSection name={"c-table-with-inputs__headings"}>
                     <tr>
+                        <th style={firstColumnCellStyle}></th>
                         {this.renderVariationHeadings()}
                         <th className={'' +
                         'c-table-with-inputs__cell ' +
@@ -260,42 +267,46 @@ define([
             var variations = this.props.variationsTable.variations;
             return (
                 variations.map(function(variation, index) {
+                    var isLastVariation = false;
+                    var isFirstVariation = false;
                     if (index == (variations.length - 1)) {
-                        var isLastVariation = true;
-                    } else {
-                        var isLastVariation = false;
+                        isLastVariation = true;
                     }
-                    return this.renderVariationRow.call(this, variation, isLastVariation);
+                    if (index == 0){
+                        isFirstVariation = true;
+                    }
+                    return this.renderVariationRow.call(this, variation, isLastVariation, isFirstVariation);
                 }, this)
             );
         },
-        renderVariationRow: function(variation, isLastVariation) {
+        renderVariationRow: function(variation, isLastVariation, isFirstVariation) {
             var variationId = variation.id;
-            var removeVariationCellStyle = {
-                background: 'white',
-                border: 'none'
-            };
+            var removeButtonStyle = {};
+            var removeButtonStyles = [];
             if (isLastVariation) {
-                removeVariationCellStyle.display = 'none';
+                removeButtonStyles.push('c-icon-button--remove__disabled')
             }
+            if(isFirstVariation){
+                removeButtonStyles.push('u-display-none')
+            }
+            var removeOnClick = isLastVariation ? function(){} : this.variationRowRemove.bind(this, variationId);
             return (
                 <FormSection name={"variation-" + variationId}>
                     <tr className={"u-border-none"}>
-                        {this.renderVariationRowFields(variationId)}
-                        <td style={removeVariationCellStyle} className={'c-table-with-inputs__cell'}>
+                        <td className={'c-table-with-inputs__cell'} style={firstColumnCellStyle}>
                             <span
-                                className={'c-icon-button c-icon-button--remove'}
-                                onClick={this.variationRowRemove.bind(this, variationId)}
+                                className={'c-icon-button c-icon-button--remove u-inline-block u-float-none ' + removeButtonStyles.join(' ') }
+                                onClick={removeOnClick}
+                                disabled={isLastVariation}
                             >
                                 <i
                                     aria-hidden="true"
                                     className={'fa fa-2x fa-minus-square'}
+                                    style={removeButtonStyle}
                                 />
-                                <span className="u-margin-left-small">
-                                    remove variation
-                                </span>
                             </span>
                         </td>
+                        {this.renderVariationRowFields(variationId)}
                     </tr>
                 </FormSection>
             );

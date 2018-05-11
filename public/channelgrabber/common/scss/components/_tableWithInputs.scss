@@ -12,10 +12,6 @@
 .c-table-with-inputs__cell-heading {
     //text-align: center;
 }
-.c-table-with-inputs__cell--large-height {
-    height: 4rem;
-}
-
 .c-table-with-inputs__remove-button {
     position: absolute;
     background: none;
@@ -26,6 +22,10 @@
     top: 50%;
     right: 0.5rem;
     transform: translate(-50%, -50%);
+}
+.c-table-with-inputs__remove-button--disabled{
+    color: $grey;
+    cursor:default;
 }
 .c-table-with-inputs__text-input {
     max-width: 100%;

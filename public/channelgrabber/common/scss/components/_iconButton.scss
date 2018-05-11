@@ -1,13 +1,20 @@
-.c-icon-button{
+.c-icon-button {
     float: left;
     display: flex;
     clear: none;
     cursor: pointer;
-    color:black;
+    color: black;
 }
-.c-icon-button--remove{
-    color:red;
+
+.c-icon-button--remove {
+    color: red;
 }
-.c-icon-button--add{
-    color:$green;
+
+.c-icon-button--remove__disabled {
+    color: $grey;
+    cursor: default;
+}
+
+.c-icon-button--add {
+    color: $green;
 }
