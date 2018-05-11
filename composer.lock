@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4111ef21c9886abc745aeb726bb7745a",
+    "content-hash": "5937cf1f6b8c2755588d034b0042ddae",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3403,16 +3403,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-9396-listing-incorrect-wc-errors",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "acff70412df3eec3224b757ad1a7f4da77eda9be"
+                "reference": "f6485b3fcb75a74ee71ad7897362956594902df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-9396-listing-incorrect-wc-errors-f2fe52.zip",
-                "reference": "acff70412df3eec3224b757ad1a7f4da77eda9be",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.4.0-3e1bc7.zip",
+                "reference": "f6485b3fcb75a74ee71ad7897362956594902df7",
                 "shasum": null
             },
             "require": {
@@ -3446,7 +3446,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-05-10T14:17:43+00:00"
+            "time": "2018-05-11T14:41:19+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9918,18 +9918,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.3",
-            "alias_normalized": "1.3.3.0",
-            "version": "dev-CGIV-9396-listing-incorrect-wc-errors",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
