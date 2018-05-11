@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "704dc302a653e713a465a66f1f22753c",
+    "content-hash": "7bc44f28d129dc335f6d76eadea2eb54",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1519,16 +1519,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.18",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "371b8397cb37b175ad6f8f46fa62b611621002a2"
+                "reference": "c706431f2e4d449ad40315ddfc3007faf6b9ff46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.18-6c924f.zip",
-                "reference": "371b8397cb37b175ad6f8f46fa62b611621002a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.17-e6adf7.zip",
+                "reference": "c706431f2e4d449ad40315ddfc3007faf6b9ff46",
                 "shasum": null
             },
             "require": {
@@ -1548,7 +1548,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-11T09:31:51+00:00"
+            "time": "2018-02-08T16:50:43+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2555,16 +2555,16 @@
         },
         {
             "name": "channelgrabber/sagepay",
-            "version": "1.1.15",
+            "version": "1.1.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "6245c42c8f2772b7d8b8e74d28a69849fff7c745"
+                "reference": "7d7b47ffa0b2b73d440197a6ca26fb066ec112b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-1.1.15-18ad7b.zip",
-                "reference": "6245c42c8f2772b7d8b8e74d28a69849fff7c745",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-1.1.19-175ef2.zip",
+                "reference": "7d7b47ffa0b2b73d440197a6ca26fb066ec112b9",
                 "shasum": null
             },
             "require": {
@@ -2573,14 +2573,17 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/log": ">=2.0.17,<3.0.0",
                 "channelgrabber/payment": "^1.5.8",
-                "channelgrabber/stdlib": ">=2.10.6",
+                "channelgrabber/settings": "^1.5.7",
+                "channelgrabber/stdlib": "^2.13.0",
                 "channelgrabber/user": ">=1.16.2,<2.0.0",
                 "channelgrabber/zf2-v4-ui": ">=1.0.0,<2.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "php": ">=7.1",
                 "zendframework/zend-di": "2.3.*",
                 "zendframework/zend-view": "2.*"
             },
             "require-dev": {
+                "php": ">=7.1",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "di-definition",
@@ -2595,7 +2598,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-10-16T08:45:50+00:00"
+            "time": "2018-05-11T09:40:16+00:00"
         },
         {
             "name": "channelgrabber/scraper",
@@ -2665,16 +2668,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.5.5",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "515e02cac31df1b1803aa4d8ce5a6e6ad9352f5f"
+                "reference": "6b167da9ff6ab8fd2bb13a448e1fe5a9af7cf25a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.5-d177c7.zip",
-                "reference": "515e02cac31df1b1803aa4d8ce5a6e6ad9352f5f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.5.7-001a0a.zip",
+                "reference": "6b167da9ff6ab8fd2bb13a448e1fe5a9af7cf25a",
                 "shasum": null
             },
             "require": {
@@ -2697,7 +2700,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2017-12-01T09:45:35+00:00"
+            "time": "2018-02-22T10:41:36+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -3570,12 +3573,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "2bb2f47b0e16bb75cc4a6cdc15f2fb549c6cbc17"
+                "reference": "90d40121205999b317262971d38a0d6d2fcf84ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9215-disabled_select_btn-11a19d.zip",
-                "reference": "2bb2f47b0e16bb75cc4a6cdc15f2fb549c6cbc17",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9215-disabled_select_btn-db96ef.zip",
+                "reference": "90d40121205999b317262971d38a0d6d2fcf84ae",
                 "shasum": null
             },
             "require": {
@@ -3610,7 +3613,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-11T09:41:12+00:00"
+            "time": "2018-05-11T09:56:28+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
