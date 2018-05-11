@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e481d88831152b6ca7af58fc3395743e",
+    "content-hash": "28ed5b6995fba702b4ec19d946c4d343",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2555,16 +2555,16 @@
         },
         {
             "name": "channelgrabber/sagepay",
-            "version": "dev-CGIV-9480-SagePaySentUsState",
+            "version": "1.1.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "543fb2186f44291794717323ed3538208f78df85"
+                "reference": "7d7b47ffa0b2b73d440197a6ca26fb066ec112b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-dev-CGIV-9480-SagePaySentUsState-fe3eda.zip",
-                "reference": "543fb2186f44291794717323ed3538208f78df85",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-1.1.19-175ef2.zip",
+                "reference": "7d7b47ffa0b2b73d440197a6ca26fb066ec112b9",
                 "shasum": null
             },
             "require": {
@@ -2598,7 +2598,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-05-11T09:06:37+00:00"
+            "time": "2018-05-11T09:40:16+00:00"
         },
         {
             "name": "channelgrabber/scraper",
@@ -9916,18 +9916,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.19",
-            "alias_normalized": "1.1.19.0",
-            "version": "dev-CGIV-9480-SagePaySentUsState",
-            "package": "channelgrabber/sagepay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/sagepay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
