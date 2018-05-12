@@ -22,6 +22,7 @@ define([
                 accountSettings: {},
                 fetchSettingsForAccount: function() {},
                 touch: function() {},
+                accountSelectionDisabled: false
             }
         },
         renderAccountBadge: function(field) {
@@ -40,6 +41,9 @@ define([
             );
         },
         onAccountSelected: function(input, accountData, accountId) {
+            if (this.props.accountSelectionDisabled) {
+                return false;
+            }
             if (this.shouldFetchSettingsForAccount(accountId, accountData.channel)) {
                 this.props.fetchSettingsForAccount(accountId);
             }

@@ -63,6 +63,7 @@ define([
                     dispatch(ResponseActions.accountSettingsFetched(accountId, response));
                 }
             });
+
             return {
                 type: "FETCH_SETTINGS_FOR_ACCOUNT",
                 payload: {

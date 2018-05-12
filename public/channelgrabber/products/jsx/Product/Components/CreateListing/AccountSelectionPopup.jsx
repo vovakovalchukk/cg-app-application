@@ -74,6 +74,7 @@ define([
                 accountSettings={this.props.accountSettings}
                 fetchSettingsForAccount={this.props.fetchSettingsForAccount}
                 touch={this.props.touch}
+                accountSelectionDisabled={this.isAccountSelectDisabled()}
             />
         },
         renderAddNewCategoryComponent: function() {
