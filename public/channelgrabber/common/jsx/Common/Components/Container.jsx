@@ -11,7 +11,9 @@ define([
                 className: null,
                 headerText: null,
                 subHeaderText: null,
-                yesButtonDisabled: false
+                yesButtonDisabled: false,
+                onNoButtonPressed: function () {},
+                onBackButtonPressed: null
             }
         },
         getYesButtonClassName: function() {
@@ -23,13 +25,23 @@ define([
             }
             this.props.onYesButtonPressed(...arguments);
         },
+        onBackButtonPressed: function() {
+            if (this.props.onBackButtonPressed) {
+                this.props.onBackButtonPressed();
+                return;
+            }
+            this.props.onNoButtonPressed();
+        },
+        onNoButtonPressed: function() {
+            this.props.onNoButtonPressed();
+        },
         render: function() {
             return <div className={'container-wrapper ' + this.props.className}>
                 <div className={'container-content ' + this.props.className}>
                     <div className="container-header">
                         <div className="container-header-text"> {this.props.headerText}</div>
                         <div className="container-header-back-button">
-                            <i className="fa fa-arrow-circle-o-left" onClick={this.props.onNoButtonPressed} />
+                            <i className="fa fa-arrow-circle-o-left" onClick={this.onBackButtonPressed} />
                         </div>
                     </div>
                     {this.props.subHeaderText ?
@@ -39,7 +51,7 @@ define([
                     <div className="container-children">{this.props.children}</div>
                     <div className="container-buttons">
                         <div style={{margin: "0px auto"}}>
-                            <div className="button container-btn no" onClick={this.props.onNoButtonPressed}>{this.props.noButtonText}</div>
+                            <div className="button container-btn no" onClick={this.onNoButtonPressed}>{this.props.noButtonText}</div>
                             <div className={this.getYesButtonClassName()} onClick={this.onYesButtonPressed}>{this.props.yesButtonText}</div>
                         </div>
                     </div>

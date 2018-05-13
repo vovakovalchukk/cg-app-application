@@ -266,6 +266,7 @@ define([
                     noButtonText="Cancel"
                     onYesButtonPressed={this.props.submitForm}
                     onNoButtonPressed={this.props.onCreateListingClose}
+                    onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
                     yesButtonDisabled={isSubmitButtonDisabled}
                 >
                     {this.renderForm()}
