@@ -1,7 +1,9 @@
 define([
-    'react'
+    'react',
+    'Common/Components/Select'
 ], function(
-    React
+    React,
+    Select
 ) {
     var StockModeInputsComponent = React.createClass({
         getDefaultProps: function() {
@@ -19,6 +21,31 @@ define([
                 !stockModeTypeValue
             );
         },
+        shortenOptions: function(options) {
+            var shortenedOptions = [];
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                if (option.value == 'null') {
+                    continue;
+                }
+                if (option.title.indexOf('List all') > -1) {
+                    shortenedOptions.push(option);
+                }
+                if (option.title.indexOf('List up to a') > -1) {
+                    shortenedOptions.push({
+                        title: 'List up to',
+                        value: option.value
+                    })
+                }
+                if (option.title.indexOf('Fix') > -1) {
+                    shortenedOptions.push({
+                        title: 'Fixed at',
+                        value: option.value
+                    });
+                }
+            }
+            return shortenedOptions;
+        },
         getClassNames: function() {
             var classNames = 'c-stock-mode-input';
             if (!this.props.classNames) {
@@ -27,31 +54,40 @@ define([
             return classNames
         },
         render: function() {
+            var shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
+            var stockModeOptions = shortenedOptions.map(function(option) {
+                return {
+                    name: option.title,
+                    value: option.value
+                }
+            });
             return (
                 <div className={this.getClassNames()}>
-                    <select
-                        onChange={this.props.stockModeType.input.onChange}
-                        className={'c-input-field'}
-                        value={this.props.stockModeType.input.value}
-                        name={'stockModeType'}
-                    >
-                        {this.props.stockModeOptions.map(function(option) {
-                            return <option
-                                name={option.title}
-                                value={option.value}
-                            >
-                                {option.title}
-                            </option>
-                        })}
-                    </select>
-                    <input
-                        className={'c-input-field u-margin-top-xsmall'}
-                        name={'stockAmount'}
-                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value)}
-                        type={'number'}
-                        value={this.props.stockAmount.input.value}
-                        onChange={this.props.stockAmount.input.onChange}
-                    />
+                    <div className={"c-stock-mode-input__type_select-container"}>
+                        <Select
+                            onChange={this.props.stockModeType.input.onChange}
+                            options={stockModeOptions}
+                            autoSelectFirst={true}
+                            selectedOption={{
+                                name: this.props.stockModeType.input.value.name,
+                                value: this.props.stockModeType.input.value.value
+                            }}
+
+                            onOptionChange={function(option) {
+                                this.props.stockModeType.input.onChange(option)
+                            }.bind(this)}
+                        />
+                    </div>
+
+                        <input
+                            className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
+                            name={'stockAmount'}
+                            disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
+                            type={'number'}
+                            value={this.props.stockAmount.input.value}
+                            onChange={this.props.stockAmount.input.onChange}
+                        />
+
                 </div>
             );
         }

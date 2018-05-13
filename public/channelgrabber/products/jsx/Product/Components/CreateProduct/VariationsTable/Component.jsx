@@ -119,8 +119,7 @@ define([
                     'c-table-with-inputs__cell ' +
                     'c-table-with-inputs__cell-heading '
                     }>
-                        <div>
-
+                        <div className={"u-margin-left-xxsmall"}>
                             {field.label}
                         </div>
                     </th>
