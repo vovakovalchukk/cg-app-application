@@ -173,6 +173,11 @@ define([
             categories: []
         },
         onSubmit: function(values, dispatch, props) {
+            var errors = accountSelectionFormValidator(values, props);
+            if (errors) {
+                throw new ReduxForm.SubmissionError(errors);
+            }
+
             var accounts = [];
             values.accounts.forEach(function (accountId) {
                 if (accountId) {
