@@ -23,7 +23,8 @@ define([
                 values: [],
                 formName: null,
                 formSectionName: null,
-                fieldChange: null
+                fieldChange: null,
+                legend:null
             };
         },
         renderHeadings: function() {
@@ -267,7 +268,8 @@ define([
             }
             return (
                 <FormSection name={"variations"}>
-                    <table className={'c-table-with-inputs ' + this.props.classNames.join(' ')}>
+                    {this.props.legend ? <legend>{this.props.legend}</legend>: ''}
+                    <table className={'c-table-with-inputs '}>
                         {this.renderHeaderRow()}
                         {this.renderRows()}
                     </table>

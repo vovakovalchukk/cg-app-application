@@ -112,7 +112,7 @@ define([
                             name="title"
                             placeholderText={"Enter Product Name"}
                             fieldId={"title"}
-                            classNames={['c-editable-field','u-heading-text', 'u-margin-top-bottom-small']}
+                            classNames={['c-editable-field', 'u-heading-text', 'u-margin-top-bottom-small']}
                             component={this.renderEditableText}
                         />
                         <FormRow
@@ -120,19 +120,17 @@ define([
                             inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
                         />
                     </fieldset>
-                    <fieldset className={'form-root__fieldset margin-bottom-small'}>
-                        <FormRow
-                            label={'Tax Rates'}
-                            inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
-                        />
-                    </fieldset>
+
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
+                        <legend>Variations</legend>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
                             change={this.props.change}
                             unregister={this.props.unregister}
                         />
+                    </fieldset>
+                    <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                         <DimensionsTable
                             stateSelectors={{
                                 fields: ['variationsTable', 'fields'],
@@ -143,10 +141,16 @@ define([
                                 fields: stateFilters.filterFields.bind(2)
                             }}
                             formName='createProductForm'
+                            legend={'Dimensions'}
                             formSectionName='dimensionsTable'
-                            classNames={['u-margin-top-small']}
                             fieldChange={this.props.change}
                         />
+                    </fieldset>
+                    <fieldset className={'form-root__fieldset u-margin-bottom-small'}>
+                        <legend>VAT</legend>
+                        <div className={'u-max-width-60'}>
+                            {inputColumnRenderMethods.taxRates.call(this)}
+                        </div>
                     </fieldset>
                 </Form>
             )

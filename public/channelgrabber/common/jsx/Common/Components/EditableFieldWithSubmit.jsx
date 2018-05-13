@@ -66,8 +66,6 @@ define([
             });
         },
         render: function () {
-            console.log('in EditableFIeldWithSubmit');
-            //
             return (
                 <ClickOutside className="editable-field-wrap" onClickOutside={this.onCancelInput}>
                     <input
