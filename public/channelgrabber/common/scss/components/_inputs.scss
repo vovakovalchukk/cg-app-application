@@ -11,7 +11,9 @@
 }
 
 .c-editable-field{
+    box-sizing: border-box;
     &:hover{
         border: 1px solid #c2c2c2;
+        margin-left:-1px;
     }
 }

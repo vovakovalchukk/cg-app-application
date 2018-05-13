@@ -174,6 +174,7 @@ define([
             return <Select
                 options={field.options}
                 autoSelectFirst={false}
+                fullWidth={true}
                 title={name}
                 customOptions={true}
                 selectedOption={{

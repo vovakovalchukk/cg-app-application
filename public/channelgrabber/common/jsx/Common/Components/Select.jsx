@@ -274,6 +274,7 @@ define([
             classNames += this.props.classNames;
             classNames += (this.state.active ? ' active ' : '');
             classNames += (this.state.disabled ? ' disabled ' : '');
+            classNames += (this.props.fullWidth ? ' u-width-100pc ' : '');
             return classNames;
         },
         render: function () {

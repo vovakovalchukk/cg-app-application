@@ -75,24 +75,6 @@ define([
                 newVariationRowRequest: null
             };
         },
-        renderCustomSelect: function(field, reduxFormFieldProps) {
-            return <Select
-                options={field.options}
-                autoSelectFirst={false}
-                title={name}
-                customOptions={true}
-                selectedOption={{
-                    name: reduxFormFieldProps.input.value,
-                    value: reduxFormFieldProps.input.value
-                }}
-                onOptionChange={function(option) {
-                    if (!utility.optionExistsAlready(option, field.options)) {
-                        this.props.addNewOptionForAttribute(option, field.name);
-                    }
-                    return reduxFormFieldProps.input.onChange(option.value);
-                }.bind(this)}
-            />
-        },
         renderEditableText: function(reduxFormFieldsProps) {
             return (<EditableText
                     fieldId={reduxFormFieldsProps.fieldId}
