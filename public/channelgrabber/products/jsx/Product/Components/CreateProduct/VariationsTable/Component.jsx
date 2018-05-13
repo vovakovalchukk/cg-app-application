@@ -7,7 +7,7 @@ define([
     'Common/Components/ImageDropDown',
     'Common/Components/Select',
     'Common/Components/RemoveIcon',
-    'Product/Components/CreateProduct/StockModeInputs/Root'
+    'Product/Components/CreateProduct/StockModeInputsRoot'
 ], function(
     React,
     reduxForm,

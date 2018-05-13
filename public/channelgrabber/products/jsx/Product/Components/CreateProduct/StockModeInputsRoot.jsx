@@ -1,7 +1,7 @@
 define([
     'redux',
     'react-redux',
-    './Component',
+    'Product/Components/StockModeInputs'
 ], function(
     Redux,
     ReactRedux,
