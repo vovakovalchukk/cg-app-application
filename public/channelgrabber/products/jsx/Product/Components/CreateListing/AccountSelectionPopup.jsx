@@ -63,7 +63,6 @@ define([
                 onAddNewCategoryClick={this.props.showAddNewCategoryMapComponent}
                 addNewCategoryMapButtonVisible={true}
                 onCategorySelected={this.props.categoryMapSelected}
-                disabled={this.isAccountSelectDisabled()}
             />
         },
         renderAccountSelectField: function() {
@@ -74,7 +73,6 @@ define([
                 accountSettings={this.props.accountSettings}
                 fetchSettingsForAccount={this.props.fetchSettingsForAccount}
                 touch={this.props.touch}
-                accountSelectionDisabled={this.isAccountSelectDisabled()}
             />
         },
         renderAddNewCategoryComponent: function() {
@@ -174,7 +172,7 @@ define([
         },
         onSubmit: function(values, dispatch, props) {
             var errors = accountSelectionFormValidator(values, props);
-            if (errors) {
+            if (errors && Object.keys(errors).length > 0) {
                 throw new ReduxForm.SubmissionError(errors);
             }
 

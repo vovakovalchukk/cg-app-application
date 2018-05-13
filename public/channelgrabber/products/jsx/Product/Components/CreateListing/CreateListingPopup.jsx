@@ -54,7 +54,8 @@ define([
                 initialProductPrices: {},
                 defaultCurrency: null,
                 accountDefaultSettings: {},
-                submissionStatuses: {}
+                submissionStatuses: {},
+                onCreateListingClose: function() {}
             }
         },
         componentDidMount: function () {
@@ -264,6 +265,7 @@ define([
                     yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
                     noButtonText="Cancel"
                     onYesButtonPressed={this.props.submitForm}
+                    onNoButtonPressed={this.props.onCreateListingClose}
                     yesButtonDisabled={isSubmitButtonDisabled}
                 >
                     {this.renderForm()}

@@ -454,6 +454,7 @@ define([
                 variationsDataForProduct={variationData}
                 accountsData={this.state.accounts}
                 defaultCurrency={this.props.defaultCurrency}
+                onCreateListingClose={this.onCreateListingClose}
             />;
         },
         formatConditionOptions: function() {
