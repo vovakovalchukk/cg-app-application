@@ -23,6 +23,12 @@
     border-color:red;
 }
 
+//text
+.u-heading-text{
+    font-weight:700;
+    font-size:1.5rem;
+}
+//margins
 .u-margin-top-small{
     margin-top: $margin--distance-small;
 }
@@ -40,7 +46,12 @@
     margin-left:auto;
     margin-right:auto;
 }
+.u-margin-top-bottom-small{
+    margin-top:$margin--distance-small;
+    margin-bottom:$margin--distance-small;
+}
 
+//display
 .u-inline-block{
     display:inline-block;
 }

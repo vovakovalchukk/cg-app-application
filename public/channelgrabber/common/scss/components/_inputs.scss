@@ -14,9 +14,8 @@
 
 
 
-.c-stock-mode-input--medium{
-    max-width:15rem;
-    background:green;
-
+.c-editable-field{
+    &:hover{
+        border: 1px solid #c2c2c2;
+    }
 }
-

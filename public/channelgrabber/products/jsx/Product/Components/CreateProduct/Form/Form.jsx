@@ -5,6 +5,7 @@ define([
     'Product/Components/CreateProduct/functions/stateFilters',
     'Common/Components/ReduxForm/InputWithValidation',
     'Common/Components/ImageUploader/ImageUploaderRoot',
+    'Common/Components/EditableText',
     'Common/Components/ImagePicker',
     'Common/Components/FormRow',
     'Product/Components/VatView',
@@ -17,6 +18,7 @@ define([
     stateFilters,
     InputWithValidation,
     ImageUploader,
+    EditableText,
     ImagePicker,
     FormRow,
     VatView,
@@ -27,12 +29,7 @@ define([
     var Form = reduxForm.Form;
 
     var inputColumnRenderMethods = {
-        newProductName: function() {
-            return (
-                <Field type="text" name="title" component={InputWithValidation}/>
-            )
-        },
-        renderMainImageComponent: function(props){
+        renderMainImageComponent: function(props) {
             var uploadedImages = this.props.uploadedImages.images;
             return (
                 <ImagePicker
@@ -47,7 +44,8 @@ define([
         mainImage: function() {
             return (
                 <div>
-                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
+                    <Field model="main-image" type="text" name="Main Image"
+                           component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
                     <ImageUploader className={"u-float-left"}/>
                 </div>
             );
@@ -77,13 +75,45 @@ define([
                 newVariationRowRequest: null
             };
         },
+        renderCustomSelect: function(field, reduxFormFieldProps) {
+            return <Select
+                options={field.options}
+                autoSelectFirst={false}
+                title={name}
+                customOptions={true}
+                selectedOption={{
+                    name: reduxFormFieldProps.input.value,
+                    value: reduxFormFieldProps.input.value
+                }}
+                onOptionChange={function(option) {
+                    if (!utility.optionExistsAlready(option, field.options)) {
+                        this.props.addNewOptionForAttribute(option, field.name);
+                    }
+                    return reduxFormFieldProps.input.onChange(option.value);
+                }.bind(this)}
+            />
+        },
+        renderEditableText: function(reduxFormFieldsProps) {
+            return (<EditableText
+                    fieldId={reduxFormFieldsProps.fieldId}
+                    classNames={reduxFormFieldsProps.classNames}
+                    onChange={function(e) {
+                        return reduxFormFieldsProps.input.onChange(e.target.textContent);
+                    }.bind(this)}
+                />
+            );
+        },
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom-small"}>
                     <fieldset className={'form-root__fieldset margin-bottom-small'}>
-                        <FormRow
-                            label={'New Product Name'}
-                            inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
+                        <Field
+                            type="text"
+                            name="title"
+                            placeholderText={"Enter Product Name"}
+                            fieldId={"title"}
+                            classNames={['c-editable-field','u-heading-text', 'u-margin-top-bottom-small']}
+                            component={this.renderEditableText}
                         />
                         <FormRow
                             label={'Main Image'}
@@ -119,7 +149,8 @@ define([
                         />
                     </fieldset>
                 </Form>
-            );
+            )
+                ;
         }
     });
 
@@ -133,16 +164,16 @@ define([
 
     function validate(values) {
         const errors = {};
-        if(!values.variations){
+        if (!values.variations) {
             return;
         }
         const variationIdentifiers = Object.keys(values.variations);
-        if (!values.title) {
+        if (!values.title || values.title === "Enter Product Name") {
             errors.title = 'Required';
         }
-        if(variationIdentifiers.length > 0){
+        if (variationIdentifiers.length > 0) {
             errors.variations = {};
-            for(var i = 0; i < variationIdentifiers.length; i++){
+            for (var i = 0; i < variationIdentifiers.length; i++) {
                 var variation = values.variations[variationIdentifiers[i]]
                 errors.variations[variationIdentifiers[i]] = {};
                 if (!variation.sku) {
