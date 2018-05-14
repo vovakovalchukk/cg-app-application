@@ -117,14 +117,16 @@ define([
             }
             return (
                 <ImagePicker
-                    className={"main-image-picker"}
+                    className={this.getImagePickerClassName(field)}
                     name={field.input.name}
                     multiSelect={false}
                     images={this.props.product.images}
                     onImageSelected={this.onImageSelected.bind(this, field.input)}
-                    className={Validators.shouldShowError(field) ? 'error' : null}
                 />
             );
+        },
+        getImagePickerClassName: function (field) {
+            return "main-image-picker main-image-picker" + (Validators.shouldShowError(field) ? ' error' : null);
         },
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);

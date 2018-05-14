@@ -68,13 +68,19 @@ define([
                 </label>
             );
         },
+        renderVariationImagePicker: function() {
+            if (this.props.variationsDataForProduct.length === 1) {
+                return null;
+            }
+            return <VariationImagePicker
+                product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+            />
+        },
         render: function() {
             return (
                 <div className="ebay-channel-form-container channel-form-container">
-                    <VariationImagePicker
-                        product={this.props.product}
-                        variationsDataForProduct={this.props.variationsDataForProduct}
-                    />
+                    {this.renderVariationImagePicker()}
                     <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
                     <ShippingService shippingServices={this.props.shippingMethods} />
                     <Field name="shippingPrice" component={this.renderShippingPrice} validate={Validators.required} />
