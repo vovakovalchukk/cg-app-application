@@ -25,12 +25,14 @@ define([
             {tableId: 1, fieldId: 2},
             {tableId: 1, fieldId: 3},
             {tableId: 1, fieldId: 4},
+            {tableId: 1, fieldId: 9},
             {tableId: 2, fieldId: 1},
             {tableId: 2, fieldId: 2},
             {tableId: 2, fieldId: 5},
             {tableId: 2, fieldId: 6},
             {tableId: 2, fieldId: 7},
-            {tableId: 2, fieldId: 8}
+            {tableId: 2, fieldId: 8},
+            {tableId: 1, fieldId: 9}
         ],
         fields: [
             {
@@ -96,6 +98,14 @@ define([
                 isCustomAttribute: false,
                 isDimensionsField: true,
                 defaultValue:''
+            },
+            {
+                id: 9,
+                name: 'custom-attribute-0',
+                label: '',
+                type: 'customOptionsSelect',
+                isCustomAttribute: true,
+                options: []
             }
         ],
         cells: [],
@@ -145,6 +155,7 @@ define([
             return newState;
         },
         "NEW_ATTRIBUTE_COLUMN_REQUEST": function(state, action) {
+            console.log('in new_attribute_column_request with action : ' , action);
             var fieldsCopy = state.fields.slice();
             currentCustomFieldId++;
             fieldsCopy.push(defaultNewCustomField(action.payload.uniqueNameKey));

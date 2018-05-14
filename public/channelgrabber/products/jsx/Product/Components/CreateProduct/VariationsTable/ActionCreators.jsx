@@ -7,7 +7,7 @@ define([
     ) {
         "use strict";
 
-        var uniqueKey = 0;
+        var uniqueKey = 1;
 
         var ActionCreators = {
             newVariationRowCreate: function() {

@@ -63,7 +63,7 @@ define([
             });
             return (
                 <div className={this.getClassNames()}>
-                    <div className={"c-stock-mode-input__type_select-container"}>
+                    <div className={"c-stock-mode-input__type-select-container"}>
                         <Select
                             onChange={this.props.stockModeType.input.onChange}
                             options={stockModeOptions}
@@ -78,7 +78,7 @@ define([
                             }.bind(this)}
                         />
                     </div>
-
+                    <div className={"c-stock-mode-input__amount-container"}>
                         <input
                             className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
                             name={'stockAmount'}
@@ -87,7 +87,7 @@ define([
                             value={this.props.stockAmount.input.value}
                             onChange={this.props.stockAmount.input.onChange}
                         />
-
+                    </div>
                 </div>
             );
         }

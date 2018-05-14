@@ -32,10 +32,14 @@
 }
 
 .c-stock-mode-input{
+    min-width:14rem;
     color:red;
-   &__type_select-container{
+   &__type-select-container{
        display:inline-block;
    }
+    &__amount-container{
+        display:inline-block;
+    }
    &__amount_input{
        display: inline-block;
        padding: 6px 10px 7px 10px;

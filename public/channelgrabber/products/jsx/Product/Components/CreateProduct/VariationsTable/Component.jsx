@@ -34,7 +34,8 @@ define([
         getDefaultProps: function() {
             return {
                 newVariationRowRequest: null,
-                variationValues: null
+                variationValues: null,
+                variationsTable:{}
             };
         },
         shouldCreateNewVariationRow: function(variationId) {
@@ -62,6 +63,13 @@ define([
                 this.props.setDefaultValuesForNewVariations(this.getNewVariationId());
             }
         },
+        attributeColumnNameChange: function(fieldName, value){
+            this.props.attributeColumnNameChange(fieldName, value)
+            if(attributeColumnHasNoValue(this.props.variationValues,fieldName)){
+                this.props.newAttributeColumnRequest();
+            }
+        },
+
         resetFieldValueInReduxForm:function(fieldPath){
             this.props.unregister(fieldPath);
             this.props.change(fieldPath, null);
@@ -100,7 +108,7 @@ define([
                                 className={"c-table-with-inputs__text-input"}
                                 component="input"
                                 onChange={(function(event) {
-                                    this.props.attributeColumnNameChange(field.name, event.target.value)
+                                    this.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
                             <button type="button" className={'c-table-with-inputs__remove-button'}
@@ -345,5 +353,8 @@ define([
                 return true;
             }
         }
+    }
+    function attributeColumnHasNoValue(variationValues, fieldName){
+        return (!variationValues || !variationValues['c-table-with-inputs__headings'] || variationValues['c-table-with-inputs__headings'][fieldName] == undefined);
     }
 });

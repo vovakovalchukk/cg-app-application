@@ -789,36 +789,6 @@ div.tether-element div.tooltip-hover {
     transform: translate(-50%, -50%);
 }
 
-.form-row {
-    $parent: &;
-    position: relative;
-    width: 100%;
-    display: block;
-    margin-top: 1rem;
-    overflow: hidden;
-    &__input {
-        float: left;
-        width: auto;
-        padding: 8px 5px 8px 5px;
-        width: 90%;
-    }
-    &__label-column {
-        float: left;
-    }
-    &__input-column {
-        float: left;
-    }
-    &--medium {
-        #{$parent}__label-column {
-            min-width: 10rem;
-            max-width: 15rem;
-        }
-        #{$parent}__input-column {
-            min-width: 30rem;
-            max-width: 45rem;
-        }
-    }
-}
 
 .navbar-strip {
     &__button {
