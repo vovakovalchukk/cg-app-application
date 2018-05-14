@@ -20,7 +20,8 @@ define([
                 condition: values.condition,
                 productChannelDetail: formatProductChannelDetail(values, props),
                 productCategoryDetail: formatProductCategoryDetail(values, props)
-            }
+            },
+            accountCategories: formatAccountCategoryMap(props)
         };
     };
 
@@ -100,6 +101,29 @@ define([
         delete itemSpecifics.customItemSpecifics;
         delete itemSpecifics.optionalItemSpecifics;
         return itemSpecifics;
+    };
+
+    var formatAccountCategoryMap = function (props) {
+        var accounts = props.submissionStatuses.accounts;
+        if (Object.keys(accounts).length === 0) {
+            return [];
+        }
+
+        var accountCategories = [];
+        for (var accountId in accounts) {
+            var account = accounts[accountId];
+            for (var categoryId in account) {
+                var category = account[categoryId];
+                if (category.status !== "error") {
+                    continue;
+                }
+                accountCategories.push({
+                    accountId: accountId,
+                    categoryId: categoryId
+                });
+            }
+        }
+        return accountCategories;
     };
 
     var progressPolling = {

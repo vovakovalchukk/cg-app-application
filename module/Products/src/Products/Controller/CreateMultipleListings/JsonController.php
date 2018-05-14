@@ -35,7 +35,8 @@ class JsonController extends AbstractJsonController
                 $this->params()->fromPost('categoryTemplateIds', []),
                 $this->params()->fromPost('siteId', ''),
                 $this->params()->fromPost('product', []),
-                $guid
+                $guid,
+                $this->formatAccountCategoriesFromPost()
             ),
             'guid' => $guid,
         ]);
@@ -56,5 +57,17 @@ class JsonController extends AbstractJsonController
         return $this->buildResponse([
             'accounts' => $response
         ]);
+    }
+
+    protected function formatAccountCategoriesFromPost(): array
+    {
+        $accountCategories = [];
+        foreach ($this->params()->fromPost('accountCategories', []) as $accountCategory) {
+            if (!isset($accountCategories[$accountCategory['accountId']])) {
+                $accountCategories[$accountCategory['accountId']] = [];
+            }
+            $accountCategories[$accountCategory['accountId']][$accountCategory['categoryId']] = $accountCategory['categoryId'];
+        }
+        return $accountCategories;
     }
 }

@@ -142,7 +142,8 @@ class MultiCreationService implements LoggerAwareInterface
         array $categoryTemplateIds,
         string $siteId,
         array $productData,
-        $guid
+        $guid,
+        array $accountCategoriesMap = []
     ): bool {
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
@@ -179,14 +180,14 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
-                $this->generateCreateSimpleListingJobs($accounts, $categories, $product, $guid, $categoryTemplates);
+                $this->generateCreateSimpleListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap);
             } else {
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
                     $variations = $this->getSelectedVariations($product, $skus);
                 }
-                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $variations, $guid, $categoryTemplates);
+                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $variations, $guid, $categoryTemplates, $accountCategoriesMap);
             }
 
             return true;
@@ -566,24 +567,40 @@ class MultiCreationService implements LoggerAwareInterface
     protected function getAccountCategoryIterator(
         Accounts $accounts,
         Categories $categories,
-        CategoryTemplates $categoryTemplates
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap
     ): \Generator {
         foreach ($categories as $category) {
             $accountId = $category->getAccountId();
             if ($accountId) {
                 $account = $accounts->getById($accountId);
-                if ($account) {
+                if ($account && $this->isAccountCategoryInArray($accountCategoriesMap, $accountId, $category->getId())) {
                     yield [$account, $category];
                 }
             } else {
                 foreach ($this->findAccountIdsInCategoryTemplates($categoryTemplates, $category->getId()) as $accountId) {
                     $account = $accounts->getById($accountId);
-                    if ($account) {
+                    if ($account && $this->isAccountCategoryInArray($accountCategoriesMap, $accountId, $category->getId())) {
                         yield [$account, $category];
                     }
                 }
             }
         }
+    }
+
+    protected function isAccountCategoryInArray(array $accountCategoriesMap, int $accountId, int $categoryId): bool
+    {
+        // If the account to categories map is empty, we should generate jobs for all account/category combination
+        if (empty($accountCategoriesMap)) {
+            return true;
+        }
+        if (!isset($accountCategoriesMap[$accountId])) {
+            return false;
+        }
+        if (!isset($accountCategoriesMap[$accountId][$categoryId])) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -605,13 +622,14 @@ class MultiCreationService implements LoggerAwareInterface
         Categories $categories,
         Product $product,
         string $guid,
-        CategoryTemplates $categoryTemplates
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap
     ) {
         /**
          * @var Account $account
          * @var Category $category
          */
-        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates) as [$account, $category]) {
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
             $this->createListingJobGenerator->generateJob(
                 $account,
                 $category,
@@ -622,22 +640,20 @@ class MultiCreationService implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @param Product[] $variations
-     */
     protected function generateCreateVariationListingJobs(
         Accounts $accounts,
         Categories $categories,
         Product $product,
         array $variations,
         string $guid,
-        CategoryTemplates $categoryTemplates
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap
     ) {
         /**
          * @var Account $account
          * @var Category $category
          */
-        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates) as [$account, $category]) {
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
             $this->createListingJobGenerator->generateJob(
                 $account,
                 $category,
