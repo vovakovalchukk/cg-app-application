@@ -10,7 +10,7 @@ define([
             return {
                 onClick: null,
                 disabled: false,
-                class: "refresh-icon"
+                className: "remove-icon"
             }
         },
         onClick: function (e) {
@@ -20,11 +20,11 @@ define([
             this.props.onClick(e);
         },
         getClassName() {
-            return "fa fa-2x fa-refresh icon-create-listing" + (this.props.disabled ? ' inactive' : '');
+            return "fa fa-2x fa-minus-square" + (this.props.disabled ? ' inactive' : '');
         },
         render: function() {
             return (
-                <span className={this.props.class}>
+                <span className={this.props.className}>
                     <i
                         className={this.getClassName()}
                         aria-hidden="true"

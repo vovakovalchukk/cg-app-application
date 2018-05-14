@@ -9,6 +9,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Listing\Exception as ListingException;
+use Products\Product\Category\Service as CategoryService;
 
 class JsonController extends AbstractJsonController
 {
@@ -24,15 +25,19 @@ class JsonController extends AbstractJsonController
     protected $accountService;
     /** @var ChannelService */
     protected $channelService;
+    /** @var CategoryService */
+    protected $categoryService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         AccountService $accountService,
-        ChannelService $channelService
+        ChannelService $channelService,
+        CategoryService $categoryService
     ) {
         parent::__construct($jsonModelFactory);
         $this->accountService = $accountService;
         $this->channelService = $channelService;
+        $this->categoryService = $categoryService;
     }
 
     public function defaultSettingsAjaxAction()
@@ -80,73 +85,15 @@ class JsonController extends AbstractJsonController
 
     public function categoryTemplateDependentFieldValuesAction()
     {
-        // Dummy Data
-        return $this->buildResponse([
-            'categoryTemplates' => [
-                '<template1>' => [
-                    'name' => '<name1>',
-                    'categories' => [
-                        '<category1>' => [
-                            'title' => '<title1>',
-                            'accountId' => 1,
-                            'channel' => 'ebay',
-                            'fieldValues' => [
-                                'listingDuration' => [
-                                    '<value1>' => '<value1>',
-                                    '<value2>' => '<value2>',
-                                    '<valueN>' => '<valueN>',
-                                ],
-                                'shippingMethods' => [
-                                    '<value1>' => '<title1>',
-                                    '<value2>' => '<title2>',
-                                    '<valueN>' => '<titleN>',
-                                ],
-                                'itemSpecifics' => [
-                                    'required' => [
-                                        '<fieldName1>' => [
-                                            'type' => 'select',
-                                            'options' => ['<key1>' => '<value1>', '<key2>' => '<value2>', '<keyN>' => '<valueN>'],
-                                            'minValues' => 1,
-                                            'maxValues' => 2,
-                                        ],
-                                        '<fieldNameN>' => [
-                                            'type' => 'select',
-                                            'options' => ['<key1>' => '<value1>', '<key2>' => '<value2>', '<keyN>' => '<valueN>'],
-                                            'minValues' => 1,
-                                            'maxValues' => 1,
-                                        ],
-                                    ],
-                                    'optional' => [
-                                        '<fieldName1>' => [
-                                            'type' => 'text',
-                                            'minValues' => 0,
-                                        ],
-                                        '<fieldNameN>' => [
-                                            'type' => 'select',
-                                            'options' => ['<key1>' => '<value1>', '<key2>' => '<value2>', '<keyN>' => '<valueN>'],
-                                            'minValues' => 1,
-                                            'maxValues' => 2,
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        '<category2>' => [
-                            'title' => '<title2>',
-                            'accountId' => 2,
-                            'channel' => 'dummy',
-                            'fieldValues' => [],
-                        ],
-                        '<category3>' => [
-                            'title' => '<title3>',
-                            'accountId' => 3,
-                            'channel' => 'dummy',
-                            'fieldValues' => [],
-                        ],
-                    ],
-                ],
-            ],
-        ]);
+        try {
+            return $this->buildResponse([
+                'categoryTemplates' => $this->categoryService->getTemplateDependentFieldValues(
+                    $this->params()->fromPost('categoryTemplateIds', [])
+                ),
+            ]);
+        } catch (\Throwable $exception) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     public function categoryChildrenAction()

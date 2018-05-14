@@ -14,7 +14,7 @@ return [
                         'label' => 'Add Channels',
                         'title' => 'Add Channels',
                         'route' => Module::ROUTE . '/' . ChannelsController::ROUTE_CHANNELS,
-                        'order' => 10,
+                        'order' => 30,
                         'sprite' => 'sprite-channels-circle-25-white',
                         'link' => false,
                     ],

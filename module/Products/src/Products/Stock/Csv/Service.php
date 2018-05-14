@@ -127,7 +127,7 @@ class Service
                     $page++,
                     [],
                     [$organisationUnitId],
-                    [],
+                    null,
                     $merchantLocationIds
                 );
 

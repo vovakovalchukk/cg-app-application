@@ -34,7 +34,6 @@ class Service
         $this->factory = $factory;
     }
 
-
     public function getAllowedCreateListingsChannels(): array {
         $allowedChannels = [];
         /** @var Account $account */
