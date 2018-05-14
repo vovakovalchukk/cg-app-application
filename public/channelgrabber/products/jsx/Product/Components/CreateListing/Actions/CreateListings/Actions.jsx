@@ -67,6 +67,7 @@ define([
     };
 
     var formatProductChannelDataForChannel = function (values) {
+        values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
             var attributeImageMap = {};
             Object.keys(values.attributeImageMap).forEach(attributeValue => {
