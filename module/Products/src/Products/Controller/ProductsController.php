@@ -2,10 +2,12 @@
 namespace Products\Controller;
 
 use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
+use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
 use CG\Locale\CurrencyCode;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -48,6 +50,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $taxRateService;
     /** @var CategoryService */
     protected $categoryService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -60,7 +64,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         FeatureFlagsService $featureFlagService,
         StockSettingsService $stockSettingsService,
         TaxRateService $taxRateService,
-        CategoryService $categoryService
+        CategoryService $categoryService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -73,6 +78,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->stockSettingsService = $stockSettingsService;
         $this->taxRateService = $taxRateService;
         $this->categoryService = $categoryService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function indexAction()
@@ -168,10 +174,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getDefaultCurrencyForActiveUser(): ?string
     {
         $currencyCode = CurrencyCode::getCurrencyCodeForLocale($this->activeUserContainer->getLocale());
-        return (new \NumberFormatter(
-            $this->activeUserContainer->getLocale() . "@currency=" . $currencyCode,
-            \NumberFormatter::CURRENCY
-        ))->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
+        $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+        return (new CurrencyFormatter($rootOu))->getSymbol($currencyCode);
     }
 
     // Required by AccountTableTrait
