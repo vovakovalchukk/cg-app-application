@@ -23,14 +23,14 @@ define([
                 return;
             }
             return (
-                <label className={"form-row__label-column"}>{this.props.label}</label>
+                <label className={"c-form-row__label-column"}>{this.props.label}</label>
             );
         },
         render: function() {
             return (
-                <div className={"form-row form-row--" + this.props.size}>
+                <div className={"c-form-row c-form-row--" + this.props.size}>
                     {this.renderLabel()}
-                    <div className={"form-row__input-column"}>
+                    <div className={"c-form-row__input-column"}>
                         {this.props.inputColumnContent}
                     </div>
                 </div>
