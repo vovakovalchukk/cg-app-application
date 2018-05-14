@@ -130,7 +130,6 @@ define([
         },
         onImageSelected: function(input, selectedImage, selectedImageIds) {
             input.onChange(selectedImageIds);
-            input.onBlur(selectedImageIds);
         },
         render: function() {
             return <span>

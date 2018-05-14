@@ -59,11 +59,22 @@ define([
         }
         var details = [];
         for (var channelName in values.channel) {
-            details.push(Object.assign({}, values.channel[channelName], {
+            details.push(Object.assign({}, formatProductChannelDataForChannel(values.channel[channelName]), {
                 channel: channelName
             }));
         }
         return details;
+    };
+
+    var formatProductChannelDataForChannel = function (values) {
+        if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
+            var attributeImageMap = {};
+            Object.keys(values.attributeImageMap).forEach(attributeValue => {
+                attributeImageMap[attributeValue] = values.attributeImageMap[attributeValue].slice().pop();
+            });
+            values.attributeImageMap = attributeImageMap;
+        }
+        return values;
     };
 
     var formatProductCategoryDetail = function(values, props) {

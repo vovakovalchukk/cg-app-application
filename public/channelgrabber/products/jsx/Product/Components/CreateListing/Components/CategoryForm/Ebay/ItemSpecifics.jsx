@@ -4,7 +4,6 @@ define([
     'Common/Components/Select',
     'Common/Components/MultiSelect',
     'Common/Components/Input',
-    './CustomItemSpecific',
     '../../../Validators'
 ], function(
     React,
@@ -12,7 +11,6 @@ define([
     Select,
     MultiSelect,
     Input,
-    CustomItemSpecific,
     Validators
 ) {
     "use strict";
