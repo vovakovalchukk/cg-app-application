@@ -180,14 +180,31 @@ class MultiCreationService implements LoggerAwareInterface
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
             if ($this->isSimpleListing($product, $variationsData)) {
-                $this->generateCreateSimpleListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap);
+                $this->generateCreateSimpleListingJobs(
+                    $accounts,
+                    $categories,
+                    $product,
+                    $guid,
+                    $categoryTemplates,
+                    $accountCategoriesMap,
+                    $productData
+                );
             } else {
                 if (!$product->isParent()) {
                     $variations = [$product];
                 } else {
                     $variations = $this->getSelectedVariations($product, $skus);
                 }
-                $this->generateCreateVariationListingJobs($accounts, $categories, $product, $variations, $guid, $categoryTemplates, $accountCategoriesMap);
+                $this->generateCreateVariationListingJobs(
+                    $accounts,
+                    $categories,
+                    $product,
+                    $variations,
+                    $guid,
+                    $categoryTemplates,
+                    $accountCategoriesMap,
+                    $productData
+                );
             }
 
             return true;
@@ -623,32 +640,10 @@ class MultiCreationService implements LoggerAwareInterface
         Product $product,
         string $guid,
         CategoryTemplates $categoryTemplates,
-        array $accountCategoriesMap
+        array $accountCategoriesMap,
+        array $productData
     ) {
-        /**
-         * @var Account $account
-         * @var Category $category
-         */
-        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
-            $this->createListingJobGenerator->generateJob(
-                $account,
-                $category,
-                $product,
-                $this->getSiteIdForAccount($account),
-                $guid
-            );
-        }
-    }
-
-    protected function generateCreateVariationListingJobs(
-        Accounts $accounts,
-        Categories $categories,
-        Product $product,
-        array $variations,
-        string $guid,
-        CategoryTemplates $categoryTemplates,
-        array $accountCategoriesMap
-    ) {
+        $listingData = $this->getListingDataFromProductData($productData, $product);
         /**
          * @var Account $account
          * @var Category $category
@@ -660,9 +655,56 @@ class MultiCreationService implements LoggerAwareInterface
                 $product,
                 $this->getSiteIdForAccount($account),
                 $guid,
+                $listingData
+            );
+        }
+    }
+
+    protected function generateCreateVariationListingJobs(
+        Accounts $accounts,
+        Categories $categories,
+        Product $product,
+        array $variations,
+        string $guid,
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap,
+        array $productData
+    ) {
+        $listingData = $this->getListingDataFromProductData($productData, $product);
+        /**
+         * @var Account $account
+         * @var Category $category
+         */
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
+            $this->createListingJobGenerator->generateJob(
+                $account,
+                $category,
+                $product,
+                $this->getSiteIdForAccount($account),
+                $guid,
+                $listingData,
                 $this->extractVariationProductIds($variations)
             );
         }
+    }
+
+    protected function getListingDataFromProductData(array $productData, Product $product): array
+    {
+        // For now the only data that isn't persisted anywhere is the images
+        $listingData = [
+            'imageId' => $productData['imageId'] ?? null,
+        ];
+        if (!$product->isParent()) {
+            return $listingData;
+        }
+        $listingData['variations'] = [];
+        foreach ($productData['variations'] as $variationData) {
+            $variation = $product->getVariations()->getBy('sku', $variationData['sku'])->getFirst();
+            $listingData['variations'][$variation->getId()] = [
+                'imageId' => $variationData['imageId'] ?? null
+            ];
+        }
+        return $listingData;
     }
 
     /**
