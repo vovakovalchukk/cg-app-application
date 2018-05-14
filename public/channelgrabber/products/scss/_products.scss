@@ -224,12 +224,10 @@ $margin--distance-xsmall: 0.5rem;
             }
         }
     }
-
     .details-layout-column {
         width: 50%;
         th {
             text-transform: capitalize;
-
         }
         tr:last-child {
             td {
@@ -373,7 +371,6 @@ $margin--distance-xsmall: 0.5rem;
             }
         }
     }
-
     .product-footer {
         box-sizing: border-box;
         min-height: 43px;
@@ -723,100 +720,26 @@ div.tether-element div.tooltip-hover {
     position: relative;
 }
 
-.form-root {
-    &__legend {
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-    &__fieldset {
-        &--seperated {
-            margin-top: $small-margin-distance;
-        }
-    }
-}
-
-.c-input-field {
-    padding: $padding--input-field;
-    width: 100%;
-    float: left;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box; /* Firefox, other Gecko */
-    box-sizing: border-box; /* Opera/IE 8+ */
-}
-
-.create-variations-table {
-    $parent: &;
-    &__td {
-        &:last-of-type {
-            background: none;
-        }
-    }
-    &__th {
-        position: relative;
-        height: 2.5rem;
-        width: inherit;
-        text-align: center;
-        &:last-of-type {
-            background: none;
-        }
-
-    }
-    &__td {
-        overflow: initial;
-    }
-    &__input {
-        width: auto;
-        max-width: 90%;
-        float: left;
-        border: 1px solid transparent;
-        padding: $padding--input-field;
-        transition: 200ms;
-        &:hover {
-            border: 1px solid #c2c2c2;
-        }
-    }
-}
-
-.create-variations-table__th__remove-button {
-    position: absolute;
-    background: none;
-    border: none;
-    color: black;
-    z-index: 10;
-    font-size: 1.5rem;
-    top: 50%;
-    right: -0.5rem;
-    transform: translate(-50%, -50%);
-}
+$medium-margin-distance: 2rem;
+$small-margin-distance: 1rem;
+$button-height: 22px;
+$vertical-margin: 3px;
 
 .form-row {
-    $parent: &;
     position: relative;
     width: 100%;
     display: block;
     margin-top: 1rem;
     overflow: hidden;
-    &__input {
-        float: left;
-        width: auto;
-        padding: 8px 5px 8px 5px;
-        width: 90%;
+    &:last-of-type {
+        margin-bottom: 1rem;
     }
     &__label-column {
         float: left;
+        min-width: 10rem;
     }
     &__input-column {
         float: left;
-    }
-    &--medium {
-        #{$parent}__label-column {
-            min-width: 10rem;
-            max-width: 15rem;
-        }
-        #{$parent}__input-column {
-            min-width: 30rem;
-            max-width: 45rem;
-        }
     }
 }
 
@@ -865,3 +788,27 @@ div.tether-element div.tooltip-hover {
     padding: 11px 0 9px 10px;
 }
 
+.tooltip-hover {
+    z-index: 99999;
+}
+
+.left {
+    float: left;
+}
+
+.no-margin {
+    margin: 0px auto;
+}
+
+.margin-left--small {
+    margin-left: $small-margin-distance;
+}
+
+.margin-bottom--small {
+    margin-bottom: $small-margin-distance;
+}
+
+.bold-item {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
