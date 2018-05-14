@@ -2,7 +2,7 @@ define([
     'react',
     'Common/Components/Container',
     'redux-form',
-    'Product/Components/CreateProduct/CreateProductForm'
+    'Product/Components/CreateProduct/Form/FormRoot'
 ], function (
     React,
     Container,
@@ -22,14 +22,16 @@ define([
             this.refs.productForm.submit();
         },
         handleSubmit: function (values) {
-            console.log('in handleSubmit with values: ', values);
-            console.log(`Title: ${values.title}`);
+            if(values.productImage) {
+                this.postImageDataToApi(values.productImage.binaryDataString);
+            }
         },
         renderSaveAndListButtion: function() {
             /**
              * @TODO: this button has no styling yet, it's just floating around. We need to sort it out after (will be handled by LIS-202)
              * this component will be fully implemented.
              * */
+            return null;
             return (<div className="button container-btn yes" onClick={this.submitAndList}>Save and list</div>);
         },
         submitAndList: function () {
@@ -47,11 +49,12 @@ define([
                     onNoButtonPressed={this.props.onCreateProductClose}
                     closeOnYes={false}
                     headerText={"Create New Product"}
-                    subHeaderText={"ChannelGrabber needs additional information to create a new product. Please check below and complete all the fields necessary."}
                     yesButtonText="Create Product"
                     noButtonText="Cancel"
                 >
-                    <CreateProductForm onSubmit={this.handleSubmit} ref="productForm"/>
+                    <CreateProductForm
+                        onSubmit={this.handleSubmit} ref="productForm"
+                    />
                     {this.renderSaveAndListButtion()}
                 </Container>
             );
