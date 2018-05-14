@@ -99,7 +99,7 @@
         "channelgrabber/zf2-sessions": "~1.2.1",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-usage": "~1.0.13",
-        "channelgrabber/zf2-v4-ui": "dev-LIS-189-image-upload-on-product-creation-form as 1.23.1",
+        "channelgrabber/zf2-v4-ui": "~1.23.2",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "guzzle/guzzle": "~3.7",

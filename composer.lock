@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ab145559b3fc311cd3c8c9be9fd4382",
+    "content-hash": "2a3377a664941c70b53f3d773b718e0a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4420,16 +4420,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-LIS-189-image-upload-on-product-creation-form",
+            "version": "1.23.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8fff4ba10b316ab3d5c4eee514c19793d648abf2"
+                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-LIS-189-image-upload-on-product-creation-form-6236c5.zip",
-                "reference": "8fff4ba10b316ab3d5c4eee514c19793d648abf2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.2-ed97b8.zip",
+                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56",
                 "shasum": null
             },
             "require": {
@@ -4480,7 +4480,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-08T09:36:43+00:00"
+            "time": "2018-05-14T07:57:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9918,18 +9918,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.23.1",
-            "alias_normalized": "1.23.1.0",
-            "version": "dev-LIS-189-image-upload-on-product-creation-form",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
