@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a3377a664941c70b53f3d773b718e0a",
+    "content-hash": "21bd8ea7ce4d713e097611f4c974e078",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3574,16 +3574,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "f36798492c8d7f0bcbf1d066c37e7258be982933"
+                "reference": "a1503fc1a4b448c1370863a9cff1b2d6c999a977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.0-36c068.zip",
-                "reference": "f36798492c8d7f0bcbf1d066c37e7258be982933",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.2-4808dc.zip",
+                "reference": "a1503fc1a4b448c1370863a9cff1b2d6c999a977",
                 "shasum": null
             },
             "require": {
@@ -3593,6 +3593,7 @@
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.24.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
+                "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
                 "channelgrabber/zf2-v4-ui": "^1.23.0",
                 "zendframework/zend-config": "~2.3",
@@ -3617,7 +3618,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-04-30T08:41:04+00:00"
+            "time": "2018-05-14T10:51:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
