@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "aff451ef2402340084e4bcad987db3bc",
@@ -641,12 +641,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "bbaf64fc5a7036e6d35aa54b76fab00164aa933c"
+                "reference": "96290163b5ea0a974caed8feb0cb03826f871f0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-66-USDPricingScheme-093f65.zip",
-                "reference": "bbaf64fc5a7036e6d35aa54b76fab00164aa933c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-66-USDPricingScheme-e23c6f.zip",
+                "reference": "96290163b5ea0a974caed8feb0cb03826f871f0f",
                 "shasum": null
             },
             "require": {
@@ -676,7 +676,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-08T13:53:07+00:00"
+            "time": "2018-05-14T11:06:23+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2572,12 +2572,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "202a5a670f03110b27613413410cdf07cf8dca66"
+                "reference": "9da7addfdd58ffda0afc84d2b9bb7dc662f879cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-dev-TAC-66-USDPricingScheme-956190.zip",
-                "reference": "202a5a670f03110b27613413410cdf07cf8dca66",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-dev-TAC-66-USDPricingScheme-7d61d7.zip",
+                "reference": "9da7addfdd58ffda0afc84d2b9bb7dc662f879cd",
                 "shasum": null
             },
             "require": {
@@ -2611,7 +2611,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-05-08T12:52:45+00:00"
+            "time": "2018-05-14T10:18:07+00:00"
         },
         {
             "name": "channelgrabber/scraper",
