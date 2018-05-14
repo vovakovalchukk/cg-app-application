@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "21bd8ea7ce4d713e097611f4c974e078",
+    "content-hash": "8e70e30c071b65d36e6a79403d79cbe5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -513,16 +513,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-142-create-multiple-listings",
+            "version": "dev-LIS-159-submission-status-table",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "fafa5123d747b81bc35310b802181061fc617ca3"
+                "reference": "11d30af7a50b92680b546f4a93e52d07463c01cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-142-create-multiple-listings-d079d5.zip",
-                "reference": "fafa5123d747b81bc35310b802181061fc617ca3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-159-submission-status-table-ca2a36.zip",
+                "reference": "11d30af7a50b92680b546f4a93e52d07463c01cf",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-27T19:25:21+00:00"
+            "time": "2018-05-14T17:25:19+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-11T09:31:51+00:00"
+            "time": "2018-05-04T14:52:55+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9929,7 +9929,7 @@
         {
             "alias": "1.34.8",
             "alias_normalized": "1.34.8.0",
-            "version": "dev-LIS-142-create-multiple-listings",
+            "version": "dev-LIS-159-submission-status-table",
             "package": "channelgrabber/channel"
         },
         {
@@ -9939,28 +9939,10 @@
             "package": "channelgrabber/currency"
         },
         {
-            "alias": "dev-TAC-62-TrackUserLocale",
-            "alias_normalized": "dev-TAC-62-TrackUserLocale",
+            "alias": "1.0.18",
+            "alias_normalized": "1.0.18.0",
             "version": "dev-TAC-63-UserLocaleCurrency",
             "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.24.1",
-            "alias_normalized": "1.24.1.0",
-            "version": "dev-TAC-62-TrackUserLocale",
-            "package": "channelgrabber/user"
-        },
-        {
-            "alias": "1.6.0",
-            "alias_normalized": "1.6.0.0",
-            "version": "dev-TAC-62-TrackUserLocale",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.6.0",
-            "alias_normalized": "1.6.0.0",
-            "version": "dev-TAC-62-TrackUserLocale",
-            "package": "channelgrabber/zf2-register"
         }
     ],
     "minimum-stability": "stable",
@@ -9969,9 +9951,6 @@
         "channelgrabber/constants": 20,
         "channelgrabber/currency": 20,
         "channelgrabber/locale": 20,
-        "channelgrabber/user": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
