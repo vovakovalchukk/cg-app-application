@@ -1,13 +1,15 @@
 define([
     'redux',
     'redux-form',
-
-], function (
+    'Common/Components/ImageUploader/ImageUploaderReducer'
+], function(
     Redux,
     ReduxForm,
-    ) {
-        var CombinedReducer = Redux.combineReducers({
-            form: ReduxForm.reducer
-        });
-        return CombinedReducer;
+    imageUploaderReducer
+) {
+    var CombinedReducer = Redux.combineReducers({
+        form: ReduxForm.reducer,
+        uploadedImages: imageUploaderReducer
     });
+    return CombinedReducer;
+});
