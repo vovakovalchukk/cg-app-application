@@ -330,11 +330,12 @@ class MultiCreationService implements LoggerAwareInterface
         $height = $variationData['height'] ?? $productData['height'] ?? null;
         $length = $variationData['length'] ?? $productData['length'] ?? null;
         $width = $variationData['width'] ?? $productData['width'] ?? null;
+        $weight = $variationData['weight'] ?? $productData['weight'] ?? null;
 
         return $this->productDetailMapper->fromArray([
             'organisationUnitId' => $ou,
             'sku' => $sku,
-            'weight' => $variationData['weight'] ?? $productData['weight'] ?? null,
+            'weight' => $weight ? (float) $weight : null,
             // Dimensions entered in centimetres but stored in metres
             'width' => $width ? ProductDetail::convertLength((float) $width, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
             'height' => $height ? ProductDetail::convertLength((float) $height, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
