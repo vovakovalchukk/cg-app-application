@@ -725,21 +725,17 @@ $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
 
-.form-row {
-    position: relative;
-    width: 100%;
-    display: block;
-    margin-top: 1rem;
-    overflow: hidden;
-    &:last-of-type {
-        margin-bottom: 1rem;
+
+.form-root {
+    &__legend {
+        font-weight: bold;
+        font-size: 1.2em;
     }
-    &__label-column {
-        float: left;
-        min-width: 10rem;
-    }
-    &__input-column {
-        float: left;
+    &__fieldset {
+        margin-top: $small-margin-distance;
+        &:last-of-type {
+            margin-bottom: $small-margin-distance;
+        }
     }
 }
 
