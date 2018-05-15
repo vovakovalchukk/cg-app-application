@@ -4,7 +4,6 @@ define([
     React
 ) {
     "use strict";
-
     var FormRow = React.createClass({
         getDefaultProps: function() {
             return {
