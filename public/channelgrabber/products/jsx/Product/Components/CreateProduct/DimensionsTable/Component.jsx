@@ -131,7 +131,7 @@ define([
                     <Field
                         type="text"
                         name={field.name}
-                        className={'form-row__input'}
+                        className={'c-table-with-inputs__text-input'}
                         component="input"
                         onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
                     />
@@ -142,7 +142,7 @@ define([
                     <Field
                         type="number"
                         name={field.name}
-                        className={'form-row__input'}
+                        className={'c-table-with-inputs__text-input'}
                         component="input"
                         onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
                     />

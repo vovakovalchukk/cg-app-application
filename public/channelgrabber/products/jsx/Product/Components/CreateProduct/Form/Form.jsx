@@ -43,10 +43,10 @@ define([
         },
         mainImage: function() {
             return (
-                <div>
+                <div className={"o-container-wrap"}>
                     <Field model="main-image" type="text" name="Main Image"
                            component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
-                    <ImageUploader className={"u-float-left"}/>
+                    <ImageUploader className={"u-float-none"}/>
                 </div>
             );
         },

@@ -34,11 +34,8 @@
     width:auto;
     box-sizing:border-box;
     float: left;
-    border: 1px solid transparent;
+    border: 1px solid #c2c2c2;
     padding: $padding--removable-input-field;
     transition: 200ms;
-    &:hover {
-        border: 1px solid #c2c2c2;
-    }
 }
 

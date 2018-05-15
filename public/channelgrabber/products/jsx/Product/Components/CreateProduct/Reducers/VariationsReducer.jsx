@@ -32,7 +32,7 @@ define([
             {tableId: 2, fieldId: 6},
             {tableId: 2, fieldId: 7},
             {tableId: 2, fieldId: 8},
-            {tableId: 1, fieldId: 9}
+            {tableId: 2, fieldId: 9}
         ],
         fields: [
             {
@@ -164,7 +164,7 @@ define([
                 fieldId: currentCustomFieldId
             }, {
                 tableId: 2,
-                fieldId: currentCustomFieldId
+                fieldId: currentCustomFieldId-1
             });
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy,
