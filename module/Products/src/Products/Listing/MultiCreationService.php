@@ -174,6 +174,7 @@ class MultiCreationService implements LoggerAwareInterface
             $skus = $this->getSkusFromVariationData($variationsData);
             $this->addGlobalLogEventParam('sku', implode(', ', $skus));
 
+            $this->updateProductEntity($product, $productData);
             $this->saveProductDetails($product, $productData, $variationsData);
             $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData);
             $this->saveProductAccountDetails($accounts, $product, $variationsData);
@@ -352,6 +353,20 @@ class MultiCreationService implements LoggerAwareInterface
             'upc' => $variationData['upc'] ?? $productData['upc'] ?? null,
             'isbn' => $variationData['isbn'] ?? $productData['isbn'] ?? null,
         ]);
+    }
+
+    protected function updateProductEntity(Product $product, array $productData): void
+    {
+        $title = trim($productData['title'] ?? '');
+        if (!$title) {
+            return;
+        }
+        $product->setName($title);
+        try {
+            $this->productService->save($product);
+        } catch (NotModified $exception) {
+            return;
+        }
     }
 
     protected function saveProductDetails(Product $product, array $productData, array $variationsData)
