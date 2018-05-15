@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c3bbee87d990ed1285c9d3bc3a51c2c",
+    "content-hash": "d9da8d9974018e027bf9881e2d99c251",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "11461e7c2fb769c201a2e299b1e2a4adefc1d4b8"
+                "reference": "7c053f00945e7f2fc0f1317cc86903968e52aa78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-63-UserLocaleCurrency-0d6039.zip",
-                "reference": "11461e7c2fb769c201a2e299b1e2a4adefc1d4b8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.14.0-464a36.zip",
+                "reference": "7c053f00945e7f2fc0f1317cc86903968e52aa78",
                 "shasum": null
             },
             "require": {
@@ -324,7 +324,7 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.18",
+                "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
                 "channelgrabber/phinx": "~0.3.2",
@@ -356,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-14T13:14:34+00:00"
+            "time": "2018-05-15T08:51:36+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1519,16 +1519,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "8f3d5faccf9248a93538202b86bc1ccf8a1bf85d"
+                "reference": "a30c460c239c04ec37b813fcf5cf764f14ab8e06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-63-UserLocaleCurrency-1c4785.zip",
-                "reference": "8f3d5faccf9248a93538202b86bc1ccf8a1bf85d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.19-7da5fc.zip",
+                "reference": "a30c460c239c04ec37b813fcf5cf764f14ab8e06",
                 "shasum": null
             },
             "require": {
@@ -1548,7 +1548,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-14T13:23:32+00:00"
+            "time": "2018-05-15T08:22:22+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -1906,16 +1906,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "1.7.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "3145f8f878530e17757aa45299c450d451034ae1"
+                "reference": "ab035aa7cae35bc7b2c994f92b94530b5b9d7505"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-63-UserLocaleCurrency-4c9e9b.zip",
-                "reference": "3145f8f878530e17757aa45299c450d451034ae1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.7.7-0e5c40.zip",
+                "reference": "ab035aa7cae35bc7b2c994f92b94530b5b9d7505",
                 "shasum": null
             },
             "require": {
@@ -1925,7 +1925,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": ">=1.1.2",
                 "channelgrabber/intercom": "^1.0.2",
-                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.18",
+                "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/log": "^2.0.0",
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/transaction": ">=1.1.1, <2.0.0",
@@ -1953,7 +1953,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-05-14T13:14:34+00:00"
+            "time": "2018-05-15T08:51:15+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3570,23 +3570,23 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "8b0aabd7fcf1e164ac52b9b3046a638ee1bfee37"
+                "reference": "f67beefef4bfa157c28d19e346d4c2a1d4ac54a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-63-UserLocaleCurrency-2fc7c4.zip",
-                "reference": "8b0aabd7fcf1e164ac52b9b3046a638ee1bfee37",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.3-5e8b7a.zip",
+                "reference": "f67beefef4bfa157c28d19e346d4c2a1d4ac54a5",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-63-UserLocaleCurrency as 1.14.0",
+                "channelgrabber/billing": "^1.14.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency",
-                "channelgrabber/payment": "dev-TAC-63-UserLocaleCurrency as 1.7.7",
+                "channelgrabber/locale": "^1.0.19",
+                "channelgrabber/payment": "^1.7.7",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
@@ -3615,7 +3615,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-14T13:29:31+00:00"
+            "time": "2018-05-15T09:10:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -5458,7 +5458,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6251,7 +6251,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8132,7 +8132,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -8746,7 +8746,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -8777,7 +8777,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9122,7 +9122,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -9921,39 +9922,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.0",
-            "alias_normalized": "1.14.0.0",
-            "version": "dev-TAC-63-UserLocaleCurrency",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.0.19",
-            "alias_normalized": "1.0.19.0",
-            "version": "dev-TAC-63-UserLocaleCurrency",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.7.7",
-            "alias_normalized": "1.7.7.0",
-            "version": "dev-TAC-63-UserLocaleCurrency",
-            "package": "channelgrabber/payment"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-TAC-63-UserLocaleCurrency",
-            "package": "channelgrabber/zf2-billing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/payment": 20,
-        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
