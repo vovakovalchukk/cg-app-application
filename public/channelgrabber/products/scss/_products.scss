@@ -1,6 +1,4 @@
-$medium-margin-distance: 2rem;
-$small-margin-distance: 1rem;
-$screen-padding:20px;
+$screen-padding: 20px;
 #main,
 #main-wrapper {
     height: 100%;
@@ -520,7 +518,7 @@ span.product-status-holder {
     }
 }
 
-#main.products>#bulk-actions {
+#main.products > #bulk-actions {
     padding-left: 428px;
 }
 
@@ -561,7 +559,7 @@ div#products-loading-message {
             padding: 5px;
             border: 2px dashed $color-lgrey;
             border-radius: 5px;
-            >* {
+            > * {
                 display: inline-block;
                 vertical-align: top;
             }
@@ -608,7 +606,8 @@ div#products-loading-message {
     }
     .tabs-content {
         border-color: grey;
-        .pane {}
+        .pane {
+        }
     }
 }
 
@@ -712,9 +711,11 @@ div.tether-element div.tooltip-hover {
     position: relative;
 }
 
-//buttons
+$medium-margin-distance: 2rem;
+$small-margin-distance: 1rem;
 $button-height: 22px;
-$vertical-margin:3px;
+$vertical-margin: 3px;
+
 .navbar-strip {
     &__button {
         display: block;
@@ -760,7 +761,6 @@ $vertical-margin:3px;
     padding: 11px 0 9px 10px;
 }
 
-//helpers
 .tooltip-hover {
     z-index: 99999;
 }
@@ -774,7 +774,11 @@ $vertical-margin:3px;
 }
 
 .margin-left--small {
-    margin-left: $small-margin-distance
+    margin-left: $small-margin-distance;
+}
+
+.margin-bottom--small {
+    margin-bottom: $small-margin-distance;
 }
 
 .bold-item {
