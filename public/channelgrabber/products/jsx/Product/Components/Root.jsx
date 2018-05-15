@@ -426,15 +426,15 @@ define([
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
+                this.state.createListingsAllowedVariationChannels,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
-                this.showCreateListingPopup
+                this.showCreateListingPopup,
+                this.state.createListing.product
             );
             this.fetchVariationForProductListingCreation();
-            return <CreateListingRootComponent
-                product={this.state.createListing.product}
-            />;
+            return <CreateListingRootComponent/>;
         },
         fetchVariationForProductListingCreation: function() {
             if (this.state.variations[this.state.createListing.product.id]
