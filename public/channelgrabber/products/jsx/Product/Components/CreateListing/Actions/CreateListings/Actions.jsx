@@ -155,6 +155,7 @@ define([
             });
         },
         startListingProgressPolling: function(dispatch, guid) {
+            progressPolling.stopPolling();
             this.polling = setInterval(progressPolling.fetchListingProgress, 5000, dispatch, guid);
         },
         stopPolling: function () {
