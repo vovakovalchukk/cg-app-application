@@ -4,8 +4,7 @@
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
     background: white;
-    float:left;
-    clear: left;
+    width:auto;
     &:disabled{
         background:rgba(9, 30, 66, 0.04);;
     }

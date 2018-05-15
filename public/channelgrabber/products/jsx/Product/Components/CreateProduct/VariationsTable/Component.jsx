@@ -143,7 +143,7 @@ define([
         renderVariationsTableHeaderRow: function() {
             return (
                 <FormSection name={"c-table-with-inputs__headings"}>
-                    <tr>
+                    <tr className={"c-table-with-inputs__header-row"}>
                         <th style={firstColumnCellStyle}></th>
                         {this.renderVariationHeadings()}
                     </tr>
@@ -282,7 +282,11 @@ define([
             var removeOnClick = isLastVariation ? function(){} : this.variationRowRemove.bind(this, variationId);
             return (
                 <FormSection name={"variation-" + variationId}>
-                    <tr className={"u-border-none"}>
+                    <tr className={
+                        "u-border-none "+
+                        "c-table-with-inputs__row "+
+                        (isLastVariation && !isFirstVariation ?  "c-table-with-inputs__row--last " : '')
+                    }>
                         <td className={'c-table-with-inputs__cell'} style={firstColumnCellStyle}>
                             <span
                                 className={'c-icon-button c-icon-button--remove u-inline-block u-float-none ' + removeButtonStyles.join(' ') }
@@ -305,7 +309,7 @@ define([
             return (
                 <Form>
                     <FormSection name={"variations"}>
-                        <table className={'c-table-with-inputs'}>
+                        <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
                             {this.renderVariationsTableHeaderRow()}
                             {this.renderVariations()}
                         </table>
