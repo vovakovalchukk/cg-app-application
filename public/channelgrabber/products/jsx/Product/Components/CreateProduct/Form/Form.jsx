@@ -17,12 +17,12 @@ define([
     var Form = reduxForm.Form;
 
     var inputColumnRenderMethods = {
-        newProductName: function() {
+        renderNewProductName: function() {
             return (
                 <Field type="text" name="title" className={'form-row__input'} component="input"/>
             )
         },
-        mainImagePickerComponent: function(props){
+        renderMainImagePickerComponent: function(props) {
             var uploadedImages = this.props.uploadedImages.images;
             return (
                 <ImagePicker
@@ -34,26 +34,27 @@ define([
                 />
             );
         },
-        mainImage: function() {
+        renderMainImage: function() {
             return (
                 <div>
-                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.mainImagePickerComponent.bind(this)}/>
+                    <Field model="main-image" type="text" name="Main Image"
+                           component={inputColumnRenderMethods.renderMainImagePickerComponent.bind(this)}/>
                     <ImageUploader/>
                 </div>
             );
         },
-        vatViewComponent:function(props) {
+        renderVatViewComponent: function(props) {
             return <VatView
                 parentProduct={{
-                    taxRates: this.props.taxRates
+                    taxRates: props.taxRates
                 }}
                 fullView={true}
                 onVatChanged={props.input.onChange}
                 variationCount={0}
             />
         },
-        taxRates: function() {
-            return (<Field name="taxRates" component={inputColumnRenderMethods.vatViewComponent.bind(this)}/>);
+        renderTaxRates: function() {
+            return (<Field name="taxRates" taxRates={this.props.taxRates} component={inputColumnRenderMethods.renderVatViewComponent.bind(this)}/>);
         }
     };
 
@@ -72,20 +73,19 @@ define([
                     <fieldset className={'form-root__fieldset'}>
                         <FormRow
                             label={'New Product Name'}
-                            inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderNewProductName.call(this)}
                         />
                         <FormRow
                             label={'Main Image'}
-                            inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderMainImage.call(this)}
                         />
                     </fieldset>
                     <fieldset className={'form-root__fieldset'}>
                         <FormRow
                             label={'Tax Rates'}
-                            inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderTaxRates.call(this)}
                         />
                     </fieldset>
-
                 </Form>
             );
         }
