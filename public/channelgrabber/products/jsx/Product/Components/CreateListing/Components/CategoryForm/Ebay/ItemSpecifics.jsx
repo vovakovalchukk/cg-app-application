@@ -169,7 +169,7 @@ define([
             } else if (field.options.type == TYPE_SELECT || field.options.type == TYPE_TEXT_SELECT) {
                 return this.renderSelectInput(field);
             } else if(field.options.type == TYPE_CUSTOM) {
-                return this.renderCustomItemSpecificField(CustomItemSpecific);
+                return this.renderCustomItemSpecificField();
             }
             return null;
         },
