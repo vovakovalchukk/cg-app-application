@@ -129,6 +129,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
         $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
+        $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
