@@ -30,7 +30,7 @@ define([
             return (
                 <div className={"c-form-row c-form-row--" + this.props.size}>
                     {this.renderLabel()}
-                    <div className={"form-row__input-column"}>
+                    <div className={"c-form-row__input-column"}>
                         {this.props.inputColumnContent}
                     </div>
                 </div>
