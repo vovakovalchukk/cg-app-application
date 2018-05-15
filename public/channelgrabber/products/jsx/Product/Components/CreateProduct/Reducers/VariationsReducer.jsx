@@ -155,7 +155,6 @@ define([
             return newState;
         },
         "NEW_ATTRIBUTE_COLUMN_REQUEST": function(state, action) {
-            console.log('in new_attribute_column_request with action : ' , action);
             var fieldsCopy = state.fields.slice();
             currentCustomFieldId++;
             fieldsCopy.push(defaultNewCustomField(action.payload.uniqueNameKey));

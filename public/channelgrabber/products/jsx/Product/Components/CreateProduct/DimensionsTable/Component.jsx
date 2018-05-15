@@ -268,7 +268,7 @@ define([
             }
             return (
                 <FormSection name={"variations"}>
-                    {this.props.legend ? <legend>{this.props.legend}</legend>: ''}
+                    {this.props.legend ? <legend className={'u-heading-text'}>{this.props.legend}</legend>: ''}
                     <table className={'c-table-with-inputs '}>
                         {this.renderHeaderRow()}
                         {this.renderRows()}

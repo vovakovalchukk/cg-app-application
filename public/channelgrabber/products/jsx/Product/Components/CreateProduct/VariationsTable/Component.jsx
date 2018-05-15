@@ -146,23 +146,6 @@ define([
                     <tr>
                         <th style={firstColumnCellStyle}></th>
                         {this.renderVariationHeadings()}
-                        <th className={'' +
-                        'c-table-with-inputs__cell ' +
-                        'c-table-with-inputs__cell-heading ' +
-                        ' u-background-none'}>
-                            <span
-                                className={'c-icon-button c-icon-button--add'}
-                                onClick={this.props.newAttributeColumnRequest}
-                            >
-                                <i
-                                    aria-hidden="true"
-                                    className={'fa fa-2x fa-plus'}
-                                />
-                                <span className={'u-margin-left-small'}>
-                                    add attribute
-                                </span>
-                            </span>
-                        </th>
                     </tr>
                 </FormSection>
             );

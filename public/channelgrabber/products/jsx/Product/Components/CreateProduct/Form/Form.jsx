@@ -104,7 +104,7 @@ define([
                     </fieldset>
 
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
-                        <legend>Variations</legend>
+                        <legend className={'u-heading-text'}>Variations</legend>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
@@ -128,8 +128,8 @@ define([
                             fieldChange={this.props.change}
                         />
                     </fieldset>
-                    <fieldset className={'form-root__fieldset u-margin-bottom-small'}>
-                        <legend>VAT</legend>
+                    <fieldset className={'u-margin-bottom-small'}>
+                        <legend className={'u-heading-text'}>VAT</legend>
                         <div className={'u-max-width-60'}>
                             {inputColumnRenderMethods.taxRates.call(this)}
                         </div>

@@ -9,7 +9,9 @@
     }
     &__label-column {
         float: left;
-        min-width: 10rem;
+        margin-right: 12px;
+        font-size: 1.2em;
+        max-width: 150px;
     }
     &__input-column {
         float: left;
