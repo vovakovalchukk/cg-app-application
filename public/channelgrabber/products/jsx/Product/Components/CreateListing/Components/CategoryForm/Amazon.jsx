@@ -20,7 +20,7 @@ define([
         },
         render: function() {
             return (
-                <div className="ebay-category-form-container">
+                <div className="amazon-category-form-container">
                     <FormSection
                         name="itemSpecifics"
                         component={ItemSpecifics}
