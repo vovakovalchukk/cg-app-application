@@ -14,22 +14,20 @@ define([
     ActionCreators
 ) {
     "use strict";
-    const mapStateToProps = function(state,ownProps) {
+    const mapStateToProps = function(state, ownProps) {
         var filteredState = stateFilters.filterFields(2, state.variationsTable);
         return {
             fields: filteredState.fields,
             rows: state.variationsTable.variations,
             values: state.form.createProductForm.values,
             uploadedImages: state.uploadedImages,
-            classNames:ownProps.classNames,
-            cells:state.variationsTable.cells
+            classNames: ownProps.classNames,
+            cells: state.variationsTable.cells
         }
     };
-
     const mapDispatchToProps = function(dispatch) {
         return Redux.bindActionCreators(ActionCreators, dispatch);
     };
-
     var Connector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     return Connector(Component);
 });

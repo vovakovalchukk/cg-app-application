@@ -4,7 +4,6 @@ define([
     'Product/Components/CreateProduct/functions/utility',
     'Common/Components/ImageDropDown',
     'Common/Components/Select'
-
 ], function(
     React,
     reduxForm,
@@ -32,13 +31,9 @@ define([
             }.bind(this));
         },
         renderHeading: function(field) {
-            var jsx = (
-                <th className={'' +
-                'c-table-with-inputs__cell ' +
-                'c-table-with-inputs__cell-heading '
-                }>{field.label}</th>
+            return (
+                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{field.label}</th>
             );
-            return jsx;
         },
         renderHeaderRow: function() {
             return (
@@ -178,9 +173,7 @@ define([
             if (!variations[variationSelector]) {
                 return null;
             }
-            if (!variations[variationSelector][field.name]) {
-                return null
-            } else {
+            if (variations[variationSelector][field.name]) {
                 return variations[variationSelector][field.name];
             }
         },
@@ -221,8 +214,7 @@ define([
             if (!firstVariationObject[fieldName]) {
                 return undefined;
             }
-            var value = firstVariationObject[fieldName];
-            return value;
+            return firstVariationObject[fieldName];
         },
         renderField: function(variationId, field) {
             var renderFieldMethod = null;

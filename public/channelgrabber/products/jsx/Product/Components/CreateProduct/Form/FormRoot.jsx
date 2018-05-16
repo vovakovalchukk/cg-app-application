@@ -3,8 +3,8 @@ define([
     'react-redux',
     'redux-form',
     'Product/Components/CreateProduct/Form/Form',
-    'Product/Components/CreateProduct/Form/FormActionCreators',
-], function (
+    'Product/Components/CreateProduct/Form/FormActionCreators'
+], function(
     Redux,
     ReactRedux,
     ReduxForm,
@@ -17,11 +17,11 @@ define([
     var unregister = ReduxForm.unregisterField;
 
     "use strict";
-    const mapStateToProps = function(state){
-        return{
+    const mapStateToProps = function(state) {
+        return {
             uploadedImages: state.uploadedImages,
-            taxRates:state.account.taxRates,
-            variationRowProperties:state.variationRowProperties
+            taxRates: state.account.taxRates,
+            variationRowProperties: state.variationRowProperties
         }
     };
     const mapDispatchToProps = function(dispatch) {

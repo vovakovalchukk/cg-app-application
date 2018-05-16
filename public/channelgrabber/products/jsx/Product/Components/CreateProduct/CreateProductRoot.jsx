@@ -17,23 +17,20 @@ define([
 ) {
     "use strict";
     var Provider = ReactRedux.Provider;
-    var store = null;
+
+    var enhancer = Redux.applyMiddleware(thunk.default);
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-        var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
             latency: 0
-        });
-        store = Redux.createStore(
-            CombinedReducer,
-            composeEnhancers(
-                Redux.applyMiddleware(thunk.default)
-            )
-        );
-    } else {
-        store = Redux.createStore(
-            CombinedReducer,
-            Redux.applyMiddleware(thunk.default)
-        );
+        })(Redux.applyMiddleware(thunk.default));
     }
+<<<<<<< HEAD
+=======
+    var store = Redux.createStore(
+        CombinedReducer,
+        enhancer
+    );
+>>>>>>> LIS-136-variations-forms
 
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {

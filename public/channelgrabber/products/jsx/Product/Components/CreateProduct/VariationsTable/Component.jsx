@@ -80,13 +80,9 @@ define([
             this.props.variationRowRemove(variationId);
         },
         renderVariationTableHeading: function(field) {
-            var jsx = '';
             if (field.isCustomAttribute) {
-                jsx = (
-                    <th className={'' +
-                    'c-table-with-inputs__cell ' +
-                    'c-table-with-inputs__cell-heading '
-                    }>
+                return (
+                    <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading'}>
                         <div>
                             <Field
                                 type="text"
@@ -97,30 +93,32 @@ define([
                                     this.props.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
+<<<<<<< HEAD
                             <button type="button" className={'c-table-with-inputs__remove-button'}
                                     onClick={
                                         this.attributeColumnRemove.bind(this, field)
                                     }>❌
+=======
+                            <button type="button"
+                                    className={'c-table-with-inputs__remove-button'}
+                                    onClick={this.props.attributeColumnRemove.bind(this, field.name)}
+                            >
+                                ❌
+>>>>>>> LIS-136-variations-forms
                             </button>
                         </div>
 
 
                     </th>
                 )
-            } else {
-                jsx = (
-                    <th className={'' +
-                    'c-table-with-inputs__cell ' +
-                    'c-table-with-inputs__cell-heading '
-                    }>
-                        <div>
-
-                            {field.label}
-                        </div>
-                    </th>
-                );
             }
-            return jsx;
+            return (
+                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading'}>
+                    <div>
+                        {field.label}
+                    </div>
+                </th>
+            );
         },
         renderVariationHeadings: function() {
             return this.props.variationsTable.fields.map(function(field) {
@@ -132,6 +130,7 @@ define([
                 <FormSection name={"c-table-with-inputs__headings"}>
                     <tr>
                         {this.renderVariationHeadings()}
+<<<<<<< HEAD
                         <th className={'' +
                         'c-table-with-inputs__cell ' +
                         'c-table-with-inputs__cell-heading ' +
@@ -142,6 +141,14 @@ define([
                             >
                                 <i
                                     aria-hidden="true"
+=======
+                        <th
+                            className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading u-background-none'}>
+                            <span className={'c-icon-button c-icon-button--add'}>
+                                <i
+                                    aria-hidden="true"
+                                    onClick={this.props.newAttributeColumnRequest}
+>>>>>>> LIS-136-variations-forms
                                     className={'fa fa-2x fa-plus'}
                                 />
                                 <span className={'u-margin-left-small'}>
@@ -241,8 +248,7 @@ define([
                     onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                 />;
             }
-        }
-        ,
+        },
         renderVariationRowField: function(variationId, field) {
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (

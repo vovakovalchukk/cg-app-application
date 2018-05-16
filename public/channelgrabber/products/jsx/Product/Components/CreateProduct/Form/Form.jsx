@@ -27,13 +27,13 @@ define([
     var Form = reduxForm.Form;
 
     var inputColumnRenderMethods = {
-        newProductName: function() {
+        renderNewProductName: function() {
             return (
                 <Field type="text" name="title" component={InputWithValidation}/>
             )
         },
-        renderMainImageComponent: function(props){
-            var uploadedImages = this.props.uploadedImages.images;
+        renderMainImagePickerComponent: function(props) {
+            var uploadedImages = props.uploadedImages.images;
             return (
                 <ImagePicker
                     images={
@@ -44,26 +44,35 @@ define([
                 />
             );
         },
-        mainImage: function() {
+        renderMainImage: function() {
             return (
                 <div>
-                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
-                    <ImageUploader className={"u-float-left"}/>
+                    <Field model="main-image"
+                           type="text"
+                           name="Main Image"
+                           uploadedImages={this.props.uploadedImages}
+                           component={inputColumnRenderMethods.renderMainImagePickerComponent}
+                    />
+                    <ImageUploader />
                 </div>
             );
         },
-        taxRates: function() {
-            return (<Field name="taxRates" component={function(props) {
-                    return <VatView
-                        parentProduct={{
-                            taxRates: this.props.taxRates
-                        }}
-                        fullView={true}
-                        onVatChanged={props.input.onChange}
-                        variationCount={0}
-                    />
-                }.bind(this)}/>
-            );
+        renderVatViewComponent: function(props) {
+            return <VatView
+                parentProduct={{
+                    taxRates: props.taxRates
+                }}
+                fullView={true}
+                onVatChanged={props.input.onChange}
+                variationCount={0}
+            />
+        },
+        renderTaxRates: function() {
+            return (<Field
+                name="taxRates"
+                taxRates={this.props.taxRates}
+                component={inputColumnRenderMethods.renderVatViewComponent}
+            />);
         }
     };
 
@@ -83,17 +92,17 @@ define([
                     <fieldset className={'form-root__fieldset margin-bottom-small'}>
                         <FormRow
                             label={'New Product Name'}
-                            inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderNewProductName.call(this)}
                         />
                         <FormRow
                             label={'Main Image'}
-                            inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderMainImage.call(this)}
                         />
                     </fieldset>
                     <fieldset className={'form-root__fieldset margin-bottom-small'}>
                         <FormRow
                             label={'Tax Rates'}
-                            inputColumnContent={inputColumnRenderMethods.taxRates.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderTaxRates.call(this)}
                         />
                     </fieldset>
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
