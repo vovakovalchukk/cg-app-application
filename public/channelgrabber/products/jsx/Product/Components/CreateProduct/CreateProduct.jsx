@@ -21,7 +21,7 @@ define([
             this.refs.productForm.submit();
         },
         handleSubmit: function(values) {
-            // to be used in later tickets
+            // to be used in LIS-137
         },
         render: function() {
             return (
