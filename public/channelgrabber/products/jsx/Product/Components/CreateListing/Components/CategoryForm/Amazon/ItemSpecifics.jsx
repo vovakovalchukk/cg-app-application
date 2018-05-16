@@ -225,6 +225,7 @@ define([
                         selectedOptions={field.input.value ? field.input.value : []}
                         selectedOption={this.findSelectedOption(field.input.value)}
                         className={Validators.shouldShowError(field) ? 'error' : null}
+                        filterable={true}
                     />
                 </div>
                 {Validators.shouldShowError(field) && (

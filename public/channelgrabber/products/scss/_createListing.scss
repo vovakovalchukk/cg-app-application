@@ -343,6 +343,12 @@
   }
 }
 
+.custom-select {
+  .filter-box, .custom-option {
+    display: flex;
+  }
+}
+
 .variation-picker-checkbox {
   width: 38px;
 }
