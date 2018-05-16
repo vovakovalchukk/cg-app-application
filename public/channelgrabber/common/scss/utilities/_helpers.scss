@@ -5,13 +5,15 @@
 .u-float-left {
     float: left;
 }
-.u-float-none{
-    float:none;
+
+.u-float-none {
+    float: none;
 }
 
 .no-margin {
     margin: 0px auto;
 }
+
 .u-background-none {
     background: none !important;
 }
@@ -19,56 +21,67 @@
 .u-color-red {
     color: red !important;
 }
+
 .u-border-red {
     border-color: red;
 }
 
 //text
-.u-heading-text{
-    font-weight:700;
-    font-size:1.5rem;
+.u-heading-text {
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 
 //margins
-.u-margin-top-small{
+.u-margin-top-small {
     margin-top: $margin--distance-small;
 }
+
 .u-margin-bottom-small {
     margin-bottom: $margin--distance-small;
 }
+
 .u-margin-top-xsmall {
     margin-top: $margin--distance-xsmall;
 }
+
 .u-margin-left-small {
     margin-left: $margin--distance-small;
 }
-.u-margin-left-xsmall{
-    margin-left:$margin--distance-xsmall;
+
+.u-margin-left-xsmall {
+    margin-left: $margin--distance-xsmall;
 }
-.u-margin-left-xxsmall{
-    margin-left:$margin--distance-xxsmall;
+
+.u-margin-left-xxsmall {
+    margin-left: $margin--distance-xxsmall;
 }
-.u-margin-center{
-    float:none;
-    margin-left:auto;
-    margin-right:auto;
+
+.u-margin-center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }
-.u-margin-top-bottom-small{
-    margin-top:$margin--distance-small;
-    margin-bottom:$margin--distance-small;
+
+.u-margin-top-bottom-small {
+    margin-top: $margin--distance-small;
+    margin-bottom: $margin--distance-small;
 }
 
 //display
-.u-inline-block{
-    display:inline-block;
+.u-inline-block {
+    display: inline-block;
 }
-.u-display-none{
-    display:none !important;
+
+.u-display-none {
+    display: none !important;
 }
+
 //width
-.u-max-width-60{
-    max-width:60rem;
+.u-max-width-60 {
+    max-width: 60rem;
 }
-.u-width-100pc{
-    width:100%;
+
+.u-width-100pc {
+    width: 100%;
 }

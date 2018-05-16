@@ -23,7 +23,7 @@ define([
                 formName: null,
                 formSectionName: null,
                 fieldChange: null,
-                legend:null
+                legend: null
             };
         },
         renderHeadings: function() {
@@ -260,7 +260,7 @@ define([
             }
             return (
                 <FormSection name={"variations"}>
-                    {this.props.legend ? <legend className={'u-heading-text'}>{this.props.legend}</legend>: ''}
+                    {this.props.legend ? <legend className={'u-heading-text'}>{this.props.legend}</legend> : ''}
                     <table className={'c-table-with-inputs '}>
                         {this.renderHeaderRow()}
                         {this.renderRows()}

@@ -1,24 +1,24 @@
-.c-table-with-inputs{
-    width:auto;
-    &__row--last{
-        opacity:0.6;
+.c-table-with-inputs {
+    width: auto;
+    &__row--last {
+        opacity: 0.6;
     }
-    &__header-row{
-        background:$blue--heading-row;
+    &__header-row {
+        background: $blue--heading-row;
     }
-    &__text-input{
+    &__text-input {
         max-width: 100%;
-        width:auto;
-        box-sizing:border-box;
+        width: auto;
+        box-sizing: border-box;
         float: left;
         border: 1px solid #c2c2c2;
         padding: $padding--input-field;
         transition: 200ms;
     }
-    &__text-input--removable{
+    &__text-input--removable {
         padding: $padding--input-field-removable;
     }
-    &__remove-button{
+    &__remove-button {
         position: absolute;
         background: none;
         border: none;
@@ -29,21 +29,21 @@
         right: 0.5rem;
         transform: translate(-50%, -50%);
     }
-    &__remove-button--disabled{
+    &__remove-button--disabled {
         color: $grey--light;
-        cursor:default;
+        cursor: default;
     }
     &__cell {
         position: relative;
-        min-width:75px;
+        min-width: 75px;
         overflow: initial;
         width: inherit;
         text-align: left;
-        padding:$padding-table-cell;
+        padding: $padding-table-cell;
     }
-    &--extendable{
-        .c-table-with-inputs__cell:last-child{
-            opacity:0.6;
+    &--extendable {
+        .c-table-with-inputs__cell:last-child {
+            opacity: 0.6;
         }
     }
     &__cell-heading {
