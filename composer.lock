@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6622894a455d856440b743239b235707",
+    "content-hash": "b81d90588b493cf9adfc83886b0687c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -826,16 +826,16 @@
         },
         {
             "name": "channelgrabber/currency",
-            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-currency.git",
-                "reference": "3c154a5725917854fd35180e701d54fefec6e77d"
+                "reference": "be83451e78a646d65463643bcb27bda9d7c08d0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-dev-TAC-65-DisplayUserLocaleCurrency-16cfa9.zip",
-                "reference": "3c154a5725917854fd35180e701d54fefec6e77d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-1.0.2-059d33.zip",
+                "reference": "be83451e78a646d65463643bcb27bda9d7c08d0d",
                 "shasum": null
             },
             "require": {
@@ -848,7 +848,7 @@
                     "CG\\Currency\\": "src/"
                 }
             },
-            "time": "2018-05-16T09:14:24+00:00"
+            "time": "2018-05-16T13:09:15+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -3572,16 +3572,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "2df2017a6dd28c6e99a649c9b25acf2bc47abba3"
+                "reference": "1e124d3813f6400e5b5af4eca22f750ab3d8706b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-65-DisplayUserLocaleCurrency-a3f874.zip",
-                "reference": "2df2017a6dd28c6e99a649c9b25acf2bc47abba3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.4-28c338.zip",
+                "reference": "1e124d3813f6400e5b5af4eca22f750ab3d8706b",
                 "shasum": null
             },
             "require": {
@@ -3617,7 +3617,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-16T09:10:15+00:00"
+            "time": "2018-05-16T13:09:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9924,25 +9924,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
-            "package": "channelgrabber/currency"
-        },
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
-            "package": "channelgrabber/zf2-billing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/currency": 20,
-        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
