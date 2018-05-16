@@ -359,3 +359,16 @@
   max-width: 1200px;
 }
 
+.sub-category-select-container {
+  .remove-icon {
+    display: inline-block;
+    margin-left: 14px;
+    position: absolute;
+    float: none;
+  }
+}
+
+.sub-category-select {
+  display: inline-block;
+  margin-bottom: 5px;
+}
