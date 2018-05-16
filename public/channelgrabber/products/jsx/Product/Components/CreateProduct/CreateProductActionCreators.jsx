@@ -26,7 +26,7 @@ define([
                     dispatch({
                         type: 'FORM_SUBMIT_INVALID_FORM'
                     });
-                    n.error("Please makes sure you have given your product a name and have given at least one variation a SKU.");
+                    n.error("Please make sure you have given your product a name and have provided at least one variation a SKU.");
                     return;
                 }
                 dispatch(submitForm);
@@ -137,7 +137,7 @@ define([
                 dispatch({
                     type: 'FORM_SUBMIT_SUCCESS'
                 });
-                n.success("successfully saved new product");
+                n.success("Successfully saved new product.");
                 redirectToProducts();
                 dispatch({
                     type: 'USER_LEAVES_CREATE_PRODUCT'
@@ -153,7 +153,7 @@ define([
                         errorThrown: errorThrown
                     }
                 });
-                n.error("error saving new product")
+                n.error("There was an issue with saving the new product. Please try again or contact support if the issue persists.")
             }
         })
     }

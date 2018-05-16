@@ -19,7 +19,7 @@ define([
     });
 
     const CombinedReducer = (state, action) => {
-        if(action.type==='USER_LEAVES_CREATE_PRODUCT'){
+        if (action.type === 'USER_LEAVES_CREATE_PRODUCT') {
             // setting state as undefined triggers Redux to use the initial values of all reducers
             state = undefined;
         }

@@ -68,7 +68,7 @@ define([
                 type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
-                defaultValue:''
+                defaultValue: ''
             },
             {
                 id: 6,
@@ -77,7 +77,7 @@ define([
                 type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
-                defaultValue:''
+                defaultValue: ''
             },
             {
                 id: 7,
@@ -86,7 +86,7 @@ define([
                 type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
-                defaultValue:'thomas'
+                defaultValue: 'thomas'
             },
             {
                 id: 8,
@@ -95,11 +95,11 @@ define([
                 type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
-                defaultValue:''
+                defaultValue: ''
             }
         ],
         cells: [],
-        isSubmitting:false
+        isSubmitting: false
     };
     var currentCustomFieldId = initialState.fields.length;
 
@@ -129,7 +129,7 @@ define([
             console.log('in variation row remove ');
             var variationsCopy = state.variations.slice();
             if (variationsCopy.length <= 1) return state;
-            var indexOfVariation = variationsCopy.findIndex(function(variation){
+            var indexOfVariation = variationsCopy.findIndex(function(variation) {
                 return variation.id == action.payload.variationId;
             });
             if (indexOfVariation < 0) {
@@ -192,7 +192,7 @@ define([
         },
         "CELL_CHANGE_RECORD": function(state, action) {
             var cellsCopy = state.cells.slice();
-            if(stateFilters.getCell(cellsCopy,action.payload.variationId,action.payload.fieldId)){
+            if (stateFilters.getCell(cellsCopy, action.payload.variationId, action.payload.fieldId)) {
                 return state;
             }
             cellsCopy.push({
@@ -205,7 +205,7 @@ define([
             });
             return newState;
         },
-        "FORM_SUBMIT_REQUEST": function(state,action){
+        "FORM_SUBMIT_REQUEST": function(state, action) {
             var newState = Object.assign({}, state, {
                 isSubmitting: true
             });

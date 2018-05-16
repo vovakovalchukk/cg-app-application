@@ -4,12 +4,12 @@ define([
     React
 ) {
     var renderError = function(error) {
-        console.log('in render error');
-        return (<div className="o-container-wrap o-container-wrap--left u-color-red">
-            {error}
-        </div>);
+        return (
+            <div className="o-container-wrap o-container-wrap--left u-color-red">
+                {error}
+            </div>
+        );
     };
-
     var InputWithValidation = function(props) {
         return (<div>
             <div className="o-container-wrap">
