@@ -15,7 +15,7 @@ define([
                 onImageSelected: null,
                 autoSelectFirst: true,
                 title: null,
-                onAutoSelect:null
+                onAutoSelect: null
             };
         },
         getInitialState: function() {
@@ -26,16 +26,14 @@ define([
         componentDidMount: function() {
             this.updateSelectedImages(true);
         },
-        componentDidUpdate: function(prevProps, prevState)
-        {
+        componentDidUpdate: function(prevProps, prevState) {
             if (prevProps.name === this.props.name) {
                 return;
             }
 
             this.updateSelectedImages(false);
         },
-        updateSelectedImages(onInitialize = false)
-        {
+        updateSelectedImages(onInitialize = false) {
             var selectedImages = [];
             this.props.images.forEach(function(image) {
                 if (image.selected) {
@@ -55,11 +53,12 @@ define([
             if (selectedImageIndex > -1) {
                 // Already selected. Second click de-selects.
                 currentlySelectedImages.splice(selectedImageIndex, 1);
-            } else if (!this.props.multiSelect) {
-                currentlySelectedImages = [image.id];
-            } else {
-                currentlySelectedImages.push(image.id);
-            }
+            } else
+                if (!this.props.multiSelect) {
+                    currentlySelectedImages = [image.id];
+                } else {
+                    currentlySelectedImages.push(image.id);
+                }
             this.setState({
                 selectedImages: currentlySelectedImages
             });
@@ -76,7 +75,7 @@ define([
                             <div className={"react-image-picker-image " + className}
                                  onClick={this.imageSelected.bind(this, image, undefined)}
                             >
-                                <img src={image.url} />
+                                <img src={image.url}/>
                             </div>
                         );
                     }.bind(this))}

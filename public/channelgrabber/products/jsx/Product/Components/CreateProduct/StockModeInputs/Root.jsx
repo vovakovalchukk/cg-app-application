@@ -1,11 +1,11 @@
 define([
     'redux',
     'react-redux',
-    './Component',
+    './Component'
 ], function(
     Redux,
     ReactRedux,
-    Component,
+    Component
 ) {
     "use strict";
     const mapStateToProps = function(state) {

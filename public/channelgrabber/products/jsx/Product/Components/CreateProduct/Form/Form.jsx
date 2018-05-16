@@ -31,7 +31,7 @@ define([
             )
         },
         renderMainImagePickerComponent: function(props) {
-            var uploadedImages = this.props.uploadedImages.images;
+            var uploadedImages = props.uploadedImages.images;
             return (
                 <ImagePicker
                     images={
@@ -45,8 +45,12 @@ define([
         renderMainImage: function() {
             return (
                 <div>
-                    <Field model="main-image" type="text" name="Main Image"
-                           component={inputColumnRenderMethods.renderMainImagePickerComponent.bind(this)}/>
+                    <Field model="main-image"
+                           type="text"
+                           name="Main Image"
+                           uploadedImages={this.props.uploadedImages}
+                           component={inputColumnRenderMethods.renderMainImagePickerComponent}
+                    />
                     <ImageUploader />
                 </div>
             );
@@ -62,7 +66,11 @@ define([
             />
         },
         renderTaxRates: function() {
-            return (<Field name="taxRates" taxRates={this.props.taxRates} component={inputColumnRenderMethods.renderVatViewComponent.bind(this)}/>);
+            return (<Field
+                name="taxRates"
+                taxRates={this.props.taxRates}
+                component={inputColumnRenderMethods.renderVatViewComponent}
+            />);
         }
     };
 
@@ -95,7 +103,6 @@ define([
                             inputColumnContent={inputColumnRenderMethods.renderTaxRates.call(this)}
                         />
                     </fieldset>
-<<<<<<< HEAD
                     <fieldset className={'margin-bottom--small'}>
                         <VariationsTable
                             resetSection={this.props.resetSection}
@@ -115,8 +122,6 @@ define([
                             fieldChange={this.props.change}
                         />
                     </fieldset>
-=======
->>>>>>> LIS-190-add-VAT-info-to-create-product-form
                 </Form>
             );
         }

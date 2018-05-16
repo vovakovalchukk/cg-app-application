@@ -8,7 +8,7 @@ define([
     "use strict";
 
     var SelectComponent = React.createClass({
-        getDefaultProps: function () {
+        getDefaultProps: function() {
             return {
                 filterable: false,
                 selectedOption: {
@@ -19,11 +19,11 @@ define([
                 autoSelectFirst: true,
                 title: null,
                 onOptionChange: null,
-                customOptions:false,
+                customOptions: false,
                 className: ''
             };
         },
-        getInitialState: function () {
+        getInitialState: function() {
             return {
                 searchTerm: '',
                 inputFocus: false,
@@ -36,7 +36,7 @@ define([
                 disabled: false
             }
         },
-        onClickOutside: function () {
+        onClickOutside: function() {
             this.setState({
                 active: false
             });
@@ -52,7 +52,7 @@ define([
                 selectedOption: selectedOption
             });
         },
-        componentWillReceiveProps: function (newProps) {
+        componentWillReceiveProps: function(newProps) {
             var newState = {
                 disabled: newProps.disabled
             }
@@ -61,7 +61,7 @@ define([
                 newState.options = newProps.options;
                 options = newProps.options;
             }
-                var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
+            var selectedOption = (newProps.selectedOption ? newProps.selectedOption : this.state.selectedOption);
             if (!this.isSelectedOptionAvailable(selectedOption, options)) {
                 selectedOption = this.getDefaultSelectedOption();
             }
@@ -94,7 +94,7 @@ define([
             });
             return (indexOfSelectedOption > -1);
         },
-        onClick: function (e) {
+        onClick: function(e) {
             if (this.state.disabled) {
                 return;
             }
@@ -110,12 +110,12 @@ define([
                 active: active
             });
         },
-        onOptionSelected: function (value) {
+        onOptionSelected: function(value) {
             if (this.state.disabled) {
                 return;
             }
 
-            var selectedOption = this.state.options.find(function (option) {
+            var selectedOption = this.state.options.find(function(option) {
                 return option.value === value;
             });
 
@@ -133,7 +133,7 @@ define([
                 this.props.onOptionChange(selectedOption, this.props.title);
             }
         },
-        onInputFocus: function (e) {
+        onInputFocus: function(e) {
             if (this.state.disabled) {
                 return;
             }
@@ -143,7 +143,7 @@ define([
                 inputFocus: true
             });
         },
-        onInputBlur: function (e) {
+        onInputBlur: function(e) {
             this.setState({
                 inputFocus: false
             });
@@ -168,7 +168,7 @@ define([
                 this.callBackOnOptionSelectChanged(customOption);
             }.bind(this));
         },
-        onFilterResults: function (e) {
+        onFilterResults: function(e) {
             this.setState({
                 searchTerm: e.target.value
             });
@@ -177,26 +177,26 @@ define([
             input.value = '';
         },
         filterBySearchTerm: function(option) {
-            if (! this.props.filterable) {
+            if (!this.props.filterable) {
                 return true;
             }
             if (option.name.toUpperCase().includes(this.state.searchTerm.toUpperCase())) {
                 return true;
             }
         },
-        splitOptionNameIntoComponents: function (optionName, optionValue) {
-            var optionComponentArray = optionName.map(function (optionComponent) {
+        splitOptionNameIntoComponents: function(optionName, optionValue) {
+            var optionComponentArray = optionName.map(function(optionComponent) {
                 return <span className="option-component" value={optionValue}>{optionComponent}</span>
             });
             return optionComponentArray;
         },
-        getOptionName: function (optionName, optionValue) {
+        getOptionName: function(optionName, optionValue) {
             if (Array.isArray(optionName)) {
                 return this.splitOptionNameIntoComponents(optionName, optionValue);
             }
             return optionName;
         },
-        getOptionNames: function () {
+        getOptionNames: function() {
             if (this.state.disabled) {
                 return [];
             }
@@ -208,9 +208,10 @@ define([
                 className = '';
                 if (opt.disabled) {
                     className = 'disabled';
-                } else if (opt.selected) {
-                    className = 'active';
-                }
+                } else
+                    if (opt.selected) {
+                        className = 'active';
+                    }
 
                 return (
                     <li
@@ -244,53 +245,55 @@ define([
             }
             return <div className="results-none">{this.props.filterable ? 'No results' : ''}</div>
         },
-        getSelectedOptionName: function () {
+        getSelectedOptionName: function() {
             var selectedOptionName = '';
             if (this.state.selectedOption && this.state.selectedOption.name) {
                 selectedOptionName = this.state.selectedOption.name
-            } else if (this.props.autoSelectFirst) {
-                selectedOptionName = this.state.options.length > 0 ? this.state.options[0].name : '';
-            }
+            } else
+                if (this.props.autoSelectFirst) {
+                    selectedOptionName = this.state.options.length > 0 ? this.state.options[0].name : '';
+                }
 
             return this.getOptionName(selectedOptionName);
         },
-        getFilterBox: function () {
+        getFilterBox: function() {
             if (this.props.filterable) {
                 return (
                     <div className="filter-box">
                         <input
-                          onFocus={this.onInputFocus}
-                          onBlur={this.onInputBlur}
-                          onChange={this.onFilterResults}
-                          placeholder={this.state.options.length ? 'Search...' : ''}
-                          data-trigger-select-click="false"
+                            onFocus={this.onInputFocus}
+                            onBlur={this.onInputBlur}
+                            onChange={this.onFilterResults}
+                            placeholder={this.state.options.length ? 'Search...' : ''}
+                            data-trigger-select-click="false"
                         />
                     </div>
                 );
             }
         },
-        getClassNames: function(){
+        getClassNames: function() {
             var classNames = "custom-select ";
             classNames += this.props.classNames;
             classNames += (this.state.active ? ' active ' : '');
             classNames += (this.state.disabled ? ' disabled ' : '');
             return classNames;
         },
-        render: function () {
+        render: function() {
             return <ClickOutside onClickOutside={this.onClickOutside}>
                 <div className={this.getClassNames()}
                      onClick={this.onClick}
                      title={this.props.title}>
-                        <div className="selected">
-                            <span className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
-                            <span className="sprite-arrow-down-10-black">&nbsp;</span>
-                        </div>
-                        <div className="animated fadeInDown open-content">
-                            {this.getFilterBox()}
-                            <ul>
-                                {this.getOptionNames()}
-                            </ul>
-                        </div>
+                    <div className="selected">
+                        <span
+                            className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
+                        <span className="sprite-arrow-down-10-black">&nbsp;</span>
+                    </div>
+                    <div className="animated fadeInDown open-content">
+                        {this.getFilterBox()}
+                        <ul>
+                            {this.getOptionNames()}
+                        </ul>
+                    </div>
                 </div>
             </ClickOutside>;
         }

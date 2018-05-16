@@ -22,7 +22,7 @@ define([
         getClassNames: function() {
             var classNames = 'c-stock-mode-input';
             if (!this.props.classNames) {
-                classNames += ' ' + 'c-stock-mode-input--medium';
+                classNames += ' c-stock-mode-input--medium';
             }
             return classNames
         },

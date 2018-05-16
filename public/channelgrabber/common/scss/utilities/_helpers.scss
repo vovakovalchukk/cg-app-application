@@ -2,27 +2,35 @@
 .tooltip-hover {
     z-index: 99999;
 }
-.u-float-left{
-    float:left;
+
+.u-float-left {
+    float: left;
 }
+
 .no-margin {
     margin: 0px auto;
 }
-.u-background-none{
-    background:none !important;
+
+.u-background-none {
+    background: none !important;
 }
-.u-margin-top-small{
+
+.u-margin-top-small {
     margin-top: $margin--distance-small;
 }
-.u-margin-top-xsmall{
+
+.u-margin-top-xsmall {
     margin-top: $margin--distance-xsmall;
 }
+
 .margin-left--small {
     margin-left: $margin--distance-small;
 }
+
 .margin-bottom--small {
     margin-bottom: $margin--distance-small;
 }
-.h-inline-block{
-    display:inline-block;
+
+.h-inline-block {
+    display: inline-block;
 }

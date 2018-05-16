@@ -10,8 +10,9 @@ define([
     var AccountReducer = reducerCreator(initialState, {
         "INITIAL_ACCOUNT_DATA_LOADED": function(state, action) {
             return {
-                taxRates: action.payload.taxRates
-            }
+                taxRates: action.payload.taxRates,
+                stockModeOptions: action.payload.stockModeOptions
+            };
         }
     });
 

@@ -21,7 +21,7 @@ define([
             this.refs.productForm.submit();
         },
         handleSubmit: function(values) {
-
+            // to be used in later tickets
         },
         render: function() {
             return (

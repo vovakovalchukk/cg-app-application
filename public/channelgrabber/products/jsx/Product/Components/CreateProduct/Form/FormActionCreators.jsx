@@ -29,10 +29,10 @@ define([], function() {
                 type: 'NEW_VARIATION_ROW_CREATE'
             }
         },
-        newVariationRowCreateRequest: function( variationId) {
+        newVariationRowCreateRequest: function(variationId) {
             return function(dispatch, getState) {
                 var currState = getState();
-                if (!variationIsEmpty(currState,variationId)) {
+                if (!variationIsEmpty(currState, variationId)) {
                     dispatch(formActionCreators.newVariationRowCreate());
                 }
             }
@@ -41,7 +41,7 @@ define([], function() {
 
     return formActionCreators;
 
-    function variationIsEmpty(currState,variationId){
+    function variationIsEmpty(currState, variationId) {
         return currState.form.createProductForm.values && currState.form.createProductForm.values.variations["variation-" + variationId];
     }
 });
