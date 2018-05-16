@@ -1,0 +1,17 @@
+.c-form-row {
+    position: relative;
+    width: 100%;
+    display: block;
+    margin-top: 1rem;
+    overflow: hidden;
+    &:last-of-type {
+        margin-bottom: 1rem;
+    }
+    &__label-column {
+        float: left;
+        min-width: 10rem;
+    }
+    &__input-column {
+        float: left;
+    }
+}
