@@ -12,6 +12,7 @@ define([
                 fieldValues: {},
                 channelForm: null,
                 categoryId: null,
+                accountId: null,
                 product: {}
             };
         },
@@ -20,7 +21,11 @@ define([
             return (
                 <div className="category-form-container">
                     <h2>Category: {this.props.title}</h2>
-                    <ChannelForm categoryId={this.props.categoryId} {...this.props.fieldValues} />
+                    <ChannelForm
+                        categoryId={this.props.categoryId}
+                        accountId={this.props.accountId}
+                        {...this.props.fieldValues}
+                    />
                 </div>
             );
         }

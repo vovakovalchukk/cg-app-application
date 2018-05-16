@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    './Amazon/ItemSpecifics'
+    './Amazon/ItemSpecifics',
+    './Amazon/Subcategories'
 ], function(
     React,
     ReduxForm,
-    ItemSpecifics
+    ItemSpecifics,
+    Subcategories
 ) {
     "use strict";
 
@@ -15,12 +17,15 @@ define([
         getDefaultProps: function() {
             return {
                 categoryId: null,
-                itemSpecifics: {}
+                accountId: 0,
+                itemSpecifics: {},
+                rootCategories: {}
             };
         },
         render: function() {
             return (
                 <div className="ebay-category-form-container">
+                    <Subcategories rootCategories={this.props.rootCategories} accountId={this.props.accountId}/>
                     <FormSection
                         name="itemSpecifics"
                         component={ItemSpecifics}

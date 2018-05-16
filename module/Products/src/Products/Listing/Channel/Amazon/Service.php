@@ -80,14 +80,14 @@ class Service implements
         ];
 
         $required = [];
-        for ($i = 0; $i < mt_rand(2, 6); $i++) {
+        for ($i = 0; $i < mt_rand(5, 6); $i++) {
             shuffle($fieldNames);
             shuffle($values);
             $required[array_pop($fieldNames)] = $values[0];
         }
 
         $optional = [];
-        for ($i = 0; $i < mt_rand(2, 6); $i++) {
+        for ($i = 0; $i < mt_rand(5, 6); $i++) {
             shuffle($fieldNames);
             shuffle($values);
             $optional[array_pop($fieldNames)] = $values[0];
