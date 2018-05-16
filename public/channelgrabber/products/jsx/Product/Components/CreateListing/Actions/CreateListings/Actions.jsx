@@ -90,6 +90,10 @@ define([
             });
 
             categoryDetail.itemSpecifics = formatItemSpecificsForCategory(categoryDetail.itemSpecifics);
+            if (categoryDetail.subcategory) {
+                categoryDetail.subcategoryId = formatSubCategoryId(categoryDetail.subcategory);
+                delete categoryDetail.subcategory;
+            }
 
             details.push(categoryDetail);
         }
@@ -113,6 +117,17 @@ define([
         delete itemSpecifics.customItemSpecifics;
         delete itemSpecifics.optionalItemSpecifics;
         return itemSpecifics;
+    };
+
+    var formatSubCategoryId = function (subcategory) {
+        var subCategoryId = 0;
+        subcategory.forEach(category => {
+            if (!category || !(category.selected) || !(category.selected.value)) {
+                return;
+            }
+            subCategoryId = category.selected.value;
+        });
+        return subCategoryId;
     };
 
     var formatAccountCategoryMap = function (props) {
