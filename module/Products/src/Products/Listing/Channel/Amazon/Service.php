@@ -48,23 +48,22 @@ class Service implements
     protected function getItemSpecifics(): array
     {
         $fieldNames = ['Brand', 'Size', 'Type', 'Color', 'Material', 'Composition', 'MultiPack', 'Number in a pack', 'Length', 'Style', 'Collar', 'Test one'];
-
         $values = [
             [
                 'type' => 'select',
-                'options' => array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11)),
+                'options' => $this->getOptionsForSelect($fieldNames),
                 'minValues' => 1,
                 'maxValues' => 1
             ],
             [
                 'type' => 'select',
-                'options' => array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11)),
+                'options' => $this->getOptionsForSelect($fieldNames),
                 'minValues' => 0,
                 'maxValues' => mt_rand(1, 10)
             ],
             [
                 'type' => 'select',
-                'options' => array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11)),
+                'options' => $this->getOptionsForSelect($fieldNames),
                 'minValues' => 0,
                 'maxValues' => mt_rand(1, 10)
             ],
@@ -98,5 +97,11 @@ class Service implements
             'required' => $required,
             'optional' => $optional
         ];
+    }
+
+    protected function getOptionsForSelect(array $fieldNames): array
+    {
+        $options = array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11));
+        return array_combine($options, $options);
     }
 }
