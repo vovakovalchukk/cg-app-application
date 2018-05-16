@@ -23,6 +23,11 @@ define([
                 accountId: 0
             };
         },
+        getInitialState: function () {
+            return {
+                disabled: false
+            }
+        },
         renderSubCategorySelectComponents: function (input) {
             if (input.fields.length === 0) {
                 this.pushInputInFieldsArray(input.fields, this.props.rootCategories);
@@ -69,16 +74,25 @@ define([
             </span>
         },
         onCategorySelected: function (input, fields, index, category) {
+            if (this.state.disabled) {
+                return;
+            }
+            this.setState({
+                disabled: true
+            });
             this.setSelectedCategoryOnInput(input, category);
             this.removeCategorySelectsFromFieldArray(fields, index + 1);
-            var pushInputInFieldsArray = this.pushInputInFieldsArray;
+            var self = this;
             $.get(
                 ApiHelper.buildCategoryChildrenUrl(this.props.accountId, category.value),
                 function(response) {
+                    self.setState({
+                        disabled: false
+                    });
                     if (!response.categories || Object.keys(response.categories).length === 0) {
                         return;
                     }
-                    pushInputInFieldsArray(fields, response.categories);
+                    self.pushInputInFieldsArray(fields, response.categories);
                 }
             );
         },
@@ -101,6 +115,9 @@ define([
             />;
         },
         onRemoveButtonClick: function (fields) {
+            if (this.state.disabled) {
+                return;
+            }
             fields.removeAll();
             this.pushInputInFieldsArray(fields, this.props.rootCategories);
         },
@@ -108,7 +125,11 @@ define([
             return <label className="input-container">
                 <span className={"inputbox-label"}>Subcategory</span>
                 <div className={"order-inputbox-holder sub-category-select-container"}>
-                    <FieldArray name="subcategory" component={this.renderSubCategorySelectComponents}/>
+                    <FieldArray
+                        name="subcategory"
+                        component={this.renderSubCategorySelectComponents}
+                        rerenderOnEveryChange={true}
+                    />
                 </div>
             </label>;
         }
