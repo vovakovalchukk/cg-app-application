@@ -24,6 +24,7 @@ define([
     var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
 
+
     var VariationsTableComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -93,18 +94,11 @@ define([
                                     this.props.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
-<<<<<<< HEAD
-                            <button type="button" className={'c-table-with-inputs__remove-button'}
-                                    onClick={
-                                        this.attributeColumnRemove.bind(this, field)
-                                    }>❌
-=======
                             <button type="button"
                                     className={'c-table-with-inputs__remove-button'}
                                     onClick={this.props.attributeColumnRemove.bind(this, field.name)}
                             >
                                 ❌
->>>>>>> LIS-136-variations-forms
                             </button>
                         </div>
 
@@ -130,25 +124,13 @@ define([
                 <FormSection name={"c-table-with-inputs__headings"}>
                     <tr>
                         {this.renderVariationHeadings()}
-<<<<<<< HEAD
-                        <th className={'' +
-                        'c-table-with-inputs__cell ' +
-                        'c-table-with-inputs__cell-heading ' +
-                        ' u-background-none'}>
-                            <span
-                                className={'c-icon-button c-icon-button--add'}
-                                onClick={this.props.newAttributeColumnRequest}
-                            >
-                                <i
-                                    aria-hidden="true"
-=======
+
                         <th
                             className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading u-background-none'}>
                             <span className={'c-icon-button c-icon-button--add'}>
                                 <i
                                     aria-hidden="true"
                                     onClick={this.props.newAttributeColumnRequest}
->>>>>>> LIS-136-variations-forms
                                     className={'fa fa-2x fa-plus'}
                                 />
                                 <span className={'u-margin-left-small'}>

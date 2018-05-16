@@ -11,12 +11,13 @@ define([
     CreateProductForm,
     formActionCreators
 ) {
+    "use strict";
     var resetSection = ReduxForm.resetSection;
     var untouch = ReduxForm.untouch;
     var change = ReduxForm.change;
     var unregister = ReduxForm.unregisterField;
+    var initialize = ReduxForm.initialize;
 
-    "use strict";
     const mapStateToProps = function(state) {
         return {
             uploadedImages: state.uploadedImages,
@@ -27,9 +28,10 @@ define([
     const mapDispatchToProps = function(dispatch) {
         var combinedActionCreators = Object.assign({}, formActionCreators, {
             resetSection: resetSection,
-            untouch:untouch,
-            change:change,
-            unregister:unregister
+            untouch: untouch,
+            change: change,
+            unregister: unregister,
+            initialize: initialize
         });
         return Redux.bindActionCreators(combinedActionCreators, dispatch);
     };

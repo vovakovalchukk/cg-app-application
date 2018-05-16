@@ -53,7 +53,7 @@ define([
                            uploadedImages={this.props.uploadedImages}
                            component={inputColumnRenderMethods.renderMainImagePickerComponent}
                     />
-                    <ImageUploader />
+                    <ImageUploader/>
                 </div>
             );
         },
@@ -63,7 +63,7 @@ define([
                     taxRates: props.taxRates
                 }}
                 fullView={true}
-                onVatChanged={props.input.onChange}
+                onVatChangeWithFullSelection={props.input.onChange}
                 variationCount={0}
             />
         },
@@ -85,6 +85,28 @@ define([
                 taxRates: null,
                 newVariationRowRequest: null
             };
+        },
+        componentWillReceiveProps: function() {
+            if (!this.props.initialized) {
+                var defaultValues = this.getDefaultValues();
+                this.props.initialize(defaultValues);
+            }
+        },
+        getDefaultValues: function() {
+            return {
+                taxRates: this.getDefaultTaxRates()
+            }
+        },
+        getDefaultTaxRates: function() {
+            var defaultTaxRates = {};
+            for (var taxRate in this.props.taxRates) {
+                for (var taxCodes in this.props.taxRates[taxRate]) {
+                    var firstOption = this.props.taxRates[taxRate][taxCodes]
+                    defaultTaxRates[taxRate] = firstOption['taxRateId'];
+                    break;
+                }
+            }
+            return defaultTaxRates;
         },
         render: function() {
             return (
@@ -142,16 +164,16 @@ define([
 
     function validate(values) {
         const errors = {};
-        if(!values.variations){
+        if (!values.variations) {
             return;
         }
         const variationIdentifiers = Object.keys(values.variations);
         if (!values.title) {
             errors.title = 'Required';
         }
-        if(variationIdentifiers.length > 0){
+        if (variationIdentifiers.length > 0) {
             errors.variations = {};
-            for(var i = 0; i < variationIdentifiers.length; i++){
+            for (var i = 0; i < variationIdentifiers.length; i++) {
                 var variation = values.variations[variationIdentifiers[i]]
                 errors.variations[variationIdentifiers[i]] = {};
                 if (!variation.sku) {
@@ -161,5 +183,4 @@ define([
         }
         return errors;
     }
-
 });

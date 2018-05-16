@@ -716,23 +716,6 @@ $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
 
-<<<<<<< HEAD
-=======
-
-.form-root {
-    &__legend {
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-    &__fieldset {
-        margin-top: $small-margin-distance;
-        &:last-of-type {
-            margin-bottom: $small-margin-distance;
-        }
-    }
-}
-
->>>>>>> LIS-136-variations-forms
 .navbar-strip {
     &__button {
         display: block;

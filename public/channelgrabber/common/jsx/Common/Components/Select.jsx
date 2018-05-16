@@ -200,7 +200,6 @@ define([
             if (this.state.disabled) {
                 return [];
             }
-
             var optionName;
             var className;
             var options = this.state.options.filter(this.filterBySearchTerm).map(function(opt, index) {

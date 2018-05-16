@@ -14,7 +14,11 @@ define([
         getDefaultProps: function() {
             return {
                 variationCount: 0,
-                fullView: false
+                fullView: false,
+                autoSelectFirst:false,
+                onChange:null,
+                onVatChanged:null,
+                onVatChangeWithFullSelection: null
             };
         },
         getHeaders: function() {
@@ -101,8 +105,14 @@ define([
             selectedVatRates[memberState] = taxRateId;
             this.setState({
                 selectedVatRates: selectedVatRates
+            },function(){
+                if(this.props.onVatChangeWithFullSelection){
+                    this.props.onVatChangeWithFullSelection(this.state.selectedVatRates)
+                }
             });
-            this.props.onVatChanged(taxRateId);
+            if(this.props.onVatChanged){
+                this.props.onVatChanged(taxRateId);
+            }
         },
         render: function() {
             var rowheight = 45;

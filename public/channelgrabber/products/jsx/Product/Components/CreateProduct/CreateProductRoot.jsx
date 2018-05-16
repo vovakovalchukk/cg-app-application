@@ -24,13 +24,10 @@ define([
             latency: 0
         })(Redux.applyMiddleware(thunk.default));
     }
-<<<<<<< HEAD
-=======
     var store = Redux.createStore(
         CombinedReducer,
         enhancer
     );
->>>>>>> LIS-136-variations-forms
 
     var CreateProductRoot = React.createClass({
         getDefaultProps: function() {

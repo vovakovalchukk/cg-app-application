@@ -15,14 +15,14 @@ define([
         getDefaultProps: function() {
             return {
                 onCreateProductClose: null,
-                submitFormDispatch:null
+                submitFormDispatch: null
             };
         },
         handleContainerSubmit: function() {
             this.props.formContainerSubmitClick();
         },
-        handleSubmit:function(values){
-            this.props.formSubmit(values,this.props.redirectToProducts);
+        handleSubmit: function(values) {
+            this.props.formSubmit(values, this.props.redirectToProducts);
         },
         render: function() {
             return (
