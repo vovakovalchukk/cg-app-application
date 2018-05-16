@@ -3,33 +3,30 @@ define([
 ], function(
     React
 ) {
+    var renderError = function(error) {
+        return (
+            <div className="o-container-wrap o-container-wrap--left u-color-red">
+                {error}
+            </div>
+        );
+    };
     var InputWithValidation = function(props) {
-        var name = props.input.name;
-        var onBlur = props.input.onBlur;
-        var onFocus = props.input.onFocus;
-        var onChange = props.input.onChange;
-        var onDragStart = props.input.onDragStart;
-        var onDrop = props.input.onDrop;
-        var value = props.input.value;
-        var type = props.type;
         return (<div>
             <div className="o-container-wrap">
                 <input
-                    name={name}
-                    onBlur={onBlur}
-                    onFocus={onFocus}
-                    onChange={onChange}
-                    onDragStart={onDragStart}
-                    onDrop={onDrop}
-                    value={value}
-                    type={type}
+                    name={props.input.name}
+                    onBlur={props.input.onBlur}
+                    onFocus={props.input.onFocus}
+                    onChange={props.input.onChange}
+                    onDragStart={props.input.onDragStart}
+                    onDrop={props.input.onDrop}
+                    value={props.input.value}
+                    type={props.type}
                     className={"c-input-field"}
                 />
             </div>
-            <div className="o-container-wrap o-container-wrap--left u-color-red">
-                {props.meta.touched && props.meta.error}
-            </div>
+            {(props.meta.touched && props.meta.error) ? renderError(props.meta.error) : ''}
         </div>);
-    }
+    };
     return InputWithValidation;
 });

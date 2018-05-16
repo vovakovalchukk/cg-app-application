@@ -17,9 +17,13 @@ define([
         },
         render: function() {
             return (
-                    <input type="file" onChange={this.props.uploadImageHandler} onClick={this.onUploadButtonClick}
-                           name="fileupload" className={this.props.className}
-                           id="fileupload"/>
+                <input type="file"
+                       onChange={this.props.uploadImageHandler}
+                       onClick={this.onUploadButtonClick}
+                       name="fileupload"
+                       className={this.props.className}
+                       id="fileupload"
+                />
             );
         }
     });

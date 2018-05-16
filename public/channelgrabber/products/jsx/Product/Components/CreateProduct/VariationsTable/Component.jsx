@@ -25,9 +25,9 @@ define([
     var FormSection = reduxForm.FormSection;
 
     var firstColumnCellStyle = {
-        width:'2rem',
-        minWidth:'0px',
-        textAlign:'center'
+        width: '2rem',
+        minWidth: '0px',
+        textAlign: 'center'
     };
 
     var VariationsTableComponent = React.createClass({
@@ -35,7 +35,7 @@ define([
             return {
                 newVariationRowRequest: null,
                 variationValues: null,
-                variationsTable:{}
+                variationsTable: {}
             };
         },
         shouldCreateNewVariationRow: function(variationId) {
@@ -63,14 +63,14 @@ define([
                 this.props.setDefaultValuesForNewVariations(this.getNewVariationId());
             }
         },
-        attributeColumnNameChange: function(fieldName, value){
+        attributeColumnNameChange: function(fieldName, value) {
             this.props.attributeColumnNameChange(fieldName, value)
-            if(attributeColumnHasNoValue(this.props.variationValues,fieldName)){
+            if (attributeColumnHasNoValue(this.props.variationValues, fieldName)) {
                 this.props.newAttributeColumnRequest();
             }
         },
 
-        resetFieldValueInReduxForm:function(fieldPath){
+        resetFieldValueInReduxForm: function(fieldPath) {
             this.props.unregister(fieldPath);
             this.props.change(fieldPath, null);
             this.props.untouch(fieldPath);
@@ -81,11 +81,11 @@ define([
                 if (variation.indexOf('variation-') < 0) {
                     continue;
                 }
-                this.resetFieldValueInReduxForm('variations.'+variation+'.'+field.name)
+                this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
             }
         },
         attributeColumnRemove: function(field) {
-            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.'+field.name);
+            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.' + field.name);
             this.unsetAttributeFieldOnAllVariations(field);
             this.props.attributeColumnRemove(field.name);
         },
@@ -94,13 +94,9 @@ define([
             this.props.variationRowRemove(variationId);
         },
         renderVariationTableHeading: function(field) {
-            var jsx = '';
             if (field.isCustomAttribute) {
-                jsx = (
-                    <th className={'' +
-                    'c-table-with-inputs__cell ' +
-                    'c-table-with-inputs__cell-heading '
-                    }>
+                return (
+                    <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading'}>
                         <div>
                             <Field
                                 type="text"
@@ -111,10 +107,11 @@ define([
                                     this.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
-                            <button type="button" className={'c-table-with-inputs__remove-button'}
-                                    onClick={
-                                        this.attributeColumnRemove.bind(this, field)
-                                    }>❌
+                            <button type="button"
+                                    className={'c-table-with-inputs__remove-button'}
+                                    onClick={this.props.attributeColumnRemove.bind(this, field.name)}
+                            >
+                                ❌
                             </button>
                         </div>
 
@@ -122,18 +119,14 @@ define([
                     </th>
                 )
             } else {
-                jsx = (
-                    <th className={'' +
-                    'c-table-with-inputs__cell ' +
-                    'c-table-with-inputs__cell-heading '
-                    }>
-                        <div className={"u-margin-left-xxsmall"}>
+                return (
+                    <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading'}>
+                        <div>
                             {field.label}
                         </div>
                     </th>
                 );
             }
-            return jsx;
         },
         renderVariationHeadings: function() {
             return this.props.variationsTable.fields.map(function(field) {
@@ -238,8 +231,7 @@ define([
                     onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
                 />;
             }
-        }
-        ,
+        },
         renderVariationRowField: function(variationId, field) {
             var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
             return (
@@ -262,7 +254,7 @@ define([
                     if (index == (variations.length - 1)) {
                         isLastVariation = true;
                     }
-                    if (index == 0){
+                    if (index == 0) {
                         isFirstVariation = true;
                     }
                     return this.renderVariationRow.call(this, variation, isLastVariation, isFirstVariation);
@@ -276,20 +268,21 @@ define([
             if (isLastVariation) {
                 removeButtonStyles.push('c-icon-button--remove__disabled')
             }
-            if(isFirstVariation){
+            if (isFirstVariation) {
                 removeButtonStyles.push('u-display-none')
             }
-            var removeOnClick = isLastVariation ? function(){} : this.variationRowRemove.bind(this, variationId);
+            var removeOnClick = isLastVariation ? function() {
+            } : this.variationRowRemove.bind(this, variationId);
             return (
                 <FormSection name={"variation-" + variationId}>
                     <tr className={
-                        "u-border-none "+
-                        "c-table-with-inputs__row "+
-                        (isLastVariation && !isFirstVariation ?  "c-table-with-inputs__row--last " : '')
+                        "u-border-none " +
+                        "c-table-with-inputs__row " +
+                        (isLastVariation && !isFirstVariation ? "c-table-with-inputs__row--last " : '')
                     }>
                         <td className={'c-table-with-inputs__cell'} style={firstColumnCellStyle}>
                             <span
-                                className={'c-icon-button c-icon-button--remove u-inline-block u-float-none ' + removeButtonStyles.join(' ') }
+                                className={'c-icon-button c-icon-button--remove u-inline-block u-float-none ' + removeButtonStyles.join(' ')}
                                 onClick={removeOnClick}
                                 disabled={isLastVariation}
                             >
@@ -304,7 +297,8 @@ define([
                     </tr>
                 </FormSection>
             );
-        },
+        }
+        ,
         renderVariationsTable: function() {
             return (
                 <Form>
@@ -340,7 +334,7 @@ define([
             }
         }
     }
-    function attributeColumnHasNoValue(variationValues, fieldName){
+    function attributeColumnHasNoValue(variationValues, fieldName) {
         return (!variationValues || !variationValues['c-table-with-inputs__headings'] || variationValues['c-table-with-inputs__headings'][fieldName] == undefined);
     }
 });

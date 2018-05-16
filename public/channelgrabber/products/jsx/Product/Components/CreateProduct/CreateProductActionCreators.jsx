@@ -26,21 +26,21 @@ define([
                     dispatch({
                         type: 'FORM_SUBMIT_INVALID_FORM'
                     });
+                    n.error("Please make sure you have given your product a name and have provided at least one variation a SKU.");
                     return;
                 }
                 dispatch(submitForm);
             }
         },
-        formSubmit: function(formValues,redirectToProducts) {
+        formSubmit: function(formValues, redirectToProducts) {
             return function(dispatch) {
                 var formattedValues = formatFormValuesForPostRequest(formValues);
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
-                submitFormViaAjax(dispatch,formattedValues,redirectToProducts);
+                submitFormViaAjax(dispatch, formattedValues, redirectToProducts);
             }
         }
-
     };
 
     return actionCreators;
@@ -68,7 +68,7 @@ define([
             product: {
                 name: values.title,
                 imageIds: formattedImages,
-                taxRateIds: {}, // TODO
+                taxRateIds: values.taxRates,
                 variations: formattedVariations
             }
         };
@@ -126,7 +126,7 @@ define([
         return imageIds;
     };
 
-    function submitFormViaAjax(dispatch,values,redirectToProducts){
+    function submitFormViaAjax(dispatch, values, redirectToProducts) {
         $.ajax({
             url: '/products/create/save',
             data: values,
@@ -137,7 +137,7 @@ define([
                 dispatch({
                     type: 'FORM_SUBMIT_SUCCESS'
                 });
-                n.success("successfully saved new product");
+                n.success("Successfully saved new product.");
                 redirectToProducts();
                 dispatch({
                     type: 'USER_LEAVES_CREATE_PRODUCT'
@@ -148,12 +148,12 @@ define([
                 dispatch({
                     type: 'FORM_SUBMIT_ERROR',
                     payload: {
-                        xhr:xhr,
-                        status:status,
-                        errorThrown:errorThrown
+                        xhr: xhr,
+                        status: status,
+                        errorThrown: errorThrown
                     }
                 });
-                n.error("error saving new product")
+                n.error("There was an issue with saving the new product. Please try again or contact support if the issue persists.")
             }
         })
     }

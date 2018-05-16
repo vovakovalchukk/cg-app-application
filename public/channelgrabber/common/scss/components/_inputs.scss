@@ -1,15 +1,16 @@
-.c-input-field{
-    padding:$padding--input-field;
+.c-input-field {
+    padding: $padding--input-field;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
     background: white;
-    width:auto;
-    &:disabled{
-        background:rgba(9, 30, 66, 0.04);;
+    width: auto;
+    &:disabled {
+        background: rgba(9, 30, 66, 0.04);;
     }
 }
-.c-select-field{
+
+.c-select-field {
     background-color: #ffffff;
     position: relative;
     -webkit-border-radius: 5px;
@@ -22,27 +23,28 @@
     background: -moz-linear-gradient(top, #ffffff, #f5f5f5);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5');
 }
-.c-editable-field{
+
+.c-editable-field {
     box-sizing: border-box;
-    &:hover{
+    &:hover {
         border: 1px solid #c2c2c2;
-        margin-left:-1px;
+        margin-left: -1px;
     }
 }
 
-.c-stock-mode-input{
-    min-width:14rem;
-    color:red;
-   &__type-select-container{
-       display:inline-block;
-   }
-    &__amount-container{
-        display:inline-block;
+.c-stock-mode-input {
+    min-width: 14rem;
+    color: red;
+    &__type-select-container {
+        display: inline-block;
     }
-   &__amount_input{
-       display: inline-block;
-       padding: 6px 10px 7px 10px;
-       width:5rem;
-       float:right;
-   }
+    &__amount-container {
+        display: inline-block;
+    }
+    &__amount_input {
+        display: inline-block;
+        padding: 6px 10px 7px 10px;
+        width: 5rem;
+        float: right;
+    }
 }

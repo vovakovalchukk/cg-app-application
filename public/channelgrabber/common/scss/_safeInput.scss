@@ -20,14 +20,14 @@
             }
         }
         input[type=number] {
-            -moz-appearance:textfield;
+            -moz-appearance: textfield;
             &::-webkit-inner-spin-button,
             &::-webkit-outer-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
             }
         }
-        .submit-cancel{
+        .submit-cancel {
             position: absolute;
             left: 1px;
             bottom: -19px;
@@ -73,7 +73,8 @@
 .safe-input-box--error {
     border-color: $color-red;
 }
-.safe-input-box--disabled{
-    color:grey;
-    background-color:#d3d3d373;
+
+.safe-input-box--disabled {
+    color: grey;
+    background-color: #d3d3d373;
 }

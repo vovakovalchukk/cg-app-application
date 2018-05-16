@@ -29,8 +29,8 @@ define([
     var Form = reduxForm.Form;
 
     var inputColumnRenderMethods = {
-        renderMainImageComponent: function(props) {
-            var uploadedImages = this.props.uploadedImages.images;
+        renderMainImagePickerComponent: function(props) {
+            var uploadedImages = props.uploadedImages.images;
             return (
                 <ImagePicker
                     images={
@@ -41,27 +41,36 @@ define([
                 />
             );
         },
-        mainImage: function() {
+        renderMainImage: function() {
             return (
                 <div className={"o-container-wrap"}>
-                    <Field model="main-image" type="text" name="Main Image"
-                           component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
+                    <Field
+                        model="main-image"
+                        type="text"
+                        name="Main Image"
+                        uploadedImages={this.props.uploadedImages}
+                        component={inputColumnRenderMethods.renderMainImagePickerComponent}
+                    />
                     <ImageUploader className={"u-float-none"}/>
                 </div>
             );
         },
-        taxRates: function() {
-            return (<Field name="taxRates" component={function(props) {
-                    return <VatView
-                        parentProduct={{
-                            taxRates: this.props.taxRates
-                        }}
-                        fullView={true}
-                        onVatChanged={props.input.onChange}
-                        variationCount={0}
-                    />
-                }.bind(this)}/>
-            );
+        renderVatViewComponent: function(props) {
+            return <VatView
+                parentProduct={{
+                    taxRates: props.taxRates
+                }}
+                fullView={true}
+                onVatChangeWithFullSelection={props.input.onChange}
+                variationCount={0}
+            />
+        },
+        renderTaxRates: function() {
+            return (<Field
+                name="taxRates"
+                taxRates={this.props.taxRates}
+                component={inputColumnRenderMethods.renderVatViewComponent}
+            />);
         }
     };
 
@@ -85,6 +94,28 @@ define([
                 />
             );
         },
+        componentWillReceiveProps: function() {
+            if (!this.props.initialized) {
+                var defaultValues = this.getDefaultValues();
+                this.props.initialize(defaultValues);
+            }
+        },
+        getDefaultValues: function() {
+            return {
+                taxRates: this.getDefaultTaxRates()
+            }
+        },
+        getDefaultTaxRates: function() {
+            var defaultTaxRates = {};
+            for (var taxRate in this.props.taxRates) {
+                for (var taxCodes in this.props.taxRates[taxRate]) {
+                    var firstOption = this.props.taxRates[taxRate][taxCodes]
+                    defaultTaxRates[taxRate] = firstOption['taxRateId'];
+                    break;
+                }
+            }
+            return defaultTaxRates;
+        },
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom-small"}>
@@ -99,10 +130,9 @@ define([
                         />
                         <FormRow
                             label={'Main Image'}
-                            inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
+                            inputColumnContent={inputColumnRenderMethods.renderMainImage.call(this)}
                         />
                     </fieldset>
-
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                         <legend className={'u-heading-text'}>Variations</legend>
                         <VariationsTable
@@ -135,8 +165,7 @@ define([
                         </div>
                     </fieldset>
                 </Form>
-            )
-                ;
+            );
         }
     });
 

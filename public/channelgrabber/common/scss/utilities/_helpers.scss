@@ -1,26 +1,26 @@
-
 .tooltip-hover {
     z-index: 99999;
 }
+
 .u-float-left {
     float: left;
 }
 .u-float-none{
     float:none;
 }
+
 .no-margin {
     margin: 0px auto;
 }
-.u-background-none{
-    background:none !important;
+.u-background-none {
+    background: none !important;
 }
 
-.u-color-red{
-    color:red !important;
+.u-color-red {
+    color: red !important;
 }
-
-.u-border-red{
-    border-color:red;
+.u-border-red {
+    border-color: red;
 }
 
 //text
@@ -28,18 +28,19 @@
     font-weight:700;
     font-size:1.5rem;
 }
+
 //margins
 .u-margin-top-small{
     margin-top: $margin--distance-small;
 }
-.u-margin-bottom-small{
-    margin-bottom:$margin--distance-small;
+.u-margin-bottom-small {
+    margin-bottom: $margin--distance-small;
 }
-.u-margin-top-xsmall{
+.u-margin-top-xsmall {
     margin-top: $margin--distance-xsmall;
 }
-.u-margin-left-small{
-    margin-left:$margin--distance-small;
+.u-margin-left-small {
+    margin-left: $margin--distance-small;
 }
 .u-margin-left-xsmall{
     margin-left:$margin--distance-xsmall;

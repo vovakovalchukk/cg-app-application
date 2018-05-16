@@ -5,7 +5,7 @@ define([
 ], function(
     Redux,
     ReactRedux,
-    Component,
+    Component
 ) {
     "use strict";
     const mapStateToProps = function(state) {

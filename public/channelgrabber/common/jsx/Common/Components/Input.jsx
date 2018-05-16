@@ -11,9 +11,9 @@ define([
                 inputType: 'input',
                 title: null,
                 errors: [],
-                classNames:'',
-                disabled:null,
-                onChange:null
+                classNames: '',
+                disabled: null,
+                onChange: null
             }
         },
         renderErrors: function() {
@@ -27,13 +27,13 @@ define([
                 })}
             </ul>;
         },
-        getClassNames: function(){
+        getClassNames: function() {
             var classNames = this.props.classNames;
             classNames += (this.props.errors.length == 0 ? '' : ' safe-input-box--error ');
             classNames += (this.props.disabled ? ' safe-input-box--disabled ' : '');
-           return classNames;
+            return classNames;
         },
-        render: function () {
+        render: function() {
             return (
                 <div className={this.props.classNames + " safe-input-box"}>
                     <input
@@ -42,8 +42,8 @@ define([
                         value={this.props.value}
                         onChange={this.props.onChange}
                         title={this.props.title}
-                        className={ this.getClassNames()}
-                        disabled={ (this.props.disabled ? 'disabled' : '') }
+                        className={this.getClassNames()}
+                        disabled={(this.props.disabled ? 'disabled' : '')}
                     />
                     {this.renderErrors()}
                 </div>
