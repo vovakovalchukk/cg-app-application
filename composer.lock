@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f615011fbbfca56e2f5c2a0f194226cd",
+    "content-hash": "92f831d35bc520a84cbef037df597ef0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-66-USDPricingScheme",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "0c4c0c33fc01dd7d79a302f97c034d121d98da8c"
+                "reference": "6c66eca431fb4bad9ca7a0789a7b33fcdc7e78e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-66-USDPricingScheme-52dc9d.zip",
-                "reference": "0c4c0c33fc01dd7d79a302f97c034d121d98da8c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.14.1-ded794.zip",
+                "reference": "6c66eca431fb4bad9ca7a0789a7b33fcdc7e78e4",
                 "shasum": null
             },
             "require": {
@@ -341,11 +341,6 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-TAC-66-USDPricingScheme": "1.14.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -361,7 +356,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-15T09:49:41+00:00"
+            "time": "2018-05-16T09:47:29+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,16 +632,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "dev-TAC-66-USDPricingScheme",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "37207e22da748108443916f776b13cccd12b06b9"
+                "reference": "7c152471c9bfe091a7f920587a5f5fcc2e78be32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-66-USDPricingScheme-d19dc8.zip",
-                "reference": "37207e22da748108443916f776b13cccd12b06b9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.8.0-4b92dd.zip",
+                "reference": "7c152471c9bfe091a7f920587a5f5fcc2e78be32",
                 "shasum": null
             },
             "require": {
@@ -676,7 +671,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-15T09:55:28+00:00"
+            "time": "2018-05-16T09:47:47+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2563,16 +2558,16 @@
         },
         {
             "name": "channelgrabber/sagepay",
-            "version": "dev-TAC-66-USDPricingScheme",
+            "version": "1.1.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "ad8b3d560f8786dc32060b59f7ecb367234c8edd"
+                "reference": "6dc5d9543a093deceef8de4f36550d0903261d56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-dev-TAC-66-USDPricingScheme-dfb85d.zip",
-                "reference": "ad8b3d560f8786dc32060b59f7ecb367234c8edd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-1.1.20-6438e6.zip",
+                "reference": "6dc5d9543a093deceef8de4f36550d0903261d56",
                 "shasum": null
             },
             "require": {
@@ -2606,7 +2601,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-05-15T09:59:16+00:00"
+            "time": "2018-05-16T09:48:09+00:00"
         },
         {
             "name": "channelgrabber/scraper",
@@ -9928,32 +9923,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.1",
-            "alias_normalized": "1.14.1.0",
-            "version": "dev-TAC-66-USDPricingScheme",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.8.0",
-            "alias_normalized": "1.8.0.0",
-            "version": "dev-TAC-66-USDPricingScheme",
-            "package": "channelgrabber/clearbooks"
-        },
-        {
-            "alias": "1.1.20",
-            "alias_normalized": "1.1.20.0",
-            "version": "dev-TAC-66-USDPricingScheme",
-            "package": "channelgrabber/sagepay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
-        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/sagepay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
