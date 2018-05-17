@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b81d90588b493cf9adfc83886b0687c8",
+    "content-hash": "39455fe855c0e80c741f80bc10df33d9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1521,16 +1521,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.19",
+            "version": "dev-TAC-72-USAddressStateDropDown",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "a30c460c239c04ec37b813fcf5cf764f14ab8e06"
+                "reference": "889e2edfa1c3cf74a8e419e918ffc4e396aab09c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.19-7da5fc.zip",
-                "reference": "a30c460c239c04ec37b813fcf5cf764f14ab8e06",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-72-USAddressStateDropDown-9d222f.zip",
+                "reference": "889e2edfa1c3cf74a8e419e918ffc4e396aab09c",
                 "shasum": null
             },
             "require": {
@@ -1550,7 +1550,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-15T08:22:22+00:00"
+            "time": "2018-05-17T09:42:01+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4111,23 +4111,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.0",
+            "version": "dev-TAC-72-USAddressStateDropDown",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f9f7865b32fc376987881d1ad12f4367e70359a9"
+                "reference": "e26814188c3e5be52e631cc35fc8ba5f4b4a0ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.0-8d2779.zip",
-                "reference": "f9f7865b32fc376987881d1ad12f4367e70359a9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-72-USAddressStateDropDown-7f57a0.zip",
+                "reference": "e26814188c3e5be52e631cc35fc8ba5f4b4a0ad4",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.0.18",
+                "channelgrabber/locale": "dev-TAC-72-USAddressStateDropDown as 1.0.20",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4159,7 +4159,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-05-11T09:56:59+00:00"
+            "time": "2018-05-17T11:32:35+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8380,7 +8380,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8435,7 +8435,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8490,7 +8490,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8541,7 +8541,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8627,7 +8627,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9924,10 +9924,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.20",
+            "alias_normalized": "1.0.20.0",
+            "version": "dev-TAC-72-USAddressStateDropDown",
+            "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
+            "version": "dev-TAC-72-USAddressStateDropDown",
+            "package": "channelgrabber/zf2-register"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
+        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
