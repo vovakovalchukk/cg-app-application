@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
+    'Product/Components/CreateListing/Root'
 ], function(
     React,
     SearchBox,
@@ -43,7 +43,7 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
-                managePackageUrl:null,
+                managePackageUrl: null,
                 features: {},
                 ebaySiteOptions: {},
                 categoryTemplateOptions: {},
@@ -122,7 +122,7 @@ define([
                     skuList: skuList,
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
-                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
                 }, function() {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();

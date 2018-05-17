@@ -88,7 +88,7 @@ define([
                 </span>}
                 buttonText={'Add Listings To My Subscriptions'}
                 buttonOnClick={() => {
-                    window.location = 'https://'+this.props.managePackageUrl;
+                    window.location = 'https://' + this.props.managePackageUrl;
                 }}
                 footerJsx={<span>
                         Not sure? Contact our ecommerce specialists on 01617110248 to discuss or <a

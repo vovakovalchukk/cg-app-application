@@ -1,21 +1,21 @@
 define([
-    'react',
+    'react'
 ], function(
-    React,
+    React
 ) {
     "use strict";
     var BlockerModal = React.createClass({
-        getDefaultProps: function () {
+        getDefaultProps: function() {
             return {
-                headerText:'',
-                contentParagraphs:[],
-                buttonText:'',
-                footerJsx:'',
-                buttonOnClick:null
+                headerText: '',
+                contentParagraphs: [],
+                buttonText: '',
+                footerJsx: '',
+                buttonOnClick: null
             }
         },
         render: function() {
-            return(
+            return (
                 <div className={'c-blocker-modal'}>
                     <div className={'c-blocker-modal__overlay'}>
                         <div className={'c-blocker-modal__container'}>
