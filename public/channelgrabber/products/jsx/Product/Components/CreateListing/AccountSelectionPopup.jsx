@@ -39,7 +39,8 @@ define([
             return {
                 product: {},
                 addNewCategoryVisible: false,
-                listingCreationAllowed: null
+                listingCreationAllowed: null,
+                managePackageUrl: null
             }
         },
         componentDidMount: function() {
@@ -79,7 +80,7 @@ define([
             />
         },
         renderBlockerModal: function() {
-            console.log('in render blockermodal')
+            console.log('in renderblockermodal this.props.managePackageUrl', this.props.managePackageUrl)
             return <BlockerModal
                 headerText={'Access Listings Now'}
                 contentJsx={<span>
@@ -87,9 +88,13 @@ define([
                     <p>Generate more sales with more listings. </p>
                 </span>}
                 buttonText={'Add Listings To My Subscriptions'}
+                buttonOnClick={() => {
+                    window.location = 'https://'+this.props.managePackageUrl;
+                }}
                 footerJsx={<span>
                         Not sure? Contact our ecommerce specialists on 01617110248 to discuss or <a
-                        href="https://meetings.hubspot.com/sam197/cgdemo" alt="calendar-diary" target="_blank">Click Here</a> to book a demo.
+                    href="https://meetings.hubspot.com/sam197/cgdemo" alt="calendar-diary"
+                    target="_blank">Click Here</a> to book a demo.
                 </span>}
             />
         },

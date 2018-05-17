@@ -43,6 +43,7 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
+                managePackageUrl:null,
                 features: {},
                 ebaySiteOptions: {},
                 categoryTemplateOptions: {},
@@ -430,7 +431,8 @@ define([
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup,
-                this.props.listingCreationAllowed
+                this.props.listingCreationAllowed,
+                this.props.managePackageUrl
             );
             this.fetchVariationForProductListingCreation();
             return <CreateListingRootComponent

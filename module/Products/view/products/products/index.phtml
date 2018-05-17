@@ -24,6 +24,7 @@ function(ProductRoot, Clipboard, ImageUtils) {
         utilities,
         searchAvailable,
         <?=  ($listingCreationAllowed ? 'true' : 'false') ?>,
+        '<?= $managePackageUrl; ?>',
         <?= ($isAdmin ? 'true' : 'false') ?>,
         '<?= $searchTerm ?>',
         <?= $featureFlagJson; ?>,

@@ -15,7 +15,6 @@ define([
             }
         },
         render: function() {
-            console.log('in BlockerModal props : ' , this.props);
             return(
                 <div className={'c-blocker-modal'}>
                     <div className={'c-blocker-modal__overlay'}>
@@ -27,7 +26,8 @@ define([
                                 <div className="c-blocker-modal__text-content">
                                     {this.props.contentJsx}
                                 </div>
-                                <button className={'c-blocker-modal__cta-button'} onClick={this.props.buttonOnClick}>
+                                <button className={'c-blocker-modal__cta-button'}
+                                        onClick={this.props.buttonOnClick}>
                                     {this.props.buttonText}
                                 </button>
                                 <div className={'c-blocker-modal__footer-text'}>
