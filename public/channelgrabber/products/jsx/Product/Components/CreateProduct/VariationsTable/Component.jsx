@@ -24,7 +24,6 @@ define([
     var Fields = reduxForm.Fields;
     var FormSection = reduxForm.FormSection;
 
-
     var VariationsTableComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -57,7 +56,7 @@ define([
                 this.props.setDefaultValuesForNewVariations(this.getNewVariationId());
             }
         },
-        resetFieldValueInReduxForm:function(fieldPath){
+        resetFieldValueInReduxForm: function(fieldPath) {
             this.props.unregister(fieldPath);
             this.props.change(fieldPath, null);
             this.props.untouch(fieldPath);
@@ -68,11 +67,11 @@ define([
                 if (variation.indexOf('variation-') < 0) {
                     continue;
                 }
-                this.resetFieldValueInReduxForm('variations.'+variation+'.'+field.name)
+                this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
             }
         },
         attributeColumnRemove: function(field) {
-            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.'+field.name);
+            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.' + field.name);
             this.unsetAttributeFieldOnAllVariations(field);
             this.props.attributeColumnRemove(field.name);
         },
