@@ -7,35 +7,39 @@ define([
     var BlockerModal = React.createClass({
         getDefaultProps: function () {
             return {
-
+                headerText:'',
+                contentParagraphs:[],
+                buttonText:'',
+                footerJsx:'',
+                buttonOnClick:null
             }
         },
         render: function() {
+            console.log('in BlockerModal props : ' , this.props);
             return(
                 <div className={'c-blocker-modal'}>
                     <div className={'c-blocker-modal__overlay'}>
                         <div className={'c-blocker-modal__container'}>
                             <div className={'c-blocker-modal__heading-container'}>
-                                Access Listings Now
+                                {this.props.headerText}
                             </div>
                             <div className={'c-blocker-modal__content-container'}>
                                 <div className="c-blocker-modal__text-content">
-                                    <p className={"c-blocker-modal__paragraph"}>Create multiple listings in one go from one simple interface. </p>
-                                    <p className={"c-blocker-modal__paragraph"}>Generate more sales with more listings. </p>
+                                    {this.props.contentJsx}
                                 </div>
-                                <button className={'c-blocker-modal__cta-button'}>
-                                    Add Listings To My Subscriptions
+                                <button className={'c-blocker-modal__cta-button'} onClick={this.props.buttonOnClick}>
+                                    {this.props.buttonText}
                                 </button>
                                 <div className={'c-blocker-modal__footer-text'}>
-                                    Not sure? Contact our ecommerce specialists on 01617110248 to discuss or <a href="https://meetings.hubspot.com/sam197/cgdemo">Click Here</a> to book a demo.
+                                    {this.props.footerJsx}
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             );
         }
     });
-
     return BlockerModal;
 });
