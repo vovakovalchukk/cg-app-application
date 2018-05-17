@@ -42,8 +42,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     ) {
         var optionsObject = {};
         if (options instanceof Array) {
-            options.forEach(function(item) {
-                optionsObject[item.value] = {title: item.value};
+            options.forEach(function (value) {
+                optionsObject[value] = {title: value};
             });
         } else {
             optionsObject = options;
