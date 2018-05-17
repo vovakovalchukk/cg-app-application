@@ -69,7 +69,6 @@ define([
                 this.props.newAttributeColumnRequest();
             }
         },
-
         resetFieldValueInReduxForm: function(fieldPath) {
             this.props.unregister(fieldPath);
             this.props.change(fieldPath, null);
