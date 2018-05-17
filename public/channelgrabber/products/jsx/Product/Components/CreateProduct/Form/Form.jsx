@@ -25,8 +25,8 @@ define([
     VariationsTable,
     DimensionsTable
 ) {
-    var Field = reduxForm.Field;
-    var Form = reduxForm.Form;
+    const Field = reduxForm.Field;
+    const Form = reduxForm.Form;
 
     var inputColumnRenderMethods = {
         renderMainImagePickerComponent: function(props) {
@@ -61,7 +61,11 @@ define([
                     taxRates: props.taxRates
                 }}
                 fullView={true}
-                onVatChangeWithFullSelection={props.input.onChange}
+                onVatChangeWithFullSelection={selection => {
+                    var currentValueOnState = props.input.value;
+                    var newValueForState = Object.assign(currentValueOnState, selection);
+                    props.input.onChange(newValueForState);
+                }}
                 variationCount={0}
             />
         },
@@ -88,9 +92,9 @@ define([
             return (<EditableText
                     fieldId={reduxFormFieldsProps.fieldId}
                     classNames={reduxFormFieldsProps.classNames}
-                    onChange={function(e) {
+                    onChange={(e) => {
                         return reduxFormFieldsProps.input.onChange(e.target.textContent);
-                    }.bind(this)}
+                    }}
                 />
             );
         },
@@ -161,7 +165,7 @@ define([
                     <fieldset className={'u-margin-bottom-small'}>
                         <legend className={'u-heading-text'}>VAT</legend>
                         <div className={'u-max-width-60'}>
-                            {inputColumnRenderMethods.taxRates.call(this)}
+                            {inputColumnRenderMethods.renderTaxRates.call(this)}
                         </div>
                     </fieldset>
                 </Form>

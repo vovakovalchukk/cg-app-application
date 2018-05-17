@@ -49,7 +49,7 @@ define([
         getClassNames: function() {
             var classNames = 'c-stock-mode-input';
             if (!this.props.classNames) {
-                classNames += ' ' + 'c-stock-mode-input--medium';
+                classNames += ' c-stock-mode-input--medium';
             }
             return classNames
         },
@@ -65,14 +65,12 @@ define([
                 <div className={this.getClassNames()}>
                     <div className={"c-stock-mode-input__type-select-container"}>
                         <Select
-                            onChange={this.props.stockModeType.input.onChange}
                             options={stockModeOptions}
                             autoSelectFirst={true}
                             selectedOption={{
                                 name: this.props.stockModeType.input.value.name,
                                 value: this.props.stockModeType.input.value.value
                             }}
-
                             onOptionChange={function(option) {
                                 this.props.stockModeType.input.onChange(option)
                             }.bind(this)}
