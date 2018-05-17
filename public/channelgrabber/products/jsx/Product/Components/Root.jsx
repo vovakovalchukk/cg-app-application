@@ -42,7 +42,7 @@ define([
                 adminCompanyUrl: null,
                 features: {},
                 taxRates: {},
-                stockModeOptions:{}
+                stockModeOptions: {}
             }
         },
         getInitialState: function() {
@@ -417,7 +417,7 @@ define([
                 fetchVariations={this.onVariationsRequest.bind(this)}
             />
         },
-        redirectToProducts:function(){
+        redirectToProducts: function() {
             this.state.currentView = PRODUCT_LIST_VIEW;
             this.forceUpdate();
         },
