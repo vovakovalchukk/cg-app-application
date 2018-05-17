@@ -278,23 +278,28 @@ define([
             return classNames;
         },
         render: function() {
-            return <ClickOutside onClickOutside={this.onClickOutside}>
-                <div className={this.getClassNames()}
-                     onClick={this.onClick}
-                     title={this.props.title}>
-                    <div className="selected">
-                        <span
-                            className="selected-content"><b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>{this.getSelectedOptionName()}</span>
-                        <span className="sprite-arrow-down-10-black">&nbsp;</span>
+            return (
+                <ClickOutside onClickOutside={this.onClickOutside}>
+                    <div className={this.getClassNames()}
+                        onClick={this.onClick}
+                        title={this.props.title}
+                    >
+                        <div className="selected">
+                            <span className="selected-content">
+                                <b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>
+                                {this.getSelectedOptionName()}
+                            </span>
+                            <span className="sprite-arrow-down-10-black">&nbsp;</span>
+                        </div>
+                        <div className="animated fadeInDown open-content">
+                            {this.getFilterBox()}
+                            <ul>
+                                {this.getOptionNames()}
+                            </ul>
+                        </div>
                     </div>
-                    <div className="animated fadeInDown open-content">
-                        {this.getFilterBox()}
-                        <ul>
-                            {this.getOptionNames()}
-                        </ul>
-                    </div>
-                </div>
-            </ClickOutside>;
+                </ClickOutside>
+            );
         }
     });
 

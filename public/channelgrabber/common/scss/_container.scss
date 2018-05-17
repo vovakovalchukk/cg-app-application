@@ -1,85 +1,85 @@
 .container-wrapper {
-  height: auto;
-  min-width:100%;
-  min-height: 90vh;
-  float: left;
-  clear: both;
-  padding: 20px 20px 20px 20px !important;
-  background-color: $color-bluegrey;
-  box-sizing: border-box;
-  transition: all 0.5s ease;
-  position: relative;
-  z-index: 10;
-  text-align: center;
+    height: auto;
+    min-width: 100%;
+    min-height: 90vh;
+    float: left;
+    clear: both;
+    padding: 20px 20px 20px 20px !important;
+    background-color: $color-bluegrey;
+    box-sizing: border-box;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 10;
+    text-align: center;
 }
 
 .container-content {
-  background-color: white;
-  padding: 16px;
-  margin: 0 auto;
-  text-align: left;
-  display: inline-block;
+    background-color: white;
+    padding: 16px;
+    margin: 0 auto;
+    text-align: left;
+    display: inline-block;
 
-  .inputbox-label {
-    margin-right: 8px;
-  }
+    .inputbox-label {
+        margin-right: 8px;
+    }
 }
 
 .container-header {
-  background-color: $color-linkblue;
-  color: $color-white;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: bold;
+    background-color: $color-linkblue;
+    color: $color-white;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .container-sub-header {
-  padding: 8px;
+    padding: 8px;
 }
 
 .container-children {
-  padding: 8px;
+    padding: 8px;
 }
 
 .container-btn {
-  padding: 8px 16px;
-  margin-right: 5px;
-  max-width: 200px;
-  display: inline-block;
-  font-weight: bold;
+    padding: 8px 16px;
+    margin-right: 5px;
+    max-width: 200px;
+    display: inline-block;
+    font-weight: bold;
 
-  &.yes {
-    background: $color-linkblue;
-    color: $color-white;
-  }
+    &.yes {
+        background: $color-linkblue;
+        color: $color-white;
+    }
 }
 
 .container-header-text {
-  display: inline-block;
+    display: inline-block;
 }
 
 .container-header-back-button {
-  float: right;
-  clear: right;
+    float: right;
+    clear: right;
 
-  i {
-    color: $color-white;
-    font-size: 24px;
-    cursor: pointer;
-  }
+    i {
+        color: $color-white;
+        font-size: 24px;
+        cursor: pointer;
+    }
 }
 
 .container-wrapper {
-  .react-popup-message {
-    border-width: 0;
-    width: 100%;
-  }
+    .react-popup-message {
+        border-width: 0;
+        width: 100%;
+    }
 
-  .react-popup-message-buttons {
-    display: none;
-  }
+    .react-popup-message-buttons {
+        display: none;
+    }
 
-  .react-popup-message-header {
-    text-align: left;
-  }
+    .react-popup-message-header {
+        text-align: left;
+    }
 }
