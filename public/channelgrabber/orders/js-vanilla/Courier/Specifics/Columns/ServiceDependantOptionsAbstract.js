@@ -52,9 +52,6 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         this.fetchTemplate()
             .then(function(result)
             {
-                console.log(result);
-
-
                 var data = {
                     order: orderId,
                     option: self.getOptionName(),
