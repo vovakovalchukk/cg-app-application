@@ -91,7 +91,7 @@ define([
 
             categoryDetail.itemSpecifics = formatItemSpecificsForCategory(categoryDetail.itemSpecifics);
             if (categoryDetail.subcategory) {
-                categoryDetail.subcategoryId = formatSubCategoryId(categoryDetail.subcategory);
+                categoryDetail.subCategoryId = formatSubCategoryId(categoryDetail.subcategory);
                 delete categoryDetail.subcategory;
             }
 
