@@ -80,7 +80,18 @@ define([
         },
         renderBlockerModal: function() {
             console.log('in render blockermodal')
-            return <BlockerModal />
+            return <BlockerModal
+                headerText={'Access Listings Now'}
+                contentJsx={<span>
+                    <p>Create multiple listings in one go from one simple interface. </p>
+                    <p>Generate more sales with more listings. </p>
+                </span>}
+                buttonText={'Add Listings To My Subscriptions'}
+                footerJsx={<span>
+                        Not sure? Contact our ecommerce specialists on 01617110248 to discuss or <a
+                        href="https://meetings.hubspot.com/sam197/cgdemo" alt="calendar-diary" target="_blank">Click Here</a> to book a demo.
+                </span>}
+            />
         },
         renderAddNewCategoryComponent: function() {
             if (!this.props.addNewCategoryVisible) {
