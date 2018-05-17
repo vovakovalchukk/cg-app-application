@@ -42,12 +42,9 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     ) {
         var optionsObject = {};
         if (options instanceof Array) {
-            for (var key in options) {
-                optionsObject[options[key].value] = {title: options[key].value};
-            }
-            // options.forEach(function (value) {
-            //     optionsObject[value] = {title: value};
-            // });
+            options.forEach(function(item) {
+                optionsObject[item.value] = {title: item.value};
+            });
         } else {
             optionsObject = options;
         }
@@ -55,13 +52,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         var firstValue = '';
         var selectedValue = '';
 
-        console.log(optionsObject);
-
         for (var value in optionsObject) {
-
-            console.log("VALUE");
-            console.log(value);
-
             var option = optionsObject[value];
             if (typeof(option) !== 'object') {
                 optionsObject[value] = {'title': option};
