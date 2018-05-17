@@ -86,7 +86,7 @@ define([
                     <p>Create multiple listings in one go from one simple interface. </p>
                     <p>Generate more sales with more listings. </p>
                 </span>}
-                buttonText={'Add Listings To My Subscriptions'}
+                buttonText={'Add Listings To My Subscription'}
                 buttonOnClick={() => {
                     window.location = 'https://' + this.props.managePackageUrl;
                 }}
