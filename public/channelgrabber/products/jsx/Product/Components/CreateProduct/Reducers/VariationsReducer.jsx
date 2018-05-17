@@ -136,7 +136,6 @@ define([
             return newState;
         },
         "VARIATION_ROW_REMOVE": function(state, action) {
-            console.log('in variation row remove ');
             var variationsCopy = state.variations.slice();
             if (variationsCopy.length <= 1) return state;
             var indexOfVariation = variationsCopy.findIndex(function(variation) {

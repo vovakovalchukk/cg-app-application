@@ -38,7 +38,6 @@ define([
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
-                console.log('formattedValues to send: ' , formattedValues);
                 submitFormViaAjax(dispatch, formattedValues, redirectToProducts);
             }
         }
