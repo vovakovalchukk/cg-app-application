@@ -14,7 +14,7 @@
             <div class="demo-link">
                 <a target="_blank" href="https://samgilbert.youcanbook.me/">WATCH A DEMO NOW</a>
             </div>
-            <div class="callUs">Or call us on 01617110248</div>
+            <div class="callUs">Or call us on <?= $this->phoneNumber ?></div>
         </div>
     </div>
 </div>
@@ -39,6 +39,7 @@
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
                 locale: new Locale(),
+                phoneNumber: <?= json_encode($this->phoneNumber) ?>,
                 selectedPackage: <?= json_encode($this->selectedPackage) ?>,
                 packages: <?= json_encode($this->packages) ?>,
                 onPackageSelection: function(packageId) {
