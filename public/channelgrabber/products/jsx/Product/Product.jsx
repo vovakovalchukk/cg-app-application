@@ -11,6 +11,7 @@ define([
         mountingNode,
         utils,
         searchAvailable,
+        listingCreationAllowed,
         isAdmin,
         getParamSearchTerm,
         features,
@@ -25,6 +26,7 @@ define([
                 productsUrl="/products/ajax"
                 utilities={utils}
                 searchAvailable={searchAvailable}
+                listingCreationAllowed={listingCreationAllowed}
                 initialSearchTerm={getParamSearchTerm}
                 isAdmin={isAdmin}
                 features={features}

@@ -429,7 +429,8 @@ define([
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
-                this.showCreateListingPopup
+                this.showCreateListingPopup,
+                this.props.listingCreationAllowed
             );
             this.fetchVariationForProductListingCreation();
             return <CreateListingRootComponent

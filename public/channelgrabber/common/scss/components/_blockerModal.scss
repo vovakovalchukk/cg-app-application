@@ -1,0 +1,56 @@
+$border-radius : 0.5rem;
+
+.c-blocker-modal{
+    font-size:1.8rem;
+    text-align:center;
+    &__overlay{
+        position:absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 100;
+    }
+    //
+    &__container{
+        position: fixed;
+        overflow: hidden;
+        top: 50%;
+        transform: translateX(50%) translateY(-50%);
+        background:white;
+        left:0;
+        right:0;
+        width:40rem;
+        border-radius: $border-radius;
+        transition:200ms;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+    &__text-content{
+        font-size:inherit;
+        font-size:1.6rem;
+    }
+    &__paragraph{
+        font-size:inherit;
+    }
+    &__heading-container{
+        color:white;
+        padding:0.5rem;
+        background-color:$color-linkblue;
+    }
+    &__content-container{
+        padding-left: 1rem;
+        padding-right:1rem;
+    }
+    &__cta-button{
+        background:limegreen;
+        color:white;
+        border:1px solid;
+        margin-bottom:1rem;
+        border: 1px solid black;
+    }
+    &__footer-text{
+        font-size:1.2rem;
+        margin-bottom:1rem;
+    }
+}

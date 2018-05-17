@@ -7,6 +7,7 @@ define([
     'Common/Components/ChannelBadge',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Service/SubmitCategoryMapForm',
+    'Product/Components/CreateListing/Components/BlockerModal',
     'Product/Components/CreateListing/Actions/Actions',
     'Product/Components/CreateListing/Components/AccountSelect',
     'Product/Components/CreateListing/Components/CategoryMapSelect',
@@ -21,6 +22,7 @@ define([
     ChannelBadgeComponent,
     CategoryMap,
     submitCategoryMapForm,
+    BlockerModal,
     Actions,
     AccountSelectComponent,
     CategoryMapSelectComponent,
@@ -36,7 +38,8 @@ define([
         getDefaultProps: function() {
             return {
                 product: {},
-                addNewCategoryVisible: false
+                addNewCategoryVisible: false,
+                listingCreationAllowed: null
             }
         },
         componentDidMount: function() {
@@ -74,6 +77,10 @@ define([
                 fetchSettingsForAccount={this.props.fetchSettingsForAccount}
                 touch={this.props.touch}
             />
+        },
+        renderBlockerModal: function() {
+            console.log('in render blockermodal')
+            return <BlockerModal />
         },
         renderAddNewCategoryComponent: function() {
             if (!this.props.addNewCategoryVisible) {
@@ -140,6 +147,7 @@ define([
                     noButtonText="Cancel"
                     yesButtonDisabled={this.isSubmitButtonDisabled()}
                 >
+                    {!this.props.listingCreationAllowed ? this.renderBlockerModal() : ''}
                     {this.renderForm()}
                 </Container>
             );
@@ -177,7 +185,7 @@ define([
             }
 
             var accounts = [];
-            values.accounts.forEach(function (accountId) {
+            values.accounts.forEach(function(accountId) {
                 if (accountId) {
                     accounts.push(accountId);
                 }
@@ -207,7 +215,7 @@ define([
         return [];
     };
 
-    var convertStateToCategoryMaps = function (state) {
+    var convertStateToCategoryMaps = function(state) {
         var categories = {},
             accountId;
 
@@ -222,7 +230,7 @@ define([
         return categories;
     };
 
-    var mapStateToProps = function (state) {
+    var mapStateToProps = function(state) {
         return {
             accounts: Object.assign({}, state.accounts),
             addNewCategoryVisible: state.addNewCategoryVisible.isVisible,
@@ -232,7 +240,7 @@ define([
         }
     };
 
-    var mapDispatchToProps = function (dispatch) {
+    var mapDispatchToProps = function(dispatch) {
         return {
             fetchCategoryRoots: function() {
                 dispatch(Actions.fetchCategoryRoots(dispatch));
