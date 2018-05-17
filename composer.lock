@@ -4115,7 +4115,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "0ebe045b269a78091c792774b55c3cebdcc6a44f"
+                "reference": "2f9e27a71085774fb4c25c2aa9b19882030d4e32"
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
@@ -4424,7 +4424,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c29ae33ea15f45c39eadb25cb675f2997537681b"
+                "reference": "0e465e880abd4de5019217c6adb3c60f5efd6af8"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
