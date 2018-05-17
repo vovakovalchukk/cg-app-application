@@ -7,7 +7,7 @@ define([
     'Common/Components/ChannelBadge',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Service/SubmitCategoryMapForm',
-    'Product/Components/CreateListing/Components/BlockerModal',
+    'Common/Components/BlockerModal',
     'Product/Components/CreateListing/Actions/Actions',
     'Product/Components/CreateListing/Components/AccountSelect',
     'Product/Components/CreateListing/Components/CategoryMapSelect',
@@ -80,7 +80,6 @@ define([
             />
         },
         renderBlockerModal: function() {
-            console.log('in renderblockermodal this.props.managePackageUrl', this.props.managePackageUrl)
             return <BlockerModal
                 headerText={'Access Listings Now'}
                 contentJsx={<span>
