@@ -21,13 +21,19 @@ class ApiController extends AdvancedController
 
     public function detailsAction()
     {
-        $credentials = $this->service->getCredentialsForActiveUser();
-
-        return $this->viewModelFactory->newInstance([
-            'credentialsKey' => $credentials->getKey(),
-            'credentialsSecret' => $credentials->getSecret(),
+        $responseArray = [
             'isHeaderBarVisible' => false,
             'subHeaderHide' => true,
-        ]);
+        ];
+        $accessResponse = $this->service->isAccessAllowedForActiveUser();
+        $responseArray = array_merge($responseArray, $accessResponse->toArray());
+
+        if ($accessResponse->isAllowed()) {
+            $credentials = $this->service->getCredentialsForActiveUser();
+            $responseArray['credentialsKey'] = $credentials->getKey();
+            $responseArray['credentialsSecret'] = $credentials->getSecret();
+        }
+
+        return $this->viewModelFactory->newInstance($responseArray);
     }
 }
