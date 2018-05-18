@@ -94,14 +94,14 @@ define([
                 }}
                 footerJsx={
                     <span>
-                        Not sure? Contact our ecommerce specialists on 01617110248 to discuss or
+                        Not sure? Contact our ecommerce specialists on 01617110248 to discuss or&nbsp;
                         <a href="https://meetings.hubspot.com/sam197/cgdemo"
                            alt="calendar-diary"
                            target="_blank"
                         >
                             Click Here
                         </a>
-                        to book a demo.
+                        &nbsp;to book a demo.
                     </span>
                 }
             />
