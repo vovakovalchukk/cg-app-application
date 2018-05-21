@@ -49,6 +49,7 @@ define([
                            type="text"
                            name="Main Image"
                            uploadedImages={this.props.uploadedImages}
+
                            component={inputColumnRenderMethods.renderMainImagePickerComponent}
                     />
                     <ImageUploader />
