@@ -34,7 +34,9 @@ define([
         },
         formSubmit: function(formValues, redirectToProducts) {
             return function(dispatch) {
+                console.log('formValues before sending: ' , formValues)
                 var formattedValues = formatFormValuesForPostRequest(formValues);
+                console.log('formattedValues: ' , formattedValues);
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
@@ -95,12 +97,11 @@ define([
         }).map(function(key) {
             var formattedVariation = Object.assign({}, variations[key]);
             formattedVariation.stock = {
-                stockMode: formattedVariation.stockModeType || null,
+                stockMode: formattedVariation.stockModeType.value || null,
                 stockLevel: formattedVariation.stockAmount || null
             };
             delete formattedVariation.stockModeType;
             delete formattedVariation.stockAmount;
-
             formattedVariation.attributeValues = {};
             for (var key in attributeNames) {
                 if (!formattedVariation.hasOwnProperty(key)) {
