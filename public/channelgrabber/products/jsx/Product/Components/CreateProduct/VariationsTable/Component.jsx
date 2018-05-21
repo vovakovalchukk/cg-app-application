@@ -57,7 +57,7 @@ define([
         getNewVariationId: function() {
             return (this.props.variationsTable.variations[this.props.variationsTable.variations.length - 1].id)
         },
-        variationRowFieldOnChange: function(event, variationId) {
+        variationRowFieldOnChange: function(variationId) {
             if (this.shouldCreateNewVariationRow(variationId)) {
                 this.props.newVariationRowCreate();
                 this.props.setDefaultValuesForNewVariations(this.getNewVariationId());
@@ -178,7 +178,7 @@ define([
                         type="text"
                         name={field.name}
                         className={'c-table-with-inputs__text-input'}
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId, field.id)}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
                         component={InputWithValidation}
                     />
                 )
@@ -190,7 +190,7 @@ define([
                         name={field.name}
                         className={'c-table-with-inputs__text-input'}
                         component="input"
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId, field.id)}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
                     />
                 )
             },
@@ -206,7 +206,7 @@ define([
                                 variationId,
                                 uploadedImages)
                         }.bind(this)}
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId)}
                     />
                 )
             },
@@ -219,7 +219,7 @@ define([
                             'stockAmount'
                         ]}
                         component={StockModeInputs}
-                        onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId)}
                     />
                 );
             },
@@ -227,7 +227,7 @@ define([
                 return <Field
                     name={field.name}
                     component={this.renderCustomSelect.bind(this, field)}
-                    onChange={this.variationRowFieldOnChange.bind(this, event, variationId)}
+                    onChange={this.variationRowFieldOnChange.bind(this, variationId)}
                 />;
             }
         },
