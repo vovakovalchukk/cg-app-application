@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b81d90588b493cf9adfc83886b0687c8",
+    "content-hash": "118c8c9ebf00a733bb107c5e580fdcc3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4426,16 +4426,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.2",
+            "version": "dev-TAC-79-LocaleDateFormat",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56"
+                "reference": "298fd5de947e644aa1aa861a0f179335226fffdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.2-ed97b8.zip",
-                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-79-LocaleDateFormat-5cd478.zip",
+                "reference": "298fd5de947e644aa1aa861a0f179335226fffdc",
                 "shasum": null
             },
             "require": {
@@ -4486,7 +4486,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-14T07:57:36+00:00"
+            "time": "2018-05-21T15:45:17+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8380,7 +8380,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8435,7 +8435,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8490,7 +8490,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8541,7 +8541,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8627,7 +8627,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9924,10 +9924,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.23.3",
+            "alias_normalized": "1.23.3.0",
+            "version": "dev-TAC-79-LocaleDateFormat",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
