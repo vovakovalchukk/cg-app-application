@@ -53,7 +53,7 @@
         "channelgrabber/log": "~2.2.1",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.2.15",
-        "channelgrabber/order": "~1.38.7",
+        "channelgrabber/order": "dev-CGIV-9319-order-save-speedups as 1.38.8",
         "channelgrabber/payment": "~1.7.7",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
