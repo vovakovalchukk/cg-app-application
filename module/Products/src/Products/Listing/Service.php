@@ -158,7 +158,7 @@ class Service implements LoggerAwareInterface
             ];
 
             if ($lastCompletedDate = $listingDownload->getLastCompletedDate()) {
-                $refreshDetails[$account->getId()]['lastCompleted'] = $lastCompletedDate->uiFormat();
+                $refreshDetails[$account->getId()]['lastCompleted'] = ($this->dateFormatHelper)($lastCompletedDate);
             }
 
             if (is_null($listingDownload->getId())) {
