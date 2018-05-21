@@ -14,10 +14,7 @@ define([
     var RootComponent = React.createClass({
         getInitialState: function () {
             return {
-                selectedCurrency: {
-                    name: 'GBP',
-                    value: '£'
-                }
+                selectedCurrency: this.props.utilities.currency.getCurrencies()[0]
             }
         },
         getCurrencyOptions: function () {

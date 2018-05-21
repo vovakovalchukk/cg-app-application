@@ -65,12 +65,18 @@ class PaymentController extends AbstractActionController
 
     protected function getBody(): ViewModel
     {
-        return $this->viewModelFactory->newInstance()
+        $body = $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
+            ->setVariable('locale', $this->packageService->getLocale())
             ->setVariable('selectedPackage', $this->getSelectedPackage())
             ->setVariable('packages', $this->getPackagesData())
-            ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod())
-            ->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethod');
+            ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod());
+
+        if (!$this->paymentViewService->isSinglePaymentMethod()) {
+            return $body->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethodSelect');
+        }
+
+        return $body->addChild($this->paymentViewService->getPaymentMethodView()->setTerminal(false), 'paymentMethod');
     }
 
     protected function getSelectedPackage(): ?int
@@ -85,7 +91,8 @@ class PaymentController extends AbstractActionController
             $packages[] = [
                 'id' => $package->getId(),
                 'name' => $package->getName(),
-                'price' => $package->getPrice(),
+                'band' => $package->getBand(),
+                'price' => $this->packageService->getPackagePrice($package),
                 'orderVolume' => $this->getOrderVolumeForPackage($package),
             ];
         }
