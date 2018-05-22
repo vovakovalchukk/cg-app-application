@@ -5,7 +5,6 @@ use CG\Account\Client\Service as AccountService;
 use CG\Communication\Message\AccountAddressGeneratorFactory;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Order\Client\Gearman\Generator\EmailInvoiceDecider as EmailInvoiceGenerator;
 use CG\Order\Client\Gearman\Generator\SetPrintedDate as PrintedDateGenerator;
 use CG\Order\Client\Invoice\Renderer\ServiceInterface as RendererService;
 use CG\Order\Client\Invoice\Service as ClientService;
@@ -53,9 +52,10 @@ class Service extends ClientService implements StatsAwareInterface
     protected $accountService;
     /** @var AccountAddressGeneratorFactory */
     protected $accountAddressGeneratorFactory;
+    /** @var InvoiceEmailer */
+    protected $invoiceEmailer;
     /** @var InvoiceValidator  */
     protected $invoiceValidator;
-    protected $emailInvoiceGenerator;
 
     /** @var string $key */
     protected $key;
@@ -76,8 +76,8 @@ class Service extends ClientService implements StatsAwareInterface
         TaxService $taxService,
         AccountService $accountService,
         AccountAddressGeneratorFactory $accountAddressGeneratorFactory,
-        InvoiceValidator $invoiceValidator,
-        EmailInvoiceGenerator $emailInvoiceGenerator
+        InvoiceEmailer $invoiceEmailer,
+        InvoiceValidator $invoiceValidator
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService, $invoiceMappingService);
         $this->orderService = $orderService;
@@ -89,8 +89,8 @@ class Service extends ClientService implements StatsAwareInterface
         $this->taxService = $taxService;
         $this->accountService = $accountService;
         $this->accountAddressGeneratorFactory = $accountAddressGeneratorFactory;
+        $this->invoiceEmailer = $invoiceEmailer;
         $this->invoiceValidator = $invoiceValidator;
-        $this->emailInvoiceGenerator = $emailInvoiceGenerator;
     }
 
     public function createTemplate(array $config)
@@ -217,7 +217,7 @@ class Service extends ClientService implements StatsAwareInterface
                 // Skip any orders we have previously emailed
                 continue;
             }
-            $this->emailInvoiceGenerator->createJobForOrder($order);
+            $this->invoiceEmailer->userRequestedSendForOrder($order);
         }
     }
 
