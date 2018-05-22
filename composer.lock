@@ -4426,17 +4426,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.2",
+            "version": "dev-CGIV-9506-etsy_issues",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.2-ed97b8.zip",
-                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56",
-                "shasum": null
+                "reference": "bfb0ecc2dfe5abbc194c933caafd655a499b1c79"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -9924,13 +9918,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.23.3",
+            "alias_normalized": "1.23.3.0",
+            "version": "dev-CGIV-9506-etsy_issues",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
