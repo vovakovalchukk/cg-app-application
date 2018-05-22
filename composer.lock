@@ -1525,12 +1525,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "29acfcef39bbb7b9f15980039b0f33884c2ad3d0"
+                "reference": "a01d49fb789f9b8572e8c4a0d917d42f5bf666bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-79-LocaleDateFormat-78e3f4.zip",
-                "reference": "29acfcef39bbb7b9f15980039b0f33884c2ad3d0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-79-LocaleDateFormat-ffd273.zip",
+                "reference": "a01d49fb789f9b8572e8c4a0d917d42f5bf666bf",
                 "shasum": null
             },
             "require": {
@@ -1553,7 +1553,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-22T10:43:11+00:00"
+            "time": "2018-05-22T11:56:57+00:00"
         },
         {
             "name": "channelgrabber/location",
