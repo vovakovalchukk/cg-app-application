@@ -74,9 +74,14 @@ class Service implements LoggerAwareInterface
 
     public function isAccessAllowedForActiveUser(): AccessResponse
     {
+        $response = new AccessResponse(false);
+        // Always show the credentials to admins
+        if ($this->activeUserContainer->isAdmin()) {
+            $response->setAllowed(true);
+            return $response;
+        }
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
-        $response = new AccessResponse(false);
 
         if ($this->isLocaleUK($rootOu)) {
             $response->setAllowed(true);
