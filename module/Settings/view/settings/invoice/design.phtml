@@ -6,7 +6,7 @@ var paperTypeDropdownId = "#<?= $paperTypeDropdownId; ?>";
 $(document).ready(function() {
     require.config({
         paths: {
-            'Common': '<?= $this->basePath() ?>/cg-built/common/js',
+            'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js',
             'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
         }
     });
