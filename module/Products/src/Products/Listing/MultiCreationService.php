@@ -672,7 +672,7 @@ class MultiCreationService implements LoggerAwareInterface
         $this->generateListingJobs($accounts, $categories, $product, $guid, $productData, $variations);
     }
 
-    private function generateListingJobs(
+    protected function generateListingJobs(
         Accounts $accounts,
         Categories $categories,
         Product $product,
