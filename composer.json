@@ -46,7 +46,7 @@
         "channelgrabber/http": "~1.3.32",
         "channelgrabber/image": "~1.2.8",
         "channelgrabber/intercom": "~1.5.4",
-        "channelgrabber/listing": "dev-LIS-212-allow-amazon-create-listings as 1.16.2",
+        "channelgrabber/listing": "dev-LIS-238-allow-amazon-create-variation-listings as 1.16.2",
         "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.19",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",

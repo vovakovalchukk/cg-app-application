@@ -1471,17 +1471,11 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-212-allow-amazon-create-listings",
+            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "4497768c84c5adb2484d5a6876f05a86852bd3a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-212-allow-amazon-create-listings-eadcbf.zip",
-                "reference": "4497768c84c5adb2484d5a6876f05a86852bd3a1",
-                "shasum": null
+                "reference": "268fbbbc73a49ab661ac3be8303d4945b2d97060"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9943,6 +9937,12 @@
             "package": "channelgrabber/listing"
         },
         {
+            "alias": "1.16.2",
+            "alias_normalized": "1.16.2.0",
+            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
+            "package": "channelgrabber/listing"
+        },
+        {
             "alias": "1.0.19",
             "alias_normalized": "1.0.19.0",
             "version": "dev-TAC-63-UserLocaleCurrency",
@@ -9957,8 +9957,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/locale": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
