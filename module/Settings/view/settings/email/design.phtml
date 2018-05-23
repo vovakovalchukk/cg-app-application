@@ -1,7 +1,7 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require.config({
     paths: {
-        'Common': '<?= $this->basePath() ?>/cg-built/common/js',
+        'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js',
         'EmailDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/EmailDesigner';?>"
     }
 });
@@ -13,7 +13,7 @@ require(['EmailDesigner/EmailDesigner'], function(EmailDesigner)
     new EmailDesigner(mountingNodes);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <div id="email-designer">
     <div id="email-designer-mount"></div>
 </div>

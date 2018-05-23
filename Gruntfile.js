@@ -64,7 +64,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/vendor/',
-                        src: [ '**/dist/**/*.min.js', '**/umd/**/*.min.js' ],
+                        src: [ '**/dist/**/*.min.js', '**/umd/**/*.min.js', 'cg-*/dist/**/*.js' ],
                         dest: 'public/cg-built/vendor'
                     }
                 ]

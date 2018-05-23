@@ -41,7 +41,7 @@ function(ProductRoot, Clipboard, ImageUtils) {
 $this->placeholder('#sidebar')
     ->append($this->sidebarLinks);
 ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <div id="main" class="products transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
