@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffc0c19b4156d4c588c5ba4d380e2caa",
+    "content-hash": "0bb03d2438dbecc666201f24d6e66d9d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4438,12 +4438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bf3cf97ee2b19889d27f03d7a9b7682e7a54e7e3"
+                "reference": "5d10ce5710508efdb18b06f63af2a991a3dba081"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-79-LocaleDateFormat-b33194.zip",
-                "reference": "bf3cf97ee2b19889d27f03d7a9b7682e7a54e7e3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-79-LocaleDateFormat-02cf0d.zip",
+                "reference": "5d10ce5710508efdb18b06f63af2a991a3dba081",
                 "shasum": null
             },
             "require": {
@@ -4494,7 +4494,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-22T11:21:49+00:00"
+            "time": "2018-05-23T16:05:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9970,8 +9970,8 @@
             "package": "channelgrabber/zf2-login"
         },
         {
-            "alias": "1.23.3",
-            "alias_normalized": "1.23.3.0",
+            "alias": "1.23.4",
+            "alias_normalized": "1.23.4.0",
             "version": "dev-TAC-79-LocaleDateFormat",
             "package": "channelgrabber/zf2-v4-ui"
         }
