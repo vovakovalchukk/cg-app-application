@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfe0d67198c826c5e32a05113745c831",
+    "content-hash": "26d7f7e6d678a9d3f2eb9a3628b3252d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1471,16 +1471,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-212-allow-amazon-create-listings",
+            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "4497768c84c5adb2484d5a6876f05a86852bd3a1"
+                "reference": "268fbbbc73a49ab661ac3be8303d4945b2d97060"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-212-allow-amazon-create-listings-eadcbf.zip",
-                "reference": "4497768c84c5adb2484d5a6876f05a86852bd3a1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-238-allow-amazon-create-variation-listings-62bf4c.zip",
+                "reference": "268fbbbc73a49ab661ac3be8303d4945b2d97060",
                 "shasum": null
             },
             "require": {
@@ -1516,7 +1516,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-15T17:39:06+00:00"
+            "time": "2018-05-23T13:57:26+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -8379,7 +8379,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8434,7 +8434,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8489,7 +8489,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8540,7 +8540,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8626,7 +8626,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9939,7 +9939,7 @@
         {
             "alias": "1.16.2",
             "alias_normalized": "1.16.2.0",
-            "version": "dev-LIS-212-allow-amazon-create-listings",
+            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
             "package": "channelgrabber/listing"
         },
         {
