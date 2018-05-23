@@ -34,9 +34,7 @@ define([
         },
         formSubmit: function(formValues, redirectToProducts) {
             return function(dispatch) {
-                console.log('formValues before sending: ' , formValues)
                 var formattedValues = formatFormValuesForPostRequest(formValues);
-                console.log('formattedValues: ' , formattedValues);
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
