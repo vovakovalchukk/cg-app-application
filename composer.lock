@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cd8c224a645419e0d3416a6aaea3d6e",
+    "content-hash": "68da80ff57a158c45b373cc6befb435c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1908,16 +1908,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.7.7",
+            "version": "dev-TAC-84-NoDebitOnSetup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "ab035aa7cae35bc7b2c994f92b94530b5b9d7505"
+                "reference": "01b49db9b34fb2da4a43f33e233f848e22c13ea0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.7.7-0e5c40.zip",
-                "reference": "ab035aa7cae35bc7b2c994f92b94530b5b9d7505",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-84-NoDebitOnSetup-aeed32.zip",
+                "reference": "01b49db9b34fb2da4a43f33e233f848e22c13ea0",
                 "shasum": null
             },
             "require": {
@@ -1955,7 +1955,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-05-15T08:51:15+00:00"
+            "time": "2018-05-23T16:43:37+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8380,7 +8380,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8435,7 +8435,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8490,7 +8490,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8541,7 +8541,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8627,7 +8627,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9924,10 +9924,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.7.8",
+            "alias_normalized": "1.7.8.0",
+            "version": "dev-TAC-84-NoDebitOnSetup",
+            "package": "channelgrabber/payment"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/payment": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
