@@ -64,7 +64,12 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/vendor/',
-                        src: [ '**/dist/**/*.min.js', '**/umd/**/*.min.js' ],
+                        src: [
+                            '**/dist/**/*.min.js',
+                            '**/umd/**/*.min.js',
+                            'cg-*/dist/**/*.js',
+                            'cg-common/dist/**/*.js'
+                        ],
                         dest: 'public/cg-built/vendor'
                     }
                 ]
@@ -154,6 +159,14 @@ module.exports = function(grunt) {
             babelEs6: {
                 files: 'public/channelgrabber/**/es6/**/*.es6',
                 tasks: ['newer:babel:es6']
+            },
+            copyVendorCss: {
+                files: 'public/channelgrabber/vendor/**/dist/**/*.css',
+                tasks: ['newer:copy:vendorCssToCgBuilt']
+            },
+            copyVendorJs:{
+                files:'public/channelgrabber/vendor/**/dist/**/*.js',
+                tasks:['newer:copy:vendorJsToCgBuilt']
             },
             copyVanillaJs: {
                 files: 'public/channelgrabber/**/js-vanilla/**/*.js',
