@@ -5,8 +5,8 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
-use CG\Channel\Gearman\Generator\Listing\DefaultCreateListing as CreateListingJobGenerator;
 use CG\Channel\Gearman\Generator\Listing\JobGeneratorFactory;
+use CG\Channel\Listing\CreationService\StatusService;
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\AccountDetail\Entity as ProductAccountDetail;
@@ -34,7 +34,6 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Listing\Channel\Service as ChannelService;
-use CG\Channel\Listing\CreationService\StatusService;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -97,8 +96,6 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productCategoryDetailMapper;
     /** @var ProductCategoryDetailService */
     protected $productCategoryDetailService;
-    /** @var CreateListingJobGenerator */
-    protected $createListingJobGenerator;
     /** @var ChannelService */
     protected $channelService;
     /** @var JobGeneratorFactory */
@@ -119,7 +116,6 @@ class MultiCreationService implements LoggerAwareInterface
         ProductAccountDetailService $productAccountDetailService,
         ProductCategoryDetailMapper $productCategoryDetailMapper,
         ProductCategoryDetailService $productCategoryDetailService,
-        CreateListingJobGenerator $createListingJobGenerator,
         ChannelService $channelService,
         JobGeneratorFactory $jobGeneratorFactory,
         StatusService $statusService
@@ -136,7 +132,6 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productAccountDetailService = $productAccountDetailService;
         $this->productCategoryDetailMapper = $productCategoryDetailMapper;
         $this->productCategoryDetailService = $productCategoryDetailService;
-        $this->createListingJobGenerator = $createListingJobGenerator;
         $this->channelService = $channelService;
         $this->jobGeneratorFactory = $jobGeneratorFactory;
         $this->statusService = $statusService;
