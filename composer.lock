@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "914cbcd970dca6317201d29538c9dc7a",
+    "content-hash": "9bcbccb68782b0bb7cb0212c27512bce",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -829,16 +829,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-currency.git",
-                "reference": "c8e0a4b8d5ae1e348a90f302bba2526c6f31015b"
+                "reference": "8b2b4a941a163da037e66d468194083aa6e868f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-dev-TAC-65-DisplayUserLocaleCurrency-23c4f6.zip",
-                "reference": "c8e0a4b8d5ae1e348a90f302bba2526c6f31015b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-currency-dev-TAC-65-DisplayUserLocaleCurrency-cc25f6.zip",
+                "reference": "8b2b4a941a163da037e66d468194083aa6e868f8",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.18",
+                "channelgrabber/locale": "^1.0.19",
                 "ext-intl": "*"
             },
             "type": "library",
@@ -847,7 +847,7 @@
                     "CG\\Currency\\": "src/"
                 }
             },
-            "time": "2018-05-09T08:55:13+00:00"
+            "time": "2018-05-16T13:09:09+00:00"
         },
         {
             "name": "channelgrabber/db",
@@ -1520,16 +1520,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "dev-TAC-74-LocalePhoneNumber",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "4d9cd46e95765818bd75538f636f08eef858662d"
+                "reference": "912b36a180f0bd6fff81b7750ac98238f5df9b4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-63-UserLocaleCurrency-8c33ba.zip",
-                "reference": "4d9cd46e95765818bd75538f636f08eef858662d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-74-LocalePhoneNumber-efc602.zip",
+                "reference": "912b36a180f0bd6fff81b7750ac98238f5df9b4b",
                 "shasum": null
             },
             "require": {
@@ -1549,7 +1549,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-15T08:22:16+00:00"
+            "time": "2018-05-17T15:06:19+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -8379,7 +8379,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8434,7 +8434,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8489,7 +8489,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8540,7 +8540,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8626,7 +8626,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9939,7 +9939,7 @@
         {
             "alias": "1.0.19",
             "alias_normalized": "1.0.19.0",
-            "version": "dev-TAC-63-UserLocaleCurrency",
+            "version": "dev-TAC-74-LocalePhoneNumber",
             "package": "channelgrabber/locale"
         }
     ],

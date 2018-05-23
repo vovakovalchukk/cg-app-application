@@ -49,7 +49,8 @@ define([
                 categoryTemplateOptions: {},
                 createListingData: {},
                 conditionOptions: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                salesPhoneNumber: null
             }
         },
         getInitialState: function() {
@@ -432,7 +433,8 @@ define([
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup,
                 this.props.listingCreationAllowed,
-                this.props.managePackageUrl
+                this.props.managePackageUrl,
+                this.props.salesPhoneNumber
             );
             this.fetchVariationForProductListingCreation();
             return <CreateListingRootComponent
