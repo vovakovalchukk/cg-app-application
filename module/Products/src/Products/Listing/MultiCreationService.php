@@ -658,25 +658,7 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         array $productData
     ) {
-        $listingData = $this->getListingDataFromProductData($productData, $product);
-        /**
-         * @var Account $account
-         * @var Category $category
-         */
-        foreach ($accounts as $account) {
-            $accountCategories = $categories->getBy('accountId', $account->getId());
-            $this->jobGeneratorFactory->getGeneratorForChannel($account)->generateJob(
-                $account,
-                $accountCategories,
-                $product,
-                $this->getSiteIdForAccount($account),
-                $guid,
-                $listingData
-            );
-            foreach ($accountCategories as $category) {
-                $this->statusService->markListingAsStarted($guid, $account->getId(), $category->getId());
-            }
-        }
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $productData);
     }
 
     protected function generateCreateVariationListingJobs(
@@ -687,11 +669,24 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         array $productData
     ) {
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $productData, $variations);
+    }
+
+    private function generateListingJobs(
+        Accounts $accounts,
+        Categories $categories,
+        Product $product,
+        string $guid,
+        array $productData,
+        array $variations = []
+    ) {
         $listingData = $this->getListingDataFromProductData($productData, $product);
-        /**
-         * @var Account $account
-         * @var Category $category
-         */
+
+        $extractedVariations = [];
+        if (!empty($variations)) {
+            $extractedVariations = $this->extractVariationProductIds($variations);
+        }
+
         foreach ($accounts as $account) {
             $accountCategories = $categories->getBy('accountId', $account->getId());
             $this->jobGeneratorFactory->getGeneratorForChannel($account)->generateJob(
@@ -701,7 +696,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $this->getSiteIdForAccount($account),
                 $guid,
                 $listingData,
-                $this->extractVariationProductIds($variations)
+                $extractedVariations
             );
             foreach ($accountCategories as $category) {
                 $this->statusService->markListingAsStarted($guid, $account->getId(), $category->getId());
