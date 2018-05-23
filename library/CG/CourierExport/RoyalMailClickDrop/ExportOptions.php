@@ -10,9 +10,9 @@ class ExportOptions implements ExportOptionsInterface
 {
     protected $defaultExportOptions = [
         'packageTypes' => [
-            ['title' => 'Letter', 'value' => 'Letter'],
-            ['title' => 'Large letter', 'value' => 'Large letter'],
-            ['title' => 'Parcel', 'value' => 'Parcel'],
+            'Letter' => ['title' => 'Letter', 'value' => 'Letter'],
+            'Large letter' => ['title' => 'Large letter', 'value' => 'Large letter'],
+            'Parcel' => ['title' => 'Parcel', 'value' => 'Parcel'],
         ],
     ];
     protected $serviceExportOptions = [

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b1a634d33e9640e63329f692ca20cc1",
+    "content-hash": "b558c98b62c7a4d176dc322ad0600e31",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -517,12 +517,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8aed4ab094e419f50c45b09afb83c0deb63878bd"
+                "reference": "abd0d069c230b6199400200205a853a205dc6959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-142-create-multiple-listings-3c037a.zip",
-                "reference": "8aed4ab094e419f50c45b09afb83c0deb63878bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-142-create-multiple-listings-d2b181.zip",
+                "reference": "abd0d069c230b6199400200205a853a205dc6959",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-15T14:51:52+00:00"
+            "time": "2018-05-18T09:42:41+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4426,16 +4426,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.2",
+            "version": "1.23.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56"
+                "reference": "81d7c5a6491ea50d6b458e47c5249ee9c720087a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.2-ed97b8.zip",
-                "reference": "9db8f02bbc96bd0687b32d99cdc41f980b4dce56",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.3-703cc4.zip",
+                "reference": "81d7c5a6491ea50d6b458e47c5249ee9c720087a",
                 "shasum": null
             },
             "require": {
@@ -4486,7 +4486,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-14T07:57:36+00:00"
+            "time": "2018-05-22T15:22:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
