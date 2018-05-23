@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b1a634d33e9640e63329f692ca20cc1",
+    "content-hash": "aa67b38ea5242f4188367861fe36eea0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -513,16 +513,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-142-create-multiple-listings",
+            "version": "dev-LIS-244-create-listing-factory",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8aed4ab094e419f50c45b09afb83c0deb63878bd"
+                "reference": "b0022e626d12eb5c040f8ef42602a09770fb1222"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-142-create-multiple-listings-3c037a.zip",
-                "reference": "8aed4ab094e419f50c45b09afb83c0deb63878bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-244-create-listing-factory-dcf37b.zip",
+                "reference": "b0022e626d12eb5c040f8ef42602a09770fb1222",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-15T14:51:52+00:00"
+            "time": "2018-05-23T08:55:55+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9928,7 +9928,7 @@
         {
             "alias": "1.34.13",
             "alias_normalized": "1.34.13.0",
-            "version": "dev-LIS-142-create-multiple-listings",
+            "version": "dev-LIS-244-create-listing-factory",
             "package": "channelgrabber/channel"
         }
     ],
