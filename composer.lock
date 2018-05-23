@@ -1912,12 +1912,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "01b49db9b34fb2da4a43f33e233f848e22c13ea0"
+                "reference": "0d0b6206bd3106d75da11ad6a058e1e2e258b109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-84-NoDebitOnSetup-aeed32.zip",
-                "reference": "01b49db9b34fb2da4a43f33e233f848e22c13ea0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-84-NoDebitOnSetup-644c92.zip",
+                "reference": "0d0b6206bd3106d75da11ad6a058e1e2e258b109",
                 "shasum": null
             },
             "require": {
@@ -1955,7 +1955,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-05-23T16:43:37+00:00"
+            "time": "2018-05-23T16:52:17+00:00"
         },
         {
             "name": "channelgrabber/permission",
