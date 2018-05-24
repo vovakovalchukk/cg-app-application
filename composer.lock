@@ -1828,12 +1828,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4309bcdc74e72e4c62dca3373c1577ba2dec7272"
+                "reference": "0f5ecd2124b083aeaab64f6029027f984e26334c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9319-order-save-speedups-12177c.zip",
-                "reference": "4309bcdc74e72e4c62dca3373c1577ba2dec7272",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9319-order-save-speedups-11fefb.zip",
+                "reference": "0f5ecd2124b083aeaab64f6029027f984e26334c",
                 "shasum": null
             },
             "require": {
@@ -1904,7 +1904,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-05-24T11:53:25+00:00"
+            "time": "2018-05-24T13:07:57+00:00"
         },
         {
             "name": "channelgrabber/payment",
