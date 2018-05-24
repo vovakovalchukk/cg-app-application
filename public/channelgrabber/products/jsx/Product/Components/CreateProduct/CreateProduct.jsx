@@ -14,7 +14,8 @@ define([
     var CreateProduct = React.createClass({
         getDefaultProps: function () {
             return {
-                onCreateProductClose: null
+                onCreateProductClose: null,
+                onSaveAndList: null
             };
         },
         handleContainerSubmit: function () {
@@ -24,6 +25,20 @@ define([
             if(values.productImage) {
                 this.postImageDataToApi(values.productImage.binaryDataString);
             }
+        },
+        renderSaveAndListButtion: function() {
+            /**
+             * @TODO: this button has no styling yet, it's just floating around. We need to sort it out after (will be handled by LIS-202)
+             * this component will be fully implemented.
+             * */
+            return null;
+            return (<div className="button container-btn yes" onClick={this.submitAndList}>Save and list</div>);
+        },
+        submitAndList: function () {
+            /** @TODO: make sure that the account selection popup is shown only after the product save is successful - will be handled by LIS-202*/
+            this.refs.productForm.submit();
+            /** @TODO: pass the product data to the callback after we successfully save the product */
+            this.props.onSaveAndList({id: 123});
         },
         render: function () {
             return (
@@ -40,11 +55,11 @@ define([
                     <CreateProductForm
                         onSubmit={this.handleSubmit} ref="productForm"
                     />
-
+                    {this.renderSaveAndListButtion()}
                 </Container>
             );
         }
     });
-    
+
     return CreateProduct;
 });

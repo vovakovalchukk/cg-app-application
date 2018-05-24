@@ -24,13 +24,17 @@ define([
     var CreateProductRoot = React.createClass({
         getDefaultProps: function () {
             return {
-                onCreateProductClose: null
+                onCreateProductClose: null,
+                onSaveAndList: null
             };
         },
         render: function () {
             return (
                 <Provider store={store}>
-                    <CreateProduct onCreateProductClose={this.props.onCreateProductClose}/>
+                    <CreateProduct
+                        onCreateProductClose={this.props.onCreateProductClose}
+                        onSaveAndList={this.props.onSaveAndList}
+                    />
                 </Provider>
             );
         }

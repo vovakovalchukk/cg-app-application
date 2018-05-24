@@ -16,6 +16,9 @@ define([], function() {
         },
         buildSaveCategoryMapUrl: function() {
             return '/settings/category/templates/save';
+        },
+        buildFetchCategoryRootsUrl: function() {
+            return '/settings/category/templates/category-roots';
         }
     };
 });
