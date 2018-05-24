@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa67b38ea5242f4188367861fe36eea0",
+    "content-hash": "4bb4921baa91f45ab3658962c388740c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,17 +263,11 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.1.4",
+            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "5c84cd478b5b34fa3a9fe81e46d0505ee6c8a2c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.1.4-64ac5c.zip",
-                "reference": "5c84cd478b5b34fa3a9fe81e46d0505ee6c8a2c3",
-                "shasum": null
+                "reference": "409ed5d1f1acf97707b1ecac3571f434c5c0a992"
             },
             "require": {
                 "channelgrabber/channel": "^1.33.2",
@@ -513,17 +507,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-244-create-listing-factory",
+            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "88983bfe747bed326c7a197d4d3a821a023f1914"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-244-create-listing-factory-8a4d33.zip",
-                "reference": "88983bfe747bed326c7a197d4d3a821a023f1914",
-                "shasum": null
+                "reference": "26a41511dc4760cd57b743f4b52a1f46cc82b335"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -9926,19 +9914,32 @@
     ],
     "aliases": [
         {
+            "alias": "1.1.5",
+            "alias_normalized": "1.1.5.0",
+            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
             "alias": "1.34.13",
             "alias_normalized": "1.34.13.0",
             "version": "dev-LIS-244-create-listing-factory",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.34.13",
+            "alias_normalized": "1.34.13.0",
+            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
             "package": "channelgrabber/channel"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
