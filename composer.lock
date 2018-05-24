@@ -157,6 +157,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
                 "reference": "ae5891b2393c1b6385d70db0cac846ae1323524f"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-226-update-product-with-amazon-data-665d0b.zip",
+                "reference": "ae5891b2393c1b6385d70db0cac846ae1323524f",
+                "shasum": null
+            },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
@@ -1233,23 +1239,23 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.3.2",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "2e7309aae1abb4fb67e0ac9f10a2a111d487e9fe"
+                "reference": "8e6cb5ba2c467da92a22fabe7d97c47454cdf43a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.2-6cc0b1.zip",
-                "reference": "2e7309aae1abb4fb67e0ac9f10a2a111d487e9fe",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.4-4b4921.zip",
+                "reference": "8e6cb5ba2c467da92a22fabe7d97c47454cdf43a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cg-predis": "^0.8.7",
-                "channelgrabber/cilex": ">=1.1.0,<2.0.0",
+                "channelgrabber/cilex": "^1.1.0",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/log": ">=2.0.17,<3.0.0",
+                "channelgrabber/log": "^2.2.0",
                 "channelgrabber/predis": "^1.0.8",
                 "channelgrabber/stats": "^1.0.6",
                 "channelgrabber/stdlib": "^2.12.15",
@@ -1273,7 +1279,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-02-06T14:40:39+00:00"
+            "time": "2018-04-06T09:28:54+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -2599,16 +2605,16 @@
         },
         {
             "name": "channelgrabber/scraper",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-scraper.git",
-                "reference": "3fc7b2dcf46fd2acef0aa37fd7b62f360e2df362"
+                "reference": "df4c6b194a9dee3129487bef2a445592b31b4689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-scraper-1.0.2-4bb7d4.zip",
-                "reference": "3fc7b2dcf46fd2acef0aa37fd7b62f360e2df362",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-scraper-1.1.0-9a836e.zip",
+                "reference": "df4c6b194a9dee3129487bef2a445592b31b4689",
                 "shasum": null
             },
             "require": {
@@ -2630,7 +2636,7 @@
             "autoload-dev": {
                 "CG\\Scraper\\Test\\": "tests"
             },
-            "time": "2014-11-10T16:41:55+00:00"
+            "time": "2018-03-27T14:27:57+00:00"
         },
         {
             "name": "channelgrabber/sequential-numbering",
