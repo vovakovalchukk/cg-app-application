@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "914cbcd970dca6317201d29538c9dc7a",
+    "content-hash": "fe3d9abfe5eabe20e66a610093b76bd1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4111,16 +4111,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.0",
+            "version": "dev-LIS-182-control-access-in-the-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f9f7865b32fc376987881d1ad12f4367e70359a9"
+                "reference": "126e40f4c0f199e49415e147b3990b322af6707b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.0-8d2779.zip",
-                "reference": "f9f7865b32fc376987881d1ad12f4367e70359a9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-LIS-182-control-access-in-the-ui-7ed315.zip",
+                "reference": "126e40f4c0f199e49415e147b3990b322af6707b",
                 "shasum": null
             },
             "require": {
@@ -4159,7 +4159,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-05-11T09:56:59+00:00"
+            "time": "2018-05-24T11:09:08+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9932,24 +9932,24 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-TAC-65-DisplayUserLocaleCurrency",
-            "package": "channelgrabber/currency"
-        },
-        {
             "alias": "1.0.19",
             "alias_normalized": "1.0.19.0",
             "version": "dev-TAC-63-UserLocaleCurrency",
             "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
+            "version": "dev-LIS-182-control-access-in-the-ui",
+            "package": "channelgrabber/zf2-register"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/currency": 20,
         "channelgrabber/locale": 20,
+        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
