@@ -513,16 +513,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.9",
+            "version": "1.34.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e"
+                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.9-ee9bf4.zip",
-                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.13-b65e4b.zip",
+                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4",
                 "shasum": null
             },
             "require": {
@@ -544,7 +544,7 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.9.3",
+                "channelgrabber/product": "^1.12.2",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-17T15:09:14+00:00"
+            "time": "2018-05-24T08:57:07+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1828,12 +1828,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "24eee03409503398e4092238ea7e6975378b8dbf"
+                "reference": "4309bcdc74e72e4c62dca3373c1577ba2dec7272"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9319-order-save-speedups-d8a87b.zip",
-                "reference": "24eee03409503398e4092238ea7e6975378b8dbf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9319-order-save-speedups-12177c.zip",
+                "reference": "4309bcdc74e72e4c62dca3373c1577ba2dec7272",
                 "shasum": null
             },
             "require": {
@@ -1904,7 +1904,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-05-22T11:27:34+00:00"
+            "time": "2018-05-24T11:53:25+00:00"
         },
         {
             "name": "channelgrabber/payment",
