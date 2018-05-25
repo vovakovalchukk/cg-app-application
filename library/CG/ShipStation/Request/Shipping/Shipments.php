@@ -49,7 +49,7 @@ class Shipments extends RequestAbstract
             'address_line1' => $shipmentAddress->getAddressLine1(),
             'address_line2' => $shipmentAddress->getAddressLine2(),
             'city_locality' => $shipmentAddress->getCityLocality(),
-            'state_province' => $shipmentAddress->getStateProvince(),
+            'state_province' => $shipmentAddress->getProvince(),
             'postal_code' => $shipmentAddress->getPostalCode(),
             'country_code' => $shipmentAddress->getCountryCode(),
             'address_residential_indicator' => $this->getAddressResidentialIndicatorString($shipmentAddress),
