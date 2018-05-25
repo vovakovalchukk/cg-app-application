@@ -1,7 +1,9 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\Locale\USAStates;
 use CG\Order\Shared\Entity as Order;
+use CG\ShipStation\Messages\Exception\InvalidStateException;
 
 class ShipmentAddress extends Address
 {
@@ -82,6 +84,9 @@ class ShipmentAddress extends Address
         return $this;
     }
 
+    /**
+     * @throws InvalidStateException if its a US address but we cant find the state code
+     */
     public static function createFromOrder(Order $order): ShipmentAddress
     {
         $addressResidentialIndicatorUnknown = 'unknown';
@@ -90,7 +95,7 @@ class ShipmentAddress extends Address
             $order->getShippingPhoneNumberForCourier(),
             $order->getShippingAddress1ForCourier(),
             $order->getShippingAddressCityForCourier() ?? '',
-            $order->getShippingAddressCountyForCourier() ?? '',
+            static::getStateProvince($order),
             $order->getShippingAddressPostcodeForCourier(),
             $order->getShippingAddressCountryCodeForCourier(),
             $order->getShippingAddress2ForCourier(),
@@ -98,5 +103,29 @@ class ShipmentAddress extends Address
             $order->getShippingAddressCompanyNameForCourier(),
             $addressResidentialIndicatorUnknown
         );
+    }
+
+    protected static function getStateProvince(Order $order): string
+    {
+        $stateProvince = $order->getShippingAddressCountyForCourier();
+        if (!$stateProvince) {
+            return '';
+        }
+        if ($order->getShippingAddressCountryCodeForCourier() != 'US') {
+            return $stateProvince;
+        }
+        // For the US we must use the 2-letter code
+        return static::getStateCode($stateProvince);
+    }
+
+    protected static function getStateCode(string $state): string
+    {
+        $state = ucwords(strtolower($state));
+        $states = USAStates::getStates();
+        $code = array_search($state, $states);
+        if (!$code) {
+            throw new InvalidStateException('Could not find 2-letter code for US state ' . $state);
+        }
+        return $code;
     }
 }

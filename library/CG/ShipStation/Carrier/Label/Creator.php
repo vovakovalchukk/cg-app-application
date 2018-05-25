@@ -10,6 +10,7 @@ use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Client as ShipStationClient;
+use CG\ShipStation\Messages\Exception\InvalidStateException;
 use CG\ShipStation\Request\Shipping\Label as LabelRequest;
 use CG\ShipStation\Request\Shipping\Shipments as ShipmentsRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
@@ -82,9 +83,14 @@ class Creator implements LoggerAwareInterface
         array $orderParcelsData,
         Account $shipStationAccount
     ): ShipmentsResponse {
-        $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
-        $request = ShipmentsRequest::createFromOrdersAndData($orders, $ordersData, $orderParcelsData, $shipStationAccount);
-        return $this->shipStationClient->sendRequest($request, $shipStationAccount);
+        try {
+            $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
+            $request = ShipmentsRequest::createFromOrdersAndData($orders, $ordersData, $orderParcelsData, $shipStationAccount);
+            return $this->shipStationClient->sendRequest($request, $shipStationAccount);
+        } catch (InvalidStateException $e) {
+            $this->logWarningException($e, $e->getMessage(), [], [static::LOG_CODE, 'InvalidUSState']);
+            throw $e;
+        }
     }
 
     protected function getErrorsForFailedShipments(ShipmentsResponse $shipments): array
