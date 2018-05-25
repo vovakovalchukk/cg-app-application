@@ -1,7 +1,9 @@
 .DS_Store
 .idea
+.vscode/
 .sass-cache/
 .sync
+yarn-error.log
 /config/autoload/app.global.php
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
