@@ -20,7 +20,8 @@ define([
         ebaySiteOptions,
         categoryTemplateOptions,
         conditionOptions,
-        defaultCurrency
+        defaultCurrency,
+        salesPhoneNumber
     ) {
         ReactDOM.render(
             <RootComponent
@@ -37,6 +38,7 @@ define([
                 categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
                 conditionOptions={JSON.parse(conditionOptions)}
                 defaultCurrency={defaultCurrency}
+                salesPhoneNumber={salesPhoneNumber}
             />,
             mountingNode
         );

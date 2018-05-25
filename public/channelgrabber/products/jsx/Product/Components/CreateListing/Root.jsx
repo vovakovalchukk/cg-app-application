@@ -23,7 +23,8 @@ define([
         categoryTemplateOptions,
         renderCreateListingPopup,
         listingCreationAllowed,
-        managePackageUrl
+        managePackageUrl,
+        salesPhoneNumber
     ) {
         var Provider = ReactRedux.Provider;
 
@@ -78,6 +79,7 @@ define([
                             renderCreateListingPopup={renderCreateListingPopup}
                             listingCreationAllowed={listingCreationAllowed}
                             managePackageUrl={managePackageUrl}
+                            salesPhoneNumber={salesPhoneNumber}
                         />
                     </Provider>
                 );

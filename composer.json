@@ -47,7 +47,7 @@
         "channelgrabber/image": "~1.2.8",
         "channelgrabber/intercom": "~1.5.4",
         "channelgrabber/listing": "~1.16.1",
-        "channelgrabber/locale": "dev-TAC-63-UserLocaleCurrency as 1.0.19",
+        "channelgrabber/locale": "dev-TAC-74-LocalePhoneNumber as 1.0.19",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.2.1",

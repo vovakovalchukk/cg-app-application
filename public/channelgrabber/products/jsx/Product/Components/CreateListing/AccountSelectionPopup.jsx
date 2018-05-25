@@ -40,7 +40,8 @@ define([
                 product: {},
                 addNewCategoryVisible: false,
                 listingCreationAllowed: null,
-                managePackageUrl: null
+                managePackageUrl: null,
+                salesPhoneNumber: null
             }
         },
         componentDidMount: function() {
@@ -94,7 +95,7 @@ define([
                 }}
                 footerJsx={
                     <span>
-                        Not sure? Contact our ecommerce specialists on 01617110248 to discuss or&nbsp;
+                        Not sure? Contact our ecommerce specialists on {this.props.salesPhoneNumber} to discuss or&nbsp;
                         <a href="https://meetings.hubspot.com/sam197/cgdemo"
                            alt="calendar-diary"
                            target="_blank"
