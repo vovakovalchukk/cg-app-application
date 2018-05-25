@@ -40,6 +40,8 @@ class Creator implements LoggerAwareInterface
     /** @var OrderLabelService */
     protected $orderLabelService;
 
+    protected $testLabelBlacklist = ['fedex-ss'];
+
     public function __construct(ShipStationClient $shipStationClient, GuzzleClient $guzzleClient, OrderLabelService $orderLabelService)
     {
         $this->shipStationClient = $shipStationClient;
@@ -61,7 +63,7 @@ class Creator implements LoggerAwareInterface
 
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
-        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount);
+        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
         $labelErrors = $this->getErrorsForFailedLabels($labels, $shipments);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
@@ -99,8 +101,11 @@ class Creator implements LoggerAwareInterface
         return $errors;
     }
 
-    protected function createLabelsForSuccessfulShipments(ShipmentsResponse $shipments, Account $shipStationAccount): array
-    {
+    protected function createLabelsForSuccessfulShipments(
+        ShipmentsResponse $shipments,
+        Account $shipStationAccount,
+        Account $shippingAccount
+    ): array {
         $this->logDebug('Requesting labels for shipments', [], [static::LOG_CODE, 'Labels']);
         $labels = [];
         /** @var Shipment $shipment */
@@ -108,15 +113,21 @@ class Creator implements LoggerAwareInterface
             if (!empty($shipment->getErrors())) {
                 continue;
             }
-            $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT, $this->isTestLabel());
+            $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
             $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
         }
         return $labels;
     }
 
-    protected function isTestLabel(): bool
+    protected function isTestLabel(Account $shippingAccount): bool
     {
-        return (ENVIRONMENT != 'live');
+        if (ENVIRONMENT == 'live') {
+            return false;
+        }
+        if (in_array($shippingAccount->getChannel(), $this->testLabelBlacklist)) {
+            return false;
+        }
+        return true;
     }
 
     protected function getErrorsForFailedLabels(array $labelResponses, ShipmentsResponse $shipments): array
