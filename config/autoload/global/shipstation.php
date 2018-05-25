@@ -115,7 +115,6 @@ return [
                         'height' => 'height',
                         'width' => 'width',
                         'length' => 'length',
-                        'insuranceMonetary' => 'insuranceMonetary'
                     ]
                 ]
             ]
