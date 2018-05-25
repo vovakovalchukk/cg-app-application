@@ -23,6 +23,10 @@ class ShippingService implements ShippingServiceInterface
         try {
             $response = $this->getAccountShippingServices();
             foreach ($response->getServices() as $service) {
+                // We are not supporting international for now. If we add it later remove this check.
+                if ($service->getCarrierService()->isInternational()) {
+                    continue;
+                }
                 $services[$service->getCarrierService()->getServiceCode()] = $service->getCarrierService()->getName();
             }
         } catch (NotFound $e) {
