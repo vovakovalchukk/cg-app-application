@@ -33,7 +33,7 @@ class ShippingService implements ShippingServiceInterface
 
     protected function getAccountShippingServices(): CarrierServicesResponse
     {
-        if (!isset($this->account->getExternalData()['services'])) {
+        if (!isset($this->account->getExternalData()['services']) || !$this->account->getExternalData()['services']) {
             throw new NotFound('No services found for the account "' . $this->account->getId() . '"');
         }
 
