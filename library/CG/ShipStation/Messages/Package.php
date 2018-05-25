@@ -50,11 +50,11 @@ class Package
     {
         return new static(
             $decodedJson->weight->value,
-            $decodedJson->weight->units,
+            $decodedJson->weight->unit,
             $decodedJson->dimensions->length,
             $decodedJson->dimensions->width,
             $decodedJson->dimensions->height,
-            $decodedJson->dimensions->units,
+            $decodedJson->dimensions->unit,
             $decodedJson->insured_value->amount,
             $decodedJson->insured_value->currency
         );
