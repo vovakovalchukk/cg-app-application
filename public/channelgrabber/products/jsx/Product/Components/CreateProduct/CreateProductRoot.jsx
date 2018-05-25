@@ -33,7 +33,8 @@ define([
         getDefaultProps: function() {
             return {
                 onCreateProductClose: null,
-                stockModeOptions: null
+                stockModeOptions: null,
+                onSaveAndList: null
             };
         },
         formSubmit: function(values) {
@@ -53,6 +54,7 @@ define([
                         formSubmit={this.formSubmit}
                         formContainerSubmitClick={this.formContainerSubmitClick}
                         redirectToProducts={this.props.redirectToProducts}
+                        onSaveAndList={this.props.onSaveAndList}
                     />
                 </Provider>
             );

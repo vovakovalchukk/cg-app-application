@@ -5,7 +5,8 @@ require.config({
         'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product',
         'Variation': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Variation',
         'Details': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Details',
-        'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+        'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common',
+        'CategoryMapper': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/CategoryMapper',
     }
 });
 require([
@@ -27,6 +28,10 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $this->remoteUrl('/company', 'admin'); ?>',
         <?= json_encode($taxRates); ?>,
         <?= json_encode($stockModeOptions) ?>
+        '<?= json_encode($ebaySiteOptions); ?>',
+        '<?= json_encode($categoryTemplateOptions); ?>',
+        '<?= json_encode($conditionOptions); ?>',
+        '<?= $defaultCurrency; ?>'
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });

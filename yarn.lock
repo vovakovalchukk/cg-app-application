@@ -992,6 +992,7 @@ caseless@~0.12.0:
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-247-move-common-components-and-styles-into-cg-common":
   version "1.0.0"
   resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#49caf58830b1eb947a3441b0544c1a0396a0fa79"
+
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"

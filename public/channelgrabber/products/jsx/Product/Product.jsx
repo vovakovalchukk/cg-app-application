@@ -16,7 +16,11 @@ define([
         features,
         adminCompanyUrl,
         taxRates,
-        stockModeOptions
+        stockModeOptions,
+        ebaySiteOptions,
+        categoryTemplateOptions,
+        conditionOptions,
+        defaultCurrency
     ) {
         ReactDOM.render(
             <RootComponent
@@ -29,10 +33,14 @@ define([
                 adminCompanyUrl={adminCompanyUrl}
                 taxRates={taxRates}
                 stockModeOptions={stockModeOptions}
+                ebaySiteOptions={JSON.parse(ebaySiteOptions)}
+                categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
+                conditionOptions={JSON.parse(conditionOptions)}
+                defaultCurrency={defaultCurrency}
             />,
             mountingNode
         );
     };
-    
+
     return Product;
 });
