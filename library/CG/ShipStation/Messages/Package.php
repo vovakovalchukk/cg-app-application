@@ -6,6 +6,9 @@ use CG\Product\Detail\Entity as ProductDetail;
 
 class Package
 {
+    const WEIGHT_UNIT = 'kilogram';
+    const DIMENSION_UNIT = 'centimeter';
+
     /** @var float */
     protected $weight;
     /** @var string */
@@ -65,11 +68,11 @@ class Package
         }
         return new static(
             $parcelData['weight'],
-            ProductDetail::DISPLAY_UNIT_MASS,
+            static::WEIGHT_UNIT,
             $parcelData['length'],
             $parcelData['width'],
             $parcelData['height'],
-            ProductDetail::DISPLAY_UNIT_LENGTH,
+            static::DIMENSION_UNIT,
             $insuranceAmount,
             $order->getCurrencyCode()
         );
