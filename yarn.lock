@@ -989,9 +989,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-83-linking-cg-np-common-with-cg-orders-with-grunt":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.2":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#eec850deab46f48b7478e771bb9dc07a5d272ddc"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#dfc27f8d38eeba81b882c6ec785d2db8259bb05c"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
