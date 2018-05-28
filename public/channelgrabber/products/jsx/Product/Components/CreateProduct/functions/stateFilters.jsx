@@ -43,6 +43,14 @@ define([], function() {
                 return field.name;
             }).indexOf(fieldName);
             return fields[indexOfField];
+        },
+        getCustomFields(fields){
+            return fields.filter(function(field){
+                return field.isCustomAttribute;
+            })
+        },
+        onlyOneCustomFieldExists(fields){
+            return stateFilters.getCustomFields(fields).length == 1
         }
     };
 
