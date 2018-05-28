@@ -40,16 +40,18 @@ define([
             this.props.onSaveAndList({id: 123});
         },
         render: function () {
-            return (
+            return(
                 <Container
                     initiallyActive={true}
-                    className="editor-popup "
+                    className="editor-popup"
                     onYesButtonPressed={this.handleContainerSubmit}
                     onNoButtonPressed={this.props.onCreateProductClose}
                     closeOnYes={false}
                     headerText={"Create New Product"}
                     yesButtonText="Create Product"
                     noButtonText="Cancel"
+                    contentClassNames={'container-content--can-extend-horizontal'}
+                    wrapperClassNames={'container-wrapper--can-extend-horizontal'}
                 >
                     <CreateProductForm
                         onSubmit={this.handleSubmit}
