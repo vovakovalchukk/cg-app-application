@@ -40,7 +40,6 @@ define([
             this.props.onSaveAndList({id: 123});
         },
         onCancelClick: function() {
-            console.log('on Cancel Click');
             this.props.resetCreateProducts();
             this.props.onCreateProductClose();
         },
