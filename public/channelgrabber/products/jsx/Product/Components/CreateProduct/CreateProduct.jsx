@@ -33,19 +33,24 @@ define([
             return null;
             return (<div className="button container-btn yes" onClick={this.submitAndList}>Save and list</div>);
         },
-        submitAndList: function () {
+        submitAndList: function() {
             /** @TODO: make sure that the account selection popup is shown only after the product save is successful - will be handled by LIS-202*/
             this.refs.productForm.submit();
             /** @TODO: pass the product data to the callback after we successfully save the product */
             this.props.onSaveAndList({id: 123});
         },
-        render: function () {
-            return(
+        onCancelClick: function() {
+            console.log('on Cancel Click');
+            this.props.resetCreateProducts();
+            this.props.onCreateProductClose();
+        },
+        render: function() {
+            return (
                 <Container
                     initiallyActive={true}
                     className="editor-popup"
                     onYesButtonPressed={this.handleContainerSubmit}
-                    onNoButtonPressed={this.props.onCreateProductClose}
+                    onNoButtonPressed={this.onCancelClick}
                     closeOnYes={false}
                     headerText={"Create New Product"}
                     yesButtonText="Create Product"

@@ -40,6 +40,11 @@ define([
                 });
                 submitFormViaAjax(dispatch, formattedValues, redirectToProducts);
             }
+        },
+        userLeavesCreateProduct: function() {
+            return {
+                type: 'USER_LEAVES_CREATE_PRODUCT'
+            };
         }
     };
 
@@ -138,10 +143,7 @@ define([
                 });
                 n.success("Successfully saved new product.");
                 redirectToProducts();
-                dispatch({
-                    type: 'USER_LEAVES_CREATE_PRODUCT'
-                })
-
+                dispatch(actionCreators.userLeavesCreateProduct())
             },
             error: function(xhr, status, errorThrown) {
                 dispatch({

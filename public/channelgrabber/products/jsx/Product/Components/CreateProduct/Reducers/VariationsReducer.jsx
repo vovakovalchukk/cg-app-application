@@ -97,7 +97,7 @@ define([
                 type: 'number',
                 isCustomAttribute: false,
                 isDimensionsField: true,
-                defaultValue:''
+                defaultValue: ''
             },
             {
                 id: 9,
@@ -160,7 +160,7 @@ define([
                 fieldId: currentCustomFieldId
             }, {
                 tableId: 2,
-                fieldId: currentCustomFieldId-1
+                fieldId: currentCustomFieldId - 1
             });
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy,

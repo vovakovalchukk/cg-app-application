@@ -38,10 +38,13 @@ define([
             };
         },
         formSubmit: function(values) {
-            store.dispatch(ActionCreators.formSubmit(values,this.props.redirectToProducts));
+            store.dispatch(ActionCreators.formSubmit(values, this.props.redirectToProducts));
         },
-        formContainerSubmitClick:function(){
+        formContainerSubmitClick: function() {
             store.dispatch(ActionCreators.formContainerSubmitClick());
+        },
+        resetCreateProducts: function() {
+            store.dispatch(ActionCreators.userLeavesCreateProduct());
         },
         componentWillMount: function() {
             store.dispatch(ActionCreators.initialAccountDataLoaded(this.props.taxRates, this.props.stockModeOptions))
@@ -51,6 +54,7 @@ define([
                 <Provider store={store}>
                     <CreateProduct
                         onCreateProductClose={this.props.onCreateProductClose}
+                        resetCreateProducts={this.resetCreateProducts}
                         formSubmit={this.formSubmit}
                         formContainerSubmitClick={this.formContainerSubmitClick}
                         redirectToProducts={this.props.redirectToProducts}
