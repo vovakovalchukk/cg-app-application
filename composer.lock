@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f188a6c60146ac4af32eb39b9b9dc7b5",
+    "content-hash": "2788391aa6253aa7a1821a850623ce60",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-LIS-226-update-product-with-amazon-data",
+            "version": "dev-LIS-239-update-product-with-amazon-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ae5891b2393c1b6385d70db0cac846ae1323524f"
+                "reference": "95a93109945ac1d869493c485d5d5187bf0fafcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-226-update-product-with-amazon-data-665d0b.zip",
-                "reference": "ae5891b2393c1b6385d70db0cac846ae1323524f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-239-update-product-with-amazon-variation-data-21cfc6.zip",
+                "reference": "95a93109945ac1d869493c485d5d5187bf0fafcf",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-05-23T09:09:23+00:00"
+            "time": "2018-05-24T09:57:25+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -9925,9 +9925,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.25.2",
-            "alias_normalized": "1.25.2.0",
-            "version": "dev-LIS-226-update-product-with-amazon-data",
+            "alias": "1.26.13",
+            "alias_normalized": "1.26.13.0",
+            "version": "dev-LIS-239-update-product-with-amazon-variation-data",
             "package": "channelgrabber/amazon"
         },
         {
