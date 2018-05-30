@@ -36,6 +36,16 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Signed For', 'value' => 'signedFor', 'selected' => true],
             ],
         ],
+        ShippingService::FIRST_CLASS_ACCOUNT => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => 'signedFor'],
+            ],
+        ],
+        ShippingService::SECOND_CLASS_ACCOUNT => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => 'signedFor'],
+            ],
+        ],
         ShippingService::INTERNATIONAL_TRACKED => [
             'addOns' => [
                 ['title' => 'Signed For', 'value' => 'signedFor'],
