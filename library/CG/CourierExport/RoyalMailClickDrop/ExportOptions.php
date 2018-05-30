@@ -18,22 +18,22 @@ class ExportOptions implements ExportOptionsInterface
     protected $serviceExportOptions = [
         ShippingService::FIRST_CLASS => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
         ShippingService::SECOND_CLASS => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
         ShippingService::TWENTY_FOUR => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
         ShippingService::FORTY_EIGHT => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
         ShippingService::SPECIAL_DELIVERY => [
@@ -43,22 +43,22 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Up to £500 Compensation', 'value' => '£500', 'excludes' => '£1000,£2500', 'selected' => true],
                 ['title' => 'Up to £1000 Compensation', 'value' => '£1000', 'excludes' => '£500,£2500'],
                 ['title' => 'Up to £2500 Compensation', 'value' => '£2500', 'excludes' => '£500,£1000'],
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'selected' => true],
+                ['title' => 'Signed For', 'value' => 'signedFor', 'selected' => true],
             ],
         ],
         ShippingService::FIRST_CLASS_ACCOUNT => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
         ShippingService::SECOND_CLASS_ACCOUNT => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
         ShippingService::INTERNATIONAL_TRACKED => [
             'addOns' => [
-                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Signed For', 'value' => 'signedFor'],
                 ['title' => 'Extra Compensation', 'value' => 'extraCompensation'],
             ],
         ],
