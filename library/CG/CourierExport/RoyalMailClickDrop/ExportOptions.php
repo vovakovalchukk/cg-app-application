@@ -26,6 +26,16 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Signed For', 'value' => 'signedFor'],
             ],
         ],
+        ShippingService::TWENTY_FOUR => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => 'signedFor'],
+            ],
+        ],
+        ShippingService::FORTY_EIGHT => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => 'signedFor'],
+            ],
+        ],
         ShippingService::SPECIAL_DELIVERY => [
             'addOns' => [
                 ['title' => 'Guaranteed by 1pm', 'value' => '1pm', 'excludes' => '9am', 'selected' => true],
