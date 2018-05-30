@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bb4921baa91f45ab3658962c388740c",
+    "content-hash": "7d02878b5f3b78d4aadaea1b946b2080",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -267,7 +267,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "409ed5d1f1acf97707b1ecac3571f434c5c0a992"
+                "reference": "4d0acbf2c0888894bf218462fe98503059d11143"
             },
             "require": {
                 "channelgrabber/channel": "^1.33.2",
@@ -294,7 +294,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-15T09:46:14+00:00"
+            "time": "2018-05-29T08:42:00+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -507,11 +507,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
+            "version": "dev-LIS-245-bigcommerce-listing-creation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "26a41511dc4760cd57b743f4b52a1f46cc82b335"
+                "reference": "c52fc5d3da6fe7674315d64d5891afe971dd3177"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -584,7 +584,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-23T12:27:19+00:00"
+            "time": "2018-05-29T08:21:03+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3395,16 +3395,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.4.0",
+            "version": "dev-LIS-246-woocomerce-specific-listing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "f6485b3fcb75a74ee71ad7897362956594902df7"
+                "reference": "7a743005bba83ad3e60114ec3add12d8ad1193e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.4.0-3e1bc7.zip",
-                "reference": "f6485b3fcb75a74ee71ad7897362956594902df7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-246-woocomerce-specific-listing-fa0849.zip",
+                "reference": "7a743005bba83ad3e60114ec3add12d8ad1193e4",
                 "shasum": null
             },
             "require": {
@@ -3438,7 +3438,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-05-11T14:41:19+00:00"
+            "time": "2018-05-30T09:55:38+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9922,14 +9922,14 @@
         {
             "alias": "1.34.13",
             "alias_normalized": "1.34.13.0",
-            "version": "dev-LIS-244-create-listing-factory",
+            "version": "dev-LIS-245-bigcommerce-listing-creation",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.34.13",
-            "alias_normalized": "1.34.13.0",
-            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
-            "package": "channelgrabber/channel"
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-LIS-246-woocomerce-specific-listing",
+            "package": "channelgrabber/woocommerce"
         }
     ],
     "minimum-stability": "stable",
@@ -9937,9 +9937,10 @@
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
