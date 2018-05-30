@@ -21,18 +21,30 @@ class Exporter implements ExporterInterface
             'BPR2' => ['signedFor'],
             'BPL2' => [],
         ],
-        ShippingService::TWENTY_FOUR => 'CRL24',
-        ShippingService::FORTY_EIGHT => 'CRL48',
-        ShippingService::SPECIAL_DELIVERY => [
-            'SD6' => ['9am', '£2500'],
-            'SD5' => ['9am', '£1000'],
-            'SD4' => ['9am'],
-            'SD3' => ['£2500'],
-            'SD2' => ['£1000'],
-            'SD1' => [],
+        ShippingService::TWENTY_FOUR => [
+            'CRL24' => ['signedFor'],
+            'CRL24' => [],
         ],
-        ShippingService::FIRST_CLASS_ACCOUNT => 'STL1',
-        ShippingService::SECOND_CLASS_ACCOUNT => 'STL2',
+        ShippingService::FORTY_EIGHT => [
+            'CRL48' => ['signedFor'],
+            'CRL48' => [],
+        ],
+        ShippingService::SPECIAL_DELIVERY => [
+            'SD6' => ['9am', '£2500', 'signedFor'],
+            'SD5' => ['9am', '£1000', 'signedFor'],
+            'SD4' => ['9am', 'signedFor'],
+            'SD3' => ['£2500', 'signedFor'],
+            'SD2' => ['£1000', 'signedFor'],
+            'SD1' => ['signedFor'],
+        ],
+        ShippingService::FIRST_CLASS_ACCOUNT => [
+            'STL1' => ['signedFor'],
+            'STL1' => []
+        ],
+        ShippingService::SECOND_CLASS_ACCOUNT => [
+            'STL2' => ['signedFor'],
+            'STL2' => [],
+        ],
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
