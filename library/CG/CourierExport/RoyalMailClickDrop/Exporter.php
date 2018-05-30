@@ -23,9 +23,11 @@ class Exporter implements ExporterInterface
         ],
         ShippingService::TWENTY_FOUR => [
             'CRL24' => ['signedFor'],
+            'CRL24' => [],
         ],
         ShippingService::FORTY_EIGHT => [
             'CRL48' => ['signedFor'],
+            'CRL48' => [],
         ],
         ShippingService::SPECIAL_DELIVERY => [
             'SD6' => ['9am', '£2500', 'signedFor'],
@@ -37,9 +39,11 @@ class Exporter implements ExporterInterface
         ],
         ShippingService::FIRST_CLASS_ACCOUNT => [
             'STL1' => ['signedFor'],
+            'STL1' => [],
         ],
         ShippingService::SECOND_CLASS_ACCOUNT => [
             'STL2' => ['signedFor'],
+            'STL2' => [],
         ],
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
