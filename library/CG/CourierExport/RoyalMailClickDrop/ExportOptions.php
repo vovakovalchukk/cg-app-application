@@ -33,6 +33,7 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Up to £500 Compensation', 'value' => '£500', 'excludes' => '£1000,£2500', 'selected' => true],
                 ['title' => 'Up to £1000 Compensation', 'value' => '£1000', 'excludes' => '£500,£2500'],
                 ['title' => 'Up to £2500 Compensation', 'value' => '£2500', 'excludes' => '£500,£1000'],
+                ['title' => 'Signed For', 'value' => 'signedFor', 'selected' => true],
             ],
         ],
         ShippingService::INTERNATIONAL_TRACKED => [
