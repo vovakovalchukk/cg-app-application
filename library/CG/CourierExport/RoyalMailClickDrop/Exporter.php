@@ -14,43 +14,44 @@ class Exporter implements ExporterInterface
 {
     protected $serviceMap = [
         ShippingService::FIRST_CLASS => [
-            'BPR1' => ['signedFor'],
+            'BPR1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'BPL1' => [],
         ],
         ShippingService::SECOND_CLASS => [
-            'BPR2' => ['signedFor'],
+            'BPR2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'BPL2' => [],
         ],
         ShippingService::TWENTY_FOUR => [
-            'CRL24' => ['signedFor'],
+            'CRL24' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'CRL24' => [],
         ],
         ShippingService::FORTY_EIGHT => [
-            'CRL48' => ['signedFor'],
+            'CRL48' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'CRL48' => [],
         ],
         ShippingService::SPECIAL_DELIVERY => [
-            'SD6' => ['9am', '£2500', 'signedFor'],
-            'SD5' => ['9am', '£1000', 'signedFor'],
-            'SD4' => ['9am', 'signedFor'],
-            'SD3' => ['£2500', 'signedFor'],
-            'SD2' => ['£1000', 'signedFor'],
-            'SD1' => ['signedFor'],
+            'SD6' => ['9am', '£2500', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'SD5' => ['9am', '£1000', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'SD4' => ['9am', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'SD3' => ['£2500', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'SD2' => ['£1000', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'SD1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'SD1' => [],
         ],
         ShippingService::FIRST_CLASS_ACCOUNT => [
-            'STL1' => ['signedFor'],
+            'STL1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'STL1' => [],
         ],
         ShippingService::SECOND_CLASS_ACCOUNT => [
-            'STL2' => ['signedFor'],
+            'STL2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'STL2' => [],
         ],
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_TRACKED => [
-            'OTD' => ['signedFor', 'extraCompensation'],
-            'OTC' => ['signedFor'],
+            'OTD' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
+            'OTC' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'OTB' => ['extraCompensation'],
             'OTA' => [],
         ],
@@ -155,6 +156,6 @@ class Exporter implements ExporterInterface
 
     protected function isSignatureSelected(array $addOn): bool
     {
-        return in_array('signedFor', $addOn);
+        return in_array(ShippingService::ADD_ON_SIGNED_FOR_VALUE, $addOn);
     }
 }
