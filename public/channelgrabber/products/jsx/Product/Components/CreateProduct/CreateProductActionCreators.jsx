@@ -33,8 +33,10 @@ define([
             }
         },
         formSubmit: function(formValues, redirectToProducts) {
-            return function(dispatch) {
-                var formattedValues = formatFormValuesForPostRequest(formValues);
+            return function(dispatch, getState) {
+                let uploadedImages = getState().uploadedImages.images;
+                let formattedImages = formatUploadedImagesForPostRequest(uploadedImages, formValues.mainImage);
+                let formattedValues = formatFormValuesForPostRequest(formValues, formattedImages);
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
@@ -61,14 +63,34 @@ define([
             if (!values.variations[key].sku) {
                 return false;
             }
+            if (!values.variations[key].quantity) {
+                return false;
+            }
         }
         return true;
     }
 
-    function formatFormValuesForPostRequest(values) {
+    function formatUploadedImagesForPostRequest(uploadedImages, mainImage) {
+        let sortedImages = uploadedImages;
+        if (mainImage) {
+            sortedImages = uploadedImages.sort((a, b) => {
+                if (b.id == mainImage.id) {
+                    return 1;
+                }
+            })
+        }
+        var formattedImages = sortedImages.map((image, index) => {
+            return {
+                imageId: image.id,
+                order: index + 1
+            }
+        });
+        return formattedImages
+    }
+
+    function formatFormValuesForPostRequest(values, formattedImages) {
         var attributeNames = getAttributeNamesFromFormData(values);
         var formattedVariations = formatVariationFormValuesForPostRequest(values.variations, attributeNames);
-        var formattedImages = formatImagesFormValuesForPostRequest(values);
         var formattedValues = {
             product: {
                 name: values.title,
@@ -117,17 +139,6 @@ define([
             }
             return formattedVariation;
         });
-    };
-
-    function formatImagesFormValuesForPostRequest(values) {
-        var imageIds = [];
-        if (values.mainImage) {
-            imageIds.push({
-                imageId: values.mainImage.id,
-                order: 1
-            });
-        }
-        return imageIds;
     };
 
     function submitFormViaAjax(dispatch, values, redirectToProducts) {

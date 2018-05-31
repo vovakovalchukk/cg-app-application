@@ -94,8 +94,8 @@ define([
         },
         renderVariationTableHeading: function(field) {
             if (field.isCustomAttribute) {
-                var onlyOneCustomFieldExists = stateFilters.onlyOneCustomFieldExists(this.props.variationsTable.fields);
-                var renderRemoveButton = ()=>{
+                var isLastAttributeFieldColumn = stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
+                var renderRemoveButton = () => {
                     return (
                         <button type="button"
                                 className={'c-table-with-inputs__remove-button'}
@@ -117,7 +117,7 @@ define([
                                     this.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
-                            {!onlyOneCustomFieldExists ? renderRemoveButton() : ''}
+                            {!isLastAttributeFieldColumn ? renderRemoveButton() : ''}
                         </div>
                     </th>
                 )

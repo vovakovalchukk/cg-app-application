@@ -24,7 +24,7 @@ define([], function() {
             for (var variationField in variationRow) {
                 for (var i = 0; i < fields.length; i++) {
                     if ((fields[i].name == variationField) && fields[i].isDimensionsField) {
-                            variationToReturn[variationField] = variationRow[variationField];
+                        variationToReturn[variationField] = variationRow[variationField];
                     }
                 }
             }
@@ -44,13 +44,26 @@ define([], function() {
             }).indexOf(fieldName);
             return fields[indexOfField];
         },
-        getCustomFields(fields){
-            return fields.filter(function(field){
+        getCustomFields(fields) {
+            return fields.filter(function(field) {
                 return field.isCustomAttribute;
             })
         },
-        onlyOneCustomFieldExists(fields){
+        onlyOneCustomFieldExists(fields) {
             return stateFilters.getCustomFields(fields).length == 1
+        },
+        isLastAttributeFieldColumn(fieldToCheck, variationsTable) {
+            var customFields = stateFilters.getCustomFields(variationsTable.fields);
+            if (customFields.length == 1) {
+                return true;
+            }
+            var indexOfSelection = customFields.findIndex((customField) => {
+                return fieldToCheck.name == customField.name
+            });
+            if (indexOfSelection == customFields.length - 1) {
+                return true;
+            }
+            return false;
         }
     };
 

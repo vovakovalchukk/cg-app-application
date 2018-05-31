@@ -47,7 +47,7 @@ define([
                     <Field
                         model="main-image"
                         type="text"
-                        name="Main Image"
+                        name="mainImage"
                         uploadedImages={this.props.uploadedImages}
                         component={inputColumnRenderMethods.renderMainImagePickerComponent}
                     />
