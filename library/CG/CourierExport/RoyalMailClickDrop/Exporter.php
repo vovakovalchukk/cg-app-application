@@ -107,7 +107,7 @@ class Exporter implements ExporterInterface
                     'total' => $order->getTotal(),
                     'currencyCode' => $order->getCurrencyCode(),
                     'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $orderData['addOn'] ?? []),
-                    'signature' => $this->isSignatureSelected($orderData['addOn'] ?? []) ? 'y' : 'n',
+                    'signature' => $this->isSignatureSelected($orderData['addOn'] ?? []),
                     'customerTitle' => $title,
                     'firstName' => $firstName,
                     'lastName' => $lastName,
@@ -154,8 +154,12 @@ class Exporter implements ExporterInterface
         return '';
     }
 
-    protected function isSignatureSelected(array $addOn): bool
+    protected function isSignatureSelected(array $addOn): string
     {
-        return in_array(ShippingService::ADD_ON_SIGNED_FOR_VALUE, $addOn);
+        if(in_array(ShippingService::ADD_ON_SIGNED_FOR_VALUE, $addOn)) {
+            return 'y';
+        }
+
+        return 'n';
     }
 }
