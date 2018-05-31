@@ -159,7 +159,7 @@ class Exporter implements ExporterInterface
 
     protected function getSignatureSelection(array $addOn): string
     {
-        if(in_array(ShippingService::ADD_ON_SIGNED_FOR_VALUE, $addOn)) {
+        if (in_array(ShippingService::ADD_ON_SIGNED_FOR_VALUE, $addOn)) {
             return 'y';
         }
 
