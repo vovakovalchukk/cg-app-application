@@ -33,9 +33,9 @@ define([
                 adminCompanyUrl={adminCompanyUrl}
                 taxRates={taxRates}
                 stockModeOptions={stockModeOptions}
-                ebaySiteOptions={JSON.parse(ebaySiteOptions)}
-                categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
-                conditionOptions={JSON.parse(conditionOptions)}
+                ebaySiteOptions={ebaySiteOptions}
+                categoryTemplateOptions={categoryTemplateOptions}
+                conditionOptions={conditionOptions}
                 defaultCurrency={defaultCurrency}
             />,
             mountingNode
