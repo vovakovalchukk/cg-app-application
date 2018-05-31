@@ -273,7 +273,22 @@ class Creator implements LoggerAwareInterface
         }
         // Sometimes the dimensions come through as the empty string
         $filteredDetailData = array_filter($detailData);
+        $filteredDetailData = $this->convertDimensionsForStorage($filteredDetailData);
+
         return $this->detailMapper->fromArray($filteredDetailData);
+    }
+
+    protected function convertDimensionsForStorage(array $detailData): array
+    {
+        $detailData['height'] = (isset($detailData['height']) ? $this->convertDimensionForStorage($detailData['height']) : null);
+        $detailData['width'] = (isset($detailData['width']) ? $this->convertDimensionForStorage($detailData['width']) : null);
+        $detailData['length'] = (isset($detailData['length']) ? $this->convertDimensionForStorage($detailData['length']) : null);
+        return $detailData;
+    }
+
+    protected function convertDimensionForStorage(float $dimension): float
+    {
+        return ProductDetail::convertLength($dimension, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
     }
 
     protected function createStock(array $stockData, Product $product): ?Stock

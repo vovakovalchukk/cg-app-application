@@ -2,13 +2,13 @@ define([
     'react',
     'Product/Components/Checkbox',
     'Common/Components/CurrencyInput',
-    'Common/Components/EditableField',
+    'Common/Components/EditableFieldWithSubmit',
     'Product/Components/CreateListing/Form/Shared/ImageDropDown'
 ], function(
     React,
     Checkbox,
     CurrencyInput,
-    EditableField,
+    EditableFieldWithSubmit,
     ImageDropDown
 ) {
     "use strict";
@@ -168,7 +168,7 @@ define([
             return this.props.attributeNames.map(function(attributeName) {
                 var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
                 if (this.props.editableAttributeNames) {
-                    return <th><EditableField initialFieldText={attributeNameText} onSubmit={(fieldValue) => {
+                    return <th><EditableFieldWithSubmit initialFieldText={attributeNameText} onSubmit={(fieldValue) => {
                         var attributeNameMap = Object.assign({}, this.props.attributeNameMap);
                         attributeNameMap[attributeName] = fieldValue;
 

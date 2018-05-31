@@ -15,6 +15,8 @@ define([
         getParamSearchTerm,
         features,
         adminCompanyUrl,
+        taxRates,
+        stockModeOptions,
         ebaySiteOptions,
         categoryTemplateOptions,
         conditionOptions,
@@ -29,6 +31,8 @@ define([
                 isAdmin={isAdmin}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
+                taxRates={taxRates}
+                stockModeOptions={stockModeOptions}
                 ebaySiteOptions={JSON.parse(ebaySiteOptions)}
                 categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
                 conditionOptions={JSON.parse(conditionOptions)}
