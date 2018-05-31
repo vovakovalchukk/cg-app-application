@@ -95,6 +95,9 @@ class Exporter implements ExporterInterface
     ) {
         [$title, $firstName, $lastName] = $this->parseName($fullName = trim($order->getShippingAddressFullNameForCourier()));
         foreach ($orderParcelsData as $orderParcelData) {
+
+            $addOn = $orderData['addOn'] ?? [];
+
             $export->addRowData(
                 [
                     'orderReference' => $order->getExternalId(),
@@ -106,8 +109,8 @@ class Exporter implements ExporterInterface
                     'shippingCost' => $order->getShippingPrice(),
                     'total' => $order->getTotal(),
                     'currencyCode' => $order->getCurrencyCode(),
-                    'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $orderData['addOn'] ?? []),
-                    'signature' => $this->isSignatureSelected($orderData['addOn'] ?? []),
+                    'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $addOn),
+                    'signature' => $this->getSignatureSelection($addOn),
                     'customerTitle' => $title,
                     'firstName' => $firstName,
                     'lastName' => $lastName,
@@ -154,7 +157,7 @@ class Exporter implements ExporterInterface
         return '';
     }
 
-    protected function isSignatureSelected(array $addOn): string
+    protected function getSignatureSelection(array $addOn): string
     {
         if(in_array(ShippingService::ADD_ON_SIGNED_FOR_VALUE, $addOn)) {
             return 'y';
