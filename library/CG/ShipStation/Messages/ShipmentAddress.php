@@ -58,6 +58,27 @@ class ShipmentAddress extends Address
             $decodedJson->address_residential_indicator ?? ''
         );
     }
+    
+    public function toArray(): array
+    {
+        $addressResidentialIndicator = $this->isAddressResidentialIndicator() ? 'yes': 'no';
+        if ($this->isAddressResidentialIndicator() === null) {
+            $addressResidentialIndicator = 'unknown';
+        }
+
+        return [
+            'name' => $this->getName(),
+            'phone' => $this->getPhone(),
+            'company_name' => $this->getCompanyName(),
+            'address_line1' => $this->getAddressLine1(),
+            'address_line2' => $this->getAddressLine2(),
+            'city_locality' => $this->getCityLocality(),
+            'state_province' => $this->getProvince(),
+            'postal_code' => $this->getPostalCode(),
+            'country_code' => $this->getCountryCode(),
+            'address_residential_indicator' => $addressResidentialIndicator,
+        ];
+    }
 
     public function getCompanyName(): string
     {

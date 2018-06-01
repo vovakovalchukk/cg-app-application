@@ -77,6 +77,26 @@ class Package
             $order->getCurrencyCode()
         );
     }
+    
+    public function toArray(): array
+    {
+        return [
+            'weight' => [
+                'value' => $this->getWeight(),
+                'unit' => $this->getWeightUnit(),
+            ],
+            'dimensions' => [
+                'length' => $this->getLength(),
+                'width' => $this->getWidth(),
+                'height' => $this->getHeight(),
+                'unit' => $this->getDimensionsUnit(),
+            ],
+            'insured_value' => [
+                'amount' => $this->getInsuredValue(),
+                'currency' => $this->getInsuredCurrency(),
+            ],
+        ];
+    }
 
     public function getWeight(): float
     {

@@ -56,6 +56,20 @@ class Shipment
         return uniqid($order->getId() . static::EXTERNAL_ID_SEP);
     }
 
+    public function toArray(): array
+    {
+        $array = [
+            'service_code' => $this->getServiceCode(),
+            'ship_to' => $this->getShipTo()->toArray(),
+            'warehouse_id' => $this->getWarehouseId(),
+            'packages' => [],
+        ];
+        foreach ($this->packages as $package) {
+            $array['packages'][] = $package->toArray();
+        }
+        return $array;
+    }
+
     public function getServiceCode(): string
     {
         return $this->serviceCode;
