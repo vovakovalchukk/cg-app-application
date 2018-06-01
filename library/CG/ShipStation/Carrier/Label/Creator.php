@@ -173,6 +173,8 @@ class Creator implements LoggerAwareInterface
     protected function sendLabelPdfDownloadRequests(array $requests, $attempt = 1): array
     {
         try {
+            // The label URLs are https but there's a problem with the SSL version. Just dont verify it.
+            $this->guzzleClient->setSslVerification(false, false, 0);
             $this->guzzleClient->send($requests);
             return $this->getLabelPdfsFromRequests($requests);
         } catch (MultiTransferException $e) {
