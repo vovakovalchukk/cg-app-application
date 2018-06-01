@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9adfe365479df2cfbf27a4769d034e9c",
+    "content-hash": "1a84f764477f0c41907cb1b0ebd7d047",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -513,16 +513,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.9",
+            "version": "1.34.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e"
+                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.9-ee9bf4.zip",
-                "reference": "135d631fb5d724b9b1211fa07d48abc23a94363e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.13-b65e4b.zip",
+                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4",
                 "shasum": null
             },
             "require": {
@@ -544,7 +544,7 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.9.3",
+                "channelgrabber/product": "^1.12.2",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-04-17T15:09:14+00:00"
+            "time": "2018-05-24T08:57:07+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -917,16 +917,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.12.5",
+            "version": "1.12.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "1e5fbb05444426420e1f598ca8467ebce0191ef2"
+                "reference": "40f91b03135ef3fa62b9aac85b9822264aadc1fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.5-6bac76.zip",
-                "reference": "1e5fbb05444426420e1f598ca8467ebce0191ef2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.6-b1d76b.zip",
+                "reference": "40f91b03135ef3fa62b9aac85b9822264aadc1fe",
                 "shasum": null
             },
             "require": {
@@ -942,7 +942,7 @@
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
-                "channelgrabber/product": "^1.11.4",
+                "channelgrabber/product": "^1.12.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.50",
@@ -977,7 +977,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-03-29T07:53:18+00:00"
+            "time": "2018-04-17T10:17:58+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -4117,6 +4117,12 @@
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "2f9e27a71085774fb4c25c2aa9b19882030d4e32"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-9422-add_tc_checkbox-d10df0.zip",
+                "reference": "2f9e27a71085774fb4c25c2aa9b19882030d4e32",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
@@ -4126,7 +4132,7 @@
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "channelgrabber/zf2-v4-ui": "^1.23.1",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-9422-add_tc_checkbox as 1.23.3",
                 "guzzle/guzzle": "~3.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1",
@@ -4153,7 +4159,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-05-14T13:12:01+00:00"
+            "time": "2018-05-17T15:13:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4426,6 +4432,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "0e465e880abd4de5019217c6adb3c60f5efd6af8"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9422-add_tc_checkbox-13d6cb.zip",
+                "reference": "0e465e880abd4de5019217c6adb3c60f5efd6af8",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -4474,7 +4486,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-14T13:12:31+00:00"
+            "time": "2018-05-17T15:10:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9920,8 +9932,8 @@
             "package": "channelgrabber/zf2-register"
         },
         {
-            "alias": "1.23.3",
-            "alias_normalized": "1.23.3.0",
+            "alias": "1.23.4",
+            "alias_normalized": "1.23.4.0",
             "version": "dev-CGIV-9422-add_tc_checkbox",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -9932,8 +9944,8 @@
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -2,6 +2,7 @@
 .idea
 .sass-cache/
 .sync
+.vscode/
 /config/autoload/app.global.php
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
@@ -57,3 +58,4 @@ public/channelgrabber/zf2-usage
 public/channelgrabber/zf2-v4-ui
 vendor/channelgrabber/zf2-v4-ui/public/js/whichbrowser
 vendor/channelgrabber/zf2-v4-ui/public/js/zeroclipboard
+yarn-error.log

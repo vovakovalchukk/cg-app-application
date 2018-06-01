@@ -2,9 +2,12 @@
 namespace Products\Controller;
 
 use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
+use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
+use CG\Locale\CurrencyCode;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -47,6 +50,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $taxRateService;
     /** @var CategoryService */
     protected $categoryService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -59,7 +64,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         FeatureFlagsService $featureFlagService,
         StockSettingsService $stockSettingsService,
         TaxRateService $taxRateService,
-        CategoryService $categoryService
+        CategoryService $categoryService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -72,6 +78,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->stockSettingsService = $stockSettingsService;
         $this->taxRateService = $taxRateService;
         $this->categoryService = $categoryService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function indexAction()
@@ -115,6 +122,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
         $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
+        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
@@ -161,6 +169,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $accountStockSettingsEnabledStatus = $this->productService->getAccountStockSettingsEnabledStatus();
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
+    }
+
+    protected function getDefaultCurrencyForActiveUser(): ?string
+    {
+        $currencyCode = CurrencyCode::getCurrencyCodeForLocale($this->activeUserContainer->getLocale());
+        $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+        return (new CurrencyFormatter($rootOu))->getSymbol($currencyCode);
     }
 
     // Required by AccountTableTrait
