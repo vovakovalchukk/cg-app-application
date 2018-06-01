@@ -10,6 +10,7 @@ use CG\Product\Category\Collection as Categories;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\StorageInterface as CategoryStorage;
+use CG\Product\Category\Template\AccountCategory;
 use CG\Product\Category\Template\Collection as CategoryTemplates;
 use CG\Product\Category\Template\Entity as CategoryTemplate;
 use CG\Product\Category\Template\Filter as CategoryTemplateFilter;
@@ -68,12 +69,21 @@ class Service
 
     /**
      * @param CategoryTemplate[] $categoryTemplates
+     * @return array
      */
     protected function getTemplateOptionsArray(CategoryTemplates $categoryTemplates): array
     {
         $templateOptions = [];
         foreach ($categoryTemplates as $categoryTemplate) {
-            $templateOptions[$categoryTemplate->getId()] = $categoryTemplate->getName();
+            $templateOptions[$categoryTemplate->getId()] = [
+                'name' => $categoryTemplate->getName(),
+                'accounts' => array_map(
+                    function (AccountCategory $accountCategory) {
+                        return $accountCategory->getAccountId();
+                    },
+                    $categoryTemplate->getAccountCategories()
+                )
+            ];
         }
         return $templateOptions;
     }
@@ -137,8 +147,9 @@ class Service
                 'categories' => [],
             ];
 
-            foreach ($categoryTemplate->getCategoryIds() as $categoryId) {
-                $category = $categories->getById($categoryId);
+            /** @var AccountCategory $accountCategory */
+            foreach ($categoryTemplate->getAccountCategories() as $accountCategory) {
+                $category = $categories->getById($accountCategory->getCategoryId());
                 if (!($category instanceof Category)) {
                     continue;
                 }
@@ -147,14 +158,14 @@ class Service
                     $account = ($accountId = $category->getAccountId()) ? $accounts->getById($accountId) : null;
                     $fieldValues = $this
                         ->getCategoryDependentServiceInterface($account ?? $category->getChannel())
-                        ->getCategoryDependentValues($account, $categoryId);
+                        ->getCategoryDependentValues($account, $category->getId());
                 } catch (ListingException $exception) {
                     // Field values are not supported on selected category
                 }
 
-                $templateDependentFieldValues[$categoryTemplate->getId()]['categories'][$categoryId] = [
+                $templateDependentFieldValues[$categoryTemplate->getId()]['categories'][$category->getId()] = [
                     'title' => $category->getTitle(),
-                    'accountId' => $category->getAccountId(),
+                    'accountId' => $accountCategory->getAccountId(),
                     'channel' => $category->getChannel(),
                     'fieldValues' => $fieldValues ?? [],
                 ];
