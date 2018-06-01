@@ -47,6 +47,26 @@ class Service implements
 
     protected function getItemSpecifics(): array
     {
+        $itemSpecifics = json_decode(file_get_contents('home.json'), true);
+        $attributes = $itemSpecifics['attributes'];
+        $required = [];
+        $optional = [];
+        foreach ($attributes as $attribute) {
+            if (!empty($attribute['options'])) {
+                $attribute['options'] = array_combine($attribute['options'], $attribute['options']);
+            }
+            if ($attribute['required']) {
+                $required[$attribute['name']] = $attribute;
+            } else {
+                $optional[$attribute['name']] = $attribute;
+            }
+        }
+
+        return [
+            'required' => $required,
+            'optional' => $optional
+        ];
+
         $fieldNames = ['Brand', 'Size', 'Type', 'Color', 'Material', 'Composition', 'MultiPack', 'Number in a pack', 'Length', 'Style', 'Collar', 'Test one'];
         $values = [
             [
