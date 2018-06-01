@@ -44,13 +44,14 @@ class Shipments extends RequestAbstract
         OrderCollection $orders,
         array $ordersData,
         array $orderParcelsData,
-        Account $shipStationAccount
+        Account $shipStationAccount,
+        Account $shippingAccount
     ): Shipments {
         $shipments = [];
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()];
-            $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount);
+            $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount, $shippingAccount);
         }
 
         return new static(...$shipments);
