@@ -141,8 +141,11 @@ class ShipmentAddress extends Address
 
     protected static function getStateCode(string $state): string
     {
-        $state = ucwords(strtolower($state));
         $states = USAStates::getStates();
+        if (strlen($state) == 2 && isset($states[$state])) {
+            return $state;
+        }
+        $state = ucwords(strtolower($state));
         $code = array_search($state, $states);
         if (!$code) {
             throw new InvalidStateException('Could not find 2-letter code for US state ' . $state);
