@@ -24,24 +24,10 @@ define([
     const TYPE_SEQUENCE = "sequence";
 
     var AmazonItemSpecifics = React.createClass({
-        getInitialState: function() {
-            return {
-                optionalItemSpecificsSelectOptions: null
-            }
-        },
         getDefaultProps: function() {
             return {
                 categoryId: 0
             }
-        },
-        componentDidMount: function() {
-            var optionalItems = this.props.itemSpecifics.optional;
-            if (!optionalItems || Object.keys(optionalItems).length ==  0) {
-                return null;
-            }
-            this.setState({
-                optionalItemSpecificsSelectOptions: this.buildOptionalItemSpecificsSelectOptions(optionalItems)
-            });
         },
         renderRequiredItemSpecificInputs: function() {
             var requiredItems = this.props.itemSpecifics.required;
@@ -65,18 +51,6 @@ define([
                 return this.renderFieldArray(name, this.renderTextInputArray, required);
             }
             return this.renderItemSpecificField(name, this.renderItemSpecificInput, options, required);
-        },
-        renderOptionsItemSpecificInputs: function() {
-            var optionalItems = this.props.itemSpecifics.optional;
-            if (!optionalItems || Object.keys(optionalItems).length ==  0) {
-                return null;
-            }
-
-            return <FieldArray
-                component={this.renderOptionsItemSpecificComponents}
-                name={"optionalItemSpecifics"}
-                itemSpecifics={optionalItems}
-            />;
         },
         renderOptionsItemSpecificComponents: function(input) {
             var options = this.getOptionalItemSpecificsSelectOptions(input.itemSpecifics);
@@ -106,21 +80,9 @@ define([
             </span>
         },
         onOptionalItemSpecificSelected: function(input, selected) {
-            if (-1 === this.state.optionalItemSpecificsSelectOptions.findIndex(option => selected.value == option.value)) {
-                return;
-            }
             input.fields.push({
                 name: selected.name,
                 options: selected.value
-            });
-            this.removeSelectedOptionFromOptions(selected);
-        },
-        removeSelectedOptionFromOptions: function(selectedOption) {
-            var index = this.state.optionalItemSpecificsSelectOptions.findIndex(option => selectedOption.value == option.value);
-            var newSelectOptions = this.state.optionalItemSpecificsSelectOptions.slice();
-            newSelectOptions.splice(index, 1);
-            this.setState({
-                optionalItemSpecificsSelectOptions: newSelectOptions
             });
         },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
@@ -140,9 +102,6 @@ define([
             return name.replace(/_/g, ' ');
         },
         getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
-            if (this.state.optionalItemSpecificsSelectOptions instanceof Array) {
-                return this.state.optionalItemSpecificsSelectOptions;
-            }
             return this.buildOptionalItemSpecificsSelectOptions(itemSpecifics);
         },
         renderOptionalItemSpecific: function(field) {
@@ -243,14 +202,11 @@ define([
             </label>;
         },
         buildSelectOptionsForItemSpecific: function(title, options) {
-            if (this.state[title]) {
-                return this.state[title];
-            }
-
             return Object.keys(options).map(value => {
+                var optionValue =  options[value];
                 return {
-                    name: this.formatDisplayTitle(options[value]),
-                    value: value
+                    name: this.formatDisplayTitle(optionValue),
+                    value: optionValue
                 }
             });
         },

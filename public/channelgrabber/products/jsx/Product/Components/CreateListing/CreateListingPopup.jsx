@@ -282,7 +282,8 @@ define([
         // This is required to make the images in the variation table show correctly
         keepDirtyOnReinitialize: true,
         onSubmit: function(values, dispatch, props) {
-            dispatch(Actions.submitListingsForm(dispatch, values, props));
+            console.log(values);
+            // dispatch(Actions.submitListingsForm(dispatch, values, props));
         },
     })(CreateListingPopup);
 
