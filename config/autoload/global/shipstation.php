@@ -1,9 +1,11 @@
 <?php
 
-use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Account as AccountService;
-use CG\ShipStation\Client;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
+use CG\ShipStation\Carrier\Label\Creator as LabelCreator;
+use CG\ShipStation\Carrier\Service;
+use CG\ShipStation\Client;
+use Guzzle\Http\Client as GuzzleClient;
 
 return [
     'di' => [
@@ -16,11 +18,19 @@ return [
             Client::class => [
                 'parameters' => [
                     'cryptor' => 'shipstation_cryptor',
+                    // Don't use our FailoverClient, use Guzzle directly, as this is for talking to a third-party
+                    'guzzle' => GuzzleClient::class,
                 ]
             ],
             AccountCreationService::class => [
                 'parameters' => [
                     'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            LabelCreator::class => [
+                'parameters' => [
+                    // Don't use our FailoverClient, use Guzzle directly, as this is for talking to a third-party
+                    'guzzleClient' => GuzzleClient::class,
                 ]
             ],
             Service::class => [
