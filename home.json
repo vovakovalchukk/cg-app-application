@@ -1595,7 +1595,7 @@
             "children": [
                 {
                     "name": "ProductType",
-                    "required": false,
+                    "required": true,
                     "minValues": 0,
                     "maxValues": 1,
                     "type": "choice",
@@ -18012,7 +18012,7 @@
                 },
                 {
                     "name": "LithiumBatteryPackaging",
-                    "required": false,
+                    "required": true,
                     "minValues": 0,
                     "maxValues": 1,
                     "type": "select",
@@ -18087,7 +18087,7 @@
                 },
                 {
                     "name": "RegionOfOrigin",
-                    "required": false,
+                    "required": true,
                     "minValues": 0,
                     "maxValues": 1,
                     "type": "text"
@@ -18101,7 +18101,7 @@
                 },
                 {
                     "name": "SizeMap",
-                    "required": false,
+                    "required": true,
                     "minValues": 0,
                     "maxValues": 1,
                     "type": "text"

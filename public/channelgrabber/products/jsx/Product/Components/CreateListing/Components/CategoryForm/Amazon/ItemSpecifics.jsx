@@ -20,6 +20,8 @@ define([
 
     const TYPE_TEXT = "text";
     const TYPE_SELECT = "select";
+    const TYPE_CHOICE = "choice";
+    const TYPE_SEQUENCE = "sequence";
 
     var AmazonItemSpecifics = React.createClass({
         getInitialState: function() {
@@ -79,7 +81,7 @@ define([
         renderOptionsItemSpecificComponents: function(input) {
             var options = this.getOptionalItemSpecificsSelectOptions(input.itemSpecifics);
             var fields = [<label>
-                <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
+                <span className={"inputbox-label"}>{this.formatDisplayTitle(input.displayTitle)}</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
                         name="optionalItemSpecifics"
@@ -122,13 +124,19 @@ define([
         },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             var options = [];
-            for (var name in itemSpecifics) {
+            for (var index in itemSpecifics) {
+                var itemSpecific = itemSpecifics[index];
                 options.push({
-                    "name": name,
-                    "value": itemSpecifics[name]
+                    "name": this.formatDisplayTitle(itemSpecific.name),
+                    "value": itemSpecific.name
                 })
             }
             return options;
+        },
+        formatDisplayTitle: function(name) {
+            // Convert camel case to space separated words
+            var name = name.replace(/([A-Z])/g, ' $1');
+            return name.replace('-', ' ');
         },
         getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             if (this.state.optionalItemSpecificsSelectOptions instanceof Array) {
@@ -166,7 +174,7 @@ define([
         },
         renderTextInput: function(field) {
             return <label className="input-container">
-                <span className={"inputbox-label"}>{!field.hideLabel ? field.displayTitle : ''}</span>
+                <span className={"inputbox-label"}>{!field.hideLabel ? this.formatDisplayTitle(field.displayTitle) : ''}</span>
                 <div className={"order-inputbox-holder"}>
                     <Input
                         {...field.input}
@@ -219,7 +227,7 @@ define([
                 <div className={"order-inputbox-holder"}>
                     <SelectComponent
                         autoSelectFirst={false}
-                        title={field.displayTitle}
+                        title={this.formatDisplayTitle(field.displayTitle)}
                         options={options}
                         onOptionChange={this.onOptionSelected.bind(this, field.input)}
                         selectedOptions={field.input.value ? field.input.value : []}
@@ -279,10 +287,52 @@ define([
         isMultiOption: function (options) {
             return (options.maxValues && options.maxValues > 1);
         },
+        renderItemSpecifics: function(itemSpecifics, path = []) {
+            var elements = [],
+                optional = [],
+                itemSpecificPath;
+
+            for (var key in itemSpecifics) {
+                var itemSpecific = itemSpecifics[key];
+                itemSpecificPath = path.slice();
+                itemSpecificPath.push(itemSpecific.name);
+                if (itemSpecific.type == TYPE_SEQUENCE) {
+                    elements = elements.concat(this.renderItemSpecifics(itemSpecific.children, itemSpecificPath));
+                } else if (itemSpecific.type == TYPE_CHOICE) {
+                    elements.push(this.renderOptionalItemSpecificSelect(itemSpecific.children, itemSpecificPath));
+                } else {
+                    if (itemSpecific.required) {
+                        elements.push(this.renderItemSpecific(itemSpecific, itemSpecificPath));
+                    } else {
+                        optional.push(itemSpecific);
+                    }
+                }
+            }
+
+            if (optional.length > 0) {
+                elements.push(this.renderOptionalItemSpecificSelect(optional, path));
+            }
+
+            return elements;
+        },
+        renderOptionalItemSpecificSelect: function(itemSpecifics, path) {
+            return <FieldArray
+                component={this.renderOptionsItemSpecificComponents}
+                name={path.join('.')}
+                itemSpecifics={itemSpecifics}
+                displayTitle={path[path.length -1]}
+            />;
+        },
+        renderItemSpecific: function(itemSpecific, path) {
+            return this.renderItemSpecificFromOptions(path[path.length - 1], itemSpecific, true);
+        },
         render: function () {
+            if (Object.keys(this.props.itemSpecifics).length === 0 || !(0 in this.props.itemSpecifics)) {
+                return null;
+            }
+
             return <span>
-                {this.renderRequiredItemSpecificInputs()}
-                {this.renderOptionsItemSpecificInputs()}
+                {this.renderItemSpecifics(this.props.itemSpecifics)}
             </span>
         }
     });
