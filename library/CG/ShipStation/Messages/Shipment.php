@@ -74,6 +74,7 @@ class Shipment
             'service_code' => $this->getServiceCode(),
             'ship_to' => $this->getShipTo()->toArray(),
             'warehouse_id' => $this->getWarehouseId(),
+            'external_shipment_id' => $this->getExternalShipmentId(),
             'packages' => [],
         ];
         foreach ($this->packages as $package) {
