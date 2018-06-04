@@ -89,6 +89,7 @@ define([
                         autoSelectFirst={false}
                         title="Item Specifics (Optional)"
                         onOptionChange={this.onOptionalItemSpecificSelected.bind(this, input)}
+                        filterable={true}
                     />
                 </div>
             </label>];
@@ -136,7 +137,7 @@ define([
         formatDisplayTitle: function(name) {
             // Convert camel case to space separated words
             var name = name.replace(/([A-Z])/g, ' $1');
-            return name.replace('-', ' ');
+            return name.replace(/_/g, ' ');
         },
         getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             if (this.state.optionalItemSpecificsSelectOptions instanceof Array) {
@@ -223,7 +224,7 @@ define([
             var options = this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options);
 
             return <label className="input-container">
-                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <span className={"inputbox-label"}>{this.formatDisplayTitle(field.displayTitle)}</span>
                 <div className={"order-inputbox-holder"}>
                     <SelectComponent
                         autoSelectFirst={false}
@@ -248,7 +249,7 @@ define([
 
             return Object.keys(options).map(value => {
                 return {
-                    name: options[value],
+                    name: this.formatDisplayTitle(options[value]),
                     value: value
                 }
             });
