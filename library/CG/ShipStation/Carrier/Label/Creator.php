@@ -258,9 +258,9 @@ class Creator implements LoggerAwareInterface
             ->setCreated($date->stdFormat());
     }
 
-    protected function removeFailedOrderLabel(OrderLabel $orderLabel, string $errorMsg): void
+    protected function removeFailedOrderLabel(OrderLabel $orderLabel, array $errorMsgs): void
     {
-        $this->logNotice('Failed to generate label for Order %s, reason: %s', [$orderLabel->getOrderId(), str_replace('%', '%%', $errorMsg)], [static::LOG_CODE, 'Fail']);
+        $this->logNotice('Failed to generate label for Order %s, reason(s): %s', [$orderLabel->getOrderId(), str_replace('%', '%%', implode('; ', $errorMsgs))], [static::LOG_CODE, 'Fail']);
         $this->orderLabelService->remove($orderLabel);
     }
 
