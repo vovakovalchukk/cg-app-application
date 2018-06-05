@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a883b4243e5e3af7d2f443f72f27e51",
+    "content-hash": "caa3902ef552b3c43601caedd3020d8c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4111,16 +4111,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f9f7865b32fc376987881d1ad12f4367e70359a9"
+                "reference": "a762bcfc78b2675e2a646d5109bc406be0d2da25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.0-8d2779.zip",
-                "reference": "f9f7865b32fc376987881d1ad12f4367e70359a9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.1-a434b7.zip",
+                "reference": "a762bcfc78b2675e2a646d5109bc406be0d2da25",
                 "shasum": null
             },
             "require": {
@@ -4132,7 +4132,7 @@
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "channelgrabber/zf2-v4-ui": "^1.23.1",
+                "channelgrabber/zf2-v4-ui": "^1.23.4",
                 "guzzle/guzzle": "~3.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php": ">=7.1",
@@ -4159,7 +4159,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-05-11T09:56:59+00:00"
+            "time": "2018-06-04T08:53:53+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4426,16 +4426,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.3",
+            "version": "1.23.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "81d7c5a6491ea50d6b458e47c5249ee9c720087a"
+                "reference": "e5b3f0b213b881003aa6cd8dcad486f471d8ff19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.3-703cc4.zip",
-                "reference": "81d7c5a6491ea50d6b458e47c5249ee9c720087a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.4-fb9e71.zip",
+                "reference": "e5b3f0b213b881003aa6cd8dcad486f471d8ff19",
                 "shasum": null
             },
             "require": {
@@ -4486,7 +4486,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-22T15:22:34+00:00"
+            "time": "2018-06-04T08:48:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

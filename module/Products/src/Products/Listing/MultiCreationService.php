@@ -33,6 +33,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Listing\Channel\Service as ChannelService;
+use Products\Product\Listing\Service as ProductListingService;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -99,6 +100,8 @@ class MultiCreationService implements LoggerAwareInterface
     protected $createListingJobGenerator;
     /** @var ChannelService */
     protected $channelService;
+    /** @var ProductListingService */
+    protected $productListingService;
 
     public function __construct(
         AccountService $accountService,
@@ -114,7 +117,8 @@ class MultiCreationService implements LoggerAwareInterface
         ProductCategoryDetailMapper $productCategoryDetailMapper,
         ProductCategoryDetailService $productCategoryDetailService,
         CreateListingJobGenerator $createListingJobGenerator,
-        ChannelService $channelService
+        ChannelService $channelService,
+        ProductListingService $productListingService
     ) {
         $this->accountService = $accountService;
         $this->categoryTemplateService = $categoryTemplateService;
@@ -130,6 +134,7 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productCategoryDetailService = $productCategoryDetailService;
         $this->createListingJobGenerator = $createListingJobGenerator;
         $this->channelService = $channelService;
+        $this->productListingService = $productListingService;
     }
 
     public function generateUniqueId(): string
@@ -148,6 +153,9 @@ class MultiCreationService implements LoggerAwareInterface
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
             if (!$this->isRequiredListingDataSet($accountIds, $categoryTemplateIds, $productData)) {
+                return false;
+            }
+            if (!$this->isListingCreationAllowed()) {
                 return false;
             }
             /** @var Accounts $accounts */
@@ -234,6 +242,15 @@ class MultiCreationService implements LoggerAwareInterface
         $variationsData = $productData['variations'] ?? [];
         if (!isset($productData['variations']) || empty($productData['variations'])) {
             $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
+            return false;
+        }
+        return true;
+    }
+
+    protected function isListingCreationAllowed(): bool
+    {
+        if (!$this->productListingService->isListingCreationAllowed()) {
+            $this->logWarning('Listing creation requested but is not allowed for this OU', [], ['ListingMultiCreationService', 'NotAllowed']);
             return false;
         }
         return true;
