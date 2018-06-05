@@ -1616,7 +1616,7 @@
                                     "children": [
                                         {
                                             "name": "AreBatteriesIncluded",
-                                            "required": false,
+                                            "required": true,
                                             "minValues": 0,
                                             "maxValues": 1,
                                             "type": "select",
@@ -1627,7 +1627,7 @@
                                         },
                                         {
                                             "name": "AreBatteriesRequired",
-                                            "required": false,
+                                            "required": true,
                                             "minValues": 0,
                                             "maxValues": 1,
                                             "type": "select",
@@ -1638,7 +1638,7 @@
                                         },
                                         {
                                             "name": "BatterySubgroup",
-                                            "required": false,
+                                            "required": true,
                                             "minValues": 0,
                                             "maxValues": 3,
                                             "type": "sequence",
@@ -1686,7 +1686,7 @@
                                 },
                                 {
                                     "name": "CanShipInOriginalContainer",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "select",
@@ -2052,14 +2052,14 @@
                                 },
                                 {
                                     "name": "BatteryFormFactor",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
                                 },
                                 {
                                     "name": "LithiumBatteryWeight",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
@@ -2136,21 +2136,21 @@
                                 },
                                 {
                                     "name": "BatteryChargeTime",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
                                 },
                                 {
                                     "name": "LithiumBatteryEnergyContent",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
                                 },
                                 {
                                     "name": "LithiumBatteryPackaging",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "select",
@@ -2169,7 +2169,7 @@
                                 },
                                 {
                                     "name": "NumberOfLithiumIonCells",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
@@ -2650,7 +2650,7 @@
                                 },
                                 {
                                     "name": "BatteryFormFactor",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"

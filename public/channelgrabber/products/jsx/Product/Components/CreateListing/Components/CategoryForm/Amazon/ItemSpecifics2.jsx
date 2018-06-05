@@ -98,6 +98,15 @@ define([
         },
         renderChoiceField: function(itemSpecific) {
             var fields = [this.renderChoiceSelectField(itemSpecific)];
+            var selectedItemSpecificName = this.state.selectedChoices[itemSpecific.name];
+            if (selectedItemSpecificName) {
+                var selectedIndex = itemSpecific.children.findIndex((itemSpecific => {
+                    return selectedItemSpecificName == itemSpecific.name;
+                }));
+                var selectedItemSpecific = itemSpecific.children[selectedIndex];
+                console.log(selectedItemSpecific);
+                fields.push(this.renderItemSpecifics(selectedItemSpecific.children, selectedItemSpecific.name));
+            }
             return <span>
                 {fields}
             </span>
@@ -134,7 +143,17 @@ define([
             </label>;
         },
         onChoiceOptionSelected: function(input, selectedOption) {
-            input.onChange(selectedOption.value);
+            this.onOptionSelected(input, selectedOption);
+            this.saveChosenValueInState(input, selectedOption);
+        },
+        saveChosenValueInState: function(input, selectedOption) {
+            var name = input.name.split('.').splice(-2, 1);
+            var selectedChoices = Object.assign({}, this.state.selectedChoices, {
+                [name]: selectedOption.value
+            });
+            this.setState({
+                selectedChoices: selectedChoices
+            });
         },
         renderSequence: function(itemSpecific) {
             return this.renderItemSpecifics(itemSpecific.children, itemSpecific.name);
