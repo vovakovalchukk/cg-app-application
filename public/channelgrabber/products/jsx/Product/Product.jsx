@@ -14,7 +14,13 @@ define([
         isAdmin,
         getParamSearchTerm,
         features,
-        adminCompanyUrl
+        adminCompanyUrl,
+        taxRates,
+        stockModeOptions,
+        ebaySiteOptions,
+        categoryTemplateOptions,
+        conditionOptions,
+        defaultCurrency
     ) {
         ReactDOM.render(
             <RootComponent
@@ -25,10 +31,16 @@ define([
                 isAdmin={isAdmin}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
+                taxRates={taxRates}
+                stockModeOptions={stockModeOptions}
+                ebaySiteOptions={ebaySiteOptions}
+                categoryTemplateOptions={categoryTemplateOptions}
+                conditionOptions={conditionOptions}
+                defaultCurrency={defaultCurrency}
             />,
             mountingNode
         );
     };
-    
+
     return Product;
 });
