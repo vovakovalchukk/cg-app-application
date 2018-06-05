@@ -104,19 +104,18 @@ define([
                     return selectedItemSpecificName == itemSpecific.name;
                 }));
                 var selectedItemSpecific = itemSpecific.children[selectedIndex];
-                console.log(selectedItemSpecific);
                 fields.push(this.renderItemSpecifics(selectedItemSpecific.children, selectedItemSpecific.name));
             }
-            return <span>
+            return <FormSection name={itemSpecific.name}>
                 {fields}
-            </span>
+            </FormSection>
         },
         renderChoiceSelectField: function(itemSpecific) {
             var options = itemSpecific.children.map((itemSpecific) => {
                 return itemSpecific.name;
             });
             return <Field
-                name={itemSpecific.name + '.selectedChoice'}
+                name={'selectedChoice'}
                 displayTitle={itemSpecific.name}
                 component={this.renderChoiceSelectComponent}
                 options={options}
