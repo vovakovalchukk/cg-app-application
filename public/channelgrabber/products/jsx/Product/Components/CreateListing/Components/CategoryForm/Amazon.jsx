@@ -1,7 +1,7 @@
 define([
     'react',
     'redux-form',
-    './Amazon/ItemSpecifics',
+    './Amazon/ItemSpecifics2',
     './Amazon/Subcategories'
 ], function(
     React,

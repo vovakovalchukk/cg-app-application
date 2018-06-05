@@ -1919,14 +1919,14 @@
                                 },
                                 {
                                     "name": "ManufacturerMinimumAge",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
                                 },
                                 {
                                     "name": "ManufacturerMaximumAge",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
@@ -1940,7 +1940,7 @@
                                 },
                                 {
                                     "name": "OuterMaterialType",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "text"
@@ -2021,7 +2021,7 @@
                                 },
                                 {
                                     "name": "BatteryCellComposition",
-                                    "required": false,
+                                    "required": true,
                                     "minValues": 0,
                                     "maxValues": 1,
                                     "type": "select",
