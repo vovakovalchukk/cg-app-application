@@ -1,14 +1,15 @@
 <?php
 namespace SetupWizard\Payment;
 
+use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Collection;
 use CG\Billing\Package\Entity as Package;
 use CG\Billing\Package\Filter;
-use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Service;
 use CG\Billing\PricingScheme\PricingScheme;
 use CG\Billing\PricingSchemeAssignment\Entity as PricingSchemeAssignment;
 use CG\Billing\PricingSchemeAssignment\Service as PricingSchemeAssignmentService;
+use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 
@@ -20,6 +21,8 @@ class PackageService
     protected $activeUser;
     /** @var PricingSchemeAssignmentService */
     protected $pricingSchemeAssignmentService;
+    /** @var CurrencyFormatter */
+    protected $currencyFormatter;
 
     public function __construct(
         Service $service,
@@ -29,6 +32,12 @@ class PackageService
         $this->service = $service;
         $this->activeUser = $activeUser;
         $this->pricingSchemeAssignmentService = $pricingSchemeAssignmentService;
+        $this->currencyFormatter = new CurrencyFormatter($this->activeUser, null, false);
+    }
+
+    public function getLocale(): string
+    {
+        return $this->activeUser->getLocale();
     }
 
     /**
@@ -81,7 +90,12 @@ class PackageService
             );
             return $pricingSchemeAssignment->getPricingSchemeId();
         } catch(NotFound $exception) {
-            return PricingScheme::SCHEME_DEFAULT;
+            return PricingScheme::getDefaultPricingSchemeIdForLocale($this->activeUser->getLocale());
         }
+    }
+
+    public function getPackagePrice(Package $package): string
+    {
+        return $this->currencyFormatter->format($package->getPrice());
     }
 }

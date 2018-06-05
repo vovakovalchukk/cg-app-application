@@ -44,6 +44,8 @@ define([
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
                 features: {},
+                taxRates: {},
+                stockModeOptions: {},
                 ebaySiteOptions: {},
                 categoryTemplateOptions: {},
                 createListingData: {},
@@ -468,16 +470,22 @@ define([
             }
             return options;
         },
+        redirectToProducts: function() {
+            this.state.currentView = PRODUCT_LIST_VIEW;
+            this.forceUpdate();
+        },
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
+                taxRates={this.props.taxRates}
+                stockModeOptions={this.props.stockModeOptions}
+                redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
             />
         },
         renderProductListView: function() {
             return (
                 <div id='products-app'>
-
                     {this.renderSearchBox()}
                     {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
 

@@ -17,6 +17,8 @@ class ShippingService implements ServicesInterface
     const INTERNATIONAL_ECONOMY = 'International Economy On Account';
     const INTERNATIONAL_TRACKED = 'International Tracked On Account';
 
+    const ADD_ON_SIGNED_FOR_VALUE = 'signedFor';
+
     protected $services = [
         self::FIRST_CLASS => self::FIRST_CLASS,
         self::SECOND_CLASS => self::SECOND_CLASS,

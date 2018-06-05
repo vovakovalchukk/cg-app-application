@@ -5,7 +5,7 @@ require.config({
         'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product',
         'Variation': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Variation',
         'Details': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Details',
-        'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common',
+        'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common',
         'CategoryMapper': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/CategoryMapper',
     }
 });
@@ -26,22 +26,22 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $searchTerm ?>',
         <?= $featureFlagJson; ?>,
         '<?= $this->remoteUrl('/company', 'admin'); ?>',
-        '<?= json_encode($ebaySiteOptions); ?>',
-        '<?= json_encode($categoryTemplateOptions); ?>',
-        '<?= json_encode($conditionOptions); ?>',
+        <?= json_encode($taxRates); ?>,
+        <?= json_encode($stockModeOptions) ?>,
+        <?= json_encode($ebaySiteOptions); ?>,
+        <?= json_encode($categoryTemplateOptions); ?>,
+        <?= json_encode($conditionOptions); ?>,
         '<?= $defaultCurrency; ?>'
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });
-
 <?php $this->inlineScript()->captureEnd(); ?>
-
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php
 $this->placeholder('#sidebar')
     ->append($this->sidebarLinks);
 ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <div id="main" class="products transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
