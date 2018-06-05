@@ -67,22 +67,31 @@ define([
                     />
                 </div>
             </label>];
-            var optionalItemSpecifics = input.fields.map((name) => {
-                return <Field
-                    name={name}
-                    component={this.renderOptionalItemSpecific}
-                    renderInput={this.renderItemSpecificFromOptions}
-                />;
-            });
+            var optionalItemSpecifics = [];
+            if (input.fields.length > 0) {
+                optionalItemSpecifics = input.fields.map((name, index) => {
+                    return <Field
+                        name={name}
+                        component={this.renderOptionalItemSpecific}
+                        parentPath={input.path}
+                        index={index}
+                    />;
+                });
+            }
             fields.push(optionalItemSpecifics);
             return <span>
                 {fields}
             </span>
         },
         onOptionalItemSpecificSelected: function(input, selected) {
-            input.fields.push({
-                name: selected.name,
-                options: selected.value
+            var selectedIndex = input.itemSpecifics.findIndex(itemSpecific => {
+                return itemSpecific.name == selected.value;
+            });
+            input.fields.removeAll();
+            this.renderItemSpecifics(input.itemSpecifics[selectedIndex].children).forEach(itemSpecific => {
+                input.fields.push({
+                    field: itemSpecific
+                });
             });
         },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
@@ -97,15 +106,18 @@ define([
             return options;
         },
         formatDisplayTitle: function(name) {
-            // Convert camel case to space separated words
+            if (!name) {
+                return 'TEST';
+            }
+            // Convert camel case and underscores to space separated words
             var name = name.replace(/([A-Z])/g, ' $1');
-            return name.replace(/_/g, ' ');
+            return name.replace(/_/g, ' ').trim();
         },
         getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             return this.buildOptionalItemSpecificsSelectOptions(itemSpecifics);
         },
         renderOptionalItemSpecific: function(field) {
-            return field.renderInput(field.input.value.name, field.input.value.options);
+            return field.input.value.field;
         },
         shouldRenderTextFieldArray: function(options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
@@ -278,6 +290,7 @@ define([
                 name={path.join('.')}
                 itemSpecifics={itemSpecifics}
                 displayTitle={path[path.length -1]}
+                path={path}
             />;
         },
         renderItemSpecific: function(itemSpecific, path) {
