@@ -89,21 +89,25 @@ define([
             if (this.shouldRenderTextFieldArray(itemSpecific)) {
                 return this.renderTextFieldArray(itemSpecific);
             }
+            var validator = (itemSpecific.required ? Validators.required : null);
             return <Field
                 name={itemSpecific.name}
                 displayTitle={this.formatDisplayTitle(itemSpecific.name)}
                 component={this.renderTextInput}
+                validate={validator}
             />
         },
         shouldRenderTextFieldArray: function (itemSpecific) {
             return this.isMultiOption(itemSpecific);
         },
         renderSelectField: function(itemSpecific) {
+            var validator = (itemSpecific.required ? Validators.required : null);
             return <Field
                 name={itemSpecific.name}
                 displayTitle={this.formatDisplayTitle(itemSpecific.name)}
                 component={this.renderSelectInput}
                 options={itemSpecific.options}
+                validate={validator}
             />
         },
         renderChoiceField: function(itemSpecific) {
