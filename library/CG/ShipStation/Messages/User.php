@@ -17,6 +17,24 @@ class User
         $this->companyName = $companyName;
     }
 
+    public static function fromArray(array $array): User
+    {
+        return new static(
+            $array['first_name'] ?? $array['first name'],
+            $array['last_name'] ?? $array['last name'],
+            $array['company'] ?? $array['company name']
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'company' => $this->getCompanyName(),
+        ];
+    }
+
     public function getFirstName(): ?string
     {
         return $this->firstName;
