@@ -208,6 +208,30 @@ return [
                                     'required' => true,
                                     'inputType' => 'number',
                                 ],
+                                'control_id' => [
+                                    'name' => 'control_id',
+                                    'label' => 'Control ID',
+                                    'required' => true,
+                                    'inputType' => 'text',
+                                ],
+                                'invoice_number' => [
+                                    'name' => 'invoice_number',
+                                    'label' => 'Latest Invoice Number',
+                                    'required' => true,
+                                    'inputType' => 'text',
+                                ],
+                                'invoice_amount' => [
+                                    'name' => 'invoice_amount',
+                                    'label' => 'Latest Invoice Amount',
+                                    'required' => true,
+                                    'inputType' => 'number',
+                                ],
+                                'invoice_date' => [
+                                    'name' => 'invoice_date',
+                                    'label' => 'Latest Invoice Date',
+                                    'required' => true,
+                                    'inputType' => 'date',
+                                ],
                                 'agree_to_technology_agreement' => [
                                     'name' => 'agree_to_technology_agreement',
                                     'label' => 'Do you agree to the UPS Technology Agreement?',
