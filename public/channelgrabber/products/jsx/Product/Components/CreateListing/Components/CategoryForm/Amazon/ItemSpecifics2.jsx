@@ -4,14 +4,16 @@ define([
     'Common/Components/Select',
     'Common/Components/MultiSelect',
     'Common/Components/Input',
-    '../../../Validators'
+    '../../../Validators',
+    './OptionalItemSpecificsSelect'
 ], function(
     React,
     ReduxForm,
     Select,
     MultiSelect,
     Input,
-    Validators
+    Validators,
+    OptionalItemSpecificsSelect
 ) {
     "use strict";
 
@@ -303,29 +305,15 @@ define([
             />;
         },
         renderOptionsItemSpecificComponents: function(input) {
-            var options = input.itemSpecifics.map(itemSpecific => {
-                return {
-                    name: this.formatDisplayTitle(itemSpecific.name),
-                    value: itemSpecific.name
-                }
-            });
+            var fields = [<OptionalItemSpecificsSelect
+                displayTitle={this.formatDisplayTitle(input.displayTitle)}
+                options={this.formatOptionalSelectOptions(input.itemSpecifics)}
+                input={input}
+            />];
 
-            var fields = [<label>
-                <span className={"inputbox-label"}>{this.formatDisplayTitle(input.displayTitle)}</span>
-                <div className={"order-inputbox-holder"}>
-                    <Select
-                        name="optionalItemSpecifics"
-                        options={options}
-                        autoSelectFirst={false}
-                        title="Item Specifics (Optional)"
-                        onOptionChange={this.onOptionalItemSpecificSelected.bind(this, input)}
-                        filterable={true}
-                    />
-                </div>
-            </label>];
             var optionalItemSpecifics = [];
             if (input.fields.length > 0) {
-                optionalItemSpecifics = input.fields.map((name, index) => {
+                optionalItemSpecifics = input.fields.map((name) => {
                     return <Field
                         name={name}
                         component={this.renderOptionalItemSpecific}
@@ -333,10 +321,20 @@ define([
                     />;
                 });
             }
+
             fields.push(optionalItemSpecifics);
+
             return <span>
                 {fields}
             </span>
+        },
+        formatOptionalSelectOptions(itemSpecifics) {
+            return itemSpecifics.map(itemSpecific => {
+                return {
+                    name: this.formatDisplayTitle(itemSpecific.name),
+                    value: itemSpecific.name
+                }
+            });
         },
         onOptionalItemSpecificSelected: function (input, selected) {
             input.fields.push({
