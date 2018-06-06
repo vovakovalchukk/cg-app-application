@@ -185,6 +185,19 @@ class AccountController extends AbstractActionController
         return $selectView;
     }
 
+    protected function getDateView(string $id, string $label, ?string $value = null, bool $required = false): ViewModel
+    {
+        $dateView = $this->viewModelFactory->newInstance([
+            'name' => $id,
+            'id' => $id,
+            'label' => $label,
+            'class' => ($required ? 'required' : ''),
+            'value' => $value
+        ]);
+        $dateView->setTemplate('elements/date.mustache');
+        return $dateView;
+    }
+
     public function saveAction()
     {
         // ZF2 replaces spaces in param names with underscores, need to undo that
