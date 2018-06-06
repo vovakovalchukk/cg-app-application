@@ -47,39 +47,41 @@ define([
                 fields = [];
 
             itemSpecifics.forEach((itemSpecific) => {
-                var field;
-
                 if (!itemSpecific.required) {
                     optional.push(itemSpecific);
                     return;
                 }
 
-                switch (itemSpecific.type) {
-                    case TYPE_TEXT:
-                        field = this.renderTextField(itemSpecific);
-                        break;
-                    case TYPE_SELECT:
-                        field = this.renderSelectField(itemSpecific);
-                        break;
-                    case TYPE_CHOICE:
-                        field = this.renderChoiceField(itemSpecific);
-                        break;
-                    case TYPE_SEQUENCE:
-                        field = this.renderSequence(itemSpecific);
-                        break;
-                    default:
-                        field = null;
-                }
-                fields.push(field);
+                fields.push(this.renderItemSpecific(itemSpecific));
             });
 
             if (optional.length > 0) {
-                // Add the optional IS selector in here
+                fields.push(this.renderOptionalItemSpecificSelect(optional))
             }
 
             return <FormSection name={name}>
                 {fields}
             </FormSection>;
+        },
+        renderItemSpecific: function(itemSpecific) {
+            var field;
+            switch (itemSpecific.type) {
+                case TYPE_TEXT:
+                    field = this.renderTextField(itemSpecific);
+                    break;
+                case TYPE_SELECT:
+                    field = this.renderSelectField(itemSpecific);
+                    break;
+                case TYPE_CHOICE:
+                    field = this.renderChoiceField(itemSpecific);
+                    break;
+                case TYPE_SEQUENCE:
+                    field = this.renderSequence(itemSpecific);
+                    break;
+                default:
+                    field = null;
+            }
+            return field;
         },
         renderTextField: function(itemSpecific) {
             return <Field
@@ -237,6 +239,62 @@ define([
             name = name.replace(/_/g, ' ');
             // Ensure single space between words
             return name.replace(/^\s+|\s+$/g, "");
+        },
+        renderOptionalItemSpecificSelect: function(itemSpecifics) {
+            return <FieldArray
+                component={this.renderOptionsItemSpecificComponents}
+                name={'optionalItemSpecifics'}
+                itemSpecifics={itemSpecifics}
+                displayTitle={'Optional Item Specifics'}
+            />;
+        },
+        renderOptionsItemSpecificComponents: function(input) {
+            var options = input.itemSpecifics.map(itemSpecific => {
+                return {
+                    name: this.formatDisplayTitle(itemSpecific.name),
+                    value: itemSpecific.name
+                }
+            });
+
+            var fields = [<label>
+                <span className={"inputbox-label"}>{this.formatDisplayTitle(input.displayTitle)}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        name="optionalItemSpecifics"
+                        options={options}
+                        autoSelectFirst={false}
+                        title="Item Specifics (Optional)"
+                        onOptionChange={this.onOptionalItemSpecificSelected.bind(this, input)}
+                        filterable={true}
+                    />
+                </div>
+            </label>];
+            var optionalItemSpecifics = [];
+            if (input.fields.length > 0) {
+                optionalItemSpecifics = input.fields.map((name, index) => {
+                    return <Field
+                        name={name}
+                        component={this.renderOptionalItemSpecific}
+                        itemSpecifics={input.itemSpecifics}
+                    />;
+                });
+            }
+            fields.push(optionalItemSpecifics);
+            return <span>
+                {fields}
+            </span>
+        },
+        onOptionalItemSpecificSelected: function (input, selected) {
+            input.fields.push({
+                fieldName: selected.value
+            });
+        },
+        renderOptionalItemSpecific: function (field) {
+            var index = field.itemSpecifics.findIndex(itemSpecific => {
+                return itemSpecific.name == field.input.value.fieldName;
+            });
+            var itemSpecific = field.itemSpecifics[index];
+            return this.renderItemSpecific(itemSpecific);
         },
         render: function () {
             return <span>
