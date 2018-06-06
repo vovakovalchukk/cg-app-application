@@ -84,11 +84,17 @@ define([
             return field;
         },
         renderTextField: function(itemSpecific) {
+            if (this.shouldRenderTextFieldArray(itemSpecific)) {
+                return this.renderTextFieldArray(itemSpecific);
+            }
             return <Field
                 name={itemSpecific.name}
                 displayTitle={this.formatDisplayTitle(itemSpecific.name)}
                 component={this.renderTextInput}
             />
+        },
+        shouldRenderTextFieldArray: function (itemSpecific) {
+            return this.isMultiOption(itemSpecific);
         },
         renderSelectField: function(itemSpecific) {
             return <Field
@@ -174,6 +180,36 @@ define([
                 {this.getActionButtonForInput(field)}
             </label>;
         },
+        renderTextFieldArray: function(itemSpecific) {
+            var validator = (itemSpecific.required ? Validators.required : null);
+            return <FieldArray
+                name={itemSpecific.name}
+                component={this.renderTextFieldArrayComponent}
+                displayTitle={this.formatDisplayTitle(itemSpecific.name)}
+                validate={validator}
+            />;
+        },
+        renderTextFieldArrayComponent: function (input) {
+            var fields = input.fields;
+            if (fields.length === 0) {
+                fields.push("");
+            }
+            return <span>
+                {fields.map((name, index, fields) => {
+                    return <Field
+                        name={name}
+                        component={this.renderTextInput}
+                        displayTitle={input.displayTitle}
+                        index={index}
+                        fields={fields}
+                        hideLabel={(index > 0)}
+                    />;
+                })}
+                {input.meta.error && input.meta.dirty && (
+                    <span className="input-error input-array-error">{input.meta.error}</span>
+                )}
+            </span>;
+        },
         getActionButtonForInput: function(field) {
             if (!('index' in field) || !field.fields) {
                 return null;
@@ -209,6 +245,24 @@ define([
         },
         isMultiOption: function (options) {
             return (options.maxValues && options.maxValues > 1);
+        },
+        renderPlusButton: function (onClick) {
+            return <span className="refresh-icon">
+                <i
+                    className='fa fa-2x fa-plus-square icon-create-listing'
+                    aria-hidden='true'
+                    onClick={onClick}
+                />
+            </span>;
+        },
+        renderRemoveButton: function (onClick) {
+            return <span className="remove-icon">
+                <i
+                    className='fa fa-2x fa-minus-square icon-create-listing'
+                    aria-hidden='true'
+                    onClick={onClick}
+                />
+            </span>;
         },
         buildSelectOptionsForItemSpecific: function(options) {
             return Object.keys(options).map(value => {
