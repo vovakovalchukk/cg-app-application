@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "f188a6c60146ac4af32eb39b9b9dc7b5",
@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ae5891b2393c1b6385d70db0cac846ae1323524f"
+                "reference": "75788110a15aec74bfad52348d70557b779f1bc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-226-update-product-with-amazon-data-665d0b.zip",
-                "reference": "ae5891b2393c1b6385d70db0cac846ae1323524f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-226-update-product-with-amazon-data-169450.zip",
+                "reference": "75788110a15aec74bfad52348d70557b779f1bc8",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-05-23T09:09:23+00:00"
+            "time": "2018-06-06T15:46:38+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
