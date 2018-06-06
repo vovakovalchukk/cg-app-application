@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a5ceafebcfcd7648d460cf423ca8fce",
+    "content-hash": "2afa53e70998d29d0b6c3dc130176ac4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4426,17 +4426,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.4",
+            "version": "dev-TAC-97-shipstation-ups",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e5b3f0b213b881003aa6cd8dcad486f471d8ff19"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.4-fb9e71.zip",
-                "reference": "e5b3f0b213b881003aa6cd8dcad486f471d8ff19",
-                "shasum": null
+                "reference": "983e412bcca666198aeec9fe75937bdb1271e821"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -9930,15 +9924,22 @@
             "alias_normalized": "1.0.20.0",
             "version": "dev-TAC-72-USAddressStateDropDown",
             "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.23.5",
+            "alias_normalized": "1.23.5.0",
+            "version": "dev-TAC-97-shipstation-ups",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
