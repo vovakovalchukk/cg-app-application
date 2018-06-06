@@ -116,9 +116,17 @@ define([
                 var selectedItemSpecific = itemSpecific.children[selectedIndex];
                 fields.push(this.renderItemSpecifics(selectedItemSpecific.children, selectedItemSpecific.name));
             }
-            return <FormSection name={itemSpecific.name}>
+            return <FormSection
+                name={itemSpecific.name}
+                component={this.renderFormSection}
+            >
                 {fields}
             </FormSection>
+        },
+        renderFormSection: function (elements) {
+            return <div className="form-section-container">
+                {elements.children}
+            </div>
         },
         renderChoiceSelectField: function(itemSpecific) {
             var options = itemSpecific.children.map((itemSpecific) => {
@@ -165,7 +173,13 @@ define([
             });
         },
         renderSequence: function(itemSpecific) {
-            return this.renderItemSpecifics(itemSpecific.children, itemSpecific.name);
+            return <div className="form-section-container">
+                <label className="input-container">
+                    <span className={"inputbox-label"}>{this.formatDisplayTitle(itemSpecific.name)}</span>
+                    <div className={"order-inputbox-holder"}></div>
+                </label>
+                {this.renderItemSpecifics(itemSpecific.children, itemSpecific.name)}
+            </div>
         },
         renderTextInput: function(field) {
             return <label className="input-container">
