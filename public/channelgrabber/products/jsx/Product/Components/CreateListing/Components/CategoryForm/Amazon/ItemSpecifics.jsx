@@ -4,19 +4,22 @@ define([
     'Common/Components/Select',
     'Common/Components/MultiSelect',
     'Common/Components/Input',
-    '../../../Validators'
+    '../../../Validators',
+    './OptionalItemSpecificsSelect'
 ], function(
     React,
     ReduxForm,
     Select,
     MultiSelect,
     Input,
-    Validators
+    Validators,
+    OptionalItemSpecificsSelect
 ) {
     "use strict";
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
+    var FormSection = ReduxForm.FormSection;
 
     const TYPE_TEXT = "text";
     const TYPE_SELECT = "select";
@@ -26,123 +29,161 @@ define([
     var AmazonItemSpecifics = React.createClass({
         getDefaultProps: function() {
             return {
-                categoryId: 0
-            }
+                itemSpecifics: {}
+            };
         },
-        renderRequiredItemSpecificInputs: function() {
-            var requiredItems = this.props.itemSpecifics.required;
-            if (!requiredItems || Object.keys(requiredItems).length ==  0) {
+        getInitialState: function () {
+            return {
+                selectedChoices: {}
+            };
+        },
+        renderRoot: function() {
+            if (Object.keys(this.props.itemSpecifics).length === 0 || !(0 in this.props.itemSpecifics)) {
                 return null;
             }
+            var rootItemSpecific = this.props.itemSpecifics[0];
+            return this.renderItemSpecifics(rootItemSpecific.children, rootItemSpecific.name);
+        },
+        renderItemSpecifics: function (itemSpecifics, name) {
+            var optional = [],
+                fields = [];
 
-            return this.renderItemSpecificsInputsFromOptions(requiredItems, true);
-        },
-        renderItemSpecificsInputsFromOptions: function(items, required) {
-            var inputs = [],
-                options;
-            for (var name in items) {
-                options = items[name];
-                inputs.push(this.renderItemSpecificFromOptions(name, options, required));
+            itemSpecifics.forEach((itemSpecific) => {
+                if (!itemSpecific.required) {
+                    optional.push(itemSpecific);
+                    return;
+                }
+
+                fields.push(this.renderItemSpecific(itemSpecific));
+            });
+
+            if (optional.length > 0) {
+                fields.push(this.renderOptionalItemSpecificSelect(optional))
             }
-            return <span>{inputs}</span>;
-        },
-        renderItemSpecificFromOptions: function(name, options, required) {
-            if (this.shouldRenderTextFieldArray(options)) {
-                return this.renderFieldArray(name, this.renderTextInputArray, required);
-            }
-            return this.renderItemSpecificField(name, this.renderItemSpecificInput, options, required);
-        },
-        renderOptionsItemSpecificComponents: function(input) {
-            var options = this.getOptionalItemSpecificsSelectOptions(input.itemSpecifics);
-            var fields = [<label>
-                <span className={"inputbox-label"}>{this.formatDisplayTitle(input.displayTitle)}</span>
-                <div className={"order-inputbox-holder"}>
-                    <Select
-                        name="optionalItemSpecifics"
-                        options={options}
-                        autoSelectFirst={false}
-                        title="Item Specifics (Optional)"
-                        onOptionChange={this.onOptionalItemSpecificSelected.bind(this, input)}
-                        filterable={true}
-                    />
-                </div>
-            </label>];
-            var optionalItemSpecifics = [];
-            if (input.fields.length > 0) {
-                optionalItemSpecifics = input.fields.map((name, index) => {
-                    return <Field
-                        name={name}
-                        component={this.renderOptionalItemSpecific}
-                        parentPath={input.path}
-                        index={index}
-                    />;
-                });
-            }
-            fields.push(optionalItemSpecifics);
-            return <span>
+
+            return <FormSection name={name}>
                 {fields}
-            </span>
+            </FormSection>;
         },
-        onOptionalItemSpecificSelected: function(input, selected) {
-            var selectedIndex = input.itemSpecifics.findIndex(itemSpecific => {
-                return itemSpecific.name == selected.value;
-            });
-            input.fields.removeAll();
-            this.renderItemSpecifics(input.itemSpecifics[selectedIndex].children).forEach(itemSpecific => {
-                input.fields.push({
-                    field: itemSpecific
-                });
-            });
-        },
-        buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
-            var options = [];
-            for (var index in itemSpecifics) {
-                var itemSpecific = itemSpecifics[index];
-                options.push({
-                    "name": this.formatDisplayTitle(itemSpecific.name),
-                    "value": itemSpecific.name
-                })
+        renderItemSpecific: function(itemSpecific) {
+            var field;
+            switch (itemSpecific.type) {
+                case TYPE_TEXT:
+                    field = this.renderTextField(itemSpecific);
+                    break;
+                case TYPE_SELECT:
+                    field = this.renderSelectField(itemSpecific);
+                    break;
+                case TYPE_CHOICE:
+                    field = this.renderChoiceField(itemSpecific);
+                    break;
+                case TYPE_SEQUENCE:
+                    field = this.renderSequence(itemSpecific);
+                    break;
+                default:
+                    field = null;
             }
-            return options;
+            return field;
         },
-        formatDisplayTitle: function(name) {
-            if (!name) {
-                return 'TEST';
+        renderTextField: function(itemSpecific) {
+            if (this.shouldRenderTextFieldArray(itemSpecific)) {
+                return this.renderTextFieldArray(itemSpecific);
             }
-            // Convert camel case and underscores to space separated words
-            var name = name.replace(/([A-Z])/g, ' $1');
-            return name.replace(/_/g, ' ').trim();
-        },
-        getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
-            return this.buildOptionalItemSpecificsSelectOptions(itemSpecifics);
-        },
-        renderOptionalItemSpecific: function(field) {
-            return field.input.value.field;
-        },
-        shouldRenderTextFieldArray: function(options) {
-            return options.type == TYPE_TEXT && this.isMultiOption(options);
-        },
-        renderFieldArray: function(name, component, required) {
-            var validator = (required ? Validators.required : null);
-            return <FieldArray name={name} component={component} displayTitle={name} validate={validator}/>;
-        },
-        renderItemSpecificField: function(name, component, options, required) {
-            var validator = (required ? Validators.required : null);
+            var validator = (itemSpecific.required ? Validators.required : null);
             return <Field
-                name={name}
-                displayTitle={name}
-                component={component}
-                options={options}
+                name={itemSpecific.name}
+                displayTitle={this.formatDisplayTitle(itemSpecific.name)}
+                component={this.renderTextInput}
                 validate={validator}
             />
         },
-        renderItemSpecificInput: function(field) {
-            if (field.options.type == TYPE_TEXT) {
-                return this.renderTextInput(field);
-            } else if (field.options.type == TYPE_SELECT) {
-                return this.renderSelectInput(field);
+        shouldRenderTextFieldArray: function (itemSpecific) {
+            return this.isMultiOption(itemSpecific);
+        },
+        renderSelectField: function(itemSpecific) {
+            var validator = (itemSpecific.required ? Validators.required : null);
+            return <Field
+                name={itemSpecific.name}
+                displayTitle={this.formatDisplayTitle(itemSpecific.name)}
+                component={this.renderSelectInput}
+                options={itemSpecific.options}
+                validate={validator}
+            />
+        },
+        renderChoiceField: function(itemSpecific) {
+            var fields = [this.renderChoiceSelectField(itemSpecific)];
+            var selectedItemSpecificName = this.state.selectedChoices[itemSpecific.name];
+            if (selectedItemSpecificName) {
+                var selectedIndex = itemSpecific.children.findIndex((itemSpecific => {
+                    return selectedItemSpecificName == itemSpecific.name;
+                }));
+                var selectedItemSpecific = itemSpecific.children[selectedIndex];
+                fields.push(this.renderItemSpecifics(selectedItemSpecific.children, selectedItemSpecific.name));
             }
-            return null;
+            return <FormSection
+                name={itemSpecific.name}
+                component={this.renderFormSection}
+            >
+                {fields}
+            </FormSection>
+        },
+        renderFormSection: function (elements) {
+            return <div className="form-section-container">
+                {elements.children}
+            </div>
+        },
+        renderChoiceSelectField: function(itemSpecific) {
+            var options = itemSpecific.children.map((itemSpecific) => {
+                return itemSpecific.name;
+            });
+            return <Field
+                name={'selectedChoice'}
+                displayTitle={itemSpecific.name}
+                component={this.renderChoiceSelectComponent}
+                options={options}
+            />;
+        },
+        renderChoiceSelectComponent: function (field) {
+            var options = this.buildSelectOptionsForItemSpecific(field.options);
+            return <label className="input-container">
+                <span className={"inputbox-label"}>{this.formatDisplayTitle(field.displayTitle)}</span>
+                <div className={"order-inputbox-holder"}>
+                    <Select
+                        autoSelectFirst={false}
+                        title={this.formatDisplayTitle(field.displayTitle)}
+                        options={options}
+                        onOptionChange={this.onChoiceOptionSelected.bind(this, field.input)}
+                        selectedOption={this.findSelectedOption(field.input.value)}
+                        className={Validators.shouldShowError(field) ? 'error' : null}
+                        filterable={true}
+                    />
+                </div>
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
+            </label>;
+        },
+        onChoiceOptionSelected: function(input, selectedOption) {
+            this.onOptionSelected(input, selectedOption);
+            this.saveChosenValueInState(input, selectedOption);
+        },
+        saveChosenValueInState: function(input, selectedOption) {
+            var name = input.name.split('.').splice(-2, 1);
+            var selectedChoices = Object.assign({}, this.state.selectedChoices, {
+                [name]: selectedOption.value
+            });
+            this.setState({
+                selectedChoices: selectedChoices
+            });
+        },
+        renderSequence: function(itemSpecific) {
+            return <div className="form-section-container">
+                <label className="input-container">
+                    <span className={"inputbox-label"}>{this.formatDisplayTitle(itemSpecific.name)}</span>
+                    <div className={"order-inputbox-holder"}></div>
+                </label>
+                {this.renderItemSpecifics(itemSpecific.children, itemSpecific.name)}
+            </div>
         },
         renderTextInput: function(field) {
             return <label className="input-container">
@@ -159,16 +200,17 @@ define([
                 {this.getActionButtonForInput(field)}
             </label>;
         },
-        getActionButtonForInput: function(field) {
-            if (!('index' in field) || !field.fields) {
-                return null;
-            }
-            if (field.index === field.fields.length - 1) {
-                return this.renderPlusButton(() => field.fields.push(""));
-            }
-            return this.renderRemoveButton(() => field.fields.remove(field.index));
+        renderTextFieldArray: function(itemSpecific) {
+            var validator = (itemSpecific.required ? Validators.required : null);
+            return <FieldArray
+                name={itemSpecific.name}
+                component={this.renderTextFieldArrayComponent}
+                displayTitle={this.formatDisplayTitle(itemSpecific.name)}
+                validate={validator}
+                maxValues={itemSpecific.maxValues}
+            />;
         },
-        renderTextInputArray: function(input) {
+        renderTextFieldArrayComponent: function (input) {
             var fields = input.fields;
             if (fields.length === 0) {
                 fields.push("");
@@ -182,6 +224,7 @@ define([
                         index={index}
                         fields={fields}
                         hideLabel={(index > 0)}
+                        maxValues={input.maxValues}
                     />;
                 })}
                 {input.meta.error && input.meta.dirty && (
@@ -189,10 +232,19 @@ define([
                 )}
             </span>;
         },
+        getActionButtonForInput: function(field) {
+            if (!('index' in field) || !field.fields) {
+                return null;
+            }
+            if (field.index === field.fields.length - 1 && (field.maxValues ? field.maxValues > field.fields.length : true)) {
+                return this.renderPlusButton(() => field.fields.push(""));
+            }
+            return this.renderRemoveButton(() => field.fields.remove(field.index));
+        },
         renderSelectInput: function(field) {
             var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
 
-            var options = this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options);
+            var options = this.buildSelectOptionsForItemSpecific(field.options);
 
             return <label className="input-container">
                 <span className={"inputbox-label"}>{this.formatDisplayTitle(field.displayTitle)}</span>
@@ -213,27 +265,8 @@ define([
                 )}
             </label>;
         },
-        buildSelectOptionsForItemSpecific: function(title, options) {
-            return Object.keys(options).map(value => {
-                var optionValue =  options[value];
-                return {
-                    name: this.formatDisplayTitle(optionValue),
-                    value: optionValue
-                }
-            });
-        },
-        onOptionSelected: function(input, selectedOptions) {
-            if (selectedOptions instanceof Array) {
-                input.onChange(selectedOptions.map(option => option.value));
-            }
-            input.onChange(selectedOptions.value);
-        },
-        findSelectedOption: function(value) {
-            value = value instanceof Array ? null : value;
-            return {
-                name: value || '',
-                value: value || ''
-            };
+        isMultiOption: function (options) {
+            return (options.maxValues && options.maxValues > 1);
         },
         renderPlusButton: function (onClick) {
             return <span className="refresh-icon">
@@ -253,56 +286,91 @@ define([
                 />
             </span>;
         },
-        isMultiOption: function (options) {
-            return (options.maxValues && options.maxValues > 1);
-        },
-        renderItemSpecifics: function(itemSpecifics, path = []) {
-            var elements = [],
-                optional = [],
-                itemSpecificPath;
-
-            for (var key in itemSpecifics) {
-                var itemSpecific = itemSpecifics[key];
-                itemSpecificPath = path.slice();
-                itemSpecificPath.push(itemSpecific.name);
-                if (itemSpecific.type == TYPE_SEQUENCE) {
-                    elements = elements.concat(this.renderItemSpecifics(itemSpecific.children, itemSpecificPath));
-                } else if (itemSpecific.type == TYPE_CHOICE) {
-                    elements.push(this.renderOptionalItemSpecificSelect(itemSpecific.children, itemSpecificPath));
-                } else {
-                    if (itemSpecific.required) {
-                        elements.push(this.renderItemSpecific(itemSpecific, itemSpecificPath));
-                    } else {
-                        optional.push(itemSpecific);
-                    }
+        buildSelectOptionsForItemSpecific: function(options) {
+            return Object.keys(options).map(value => {
+                var optionValue =  options[value];
+                return {
+                    name: this.formatDisplayTitle(optionValue),
+                    value: optionValue
                 }
-            }
-
-            if (optional.length > 0) {
-                elements.push(this.renderOptionalItemSpecificSelect(optional, path));
-            }
-
-            return elements;
+            });
         },
-        renderOptionalItemSpecificSelect: function(itemSpecifics, path) {
+        onOptionSelected: function(input, selectedOptions) {
+            if (selectedOptions instanceof Array) {
+                input.onChange(selectedOptions.map(option => option.value));
+            }
+            input.onChange(selectedOptions.value);
+        },
+        findSelectedOption: function(value) {
+            value = value instanceof Array ? null : value;
+            return {
+                name: value ? this.formatDisplayTitle(value) : '',
+                value: value || ''
+            };
+        },
+        formatDisplayTitle: function(name) {
+            // Convert camel case space separated words
+            name = name.replace(/([A-Z])/g, ' $1');
+            // Convert underscores to spaces
+            name = name.replace(/_/g, ' ');
+            // Ensure single space between words
+            return name.replace(/^\s+|\s+$/g, "");
+        },
+        renderOptionalItemSpecificSelect: function(itemSpecifics) {
             return <FieldArray
                 component={this.renderOptionsItemSpecificComponents}
-                name={path.join('.')}
+                name={'optionalItemSpecifics'}
                 itemSpecifics={itemSpecifics}
-                displayTitle={path[path.length -1]}
-                path={path}
+                displayTitle={'Optional Item Specifics'}
             />;
         },
-        renderItemSpecific: function(itemSpecific, path) {
-            return this.renderItemSpecificFromOptions(path[path.length - 1], itemSpecific, true);
-        },
-        render: function () {
-            if (Object.keys(this.props.itemSpecifics).length === 0 || !(0 in this.props.itemSpecifics)) {
-                return null;
+        renderOptionsItemSpecificComponents: function(input) {
+            var fields = [<OptionalItemSpecificsSelect
+                displayTitle={this.formatDisplayTitle(input.displayTitle)}
+                options={this.formatOptionalSelectOptions(input.itemSpecifics)}
+                input={input}
+            />];
+
+            var optionalItemSpecifics = [];
+            if (input.fields.length > 0) {
+                optionalItemSpecifics = input.fields.map((name) => {
+                    return <Field
+                        name={name}
+                        component={this.renderOptionalItemSpecific}
+                        itemSpecifics={input.itemSpecifics}
+                    />;
+                });
             }
 
+            fields.push(optionalItemSpecifics);
+
             return <span>
-                {this.renderItemSpecifics(this.props.itemSpecifics)}
+                {fields}
+            </span>
+        },
+        formatOptionalSelectOptions(itemSpecifics) {
+            return itemSpecifics.map(itemSpecific => {
+                return {
+                    name: this.formatDisplayTitle(itemSpecific.name),
+                    value: itemSpecific.name
+                }
+            });
+        },
+        onOptionalItemSpecificSelected: function (input, selected) {
+            input.fields.push({
+                fieldName: selected.value
+            });
+        },
+        renderOptionalItemSpecific: function (field) {
+            var index = field.itemSpecifics.findIndex(itemSpecific => {
+                return itemSpecific.name == field.input.value.fieldName;
+            });
+            var itemSpecific = field.itemSpecifics[index];
+            return this.renderItemSpecific(itemSpecific);
+        },
+        render: function () {
+            return <span>
+                {this.renderRoot()}
             </span>
         }
     });
