@@ -189,6 +189,7 @@ define([
                 component={this.renderTextFieldArrayComponent}
                 displayTitle={this.formatDisplayTitle(itemSpecific.name)}
                 validate={validator}
+                maxValues={itemSpecific.maxValues}
             />;
         },
         renderTextFieldArrayComponent: function (input) {
@@ -205,6 +206,7 @@ define([
                         index={index}
                         fields={fields}
                         hideLabel={(index > 0)}
+                        maxValues={input.maxValues}
                     />;
                 })}
                 {input.meta.error && input.meta.dirty && (
@@ -216,7 +218,7 @@ define([
             if (!('index' in field) || !field.fields) {
                 return null;
             }
-            if (field.index === field.fields.length - 1) {
+            if (field.index === field.fields.length - 1 && (field.maxValues ? field.maxValues > field.fields.length : true)) {
                 return this.renderPlusButton(() => field.fields.push(""));
             }
             return this.renderRemoveButton(() => field.fields.remove(field.index));
