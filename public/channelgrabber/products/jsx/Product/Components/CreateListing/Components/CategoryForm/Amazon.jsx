@@ -24,7 +24,7 @@ define([
         },
         render: function() {
             return (
-                <div className="ebay-category-form-container">
+                <div className="amazon-category-form-container">
                     <Subcategories rootCategories={this.props.rootCategories} accountId={this.props.accountId}/>
                     <FormSection
                         name="itemSpecifics"

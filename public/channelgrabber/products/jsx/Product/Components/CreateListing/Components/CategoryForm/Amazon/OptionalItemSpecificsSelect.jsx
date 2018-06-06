@@ -50,7 +50,7 @@ define([
                 return null;
             }
             return <label>
-                <span className={"inputbox-label"}>{this.props.displayTitle}</span>
+                <span className={"inputbox-label"}><b>{this.props.displayTitle}</b></span>
                 <div className={"order-inputbox-holder"}>
                     <Select
                         name="optionalItemSpecifics"
