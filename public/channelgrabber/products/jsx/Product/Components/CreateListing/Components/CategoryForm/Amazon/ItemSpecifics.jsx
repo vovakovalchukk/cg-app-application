@@ -66,24 +66,8 @@ define([
             </FormSection>;
         },
         renderItemSpecific: function(itemSpecific) {
-            var field;
-            switch (itemSpecific.type) {
-                case TYPE_TEXT:
-                    field = this.renderTextField(itemSpecific);
-                    break;
-                case TYPE_SELECT:
-                    field = this.renderSelectField(itemSpecific);
-                    break;
-                case TYPE_CHOICE:
-                    field = this.renderChoiceField(itemSpecific);
-                    break;
-                case TYPE_SEQUENCE:
-                    field = this.renderSequence(itemSpecific);
-                    break;
-                default:
-                    field = null;
-            }
-            return field;
+            var functionName = 'render' + itemSpecific.type.ucfirst() + 'Field';
+            return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
         },
         renderTextField: function(itemSpecific) {
             if (this.shouldRenderTextFieldArray(itemSpecific)) {
@@ -176,7 +160,7 @@ define([
                 selectedChoices: selectedChoices
             });
         },
-        renderSequence: function(itemSpecific) {
+        renderSequenceField: function(itemSpecific) {
             return <div className="form-section-container">
                 <label className="input-container">
                     <span className={"inputbox-label"}>{this.formatDisplayTitle(itemSpecific.name)}</span>
@@ -236,10 +220,16 @@ define([
             if (!('index' in field) || !field.fields) {
                 return null;
             }
-            if (field.index === field.fields.length - 1 && (field.maxValues ? field.maxValues > field.fields.length : true)) {
+            if (this.isLastField(field)) {
                 return this.renderPlusButton(() => field.fields.push(""));
             }
             return this.renderRemoveButton(() => field.fields.remove(field.index));
+        },
+        isLastField: function(field) {
+            if (field.maxValues && field.maxValues <= field.fields.length) {
+                return false;
+            }
+            return field.index === field.fields.length - 1;
         },
         renderSelectInput: function(field) {
             var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
