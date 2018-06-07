@@ -4123,12 +4123,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "b700ac000140b7b2c9a84d3d9d25d75fd3655ae8"
+                "reference": "843006ab5befe8cbbbf1b51a821b33fe8c8261d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-74-LocalePhoneNumber-9621ba.zip",
-                "reference": "b700ac000140b7b2c9a84d3d9d25d75fd3655ae8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-74-LocalePhoneNumber-bcb346.zip",
+                "reference": "843006ab5befe8cbbbf1b51a821b33fe8c8261d5",
                 "shasum": null
             },
             "require": {
@@ -4167,7 +4167,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-07T10:20:43+00:00"
+            "time": "2018-06-07T14:01:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
