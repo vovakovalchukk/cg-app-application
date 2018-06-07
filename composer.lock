@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f188a6c60146ac4af32eb39b9b9dc7b5",
+    "content-hash": "bb296c788e20091401e3f0c579827948",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "75788110a15aec74bfad52348d70557b779f1bc8"
+                "reference": "1b77ab1a375496fca9f049eced8d2f9ae3cd083e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-226-update-product-with-amazon-data-169450.zip",
-                "reference": "75788110a15aec74bfad52348d70557b779f1bc8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-226-update-product-with-amazon-data-e40390.zip",
+                "reference": "1b77ab1a375496fca9f049eced8d2f9ae3cd083e",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-06-06T15:46:38+00:00"
+            "time": "2018-06-07T15:03:26+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -513,16 +513,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-142-create-multiple-listings",
+            "version": "1.34.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8aed4ab094e419f50c45b09afb83c0deb63878bd"
+                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-142-create-multiple-listings-3c037a.zip",
-                "reference": "8aed4ab094e419f50c45b09afb83c0deb63878bd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.13-b65e4b.zip",
+                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4",
                 "shasum": null
             },
             "require": {
@@ -596,7 +596,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-15T14:51:52+00:00"
+            "time": "2018-05-24T08:57:07+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8379,7 +8379,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8434,7 +8434,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8489,7 +8489,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8540,7 +8540,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8626,7 +8626,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9931,12 +9931,6 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.34.8",
-            "alias_normalized": "1.34.8.0",
-            "version": "dev-LIS-142-create-multiple-listings",
-            "package": "channelgrabber/channel"
-        },
-        {
             "alias": "1.0.2",
             "alias_normalized": "1.0.2.0",
             "version": "dev-TAC-65-DisplayUserLocaleCurrency",
@@ -9958,7 +9952,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/currency": 20,
         "channelgrabber/listing": 20,
