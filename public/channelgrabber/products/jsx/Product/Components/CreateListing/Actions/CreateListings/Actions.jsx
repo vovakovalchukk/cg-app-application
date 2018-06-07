@@ -66,7 +66,7 @@ define([
         return details;
     };
 
-    var formatProductChannelDataForChannel = function (values) {
+    let formatProductChannelDataForChannel = function (values) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
             var attributeImageMap = {};
@@ -114,8 +114,22 @@ define([
             });
         }
 
+        if (itemSpecifics.selectedChoice) {
+            itemSpecifics = {
+                [itemSpecifics.selectedChoice]: itemSpecifics[itemSpecifics.selectedChoice]
+            };
+        }
+
         delete itemSpecifics.customItemSpecifics;
         delete itemSpecifics.optionalItemSpecifics;
+        var itemSpecific;
+        Object.keys(itemSpecifics).forEach(key => {
+            itemSpecific = itemSpecifics[key];
+            if (typeof itemSpecific !== 'object' || itemSpecific === null) {
+                return;
+            }
+            itemSpecifics[key] = formatItemSpecificsForCategory(itemSpecific);
+        });
         return itemSpecifics;
     };
 
