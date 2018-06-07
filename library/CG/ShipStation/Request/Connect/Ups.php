@@ -80,7 +80,7 @@ class Ups extends RequestAbstract implements ConnectInterface
         return Response::class;
     }
 
-    public function getNickname(): ?string
+    public function getNickname(): string
     {
         return $this->nickname;
     }
@@ -91,7 +91,7 @@ class Ups extends RequestAbstract implements ConnectInterface
         return $this;
     }
 
-    public function getAccountNumber(): ?string
+    public function getAccountNumber(): string
     {
         return $this->accountNumber;
     }
