@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-262-fix-multiple-listings":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#e068b51573092ff1a679f5d08f8e66328865c989"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#8bd7ad220120bd103f07b34129967bbb22b1ea8b"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"

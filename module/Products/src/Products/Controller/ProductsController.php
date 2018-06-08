@@ -7,6 +7,7 @@ use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
 use CG\Locale\CurrencyCode;
+use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -130,6 +131,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
+        $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($this->activeUserContainer->getLocale()));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
