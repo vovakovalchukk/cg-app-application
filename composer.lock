@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cf95d753ce7b46a693df89746632089",
+    "content-hash": "8a6153c4097f646a21adb00f8a599400",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1913,16 +1913,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.7.8",
+            "version": "1.7.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "70410ea30f89a87ced0211fbb957696e5688b167"
+                "reference": "12ed59e19c0a00cb15430c7909a6d507d8103611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.7.8-346e20.zip",
-                "reference": "70410ea30f89a87ced0211fbb957696e5688b167",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.7.9-041d76.zip",
+                "reference": "12ed59e19c0a00cb15430c7909a6d507d8103611",
                 "shasum": null
             },
             "require": {
@@ -1960,7 +1960,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-05-25T14:55:44+00:00"
+            "time": "2018-06-08T08:07:57+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4210,16 +4210,16 @@
         },
         {
             "name": "channelgrabber/zf2-sagepay",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/sagepay-module.git",
-                "reference": "0869f033cee0757736d3a1ccc090f796cb0a63a0"
+                "reference": "b3b9d334e8e03554eefa1d75eeedbce80dee27e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sagepay-1.0.6-3f3d56.zip",
-                "reference": "0869f033cee0757736d3a1ccc090f796cb0a63a0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sagepay-1.0.7-ca1085.zip",
+                "reference": "b3b9d334e8e03554eefa1d75eeedbce80dee27e8",
                 "shasum": null
             },
             "require": {
@@ -4261,7 +4261,7 @@
                 }
             },
             "description": "SagePay module",
-            "time": "2016-12-13T15:20:42+00:00"
+            "time": "2018-06-08T08:04:34+00:00"
         },
         {
             "name": "channelgrabber/zf2-sessions",
