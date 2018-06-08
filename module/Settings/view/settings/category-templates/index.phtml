@@ -1,4 +1,4 @@
-<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/common/css/default.css', ['screen', 'print']) ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
 
 <div class="category-template-container">
@@ -10,7 +10,7 @@
         require.config({
             paths: {
                 'CategoryMapper': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/CategoryMapper',
-                'Common': '<?= $this->basePath() ?>/cg-built/common/js/Common',
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common',
                 'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>js/Product'
             }
         });

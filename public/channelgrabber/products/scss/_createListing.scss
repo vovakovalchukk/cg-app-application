@@ -15,12 +15,28 @@
     max-height: 26px;
     box-sizing: border-box;
     display: inline-flex;
+
+    &.error {
+      border-color: $color-red;
+    }
+
     input[type=number] {
-      width: 40px;
-      height: 13px;
+      width: 80px;
       border: 0;
       text-align: right;
       outline: none;
+      padding-right: 5px;
+    }
+  }
+
+  div.error > .custom-select > .selected {
+    border-color: $color-red;
+  }
+
+  .react-image-picker
+  {
+    &.error {
+      border-color: $color-red;
     }
   }
 
@@ -30,6 +46,8 @@
 
   .inputbox-label {
     margin-right: 12px;
+    font-size: 1.2em;
+    max-width: 150px;
   }
 
   .container-extra-item-specific {
@@ -40,21 +58,174 @@
     margin-top: 0;
   }
 
-  input[type=number] {
-    width: 50px;
-    border-radius: 5px;
-    background-clip: padding-box;
-    background-color: $color-white;
-    border: 1px solid $color-lgrey;
-    padding: 3px;
-    padding-right: 4px;
-    font-size: 13px;
-    -moz-appearance: textfield;
-    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+  .account-select-form {
+    .custom-option, .filter-box {
+      display: flex;
+    }
+
+    .setup-wizard-channel-badge img {
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+
+    }
+
+    .setup-wizard-channel-badge.selected {
+      img {
+        -webkit-filter: grayscale(0);
+        filter: grayscale(0);
+      }
+
+      .setup-wizard-channel-badge-name {
+        color: $color-linkblue;
+      }
+    }
+
+    .setup-wizard-channel-badge-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      color: black;
+    }
+
+    .channel-badge-container {
+      display: inline-block;
+      margin: 0 15px;
+      max-width: 175px;
+      float: left;
+    }
+
+    .input-error {
+      color: red;
+    }
+
+    .account-error {
+      margin-bottom: 25px;
+      display: inline-block;
+    }
+
+    .accounts-error {
+      margin-bottom:  25px;
+      display: block;
+      text-align: center;
     }
   }
+
+  .channel-form-container,
+  .category-form-container {
+    float: left;
+    clear: both;
+    margin-top: 10px;
+    h2 {
+      float: left;
+      clear: both;
+      font-size: 1.3em;
+    }
+  }
+
+  .container-buttons {
+    float: right;
+  }
+
+  .category-template-container {
+    background-color: transparent;
+    min-height: 0;
+  }
+
+  .container-content {
+    max-width: none;
+    &.account-form {
+      width: 98%;
+    }
+  }
+
+  .form-input-container {
+    .order-inputbox-holder {
+      margin-bottom: 15px;
+    }
+    display: table;
+    margin: 0 auto;
+  }
+
+  .add-new-category-map-button {
+    float: left;
+    line-height: 28px;
+    margin-left: 15px;
+    font-size: 1.3em;
+    position: absolute;
+  }
+
+  .custom-select {
+    width: 300px;
+  }
+
+  .image-header {
+    width: 150px;
+  }
+
+  .product-identifier-input {
+    width: 115px;
+  }
+
+  .product-dimension-input {
+    width: 65px;
+  }
+
+  .product-price-input {
+    width: 80px;
+  }
+
+  .product-input-error {
+    position: absolute;
+  }
+
+  .heading-large {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: bold;
+    &.heading-table {
+      margin-bottom: 8px;
+    }
+  }
+
+  label.input-container {
+    display: block;
+  }
+
+  .textarea-description {
+    padding: 9px 35px 8px 5px;
+  }
+
+  .input-error {
+    color: $color-red;
+    font-size: 1.1em;
+    display: table;
+  }
+
+  .input-array-error {
+    float: left;
+  }
+
+  input.error {
+    border-color: $color-red;
+  }
+
+  .view-errors-button {
+    color: $color-lblue;
+    cursor: pointer;
+  }
+}
+
+.react-image-picker {
+  float: left;
+}
+
+.main-image-picker {
+  margin-bottom: 20px;
+}
+
+.order-inputbox-holder {
+  margin-bottom: 15px;
 }
 
 .image-dropdown-target {
@@ -63,7 +234,7 @@
     overflow: initial;
     background-color: $color-white;
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
     text-align: center;
     min-height: 56px;
   }
@@ -93,17 +264,16 @@
     width: auto;
     min-width: 800px;
   }
-
 }
 
-
 .variation-picker {
-  margin: 10px 0;
+  margin: 20px 0;
   input {
     width: 120px;
+    padding: 9px 5px 8px 5px;
   }
 
-  min-width: 800px;
+  min-width: 500px;
 
   .editable-field-wrap {
     min-width: 160px;
@@ -140,7 +310,22 @@
     th {
       padding: 8px;
       width: auto;
-      min-width: 150px;
+      min-width: 75px;
+      &.with-title {
+        cursor: pointer;
+      }
+      &.account-header {
+        max-width: 75px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &.attribute-header {
+        max-width: 125px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     tr td {
@@ -161,3 +346,10 @@
 .variation-picker-checkbox {
   width: 38px;
 }
+
+.container-wrapper .react-popup-message {
+  border-width: 1px !important;
+  margin-top: 15px;
+  max-width: 1200px;
+}
+

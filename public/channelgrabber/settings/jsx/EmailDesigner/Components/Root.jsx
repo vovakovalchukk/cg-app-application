@@ -72,7 +72,6 @@ define([
             });
         },
         render: function() {
-            console.log(this.state.selectedElement);
             return (
                 <div className="email-designer-root">
                     <ControlBar template={this.state.template} onTemplateNameChange={this.onTemplateNameChange}/>
