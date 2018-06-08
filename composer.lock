@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a6153c4097f646a21adb00f8a599400",
+    "content-hash": "51221688d72643e458f3f011f3eb34e9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4119,16 +4119,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-LIS-182-control-access-in-the-ui",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "e52177ac7f149a842a94c37e7c49f318d3d0f72c"
+                "reference": "78f9fa2d33d2a5eea78f9fb75578eb710b610f20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-LIS-182-control-access-in-the-ui-cdc070.zip",
-                "reference": "e52177ac7f149a842a94c37e7c49f318d3d0f72c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.3-f7dc1d.zip",
+                "reference": "78f9fa2d33d2a5eea78f9fb75578eb710b610f20",
                 "shasum": null
             },
             "require": {
@@ -4167,7 +4167,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-08T08:04:57+00:00"
+            "time": "2018-06-08T14:54:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9933,18 +9933,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.3",
-            "alias_normalized": "1.6.3.0",
-            "version": "dev-LIS-182-control-access-in-the-ui",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
