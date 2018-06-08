@@ -17,6 +17,7 @@ class Export implements ExportDocumentInterface
         'Total' => 'total',
         'Currency code' => 'currencyCode',
         'Service code' => 'serviceCode',
+        'Signature' => 'signature',
         'Customer title' => 'customerTitle',
         'First name' => 'firstName',
         'Last name' => 'lastName',

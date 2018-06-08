@@ -17,6 +17,8 @@ define([
         getParamSearchTerm,
         features,
         adminCompanyUrl,
+        taxRates,
+        stockModeOptions,
         ebaySiteOptions,
         categoryTemplateOptions,
         conditionOptions,
@@ -34,9 +36,11 @@ define([
                 managePackageUrl={managePackageUrl}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
-                ebaySiteOptions={JSON.parse(ebaySiteOptions)}
-                categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
-                conditionOptions={JSON.parse(conditionOptions)}
+                taxRates={taxRates}
+                stockModeOptions={stockModeOptions}
+                ebaySiteOptions={ebaySiteOptions}
+                categoryTemplateOptions={categoryTemplateOptions}
+                conditionOptions={conditionOptions}
                 defaultCurrency={defaultCurrency}
                 salesPhoneNumber={salesPhoneNumber}
             />,
