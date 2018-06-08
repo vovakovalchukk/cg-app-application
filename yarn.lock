@@ -989,9 +989,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.3":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-262-fix-multiple-listings":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#43e68087ceff6537b6ea08fe6d6aacaca8ac95ec"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#e068b51573092ff1a679f5d08f8e66328865c989"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
