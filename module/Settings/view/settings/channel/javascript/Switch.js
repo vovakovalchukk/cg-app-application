@@ -39,7 +39,7 @@ require(
             };
     
             CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache){
-                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+                var messageHTML = cgmustache.renderTemplate(templates, {"phoneNumber": <?= json_encode($this->phoneNumber()) ?>}, "message");
                 var confirm = new Confirm(messageHTML, function (response) {
                     if (response == "Yes") {
                         ajaxCheckbox.saveStatus(ajaxOptions, input);
