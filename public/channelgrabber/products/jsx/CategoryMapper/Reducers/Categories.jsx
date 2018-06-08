@@ -98,6 +98,13 @@ define([
             }
 
             return newState;
+        },
+        "CATEGORY_ROOTS_FETCHED": function (state, action) {
+            var categories = {};
+            action.payload.accountCategories.forEach(function (value, index) {
+                categories[value.accountId] = Object.assign({}, value.categories);
+            });
+            return categories;
         }
     });
 });

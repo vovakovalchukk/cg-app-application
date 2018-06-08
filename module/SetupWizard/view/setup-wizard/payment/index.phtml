@@ -1,19 +1,21 @@
 <div id="setup-wizard-payment">
-    <div id="setup-wizard-package-selector" class="clearfix">
-        <div id="package-setup" class="half"></div>
-        <div class="half demo">
-            <div class="demo-info">
-                <div>Beat your competitors.<br />See the full system first.</div>
-                <div class="demo-link">
-                    <a target="_blank" href="https://samgilbert.youcanbook.me/">WATCH A DEMO NOW</a>
-                </div>
-                <div class="callUs">Or call us on 01617110248</div>
-            </div>
+    <div class="half">
+        <div id="setup-wizard-package-selector" class="clearfix">
+            <div id="package-setup"></div>
+        </div>
+        <div id="setup-wizard-payment-selector" class="clearfix">
+            <div><?= $this->paymentMethodSelect ?? '' ?></div>
+            <div class="payment-setup"><?= $this->paymentMethod ?? '' ?></div>
         </div>
     </div>
-    <div id="setup-wizard-payment-selector" class="clearfix">
-        <div><?= $this->paymentMethodSelect ?? '' ?></div>
-        <div class="half payment-setup"><?= $this->paymentMethod ?? '' ?></div>
+    <div id="demo" class="half">
+        <div class="demo-info">
+            <div>Beat your competitors.<br />See the full system first.</div>
+            <div class="demo-link">
+                <a target="_blank" href="https://meetings.hubspot.com/sam197/cgdemo">WATCH A DEMO NOW</a>
+            </div>
+            <div class="callUs">Or call us on <?= $this->phoneNumber ?></div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -37,6 +39,7 @@
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
                 locale: new Locale(),
+                phoneNumber: <?= json_encode($this->phoneNumber) ?>,
                 selectedPackage: <?= json_encode($this->selectedPackage) ?>,
                 packages: <?= json_encode($this->packages) ?>,
                 onPackageSelection: function(packageId) {
