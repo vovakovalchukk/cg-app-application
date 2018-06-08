@@ -1,3 +1,11 @@
+#setup-wizard-payment > .half {
+  width: calc(50% - 20px);
+
+  label, .half {
+    width: unset;
+  }
+}
+
 #setup-wizard-package-selector label > span,
 #setup-wizard-package-selector .package-info > div > span:first-child,
 #setup-wizard-payment-selector .inputbox-label {
@@ -10,13 +18,6 @@
 #setup-wizard-package-selector, #setup-wizard-payment-selector {
   .selected-content {
     margin-top: -3px;
-  }
-
-  .half {
-    width: calc(50% - 20px);
-    label {
-      width: unset;
-    }
   }
 }
 
@@ -46,43 +47,46 @@
       padding-left: 15px;
     }
   }
+}
 
-  .demo {
-    overflow: visible;
+#demo {
+  text-align: center;
+
+  .demo-info {
+    display: inline-block;
     text-align: center;
 
-    .demo-info {
+    > div {
+      margin: 5px 0;
+    }
+
+    .demo-link > a {
       display: inline-block;
-      text-align: center;
+      border: 1px solid black;
+      border-radius: 15px;
+      background-color: $color-orange;
+      padding: 20px 40px;
+      font-weight: bold;
+      color: $color-white;
+    }
 
-      > div {
-        margin: 5px 0;
-      }
-
-      .demo-link > a {
-        display: inline-block;
-        border: 1px solid black;
-        border-radius: 15px;
-        background-color: $color-orange;
-        padding: 20px 40px;
-        font-weight: bold;
-        color: $color-white;
-      }
-
-      .callUs {
-        font-size: 14px;
-        font-weight: bold;
-      }
+    .callUs {
+      font-size: 14px;
+      font-weight: bold;
     }
   }
 }
 
 #setup-wizard-payment-selector {
   display: none;
-  height: 200px;
+  min-height: 200px;
 
   .order-inputbox-holder, .order-inputbox-holder > .input, .custom-select {
     width: 200px;
+  }
+
+  iframe {
+    width: 810px !important;
   }
 }
 

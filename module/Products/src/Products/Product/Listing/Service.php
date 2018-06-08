@@ -3,6 +3,8 @@ namespace Products\Product\Listing;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Subscription\Service as SubscriptionService;
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -14,6 +16,7 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const FEATURE_FLAG_COMM_LIST = 'Commercialise Listings';
     const LOG_CODE = 'ProductListingService';
     const CACHE_TTL = 86400; // 24 hours
 
@@ -25,17 +28,25 @@ class Service implements LoggerAwareInterface
     protected $sites;
     /** @var SessionManager */
     protected $sessionManager;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         SubscriptionService $subscriptionService,
         Sites $sites,
-        SessionManager $sessionManager
+        SessionManager $sessionManager,
+        FeatureFlagsService $featureFlagsService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->subscriptionService = $subscriptionService;
         $this->sites = $sites;
         $this->sessionManager = $sessionManager;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function isListingCreationAllowed(): bool
@@ -45,6 +56,13 @@ class Service implements LoggerAwareInterface
         if ($cachedStatus !== null) {
             $this->logDebug('Got Listing Creation Allowed status for OU %d from cache: %s', ['ou' => $rootOuId, $cachedStatus ? 'allowed' : 'not allowed'], [static::LOG_CODE, 'ListingCreation', 'Cached'], ['rootOu' => $rootOuId]);
             return $cachedStatus;
+        }
+
+        $rootOu = $this->organisationUnitService->fetch($rootOuId);
+        if (!$this->featureFlagsService->isActive(static::FEATURE_FLAG_COMM_LIST, $rootOu)) {
+            $this->setCachedListingCreationAllowed(true);
+            $this->logDebug('Listing creation is allowed for OU %d as Commercialise Listings is turned off', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'Allowed'], ['rootOu' => $rootOuId]);
+            return true;
         }
 
         try {

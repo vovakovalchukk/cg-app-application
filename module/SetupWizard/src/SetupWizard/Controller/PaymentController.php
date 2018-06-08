@@ -3,6 +3,7 @@ namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Entity as Package;
+use CG\Locale\PhoneNumber;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
@@ -65,9 +66,11 @@ class PaymentController extends AbstractActionController
 
     protected function getBody(): ViewModel
     {
+        $locale = $this->packageService->getLocale();
         $body = $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
-            ->setVariable('locale', $this->packageService->getLocale())
+            ->setVariable('locale', $locale)
+            ->setVariable('phoneNumber', PhoneNumber::getForLocale($locale))
             ->setVariable('selectedPackage', $this->getSelectedPackage())
             ->setVariable('packages', $this->getPackagesData())
             ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod());
