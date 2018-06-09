@@ -15,25 +15,6 @@ define([
                 input: null
             };
         },
-        getInitialState: function () {
-            return {
-                options: []
-            };
-        },
-        componentDidMount: function() {
-            this.setState({
-                options: this.props.options
-            });
-        },
-        componentWillReceiveProps(nextProps) {
-            if (JSON.stringify(nextProps.options) === JSON.stringify(this.props.options)) {
-                return;
-            }
-
-            this.setState({
-                options: nextProps.options
-            });
-        },
         onOptionalItemSpecificSelected: function (selected) {
             this.removeSelectedOptionFromOptions(selected);
             this.props.input.fields.push({
@@ -41,21 +22,18 @@ define([
             });
         },
         removeSelectedOptionFromOptions: function (selected) {
-            var selectedOptionIndex = this.state.options.findIndex(option => {
+            var selectedOptionIndex = this.props.options.findIndex(option => {
                 return option.value === selected.value;
             });
             if (selectedOptionIndex === -1) {
                 return;
             }
 
-            var newOptions = this.state.options.slice();
+            var newOptions = this.props.options.slice();
             newOptions.splice(selectedOptionIndex, 1);
-            this.setState({
-                options: newOptions
-            });
         },
         render: function () {
-            if (this.state.options.length === 0) {
+            if (this.props.options.length === 0) {
                 return null;
             }
             return <label>
@@ -63,7 +41,7 @@ define([
                 <div className={"order-inputbox-holder"}>
                     <Select
                         name="optionalItemSpecifics"
-                        options={this.state.options}
+                        options={this.props.options}
                         autoSelectFirst={false}
                         onOptionChange={this.onOptionalItemSpecificSelected}
                         filterable={true}

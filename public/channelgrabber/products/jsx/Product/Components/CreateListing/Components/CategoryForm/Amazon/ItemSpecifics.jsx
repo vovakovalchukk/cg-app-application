@@ -312,7 +312,7 @@ define([
         renderOptionsItemSpecificComponents: function(input) {
             var fields = [<OptionalItemSpecificsSelect
                 displayTitle={this.formatDisplayTitle(input.displayTitle)}
-                options={this.formatOptionalSelectOptions(input.itemSpecifics)}
+                options={this.formatOptionalSelectOptions(input.itemSpecifics, input.fields.getAll())}
                 input={input}
             />];
 
@@ -330,13 +330,26 @@ define([
                 {fields}
             </span>
         },
-        formatOptionalSelectOptions(itemSpecifics) {
-            return itemSpecifics.map(itemSpecific => {
+        formatOptionalSelectOptions(itemSpecifics, fieldValues) {
+            var options = itemSpecifics.map(itemSpecific => {
                 return {
                     name: this.formatDisplayTitle(itemSpecific.name),
                     value: itemSpecific.name
                 }
             });
+
+            return fieldValues ? this.filterOutSelectedOptions(options, fieldValues) : options;
+        },
+        filterOutSelectedOptions(options, fieldValues) {
+            fieldValues.forEach(field => {
+                var index = options.findIndex(option => {
+                    return option.value == field.fieldName;
+                });
+                if (index > -1) {
+                    options.splice(index, 1);
+                }
+            });
+            return options;
         },
         renderOptionalItemSpecific: function (field) {
             var index = field.itemSpecifics.findIndex(itemSpecific => {
