@@ -21,11 +21,6 @@ define([
     var FieldArray = ReduxForm.FieldArray;
     var FormSection = ReduxForm.FormSection;
 
-    const TYPE_TEXT = "text";
-    const TYPE_SELECT = "select";
-    const TYPE_CHOICE = "choice";
-    const TYPE_SEQUENCE = "sequence";
-
     var AmazonItemSpecifics = React.createClass({
         getDefaultProps: function() {
             return {
@@ -321,18 +316,15 @@ define([
                 input={input}
             />];
 
-            var optionalItemSpecifics = [];
             if (input.fields.length > 0) {
-                optionalItemSpecifics = input.fields.map((name) => {
-                    return <Field
+                input.fields.forEach((name) => {
+                    fields.push(<Field
                         name={name}
                         component={this.renderOptionalItemSpecific}
                         itemSpecifics={input.itemSpecifics}
-                    />;
+                    />)
                 });
             }
-
-            fields.push(optionalItemSpecifics);
 
             return <span>
                 {fields}
@@ -344,11 +336,6 @@ define([
                     name: this.formatDisplayTitle(itemSpecific.name),
                     value: itemSpecific.name
                 }
-            });
-        },
-        onOptionalItemSpecificSelected: function (input, selected) {
-            input.fields.push({
-                fieldName: selected.value
             });
         },
         renderOptionalItemSpecific: function (field) {

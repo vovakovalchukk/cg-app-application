@@ -25,6 +25,15 @@ define([
                 options: this.props.options
             });
         },
+        componentWillReceiveProps(nextProps) {
+            if (JSON.stringify(nextProps.options) === JSON.stringify(this.props.options)) {
+                return;
+            }
+
+            this.setState({
+                options: nextProps.options
+            });
+        },
         onOptionalItemSpecificSelected: function (selected) {
             this.removeSelectedOptionFromOptions(selected);
             this.props.input.fields.push({
