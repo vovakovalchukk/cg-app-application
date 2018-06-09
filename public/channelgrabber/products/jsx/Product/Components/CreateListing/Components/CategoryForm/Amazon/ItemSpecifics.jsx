@@ -331,11 +331,15 @@ define([
             </span>
         },
         formatOptionalSelectOptions(itemSpecifics, fieldValues) {
-            var options = itemSpecifics.map(itemSpecific => {
-                return {
+            var options = [];
+            itemSpecifics.forEach(itemSpecific => {
+                if (options.findIndex(option => {return option.value === itemSpecific.name}) > -1) {
+                    return;
+                }
+                options.push({
                     name: this.formatDisplayTitle(itemSpecific.name),
                     value: itemSpecific.name
-                }
+                });
             });
 
             return fieldValues ? this.filterOutSelectedOptions(options, fieldValues) : options;
