@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "4e9ac663919a5ed63f6fb2611b5d9bbc",
@@ -1526,17 +1526,11 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.21",
+            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "05603547ad5dd674d7b029d4ed12777b8ff1ae40"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.21-dd2cb2.zip",
-                "reference": "05603547ad5dd674d7b029d4ed12777b8ff1ae40",
-                "shasum": null
+                "reference": "770a395ad34380360baad00d96d7577ce0a58577"
             },
             "require": {
                 "php": ">=7.1"
@@ -2240,17 +2234,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.13.0",
+            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "9d4da178d6ffd8f8ab6bab51637d0efdade8f38a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.13.0-741c7b.zip",
-                "reference": "9d4da178d6ffd8f8ab6bab51637d0efdade8f38a",
-                "shasum": null
+                "reference": "31e52272eda3f0bfa18b36dda4ac441568283971"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9933,13 +9921,28 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.21",
+            "alias_normalized": "1.0.21.0",
+            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
+            "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
