@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9dcb811b556579875d39f5d036506e5",
+    "content-hash": "ce5fb95118268682104100acef55524d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1471,17 +1471,11 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-227-create-amazon-simple-listings",
+            "version": "dev-LIS-221-amazon-category-specific-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "492938b3255bc6f4c815f8b19302fd542a901572"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-227-create-amazon-simple-listings-42ac94.zip",
-                "reference": "492938b3255bc6f4c815f8b19302fd542a901572",
-                "shasum": null
+                "reference": "2cc10b8350f9979cc46f23d5822c47cd8ebf0ecc"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9949,6 +9943,12 @@
             "package": "channelgrabber/listing"
         },
         {
+            "alias": "1.16.2",
+            "alias_normalized": "1.16.2.0",
+            "version": "dev-LIS-221-amazon-category-specific-data",
+            "package": "channelgrabber/listing"
+        },
+        {
             "alias": "1.0.19",
             "alias_normalized": "1.0.19.0",
             "version": "dev-TAC-63-UserLocaleCurrency",
@@ -9964,8 +9964,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/locale": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
