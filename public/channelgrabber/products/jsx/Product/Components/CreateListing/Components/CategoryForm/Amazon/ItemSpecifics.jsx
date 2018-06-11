@@ -21,6 +21,10 @@ define([
     var FieldArray = ReduxForm.FieldArray;
     var FormSection = ReduxForm.FormSection;
 
+    const REQUIRED_ITEM_SPECIFICS = {
+        'ProductType': 'ProductType'
+    };
+
     var AmazonItemSpecifics = React.createClass({
         getDefaultProps: function() {
             return {
@@ -44,6 +48,7 @@ define([
                 fields = [];
 
             itemSpecifics.forEach((itemSpecific) => {
+                itemSpecific = this.formatItemSpecificForRendering(itemSpecific);
                 if (!itemSpecific.required) {
                     optional.push(itemSpecific);
                     return;
@@ -63,6 +68,12 @@ define([
         renderItemSpecific: function(itemSpecific) {
             var functionName = 'render' + itemSpecific.type.ucfirst() + 'Field';
             return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
+        },
+        formatItemSpecificForRendering: function (itemSpecific) {
+            if (itemSpecific.name && REQUIRED_ITEM_SPECIFICS[itemSpecific.name]) {
+                itemSpecific.required = true;
+            }
+            return itemSpecific;
         },
         renderTextField: function(itemSpecific) {
             if (this.shouldRenderTextFieldArray(itemSpecific)) {
