@@ -92,6 +92,7 @@ define([
         renderChoiceField: function(itemSpecific) {
             var fields = [this.renderChoiceSelectField(itemSpecific)];
             var selectedItemSpecificName = this.state.selectedChoices[itemSpecific.name];
+
             if (selectedItemSpecificName) {
                 var selectedIndex = itemSpecific.children.findIndex((itemSpecific => {
                     return selectedItemSpecificName == itemSpecific.name;
@@ -99,6 +100,7 @@ define([
                 var selectedItemSpecific = itemSpecific.children[selectedIndex];
                 fields.push(this.renderItemSpecifics(selectedItemSpecific.children, selectedItemSpecific.name));
             }
+
             return <FormSection
                 name={itemSpecific.name}
                 component={this.renderFormSection}
@@ -320,7 +322,7 @@ define([
                 input.fields.forEach((name) => {
                     fields.push(<Field
                         name={name}
-                        component={this.renderOptionalItemSpecific}
+                        component={this.renderOptionalItemSpecific.bind(this)}
                         itemSpecifics={input.itemSpecifics}
                     />)
                 });
