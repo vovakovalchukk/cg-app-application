@@ -6,7 +6,7 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Product/Components/CreateListing/Reducers/CreateListing/Combined',
-    'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateListing/CreateListingPopup'
 ], function(
     React,
     Redux,

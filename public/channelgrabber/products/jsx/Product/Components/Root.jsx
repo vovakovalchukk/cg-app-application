@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
+    'Product/Components/CreateListing/Root'
 ], function(
     React,
     SearchBox,
@@ -43,6 +43,7 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
+                managePackageUrl: null,
                 features: {},
                 taxRates: {},
                 stockModeOptions: {},
@@ -50,7 +51,8 @@ define([
                 categoryTemplateOptions: {},
                 createListingData: {},
                 conditionOptions: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                salesPhoneNumber: null
             }
         },
         getInitialState: function() {
@@ -123,7 +125,7 @@ define([
                     skuList: skuList,
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
-                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
                 }, function() {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -431,7 +433,10 @@ define([
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
-                this.showCreateListingPopup
+                this.showCreateListingPopup,
+                this.props.listingCreationAllowed,
+                this.props.managePackageUrl,
+                this.props.salesPhoneNumber
             );
             this.fetchVariationForProductListingCreation();
             return <CreateListingRootComponent
