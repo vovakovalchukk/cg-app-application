@@ -19,7 +19,7 @@ define([
         {
             "name": "weight",
             "displayTitle": "Weight (kg)",
-            "validate": Validators.required
+            "validate": true//Validators.required
         },
         {
             "name": "width",
@@ -84,25 +84,15 @@ define([
         },
         renderDimensionColumns: function (variation) {
             return dimensions.map(function (dimension) {
-
+                var accounts = this.props.accounts;
                 var channelRequireValidation = false;
-                for (var account in this.props.accounts) {
-
-                    console.log(account);
-
-                    console.log("AC ".account.channel);
-
-
-
+                for (var key in accounts) {
+                    var account = accounts[key];
                     if (account.channel == "big-commerce") {
-                        console.log("AC IN ".account.channel);
                         channelRequireValidation = true;
                         break;
                     }
                 }
-                console.log("DIM AND CH");
-                console.log(dimension.validate + ' ' + channelRequireValidation);
-
                 return (<td>
                     <Field
                         name={"dimensions." + variation.sku + "." + dimension.name}
@@ -116,12 +106,6 @@ define([
         },
         renderInputComponent: function(field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
-
-            // console.log("ACCOUNTS");
-            // console.log(this.props.accounts);
-
-
-
             return <Input
                 {...field.input}
                 onChange={this.onInputChange.bind(this, field.input, field.dimensionName, field.variation.sku)}
@@ -129,7 +113,6 @@ define([
                 className={"product-dimension-input"}
                 errorBoxClassName={"product-input-error"}
                 inputType={"number"}
-                //validate={Validators.required}
             />;
         },
         onInputChange: function(input, dimension, sku, value) {
