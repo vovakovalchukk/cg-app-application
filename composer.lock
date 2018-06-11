@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce5fb95118268682104100acef55524d",
+    "content-hash": "b65d287856ac8d67291336a122b03885",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1475,7 +1475,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "2cc10b8350f9979cc46f23d5822c47cd8ebf0ecc"
+                "reference": "617a85df2fe4bf0bfd05615f68c7e8d9d510dcf2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-221-amazon-category-specific-data-9bd323.zip",
+                "reference": "617a85df2fe4bf0bfd05615f68c7e8d9d510dcf2",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1500,6 +1506,11 @@
                 "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-LIS-221-amazon-category-specific-data": "1.16.2-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -1510,7 +1521,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-11T11:13:40+00:00"
+            "time": "2018-06-11T15:50:20+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9937,14 +9948,8 @@
             "package": "channelgrabber/currency"
         },
         {
-            "alias": "1.16.2",
-            "alias_normalized": "1.16.2.0",
-            "version": "dev-LIS-227-create-amazon-simple-listings",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.16.2",
-            "alias_normalized": "1.16.2.0",
+            "alias": "dev-LIS-227-create-amazon-simple-listings",
+            "alias_normalized": "dev-LIS-227-create-amazon-simple-listings",
             "version": "dev-LIS-221-amazon-category-specific-data",
             "package": "channelgrabber/listing"
         },
@@ -9964,8 +9969,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/locale": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
