@@ -1475,12 +1475,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "617a85df2fe4bf0bfd05615f68c7e8d9d510dcf2"
+                "reference": "521218e446d2306374166da197ebfba948347d53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-221-amazon-category-specific-data-9bd323.zip",
-                "reference": "617a85df2fe4bf0bfd05615f68c7e8d9d510dcf2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-221-amazon-category-specific-data-dc5446.zip",
+                "reference": "521218e446d2306374166da197ebfba948347d53",
                 "shasum": null
             },
             "require": {
@@ -1521,7 +1521,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-11T15:50:20+00:00"
+            "time": "2018-06-11T15:56:04+00:00"
         },
         {
             "name": "channelgrabber/locale",
