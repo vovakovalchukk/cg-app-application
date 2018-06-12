@@ -9,6 +9,8 @@ use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
@@ -383,10 +385,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function saveProductDetail($sku, $detail, $value, $id = null)
     {
         $value = is_numeric($value) ? (float) $value : null;
+        $locale = $this->activeUserContainer->getLocale();
         if ($detail == 'weight') {
-            $value = Details::convertMass($value, Details::DISPLAY_UNIT_MASS, Details::UNIT_MASS);
+            $displayUnit = LocaleMass::getForLocale($locale);
+            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
         } else {
-            $value = Details::convertLength($value, Details::DISPLAY_UNIT_LENGTH, Details::UNIT_LENGTH);
+            $displayUnit = LocaleLength::getForLocale($locale);
+            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
         }
 
         if ($id) {
