@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51221688d72643e458f3f011f3eb34e9",
+    "content-hash": "4d747179ad8d2b24a033bae8296028f1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1477,16 +1477,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.16.2",
+            "version": "dev-LIS-264-add-listings-behind-feature-flag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "0bff32f26bffdb40a7265eae38e343eeb0d7a7e8"
+                "reference": "c6ed106a0f0ff22f0d80eb926946c5f910de2aea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.16.2-e9c3e0.zip",
-                "reference": "0bff32f26bffdb40a7265eae38e343eeb0d7a7e8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-264-add-listings-behind-feature-flag-a37935.zip",
+                "reference": "c6ed106a0f0ff22f0d80eb926946c5f910de2aea",
                 "shasum": null
             },
             "require": {
@@ -1522,7 +1522,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-24T08:52:33+00:00"
+            "time": "2018-06-12T07:56:34+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9933,10 +9933,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.2",
+            "alias_normalized": "1.16.2.0",
+            "version": "dev-LIS-264-add-listings-behind-feature-flag",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
