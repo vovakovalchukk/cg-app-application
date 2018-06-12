@@ -19,8 +19,6 @@ define([
         {
             "name": "weight",
             "displayTitle": "Weight (kg)"
-            // ,
-            // "validate": Validators.required
         },
         {
             "name": "width",
@@ -166,21 +164,17 @@ define([
             />;
         },
         getValidatorsForDimensionAndChannel: function (accounts, dimension) {
+            if (dimension == undefined) {
+                return;
+            }
             for (var key in accounts) {
                 var account = accounts[key];
-
-                console.log(dimension)
-
-                if (channelDimensionsValidatorMap[account.channel][dimension.name] != undefined) {
-                    console.log(channelDimensionsValidatorMap[account.channel][dimension.name]);
+                if (channelDimensionsValidatorMap[account.channel] && channelDimensionsValidatorMap[account.channel][dimension.name]) {
                     return [channelDimensionsValidatorMap[account.channel][dimension.name]];
                 }
             }
 
-            console.log("undefinded");
             return undefined;
-
-            // (dimension.validate && channelRequireValidation) ? [dimension.validate] : undefined
         }
     });
 
