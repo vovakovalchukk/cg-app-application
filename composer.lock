@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ceed3f81e484a55762d1d1d63b03a57",
+    "content-hash": "d3b147d9546acd33bcbe9da41b0dba8f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.14.3",
+            "version": "dev-TAC-103-UpgradeSubscriptionDuration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "0ce7c18b10c12813c616b7708bce85d4d7246b2a"
+                "reference": "7d97813da4970887da143adb9f03906e16d5de9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.14.3-22c169.zip",
-                "reference": "0ce7c18b10c12813c616b7708bce85d4d7246b2a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-103-UpgradeSubscriptionDuration-a16920.zip",
+                "reference": "7d97813da4970887da143adb9f03906e16d5de9e",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-07T09:20:31+00:00"
+            "time": "2018-06-12T11:30:27+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,20 +637,20 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "7c152471c9bfe091a7f920587a5f5fcc2e78be32"
+                "reference": "ca296baf0ec5e1f24f929c69362c81355e768606"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.8.0-4b92dd.zip",
-                "reference": "7c152471c9bfe091a7f920587a5f5fcc2e78be32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.8.1-6683b8.zip",
+                "reference": "ca296baf0ec5e1f24f929c69362c81355e768606",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.13.4",
+                "channelgrabber/billing": "^1.14.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
@@ -676,7 +676,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-16T09:47:47+00:00"
+            "time": "2018-06-08T12:46:25+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1913,20 +1913,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.7.9",
+            "version": "dev-TAC-103-UpgradeSubscriptionDuration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "12ed59e19c0a00cb15430c7909a6d507d8103611"
+                "reference": "546da5a1844c1b0deda5bd0ed6d1dcbefaba8cb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.7.9-041d76.zip",
-                "reference": "12ed59e19c0a00cb15430c7909a6d507d8103611",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-103-UpgradeSubscriptionDuration-4e0adb.zip",
+                "reference": "546da5a1844c1b0deda5bd0ed6d1dcbefaba8cb2",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.14.2",
+                "channelgrabber/billing": "dev-TAC-103-UpgradeSubscriptionDuration as 1.15.1",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1946,7 +1946,7 @@
                 "channelgrabber/phpunit": "dev-develop",
                 "phpunit/phpunit": "~6.1"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -1960,7 +1960,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-08T08:07:57+00:00"
+            "time": "2018-06-12T10:18:16+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3577,29 +3577,31 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.0.4",
+            "version": "dev-TAC-103-UpgradeSubscriptionDuration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "1e124d3813f6400e5b5af4eca22f750ab3d8706b"
+                "reference": "db81484f393292fdbe2f2e3b1752ef8f2bef11b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.4-28c338.zip",
-                "reference": "1e124d3813f6400e5b5af4eca22f750ab3d8706b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-103-UpgradeSubscriptionDuration-a73aab.zip",
+                "reference": "db81484f393292fdbe2f2e3b1752ef8f2bef11b3",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.14.0",
+                "channelgrabber/billing": "dev-TAC-103-UpgradeSubscriptionDuration as 1.15.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.7.7",
+                "channelgrabber/payment": "dev-TAC-103-UpgradeSubscriptionDuration as 1.8.0",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.25.0",
+                "channelgrabber/zf2-email-template": "^1.0.24",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
-                "channelgrabber/zf2-v4-ui": "^1.23.0",
+                "channelgrabber/zf2-v4-ui": "^1.23.5",
+                "php": ">=7.1",
                 "zendframework/zend-config": "~2.3",
                 "zendframework/zend-form": "~2.3",
                 "zendframework/zend-loader": "~2.3",
@@ -3622,7 +3624,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-16T13:09:30+00:00"
+            "time": "2018-06-12T12:42:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -8389,7 +8391,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8444,7 +8446,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8499,7 +8501,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8550,7 +8552,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8636,7 +8638,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9933,10 +9935,32 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.0",
+            "alias_normalized": "1.16.0.0",
+            "version": "dev-TAC-103-UpgradeSubscriptionDuration",
+            "package": "channelgrabber/billing"
+        },
+        {
+            "alias": "1.8.0",
+            "alias_normalized": "1.8.0.0",
+            "version": "dev-TAC-103-UpgradeSubscriptionDuration",
+            "package": "channelgrabber/payment"
+        },
+        {
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
+            "version": "dev-TAC-103-UpgradeSubscriptionDuration",
+            "package": "channelgrabber/zf2-billing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/payment": 20,
+        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
