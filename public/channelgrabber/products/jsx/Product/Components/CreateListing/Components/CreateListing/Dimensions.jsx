@@ -18,8 +18,9 @@ define([
     var dimensions = [
         {
             "name": "weight",
-            "displayTitle": "Weight (kg)",
-            "validate": Validators.required
+            "displayTitle": "Weight (kg)"
+            // ,
+            // "validate": Validators.required
         },
         {
             "name": "width",
@@ -34,6 +35,12 @@ define([
             "displayTitle" : "Depth (cm)"
         }
     ];
+
+    var channelDimensionsValidatorMap = {
+        "big-commerce" : {
+            "weight": Validators.required
+        }
+    };
 
     var DimensionsComponent = React.createClass({
         getDefaultProps: function() {
@@ -85,19 +92,11 @@ define([
         renderDimensionColumns: function (variation) {
             return dimensions.map(function (dimension) {
                 var accounts = this.props.accounts;
-                var channelRequireValidation = false;
-                for (var key in accounts) {
-                    var account = accounts[key];
-                    if (account.channel == "big-commerce") {
-                        channelRequireValidation = true;
-                        break;
-                    }
-                }
                 return (<td>
                     <Field
                         name={"dimensions." + variation.sku + "." + dimension.name}
                         component={this.renderInputComponent}
-                        validate={(dimension.validate && channelRequireValidation) ? [dimension.validate] : undefined}
+                        validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
                         dimensionName={dimension.name}
                         variation={variation}
                     />
@@ -165,6 +164,23 @@ define([
                 renderCustomTableHeaders={this.renderDimensionHeaders}
                 renderCustomTableRows={this.renderDimensionColumns}
             />;
+        },
+        getValidatorsForDimensionAndChannel: function (accounts, dimension) {
+            for (var key in accounts) {
+                var account = accounts[key];
+
+                console.log(dimension)
+
+                if (channelDimensionsValidatorMap[account.channel][dimension.name] != undefined) {
+                    console.log(channelDimensionsValidatorMap[account.channel][dimension.name]);
+                    return [channelDimensionsValidatorMap[account.channel][dimension.name]];
+                }
+            }
+
+            console.log("undefinded");
+            return undefined;
+
+            // (dimension.validate && channelRequireValidation) ? [dimension.validate] : undefined
         }
     });
 
