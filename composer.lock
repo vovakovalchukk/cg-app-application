@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "673329ba0665751f2a7ea63b1c9a58b9",
+    "content-hash": "2ceed3f81e484a55762d1d1d63b03a57",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1526,16 +1526,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-TAC-72-USAddressStateDropDown",
+            "version": "1.0.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1c478f17fb4a5a4ee23334e10d7be6e46166b0c0"
+                "reference": "05603547ad5dd674d7b029d4ed12777b8ff1ae40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-72-USAddressStateDropDown-6d29f9.zip",
-                "reference": "1c478f17fb4a5a4ee23334e10d7be6e46166b0c0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.21-dd2cb2.zip",
+                "reference": "05603547ad5dd674d7b029d4ed12777b8ff1ae40",
                 "shasum": null
             },
             "require": {
@@ -1555,7 +1555,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-08T08:38:12+00:00"
+            "time": "2018-06-12T09:48:20+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4119,23 +4119,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-TAC-72-USAddressStateDropDown",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "6163f93c35365682726770313df65d921966eb30"
+                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-72-USAddressStateDropDown-578670.zip",
-                "reference": "6163f93c35365682726770313df65d921966eb30",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.4-6bebd2.zip",
+                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "dev-TAC-72-USAddressStateDropDown as 1.0.21",
+                "channelgrabber/locale": "^1.0.21",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4167,7 +4167,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-11T12:13:16+00:00"
+            "time": "2018-06-12T10:31:23+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9933,25 +9933,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.21",
-            "alias_normalized": "1.0.21.0",
-            "version": "dev-TAC-72-USAddressStateDropDown",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.6.4",
-            "alias_normalized": "1.6.4.0",
-            "version": "dev-TAC-72-USAddressStateDropDown",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
