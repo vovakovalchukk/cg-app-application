@@ -19,7 +19,7 @@ define([
         {
             "name": "weight",
             "displayTitle": "Weight (kg)",
-            "validate": true//Validators.required
+            "validate": Validators.required
         },
         {
             "name": "width",
