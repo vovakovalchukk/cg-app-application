@@ -50,6 +50,12 @@
     max-width: 150px;
   }
 
+  .amazon-category-form-container {
+    .inputbox-label {
+      font-size: 1em;
+    }
+  }
+
   .container-extra-item-specific {
     input {
       max-width: 100px;
@@ -371,4 +377,11 @@
 .sub-category-select {
   display: inline-block;
   margin-bottom: 5px;
+}
+
+.form-section-container {
+  margin-left: 50px;
+  > label.input-container:first-of-type {
+    margin-left: -50px;
+  }
 }
