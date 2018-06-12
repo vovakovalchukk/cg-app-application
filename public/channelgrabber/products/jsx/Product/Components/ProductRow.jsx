@@ -43,7 +43,9 @@ define([
                 productLinks: {},
                 maxVariationAttributes: 0,
                 fetchingUpdatedStockLevelsForSkus: {},
-                accounts: {}
+                accounts: {},
+                massUnit: null,
+                lengthUnit: null
             }
         },
         getInitialState: function () {
@@ -115,7 +117,12 @@ define([
                             />
                         </Pane>
                         <Pane label="Dimensions">
-                            <DimensionsView variations={products} fullView={this.state.expanded}/>
+                            <DimensionsView
+                                variations={products}
+                                fullView={this.state.expanded}
+                                massUnit={this.props.massUnit}
+                                lengthUnit={this.props.lengthUnit}
+                            />
                         </Pane>
                         <Pane label="VAT">
                             <VatView

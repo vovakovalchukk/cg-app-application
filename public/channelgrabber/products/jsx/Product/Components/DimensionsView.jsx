@@ -10,16 +10,18 @@ define([
     var DimensionsViewComponent = React.createClass({
         getHeaders: function() {
             return [
-                <th key="weight">Weight (kg)</th>,
-                <th key="height">Height (cm)</th>,
-                <th key="width">Width (cm)</th>,
-                <th key="length">Length (cm)</th>,
+                <th key="weight">Weight ({this.props.massUnit})</th>,
+                <th key="height">Height ({this.props.lengthUnit})</th>,
+                <th key="width">Width ({this.props.lengthUnit})</th>,
+                <th key="length">Length ({this.props.lengthUnit})</th>,
             ];
         },
         getDefaultProps: function() {
             return {
                 variations: [],
-                fullView: false
+                fullView: false,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         dimensionUpdated: function(e) {

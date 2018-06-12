@@ -52,7 +52,9 @@ define([
                 createListingData: {},
                 conditionOptions: {},
                 defaultCurrency: null,
-                salesPhoneNumber: null
+                salesPhoneNumber: null,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         getInitialState: function() {
@@ -423,6 +425,8 @@ define([
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                     createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />;
             }.bind(this))
         },
