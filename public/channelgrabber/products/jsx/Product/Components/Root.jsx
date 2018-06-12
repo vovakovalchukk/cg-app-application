@@ -490,6 +490,8 @@ define([
                 stockModeOptions={this.props.stockModeOptions}
                 redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />
         },
         renderProductListView: function() {

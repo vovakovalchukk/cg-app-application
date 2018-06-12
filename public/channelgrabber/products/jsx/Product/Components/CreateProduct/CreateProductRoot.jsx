@@ -34,7 +34,9 @@ define([
             return {
                 onCreateProductClose: null,
                 stockModeOptions: null,
-                onSaveAndList: null
+                onSaveAndList: null,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         formSubmit: function(values) {
@@ -59,6 +61,8 @@ define([
                         formContainerSubmitClick={this.formContainerSubmitClick}
                         redirectToProducts={this.props.redirectToProducts}
                         onSaveAndList={this.props.onSaveAndList}
+                        massUnit={this.props.massUnit}
+                        lengthUnit={this.props.lengthUnit}
                     />
                 </Provider>
             );

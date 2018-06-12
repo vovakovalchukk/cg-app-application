@@ -23,7 +23,9 @@ define([
                 formName: null,
                 formSectionName: null,
                 fieldChange: null,
-                legend: null
+                legend: null,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderHeadings: function() {
@@ -33,8 +35,13 @@ define([
             }.bind(this));
         },
         renderHeading: function(field) {
+            let label = field.label;
+            if (field.isDimensionsField) {
+                let units = (field.name == 'weight' ? this.props.massUnit : this.props.lengthUnit);
+                label += ' (' + units + ')';
+            }
             return (
-                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{field.label}</th>
+                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{label}</th>
             );
         },
         renderHeaderRow: function() {

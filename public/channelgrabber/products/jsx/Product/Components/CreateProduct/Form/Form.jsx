@@ -85,7 +85,9 @@ define([
                 addImage: null,
                 uploadedImages: {},
                 taxRates: null,
-                newVariationRowRequest: null
+                newVariationRowRequest: null,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderEditableText: function(reduxFormFieldsProps) {
@@ -160,6 +162,8 @@ define([
                             legend={'Dimensions'}
                             formSectionName='dimensionsTable'
                             fieldChange={this.props.change}
+                            massUnit={this.props.massUnit}
+                            lengthUnit={this.props.lengthUnit}
                         />
                     </fieldset>
                     <fieldset className={'u-margin-bottom-small'}>
