@@ -289,10 +289,10 @@ class Creator implements LoggerAwareInterface
         return $detailData;
     }
 
-    protected function convertWeightForStorage(float $dimension): float
+    protected function convertWeightForStorage(float $weight): float
     {
         $displayUnit = LocaleMass::getForLocale($this->activeUserContainer->getLocale());
-        return ProductDetail::convertMass($dimension, $displayUnit, ProductDetail::UNIT_MASS);
+        return ProductDetail::convertMass($weight, $displayUnit, ProductDetail::UNIT_MASS);
     }
 
     protected function convertDimensionForStorage(float $dimension): float
