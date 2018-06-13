@@ -5,9 +5,10 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
-    'Product/Storage/Ajax'
+    'Product/Storage/Ajax',
+    'Product/Components/CreateListing/Root'
 ], function(
     React,
     SearchBox,
@@ -15,14 +16,16 @@ define([
     ProductFooter,
     ProductRow,
     ProductLinkEditor,
-    CreateListingPopup,
+    CreateListingPopupRoot,
     CreateProductRoot,
-    AjaxHandler
+    AjaxHandler,
+    CreateListingRoot
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
     const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
+    const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 
@@ -40,7 +43,16 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
-                features: {}
+                managePackageUrl: null,
+                features: {},
+                taxRates: {},
+                stockModeOptions: {},
+                ebaySiteOptions: {},
+                categoryTemplateOptions: {},
+                createListingData: {},
+                conditionOptions: {},
+                defaultCurrency: null,
+                salesPhoneNumber: null
             }
         },
         getInitialState: function() {
@@ -256,8 +268,11 @@ define([
             var product = this.state.products.find(function(product) {
                 return product.id == productId;
             });
+            this.showAccountsSelectionPopup(product);
+        },
+        showAccountsSelectionPopup: function(product) {
             this.setState({
-                currentView: NEW_LISTING_VIEW,
+                currentView: ACCOUNT_SELECTION_VIEW,
                 createListing: {
                     product: product
                 }
@@ -350,11 +365,18 @@ define([
                 currentView: PRODUCT_LIST_VIEW
             });
         },
+        showCreateListingPopup: function(data) {
+            this.setState({
+                currentView: NEW_LISTING_VIEW,
+                createListingData: data
+            });
+        },
         getViewRenderers: function() {
             return {
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
-                PRODUCT_LIST_VIEW: this.renderProductListView
+                PRODUCT_LIST_VIEW: this.renderProductListView,
+                ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
             }
         },
         renderSearchBox: function() {
@@ -404,26 +426,71 @@ define([
                 />;
             }.bind(this))
         },
-        renderCreateListingPopup: function() {
-            return <CreateListingPopup
-                accounts={this.state.accounts}
+        renderAccountSelectionPopup: function() {
+            var CreateListingRootComponent = CreateListingRoot(
+                this.state.accounts,
+                this.state.createListingsAllowedChannels,
+                this.onCreateListingClose,
+                this.props.ebaySiteOptions,
+                this.props.categoryTemplateOptions,
+                this.showCreateListingPopup,
+                this.props.listingCreationAllowed,
+                this.props.managePackageUrl,
+                this.props.salesPhoneNumber
+            );
+            this.fetchVariationForProductListingCreation();
+            return <CreateListingRootComponent
                 product={this.state.createListing.product}
+            />;
+        },
+        fetchVariationForProductListingCreation: function() {
+            if (this.state.variations[this.state.createListing.product.id]
+                && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
+            ) {
+                this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
+            }
+        },
+        renderCreateListingPopup: function() {
+            var variationData = this.state.variations[this.state.createListingData.product.id]
+                ? this.state.variations[this.state.createListingData.product.id]
+                : [this.state.createListingData.product];
+
+            return <CreateListingPopupRoot
+                {...this.state.createListingData}
+                conditionOptions={this.formatConditionOptions()}
+                variationsDataForProduct={variationData}
+                accountsData={this.state.accounts}
+                defaultCurrency={this.props.defaultCurrency}
                 onCreateListingClose={this.onCreateListingClose}
-                availableChannels={this.state.createListingsAllowedChannels}
-                availableVariationsChannels={this.state.createListingsAllowedVariationChannels}
-                variationsDataForProduct={this.state.variations[this.state.createListing.product.id]}
-                fetchVariations={this.onVariationsRequest.bind(this)}
-            />
+                onBackButtonPressed={this.showAccountsSelectionPopup}
+            />;
+        },
+        formatConditionOptions: function() {
+            var options = [];
+            for (var value in this.props.conditionOptions) {
+                options.push({
+                    name: this.props.conditionOptions[value],
+                    value: value
+                });
+            }
+            return options;
+        },
+        redirectToProducts: function() {
+            this.state.currentView = PRODUCT_LIST_VIEW;
+            this.forceUpdate();
         },
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
+                taxRates={this.props.taxRates}
+                stockModeOptions={this.props.stockModeOptions}
+                redirectToProducts={this.redirectToProducts}
+                onSaveAndList={this.showAccountsSelectionPopup}
             />
         },
         renderProductListView: function() {
             return (
                 <div id='products-app'>
-
                     {this.renderSearchBox()}
                     {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
 

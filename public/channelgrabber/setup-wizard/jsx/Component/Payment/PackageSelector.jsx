@@ -12,6 +12,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                         return null;
                     }
                 },
+                phoneNumber: null,
                 selectedPackage: false,
                 packages: [],
                 onPackageSelection: null
@@ -72,10 +73,17 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                         options={this.getSelectOptions()}
                         selectedOption={this.getSelectSelectedOption()}
                         onOptionChange={this.selectPackage.bind(this)}
-                    >
-                    </SelectComponent>
-                    <span className="moreOrders">Need more orders?<br />Contact us on 01617110248</span>
+                    />
+                    {this.renderMoreOrders()}
                 </label>
+            );
+        },
+        renderMoreOrders: function() {
+            if (!this.props.phoneNumber) {
+                return null;
+            }
+            return (
+                <span className="moreOrders">Need more orders?<br />Contact us on {this.props.phoneNumber}</span>
             );
         },
         renderPackageDetails: function() {
