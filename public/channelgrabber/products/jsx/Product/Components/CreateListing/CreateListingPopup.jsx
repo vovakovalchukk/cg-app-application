@@ -189,6 +189,7 @@ define([
                 component={CategoryForms}
                 accounts={this.props.accounts}
                 categoryTemplates={this.props.categoryTemplates}
+                product={this.props.product}
             />;
         },
         renderProductIdentifiers: function() {
