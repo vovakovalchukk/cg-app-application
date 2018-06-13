@@ -30,7 +30,9 @@ define([
                 conditionOptions: [],
                 variationsDataForProduct: {},
                 accountsData: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         render: function() {
