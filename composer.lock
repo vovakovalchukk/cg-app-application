@@ -1917,12 +1917,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "546da5a1844c1b0deda5bd0ed6d1dcbefaba8cb2"
+                "reference": "8ab286d5531922924e75f1dc9aaef883d74eb884"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-103-UpgradeSubscriptionDuration-4e0adb.zip",
-                "reference": "546da5a1844c1b0deda5bd0ed6d1dcbefaba8cb2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-103-UpgradeSubscriptionDuration-ca69d4.zip",
+                "reference": "8ab286d5531922924e75f1dc9aaef883d74eb884",
                 "shasum": null
             },
             "require": {
@@ -1960,7 +1960,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-12T10:18:16+00:00"
+            "time": "2018-06-13T08:48:05+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3581,12 +3581,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "db81484f393292fdbe2f2e3b1752ef8f2bef11b3"
+                "reference": "c944eaf65e1c22f82be43218e48cb005f619c427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-103-UpgradeSubscriptionDuration-a73aab.zip",
-                "reference": "db81484f393292fdbe2f2e3b1752ef8f2bef11b3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-103-UpgradeSubscriptionDuration-0c699b.zip",
+                "reference": "c944eaf65e1c22f82be43218e48cb005f619c427",
                 "shasum": null
             },
             "require": {
@@ -3624,7 +3624,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-06-12T12:42:09+00:00"
+            "time": "2018-06-13T09:36:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
