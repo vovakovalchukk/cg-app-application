@@ -2238,7 +2238,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "31e52272eda3f0bfa18b36dda4ac441568283971"
+                "reference": "f888900615fec6a34d826e2de3af62d714be1d7c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
