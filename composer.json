@@ -25,7 +25,7 @@
         "channelgrabber/billing": "~1.14.1",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.1",
-        "channelgrabber/channel": "~1.34.13",
+        "channelgrabber/channel": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches as 1.34.14",
         "channelgrabber/cilex": "~1.2.0",
         "channelgrabber/clearbooks": "~1.9.0",
         "channelgrabber/communication": "~1.0.6",

@@ -706,6 +706,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $product,
                 $this->getSiteIdForAccount($account),
                 $guid,
+                $this->activeUserContainer->getLocale(),
                 $listingData
             );
         }
@@ -733,6 +734,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $product,
                 $this->getSiteIdForAccount($account),
                 $guid,
+                $this->activeUserContainer->getLocale(),
                 $listingData,
                 $this->extractVariationProductIds($variations)
             );

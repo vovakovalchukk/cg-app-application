@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.34.13",
+            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4"
+                "reference": "91cf3174860676b797e61aa9d8c338ea722ecc10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.34.13-b65e4b.zip",
-                "reference": "f08ff0061df818921a782c18276ca7c98d94b7c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-110-usa-weights-dimensions-in-ounces-inches-b8c7ff.zip",
+                "reference": "91cf3174860676b797e61aa9d8c338ea722ecc10",
                 "shasum": null
             },
             "require": {
@@ -543,13 +543,14 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
+                "channelgrabber/locale": "^1.0.21",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.12.2",
+                "channelgrabber/product": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches as 1.14.0",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -601,7 +602,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-24T08:57:07+00:00"
+            "time": "2018-06-13T12:41:00+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2238,7 +2239,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "f888900615fec6a34d826e2de3af62d714be1d7c"
+                "reference": "0d9dc8c0d9d367b86d9b1e6f1ae38d033b096ffc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-TAC-110-usa-weights-dimensions-in-ounces-inches-aaf4da.zip",
+                "reference": "0d9dc8c0d9d367b86d9b1e6f1ae38d033b096ffc",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2249,6 +2256,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
+                "channelgrabber/locale": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches as 1.0.21",
                 "channelgrabber/location": "1.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
@@ -2289,7 +2297,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-30T11:12:17+00:00"
+            "time": "2018-06-13T12:39:47+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9923,6 +9931,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.34.14",
+            "alias_normalized": "1.34.14.0",
+            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.21",
             "alias_normalized": "1.0.21.0",
             "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
@@ -9937,12 +9951,13 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
