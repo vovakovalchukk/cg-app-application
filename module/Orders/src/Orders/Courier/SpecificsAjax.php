@@ -270,11 +270,12 @@ class SpecificsAjax
             return $data;
         }
 
+        $locale = $this->userOuService->getActiveUserContainer()->getLocale();
         // Always add all product details even if there's no option for them as sometimes they're used indirectly
-        $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight(), $item);
-        $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth(), $item);
-        $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight(), $item);
-        $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength(), $item);
+        $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight($locale), $item);
+        $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth($locale), $item);
+        $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight($locale), $item);
+        $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength($locale), $item);
 
         return $data;
     }
