@@ -57,14 +57,20 @@ class SpecificsPage implements LoggerAwareInterface
         // We always need the actions column but it must go last
         array_push($options, 'actions');
         foreach ($options as $option) {
-            $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
-            try {
-                $column = $this->di->get($columnAlias);
-                $specificsTable->addColumn($column);
-            } catch (ClassNotFoundException $e) {
-                $this->logNotice(static::LOG_OPTION_COLUMN_NOT_FOUND, [$columnAlias, $selectedCourier->getId(), $selectedCourier->getChannel()], static::LOG_CODE);
-                // No-op, allow for options with no matching column
-            }
+            $this->addOptionalColumnToTable($option, $specificsTable, $selectedCourier);
+        }
+    }
+
+    protected function addOptionalColumnToTable(string $option, DataTable $specificsTable, Account $selectedCourier): void
+    {
+        $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
+        try {
+            $column = $this->di->get($columnAlias);
+            $specificsTable->addColumn($column);
+        } catch (ClassNotFoundException $e) {
+            $this->logNotice(static::LOG_OPTION_COLUMN_NOT_FOUND,
+                [$columnAlias, $selectedCourier->getId(), $selectedCourier->getChannel()], static::LOG_CODE);
+            // No-op, allow for options with no matching column
         }
     }
 
