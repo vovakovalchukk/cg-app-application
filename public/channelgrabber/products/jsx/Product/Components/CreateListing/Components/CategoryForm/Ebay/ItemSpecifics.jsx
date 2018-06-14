@@ -32,7 +32,8 @@ define([
         },
         getDefaultProps: function() {
             return {
-                categoryId: 0
+                categoryId: 0,
+                product: {}
             }
         },
         componentDidMount: function() {
@@ -50,7 +51,28 @@ define([
                 return null;
             }
 
+            requiredItems = this.filterItemSpecifics(requiredItems);
+
             return this.renderItemSpecificsInputsFromOptions(requiredItems, true);
+        },
+        filterItemSpecifics: function (itemSpecifics) {
+            if (!this.props.product.attributeNames || !(this.props.product.attributeNames instanceof Array)) {
+                return itemSpecifics;
+            }
+
+            var attributeNames = this.props.product.attributeNames;
+            var result = {};
+            Object.keys(itemSpecifics).forEach(name => {
+                var index = attributeNames.findIndex(attributeName => {
+                    return attributeName == name;
+                });
+                if (index > -1) {
+                    return;
+                }
+                result[name] = itemSpecifics[name];
+            });
+
+            return result;
         },
         renderItemSpecificsInputsFromOptions: function(items, required) {
             var inputs = [],
@@ -72,6 +94,8 @@ define([
             if (!optionalItems || Object.keys(optionalItems).length ==  0) {
                 return null;
             }
+
+            optionalItems = this.filterItemSpecifics(optionalItems);
 
             return <FieldArray
                 component={this.renderOptionsItemSpecificComponents}

@@ -1,12 +1,12 @@
 define([
     'react',
-    'Common/Components/EditableField',
+    'Common/Components/EditableFieldWithSubmit',
     'Common/Components/Button',
     'Common/Components/ProductDropdown/Dropdown',
     'Common/Components/ItemRow'
 ], function(
     React,
-    EditableField,
+    EditableFieldWithSubmit,
     Button,
     ProductDropdown,
     ItemRow
@@ -19,7 +19,7 @@ define([
             return (
                 <div className="purchase-orders-editor">
                     <div className="editor-row">
-                        <EditableField disabled={!this.props.editable} initialFieldText={this.props.purchaseOrderNumber} onSubmit={this.props.onNameChange}/>
+                        <EditableFieldWithSubmit disabled={!this.props.editable} initialFieldText={this.props.purchaseOrderNumber} onSubmit={this.props.onNameChange}/>
                     </div>
                     <div className="editor-row">
                         <Button disabled={!this.props.completeButtonEnabled} onClick={this.props.onCompleteClicked} sprite="sprite-complete-22-black" text="Complete"/>
