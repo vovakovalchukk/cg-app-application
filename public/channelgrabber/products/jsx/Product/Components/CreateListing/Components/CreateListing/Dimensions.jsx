@@ -2,12 +2,14 @@ define([
     'react',
     'redux-form',
     'Common/Components/Input',
-    './VariationTable'
+    './VariationTable',
+    '../../Validators'
 ], function(
     React,
     ReduxForm,
     Input,
-    VariationTable
+    VariationTable,
+    Validators
 ) {
     "use strict";
 
@@ -32,6 +34,12 @@ define([
         }
     ];
 
+    var channelDimensionsValidatorMap = {
+        "big-commerce" : {
+            "weight": Validators.required
+        }
+    };
+
     var DimensionsComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -41,7 +49,8 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 change: function () {},
-                initialDimensions: {}
+                initialDimensions: {},
+                accounts: {}
             }
         },
         getInitialState: function() {
@@ -80,11 +89,12 @@ define([
         },
         renderDimensionColumns: function (variation) {
             return dimensions.map(function (dimension) {
+                var accounts = this.props.accounts;
                 return (<td>
                     <Field
                         name={"dimensions." + variation.sku + "." + dimension.name}
                         component={this.renderInputComponent}
-                        validate={dimension.validate ? [dimension.validate] : undefined}
+                        validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
                         dimensionName={dimension.name}
                         variation={variation}
                     />
@@ -152,6 +162,19 @@ define([
                 renderCustomTableHeaders={this.renderDimensionHeaders}
                 renderCustomTableRows={this.renderDimensionColumns}
             />;
+        },
+        getValidatorsForDimensionAndChannel: function (accounts, dimension) {
+            if (dimension == undefined) {
+                return;
+            }
+            for (var key in accounts) {
+                var account = accounts[key];
+                if (channelDimensionsValidatorMap[account.channel] && channelDimensionsValidatorMap[account.channel][dimension.name]) {
+                    return [channelDimensionsValidatorMap[account.channel][dimension.name]];
+                }
+            }
+
+            return undefined;
         }
     });
 

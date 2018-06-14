@@ -4,6 +4,7 @@ namespace Products\Product\Listing;
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\Listing\Client\Service as ListingService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -16,7 +17,6 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
-    const FEATURE_FLAG_COMM_LIST = 'Commercialise Listings';
     const LOG_CODE = 'ProductListingService';
     const CACHE_TTL = 86400; // 24 hours
 
@@ -59,7 +59,7 @@ class Service implements LoggerAwareInterface
         }
 
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
-        if (!$this->featureFlagsService->isActive(static::FEATURE_FLAG_COMM_LIST, $rootOu)) {
+        if (!$this->featureFlagsService->isActive(ListingService::FEATURE_FLAG_COMM_LIST, $rootOu)) {
             $this->setCachedListingCreationAllowed(true);
             $this->logDebug('Listing creation is allowed for OU %d as Commercialise Listings is turned off', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'Allowed'], ['rootOu' => $rootOuId]);
             return true;
