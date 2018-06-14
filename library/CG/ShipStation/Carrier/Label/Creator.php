@@ -62,7 +62,7 @@ class Creator implements LoggerAwareInterface
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
-        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount);
+        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
         $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
         $labelErrors = $this->getErrorsForFailedLabels($labels, $shipments);
@@ -82,12 +82,13 @@ class Creator implements LoggerAwareInterface
         array $ordersData,
         array $orderParcelsData,
         Account $shipStationAccount,
-        Account $shippingAccount
+        Account $shippingAccount,
+        OrganisationUnit $rootOu
     ): ShipmentsResponse {
         try {
             $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
             $request = ShipmentsRequest::createFromOrdersAndData(
-                $orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount
+                $orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu
             );
             return $this->shipStationClient->sendRequest($request, $shipStationAccount);
         } catch (InvalidStateException $e) {

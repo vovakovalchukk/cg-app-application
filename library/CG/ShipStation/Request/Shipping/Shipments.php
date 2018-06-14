@@ -7,6 +7,7 @@ use CG\ShipStation\Messages\Shipment;
 use CG\ShipStation\Messages\ShipmentAddress;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Shipping\Shipments as Response;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Shipments extends RequestAbstract
 {
@@ -45,13 +46,14 @@ class Shipments extends RequestAbstract
         array $ordersData,
         array $orderParcelsData,
         Account $shipStationAccount,
-        Account $shippingAccount
+        Account $shippingAccount,
+        OrganisationUnit $rootOu
     ): Shipments {
         $shipments = [];
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()];
-            $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount, $shippingAccount);
+            $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         }
 
         return new static(...$shipments);

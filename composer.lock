@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e9ac663919a5ed63f6fb2611b5d9bbc",
+    "content-hash": "ad8379b2d0b0fed479cfee0c1ca9c847",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1531,7 +1531,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "770a395ad34380360baad00d96d7577ce0a58577"
+                "reference": "5f3a385fb99231ca0ca39f4bbeb418cdf42e447e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-110-usa-weights-dimensions-in-ounces-inches-2d3a30.zip",
+                "reference": "5f3a385fb99231ca0ca39f4bbeb418cdf42e447e",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1"
@@ -1550,7 +1556,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-12T09:48:20+00:00"
+            "time": "2018-06-14T10:24:29+00:00"
         },
         {
             "name": "channelgrabber/location",
