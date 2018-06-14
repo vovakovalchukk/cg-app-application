@@ -20,7 +20,11 @@ define([
             return (
                 <div className="category-form-container">
                     <h2>Category: {this.props.title}</h2>
-                    <ChannelForm categoryId={this.props.categoryId} {...this.props.fieldValues} />
+                    <ChannelForm
+                        {...this.props.fieldValues}
+                        categoryId={this.props.categoryId}
+                        product={this.props.product}
+                    />
                 </div>
             );
         }

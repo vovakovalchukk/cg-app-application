@@ -18,7 +18,8 @@ define([
             return {
                 categoryId: null,
                 listingDuration: {},
-                itemSpecifics: {}
+                itemSpecifics: {},
+                product: {}
             };
         },
         render: function() {
@@ -30,6 +31,7 @@ define([
                         component={ItemSpecifics}
                         categoryId={this.props.categoryId}
                         itemSpecifics={this.props.itemSpecifics}
+                        product={this.props.product}
                     />
                 </div>
             );

@@ -21,7 +21,8 @@ define([
         getDefaultProps: function() {
             return {
                 accounts: [],
-                categoryTemplates: {}
+                categoryTemplates: {},
+                product: {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -57,6 +58,7 @@ define([
                 component={CategoryForm}
                 channelForm={ChannelForm}
                 categoryId={categoryId}
+                product={this.props.product}
                 {...category}
             />);
         },
