@@ -68,10 +68,4 @@ class Service implements
             return [];
         }
     }
-
-    protected function getOptionsForSelect(array $fieldNames): array
-    {
-        $options = array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11));
-        return array_combine($options, $options);
-    }
 }
