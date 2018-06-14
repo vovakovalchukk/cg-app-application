@@ -38,7 +38,7 @@ return [
                     'carriersConfig' => [
                         'fedex' => [
                             'channelName' => 'fedex-ss',
-                            'displayName' => 'FedEx',
+                            'displayName' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -120,7 +120,7 @@ return [
                         ],
                         'ups' => [
                             'channelName' => 'ups-ss',
-                            'displayName' => 'UPS',
+                            'displayName' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
