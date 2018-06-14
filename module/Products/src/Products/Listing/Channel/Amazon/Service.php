@@ -2,20 +2,29 @@
 namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
 use CG\Product\Category\ExternalData\Entity as CategoryExternalEntity;
 use CG\Product\Category\ExternalData\StorageInterface as CategoryExternalStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
+use function CG\Stdlib\isArrayAssociative;
 
 class Service implements
     ChannelSpecificValuesInterface,
     CategoryChildrenInterface,
     CategoryDependentServiceInterface
 {
+    const ITEM_SPECIFIC_VARIATION_DATA = 'VariationData';
+    const ITEM_SPECIFIC_VARIATION_THEME = 'VariationTheme';
+
+    const HIDDEN_ITEM_SPECIFICS = [
+        self::ITEM_SPECIFIC_VARIATION_DATA => self::ITEM_SPECIFIC_VARIATION_DATA,
+        self::ITEM_SPECIFIC_VARIATION_THEME => self::ITEM_SPECIFIC_VARIATION_THEME
+    ];
+
     /** @var CategoryService */
     protected $categoryService;
     /** @var  CategoryExternalStorage */
@@ -63,9 +72,25 @@ class Service implements
             }
             /** @var AmazonCategoryExternalData $amazonData */
             $amazonData = $categoryExternal->getData();
-            return $amazonData->getAttributes();
+            $itemSpecifics = $amazonData->getAttributes();
+            $this->filterItemSpecifics($itemSpecifics);
+            return $itemSpecifics;
         } catch (NotFound $e) {
             return [];
+        }
+    }
+
+    protected function filterItemSpecifics(array &$itemSpecifics): void
+    {
+        foreach ($itemSpecifics as $name => $values) {
+            if (isset(static::HIDDEN_ITEM_SPECIFICS[$name])) {
+                unset($itemSpecifics[$name]);
+                continue;
+            }
+
+            if (isArrayAssociative($values)) {
+                $this->filterItemSpecifics($values);
+            }
         }
     }
 }
