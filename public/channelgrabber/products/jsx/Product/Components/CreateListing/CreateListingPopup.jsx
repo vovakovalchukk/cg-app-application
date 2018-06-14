@@ -189,6 +189,7 @@ define([
                 component={CategoryForms}
                 accounts={this.props.accounts}
                 categoryTemplates={this.props.categoryTemplates}
+                product={this.props.product}
             />;
         },
         renderProductIdentifiers: function() {
@@ -210,6 +211,7 @@ define([
                     attributeNames={this.props.product.attributeNames}
                     change={this.props.change}
                     initialDimensions={this.props.initialDimensions}
+                    accounts={this.getSelectedAccountsData()}
                 />
             </span>);
         },

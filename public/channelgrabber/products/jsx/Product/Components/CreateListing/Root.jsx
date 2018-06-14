@@ -23,7 +23,10 @@ define([
         ebaySiteOptions,
         categoryTemplateOptions,
         renderCreateListingPopup,
-        product
+        product,
+        listingCreationAllowed,
+        managePackageUrl,
+        salesPhoneNumber
     ) {
         var Provider = ReactRedux.Provider;
 
@@ -75,6 +78,9 @@ define([
                             ebaySiteOptions={ebaySiteOptions}
                             product={product}
                             renderCreateListingPopup={renderCreateListingPopup}
+                            listingCreationAllowed={listingCreationAllowed}
+                            managePackageUrl={managePackageUrl}
+                            salesPhoneNumber={salesPhoneNumber}
                         />
                     </Provider>
                 );
