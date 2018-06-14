@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e416e8393561e069a2689c3cbc6331da",
+    "content-hash": "e3769f8f48500a0120dc4ee5e772f81c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "dev-LIS-239-update-product-with-amazon-variation-data",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8571fe86505a8506ff264cf5382d3b4498d0dbe1"
+                "reference": "c35e78b0f5ae13ee150d9901a2ae9898d96dd716"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-206-create-amazon-listings-b0e429.zip",
-                "reference": "8571fe86505a8506ff264cf5382d3b4498d0dbe1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-239-update-product-with-amazon-variation-data-a0fff0.zip",
+                "reference": "c35e78b0f5ae13ee150d9901a2ae9898d96dd716",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-06-14T09:18:13+00:00"
+            "time": "2018-06-14T10:42:24+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -9937,7 +9937,7 @@
         {
             "alias": "1.26.13",
             "alias_normalized": "1.26.13.0",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "dev-LIS-239-update-product-with-amazon-variation-data",
             "package": "channelgrabber/amazon"
         },
         {
