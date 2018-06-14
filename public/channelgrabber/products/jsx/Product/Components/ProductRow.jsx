@@ -7,7 +7,7 @@ define([
     'Common/Components/Button',
     'Common/Components/Select',
     'Common/Components/SafeInput',
-    'Common/Components/EditableField',
+    'Common/Components/EditableFieldWithSubmit',
     'Product/Components/SimpleTabs/Tabs',
     'Product/Components/SimpleTabs/Pane',
     'Product/Components/DimensionsView',
@@ -24,7 +24,7 @@ define([
     Button,
     Select,
     Input,
-    EditableField,
+    EditableFieldWithSubmit,
     Tabs,
     Pane,
     DimensionsView,
@@ -407,7 +407,7 @@ define([
                         <div className="product-header">
                             <div className="checkbox-and-title">
                                 <Checkbox id={this.props.product.id} />
-                                <EditableField initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
+                                <EditableFieldWithSubmit initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
                             </div>
                             {this.props.createListingsEnabled ? <td>
                                 <CreateListingIcon

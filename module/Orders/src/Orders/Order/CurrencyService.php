@@ -1,18 +1,20 @@
 <?php
 namespace Orders\Order;
 
+use CG\Locale\CurrencyCode;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;
+use CG_UI\View\Filters\SelectOptionsInterface;
 use CG_UI\View\Filters\SelectPriorityOptionsInterface;
 
 class CurrencyService implements SelectOptionsInterface, SelectPriorityOptionsInterface
 {
-    protected $activeUserContainer;
+    /** @var ActiveUserInterface */
+    protected $activeUser;
 
-    public function __construct(ActiveUserInterface $activeUserContainer)
+    public function __construct(ActiveUserInterface $activeUser)
     {
-        $this->setActiveUserContainer($activeUserContainer);
+        $this->activeUser = $activeUser;
     }
 
     public function getPrioritySelectionOptions()
@@ -37,11 +39,25 @@ class CurrencyService implements SelectOptionsInterface, SelectPriorityOptionsIn
 
     public function getPriorityActiveUserCurrencies()
     {
-        return [
+        $localeCurrency = CurrencyCode::getCurrencyCodeForLocale($this->activeUser->getLocale());
+        $currencies = [
             'GBP' => 'UK Pound',
             'EUR' => 'Euro',
             'USD' => 'US Dollar'
         ];
+        uksort(
+            $currencies,
+            function($a, $b) use($localeCurrency): int {
+                if ($a == $localeCurrency) {
+                    return -1;
+                }
+                if ($b == $localeCurrency) {
+                    return 1;
+                }
+                return 0;
+            }
+        );
+        return $currencies;
     }
 
     public function getActiveUserCurrencies()
@@ -212,16 +228,5 @@ class CurrencyService implements SelectOptionsInterface, SelectPriorityOptionsIn
             'ZMW' => 'Zambia Kwacha',
             'ZWD' => 'Zimbabwe Dollar',
         ];
-    }
-
-    public function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
     }
 }

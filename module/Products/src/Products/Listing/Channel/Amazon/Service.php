@@ -64,57 +64,14 @@ class Service implements
 
     protected function getItemSpecifics(): array
     {
-        $fieldNames = ['Brand', 'Size', 'Type', 'Color', 'Material', 'Composition', 'MultiPack', 'Number in a pack', 'Length', 'Style', 'Collar', 'Test one'];
+        $itemSpecifics = json_decode(file_get_contents('home.json'), true);
+        return $itemSpecifics['attributes'];
+    }
 
-        $values = [
-            [
-                'type' => 'select',
-                'options' => array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11)),
-                'minValues' => 1,
-                'maxValues' => 1
-            ],
-            [
-                'type' => 'select',
-                'options' => array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11)),
-                'minValues' => 0,
-                'maxValues' => mt_rand(1, 10)
-            ],
-            [
-                'type' => 'select',
-                'options' => array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11)),
-                'minValues' => 0,
-                'maxValues' => mt_rand(1, 10)
-            ],
-            [
-                'type' => 'text',
-                'minValues' => 0,
-                'maxValues' => 1
-            ],
-            [
-                'type' => 'text',
-                'minValues' => 0,
-                'maxValues' => 10
-            ]
-        ];
-
-        $required = [];
-        for ($i = 0; $i < mt_rand(2, 6); $i++) {
-            shuffle($fieldNames);
-            shuffle($values);
-            $required[array_pop($fieldNames)] = $values[0];
-        }
-
-        $optional = [];
-        for ($i = 0; $i < mt_rand(2, 6); $i++) {
-            shuffle($fieldNames);
-            shuffle($values);
-            $optional[array_pop($fieldNames)] = $values[0];
-        }
-
-        return [
-            'required' => $required,
-            'optional' => $optional
-        ];
+    protected function getOptionsForSelect(array $fieldNames): array
+    {
+        $options = array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11));
+        return array_combine($options, $options);
     }
 
     protected function getVariationThemes(): array
