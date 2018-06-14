@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7f3ad9e805c44858d540fd0fce28f78",
+    "content-hash": "4e9ac663919a5ed63f6fb2611b5d9bbc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.14.3",
+            "version": "1.14.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "0ce7c18b10c12813c616b7708bce85d4d7246b2a"
+                "reference": "a81fd5d4f11db13de27f9174d4d7e7e718350c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.14.3-22c169.zip",
-                "reference": "0ce7c18b10c12813c616b7708bce85d4d7246b2a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.14.4-5d69dd.zip",
+                "reference": "a81fd5d4f11db13de27f9174d4d7e7e718350c25",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-07T09:20:31+00:00"
+            "time": "2018-06-07T15:10:52+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,20 +637,20 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "7c152471c9bfe091a7f920587a5f5fcc2e78be32"
+                "reference": "2b38209701729517a5f680464674a35b6933266e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.8.0-4b92dd.zip",
-                "reference": "7c152471c9bfe091a7f920587a5f5fcc2e78be32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.9.0-7e08b2.zip",
+                "reference": "2b38209701729517a5f680464674a35b6933266e",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.13.4",
+                "channelgrabber/billing": "^1.14.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
@@ -676,7 +676,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-05-16T09:47:47+00:00"
+            "time": "2018-06-13T08:48:11+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -3429,7 +3429,6 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
-                "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/product": "^1.11.5",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
@@ -3456,7 +3455,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-06-14T12:26:49+00:00"
+            "time": "2018-05-11T14:41:19+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
