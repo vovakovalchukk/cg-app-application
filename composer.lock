@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e9ac663919a5ed63f6fb2611b5d9bbc",
+    "content-hash": "4410581180cd5277c65111538fe5e2ce",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3665,17 +3665,11 @@
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "1.1.0",
+            "version": "dev-LIS-267-remove-feature-flags",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "a9f445251233e4db934a2532ef5e3dff13a653ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.1.0-43fe05.zip",
-                "reference": "a9f445251233e4db934a2532ef5e3dff13a653ba",
-                "shasum": null
+                "reference": "9227a434652e2235d7f29eae19a8d06fad9a5e3a"
             },
             "require": {
                 "channelgrabber/channel": "^1.25.6",
@@ -3703,7 +3697,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2018-01-24T17:11:48+00:00"
+            "time": "2018-06-14T13:58:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-ekm",
@@ -9933,10 +9927,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
+            "version": "dev-LIS-267-remove-feature-flags",
+            "package": "channelgrabber/zf2-ebay"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-ebay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
