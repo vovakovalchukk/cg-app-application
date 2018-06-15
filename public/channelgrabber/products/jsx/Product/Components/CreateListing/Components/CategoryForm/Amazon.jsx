@@ -32,7 +32,7 @@ define([
         },
         getInitialState: function() {
             return {
-                themeSelected: false
+                themeSelected: null
             }
         },
         isSimpleProduct: function() {
@@ -65,7 +65,31 @@ define([
                 </div>
             );
         },
+        getThemeHeadersByName: function(name) {
+            let themeData = this.props.variationThemes.find((theme) => {
+                return theme.name == name;
+            });
+            let headers = [];
+            themeData.validValues.forEach((header) => {
+                headers.push(header.name);
+            });
+            return headers;
+        },
+        renderThemeHeaders: function() {
+            let themeSelected = this.state.themeSelected;
+            let themeHeaders = this.getThemeHeadersByName(themeSelected);
+            let themeHeadersWithDisplayNames = [];
+            themeHeaders.forEach((header)=>{
+                themeHeadersWithDisplayNames.push(header);
+                themeHeadersWithDisplayNames.push(header + ' (Display Name)');
+            });
+            return themeHeadersWithDisplayNames.map((header) => {
+                return <th> {header} </th>;
+            });
+        },
         renderThemeTable: function() {
+            console.log('this.state.themeSelected: ', this.state.themeSelected);
+
             return (
                 <div className={'u-margin-top-small'}>
                     <VariationsTable
@@ -75,7 +99,7 @@ define([
                         showImages={true}
                         renderImagePicker={false}
                         //todo - use the below attributes for the following ticket - LIS-242
-                        //                        renderCustomTableHeaders={this.renderIdentifierHeaders}
+                        renderCustomTableHeaders={this.renderThemeHeaders}
                         //                        renderCustomTableRows={this.renderIdentifierColumns}
                     />
                 </div>
@@ -89,9 +113,10 @@ define([
                         component={this.renderVariationThemesSelectComponent}
                         displayTitle={"Variation Theme"}
                         options={this.formatVariationThemesAsSelectOptions()}
-                        onChange={() => {
+                        onChange={(e, newValue) => {
+                            console.log('in onchange with newValue:  ', newValue);
                             this.setState({
-                                'themeSelected': true
+                                'themeSelected': newValue
                             })
                         }}
                         validate={value => (value ? undefined : 'Required')}
