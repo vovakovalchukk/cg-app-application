@@ -22,7 +22,7 @@
         "channelgrabber/amazon": "~1.26.3",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.1.4",
-        "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.16.0",
+        "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.0",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.1",
         "channelgrabber/channel": "~1.34.13",

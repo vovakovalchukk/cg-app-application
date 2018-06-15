@@ -211,6 +211,7 @@ define([
                     attributeNames={this.props.product.attributeNames}
                     change={this.props.change}
                     initialDimensions={this.props.initialDimensions}
+                    accounts={this.getSelectedAccountsData()}
                 />
             </span>);
         },
