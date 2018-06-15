@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e9ac663919a5ed63f6fb2611b5d9bbc",
+    "content-hash": "7951cfcfb8e5947b5eaef168a30d33c2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1526,17 +1526,11 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.21",
+            "version": "dev-TAC-111-hide-vat-for-us-users",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "05603547ad5dd674d7b029d4ed12777b8ff1ae40"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.21-dd2cb2.zip",
-                "reference": "05603547ad5dd674d7b029d4ed12777b8ff1ae40",
-                "shasum": null
+                "reference": "c1041e71e70633592a5252390f7aba824a3d3626"
             },
             "require": {
                 "php": ">=7.1"
@@ -1555,7 +1549,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-12T09:48:20+00:00"
+            "time": "2018-06-15T10:16:39+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4119,23 +4113,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.4",
+            "version": "dev-TAC-111-hide-vat-for-us-users",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9"
+                "reference": "cd1f1a9260051e5a0a284ea9d64d7fd7f5918fff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.4-6bebd2.zip",
-                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-111-hide-vat-for-us-users-441509.zip",
+                "reference": "cd1f1a9260051e5a0a284ea9d64d7fd7f5918fff",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.0.21",
+                "channelgrabber/locale": "dev-TAC-111-hide-vat-for-us-users as 1.0.22",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4167,7 +4161,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-12T10:31:23+00:00"
+            "time": "2018-06-15T11:38:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9933,10 +9927,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.22",
+            "alias_normalized": "1.0.22.0",
+            "version": "dev-TAC-111-hide-vat-for-us-users",
+            "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.6.5",
+            "alias_normalized": "1.6.5.0",
+            "version": "dev-TAC-111-hide-vat-for-us-users",
+            "package": "channelgrabber/zf2-register"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
+        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
