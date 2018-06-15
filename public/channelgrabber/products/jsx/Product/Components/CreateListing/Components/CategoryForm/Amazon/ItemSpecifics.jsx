@@ -21,6 +21,10 @@ define([
     var FieldArray = ReduxForm.FieldArray;
     var FormSection = ReduxForm.FormSection;
 
+    const REQUIRED_ITEM_SPECIFICS = {
+        'ProductType': 'ProductType'
+    };
+
     var AmazonItemSpecifics = React.createClass({
         getDefaultProps: function() {
             return {
@@ -44,6 +48,7 @@ define([
                 fields = [];
 
             itemSpecifics.forEach((itemSpecific) => {
+                itemSpecific = this.formatItemSpecificForRendering(itemSpecific);
                 if (!itemSpecific.required) {
                     optional.push(itemSpecific);
                     return;
@@ -63,6 +68,12 @@ define([
         renderItemSpecific: function(itemSpecific) {
             var functionName = 'render' + itemSpecific.type.ucfirst() + 'Field';
             return typeof this[functionName] == 'function' ? this[functionName](itemSpecific) : null;
+        },
+        formatItemSpecificForRendering: function (itemSpecific) {
+            if (itemSpecific.name && REQUIRED_ITEM_SPECIFICS[itemSpecific.name]) {
+                itemSpecific.required = true;
+            }
+            return itemSpecific;
         },
         renderTextField: function(itemSpecific) {
             if (this.shouldRenderTextFieldArray(itemSpecific)) {
@@ -92,6 +103,7 @@ define([
         renderChoiceField: function(itemSpecific) {
             var fields = [this.renderChoiceSelectField(itemSpecific)];
             var selectedItemSpecificName = this.state.selectedChoices[itemSpecific.name];
+
             if (selectedItemSpecificName) {
                 var selectedIndex = itemSpecific.children.findIndex((itemSpecific => {
                     return selectedItemSpecificName == itemSpecific.name;
@@ -99,6 +111,7 @@ define([
                 var selectedItemSpecific = itemSpecific.children[selectedIndex];
                 fields.push(this.renderItemSpecifics(selectedItemSpecific.children, selectedItemSpecific.name));
             }
+
             return <FormSection
                 name={itemSpecific.name}
                 component={this.renderFormSection}
@@ -320,7 +333,7 @@ define([
                 input.fields.forEach((name) => {
                     fields.push(<Field
                         name={name}
-                        component={this.renderOptionalItemSpecific}
+                        component={this.renderOptionalItemSpecific.bind(this)}
                         itemSpecifics={input.itemSpecifics}
                     />)
                 });

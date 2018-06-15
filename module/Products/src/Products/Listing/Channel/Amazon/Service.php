@@ -2,8 +2,7 @@
 namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Amazon\Category\ExternalData\Data;
-use CG\Listing\Client\Service as ListingService;
+use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Category\Service as CategoryService;
@@ -49,25 +48,21 @@ class Service implements
     {
         $categoryData = $this->fetchAmazonSpecificCategoryData($categoryId);
         return [
-            'itemSpecifics' => $this->getItemSpecifics(),
+            'itemSpecifics' => $this->getItemSpecifics($categoryData),
             'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false),
             'variationThemes' => $this->getVariationThemes($categoryData),
         ];
     }
 
-    protected function getItemSpecifics(): array
+    protected function getItemSpecifics(?AmazonCategoryExternalData $categoryData): array
     {
-        $itemSpecifics = json_decode(file_get_contents('home.json'), true);
-        return $itemSpecifics['attributes'];
+        if (!$categoryData) {
+            return [];
+        }
+        return $categoryData->getAttributes();
     }
 
-    protected function getOptionsForSelect(array $fieldNames): array
-    {
-        $options = array_slice($fieldNames, mt_rand(0, 5), mt_rand(6, 11));
-        return array_combine($options, $options);
-    }
-
-    protected function getVariationThemes(?Data $categoryData = null): array
+    protected function getVariationThemes(?AmazonCategoryExternalData $categoryData = null): array
     {
         if (!$categoryData || !$categoryData->getVariationThemes()) {
             return [];
@@ -88,11 +83,15 @@ class Service implements
         return $variationThemes;
     }
 
-    protected function fetchAmazonSpecificCategoryData(int $categoryId): ?Data
+    protected function fetchAmazonSpecificCategoryData(int $categoryId): ?AmazonCategoryExternalData
     {
         try {
             $categoryExternal = $this->categoryExternalService->fetch($categoryId);
-            return $categoryExternal->getData();
+            $data = $categoryExternal->getData();
+            if (!$data instanceof AmazonCategoryExternalData) {
+                throw new NotFound('The given category ' . $categoryId . ' doesn\'t belong to Amazon');
+            }
+            return $data;
         } catch (NotFound $e) {
             return null;
         }
