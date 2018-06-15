@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c1cb7ef0c676a347462235eedec1cba",
+    "content-hash": "22d4ef7f5dffbe27bc36a064f6e90f28",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "1.35.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e3a365c7fa79633bc9896f3f31a8e4889dcb84a3"
+                "reference": "d89fdb3bc697ec08503d6fc048216db500f75e44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-79-LocaleDateFormat-3ae059.zip",
-                "reference": "e3a365c7fa79633bc9896f3f31a8e4889dcb84a3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.35.1-a41cbc.zip",
+                "reference": "d89fdb3bc697ec08503d6fc048216db500f75e44",
                 "shasum": null
             },
             "require": {
@@ -543,7 +543,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
-                "channelgrabber/locale": "dev-TAC-79-LocaleDateFormat as 1.1.0",
+                "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
@@ -559,7 +559,7 @@
                 "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/stock": "^1.10.1",
                 "channelgrabber/stock-locking": "^1.1.0",
-                "channelgrabber/user": "dev-TAC-79-LocaleDateFormat as 1.26.0",
+                "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-email-template": "^1.0.12",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -583,12 +583,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-9293-prevent_automated_listing_downloading": "1.x-dev",
-                    "dev-TAC-79-LocaleDateFormat": "1.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -603,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-13T10:35:54+00:00"
+            "time": "2018-06-15T10:54:42+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1528,16 +1522,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "6ab48e57a9396a0c6fc0f6fb9b04a8ed4ace38ff"
+                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-79-LocaleDateFormat-f10b24.zip",
-                "reference": "6ab48e57a9396a0c6fc0f6fb9b04a8ed4ace38ff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.0-a1afa1.zip",
+                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22",
                 "shasum": null
             },
             "require": {
@@ -1560,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-13T09:59:33+00:00"
+            "time": "2018-06-15T10:39:42+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2894,16 +2888,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "2.16.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "9575bae30a2edd0b9fe1a7bb9ecf84a0a88ace21"
+                "reference": "b6c73c22ae7611c7c07e00f3f12b9632ba85baa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-TAC-79-LocaleDateFormat-b024e0.zip",
-                "reference": "9575bae30a2edd0b9fe1a7bb9ecf84a0a88ace21",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.0-d9813e.zip",
+                "reference": "b6c73c22ae7611c7c07e00f3f12b9632ba85baa7",
                 "shasum": null
             },
             "require": {
@@ -2947,7 +2941,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-05-22T08:42:49+00:00"
+            "time": "2018-06-15T10:36:36+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -3091,16 +3085,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c511cf61a56893f6f58b2a4f0b5b8df7ad68760f"
+                "reference": "8bed45e98377946b5f10dbcbbe45b84c0c0ffd59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-TAC-79-LocaleDateFormat-a69686.zip",
-                "reference": "c511cf61a56893f6f58b2a4f0b5b8df7ad68760f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.2-237570.zip",
+                "reference": "8bed45e98377946b5f10dbcbbe45b84c0c0ffd59",
                 "shasum": null
             },
             "require": {
@@ -3110,13 +3104,13 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
                 "channelgrabber/image": "^1.2.3",
-                "channelgrabber/locale": "dev-TAC-79-LocaleDateFormat as 1.1.0",
+                "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.35.1",
                 "channelgrabber/product": "^1.10.1",
                 "channelgrabber/settings": "^1.5.4",
                 "channelgrabber/stdlib": "^2.12.47",
-                "channelgrabber/user": "dev-TAC-79-LocaleDateFormat as 1.26.0",
+                "channelgrabber/user": "^1.26.0",
                 "ext-gd": "*",
                 "ext-imagick": "*",
                 "guzzle/guzzle": "~3.7",
@@ -3147,7 +3141,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-06-13T10:14:38+00:00"
+            "time": "2018-06-15T10:59:01+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3251,16 +3245,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "1.26.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "1dbcabc54e0b6b41586e67090501082321e069bb"
+                "reference": "2887314b8cc4b6d2b0bed2cd4772c4f8e723012d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-TAC-79-LocaleDateFormat-a843e6.zip",
-                "reference": "1dbcabc54e0b6b41586e67090501082321e069bb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.0-43db47.zip",
+                "reference": "2887314b8cc4b6d2b0bed2cd4772c4f8e723012d",
                 "shasum": null
             },
             "require": {
@@ -3272,7 +3266,7 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/gearman": ">=1.0.11",
                 "channelgrabber/http": "^1.3.16",
-                "channelgrabber/locale": "dev-TAC-79-LocaleDateFormat as 1.1.0",
+                "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/slim": "^1.13.14",
@@ -3301,7 +3295,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-06-13T10:06:35+00:00"
+            "time": "2018-06-15T10:44:42+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3944,16 +3938,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "97b80dc1dc26db79534d5d7288605ba44c721b9d"
+                "reference": "db2c08f42c0af81747bd222f5b49e2e5c69469e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-79-LocaleDateFormat-d288e7.zip",
-                "reference": "97b80dc1dc26db79534d5d7288605ba44c721b9d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.1-513288.zip",
+                "reference": "db2c08f42c0af81747bd222f5b49e2e5c69469e2",
                 "shasum": null
             },
             "require": {
@@ -3961,10 +3955,10 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/intercom": "^1.1.2",
-                "channelgrabber/locale": "dev-TAC-79-LocaleDateFormat as 1.1.0",
+                "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "dev-TAC-79-LocaleDateFormat as 1.26.0",
+                "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": "^1.2.2",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -3996,7 +3990,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-06-13T10:14:24+00:00"
+            "time": "2018-06-15T11:01:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4443,16 +4437,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-79-LocaleDateFormat",
+            "version": "1.23.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1c58e96a5ae309c952d915ae20380e75b02b5ec0"
+                "reference": "3dd9ff0f850189a4aaa4acd3d2c3daa1dd66639b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-79-LocaleDateFormat-93f6cf.zip",
-                "reference": "1c58e96a5ae309c952d915ae20380e75b02b5ec0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.7-7525b6.zip",
+                "reference": "3dd9ff0f850189a4aaa4acd3d2c3daa1dd66639b",
                 "shasum": null
             },
             "require": {
@@ -4463,12 +4457,12 @@
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/feature-flags": "^2.0.1",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
-                "channelgrabber/locale": "dev-TAC-79-LocaleDateFormat as 1.1.0",
+                "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/notification": "^1.2.0",
                 "channelgrabber/stdlib": "^2.13.1",
                 "channelgrabber/stock": "^1.5.9",
-                "channelgrabber/user": "dev-TAC-79-LocaleDateFormat as 1.26.0",
+                "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
@@ -4504,7 +4498,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-13T10:08:58+00:00"
+            "time": "2018-06-15T11:05:42+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9942,60 +9936,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.35.1",
-            "alias_normalized": "1.35.1.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.1.0",
-            "alias_normalized": "1.1.0.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "2.16.0",
-            "alias_normalized": "2.16.0.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.6.2",
-            "alias_normalized": "1.6.2.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.26.0",
-            "alias_normalized": "1.26.0.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/user"
-        },
-        {
-            "alias": "1.6.1",
-            "alias_normalized": "1.6.1.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.23.7",
-            "alias_normalized": "1.23.7.0",
-            "version": "dev-TAC-79-LocaleDateFormat",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/template": 20,
-        "channelgrabber/user": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
