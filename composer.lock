@@ -4117,12 +4117,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "cd1f1a9260051e5a0a284ea9d64d7fd7f5918fff"
+                "reference": "1b9d2319b9abd5bb7b19de0bf8e289b04e1192e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-111-hide-vat-for-us-users-441509.zip",
-                "reference": "cd1f1a9260051e5a0a284ea9d64d7fd7f5918fff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-111-hide-vat-for-us-users-4e5622.zip",
+                "reference": "1b9d2319b9abd5bb7b19de0bf8e289b04e1192e8",
                 "shasum": null
             },
             "require": {
@@ -4161,7 +4161,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-15T11:38:19+00:00"
+            "time": "2018-06-15T15:06:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",

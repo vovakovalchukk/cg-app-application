@@ -9,6 +9,7 @@ use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Locale\VATRelevant;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
@@ -450,5 +451,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         } catch (\Exception $e) {
             // No-op, don't stop rendering the nav just for this
         }
+    }
+
+    public function isVatRelevant(): bool
+    {
+        if (VATRelevant::getForLocale($this->activeUserContainer->getLocale())) {
+            return true;
+        }
+        $ou = $this->userOuService->getRootOuByActiveUser();
+        return $ou->isVatRegistered();
     }
 }
