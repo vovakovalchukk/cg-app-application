@@ -162,9 +162,7 @@ class ProductsJsonController extends AbstractActionController
             );
 
             $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit);
-            $allowedCreateListingVariationsChannels = array_filter($allowedCreateListingChannels, function($value) {
-                return true;
-            }, ARRAY_FILTER_USE_KEY);
+            $allowedCreateListingVariationsChannels = $this->listingChannelService->getAllowedCreateListingsVariationsChannels($rootOrganisationUnit);
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
