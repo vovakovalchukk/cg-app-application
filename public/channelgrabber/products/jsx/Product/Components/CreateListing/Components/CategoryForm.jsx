@@ -18,9 +18,6 @@ define([
             };
         },
         render: function() {
-            console.log('in CategoryForm render method');
-            
-            
             var ChannelForm = this.props.channelForm;
             return (
                 <div className="category-form-container">

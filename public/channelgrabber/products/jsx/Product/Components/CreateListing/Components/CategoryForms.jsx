@@ -74,9 +74,6 @@ define([
             return (typeof channelToFormMap[channel] != 'undefined');
         },
         render: function() {
-            console.log('in categoryForms render method');
-            
-            
             return (
                 <div className="category-forms-container">
                     {this.renderForCategoryTemplates()}
