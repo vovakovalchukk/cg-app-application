@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3b147d9546acd33bcbe9da41b0dba8f",
+    "content-hash": "6c22d520a903f9c9505d9ffa9e697fa7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7d97813da4970887da143adb9f03906e16d5de9e"
+                "reference": "f9a8be6f83ed4008158472f14ab24437883e9e7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-103-UpgradeSubscriptionDuration-a16920.zip",
-                "reference": "7d97813da4970887da143adb9f03906e16d5de9e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-103-UpgradeSubscriptionDuration-0715a2.zip",
+                "reference": "f9a8be6f83ed4008158472f14ab24437883e9e7d",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-12T11:30:27+00:00"
+            "time": "2018-06-15T10:16:07+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,16 +637,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "ca296baf0ec5e1f24f929c69362c81355e768606"
+                "reference": "2b38209701729517a5f680464674a35b6933266e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.8.1-6683b8.zip",
-                "reference": "ca296baf0ec5e1f24f929c69362c81355e768606",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.9.0-7e08b2.zip",
+                "reference": "2b38209701729517a5f680464674a35b6933266e",
                 "shasum": null
             },
             "require": {
@@ -676,7 +676,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-08T12:46:25+00:00"
+            "time": "2018-06-13T08:48:11+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1917,16 +1917,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "8ab286d5531922924e75f1dc9aaef883d74eb884"
+                "reference": "b10228db51c5953aceec1992a3795e197db2774d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-103-UpgradeSubscriptionDuration-ca69d4.zip",
-                "reference": "8ab286d5531922924e75f1dc9aaef883d74eb884",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-103-UpgradeSubscriptionDuration-92fe61.zip",
+                "reference": "b10228db51c5953aceec1992a3795e197db2774d",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-103-UpgradeSubscriptionDuration as 1.15.1",
+                "channelgrabber/billing": "dev-TAC-103-UpgradeSubscriptionDuration as 1.17.0",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1960,7 +1960,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-13T08:48:05+00:00"
+            "time": "2018-06-15T10:24:51+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3581,16 +3581,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "c944eaf65e1c22f82be43218e48cb005f619c427"
+                "reference": "845dc20239e749217b02c332715c03f8bbb2f9f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-103-UpgradeSubscriptionDuration-0c699b.zip",
-                "reference": "c944eaf65e1c22f82be43218e48cb005f619c427",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-103-UpgradeSubscriptionDuration-d926fc.zip",
+                "reference": "845dc20239e749217b02c332715c03f8bbb2f9f8",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-103-UpgradeSubscriptionDuration as 1.15.0",
+                "channelgrabber/billing": "dev-TAC-103-UpgradeSubscriptionDuration as 1.17.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "dev-TAC-103-UpgradeSubscriptionDuration as 1.8.0",
@@ -3624,7 +3624,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-06-13T09:36:59+00:00"
+            "time": "2018-06-15T10:30:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9937,8 +9937,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.0",
-            "alias_normalized": "1.16.0.0",
+            "alias": "1.17.0",
+            "alias_normalized": "1.17.0.0",
             "version": "dev-TAC-103-UpgradeSubscriptionDuration",
             "package": "channelgrabber/billing"
         },
