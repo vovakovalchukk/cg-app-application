@@ -488,6 +488,7 @@ define([
                 stockModeOptions={this.props.stockModeOptions}
                 redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                showVAT={this.props.showVAT}
             />
         },
         renderProductListView: function() {
