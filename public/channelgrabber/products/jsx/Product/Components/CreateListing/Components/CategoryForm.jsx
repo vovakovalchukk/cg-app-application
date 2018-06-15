@@ -13,10 +13,14 @@ define([
                 channelForm: null,
                 categoryId: null,
                 accountId: null,
-                product: {}
+                product: {},
+                variationsDataForProduct: []
             };
         },
         render: function() {
+            console.log('in CategoryForm render method');
+            
+            
             var ChannelForm = this.props.channelForm;
             return (
                 <div className="category-form-container">
@@ -24,6 +28,8 @@ define([
                     <ChannelForm
                         categoryId={this.props.categoryId}
                         accountId={this.props.accountId}
+                        variationsDataForProduct={this.props.variationsDataForProduct}
+                        product={this.props.product}
                         {...this.props.fieldValues}
                     />
                 </div>

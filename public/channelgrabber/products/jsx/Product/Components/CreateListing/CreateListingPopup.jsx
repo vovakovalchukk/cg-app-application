@@ -190,6 +190,7 @@ define([
                 accounts={this.props.accounts}
                 categoryTemplates={this.props.categoryTemplates}
                 product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
             />;
         },
         renderProductIdentifiers: function() {
