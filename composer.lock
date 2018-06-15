@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7951cfcfb8e5947b5eaef168a30d33c2",
+    "content-hash": "289bf5ed6fe594c1574c5510fcf812d6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1526,7 +1526,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "c1041e71e70633592a5252390f7aba824a3d3626"
+                "reference": "0e67f99dd3968055ef87a269615661e97a038f2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-111-hide-vat-for-us-users-5fc3cc.zip",
+                "reference": "0e67f99dd3968055ef87a269615661e97a038f2b",
+                "shasum": null
             },
             "require": {
                 "php": ">=7.1"
@@ -1548,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-15T10:16:39+00:00"
+            "time": "2018-06-15T15:40:43+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9932,8 +9938,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.22",
-            "alias_normalized": "1.0.22.0",
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
             "version": "dev-TAC-111-hide-vat-for-us-users",
             "package": "channelgrabber/locale"
         },
