@@ -35,7 +35,7 @@ define([
                 themeSelected: false
             }
         },
-        isSimpleProduct: function(){
+        isSimpleProduct: function() {
             return this.props.product.variationCount > 0
         },
         formatVariationThemesAsSelectOptions: function() {
@@ -75,8 +75,8 @@ define([
                         showImages={true}
                         renderImagePicker={false}
                         //todo - use the below attributes for the following ticket - LIS-242
-//                        renderCustomTableHeaders={this.renderIdentifierHeaders}
-//                        renderCustomTableRows={this.renderIdentifierColumns}
+                        //                        renderCustomTableHeaders={this.renderIdentifierHeaders}
+                        //                        renderCustomTableRows={this.renderIdentifierColumns}
                     />
                 </div>
             );

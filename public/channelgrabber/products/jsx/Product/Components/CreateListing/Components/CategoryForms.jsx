@@ -26,7 +26,7 @@ define([
                 accounts: [],
                 categoryTemplates: {},
                 product: {},
-                variationsDataForProduct:[]
+                variationsDataForProduct: []
             };
         },
         renderForCategoryTemplates: function() {
