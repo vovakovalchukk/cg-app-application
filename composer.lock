@@ -2713,17 +2713,11 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.2.1",
+            "version": "dev-CGIV-9575-shopify-orders-permission",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "e15eacf3321effe75f2a6bd0fc08d160222c47e4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.2.1-1bfc58.zip",
-                "reference": "e15eacf3321effe75f2a6bd0fc08d160222c47e4",
-                "shasum": null
+                "reference": "0840a32e2c70b42e805b9d22f984261b14a82d5e"
             },
             "require": {
                 "channelgrabber/channel": "^1.24.6",
@@ -9933,13 +9927,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
+            "version": "dev-CGIV-9575-shopify-orders-permission",
+            "package": "channelgrabber/shopify"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/shopify": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
