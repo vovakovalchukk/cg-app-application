@@ -2716,7 +2716,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "7fc795f2a83f48ed0005554c1281b4aca80314c3"
+                "reference": "1f69d54c1749c9a0edab15185589f861d191f37c"
             },
             "require": {
                 "channelgrabber/channel": "^1.24.6",
