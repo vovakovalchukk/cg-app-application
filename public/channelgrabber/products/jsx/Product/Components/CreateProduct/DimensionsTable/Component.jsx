@@ -66,13 +66,8 @@ define([
             />
         },
         isFirstVariationRow: function(variationId, field) {
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            if (firstVariation == 'variation-' + variationId.toString()) {
-                return true;
-            }
+            // As the first row can't be deleted this should be safe
+            return (variationId === 0);
         },
         changeAllOtherUnchangedValuesToMatchField: function(field, targetValue) {
             var variations = this.props.values.variations;
