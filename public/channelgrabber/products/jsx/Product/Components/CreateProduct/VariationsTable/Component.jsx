@@ -158,7 +158,9 @@ define([
             />
         },
         renderCustomSelect: function(field, reduxFormFieldProps) {
+            var isLastAttributeFieldColumn = field.isCustomAttribute && stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
             return <Select
+                disabled={isLastAttributeFieldColumn}
                 options={field.options}
                 autoSelectFirst={false}
                 fullWidth={true}
