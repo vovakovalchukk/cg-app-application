@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e9ac663919a5ed63f6fb2611b5d9bbc",
+    "content-hash": "e3988c5be27a626bb308c817d97cbb03",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3416,12 +3416,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "65067d88a359126cf52e6f9773342b58b61bc580"
+                "reference": "1fd77392d0f78fe08a267031d16b013a4546e133"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-259-handle-400-response-031bca.zip",
-                "reference": "65067d88a359126cf52e6f9773342b58b61bc580",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-259-handle-400-response-2d2174.zip",
+                "reference": "1fd77392d0f78fe08a267031d16b013a4546e133",
                 "shasum": null
             },
             "require": {
@@ -3429,6 +3429,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
+                "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/product": "^1.11.5",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
@@ -3455,7 +3456,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-05-11T14:41:19+00:00"
+            "time": "2018-06-18T07:30:13+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
