@@ -4,14 +4,16 @@ define([
     './Amazon/ItemSpecifics',
     './Amazon/Subcategories',
     'Product/Components/CreateListing/Components/CreateListing/VariationTable',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    'Common/Components/Input'
 ], function(
     React,
     ReduxForm,
     ItemSpecifics,
     Subcategories,
     VariationsTable,
-    Select
+    Select,
+    Input
 ) {
     "use strict";
 
@@ -80,6 +82,7 @@ define([
                     onOptionChange={(option) => {
                         return field.input.onChange(option.name);
                     }}
+                    classNames={'u-width-120px'}
                 />
             );
         },
@@ -116,16 +119,33 @@ define([
                     value: value.options[key]
                 };
             });
-            console.log('formattedOptions: ', formattedOptions);
-
             return (
-                <Field
-                    name={"theme." + sku + "." + value.name}
-                    component={this.renderTableCellSelect}
-                    options={formattedOptions}
-                    autoSelectFirst={false}
+                <span className={'u-width-120px'}>
+                   <Field
+                       name={"theme." + sku + "." + value.name}
+                       component={this.renderTableCellSelect}
+                       options={formattedOptions}
+                       autoSelectFirst={false}
+                   />
+                </span>
+            );
+        },
+        renderTableCellDisplayNameInput: function(value, sku) {
+            console.log('in renderTableCellInput with value: ', value, ' and sku ', sku);
+            return(
+                <Input
+                    name={"theme." + sku + "." + value.name+ ".displayName"}
                 />
             )
+        },
+        getThemeVariationInputJSX: function(value, sku) {
+            console.log('getTHemeVariationInputJSX');
+            return (
+                <Field
+                    name={"theme." + sku + "." + value.name +".choice"}
+                    component={this.renderTableCellDisplayNameInput}
+                />
+            );
         },
         renderThemeColumns: function(variation) {
             console.log('in renderThemeCOlumns with variation : ', variation);
@@ -134,33 +154,14 @@ define([
             let themeData = this.getThemeDataByName(this.state.themeSelected);
 
             themeData.validValues.forEach((value) => {
-                // create Select
-                console.log('value: ', value);
-                //todo - create a select box here for the variation choices
                 themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku));
-
                 //todo - create an input field for the displayName here
-                themeColumns.push('input for ' + value.name);
+                themeColumns.push(this.getThemeVariationInputJSX(value, variation.sku));
             });
 
-            let jsxToRender = themeColumns.map((column) => {
+            return themeColumns.map((column) => {
                 return <td className={'u-overflow-initial'}>{column}</td>
             });
-
-            return jsxToRender;
-
-//            return dimensions.map(function (dimension) {
-//                var accounts = this.props.accounts;
-//                return (<td>
-//                    <Field
-//                        name={"dimensions." + variation.sku + "." + dimension.name}
-//                        component={this.renderInputComponent}
-//                        validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
-//                        dimensionName={dimension.name}
-//                        variation={variation}
-//                    />
-//                </td>)
-//            }.bind(this));
         },
         renderThemeTable: function() {
             console.log('this.state.themeSelected: ', this.state.themeSelected);
@@ -171,9 +172,11 @@ define([
                         sectionName={'theme'}
                         variationsDataForProduct={this.props.variationsDataForProduct}
                         product={this.props.product}
+
+                        //todo fix bug relating to static images not showing
                         showImages={true}
                         renderImagePicker={false}
-                        //todo - use the below attributes for the following ticket - LIS-242
+
                         renderCustomTableHeaders={this.renderThemeHeaders}
                         renderCustomTableRows={this.renderThemeColumns}
                     />
