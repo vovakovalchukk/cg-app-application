@@ -128,16 +128,16 @@ define([
             );
         },
         renderTableCellDisplayNameInput: function(value, sku) {
-            return(
+            return (
                 <Input
-                    name={"theme." + sku + "." + value.name+ ".displayName"}
+                    name={"theme." + sku + "." + value.name + ".displayName"}
                 />
             )
         },
         getThemeVariationInputJSX: function(value, sku) {
             return (
                 <Field
-                    name={"theme." + sku + "." + value.name +".choice"}
+                    name={"theme." + sku + "." + value.name + ".choice"}
                     component={this.renderTableCellDisplayNameInput}
                 />
             );

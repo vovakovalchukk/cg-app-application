@@ -18,13 +18,13 @@ define([
                 autoSelectFirst: true,
                 images: [],
                 onChange: null,
-                dropdownDisabled:false
+                dropdownDisabled: false
             };
         },
         getInitialState: function() {
             return {
                 active: false,
-                image:  null
+                image: null
             }
         },
         componentDidMount() {
@@ -39,7 +39,7 @@ define([
             });
         },
         onClick: function() {
-            if(!this.props.dropdownDisabled){
+            if (!this.props.dropdownDisabled) {
                 return;
             }
             this.setState({
@@ -51,7 +51,7 @@ define([
                 active: false,
                 image: image
             });
-            this.props.onChange({target:{value: image.id}});
+            this.props.onChange({target: {value: image.id}});
         },
         render: function() {
             return (
@@ -66,12 +66,13 @@ define([
                 >
                     <ClickOutside onClickOutside={this.onClickOutside}>
                         <div className="react-image-picker" onClick={this.onClick}>
-                            { this.state.image
+                            {this.state.image
                                 ? <span className="react-image-picker-image"><img src={this.state.image.url}/></span>
                                 : <span className="react-image-picker-select-text">Select an image</span>
                             }
-                            { !this.props.dropdownDisabled
-                                ? <span className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
+                            {!this.props.dropdownDisabled
+                                ? <span
+                                    className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
                                 : ''
                             }
                         </div>
