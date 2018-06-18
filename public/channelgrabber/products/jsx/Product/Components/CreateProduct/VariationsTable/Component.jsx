@@ -111,6 +111,7 @@ define([
                             <Field
                                 type="text"
                                 name={field.name}
+                                placeholder="Variation name (e.g. Color)"
                                 className={"c-table-with-inputs__text-input"}
                                 component="input"
                                 onChange={(function(event) {
