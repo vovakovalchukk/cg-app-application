@@ -167,6 +167,7 @@ define([
                         imageDropdownsDisabled={true}
                         renderCustomTableHeaders={this.renderThemeHeaders}
                         renderCustomTableRows={this.renderThemeColumns}
+                        attributeNames={this.props.product.attributeNames}
                     />
                 </div>
             );
