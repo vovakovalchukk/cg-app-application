@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "92d01aeb9fe65c4874b96bdd75d7a1fc227f0fa9"
+                "reference": "e30a148f443dcf46eb526658ead5a1583466e3c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-598150.zip",
-                "reference": "92d01aeb9fe65c4874b96bdd75d7a1fc227f0fa9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-df06ea.zip",
+                "reference": "e30a148f443dcf46eb526658ead5a1583466e3c6",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T12:22:25+00:00"
+            "time": "2018-06-18T14:50:14+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1916,12 +1916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "2207d03a4ad2eaf6412da506f8d909a5044a3c69"
+                "reference": "b63ef9368282be3bac93752dff35374fff3b44b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-112-PackagePriceCalculator-e6308c.zip",
-                "reference": "2207d03a4ad2eaf6412da506f8d909a5044a3c69",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-112-PackagePriceCalculator-103f4d.zip",
+                "reference": "b63ef9368282be3bac93752dff35374fff3b44b0",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-18T08:56:36+00:00"
+            "time": "2018-06-18T14:53:57+00:00"
         },
         {
             "name": "channelgrabber/permission",
