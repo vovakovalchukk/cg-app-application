@@ -164,6 +164,7 @@ define([
                 fullWidth={true}
                 title={name}
                 customOptions={true}
+                customOptionsPlaceholder={field.isCustomAttribute ? "Add Attribute (e.g. Blue)" : null}
                 selectedOption={{
                     name: reduxFormFieldProps.input.value,
                     value: reduxFormFieldProps.input.value
