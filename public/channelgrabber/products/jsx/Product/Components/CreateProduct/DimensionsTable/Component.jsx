@@ -188,36 +188,6 @@ define([
             }
             return false;
         },
-        isFirstRowVariation(variationId) {
-            if (!this.props.values || !this.props.values.variations) {
-                return undefined;
-            }
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            if (firstVariation == 'variation-' + variationId + toString()) {
-                return true;
-            }
-            return false;
-        },
-        getFirstRowValue: function(variationId, fieldName) {
-            if (!this.props.values || !this.props.values.variations) {
-                return undefined;
-            }
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            var firstVariationObject = variations[firstVariation];
-            if (utility.isEmptyObject(firstVariationObject)) {
-                return undefined;
-            }
-            if (!firstVariationObject[fieldName]) {
-                return undefined;
-            }
-            return firstVariationObject[fieldName];
-        },
         renderField: function(variationId, field) {
             var renderFieldMethod = null;
             var fieldValue = ''
