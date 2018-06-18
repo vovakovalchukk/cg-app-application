@@ -96,7 +96,7 @@ class PaymentController extends AbstractActionController
                 'name' => $package->getName(),
                 'band' => $package->getBand(),
                 'price' => $this->packageService->getPackagePrice($package),
-                'orderVolume' => $this->getOrderVolumeForPackage($package),
+                'orderVolume' => $package->getLicences()->getTotalLicenceAmount(Licence::TYPE_ORDER),
             ];
         }
         usort(
@@ -112,19 +112,6 @@ class PaymentController extends AbstractActionController
             }
         );
         return $packages;
-    }
-
-    protected function getOrderVolumeForPackage(Package $package): int
-    {
-        $orderVolume = 0;
-        /** @var Licence $licence */
-        foreach ($package->getLicences() as $licence) {
-            if ($licence->getType() !== Licence::TYPE_ORDER) {
-                continue;
-            }
-            $orderVolume += $licence->getAmount();
-        }
-        return $orderVolume;
     }
 
     protected function getFooter(): ViewModel

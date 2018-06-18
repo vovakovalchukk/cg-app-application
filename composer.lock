@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "402e85b8f28c454cb4bc6887c692743903dcc1e1"
+                "reference": "03b7bf24895ab68289aea211865d320d217cb320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-f7f328.zip",
-                "reference": "402e85b8f28c454cb4bc6887c692743903dcc1e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-665151.zip",
+                "reference": "03b7bf24895ab68289aea211865d320d217cb320",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T08:24:46+00:00"
+            "time": "2018-06-18T10:08:30+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,12 +637,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "e3693f7cd479800647e1d02682ae6271cc4d4e80"
+                "reference": "056cf6f751185319aa6196251c91e7b3be2bd031"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-112-PackagePriceCalculator-119030.zip",
-                "reference": "e3693f7cd479800647e1d02682ae6271cc4d4e80",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-112-PackagePriceCalculator-de8a21.zip",
+                "reference": "056cf6f751185319aa6196251c91e7b3be2bd031",
                 "shasum": null
             },
             "require": {
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T08:07:02+00:00"
+            "time": "2018-06-18T10:21:27+00:00"
         },
         {
             "name": "channelgrabber/communication",
