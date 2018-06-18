@@ -46,7 +46,7 @@
         "channelgrabber/http": "~1.3.32",
         "channelgrabber/image": "~1.2.8",
         "channelgrabber/intercom": "~1.5.4",
-        "channelgrabber/listing": "dev-LIS-206-create-amazon-listings as 1.16.2",
+        "channelgrabber/listing": "dev-LIS-240-create-variation-listings-amazon as dev-LIS-206-create-amazon-listings",
         "channelgrabber/locale": "~1.0.21",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",

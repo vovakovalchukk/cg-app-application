@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e416e8393561e069a2689c3cbc6331da",
+    "content-hash": "689174d146f256e5e5aa9d046dc651fd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1477,16 +1477,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "dev-LIS-240-create-variation-listings-amazon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "cc5cee69decfb9e43e16fe3db87758fe8193a3a7"
+                "reference": "90cddb68a90a7d2d361f38dcdabb499a4065ea00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-206-create-amazon-listings-182ff7.zip",
-                "reference": "cc5cee69decfb9e43e16fe3db87758fe8193a3a7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-240-create-variation-listings-amazon-0eab6b.zip",
+                "reference": "90cddb68a90a7d2d361f38dcdabb499a4065ea00",
                 "shasum": null
             },
             "require": {
@@ -1512,6 +1512,11 @@
                 "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-LIS-240-create-variation-listings-amazon": "1.16.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -1522,7 +1527,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-14T09:16:30+00:00"
+            "time": "2018-06-18T12:15:29+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9947,9 +9952,9 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.16.2",
-            "alias_normalized": "1.16.2.0",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "alias": "dev-LIS-206-create-amazon-listings",
+            "alias_normalized": "dev-LIS-206-create-amazon-listings",
+            "version": "dev-LIS-240-create-variation-listings-amazon",
             "package": "channelgrabber/listing"
         }
     ],
