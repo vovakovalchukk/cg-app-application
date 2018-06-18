@@ -65,10 +65,31 @@ define([
                 </div>
             );
         },
-        getThemeHeadersByName: function(name) {
-            let themeData = this.props.variationThemes.find((theme) => {
+        renderTableCellSelect: function(field) {
+            console.log('renderTableCellSelect with field: ', field);
+
+            let selected = {
+                name: field.input.value,
+                value: field.input.value
+            };
+            return (
+                <Select
+                    autoSelectFirst={false}
+                    options={field.options}
+                    selectedOption={selected}
+                    onOptionChange={(option) => {
+                        return field.input.onChange(option.name);
+                    }}
+                />
+            );
+        },
+        getThemeDataByName: function(name) {
+            return this.props.variationThemes.find((theme) => {
                 return theme.name == name;
             });
+        },
+        getThemeHeadersByName: function(name) {
+            let themeData = this.getThemeDataByName(name);
             let headers = [];
             themeData.validValues.forEach((header) => {
                 headers.push(header.name);
@@ -79,13 +100,67 @@ define([
             let themeSelected = this.state.themeSelected;
             let themeHeaders = this.getThemeHeadersByName(themeSelected);
             let themeHeadersWithDisplayNames = [];
-            themeHeaders.forEach((header)=>{
+            themeHeaders.forEach((header) => {
                 themeHeadersWithDisplayNames.push(header);
                 themeHeadersWithDisplayNames.push(header + ' (Display Name)');
             });
             return themeHeadersWithDisplayNames.map((header) => {
                 return <th> {header} </th>;
             });
+        },
+        getThemeVariationSelectJSX: function(value, sku) {
+            console.log('in getTHemeVariationSelectJsx');
+            let formattedOptions = Object.keys(value.options).map((key) => {
+                return {
+                    name: value.options[key],
+                    value: value.options[key]
+                };
+            });
+            console.log('formattedOptions: ', formattedOptions);
+
+            return (
+                <Field
+                    name={"theme." + sku + "." + value.name}
+                    component={this.renderTableCellSelect}
+                    options={formattedOptions}
+                    autoSelectFirst={false}
+                />
+            )
+        },
+        renderThemeColumns: function(variation) {
+            console.log('in renderThemeCOlumns with variation : ', variation);
+
+            let themeColumns = [];
+            let themeData = this.getThemeDataByName(this.state.themeSelected);
+
+            themeData.validValues.forEach((value) => {
+                // create Select
+                console.log('value: ', value);
+                //todo - create a select box here for the variation choices
+                themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku));
+
+                //todo - create an input field for the displayName here
+                themeColumns.push('input for ' + value.name);
+            });
+
+            let jsxToRender = themeColumns.map((column) => {
+                return <td className={'u-overflow-initial'}>{column}</td>
+            });
+
+            return jsxToRender;
+
+//            return dimensions.map(function (dimension) {
+//                var accounts = this.props.accounts;
+//                return (<td>
+//                    <Field
+//                        name={"dimensions." + variation.sku + "." + dimension.name}
+//                        component={this.renderInputComponent}
+//                        validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
+//                        dimensionName={dimension.name}
+//                        variation={variation}
+//                    />
+//                </td>)
+//            }.bind(this));
         },
         renderThemeTable: function() {
             console.log('this.state.themeSelected: ', this.state.themeSelected);
@@ -100,7 +175,7 @@ define([
                         renderImagePicker={false}
                         //todo - use the below attributes for the following ticket - LIS-242
                         renderCustomTableHeaders={this.renderThemeHeaders}
-                        //                        renderCustomTableRows={this.renderIdentifierColumns}
+                        renderCustomTableRows={this.renderThemeColumns}
                     />
                 </div>
             );
