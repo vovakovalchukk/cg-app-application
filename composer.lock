@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "03b7bf24895ab68289aea211865d320d217cb320"
+                "reference": "92d01aeb9fe65c4874b96bdd75d7a1fc227f0fa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-665151.zip",
-                "reference": "03b7bf24895ab68289aea211865d320d217cb320",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-598150.zip",
+                "reference": "92d01aeb9fe65c4874b96bdd75d7a1fc227f0fa9",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T10:08:30+00:00"
+            "time": "2018-06-18T12:22:25+00:00"
         },
         {
             "name": "channelgrabber/cache",
