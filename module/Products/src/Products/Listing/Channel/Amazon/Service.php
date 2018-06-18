@@ -10,7 +10,6 @@ use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
-use function CG\Stdlib\isArrayAssociative;
 
 class Service implements
     ChannelSpecificValuesInterface,
@@ -19,10 +18,12 @@ class Service implements
 {
     const ITEM_SPECIFIC_VARIATION_DATA = 'VariationData';
     const ITEM_SPECIFIC_VARIATION_THEME = 'VariationTheme';
+    const ITEM_SPECIFIC_PARENTAGE = 'Parentage';
 
     const HIDDEN_ITEM_SPECIFICS = [
         self::ITEM_SPECIFIC_VARIATION_DATA => self::ITEM_SPECIFIC_VARIATION_DATA,
-        self::ITEM_SPECIFIC_VARIATION_THEME => self::ITEM_SPECIFIC_VARIATION_THEME
+        self::ITEM_SPECIFIC_VARIATION_THEME => self::ITEM_SPECIFIC_VARIATION_THEME,
+        self::ITEM_SPECIFIC_PARENTAGE => self::ITEM_SPECIFIC_PARENTAGE
     ];
 
     /** @var CategoryService */
@@ -73,24 +74,28 @@ class Service implements
             /** @var AmazonCategoryExternalData $amazonData */
             $amazonData = $categoryExternal->getData();
             $itemSpecifics = $amazonData->getAttributes();
-            $this->filterItemSpecifics($itemSpecifics);
-            return $itemSpecifics;
+            return $this->filterItemSpecifics($itemSpecifics);
         } catch (NotFound $e) {
             return [];
         }
     }
 
-    protected function filterItemSpecifics(array &$itemSpecifics): void
+    protected function filterItemSpecifics(array $itemSpecifics): array
     {
-        foreach ($itemSpecifics as $name => $values) {
+        $result = [];
+        foreach ($itemSpecifics as $itemSpecific) {
+            $name = $itemSpecific['name'];
             if (isset(static::HIDDEN_ITEM_SPECIFICS[$name])) {
-                unset($itemSpecifics[$name]);
                 continue;
             }
 
-            if (isArrayAssociative($values)) {
-                $this->filterItemSpecifics($values);
+            $children = $itemSpecific['children'] ?? [];
+            if (!empty($children)) {
+                $itemSpecific['children'] = $this->filterItemSpecifics($children);
             }
+            $result[] = $itemSpecific;
         }
+
+        return $result;
     }
 }
