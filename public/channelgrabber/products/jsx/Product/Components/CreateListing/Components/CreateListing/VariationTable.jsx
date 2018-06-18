@@ -21,6 +21,7 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
+                imageDropdownsDisabled: false,
                 renderCustomTableHeaders: function() {return null},
                 renderCustomTableRows: function() {return null}
             }
@@ -78,6 +79,7 @@ define([
                 autoSelectFirst={false}
                 images={this.props.product.images}
                 onChange={this.onImageSelected.bind(this, field)}
+                dropdownDisabled={this.props.imageDropdownsDisabled}
             />
         },
         onImageSelected: function(field, image) {

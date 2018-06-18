@@ -17,7 +17,8 @@ define([
                 selected: null,
                 autoSelectFirst: true,
                 images: [],
-                onChange: null
+                onChange: null,
+                dropdownDisabled:false
             };
         },
         getInitialState: function() {
@@ -38,6 +39,9 @@ define([
             });
         },
         onClick: function() {
+            if(!this.props.dropdownDisabled){
+                return;
+            }
             this.setState({
                 active: !this.state.active
             });
@@ -66,7 +70,10 @@ define([
                                 ? <span className="react-image-picker-image"><img src={this.state.image.url}/></span>
                                 : <span className="react-image-picker-select-text">Select an image</span>
                             }
-                            <span className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
+                            { !this.props.dropdownDisabled
+                                ? <span className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
+                                : ''
+                            }
                         </div>
                     </ClickOutside>
                     <div style={{display: this.state.active ? 'initial' : 'none'}}>

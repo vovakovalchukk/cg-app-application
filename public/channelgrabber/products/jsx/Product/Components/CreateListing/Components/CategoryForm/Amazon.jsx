@@ -68,8 +68,6 @@ define([
             );
         },
         renderTableCellSelect: function(field) {
-            console.log('renderTableCellSelect with field: ', field);
-
             let selected = {
                 name: field.input.value,
                 value: field.input.value
@@ -112,7 +110,6 @@ define([
             });
         },
         getThemeVariationSelectJSX: function(value, sku) {
-            console.log('in getTHemeVariationSelectJsx');
             let formattedOptions = Object.keys(value.options).map((key) => {
                 return {
                     name: value.options[key],
@@ -131,7 +128,6 @@ define([
             );
         },
         renderTableCellDisplayNameInput: function(value, sku) {
-            console.log('in renderTableCellInput with value: ', value, ' and sku ', sku);
             return(
                 <Input
                     name={"theme." + sku + "." + value.name+ ".displayName"}
@@ -139,7 +135,6 @@ define([
             )
         },
         getThemeVariationInputJSX: function(value, sku) {
-            console.log('getTHemeVariationInputJSX');
             return (
                 <Field
                     name={"theme." + sku + "." + value.name +".choice"}
@@ -148,14 +143,11 @@ define([
             );
         },
         renderThemeColumns: function(variation) {
-            console.log('in renderThemeCOlumns with variation : ', variation);
-
             let themeColumns = [];
             let themeData = this.getThemeDataByName(this.state.themeSelected);
 
             themeData.validValues.forEach((value) => {
                 themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku));
-                //todo - create an input field for the displayName here
                 themeColumns.push(this.getThemeVariationInputJSX(value, variation.sku));
             });
 
@@ -164,19 +156,15 @@ define([
             });
         },
         renderThemeTable: function() {
-            console.log('this.state.themeSelected: ', this.state.themeSelected);
-
             return (
                 <div className={'u-margin-top-small'}>
                     <VariationsTable
                         sectionName={'theme'}
                         variationsDataForProduct={this.props.variationsDataForProduct}
                         product={this.props.product}
-
-                        //todo fix bug relating to static images not showing
+                        renderImagePicker={true}
                         showImages={true}
-                        renderImagePicker={false}
-
+                        imageDropdownsDisabled={true}
                         renderCustomTableHeaders={this.renderThemeHeaders}
                         renderCustomTableRows={this.renderThemeColumns}
                     />
@@ -192,14 +180,13 @@ define([
                         displayTitle={"Variation Theme"}
                         options={this.formatVariationThemesAsSelectOptions()}
                         onChange={(e, newValue) => {
-                            console.log('in onchange with newValue:  ', newValue);
                             this.setState({
                                 'themeSelected': newValue
                             })
                         }}
                         validate={value => (value ? undefined : 'Required')}
                     />
-                    {this.state.themeSelected ? this.renderThemeTable() : ''}
+                    {this.state.themeSelected && this.props.variationsDataForProduct ? this.renderThemeTable() : ''}
                 </div>
             );
         },
@@ -213,7 +200,7 @@ define([
                         categoryId={this.props.categoryId}
                         itemSpecifics={this.props.itemSpecifics}
                     />
-                    {this.isSimpleProduct() ? this.renderVariationThemeContent() : ''}
+                    {this.isSimpleProduct() ? this.renderVariationThemeContent(false) : ''}
                 </div>
             );
         }
