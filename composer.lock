@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb3f3b986469c5abfc16e7862555f4f7",
+    "content-hash": "f81290c8c8439379ffbaf30dee4c67b9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "87620949912885fd299f4346b2329799da5830d1"
+                "reference": "402e85b8f28c454cb4bc6887c692743903dcc1e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-6b746c.zip",
-                "reference": "87620949912885fd299f4346b2329799da5830d1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-f7f328.zip",
+                "reference": "402e85b8f28c454cb4bc6887c692743903dcc1e1",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-15T11:21:25+00:00"
+            "time": "2018-06-18T08:24:46+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,16 +637,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "8060914336ed659b94bef0b32379cf3e94644f52"
+                "reference": "e3693f7cd479800647e1d02682ae6271cc4d4e80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-112-PackagePriceCalculator-0a4bfb.zip",
-                "reference": "8060914336ed659b94bef0b32379cf3e94644f52",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-112-PackagePriceCalculator-119030.zip",
+                "reference": "e3693f7cd479800647e1d02682ae6271cc4d4e80",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.16.0",
+                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-15T09:42:19+00:00"
+            "time": "2018-06-18T08:07:02+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1916,12 +1916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "646a61f12a998729174f4c1cb6376683100f6ead"
+                "reference": "42f5b5bf6c54e2e70ec7fbf5d6789c106e61151e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-112-PackagePriceCalculator-a8adc7.zip",
-                "reference": "646a61f12a998729174f4c1cb6376683100f6ead",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-112-PackagePriceCalculator-299bc3.zip",
+                "reference": "42f5b5bf6c54e2e70ec7fbf5d6789c106e61151e",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-15T11:23:54+00:00"
+            "time": "2018-06-18T08:07:02+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3085,16 +3085,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.2",
+            "version": "1.6.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8bed45e98377946b5f10dbcbbe45b84c0c0ffd59"
+                "reference": "52252e3b7213e99dbf6268b40bea26252382f779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.2-237570.zip",
-                "reference": "8bed45e98377946b5f10dbcbbe45b84c0c0ffd59",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.2.1-b29417.zip",
+                "reference": "52252e3b7213e99dbf6268b40bea26252382f779",
                 "shasum": null
             },
             "require": {
@@ -3141,7 +3141,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-06-15T10:59:01+00:00"
+            "time": "2018-06-15T15:13:28+00:00"
         },
         {
             "name": "channelgrabber/transaction",
