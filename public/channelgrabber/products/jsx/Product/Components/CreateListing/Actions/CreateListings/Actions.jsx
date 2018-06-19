@@ -6,7 +6,7 @@ define([
     "use strict";
 
     var formatFormValuesForSubmission = function(values, props) {
-        let valuesForSubmission = {
+        return {
             accountIds: props.accounts,
             categoryTemplateIds: props.categories,
             product: {
@@ -23,9 +23,6 @@ define([
             },
             accountCategories: formatAccountCategoryMap(props)
         };
-
-        console.log('valuesForSubmision: ', valuesForSubmission);
-        return valuesForSubmission
     };
 
     var formatVariationData = function(values, props) {
