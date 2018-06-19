@@ -15,6 +15,7 @@ use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
+use CG\Billing\Price\Service as PriceService;
 
 class PaymentController extends AbstractActionController
 {
@@ -95,7 +96,26 @@ class PaymentController extends AbstractActionController
                 'id' => $package->getId(),
                 'name' => $package->getName(),
                 'band' => $package->getBand(),
-                'price' => $this->packageService->getPackagePrice($package),
+                'monthlyPrice' => [
+                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getPackageMonthlyPrice(
+                        $package,
+                        PriceService::BILLING_DURATION_MONTHLY
+                    ),
+                    PriceService::BILLING_DURATION_ANNUAL => $this->packageService->getPackageMonthlyPrice(
+                        $package,
+                        PriceService::BILLING_DURATION_ANNUAL
+                    ),
+                ],
+                'price' => [
+                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getPackagePrice(
+                        $package,
+                        PriceService::BILLING_DURATION_MONTHLY
+                    ),
+                    PriceService::BILLING_DURATION_ANNUAL => $this->packageService->getPackagePrice(
+                        $package,
+                        PriceService::BILLING_DURATION_ANNUAL
+                    ),
+                ],
                 'orderVolume' => $package->getLicences()->getTotalLicenceAmount(Licence::TYPE_ORDER),
             ];
         }

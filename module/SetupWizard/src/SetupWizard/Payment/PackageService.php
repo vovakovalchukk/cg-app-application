@@ -6,9 +6,11 @@ use CG\Billing\Package\Collection;
 use CG\Billing\Package\Entity as Package;
 use CG\Billing\Package\Filter;
 use CG\Billing\Package\Service;
+use CG\Billing\Price\Service as PriceService;
 use CG\Billing\PricingScheme\PricingScheme;
 use CG\Billing\PricingSchemeAssignment\Entity as PricingSchemeAssignment;
 use CG\Billing\PricingSchemeAssignment\Service as PricingSchemeAssignmentService;
+use CG\Billing\Subscription\Entity as Subscription;
 use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -21,17 +23,21 @@ class PackageService
     protected $activeUser;
     /** @var PricingSchemeAssignmentService */
     protected $pricingSchemeAssignmentService;
+    /** @var PriceService */
+    protected $priceService;
     /** @var CurrencyFormatter */
     protected $currencyFormatter;
 
     public function __construct(
         Service $service,
         ActiveUserInterface $activeUser,
-        PricingSchemeAssignmentService $pricingSchemeAssignmentService
+        PricingSchemeAssignmentService $pricingSchemeAssignmentService,
+        PriceService $priceService
     ) {
         $this->service = $service;
         $this->activeUser = $activeUser;
         $this->pricingSchemeAssignmentService = $pricingSchemeAssignmentService;
+        $this->priceService = $priceService;
         $this->currencyFormatter = new CurrencyFormatter($this->activeUser, null, false);
     }
 
@@ -94,8 +100,17 @@ class PackageService
         }
     }
 
-    public function getPackagePrice(Package $package): string
+    public function getPackagePrice(Package $package, int $billingDuration = null): string
     {
-        return $this->currencyFormatter->format($package->getPrice());
+        return $this->currencyFormatter->format(
+            $this->priceService->getChargeablePackagePriceAsFloat($package, $billingDuration)
+        );
+    }
+
+    public function getPackageMonthlyPrice(Package $package, int $billingDuration = null): string
+    {
+        $billingDuration = $billingDuration ?? Subscription::DEFAULT_BILLING_DURATION;
+        $price = $this->priceService->getChargeablePackagePriceAsFloat($package, $billingDuration);
+        return $this->currencyFormatter->format($price / $billingDuration);
     }
 }

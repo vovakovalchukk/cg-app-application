@@ -4,9 +4,12 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
     var PackageInfoComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                id: null,
                 name: null,
                 band: null,
-                price: null
+                monthlyPrice: null,
+                price: null,
+                orderVolume: null
             };
         },
         getInitialState: function() {
@@ -35,11 +38,11 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
                     </div>
                     <div>
                         <span>Monthly cost:</span>
-                        <span>{this.props.price}</span>
+                        <span>{this.props.monthlyPrice[this.state.billingDuration]}</span>
                     </div>
                     <div>
                         <span>Due now:</span>
-                        <span>{this.props.price}</span>
+                        <span>{this.props.price[this.state.billingDuration]}</span>
                     </div>
                 </div>
             );
