@@ -9,13 +9,22 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
                 band: null,
                 monthlyPrice: null,
                 price: null,
-                orderVolume: null
+                orderVolume: null,
+                billingDuration: null,
+                billingDurationChanged: null
             };
         },
         getInitialState: function() {
             return {
                 billingDuration: 1
             };
+        },
+        billingDurationChanged: function(billingDuration) {
+            this.setState({billingDuration: billingDuration}, function() {
+                if (typeof(this.props.billingDurationChanged) === "function") {
+                    this.props.billingDurationChanged(billingDuration);
+                }
+            });
         },
         render: function() {
             return (
@@ -32,7 +41,7 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
                         <span>
                             <BillingPeriod
                                 billingDuration={this.state.billingDuration}
-                                billingDurationChanged={billingDuration => this.setState({billingDuration: billingDuration})}
+                                billingDurationChanged={this.billingDurationChanged}
                             />
                         </span>
                     </div>

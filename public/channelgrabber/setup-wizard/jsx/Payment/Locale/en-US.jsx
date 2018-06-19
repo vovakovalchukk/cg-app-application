@@ -9,9 +9,15 @@ define(['react', 'SetupWizard/Component/Payment/PackageInfo/US'], function(React
         return "< " + (packageInfo.orderVolume / 1000) + " k";
     };
 
-    Locale.prototype.getPackageInfo = function(selectedPackage)
+    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChanged)
     {
-        return (<PackageInfo {...selectedPackage} />);
+        return (
+            <PackageInfo
+                {...selectedPackage}
+                billingDuration={billingDuration}
+                billingDurationChanged={billingDurationChanged}
+            />
+        );
     };
 
     return Locale;

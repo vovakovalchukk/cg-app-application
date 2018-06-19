@@ -3,6 +3,7 @@ namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
+use CG\Billing\Subscription\Entity as Subscription;
 use CG\Locale\PhoneNumber;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
@@ -20,6 +21,7 @@ class PaymentController extends AbstractActionController
 {
     const ROUTE_PAYMENT = 'Payment';
     const ROUTE_PACKAGE_REMEMBER = 'PackageRemember';
+    const ROUTE_BILLING_DURATION_REMEMBER = 'BillingDurationRemember';
     const ROUTE_PACKAGE_SET = 'PackageSet';
 
     /** @var SetupService */
@@ -72,6 +74,7 @@ class PaymentController extends AbstractActionController
             ->setVariable('locale', $locale)
             ->setVariable('phoneNumber', PhoneNumber::getForLocale($locale))
             ->setVariable('selectedPackage', $this->getSelectedPackage())
+            ->setVariable('selectedBillingDuration', $this->getSelectedBillingDuration())
             ->setVariable('packages', $this->getPackagesData())
             ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod());
 
@@ -85,6 +88,11 @@ class PaymentController extends AbstractActionController
     protected function getSelectedPackage(): ?int
     {
         return $this->session->getStorage()['setup-payment']['selected-package'] ?? false;
+    }
+
+    protected function getSelectedBillingDuration(): int
+    {
+        return $this->session->getStorage()['setup-payment']['selected-duration'] ?? Subscription::DEFAULT_BILLING_DURATION;
     }
 
     protected function getPackagesData(): array
@@ -147,6 +155,16 @@ class PaymentController extends AbstractActionController
             $storage['setup-payment'] = [];
         }
         $storage['setup-payment']['selected-package'] = $this->params()->fromRoute('id');
+        return $this->jsonModelFactory->newInstance(['success' => true]);
+    }
+
+    public function rememberBillingDurationAction()
+    {
+        $storage = $this->session->getStorage();
+        if (!isset($storage['setup-payment'])) {
+            $storage['setup-payment'] = [];
+        }
+        $storage['setup-payment']['selected-duration'] = $this->params()->fromRoute('duration');
         return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 

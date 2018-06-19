@@ -9,9 +9,15 @@ define(['react', 'SetupWizard/Component/Payment/PackageInfo/UK'], function(React
         return packageInfo.fromOrderVolume + "-" + packageInfo.orderVolume;
     };
 
-    Locale.prototype.getPackageInfo = function(selectedPackage)
+    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChanged)
     {
-        return (<PackageInfo {...selectedPackage} />);
+        return (
+            <PackageInfo
+                {...selectedPackage}
+                billingDuration={billingDuration}
+                billingDurationChanged={billingDurationChanged}
+            />
+        );
     };
 
     return Locale;
