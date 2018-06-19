@@ -38,11 +38,11 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
                     </div>
                     <div>
                         <span>Monthly cost:</span>
-                        <span>{this.props.monthlyPrice[this.state.billingDuration]}</span>
+                        <span dangerouslySetInnerHTML={{__html: this.props.monthlyPrice[this.state.billingDuration]}} />
                     </div>
                     <div>
                         <span>Due now:</span>
-                        <span>{this.props.price[this.state.billingDuration]}</span>
+                        <span dangerouslySetInnerHTML={{__html: this.props.price[this.state.billingDuration]}} />
                     </div>
                 </div>
             );

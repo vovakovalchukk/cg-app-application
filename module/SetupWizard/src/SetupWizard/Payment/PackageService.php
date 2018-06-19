@@ -14,6 +14,8 @@ use CG\Billing\Subscription\Entity as Subscription;
 use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG_Mustache\View\Renderer;
+use CG_UI\View\Prototyper\ViewModelFactory;
 
 class PackageService
 {
@@ -25,6 +27,10 @@ class PackageService
     protected $pricingSchemeAssignmentService;
     /** @var PriceService */
     protected $priceService;
+    /** @var ViewModelFactory */
+    protected $viewModelFactory;
+    /** @var Renderer */
+    protected $renderer;
     /** @var CurrencyFormatter */
     protected $currencyFormatter;
 
@@ -32,12 +38,16 @@ class PackageService
         Service $service,
         ActiveUserInterface $activeUser,
         PricingSchemeAssignmentService $pricingSchemeAssignmentService,
-        PriceService $priceService
+        PriceService $priceService,
+        ViewModelFactory $viewModelFactory,
+        Renderer $renderer
     ) {
         $this->service = $service;
         $this->activeUser = $activeUser;
         $this->pricingSchemeAssignmentService = $pricingSchemeAssignmentService;
         $this->priceService = $priceService;
+        $this->viewModelFactory = $viewModelFactory;
+        $this->renderer = $renderer;
         $this->currencyFormatter = new CurrencyFormatter($this->activeUser, null, false);
     }
 
@@ -109,8 +119,16 @@ class PackageService
 
     public function getPackageMonthlyPrice(Package $package, int $billingDuration = null): string
     {
-        $billingDuration = $billingDuration ?? Subscription::DEFAULT_BILLING_DURATION;
-        $price = $this->priceService->getChargeablePackagePriceAsFloat($package, $billingDuration);
-        return $this->currencyFormatter->format($price / $billingDuration);
+        $price = $this->priceService->getChargeablePackagePrice($package, $billingDuration);
+        if ($price->getBillingDuration() === $price->getChargeableBillingDuration()) {
+            return $this->currencyFormatter->format($price->getChargeableAmount() / $price->getBillingDuration());
+        }
+
+        $monthlyPrice = $this->viewModelFactory->newInstance([
+            'fullPrice' => $this->currencyFormatter->format($price->getChargeableAmount() / $price->getChargeableBillingDuration()),
+            'discountedPrice' => $this->currencyFormatter->format($price->getChargeableAmount() / $price->getBillingDuration()),
+        ])->setTemplate('package/discountedPrice');
+
+        return $this->renderer->render($monthlyPrice);
     }
 }

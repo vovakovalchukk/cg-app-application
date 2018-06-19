@@ -2,7 +2,7 @@
 namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
-use CG\Billing\Package\Entity as Package;
+use CG\Billing\Price\Service as PriceService;
 use CG\Locale\PhoneNumber;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
@@ -15,7 +15,6 @@ use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
-use CG\Billing\Price\Service as PriceService;
 
 class PaymentController extends AbstractActionController
 {
