@@ -6,9 +6,7 @@ define([
     "use strict";
 
     var formatFormValuesForSubmission = function(values, props) {
-        console.log('in formatFormValuesFOrSubmission values: ', values);
-
-        return {
+        let valuesForSubmission = {
             accountIds: props.accounts,
             categoryTemplateIds: props.categories,
             product: {
@@ -25,6 +23,9 @@ define([
             },
             accountCategories: formatAccountCategoryMap(props)
         };
+
+        console.log('valuesForSubmision: ', valuesForSubmission);
+        return valuesForSubmission
     };
 
     var formatVariationData = function(values, props) {
@@ -80,10 +81,9 @@ define([
         return values;
     };
 
-    let formatThemeDetails = function(details){
-        console.log(' in formatAllValid.. . .. details: ', details);
+    let formatThemeDetails = function(details) {
         let formattedDetails = [];
-        details.forEach((detailsObject)=>{
+        details.forEach((detailsObject) => {
             let detailsWithValidValues = detailsObject;
             detailsWithValidValues.validValues = formatValidValues(detailsObject.theme);
             delete detailsWithValidValues.theme;
@@ -92,26 +92,26 @@ define([
         return formattedDetails;
     };
 
-    let formatValidValues = function(themeData){
+    let formatValidValues = function(themeData) {
         let formattedValidValues = {};
 
-        for (let sku in themeData){
+        for (let sku in themeData) {
             let currentSku = themeData[sku];
             formattedValidValues[sku] = [];
 
-            for(let attributeData in currentSku){
+            for (let attributeData in currentSku) {
                 let currentAttributeData = currentSku[attributeData];
                 let formattedAttribute = {
-                    displayName:currentAttributeData.displayName
+                    displayName: currentAttributeData.displayName
                 };
                 delete currentAttributeData.displayName;
 
-                for(var attribute in currentAttributeData){
-                    formattedAttribute["name"]=attribute;
+                for (var attribute in currentAttributeData) {
+                    formattedAttribute["name"] = attribute;
                     formattedAttribute["option"] = currentAttributeData[attribute];
                     break;
                 }
-                formattedValidValues[sku].push( formattedAttribute );
+                formattedValidValues[sku].push(formattedAttribute);
             }
         }
 
@@ -138,10 +138,7 @@ define([
             details.push(categoryDetail);
         }
 
-
         details = formatThemeDetails(details);
-
-        console.log('details after formattedValiDEtails: ' , details);
 
         return details;
     };

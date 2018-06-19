@@ -128,7 +128,7 @@ define([
                 touchedPrices: touchedPrices
             });
         },
-        render: function() {z
+        render: function() {
             return <VariationTable
                 sectionName={"prices"}
                 variationsDataForProduct={this.props.variationsDataForProduct}
