@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react', 'SetupWizard/Component/Payment//BillingPeriod'], function(React, BillingPeriod) {
     function Locale()
     {
 
@@ -16,6 +16,10 @@ define(['react'], function(React) {
                 <div>
                     <span>Package Needed:</span>
                     <span>{selectedPackage.name}</span>
+                </div>
+                <div>
+                    <span>Billing Period:</span>
+                    <span><BillingPeriod /></span>
                 </div>
                 <div>
                     <span>Monthly cost:</span>

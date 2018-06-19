@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react', 'SetupWizard/Component/Payment//BillingPeriod'], function(React, BillingPeriod) {
     function Locale()
     {
 
@@ -19,6 +19,10 @@ define(['react'], function(React) {
                     <span>
                         <a target="_blank" href="https://www.channelgrabber.com/pricing">What do I get?</a>
                     </span>
+                </div>
+                <div>
+                    <span>Billing Period:</span>
+                    <span><BillingPeriod /></span>
                 </div>
                 <div>
                     <span>Monthly cost:</span>
