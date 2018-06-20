@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f81290c8c8439379ffbaf30dee4c67b9",
+    "content-hash": "3e3d27ae1810e734afc71f47e721c642",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "e30a148f443dcf46eb526658ead5a1583466e3c6"
+                "reference": "40acd07748d7a0ebac9ab6eaefa575fb7cca60fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-df06ea.zip",
-                "reference": "e30a148f443dcf46eb526658ead5a1583466e3c6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-112-PackagePriceCalculator-a94709.zip",
+                "reference": "40acd07748d7a0ebac9ab6eaefa575fb7cca60fb",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T14:50:14+00:00"
+            "time": "2018-06-20T07:16:40+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,16 +637,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "056cf6f751185319aa6196251c91e7b3be2bd031"
+                "reference": "0d93d0bbdf26d7efb0427a6534b6b823afb9c27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-112-PackagePriceCalculator-de8a21.zip",
-                "reference": "056cf6f751185319aa6196251c91e7b3be2bd031",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-112-PackagePriceCalculator-1443e8.zip",
+                "reference": "0d93d0bbdf26d7efb0427a6534b6b823afb9c27c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.0",
+                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T10:21:27+00:00"
+            "time": "2018-06-20T07:22:24+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1916,16 +1916,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "b63ef9368282be3bac93752dff35374fff3b44b0"
+                "reference": "b20867c69eab783b91552ebf8dcf389141fcafc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-112-PackagePriceCalculator-103f4d.zip",
-                "reference": "b63ef9368282be3bac93752dff35374fff3b44b0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-112-PackagePriceCalculator-817289.zip",
+                "reference": "b20867c69eab783b91552ebf8dcf389141fcafc1",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.0",
+                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.1",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1959,7 +1959,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-18T14:53:57+00:00"
+            "time": "2018-06-20T07:22:00+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3580,23 +3580,23 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-TAC-112-PackagePriceCalculator",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "01a69919802b52f290c8a82555f6ca9720bdf9c5"
+                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-112-PackagePriceCalculator-ab0466.zip",
-                "reference": "01a69919802b52f290c8a82555f6ca9720bdf9c5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.0-cf2b1c.zip",
+                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-112-PackagePriceCalculator as 1.17.0",
+                "channelgrabber/billing": "^1.17.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "dev-TAC-112-PackagePriceCalculator as 1.8.0",
+                "channelgrabber/payment": "^1.8.0",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.25.0",
                 "channelgrabber/zf2-email-template": "^1.0.24",
@@ -3627,7 +3627,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-06-15T11:27:27+00:00"
+            "time": "2018-06-19T15:37:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9940,28 +9940,22 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.0",
-            "alias_normalized": "1.17.0.0",
+            "alias": "1.17.1",
+            "alias_normalized": "1.17.1.0",
             "version": "dev-TAC-112-PackagePriceCalculator",
             "package": "channelgrabber/billing"
         },
         {
-            "alias": "1.9.1",
-            "alias_normalized": "1.9.1.0",
+            "alias": "1.10.0",
+            "alias_normalized": "1.10.0.0",
             "version": "dev-TAC-112-PackagePriceCalculator",
             "package": "channelgrabber/clearbooks"
         },
         {
-            "alias": "1.8.0",
-            "alias_normalized": "1.8.0.0",
+            "alias": "1.8.1",
+            "alias_normalized": "1.8.1.0",
             "version": "dev-TAC-112-PackagePriceCalculator",
             "package": "channelgrabber/payment"
-        },
-        {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-TAC-112-PackagePriceCalculator",
-            "package": "channelgrabber/zf2-billing"
         }
     ],
     "minimum-stability": "stable",
@@ -9970,7 +9964,6 @@
         "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/payment": 20,
-        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
