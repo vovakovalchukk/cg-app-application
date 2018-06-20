@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06b49913d9ef6b34a01491aed84c406a",
+    "content-hash": "2460a5125723ce81c57375a5fec7d692",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-113-default-auto-upgrade-to-on",
+            "version": "1.17.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "0a525ab0d58a3d28a1f8c7534a6c5466fe717f29"
+                "reference": "1196e52ac42838f983983186bcb66603a40fc60b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-113-default-auto-upgrade-to-on-cecea2.zip",
-                "reference": "0a525ab0d58a3d28a1f8c7534a6c5466fe717f29",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.0-d7c8fb.zip",
+                "reference": "1196e52ac42838f983983186bcb66603a40fc60b",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T15:29:14+00:00"
+            "time": "2018-06-19T15:07:54+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -9941,12 +9941,6 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.2",
-            "alias_normalized": "1.16.2.0",
-            "version": "dev-TAC-113-default-auto-upgrade-to-on",
-            "package": "channelgrabber/billing"
-        },
-        {
             "alias": "1.5.8",
             "alias_normalized": "1.5.8.0",
             "version": "dev-TAC-113-default-auto-upgrade-to-on",
@@ -9955,7 +9949,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "phpish/link_header": 20,
