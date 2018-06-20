@@ -90,8 +90,6 @@ define([
             return false;
         },
         variationAttributeNameMatchesAmazonThemeAttributeName: function(variationAttributeName, amazonThemeAttributeName) {
-            console.log('variationAttributeNameMatchesAmazonTHemeAttributeNmae with variaitonAttirbuteName: ', variationAttributeName, ' AND amazonThemeAttributeName: ', amazonThemeAttributeName);
-
             if (variationAttributeName == amazonThemeAttributeName) {
                 return true;
             }
@@ -100,45 +98,46 @@ define([
             }
             return false;
         },
-        getThemeAttributeSelectedOption: function(field) {
-            let selected = {
-                name: field.input.value,
-                value: field.input.value
-            };
-
-            if(this.state.lastChangedThemeAttributeSelect === field.input.name){
-                return selected;
-            }
-
-
-            //todo check to see if variation attribute matched and is empty
-            let variationData = this.getVariationDataFromSku(field.variationSku);
-
+        findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData,themeAttributeName){
             let variationAttributeNames = Object.keys(variationData.attributeValues);
-            let themeAttributeName = field.themeAttributeName;
-
             let matchedName;
             for (let variationAttributeName of variationAttributeNames) {
                 if (this.variationAttributeNameMatchesAmazonThemeAttributeName(variationAttributeName, themeAttributeName)) {
                     matchedName = variationAttributeName;
                 }
             }
-            if (!matchedName) {
-                return selected;
-            }
-
-
-            let matchedAttributeName = variationData.attributeValues[matchedName];
+            return matchedName;
+        },
+        findOptionContainingMatchedAttributeValue: function(options, matchedAttributeValueOfVariation){
             //todo see if matchedNameAttribute exists as an option for the select
-            let matchedOption = field.options.find((option)=>{
-                if(option.name.toLowerCase() === matchedAttributeName.toLowerCase()){
+            return options.find((option)=>{
+                if(option.name.toLowerCase() === matchedAttributeValueOfVariation.toLowerCase()){
                     return option;
                 }
             });
+        },
+        getThemeAttributeSelectedOption: function(field) {
+            let selected = {
+                name: field.input.value,
+                value: field.input.value
+            };
+            if(this.state.lastChangedThemeAttributeSelect === field.input.name){
+                return selected;
+            }
+
+            let variationData = this.getVariationDataFromSku(field.variationSku);
+
+            let sharedAttributeName = this.findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData,field.themeAttributeName);
+            if(!sharedAttributeName){
+                return selected;
+            }
+
+            let matchedAttributeValueOfVariation = variationData.attributeValues[sharedAttributeName];
+            let matchedOption = this.findOptionContainingMatchedAttributeValue(field.options, matchedAttributeValueOfVariation);
             if(!matchedOption){
                 return selected;
             }
-            
+
             return matchedOption;
         },
         renderThemeAttributeSelect: function(field) {
