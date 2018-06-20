@@ -409,7 +409,7 @@ define([
                                 <Checkbox id={this.props.product.id} />
                                 <EditableFieldWithSubmit initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
                             </div>
-                            {this.props.createListingsEnabled ? <td>
+                            <td>
                                 <CreateListingIcon
                                     isSimpleProduct={!! (this.props.variations.length == 0)}
                                     accountsAvailable={this.props.accounts}
@@ -418,7 +418,7 @@ define([
                                     availableChannels={this.props.createListingsAllowedChannels}
                                     availableVariationsChannels={this.props.createListingsAllowedVariationChannels}
                                 />
-                            </td> : ''}
+                            </td>
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
                             <div className="variations-layout-column">
