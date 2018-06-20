@@ -47,7 +47,7 @@
         "channelgrabber/image": "~1.2.8",
         "channelgrabber/intercom": "~1.5.4",
         "channelgrabber/listing": "~1.17.0",
-        "channelgrabber/locale": "~1.1.0",
+        "channelgrabber/locale": "dev-TAC-69-switch-default-locale-to-us as 1.1.1",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.2.1",

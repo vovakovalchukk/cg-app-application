@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f100769075b8b2adf1d8e4fa9d39739",
+    "content-hash": "dcd3383c39b94ea507559de01b2e13b5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1522,16 +1522,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.0",
+            "version": "dev-TAC-69-switch-default-locale-to-us",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22"
+                "reference": "708c51d733d4e5d9f67f55b3580393535b8b0e42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.0-a1afa1.zip",
-                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-69-switch-default-locale-to-us-edd4eb.zip",
+                "reference": "708c51d733d4e5d9f67f55b3580393535b8b0e42",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-15T10:39:42+00:00"
+            "time": "2018-06-20T14:01:18+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9939,10 +9939,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
+            "version": "dev-TAC-69-switch-default-locale-to-us",
+            "package": "channelgrabber/locale"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
