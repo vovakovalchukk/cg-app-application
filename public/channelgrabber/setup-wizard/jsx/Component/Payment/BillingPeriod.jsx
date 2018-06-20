@@ -29,7 +29,7 @@ define(['react'], function(React) {
                 <span className="billingDuration">
                     <span>Monthly</span>
                     <input type="checkbox" checked={this.state.checked}/>
-                    <label onClick={event => this.setState({checked: !this.state.checked})} />
+                    <span className="label" onClick={event => this.setState({checked: !this.state.checked})} />
                     <span>Annually (2 Months Free)</span>
                 </span>
             );

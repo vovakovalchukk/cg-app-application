@@ -58,7 +58,7 @@
       > input[type="checkbox"] {
         display: none;
 
-        & + label {
+        & + .label {
           display: inline-block;
           vertical-align: middle;
           width: 40px;
@@ -69,7 +69,7 @@
           cursor: pointer;
         }
 
-        & + label::before {
+        & + .label::before {
           content: "";
           display: inline-block;
           vertical-align: middle;
@@ -83,7 +83,7 @@
           @include transition($transition-element, $transition-duration-fast, $transition-timing);
         }
 
-        &:checked + label::before {
+        &:checked + .label::before {
           margin-left: 15px;
         }
       }
