@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f054a9d8e8dadfea5f0dc1cb0748edc1",
+    "content-hash": "f154f1b73f56b8d1f041fa8da234cd81",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3085,17 +3085,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.2.1",
+            "version": "dev-CGIV-9156-imagesize_issue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "52252e3b7213e99dbf6268b40bea26252382f779"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.2.1-b29417.zip",
-                "reference": "52252e3b7213e99dbf6268b40bea26252382f779",
-                "shasum": null
+                "reference": "f255f6e293d5f108b7c0002357b8d814b99a54f4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9938,13 +9932,21 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.6.3.1",
+            "alias_normalized": "1.6.3.1",
+            "version": "dev-CGIV-9156-imagesize_issue",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
