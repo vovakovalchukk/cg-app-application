@@ -64,6 +64,7 @@ define([
                 categoryId={categoryId}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                fieldChange={this.props.fieldChange}
                 {...category}
             />);
         },

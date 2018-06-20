@@ -27,6 +27,7 @@ define([
                         accountId={this.props.accountId}
                         variationsDataForProduct={this.props.variationsDataForProduct}
                         product={this.props.product}
+                        fieldChange={this.props.fieldChange}
                         {...this.props.fieldValues}
                     />
                 </div>

@@ -31,7 +31,8 @@ define([
                 rootCategories: {},
                 variationThemes: {},
                 variationsDataForProduct: [],
-                product: {}
+                product: {},
+                fieldChange: null
             };
         },
         getInitialState: function() {
@@ -98,7 +99,7 @@ define([
             }
             return false;
         },
-        findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData,themeAttributeName){
+        findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, themeAttributeName) {
             let variationAttributeNames = Object.keys(variationData.attributeValues);
             let matchedName;
             for (let variationAttributeName of variationAttributeNames) {
@@ -108,10 +109,10 @@ define([
             }
             return matchedName;
         },
-        findOptionContainingMatchedAttributeValue: function(options, matchedAttributeValueOfVariation){
+        findOptionContainingMatchedAttributeValue: function(options, matchedAttributeValueOfVariation) {
             //todo see if matchedNameAttribute exists as an option for the select
-            return options.find((option)=>{
-                if(option.name.toLowerCase() === matchedAttributeValueOfVariation.toLowerCase()){
+            return options.find((option) => {
+                if (option.name.toLowerCase() === matchedAttributeValueOfVariation.toLowerCase()) {
                     return option;
                 }
             });
@@ -121,26 +122,28 @@ define([
                 name: field.input.value,
                 value: field.input.value
             };
-            if(this.state.lastChangedThemeAttributeSelect === field.input.name){
+            if (this.state.lastChangedThemeAttributeSelect === field.input.name) {
                 return selected;
             }
 
             let variationData = this.getVariationDataFromSku(field.variationSku);
 
-            let sharedAttributeName = this.findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData,field.themeAttributeName);
-            if(!sharedAttributeName){
+            let sharedAttributeName = this.findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, field.themeAttributeName);
+            if (!sharedAttributeName) {
                 return selected;
             }
 
             let matchedAttributeValueOfVariation = variationData.attributeValues[sharedAttributeName];
             let matchedOption = this.findOptionContainingMatchedAttributeValue(field.options, matchedAttributeValueOfVariation);
-            if(!matchedOption){
+            if (!matchedOption) {
                 return selected;
             }
 
             return matchedOption;
         },
         renderThemeAttributeSelect: function(field) {
+            console.log('in renderThemeAttributeSelect field: ', field, ' this.props : ', this.props);
+
             return (
                 <div>
                     <Select
@@ -150,10 +153,15 @@ define([
                             this.getThemeAttributeSelectedOption(field)
                         }
                         onOptionChange={(option) => {
-                            console.log('in onChange with option: ' , option);
+                            console.log('in onChange ');
+                            
+                            
                             this.setState({
                                 lastChangedThemeAttributeSelect: field.input.name
-                            })
+                            });
+                            this.props.fieldChange(
+                                "category."+this.props.categoryId+"."+field.nameOfCorrespondingDisplayNameField,
+                                option.value);
                             return field.input.onChange(option.name);
                         }}
                         classNames={'u-width-120px'}
@@ -190,17 +198,21 @@ define([
             });
         },
         getThemeVariationSelectJSX: function(value, sku, attributeIndex) {
-            let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name
+            let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name;
+            let nameOfCorrespondingDisplayNameField = "theme." + sku + "." + attributeIndex + ".displayName";
+
             let formattedOptions = Object.keys(value.options).map((key) => {
                 return {
                     name: value.options[key],
                     value: value.options[key]
                 };
             });
+
             return (
                 <span className={'u-width-120px'}>
                    <Field
                        name={fieldName}
+                       nameOfCorrespondingDisplayNameField={nameOfCorrespondingDisplayNameField}
                        component={this.renderThemeAttributeSelect}
                        options={formattedOptions}
                        autoSelectFirst={false}
@@ -276,7 +288,7 @@ define([
                         onChange={(e, newValue) => {
                             this.setState({
                                 'themeSelected': newValue
-                            })
+                            });
                         }}
                         validate={Validators.required}
                     />

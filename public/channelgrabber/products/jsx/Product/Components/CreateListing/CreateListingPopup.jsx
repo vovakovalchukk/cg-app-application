@@ -192,6 +192,7 @@ define([
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 formMeta={this.props.formMeta}
+                fieldChange={this.props.change}
             />;
         },
         renderProductIdentifiers: function() {
