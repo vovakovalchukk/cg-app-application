@@ -148,7 +148,9 @@ class PaymentController extends AbstractActionController
     {
         $response = ['success' => false, 'error' => ''];
         try {
-            $this->packageManagementService->setPackage($this->params()->fromRoute('id'));
+            $this->packageManagementService->setPackage(
+                $this->packageManagementService->createPackageUpgradeRequest($this->params()->fromRoute('id'))
+            );
             $response['success'] = true;
         } catch (SetPackageException\PricingSchemeMismatch $pricingSchemeMismatch) {
             $newPackage = $pricingSchemeMismatch->getPackage();
