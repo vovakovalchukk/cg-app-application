@@ -36,7 +36,8 @@ define([
         },
         getInitialState: function() {
             return {
-                themeSelected: null
+                themeSelected: null,
+                lastChangedThemeAttributeSelect: null
             }
         },
         isSimpleProduct: function() {
@@ -72,22 +73,91 @@ define([
                 </div>
             );
         },
-        renderTableCellSelect: function(field) {
+        getVariationDataFromSku: function(sku) {
+            return this.props.variationsDataForProduct.find((variation) => {
+                return variation.sku === sku
+            });
+        },
+        equalisedWordSpellingsMatch(word1, word2) {
+            word1 = word1.toLowerCase();
+            word2 = word2.toLowerCase();
+            const americanEnglishWordMap = {
+                color: 'colour'
+            };
+            if (americanEnglishWordMap[word1] === word2 || americanEnglishWordMap[word2] === word1) {
+                return true;
+            }
+            return false;
+        },
+        variationAttributeNameMatchesAmazonThemeAttributeName: function(variationAttributeName, amazonThemeAttributeName) {
+            console.log('variationAttributeNameMatchesAmazonTHemeAttributeNmae with variaitonAttirbuteName: ', variationAttributeName, ' AND amazonThemeAttributeName: ', amazonThemeAttributeName);
+
+            if (variationAttributeName == amazonThemeAttributeName) {
+                return true;
+            }
+            if (this.equalisedWordSpellingsMatch(variationAttributeName, amazonThemeAttributeName)) {
+                return true;
+            }
+            return false;
+        },
+        getThemeAttributeSelectedOption: function(field) {
             let selected = {
                 name: field.input.value,
                 value: field.input.value
             };
+
+            if(this.state.lastChangedThemeAttributeSelect === field.input.name){
+                return selected;
+            }
+
+
+            //todo check to see if variation attribute matched and is empty
+            let variationData = this.getVariationDataFromSku(field.variationSku);
+
+            let variationAttributeNames = Object.keys(variationData.attributeValues);
+            let themeAttributeName = field.themeAttributeName;
+
+            let matchedName;
+            for (let variationAttributeName of variationAttributeNames) {
+                if (this.variationAttributeNameMatchesAmazonThemeAttributeName(variationAttributeName, themeAttributeName)) {
+                    matchedName = variationAttributeName;
+                }
+            }
+            if (!matchedName) {
+                return selected;
+            }
+
+
+            let matchedAttributeName = variationData.attributeValues[matchedName];
+            //todo see if matchedNameAttribute exists as an option for the select
+            let matchedOption = field.options.find((option)=>{
+                if(option.name.toLowerCase() === matchedAttributeName.toLowerCase()){
+                    return option;
+                }
+            });
+            if(!matchedOption){
+                return selected;
+            }
+            
+            return matchedOption;
+        },
+        renderThemeAttributeSelect: function(field) {
             return (
                 <div>
                     <Select
                         autoSelectFirst={false}
                         options={field.options}
-                        selectedOption={selected}
+                        selectedOption={
+                            this.getThemeAttributeSelectedOption(field)
+                        }
                         onOptionChange={(option) => {
+                            console.log('in onChange with option: ' , option);
+                            this.setState({
+                                lastChangedThemeAttributeSelect: field.input.name
+                            })
                             return field.input.onChange(option.name);
                         }}
                         classNames={'u-width-120px'}
-
                     />
                     {Validators.shouldShowError(field) && (
                         <span className="input-error">{field.meta.error}</span>
@@ -132,10 +202,12 @@ define([
                 <span className={'u-width-120px'}>
                    <Field
                        name={fieldName}
-                       component={this.renderTableCellSelect}
+                       component={this.renderThemeAttributeSelect}
                        options={formattedOptions}
                        autoSelectFirst={false}
                        validate={Validators.required}
+                       variationSku={sku}
+                       themeAttributeName={value.name}
                    />
                 </span>
             );
