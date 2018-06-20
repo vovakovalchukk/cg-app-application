@@ -191,8 +191,8 @@ define([
                 categoryTemplates={this.props.categoryTemplates}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
-                formMeta={this.props.formMeta}
                 fieldChange={this.props.change}
+                resetSection={this.props.resetSection}
             />;
         },
         renderProductIdentifiers: function() {
@@ -292,14 +292,12 @@ define([
     })(CreateListingPopup);
 
     var mapStateToProps = function(state) {
-        let formMeta = ReduxForm.getFormMeta('createListing')(state)
-
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
             submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
-            formMeta: formMeta
+            resetSection: ReduxForm.resetSection
         };
     };
 

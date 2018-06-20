@@ -32,7 +32,8 @@ define([
                 variationThemes: {},
                 variationsDataForProduct: [],
                 product: {},
-                fieldChange: null
+                fieldChange: null,
+                resetSection:null
             };
         },
         getInitialState: function() {
@@ -110,7 +111,6 @@ define([
             return matchedName;
         },
         findOptionContainingMatchedAttributeValue: function(options, matchedAttributeValueOfVariation) {
-            //todo see if matchedNameAttribute exists as an option for the select
             return options.find((option) => {
                 if (option.name.toLowerCase() === matchedAttributeValueOfVariation.toLowerCase()) {
                     return option;
@@ -142,8 +142,6 @@ define([
             return matchedOption;
         },
         renderThemeAttributeSelect: function(field) {
-            console.log('in renderThemeAttributeSelect field: ', field, ' this.props : ', this.props);
-
             return (
                 <div>
                     <Select
@@ -153,9 +151,6 @@ define([
                             this.getThemeAttributeSelectedOption(field)
                         }
                         onOptionChange={(option) => {
-                            console.log('in onChange ');
-                            
-                            
                             this.setState({
                                 lastChangedThemeAttributeSelect: field.input.name
                             });
@@ -289,6 +284,8 @@ define([
                             this.setState({
                                 'themeSelected': newValue
                             });
+                            let themeSection = 'category.'+this.props.categoryId+'.theme';
+                            this.props.resetSection(themeSection);
                         }}
                         validate={Validators.required}
                     />

@@ -14,7 +14,9 @@ define([
                 categoryId: null,
                 accountId: null,
                 product: {},
-                variationsDataForProduct: []
+                variationsDataForProduct: [],
+                fieldChange:null,
+                resetSection:null
             };
         },
         render: function() {
@@ -28,6 +30,7 @@ define([
                         variationsDataForProduct={this.props.variationsDataForProduct}
                         product={this.props.product}
                         fieldChange={this.props.fieldChange}
+                        resetSection={this.props.resetSection}
                         {...this.props.fieldValues}
                     />
                 </div>
