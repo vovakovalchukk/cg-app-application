@@ -1912,20 +1912,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.7.9",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "12ed59e19c0a00cb15430c7909a6d507d8103611"
+                "reference": "f63f5fb09a5e593e92a94e238f5a506355f28b0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.7.9-041d76.zip",
-                "reference": "12ed59e19c0a00cb15430c7909a6d507d8103611",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.8.0-136720.zip",
+                "reference": "f63f5fb09a5e593e92a94e238f5a506355f28b0b",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.14.2",
+                "channelgrabber/billing": "^1.17.0",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1945,7 +1945,7 @@
                 "channelgrabber/phpunit": "dev-develop",
                 "phpunit/phpunit": "~6.1"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -1959,7 +1959,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-08T08:07:57+00:00"
+            "time": "2018-06-19T15:19:04+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2713,23 +2713,23 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "1.2.1",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "e15eacf3321effe75f2a6bd0fc08d160222c47e4"
+                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.2.1-1bfc58.zip",
-                "reference": "e15eacf3321effe75f2a6bd0fc08d160222c47e4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.3.1-7a62cf.zip",
+                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.24.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
-                "channelgrabber/listing": "^1.13.0",
+                "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.38.5",
                 "channelgrabber/product": "^1.11.4",
@@ -2755,7 +2755,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-03-26T12:42:16+00:00"
+            "time": "2018-06-20T09:25:41+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -3581,29 +3581,31 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.0.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "1e124d3813f6400e5b5af4eca22f750ab3d8706b"
+                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.0.4-28c338.zip",
-                "reference": "1e124d3813f6400e5b5af4eca22f750ab3d8706b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.0-cf2b1c.zip",
+                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.14.0",
+                "channelgrabber/billing": "^1.17.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.7.7",
+                "channelgrabber/payment": "^1.8.0",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.25.0",
+                "channelgrabber/zf2-email-template": "^1.0.24",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
-                "channelgrabber/zf2-v4-ui": "^1.23.0",
+                "channelgrabber/zf2-v4-ui": "^1.23.5",
+                "php": ">=7.1",
                 "zendframework/zend-config": "~2.3",
                 "zendframework/zend-form": "~2.3",
                 "zendframework/zend-loader": "~2.3",
@@ -3626,7 +3628,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-05-16T13:09:30+00:00"
+            "time": "2018-06-19T15:37:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
