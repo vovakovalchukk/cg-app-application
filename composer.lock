@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ad2ced9ea4fecffacc7cb67e1bf7abd",
+    "content-hash": "07aa0ffc5c220d35741fb15bb0433691",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2712,16 +2712,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-9575-shopify-orders-permission",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "ebaa35dc92e247759c388570af675dd8aa973c8b"
+                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-9575-shopify-orders-permission-33f792.zip",
-                "reference": "ebaa35dc92e247759c388570af675dd8aa973c8b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-1.3.1-7a62cf.zip",
+                "reference": "fa4f445c51ee7acb26941c342a1365a596c3294e",
                 "shasum": null
             },
             "require": {
@@ -2754,7 +2754,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-06-20T08:54:49+00:00"
+            "time": "2018-06-20T09:25:41+00:00"
         },
         {
             "name": "channelgrabber/slim",
@@ -9938,18 +9938,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
-            "version": "dev-CGIV-9575-shopify-orders-permission",
-            "package": "channelgrabber/shopify"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/shopify": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
