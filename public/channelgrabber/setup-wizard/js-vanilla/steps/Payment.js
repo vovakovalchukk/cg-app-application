@@ -1,5 +1,5 @@
 define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequester) {
-    function Payment(notifications, selectedPackage, activePaymentMethod)
+    function Payment(notifications, selectedPackage, selectedBillingDuration, activePaymentMethod)
     {
         this.getNotifications = function()
         {
@@ -21,6 +21,16 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
             return selectedPackage;
         };
 
+        this.setSelectedBillingDuration = function(newBillingDuration) {
+            selectedBillingDuration = newBillingDuration;
+            this.rememberSelectedBillingDuration(selectedBillingDuration);
+            return this;
+        };
+
+        this.getSelectedBillingDuration = function() {
+            return selectedBillingDuration;
+        };
+
         this.getActivePaymentMethod = function() {
             return activePaymentMethod;
         };
@@ -34,6 +44,7 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
 
     Payment.SetPackageUrl = '/setup/payment/setPackage/';
     Payment.RememberSelectedPackageUrl = '/setup/payment/rememberPackage/';
+    Payment.RememberSelectedBillingDurationUrl = '/setup/payment/rememberBillingDuration/';
 
     Payment.prototype.registerNextCallback = function()
     {
@@ -49,6 +60,13 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
                     return;
                 }
 
+                var selectedBillingDuration = self.getSelectedBillingDuration();
+                if (!selectedBillingDuration) {
+                    self.getNotifications().error('Please select a billing duration to continue.');
+                    reject();
+                    return;
+                }
+
                 var activePaymentMethod = self.getActivePaymentMethod();
                 if (!activePaymentMethod) {
                     self.getNotifications().error('Please setup a payment method to continue.');
@@ -59,7 +77,9 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
                 self.getNotifications().notice('Setting requested package');
                 ajaxRequester.sendRequest(
                     Payment.SetPackageUrl + selectedPackage,
-                    {},
+                    {
+                        billingDuration: selectedBillingDuration
+                    },
                     function(data) {
                         if (data.success) {
                             resolve();
@@ -85,6 +105,20 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
 
         ajaxRequester.sendRequest(
             Payment.RememberSelectedPackageUrl + selectedPackage,
+            {},
+            function() {},
+            function() {}
+        );
+    };
+
+    Payment.prototype.rememberSelectedBillingDuration = function(selectedBillingDuration)
+    {
+        if (!selectedBillingDuration) {
+            return;
+        }
+
+        ajaxRequester.sendRequest(
+            Payment.RememberSelectedBillingDurationUrl + selectedBillingDuration,
             {},
             function() {},
             function() {}
