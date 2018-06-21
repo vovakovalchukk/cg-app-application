@@ -39,8 +39,39 @@ define([
         getInitialState: function() {
             return {
                 themeSelected: null,
-                lastChangedThemeAttributeSelect: null
+                lastChangedThemeAttributeSelect: null,
+                autopopulateMethods: [],
+                autopopulated:false,
+                numberOfSelectFieldsRendered: 0
             }
+        },
+        shouldComponentUpdate: function(prevProps) {
+            console.log('... in component should update this.state: ', this.state);
+            if ( !this.state.autopopulateMethods || this.state.autopopulated) {
+                console.log('first bail this.state.autopopulateComplete: ', this.state.autopopulateComplete, ' this.state.autopopulateMethods : ', this.state.autopopulateMethods);
+
+                return true;
+            }
+            if (this.state.autopopulateMethods.length) {
+                console.log('have autopopulate methods... here we go this.state: ', this.state);
+                //todo get it to the point where you can see a collection of methods here and then work from there i.e. splicing the used methods away as opposed to building them up
+                if (this.getNumberOfSelectFieldsToBeRendered() === this.state.numberOfSelectFieldsRendered) {
+                    console.log('max length this.state.autopopulateMethods : ' , this.state.autopopulateMethods);
+
+                    for (let autopopulate of this.state.autopopulateMethods) {
+                        console.log('calling method');
+                        autopopulate.method();
+                    }
+                    this.setState({
+                        autopopulateMethods: [],
+                        numberOfSelectFieldsRendered: 0,
+                        autopopulated:true
+                    });
+                }
+                return true;
+            }
+            return true;
+
         },
         isSimpleProduct: function() {
             return this.props.product.variationCount > 0
@@ -66,6 +97,10 @@ define([
                         options={field.options}
                         selectedOption={selected}
                         onOptionChange={(option) => {
+                            this.setState({
+                                autopopulateMethods: [],
+                                numberOfSelectFieldsRendered: 0
+                            });
                             return field.input.onChange(option.name);
                         }}
                     />
@@ -136,48 +171,65 @@ define([
         renderThemeAttributeSelect: function(field) {
             const fieldNamePrefix = "category." + this.props.categoryId + ".";
             let optionToShowAsSelected = null;
+            let newAutoPopulateMethod = {
+                field:undefined,
+                method:()=>{}
+            };
 
             let selectedOption = {
                 name: field.input.value,
                 value: field.input.value
             };
 
-            let themeOptionThatMatchesVariationAttribute=null;
-            console.log('lastChangedThemeAttributeSelect: ' , this.state.lastChangedThemeAttributeSelect);
-            console.log('field.input.name: ', field.input.name);
-            
-            
-            if(this.state.lastChangedThemeAttributeSelect !== field.input.name){
+            let themeOptionThatMatchesVariationAttribute = null;
+            if (this.state.lastChangedThemeAttributeSelect !== field.input.name) {
                 themeOptionThatMatchesVariationAttribute = this.findThemeOptionThatMatchesVariationAttribute(field);
             }
-            console.log('themeOptionThatMatchesVariationAttribute: ', themeOptionThatMatchesVariationAttribute ,' for : ' , field.input.name);
 
             if (
                 themeOptionThatMatchesVariationAttribute
             ) {
-                console.log('about to run .change and set selected option on ' , field.input.name, ' themeOptionThatMatched...', themeOptionThatMatchesVariationAttribute);
                 // change it's own value to be that of the matched variation attribute
-                setTimeout(()=>{
-                    console.log('firitng onchange with themeOptionThatMatchesVariationAttribute.value: ' , themeOptionThatMatchesVariationAttribute.value);
-                    this.props.fieldChange(
-                        field.input.name,
-                        themeOptionThatMatchesVariationAttribute.value
-                    );
-                    this.props.fieldChange(
-                        fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
-                        themeOptionThatMatchesVariationAttribute.value
-                    );
-                    this.setState({
-                        lastChangedThemeAttributeSelect: field.input.name
-                    });
-                }, 0);
 
+                newAutoPopulateMethod = {
+                    field:field.input.name,
+                    method: () => {
+                        this.props.fieldChange(
+                            field.input.name,
+                            themeOptionThatMatchesVariationAttribute.value
+                        );
+                        this.props.fieldChange(
+                            fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
+                            themeOptionThatMatchesVariationAttribute.value
+                        );
+                        this.setState({
+                            lastChangedThemeAttributeSelect: field.input.name
+                        });
+                    }
+                };
                 optionToShowAsSelected = themeOptionThatMatchesVariationAttribute;
-            }else{
+            } else {
                 optionToShowAsSelected = selectedOption;
-                
             }
-            //todo - you can call the onChange here & set the onChange event at field level and only change if newVal does not match oldVal
+            //todo - you can call the onChange here & set the onChange event at field level and only change if newVal does not match oldVal     
+
+            
+            this.setState(prevState=>{
+                console.log('in setState with prevState: ' , prevState);
+
+
+                let newAutoPopulateMethods = prevState.autopopulateMethods;
+                let methodExistsAlready = prevState.autopopulateMethods.find((method)=>{
+                    return method.field===newAutoPopulateMethod.field;
+                });
+                if(newAutoPopulateMethod.field && !methodExistsAlready){
+                    newAutoPopulateMethods.push(newAutoPopulateMethod);
+                }
+                return{
+                    autopopulateMethods: newAutoPopulateMethods,
+                    numberOfSelectFieldsRendered: prevState.numberOfSelectFieldsRendered + 1
+                }
+            });
 
             return (
                 <div>
@@ -194,14 +246,6 @@ define([
                                 fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
                                 option.value
                             );
-
-                            
-                            let inputField = $('input[name='+field.nameOfCorrespondingDisplayNameField+']')
-                            
-                            console.log('inputField: ', inputField);
-                            
-
-
                             return field.input.onChange(option.name);
                         }}
                         classNames={'u-width-120px'}
@@ -258,29 +302,29 @@ define([
                        autoSelectFirst={false}
                        validate={Validators.required}
                        variationSku={sku}
-//                       onChange={(event, newValue, previousValue) => {
-//                           console.log('---IN ONCHANGEwith themeVariationSelectJSX event: ', event, ' newValue: ', newValue , ' previousValue: ' , previousValue);
-//                           //todo prevent running onChange using prevent default if newValue==previousValue
-//                            if(newValue==previousValue){
-//                                return;
-//                            }
-//                            if(nameOfCorrespondingDisplayNameField !== this.state.lastChangedThemeAttributeSelect){
-//                                this.setState({
-//                                    lastChangedThemeAttributeSelect: nameOfCorrespondingDisplayNameField
-//                                });
-//                            }
-//
-////
-////                            console.log('newValue: ', newValue);
-////
-////
-////                                this.props.fieldChange(
-////                                    nameOfCorrespondingDisplayNameField,
-////                                    newValue.value
-////                                )
-//
-//
-//                       }}
+                       //                       onChange={(event, newValue, previousValue) => {
+                       //                           console.log('---IN ONCHANGEwith themeVariationSelectJSX event: ', event, ' newValue: ', newValue , ' previousValue: ' , previousValue);
+                       //                           //todo prevent running onChange using prevent default if newValue==previousValue
+                       //                            if(newValue==previousValue){
+                       //                                return;
+                       //                            }
+                       //                            if(nameOfCorrespondingDisplayNameField !== this.state.lastChangedThemeAttributeSelect){
+                       //                                this.setState({
+                       //                                    lastChangedThemeAttributeSelect: nameOfCorrespondingDisplayNameField
+                       //                                });
+                       //                            }
+                       //
+                       ////
+                       ////                            console.log('newValue: ', newValue);
+                       ////
+                       ////
+                       ////                                this.props.fieldChange(
+                       ////                                    nameOfCorrespondingDisplayNameField,
+                       ////                                    newValue.value
+                       ////                                )
+                       //
+                       //
+                       //                       }}
                        themeAttributeName={value.name}
                    />
                 </span>
@@ -308,13 +352,19 @@ define([
                     name={fieldName}
                     component={this.renderTableCellDisplayNameInput}
                     validate={Validators.required}
-                    onChange={(e,newValue,oldValue)=>{
+                    onChange={(e, newValue, oldValue) => {
                         console.log('-------INPUT FIELD CHANGE');
-                        
-                        
+
                     }}
                 />
             );
+        },
+        getNumberOfSelectFieldsToBeRendered: function(){
+            if(!this.state.themeSelected){
+                return;
+            }
+            let themeData = this.getThemeDataByName(this.state.themeSelected);
+            return this.props.variationsDataForProduct.length * themeData.validValues.length;
         },
         renderThemeColumns: function(variation) {
             let themeColumns = [];
@@ -354,12 +404,21 @@ define([
                         component={this.renderVariationThemesSelectComponent}
                         displayTitle={"Variation Theme"}
                         options={this.formatVariationThemesAsSelectOptions()}
-                        onChange={(e, newValue) => {
+                        onChange={(e, newValue, oldValue) => {
+                            console.log('newValue : ' , newValue , ' oldValue : ' , oldValue);
                             this.setState({
                                 'themeSelected': newValue
                             });
-                            let themeSection = 'category.' + this.props.categoryId + '.theme';
-                            this.props.resetSection(themeSection);
+                            if(oldValue && newValue !== oldValue){
+                                console.log('setting state reset');
+                                let themeSection = 'category.' + this.props.categoryId + '.theme';
+                                this.props.resetSection(themeSection);
+                                this.setState({
+                                    numberOfSelectFieldsRendered:0,
+                                    autopopulateMethods:[],
+                                    autopopulated:false
+                                })
+                            }
                         }}
                         validate={Validators.required}
                     />
