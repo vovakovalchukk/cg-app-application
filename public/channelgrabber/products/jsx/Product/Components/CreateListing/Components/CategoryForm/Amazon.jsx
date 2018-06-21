@@ -33,7 +33,7 @@ define([
                 variationsDataForProduct: [],
                 product: {},
                 fieldChange: null,
-                resetSection:null
+                resetSection: null
             };
         },
         getInitialState: function() {
@@ -117,46 +117,83 @@ define([
                 }
             });
         },
-        getThemeAttributeSelectedOption: function(field) {
-            let selected = {
-                name: field.input.value,
-                value: field.input.value
-            };
-            if (this.state.lastChangedThemeAttributeSelect === field.input.name) {
-                return selected;
-            }
-
+        findThemeOptionThatMatchesVariationAttribute: function(field) {
             let variationData = this.getVariationDataFromSku(field.variationSku);
 
             let sharedAttributeName = this.findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, field.themeAttributeName);
             if (!sharedAttributeName) {
-                return selected;
+                return undefined;
             }
 
             let matchedAttributeValueOfVariation = variationData.attributeValues[sharedAttributeName];
             let matchedOption = this.findOptionContainingMatchedAttributeValue(field.options, matchedAttributeValueOfVariation);
             if (!matchedOption) {
-                return selected;
+                return undefined;
             }
 
             return matchedOption;
         },
         renderThemeAttributeSelect: function(field) {
+            const fieldNamePrefix = "category." + this.props.categoryId + ".";
+            let optionToShowAsSelected = null;
+
+            let selectedOption = {
+                name: field.input.value,
+                value: field.input.value
+            };
+
+            let themeOptionThatMatchesVariationAttribute=null;
+            console.log('lastChangedThemeAttributeSelect: ' , this.state.lastChangedThemeAttributeSelect);
+            console.log('field.input.name: ', field.input.name);
+            
+            
+            if(this.state.lastChangedThemeAttributeSelect !== field.input.name){
+                themeOptionThatMatchesVariationAttribute = this.findThemeOptionThatMatchesVariationAttribute(field);
+            }
+            console.log('themeOptionThatMatchesVariationAttribute: ', themeOptionThatMatchesVariationAttribute ,' for : ' , field.input.name);
+
+            if (
+                themeOptionThatMatchesVariationAttribute
+            ) {
+                console.log('about to run .change and set selected option on ' , field.input.name, ' themeOptionThatMatched...', themeOptionThatMatchesVariationAttribute);
+                // change it's own value to be that of the matched variation attribute
+                setTimeout(()=>{
+                    console.log('firitng onchange with themeOptionThatMatchesVariationAttribute.value: ' , themeOptionThatMatchesVariationAttribute.value);
+                    //this is setting the rendered field below to be the matchedOption
+                    this.props.fieldChange(
+                        field.input.name,
+                        themeOptionThatMatchesVariationAttribute.value
+                    );
+                        this.setState({
+                            lastChangedThemeAttributeSelect: field.input.name
+                        });
+
+                }, 0);
+
+
+
+                optionToShowAsSelected = themeOptionThatMatchesVariationAttribute;
+            }else{
+                optionToShowAsSelected = selectedOption;
+                
+            }
+            //todo - you can call the onChange here & set the onChange event at field level and only change if newVal does not match oldVal
+
             return (
                 <div>
+                    {/*<div> arbitary state {this.state.arbitary} </div>*/}
                     <Select
                         autoSelectFirst={false}
                         options={field.options}
-                        selectedOption={
-                            this.getThemeAttributeSelectedOption(field)
-                        }
+                        selectedOption={optionToShowAsSelected}
                         onOptionChange={(option) => {
                             this.setState({
                                 lastChangedThemeAttributeSelect: field.input.name
                             });
                             this.props.fieldChange(
-                                "category."+this.props.categoryId+"."+field.nameOfCorrespondingDisplayNameField,
-                                option.value);
+                                fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
+                                option.value
+                            );
                             return field.input.onChange(option.name);
                         }}
                         classNames={'u-width-120px'}
@@ -213,6 +250,29 @@ define([
                        autoSelectFirst={false}
                        validate={Validators.required}
                        variationSku={sku}
+//                       onChange={(event, newValue, previousValue) => {
+//                           console.log('---IN ONCHANGEwith themeVariationSelectJSX event: ', event, ' newValue: ', newValue , ' previousValue: ' , previousValue);
+//                           //todo prevent running onChange using prevent default if newValue==previousValue
+//                            if(newValue==previousValue){
+//                                return;
+//                            }
+//                            if(nameOfCorrespondingDisplayNameField !== this.state.lastChangedThemeAttributeSelect){
+//                                this.setState({
+//                                    lastChangedThemeAttributeSelect: nameOfCorrespondingDisplayNameField
+//                                });
+//                            }
+//
+////
+////                            console.log('newValue: ', newValue);
+////
+////
+////                                this.props.fieldChange(
+////                                    nameOfCorrespondingDisplayNameField,
+////                                    newValue.value
+////                                )
+//
+//
+//                       }}
                        themeAttributeName={value.name}
                    />
                 </span>
@@ -239,6 +299,11 @@ define([
                     name={fieldName}
                     component={this.renderTableCellDisplayNameInput}
                     validate={Validators.required}
+                    onChange={(e,newValue,oldValue)=>{
+                        console.log('-------INPUT FIELD CHANGE');
+                        
+                        
+                    }}
                 />
             );
         },
@@ -284,7 +349,7 @@ define([
                             this.setState({
                                 'themeSelected': newValue
                             });
-                            let themeSection = 'category.'+this.props.categoryId+'.theme';
+                            let themeSection = 'category.' + this.props.categoryId + '.theme';
                             this.props.resetSection(themeSection);
                         }}
                         validate={Validators.required}
