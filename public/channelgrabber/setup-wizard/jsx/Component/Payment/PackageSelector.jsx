@@ -12,14 +12,18 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                         return null;
                     }
                 },
+                phoneNumber: null,
                 selectedPackage: false,
+                selectedBillingDuration: null,
                 packages: [],
-                onPackageSelection: null
+                onPackageSelection: null,
+                onBillingDurationSelection: null
             }
         },
         getInitialState: function() {
             return {
-                selected: this.props.selectedPackage
+                selected: this.props.selectedPackage,
+                billingDuration: this.props.selectedBillingDuration
             };
         },
         getPackages: function() {
@@ -58,7 +62,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             this.setState({
                 selected: selectedPackage.value
             }, function() {
-                if (this.props.onPackageSelection) {
+                if (typeof(this.props.onPackageSelection) === "function") {
                     this.props.onPackageSelection(selectedPackage.value)
                 }
             });
@@ -72,10 +76,17 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                         options={this.getSelectOptions()}
                         selectedOption={this.getSelectSelectedOption()}
                         onOptionChange={this.selectPackage.bind(this)}
-                    >
-                    </SelectComponent>
-                    <span className="moreOrders">Need more orders?<br />Contact us on 01617110248</span>
+                    />
+                    {this.renderMoreOrders()}
                 </label>
+            );
+        },
+        renderMoreOrders: function() {
+            if (!this.props.phoneNumber) {
+                return null;
+            }
+            return (
+                <span className="moreOrders">Need more orders?<br />Contact us on {this.props.phoneNumber}</span>
             );
         },
         renderPackageDetails: function() {
@@ -83,7 +94,15 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             if (!selectedPackage) {
                 return;
             }
-            return this.props.locale.getPackageInfo(selectedPackage);
+            return this.props.locale.getPackageInfo(selectedPackage, this.state.billingDuration, function(billingDuration) {
+                this.setState({
+                    billingDuration: billingDuration
+                }, function() {
+                    if (typeof(this.props.onBillingDurationSelection) === "function") {
+                        this.props.onBillingDurationSelection(billingDuration)
+                    }
+                });
+            }.bind(this));
         },
         render: function() {
             return (

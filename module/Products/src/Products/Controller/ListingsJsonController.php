@@ -1,6 +1,8 @@
 <?php
 namespace Products\Controller;
 
+use CG\Channel\Listing\CreationService;
+use CG\Channel\Listing\CreationService\Status as CreationStatus;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -10,8 +12,6 @@ use CG\Stdlib\PageLimit;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use Products\Listing\CreationService;
-use Products\Listing\CreationService\Status as CreationStatus;
 use Products\Listing\Filter\Service as FilterService;
 use Products\Listing\Service as ListingService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -191,7 +191,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
         $status = new CreationStatus();
         try {
-            $this->creationService->createListing(
+            $this->creationService->createListingFromRawData(
                 $status,
                 $this->params()->fromPost('accountId', 0),
                 $this->params()->fromPost('productId', 0),

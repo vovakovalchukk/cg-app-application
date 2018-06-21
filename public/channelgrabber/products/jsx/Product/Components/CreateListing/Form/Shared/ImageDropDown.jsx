@@ -27,9 +27,7 @@ define([
             }
         },
         componentDidMount() {
-            this.setState({
-                image: this.props.selected
-            })
+            this.onImageSelected(this.props.selected);
         },
         onClickOutside: function(event) {
             if (event.target.closest(".image-dropdown-element")) {

@@ -12,7 +12,7 @@ return [
                 BillingPaymentJson::ROUTE_PAYMENT_SELECTION => true,
                 GoCardlessRedirectFlow::ROUTE_SUCCESS => true,
                 SagepayChange::ROUTE_SAGEPAY . '/' . SagepayChange::ROUTE_SAGEPAY_CHANGE => true,
-                SagepayChange::ROUTE_SAGEPAY . '/' . SagepayChange::ROUTE_SAGEPAY_ABORT => true,
+                SagepayChange::ROUTE_SAGEPAY . '/' . SagepayChange::ROUTE_SAGEPAY_REDIRECT => true,
             ],
         ],
     ],
