@@ -159,18 +159,18 @@ define([
                 // change it's own value to be that of the matched variation attribute
                 setTimeout(()=>{
                     console.log('firitng onchange with themeOptionThatMatchesVariationAttribute.value: ' , themeOptionThatMatchesVariationAttribute.value);
-                    //this is setting the rendered field below to be the matchedOption
                     this.props.fieldChange(
                         field.input.name,
                         themeOptionThatMatchesVariationAttribute.value
                     );
-                        this.setState({
-                            lastChangedThemeAttributeSelect: field.input.name
-                        });
-
+                    this.props.fieldChange(
+                        fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
+                        themeOptionThatMatchesVariationAttribute.value
+                    );
+                    this.setState({
+                        lastChangedThemeAttributeSelect: field.input.name
+                    });
                 }, 0);
-
-
 
                 optionToShowAsSelected = themeOptionThatMatchesVariationAttribute;
             }else{
@@ -194,6 +194,14 @@ define([
                                 fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
                                 option.value
                             );
+
+                            
+                            let inputField = $('input[name='+field.nameOfCorrespondingDisplayNameField+']')
+                            
+                            console.log('inputField: ', inputField);
+                            
+
+
                             return field.input.onChange(option.name);
                         }}
                         classNames={'u-width-120px'}
@@ -285,6 +293,7 @@ define([
                         name={field.input.name}
                         value={field.input.value}
                         onChange={field.input.onChange}
+                        inputFieldSpecificClassNames={'u-transition-global-short'}
                     />
                     {Validators.shouldShowError(field) && (
                         <span className="input-error">{field.meta.error}</span>
