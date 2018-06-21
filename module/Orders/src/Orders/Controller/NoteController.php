@@ -69,14 +69,14 @@ class NoteController extends AbstractActionController implements StatsAwareInter
             array(
                 'orderId' => $this->params('order'),
                 'userId' => $this->activeUserContainer->getActiveUser()->getId(),
-                'timestamp' => date(DateTime::FORMAT, time()),
+                'timestamp' => (new DateTime ())->stdFormat(),
                 'note' => $this->params()->fromPost('note'),
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
         );
         $this->service->save($note);
         $note = $note->toArray();
-        $note['timestamp'] = date(DateTime::FORMAT_UI, strtotime($note['timestamp']));
+        $note['timestamp'] = $this->dateFormatOutput($note['timestamp']);
         $view->setVariables(["note" => $note]);
         $this->statsIncrement(
             static::STAT_ORDER_ACTION_NOTED, [
@@ -102,7 +102,7 @@ class NoteController extends AbstractActionController implements StatsAwareInter
         $note = $this->service->fetch($this->params()->fromPost('noteId'), $this->params('order'));
         $note->setNote($this->params()->fromPost('note'))
             ->setUserId($this->activeUserContainer->getActiveUser()->getId())
-            ->setTimestamp(date(DateTime::FORMAT, time()));
+            ->setTimestamp((new DateTime ())->stdFormat());
         $this->service->save($note);
         return $view;
     }

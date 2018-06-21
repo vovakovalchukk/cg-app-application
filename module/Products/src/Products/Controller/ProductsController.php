@@ -116,10 +116,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $rootOuId
             ),
-            'createListings' => $this->featureFlagService->featureEnabledForOu(
-                ListingClientService::FEATURE_FLAG_CREATE_LISTINGS,
-                $rootOuId
-            ),
             'createProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
                 $rootOuId
