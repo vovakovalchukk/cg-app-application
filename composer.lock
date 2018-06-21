@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce6dcf77f84e18107794580f3a7f11b4",
+    "content-hash": "d65178e1cbaf9c1e2d6af083fdbcd9ae",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1526,12 +1526,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "708c51d733d4e5d9f67f55b3580393535b8b0e42"
+                "reference": "c84439e4f1bfb968415d0273bdb051428f56a912"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-69-switch-default-locale-to-us-edd4eb.zip",
-                "reference": "708c51d733d4e5d9f67f55b3580393535b8b0e42",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-69-switch-default-locale-to-us-5affaa.zip",
+                "reference": "c84439e4f1bfb968415d0273bdb051428f56a912",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:01:18+00:00"
+            "time": "2018-06-21T13:52:29+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -3941,16 +3941,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.1",
+            "version": "dev-TAC-69-switch-default-locale-to-us",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "db2c08f42c0af81747bd222f5b49e2e5c69469e2"
+                "reference": "fd859cc6fc6725b5df36d000943b2cbb19fa2a7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.1-513288.zip",
-                "reference": "db2c08f42c0af81747bd222f5b49e2e5c69469e2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-69-switch-default-locale-to-us-c92125.zip",
+                "reference": "fd859cc6fc6725b5df36d000943b2cbb19fa2a7a",
                 "shasum": null
             },
             "require": {
@@ -3958,7 +3958,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/intercom": "^1.1.2",
-                "channelgrabber/locale": "^1.1.0",
+                "channelgrabber/locale": "dev-TAC-69-switch-default-locale-to-us as 1.2.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.26.0",
@@ -3993,7 +3993,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-06-15T11:01:59+00:00"
+            "time": "2018-06-21T13:37:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -9941,10 +9941,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
             "version": "dev-TAC-69-switch-default-locale-to-us",
             "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.6.2",
+            "alias_normalized": "1.6.2.0",
+            "version": "dev-TAC-69-switch-default-locale-to-us",
+            "package": "channelgrabber/zf2-login"
         },
         {
             "alias": "1.6.5",
@@ -9957,6 +9963,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
