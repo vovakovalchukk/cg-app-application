@@ -45,20 +45,22 @@ define([
                 numberOfSelectFieldsRendered: 0
             }
         },
-        shouldComponentUpdate: function(prevProps) {
+        shouldComponentUpdate: function() {
+            // stacking and then calling these methods here was a means of getting around the 2nd render ReduxForm issue, https://github.com/erikras/redux-form/issues/621
             if (!this.state.autopopulateMethods || this.state.autopopulated || !this.state.autopopulateMethods.length) {
                 return true;
             }
-            if (this.getNumberOfSelectFieldsToBeRendered() === this.state.numberOfSelectFieldsRendered) {
-                for (let autopopulate of this.state.autopopulateMethods) {
-                    autopopulate.method();
-                }
-                this.setState({
-                    autopopulateMethods: [],
-                    numberOfSelectFieldsRendered: 0,
-                    autopopulated: true
-                });
+            if (this.getNumberOfSelectFieldsToBeRendered() !== this.state.numberOfSelectFieldsRendered) {
+               return true;
             }
+            for (let autopopulate of this.state.autopopulateMethods) {
+                autopopulate.method();
+            }
+            this.setState({
+                autopopulateMethods: [],
+                numberOfSelectFieldsRendered: 0,
+                autopopulated: true
+            });
             return true;
         },
         isSimpleProduct: function() {
@@ -103,25 +105,19 @@ define([
                 return variation.sku === sku
             });
         },
-        equalisedWordSpellingsMatch(word1, word2) {
+        doWordSpellingsMatch(word1, word2) {
             word1 = word1.toLowerCase();
             word2 = word2.toLowerCase();
             const americanEnglishWordMap = {
                 color: 'colour'
             };
-            if (americanEnglishWordMap[word1] === word2 || americanEnglishWordMap[word2] === word1) {
-                return true;
-            }
-            return false;
+            return americanEnglishWordMap[word1] === word2 || americanEnglishWordMap[word2] === word1;
         },
         variationAttributeNameMatchesAmazonThemeAttributeName: function(variationAttributeName, amazonThemeAttributeName) {
             if (variationAttributeName == amazonThemeAttributeName) {
                 return true;
             }
-            if (this.equalisedWordSpellingsMatch(variationAttributeName, amazonThemeAttributeName)) {
-                return true;
-            }
-            return false;
+            return this.doWordSpellingsMatch(variationAttributeName, amazonThemeAttributeName);
         },
         findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, themeAttributeName) {
             let variationAttributeNames = Object.keys(variationData.attributeValues);
@@ -145,13 +141,13 @@ define([
 
             let sharedAttributeName = this.findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, field.themeAttributeName);
             if (!sharedAttributeName) {
-                return undefined;
+                return null;
             }
 
             let matchedAttributeValueOfVariation = variationData.attributeValues[sharedAttributeName];
             let matchedOption = this.findOptionContainingMatchedAttributeValue(field.options, matchedAttributeValueOfVariation);
             if (!matchedOption) {
-                return undefined;
+                return null;
             }
 
             return matchedOption;
@@ -266,7 +262,7 @@ define([
                 return <th> {header} </th>;
             });
         },
-        getThemeVariationSelectJSX: function(value, sku, attributeIndex) {
+        renderThemeVariationSelectJSX: function(value, sku, attributeIndex) {
             let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name;
             let nameOfCorrespondingDisplayNameField = "theme." + sku + "." + attributeIndex + ".displayName";
 
@@ -307,7 +303,7 @@ define([
                 </div>
             )
         },
-        getThemeVariationDisplayNameInputJSX: function(value, sku, attributeIndex) {
+        renderThemeVariationDisplayNameInputJSX: function(value, sku, attributeIndex) {
             let fieldName = "theme." + sku + "." + attributeIndex + ".displayName";
             return (
                 <Field
@@ -329,8 +325,8 @@ define([
             let themeData = this.getThemeDataByName(this.state.themeSelected);
 
             themeData.validValues.forEach((value, index) => {
-                themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku, index));
-                themeColumns.push(this.getThemeVariationDisplayNameInputJSX(value, variation.sku, index));
+                themeColumns.push(this.renderThemeVariationSelectJSX(value, variation.sku, index));
+                themeColumns.push(this.renderThemeVariationDisplayNameInputJSX(value, variation.sku, index));
             });
 
             return themeColumns.map((column) => {
