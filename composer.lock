@@ -1522,16 +1522,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22"
+                "reference": "7f15464f5387cb0c40582e5374f246903af80951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.0-a1afa1.zip",
-                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.1-37bc89.zip",
+                "reference": "7f15464f5387cb0c40582e5374f246903af80951",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-15T10:39:42+00:00"
+            "time": "2018-06-22T08:43:44+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4141,7 +4141,7 @@
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.0.21",
+                "channelgrabber/locale": "^1.1.1",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
