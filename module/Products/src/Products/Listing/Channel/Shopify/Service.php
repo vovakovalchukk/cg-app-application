@@ -29,10 +29,8 @@ class Service implements
     public function getChannelSpecificFieldValues(Account $account): array
     {
         $accountSpecificCategories = $this->categoryService->fetchCategoriesForAccount($account);
-        $account->setId(0);
-        $generalCategories = $this->categoryService->fetchCategoriesForAccount($account);
         return [
-            'categories' => array_merge($generalCategories, $accountSpecificCategories)
+            'categories' => $this->fetchGeneralCategories($account) + $accountSpecificCategories
         ];
     }
 
@@ -40,6 +38,15 @@ class Service implements
     {
         $categories = $this->fetchImportAndReturnShopifyCategoriesForAccount($account);
         return $this->categoryService->formatCategoriesResponse($categories);
+    }
+
+    protected function fetchGeneralCategories(Account $account): array
+    {
+        $accountId = $account->getId();
+        $account->setId(0);
+        $generalCategories = $this->categoryService->fetchCategoriesForAccount($account);
+        $account->setId($accountId);
+        return $generalCategories;
     }
 
     protected function fetchImportAndReturnShopifyCategoriesForAccount(Account $account): CategoryCollection
