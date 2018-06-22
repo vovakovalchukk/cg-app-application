@@ -15,8 +15,8 @@ define([
                 accountId: null,
                 product: {},
                 variationsDataForProduct: [],
-                fieldChange:null,
-                resetSection:null
+                fieldChange: null,
+                resetSection: null
             };
         },
         render: function() {

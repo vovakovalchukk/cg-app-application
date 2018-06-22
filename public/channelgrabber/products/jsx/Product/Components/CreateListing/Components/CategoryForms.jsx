@@ -27,8 +27,8 @@ define([
                 categoryTemplates: {},
                 product: {},
                 variationsDataForProduct: [],
-                fieldChange:null,
-                resetSection:null
+                fieldChange: null,
+                resetSection: null
             };
         },
         renderForCategoryTemplates: function() {
