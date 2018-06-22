@@ -128,6 +128,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
         $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($this->activeUserContainer->getLocale()));
+        $view->setVariable('showVAT', $this->productService->isVatRelevant());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

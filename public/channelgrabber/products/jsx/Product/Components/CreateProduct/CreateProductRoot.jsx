@@ -34,7 +34,8 @@ define([
             return {
                 onCreateProductClose: null,
                 stockModeOptions: null,
-                onSaveAndList: null
+                onSaveAndList: null,
+                showVAT: true
             };
         },
         formSubmit: function(values) {
@@ -59,6 +60,7 @@ define([
                         formContainerSubmitClick={this.formContainerSubmitClick}
                         redirectToProducts={this.props.redirectToProducts}
                         onSaveAndList={this.props.onSaveAndList}
+                        showVAT={this.props.showVAT}
                     />
                 </Provider>
             );

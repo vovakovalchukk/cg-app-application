@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09b1248dcb23cb345b4a6c9a8e2ec954",
+    "content-hash": "359949135e4ab73c28c232bc39b452d7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1522,16 +1522,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22"
+                "reference": "7f15464f5387cb0c40582e5374f246903af80951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.0-a1afa1.zip",
-                "reference": "1cfe67e7910aa4b230a970b96eeb6851dd40ea22",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.1-37bc89.zip",
+                "reference": "7f15464f5387cb0c40582e5374f246903af80951",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-15T10:39:42+00:00"
+            "time": "2018-06-22T08:43:44+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4125,23 +4125,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9"
+                "reference": "472d47ec42d769315623f72892803538d98b42e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.4-6bebd2.zip",
-                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.5-2bb6e3.zip",
+                "reference": "472d47ec42d769315623f72892803538d98b42e7",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.0.21",
+                "channelgrabber/locale": "^1.1.1",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4173,7 +4173,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-12T10:31:23+00:00"
+            "time": "2018-06-22T08:52:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
