@@ -314,10 +314,6 @@ define([
                     name={fieldName}
                     component={this.renderTableCellDisplayNameInput}
                     validate={Validators.required}
-                    onChange={(e, newValue, oldValue) => {
-                        console.log('-------INPUT FIELD CHANGE');
-
-                    }}
                 />
             );
         },
