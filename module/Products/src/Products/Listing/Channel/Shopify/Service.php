@@ -28,8 +28,11 @@ class Service implements
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
+        $accountSpecificCategories = $this->categoryService->fetchCategoriesForAccount($account);
+        $account->setId(0);
+        $generalCategories = $this->categoryService->fetchCategoriesForAccount($account);
         return [
-            'categories' => $this->categoryService->fetchCategoriesForAccount($account)
+            'categories' => array_merge($generalCategories, $accountSpecificCategories)
         ];
     }
 
