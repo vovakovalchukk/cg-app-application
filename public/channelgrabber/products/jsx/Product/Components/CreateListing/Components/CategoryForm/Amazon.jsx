@@ -262,7 +262,7 @@ define([
                 return <th> {header} </th>;
             });
         },
-        renderThemeVariationSelectJSX: function(value, sku, attributeIndex) {
+        renderThemeVariationSelect: function(value, sku, attributeIndex) {
             let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name;
             let nameOfCorrespondingDisplayNameField = "theme." + sku + "." + attributeIndex + ".displayName";
 
@@ -303,7 +303,7 @@ define([
                 </div>
             )
         },
-        renderThemeVariationDisplayNameInputJSX: function(value, sku, attributeIndex) {
+        renderThemeVariationDisplayNameInput: function(value, sku, attributeIndex) {
             let fieldName = "theme." + sku + "." + attributeIndex + ".displayName";
             return (
                 <Field
@@ -325,8 +325,8 @@ define([
             let themeData = this.getThemeDataByName(this.state.themeSelected);
 
             themeData.validValues.forEach((value, index) => {
-                themeColumns.push(this.renderThemeVariationSelectJSX(value, variation.sku, index));
-                themeColumns.push(this.renderThemeVariationDisplayNameInputJSX(value, variation.sku, index));
+                themeColumns.push(this.renderThemeVariationSelect(value, variation.sku, index));
+                themeColumns.push(this.renderThemeVariationDisplayNameInput(value, variation.sku, index));
             });
 
             return themeColumns.map((column) => {
