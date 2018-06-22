@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react', 'SetupWizard/Component/Payment/PackageInfo/UK'], function(React, PackageInfo) {
     function Locale()
     {
 
@@ -9,19 +9,14 @@ define(['react'], function(React) {
         return packageInfo.fromOrderVolume + "-" + packageInfo.orderVolume;
     };
 
-    Locale.prototype.getPackageInfo = function(selectedPackage)
+    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChanged)
     {
         return (
-            <div className="package-info">
-                <div>
-                    <span>Package Needed:</span>
-                    <span>{selectedPackage.name}</span>
-                </div>
-                <div>
-                    <span>Monthly cost:</span>
-                    <span>{selectedPackage.price} ex VAT</span>
-                </div>
-            </div>
+            <PackageInfo
+                {...selectedPackage}
+                billingDuration={billingDuration}
+                billingDurationChanged={billingDurationChanged}
+            />
         );
     };
 
