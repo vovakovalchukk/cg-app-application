@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "689174d146f256e5e5aa9d046dc651fd",
+    "content-hash": "eee312bbcf888a9ab7bac1b70ead1e3a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1477,16 +1477,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-240-create-variation-listings-amazon",
+            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "90cddb68a90a7d2d361f38dcdabb499a4065ea00"
+                "reference": "166dcf927998bc07fb58e6670f4d22035f659e56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-240-create-variation-listings-amazon-0eab6b.zip",
-                "reference": "90cddb68a90a7d2d361f38dcdabb499a4065ea00",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-238-allow-amazon-create-variation-listings-445306.zip",
+                "reference": "166dcf927998bc07fb58e6670f4d22035f659e56",
                 "shasum": null
             },
             "require": {
@@ -1514,7 +1514,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-LIS-240-create-variation-listings-amazon": "1.16.x-dev"
+                    "dev-LIS-238-allow-amazon-create-variation-listings": "1.16.x-dev"
                 }
             },
             "autoload": {
@@ -1527,7 +1527,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T12:15:29+00:00"
+            "time": "2018-06-14T13:40:08+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9954,7 +9954,7 @@
         {
             "alias": "dev-LIS-206-create-amazon-listings",
             "alias_normalized": "dev-LIS-206-create-amazon-listings",
-            "version": "dev-LIS-240-create-variation-listings-amazon",
+            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
             "package": "channelgrabber/listing"
         }
     ],
@@ -9965,8 +9965,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
