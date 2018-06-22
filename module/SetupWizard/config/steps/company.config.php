@@ -14,7 +14,7 @@ return [
                         'label' => 'Company Details',
                         'title' => 'Company Details',
                         'route' => Module::ROUTE . '/' . CompanyController::ROUTE_COMPANY,
-                        'order' => 20,
+                        'order' => 10,
                         'sprite' => 'sprite-pencil-circle-25-white',
                         'link' => false,
                     ],

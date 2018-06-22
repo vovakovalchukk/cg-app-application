@@ -14,7 +14,7 @@ return [
                         'label' => 'Customer Messages',
                         'title' => 'Customer Messages',
                         'route' => Module::ROUTE . '/' . MessagesController::ROUTE_MESSAGE,
-                        'order' => 25,
+                        'order' => 40,
                         'sprite' => 'sprite-messages-circle-25-white',
                         'link' => false,
                     ],

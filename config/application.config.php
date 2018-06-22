@@ -36,6 +36,9 @@ return array (
     31 => 'Reports',
     32 => 'ShipStation',
     33 => 'CourierExport',
+    34 => 'CG_Billing',
+    35 => 'CG_GoCardless',
+    36 => 'CG_Sagepay',
   ),
   'module_listener_options' => 
   array (

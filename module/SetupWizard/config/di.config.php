@@ -1,9 +1,13 @@
 <?php
 use CG\Channel\Creation\SetupViewInterface;
+use CG\Payment\MethodService as PaymentMethodService;
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
-use Shopify\Account\Service as ShopifyService;
+use CG_Register\Company\Service as RegisterCompanyService;
 use SetupWizard\Channels\ConnectViewFactory;
 use SetupWizard\Channels\Message\Type as ChannelsMessageType;
+use SetupWizard\Company\FormValidation as CompanyFormValidation;
+use SetupWizard\Payment\MethodFilter as PaymentMethodFilter;
+use Shopify\Account\Service as ShopifyService;
 
 return [
     'di' => [
@@ -35,6 +39,16 @@ return [
                 'parameter' => [
                     'fromIntercomId' => '1222805' //dj's intercom id
                 ]
+            ],
+            RegisterCompanyService::class => [
+                'parameters' => [
+                    'formValidation' => CompanyFormValidation::class,
+                ],
+            ],
+            PaymentMethodService::class => [
+                'parameters' => [
+                    'methodFilter' => PaymentMethodFilter::class,
+                ],
             ],
         ],
     ]

@@ -4,6 +4,7 @@ namespace Orders\Controller\Helpers;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
+use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 use CG\Channel\Shipping\CourierTrackingUrl;
 use CG\Channel\Type as ChannelType;
 use CG\Order\Client\Collection as FilteredCollection;
@@ -14,7 +15,6 @@ use CG\Order\Shared\Item\GiftWrap\Collection as GiftWraps;
 use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrap;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
@@ -24,7 +24,6 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\MvcEvent;
-use CG\Amazon\Order\FulfilmentChannel\Mapper as FulfilmentChannelMapper;
 
 class OrdersTable
 {
@@ -203,12 +202,11 @@ class OrdersTable
     {
         $dateFormatter = $this->dateFormatHelper;
         foreach ($orders as &$order) {
-            // Keep the dates in Y-m-d H:i:s, the Mustache template will change them to a human-friendly format
-            $order['purchaseDate'] = $dateFormatter($order['purchaseDate'], StdlibDateTime::FORMAT);
-            $order['paymentDate'] = $dateFormatter($order['paymentDate'], StdlibDateTime::FORMAT);
-            $order['printedDate'] = $dateFormatter($order['printedDate'], StdlibDateTime::FORMAT);
-            $order['dispatchDate'] = $dateFormatter($order['dispatchDate'], StdlibDateTime::FORMAT);
-            $order['emailDate'] = $dateFormatter($order['emailDate'], StdlibDateTime::FORMAT);
+            $order['purchaseDate'] = $dateFormatter($order['purchaseDate']);
+            $order['paymentDate'] = $dateFormatter($order['paymentDate']);
+            $order['printedDate'] = $dateFormatter($order['printedDate']);
+            $order['dispatchDate'] = $dateFormatter($order['dispatchDate']);
+            $order['emailDate'] = $dateFormatter($order['emailDate']);
         }
         return $this;
     }

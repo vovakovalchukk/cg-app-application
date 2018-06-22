@@ -140,7 +140,7 @@ class SpecificsAjax
         }
         $now = (new DateTime())->setTimezone(new DateTimeZone($this->getUsersTimezone()));
         foreach ($specificsListData as &$row) {
-            $row['currentTime'] = $now->uiTimeFormat();
+            $row['currentTime'] = $now->format('H:i');
             $row['timezone'] = $now->getTimezone()->getName();
         }
         $specificsListData = $this->performSumsOnSpecificsListData($specificsListData, $options);

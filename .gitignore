@@ -2,6 +2,7 @@
 .idea
 .sass-cache/
 .sync
+.vscode/
 /config/autoload/app.global.php
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
@@ -26,6 +27,7 @@
 /public/channelgrabber/common/js/
 /public/channelgrabber/orders/js/
 /public/channelgrabber/products/js/
+/public/channelgrabber/redux/js/
 /public/channelgrabber/reports/js/
 /public/channelgrabber/settings/js/
 /public/channelgrabber/setup-wizard/js/
@@ -43,13 +45,17 @@ public/cg-built
 public/channelgrabber/vendor/
 public/channelgrabber/zf2-amazon
 public/channelgrabber/zf2-api
+public/channelgrabber/zf2-billing
 public/channelgrabber/zf2-channel
 public/channelgrabber/zf2-ebay
+public/channelgrabber/zf2-go-cardless
 public/channelgrabber/zf2-login
 public/channelgrabber/zf2-netdespatch
 public/channelgrabber/zf2-register
 public/channelgrabber/zf2-royalmail
+public/channelgrabber/zf2-sagepay
 public/channelgrabber/zf2-usage
 public/channelgrabber/zf2-v4-ui
 vendor/channelgrabber/zf2-v4-ui/public/js/whichbrowser
 vendor/channelgrabber/zf2-v4-ui/public/js/zeroclipboard
+yarn-error.log

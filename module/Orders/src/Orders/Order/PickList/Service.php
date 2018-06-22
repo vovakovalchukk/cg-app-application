@@ -149,13 +149,14 @@ class Service implements LoggerAwareInterface
     protected function fetchProductsForSkus(array $skus)
     {
         $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $filter = new ProductFilter();
-        $filter->setLimit('all');
-        $filter->setPage(1);
-        $filter->setSku($skus);
-        $filter->setOrganisationUnitId([$organisationUnitId]);
 
         try {
+            $filter = new ProductFilter();
+            $filter->setLimit('all');
+            $filter->setPage(1);
+            $filter->setSku($skus);
+            $filter->setOrganisationUnitId([$organisationUnitId]);
+
             return $this->productService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__, ['sku' => $skus]);

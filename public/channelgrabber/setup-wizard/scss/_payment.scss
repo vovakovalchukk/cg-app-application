@@ -1,0 +1,151 @@
+#setup-wizard-payment > .half {
+  width: calc(50% - 20px);
+
+  label, .half {
+    width: unset;
+  }
+}
+
+#setup-wizard-package-selector label > span,
+#setup-wizard-package-selector .package-info > div > span:first-child,
+#setup-wizard-payment-selector .inputbox-label {
+  display: inline-block;
+  width: 250px;
+  text-align: right;
+  padding-right: 15px;
+}
+
+#setup-wizard-package-selector, #setup-wizard-payment-selector {
+  .selected-content {
+    margin-top: -3px;
+  }
+}
+
+#setup-wizard-package-selector {
+  .custom-select {
+    width: 200px;
+  }
+
+  .moreOrders {
+    font-size: 14px;
+    text-align: center;
+    padding-left: 15px;
+    margin-top: -3px;
+  }
+
+  .package-info {
+    clear: both;
+
+    > div {
+      padding: 5px 0;
+    }
+
+    > div:first-child {
+      padding: 10px 0;
+    }
+
+    > div > span:nth-child(n + 3) {
+      font-size: 14px;
+      text-align: center;
+      padding-left: 15px;
+    }
+
+    .billingDuration {
+      > * {
+        margin-right: 15px;
+      }
+
+      > input[type="checkbox"] {
+        display: none;
+
+        & + .label {
+          display: inline-block;
+          vertical-align: middle;
+          width: 40px;
+          height: 20px;
+          border: 1px solid $color-grey;
+          border-radius: 10px;
+          background-color: $color-green;
+          cursor: pointer;
+        }
+
+        & + .label::before {
+          content: "";
+          display: inline-block;
+          vertical-align: middle;
+          width: 24px;
+          height: 24px;
+          margin-top: -8px;
+          margin-left: -1px;
+          border: 1px solid $color-grey;
+          border-radius: 12px;
+          background-color: $color-white;
+          @include transition($transition-element, $transition-duration-fast, $transition-timing);
+        }
+
+        &:checked + .label::before {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}
+
+#demo {
+  text-align: center;
+
+  .demo-info {
+    display: inline-block;
+    text-align: center;
+
+    > div {
+      margin: 5px 0;
+    }
+
+    .demo-link > a {
+      display: inline-block;
+      border: 1px solid black;
+      border-radius: 15px;
+      background-color: $color-orange;
+      padding: 20px 40px;
+      font-weight: bold;
+      color: $color-white;
+    }
+
+    .callUs {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}
+
+#setup-wizard-payment-selector {
+  display: none;
+  min-height: 200px;
+
+  .order-inputbox-holder, .order-inputbox-holder > .input, .custom-select {
+    width: 200px;
+  }
+
+  iframe {
+    width: 810px !important;
+  }
+}
+
+#setup-wizard-payment-footer {
+  text-align: right;
+
+  > div {
+    display: inline-block;
+  }
+
+  .details {
+    text-align: center;
+    margin-right: 50px;
+
+    .limits {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

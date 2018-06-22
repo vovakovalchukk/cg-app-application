@@ -1,23 +1,31 @@
 <?php
 namespace Products\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
+use CG\Currency\Formatter as CurrencyFormatter;
+use CG\Ebay\Site\Map as EbaySiteMap;
+use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
+use CG\Listing\Client\Service as ListingClientService;
+use CG\Locale\CurrencyCode;
+use CG\Locale\PhoneNumber;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Client\Service as ProductClientService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
 use CG_UI\View\BulkActions as BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use CG_Usage\Service as UsageService;
-use CG\User\ActiveUserInterface;
-use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Products\Product\Category\Service as CategoryService;
+use Products\Product\Listing\Service as ProductListingService;
+use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
-use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
-use CG\Product\Client\Service as ProductClientService;
-use CG\Listing\Client\Service as ListingClientService;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -42,6 +50,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $stockSettingsService;
     /** @var TaxRateService */
     protected $taxRateService;
+    /** @var CategoryService */
+    protected $categoryService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
+    /** @var ProductListingService */
+    protected $productListingService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -53,7 +67,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
         UsageService $usageService,
         FeatureFlagsService $featureFlagService,
         StockSettingsService $stockSettingsService,
-        TaxRateService $taxRateService
+        TaxRateService $taxRateService,
+        CategoryService $categoryService,
+        OrganisationUnitService $organisationUnitService,
+        ProductListingService $productListingService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -65,6 +82,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->featureFlagService = $featureFlagService;
         $this->stockSettingsService = $stockSettingsService;
         $this->taxRateService = $taxRateService;
+        $this->categoryService = $categoryService;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->productListingService = $productListingService;
     }
 
     public function indexAction()
@@ -94,13 +114,20 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $rootOuId
             ),
-            'createListings' => $this->featureFlagService->featureEnabledForOu(
-                ListingClientService::FEATURE_FLAG_CREATE_LISTINGS,
+            'createProducts' => $this->featureFlagService->featureEnabledForOu(
+                ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
                 $rootOuId
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
+        $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
+        $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
+        $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
+        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
+        $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
+        $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
+        $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($this->activeUserContainer->getLocale()));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
@@ -147,6 +174,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $accountStockSettingsEnabledStatus = $this->productService->getAccountStockSettingsEnabledStatus();
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
+    }
+
+    protected function getDefaultCurrencyForActiveUser(): ?string
+    {
+        $currencyCode = CurrencyCode::getCurrencyCodeForLocale($this->activeUserContainer->getLocale());
+        $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
+        return (new CurrencyFormatter($rootOu))->getSymbol($currencyCode);
     }
 
     // Required by AccountTableTrait
