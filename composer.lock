@@ -4126,23 +4126,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.4",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9"
+                "reference": "04a34afc0a0608c294a55af7cbdae298a30e2806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.4-6bebd2.zip",
-                "reference": "97573fe0a68d1018d8adea51a19a2ebdaca9b5d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.6-e2eebd.zip",
+                "reference": "04a34afc0a0608c294a55af7cbdae298a30e2806",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.0.21",
+                "channelgrabber/locale": "^1.1.1",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4174,7 +4174,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-12T10:31:23+00:00"
+            "time": "2018-06-25T08:01:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4441,16 +4441,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.7",
+            "version": "dev-TAC-97-shipstation-ups",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3dd9ff0f850189a4aaa4acd3d2c3daa1dd66639b"
+                "reference": "b5d861c0c6e7a41c3d00846392be6ffbed7c231f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.7-7525b6.zip",
-                "reference": "3dd9ff0f850189a4aaa4acd3d2c3daa1dd66639b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-97-shipstation-ups-4f556d.zip",
+                "reference": "b5d861c0c6e7a41c3d00846392be6ffbed7c231f",
                 "shasum": null
             },
             "require": {
@@ -4502,7 +4502,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-15T11:05:42+00:00"
+            "time": "2018-06-18T08:13:42+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9957,6 +9957,11 @@
             "alias_normalized": "1.13.1.0",
             "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
             "package": "channelgrabber/product"
+        },{
+            "alias": "1.23.7",
+            "alias_normalized": "1.23.7.0",
+            "version": "dev-TAC-97-shipstation-ups",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -9965,6 +9970,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
         "channelgrabber/product": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

@@ -17,6 +17,7 @@ define([
                 onCreateProductClose: null,
                 submitFormDispatch: null,
                 onSaveAndList: null,
+                showVAT: true,
                 massUnit: null,
                 lengthUnit: null
             };
@@ -61,6 +62,7 @@ define([
                 >
                     <CreateProductForm
                         onSubmit={this.handleSubmit}
+                        showVAT={this.props.showVAT}
                         massUnit={this.props.massUnit}
                         lengthUnit={this.props.lengthUnit}
                     />

@@ -131,6 +131,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
         $locale = $this->activeUserContainer->getLocale();
         $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($locale));
+        $view->setVariable('showVAT', $this->productService->isVatRelevant());
         $view->setVariable('massUnit', LocaleMass::getForLocale($locale));
         $view->setVariable('lengthUnit', LocaleLength::getForLocale($locale));
 

@@ -38,7 +38,7 @@ return [
                     'carriersConfig' => [
                         'fedex' => [
                             'channelName' => 'fedex-ss',
-                            'displayName' => 'FedEx',
+                            'displayName' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -113,6 +113,128 @@ return [
                                 'agree_to_eula' => [
                                     'name' => 'agree_to_eula',
                                     'label' => 'Do you agree to FedEx\'s EULA?',
+                                    'required' => true,
+                                    'inputType' => 'checkbox',
+                                ],
+                            ]
+                        ],
+                        'ups' => [
+                            'channelName' => 'ups-ss',
+                            'displayName' => 'UPS (US)',
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                'nickname' => [
+                                    'name' => 'nickname',
+                                    'label' => 'Nickname for account',
+                                    'required' => true,
+                                ],
+                                'account_number' => [
+                                    'name' => 'account_number',
+                                    'label' => 'Account Number',
+                                    'required' => true,
+                                ],
+                                'acount_country_code' => [
+                                    'name' => 'account_country_code',
+                                    'label' => 'Account Country',
+                                    'required' => true,
+                                    'inputType' => 'country',
+                                ],
+                                'account_postal_code' => [
+                                    'name' => 'account_postal_code',
+                                    'label' => 'Account post / zip code',
+                                    'required' => true,
+                                ],
+                                'title' => [
+                                    'name' => 'title',
+                                    'label' => 'Title',
+                                    'required' => false,
+                                ],
+                                'first_name' => [
+                                    'name' => 'first_name',
+                                    'label' => 'First Name',
+                                    'required' => true,
+                                ],
+                                'last_name' => [
+                                    'name' => 'last_name',
+                                    'label' => 'Last Name',
+                                    'required' => true,
+                                ],
+                                'company' => [
+                                    'name' => 'company',
+                                    'label' => 'Company',
+                                    'required' => false,
+                                ],
+                                'address1' => [
+                                    'name' => 'address1',
+                                    'label' => 'Address Line 1',
+                                    'required' => true,
+                                ],
+                                'address2' => [
+                                    'name' => 'address2',
+                                    'label' => 'Address Line 2',
+                                    'required' => false,
+                                ],
+                                'city' => [
+                                    'name' => 'city',
+                                    'label' => 'City',
+                                    'required' => true,
+                                ],
+                                'state' => [
+                                    'name' => 'state',
+                                    'label' => 'County / State',
+                                    'required' => true,
+                                ],
+                                'postal_code' => [
+                                    'name' => 'postal_code',
+                                    'label' => 'Post / zip code',
+                                    'required' => true,
+                                ],
+                                'country_code' => [
+                                    'name' => 'country_code',
+                                    'label' => 'Country',
+                                    'required' => true,
+                                    'inputType' => 'country',
+                                ],
+                                'email' => [
+                                    'name' => 'email',
+                                    'label' => 'Email',
+                                    'required' => true,
+                                    'inputType' => 'email',
+                                ],
+                                'phone' => [
+                                    'name' => 'phone',
+                                    'label' => 'Telephone',
+                                    'required' => true,
+                                    'inputType' => 'number',
+                                ],
+                                'control_id' => [
+                                    'name' => 'control_id',
+                                    'label' => 'Control ID',
+                                    'required' => true,
+                                    'inputType' => 'text',
+                                ],
+                                'invoice_number' => [
+                                    'name' => 'invoice_number',
+                                    'label' => 'Latest Invoice Number',
+                                    'required' => true,
+                                    'inputType' => 'text',
+                                ],
+                                'invoice_amount' => [
+                                    'name' => 'invoice_amount',
+                                    'label' => 'Latest Invoice Amount',
+                                    'required' => true,
+                                    'inputType' => 'number',
+                                ],
+                                'invoice_date' => [
+                                    'name' => 'invoice_date',
+                                    'label' => 'Latest Invoice Date',
+                                    'required' => true,
+                                    'inputType' => 'date',
+                                ],
+                                'agree_to_technology_agreement' => [
+                                    'name' => 'agree_to_technology_agreement',
+                                    'label' => 'Do you agree to the UPS Technology Agreement?',
                                     'required' => true,
                                     'inputType' => 'checkbox',
                                 ],

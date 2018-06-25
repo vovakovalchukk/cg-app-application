@@ -86,6 +86,7 @@ define([
                 uploadedImages: {},
                 taxRates: null,
                 newVariationRowRequest: null,
+                showVAT: true,
                 massUnit: null,
                 lengthUnit: null
             };
@@ -121,6 +122,19 @@ define([
                 }
             }
             return defaultTaxRates;
+        },
+        renderVatTable: function(renderTaxRates) {
+            if (!this.props.showVAT) {
+                return;
+            }
+            return (
+                <fieldset className={'u-margin-bottom-small'}>
+                    <legend className={'u-heading-text'}>VAT</legend>
+                    <div className={'u-max-width-60'}>
+                        {renderTaxRates.call(this)}
+                    </div>
+                </fieldset>
+            );
         },
         render: function() {
             return (
@@ -166,12 +180,7 @@ define([
                             lengthUnit={this.props.lengthUnit}
                         />
                     </fieldset>
-                    <fieldset className={'u-margin-bottom-small'}>
-                        <legend className={'u-heading-text'}>VAT</legend>
-                        <div className={'u-max-width-60'}>
-                            {inputColumnRenderMethods.renderTaxRates.call(this)}
-                        </div>
-                    </fieldset>
+                    {this.renderVatTable(inputColumnRenderMethods.renderTaxRates)}
                 </Form>
             );
         }

@@ -53,6 +53,7 @@ define([
                 conditionOptions: {},
                 defaultCurrency: null,
                 salesPhoneNumber: null,
+                showVAT: true,
                 massUnit: null,
                 lengthUnit: null
             }
@@ -424,6 +425,7 @@ define([
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                     createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
+                    showVAT={this.props.showVAT}
                     massUnit={this.props.massUnit}
                     lengthUnit={this.props.lengthUnit}
                 />;
@@ -491,6 +493,7 @@ define([
                 stockModeOptions={this.props.stockModeOptions}
                 redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                showVAT={this.props.showVAT}
                 massUnit={this.props.massUnit}
                 lengthUnit={this.props.lengthUnit}
             />

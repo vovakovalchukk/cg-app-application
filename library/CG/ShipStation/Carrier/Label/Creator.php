@@ -41,7 +41,7 @@ class Creator implements LoggerAwareInterface
     /** @var OrderLabelService */
     protected $orderLabelService;
 
-    protected $testLabelBlacklist = ['fedex-ss'];
+    protected $testLabelBlacklist = ['fedex-ss', 'ups-ss'];
 
     public function __construct(ShipStationClient $shipStationClient, GuzzleClient $guzzleClient, OrderLabelService $orderLabelService)
     {

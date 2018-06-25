@@ -36,6 +36,7 @@ function(ProductRoot, Clipboard, ImageUtils) {
         <?= json_encode($conditionOptions); ?>,
         '<?= $defaultCurrency; ?>',
         '<?= $salesPhoneNumber; ?>',
+        <?= ($showVAT ? 'true' : 'false') ?>,
         '<?= $massUnit; ?>',
         '<?= $lengthUnit; ?>'
     );

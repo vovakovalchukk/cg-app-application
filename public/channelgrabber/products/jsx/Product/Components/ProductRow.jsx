@@ -44,6 +44,7 @@ define([
                 maxVariationAttributes: 0,
                 fetchingUpdatedStockLevelsForSkus: {},
                 accounts: {},
+                showVAT: true,
                 massUnit: null,
                 lengthUnit: null
             }
@@ -105,39 +106,68 @@ define([
                 products = this.state.variations;
             }
 
+            let panes = [];
+            panes.push(this.getStockPane(products));
+            panes.push(this.getDimensionsPane(products));
+            if (this.props.showVAT) {
+                panes.push(this.getVatPane(products));
+            }
+            panes.push(this.getListingsPane(products));
+
             return (
                 <div className="details-layout-column">
                     <Tabs selected={0}>
-                        <Pane label="Stock">
-                            <StockView
-                                variations={products}
-                                fullView={this.state.expanded}
-                                onVariationDetailChanged={this.onVariationDetailChanged}
-                                fetchingUpdatedStockLevelsForSkus={this.props.fetchingUpdatedStockLevelsForSkus}
-                            />
-                        </Pane>
-                        <Pane label="Dimensions">
-                            <DimensionsView
-                                variations={products}
-                                fullView={this.state.expanded}
-                                massUnit={this.props.massUnit}
-                                lengthUnit={this.props.lengthUnit}
-                            />
-                        </Pane>
-                        <Pane label="VAT">
-                            <VatView
-                                parentProduct={this.props.product}
-                                fullView={this.state.expanded}
-                                onVatChanged={this.vatUpdated}
-                                variationCount={this.state.variations.length}
-                                adminCompanyUrl={this.props.adminCompanyUrl}
-                            />
-                        </Pane>
-                        <Pane label="Listings">
-                            <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />
-                        </Pane>
+                        {panes}
                     </Tabs>
                 </div>
+            );
+        },
+        getStockPane: function(products)
+        {
+            return (
+                <Pane label="Stock">
+                    <StockView
+                        variations={products}
+                        fullView={this.state.expanded}
+                        onVariationDetailChanged={this.onVariationDetailChanged}
+                        fetchingUpdatedStockLevelsForSkus={this.props.fetchingUpdatedStockLevelsForSkus}
+                    />
+                </Pane>
+            );
+        },
+        getDimensionsPane: function(products)
+        {
+            return (
+                <Pane label="Dimensions">
+                    <DimensionsView
+                        variations={products}
+                        fullView={this.state.expanded}
+                        massUnit={this.props.massUnit}
+                        lengthUnit={this.props.lengthUnit}
+                    />
+                </Pane>
+            );
+        },
+        getVatPane: function(products)
+        {
+            return (
+                <Pane label="VAT">
+                    <VatView
+                        parentProduct={this.props.product}
+                        fullView={this.state.expanded}
+                        onVatChanged={this.vatUpdated}
+                        variationCount={this.state.variations.length}
+                        adminCompanyUrl={this.props.adminCompanyUrl}
+                    />
+                </Pane>
+            );
+        },
+        getListingsPane: function(products)
+        {
+            return (
+                <Pane label="Listings">
+                    <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />
+                </Pane>
             );
         },
         getExpandVariationsButton: function()
