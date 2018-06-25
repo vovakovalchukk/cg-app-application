@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d1f0f59290d6c5c1a7caca2b75799ba",
+    "content-hash": "434d464e271e190149ae0ffac786e894",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
+            "version": "1.36.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e42c44077d3a855c76d156d13e20d2905f6cca79"
+                "reference": "92ff7a205c267bcdfef4923edc0fe352065f8698"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-110-usa-weights-dimensions-in-ounces-inches-6e877d.zip",
-                "reference": "e42c44077d3a855c76d156d13e20d2905f6cca79",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.36.0-c276c1.zip",
+                "reference": "92ff7a205c267bcdfef4923edc0fe352065f8698",
                 "shasum": null
             },
             "require": {
@@ -550,7 +550,7 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches as 1.14.0",
+                "channelgrabber/product": "^1.14.0",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-18T08:12:32+00:00"
+            "time": "2018-06-25T15:36:45+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1522,16 +1522,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "fa9e8f3699c3791fb73ba915dac6b55907346a58"
+                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-110-usa-weights-dimensions-in-ounces-inches-2e8af2.zip",
-                "reference": "fa9e8f3699c3791fb73ba915dac6b55907346a58",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.3-d1b51e.zip",
+                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-18T08:13:08+00:00"
+            "time": "2018-06-25T15:05:33+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2239,16 +2239,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "159c319e2868b4d3e64dece6b4224f409e69ce03"
+                "reference": "aab0349050c78933b6b4dc964c35fa373d8f7fe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-TAC-110-usa-weights-dimensions-in-ounces-inches-33d170.zip",
-                "reference": "159c319e2868b4d3e64dece6b4224f409e69ce03",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.14.0-32de99.zip",
+                "reference": "aab0349050c78933b6b4dc964c35fa373d8f7fe7",
                 "shasum": null
             },
             "require": {
@@ -2260,7 +2260,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
-                "channelgrabber/locale": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches as 1.1.1",
+                "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/location": "1.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
@@ -2301,7 +2301,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-06-21T09:49:42+00:00"
+            "time": "2018-06-25T15:19:29+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -4441,16 +4441,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-97-shipstation-ups",
+            "version": "1.23.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b5d861c0c6e7a41c3d00846392be6ffbed7c231f"
+                "reference": "1bb58685faad50d4305af934c83c207522c90dc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-97-shipstation-ups-4f556d.zip",
-                "reference": "b5d861c0c6e7a41c3d00846392be6ffbed7c231f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.9-319b9d.zip",
+                "reference": "1bb58685faad50d4305af934c83c207522c90dc2",
                 "shasum": null
             },
             "require": {
@@ -4502,7 +4502,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-18T08:13:42+00:00"
+            "time": "2018-06-25T14:25:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5476,7 +5476,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6269,7 +6269,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8150,7 +8150,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -8764,7 +8764,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -8795,7 +8795,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9140,7 +9140,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -9939,38 +9940,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.34.14",
-            "alias_normalized": "1.34.14.0",
-            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
-            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-TAC-110-usa-weights-dimensions-in-ounces-inches",
-            "package": "channelgrabber/product"
-        },{
-            "alias": "1.23.7",
-            "alias_normalized": "1.23.7.0",
-            "version": "dev-TAC-97-shipstation-ups",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
