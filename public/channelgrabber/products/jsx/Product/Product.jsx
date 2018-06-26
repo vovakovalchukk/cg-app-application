@@ -24,7 +24,9 @@ define([
         conditionOptions,
         defaultCurrency,
         salesPhoneNumber,
-        showVAT
+        showVAT,
+        massUnit,
+        lengthUnit
     ) {
         ReactDOM.render(
             <RootComponent
@@ -45,6 +47,8 @@ define([
                 defaultCurrency={defaultCurrency}
                 salesPhoneNumber={salesPhoneNumber}
                 showVAT={showVAT}
+                massUnit={massUnit}
+                lengthUnit={lengthUnit}
             />,
             mountingNode
         );

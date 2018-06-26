@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e8682b162c9cfae3ae9bdb62d06692e",
+    "content-hash": "686c3dac24ea64b25ea31d5f91debe6a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -522,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "368b5fa3f4d00b7d5d4a03b2cfda0350f56d350c"
+                "reference": "c429614739461c46071e2dc9b8b1df72515af571"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-206-create-amazon-listings-7192a0.zip",
-                "reference": "368b5fa3f4d00b7d5d4a03b2cfda0350f56d350c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-206-create-amazon-listings-f840d2.zip",
+                "reference": "c429614739461c46071e2dc9b8b1df72515af571",
                 "shasum": null
             },
             "require": {
@@ -550,7 +550,7 @@
                 "channelgrabber/order": "^1.28.9",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
-                "channelgrabber/product": "^1.13.2",
+                "channelgrabber/product": "^1.14.0",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-14T09:17:21+00:00"
+            "time": "2018-06-26T08:36:08+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1522,16 +1522,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.1",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "7f15464f5387cb0c40582e5374f246903af80951"
+                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.1-37bc89.zip",
-                "reference": "7f15464f5387cb0c40582e5374f246903af80951",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.3-d1b51e.zip",
+                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b",
                 "shasum": null
             },
             "require": {
@@ -1554,7 +1554,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-22T08:43:44+00:00"
+            "time": "2018-06-25T15:05:33+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2239,16 +2239,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.13.2",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "eec6bcdca66c130c782c1fec6d2e17edda5f0281"
+                "reference": "aab0349050c78933b6b4dc964c35fa373d8f7fe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.13.2-8a3a2d.zip",
-                "reference": "eec6bcdca66c130c782c1fec6d2e17edda5f0281",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.14.0-32de99.zip",
+                "reference": "aab0349050c78933b6b4dc964c35fa373d8f7fe7",
                 "shasum": null
             },
             "require": {
@@ -2260,6 +2260,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
+                "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/location": "1.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
@@ -2300,7 +2301,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-05-22T07:56:36+00:00"
+            "time": "2018-06-25T15:19:29+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -8395,7 +8396,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8450,7 +8451,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8505,7 +8506,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8556,7 +8557,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8642,7 +8643,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9941,20 +9942,20 @@
     ],
     "aliases": [
         {
-            "alias": "1.26.13",
-            "alias_normalized": "1.26.13.0",
+            "alias": "1.26.16",
+            "alias_normalized": "1.26.16.0",
             "version": "dev-LIS-206-create-amazon-listings",
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.34.13",
-            "alias_normalized": "1.34.13.0",
+            "alias": "1.36.1",
+            "alias_normalized": "1.36.1.0",
             "version": "dev-LIS-206-create-amazon-listings",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.16.2",
-            "alias_normalized": "1.16.2.0",
+            "alias": "1.17.1",
+            "alias_normalized": "1.17.1.0",
             "version": "dev-LIS-206-create-amazon-listings",
             "package": "channelgrabber/listing"
         }

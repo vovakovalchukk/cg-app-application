@@ -1,7 +1,10 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Order\Shared\Entity as Order;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 
 class Package
@@ -25,6 +28,13 @@ class Package
     protected $insuredValue;
     /** @var string */
     protected $insuredCurrency;
+
+    protected static $unitMap = [
+        'kg' => 'kilogram',
+        'oz' => 'ounce',
+        'cm' => 'centimeter',
+        'in' => 'inch',
+    ];
 
     public function __construct(
         float $weight,
@@ -60,19 +70,19 @@ class Package
         );
     }
 
-    public static function createFromOrderAndData(Order $order, array $orderData, array $parcelData): Package
+    public static function createFromOrderAndData(Order $order, array $orderData, array $parcelData, OrganisationUnit $rootOu): Package
     {
         $insuranceAmount = 0;
-        if (isset($orderData['insuranceMonetary'])) {
+        if (isset($orderData['insuranceMonetary']) && (float)$orderData['insuranceMonetary'] > 0) {
             $insuranceAmount = round($orderData['insuranceMonetary'] / $orderData['parcels'], 2);
         }
         return new static(
             $parcelData['weight'],
-            static::WEIGHT_UNIT,
+            static::$unitMap[LocaleMass::getForLocale($rootOu->getLocale())],
             $parcelData['length'],
             $parcelData['width'],
             $parcelData['height'],
-            static::DIMENSION_UNIT,
+            static::$unitMap[LocaleLength::getForLocale($rootOu->getLocale())],
             $insuranceAmount,
             $order->getCurrencyCode()
         );

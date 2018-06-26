@@ -3,6 +3,7 @@ namespace CG\ShipStation\Messages;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Entity as Order;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Shipment
 {
@@ -42,12 +43,13 @@ class Shipment
         array $orderData,
         array $parcelsData,
         Account $shipStationAccount,
-        Account $shippingAccount
+        Account $shippingAccount,
+        OrganisationUnit $rootOu
     ): Shipment {
         $shipTo = ShipmentAddress::createFromOrder($order);
         $packages = [];
         foreach ($parcelsData as $parcelData) {
-            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData);
+            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
         }
 
         return new static(
