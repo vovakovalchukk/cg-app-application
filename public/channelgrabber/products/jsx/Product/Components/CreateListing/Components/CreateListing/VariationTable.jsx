@@ -53,6 +53,9 @@ define([
             }.bind(this));
         },
         renderImageColumn: function(variation) {
+            console.log('in renderImageColumn with variaition: ', variation);
+
+
             if (!this.props.showImages) {
                 return;
             }
@@ -84,7 +87,13 @@ define([
             this.onInputChange(field.input, image.target.value);
         },
         renderStaticImage: function(field) {
+            console.log('in renderStaticImage with field: ' , field);
+
+
             var image = this.findSelectedImageForVariation(field.input.value);
+            console.log('in renderstatic image with field.input.value: ' , field.input.value);
+
+
             return (
                 <div className="image-dropdown-target">
                     <div className="react-image-picker">

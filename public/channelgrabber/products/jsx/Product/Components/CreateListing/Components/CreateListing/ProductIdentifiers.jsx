@@ -129,6 +129,9 @@ define([
             input.onChange(value);
         },
         render: function() {
+            console.log('in ProductIdentifiers and variationsDataForProduct: ', this.props.variationsDataForProduct);
+
+
             return (
                 <VariationTable
                     sectionName={"identifiers"}
