@@ -10,6 +10,7 @@ use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Client as ShipStationClient;
+use CG\ShipStation\Messages\Exception\InvalidStateException;
 use CG\ShipStation\Request\Shipping\Label as LabelRequest;
 use CG\ShipStation\Request\Shipping\Shipments as ShipmentsRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
@@ -40,6 +41,8 @@ class Creator implements LoggerAwareInterface
     /** @var OrderLabelService */
     protected $orderLabelService;
 
+    protected $testLabelBlacklist = ['fedex-ss', 'ups-ss'];
+
     public function __construct(ShipStationClient $shipStationClient, GuzzleClient $guzzleClient, OrderLabelService $orderLabelService)
     {
         $this->shipStationClient = $shipStationClient;
@@ -59,9 +62,9 @@ class Creator implements LoggerAwareInterface
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
-        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount);
+        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
-        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount);
+        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
         $labelErrors = $this->getErrorsForFailedLabels($labels, $shipments);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
@@ -78,11 +81,19 @@ class Creator implements LoggerAwareInterface
         OrderCollection $orders,
         array $ordersData,
         array $orderParcelsData,
-        Account $shipStationAccount
+        Account $shipStationAccount,
+        Account $shippingAccount
     ): ShipmentsResponse {
-        $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
-        $request = ShipmentsRequest::createFromOrdersAndData($orders, $ordersData, $orderParcelsData, $shipStationAccount);
-        return $this->shipStationClient->sendRequest($request, $shipStationAccount);
+        try {
+            $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
+            $request = ShipmentsRequest::createFromOrdersAndData(
+                $orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount
+            );
+            return $this->shipStationClient->sendRequest($request, $shipStationAccount);
+        } catch (InvalidStateException $e) {
+            $this->logWarningException($e, $e->getMessage(), [], [static::LOG_CODE, 'InvalidUSState']);
+            throw $e;
+        }
     }
 
     protected function getErrorsForFailedShipments(ShipmentsResponse $shipments): array
@@ -99,8 +110,11 @@ class Creator implements LoggerAwareInterface
         return $errors;
     }
 
-    protected function createLabelsForSuccessfulShipments(ShipmentsResponse $shipments, Account $shipStationAccount): array
-    {
+    protected function createLabelsForSuccessfulShipments(
+        ShipmentsResponse $shipments,
+        Account $shipStationAccount,
+        Account $shippingAccount
+    ): array {
         $this->logDebug('Requesting labels for shipments', [], [static::LOG_CODE, 'Labels']);
         $labels = [];
         /** @var Shipment $shipment */
@@ -108,15 +122,21 @@ class Creator implements LoggerAwareInterface
             if (!empty($shipment->getErrors())) {
                 continue;
             }
-            $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT, $this->isTestLabel());
+            $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
             $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
         }
         return $labels;
     }
 
-    protected function isTestLabel(): bool
+    protected function isTestLabel(Account $shippingAccount): bool
     {
-        return (ENVIRONMENT != 'live');
+        if (ENVIRONMENT == 'live') {
+            return false;
+        }
+        if (in_array($shippingAccount->getChannel(), $this->testLabelBlacklist)) {
+            return false;
+        }
+        return true;
     }
 
     protected function getErrorsForFailedLabels(array $labelResponses, ShipmentsResponse $shipments): array
@@ -236,9 +256,9 @@ class Creator implements LoggerAwareInterface
             ->setCreated($date->stdFormat());
     }
 
-    protected function removeFailedOrderLabel(OrderLabel $orderLabel, string $errorMsg): void
+    protected function removeFailedOrderLabel(OrderLabel $orderLabel, array $errorMsgs): void
     {
-        $this->logNotice('Failed to generate label for Order %s, reason: %s', [$orderLabel->getOrderId(), str_replace('%', '%%', $errorMsg)], [static::LOG_CODE, 'Fail']);
+        $this->logNotice('Failed to generate label for Order %s, reason(s): %s', [$orderLabel->getOrderId(), str_replace('%', '%%', implode('; ', $errorMsgs))], [static::LOG_CODE, 'Fail']);
         $this->orderLabelService->remove($orderLabel);
     }
 

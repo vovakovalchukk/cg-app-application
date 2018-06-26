@@ -43,7 +43,8 @@ define([
                 productLinks: {},
                 maxVariationAttributes: 0,
                 fetchingUpdatedStockLevelsForSkus: {},
-                accounts: {}
+                accounts: {},
+                showVAT: true
             }
         },
         getInitialState: function () {
@@ -103,34 +104,63 @@ define([
                 products = this.state.variations;
             }
 
+            let panes = [];
+            panes.push(this.getStockPane(products));
+            panes.push(this.getDimensionsPane(products));
+            if (this.props.showVAT) {
+                panes.push(this.getVatPane(products));
+            }
+            panes.push(this.getListingsPane(products));
+
             return (
                 <div className="details-layout-column">
                     <Tabs selected={0}>
-                        <Pane label="Stock">
-                            <StockView
-                                variations={products}
-                                fullView={this.state.expanded}
-                                onVariationDetailChanged={this.onVariationDetailChanged}
-                                fetchingUpdatedStockLevelsForSkus={this.props.fetchingUpdatedStockLevelsForSkus}
-                            />
-                        </Pane>
-                        <Pane label="Dimensions">
-                            <DimensionsView variations={products} fullView={this.state.expanded}/>
-                        </Pane>
-                        <Pane label="VAT">
-                            <VatView
-                                parentProduct={this.props.product}
-                                fullView={this.state.expanded}
-                                onVatChanged={this.vatUpdated}
-                                variationCount={this.state.variations.length}
-                                adminCompanyUrl={this.props.adminCompanyUrl}
-                            />
-                        </Pane>
-                        <Pane label="Listings">
-                            <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />
-                        </Pane>
+                        {panes}
                     </Tabs>
                 </div>
+            );
+        },
+        getStockPane: function(products)
+        {
+            return (
+                <Pane label="Stock">
+                    <StockView
+                        variations={products}
+                        fullView={this.state.expanded}
+                        onVariationDetailChanged={this.onVariationDetailChanged}
+                        fetchingUpdatedStockLevelsForSkus={this.props.fetchingUpdatedStockLevelsForSkus}
+                    />
+                </Pane>
+            );
+        },
+        getDimensionsPane: function(products)
+        {
+            return (
+                <Pane label="Dimensions">
+                    <DimensionsView variations={products} fullView={this.state.expanded}/>
+                </Pane>
+            );
+        },
+        getVatPane: function(products)
+        {
+            return (
+                <Pane label="VAT">
+                    <VatView
+                        parentProduct={this.props.product}
+                        fullView={this.state.expanded}
+                        onVatChanged={this.vatUpdated}
+                        variationCount={this.state.variations.length}
+                        adminCompanyUrl={this.props.adminCompanyUrl}
+                    />
+                </Pane>
+            );
+        },
+        getListingsPane: function(products)
+        {
+            return (
+                <Pane label="Listings">
+                    <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />
+                </Pane>
             );
         },
         getExpandVariationsButton: function()
@@ -409,7 +439,7 @@ define([
                                 <Checkbox id={this.props.product.id} />
                                 <EditableFieldWithSubmit initialFieldText={this.props.product.name} onSubmit={this.updateProductName} />
                             </div>
-                            {this.props.createListingsEnabled ? <td>
+                            <td>
                                 <CreateListingIcon
                                     isSimpleProduct={!! (this.props.variations.length == 0)}
                                     accountsAvailable={this.props.accounts}
@@ -418,7 +448,7 @@ define([
                                     availableChannels={this.props.createListingsAllowedChannels}
                                     availableVariationsChannels={this.props.createListingsAllowedVariationChannels}
                                 />
-                            </td> : ''}
+                            </td>
                         </div>
                         <div className={"product-content-container" + (this.state.expanded ? "" : " contracted")}>
                             <div className="variations-layout-column">

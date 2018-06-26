@@ -114,10 +114,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $rootOuId
             ),
-            'createListings' => $this->featureFlagService->featureEnabledForOu(
-                ListingClientService::FEATURE_FLAG_CREATE_LISTINGS,
-                $rootOuId
-            ),
             'createProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
                 $rootOuId
@@ -132,6 +128,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
         $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($this->activeUserContainer->getLocale()));
+        $view->setVariable('showVAT', $this->productService->isVatRelevant());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

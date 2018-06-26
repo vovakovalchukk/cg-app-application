@@ -6,6 +6,9 @@ use CG\Product\Detail\Entity as ProductDetail;
 
 class Package
 {
+    const WEIGHT_UNIT = 'kilogram';
+    const DIMENSION_UNIT = 'centimeter';
+
     /** @var float */
     protected $weight;
     /** @var string */
@@ -47,11 +50,11 @@ class Package
     {
         return new static(
             $decodedJson->weight->value,
-            $decodedJson->weight->units,
+            $decodedJson->weight->unit,
             $decodedJson->dimensions->length,
             $decodedJson->dimensions->width,
             $decodedJson->dimensions->height,
-            $decodedJson->dimensions->units,
+            $decodedJson->dimensions->unit,
             $decodedJson->insured_value->amount,
             $decodedJson->insured_value->currency
         );
@@ -65,14 +68,34 @@ class Package
         }
         return new static(
             $parcelData['weight'],
-            ProductDetail::DISPLAY_UNIT_MASS,
+            static::WEIGHT_UNIT,
             $parcelData['length'],
             $parcelData['width'],
             $parcelData['height'],
-            ProductDetail::DISPLAY_UNIT_LENGTH,
+            static::DIMENSION_UNIT,
             $insuranceAmount,
             $order->getCurrencyCode()
         );
+    }
+    
+    public function toArray(): array
+    {
+        return [
+            'weight' => [
+                'value' => $this->getWeight(),
+                'unit' => $this->getWeightUnit(),
+            ],
+            'dimensions' => [
+                'length' => $this->getLength(),
+                'width' => $this->getWidth(),
+                'height' => $this->getHeight(),
+                'unit' => $this->getDimensionsUnit(),
+            ],
+            'insured_value' => [
+                'amount' => $this->getInsuredValue(),
+                'currency' => $this->getInsuredCurrency(),
+            ],
+        ];
     }
 
     public function getWeight(): float

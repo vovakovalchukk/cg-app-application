@@ -23,7 +23,8 @@ define([
         categoryTemplateOptions,
         conditionOptions,
         defaultCurrency,
-        salesPhoneNumber
+        salesPhoneNumber,
+        showVAT
     ) {
         ReactDOM.render(
             <RootComponent
@@ -43,6 +44,7 @@ define([
                 conditionOptions={conditionOptions}
                 defaultCurrency={defaultCurrency}
                 salesPhoneNumber={salesPhoneNumber}
+                showVAT={showVAT}
             />,
             mountingNode
         );

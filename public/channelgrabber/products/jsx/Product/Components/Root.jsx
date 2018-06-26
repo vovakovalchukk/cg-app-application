@@ -52,7 +52,8 @@ define([
                 createListingData: {},
                 conditionOptions: {},
                 defaultCurrency: null,
-                salesPhoneNumber: null
+                salesPhoneNumber: null,
+                showVAT: true
             }
         },
         getInitialState: function() {
@@ -417,12 +418,12 @@ define([
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.features.linkedProducts}
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-                    createListingsEnabled={this.props.features.createListings}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                     createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
+                    showVAT={this.props.showVAT}
                 />;
             }.bind(this))
         },
@@ -486,6 +487,7 @@ define([
                 stockModeOptions={this.props.stockModeOptions}
                 redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                showVAT={this.props.showVAT}
             />
         },
         renderProductListView: function() {
