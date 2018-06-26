@@ -10,7 +10,8 @@ define([
     'Common/Components/FormRow',
     'Product/Components/VatView',
     'Product/Components/CreateProduct/VariationsTable/Root',
-    'Product/Components/CreateProduct/DimensionsTable/Root'
+    'Product/Components/CreateProduct/DimensionsTable/Root',
+    'Product/Components/CreateListing/Components/CreateListing/ProductIdentifiers'
 ], function(
     React,
     reduxForm,
@@ -23,7 +24,8 @@ define([
     FormRow,
     VatView,
     VariationsTable,
-    DimensionsTable
+    DimensionsTable,
+    ProductIdentifiers
 ) {
     const Field = reduxForm.Field;
     const Form = reduxForm.Form;
@@ -121,6 +123,103 @@ define([
             }
             return defaultTaxRates;
         },
+        formatVariationImagesForProductIdentifiers: function(formVariations) {
+            console.log('this.props.uploadedImages: ', this.props.uploadedImages);
+
+            if (!this.props.uploadedImages || !this.props.uploadedImages.images.length || !this.props.uploadedImages.images) {
+                console.log('exiting out !this.props.uploadedImages ', !this.props.uploadedImages, 'this.props.uploadedImages.images.length: ', this.props.uploadedImages.images.length, '!this.props.uploadedImages.images:  ', !this.props.uploadedImages.images);
+
+                return formVariations;
+            }
+
+            let uploadedImages = this.props.uploadedImages.images;
+
+            let formattedVariations = formVariations;
+
+            formVariations.forEach((variation,i) => {
+                console.log('in forEach variation: ', variation, ' uploadedImages:', uploadedImages);
+                let matchedUploadedImage = uploadedImages.find(uploadedImage => {
+                    console.log('in find uploadedImage.id : ', uploadedImage.id );
+                    console.log('in find variation.imageId : ', variation.imageId );
+
+
+                    return uploadedImage.id === variation.imageId;
+                });
+                if (!matchedUploadedImage) {
+                    console.log('no matched so bailing');
+                    
+                    
+                    return
+                }
+                formattedVariations[i].images = [{
+                    id: matchedUploadedImage.id,
+                    url: matchedUploadedImage.url
+                }];
+            });
+            return formattedVariations;
+        },
+        formatVariationsForProductIdentifiers: function() {
+            let formVariations = this.props.formValues.variations;
+
+            //todo - some work to get iamges to sit as expected (need url etc. (i think.......)
+
+            formVariations = Object.keys(formVariations).map(variation => {
+                return formVariations[variation];
+            });
+
+            formVariations = this.formatVariationImagesForProductIdentifiers(formVariations);
+
+            return formVariations;
+        },
+        variationsDataExistsInRedux: function() {
+            if (
+                this.props.formValues &&
+                this.props.formValues.variations
+            ) {
+                return true;
+            }
+        },
+        renderProductIdentifiers: function() {
+            console.log('in renderProductIdentifiers with this.props.formValues: ', this.props.formValues, ' and this.props : ', this.props);
+
+            // default data;
+            let product = {
+                images: this.props.uploadedImages.images
+            };
+            let variationsData = [
+                {
+                    sku: '',
+                    images: [
+                        {url: ''}
+                    ]
+                }
+            ];
+
+            if (this.variationsDataExistsInRedux()) {
+
+                variationsData = this.formatVariationsForProductIdentifiers()
+                console.log('formatted variations variationsData: ', variationsData);
+
+            } else {
+                console.log('no data exists this.props.formValues:', this.props.formValues)
+
+            }
+
+            console.log('variationsData sent: ', variationsData);
+
+            return (
+                <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
+                    ABOVE IDENTIFIERS
+                    <ProductIdentifiers
+                        variationsDataForProduct={variationsData}
+                        product={product}
+
+                        //                        attributeNames={this.props.product.attributeNames}
+                        renderImagePicker={false}
+                    />
+                </fieldset>
+            );
+        },
         renderVatTable: function(renderTaxRates) {
             if (!this.props.showVAT) {
                 return;
@@ -177,6 +276,7 @@ define([
                         />
                     </fieldset>
                     {this.renderVatTable(inputColumnRenderMethods.renderTaxRates)}
+                    {this.renderProductIdentifiers()}
                 </Form>
             );
         }

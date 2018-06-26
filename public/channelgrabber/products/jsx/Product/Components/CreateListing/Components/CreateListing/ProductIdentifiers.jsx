@@ -12,7 +12,7 @@ define([
     VariationTable
 ) {
     "use strict";
-
+    
     var Field = ReduxForm.Field;
 
     var identifiers = [
@@ -88,6 +88,7 @@ define([
                 product: {},
                 attributeNames: [],
                 attributeNameMap: {},
+                renderImagePicker:true
             }
         },
         renderIdentifierHeaders: function () {
@@ -136,6 +137,7 @@ define([
                     showImages={true}
                     attributeNames={this.props.attributeNames}
                     attributeNameMap={this.props.attributeNameMap}
+                    renderImagePicker={this.props.renderImagePicker}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
                 />
