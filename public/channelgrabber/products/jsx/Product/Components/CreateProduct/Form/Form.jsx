@@ -206,7 +206,7 @@ define([
             }
 
             console.log('variationsData sent: ', variationsData);
-
+//
             return (
                 <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                     ABOVE IDENTIFIERS
@@ -214,8 +214,10 @@ define([
                         variationsDataForProduct={variationsData}
                         product={product}
 
+//                        imageDropdownsDisabled={true}
+
                         //                        attributeNames={this.props.product.attributeNames}
-                        renderImagePicker={false}
+//                        renderImagePicker={false}
                     />
                 </fieldset>
             );

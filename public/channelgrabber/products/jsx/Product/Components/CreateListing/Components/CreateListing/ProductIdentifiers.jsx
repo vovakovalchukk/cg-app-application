@@ -88,7 +88,8 @@ define([
                 product: {},
                 attributeNames: [],
                 attributeNameMap: {},
-                renderImagePicker:true
+                renderImagePicker:true,
+                imageDropdownsDisabled: false
             }
         },
         renderIdentifierHeaders: function () {
@@ -141,6 +142,7 @@ define([
                     attributeNames={this.props.attributeNames}
                     attributeNameMap={this.props.attributeNameMap}
                     renderImagePicker={this.props.renderImagePicker}
+                    imageDropdownsDisabled={this.props.imageDropdownsDisabled}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
                 />
