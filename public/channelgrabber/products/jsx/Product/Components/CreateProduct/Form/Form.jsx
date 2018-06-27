@@ -182,8 +182,6 @@ define([
                 variationsData = this.formatVariationsForProductIdentifiers()
             }
 
-            console.log('variationsData sent: ', variationsData);
-//
             return (
                 <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                     ABOVE IDENTIFIERS

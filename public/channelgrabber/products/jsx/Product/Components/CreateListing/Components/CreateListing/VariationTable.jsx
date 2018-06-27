@@ -37,8 +37,8 @@ define([
         },
         componentDidUpdate:function(){
           console.log('in component did update in variationsTable');
-          
-            this.props.fieldChange('dummy','test');
+
+//            this.props.fieldChange('dummy','test');
         },
         renderImageHeader: function() {
             if (!this.props.showImages) {
@@ -75,12 +75,6 @@ define([
                 return <td>No images available</td>
             }
 
-
-            //todo add change call stack here.
-            //todo - get this from your previous piece of work. save this somehwere.
-
-
-
             return (<td>
                 <Field
                     name={"images." + variation.sku + ".imageId"}
@@ -90,12 +84,17 @@ define([
             </td>);
         },
         renderImageField: function(field) {
-            console.log('in renderImageFIeld with field: ' , field);
+            console.log('in renderImageFIeld with field: ' , field );
 
 
             if (!this.props.renderImagePicker) {
                 return this.renderStaticImage(field);
             }
+
+            if(!field.variation.images){
+                return <div></div>;
+            }
+
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
 
             console.log('in VT-renderIMageFIeld with selected: ', selected);
