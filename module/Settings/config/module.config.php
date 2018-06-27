@@ -56,6 +56,7 @@ use Settings\Controller\InvoiceController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
+use Settings\Controller\ShippingLedgerController;
 use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
 use Settings\Controller\WooCommerceController;
@@ -387,6 +388,27 @@ return [
                                                         'action' => 'autoImportListingsAjax',
                                                     ]
                                                 ],
+                                            ],
+                                            ShippingLedgerController::ROUTE => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/ledger',
+                                                    'defaults' => [
+                                                        'controller' => ShippingLedgerController::class,
+                                                    ]
+                                                ],
+                                                'child_routes' => [
+                                                    ShippingLedgerController::ROUTE_TOPUP => [
+                                                        'type' => Literal::class,
+                                                        'options' => [
+                                                            'route' => '/topup',
+                                                            'defaults' => [
+                                                                'controller' => ShippingLedgerController::class,
+                                                                'action' => 'topup',
+                                                            ]
+                                                        ],
+                                                    ],
+                                                ]
                                             ],
                                         ],
                                     ],
