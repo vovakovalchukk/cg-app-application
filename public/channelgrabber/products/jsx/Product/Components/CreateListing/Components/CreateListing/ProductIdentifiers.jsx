@@ -89,7 +89,8 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 renderImagePicker:true,
-                imageDropdownsDisabled: false
+                imageDropdownsDisabled: false,
+                fieldChange: null
             }
         },
         renderIdentifierHeaders: function () {
@@ -130,9 +131,6 @@ define([
             input.onChange(value);
         },
         render: function() {
-            console.log('in ProductIdentifiers and variationsDataForProduct: ', this.props.variationsDataForProduct);
-
-
             return (
                 <VariationTable
                     sectionName={"identifiers"}

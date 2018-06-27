@@ -124,11 +124,8 @@ define([
             return defaultTaxRates;
         },
         formatVariationImagesForProductIdentifiers: function(formVariations) {
-            console.log('this.props.uploadedImages: ', this.props.uploadedImages);
 
             if (!this.props.uploadedImages || !this.props.uploadedImages.images.length || !this.props.uploadedImages.images) {
-                console.log('exiting out !this.props.uploadedImages ', !this.props.uploadedImages, 'this.props.uploadedImages.images.length: ', this.props.uploadedImages.images.length, '!this.props.uploadedImages.images:  ', !this.props.uploadedImages.images);
-
                 return formVariations;
             }
 
@@ -137,18 +134,10 @@ define([
             let formattedVariations = formVariations;
 
             formVariations.forEach((variation,i) => {
-                console.log('in forEach variation: ', variation, ' uploadedImages:', uploadedImages);
                 let matchedUploadedImage = uploadedImages.find(uploadedImage => {
-                    console.log('in find uploadedImage.id : ', uploadedImage.id );
-                    console.log('in find variation.imageId : ', variation.imageId );
-
-
                     return uploadedImage.id === variation.imageId;
                 });
                 if (!matchedUploadedImage) {
-                    console.log('no matched so bailing');
-                    
-                    
                     return
                 }
                 formattedVariations[i].images = [{
@@ -160,15 +149,11 @@ define([
         },
         formatVariationsForProductIdentifiers: function() {
             let formVariations = this.props.formValues.variations;
-
-            //todo - some work to get iamges to sit as expected (need url etc. (i think.......)
-
             formVariations = Object.keys(formVariations).map(variation => {
                 return formVariations[variation];
             });
 
             formVariations = this.formatVariationImagesForProductIdentifiers(formVariations);
-
             return formVariations;
         },
         variationsDataExistsInRedux: function() {
@@ -180,8 +165,6 @@ define([
             }
         },
         renderProductIdentifiers: function() {
-            console.log('in renderProductIdentifiers with this.props.formValues: ', this.props.formValues, ' and this.props : ', this.props);
-
             // default data;
             let product = {
                 images: this.props.uploadedImages.images
@@ -196,13 +179,7 @@ define([
             ];
 
             if (this.variationsDataExistsInRedux()) {
-
                 variationsData = this.formatVariationsForProductIdentifiers()
-                console.log('formatted variations variationsData: ', variationsData);
-
-            } else {
-                console.log('no data exists this.props.formValues:', this.props.formValues)
-
             }
 
             console.log('variationsData sent: ', variationsData);
@@ -213,7 +190,7 @@ define([
                     <ProductIdentifiers
                         variationsDataForProduct={variationsData}
                         product={product}
-
+                        fieldChange={this.props.change}
 //                        imageDropdownsDisabled={true}
 
                         //                        attributeNames={this.props.product.attributeNames}
