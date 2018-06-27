@@ -19,6 +19,15 @@ class ShippingService implements ShippingServiceInterface
 
     public function getShippingServices()
     {
+        // This dummy data and code will be replaced and refactored in TAC-108
+        if ($this->account->getChannel() == 'usps-ss') {
+            return [
+                'usps_first_class_mail' => 'USPS First Class Mail',
+                'usps_media_mail' => 'USPS Media Mail',
+                'usps_parcel_select' => 'USPS Parcel Select Ground',
+            ];
+        }
+
         $services = [];
         try {
             $response = $this->getAccountShippingServices();
