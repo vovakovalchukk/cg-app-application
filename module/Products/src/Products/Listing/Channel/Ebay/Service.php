@@ -2,6 +2,10 @@
 namespace Products\Listing\Channel\Ebay;
 
 use CG\Account\Credentials\Cryptor;
+use CG\Account\Policy\Collection as AccountPolicyCollection;
+use CG\Account\Policy\Entity as AccountPolicy;
+use CG\Account\Policy\Filter as AccountPolicyFilter;
+use CG\Account\Policy\Service as AccountPolicyService;
 use CG\Account\Shared\Entity as Account;
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
@@ -54,6 +58,8 @@ class Service implements
     protected $activeUser;
     /** @var array */
     protected $postData;
+    /** @var AccountPolicyService */
+    protected $accountPolicyService;
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -66,6 +72,7 @@ class Service implements
         ShippingMethodService $shippingMethodService,
         CategoryExternalService $categoryExternalService,
         ActiveUserInterface $activeUser,
+        AccountPolicyService $accountPolicyService,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -74,6 +81,7 @@ class Service implements
         $this->categoryExternalService = $categoryExternalService;
         $this->activeUser = $activeUser;
         $this->postData = $postData;
+        $this->accountPolicyService = $accountPolicyService;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -97,7 +105,37 @@ class Service implements
                 $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
             ),
             'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
+            'returnPolicies' => $this->fetchReturnPoliciesForAccount($account)
         ];
+    }
+
+    protected function fetchReturnPoliciesForAccount(Account $account): array
+    {
+        try {
+            $accountPolicies = $this->accountPolicyService->fetchCollectionByFilter(
+                (new AccountPolicyFilter)
+                    ->setLimit('all')
+                    ->setPage(1)
+                    ->setAccountId($account->getId())
+                    ->setType([AccountPolicy::TYPE_RETURN])
+            );
+            return $this->formatReturnPolicies($accountPolicies);
+        } catch (NotFound $exception) {
+            return [];
+        }
+    }
+
+    protected function formatReturnPolicies(AccountPolicyCollection $accountPolicies): array
+    {
+        $policies = [];
+        /** @var AccountPolicy $policy */
+        foreach ($accountPolicies as $policy) {
+            $policies[] = [
+                'name' => $policy->getName(),
+                'value' => $policy->getExternalId()
+            ];
+        }
+        return $policies;
     }
 
     public function getDefaultSettingsForAccount(Account $account): array
