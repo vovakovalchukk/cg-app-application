@@ -77,4 +77,11 @@ class Service
         $service = $this->factory->fetchAndValidateChannelService($account, CategoriesRefreshInterface::class, $postData);
         return $service->refetchAndSaveCategories($account);
     }
+
+    public function refreshAndFetchAccountPolicies(Account $account, array $postData = []): array
+    {
+        /** @var AccountPoliciesInterface $service */
+        $service = $this->factory->fetchAndValidateChannelService($account, AccountPoliciesInterface::class, $postData);
+        return $service->refreshAccountPolicies($account);
+    }
 }

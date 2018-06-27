@@ -22,16 +22,19 @@ use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
+use Products\Listing\Channel\AccountPoliciesInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 use Products\Listing\Channel\DefaultAccountSettingsInterface;
+use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
 
 class Service implements
     CategoryDependentServiceInterface,
     DefaultAccountSettingsInterface,
     ChannelSpecificValuesInterface,
-    CategoryChildrenInterface
+    CategoryChildrenInterface,
+    AccountPoliciesInterface
 {
     const ALLOWED_SETTINGS_KEYS = [
         'listingLocation' => 'listingLocation',
@@ -60,6 +63,8 @@ class Service implements
     protected $postData;
     /** @var AccountPolicyService */
     protected $accountPolicyService;
+    /** @var EbayPoliciesService */
+    protected $ebayPoliciesService;
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -73,6 +78,7 @@ class Service implements
         CategoryExternalService $categoryExternalService,
         ActiveUserInterface $activeUser,
         AccountPolicyService $accountPolicyService,
+        EbayPoliciesService $ebayPoliciesService,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -82,6 +88,7 @@ class Service implements
         $this->activeUser = $activeUser;
         $this->postData = $postData;
         $this->accountPolicyService = $accountPolicyService;
+        $this->ebayPoliciesService =  $ebayPoliciesService;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -151,6 +158,14 @@ class Service implements
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),
             'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account)
+        ];
+    }
+
+    public function refreshAccountPolicies(Account $account): array
+    {
+        $this->ebayPoliciesService->fetchAndSaveUserPreferenceForAccount($account);
+        return [
+            'returnPolicies' => $this->fetchReturnPoliciesForAccount($account)
         ];
     }
 
