@@ -155,7 +155,7 @@ class Service
                 }
 
                 try {
-                    $account = ($accountId = $category->getAccountId()) ? $accounts->getById($accountId) : null;
+                    $account = ($accountId = $category->getAccountId()) ? $accounts->getById($accountId) : $this->accountStorage->fetch($accountCategory->getAccountId());
                     $fieldValues = $this
                         ->getCategoryDependentServiceInterface($account ?? $category->getChannel())
                         ->getCategoryDependentValues($account, $category->getId());
