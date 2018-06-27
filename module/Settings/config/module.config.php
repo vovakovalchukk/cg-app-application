@@ -403,8 +403,16 @@ return [
                                                         'options' => [
                                                             'route' => '/topup',
                                                             'defaults' => [
-                                                                'controller' => ShippingLedgerController::class,
                                                                 'action' => 'topup',
+                                                            ]
+                                                        ],
+                                                    ],
+                                                    ShippingLedgerController::ROUTE_SAVE => [
+                                                        'type' => Literal::class,
+                                                        'options' => [
+                                                            'route' => '/save',
+                                                            'defaults' => [
+                                                                'action' => 'save',
                                                             ]
                                                         ],
                                                     ],

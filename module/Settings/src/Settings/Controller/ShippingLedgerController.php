@@ -8,6 +8,7 @@ class ShippingLedgerController extends AbstractActionController
 {
     const ROUTE = 'Ledger';
     const ROUTE_TOPUP = 'Topup';
+    const ROUTE_SAVE = 'Save';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -24,6 +25,17 @@ class ShippingLedgerController extends AbstractActionController
         return $this->jsonModelFactory->newInstance([
             'success' => true,
             'balance' => 10,
+            'error' => '',
+        ]);
+    }
+
+    public function saveAction()
+    {
+        $accountId = $this->params()->fromRoute('account');
+        $input = $this->params()->fromPost();
+        // Dummy data to be replaced in TAC-121
+        return $this->jsonModelFactory->newInstance([
+            'success' => true,
             'error' => '',
         ]);
     }
