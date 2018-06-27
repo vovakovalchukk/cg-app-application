@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    'Common/Components/RefreshIcon'
 ], function(
     React,
     ReduxForm,
-    Select
+    Select,
+    RefreshIcon
 ) {
     "use strict";
 
@@ -31,6 +33,9 @@ define([
                         selectedOption={selectedOption}
                     />
                 </div>
+                <RefreshIcon
+                    onClick={this.refreshAccountPolicies}
+                />
             </label>;
         },
         findSelectedOptionFromValue: function(selectedValue) {
@@ -44,6 +49,9 @@ define([
         },
         onOptionChange: function(input, selectedOption) {
             input.onChange(selectedOption.value);
+        },
+        refreshAccountPolicies: function () {
+            console.log('called');
         },
         render: function() {
             return <Field name="returnPolicy" component={this.renderSelect} />;

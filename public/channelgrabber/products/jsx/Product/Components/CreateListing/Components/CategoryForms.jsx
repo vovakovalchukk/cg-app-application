@@ -1,11 +1,13 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
     './CategoryForm',
     './CategoryForm/Ebay'
 ], function(
     React,
     ReduxForm,
+    ReactRedux,
     CategoryForm,
     EbayForm
 ) {
@@ -45,6 +47,7 @@ define([
             return output;
         },
         renderForCategory: function(category, categoryId) {
+            console.log(category);
             if (!this.isAccountSelected(category.accountId)) {
                 return null;
             }
@@ -76,5 +79,20 @@ define([
             );
         }
     });
-    return CategoryFormsComponent;
+
+    let mapStateToProps = function(state) {
+        console.log(state);
+        return {
+
+        };
+    };
+
+    let mapDispatchToProps = function(dispatch) {
+        console.log(dispatch);
+        return {
+
+        };
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);
 });
