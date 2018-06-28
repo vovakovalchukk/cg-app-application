@@ -1,7 +1,7 @@
 <?php
 namespace CG\ShipStation\Request\Connect;
 
-use CG\ShipStation\Messages\Address;
+use CG\ShipStation\Messages\ConnectAddress as Address;
 use CG\ShipStation\Messages\User;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Connect\Response as Response;
@@ -30,39 +30,20 @@ class Fedex extends RequestAbstract implements ConnectInterface
 
     public static function fromArray(array $params): ConnectInterface
     {
-        $address = new Address(
-            $params['company'],
-            $params['phone'],
-            $params['address1'],
-            $params['city'],
-            $params['state'],
-            $params['postal code'],
-            $params['country code'],
-            $params['address2'],
-            $params['email']
-        );
-        $user = new User($params['first name'], $params['last name'], $params['company']);
+        $address = Address::fromArray($params);
+        $user = User::fromArray($params);
+
         return new static($address, $user, $params['nickname'], $params['account number']);
     }
 
     public function toArray(): array
     {
-        return [
+        $array = [
             'nickname' => $this->getNickname(),
             'account_number' => $this->getAccountNumber(),
-            'first_name' => $this->user->getFirstName(),
-            'last_name' => $this->user->getLastName(),
-            'company' => $this->user->getCompanyName(),
-            'address1' => $this->address->getAddressLine1(),
-            'address2' => $this->address->getAddressLine2(),
-            'city' => $this->address->getCityLocality(),
-            'state' => $this->address->getProvince(),
-            'postal_code' => $this->address->getPostalCode(),
-            'country_code' => $this->address->getCountryCode(),
-            'email' => $this->address->getEmail(),
-            'phone' => $this->address->getPhone(),
             'agree_to_eula' => true
         ];
+        return array_merge($array, $this->user->toArray(), $this->address->toArray());
     }
 
     public function getResponseClass(): string

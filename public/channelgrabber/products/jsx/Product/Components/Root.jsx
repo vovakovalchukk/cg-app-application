@@ -52,7 +52,10 @@ define([
                 createListingData: {},
                 conditionOptions: {},
                 defaultCurrency: null,
-                salesPhoneNumber: null
+                salesPhoneNumber: null,
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         getInitialState: function() {
@@ -417,12 +420,14 @@ define([
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.features.linkedProducts}
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-                    createListingsEnabled={this.props.features.createListings}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                     createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
+                    showVAT={this.props.showVAT}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />;
             }.bind(this))
         },
@@ -463,6 +468,8 @@ define([
                 defaultCurrency={this.props.defaultCurrency}
                 onCreateListingClose={this.onCreateListingClose}
                 onBackButtonPressed={this.showAccountsSelectionPopup}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />;
         },
         formatConditionOptions: function() {
@@ -486,6 +493,9 @@ define([
                 stockModeOptions={this.props.stockModeOptions}
                 redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                showVAT={this.props.showVAT}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />
         },
         renderProductListView: function() {

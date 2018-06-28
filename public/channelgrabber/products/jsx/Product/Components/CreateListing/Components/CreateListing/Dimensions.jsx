@@ -18,19 +18,19 @@ define([
     var dimensions = [
         {
             "name": "weight",
-            "displayTitle": "Weight (kg)"
+            "displayTitle": "Weight"
         },
         {
             "name": "width",
-            "displayTitle": "Width (cm)"
+            "displayTitle": "Width"
         },
         {
             "name": "height",
-            "displayTitle": "Height (cm)"
+            "displayTitle": "Height"
         },
         {
             "name": "length",
-            "displayTitle" : "Depth (cm)"
+            "displayTitle" : "Depth"
         }
     ];
 
@@ -50,7 +50,9 @@ define([
                 attributeNameMap: {},
                 change: function () {},
                 initialDimensions: {},
-                accounts: {}
+                accounts: {},
+                massUnit: null,
+                lengthUnit: null
             }
         },
         getInitialState: function() {
@@ -83,8 +85,12 @@ define([
             });
         },
         renderDimensionHeaders: function () {
+            let self = this;
             return dimensions.map(function (identifier) {
-                return <th>{identifier.displayTitle}</th>;
+                let label = identifier.displayTitle;
+                let units = (identifier.name == 'weight' ? self.props.massUnit : self.props.lengthUnit);
+                label += ' (' + units + ')';
+                return <th>{label}</th>;
             });
         },
         renderDimensionColumns: function (variation) {
