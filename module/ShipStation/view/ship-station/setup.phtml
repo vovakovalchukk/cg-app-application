@@ -35,6 +35,11 @@ $(document).ready(function()
     (function adjustFormPosition()
     {
         var height = $('.account-form-holder').height();
+        // Don't adjust large forms or the disappear off the top of the page
+        if (height > $(window).height()) {
+            $('.account-form-holder').css('top', '50px');
+            return;
+        }
         var halfHeight = Math.floor(height / 2);
         $('.account-form-holder').css('top', 'calc(50% - ' + halfHeight + 'px)');
     })();

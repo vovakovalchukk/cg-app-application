@@ -11,10 +11,8 @@ trait FormatMessageDataTrait
     {
         $messageData = $message->toArray();
         $dateFormatter = $this->getDateFormatter();
-        $messageData['created'] = $dateFormatter($messageData['created'], StdlibDateTime::FORMAT);
-        $created = new StdlibDateTime($messageData['created']);
-        $messageData['created'] = $created->uiFormat();
-        $messageData['createdFuzzy'] = $created->fuzzyFormat();
+        $messageData['createdFuzzy'] = (new StdlibDateTime($messageData['created']))->fuzzyFormat();
+        $messageData['created'] = $dateFormatter($messageData['created']);
         $messageData['personType'] = ($message->getExternalUsername() == $thread->getExternalUsername() ? 'customer' : 'staff');
         return $messageData;
     }

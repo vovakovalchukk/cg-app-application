@@ -16,7 +16,6 @@ use CG\Listing\Unimported\Gearman\Workload\ImportListingsByFilter as ImportListi
 use CG\Listing\Unimported\Marketplace\Client\Service as MarketplaceService;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Status as ListingStatus;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -159,7 +158,7 @@ class Service implements LoggerAwareInterface
             ];
 
             if ($lastCompletedDate = $listingDownload->getLastCompletedDate()) {
-                $refreshDetails[$account->getId()]['lastCompleted'] = $lastCompletedDate->uiFormat();
+                $refreshDetails[$account->getId()]['lastCompleted'] = ($this->dateFormatHelper)($lastCompletedDate);
             }
 
             if (is_null($listingDownload->getId())) {
@@ -258,8 +257,7 @@ class Service implements LoggerAwareInterface
     {
         $dateFormatter = $this->dateFormatHelper;
         foreach ($listings as $index => $listing) {
-            // Keep the dates in Y-m-d H:i:s, the Mustache template will change them to a human-friendly format
-            $listings[$index]['createdDate'] = $dateFormatter($listings[$index]['createdDate'], StdlibDateTime::FORMAT);
+            $listings[$index]['createdDate'] = $dateFormatter($listings[$index]['createdDate']);
         }
         return $listings;
     }
