@@ -35,16 +35,20 @@
     ], function(Payment, React, ReactDOM, PackageSelectorComponent, Locale) {
         var paymentSelector = document.getElementById('setup-wizard-payment-selector');
         paymentSelector.style.display = (<?= json_encode($this->selectedPackage) ?> ? "inherit": "none");
-        var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, "<?= $this->activePaymentMethod ?>");
+        var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, <?= json_encode($this->selectedBillingDuration) ?>, "<?= $this->activePaymentMethod ?>");
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
                 locale: new Locale(),
                 phoneNumber: <?= json_encode($this->phoneNumber) ?>,
                 selectedPackage: <?= json_encode($this->selectedPackage) ?>,
+                selectedBillingDuration: <?= json_encode($this->selectedBillingDuration) ?>,
                 packages: <?= json_encode($this->packages) ?>,
                 onPackageSelection: function(packageId) {
                     paymentSelector.style.display = (packageId ? "inherit": "none");
                     payment.setSelectedPackage(packageId);
+                },
+                onBillingDurationSelection: function(billingDuration) {
+                    payment.setSelectedBillingDuration(billingDuration);
                 }
             }),
             document.getElementById('package-setup')

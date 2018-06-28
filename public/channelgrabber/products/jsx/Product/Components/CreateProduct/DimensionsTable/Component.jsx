@@ -23,7 +23,9 @@ define([
                 formName: null,
                 formSectionName: null,
                 fieldChange: null,
-                legend: null
+                legend: null,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderHeadings: function() {
@@ -33,8 +35,13 @@ define([
             }.bind(this));
         },
         renderHeading: function(field) {
+            let label = field.label;
+            if (field.isDimensionsField) {
+                let units = (field.name == 'weight' ? this.props.massUnit : this.props.lengthUnit);
+                label += ' (' + units + ')';
+            }
             return (
-                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{field.label}</th>
+                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{label}</th>
             );
         },
         renderHeaderRow: function() {
@@ -66,13 +73,8 @@ define([
             />
         },
         isFirstVariationRow: function(variationId, field) {
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            if (firstVariation == 'variation-' + variationId.toString()) {
-                return true;
-            }
+            // As the first row can't be deleted this should be safe
+            return (variationId === 0);
         },
         changeAllOtherUnchangedValuesToMatchField: function(field, targetValue) {
             var variations = this.props.values.variations;
@@ -187,36 +189,6 @@ define([
                 }
             }
             return false;
-        },
-        isFirstRowVariation(variationId) {
-            if (!this.props.values || !this.props.values.variations) {
-                return undefined;
-            }
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            if (firstVariation == 'variation-' + variationId + toString()) {
-                return true;
-            }
-            return false;
-        },
-        getFirstRowValue: function(variationId, fieldName) {
-            if (!this.props.values || !this.props.values.variations) {
-                return undefined;
-            }
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            var firstVariationObject = variations[firstVariation];
-            if (utility.isEmptyObject(firstVariationObject)) {
-                return undefined;
-            }
-            if (!firstVariationObject[fieldName]) {
-                return undefined;
-            }
-            return firstVariationObject[fieldName];
         },
         renderField: function(variationId, field) {
             var renderFieldMethod = null;

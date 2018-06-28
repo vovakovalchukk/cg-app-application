@@ -58,13 +58,6 @@ class Service implements LoggerAwareInterface
             return $cachedStatus;
         }
 
-        $rootOu = $this->organisationUnitService->fetch($rootOuId);
-        if (!$this->featureFlagsService->isActive(ListingService::FEATURE_FLAG_COMM_LIST, $rootOu)) {
-            $this->setCachedListingCreationAllowed(true);
-            $this->logDebug('Listing creation is allowed for OU %d as Commercialise Listings is turned off', ['ou' => $rootOuId], [static::LOG_CODE, 'ListingCreation', 'Allowed'], ['rootOu' => $rootOuId]);
-            return true;
-        }
-
         try {
             $this->subscriptionService->getCurrentPackageForOuId($rootOuId, Licence::TYPE_LISTING);
             $this->setCachedListingCreationAllowed(true);

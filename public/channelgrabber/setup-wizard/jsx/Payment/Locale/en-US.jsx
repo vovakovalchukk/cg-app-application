@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react', 'SetupWizard/Component/Payment/PackageInfo/US'], function(React, PackageInfo) {
     function Locale()
     {
 
@@ -9,26 +9,14 @@ define(['react'], function(React) {
         return "< " + (packageInfo.orderVolume / 1000) + " k";
     };
 
-    Locale.prototype.getPackageInfo = function(selectedPackage)
+    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChanged)
     {
         return (
-            <div className="package-info">
-                <div>
-                    <span>Package:</span>
-                    <span>{selectedPackage.band.replace(/\s+\(USA\)$/, '')}</span>
-                    <span>
-                        <a target="_blank" href="https://www.channelgrabber.com/pricing">What do I get?</a>
-                    </span>
-                </div>
-                <div>
-                    <span>Monthly cost:</span>
-                    <span>{selectedPackage.price}</span>
-                </div>
-                <div>
-                    <span>Due now:</span>
-                    <span>{selectedPackage.price}</span>
-                </div>
-            </div>
+            <PackageInfo
+                {...selectedPackage}
+                billingDuration={billingDuration}
+                billingDurationChanged={billingDurationChanged}
+            />
         );
     };
 
