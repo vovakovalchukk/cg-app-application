@@ -22,13 +22,19 @@ define([
                 listingDuration: {},
                 itemSpecifics: {},
                 returnPolicies: {},
-                product: {}
+                product: {},
+                accountId: null,
+                refreshAccountPolicies: () => {}
             };
         },
         render: function() {
             return (
                 <div className="ebay-category-form-container">
-                    <ReturnPolicy returnPolicies={this.props.returnPolicies} />
+                    <ReturnPolicy
+                        returnPolicies={this.props.returnPolicies}
+                        accountId={this.props.accountId}
+                        refreshAccountPolicies={this.props.refreshAccountPolicies}
+                    />
                     <ListingDuration listingDurations={this.props.listingDuration} />
                     <FormSection
                         name="itemSpecifics"

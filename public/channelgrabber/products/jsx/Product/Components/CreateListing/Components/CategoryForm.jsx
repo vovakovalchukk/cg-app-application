@@ -22,8 +22,7 @@ define([
                     <h2>Category: {this.props.title}</h2>
                     <ChannelForm
                         {...this.props.fieldValues}
-                        categoryId={this.props.categoryId}
-                        product={this.props.product}
+                        {...this.props}
                     />
                 </div>
             );

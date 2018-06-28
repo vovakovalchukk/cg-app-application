@@ -3,13 +3,15 @@ define([
     'redux-form',
     'react-redux',
     './CategoryForm',
-    './CategoryForm/Ebay'
+    './CategoryForm/Ebay',
+    '../Actions/CreateListings/Actions'
 ], function(
     React,
     ReduxForm,
     ReactRedux,
     CategoryForm,
-    EbayForm
+    EbayForm,
+    Actions
 ) {
     "use strict";
 
@@ -24,7 +26,8 @@ define([
             return {
                 accounts: [],
                 categoryTemplates: {},
-                product: {}
+                product: {},
+                refreshAccountPolicies: () => {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -47,7 +50,6 @@ define([
             return output;
         },
         renderForCategory: function(category, categoryId) {
-            console.log(category);
             if (!this.isAccountSelected(category.accountId)) {
                 return null;
             }
@@ -62,6 +64,8 @@ define([
                 channelForm={ChannelForm}
                 categoryId={categoryId}
                 product={this.props.product}
+                refreshAccountPolicies={this.props.refreshAccountPolicies}
+                accountId={category.accountId}
                 {...category}
             />);
         },
@@ -80,17 +84,17 @@ define([
         }
     });
 
-    let mapStateToProps = function(state) {
-        console.log(state);
+    const mapStateToProps = function(state) {
         return {
 
         };
     };
 
-    let mapDispatchToProps = function(dispatch) {
-        console.log(dispatch);
+    const mapDispatchToProps = function(dispatch) {
         return {
-
+            refreshAccountPolicies: function(accountId) {
+                dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
+            }
         };
     };
 

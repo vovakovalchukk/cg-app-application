@@ -223,8 +223,9 @@ define([
             };
         },
         refreshAccountPolicies: function (dispatch, accountId) {
-            $.get({
-                url: 'products/create-listings/' + accountId + '/refresh-account-policies',
+            $.ajax({
+                url: '/products/create-listings/' + accountId + '/refresh-account-policies',
+                type: 'GET',
                 success: function (response) {
                     dispatch(ResponseActions.accountPoliciesFetched(response));
                 },

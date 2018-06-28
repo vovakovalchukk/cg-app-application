@@ -16,7 +16,9 @@ define([
     var EbayReturnPolicy = React.createClass({
         getDefaultProps: function() {
             return {
-                returnPolicies: {}
+                returnPolicies: {},
+                accountId: null,
+                refreshAccountPolicies: () => {}
             };
         },
         renderSelect: function(field) {
@@ -51,7 +53,7 @@ define([
             input.onChange(selectedOption.value);
         },
         refreshAccountPolicies: function () {
-            console.log('called');
+            this.props.refreshAccountPolicies(this.props.accountId);
         },
         render: function() {
             return <Field name="returnPolicy" component={this.renderSelect} />;
