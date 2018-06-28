@@ -110,11 +110,15 @@ define([
                     }
                 }
                 return (
-                    <span>
-                        <img
-                            src={imageUrl}/>
-                    </span>
-                )
+                    <div className="image-dropdown-target">
+                        <div className="react-image-picker">
+                        <span className="react-image-picker-image">
+                            <img src={imageUrl}/>
+                        </span>
+                        </div>
+                    </div>
+
+                );
             },
             customOptionsSelect: function(variationId, field, value) {
                 return <span>{value}</span>;
