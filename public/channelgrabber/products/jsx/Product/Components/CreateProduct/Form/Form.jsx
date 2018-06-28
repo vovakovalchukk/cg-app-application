@@ -227,7 +227,7 @@ define([
                         />
                     </fieldset>
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
-                        <legend className={'u-heading-text'}>Variations</legend>
+                        <legend className={'u-heading-text'}>Product Details</legend>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
