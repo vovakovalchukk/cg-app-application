@@ -13,7 +13,7 @@ class Service
 {
     const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
 
-    /** @var  FeatureFlagService */
+    /** @var FeatureFlagService */
     protected $featureFlagService;
     /** @var Name */
     protected $channelName;
@@ -34,10 +34,11 @@ class Service
         $this->factory = $factory;
     }
 
-    public function getAllowedCreateListingsChannels(): array {
+    public function getAllowedCreateListingsChannels(OrganisationUnit $ou): array
+    {
         $allowedChannels = [];
         /** @var Account $account */
-        foreach (static::CHANNELS_SUPPORTED as $channel) {
+        foreach ($this->getAllowedChannelsForOu($ou) as $channel) {
             $allowedChannels[$channel] = $this->channelName->lookupChannel($channel, null, ucfirst($channel));
         }
         return $allowedChannels;
@@ -76,5 +77,13 @@ class Service
         /** @var CategoriesRefreshInterface $service */
         $service = $this->factory->fetchAndValidateChannelService($account, CategoriesRefreshInterface::class, $postData);
         return $service->refetchAndSaveCategories($account);
+    }
+
+    protected function getAllowedChannelsForOu(OrganisationUnit $ou): array
+    {
+        if (!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_AMAZON, $ou)) {
+            return static::CHANNELS_SUPPORTED;
+        }
+        return array_merge(static::CHANNELS_SUPPORTED, ['amazon' => 'amazon']);
     }
 }

@@ -85,7 +85,10 @@ define([
                 addImage: null,
                 uploadedImages: {},
                 taxRates: null,
-                newVariationRowRequest: null
+                newVariationRowRequest: null,
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderEditableText: function(reduxFormFieldsProps) {
@@ -119,6 +122,19 @@ define([
                 }
             }
             return defaultTaxRates;
+        },
+        renderVatTable: function(renderTaxRates) {
+            if (!this.props.showVAT) {
+                return;
+            }
+            return (
+                <fieldset className={'u-margin-bottom-small'}>
+                    <legend className={'u-heading-text'}>VAT</legend>
+                    <div className={'u-max-width-60'}>
+                        {renderTaxRates.call(this)}
+                    </div>
+                </fieldset>
+            );
         },
         render: function() {
             return (
@@ -160,14 +176,11 @@ define([
                             legend={'Dimensions'}
                             formSectionName='dimensionsTable'
                             fieldChange={this.props.change}
+                            massUnit={this.props.massUnit}
+                            lengthUnit={this.props.lengthUnit}
                         />
                     </fieldset>
-                    <fieldset className={'u-margin-bottom-small'}>
-                        <legend className={'u-heading-text'}>VAT</legend>
-                        <div className={'u-max-width-60'}>
-                            {inputColumnRenderMethods.renderTaxRates.call(this)}
-                        </div>
-                    </fieldset>
+                    {this.renderVatTable(inputColumnRenderMethods.renderTaxRates)}
                 </Form>
             );
         }

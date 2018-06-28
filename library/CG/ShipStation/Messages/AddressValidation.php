@@ -16,7 +16,7 @@ class AddressValidation
         $status,
         ShipmentAddress $originalAddress,
         ShipmentAddress $matchedAddress,
-        string ...$messages
+        \stdClass ...$messages
     ) {
         $this->status = $status;
         $this->originalAddress = $originalAddress;

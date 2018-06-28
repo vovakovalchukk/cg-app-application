@@ -29,11 +29,6 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
     {
-        $shouldShowListingDefaults = $this->featureFlagsService->isActive(
-            ListingService::FEATURE_FLAG_CREATE_LISTINGS,
-            $this->getActiveUserRootOrganisationUnit()
-        );
-
         if (!$account->getExternalDataByKey('listingDispatchTime')) {
             $account->setExternalDataByKey('listingDispatchTime', static::DEFAULT_DISPATCH_DAYS);
         }
@@ -43,7 +38,7 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
             $account->setExternalDataByKey('listingLocation', $ou->getAddressCity());
         }
 
-        $view->setVariable('shouldShowListingDefaults', $shouldShowListingDefaults)
+        $view
             ->addChild($this->getListingDurationView($account->getExternalDataByKey('listingDuration')), 'listingDurationSelect')
             ->addChild($this->getPaymentMethodView($account->getExternalDataByKey('listingPaymentMethods')), 'paymentMethodsSelect');
     }
