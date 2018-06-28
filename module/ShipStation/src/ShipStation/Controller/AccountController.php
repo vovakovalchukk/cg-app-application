@@ -113,7 +113,7 @@ class AccountController extends AbstractActionController
         $view->setVariable('fieldViews', $fieldViews);
     }
 
-    protected function getButtonView($id, $text)
+    protected function getButtonView(string $id, string $text): ViewModel
     {
         $buttonView = $this->viewModelFactory->newInstance([
             'buttons' => true,
@@ -124,7 +124,7 @@ class AccountController extends AbstractActionController
         return $buttonView;
     }
 
-    protected function getTextView($id, $label, $value = '', $required = false)
+    protected function getTextView(string $id, string $label, ?string $value = '', bool $required = false): ViewModel
     {
         $textView = $this->viewModelFactory->newInstance([
             'name' => $id,
@@ -137,7 +137,7 @@ class AccountController extends AbstractActionController
         return $textView;
     }
 
-    protected function getCheckboxView($id, $label, $selected = false, $required = false)
+    protected function getCheckboxView(string $id, string $label, ?bool $selected = false, bool $required = false): ViewModel
     {
         $checkboxView = $this->viewModelFactory->newInstance([
             'id' => $id,
@@ -149,21 +149,21 @@ class AccountController extends AbstractActionController
         return $checkboxView;
     }
 
-    protected function getPasswordView($id, $label, $value = '', $required = false)
+    protected function getPasswordView(string $id, string $label, ?string $value = '', bool $required = false): ViewModel
     {
         $passwordView = $this->getTextView($id, $label, $value, $required);
         $passwordView->setVariable('type', 'password');
         return $passwordView;
     }
 
-    protected function getHiddenView($id, $label, $value = '', $required = false)
+    protected function getHiddenView(string $id, string $label, ?string $value = '', bool $required = false): ViewModel
     {
         $hiddenView = $this->getTextView($id, $label, $value, $required);
         $hiddenView->setVariable('type', 'hidden');
         return $hiddenView;
     }
 
-    protected function getCountryView($id, $label, $value = null, $required = false)
+    protected function getCountryView(string $id, string $label, ?string $value = null, bool $required = false): ViewModel
     {
         $options = [];
         foreach (CountryNameByCode::getCountryCodeToNameMap() as $code => $name) {
@@ -183,6 +183,19 @@ class AccountController extends AbstractActionController
         ]);
         $selectView->setTemplate('elements/custom-select.mustache');
         return $selectView;
+    }
+
+    protected function getDateView(string $id, string $label, ?string $value = null, bool $required = false): ViewModel
+    {
+        $dateView = $this->viewModelFactory->newInstance([
+            'name' => $id,
+            'id' => $id,
+            'label' => $label,
+            'class' => ($required ? 'required' : ''),
+            'value' => $value
+        ]);
+        $dateView->setTemplate('elements/date.mustache');
+        return $dateView;
     }
 
     public function saveAction()

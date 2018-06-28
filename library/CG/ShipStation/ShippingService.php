@@ -23,6 +23,10 @@ class ShippingService implements ShippingServiceInterface
         try {
             $response = $this->getAccountShippingServices();
             foreach ($response->getServices() as $service) {
+                // We are not supporting international for now. If we add it later remove this check.
+                if ($service->getCarrierService()->isInternational()) {
+                    continue;
+                }
                 $services[$service->getCarrierService()->getServiceCode()] = $service->getCarrierService()->getName();
             }
         } catch (NotFound $e) {
@@ -33,7 +37,7 @@ class ShippingService implements ShippingServiceInterface
 
     protected function getAccountShippingServices(): CarrierServicesResponse
     {
-        if (!isset($this->account->getExternalData()['services'])) {
+        if (!isset($this->account->getExternalData()['services']) || !$this->account->getExternalData()['services']) {
             throw new NotFound('No services found for the account "' . $this->account->getId() . '"');
         }
 
