@@ -9,15 +9,15 @@ define([
     ReduxForm,
     InitialValuesReducer,
     SubmissionStatusesReducer,
-    AccountSpecificData
+    AccountsReducer
 ) {
     "use strict";
 
     var CombinedReducer = Redux.combineReducers({
+        accountsData: AccountsReducer,
         form: ReduxForm.reducer,
         initialValues: InitialValuesReducer,
-        submissionStatuses: SubmissionStatusesReducer,
-        accountSpecificData: AccountSpecificData
+        submissionStatuses: SubmissionStatusesReducer
     });
 
     return CombinedReducer;

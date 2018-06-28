@@ -37,6 +37,20 @@ define([], function() {
                 type: "LISTING_SUBMISSION_FINISHED",
                 payload: {}
             };
+        },
+        accountPoliciesFetched: function (response) {
+            return {
+                type: "ACCOUNT_POLICIES_FETCHED",
+                payload: {
+                    policies: response.policies
+                }
+            }
+        },
+        accountPoliciesFetchError: function () {
+            return {
+                type: "AACCOUNT_POLICIES_FETCH_ERROR",
+                payload: {}
+            }
         }
     };
 });

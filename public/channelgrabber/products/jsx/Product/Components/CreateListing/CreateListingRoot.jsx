@@ -36,6 +36,7 @@ define([
             }
         },
         render: function() {
+            console.log(this.props);
             var store = Redux.createStore(CombinedReducer);
             return (
                 <Provider store={store}>

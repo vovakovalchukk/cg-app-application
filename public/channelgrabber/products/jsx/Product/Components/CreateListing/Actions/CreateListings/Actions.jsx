@@ -221,6 +221,24 @@ define([
                     formValues: formValues
                 }
             };
+        },
+        refreshAccountPolicies: function (dispatch, accountId) {
+            $.get({
+                url: 'products/create-listings/' + accountId + '/refresh-account-policies',
+                success: function (response) {
+                    dispatch(ResponseActions.accountPoliciesFetched(response));
+                },
+                error: function () {
+                    dispatch(ResponseActions.accountPoliciesFetchError());
+                }
+            });
+
+            return {
+                type: "FETCH_ACCOUNT_POLICIES",
+                payload: {
+                    accountId: accountId
+                }
+            }
         }
     };
 });

@@ -8,10 +8,21 @@ define([
     var initialState = {};
 
     return reducerCreator(initialState, {
-        "ACCOUNT_POLICIES_REFRESHED": function(state, action) {
-            let newState = JSON.parse(JSON.stringify(state));
-            newState.returnPolicies[action.payload.accountId] = action.payload.returnPolicies;
-            return newState;
+        "FETCH_ACCOUNT_POLICIES": function(state, action) {
+            return Object.assign({}, state, {
+                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
+                    policies: {
+                        isFetching: true
+                    }
+                })
+            });
+        },
+        "ACCOUNT_POLICIES_FETCHED": function(state, action) {
+            return Object.assign({}, state, {
+                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
+                    policies: action.payload.policies
+                })
+            });
         }
     });
 });
