@@ -125,8 +125,7 @@ define([
             }
             return defaultTaxRates;
         },
-        formatVariationImagesForProductIdentifiers: function(formVariations) {
-
+        formatVariationImagesForProductIdentifiersComponent: function(formVariations) {
             if (!this.props.uploadedImages || !this.props.uploadedImages.images.length || !this.props.uploadedImages.images) {
                 return formVariations;
             }
@@ -149,13 +148,13 @@ define([
             });
             return formattedVariations;
         },
-        formatVariationsForProductIdentifiers: function() {
+        formatReduxFormValuesForProductIdentifiersComponent: function() {
             let formVariations = this.props.formValues.variations;
             formVariations = Object.keys(formVariations).map(variation => {
                 return formVariations[variation];
             });
 
-            formVariations = this.formatVariationImagesForProductIdentifiers(formVariations);
+            formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
             return formVariations;
         },
         variationsDataExistsInRedux: function() {
@@ -180,7 +179,7 @@ define([
             ];
 
             if (this.variationsDataExistsInRedux()) {
-                variationsData = this.formatVariationsForProductIdentifiers()
+                variationsData = this.formatReduxFormValuesForProductIdentifiersComponent()
             }
 
             return (
