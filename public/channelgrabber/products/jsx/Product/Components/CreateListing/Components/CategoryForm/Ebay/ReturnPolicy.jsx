@@ -29,17 +29,17 @@ define([
                 <div className={"order-inputbox-holder"}>
                     <Select
                         name="returnPolicy"
-                        options={this.props.returnPolicies}
+                        options={field.options}
                         autoSelectFirst={false}
                         title="Return Policy"
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
-                        disabled={this.props.disabled}
+                        disabled={field.disabled}
                     />
                 </div>
                 <RefreshIcon
                     onClick={this.refreshAccountPolicies}
-                    disabled={this.props.disabled}
+                    disabled={field.disabled}
                 />
             </label>;
         },
@@ -59,7 +59,12 @@ define([
             this.props.refreshAccountPolicies(this.props.accountId);
         },
         render: function() {
-            return <Field name="returnPolicy" component={this.renderSelect} />;
+            return <Field
+                name="returnPolicy"
+                component={this.renderSelect}
+                disabled={this.props.disabled}
+                options={this.props.returnPolicies}
+            />;
         }
     });
     return EbayReturnPolicy;
