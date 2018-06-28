@@ -16,9 +16,7 @@ define([
             return {
                 selected: null,
                 autoSelectFirst: true,
-                images: [],
-                onChange: null,
-                dropdownDisabled: false
+                images: []
             };
         },
         getInitialState: function() {
@@ -39,9 +37,6 @@ define([
             });
         },
         onClick: function() {
-            if (!this.props.dropdownDisabled) {
-                return;
-            }
             this.setState({
                 active: !this.state.active
             });

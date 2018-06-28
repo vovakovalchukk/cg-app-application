@@ -21,7 +21,6 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
-                imageDropdownsDisabled: false,
                 renderCustomTableHeaders: function() {
                     return null
                 },
@@ -29,16 +28,6 @@ define([
                     return null
                 }
             }
-        },
-        getInitialState: function() {
-            return {
-                initialRenderComplete: false,
-            }
-        },
-        componentDidUpdate:function(){
-          console.log('in component did update in variationsTable');
-
-//            this.props.fieldChange('dummy','test');
         },
         renderImageHeader: function() {
             if (!this.props.showImages) {
@@ -68,6 +57,8 @@ define([
             }.bind(this));
         },
         renderImageColumn: function(variation) {
+            let fieldName = "images." + variation.sku + ".imageId";
+
             if (!this.props.showImages) {
                 return;
             }
@@ -77,35 +68,32 @@ define([
 
             return (<td>
                 <Field
-                    name={"images." + variation.sku + ".imageId"}
+                    name={fieldName}
                     component={this.renderImageField}
                     variation={variation}
                 />
             </td>);
         },
         renderImageField: function(field) {
-            console.log('in renderImageFIeld with field: ' , field );
-
-
             if (!this.props.renderImagePicker) {
                 return this.renderStaticImage(field);
             }
 
-            if(!field.variation.images){
+            if (!field.variation.images) {
                 return <div></div>;
             }
 
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
 
-            console.log('in VT-renderIMageFIeld with selected: ', selected);
+            return <img src={selected.url}/>
 
-            return <ImageDropDown
-                selected={selected}
-                autoSelectFirst={false}
-                images={this.props.product.images}
-                onChange={this.onImageSelected.bind(this, field)}
-                dropdownDisabled={this.props.imageDropdownsDisabled}
-            />
+            //todo put this back in when you know whats what
+//            return <ImageDropDown
+//                selected={selected}
+//                autoSelectFirst={false}
+//                images={this.props.product.images}
+//                onChange={this.onImageSelected.bind(this, field)}
+//            />
         },
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);

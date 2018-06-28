@@ -29,7 +29,8 @@ define([
         minWidth: '0px',
         textAlign: 'center'
     };
-
+//
+    //
     var VariationsTableComponent = React.createClass({
         getDefaultProps: function() {
             return {

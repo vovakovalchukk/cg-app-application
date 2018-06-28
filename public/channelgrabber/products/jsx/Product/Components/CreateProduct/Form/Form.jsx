@@ -232,7 +232,6 @@ define([
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
-                            change={this.props.change}
                             unregister={this.props.unregister}
                         />
                     </fieldset>
