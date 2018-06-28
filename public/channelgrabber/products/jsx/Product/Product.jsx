@@ -2,37 +2,53 @@ define([
     'react',
     'react-dom',
     'Product/Components/Root'
-], function (
+], function(
     React,
     ReactDOM,
     RootComponent
 ) {
-    var Product = function (
+    var Product = function(
         mountingNode,
         utils,
         searchAvailable,
+        listingCreationAllowed,
+        managePackageUrl,
         isAdmin,
         getParamSearchTerm,
         features,
         adminCompanyUrl,
+        taxRates,
+        stockModeOptions,
         ebaySiteOptions,
         categoryTemplateOptions,
         conditionOptions,
-        defaultCurrency
+        defaultCurrency,
+        salesPhoneNumber,
+        showVAT,
+        massUnit,
+        lengthUnit
     ) {
         ReactDOM.render(
             <RootComponent
                 productsUrl="/products/ajax"
                 utilities={utils}
                 searchAvailable={searchAvailable}
+                listingCreationAllowed={listingCreationAllowed}
                 initialSearchTerm={getParamSearchTerm}
                 isAdmin={isAdmin}
+                managePackageUrl={managePackageUrl}
                 features={features}
                 adminCompanyUrl={adminCompanyUrl}
-                ebaySiteOptions={JSON.parse(ebaySiteOptions)}
-                categoryTemplateOptions={JSON.parse(categoryTemplateOptions)}
-                conditionOptions={JSON.parse(conditionOptions)}
+                taxRates={taxRates}
+                stockModeOptions={stockModeOptions}
+                ebaySiteOptions={ebaySiteOptions}
+                categoryTemplateOptions={categoryTemplateOptions}
+                conditionOptions={conditionOptions}
                 defaultCurrency={defaultCurrency}
+                salesPhoneNumber={salesPhoneNumber}
+                showVAT={showVAT}
+                massUnit={massUnit}
+                lengthUnit={lengthUnit}
             />,
             mountingNode
         );

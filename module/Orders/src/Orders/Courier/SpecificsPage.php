@@ -5,9 +5,13 @@ use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\BookingOptions;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
+use CG_UI\View\DataTable\Column;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
@@ -25,6 +29,8 @@ class SpecificsPage implements LoggerAwareInterface
     protected $accountService;
     /** @var Service */
     protected $courierService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
 
     protected $bookOptionInterfaces = [
         'Create' => BookingOptions\CreateActionDescriptionInterface::class,
@@ -39,11 +45,23 @@ class SpecificsPage implements LoggerAwareInterface
         'DispatchAll' => BookingOptions\DispatchAllActionDescriptionInterface::class,
     ];
 
-    public function __construct(Di $di, AccountService $accountService, Service $courierService)
-    {
+    protected $columnModifiers = [
+        'weight' => 'alterWeightColumnUnit',
+        'width'  => 'alterDimensionColumnUnit',
+        'height' => 'alterDimensionColumnUnit',
+        'length' => 'alterDimensionColumnUnit',
+    ];
+
+    public function __construct(
+        Di $di,
+        AccountService $accountService,
+        Service $courierService,
+        ActiveUserInterface $activeUserContainer
+    ) {
         $this->di = $di;
         $this->accountService = $accountService;
         $this->courierService = $courierService;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function fetchAccountsById($accountIds): AccountCollection
@@ -57,15 +75,51 @@ class SpecificsPage implements LoggerAwareInterface
         // We always need the actions column but it must go last
         array_push($options, 'actions');
         foreach ($options as $option) {
-            $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
-            try {
-                $column = $this->di->get($columnAlias);
-                $specificsTable->addColumn($column);
-            } catch (ClassNotFoundException $e) {
-                $this->logNotice(static::LOG_OPTION_COLUMN_NOT_FOUND, [$columnAlias, $selectedCourier->getId(), $selectedCourier->getChannel()], static::LOG_CODE);
-                // No-op, allow for options with no matching column
-            }
+            $this->addOptionalColumnToTable($option, $specificsTable, $selectedCourier);
         }
+    }
+
+    protected function addOptionalColumnToTable(string $option, DataTable $specificsTable, Account $selectedCourier): void
+    {
+        $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
+        try {
+            $column = $this->di->get($columnAlias);
+            $column = $this->alterColumnForSelectedCourier($column, $selectedCourier);
+            $specificsTable->addColumn($column);
+        } catch (ClassNotFoundException $e) {
+            $this->logNotice(static::LOG_OPTION_COLUMN_NOT_FOUND,
+                [$columnAlias, $selectedCourier->getId(), $selectedCourier->getChannel()], static::LOG_CODE);
+            // No-op, allow for options with no matching column
+        }
+    }
+
+    protected function alterColumnForSelectedCourier(Column $column, Account $selectedCourier): Column
+    {
+        if (!isset($this->columnModifiers[$column->getColumn()])) {
+            return $column;
+        }
+        $method = $this->columnModifiers[$column->getColumn()];
+        return $this->{$method}($column, $selectedCourier);
+    }
+
+    protected function alterWeightColumnUnit(Column $column): Column
+    {
+        $unit = LocaleMass::getForLocale($this->activeUserContainer->getLocale());
+        return $this->alterUnitOfMeasureColumn($column, $unit);
+    }
+
+    protected function alterDimensionColumnUnit(Column $column): Column
+    {
+        $unit = LocaleLength::getForLocale($this->activeUserContainer->getLocale());
+        return $this->alterUnitOfMeasureColumn($column, $unit);
+    }
+
+    protected function alterUnitOfMeasureColumn(Column $column, string $unit): Column
+    {
+        $value = $column->getViewModel()->getVariable('value');
+        $alteredValue = str_replace('{unit}', $unit, $value);
+        $column->getViewModel()->setVariable('value', $alteredValue);
+        return $column;
     }
 
     public function getCreateActionDescription(Account $account): string

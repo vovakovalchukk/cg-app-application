@@ -2,17 +2,20 @@ define([
     'react',
     'redux-form',
     './CategoryForm',
-    './CategoryForm/Ebay'
+    './CategoryForm/Ebay',
+    './CategoryForm/Amazon'
 ], function(
     React,
     ReduxForm,
     CategoryForm,
-    EbayForm
+    EbayForm,
+    AmazonForm
 ) {
     "use strict";
 
     const channelToFormMap = {
-        'ebay': EbayForm
+        'ebay': EbayForm,
+        'amazon': AmazonForm
     };
 
     var FormSection = ReduxForm.FormSection;
@@ -21,7 +24,8 @@ define([
         getDefaultProps: function() {
             return {
                 accounts: [],
-                categoryTemplates: {}
+                categoryTemplates: {},
+                product: {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -57,6 +61,7 @@ define([
                 component={CategoryForm}
                 channelForm={ChannelForm}
                 categoryId={categoryId}
+                product={this.props.product}
                 {...category}
             />);
         },

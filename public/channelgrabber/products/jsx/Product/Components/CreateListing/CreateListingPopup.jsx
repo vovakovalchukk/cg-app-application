@@ -55,7 +55,9 @@ define([
                 defaultCurrency: null,
                 accountDefaultSettings: {},
                 submissionStatuses: {},
-                onCreateListingClose: function() {}
+                onCreateListingClose: function() {},
+                massUnit: null,
+                lengthUnit: null
             }
         },
         componentDidMount: function () {
@@ -189,6 +191,7 @@ define([
                 component={CategoryForms}
                 accounts={this.props.accounts}
                 categoryTemplates={this.props.categoryTemplates}
+                product={this.props.product}
             />;
         },
         renderProductIdentifiers: function() {
@@ -210,6 +213,9 @@ define([
                     attributeNames={this.props.product.attributeNames}
                     change={this.props.change}
                     initialDimensions={this.props.initialDimensions}
+                    accounts={this.getSelectedAccountsData()}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />
             </span>);
         },

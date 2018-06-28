@@ -4,14 +4,26 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
     var PackageSelectorComponent = React.createClass({
         getDefaultProps: function() {
             return {
+                locale: {
+                    getSelectPackageName: function(packageInfo) {
+                        return packageInfo.name;
+                    },
+                    getPackageInfo: function(selectedPackage) {
+                        return null;
+                    }
+                },
+                phoneNumber: null,
                 selectedPackage: false,
+                selectedBillingDuration: null,
                 packages: [],
-                onPackageSelection: null
+                onPackageSelection: null,
+                onBillingDurationSelection: null
             }
         },
         getInitialState: function() {
             return {
-                selected: this.props.selectedPackage
+                selected: this.props.selectedPackage,
+                billingDuration: this.props.selectedBillingDuration
             };
         },
         getPackages: function() {
@@ -30,14 +42,11 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             });
             return (indexOfSelectedPackage > -1 ? packages[indexOfSelectedPackage] : null);
         },
-        getSelectPackageName: function(packageInfo) {
-            return packageInfo.fromOrderVolume + "-" + packageInfo.orderVolume;
-        },
         getSelectOptions: function() {
-            var self = this;
+            var locale = this.props.locale;
             return this.getPackages().map(function(packageInfo) {
                 return {
-                    name: self.getSelectPackageName(packageInfo),
+                    name: locale.getSelectPackageName(packageInfo),
                     value: packageInfo.id
                 };
             });
@@ -45,7 +54,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
         getSelectSelectedOption: function() {
             var selectedPackage = this.getSelectedPackage();
             return {
-                name: (selectedPackage ? this.getSelectPackageName(selectedPackage) : ''),
+                name: (selectedPackage ? this.props.locale.getSelectPackageName(selectedPackage) : ''),
                 value: (selectedPackage ? selectedPackage.id : false)
             };
         },
@@ -53,7 +62,7 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             this.setState({
                 selected: selectedPackage.value
             }, function() {
-                if (this.props.onPackageSelection) {
+                if (typeof(this.props.onPackageSelection) === "function") {
                     this.props.onPackageSelection(selectedPackage.value)
                 }
             });
@@ -67,10 +76,17 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
                         options={this.getSelectOptions()}
                         selectedOption={this.getSelectSelectedOption()}
                         onOptionChange={this.selectPackage.bind(this)}
-                    >
-                    </SelectComponent>
-                    <span className="moreOrders">Need more orders?<br />Contact us on 01617110248</span>
+                    />
+                    {this.renderMoreOrders()}
                 </label>
+            );
+        },
+        renderMoreOrders: function() {
+            if (!this.props.phoneNumber) {
+                return null;
+            }
+            return (
+                <span className="moreOrders">Need more orders?<br />Contact us on {this.props.phoneNumber}</span>
             );
         },
         renderPackageDetails: function() {
@@ -78,18 +94,15 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
             if (!selectedPackage) {
                 return;
             }
-            return (
-                <div className="package-info">
-                    <div>
-                        <span>Package Needed:</span>
-                        <span>{selectedPackage.name}</span>
-                    </div>
-                    <div>
-                        <span>Monthly cost:</span>
-                        <span>£{selectedPackage.price} ex VAT</span>
-                    </div>
-                </div>
-            );
+            return this.props.locale.getPackageInfo(selectedPackage, this.state.billingDuration, function(billingDuration) {
+                this.setState({
+                    billingDuration: billingDuration
+                }, function() {
+                    if (typeof(this.props.onBillingDurationSelection) === "function") {
+                        this.props.onBillingDurationSelection(billingDuration)
+                    }
+                });
+            }.bind(this));
         },
         render: function() {
             return (

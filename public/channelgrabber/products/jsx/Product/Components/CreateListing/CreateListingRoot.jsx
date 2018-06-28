@@ -6,7 +6,7 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Product/Components/CreateListing/Reducers/CreateListing/Combined',
-    'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateListing/CreateListingPopup'
 ], function(
     React,
     Redux,
@@ -30,7 +30,9 @@ define([
                 conditionOptions: [],
                 variationsDataForProduct: {},
                 accountsData: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         render: function() {
