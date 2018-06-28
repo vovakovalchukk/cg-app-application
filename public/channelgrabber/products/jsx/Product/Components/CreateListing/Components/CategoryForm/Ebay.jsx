@@ -24,16 +24,32 @@ define([
                 returnPolicies: {},
                 product: {},
                 accountId: null,
-                refreshAccountPolicies: () => {}
+                refreshAccountPolicies: () => {},
+                accountData: {},
+                setReturnPoliciesForAccount: () => {}
             };
+        },
+        componentDidMount: function() {
+            this.props.setReturnPoliciesForAccount(this.props.accountId);
+        },
+        arePoliciesFetching: function() {
+            return this.props.accountData.policies ? !!(this.props.accountData.policies.isFetching) : false;
+        },
+        getReturnPolicies: function() {
+            let policies = this.props.accountData.policies;
+            if (policies && policies.returnPolicies) {
+                return policies.returnPolicies;
+            }
+            return [];
         },
         render: function() {
             return (
                 <div className="ebay-category-form-container">
                     <ReturnPolicy
-                        returnPolicies={this.props.returnPolicies}
+                        returnPolicies={this.getReturnPolicies()}
                         accountId={this.props.accountId}
                         refreshAccountPolicies={this.props.refreshAccountPolicies}
+                        disabled={this.arePoliciesFetching()}
                     />
                     <ListingDuration listingDurations={this.props.listingDuration} />
                     <FormSection

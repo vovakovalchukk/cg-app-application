@@ -18,7 +18,8 @@ define([
             return {
                 returnPolicies: {},
                 accountId: null,
-                refreshAccountPolicies: () => {}
+                refreshAccountPolicies: () => {},
+                disabled: false
             };
         },
         renderSelect: function(field) {
@@ -33,10 +34,12 @@ define([
                         title="Return Policy"
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
+                        disabled={this.props.disabled}
                     />
                 </div>
                 <RefreshIcon
                     onClick={this.refreshAccountPolicies}
+                    disabled={this.props.disabled}
                 />
             </label>;
         },

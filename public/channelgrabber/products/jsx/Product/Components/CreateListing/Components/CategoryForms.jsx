@@ -27,7 +27,9 @@ define([
                 accounts: [],
                 categoryTemplates: {},
                 product: {},
-                refreshAccountPolicies: () => {}
+                refreshAccountPolicies: () => {},
+                accountsData: {},
+                setReturnPoliciesForAccount: () => {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -66,6 +68,7 @@ define([
                 product={this.props.product}
                 refreshAccountPolicies={this.props.refreshAccountPolicies}
                 accountId={category.accountId}
+                accountData={this.props.accountsData[category.accountId]}
                 {...category}
             />);
         },
@@ -86,7 +89,7 @@ define([
 
     const mapStateToProps = function(state) {
         return {
-
+            accountsData: state.accountsData
         };
     };
 
@@ -94,6 +97,9 @@ define([
         return {
             refreshAccountPolicies: function(accountId) {
                 dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
+            },
+            setReturnPoliciesForAccount: function (accountId, returnPolicies) {
+                dispatch(Actions.setReturnPoliciesForAccount(accountId, returnPolicies))
             }
         };
     };

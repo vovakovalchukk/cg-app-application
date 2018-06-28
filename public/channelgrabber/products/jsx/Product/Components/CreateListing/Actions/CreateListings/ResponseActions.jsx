@@ -38,11 +38,12 @@ define([], function() {
                 payload: {}
             };
         },
-        accountPoliciesFetched: function (response) {
+        accountPoliciesFetched: function (accountId, response) {
             return {
                 type: "ACCOUNT_POLICIES_FETCHED",
                 payload: {
-                    policies: response.policies
+                    accountId: accountId,
+                    returnPolicies: response.returnPolicies
                 }
             }
         },

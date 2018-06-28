@@ -12,7 +12,8 @@ define([
             return Object.assign({}, state, {
                 [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
                     policies: {
-                        isFetching: true
+                        isFetching: true,
+                        returnPolicies: []
                     }
                 })
             });
@@ -20,7 +21,20 @@ define([
         "ACCOUNT_POLICIES_FETCHED": function(state, action) {
             return Object.assign({}, state, {
                 [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
-                    policies: action.payload.policies
+                    policies: {
+                        isFetching: false,
+                        returnPolicies: action.payload.returnPolicies
+                    }
+                })
+            });
+        },
+        "SET_RETURN_POLICIES_FOR_ACCOUNT": function(state, action) {
+            return Object.assign({}, state, {
+                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
+                    policies: {
+                        isFetching: false,
+                        returnPolicies: action.payload.returnPolicies
+                    }
                 })
             });
         }
