@@ -12,7 +12,7 @@ define([
     VariationTable
 ) {
     "use strict";
-    
+
     var Field = ReduxForm.Field;
 
     var identifiers = [
@@ -62,7 +62,7 @@ define([
         },
         {
             "name": "isbn",
-            "displayTitle" : "ISBN (if applicable)",
+            "displayTitle": "ISBN (if applicable)",
             "validate": function(value) {
                 if (!value) {
                     return undefined;
@@ -88,12 +88,13 @@ define([
                 product: {},
                 attributeNames: [],
                 attributeNameMap: {},
-                renderImagePicker:true,
-                renderStaticImagesFromVariationValues: false
+                renderImagePicker: true,
+                renderStaticImagesFromVariationValues: false,
+                containerCssClasses: ''
             }
         },
-        renderIdentifierHeaders: function () {
-            return identifiers.map(function (identifier) {
+        renderIdentifierHeaders: function() {
+            return identifiers.map(function(identifier) {
                 return <th
                     title={identifier.displayTitle}
                     className={"with-title"}
@@ -102,8 +103,8 @@ define([
                 </th>;
             });
         },
-        renderIdentifierColumns: function (variation) {
-            return identifiers.map(function (identifier) {
+        renderIdentifierColumns: function(variation) {
+            return identifiers.map(function(identifier) {
                 return (<td>
                     <Field
                         name={"identifiers." + variation.sku + "." + identifier.name}
@@ -140,6 +141,7 @@ define([
                     attributeNameMap={this.props.attributeNameMap}
                     renderImagePicker={this.props.renderImagePicker}
                     renderStaticImagesFromVariationValues={this.props.renderStaticImagesFromVariationValues}
+                    containerCssClasses={this.props.containerCssClasses}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
                 />

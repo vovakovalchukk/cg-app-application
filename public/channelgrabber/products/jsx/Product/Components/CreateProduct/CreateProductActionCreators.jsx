@@ -26,7 +26,7 @@ define([
                     dispatch({
                         type: 'FORM_SUBMIT_INVALID_FORM'
                     });
-                    n.error("Please make sure you have given your product a name and have provided at least one variation a SKU.");
+                    n.error("Please make sure you have given your product a name and have provided at least one variation with a SKU and quantity.");
                     return;
                 }
                 dispatch(submitForm);
@@ -89,8 +89,11 @@ define([
     }
 
     function formatFormValuesForPostRequest(values, formattedImages) {
-        var attributeNames = getAttributeNamesFromFormData(values);
-        var formattedVariations = formatVariationFormValuesForPostRequest(values.variations, attributeNames);
+        var formattedVariations = formatVariationFormValuesForPostRequest(
+            values.variations,
+            getAttributeNamesFromFormData(values),
+            values.identifiers
+        );
         var formattedValues = {
             product: {
                 name: values.title,
@@ -116,17 +119,41 @@ define([
         return attributeNames;
     };
 
-    function formatVariationFormValuesForPostRequest(variations, attributeNames) {
+    function addProductIdentifiersToFormattedVariation(formattedVariation, productIdentifiers) {
+        if (!productIdentifiers) {
+            productIdentifiers = {};
+        }
+        let skuMatch = Object.keys(productIdentifiers).find((key) => {
+            return key === formattedVariation.sku
+        });
+
+        if (!skuMatch) {
+            return formattedVariation;
+        }
+
+        let variationIdentifiers = productIdentifiers[skuMatch];
+
+        let mergedVariation = Object.assign(formattedVariation, variationIdentifiers);
+        return mergedVariation;
+    }
+
+    function formatVariationFormValuesForPostRequest(variations, attributeNames, productIdentifiers) {
         return Object.keys(variations).filter(function(key) {
             return (key != 'c-table-with-inputs__headings');
         }).map(function(key) {
             var formattedVariation = Object.assign({}, variations[key]);
+
+            delete formattedVariation.images;
+
             formattedVariation.stock = {
                 stockMode: formattedVariation.stockModeType.value || null,
                 stockLevel: formattedVariation.stockAmount || null
             };
             delete formattedVariation.stockModeType;
             delete formattedVariation.stockAmount;
+
+            formattedVariation = addProductIdentifiersToFormattedVariation(formattedVariation, productIdentifiers);
+
             formattedVariation.attributeValues = {};
             for (var key in attributeNames) {
                 if (!formattedVariation.hasOwnProperty(key)) {
@@ -137,6 +164,7 @@ define([
                 }
                 delete formattedVariation[key];
             }
+
             return formattedVariation;
         });
     };

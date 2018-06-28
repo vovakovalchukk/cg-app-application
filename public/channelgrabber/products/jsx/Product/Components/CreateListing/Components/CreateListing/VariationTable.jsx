@@ -22,6 +22,7 @@ define([
                 attributeNameMap: {},
                 sectionName: '',
                 renderStaticImagesFromVariationValues: false,
+                containerCssClasses:'',
                 renderCustomTableHeaders: function() {
                     return null
                 },
@@ -80,12 +81,7 @@ define([
                 return this.renderStaticImage(field);
             }
 
-//            if (!field.variation.images) {
-//                return <div></div>;
-//            }
-
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
-            //todo put this back in when you know whats what
             return <ImageDropDown
                 selected={selected}
                 autoSelectFirst={false}
@@ -96,24 +92,14 @@ define([
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);
         },
-        getStaticImage: function(fieldValue, fieldVariation){
-          if(this.props.renderStaticImagesFromVariationValues){
-              return fieldVariation.images[0];
-          }
-          return this.findSelectedImageForVariation(fieldValue);
+        getStaticImage: function(fieldValue, fieldVariation) {
+            if (this.props.renderStaticImagesFromVariationValues && fieldVariation.images) {
+                return fieldVariation.images[0];
+            }
+            return this.findSelectedImageForVariation(fieldValue);
         },
         renderStaticImage: function(field) {
-            console.log('in renderStaticImage this.props.renderStaticImagesFromVariationValues: ' , this.props.renderStaticImagesFromVariationValues);
-
-
             var image = this.getStaticImage(field.input.value, field.variation);
-
-//            return (
-//
-//                            <img src={image.url}/>
-//
-//
-//            );
             return (
                 <div className="image-dropdown-target">
                     <div className="react-image-picker">
@@ -122,7 +108,6 @@ define([
                         </span>
                     </div>
                 </div>
-
             );
         },
         findSelectedImageForVariation: function(imageId) {
@@ -143,7 +128,7 @@ define([
         },
         render: function() {
             return (
-                <div className={"variation-picker"}>
+                <div className={"variation-picker "+this.props.containerCssClasses}>
                     <table>
                         <thead>
                         <tr>

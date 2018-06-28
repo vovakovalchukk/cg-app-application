@@ -186,12 +186,13 @@ define([
             return (
                 <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                     <legend className={'u-heading-text'}>Product Identifiers</legend>
-                    <ProductIdentifiers
-                        variationsDataForProduct={variationsData}
-                        product={product}
-                        renderImagePicker={false}
-                        renderStaticImagesFromVariationValues={true}
-                    />
+                        <ProductIdentifiers
+                            variationsDataForProduct={variationsData}
+                            product={product}
+                            renderImagePicker={false}
+                            renderStaticImagesFromVariationValues={true}
+                            containerCssClasses={'u-margin-top-none'}
+                        />
                 </fieldset>
             );
         },
