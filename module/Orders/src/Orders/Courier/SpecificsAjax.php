@@ -7,6 +7,8 @@ use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProvid
 use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
@@ -118,8 +120,12 @@ class SpecificsAjax
             }
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
-            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions);
-            $parcelsData = $this->getParcelOrderListData($order, $orderData, $parcelsInputData, $options, $carrierOptions);
+            $itemsData = $this->formatOrderItemsAsSpecificsListData(
+                $order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions, $rootOu
+            );
+            $parcelsData = $this->getParcelOrderListData(
+                $order, $orderData, $parcelsInputData, $options, $carrierOptions, $rootOu
+            );
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
@@ -127,7 +133,7 @@ class SpecificsAjax
         }
         $now = (new DateTime())->setTimezone(new DateTimeZone($this->getUsersTimezone()));
         foreach ($data as &$row) {
-            $row['currentTime'] = $now->uiTimeFormat();
+            $row['currentTime'] = $now->format('H:i');
             $row['timezone'] = $now->getTimezone()->getName();
         }
         $data = $this->performSumsOnSpecificsListData($data, $options);
@@ -224,25 +230,37 @@ class SpecificsAjax
         ProductCollection $products,
         ProductDetailCollection $productDetails,
         array $options,
-        array $carrierOptions
+        array $carrierOptions,
+        OrganisationUnit $rootOu
     ) {
         $itemsData = [];
         $itemCount = 0;
+        $massUnit = LocaleMass::getForLocale($rootOu->getLocale());
+        $lengthUnit = LocaleLength::getForLocale($rootOu->getLocale());
         foreach ($items as $item) {
             $rowData = null;
             if ($itemCount == 0) {
                 $rowData = $orderData;
             }
             $itemData = $this->courierService->getCommonItemListData($item, $products, $rowData);
+            $unitsData = $this->getUnitsOfMeasureData($rootOu);
             $specificsItemData = $this->getSpecificsItemListData($item, $productDetails, $options, $rowData);
             $specificsItemData['itemRow'] = true;
             $specificsItemData['showWeight'] = true;
             $specificsItemData['labelStatus'] = $orderData['labelStatus'];
             $specificsItemData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
-            $itemsData[] = array_merge($itemData, $specificsItemData);
+            $itemsData[] = array_merge($itemData, $unitsData, $specificsItemData);
             $itemCount++;
         }
         return $itemsData;
+    }
+
+    protected function getUnitsOfMeasureData(OrganisationUnit $rootOu): array
+    {
+        return [
+            'massUnit' => LocaleMass::getForLocale($rootOu->getLocale()),
+            'lengthUnit' => LocaleLength::getForLocale($rootOu->getLocale()),
+        ];
     }
 
     protected function getSpecificsItemListData(
@@ -270,11 +288,12 @@ class SpecificsAjax
             return $data;
         }
 
+        $locale = $this->userOuService->getActiveUserContainer()->getLocale();
         // Always add all product details even if there's no option for them as sometimes they're used indirectly
-        $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight(), $item);
-        $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth(), $item);
-        $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight(), $item);
-        $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength(), $item);
+        $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight($locale), $item);
+        $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth($locale), $item);
+        $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight($locale), $item);
+        $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength($locale), $item);
 
         return $data;
     }
@@ -319,7 +338,8 @@ class SpecificsAjax
         array $orderData,
         array $parcelsInputData,
         array $options,
-        array $carrierOptions
+        array $carrierOptions,
+        OrganisationUnit $rootOu
     ) {
         $parcels = $orderData['parcels'];
         if (count($order->getItems()) <= 1 && $parcels <= 1) {
@@ -328,7 +348,9 @@ class SpecificsAjax
 
         $parcelsData = [];
         for ($parcel = 1; $parcel <= $parcels; $parcel++) {
-            $parcelData = $this->courierService->getChildRowListData($order->getId(), $parcel);
+            $childRowData = $this->courierService->getChildRowListData($order->getId(), $parcel);
+            $unitsData = $this->getUnitsOfMeasureData($rootOu);
+            $parcelData = array_merge($childRowData, $unitsData);
             $parcelData['parcelNumber'] = $parcel;
             $parcelData['parcelRow'] = true;
             $parcelData['showWeight'] = true;
