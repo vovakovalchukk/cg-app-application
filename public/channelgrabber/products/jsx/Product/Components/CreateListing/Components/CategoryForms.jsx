@@ -4,19 +4,22 @@ define([
     'react-redux',
     './CategoryForm',
     './CategoryForm/Ebay',
-    '../Actions/CreateListings/Actions'
+    '../Actions/CreateListings/Actions',
+    './CategoryForm/Amazon'
 ], function(
     React,
     ReduxForm,
     ReactRedux,
     CategoryForm,
     EbayForm,
-    Actions
+    Actions,
+    AmazonForm
 ) {
     "use strict";
 
     const channelToFormMap = {
-        'ebay': EbayForm
+        'ebay': EbayForm,
+        'amazon': AmazonForm
     };
 
     var FormSection = ReduxForm.FormSection;

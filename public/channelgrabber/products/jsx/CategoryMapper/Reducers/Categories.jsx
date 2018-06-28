@@ -33,6 +33,9 @@ define([
     var extractCategoryDataFromCategoryMap = function(newState, accountCategories) {
         accountCategories.map(function (categoryMap) {
             var currentCategories = newState[categoryMap.accountId];
+            if (!currentCategories || Object.keys(currentCategories).length === 0) {
+                return;
+            }
             categoryMap.categories.map(function (categoriesByLevel) {
                 var selectedCategoryId;
                 categoriesByLevel.map(function (categories, level) {

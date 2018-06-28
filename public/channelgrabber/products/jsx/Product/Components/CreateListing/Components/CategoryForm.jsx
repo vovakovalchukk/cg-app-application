@@ -12,6 +12,7 @@ define([
                 fieldValues: {},
                 channelForm: null,
                 categoryId: null,
+                accountId: null,
                 product: {}
             };
         },
