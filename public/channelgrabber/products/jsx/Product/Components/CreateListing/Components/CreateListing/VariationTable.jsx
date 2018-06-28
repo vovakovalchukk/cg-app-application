@@ -30,11 +30,6 @@ define([
                 }
             }
         },
-        getInitialState: function() {
-            return {
-                initialRenderComplete: false
-            }
-        },
         renderImageHeader: function() {
             if (!this.props.showImages) {
                 return;
@@ -85,21 +80,18 @@ define([
                 return this.renderStaticImage(field);
             }
 
-            if (!field.variation.images) {
-                return <div></div>;
-            }
+//            if (!field.variation.images) {
+//                return <div></div>;
+//            }
 
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
-
-            return <img src={selected.url}/>
-
             //todo put this back in when you know whats what
-//            return <ImageDropDown
-//                selected={selected}
-//                autoSelectFirst={false}
-//                images={this.props.product.images}
-//                onChange={this.onImageSelected.bind(this, field)}
-//            />
+            return <ImageDropDown
+                selected={selected}
+                autoSelectFirst={false}
+                images={this.props.product.images}
+                onChange={this.onImageSelected.bind(this, field)}
+            />
         },
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);
