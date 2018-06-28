@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e03a44a360e9f98eb827df9087f858a5",
+    "content-hash": "b8e1adb0ff6d1d91cdbfe0e19d558530",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-128-account-policy-endpoint",
+            "version": "dev-TAC-131-expose-return-policies-ebay",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5ce038df403983126284546a1a12337aff4fba2b"
+                "reference": "8a28bd3c784126fc83bec7d364c0dacece0a47d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-128-account-policy-endpoint-9b7066.zip",
-                "reference": "5ce038df403983126284546a1a12337aff4fba2b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-131-expose-return-policies-ebay-f87abf.zip",
+                "reference": "8a28bd3c784126fc83bec7d364c0dacece0a47d7",
                 "shasum": null
             },
             "require": {
@@ -542,7 +542,7 @@
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.15.0",
+                "channelgrabber/listing": "^1.17.1",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-27T11:12:07+00:00"
+            "time": "2018-06-28T09:21:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -922,18 +922,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "36598b1ed95c003cf5a39ae72fb04002b32a7291"
+                "reference": "5bc6aafcd123c133b9a4f761d32f69cbcd149de7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-129-fetch-ebay-return-policies-a73aef.zip",
-                "reference": "36598b1ed95c003cf5a39ae72fb04002b32a7291",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-129-fetch-ebay-return-policies-b2ebeb.zip",
+                "reference": "5bc6aafcd123c133b9a4f761d32f69cbcd149de7",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "dev-TAC-128-account-policy-endpoint as 1.35.2",
+                "channelgrabber/channel": "^1.36.2 ",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -978,7 +978,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-06-27T12:30:51+00:00"
+            "time": "2018-06-28T09:24:52+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1473,16 +1473,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.17.0",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "dcc791cf8a372080420d0f5135b2a975beb62b17"
+                "reference": "d56a870f69151868d79d9814b9e5e3a4fa4ffc73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.0-d104c9.zip",
-                "reference": "dcc791cf8a372080420d0f5135b2a975beb62b17",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.1-171de5.zip",
+                "reference": "d56a870f69151868d79d9814b9e5e3a4fa4ffc73",
                 "shasum": null
             },
             "require": {
@@ -1518,7 +1518,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T10:58:59+00:00"
+            "time": "2018-06-28T08:31:54+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9942,14 +9942,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.36.1",
-            "alias_normalized": "1.36.1.0",
-            "version": "dev-TAC-128-account-policy-endpoint",
+            "alias": "1.36.3",
+            "alias_normalized": "1.36.3.0",
+            "version": "dev-TAC-131-expose-return-policies-ebay",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.12.8",
-            "alias_normalized": "1.12.8.0",
+            "alias": "1.12.9",
+            "alias_normalized": "1.12.9.0",
             "version": "dev-TAC-129-fetch-ebay-return-policies",
             "package": "channelgrabber/ebay"
         }

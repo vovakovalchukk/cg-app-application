@@ -128,7 +128,9 @@ class JsonController extends AbstractJsonController
     public function refreshAccountPoliciesAction()
     {
         try {
-            return $this->channelService->refreshAndFetchAccountPolicies($this->fetchAccountFromRoute());
+            return $this->buildResponse(
+                $this->channelService->refreshAndFetchAccountPolicies($this->fetchAccountFromRoute())
+            );
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
