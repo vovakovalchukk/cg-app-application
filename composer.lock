@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "686c3dac24ea64b25ea31d5f91debe6a",
+    "content-hash": "d03f751ecfe61668271864bf2cbac1ab",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "1.27.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "95d59f819d900c6d079a11b5c5e88b33da7c828f"
+                "reference": "328b360c2bfac4d9d5ae3366cb77e75e584d6954"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-206-create-amazon-listings-41ea2f.zip",
-                "reference": "95d59f819d900c6d079a11b5c5e88b33da7c828f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.0-203390.zip",
+                "reference": "328b360c2bfac4d9d5ae3366cb77e75e584d6954",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-LIS-206-create-amazon-listings as 1.34.13",
+                "channelgrabber/channel": "^1.36.1",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -176,18 +176,18 @@
                 "channelgrabber/gearman": "^1.3.4",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "dev-LIS-206-create-amazon-listings as 1.16.2",
-                "channelgrabber/locale": "^1.0.9",
+                "channelgrabber/listing": "^1.17.1",
+                "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.34.3",
                 "channelgrabber/predis": "~1.0.12",
-                "channelgrabber/product": "^1.12.2",
+                "channelgrabber/product": "^1.14.0",
                 "channelgrabber/scraper": "^1.1.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.13.1",
-                "channelgrabber/user": "^1.22.9",
+                "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "contextio/php-contextio": "~2.1",
                 "guzzle/guzzle": "~3.7",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-06-26T08:25:35+00:00"
+            "time": "2018-06-28T10:13:24+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "1.36.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c429614739461c46071e2dc9b8b1df72515af571"
+                "reference": "5a4e0f7bdc1d4e6f75b9877893afbb1d5d4ecf16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-206-create-amazon-listings-f840d2.zip",
-                "reference": "c429614739461c46071e2dc9b8b1df72515af571",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.36.2-bde5a1.zip",
+                "reference": "5a4e0f7bdc1d4e6f75b9877893afbb1d5d4ecf16",
                 "shasum": null
             },
             "require": {
@@ -542,7 +542,7 @@
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "dev-LIS-206-create-amazon-listings as 1.16.2",
+                "channelgrabber/listing": "^1.17.1",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-26T08:36:08+00:00"
+            "time": "2018-06-28T09:12:25+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1473,16 +1473,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "59e81e2468e72d546bdd0cd190cdae02fa6a5794"
+                "reference": "d56a870f69151868d79d9814b9e5e3a4fa4ffc73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-206-create-amazon-listings-14765e.zip",
-                "reference": "59e81e2468e72d546bdd0cd190cdae02fa6a5794",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.1-171de5.zip",
+                "reference": "d56a870f69151868d79d9814b9e5e3a4fa4ffc73",
                 "shasum": null
             },
             "require": {
@@ -1518,7 +1518,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-26T08:28:29+00:00"
+            "time": "2018-06-28T08:31:54+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -9940,32 +9940,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.16",
-            "alias_normalized": "1.26.16.0",
-            "version": "dev-LIS-206-create-amazon-listings",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.36.1",
-            "alias_normalized": "1.36.1.0",
-            "version": "dev-LIS-206-create-amazon-listings",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.17.1",
-            "alias_normalized": "1.17.1.0",
-            "version": "dev-LIS-206-create-amazon-listings",
-            "package": "channelgrabber/listing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
