@@ -21,12 +21,18 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
+                renderStaticImagesFromVariationValues: false,
                 renderCustomTableHeaders: function() {
                     return null
                 },
                 renderCustomTableRows: function() {
                     return null
                 }
+            }
+        },
+        getInitialState: function() {
+            return {
+                initialRenderComplete: false
             }
         },
         renderImageHeader: function() {
@@ -98,8 +104,24 @@ define([
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);
         },
+        getStaticImage: function(fieldValue, fieldVariation){
+          if(this.props.renderStaticImagesFromVariationValues){
+              return fieldVariation.images[0];
+          }
+          return this.findSelectedImageForVariation(fieldValue);
+        },
         renderStaticImage: function(field) {
-            var image = this.findSelectedImageForVariation(field.input.value);
+            console.log('in renderStaticImage this.props.renderStaticImagesFromVariationValues: ' , this.props.renderStaticImagesFromVariationValues);
+
+
+            var image = this.getStaticImage(field.input.value, field.variation);
+
+//            return (
+//
+//                            <img src={image.url}/>
+//
+//
+//            );
             return (
                 <div className="image-dropdown-target">
                     <div className="react-image-picker">

@@ -165,7 +165,6 @@ define([
             }
         },
         renderProductIdentifiers: function() {
-            // default data;
             let product = {
                 images: this.props.uploadedImages.images
             };
@@ -184,15 +183,11 @@ define([
 
             return (
                 <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
-                    ABOVE IDENTIFIERS
                     <ProductIdentifiers
                         variationsDataForProduct={variationsData}
                         product={product}
-                        fieldChange={this.props.change}
-//                        imageDropdownsDisabled={true}
-
-                        //                        attributeNames={this.props.product.attributeNames}
-//                        renderImagePicker={false}
+                        renderImagePicker={false}
+                        renderStaticImagesFromVariationValues={true}
                     />
                 </fieldset>
             );
@@ -232,6 +227,7 @@ define([
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
+                            fieldChange={this.props.change}
                             unregister={this.props.unregister}
                         />
                     </fieldset>
