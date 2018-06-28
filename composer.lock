@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8e1adb0ff6d1d91cdbfe0e19d558530",
+    "content-hash": "be8bbe8bb21daa65a3f11fe2e4faf650",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-28T09:12:25+00:00"
+            "time": "2018-06-28T09:21:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -922,12 +922,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "5bc6aafcd123c133b9a4f761d32f69cbcd149de7"
+                "reference": "b8726319bf6fc64d65b7aa3ef13ea476f87babd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-129-fetch-ebay-return-policies-b2ebeb.zip",
-                "reference": "5bc6aafcd123c133b9a4f761d32f69cbcd149de7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-129-fetch-ebay-return-policies-8c6f73.zip",
+                "reference": "b8726319bf6fc64d65b7aa3ef13ea476f87babd0",
                 "shasum": null
             },
             "require": {
@@ -978,7 +978,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-06-28T09:24:52+00:00"
+            "time": "2018-06-28T15:41:44+00:00"
         },
         {
             "name": "channelgrabber/ekm",
