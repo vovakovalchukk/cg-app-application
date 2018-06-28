@@ -69,6 +69,7 @@ define([
                 refreshAccountPolicies={this.props.refreshAccountPolicies}
                 accountId={category.accountId}
                 accountData={this.props.accountsData[category.accountId]}
+                setReturnPoliciesForAccount={this.props.setReturnPoliciesForAccount}
                 {...category}
             />);
         },

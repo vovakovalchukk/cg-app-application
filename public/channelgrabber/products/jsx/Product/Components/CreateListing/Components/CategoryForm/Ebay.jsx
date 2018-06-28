@@ -30,7 +30,7 @@ define([
             };
         },
         componentDidMount: function() {
-            this.props.setReturnPoliciesForAccount(this.props.accountId);
+            this.props.setReturnPoliciesForAccount(this.props.accountId, this.props.returnPolicies);
         },
         arePoliciesFetching: function() {
             return this.props.accountData.policies ? !!(this.props.accountData.policies.isFetching) : false;
