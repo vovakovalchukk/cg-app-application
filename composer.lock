@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e03a44a360e9f98eb827df9087f858a5",
+    "content-hash": "dc060f4c3eb455d8a3a9329312f39290",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -518,17 +518,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-128-account-policy-endpoint",
+            "version": "dev-TAC-131-expose-return-policies-ebay",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5ce038df403983126284546a1a12337aff4fba2b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-128-account-policy-endpoint-9b7066.zip",
-                "reference": "5ce038df403983126284546a1a12337aff4fba2b",
-                "shasum": null
+                "reference": "288e620c2e89183f56392deb303970cee7a97e4b"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -597,7 +591,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-27T11:12:07+00:00"
+            "time": "2018-06-28T08:51:15+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -918,22 +912,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-129-fetch-ebay-return-policies",
+            "version": "1.12.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "36598b1ed95c003cf5a39ae72fb04002b32a7291"
+                "reference": "d64d0c776fa332144f55e63b981b01ecfdf38981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-129-fetch-ebay-return-policies-a73aef.zip",
-                "reference": "36598b1ed95c003cf5a39ae72fb04002b32a7291",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.12.8-494a51.zip",
+                "reference": "d64d0c776fa332144f55e63b981b01ecfdf38981",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "dev-TAC-128-account-policy-endpoint as 1.35.2",
+                "channelgrabber/channel": "^1.34.0",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -978,7 +972,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-06-27T12:30:51+00:00"
+            "time": "2018-06-04T08:27:30+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9944,21 +9938,14 @@
         {
             "alias": "1.36.1",
             "alias_normalized": "1.36.1.0",
-            "version": "dev-TAC-128-account-policy-endpoint",
+            "version": "dev-TAC-131-expose-return-policies-ebay",
             "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.12.8",
-            "alias_normalized": "1.12.8.0",
-            "version": "dev-TAC-129-fetch-ebay-return-policies",
-            "package": "channelgrabber/ebay"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

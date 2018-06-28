@@ -123,7 +123,7 @@ class Service implements
                 (new AccountPolicyFilter)
                     ->setLimit('all')
                     ->setPage(1)
-                    ->setAccountId($account->getId())
+                    ->setAccountId([$account->getId()])
                     ->setType([AccountPolicy::TYPE_RETURN])
             );
             return $this->formatReturnPolicies($accountPolicies);
