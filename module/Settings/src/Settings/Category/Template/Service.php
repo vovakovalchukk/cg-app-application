@@ -76,7 +76,7 @@ class Service
             return [];
         }
 
-        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels();
+        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels($ou);
         $result = [];
         /** @var Account $account */
         foreach ($accounts as $account) {
@@ -101,7 +101,7 @@ class Service
             return [];
         }
 
-        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels();
+        $allowedChannels = $this->channelService->getAllowedCreateListingsChannels($ou);
         $result = [];
         /** @var Account $account */
         foreach ($accounts as $account) {
