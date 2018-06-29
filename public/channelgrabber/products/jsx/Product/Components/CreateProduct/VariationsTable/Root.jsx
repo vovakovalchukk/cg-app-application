@@ -20,8 +20,8 @@ define([
     const mapStateToProps = function(state) {
         var variationValues, attributeValues  = null;
         if (state.form.createProductForm.values) {
-            variationValues = state.form[formName].values.variations,
-            attributeValues = state.form[formName].values.attributes
+            variationValues = state.form[formName].values.variations;
+            attributeValues = state.form[formName].values.attributes;
         }
         return {
             variationsTable: stateFilters.filterFields(1, state.variationsTable),

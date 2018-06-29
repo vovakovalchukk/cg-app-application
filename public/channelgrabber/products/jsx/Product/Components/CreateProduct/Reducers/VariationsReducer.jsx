@@ -170,9 +170,16 @@ define([
         },
         "ATTRIBUTE_COLUMN_REMOVE": function(state, action) {
             var fieldsCopy = state.fields.slice();
+
+            console.log('attribute_column_remove fieldsCopy: ' , fieldsCopy, ' fieldName : ' , action.payload.fieldName);
+
+
+
             var indexOfField = fieldsCopy.map(function(field) {
                 return field.name;
             }).indexOf(action.payload.fieldName);
+            console.log('indexOfField: ', indexOfField);
+            
             fieldsCopy.splice(indexOfField, 1);
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy
@@ -191,14 +198,8 @@ define([
             return newState;
         },
         "ATTRIBUTE_COLUMN_NAME_CHANGE": function(state, action) {
-            console.log('ATTRIBUTE_COLUMN_NAME_CHANGE action: ' , action);
-
-
             var fieldsCopy = state.fields.slice();
             var fieldToChange = stateFilters.findFieldByName(action.payload.fieldName, fieldsCopy);
-            console.log('fieldToChange: ' , fieldToChange);
-
-
             fieldToChange.label = action.payload.newValue;
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy

@@ -65,35 +65,46 @@ define([
         },
         attributeColumnNameChange: function(fieldName, value) {
             this.props.attributeColumnNameChange(fieldName, value)
-
-
             // todo variationValues param needs to be changed to a attributeValues equiv
             if (attributeColumnHasNoValue(this.props.attributeValues, fieldName)) {
-                console.log('attribute column has no value....');
-                
-                
                 this.props.newAttributeColumnRequest();
             }
         },
         resetFieldValueInReduxForm: function(fieldPath) {
+            console.log('in resetValuesinReduxForm');
+            
+            
+            console.log('resetting fieldPath : ', fieldPath);
+
+
             this.props.unregister(fieldPath);
             this.props.change(fieldPath, null);
             this.props.untouch(fieldPath);
         },
         unsetAttributeFieldOnAllVariations: function(field) {
+            console.log('in unsetAttribteFIeldON..... this.props: ' , this.props);
+
+
             var variationValues = this.props.variationValues;
             for (var variation in variationValues) {
+                console.log('in loop with variation: ' , variation);
+
+
                 if (variation.indexOf('variation-') < 0) {
                     continue;
                 }
                 this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
             }
         },
-        attributeColumnRemove: function(field) {
-            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.' + field.name);
-            this.unsetAttributeFieldOnAllVariations(field);
-            this.props.attributeColumnRemove(field.name);
-        },
+        //todo - remove this as it seems to be being handles by reduxForm
+//        attributeColumnRemove: function(field) {
+//            console.log('in attributeCOlumnRemove...');
+//
+//
+//            this.resetFieldValueInReduxForm('attributes.' + field.name);
+//            this.unsetAttributeFieldOnAllVariations(field);
+//            this.props.attributeColumnRemove(field.name);
+//        },
         variationRowRemove: function(variationId) {
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);
@@ -107,7 +118,7 @@ define([
                     return (
                         <button type="button"
                                 className={'c-table-with-inputs__remove-button'}
-                                onClick={this.props.attributeColumnRemove.bind(this, fieldName)}
+                                onClick={this.props.attributeColumnRemove.bind(this, field.name)}
                         >
                             ❌
                         </button>
@@ -124,7 +135,6 @@ define([
                                 className={"c-table-with-inputs__text-input"}
                                 component="input"
                                 onChange={(function(event) {
-                                    console.log('on change field.name: ' , field.name);
                                     this.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
@@ -353,8 +363,6 @@ define([
         }
     }
     function attributeColumnHasNoValue(attributeValues, fieldName) {
-        console.log('in attributeCOlumnhasnotvalue :  attributeValues: ', attributeValues , ' fieldName: ' , fieldName ) ;
-
         return (!attributeValues || attributeValues[fieldName] == undefined);
     }
 });
