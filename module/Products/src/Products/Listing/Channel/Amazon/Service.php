@@ -2,10 +2,13 @@
 namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\Listing\Client\Service as ListingService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Category\ExternalData\Entity as CategoryExternalEntity;
 use CG\Product\Category\ExternalData\StorageInterface as CategoryExternalStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
@@ -20,13 +23,21 @@ class Service implements
     protected $categoryService;
     /** @var  CategoryExternalStorage */
     protected $categoryExternalStorage;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         CategoryService $categoryService,
-        CategoryExternalStorage $categoryExternalStorage
+        CategoryExternalStorage $categoryExternalStorage,
+        FeatureFlagsService $featureFlagsService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->categoryService = $categoryService;
         $this->categoryExternalStorage = $categoryExternalStorage;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
@@ -47,10 +58,15 @@ class Service implements
 
     public function getCategoryDependentValues(?Account $account, int $categoryId): array
     {
-        return [
+        $values = [
             'itemSpecifics' => $this->getItemSpecifics($categoryId),
             'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false)
         ];
+        $rootOu = $this->organisationUnitService->getRootOuFromOuId($account->getOrganisationUnitId());
+        if ($this->featureFlagsService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_AMAZON, $rootOu)) {
+            $values['variationThemes'] = $this->getVariationThemes();
+        }
+        return $values;
     }
 
     protected function getItemSpecifics(int $categoryId): array
@@ -67,5 +83,46 @@ class Service implements
         } catch (NotFound $e) {
             return [];
         }
+    }
+
+    protected function getVariationThemes(): array
+    {
+        // To be replaced by LIS-237
+        return [
+            [
+                'name' => 'SizeColor',
+                'validValues' => [
+                    [
+                        'name' => "Size",
+                        'options' => [
+                            'small' => 'small',
+                            'medium' => 'medium',
+                            'large' => 'large',
+                        ]
+                    ],
+                    [
+                        'name' => "Color",
+                        'options' => [
+                            'red' => 'red',
+                            'green' => 'green',
+                            'blue' => 'blue',
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'name' => 'Color',
+                'validValues' => [
+                    [
+                        'name' => "Color",
+                        'options' => [
+                            'red' => 'red',
+                            'green' => 'green',
+                            'blue' => 'blue',
+                        ]
+                    ],
+                ]
+            ],
+        ];
     }
 }
