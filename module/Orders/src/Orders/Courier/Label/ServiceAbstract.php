@@ -7,6 +7,8 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Locking\Failure as LockingFailure;
 use CG\Locking\Service as LockingService;
 use CG\Order\Client\Label\Service as OrderLabelService;
@@ -270,7 +272,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function processWeightForProductDetails($value, Item $item, $parcelCount)
     {
-        return ProductDetail::convertMass($value / $item->getItemQuantity(), ProductDetail::DISPLAY_UNIT_MASS, ProductDetail::UNIT_MASS);
+        $displayUnit = LocaleMass::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
+        return ProductDetail::convertMass($value / $item->getItemQuantity(), $displayUnit, ProductDetail::UNIT_MASS);
     }
 
     protected function processDimensionForProductDetails($value, Item $item, $parcelCount)
@@ -279,8 +282,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         if ($item->getItemQuantity() > 1 || $parcelCount > 1) {
             return null;
         }
-        // Dimensions entered in centimetres but stored in metres
-        return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
+        $displayUnit = LocaleLength::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
+        return ProductDetail::convertLength($value, $displayUnit, ProductDetail::UNIT_LENGTH);
     }
 
     protected function createOrderLabelForOrder(

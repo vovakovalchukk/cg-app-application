@@ -7,6 +7,7 @@ use CG\ShipStation\Messages\Shipment;
 use CG\ShipStation\Messages\ShipmentAddress;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Shipping\Shipments as Response;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Shipments extends RequestAbstract
 {
@@ -30,63 +31,9 @@ class Shipments extends RequestAbstract
     {
         $shipments = [];
         foreach ($this->shipments as $shipment) {
-            $shipments[] = [
-                'service_code' => $shipment->getServiceCode(),
-                'ship_to' => $this->getShipmentAddressArray($shipment->getShipTo()),
-                'warehouse_id' => $shipment->getWarehouseId(),
-                'packages' => $this->getPackagesArray($shipment),
-            ];
+            $shipments[] = $shipment->toArray();
         }
         return $shipments;
-    }
-
-    protected function getShipmentAddressArray(ShipmentAddress $shipmentAddress)
-    {
-        return [
-            'name' => $shipmentAddress->getName(),
-            'phone' => $shipmentAddress->getPhone(),
-            'company_name' => $shipmentAddress->getCompanyName(),
-            'address_line1' => $shipmentAddress->getAddressLine1(),
-            'address_line2' => $shipmentAddress->getAddressLine2(),
-            'city_locality' => $shipmentAddress->getCityLocality(),
-            'state_province' => $shipmentAddress->getStateProvince(),
-            'postal_code' => $shipmentAddress->getPostalCode(),
-            'country_code' => $shipmentAddress->getCountryCode(),
-            'address_residential_indicator' => $this->getAddressResidentialIndicatorString($shipmentAddress),
-        ];
-    }
-
-    protected function getAddressResidentialIndicatorString(ShipmentAddress $shipmentAddress)
-    {
-        $addressResidentialIndicator = $shipmentAddress->isAddressResidentialIndicator();
-        if ($addressResidentialIndicator === null) {
-            return 'unknown';
-        }
-        return $addressResidentialIndicator ? 'yes': 'no';
-    }
-
-    protected function getPackagesArray(Shipment $shipment): array
-    {
-        $packages = [];
-        foreach ($shipment->getPackages() as $package) {
-            $packages[] = [
-                'weight' => [
-                    'value' => $package->getWeight(),
-                    'unit' => $package->getWeightUnit(),
-                ],
-                'dimensions' => [
-                    'length' => $package->getLength(),
-                    'width' => $package->getWidth(),
-                    'height' => $package->getHeight(),
-                    'unit' => $package->getDimensionsUnit(),
-                ],
-                'insured_value' => [
-                    'amount' => $package->getInsuredValue(),
-                    'currency' => $package->getInsuredCurrency(),
-                ],
-            ];
-        }
-        return $packages;
     }
 
     public function getResponseClass(): string
@@ -98,13 +45,15 @@ class Shipments extends RequestAbstract
         OrderCollection $orders,
         array $ordersData,
         array $orderParcelsData,
-        Account $shipStationAccount
+        Account $shipStationAccount,
+        Account $shippingAccount,
+        OrganisationUnit $rootOu
     ): Shipments {
         $shipments = [];
         foreach ($orders as $order) {
             $orderData = $ordersData[$order->getId()];
             $parcelsData = $orderParcelsData[$order->getId()];
-            $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount);
+            $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         }
 
         return new static(...$shipments);
