@@ -3,11 +3,7 @@ namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
-use CG\FeatureFlags\Service as FeatureFlagsService;
-use CG\Listing\Client\Service as ListingService;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\Category\ExternalData\Entity as CategoryExternalEntity;
-use CG\Product\Category\ExternalData\StorageInterface as CategoryExternalStorage;
+use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
@@ -21,23 +17,15 @@ class Service implements
 {
     /** @var CategoryService */
     protected $categoryService;
-    /** @var  CategoryExternalStorage */
-    protected $categoryExternalStorage;
-    /** @var FeatureFlagsService */
-    protected $featureFlagsService;
-    /** @var OrganisationUnitService */
-    protected $organisationUnitService;
+    /** @var CategoryExternalService */
+    protected $categoryExternalService;
 
     public function __construct(
         CategoryService $categoryService,
-        CategoryExternalStorage $categoryExternalStorage,
-        FeatureFlagsService $featureFlagsService,
-        OrganisationUnitService $organisationUnitService
+        CategoryExternalService $categoryExternalService
     ) {
         $this->categoryService = $categoryService;
-        $this->categoryExternalStorage = $categoryExternalStorage;
-        $this->featureFlagsService = $featureFlagsService;
-        $this->organisationUnitService = $organisationUnitService;
+        $this->categoryExternalService = $categoryExternalService;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
@@ -58,71 +46,54 @@ class Service implements
 
     public function getCategoryDependentValues(?Account $account, int $categoryId): array
     {
-        $values = [
-            'itemSpecifics' => $this->getItemSpecifics($categoryId),
-            'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false)
+        $categoryData = $this->fetchAmazonSpecificCategoryData($categoryId);
+        return [
+            'itemSpecifics' => $this->getItemSpecifics($categoryData),
+            'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false),
+            'variationThemes' => $this->getVariationThemes($categoryData),
         ];
-        $rootOu = $this->organisationUnitService->getRootOuFromOuId($account->getOrganisationUnitId());
-        if ($this->featureFlagsService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_AMAZON, $rootOu)) {
-            $values['variationThemes'] = $this->getVariationThemes();
-        }
-        return $values;
     }
 
-    protected function getItemSpecifics(int $categoryId): array
+    protected function getItemSpecifics(?AmazonCategoryExternalData $categoryData): array
     {
-        try {
-            /** @var CategoryExternalEntity $categoryExternal */
-            $categoryExternal = $this->categoryExternalStorage->fetch($categoryId);
-            if ($categoryExternal->getChannel() !== 'amazon') {
-                throw new NotFound('The given category ' . $categoryId . ' doesn\'t belong to Amazon');
-            }
-            /** @var AmazonCategoryExternalData $amazonData */
-            $amazonData = $categoryExternal->getData();
-            return $amazonData->getAttributes();
-        } catch (NotFound $e) {
+        if (!$categoryData) {
             return [];
         }
+        return $categoryData->getAttributes();
     }
 
-    protected function getVariationThemes(): array
+    protected function getVariationThemes(?AmazonCategoryExternalData $categoryData = null): array
     {
-        // To be replaced by LIS-237
-        return [
-            [
-                'name' => 'SizeColor',
-                'validValues' => [
-                    [
-                        'name' => "Size",
-                        'options' => [
-                            'small' => 'small',
-                            'medium' => 'medium',
-                            'large' => 'large',
-                        ]
-                    ],
-                    [
-                        'name' => "Color",
-                        'options' => [
-                            'red' => 'red',
-                            'green' => 'green',
-                            'blue' => 'blue',
-                        ]
-                    ],
-                ]
-            ],
-            [
-                'name' => 'Color',
-                'validValues' => [
-                    [
-                        'name' => "Color",
-                        'options' => [
-                            'red' => 'red',
-                            'green' => 'green',
-                            'blue' => 'blue',
-                        ]
-                    ],
-                ]
-            ],
-        ];
+        if (!$categoryData || !$categoryData->getVariationThemes()) {
+            return [];
+        }
+
+        $variationThemes = [];
+        foreach ($categoryData->getVariationThemes() as $variationTheme) {
+            $variationThemes[] = [
+                'name' => $variationTheme['name'],
+                'validValues' => array_map(function($key, $options){
+                    return [
+                        'name' => $key,
+                        'options' => array_combine($options, $options)
+                    ];
+                }, array_keys($variationTheme['validValues']), $variationTheme['validValues'])
+            ];
+        }
+        return $variationThemes;
+    }
+
+    protected function fetchAmazonSpecificCategoryData(int $categoryId): ?AmazonCategoryExternalData
+    {
+        try {
+            $categoryExternal = $this->categoryExternalService->fetch($categoryId);
+            $data = $categoryExternal->getData();
+            if (!$data instanceof AmazonCategoryExternalData) {
+                throw new NotFound('The given category ' . $categoryId . ' doesn\'t belong to Amazon');
+            }
+            return $data;
+        } catch (NotFound $e) {
+            return null;
+        }
     }
 }
