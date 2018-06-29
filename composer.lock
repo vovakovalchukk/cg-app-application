@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9370c3aaa0e212bf0ca0fde54ac34cc",
+    "content-hash": "b59323161defbd5fb2a4d4d021e3ddb0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-LIS-239-update-product-with-amazon-variation-data",
+            "version": "dev-Epic-Amazon-Variations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "c56a20ae09214b1cc9007e36567a662b38bd46a4"
+                "reference": "439eaf4c3efa1f6045b2c941750b2a868f2289e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-LIS-239-update-product-with-amazon-variation-data-ed7b79.zip",
-                "reference": "c56a20ae09214b1cc9007e36567a662b38bd46a4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-Epic-Amazon-Variations-b0e4e1.zip",
+                "reference": "439eaf4c3efa1f6045b2c941750b2a868f2289e3",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.36.1",
+                "channelgrabber/channel": "dev-LIS-240-create-variation-listings-amazon as 1.36.3",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-06-28T14:30:56+00:00"
+            "time": "2018-06-29T11:34:25+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "dev-LIS-240-create-variation-listings-amazon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0c43301646dac39bdd2b007a697ce348de5b1090"
+                "reference": "7d232fa4f36cf37017149c2514eac4863d4c2b6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-206-create-amazon-listings-104484.zip",
-                "reference": "0c43301646dac39bdd2b007a697ce348de5b1090",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-240-create-variation-listings-amazon-d70f00.zip",
+                "reference": "7d232fa4f36cf37017149c2514eac4863d4c2b6d",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-28T08:39:13+00:00"
+            "time": "2018-06-28T15:18:15+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9949,13 +9949,13 @@
         {
             "alias": "1.27.1",
             "alias_normalized": "1.27.1.0",
-            "version": "dev-LIS-239-update-product-with-amazon-variation-data",
+            "version": "dev-Epic-Amazon-Variations",
             "package": "channelgrabber/amazon"
         },
         {
             "alias": "1.36.3",
             "alias_normalized": "1.36.3.0",
-            "version": "dev-LIS-206-create-amazon-listings",
+            "version": "dev-LIS-240-create-variation-listings-amazon",
             "package": "channelgrabber/channel"
         },
         {
