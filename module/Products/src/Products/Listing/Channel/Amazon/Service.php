@@ -3,6 +3,7 @@ namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
+use CG\Product\Category\ExternalData\Entity as CategoryExternalData;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Listing\Category\Service as CategoryService;
@@ -15,6 +16,16 @@ class Service implements
     CategoryChildrenInterface,
     CategoryDependentServiceInterface
 {
+    const ITEM_SPECIFIC_VARIATION_DATA = 'VariationData';
+    const ITEM_SPECIFIC_VARIATION_THEME = 'VariationTheme';
+    const ITEM_SPECIFIC_PARENTAGE = 'Parentage';
+
+    const HIDDEN_ITEM_SPECIFICS = [
+        self::ITEM_SPECIFIC_VARIATION_DATA => self::ITEM_SPECIFIC_VARIATION_DATA,
+        self::ITEM_SPECIFIC_VARIATION_THEME => self::ITEM_SPECIFIC_VARIATION_THEME,
+        self::ITEM_SPECIFIC_PARENTAGE => self::ITEM_SPECIFIC_PARENTAGE
+    ];
+
     /** @var CategoryService */
     protected $categoryService;
     /** @var CategoryExternalService */
@@ -59,7 +70,8 @@ class Service implements
         if (!$categoryData) {
             return [];
         }
-        return $categoryData->getAttributes();
+        $itemSpecifics = $categoryData->getAttributes();
+        return $this->filterItemSpecifics($itemSpecifics);
     }
 
     protected function getVariationThemes(?AmazonCategoryExternalData $categoryData = null): array
@@ -86,6 +98,7 @@ class Service implements
     protected function fetchAmazonSpecificCategoryData(int $categoryId): ?AmazonCategoryExternalData
     {
         try {
+            /** @var CategoryExternalData $categoryExternal */
             $categoryExternal = $this->categoryExternalService->fetch($categoryId);
             $data = $categoryExternal->getData();
             if (!$data instanceof AmazonCategoryExternalData) {
@@ -95,5 +108,24 @@ class Service implements
         } catch (NotFound $e) {
             return null;
         }
+    }
+
+    protected function filterItemSpecifics(array $itemSpecifics): array
+    {
+        $result = [];
+        foreach ($itemSpecifics as $itemSpecific) {
+            $name = $itemSpecific['name'];
+            if (isset(static::HIDDEN_ITEM_SPECIFICS[$name])) {
+                continue;
+            }
+
+            $children = $itemSpecific['children'] ?? [];
+            if (!empty($children)) {
+                $itemSpecific['children'] = $this->filterItemSpecifics($children);
+            }
+            $result[] = $itemSpecific;
+        }
+
+        return $result;
     }
 }
