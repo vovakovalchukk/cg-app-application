@@ -60,15 +60,15 @@ class AccountController extends AbstractActionController
         $channelName = $this->params('channel');
         $carrier = $this->carrierService->getCarrierByChannelName($channelName);
         $accountId = $this->params()->fromQuery('accountId');
+        $organisationUnitId = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
         $account = null;
         $credentials = null;
         if ($accountId) {
             $account = $this->accountService->fetch($accountId);
             $credentials = $this->cryptor->decrypt($account->getCredentials());
         }
-
-        $setup = ($this->setupFactory)($channelName);
-        return $setup($carrier, $this->url(), $account, $credentials);
+        $setup = ($this->setupFactory)($channelName, $this->viewModelFactory, $this->url(), $this->redirect());
+        return $setup($carrier, $organisationUnitId, $account, $credentials);
     }
 
     public function saveAction()

@@ -20,17 +20,24 @@ class Other implements SetupInterface
 {
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var Url */
+    protected $urlHelper;
 
-    public function __construct(ViewModelFactory $viewModelFactory)
+    public function __construct(ViewModelFactory $viewModelFactory, Url $urlHelper)
     {
         $this->viewModelFactory = $viewModelFactory;
+        $this->urlHelper = $urlHelper;
     }
 
     /**
      * @return ViewModel
      */
-    public function __invoke(Carrier $carrier, Url $urlHelper, Account $account = null, Credentials $credentials = null)
-    {
+    public function __invoke(
+        Carrier $carrier,
+        int $organisationUnitId,
+        Account $account = null,
+        Credentials $credentials = null
+    ) {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('ship-station/setup')
             ->setVariable('isHeaderBarVisible', false)
@@ -41,14 +48,14 @@ class Other implements SetupInterface
             ->addChild($this->getButtonView('linkAccount', 'Link Account'), 'linkAccount')
             ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
 
-        $goBackUrl = $urlHelper->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
+        $goBackUrl = $this->urlHelper->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
         if ($account) {
             $goBackUrl .= '/'.$account->getId();
         }
         $view->setVariable('goBackUrl', $goBackUrl);
 
         $saveRoute = implode('/', [Module::ROUTE, AccountController::ROUTE, AccountController::ROUTE_SAVE]);
-        $saveUrl = $urlHelper->fromRoute($saveRoute, ['channel' => $carrier->getChannelName()]);
+        $saveUrl = $this->urlHelper->fromRoute($saveRoute, ['channel' => $carrier->getChannelName()]);
         $view->setVariable('saveUrl', $saveUrl);
 
         $this->addCarrierFieldsToView($view, $carrier, $credentials);
