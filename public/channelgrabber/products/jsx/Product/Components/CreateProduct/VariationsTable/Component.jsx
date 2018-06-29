@@ -70,32 +70,28 @@ define([
                 this.props.newAttributeColumnRequest();
             }
         },
-        resetFieldValueInReduxForm: function(fieldPath) {
-            console.log('in resetValuesinReduxForm');
-            
-            
-            console.log('resetting fieldPath : ', fieldPath);
-
-
-            this.props.unregister(fieldPath);
-            this.props.change(fieldPath, null);
-            this.props.untouch(fieldPath);
-        },
-        unsetAttributeFieldOnAllVariations: function(field) {
-            console.log('in unsetAttribteFIeldON..... this.props: ' , this.props);
-
-
-            var variationValues = this.props.variationValues;
-            for (var variation in variationValues) {
-                console.log('in loop with variation: ' , variation);
-
-
-                if (variation.indexOf('variation-') < 0) {
-                    continue;
-                }
-                this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
-            }
-        },
+//        resetFieldValueInReduxForm: function(fieldPath) {
+//            console.log('in resetValuesinReduxForm');
+//
+//
+//            console.log('resetting fieldPath : ', fieldPath);
+//
+//
+//            this.props.unregister(fieldPath);
+//            this.props.change(fieldPath, null);
+//            this.props.untouch(fieldPath);
+//        },
+//        unsetAttributeFieldOnAllVariations: function(field) {
+//            console.log('in unsetAttribteFIeldON..... this.props: ' , this.props);
+//            var variationValues = this.props.variationValues;
+//            for (var variation in variationValues) {
+//                console.log('in loop with variation: ' , variation);
+//                if (variation.indexOf('variation-') < 0) {
+//                    continue;
+//                }
+//                this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
+//            }
+//        },
         //todo - remove this as it seems to be being handles by reduxForm
 //        attributeColumnRemove: function(field) {
 //            console.log('in attributeCOlumnRemove...');

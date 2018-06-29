@@ -107,14 +107,11 @@ define([
 
     function getAttributeNamesFromFormData(values) {
         var attributeNames = {};
-        if (!values.variations['c-table-with-inputs__headings']) {
+        if (!values.attributes) {
             return attributeNames;
         }
-        for (var key in values.variations['c-table-with-inputs__headings']) {
-            if (!key.match(/^custom-attribute/)) {
-                continue;
-            }
-            attributeNames[key] = values.variations['c-table-with-inputs__headings'][key];
+        for (var key in values.attributes) {
+            attributeNames[key] = values.attributes[key];
         }
         return attributeNames;
     };
@@ -137,33 +134,39 @@ define([
         return mergedVariation;
     }
 
+    function addAttributeValuesToFormattedVariation(formattedVariation, attributeNames) {
+        formattedVariation.attributeValues = {};
+        for (var key in attributeNames) {
+            if (!formattedVariation.hasOwnProperty(key)) {
+                continue;
+            }
+            if (formattedVariation[key] !== null) {
+                formattedVariation.attributeValues[attributeNames[key]] = formattedVariation[key];
+            }
+            delete formattedVariation[key];
+        }
+        return formattedVariation;
+    }
+
+    function addStockToFormattedVariation(formattedVariation) {
+        formattedVariation.stock = {
+            stockMode: formattedVariation.stockModeType.value || null,
+            stockLevel: formattedVariation.stockAmount || null
+        };
+        delete formattedVariation.stockModeType;
+        delete formattedVariation.stockAmount;
+        return formattedVariation;
+    }
+
     function formatVariationFormValuesForPostRequest(variations, attributeNames, productIdentifiers) {
-        return Object.keys(variations).filter(function(key) {
-            return (key != 'c-table-with-inputs__headings');
-        }).map(function(key) {
+        return Object.keys(variations).map(function(key) {
             var formattedVariation = Object.assign({}, variations[key]);
 
             delete formattedVariation.images;
 
-            formattedVariation.stock = {
-                stockMode: formattedVariation.stockModeType.value || null,
-                stockLevel: formattedVariation.stockAmount || null
-            };
-            delete formattedVariation.stockModeType;
-            delete formattedVariation.stockAmount;
-
+            formattedVariation = addStockToFormattedVariation(formattedVariation)
             formattedVariation = addProductIdentifiersToFormattedVariation(formattedVariation, productIdentifiers);
-
-            formattedVariation.attributeValues = {};
-            for (var key in attributeNames) {
-                if (!formattedVariation.hasOwnProperty(key)) {
-                    continue;
-                }
-                if (formattedVariation[key] !== null) {
-                    formattedVariation.attributeValues[attributeNames[key]] = formattedVariation[key];
-                }
-                delete formattedVariation[key];
-            }
+            formattedVariation = addAttributeValuesToFormattedVariation(formattedVariation, attributeNames);
 
             return formattedVariation;
         });

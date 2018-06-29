@@ -170,16 +170,9 @@ define([
         },
         "ATTRIBUTE_COLUMN_REMOVE": function(state, action) {
             var fieldsCopy = state.fields.slice();
-
-            console.log('attribute_column_remove fieldsCopy: ' , fieldsCopy, ' fieldName : ' , action.payload.fieldName);
-
-
-
             var indexOfField = fieldsCopy.map(function(field) {
                 return field.name;
             }).indexOf(action.payload.fieldName);
-            console.log('indexOfField: ', indexOfField);
-            
             fieldsCopy.splice(indexOfField, 1);
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy
