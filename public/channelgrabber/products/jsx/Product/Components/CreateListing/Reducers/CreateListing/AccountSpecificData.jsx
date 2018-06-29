@@ -5,38 +5,39 @@ define([
 ) {
     "use strict";
 
-    var initialState = {};
+    let initialState = {};
+
+    let setPoliciesOnStateForAccount = function(state, accountId, policies) {
+        return Object.assign({}, state, {
+            [accountId]: Object.assign({}, state[accountId], {
+                policies: {
+                    isFetching: policies.isFetching,
+                    returnPolicies: policies.returnPolicies,
+                    paymentPolicies: policies.paymentPolicies,
+                    shippingPolicies: policies.shippingPolicies
+                }
+            })
+        });
+    };
 
     return reducerCreator(initialState, {
         "FETCH_ACCOUNT_POLICIES": function(state, action) {
-            return Object.assign({}, state, {
-                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
-                    policies: {
-                        isFetching: true,
-                        returnPolicies: []
-                    }
-                })
+            return setPoliciesOnStateForAccount(state, action.payload.accountId, {
+                isFetching: true,
+                returnPolicies: [],
+                paymentPolicies: [],
+                shippingPolicies: []
             });
         },
         "ACCOUNT_POLICIES_FETCHED": function(state, action) {
-            return Object.assign({}, state, {
-                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
-                    policies: {
-                        isFetching: false,
-                        returnPolicies: action.payload.returnPolicies
-                    }
-                })
-            });
+            return setPoliciesOnStateForAccount(state, action.payload.accountId, Object.assign(action.payload.policies, {
+                isFetching: false
+            }));
         },
-        "SET_RETURN_POLICIES_FOR_ACCOUNT": function(state, action) {
-            return Object.assign({}, state, {
-                [action.payload.accountId]: Object.assign({}, state[action.payload.accountId], {
-                    policies: {
-                        isFetching: false,
-                        returnPolicies: action.payload.returnPolicies
-                    }
-                })
-            });
+        "SET_POLICIES_FOR_ACCOUNT": function(state, action) {
+            return setPoliciesOnStateForAccount(state, action.payload.accountId, Object.assign(action.payload.policies, {
+                isFetching: false
+            }));
         }
     });
 });

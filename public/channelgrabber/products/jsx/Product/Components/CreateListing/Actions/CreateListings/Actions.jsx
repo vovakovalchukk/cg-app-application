@@ -270,12 +270,12 @@ define([
                 }
             }
         },
-        setReturnPoliciesForAccount: function(accountId, returnPolicies) {
+        setPoliciesForAccount: function(accountId, policies) {
             return {
-                type: "SET_RETURN_POLICIES_FOR_ACCOUNT",
+                type: "SET_POLICIES_FOR_ACCOUNT",
                 payload: {
                     accountId: accountId,
-                    returnPolicies: returnPolicies
+                    policies: policies
                 }
             }
         }

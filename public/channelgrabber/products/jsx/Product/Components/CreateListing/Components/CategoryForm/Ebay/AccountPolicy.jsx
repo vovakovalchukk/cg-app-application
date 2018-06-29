@@ -13,25 +13,52 @@ define([
 
     var Field = ReduxForm.Field;
 
-    var EbayReturnPolicy = React.createClass({
+    var EbayAccountPolicy = React.createClass({
         getDefaultProps: function() {
             return {
                 returnPolicies: {},
+                paymentPolicies: {},
+                shippingPolicies: {},
                 accountId: null,
                 refreshAccountPolicies: () => {},
                 disabled: false
             };
         },
+        renderReturnPolicyField: function () {
+            return <Field
+                name="paymentPolicy"
+                component={this.renderSelect}
+                disabled={this.props.disabled}
+                options={this.props.paymentPolicies}
+                displayTitle="Payment Policy"
+            />;
+        },
+        renderShippingPolicyField: function () {
+            return <Field
+                name="returnPolicy"
+                component={this.renderSelect}
+                disabled={this.props.disabled}
+                options={this.props.returnPolicies}
+                displayTitle="Return Policy"
+            />;
+        },
+        renderPaymentPolicyField: function () {
+            return <Field
+                name="shippingPolicy"
+                component={this.renderSelect}
+                disabled={this.props.disabled}
+                options={this.props.shippingPolicies}
+                displayTitle="Shipping Policy"
+            />;
+        },
         renderSelect: function(field) {
-            var selectedOption = this.findSelectedOptionFromValue(field.input.value);
+            var selectedOption = this.findSelectedOptionFromValue(field.input.value, field.options);
             return <label>
-                <span className={"inputbox-label"}>Return Policy</span>
+                <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <Select
-                        name="returnPolicy"
                         options={field.options}
                         autoSelectFirst={false}
-                        title="Return Policy"
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
                         disabled={field.disabled}
@@ -43,8 +70,7 @@ define([
                 />
             </label>;
         },
-        findSelectedOptionFromValue: function(selectedValue) {
-            var options = this.props.returnPolicies;
+        findSelectedOptionFromValue: function(selectedValue, options) {
             for (var key in options) {
                 if (options[key].value == selectedValue) {
                     return options[key];
@@ -59,13 +85,12 @@ define([
             this.props.refreshAccountPolicies(this.props.accountId);
         },
         render: function() {
-            return <Field
-                name="returnPolicy"
-                component={this.renderSelect}
-                disabled={this.props.disabled}
-                options={this.props.returnPolicies}
-            />;
+            return <span>
+                {this.renderReturnPolicyField()}
+                {this.renderShippingPolicyField()}
+                {this.renderPaymentPolicyField()}
+            </span>;
         }
     });
-    return EbayReturnPolicy;
+    return EbayAccountPolicy;
 });
