@@ -65,7 +65,13 @@ define([
         },
         attributeColumnNameChange: function(fieldName, value) {
             this.props.attributeColumnNameChange(fieldName, value)
-            if (attributeColumnHasNoValue(this.props.variationValues, fieldName)) {
+
+
+            // todo variationValues param needs to be changed to a attributeValues equiv
+            if (attributeColumnHasNoValue(this.props.attributeValues, fieldName)) {
+                console.log('attribute column has no value....');
+                
+                
                 this.props.newAttributeColumnRequest();
             }
         },
@@ -95,26 +101,30 @@ define([
         renderVariationTableHeading: function(field) {
             if (field.isCustomAttribute) {
                 var isLastAttributeFieldColumn = stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
+                let fieldName = 'attributes.'+field.name;
+
                 var renderRemoveButton = () => {
                     return (
                         <button type="button"
                                 className={'c-table-with-inputs__remove-button'}
-                                onClick={this.props.attributeColumnRemove.bind(this, field.name)}
+                                onClick={this.props.attributeColumnRemove.bind(this, fieldName)}
                         >
                             ❌
                         </button>
                     );
                 };
+
                 return (
                     <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading'}>
                         <div>
                             <Field
                                 type="text"
-                                name={field.name}
+                                name={fieldName}
                                 placeholder="Variation name (e.g. Color)"
                                 className={"c-table-with-inputs__text-input"}
                                 component="input"
                                 onChange={(function(event) {
+                                    console.log('on change field.name: ' , field.name);
                                     this.attributeColumnNameChange(field.name, event.target.value)
                                 }.bind(this))}
                             />
@@ -139,12 +149,10 @@ define([
         },
         renderVariationsTableHeaderRow: function() {
             return (
-                <FormSection name={"c-table-with-inputs__headings"}>
                     <tr className={"c-table-with-inputs__header-row"}>
                         <th style={firstColumnCellStyle}></th>
                         {this.renderVariationHeadings()}
                     </tr>
-                </FormSection>
             );
         },
         renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
@@ -281,7 +289,7 @@ define([
             var removeOnClick = isLastVariation ? function() {
             } : this.variationRowRemove.bind(this, variationId);
             return (
-                <FormSection name={"variation-" + variationId}>
+                <FormSection name={"variations.variation-" + variationId}>
                     <tr className={
                         "u-border-none " +
                         "c-table-with-inputs__row " +
@@ -309,12 +317,15 @@ define([
         renderVariationsTable: function() {
             return (
                 <Form>
-                    <FormSection name={"variations"}>
                         <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
-                            {this.renderVariationsTableHeaderRow()}
-                            {this.renderVariations()}
+                            {/*<FormSection name={"attributes"}>*/}
+
+                                {this.renderVariationsTableHeaderRow()}
+                            {/*</FormSection>*/}
+                            {/*<FormSection name={"variations"}>*/}
+                                {this.renderVariations()}
+                            {/*</FormSection>*/}
                         </table>
-                    </FormSection>
                 </Form>
             );
         },
@@ -341,7 +352,9 @@ define([
             }
         }
     }
-    function attributeColumnHasNoValue(variationValues, fieldName) {
-        return (!variationValues || !variationValues['c-table-with-inputs__headings'] || variationValues['c-table-with-inputs__headings'][fieldName] == undefined);
+    function attributeColumnHasNoValue(attributeValues, fieldName) {
+        console.log('in attributeCOlumnhasnotvalue :  attributeValues: ', attributeValues , ' fieldName: ' , fieldName ) ;
+
+        return (!attributeValues || attributeValues[fieldName] == undefined);
     }
 });

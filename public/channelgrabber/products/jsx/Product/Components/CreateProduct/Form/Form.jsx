@@ -134,7 +134,7 @@ define([
 
             let formattedVariations = formVariations;
 
-            formVariations.forEach((variation,i) => {
+            formVariations.forEach((variation, i) => {
                 let matchedUploadedImage = uploadedImages.find(uploadedImage => {
                     return uploadedImage.id === variation.imageId;
                 });
@@ -148,13 +148,51 @@ define([
             });
             return formattedVariations;
         },
+        getAttributeNameObjectFromFormVariations: function(formVariations){
+            return formVariations.find(variation => {
+                for (let key in Object.keys(variation)) {
+                    if (Object.keys(variation)[key].indexOf('custom-attribute') > -1) {
+                        return true;
+                    }
+                }
+            });
+        },
+        getAttributeNamesFromFormVariations: function(formVariations) {
+            let attributeNameObject = this.getAttributeNameObjectFromFormVariations(formVariations);
+            let attributeNames = [];
+            for (let key in attributeNameObject) {
+                attributeNames.push(attributeNameObject[key]);
+            }
+            return attributeNames;
+        },
+        getAttributeValuesFromVariations: function(formVariations) {
+            let attributeNameObject = this.getAttributeNameObjectFromFormVariations(formVariations);
+            let attributeValues = {};
+
+
+            //todo -- need to link between the two objects .
+            //
+            //
+            //
+            //
+            //
+//            attributeNames.forEach(attribute => {
+//
+//            });
+            return attributeValues;
+        },
         formatReduxFormValuesForProductIdentifiersComponent: function() {
             let formVariations = this.props.formValues.variations;
             formVariations = Object.keys(formVariations).map(variation => {
+
+                //todo don't map if the variaiton is the attribute variatioation
+
                 return formVariations[variation];
             });
-
             formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
+            let attributeNames = this.getAttributeNamesFromFormVariations(formVariations);
+            let attributeValues = this.getAttributeValuesFromVariations(formVariations);
+//            console.log('in formatReduxForm... with formVariations: ', formVariations);
             return formVariations;
         },
         variationsDataExistsInRedux: function() {
@@ -177,21 +215,25 @@ define([
                     ]
                 }
             ];
+            let attributeNames = [];
 
             if (this.variationsDataExistsInRedux()) {
                 variationsData = this.formatReduxFormValuesForProductIdentifiersComponent()
+                //todo
+                // attributeNames =......
             }
 
             return (
                 <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
                     <legend className={'u-heading-text'}>Product Identifiers</legend>
-                        <ProductIdentifiers
-                            variationsDataForProduct={variationsData}
-                            product={product}
-                            renderImagePicker={false}
-                            renderStaticImagesFromVariationValues={true}
-                            containerCssClasses={'u-margin-top-none u-max-width-80'}
-                        />
+                    <ProductIdentifiers
+                        variationsDataForProduct={variationsData}
+                        product={product}
+                        renderImagePicker={false}
+                        shouldRenderStaticImagesFromVariationValues={true}
+                        containerCssClasses={'u-margin-top-none u-max-width-80'}
+                        attributeNames={attributeNames}
+                    />
                 </fieldset>
             );
         },

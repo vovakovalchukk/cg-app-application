@@ -191,8 +191,14 @@ define([
             return newState;
         },
         "ATTRIBUTE_COLUMN_NAME_CHANGE": function(state, action) {
+            console.log('ATTRIBUTE_COLUMN_NAME_CHANGE action: ' , action);
+
+
             var fieldsCopy = state.fields.slice();
             var fieldToChange = stateFilters.findFieldByName(action.payload.fieldName, fieldsCopy);
+            console.log('fieldToChange: ' , fieldToChange);
+
+
             fieldToChange.label = action.payload.newValue;
             var newState = Object.assign({}, state, {
                 fields: fieldsCopy

@@ -21,7 +21,7 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
-                renderStaticImagesFromVariationValues: false,
+                shouldRenderStaticImagesFromVariationValues: false,
                 containerCssClasses:'',
                 renderCustomTableHeaders: function() {
                     return null
@@ -49,6 +49,8 @@ define([
             }.bind(this));
         },
         renderVariationRows: function() {
+//            console.log('in VariationsTable with this.props.variationsDataForProduct: ', this.props.variationsDataForProduct);
+
             return this.props.variationsDataForProduct.map(function(variation) {
                 return <tr>
                     {this.renderImageColumn(variation)}
@@ -93,7 +95,7 @@ define([
             this.onInputChange(field.input, image.target.value);
         },
         getStaticImage: function(fieldValue, fieldVariation) {
-            if (this.props.renderStaticImagesFromVariationValues && fieldVariation.images) {
+            if (this.props.shouldRenderStaticImagesFromVariationValues && fieldVariation.images) {
                 return fieldVariation.images[0];
             }
             return this.findSelectedImageForVariation(fieldValue);

@@ -14,16 +14,21 @@ define([
     ActionCreators
 ) {
     "use strict";
+
+    const formName = 'createProductForm';
+
     const mapStateToProps = function(state) {
-        var variationValues = null;
+        var variationValues, attributeValues  = null;
         if (state.form.createProductForm.values) {
-            variationValues = state.form.createProductForm.values.variations
+            variationValues = state.form[formName].values.variations,
+            attributeValues = state.form[formName].values.attributes
         }
         return {
             variationsTable: stateFilters.filterFields(1, state.variationsTable),
             uploadedImages: state.uploadedImages,
             stockModeOptions: state.account.stockModeOptions,
-            variationValues: variationValues
+            variationValues,
+            attributeValues
         }
     };
 
