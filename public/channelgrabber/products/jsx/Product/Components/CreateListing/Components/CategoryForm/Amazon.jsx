@@ -31,13 +31,37 @@ define([
                 rootCategories: {},
                 variationThemes: {},
                 variationsDataForProduct: [],
-                product: {}
+                product: {},
+                fieldChange: null,
+                resetSection: null
             };
         },
         getInitialState: function() {
             return {
-                themeSelected: null
+                themeSelected: null,
+                lastChangedThemeAttributeSelect: null,
+                autopopulateMethods: [],
+                autopopulated: false,
+                numberOfSelectFieldsRendered: 0
             }
+        },
+        shouldComponentUpdate: function() {
+            // stacking and then calling these methods here was a means of getting around the 2nd render ReduxForm issue, https://github.com/erikras/redux-form/issues/621
+            if (!this.state.autopopulateMethods || this.state.autopopulated || !this.state.autopopulateMethods.length) {
+                return true;
+            }
+            if (this.getNumberOfSelectFieldsToBeRendered() !== this.state.numberOfSelectFieldsRendered) {
+               return true;
+            }
+            for (let autopopulate of this.state.autopopulateMethods) {
+                autopopulate.method();
+            }
+            this.setState({
+                autopopulateMethods: [],
+                numberOfSelectFieldsRendered: 0,
+                autopopulated: true
+            });
+            return true;
         },
         isSimpleProduct: function() {
             return this.props.product.variationCount > 0
@@ -63,6 +87,10 @@ define([
                         options={field.options}
                         selectedOption={selected}
                         onOptionChange={(option) => {
+                            this.setState({
+                                autopopulateMethods: [],
+                                numberOfSelectFieldsRendered: 0
+                            });
                             return field.input.onChange(option.name);
                         }}
                     />
@@ -72,22 +100,136 @@ define([
                 </div>
             );
         },
-        renderTableCellSelect: function(field) {
-            let selected = {
+        getVariationDataFromSku: function(sku) {
+            return this.props.variationsDataForProduct.find((variation) => {
+                return variation.sku === sku
+            });
+        },
+        doWordSpellingsMatch(word1, word2) {
+            word1 = word1.toLowerCase();
+            word2 = word2.toLowerCase();
+            const americanEnglishWordMap = {
+                color: 'colour'
+            };
+            return americanEnglishWordMap[word1] === word2 || americanEnglishWordMap[word2] === word1;
+        },
+        variationAttributeNameMatchesAmazonThemeAttributeName: function(variationAttributeName, amazonThemeAttributeName) {
+            if (variationAttributeName == amazonThemeAttributeName) {
+                return true;
+            }
+            return this.doWordSpellingsMatch(variationAttributeName, amazonThemeAttributeName);
+        },
+        findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, themeAttributeName) {
+            let variationAttributeNames = Object.keys(variationData.attributeValues);
+            let matchedName;
+            for (let variationAttributeName of variationAttributeNames) {
+                if (this.variationAttributeNameMatchesAmazonThemeAttributeName(variationAttributeName, themeAttributeName)) {
+                    matchedName = variationAttributeName;
+                }
+            }
+            return matchedName;
+        },
+        findOptionContainingMatchedAttributeValue: function(options, matchedAttributeValueOfVariation) {
+            return options.find((option) => {
+                if (option.name.toLowerCase() === matchedAttributeValueOfVariation.toLowerCase()) {
+                    return option;
+                }
+            });
+        },
+        findThemeOptionThatMatchesVariationAttribute: function(field) {
+            let variationData = this.getVariationDataFromSku(field.variationSku);
+
+            let sharedAttributeName = this.findVariationAttributeNameThatMatchedWithThemeAttributeName(variationData, field.themeAttributeName);
+            if (!sharedAttributeName) {
+                return null;
+            }
+
+            let matchedAttributeValueOfVariation = variationData.attributeValues[sharedAttributeName];
+            let matchedOption = this.findOptionContainingMatchedAttributeValue(field.options, matchedAttributeValueOfVariation);
+            if (!matchedOption) {
+                return null;
+            }
+
+            return matchedOption;
+        },
+        hasAlreadyBeenAutopopulated: function(fieldName) {
+            return this.state.lastChangedThemeAttributeSelect === fieldName;
+        },
+        generateAutoPopulateMethod(field, fieldNamePrefix, themeOptionThatMatchesVariationAttribute) {
+            let newAutoPopulateMethod = {
+                field: field.input.name,
+                method: () => {
+                    this.props.fieldChange(
+                        field.input.name,
+                        themeOptionThatMatchesVariationAttribute.value
+                    );
+                    this.props.fieldChange(
+                        fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
+                        themeOptionThatMatchesVariationAttribute.value
+                    );
+                    this.setState({
+                        lastChangedThemeAttributeSelect: field.input.name
+                    });
+                }
+            };
+            return newAutoPopulateMethod;
+        },
+        updateAutoPopulateMethods: function(newAutoPopulateMethod) {
+            this.setState(prevState => {
+                let newAutoPopulateMethods = prevState.autopopulateMethods;
+                let methodExistsAlready = prevState.autopopulateMethods.find((method) => {
+                    return method.field === newAutoPopulateMethod.field;
+                });
+                if (newAutoPopulateMethod.field && !methodExistsAlready) {
+                    newAutoPopulateMethods.push(newAutoPopulateMethod);
+                }
+                return {
+                    autopopulateMethods: newAutoPopulateMethods,
+                    numberOfSelectFieldsRendered: prevState.numberOfSelectFieldsRendered + 1
+                }
+            });
+        },
+        renderThemeAttributeSelect: function(field) {
+            const fieldNamePrefix = "category." + this.props.categoryId + ".";
+            let newAutoPopulateMethod = {
+                field: undefined,
+                method: () => {
+                }
+            };
+
+            let selectedOption = {
                 name: field.input.value,
                 value: field.input.value
             };
+            let optionToShowAsSelected = selectedOption;
+
+            if (!this.state.autopopulated && !this.hasAlreadyBeenAutopopulated(field.input.name)) {
+                let themeOptionThatMatchesVariationAttribute = this.findThemeOptionThatMatchesVariationAttribute(field);
+                if (themeOptionThatMatchesVariationAttribute) {
+                    newAutoPopulateMethod = this.generateAutoPopulateMethod(field, fieldNamePrefix, themeOptionThatMatchesVariationAttribute);
+                    optionToShowAsSelected = themeOptionThatMatchesVariationAttribute;
+                }
+            }
+
+            this.updateAutoPopulateMethods(newAutoPopulateMethod);
+
             return (
                 <div>
                     <Select
                         autoSelectFirst={false}
                         options={field.options}
-                        selectedOption={selected}
+                        selectedOption={optionToShowAsSelected}
                         onOptionChange={(option) => {
+                            this.setState({
+                                lastChangedThemeAttributeSelect: field.input.name
+                            });
+                            this.props.fieldChange(
+                                fieldNamePrefix + field.nameOfCorrespondingDisplayNameField,
+                                option.value
+                            );
                             return field.input.onChange(option.name);
                         }}
                         classNames={'u-width-120px'}
-
                     />
                     {Validators.shouldShowError(field) && (
                         <span className="input-error">{field.meta.error}</span>
@@ -120,22 +262,28 @@ define([
                 return <th> {header} </th>;
             });
         },
-        getThemeVariationSelectJSX: function(value, sku, attributeIndex) {
-            let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name
+        renderThemeVariationSelect: function(value, sku, attributeIndex) {
+            let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name;
+            let nameOfCorrespondingDisplayNameField = "theme." + sku + "." + attributeIndex + ".displayName";
+
             let formattedOptions = Object.keys(value.options).map((key) => {
                 return {
                     name: value.options[key],
                     value: value.options[key]
                 };
             });
+
             return (
                 <span className={'u-width-120px'}>
                    <Field
                        name={fieldName}
-                       component={this.renderTableCellSelect}
+                       nameOfCorrespondingDisplayNameField={nameOfCorrespondingDisplayNameField}
+                       component={this.renderThemeAttributeSelect}
                        options={formattedOptions}
                        autoSelectFirst={false}
                        validate={Validators.required}
+                       variationSku={sku}
+                       themeAttributeName={value.name}
                    />
                 </span>
             );
@@ -147,6 +295,7 @@ define([
                         name={field.input.name}
                         value={field.input.value}
                         onChange={field.input.onChange}
+                        inputFieldSpecificClassNames={'u-transition-global-short'}
                     />
                     {Validators.shouldShowError(field) && (
                         <span className="input-error">{field.meta.error}</span>
@@ -154,7 +303,7 @@ define([
                 </div>
             )
         },
-        getThemeVariationDisplayNameInputJSX: function(value, sku, attributeIndex) {
+        renderThemeVariationDisplayNameInput: function(value, sku, attributeIndex) {
             let fieldName = "theme." + sku + "." + attributeIndex + ".displayName";
             return (
                 <Field
@@ -164,13 +313,20 @@ define([
                 />
             );
         },
+        getNumberOfSelectFieldsToBeRendered: function() {
+            if (!this.state.themeSelected) {
+                return;
+            }
+            let themeData = this.getThemeDataByName(this.state.themeSelected);
+            return this.props.variationsDataForProduct.length * themeData.validValues.length;
+        },
         renderThemeColumns: function(variation) {
             let themeColumns = [];
             let themeData = this.getThemeDataByName(this.state.themeSelected);
 
             themeData.validValues.forEach((value, index) => {
-                themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku, index));
-                themeColumns.push(this.getThemeVariationDisplayNameInputJSX(value, variation.sku, index));
+                themeColumns.push(this.renderThemeVariationSelect(value, variation.sku, index));
+                themeColumns.push(this.renderThemeVariationDisplayNameInput(value, variation.sku, index));
             });
 
             return themeColumns.map((column) => {
@@ -194,6 +350,15 @@ define([
                 </div>
             );
         },
+        resetThemeTable: function() {
+            let themeSection = 'category.' + this.props.categoryId + '.theme';
+            this.props.resetSection(themeSection);
+            this.setState({
+                numberOfSelectFieldsRendered: 0,
+                autopopulateMethods: [],
+                autopopulated: false
+            })
+        },
         renderVariationThemeContent: function() {
             return (
                 <div>
@@ -202,10 +367,13 @@ define([
                         component={this.renderVariationThemesSelectComponent}
                         displayTitle={"Variation Theme"}
                         options={this.formatVariationThemesAsSelectOptions()}
-                        onChange={(e, newValue) => {
+                        onChange={(e, newValue, oldValue) => {
                             this.setState({
                                 'themeSelected': newValue
-                            })
+                            });
+                            if (oldValue && newValue !== oldValue) {
+                                this.resetThemeTable();
+                            }
                         }}
                         validate={Validators.required}
                     />

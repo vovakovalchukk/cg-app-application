@@ -26,7 +26,9 @@ define([
                 accounts: [],
                 categoryTemplates: {},
                 product: {},
-                variationsDataForProduct: []
+                variationsDataForProduct: [],
+                fieldChange: null,
+                resetSection: null
             };
         },
         renderForCategoryTemplates: function() {
@@ -64,6 +66,8 @@ define([
                 categoryId={categoryId}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                fieldChange={this.props.fieldChange}
+                resetSection={this.props.resetSection}
                 {...category}
             />);
         },

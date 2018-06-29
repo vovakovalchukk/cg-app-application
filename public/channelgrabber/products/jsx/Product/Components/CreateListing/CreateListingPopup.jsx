@@ -193,6 +193,8 @@ define([
                 categoryTemplates={this.props.categoryTemplates}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                fieldChange={this.props.change}
+                resetSection={this.props.resetSection}
             />;
         },
         renderProductIdentifiers: function() {
@@ -298,7 +300,8 @@ define([
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
-            submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses))
+            submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
+            resetSection: ReduxForm.resetSection
         };
     };
 
