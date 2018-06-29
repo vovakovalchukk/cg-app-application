@@ -1,14 +1,18 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
     './CategoryForm',
     './CategoryForm/Ebay',
+    '../Actions/CreateListings/Actions',
     './CategoryForm/Amazon'
 ], function(
     React,
     ReduxForm,
+    ReactRedux,
     CategoryForm,
     EbayForm,
+    Actions,
     AmazonForm
 ) {
     "use strict";
@@ -25,7 +29,10 @@ define([
             return {
                 accounts: [],
                 categoryTemplates: {},
-                product: {}
+                product: {},
+                refreshAccountPolicies: () => {},
+                accountsData: {},
+                setReturnPoliciesForAccount: () => {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -62,6 +69,10 @@ define([
                 channelForm={ChannelForm}
                 categoryId={categoryId}
                 product={this.props.product}
+                refreshAccountPolicies={this.props.refreshAccountPolicies}
+                accountId={category.accountId}
+                accountData={this.props.accountsData[category.accountId]}
+                setReturnPoliciesForAccount={this.props.setReturnPoliciesForAccount}
                 {...category}
             />);
         },
@@ -79,5 +90,23 @@ define([
             );
         }
     });
-    return CategoryFormsComponent;
+
+    const mapStateToProps = function(state) {
+        return {
+            accountsData: state.accountsData
+        };
+    };
+
+    const mapDispatchToProps = function(dispatch) {
+        return {
+            refreshAccountPolicies: function(accountId) {
+                dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
+            },
+            setReturnPoliciesForAccount: function (accountId, returnPolicies) {
+                dispatch(Actions.setReturnPoliciesForAccount(accountId, returnPolicies))
+            }
+        };
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);
 });
