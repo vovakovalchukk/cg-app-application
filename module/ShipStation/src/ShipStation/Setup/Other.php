@@ -29,15 +29,12 @@ class Other implements SetupInterface
         $this->urlHelper = $urlHelper;
     }
 
-    /**
-     * @return ViewModel
-     */
     public function __invoke(
         Carrier $carrier,
         int $organisationUnitId,
         Account $account = null,
         Credentials $credentials = null
-    ) {
+    ): ViewModel {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('ship-station/setup')
             ->setVariable('isHeaderBarVisible', false)
