@@ -25,7 +25,8 @@ define([
             return {
                 accounts: [],
                 categoryTemplates: {},
-                product: {}
+                product: {},
+                variationsDataForProduct: []
             };
         },
         renderForCategoryTemplates: function() {
@@ -62,6 +63,7 @@ define([
                 channelForm={ChannelForm}
                 categoryId={categoryId}
                 product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
                 {...category}
             />);
         },
