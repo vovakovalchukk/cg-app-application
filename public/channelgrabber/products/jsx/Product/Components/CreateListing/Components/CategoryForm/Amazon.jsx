@@ -4,14 +4,16 @@ define([
     './Amazon/ItemSpecifics',
     './Amazon/Subcategories',
     'Product/Components/CreateListing/Components/CreateListing/VariationTable',
-    'Common/Components/Select'
+    'Common/Components/Select',
+    'Common/Components/Input'
 ], function(
     React,
     ReduxForm,
     ItemSpecifics,
     Subcategories,
     VariationsTable,
-    Select
+    Select,
+    Input
 ) {
     "use strict";
 
@@ -32,7 +34,7 @@ define([
         },
         getInitialState: function() {
             return {
-                themeSelected: false
+                themeSelected: null
             }
         },
         isSimpleProduct: function() {
@@ -65,6 +67,94 @@ define([
                 </div>
             );
         },
+        renderTableCellSelect: function(field) {
+            let selected = {
+                name: field.input.value,
+                value: field.input.value
+            };
+            return (
+                <Select
+                    autoSelectFirst={false}
+                    options={field.options}
+                    selectedOption={selected}
+                    onOptionChange={(option) => {
+                        return field.input.onChange(option.name);
+                    }}
+                    classNames={'u-width-120px'}
+                />
+            );
+        },
+        getThemeDataByName: function(name) {
+            return this.props.variationThemes.find((theme) => {
+                return theme.name == name;
+            });
+        },
+        getThemeHeadersByName: function(name) {
+            let themeData = this.getThemeDataByName(name);
+            let headers = [];
+            themeData.validValues.forEach((header) => {
+                headers.push(header.name);
+            });
+            return headers;
+        },
+        renderThemeHeaders: function() {
+            let themeSelected = this.state.themeSelected;
+            let themeHeaders = this.getThemeHeadersByName(themeSelected);
+            let themeHeadersWithDisplayNames = [];
+            themeHeaders.forEach((header) => {
+                themeHeadersWithDisplayNames.push(header);
+                themeHeadersWithDisplayNames.push(header + ' (Display Name)');
+            });
+            return themeHeadersWithDisplayNames.map((header) => {
+                return <th> {header} </th>;
+            });
+        },
+        getThemeVariationSelectJSX: function(value, sku) {
+            let formattedOptions = Object.keys(value.options).map((key) => {
+                return {
+                    name: value.options[key],
+                    value: value.options[key]
+                };
+            });
+            return (
+                <span className={'u-width-120px'}>
+                   <Field
+                       name={"theme." + sku + "." + value.name}
+                       component={this.renderTableCellSelect}
+                       options={formattedOptions}
+                       autoSelectFirst={false}
+                   />
+                </span>
+            );
+        },
+        renderTableCellDisplayNameInput: function(value, sku) {
+            return (
+                <Input
+                    name={"theme." + sku + "." + value.name + ".displayName"}
+                />
+            )
+        },
+        getThemeVariationInputJSX: function(value, sku) {
+            return (
+                <Field
+                    name={"theme." + sku + "." + value.name + ".choice"}
+                    component={this.renderTableCellDisplayNameInput}
+                />
+            );
+        },
+        renderThemeColumns: function(variation) {
+            let themeColumns = [];
+            let themeData = this.getThemeDataByName(this.state.themeSelected);
+
+            themeData.validValues.forEach((value) => {
+                themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku));
+                themeColumns.push(this.getThemeVariationInputJSX(value, variation.sku));
+            });
+
+            return themeColumns.map((column) => {
+                return <td className={'u-overflow-initial'}>{column}</td>
+            });
+        },
         renderThemeTable: function() {
             return (
                 <div className={'u-margin-top-small'}>
@@ -72,11 +162,12 @@ define([
                         sectionName={'theme'}
                         variationsDataForProduct={this.props.variationsDataForProduct}
                         product={this.props.product}
+                        renderImagePicker={true}
                         showImages={true}
-                        renderImagePicker={false}
-                        //todo - use the below attributes for the following ticket - LIS-242
-                        //                        renderCustomTableHeaders={this.renderIdentifierHeaders}
-                        //                        renderCustomTableRows={this.renderIdentifierColumns}
+                        imageDropdownsDisabled={true}
+                        renderCustomTableHeaders={this.renderThemeHeaders}
+                        renderCustomTableRows={this.renderThemeColumns}
+                        attributeNames={this.props.product.attributeNames}
                     />
                 </div>
             );
@@ -89,14 +180,14 @@ define([
                         component={this.renderVariationThemesSelectComponent}
                         displayTitle={"Variation Theme"}
                         options={this.formatVariationThemesAsSelectOptions()}
-                        onChange={() => {
+                        onChange={(e, newValue) => {
                             this.setState({
-                                'themeSelected': true
+                                'themeSelected': newValue
                             })
                         }}
                         validate={value => (value ? undefined : 'Required')}
                     />
-                    {this.state.themeSelected ? this.renderThemeTable() : ''}
+                    {this.state.themeSelected && this.props.variationsDataForProduct ? this.renderThemeTable() : ''}
                 </div>
             );
         },
@@ -110,7 +201,7 @@ define([
                         categoryId={this.props.categoryId}
                         itemSpecifics={this.props.itemSpecifics}
                     />
-                    {this.isSimpleProduct() ? this.renderVariationThemeContent() : ''}
+                    {this.isSimpleProduct() ? this.renderVariationThemeContent(false) : ''}
                 </div>
             );
         }
