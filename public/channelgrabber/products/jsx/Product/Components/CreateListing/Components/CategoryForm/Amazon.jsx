@@ -4,6 +4,7 @@ define([
     './Amazon/ItemSpecifics',
     './Amazon/Subcategories',
     'Product/Components/CreateListing/Components/CreateListing/VariationTable',
+    'Product/Components/CreateListing/Validators',
     'Common/Components/Select',
     'Common/Components/Input'
 ], function(
@@ -12,6 +13,7 @@ define([
     ItemSpecifics,
     Subcategories,
     VariationsTable,
+    Validators,
     Select,
     Input
 ) {
@@ -64,6 +66,9 @@ define([
                             return field.input.onChange(option.name);
                         }}
                     />
+                    {Validators.shouldShowError(field) && (
+                        <span className="input-error u-margin-left-small">{field.meta.error}</span>
+                    )}
                 </div>
             );
         },
@@ -73,15 +78,21 @@ define([
                 value: field.input.value
             };
             return (
-                <Select
-                    autoSelectFirst={false}
-                    options={field.options}
-                    selectedOption={selected}
-                    onOptionChange={(option) => {
-                        return field.input.onChange(option.name);
-                    }}
-                    classNames={'u-width-120px'}
-                />
+                <div>
+                    <Select
+                        autoSelectFirst={false}
+                        options={field.options}
+                        selectedOption={selected}
+                        onOptionChange={(option) => {
+                            return field.input.onChange(option.name);
+                        }}
+                        classNames={'u-width-120px'}
+
+                    />
+                    {Validators.shouldShowError(field) && (
+                        <span className="input-error">{field.meta.error}</span>
+                    )}
+                </div>
             );
         },
         getThemeDataByName: function(name) {
@@ -109,7 +120,8 @@ define([
                 return <th> {header} </th>;
             });
         },
-        getThemeVariationSelectJSX: function(value, sku) {
+        getThemeVariationSelectJSX: function(value, sku, attributeIndex) {
+            let fieldName = "theme." + sku + "." + attributeIndex + "." + value.name
             let formattedOptions = Object.keys(value.options).map((key) => {
                 return {
                     name: value.options[key],
@@ -119,26 +131,36 @@ define([
             return (
                 <span className={'u-width-120px'}>
                    <Field
-                       name={"theme." + sku + "." + value.name}
+                       name={fieldName}
                        component={this.renderTableCellSelect}
                        options={formattedOptions}
                        autoSelectFirst={false}
+                       validate={Validators.required}
                    />
                 </span>
             );
         },
-        renderTableCellDisplayNameInput: function(value, sku) {
+        renderTableCellDisplayNameInput: function(field) {
             return (
-                <Input
-                    name={"theme." + sku + "." + value.name + ".displayName"}
-                />
+                <div>
+                    <Input
+                        name={field.input.name}
+                        value={field.input.value}
+                        onChange={field.input.onChange}
+                    />
+                    {Validators.shouldShowError(field) && (
+                        <span className="input-error">{field.meta.error}</span>
+                    )}
+                </div>
             )
         },
-        getThemeVariationInputJSX: function(value, sku) {
+        getThemeVariationDisplayNameInputJSX: function(value, sku, attributeIndex) {
+            let fieldName = "theme." + sku + "." + attributeIndex + ".displayName";
             return (
                 <Field
-                    name={"theme." + sku + "." + value.name + ".choice"}
+                    name={fieldName}
                     component={this.renderTableCellDisplayNameInput}
+                    validate={Validators.required}
                 />
             );
         },
@@ -146,9 +168,9 @@ define([
             let themeColumns = [];
             let themeData = this.getThemeDataByName(this.state.themeSelected);
 
-            themeData.validValues.forEach((value) => {
-                themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku));
-                themeColumns.push(this.getThemeVariationInputJSX(value, variation.sku));
+            themeData.validValues.forEach((value, index) => {
+                themeColumns.push(this.getThemeVariationSelectJSX(value, variation.sku, index));
+                themeColumns.push(this.getThemeVariationDisplayNameInputJSX(value, variation.sku, index));
             });
 
             return themeColumns.map((column) => {
@@ -185,7 +207,7 @@ define([
                                 'themeSelected': newValue
                             })
                         }}
-                        validate={value => (value ? undefined : 'Required')}
+                        validate={Validators.required}
                     />
                     {this.state.themeSelected && this.props.variationsDataForProduct ? this.renderThemeTable() : ''}
                 </div>
