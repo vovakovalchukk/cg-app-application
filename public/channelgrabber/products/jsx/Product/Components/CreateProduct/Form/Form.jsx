@@ -190,7 +190,7 @@ define([
                             product={product}
                             renderImagePicker={false}
                             renderStaticImagesFromVariationValues={true}
-                            containerCssClasses={'u-margin-top-none'}
+                            containerCssClasses={'u-margin-top-none u-max-width-80'}
                         />
                 </fieldset>
             );
@@ -202,7 +202,7 @@ define([
             return (
                 <fieldset className={'u-margin-bottom-small'}>
                     <legend className={'u-heading-text'}>VAT</legend>
-                    <div className={'u-max-width-60'}>
+                    <div className={'u-max-width-80'}>
                         {renderTaxRates.call(this)}
                     </div>
                 </fieldset>
