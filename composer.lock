@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a5f8b246e359dc6588d3c7516b8ef1a",
+    "content-hash": "31d9a99442d2028df0f72f328e8d8528",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-131-expose-return-policies-ebay",
+            "version": "dev-TAC-127-ebay-seller-policies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8a28bd3c784126fc83bec7d364c0dacece0a47d7"
+                "reference": "5fa04419613684fe54e85b6698ed31906f05a874"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-131-expose-return-policies-ebay-f87abf.zip",
-                "reference": "8a28bd3c784126fc83bec7d364c0dacece0a47d7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-127-ebay-seller-policies-5e07b8.zip",
+                "reference": "5fa04419613684fe54e85b6698ed31906f05a874",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-06-28T09:21:09+00:00"
+            "time": "2018-06-29T14:04:56+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -918,22 +918,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-134-save-seller-policies",
+            "version": "dev-TAC-127-ebay-seller-policies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "bb4dc9a394adf53bb9935b59c2b009d6e6b2362e"
+                "reference": "4c6f585d8c5c18d540a79da579d949d59e898516"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-134-save-seller-policies-8b022b.zip",
-                "reference": "bb4dc9a394adf53bb9935b59c2b009d6e6b2362e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-127-ebay-seller-policies-d10ef7.zip",
+                "reference": "4c6f585d8c5c18d540a79da579d949d59e898516",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.36.2 ",
+                "channelgrabber/channel": "dev-TAC-127-ebay-seller-policies as 1.36.3",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -978,7 +978,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-06-29T15:31:09+00:00"
+            "time": "2018-07-02T08:24:29+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9944,13 +9944,13 @@
         {
             "alias": "1.36.3",
             "alias_normalized": "1.36.3.0",
-            "version": "dev-TAC-131-expose-return-policies-ebay",
+            "version": "dev-TAC-127-ebay-seller-policies",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.12.9",
             "alias_normalized": "1.12.9.0",
-            "version": "dev-TAC-134-save-seller-policies",
+            "version": "dev-TAC-127-ebay-seller-policies",
             "package": "channelgrabber/ebay"
         }
     ],
