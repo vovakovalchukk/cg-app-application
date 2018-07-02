@@ -22,9 +22,8 @@ define([
                 <div className="category-form-container">
                     <h2>Category: {this.props.title}</h2>
                     <ChannelForm
-                        categoryId={this.props.categoryId}
-                        accountId={this.props.accountId}
                         {...this.props.fieldValues}
+                        {...this.props}
                     />
                 </div>
             );

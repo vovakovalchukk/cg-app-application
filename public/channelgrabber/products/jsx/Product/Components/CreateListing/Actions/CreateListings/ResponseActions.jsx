@@ -37,6 +37,21 @@ define([], function() {
                 type: "LISTING_SUBMISSION_FINISHED",
                 payload: {}
             };
+        },
+        accountPoliciesFetched: function (accountId, response) {
+            return {
+                type: "ACCOUNT_POLICIES_FETCHED",
+                payload: {
+                    accountId: accountId,
+                    returnPolicies: response.returnPolicies
+                }
+            }
+        },
+        accountPoliciesFetchError: function () {
+            return {
+                type: "AACCOUNT_POLICIES_FETCH_ERROR",
+                payload: {}
+            }
         }
     };
 });
