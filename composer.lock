@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "be8bbe8bb21daa65a3f11fe2e4faf650",
+    "content-hash": "5a5f8b246e359dc6588d3c7516b8ef1a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -918,16 +918,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-129-fetch-ebay-return-policies",
+            "version": "dev-TAC-134-save-seller-policies",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "c4faea6216edc58fa51934286d50d6645b9f26d8"
+                "reference": "bb4dc9a394adf53bb9935b59c2b009d6e6b2362e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-129-fetch-ebay-return-policies-03b787.zip",
-                "reference": "c4faea6216edc58fa51934286d50d6645b9f26d8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-134-save-seller-policies-8b022b.zip",
+                "reference": "bb4dc9a394adf53bb9935b59c2b009d6e6b2362e",
                 "shasum": null
             },
             "require": {
@@ -978,7 +978,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-06-29T14:34:57+00:00"
+            "time": "2018-06-29T15:31:09+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9950,7 +9950,7 @@
         {
             "alias": "1.12.9",
             "alias_normalized": "1.12.9.0",
-            "version": "dev-TAC-129-fetch-ebay-return-policies",
+            "version": "dev-TAC-134-save-seller-policies",
             "package": "channelgrabber/ebay"
         }
     ],
