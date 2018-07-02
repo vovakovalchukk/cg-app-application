@@ -1832,12 +1832,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6511aa267964a10862a74441480e513a0fbc6f04"
+                "reference": "13e7fc4d2f24763f85001eaaafa8be745211bb44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TECH-88-refactor-courier-arrays-to-objects-e6e2d1.zip",
-                "reference": "6511aa267964a10862a74441480e513a0fbc6f04",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TECH-88-refactor-courier-arrays-to-objects-0f25d6.zip",
+                "reference": "13e7fc4d2f24763f85001eaaafa8be745211bb44",
                 "shasum": null
             },
             "require": {
@@ -1908,7 +1908,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-06-22T09:03:53+00:00"
+            "time": "2018-07-03T09:32:36+00:00"
         },
         {
             "name": "channelgrabber/payment",
