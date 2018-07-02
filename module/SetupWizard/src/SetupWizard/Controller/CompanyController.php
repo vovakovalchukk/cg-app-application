@@ -31,7 +31,7 @@ class CompanyController extends AbstractActionController
 
     public function indexAction()
     {
-        $detailsForm = $this->registerCompanyService->getLegalCompanyDetailsForBillingView();
+        $detailsForm = $this->registerCompanyService->getLegalCompanyDetailsForBillingView(false, true);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/company/index')
