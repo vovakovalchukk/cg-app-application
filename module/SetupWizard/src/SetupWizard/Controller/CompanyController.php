@@ -1,9 +1,12 @@
 <?php
 namespace SetupWizard\Controller;
 
+use CG\Locale\CountryNameByCode;
+use CG\Locale\UserLocaleInterface as UserLocale;
 use CG_Register\Company\Service as RegisterCompanyService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
+use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -31,11 +34,17 @@ class CompanyController extends AbstractActionController
 
     public function indexAction()
     {
-        $detailsForm = $this->registerCompanyService->getLegalCompanyDetailsForBillingView(false, true);
+        $detailsFormView = $this->registerCompanyService->getLegalCompanyDetailsForBillingView(false, true);
+
+        /** @var Form $detailsForm */
+        $detailsForm = $detailsFormView->getChildrenByCaptureTo('form')[0]->getVariable('form');
+        $detailsForm->get('address')->get('country')->setValue(CountryNameByCode::getCountryNameFromCode('US'));
+        if ($detailsForm->has('locale')) {
+            $detailsForm->get('locale')->setValue(UserLocale::LOCALE_US);
+        }
 
         $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/company/index')
-            ->addChild($detailsForm, 'detailsForm'); 
+        $view->setTemplate('setup-wizard/company/index')->addChild($detailsFormView, 'detailsForm');
 
         return $this->setupService->getSetupView('Company Details', $view, $this->getFooter());
     }
