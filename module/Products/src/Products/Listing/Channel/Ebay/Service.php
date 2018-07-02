@@ -20,6 +20,7 @@ use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use function CG\Stdlib\isArrayAssociative;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\AccountPoliciesInterface;
@@ -225,7 +226,11 @@ class Service implements
         $required = [];
         $optional = [];
         $categorySpecifics = $ebayData->getCategorySpecifics();
-        foreach ($categorySpecifics['NameRecommendation'] as $recommendation) {
+        $recommendations = $categorySpecifics['NameRecommendation'];
+        if (isArrayAssociative($recommendations)) {
+            $recommendations = [$recommendations];
+        }
+        foreach ($recommendations as $recommendation) {
             $name = $recommendation['Name'];
             $itemSpecifics = $this->buildItemSpecificsDataFromRecommendation($recommendation);
             if ($itemSpecifics['minValues'] == 0) {
