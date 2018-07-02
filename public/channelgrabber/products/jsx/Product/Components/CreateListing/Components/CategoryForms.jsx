@@ -72,7 +72,7 @@ define([
                 refreshAccountPolicies={this.props.refreshAccountPolicies}
                 accountId={category.accountId}
                 accountData={this.props.accountsData[category.accountId]}
-                setReturnPoliciesForAccount={this.props.setReturnPoliciesForAccount}
+                setPoliciesForAccount={this.props.setPoliciesForAccount}
                 {...category}
             />);
         },
@@ -102,8 +102,8 @@ define([
             refreshAccountPolicies: function(accountId) {
                 dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
             },
-            setReturnPoliciesForAccount: function (accountId, returnPolicies) {
-                dispatch(Actions.setReturnPoliciesForAccount(accountId, returnPolicies))
+            setPoliciesForAccount: function (accountId, policies) {
+                dispatch(Actions.setPoliciesForAccount(accountId, policies))
             }
         };
     };

@@ -43,13 +43,17 @@ define([], function() {
                 type: "ACCOUNT_POLICIES_FETCHED",
                 payload: {
                     accountId: accountId,
-                    returnPolicies: response.returnPolicies
+                    policies: {
+                        returnPolicies: response.returnPolicies,
+                        paymentPolicies: response.paymentPolicies,
+                        shippingPolicies: response.shippingPolicies
+                    }
                 }
             }
         },
         accountPoliciesFetchError: function () {
             return {
-                type: "AACCOUNT_POLICIES_FETCH_ERROR",
+                type: "ACCOUNT_POLICIES_FETCH_ERROR",
                 payload: {}
             }
         }
