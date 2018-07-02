@@ -148,51 +148,67 @@ define([
             });
             return formattedVariations;
         },
-        getAttributeNameObjectFromFormVariations: function(formVariations){
-            return formVariations.find(variation => {
-                for (let key in Object.keys(variation)) {
-                    if (Object.keys(variation)[key].indexOf('custom-attribute') > -1) {
-                        return true;
-                    }
-                }
-            });
-        },
-        getAttributeNamesFromFormVariations: function(formVariations) {
-            let attributeNameObject = this.getAttributeNameObjectFromFormVariations(formVariations);
-            let attributeNames = [];
-            for (let key in attributeNameObject) {
-                attributeNames.push(attributeNameObject[key]);
+        getAttributeNamesFromFormValues: function() {
+            let customAttributes = this.props.formValues.attributes;
+            if (!customAttributes) {
+                return [];
             }
+            let attributeNames = [];
+            for (let customAttributeKey in customAttributes) {
+                attributeNames.push(customAttributes[customAttributeKey]);
+            }
+
             return attributeNames;
         },
-        getAttributeValuesFromVariations: function(formVariations) {
-            let attributeNameObject = this.getAttributeNameObjectFromFormVariations(formVariations);
+        formatAttributesObject(customAttributesObject, attributeNames, variations) {
+            console.log('in formatAttributesObject with customAttributeNames: ', customAttributesObject, ' variation: ', variations);
             let attributeValues = {};
 
+            for (var variation in variations) {
+                for (let attributeKey in customAttributesObject) {
 
-            //todo -- need to link between the two objects .
-            //
-            //
-            //
-            //
-            //
-//            attributeNames.forEach(attribute => {
-//
-//            });
+                    for (let attributeName of attributeNames) {
+                        console.log('attributeKey: ', attributeKey);
+                        console.log('customAttributesObject: ', customAttributesObject);
+                        console.log('attributeName: ', attributeName);
+                        if (customAttributesObject[attributeKey] === attributeName) {
+                            attributeValues[attributeName] = variation[attributeKey];
+                        }
+                    }
+
+                }
+            }
             return attributeValues;
+
+        },
+        getAttributeValuesFromVariations: function(variation) {
+            console.log('in getAttributeValuesFromVariations');
+
+            let attributeNames = this.getAttributeNamesFromFormValues();
+            let customAttributesObject = this.props.formValues.attributes;
+            let variations = this.props.formValues.variations;
+
+            if (!attributeNames.length || !customAttributesObject || !variations) {
+                console.log('bailing out early');
+                console.log('customAttributesObject: ', customAttributesObject);
+                console.log('variations: ', variations);
+                console.log('attributeNames: ', attributeNames);
+
+                return {};
+            }
+
+            console.log('customAttributesObject: ', customAttributesObject);
+            let formattedAttributes = this.formatAttributesObject(customAttributesObject, attributeNames, variations)
+            console.log('formattedAttributes: ', formattedAttributes);
+
+            return attributeNames;
         },
         formatReduxFormValuesForProductIdentifiersComponent: function() {
             let formVariations = this.props.formValues.variations;
             formVariations = Object.keys(formVariations).map(variation => {
-
-                //todo don't map if the variaiton is the attribute variatioation
-
                 return formVariations[variation];
             });
             formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
-            let attributeNames = this.getAttributeNamesFromFormVariations(formVariations);
-            let attributeValues = this.getAttributeValuesFromVariations(formVariations);
-//            console.log('in formatReduxForm... with formVariations: ', formVariations);
             return formVariations;
         },
         variationsDataExistsInRedux: function() {
@@ -216,11 +232,12 @@ define([
                 }
             ];
             let attributeNames = [];
-
+            let attributeValues = {};
             if (this.variationsDataExistsInRedux()) {
                 variationsData = this.formatReduxFormValuesForProductIdentifiersComponent()
-                //todo
-                // attributeNames =......
+                //todo need attribute names and attribute values
+                attributeNames = this.getAttributeNamesFromFormValues();
+                attributeValues = this.getAttributeValuesFromVariations()
             }
 
             return (
