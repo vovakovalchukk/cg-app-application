@@ -107,30 +107,42 @@ class Service implements
     {
         $ebayData = $this->fetchEbayCategoryData($categoryId);
 
-        return [
-            'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
-            'shippingMethods' => $this->getShippingMethodsForAccount(
-                $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
-            ),
-            'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
-            'returnPolicies' => $this->fetchReturnPoliciesForAccount($account)
-        ];
+        return array_merge(
+            [
+                'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
+                'shippingMethods' => $this->getShippingMethodsForAccount(
+                    $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
+                ),
+                'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData)
+            ],
+            $this->fetchPoliciesForAccount($account)
+        );
     }
 
-    protected function fetchReturnPoliciesForAccount(Account $account): array
+    protected function fetchPoliciesForAccount(Account $account): array
     {
         try {
+            /** @var AccountPolicyCollection $accountPolicies */
             $accountPolicies = $this->accountPolicyService->fetchCollectionByFilter(
                 (new AccountPolicyFilter)
                     ->setLimit('all')
                     ->setPage(1)
                     ->setAccountId([$account->getId()])
-                    ->setType([AccountPolicy::TYPE_RETURN])
             );
-            return $this->formatReturnPolicies($accountPolicies);
+            $returnPolicies = $this->formatReturnPolicies($accountPolicies->getBy('type', AccountPolicy::TYPE_RETURN));
+            $shippingPolicies = $this->formatReturnPolicies($accountPolicies->getBy('type', AccountPolicy::TYPE_SHIPPING));
+            $paymentPolicies = $this->formatReturnPolicies($accountPolicies->getBy('type', AccountPolicy::TYPE_PAYMENT));
         } catch (NotFound $exception) {
-            return [];
+            $returnPolicies = [];
+            $shippingPolicies = [];
+            $paymentPolicies = [];
         }
+
+        return [
+            'returnPolicies' => $returnPolicies,
+            'shippingPolicies' => $shippingPolicies,
+            'paymentPolicies' => $paymentPolicies
+        ];
     }
 
     protected function formatReturnPolicies(AccountPolicyCollection $accountPolicies): array
@@ -165,9 +177,7 @@ class Service implements
     public function refreshAccountPolicies(Account $account): array
     {
         $this->ebayPoliciesService->fetchAndSaveUserPreferenceForAccount($account);
-        return [
-            'returnPolicies' => $this->fetchReturnPoliciesForAccount($account)
-        ];
+        return $this->fetchPoliciesForAccount($account);
     }
 
     protected function fetchEbayCategoryData(int $categoryId): ?Data
