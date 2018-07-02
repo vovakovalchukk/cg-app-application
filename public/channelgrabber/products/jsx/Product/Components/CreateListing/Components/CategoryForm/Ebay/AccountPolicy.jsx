@@ -62,6 +62,7 @@ define([
                         onOptionChange={this.onOptionChange.bind(this, field.input)}
                         selectedOption={selectedOption}
                         disabled={field.disabled}
+                        filterable={true}
                     />
                 </div>
                 <RefreshIcon
