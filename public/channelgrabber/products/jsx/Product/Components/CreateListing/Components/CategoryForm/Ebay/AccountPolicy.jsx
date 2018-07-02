@@ -2,12 +2,14 @@ define([
     'react',
     'redux-form',
     'Common/Components/Select',
-    'Common/Components/RefreshIcon'
+    'Common/Components/RefreshIcon',
+    '../../../Validators'
 ], function(
     React,
     ReduxForm,
     Select,
-    RefreshIcon
+    RefreshIcon,
+    Validators
 ) {
     "use strict";
 
@@ -31,6 +33,7 @@ define([
                 disabled={this.props.disabled}
                 options={this.props.paymentPolicies}
                 displayTitle="Payment Policy"
+                validate={Validators.required}
             />;
         },
         renderShippingPolicyField: function () {
@@ -40,6 +43,7 @@ define([
                 disabled={this.props.disabled}
                 options={this.props.returnPolicies}
                 displayTitle="Return Policy"
+                validate={Validators.required}
             />;
         },
         renderPaymentPolicyField: function () {
@@ -49,6 +53,7 @@ define([
                 disabled={this.props.disabled}
                 options={this.props.shippingPolicies}
                 displayTitle="Shipping Policy"
+                validate={Validators.required}
             />;
         },
         renderSelect: function(field) {
@@ -69,6 +74,9 @@ define([
                     onClick={this.refreshAccountPolicies}
                     disabled={field.disabled}
                 />
+                {Validators.shouldShowError(field) && (
+                    <span className="input-error">{field.meta.error}</span>
+                )}
             </label>;
         },
         findSelectedOptionFromValue: function(selectedValue, options) {
