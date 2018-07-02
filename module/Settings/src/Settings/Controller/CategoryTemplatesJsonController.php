@@ -54,7 +54,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
                 'categories' => $this->categoryTemplateService->fetchCategoryRoots($ou)
             ]);
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -77,7 +77,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
                 )
             ]);
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -194,7 +194,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -207,7 +207,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -222,6 +222,7 @@ class CategoryTemplatesJsonController extends AbstractJsonController
             // Nothing to delete
             return $this->buildSuccessResponse(['valid' => true]);
         } catch (\Exception $e) {
+            $this->logErrorException($e);
             return $this->buildErrorResponse('There was a problem while deleting the template. Please try again. Contact support if the problem persists.', ['valid' => false]);
         }
     }
@@ -231,8 +232,9 @@ class CategoryTemplatesJsonController extends AbstractJsonController
         return $this->params()->fromRoute('accountId', 0);
     }
 
-    protected function buildGenericErrorResponse()
+    protected function buildGenericErrorResponse(\Throwable $e)
     {
+        $this->logErrorException($e);
         return $this->buildErrorResponse('An error has occurred. Please try again');
     }
 }
