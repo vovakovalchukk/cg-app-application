@@ -2,7 +2,11 @@
 namespace ShipStation\Setup;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Channel\Type as ChannelType;
+use CG\Clearbooks\Customer\Service as ClearBooksService;
+use CG\Http\Exception\Exception4xx\NotFound;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
 use CG\ShipStation\Carrier\Entity as Carrier;
 use CG\ShipStation\Credentials;
@@ -12,6 +16,8 @@ use Settings\Module as SettingsModule;
 use ShipStation\SetupInterface;
 use Zend\Mvc\Controller\Plugin\Redirect;
 use Zend\View\Model\ViewModel;
+use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use CG\Clearbooks\Customer\Entity as ClearBooksCustomer;
 
 class Usps implements SetupInterface
 {
@@ -21,16 +27,28 @@ class Usps implements SetupInterface
     protected $redirectHelper;
     /** @var AccountCreationService */
     protected $accountCreationService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
+    /** @var ClearBooksService */
+    protected $clearBooksService;
+    /** @var ShippingLedgerService */
+    protected $shippingLedgerService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         Redirect $redirectHelper,
-        AccountCreationService $accountCreationService
+        AccountCreationService $accountCreationService,
+        ClearBooksService $clearBooksService,
+        OrganisationUnitService $organisationUnitService,
+        ShippingLedgerService $shippingLedgerService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->redirectHelper = $redirectHelper;
         // This is a specially configured version for USPS, see ShipStation/config/module.config.php
         $this->accountCreationService = $accountCreationService;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->clearBooksService = $clearBooksService;
+        $this->shippingLedgerService = $shippingLedgerService;
     }
 
 
@@ -45,6 +63,10 @@ class Usps implements SetupInterface
             $account ? $account->getId() : null,
             ['channel' => $carrier->getChannelName()]
         );
+
+        $clearBooksCustomer = $this->createClearBooksAccount($organisationUnitId);
+        $this->addClearBooksAccountToShippingLedger($clearBooksCustomer, $organisationUnitId);
+
         $this->redirectHelper->toRoute($this->getAccountRoute(), ['account' => $savedAccount->getId(), 'type' => ChannelType::SHIPPING]);
         return $this->viewModelFactory->newInstance();
     }
@@ -52,5 +74,21 @@ class Usps implements SetupInterface
     protected function getAccountRoute(): string
     {
         return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
+    }
+
+    protected function createClearBooksAccount(int $organisationUnitId): ClearBooksCustomer
+    {
+        $clearBooksCustomer = $this->clearBooksService->saveShippingLedgerCustomer($this->organisationUnitService->fetch($organisationUnitId));
+        return $this->clearBooksService->getCustomers([$clearBooksCustomer->getId()])[0];
+    }
+
+    protected function addClearBooksAccountToShippingLedger(ClearBooksCustomer $clearBooksCustomer, int $organisationUnitId)
+    {
+        $ledgerEntry = $this->shippingLedgerService->fetch($organisationUnitId);
+        $ledgerEntry
+            ->setOrganisationUnitId($organisationUnitId)
+            ->setClearbooksCustomerId($clearBooksCustomer->getId())
+            ->setClearbooksStatementUrl($clearBooksCustomer->getStatementUrl());
+        $this->shippingLedgerService->save($ledgerEntry);
     }
 }
