@@ -160,29 +160,45 @@ define([
 
             return attributeNames;
         },
-        formatAttributesObject(customAttributesObject, attributeNames, variations) {
-            console.log('in formatAttributesObject with customAttributeNames: ', customAttributesObject, ' variation: ', variations);
-            let attributeValues = {};
+//        formatAttributesObject(customAttributesObject, attributeNames, variations) {
+//            console.log('in formatAttributesObject with customAttributeNames: ', customAttributesObject, ' variation: ', variations);
+//            let attributeValues = {};
+//
+//            for (var variation in variations) {
+//                for (let attributeKey in customAttributesObject) {
+//                    for (let attributeName of attributeNames) {
+//                        console.log('attributeKey: ', attributeKey);
+//                        console.log('customAttributesObject: ', customAttributesObject);
+//                        console.log('attributeName: ', attributeName);
+//                        if (customAttributesObject[attributeKey] === attributeName) {
+//                            attributeValues[attributeName] = variation[attributeKey];
+//                        }
+//                    }
+//
+//                }
+//            }
+//            return attributeValues;
+//        },
+        formatAttributeValuesForVariation: function(customAttributesObject, attributeNames, variationsData, variation) {
+            console.log('in formatAttributeValuesForVariationw ith variaiton : '  ,variation);
+            let formattedAttributeValues = {};
 
-            for (var variation in variations) {
-                for (let attributeKey in customAttributesObject) {
-
-                    for (let attributeName of attributeNames) {
-                        console.log('attributeKey: ', attributeKey);
-                        console.log('customAttributesObject: ', customAttributesObject);
-                        console.log('attributeName: ', attributeName);
-                        if (customAttributesObject[attributeKey] === attributeName) {
-                            attributeValues[attributeName] = variation[attributeKey];
-                        }
+            for (let attributeKey in customAttributesObject) {
+                for (let attributeName of attributeNames) {
+                    console.log('attributeKey: ', attributeKey);
+                    console.log('customAttributesObject: ', customAttributesObject);
+                    console.log('attributeName: ', attributeName);
+                    if (customAttributesObject[attributeKey] === attributeName) {
+                        formattedAttributeValues[attributeName] = variation[attributeKey];
                     }
-
                 }
             }
-            return attributeValues;
-
+            variationsData.attributeValues = formattedAttributeValues;
+            console.log('formattedAttributeValues: ', formattedAttributeValues);
+            return variationsData;
         },
-        getAttributeValuesFromVariations: function(variation) {
-            console.log('in getAttributeValuesFromVariations');
+        addAttributeValuesToVariationsData: function(variationsData) {
+            console.log('in getAttributeValuesFromVariations with variationsData: ', variationsData);
 
             let attributeNames = this.getAttributeNamesFromFormValues();
             let customAttributesObject = this.props.formValues.attributes;
@@ -193,15 +209,24 @@ define([
                 console.log('customAttributesObject: ', customAttributesObject);
                 console.log('variations: ', variations);
                 console.log('attributeNames: ', attributeNames);
+                return variationsData;
+            }
+//
+//            console.log('customAttributesObject: ', customAttributesObject);
+//            let formattedAttributes = this.formatAttributesObject(customAttributesObject, attributeNames, variations)
+//            console.log('formattedAttributes: ', formattedAttributes);
 
-                return {};
+            //todo run code here that loops over a variation and formats each of them
+
+            let formattedVariationData = [];
+
+            console.log('about to loop over variationsData: ', variationsData);
+            for (let variation of variationsData) {
+                let variationDataWithAttributes = this.formatAttributeValuesForVariation(customAttributesObject, attributeNames, variationsData, variation);
+                formattedVariationData.push(variationDataWithAttributes);
             }
 
-            console.log('customAttributesObject: ', customAttributesObject);
-            let formattedAttributes = this.formatAttributesObject(customAttributesObject, attributeNames, variations)
-            console.log('formattedAttributes: ', formattedAttributes);
-
-            return attributeNames;
+            return formattedVariationData
         },
         formatReduxFormValuesForProductIdentifiersComponent: function() {
             let formVariations = this.props.formValues.variations;
@@ -232,12 +257,12 @@ define([
                 }
             ];
             let attributeNames = [];
-            let attributeValues = {};
+
             if (this.variationsDataExistsInRedux()) {
-                variationsData = this.formatReduxFormValuesForProductIdentifiersComponent()
+                variationsData = this.formatReduxFormValuesForProductIdentifiersComponent();
+                variationsData = this.addAttributeValuesToVariationsData(variationsData);
                 //todo need attribute names and attribute values
                 attributeNames = this.getAttributeNamesFromFormValues();
-                attributeValues = this.getAttributeValuesFromVariations()
             }
 
             return (

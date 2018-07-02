@@ -64,7 +64,7 @@ define([
             }
         },
         attributeColumnNameChange: function(fieldName, value) {
-            this.props.attributeColumnNameChange(fieldName, value)
+            this.props.attributeColumnNameChange(fieldName, value);
             // todo variationValues param needs to be changed to a attributeValues equiv
             if (attributeColumnHasNoValue(this.props.attributeValues, fieldName)) {
                 this.props.newAttributeColumnRequest();
