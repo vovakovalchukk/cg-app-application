@@ -179,23 +179,19 @@ define([
 //            }
 //            return attributeValues;
 //        },
-        formatAttributeValuesForVariation: function(customAttributesObject, attributeNames, variationsData, variation) {
-            console.log('in formatAttributeValuesForVariationw ith variaiton : '  ,variation);
+        formatAttributeValuesForVariation: function(customAttributesObject, attributeNames, variation) {
             let formattedAttributeValues = {};
 
             for (let attributeKey in customAttributesObject) {
                 for (let attributeName of attributeNames) {
-                    console.log('attributeKey: ', attributeKey);
-                    console.log('customAttributesObject: ', customAttributesObject);
-                    console.log('attributeName: ', attributeName);
-                    if (customAttributesObject[attributeKey] === attributeName) {
-                        formattedAttributeValues[attributeName] = variation[attributeKey];
+                    if (customAttributesObject[attributeKey] !== attributeName) {
+                        continue;
                     }
+                    formattedAttributeValues[attributeName] = variation[attributeKey];
                 }
             }
-            variationsData.attributeValues = formattedAttributeValues;
-            console.log('formattedAttributeValues: ', formattedAttributeValues);
-            return variationsData;
+            variation.attributeValues = formattedAttributeValues;
+            return variation;
         },
         addAttributeValuesToVariationsData: function(variationsData) {
             console.log('in getAttributeValuesFromVariations with variationsData: ', variationsData);
@@ -205,24 +201,16 @@ define([
             let variations = this.props.formValues.variations;
 
             if (!attributeNames.length || !customAttributesObject || !variations) {
-                console.log('bailing out early');
-                console.log('customAttributesObject: ', customAttributesObject);
-                console.log('variations: ', variations);
-                console.log('attributeNames: ', attributeNames);
                 return variationsData;
             }
-//
-//            console.log('customAttributesObject: ', customAttributesObject);
-//            let formattedAttributes = this.formatAttributesObject(customAttributesObject, attributeNames, variations)
-//            console.log('formattedAttributes: ', formattedAttributes);
-
-            //todo run code here that loops over a variation and formats each of them
 
             let formattedVariationData = [];
 
             console.log('about to loop over variationsData: ', variationsData);
             for (let variation of variationsData) {
-                let variationDataWithAttributes = this.formatAttributeValuesForVariation(customAttributesObject, attributeNames, variationsData, variation);
+                let variationDataWithAttributes = this.formatAttributeValuesForVariation(customAttributesObject, attributeNames, variation);
+                console.log('variationDataWithAttributes: ', variationDataWithAttributes);
+                
                 formattedVariationData.push(variationDataWithAttributes);
             }
 
@@ -263,6 +251,8 @@ define([
                 variationsData = this.addAttributeValuesToVariationsData(variationsData);
                 //todo need attribute names and attribute values
                 attributeNames = this.getAttributeNamesFromFormValues();
+                
+                console.log('variationsData after formatting: ', JSON.stringify(variationsData,null,1));
             }
 
             return (
