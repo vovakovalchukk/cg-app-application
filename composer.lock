@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c761623e1b3548bae034cc66209d4ca",
+    "content-hash": "bc82ab66c68cc878490d57de05ebaee9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.1",
+            "version": "dev-TAC-115-shipping-ledger-endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1"
+                "reference": "b68caadff8ffde089fbaf09407e95b4ce104d2a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.1-0b66e6.zip",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-115-shipping-ledger-endpoint-4053c0.zip",
+                "reference": "b68caadff8ffde089fbaf09407e95b4ce104d2a8",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:42:22+00:00"
+            "time": "2018-06-28T12:31:12+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -9942,6 +9942,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.17.2",
+            "alias_normalized": "1.17.2.0",
+            "version": "dev-TAC-115-shipping-ledger-endpoint",
+            "package": "channelgrabber/billing"
+        },
+        {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-108-add-usps-courier",
@@ -9950,6 +9956,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
