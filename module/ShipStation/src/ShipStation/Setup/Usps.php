@@ -88,7 +88,6 @@ class Usps implements SetupInterface
     {
         $ledgerEntry = $this->shippingLedgerService->fetch($organisationUnitId);
         $ledgerEntry
-            ->setOrganisationUnitId($organisationUnitId)
             ->setClearbooksCustomerId($clearBooksCustomer->getId())
             ->setClearbooksStatementUrl($clearBooksCustomer->getStatementUrl());
         $this->shippingLedgerService->save($ledgerEntry);
