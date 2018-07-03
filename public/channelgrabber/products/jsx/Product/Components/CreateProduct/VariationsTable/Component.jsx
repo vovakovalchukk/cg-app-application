@@ -65,42 +65,10 @@ define([
         },
         attributeColumnNameChange: function(fieldName, value) {
             this.props.attributeColumnNameChange(fieldName, value);
-            // todo variationValues param needs to be changed to a attributeValues equiv
             if (attributeColumnHasNoValue(this.props.attributeValues, fieldName)) {
                 this.props.newAttributeColumnRequest();
             }
         },
-//        resetFieldValueInReduxForm: function(fieldPath) {
-//            console.log('in resetValuesinReduxForm');
-//
-//
-//            console.log('resetting fieldPath : ', fieldPath);
-//
-//
-//            this.props.unregister(fieldPath);
-//            this.props.change(fieldPath, null);
-//            this.props.untouch(fieldPath);
-//        },
-//        unsetAttributeFieldOnAllVariations: function(field) {
-//            console.log('in unsetAttribteFIeldON..... this.props: ' , this.props);
-//            var variationValues = this.props.variationValues;
-//            for (var variation in variationValues) {
-//                console.log('in loop with variation: ' , variation);
-//                if (variation.indexOf('variation-') < 0) {
-//                    continue;
-//                }
-//                this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
-//            }
-//        },
-        //todo - remove this as it seems to be being handles by reduxForm
-//        attributeColumnRemove: function(field) {
-//            console.log('in attributeCOlumnRemove...');
-//
-//
-//            this.resetFieldValueInReduxForm('attributes.' + field.name);
-//            this.unsetAttributeFieldOnAllVariations(field);
-//            this.props.attributeColumnRemove(field.name);
-//        },
         variationRowRemove: function(variationId) {
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
             this.props.variationRowRemove(variationId);
@@ -108,7 +76,7 @@ define([
         renderVariationTableHeading: function(field) {
             if (field.isCustomAttribute) {
                 var isLastAttributeFieldColumn = stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
-                let fieldName = 'attributes.'+field.name;
+                let fieldName = 'attributes.' + field.name;
 
                 var renderRemoveButton = () => {
                     return (
@@ -155,10 +123,10 @@ define([
         },
         renderVariationsTableHeaderRow: function() {
             return (
-                    <tr className={"c-table-with-inputs__header-row"}>
-                        <th style={firstColumnCellStyle}></th>
-                        {this.renderVariationHeadings()}
-                    </tr>
+                <tr className={"c-table-with-inputs__header-row"}>
+                    <th style={firstColumnCellStyle}></th>
+                    {this.renderVariationHeadings()}
+                </tr>
             );
         },
         renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
@@ -323,15 +291,10 @@ define([
         renderVariationsTable: function() {
             return (
                 <Form>
-                        <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
-                            {/*<FormSection name={"attributes"}>*/}
-
-                                {this.renderVariationsTableHeaderRow()}
-                            {/*</FormSection>*/}
-                            {/*<FormSection name={"variations"}>*/}
-                                {this.renderVariations()}
-                            {/*</FormSection>*/}
-                        </table>
+                    <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
+                        {this.renderVariationsTableHeaderRow()}
+                        {this.renderVariations()}
+                    </table>
                 </Form>
             );
         },
