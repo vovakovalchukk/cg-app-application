@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e824f464ee1ed2f4142212b9d22a3e92",
+    "content-hash": "9e5fe0ca74c2a82e0c9c31b9d7edda5a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1527,16 +1527,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.3",
+            "version": "dev-TAC-149-us-signup-flow-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b"
+                "reference": "2941683a88878996b99b620b318b6620951fea6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.3-d1b51e.zip",
-                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-149-us-signup-flow-fixes-6a1deb.zip",
+                "reference": "2941683a88878996b99b620b318b6620951fea6f",
                 "shasum": null
             },
             "require": {
@@ -1559,7 +1559,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-25T15:05:33+00:00"
+            "time": "2018-07-03T14:48:25+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9945,10 +9945,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.4",
+            "alias_normalized": "1.1.4.0",
+            "version": "dev-TAC-149-us-signup-flow-fixes",
+            "package": "channelgrabber/locale"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

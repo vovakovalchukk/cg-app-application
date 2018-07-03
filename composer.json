@@ -47,7 +47,7 @@
         "channelgrabber/image": "~1.2.8",
         "channelgrabber/intercom": "~1.5.4",
         "channelgrabber/listing": "~1.17.2",
-        "channelgrabber/locale": "~1.1.3",
+        "channelgrabber/locale": "dev-TAC-149-us-signup-flow-fixes as 1.1.4",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.2.1",
