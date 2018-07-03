@@ -66,7 +66,7 @@ define([
         return details;
     };
 
-    let formatProductChannelDataForChannel = function (values) {
+    let formatProductChannelDataForChannel = function(values) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
             var attributeImageMap = {};
@@ -79,7 +79,7 @@ define([
     };
 
     var formatProductCategoryDetail = function(values, props) {
-        if (!values.category|| Object.keys(values.category).length === 0) {
+        if (!values.category || Object.keys(values.category).length === 0) {
             return [];
         }
         var details = [];
@@ -133,7 +133,7 @@ define([
         return itemSpecifics;
     };
 
-    var formatSubCategoryId = function (subcategory) {
+    var formatSubCategoryId = function(subcategory) {
         var subCategoryId = 0;
         subcategory.forEach(category => {
             if (!category || !(category.selected) || !(category.selected.value)) {
@@ -144,7 +144,7 @@ define([
         return subCategoryId;
     };
 
-    var formatAccountCategoryMap = function (props) {
+    var formatAccountCategoryMap = function(props) {
         var accounts = props.submissionStatuses.accounts;
         if (Object.keys(accounts).length === 0) {
             return [];
@@ -187,7 +187,7 @@ define([
             progressPolling.stopPolling();
             this.polling = setInterval(progressPolling.fetchListingProgress, 5000, dispatch, guid);
         },
-        stopPolling: function () {
+        stopPolling: function() {
             clearInterval(progressPolling.polling);
         },
         shouldStopPolling: function(accounts) {
@@ -223,7 +223,7 @@ define([
                 }
             };
         },
-        submitListingsForm: function (dispatch, formValues, props) {
+        submitListingsForm: function(dispatch, formValues, props) {
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',

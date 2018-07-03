@@ -15,11 +15,11 @@ define([
             return {
                 variationCount: 0,
                 fullView: false,
-                autoSelectFirst:false,
-                onChange:null,
-                onVatChanged:null,
+                autoSelectFirst: false,
+                onChange: null,
+                onVatChanged: null,
                 onVatChangeWithFullSelection: null,
-                tableCssClassNames:''
+                tableCssClassNames: ''
             };
         },
         getHeaders: function() {
@@ -106,12 +106,12 @@ define([
             selectedVatRates[memberState] = taxRateId;
             this.setState({
                 selectedVatRates: selectedVatRates
-            },function(){
-                if(this.props.onVatChangeWithFullSelection){
+            }, function() {
+                if (this.props.onVatChangeWithFullSelection) {
                     this.props.onVatChangeWithFullSelection(this.state.selectedVatRates)
                 }
             });
-            if(this.props.onVatChanged){
+            if (this.props.onVatChanged) {
                 this.props.onVatChanged(taxRateId);
             }
         },

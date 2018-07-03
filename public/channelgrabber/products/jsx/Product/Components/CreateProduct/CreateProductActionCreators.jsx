@@ -37,6 +37,8 @@ define([
                 let uploadedImages = getState().uploadedImages.images;
                 let formattedImages = formatUploadedImagesForPostRequest(uploadedImages, formValues.mainImage);
                 let formattedValues = formatFormValuesForPostRequest(formValues, formattedImages);
+                console.log('formattedValues: ', formattedValues);
+
                 dispatch({
                     type: 'FORM_SUBMIT_REQUEST'
                 });
@@ -94,7 +96,7 @@ define([
             getAttributeNamesFromFormData(values),
             values.identifiers
         );
-        var formattedValues = {
+        return {
             product: {
                 name: values.title,
                 imageIds: formattedImages,
@@ -102,7 +104,6 @@ define([
                 variations: formattedVariations
             }
         };
-        return formattedValues;
     };
 
     function getAttributeNamesFromFormData(values) {

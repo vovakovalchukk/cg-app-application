@@ -59,18 +59,18 @@ define([
         },
         renderVatViewComponent: function(props) {
             return (<VatView
-                    parentProduct={{
-                        taxRates: props.taxRates
-                    }}
-                    fullView={true}
-                    onVatChangeWithFullSelection={selection => {
-                        var currentValueOnState = props.input.value;
-                        var newValueForState = Object.assign(currentValueOnState, selection);
-                        props.input.onChange(newValueForState);
-                    }}
-                    variationCount={0}
-                    tableCssClassNames={'u-width-600px'}
-                />);
+                parentProduct={{
+                    taxRates: props.taxRates
+                }}
+                fullView={true}
+                onVatChangeWithFullSelection={selection => {
+                    var currentValueOnState = props.input.value;
+                    var newValueForState = Object.assign(currentValueOnState, selection);
+                    props.input.onChange(newValueForState);
+                }}
+                variationCount={0}
+                tableCssClassNames={'u-width-600px'}
+            />);
         },
         renderTaxRates: function() {
             return (<Field

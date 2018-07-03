@@ -91,7 +91,7 @@ define([
                 renderImagePicker: true,
                 shouldRenderStaticImagesFromVariationValues: false,
                 containerCssClasses: '',
-                tableCssClasses:''
+                tableCssClasses: ''
             }
         },
         renderIdentifierHeaders: function() {

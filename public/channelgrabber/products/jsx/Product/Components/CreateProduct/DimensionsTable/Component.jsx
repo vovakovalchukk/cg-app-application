@@ -227,21 +227,14 @@ define([
             var rowsToRender = [];
 
             let loopLength = isEmpty ? 2 : rows.length;
-            
-            console.log('loopLength: ', loopLength);
-            
-            
+
             for (var i = 0; i < loopLength - 1; i++) {
                 rowsToRender.push(this.renderRow(rows[i].id));
             }
             return rowsToRender;
         },
         renderTable: function() {
-            let isEmpty =false;
-            if (this.props.rows.length <= 1) {
-//                return <div></div>
-                isEmpty = true;
-            }
+            let isEmpty = this.props.rows.length <= 1;
             return (
                 <FormSection name={"variations"}>
                     {this.props.legend ? <legend className={'u-heading-text'}>{this.props.legend}</legend> : ''}
