@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-215-add-product-identifiers-to-product-creation-ui":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#f47c81f570369233c0410e1ca9c4b93246d92eb1"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#51891a70dcb8498f430df83432b1ae6b9f1f1ebf"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
