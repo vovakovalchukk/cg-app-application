@@ -2,23 +2,34 @@
 namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use Settings\Controller\AddChannelSpecificVariablesToViewInterface;
 use Zend\View\Model\ViewModel;
 
 class ShipStationController implements AddChannelSpecificVariablesToViewInterface
 {
+    /** @var ShippingLedgerService */
+    protected $shippingLedgerService;
+
+    public function __construct(
+        ShippingLedgerService $shippingLedgerService
+    )
+    {
+        $this->shippingLedgerService = $shippingLedgerService;
+    }
+
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
     {
-        // This dummy data and code will be replaced and refactored in TAC-121
         if ($account->getChannel() != 'usps-ss') {
             return;
         }
+        $shippingLedger = $this->shippingLedgerService->fetch($account->getRootOrganisationUnitId());
         $view->setVariables([
-            'balance' => 10,
-            'autoTopUp' => false,
+            'balance' => $shippingLedger->getBalance(),
+            'autoTopUp' => $shippingLedger->isAutoTopUp(),
             'topUpAmount' => 100,
             'currencySymbol' => '$',
-            'clearbooksStatementUrl' => 'https://www.clearbooks.co.uk/',
+            'clearbooksStatementUrl' => $shippingLedger->getClearbooksStatementUrl(),
         ]);
     }
 }
