@@ -4434,16 +4434,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.9",
+            "version": "dev-TAC-108-add-usps-courier",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1bb58685faad50d4305af934c83c207522c90dc2"
+                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.9-319b9d.zip",
-                "reference": "1bb58685faad50d4305af934c83c207522c90dc2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-108-add-usps-courier-a66282.zip",
+                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb",
                 "shasum": null
             },
             "require": {
@@ -4495,7 +4495,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-25T14:25:30+00:00"
+            "time": "2018-06-29T10:30:39+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9951,6 +9951,11 @@
             "alias_normalized": "1.38.9.0",
             "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
             "package": "channelgrabber/order"
+},{
+            "alias": "1.23.10",
+            "alias_normalized": "1.23.10.0",
+            "version": "dev-TAC-108-add-usps-courier",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -9959,6 +9964,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
         "realityking/hash_equals": 20

@@ -2,7 +2,10 @@
 use CG\Channel\Service as ChannelService;
 use CG\ShipStation\Account as SSAccountService;
 use ShipStation\Controller\AccountController;
+use CG\ShipStation\Account\CreationService as AccountCreationService;
+use CG\ShipStation\Account\Usps as UspsAccountService;
 use ShipStation\Module;
+use ShipStation\Setup\Usps as UspsSetup;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
@@ -65,11 +68,24 @@ return [
     ],
     'di' => [
         'instance' => [
+            'aliases' => [
+                'UspsCreationService' => AccountCreationService::class,
+            ],
             AccountController::class => [
                 'parameters' => [
                     'cryptor' => 'shipstation_cryptor',
                 ]
-            ]
+            ],
+            'UspsCreationService' => [
+                'parameters' => [
+                    'channelAccount' => UspsAccountService::class,
+                ]
+            ],
+            UspsSetup::class => [
+                'parameters' => [
+                    'accountCreationService' => 'UspsCreationService'
+                ]
+            ],
         ]
     ]
 ];
