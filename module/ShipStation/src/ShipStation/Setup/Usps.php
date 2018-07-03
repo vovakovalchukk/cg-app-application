@@ -21,6 +21,8 @@ use CG\Clearbooks\Customer\Entity as ClearBooksCustomer;
 
 class Usps implements SetupInterface
 {
+    const CLEAR_BOOKS_CUSTOMER_SUFFIX = 'shipping';
+
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var Redirect */
@@ -78,7 +80,7 @@ class Usps implements SetupInterface
 
     protected function createClearBooksAccount(int $organisationUnitId): ClearBooksCustomer
     {
-        $clearBooksCustomer = $this->clearBooksService->saveShippingLedgerCustomer($this->organisationUnitService->fetch($organisationUnitId));
+        $clearBooksCustomer = $this->clearBooksService->saveCustomer($this->organisationUnitService->fetch($organisationUnitId), static::CLEAR_BOOKS_CUSTOMER_SUFFIX);
         return $this->clearBooksService->getCustomers([$clearBooksCustomer->getId()])[0];
     }
 
