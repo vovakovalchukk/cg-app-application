@@ -637,16 +637,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "97a147a24085be8d45b7922d73ae67a0bb8fc88c"
+                "reference": "2895cba5c995ed5fb47cd8711e796f4c03f955ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-137-clearbooks-shipping-ledger-67c36d.zip",
-                "reference": "97a147a24085be8d45b7922d73ae67a0bb8fc88c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-137-clearbooks-shipping-ledger-bd117f.zip",
+                "reference": "2895cba5c995ed5fb47cd8711e796f4c03f955ca",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.14.4",
+                "channelgrabber/billing": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-03T08:24:47+00:00"
+            "time": "2018-07-03T10:21:48+00:00"
         },
         {
             "name": "channelgrabber/communication",
