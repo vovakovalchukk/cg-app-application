@@ -522,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4804b0082c1da56e1f2add533b0691cc4b00ae32"
+                "reference": "c02bfafc5dadac14ff9c51817c43f6b49060d46b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-118-ship-action-fetch-rates-57e9b0.zip",
-                "reference": "4804b0082c1da56e1f2add533b0691cc4b00ae32",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-118-ship-action-fetch-rates-650cce.zip",
+                "reference": "c02bfafc5dadac14ff9c51817c43f6b49060d46b",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-03T11:36:22+00:00"
+            "time": "2018-07-04T07:36:45+00:00"
         },
         {
             "name": "channelgrabber/cilex",
