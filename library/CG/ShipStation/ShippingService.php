@@ -4,17 +4,23 @@ namespace CG\ShipStation;
 use CG\Account\Shared\Entity as ShippingAccount;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\Order\Shared\ShippableInterface as Order;
-use CG\ShipStation\Response\Shipping\CarrierServices as CarrierServicesResponse;
+use CG\ShipStation\ShippingService\Factory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ShippingService implements ShippingServiceInterface
 {
     /** @var ShippingAccount */
     protected $account;
+    /** @var Factory */
+    protected $factory;
 
-    public function __construct(ShippingAccount $account)
+    /** @var ShippingServiceInterface */
+    protected $accountShippingService;
+
+    public function __construct(ShippingAccount $account, Factory $factory)
     {
         $this->account = $account;
+        $this->factory = $factory;
     }
 
     public function getShippingServices()
@@ -44,27 +50,27 @@ class ShippingService implements ShippingServiceInterface
         return $services;
     }
 
-    protected function getAccountShippingServices(): CarrierServicesResponse
+    protected function getAccountShippingService(): ShippingServiceInterface
     {
-        if (!isset($this->account->getExternalData()['services']) || !$this->account->getExternalData()['services']) {
-            throw new NotFound('No services found for the account "' . $this->account->getId() . '"');
+        if ($this->accountShippingService) {
+            return $this->accountShippingService;
         }
-
-        return CarrierServicesResponse::createFromJson($this->account->getExternalData()['services']);
+        $this->accountShippingService = ($this->factory)($this->account);
+        return $this->accountShippingService;
     }
 
     public function getShippingServicesForOrder(Order $order)
     {
-        return $this->getShippingServices();
+        return $this->getAccountShippingService()->getShippingServicesForOrder($order);
     }
 
     public function doesServiceHaveOptions($service)
     {
-        return false;
+        return $this->getAccountShippingService()->doesServiceHaveOptions($service);
     }
 
     public function getOptionsForService($service, $selected = null)
     {
-        return [];
+        return $this->getAccountShippingService()->getOptionsForService($service, $selected);
     }
 }

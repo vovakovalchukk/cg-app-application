@@ -4,18 +4,12 @@ namespace ShipStation\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Channel\Type as ChannelType;
-use CG\Locale\CountryNameByCode;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
-use CG\ShipStation\Carrier\Entity as Carrier;
-use CG\ShipStation\Carrier\Field;
 use CG\ShipStation\Carrier\Service as CarrierService;
-use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Settings\Controller\ChannelController;
-use Settings\Module as SettingsModule;
-use ShipStation\Module;
+use ShipStation\Setup\Factory as SetupFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -38,6 +32,8 @@ class AccountController extends AbstractActionController
     protected $accountCreationService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var SetupFactory */
+    protected $setupFactory;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -46,7 +42,8 @@ class AccountController extends AbstractActionController
         AccountService $accountService,
         Cryptor $cryptor,
         AccountCreationService $accountCreationService,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        SetupFactory $setupFactory
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -55,6 +52,7 @@ class AccountController extends AbstractActionController
         $this->cryptor = $cryptor;
         $this->accountCreationService = $accountCreationService;
         $this->activeUserContainer = $activeUserContainer;
+        $this->setupFactory = $setupFactory;
     }
 
     public function setupAction(): ViewModel
@@ -62,140 +60,15 @@ class AccountController extends AbstractActionController
         $channelName = $this->params('channel');
         $carrier = $this->carrierService->getCarrierByChannelName($channelName);
         $accountId = $this->params()->fromQuery('accountId');
+        $organisationUnitId = $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
+        $account = null;
         $credentials = null;
         if ($accountId) {
             $account = $this->accountService->fetch($accountId);
             $credentials = $this->cryptor->decrypt($account->getCredentials());
         }
-
-        $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('ship-station/setup')
-            ->setVariable('isHeaderBarVisible', false)
-            ->setVariable('subHeaderHide', true)
-            ->setVariable('isSidebarVisible', false)
-            ->setVariable('accountId', $accountId)
-            ->setVariable('channelName', $channelName)
-            ->addChild($this->getButtonView('linkAccount', 'Link Account'), 'linkAccount')
-            ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
-
-        $goBackUrl = $this->plugin('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
-        if ($accountId) {
-            $goBackUrl .= '/'.$accountId;
-        }
-        $view->setVariable('goBackUrl', $goBackUrl);
-
-        $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
-        $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
-        $view->setVariable('saveUrl', $saveUrl);
-
-        $this->addCarrierFieldsToView($view, $carrier, $credentials);
-
-        return $view;
-    }
-
-    protected function getAccountRoute()
-    {
-        return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS]);
-    }
-
-    protected function addCarrierFieldsToView(ViewModel $view, Carrier $carrier, $credentials = null)
-    {
-        $fieldViews = [];
-        /** @var Field $field */
-        foreach ($carrier->getFields() as $field) {
-            $fieldValue = ($credentials ? $credentials->get($field->getName()) : $field->getValue());
-            $inputTypeGetter = 'get'.ucfirst($field->getInputType()).'View';
-            if (!method_exists($this, $inputTypeGetter)) {
-                $inputTypeGetter = 'getTextView';
-            }
-            $fieldViews[] = $this->$inputTypeGetter($field->getName(), $field->getLabel(), $fieldValue, $field->isRequired());
-        }
-        $view->setVariable('fieldViews', $fieldViews);
-    }
-
-    protected function getButtonView(string $id, string $text): ViewModel
-    {
-        $buttonView = $this->viewModelFactory->newInstance([
-            'buttons' => true,
-            'value' => $text,
-            'id' => $id
-        ]);
-        $buttonView->setTemplate('elements/buttons.mustache');
-        return $buttonView;
-    }
-
-    protected function getTextView(string $id, string $label, ?string $value = '', bool $required = false): ViewModel
-    {
-        $textView = $this->viewModelFactory->newInstance([
-            'name' => $id,
-            'id' => $id,
-            'label' => $label,
-            'value' => $value,
-            'class' => ($required ? 'required' : ''),
-        ]);
-        $textView->setTemplate('elements/text.mustache');
-        return $textView;
-    }
-
-    protected function getCheckboxView(string $id, string $label, ?bool $selected = false, bool $required = false): ViewModel
-    {
-        $checkboxView = $this->viewModelFactory->newInstance([
-            'id' => $id,
-            'label' => $label,
-            'selected' => $selected,
-            'class' => ($required ? 'required' : '')
-        ]);
-        $checkboxView->setTemplate('elements/checkbox.mustache');
-        return $checkboxView;
-    }
-
-    protected function getPasswordView(string $id, string $label, ?string $value = '', bool $required = false): ViewModel
-    {
-        $passwordView = $this->getTextView($id, $label, $value, $required);
-        $passwordView->setVariable('type', 'password');
-        return $passwordView;
-    }
-
-    protected function getHiddenView(string $id, string $label, ?string $value = '', bool $required = false): ViewModel
-    {
-        $hiddenView = $this->getTextView($id, $label, $value, $required);
-        $hiddenView->setVariable('type', 'hidden');
-        return $hiddenView;
-    }
-
-    protected function getCountryView(string $id, string $label, ?string $value = null, bool $required = false): ViewModel
-    {
-        $options = [];
-        foreach (CountryNameByCode::getCountryCodeToNameMap() as $code => $name) {
-            $options[] = [
-                'value' => $code,
-                'title' => $name,
-                'selected' => ($code == $value),
-            ];
-        }
-        $selectView = $this->viewModelFactory->newInstance([
-            'name' => $id,
-            'id' => $id,
-            'label' => $label,
-            'class' => ($required ? 'required' : ''),
-            'searchField' => true,
-            'options' => $options
-        ]);
-        $selectView->setTemplate('elements/custom-select.mustache');
-        return $selectView;
-    }
-
-    protected function getDateView(string $id, string $label, ?string $value = null, bool $required = false): ViewModel
-    {
-        $dateView = $this->viewModelFactory->newInstance([
-            'name' => $id,
-            'id' => $id,
-            'label' => $label,
-            'class' => ($required ? 'required' : ''),
-            'value' => $value
-        ]);
-        $dateView->setTemplate('elements/date.mustache');
-        return $dateView;
+        $setup = ($this->setupFactory)($channelName, $this->viewModelFactory, $this->url(), $this->redirect());
+        return $setup($carrier, $organisationUnitId, $account, $credentials);
     }
 
     public function saveAction()

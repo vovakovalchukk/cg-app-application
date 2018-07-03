@@ -239,7 +239,14 @@ return [
                                     'inputType' => 'checkbox',
                                 ],
                             ]
-                        ]
+                        ],
+                        'usps' => [
+                            'channelName' => 'usps-ss',
+                            'displayName' => 'USPS',
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'fields' => [],
+                        ],
                     ],
                     'defaultBookingOptions' => [
                         'parcels' => 'parcels',
