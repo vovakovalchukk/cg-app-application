@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc82ab66c68cc878490d57de05ebaee9",
+    "content-hash": "2b88dcc7ab1d591b284628f5a2bccb4b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -633,20 +633,20 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.10.0",
+            "version": "dev-TAC-137-clearbooks-shipping-ledger",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb"
+                "reference": "97a147a24085be8d45b7922d73ae67a0bb8fc88c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.10.0-6d1481.zip",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-137-clearbooks-shipping-ledger-67c36d.zip",
+                "reference": "97a147a24085be8d45b7922d73ae67a0bb8fc88c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "^1.14.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-03T08:24:47+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -9948,6 +9948,12 @@
             "package": "channelgrabber/billing"
         },
         {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-TAC-137-clearbooks-shipping-ledger",
+            "package": "channelgrabber/clearbooks"
+        },
+        {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-108-add-usps-courier",
@@ -9957,6 +9963,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/billing": 20,
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
