@@ -108,6 +108,8 @@ define([
             />
         },
         renderAddNewCategoryComponent: function() {
+            console.log('this.props.accountsForCategoryMap being sent to component: ', this.props.accountsForCategoryMap);
+
             if (!this.props.addNewCategoryVisible) {
                 return;
             }
@@ -251,6 +253,27 @@ define([
                 displayName: state.accounts[accountId].name
             });
         }
+
+        const channelsThatAreRefreshable = [
+            'ebay',
+            'amazon'
+        ];
+
+        console.log('categories before adding things: ', categories);
+
+
+//        let categoriesWithRefreshableSetting = [];
+        for (let category in categories) {
+            if (channelsThatAreRefreshable.indexOf(categories[category].channel) === -1) {
+                categories[category].refreshable = false;
+            } else {
+                categories[category].refreshable = true;
+            }
+//            categoriesWithRefreshableSetting.push(category);
+        }
+
+
+        console.log('in converStateToCategoryMaps... cateogories so far: ', categories);
 
         return categories;
     };
