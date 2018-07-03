@@ -958,6 +958,16 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierJsonController::ROUTE_LABEL_FETCH_RATES => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/fetchRates',
+                                            'defaults' => [
+                                                'action' => 'fetchRates',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                             CourierJsonController::ROUTE_MANIFEST => [

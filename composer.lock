@@ -518,17 +518,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.36.2",
+            "version": "dev-TAC-118-ship-action-fetch-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5a4e0f7bdc1d4e6f75b9877893afbb1d5d4ecf16"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.36.2-bde5a1.zip",
-                "reference": "5a4e0f7bdc1d4e6f75b9877893afbb1d5d4ecf16",
-                "shasum": null
+                "reference": "4804b0082c1da56e1f2add533b0691cc4b00ae32"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -9941,6 +9935,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.36.2",
+            "alias_normalized": "1.36.2.0",
+            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.29",
             "alias_normalized": "1.0.29.0",
             "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
@@ -9955,12 +9955,13 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

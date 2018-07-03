@@ -311,6 +311,12 @@ class CourierController extends AbstractActionController
                     'class' => 'courier-dispatch-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
+                [
+                    'value' => $this->specificsPageService->getFetchAllRatesActionDescription($selectedAccount),
+                    'id' => 'fetch-all-rates-button',
+                    'class' => 'courier-fetch-all-rates-button courier-status-all-labels-button',
+                    'disabled' => false,
+                ],
             ]
         ];
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
