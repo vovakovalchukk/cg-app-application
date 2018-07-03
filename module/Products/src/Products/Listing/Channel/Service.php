@@ -44,6 +44,15 @@ class Service
         return $allowedChannels;
     }
 
+    public function getAllowedCreateListingsVariationsChannels(OrganisationUnit $ou): array
+    {
+        $allowedChannels = $this->getAllowedCreateListingsChannels($ou);
+        if (!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_VARIATIONS_AMAZON, $ou)) {
+            unset($allowedChannels['amazon']);
+        }
+        return $allowedChannels;
+    }
+
     public function getDefaultSettingsForAccount(Account $account, array $postData = []): array
     {
         /** @var DefaultAccountSettingsInterface $channelService */
