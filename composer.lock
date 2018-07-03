@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b59323161defbd5fb2a4d4d021e3ddb0",
+    "content-hash": "54535f2d6a390dea5646096cd4003f0d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1473,16 +1473,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
+            "version": "1.17.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "5ae3265660c1ccbd3f205fc76435d6fd9ca9f43d"
+                "reference": "aeb4045197bc308fe6e374717140daaf3c5223a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-LIS-238-allow-amazon-create-variation-listings-b7c66f.zip",
-                "reference": "5ae3265660c1ccbd3f205fc76435d6fd9ca9f43d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.2-6bc4b9.zip",
+                "reference": "aeb4045197bc308fe6e374717140daaf3c5223a8",
                 "shasum": null
             },
             "require": {
@@ -1523,7 +1523,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-28T12:01:33+00:00"
+            "time": "2018-07-02T09:46:24+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -4131,16 +4131,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.6",
+            "version": "1.6.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "04a34afc0a0608c294a55af7cbdae298a30e2806"
+                "reference": "67d4adc62585a65a9a30dce1c6777e638f125dee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.6-e2eebd.zip",
-                "reference": "04a34afc0a0608c294a55af7cbdae298a30e2806",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.7-fcf68f.zip",
+                "reference": "67d4adc62585a65a9a30dce1c6777e638f125dee",
                 "shasum": null
             },
             "require": {
@@ -4179,7 +4179,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-25T08:01:10+00:00"
+            "time": "2018-06-25T09:54:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -8401,7 +8401,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8456,7 +8456,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8511,7 +8511,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8562,7 +8562,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8648,7 +8648,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9957,12 +9957,6 @@
             "alias_normalized": "1.36.3.0",
             "version": "dev-LIS-240-create-variation-listings-amazon",
             "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.17.2",
-            "alias_normalized": "1.17.2.0",
-            "version": "dev-LIS-238-allow-amazon-create-variation-listings",
-            "package": "channelgrabber/listing"
         }
     ],
     "minimum-stability": "stable",
@@ -9970,7 +9964,6 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
