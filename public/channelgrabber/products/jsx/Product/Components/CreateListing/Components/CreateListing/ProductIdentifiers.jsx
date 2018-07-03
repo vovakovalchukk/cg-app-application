@@ -90,7 +90,8 @@ define([
                 attributeNameMap: {},
                 renderImagePicker: true,
                 shouldRenderStaticImagesFromVariationValues: false,
-                containerCssClasses: ''
+                containerCssClasses: '',
+                tableCssClasses:''
             }
         },
         renderIdentifierHeaders: function() {
@@ -131,14 +132,6 @@ define([
             input.onChange(value);
         },
         render: function() {
-//            console.log('this.props.attributeNames: ' , this.props.attributeNames);
-//            console.log('this.props.attributeNameMap: ' , this.props.attributeNameMap);
-//            console.log('this.props.variationsDataForProduct: '  , this.props.variationsDataForProduct);
-//
-
-
-
-
             return (
                 <VariationTable
                     sectionName={"identifiers"}
@@ -150,6 +143,7 @@ define([
                     renderImagePicker={this.props.renderImagePicker}
                     shouldRenderStaticImagesFromVariationValues={this.props.shouldRenderStaticImagesFromVariationValues}
                     containerCssClasses={this.props.containerCssClasses}
+                    tableCssClasses={this.props.tableCssClasses}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
                 />

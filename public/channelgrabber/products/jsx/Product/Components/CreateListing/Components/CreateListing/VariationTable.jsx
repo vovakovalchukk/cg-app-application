@@ -23,6 +23,7 @@ define([
                 sectionName: '',
                 shouldRenderStaticImagesFromVariationValues: false,
                 containerCssClasses:'',
+                tableCssClasses:'',
                 renderCustomTableHeaders: function() {
                     return null
                 },
@@ -49,8 +50,6 @@ define([
             }.bind(this));
         },
         renderVariationRows: function() {
-//            console.log('in VariationsTable with this.props.variationsDataForProduct: ', this.props.variationsDataForProduct);
-
             return this.props.variationsDataForProduct.map(function(variation) {
                 return <tr>
                     {this.renderImageColumn(variation)}
@@ -131,7 +130,7 @@ define([
         render: function() {
             return (
                 <div className={"variation-picker "+this.props.containerCssClasses}>
-                    <table>
+                    <table className={this.props.tableCssClasses}>
                         <thead>
                         <tr>
                             {this.renderImageHeader()}

@@ -18,7 +18,8 @@ define([
                 autoSelectFirst:false,
                 onChange:null,
                 onVatChanged:null,
-                onVatChangeWithFullSelection: null
+                onVatChangeWithFullSelection: null,
+                tableCssClassNames:''
             };
         },
         getHeaders: function() {
@@ -123,14 +124,14 @@ define([
             return (
                 <div className="vat-table">
                     <div className="head">
-                        <table>
+                        <table className={this.props.tableCssClassNames}>
                             <thead>
                             <tr>{this.getHeaders()}</tr>
                             </thead>
                         </table>
                     </div>
                     <div className="body" style={style}>
-                        <table>
+                        <table className={this.props.tableCssClassNames}>
                             <tbody>
                             {this.getVatRows()}
                             </tbody>

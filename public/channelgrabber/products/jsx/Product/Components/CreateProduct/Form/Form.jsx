@@ -58,18 +58,19 @@ define([
             );
         },
         renderVatViewComponent: function(props) {
-            return <VatView
-                parentProduct={{
-                    taxRates: props.taxRates
-                }}
-                fullView={true}
-                onVatChangeWithFullSelection={selection => {
-                    var currentValueOnState = props.input.value;
-                    var newValueForState = Object.assign(currentValueOnState, selection);
-                    props.input.onChange(newValueForState);
-                }}
-                variationCount={0}
-            />
+            return (<VatView
+                    parentProduct={{
+                        taxRates: props.taxRates
+                    }}
+                    fullView={true}
+                    onVatChangeWithFullSelection={selection => {
+                        var currentValueOnState = props.input.value;
+                        var newValueForState = Object.assign(currentValueOnState, selection);
+                        props.input.onChange(newValueForState);
+                    }}
+                    variationCount={0}
+                    tableCssClassNames={'u-width-600px'}
+                />);
         },
         renderTaxRates: function() {
             return (<Field
@@ -160,25 +161,6 @@ define([
 
             return attributeNames;
         },
-//        formatAttributesObject(customAttributesObject, attributeNames, variations) {
-//            console.log('in formatAttributesObject with customAttributeNames: ', customAttributesObject, ' variation: ', variations);
-//            let attributeValues = {};
-//
-//            for (var variation in variations) {
-//                for (let attributeKey in customAttributesObject) {
-//                    for (let attributeName of attributeNames) {
-//                        console.log('attributeKey: ', attributeKey);
-//                        console.log('customAttributesObject: ', customAttributesObject);
-//                        console.log('attributeName: ', attributeName);
-//                        if (customAttributesObject[attributeKey] === attributeName) {
-//                            attributeValues[attributeName] = variation[attributeKey];
-//                        }
-//                    }
-//
-//                }
-//            }
-//            return attributeValues;
-//        },
         formatAttributeValuesForVariation: function(customAttributesObject, attributeNames, variation) {
             let formattedAttributeValues = {};
 
@@ -194,8 +176,6 @@ define([
             return variation;
         },
         addAttributeValuesToVariationsData: function(variationsData) {
-            console.log('in getAttributeValuesFromVariations with variationsData: ', variationsData);
-
             let attributeNames = this.getAttributeNamesFromFormValues();
             let customAttributesObject = this.props.formValues.attributes;
             let variations = this.props.formValues.variations;
@@ -206,11 +186,8 @@ define([
 
             let formattedVariationData = [];
 
-            console.log('about to loop over variationsData: ', variationsData);
             for (let variation of variationsData) {
                 let variationDataWithAttributes = this.formatAttributeValuesForVariation(customAttributesObject, attributeNames, variation);
-                console.log('variationDataWithAttributes: ', variationDataWithAttributes);
-                
                 formattedVariationData.push(variationDataWithAttributes);
             }
 
@@ -222,6 +199,7 @@ define([
                 return formVariations[variation];
             });
             formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
+            formVariations = this.addAttributeValuesToVariationsData(formVariations);
             return formVariations;
         },
         variationsDataExistsInRedux: function() {
@@ -248,11 +226,7 @@ define([
 
             if (this.variationsDataExistsInRedux()) {
                 variationsData = this.formatReduxFormValuesForProductIdentifiersComponent();
-                variationsData = this.addAttributeValuesToVariationsData(variationsData);
-                //todo need attribute names and attribute values
                 attributeNames = this.getAttributeNamesFromFormValues();
-                
-                console.log('variationsData after formatting: ', JSON.stringify(variationsData,null,1));
             }
 
             return (
@@ -264,6 +238,7 @@ define([
                         renderImagePicker={false}
                         shouldRenderStaticImagesFromVariationValues={true}
                         containerCssClasses={'u-margin-top-none u-max-width-80'}
+                        tableCssClasses={'u-min-width-50 u-width-inherit'}
                         attributeNames={attributeNames}
                     />
                 </fieldset>
