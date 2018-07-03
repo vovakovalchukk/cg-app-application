@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "066c6c7bd9b06521e57a3b7b0b4384cf",
+    "content-hash": "e824f464ee1ed2f4142212b9d22a3e92",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1473,16 +1473,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.17.1",
+            "version": "1.17.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "d56a870f69151868d79d9814b9e5e3a4fa4ffc73"
+                "reference": "aeb4045197bc308fe6e374717140daaf3c5223a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.1-171de5.zip",
-                "reference": "d56a870f69151868d79d9814b9e5e3a4fa4ffc73",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.2-6bc4b9.zip",
+                "reference": "aeb4045197bc308fe6e374717140daaf3c5223a8",
                 "shasum": null
             },
             "require": {
@@ -1508,6 +1508,11 @@
                 "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-LIS-238-allow-amazon-create-variation-listings": "1.16.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -1518,7 +1523,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-28T08:31:54+00:00"
+            "time": "2018-07-02T09:46:24+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -4126,16 +4131,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-TAC-146-SwitchLocaleBasedOnCountry",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "7da808da55b3a07506c27225a4c9cfbe123a4ae7"
+                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-146-SwitchLocaleBasedOnCountry-6c7855.zip",
-                "reference": "7da808da55b3a07506c27225a4c9cfbe123a4ae7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.8-6b26ad.zip",
+                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2",
                 "shasum": null
             },
             "require": {
@@ -4174,7 +4179,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-07-02T09:21:12+00:00"
+            "time": "2018-07-03T14:27:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9940,18 +9945,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.8",
-            "alias_normalized": "1.6.8.0",
-            "version": "dev-TAC-146-SwitchLocaleBasedOnCountry",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
