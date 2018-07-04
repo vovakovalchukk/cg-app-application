@@ -64,12 +64,7 @@ define([
                     accountId={accountId}
                     categories={accountData.categories}
                     refreshing={accountData.refreshing}
-
-
-                    //todo - check this
                     refreshable={accountData.refreshable}
-//                    refreshable={true}
-
                     selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
                     onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
                     onRefreshClick={this.props.onRefreshClick}
