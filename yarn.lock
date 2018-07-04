@@ -989,9 +989,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.8":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-249-no-category-refresh-icon-when-creating-a-new-category-map-at-the-listing-stage":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#76fcfd197fef809667d9f45c69c9ab02595fe1f0"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#0b98437f81c1348ff3e01df430021176116c4ee3"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
