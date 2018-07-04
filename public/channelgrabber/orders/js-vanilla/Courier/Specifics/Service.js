@@ -3,13 +3,15 @@ define([
     'AjaxRequester',
     './Mapper.js',
     './InputData.js',
-    './ItemParcelAssignment.js'
+    './ItemParcelAssignment.js',
+    '../ShippingServices.js'
 ], function(
     EventHandler,
     ajaxRequester,
     mapper,
     inputDataService,
-    ItemParcelAssignment
+    ItemParcelAssignment,
+    shippingServices
 ) {
     // Also requires global CourierSpecificsDataTable class to be present
     function Service(dataTable, courierAccountId, ipaManager)
@@ -32,6 +34,11 @@ define([
         this.getItemParcelAssignmentManager = function()
         {
             return ipaManager;
+        };
+
+        this.getShippingServices = function()
+        {
+            return shippingServices;
         };
 
         this.getEventHandler = function()
@@ -114,6 +121,7 @@ define([
     Service.SELECTOR_ORDER_EXPORTABLE_TPL = '#datatable input[name="orderInfo[_orderId_][exportable]"]';
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
     Service.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
+    Service.SELECTOR_ORDER_RATEABLE_TPL = '#datatable input[name="orderInfo[_orderId_][rateable]"]';
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
@@ -122,6 +130,7 @@ define([
     Service.URI_CANCEL = '/orders/courier/label/cancel';
     Service.URI_DISPATCH = '/orders/courier/label/dispatch';
     Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
+    Service.URI_FETCH_RATES = '/orders/courier/label/fetchRates';
     Service.URI_SERVICE_REQ_OPTIONS = '/orders/courier/specifics/{accountId}/options';
     Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
 
@@ -389,6 +398,23 @@ define([
         });
     };
 
+    Service.prototype.fetchRatesForOrder = function(orderId, button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var inputData = this.getInputDataService().getInputDataForOrder(orderId);
+        if (!inputData) {
+            return;
+        }
+        $(button).addClass('disabled');
+        this.getNotifications().notice('Fetching rates', true);
+        var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
+        data.account = this.getCourierAccountId();
+        data.order = [orderId];
+        this.sendFetchRatesRequest(data);
+    };
+
     Service.prototype.createAllLabels = function(button)
     {
         if ($(button).hasClass('disabled')) {
@@ -609,9 +635,65 @@ define([
         var cancellable = $(cancellableSelector).val();
         var dispatchableSelector = Service.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
         var dispatchable = $(dispatchableSelector).val();
-        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, exportable, cancellable, dispatchable);
+        var rateableSelector = Service.SELECTOR_ORDER_RATEABLE_TPL.replace('_orderId_', orderId);
+        var rateable = $(rateableSelector).val();
+        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
+            labelStatus, exportable, cancellable, dispatchable, rateable
+        );
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
         $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
+    };
+
+    Service.prototype.fetchAllRates = function(button)
+    {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        if (!data) {
+            return;
+        }
+        $(button).addClass('disabled');
+        $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).addClass('disabled');
+        this.getNotifications().notice('Fetching all rates', true);
+        this.sendFetchRatesRequest(data);
+    };
+
+    Service.prototype.sendFetchRatesRequest = function(data)
+    {
+        var self = this;
+        this.getAjaxRequester().sendRequest(Service.URI_FETCH_RATES, data, function(response)
+        {
+            if (response.Records) {
+                self.refreshRowsWithData(response.Records);
+            }
+            self.processFetchRatesResponse(response);
+        }, function(response)
+        {
+            $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
+            $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
+            self.getNotifications().ajaxError(response);
+        });
+    };
+
+    Service.prototype.processFetchRatesResponse = function(response)
+    {
+        if (!response.rates) {
+            return this.handleRatesError(response);
+        }
+        for (var orderId in response.rates) {
+            // TODO
+        }
+        $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
+        $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
+    };
+
+    Service.prototype.handleRatesError = function(response)
+    {
+        var error = response.error || 'There was a problem fetching the shipping rates. Please contact support if this continues.';
+        this.getNotifications().error(error);
+        $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
+        $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
     };
 
     Service.prototype.printAllLabels = function()
