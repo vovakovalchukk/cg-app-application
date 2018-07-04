@@ -13,9 +13,15 @@ use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Settings\Channel\Service as ChannelService;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class ShippingLedgerController extends AbstractActionController
+class ShippingLedgerController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    const LOG_CONSTANT = 'ShippingLedgerController';
+
     const ROUTE = 'Ledger';
     const ROUTE_TOPUP = 'Topup';
     const ROUTE_SAVE = 'Save';
@@ -57,6 +63,12 @@ class ShippingLedgerController extends AbstractActionController
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
 
+        $this->logInfo(
+            'Attempting to top-up shipping account for OU: %S',
+            [$organisationUnit->getOrganisationUnitId()],
+            static::LOG_CONSTANT
+        );
+
         $transaction = $this->oneOffPaymentService->takeOneOffPayment(
             null,
             $organisationUnit,
@@ -70,12 +82,23 @@ class ShippingLedgerController extends AbstractActionController
         if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
             $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
         } else {
+            $this->logInfo(
+                'Failed to confirm payment for shipping account top-up for OU: %S',
+                [$organisationUnit->getOrganisationUnitId()],
+                static::LOG_CONSTANT
+            );
             return $this->jsonModelFactory->newInstance([
                 'success' => false,
                 'balance' => $shippingLedger->getBalance(),
                 'error' => 'We have been unable to confirm your payment was successful, please contact us to resolve this.',
             ]);
         }
+
+        $this->logInfo(
+            'Successfully topped-up shipping account for OU: %S',
+            [$organisationUnit->getOrganisationUnitId()],
+            static::LOG_CONSTANT
+        );
 
         return $this->jsonModelFactory->newInstance([
             'success' => true,
