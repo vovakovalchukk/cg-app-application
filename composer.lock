@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54535f2d6a390dea5646096cd4003f0d",
+    "content-hash": "e824f464ee1ed2f4142212b9d22a3e92",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4131,16 +4131,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.7",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "67d4adc62585a65a9a30dce1c6777e638f125dee"
+                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.7-fcf68f.zip",
-                "reference": "67d4adc62585a65a9a30dce1c6777e638f125dee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.8-6b26ad.zip",
+                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2",
                 "shasum": null
             },
             "require": {
@@ -4179,7 +4179,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-06-25T09:54:13+00:00"
+            "time": "2018-07-03T14:27:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
