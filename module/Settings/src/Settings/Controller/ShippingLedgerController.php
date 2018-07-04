@@ -65,7 +65,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
 
         $this->logInfo(
-            'Attempting to top-up shipping account for OU: %S',
+            'Attempting to top-up shipping account for OU: %s',
             [$organisationUnit->getOrganisationUnitId()],
             static::LOG_CONSTANT
         );
@@ -84,7 +84,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
                 $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
             } else {
                 $this->logInfo(
-                    'Failed to confirm payment for shipping account top-up for OU: %S',
+                    'Failed to confirm payment for shipping account top-up for OU: %s',
                     [$organisationUnit->getOrganisationUnitId()],
                     static::LOG_CONSTANT
                 );
@@ -100,7 +100,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         }
 
         $this->logInfo(
-            'Successfully topped-up shipping account for OU: %S',
+            'Successfully topped-up shipping account for OU: %s',
             [$organisationUnit->getOrganisationUnitId()],
             static::LOG_CONSTANT
         );
