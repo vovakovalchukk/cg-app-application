@@ -240,7 +240,7 @@ define([
         return [];
     };
 
-    var isRefreshableChannel = function(channel){
+    var isRefreshableChannel = function(channel) {
         const channelsThatAreRefreshable = [
             'ebay',
             'amazon'
