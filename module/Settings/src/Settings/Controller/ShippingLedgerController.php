@@ -9,6 +9,7 @@ use CG\Billing\Transaction\Status as TransactionStatus;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Payment\Exception\FailedPaymentException;
 use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Settings\Channel\Service as ChannelService;
@@ -87,11 +88,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
                 [$organisationUnit->getOrganisationUnitId()],
                 static::LOG_CONSTANT
             );
-            return $this->jsonModelFactory->newInstance([
-                'success' => false,
-                'balance' => $shippingLedger->getBalance(),
-                'error' => 'We have been unable to confirm your payment was successful, please contact us to resolve this.',
-            ]);
+            throw new FailedPaymentException('Unable to confirm if payment was successful, please contact us to resolve this.');
         }
 
         $this->logInfo(
