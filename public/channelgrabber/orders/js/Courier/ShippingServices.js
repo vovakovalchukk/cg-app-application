@@ -47,6 +47,22 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         });
     };
 
+    ShippingServices.prototype.loadServicesSelectForOrderAndServices = function(orderId, serviceOptions, name)
+    {
+        var self = this;
+        var container = $('#' + ShippingServices.SELECT_ID_PREFIX + orderId);
+        container.empty().append(ShippingServices.LOADER);
+
+        self.fetchTemplate().then(function(templateResponse)
+        {
+            var html = self.renderServicesSelect(
+                orderId, serviceOptions, templateResponse.template, templateResponse.cgMustache, name
+            );
+
+            container.empty().append(html);
+        });
+    };
+
     ShippingServices.prototype.fetchTemplate = function()
     {
         var self = this;
