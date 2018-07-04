@@ -20,6 +20,7 @@ define([
         var delayedLabelsOrderIds;
         var orderMetaData;
         var orderData;
+        var labelCosts;
 
         this.getDataTable = function()
         {
@@ -97,6 +98,17 @@ define([
         this.setOrderData = function(newOrderData)
         {
             orderData = newOrderData;
+            return this;
+        };
+
+        this.getLabelCosts = function()
+        {
+            return labelCosts;
+        };
+
+        this.setLabelCosts = function(newLabelCosts)
+        {
+            labelCosts = newLabelCosts;
             return this;
         };
 
@@ -688,8 +700,8 @@ define([
             var selectedService = input.val();
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
-            // TODO: do something with the cost
         }
+        this.recordLabelCostsFromRatesResponse(response.rates);
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
     };
@@ -713,6 +725,23 @@ define([
         this.getNotifications().error(error);
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
+    };
+
+    Service.prototype.recordLabelCostsFromRatesResponse = function(rates)
+    {
+        var labelCosts = {};
+        for (var orderId in rates) {
+            labelCosts[orderId] = {};
+            var orderRates = rates[orderId];
+            for (var index in orderRates) {
+                var rate = orderRates[index];
+                labelCosts[orderId][rate.id] = {
+                    cost: rate.cost,
+                    currencyCode: rate.currencyCode
+                };
+            }
+        }
+        this.setLabelCosts(labelCosts);
     };
 
     Service.prototype.printAllLabels = function()
