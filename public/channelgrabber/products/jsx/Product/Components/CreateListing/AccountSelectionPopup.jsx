@@ -241,11 +241,11 @@ define([
     };
 
     var isRefreshableChannel = function(channel) {
-        const channelsThatAreRefreshable = [
+        const channelsThatAreNotRefreshable = [
             'ebay',
             'amazon'
         ];
-        return channelsThatAreRefreshable.indexOf(channel) === -1;
+        return channelsThatAreNotRefreshable.indexOf(channel) === -1;
     };
 
     var convertStateToCategoryMaps = function(state) {
