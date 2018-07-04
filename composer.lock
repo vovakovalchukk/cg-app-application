@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b42681b29955a8d31bcecc5ebdaa091a",
+    "content-hash": "e368090e2cf1e734f6741abd7c77b90e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.27.0",
+            "version": "dev-TAC-118-ship-action-fetch-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "328b360c2bfac4d9d5ae3366cb77e75e584d6954"
+                "reference": "df22d99fefc3565bd84b43b3066f2bc5860dc76f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.0-203390.zip",
-                "reference": "328b360c2bfac4d9d5ae3366cb77e75e584d6954",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-TAC-118-ship-action-fetch-rates-5211fa.zip",
+                "reference": "df22d99fefc3565bd84b43b3066f2bc5860dc76f",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.36.1",
+                "channelgrabber/channel": "dev-TAC-118-ship-action-fetch-rates as 1.37.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-06-28T10:13:24+00:00"
+            "time": "2018-07-04T11:17:27+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -522,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c02bfafc5dadac14ff9c51817c43f6b49060d46b"
+                "reference": "a741ef17749b0ce3b1442573e660b267d41227f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-118-ship-action-fetch-rates-650cce.zip",
-                "reference": "c02bfafc5dadac14ff9c51817c43f6b49060d46b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-118-ship-action-fetch-rates-ee8691.zip",
+                "reference": "a741ef17749b0ce3b1442573e660b267d41227f7",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-04T07:36:45+00:00"
+            "time": "2018-07-04T11:13:52+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -9941,8 +9941,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.36.2",
-            "alias_normalized": "1.36.2.0",
+            "alias": "1.27.1",
+            "alias_normalized": "1.27.1.0",
+            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.37.0",
+            "alias_normalized": "1.37.0.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
             "package": "channelgrabber/channel"
         },
@@ -9967,6 +9973,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,

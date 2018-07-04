@@ -186,10 +186,10 @@ class SpecificsPage implements LoggerAwareInterface
 
     protected function getActionDescription(string $action, string $defaultDescription, Account $account): string
     {
-        $provider = $this->courierService->getCarrierOptionsProvider($account);;
+        $provider = $this->courierService->getCarrierOptionsProvider($account);
         if (!($provider instanceof $this->bookOptionInterfaces[$action] ?? '')) {
             return $defaultDescription;
         }
-        return $provider->{'get' . $action . 'ActionDescription'}();
+        return $provider->{'get' . $action . 'ActionDescription'}($account);
     }
 }
