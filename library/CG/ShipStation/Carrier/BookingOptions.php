@@ -3,11 +3,13 @@ namespace CG\ShipStation\Carrier;
 
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface;
+use CG\Channel\Shipping\Provider\BookingOptions\CreateActionDescriptionInterface;
+use CG\Channel\Shipping\Provider\BookingOptions\CreateAllActionDescriptionInterface;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
 
-class BookingOptions implements BookingOptionsInterface
+class BookingOptions implements BookingOptionsInterface, CreateActionDescriptionInterface, CreateAllActionDescriptionInterface
 {
     /** @var Service */
     protected $service;
@@ -46,5 +48,21 @@ class BookingOptions implements BookingOptionsInterface
     public function isProvidedChannel($channel)
     {
         return $this->service->isProvidedChannel($channel);
+    }
+
+    /**
+     * @return string What to show for the 'create' action buttons
+     */
+    public function getCreateActionDescription()
+    {
+        return 'Purchase label';
+    }
+
+    /**
+     * @return string What to show for the 'create all' action button
+     */
+    public function getCreateAllActionDescription()
+    {
+        return 'Purchase all labels';
     }
 }
