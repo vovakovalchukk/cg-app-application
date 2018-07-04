@@ -49,7 +49,6 @@ class ShippingLedgerController extends AbstractActionController
 
     public function topupAction()
     {
-        $input = $this->params()->fromPost();
         $account = $this->getAccount($this->params()->fromRoute('account'));
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
