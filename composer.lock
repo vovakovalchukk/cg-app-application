@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e5fe0ca74c2a82e0c9c31b9d7edda5a",
+    "content-hash": "62edbf80555681adccf2c40a34fc6a24",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4131,16 +4131,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.8",
+            "version": "dev-TAC-149-us-signup-flow-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2"
+                "reference": "9fe86728efb62ec51df96bfb382d4489438e2547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.8-6b26ad.zip",
-                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-149-us-signup-flow-fixes-c93466.zip",
+                "reference": "9fe86728efb62ec51df96bfb382d4489438e2547",
                 "shasum": null
             },
             "require": {
@@ -4179,7 +4179,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-07-03T14:27:01+00:00"
+            "time": "2018-07-03T15:47:51+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -9951,12 +9951,19 @@
             "alias_normalized": "1.1.4.0",
             "version": "dev-TAC-149-us-signup-flow-fixes",
             "package": "channelgrabber/locale"
+        },
+        {
+            "alias": "1.6.9",
+            "alias_normalized": "1.6.9.0",
+            "version": "dev-TAC-149-us-signup-flow-fixes",
+            "package": "channelgrabber/zf2-register"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
+        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
