@@ -108,8 +108,6 @@ define([
             />
         },
         renderAddNewCategoryComponent: function() {
-            console.log('this.props.accountsForCategoryMap being sent to component: ', this.props.accountsForCategoryMap);
-
             if (!this.props.addNewCategoryVisible) {
                 return;
             }
@@ -242,6 +240,14 @@ define([
         return [];
     };
 
+    var isRefreshableChannel = function(channel){
+        const channelsThatAreRefreshable = [
+            'ebay',
+            'amazon'
+        ];
+        return channelsThatAreRefreshable.indexOf(channel) > -1;
+    };
+
     var convertStateToCategoryMaps = function(state) {
         var categories = {},
             accountId;
@@ -254,26 +260,9 @@ define([
             });
         }
 
-        const channelsThatAreRefreshable = [
-            'ebay',
-            'amazon'
-        ];
-
-        console.log('categories before adding things: ', categories);
-
-
-//        let categoriesWithRefreshableSetting = [];
         for (let category in categories) {
-            if (channelsThatAreRefreshable.indexOf(categories[category].channel) === -1) {
-                categories[category].refreshable = false;
-            } else {
-                categories[category].refreshable = true;
-            }
-//            categoriesWithRefreshableSetting.push(category);
+            categories[category].refreshable = isRefreshableChannel(categories[category].channel);
         }
-
-
-        console.log('in converStateToCategoryMaps... cateogories so far: ', categories);
 
         return categories;
     };
