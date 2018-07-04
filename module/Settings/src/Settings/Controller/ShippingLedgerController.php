@@ -70,25 +70,33 @@ class ShippingLedgerController extends AbstractActionController implements Logge
             static::LOG_CONSTANT
         );
 
-        $transaction = $this->oneOffPaymentService->takeOneOffPayment(
-            null,
-            $organisationUnit,
-            static::DEFAULT_TOPUP_AMMOUNT,
-            static::USPS_INVOICE_DESCRIPTION,
-            static::USPS_ITEM_DESCRIPTION,
-            new \DateTime(),
-            static::SHIPPING_LEDGER_PAYMENT_TYPE
-        );
-
-        if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
-            $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
-        } else {
-            $this->logInfo(
-                'Failed to confirm payment for shipping account top-up for OU: %S',
-                [$organisationUnit->getOrganisationUnitId()],
-                static::LOG_CONSTANT
+        try {
+            $transaction = $this->oneOffPaymentService->takeOneOffPayment(
+                null,
+                $organisationUnit,
+                static::DEFAULT_TOPUP_AMMOUNT,
+                static::USPS_INVOICE_DESCRIPTION,
+                static::USPS_ITEM_DESCRIPTION,
+                new \DateTime(),
+                static::SHIPPING_LEDGER_PAYMENT_TYPE
             );
-            throw new FailedPaymentException('Unable to confirm if payment was successful, please contact us to resolve this.');
+            if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
+                $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
+            } else {
+                $this->logInfo(
+                    'Failed to confirm payment for shipping account top-up for OU: %S',
+                    [$organisationUnit->getOrganisationUnitId()],
+                    static::LOG_CONSTANT
+                );
+                throw new FailedPaymentException('Unable to confirm if payment was successful, please contact us to resolve this.');
+            }
+        } catch (FailedPaymentException $exception) {
+            $this->logException($exception, 'error', __NAMESPACE__);
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'balance' => $shippingLedger->getBalance(),
+                'error' => $exception->getMessage(),
+            ]);
         }
 
         $this->logInfo(
