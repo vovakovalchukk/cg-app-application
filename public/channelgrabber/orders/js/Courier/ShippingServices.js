@@ -102,7 +102,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         var data = {
             id: ShippingServices.SELECT_ID_PREFIX + 'select-' + orderId,
             name: name || 'service_' + orderId,
-            class: 'courier-service-select',
+            class: 'courier-service-select required',
             searchField: true,
             options: serviceOptions
         };
