@@ -21,6 +21,9 @@ class ShippingLedgerController extends AbstractActionController
     const ROUTE_SAVE = 'Save';
 
     const DEFAULT_TOPUP_AMMOUNT = 100;
+    const SHIPPING_LEDGER_PAYMENT_TYPE = '1002025';
+    const USPS_INVOICE_DESCRIPTION = 'USPS Shipping';
+    const USPS_ITEM_DESCRIPTION = 'USPS Shipping top-up';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -58,10 +61,10 @@ class ShippingLedgerController extends AbstractActionController
             null,
             $organisationUnit,
             static::DEFAULT_TOPUP_AMMOUNT,
-            'USPS Shipping',
-            'USPS Shipping top-up',
+            static::USPS_INVOICE_DESCRIPTION,
+            static::USPS_ITEM_DESCRIPTION,
             new \DateTime(),
-            '1002025'
+            static::SHIPPING_LEDGER_PAYMENT_TYPE
         );
 
         if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
