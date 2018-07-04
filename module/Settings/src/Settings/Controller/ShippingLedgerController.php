@@ -1,11 +1,17 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Account\Shared\Entity as Account;
+use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Zend\Mvc\Controller\AbstractActionController;
-Use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use Settings\Channel\Service as ChannelService;
+use Zend\Mvc\Controller\AbstractActionController;
+use CG\Billing\Transaction\Entity as Transaction;
 
 class ShippingLedgerController extends AbstractActionController
 {
@@ -13,37 +19,65 @@ class ShippingLedgerController extends AbstractActionController
     const ROUTE_TOPUP = 'Topup';
     const ROUTE_SAVE = 'Save';
 
+    const DEFAULT_TOPUP_AMMOUNT = 100;
+
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
     /** @var ChannelService */
     protected $channelService;
+    /** @var OneOffPaymentService */
+    protected $oneOffPaymentService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ShippingLedgerService $shippingLedgerService, ChannelService $channelService)
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        ShippingLedgerService $shippingLedgerService,
+        ChannelService $channelService,
+        OneOffPaymentService $oneOffPaymentService,
+        OrganisationUnitService $organisationUnitService
+    )
     {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
         $this->channelService = $channelService;
+        $this->oneOffPaymentService = $oneOffPaymentService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     public function topupAction()
     {
-        $accountId = $this->params()->fromRoute('account');
-        // Dummy data to be replaced in TAC-121
+        $input = $this->params()->fromPost();
+        $account = $this->getAccount($this->params()->fromRoute('account'));
+        $shippingLedger = $this->getShippingLedgerForAccount($account);
+        $organisationUnit = $this->getOrganisationUnitForAccount($account);
+
+        $transaction = $this->oneOffPaymentService->takeOneOffPayment(
+            null,
+            $organisationUnit,
+            static::DEFAULT_TOPUP_AMMOUNT,
+            'USPS Shipping',
+            'USPS Shipping top-up',
+            new \DateTime(),
+            '1002025'
+        );
+
+        $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
+
         return $this->jsonModelFactory->newInstance([
             'success' => true,
-            'balance' => 10,
+            'balance' => $shippingLedger->getBalance(),
             'error' => '',
         ]);
     }
 
     public function saveAction()
     {
-        $account = $this->channelService->getAccount($this->params()->fromRoute('account'));
-        $shippingLedger = $this->shippingLedgerService->fetch($account->getId());
-
         $input = $this->params()->fromPost();
+        $account = $this->getAccount($this->params()->fromRoute('account'));
+        $shippingLedger = $this->getShippingLedgerForAccount($account);
         $shippingLedger->setAutoTopUp($input['autoTopUp']);
 
         try {
@@ -52,10 +86,30 @@ class ShippingLedgerController extends AbstractActionController
             // Nothing to see here
         }
 
-        // Dummy data to be replaced in TAC-121
         return $this->jsonModelFactory->newInstance([
             'success' => true,
             'error' => '',
         ]);
+    }
+
+    protected function getAccount($accountId): Account
+    {
+        return $this->channelService->getAccount($accountId);
+    }
+
+    protected function getShippingLedgerForAccount(Account $account): ShippingLedger
+    {
+        return $this->shippingLedgerService->fetch($account->getId());
+    }
+
+    protected function getOrganisationUnitForAccount(Account $account): OrganisationUnit
+    {
+        return $this->organisationUnitService->fetch($account->getOrganisationUnitId());
+    }
+
+    protected function addTransactionAmountToExistingBalance(Transaction $transaction, $shippingLedger) {
+        $newBalance = $shippingLedger->getBalance() + $transaction->getAmount();
+        $shippingLedger->setBalance((float)$newBalance);
+        $this->shippingLedgerService->save($shippingLedger);
     }
 }
