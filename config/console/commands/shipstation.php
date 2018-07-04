@@ -60,6 +60,26 @@ return [
                 {
                     // TODO: Implement getCompanyId() method.
                 }
+
+                public function getLocale(): string
+                {
+                    // TODO: Implement getLocale() method.
+                }
+
+                public function setLocale(string $locale)
+                {
+                    // TODO: Implement setLocale() method.
+                }
+
+                public function getTimezone(): string
+                {
+                    // TODO: Implement getTimezone() method.
+                }
+
+                public function setTimezone(string $timezone)
+                {
+                    // TODO: Implement setTimezone() method.
+                }
             }]);
             /** @var Client $client */
             $client = $di->get(Client::class);
