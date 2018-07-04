@@ -4,14 +4,15 @@ namespace Settings\Controller;
 use CG\Account\Shared\Entity as Account;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
+use CG\Billing\Transaction\Entity as Transaction;
+use CG\Billing\Transaction\Status as TransactionStatus;
 use CG\Http\Exception\Exception3xx\NotModified;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Settings\Channel\Service as ChannelService;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Billing\Transaction\Entity as Transaction;
 
 class ShippingLedgerController extends AbstractActionController
 {
@@ -63,7 +64,15 @@ class ShippingLedgerController extends AbstractActionController
             '1002025'
         );
 
-        $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
+        if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
+            $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
+        } else {
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'balance' => $shippingLedger->getBalance(),
+                'error' => 'We have been unable to confirm your payment was successful, please contact us to resolve this.',
+            ]);
+        }
 
         return $this->jsonModelFactory->newInstance([
             'success' => true,
