@@ -682,10 +682,29 @@ define([
             return this.handleRatesError(response);
         }
         for (var orderId in response.rates) {
-            // TODO
+            var orderRates = response.rates[orderId];
+            var select = $(Service.SELECTOR_SERVICE_PREFIX + orderId);
+            var input = select.find('input[type=hidden]');
+            var selectedService = input.val();
+            var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
+            this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
+            // TODO: do something with the cost
         }
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
+    };
+
+    Service.prototype.mapShippingRatesToShippingOptions = function(orderRates, selectedService)
+    {
+        var serviceOptions = [];
+        for (var index in orderRates) {
+            serviceOptions.push({
+                value: orderRates[index].id,
+                title: orderRates[index].name,
+                selected: orderRates[index].serviceCode == selectedService
+            });
+        }
+        return serviceOptions;
     };
 
     Service.prototype.handleRatesError = function(response)
