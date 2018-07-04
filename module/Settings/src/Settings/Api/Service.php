@@ -7,6 +7,7 @@ use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Collection as PackageCollection;
 use CG\Billing\Package\Entity as Package;
 use CG\Billing\Package\Filter as PackageFilter;
+use CG\Locale\DemoLink;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG\Billing\Package\Service as PackageService;
 use CG\Billing\Subscription\Entity as Subscription;
@@ -31,7 +32,6 @@ class Service implements LoggerAwareInterface
 
     const MIN_PACKAGE_BAND = 'Growth Accelerator (USA)';
     const MSG_UPGRADE = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>API access is limited to our \'%s\' package or higher. Click below to upgrade now.</p><p>Not sure? Contact our eCommerce specialists on %s to discuss or <a href="%s" target="_blank">Click Here</a> to book a demo.</p>';
-    const DEMO_URL = 'https://meetings.hubspot.com/sam197/cgdemo';
     const MANAGE_PACKAGE_URI = '/billing/package';
 
     /** @var ActiveUserContainer */
@@ -142,7 +142,7 @@ class Service implements LoggerAwareInterface
     {
         $minPackage = $this->getMinimumRequiredPackageForAccess($rootOu);
         $contactNo = PhoneNumber::getForLocale($rootOu->getLocale());
-        $demoUrl = static::DEMO_URL;
+        $demoUrl = DemoLink::getForLocale($rootOu->getLocale()) ?? DemoLink::UK;
         return sprintf(static::MSG_UPGRADE, $minPackage->getName(), $contactNo, $demoUrl);
     }
 
