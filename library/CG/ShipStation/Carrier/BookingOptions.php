@@ -14,6 +14,13 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
     /** @var Service */
     protected $service;
 
+    protected $courierActionsMap = [
+        'usps-ss' => [
+            'create' => 'Purchase label',
+            'createAll' => 'Purchase all labels',
+        ]
+    ];
+
     public function __construct(Service $service)
     {
         $this->service = $service;
@@ -53,16 +60,24 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
     /**
      * @return string What to show for the 'create' action buttons
      */
-    public function getCreateActionDescription()
+    public function getCreateActionDescription(AccountEntity $shippingAccount): string
     {
-        return 'Purchase label';
+        $channel = $shippingAccount->getChannel();
+        if (isset($this->courierActionsMap[$channel], $this->courierActionsMap[$channel]['create'])) {
+            return $this->courierActionsMap[$channel]['create'];
+        }
+        return 'Create label';
     }
 
     /**
      * @return string What to show for the 'create all' action button
      */
-    public function getCreateAllActionDescription()
+    public function getCreateAllActionDescription(AccountEntity $shippingAccount): string
     {
-        return 'Purchase all labels';
+        $channel = $shippingAccount->getChannel();
+        if (isset($this->courierActionsMap[$channel], $this->courierActionsMap[$channel]['create'])) {
+            return $this->courierActionsMap[$channel]['createAll'];
+        }
+        return 'Create all label';
     }
 }
