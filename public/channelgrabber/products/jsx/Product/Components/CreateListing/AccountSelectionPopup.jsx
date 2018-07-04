@@ -245,7 +245,7 @@ define([
             'ebay',
             'amazon'
         ];
-        return channelsThatAreRefreshable.indexOf(channel) > -1;
+        return channelsThatAreRefreshable.indexOf(channel) === -1;
     };
 
     var convertStateToCategoryMaps = function(state) {
