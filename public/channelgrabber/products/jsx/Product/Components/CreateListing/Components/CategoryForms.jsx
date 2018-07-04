@@ -32,7 +32,10 @@ define([
                 product: {},
                 refreshAccountPolicies: () => {},
                 accountsData: {},
-                setReturnPoliciesForAccount: () => {}
+                setReturnPoliciesForAccount: () => {},
+                variationsDataForProduct: [],
+                fieldChange: null,
+                resetSection: null
             };
         },
         renderForCategoryTemplates: function() {
@@ -73,6 +76,9 @@ define([
                 accountId={category.accountId}
                 accountData={this.props.accountsData[category.accountId]}
                 setPoliciesForAccount={this.props.setPoliciesForAccount}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                fieldChange={this.props.fieldChange}
+                resetSection={this.props.resetSection}
                 {...category}
             />);
         },
