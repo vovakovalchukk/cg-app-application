@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4e3baae0a652f9b5a8df67e788fbe06",
+    "content-hash": "aaebc20f9bad88070ac53aaeca008691",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4446,16 +4446,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.9",
+            "version": "dev-TAC-149-us-signup-flow-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1bb58685faad50d4305af934c83c207522c90dc2"
+                "reference": "0fde40fd72cfbc6b6b1466446e3dc7ff59b6b5f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.9-319b9d.zip",
-                "reference": "1bb58685faad50d4305af934c83c207522c90dc2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-149-us-signup-flow-fixes-4ae5c0.zip",
+                "reference": "0fde40fd72cfbc6b6b1466446e3dc7ff59b6b5f5",
                 "shasum": null
             },
             "require": {
@@ -4507,7 +4507,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-25T14:25:30+00:00"
+            "time": "2018-07-04T13:10:02+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9957,6 +9957,12 @@
             "alias_normalized": "1.6.9.0",
             "version": "dev-TAC-149-us-signup-flow-fixes",
             "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.23.10",
+            "alias_normalized": "1.23.10.0",
+            "version": "dev-TAC-149-us-signup-flow-fixes",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -9964,6 +9970,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/locale": 20,
         "channelgrabber/zf2-register": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
