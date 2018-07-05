@@ -637,12 +637,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "89a8a9282a907398392e972d9050e23b49419b18"
+                "reference": "11373824dbb18f2c60a19f8bb26a1107769b6f12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-2d5542.zip",
-                "reference": "89a8a9282a907398392e972d9050e23b49419b18",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-8762ff.zip",
+                "reference": "11373824dbb18f2c60a19f8bb26a1107769b6f12",
                 "shasum": null
             },
             "require": {
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-04T09:31:42+00:00"
+            "time": "2018-07-05T08:32:50+00:00"
         },
         {
             "name": "channelgrabber/communication",
