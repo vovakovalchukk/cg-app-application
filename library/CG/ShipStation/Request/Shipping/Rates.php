@@ -3,7 +3,7 @@ namespace CG\ShipStation\Request\Shipping;
 
 use CG\ShipStation\Messages\Shipment;
 use CG\ShipStation\RequestAbstract;
-use CG\ShipStation\Response\Rates as Response;
+use CG\ShipStation\Response\Shipping\Rates as Response;
 
 class Rates extends RequestAbstract
 {

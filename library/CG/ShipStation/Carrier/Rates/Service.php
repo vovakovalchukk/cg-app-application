@@ -51,7 +51,7 @@ class Service
                 $shippingAccount,
                 $rootOu
             );
-            $orderRates = $this->mapShipstationRatesToShippingRates($order->getId(), $shipStationRates);
+            $orderRates = $this->mapShipstationRatesToOrderShippingRates($order->getId(), $shipStationRates);
             $rates->attach($orderRates);
         }
         return $rates;
@@ -80,7 +80,7 @@ class Service
         return $response->getRates();
     }
 
-    protected function mapShipstationRatesToOrderShippingRates(int $orderId, array $shipStationRates): ShippingRateCollection
+    protected function mapShipstationRatesToOrderShippingRates(string $orderId, array $shipStationRates): OrderShippingRates
     {
         $orderRates = new OrderShippingRates($orderId);
         /** @var ShipStationRate $shipStationRate */

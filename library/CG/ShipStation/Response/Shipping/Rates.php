@@ -17,7 +17,7 @@ class Rates extends ResponseAbstract
     protected static function build($decodedJson)
     {
         $rates = [];
-        foreach ($decodedJson->rates as $rateJson) {
+        foreach ($decodedJson->rate_response->rates as $rateJson) {
             $rates[] = Rate::build($rateJson);
         }
         return new static(...$rates);
