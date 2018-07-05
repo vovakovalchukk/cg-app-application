@@ -83,7 +83,7 @@ define([
             }
             return <span>{inputs}</span>;
         },
-        renderItemSpecificFromOptions: function (name, options, required,optionalItemProps) {
+        renderItemSpecificFromOptions: function (name, options, required, optionalItemProps) {
             if (this.shouldRenderTextFieldArray(options)) {
                 return this.renderFieldArray(name, this.renderTextInputArray, required);
             }
@@ -100,7 +100,6 @@ define([
             if (!optionalItems || Object.keys(optionalItems).length == 0) {
                 return null;
             }
-            
             optionalItems = this.filterItemSpecifics(optionalItems);
             
             return <FieldArray
@@ -124,11 +123,29 @@ define([
                 </div>
             </label>];
             
-            //todo pass fields and index to Field and downwards onto the Select render
             var optionalItemSpecifics = input.fields.map((name, index, fields) => {
                 let optionalItemProps = {};
-                optionalItemProps.fields = fields;
-                optionalItemProps.fieldIndex = index;
+                let fieldKey = fields.get(index).name;
+                let correspondingOptionInItemSpecificsDropdown = input.itemSpecifics[fieldKey];
+                
+                optionalItemProps.removeFieldClick = () => {
+                    fields.remove(index);
+                
+                    this.addRemovedItemSpecificToOptions(fieldKey,correspondingOptionInItemSpecificsDropdown);
+                    // this.setState((prevState) => {
+                    //     console.log(JSON.stringify(this.state.optionalItemSpecificsSelectOptions));
+                    //     let newOptions = prevState.optionalItemSpecificsSelectOptions;
+                    //     let newOption = {};
+                    //     newOption.name = fieldKey;
+                    //     newOption.value = optionForItemSpecific;
+                    //     //todo - might be better to splice it to it's original position. May not be necessary
+                    //     newOptions.push(newOption);
+                    //
+                    //     return {
+                    //         optionalItemSpecificsSelectOptions: newOptions
+                    //     };
+                    // });
+                };
                 
                 return <Field
                     name={name}
@@ -151,6 +168,18 @@ define([
                 options: selected.value
             });
             this.removeSelectedOptionFromOptions(selected);
+        },
+        addRemovedItemSpecificToOptions: function (fieldKey, correspondingOption) {
+            this.setState((prevState) => {
+                let newOptions = prevState.optionalItemSpecificsSelectOptions;
+                let newOption = {};
+                newOption.name = fieldKey;
+                newOption.value = correspondingOption;
+                newOptions.push(newOption);
+                return {
+                    optionalItemSpecificsSelectOptions: newOptions
+                };
+            });
         },
         removeSelectedOptionFromOptions: function (selectedOption) {
             var index = this.state.optionalItemSpecificsSelectOptions.findIndex(option => selectedOption.value == option.value);
@@ -195,7 +224,7 @@ define([
             var validator = (required ? Validators.required : null);
             return <FieldArray name={name} component={component} displayTitle={name} validate={validator}/>;
         },
-        renderItemSpecificField: function (name, component, options, required,optionalItemProps) {
+        renderItemSpecificField: function (name, component, options, required, optionalItemProps) {
             var validator = (required ? Validators.required : null);
             return <Field
                 name={name}
@@ -265,7 +294,6 @@ define([
             var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
             var customOptionEnabled = field.options.type == TYPE_TEXT_SELECT;
             var options = this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options);
-            console.log('field.optionalItemProps: ', field.optionalItemProps);
             return <label className="input-container">
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
@@ -286,7 +314,7 @@ define([
                 )}
                 
                 {field.optionalItemProps ? this.renderRemoveButton(() => {
-                    field.optionalItemProps.fields.remove(field.optionalItemProps.fieldIndex);
+                    field.optionalItemProps.removeFieldClick();
                 }) : ''}
             </label>;
         },
