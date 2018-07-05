@@ -229,8 +229,8 @@ class CourierJsonController extends AbstractActionController
 
     protected function assignParcelNumbers(&$ordersParcelsData)
     {
-        $parcelCount = 1;
         foreach ($ordersParcelsData as &$parcelsData) {
+            $parcelCount = 1;
             foreach ($parcelsData as &$parcelData) {
                 $parcelData['number'] = $parcelCount;
                 $parcelCount++;
