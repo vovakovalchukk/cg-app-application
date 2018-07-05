@@ -5,7 +5,7 @@ define([
     'Common/Components/MultiSelect',
     'Common/Components/Input',
     '../../../Validators'
-], function(
+], function (
     React,
     ReduxForm,
     Select,
@@ -14,52 +14,52 @@ define([
     Validators
 ) {
     "use strict";
-
+    
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
-
+    
     const TYPE_TEXT = "text";
     const TYPE_SELECT = "select";
     const TYPE_TEXT_SELECT = "textselect";
     const TYPE_CUSTOM = "custom";
-
+    
     return React.createClass({
-        getInitialState: function() {
+        getInitialState: function () {
             return {
                 selectOptions: {},
                 optionalItemSpecificsSelectOptions: null
             }
         },
-        getDefaultProps: function() {
+        getDefaultProps: function () {
             return {
                 categoryId: 0,
                 product: {}
             }
         },
-        componentDidMount: function() {
+        componentDidMount: function () {
             var optionalItems = this.props.itemSpecifics.optional;
-            if (!optionalItems || Object.keys(optionalItems).length ==  0) {
+            if (!optionalItems || Object.keys(optionalItems).length == 0) {
                 return null;
             }
             this.setState({
                 optionalItemSpecificsSelectOptions: this.buildOptionalItemSpecificsSelectOptions(optionalItems)
             });
         },
-        renderRequiredItemSpecificInputs: function() {
+        renderRequiredItemSpecificInputs: function () {
             var requiredItems = this.props.itemSpecifics.required;
-            if (!requiredItems || Object.keys(requiredItems).length ==  0) {
+            if (!requiredItems || Object.keys(requiredItems).length == 0) {
                 return null;
             }
-
+            
             requiredItems = this.filterItemSpecifics(requiredItems);
-
+            
             return this.renderItemSpecificsInputsFromOptions(requiredItems, true);
         },
         filterItemSpecifics: function (itemSpecifics) {
             if (!this.props.product.attributeNames || !(this.props.product.attributeNames instanceof Array)) {
                 return itemSpecifics;
             }
-
+            
             var attributeNames = this.props.product.attributeNames;
             var result = {};
             Object.keys(itemSpecifics).forEach(name => {
@@ -71,10 +71,10 @@ define([
                 }
                 result[name] = itemSpecifics[name];
             });
-
+            
             return result;
         },
-        renderItemSpecificsInputsFromOptions: function(items, required) {
+        renderItemSpecificsInputsFromOptions: function (items, required) {
             var inputs = [],
                 options;
             for (var name in items) {
@@ -83,27 +83,33 @@ define([
             }
             return <span>{inputs}</span>;
         },
-        renderItemSpecificFromOptions: function(name, options, required) {
+        renderItemSpecificFromOptions: function (name, options, required,optionalItemProps) {
             if (this.shouldRenderTextFieldArray(options)) {
                 return this.renderFieldArray(name, this.renderTextInputArray, required);
             }
-            return this.renderItemSpecificField(name, this.renderItemSpecificInput, options, required);
+            return this.renderItemSpecificField(
+                name,
+                this.renderItemSpecificInput,
+                options,
+                required,
+                optionalItemProps
+            );
         },
-        renderOptionsItemSpecificInputs: function() {
+        renderOptionsItemSpecificInputs: function () {
             var optionalItems = this.props.itemSpecifics.optional;
-            if (!optionalItems || Object.keys(optionalItems).length ==  0) {
+            if (!optionalItems || Object.keys(optionalItems).length == 0) {
                 return null;
             }
-
+            
             optionalItems = this.filterItemSpecifics(optionalItems);
-
+            
             return <FieldArray
                 component={this.renderOptionsItemSpecificComponents}
                 name={"optionalItemSpecifics"}
                 itemSpecifics={optionalItems}
             />;
         },
-        renderOptionsItemSpecificComponents: function(input) {
+        renderOptionsItemSpecificComponents: function (input) {
             var options = this.getOptionalItemSpecificsSelectOptions(input.itemSpecifics);
             var fields = [<label>
                 <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
@@ -117,11 +123,18 @@ define([
                     />
                 </div>
             </label>];
-            var optionalItemSpecifics = input.fields.map((name) => {
+            
+            //todo pass fields and index to Field and downwards onto the Select render
+            var optionalItemSpecifics = input.fields.map((name, index, fields) => {
+                let optionalItemProps = {};
+                optionalItemProps.fields = fields;
+                optionalItemProps.fieldIndex = index;
+                
                 return <Field
                     name={name}
                     component={this.renderOptionalItemSpecific}
-                    renderInput={this.renderItemSpecificFromOptions}
+                    remderRemoveButton={true}
+                    optionalItemProps={optionalItemProps}
                 />;
             });
             fields.push(optionalItemSpecifics);
@@ -129,7 +142,7 @@ define([
                 {fields}
             </span>
         },
-        onOptionalItemSpecificSelected: function(input, selected) {
+        onOptionalItemSpecificSelected: function (input, selected) {
             if (-1 === this.state.optionalItemSpecificsSelectOptions.findIndex(option => selected.value == option.value)) {
                 return;
             }
@@ -139,7 +152,7 @@ define([
             });
             this.removeSelectedOptionFromOptions(selected);
         },
-        removeSelectedOptionFromOptions: function(selectedOption) {
+        removeSelectedOptionFromOptions: function (selectedOption) {
             var index = this.state.optionalItemSpecificsSelectOptions.findIndex(option => selectedOption.value == option.value);
             var newSelectOptions = this.state.optionalItemSpecificsSelectOptions.slice();
             newSelectOptions.splice(index, 1);
@@ -147,7 +160,7 @@ define([
                 optionalItemSpecificsSelectOptions: newSelectOptions
             });
         },
-        buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
+        buildOptionalItemSpecificsSelectOptions: function (itemSpecifics) {
             var options = [];
             for (var name in itemSpecifics) {
                 options.push({
@@ -161,23 +174,28 @@ define([
             });
             return options;
         },
-        getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
+        getOptionalItemSpecificsSelectOptions: function (itemSpecifics) {
             if (this.state.optionalItemSpecificsSelectOptions instanceof Array) {
                 return this.state.optionalItemSpecificsSelectOptions;
             }
             return this.buildOptionalItemSpecificsSelectOptions(itemSpecifics);
         },
-        renderOptionalItemSpecific: function(field) {
-            return field.renderInput(field.input.value.name, field.input.value.options);
+        renderOptionalItemSpecific: function (field) {
+            return this.renderItemSpecificFromOptions(
+                field.input.value.name,
+                field.input.value.options,
+                false,
+                field.optionalItemProps
+            );
         },
-        shouldRenderTextFieldArray: function(options) {
+        shouldRenderTextFieldArray: function (options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
         },
-        renderFieldArray: function(name, component, required) {
+        renderFieldArray: function (name, component, required) {
             var validator = (required ? Validators.required : null);
             return <FieldArray name={name} component={component} displayTitle={name} validate={validator}/>;
         },
-        renderItemSpecificField: function(name, component, options, required) {
+        renderItemSpecificField: function (name, component, options, required,optionalItemProps) {
             var validator = (required ? Validators.required : null);
             return <Field
                 name={name}
@@ -185,19 +203,20 @@ define([
                 component={component}
                 options={options}
                 validate={validator}
+                optionalItemProps={optionalItemProps}
             />
         },
-        renderItemSpecificInput: function(field) {
+        renderItemSpecificInput: function (field) {
             if (field.options.type == TYPE_TEXT) {
                 return this.renderTextInput(field);
             } else if (field.options.type == TYPE_SELECT || field.options.type == TYPE_TEXT_SELECT) {
                 return this.renderSelectInput(field);
-            } else if(field.options.type == TYPE_CUSTOM) {
+            } else if (field.options.type == TYPE_CUSTOM) {
                 return this.renderCustomItemSpecificField();
             }
             return null;
         },
-        renderTextInput: function(field) {
+        renderTextInput: function (field) {
             return <label className="input-container">
                 <span className={"inputbox-label"}>{!field.hideLabel ? field.displayTitle : ''}</span>
                 <div className={"order-inputbox-holder"}>
@@ -212,7 +231,7 @@ define([
                 {this.getActionButtonForInput(field)}
             </label>;
         },
-        getActionButtonForInput: function(field) {
+        getActionButtonForInput: function (field) {
             if (!('index' in field) || !field.fields) {
                 return null;
             }
@@ -221,7 +240,7 @@ define([
             }
             return this.renderRemoveButton(() => field.fields.remove(field.index));
         },
-        renderTextInputArray: function(input) {
+        renderTextInputArray: function (input) {
             var fields = input.fields;
             if (fields.length === 0) {
                 fields.push("");
@@ -242,12 +261,11 @@ define([
                 )}
             </span>;
         },
-        renderSelectInput: function(field) {
+        renderSelectInput: function (field) {
             var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
             var customOptionEnabled = field.options.type == TYPE_TEXT_SELECT;
-
             var options = this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options);
-
+            console.log('field.optionalItemProps: ', field.optionalItemProps);
             return <label className="input-container">
                 <span className={"inputbox-label"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
@@ -266,15 +284,19 @@ define([
                 {Validators.shouldShowError(field) && (
                     <span className="input-error">{field.meta.error}</span>
                 )}
+                
+                {field.optionalItemProps ? this.renderRemoveButton(() => {
+                    field.optionalItemProps.fields.remove(field.optionalItemProps.fieldIndex);
+                }) : ''}
             </label>;
         },
-        renderCustomItemSpecificField: function() {
+        renderCustomItemSpecificField: function () {
             return <FieldArray
                 name="customItemSpecifics"
                 component={this.renderCustomItemSpecificComponent}
             />
         },
-        renderCustomItemSpecificComponent: function(input) {
+        renderCustomItemSpecificComponent: function (input) {
             if (input.fields.length === 0) {
                 input.fields.push({name: "", value: ""});
             }
@@ -298,7 +320,7 @@ define([
                 })}
             </span>;
         },
-        renderCustomSpecificNameComponent: function(field) {
+        renderCustomSpecificNameComponent: function (field) {
             return (<span className={"inputbox-label container-extra-item-specific"}>
                 <Input
                     {...field.input}
@@ -306,7 +328,7 @@ define([
                 />
             </span>);
         },
-        renderCustomSpecificValueComponent: function(field) {
+        renderCustomSpecificValueComponent: function (field) {
             return (<div className={"order-inputbox-holder"}>
                 <Input
                     {...field.input}
@@ -314,18 +336,18 @@ define([
                 />
             </div>);
         },
-        onCustomItemSpecificChange: function(field, event) {
+        onCustomItemSpecificChange: function (field, event) {
             var value = event.target.value;
             field.input.onChange(value);
             if (field.fields.length === field.index + 1) {
                 field.fields.push({name: "", value: ""})
             }
         },
-        buildSelectOptionsForItemSpecific: function(title, options) {
+        buildSelectOptionsForItemSpecific: function (title, options) {
             if (this.state[title]) {
                 return this.state[title];
             }
-
+            
             return Object.keys(options).map(value => {
                 return {
                     name: options[value],
@@ -333,20 +355,20 @@ define([
                 }
             });
         },
-        onOptionSelected: function(input, selectedOptions) {
+        onOptionSelected: function (input, selectedOptions) {
             if (selectedOptions instanceof Array) {
                 input.onChange(selectedOptions.map(option => option.value));
             }
             input.onChange(selectedOptions.value);
         },
-        findSelectedOption: function(value) {
+        findSelectedOption: function (value) {
             value = value instanceof Array ? null : value;
             return {
                 name: value || '',
                 value: value || ''
             };
         },
-        onCustomOption: function(newOption, allOptions, selectTitle) {
+        onCustomOption: function (newOption, allOptions, selectTitle) {
             this.setState(Object.assign(this.state.selectOptions, {
                 [selectTitle]: allOptions
             }));
