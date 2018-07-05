@@ -12,3 +12,22 @@ $setupRoute = implode('/', [
 $url = $this->url($setupRoute, ['channel' => $account->getChannel()]) . '?accountId=' . $account->getId();
 echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
 */
+?>
+
+<div class="padded-content-holder">
+    <form>
+        <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
+        Balance: <span><?=$currencySymbol;?><?=$balance;?></span>
+        <button id="topup" name="topup" class="button inline account-save">Purchase $100 credit</button>
+        <label>
+            <span class="inputbox-label">Auto Top-up:</span>
+            <div class="alternate-input mustache">
+                <div class="enable-switch-auto-top-up">
+                    <?= $autoTopUpToggle ?>
+                </div>
+                <span class="sprite-sprite sprite-question-16-white" id="topupTooltip" name="topupTooltip">&nbsp;</span>
+            </div>
+        </label>
+        <?= $autoTopUpTooltip ?>
+    </form>
+</div>
