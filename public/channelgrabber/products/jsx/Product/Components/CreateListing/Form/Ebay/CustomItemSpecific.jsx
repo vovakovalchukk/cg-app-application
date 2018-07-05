@@ -29,7 +29,7 @@ define([
         renderRemoveButton: function (index) {
             return <span className="remove-icon">
                 <i
-                    className='fa fa-2x  fa-trash-o'
+                    className='fa fa-2x fa-minus-square icon-create-listing'
                     aria-hidden='true'
                     onClick={this.onRemoveButtonClick.bind(this, index)}
                 />
