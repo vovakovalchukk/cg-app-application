@@ -23,7 +23,7 @@ class Rate
     protected $guaranteedService;
     /** @var string */
     protected $estimatedDeliveryDate;
-    /** @var string */
+    /** @var string|null */
     protected $carrierDeliveryDays;
     /** @var string */
     protected $shipDate;
@@ -59,7 +59,7 @@ class Rate
         int $deliveryDays,
         bool $guaranteedService,
         string $estimatedDeliveryDate,
-        string $carrierDeliveryDays,
+        ?string $carrierDeliveryDays,
         string $shipDate,
         bool $negotiatedRate,
         string $serviceType,
@@ -103,7 +103,7 @@ class Rate
             $decodedJson->rate_type,
             $decodedJson->carrier_id,
             CurrencyAmount::build($decodedJson->shipping_amount),
-            CurrencyAmount::build($decodedJson->incurance_amount),
+            CurrencyAmount::build($decodedJson->insurance_amount),
             CurrencyAmount::build($decodedJson->confirmation_amount),
             CurrencyAmount::build($decodedJson->other_amount),
             $decodedJson->delivery_days,
@@ -174,7 +174,7 @@ class Rate
         return $this->estimatedDeliveryDate;
     }
 
-    public function getCarrierDeliveryDays(): string
+    public function getCarrierDeliveryDays(): ?string
     {
         return $this->carrierDeliveryDays;
     }
