@@ -78,6 +78,10 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         Account $shippingAccount,
         User $user
     ) {
+        // If / when TECH-92 is done we'll be passed these objects instead of the arrays and so wont need these lines any more
+        $ordersData = OrderDataCollection::fromArray($ordersData);
+        $orderParcelsData = OrderParcelsDataCollection::fromArray($orderParcelsData);
+
         $shipStationAccount = $this->shipStationService->getShipStationAccountForShippingAccount($shippingAccount);
         return $this->labelCreator->createLabelsForOrders(
             $orders,
