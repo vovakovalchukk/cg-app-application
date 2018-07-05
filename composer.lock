@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63edc3655460db7cbdf93e41ecb3f16a",
+    "content-hash": "69a74003c11965a8172f50cf99d97284",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1831,13 +1831,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7bba91b5e4348dcd470d2402c0c4aec7d4d7123c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TECH-88-refactor-courier-arrays-to-objects-759bfc.zip",
-                "reference": "7bba91b5e4348dcd470d2402c0c4aec7d4d7123c",
-                "shasum": null
+                "reference": "588b1233933c57a53eeda93241cd866c8e3485c3"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -9959,8 +9953,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
