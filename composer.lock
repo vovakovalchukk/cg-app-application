@@ -1531,12 +1531,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "0db7a0e3981e1419333c963377054e902e2d8870"
+                "reference": "503b303a022b6cd4f9c2ba885a11fee83c50f0cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-149-us-signup-flow-fixes-1c515f.zip",
-                "reference": "0db7a0e3981e1419333c963377054e902e2d8870",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-149-us-signup-flow-fixes-14b2ad.zip",
+                "reference": "503b303a022b6cd4f9c2ba885a11fee83c50f0cf",
                 "shasum": null
             },
             "require": {
@@ -1559,7 +1559,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-03T15:43:21+00:00"
+            "time": "2018-07-05T10:54:24+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -4135,19 +4135,19 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "afe5d829de0ae4a7f32ee4d23840045c6c16e897"
+                "reference": "58d46215cabf6bdb117ed874d5235f689b0b071f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-149-us-signup-flow-fixes-91a835.zip",
-                "reference": "afe5d829de0ae4a7f32ee4d23840045c6c16e897",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-149-us-signup-flow-fixes-61a082.zip",
+                "reference": "58d46215cabf6bdb117ed874d5235f689b0b071f",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.1.1",
+                "channelgrabber/locale": "dev-TAC-149-us-signup-flow-fixes as 1.1.4",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4179,7 +4179,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-07-05T08:08:33+00:00"
+            "time": "2018-07-05T11:00:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4450,12 +4450,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0fde40fd72cfbc6b6b1466446e3dc7ff59b6b5f5"
+                "reference": "1c4cb4762f78cd5423ae10aeb4376aa8b9597b5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-149-us-signup-flow-fixes-4ae5c0.zip",
-                "reference": "0fde40fd72cfbc6b6b1466446e3dc7ff59b6b5f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-149-us-signup-flow-fixes-e19289.zip",
+                "reference": "1c4cb4762f78cd5423ae10aeb4376aa8b9597b5f",
                 "shasum": null
             },
             "require": {
@@ -4507,7 +4507,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-04T13:10:02+00:00"
+            "time": "2018-07-05T10:56:51+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
