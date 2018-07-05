@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e368090e2cf1e734f6741abd7c77b90e",
+    "content-hash": "492630dd3955fc0aa6255e64c0567639",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.1",
+            "version": "1.17.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1"
+                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.1-0b66e6.zip",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.2-df41d3.zip",
+                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:42:22+00:00"
+            "time": "2018-07-04T10:48:25+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -518,17 +518,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "version": "dev-TAC-125-fetch-usps-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a741ef17749b0ce3b1442573e660b267d41227f7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-118-ship-action-fetch-rates-ee8691.zip",
-                "reference": "a741ef17749b0ce3b1442573e660b267d41227f7",
-                "shasum": null
+                "reference": "fa1d99473ba012a721050619539b49df7dee430a"
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -1827,11 +1821,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
+            "version": "dev-TAC-125-fetch-usps-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "588b1233933c57a53eeda93241cd866c8e3485c3"
+                "reference": "e98343c16e49614783be0d9a23ebb88d9f805b7e"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1901,7 +1895,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-03T09:44:34+00:00"
+            "time": "2018-07-05T08:57:18+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9935,8 +9929,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.1",
-            "alias_normalized": "1.27.1.0",
+            "alias": "1.27.2",
+            "alias_normalized": "1.27.2.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
             "package": "channelgrabber/amazon"
         },
@@ -9944,6 +9938,12 @@
             "alias": "1.37.0",
             "alias_normalized": "1.37.0.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.37.0",
+            "alias_normalized": "1.37.0.0",
+            "version": "dev-TAC-125-fetch-usps-rates",
             "package": "channelgrabber/channel"
         },
         {
@@ -9956,6 +9956,12 @@
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
             "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.38.9",
+            "alias_normalized": "1.38.9.0",
+            "version": "dev-TAC-125-fetch-usps-rates",
             "package": "channelgrabber/order"
         },
         {

@@ -61,4 +61,11 @@ class Entity implements ShippingRateInterface
     {
         return $this->currencyCode;
     }
+
+    // Cost can be overridden when we add our margin on to it
+    public function setCost(float $cost): Entity
+    {
+        $this->cost = $cost;
+        return $this;
+    }
 }
