@@ -5,6 +5,7 @@ use CG\ShipStation\Account\CreationService as AccountCreationService;
 use CG\ShipStation\Carrier\Label\Creator as LabelCreator;
 use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
+use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
 use Guzzle\Http\Client as GuzzleClient;
 
 return [
@@ -23,6 +24,11 @@ return [
                 ]
             ],
             AccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            UspsAccountMapper::class => [
                 'parameters' => [
                     'cryptor' => 'shipstation_cryptor',
                 ]

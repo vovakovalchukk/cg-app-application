@@ -12,6 +12,8 @@ use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCol
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\AccountDeciderInterface;
+use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
 use CG\ShipStation\Client;
 use CG\ShipStation\Messages\Rate as ShipStationRate;
 use CG\ShipStation\Messages\Shipment;
@@ -23,12 +25,18 @@ class Service
 {
     /** @var ShipStationService */
     protected $shipStationService;
+    /** @var AccountDeciderFactory */
+    protected $accountDeciderFactory;
     /** @var Client */
     protected $client;
 
-    public function __construct(ShipStationService $shipStationService, Client $client)
-    {
+    public function __construct(
+        ShipStationService $shipStationService,
+        AccountDeciderFactory $accountDeciderFactory,
+        Client $client
+    ) {
         $this->shipStationService = $shipStationService;
+        $this->accountDeciderFactory = $accountDeciderFactory;
         $this->client = $client;
     }
 
@@ -40,15 +48,19 @@ class Service
         OrganisationUnit $rootOu,
         Account $shippingAccount
     ): ShippingRateCollection {
-        $shipStationAccount = $this->shipStationService->getShipStationAccountForShippingAccount($shippingAccount);
+        /** @var AccountDeciderInterface $accountDecider */
+        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
+        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
+        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
+
         $rates = new ShippingRateCollection();
         foreach ($orders as $order) {
             $shipStationRates = $this->fetchRatesForOrderFromShipStation(
                 $order,
                 $ordersData->getById($order->getId()),
                 $ordersParcelsData->getById($order->getId()),
-                $shipStationAccount,
-                $shippingAccount,
+                $shipStationAccountToUse,
+                $shippingAccountToUse,
                 $rootOu
             );
             $orderRates = $this->mapShipstationRatesToOrderShippingRates($order->getId(), $shipStationRates);
@@ -64,8 +76,7 @@ class Service
         Account $shipStationAccount,
         Account $shippingAccount,
         OrganisationUnit $rootOu
-    ): array
-    {
+    ): array {
         $shipment = Shipment::createFromOrderAndData(
             $order,
             $orderData,
