@@ -13,7 +13,7 @@ define([
 ) {
     var addCustomItemSpecificName = "Add Custom Item Specific";
 
-    return React.createClass({
+    var ItemSpecifics = React.createClass({
         getInitialState: function() {
             return {
                 optionalItemSpecifics: [],
@@ -55,7 +55,7 @@ define([
                 var required = [];
                 for (var name in requiredItems) {
                     var properties = requiredItems[name];
-                    required.push(this.buildItemSpecificsInputByType(name, properties));
+                    required.push(this.buildItemSpecificsInputByType(name, properties, false));
                 }
                 itemSpecifics.push(
                     <span>
@@ -69,6 +69,8 @@ define([
                     </span>
                 );
             }
+
+
             if (optionalItems && Object.keys(optionalItems).length > 0) {
                 itemSpecifics.push(
                     <label>
@@ -87,25 +89,28 @@ define([
             }
             return <span>{itemSpecifics}</span>;
         },
-        buildItemSpecificsInputByType: function(name, properties) {
+        buildItemSpecificsInputByType: function(name, properties, isOptional) {
             if (properties.type == 'text') {
-                return this.buildTextItemSpecific(name, properties);
+                return this.buildTextItemSpecific(name, properties, isOptional);
             }
             if (properties.type == 'select') {
-                return this.buildSelectItemSpecific(name, properties);
+                return this.buildSelectItemSpecific(name, properties, isOptional);
             }
             if (properties.type == 'textselect') {
-                return this.buildTextSelectItemSpecific(name, properties);
+                return this.buildTextSelectItemSpecific(name, properties, isOptional);
             }
         },
-        buildTextItemSpecific: function(name, options) {
+        buildTextItemSpecific: function(name, options, isOptional) {
             var inputs = [];
             var counts = this.state.itemSpecificsCounts;
             var count = (counts[name]) ? counts[name] : 1;
             var hasPlusButton = this.isMultiOption(options);
+
             var label = name;
+            var value;
 
             for (var index = 0; index < count; index++) {
+                value = this.getItemSpecificTextInputValue(name) || this.getOptionalItemSpecificTextInputValue(name);
                 inputs.push(
                     <label>
                         <span className={"inputbox-label"}>{label}</span>
@@ -117,6 +122,7 @@ define([
                             />
                         </div>
                         {hasPlusButton && index === count - 1 ? this.renderPlusButton(name) : null}
+                        {isOptional && this.renderRemoveOptionalItemSpecificButton(name)}
                     </label>
                 );
                 // Only the first of the repeated fields has a label
@@ -124,6 +130,59 @@ define([
             }
 
             return <span>{inputs}</span>;
+        },
+        buildSelectItemSpecific: function(name, options, isOptional) {
+            var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
+
+            var selectedOption = getSelectedOption(name,this.state.selectedItemSpecifics);
+            if(!selectedOption){
+                // send a default option if a selection doesn't exist
+                selectedOption = {
+                    name: '',
+                    value: ''
+                };
+            }
+
+            return <label>
+                <span className={"inputbox-label"}>{name}</span>
+                <div className={"order-inputbox-holder"}>
+                    <SelectComponent
+                        options={this.getSelectOptionsForItemSpecific(name, options.options)}
+                        autoSelectFirst={false}
+                        title={name}
+                        onOptionChange={this.onItemSpecificSelected}
+                        selectedOption={selectedOption}
+                    />
+                </div>
+                {isOptional && this.renderRemoveOptionalItemSpecificButton(name)}
+            </label>
+        },
+        buildTextSelectItemSpecific: function(name, options, isOptional) {
+            var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
+
+            var selectedOption = getSelectedOption(name,this.state.selectedItemSpecifics);
+            if(!selectedOption){
+                // send a default option if a selection doesn't exist
+                selectedOption = {
+                    name: '',
+                    value: ''
+                };
+            }
+
+            return <label>
+                <span className={"inputbox-label"}>{name}</span>
+                <div className={"order-inputbox-holder"}>
+                    <SelectComponent
+                        options={this.getSelectOptionsForItemSpecific(name, options.options)}
+                        autoSelectFirst={false}
+                        title={name}
+                        customOptions={true}
+                        onOptionChange={this.onItemSpecificSelected}
+                        selectedOption={selectedOption}
+                    />
+                </div>
+                {isOptional && this.renderRemoveOptionalItemSpecificButton(name)}
+            </label>
         },
         renderPlusButton: function (name) {
             return <span className="refresh-icon">
@@ -220,6 +279,12 @@ define([
             }
             return null;
         },
+        getOptionalItemSpecificTextInputValue: function(name){
+            if (this.state.selectedItemSpecifics && this.state.selectedItemSpecifics[name]) {
+                return this.state.selectedItemSpecifics[name][0];
+            }
+            return null;
+        },
         buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             var options = [];
             for (var name in itemSpecifics) {
@@ -234,20 +299,6 @@ define([
             });
             return options;
         },
-        buildSelectItemSpecific: function(name, options) {
-            var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
-            return <label>
-                <span className={"inputbox-label"}>{name}</span>
-                <div className={"order-inputbox-holder"}>
-                    <SelectComponent
-                        options={this.getSelectOptionsForItemSpecific(name, options.options)}
-                        autoSelectFirst={false}
-                        title={name}
-                        onOptionChange={this.onItemSpecificSelected}
-                    />
-                </div>
-            </label>
-        },
         isMultiOption: function (options) {
             return (options.maxValues && options.maxValues > 1);
         },
@@ -260,21 +311,6 @@ define([
                 });
             }
             return selectOptions;
-        },
-        buildTextSelectItemSpecific: function(name, options) {
-            var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
-            return <label>
-                <span className={"inputbox-label"}>{name}</span>
-                <div className={"order-inputbox-holder"}>
-                    <SelectComponent
-                        options={this.getSelectOptionsForItemSpecific(name, options.options)}
-                        autoSelectFirst={false}
-                        title={name}
-                        customOptions={true}
-                        onOptionChange={this.onItemSpecificSelected}
-                    />
-                </div>
-            </label>
         },
         onOptionalItemSpecificSelect: function (field) {
             // Do no render the same field twice
@@ -309,15 +345,15 @@ define([
         buildOptionalItemSpecificsInputs: function() {
             var itemSpecifics = [];
             var field;
-            var optionalItemSpecificsLength = this.state.optionalItemSpecifics.length;
             var customItemSpecifics = this.state.customItemSpecifics;
 
-            for (var key = 0; key < optionalItemSpecificsLength; key++) {
-                field = this.state.optionalItemSpecifics[key];
+            for (var index in this.state.optionalItemSpecifics) {
+                field = this.state.optionalItemSpecifics[index];
                 itemSpecifics.push(
                     this.buildItemSpecificsInputByType(
                         field.name,
-                        field.value
+                        field.value,
+                        true
                 ));
             }
 
@@ -332,6 +368,7 @@ define([
             return <span>{itemSpecifics}</span>;
         },
         onItemSpecificSelected: function(fields, title) {
+
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var values = [];
 
@@ -362,6 +399,24 @@ define([
                 selectedItemSpecifics: selectedItemSpecifics
             });
         },
+        onRemoveOptionalItemSpecific: function(optionalItemSpecificName) {
+            var newOptionalItemSpecifics = this.state.optionalItemSpecifics.filter(function(optionalItemSpecific) {
+                return optionalItemSpecific.name !== optionalItemSpecificName
+            });
+
+            this.setState({
+                optionalItemSpecifics: newOptionalItemSpecifics
+            });
+        },
+        renderRemoveOptionalItemSpecificButton: function (optionalItemSpecificName) {
+            return <span className="remove-icon">
+                <i
+                    className='fa fa-2x  fa-trash-o'
+                    aria-hidden='true'
+                    onClick={this.onRemoveOptionalItemSpecific.bind(this, optionalItemSpecificName)}
+                />
+            </span>;
+        },
         render: function () {
             return <span>
                 {this.buildItemSpecificsInputs()}
@@ -369,4 +424,18 @@ define([
             </span>
         }
     });
+
+    return ItemSpecifics;
+
+    function getSelectedOption(name, selectedItemSpecifics){
+        if(selectedItemSpecifics[name]){
+            return {
+                name:selectedItemSpecifics[name][0],
+                value: selectedItemSpecifics[name][0]
+            };
+        }else{
+            return false;
+        }
+    }
+
 });
