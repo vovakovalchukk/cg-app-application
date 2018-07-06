@@ -17,6 +17,10 @@ class Rate
     protected $confirmationAmount;
     /** @var CurrencyAmount */
     protected $otherAmount;
+    /** @var string|null */
+    protected $zone;
+    /** @var string|null */
+    protected $packageType;
     /** @var int */
     protected $deliveryDays;
     /** @var bool */
@@ -56,6 +60,8 @@ class Rate
         CurrencyAmount $insuranceAmount,
         CurrencyAmount $confirmationAmount,
         CurrencyAmount $otherAmount,
+        ?string $zone,
+        ?string $packageType,
         int $deliveryDays,
         bool $guaranteedService,
         string $estimatedDeliveryDate,
@@ -79,6 +85,8 @@ class Rate
         $this->insuranceAmount = $insuranceAmount;
         $this->confirmationAmount = $confirmationAmount;
         $this->otherAmount = $otherAmount;
+        $this->zone = $zone;
+        $this->packageType = $packageType;
         $this->deliveryDays = $deliveryDays;
         $this->guaranteedService = $guaranteedService;
         $this->estimatedDeliveryDate = $estimatedDeliveryDate;
@@ -106,10 +114,12 @@ class Rate
             CurrencyAmount::build($decodedJson->insurance_amount),
             CurrencyAmount::build($decodedJson->confirmation_amount),
             CurrencyAmount::build($decodedJson->other_amount),
+            $decodedJson->zone ?? null,
+            $decodedJson->package_type ?? null,
             $decodedJson->delivery_days,
             $decodedJson->guaranteed_service,
             $decodedJson->estimated_delivery_date,
-            $decodedJson->carrier_delivery_days,
+            $decodedJson->carrier_delivery_days ?? null,
             $decodedJson->ship_date,
             $decodedJson->negotiated_rate,
             $decodedJson->service_type,
@@ -157,6 +167,16 @@ class Rate
     public function getOtherAmount(): CurrencyAmount
     {
         return $this->otherAmount;
+    }
+
+    public function getZone(): ?string
+    {
+        return $this->zone;
+    }
+
+    public function getPackageType(): ?string
+    {
+        return $this->packageType;
     }
 
     public function getDeliveryDays(): int
