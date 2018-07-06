@@ -85,7 +85,12 @@ define([
         },
         renderItemSpecificFromOptions: function (name, options, required, optionalItemProps) {
             if (this.shouldRenderTextFieldArray(options)) {
-                return this.renderFieldArray(name, this.renderTextInputArray, required);
+                return this.renderFieldArray(
+                    name,
+                    this.renderTextInputArray,
+                    required,
+                    optionalItemProps
+                );
             }
             return this.renderItemSpecificField(
                 name,
@@ -130,21 +135,7 @@ define([
                 
                 optionalItemProps.removeFieldClick = () => {
                     fields.remove(index);
-                
-                    this.addRemovedItemSpecificToOptions(fieldKey,correspondingOptionInItemSpecificsDropdown);
-                    // this.setState((prevState) => {
-                    //     console.log(JSON.stringify(this.state.optionalItemSpecificsSelectOptions));
-                    //     let newOptions = prevState.optionalItemSpecificsSelectOptions;
-                    //     let newOption = {};
-                    //     newOption.name = fieldKey;
-                    //     newOption.value = optionForItemSpecific;
-                    //     //todo - might be better to splice it to it's original position. May not be necessary
-                    //     newOptions.push(newOption);
-                    //
-                    //     return {
-                    //         optionalItemSpecificsSelectOptions: newOptions
-                    //     };
-                    // });
+                    this.addRemovedItemSpecificToOptions(fieldKey, correspondingOptionInItemSpecificsDropdown);
                 };
                 
                 return <Field
@@ -220,9 +211,18 @@ define([
         shouldRenderTextFieldArray: function (options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
         },
-        renderFieldArray: function (name, component, required) {
+        renderFieldArray: function (name, component, required, optionalItemProps) {
             var validator = (required ? Validators.required : null);
-            return <FieldArray name={name} component={component} displayTitle={name} validate={validator}/>;
+            let fieldArrayProps = {
+                optionalItemProps: optionalItemProps
+            };
+            return <FieldArray
+                name={name}
+                component={component}
+                displayTitle={name}
+                validate={validator}
+                props={fieldArrayProps}
+            />;
         },
         renderItemSpecificField: function (name, component, options, required, optionalItemProps) {
             var validator = (required ? Validators.required : null);
@@ -235,7 +235,8 @@ define([
                 optionalItemProps={optionalItemProps}
             />
         },
-        renderItemSpecificInput: function (field) {
+        renderItemSpecificInput: function (field) {;
+            
             if (field.options.type == TYPE_TEXT) {
                 return this.renderTextInput(field);
             } else if (field.options.type == TYPE_SELECT || field.options.type == TYPE_TEXT_SELECT) {
@@ -257,15 +258,41 @@ define([
                 {Validators.shouldShowError(field) && (
                     <span className="input-error">{field.meta.error}</span>
                 )}
-                {this.getActionButtonForInput(field)}
+                {this.getActionButtonForInput(field, field.optionalItemProps.removeFieldClick)}
             </label>;
         },
-        getActionButtonForInput: function (field) {
-            if (!('index' in field) || !field.fields) {
-                return null;
+        isSingleTextInput: function(field){
+            return (!('index' in field) || !field.fields);
+        },
+        isLastInputOfTextInputArray: function(field){
+            return (field.index === field.fields.length - 1);
+        },
+        onlyOneTextInputExistsInArray: function(field){
+          return field.fields.length===1;
+        },
+        getActionButtonForInput: function (field, removeFieldClick) {
+            if (this.isSingleTextInput(field)) {
+                return (
+                    <span className={'u-display-inline'}>
+                        {this.renderRemoveButton(removeFieldClick)};
+                    </span>
+                );
             }
-            if (field.index === field.fields.length - 1) {
-                return this.renderPlusButton(() => field.fields.push(""));
+            if (this.isLastInputOfTextInputArray(field)) {
+                if(this.onlyOneTextInputExistsInArray(field)){
+                    return (
+                        <span className={'u-display-inline'}>
+                            {this.renderPlusButton(() => field.fields.push(""))};
+                            {this.renderRemoveButton(removeFieldClick)};
+                        </span>
+                    );
+                }
+                return (
+                    <span className={'u-display-inline'}>
+                        {this.renderPlusButton(() => field.fields.push(""))};
+                        {this.renderRemoveButton(() => field.fields.pop())};
+                    </span>
+                );
             }
             return this.renderRemoveButton(() => field.fields.remove(field.index));
         },
@@ -283,6 +310,7 @@ define([
                         index={index}
                         fields={fields}
                         hideLabel={(index > 0)}
+                        optionalItemProps={input.optionalItemProps}
                     />;
                 })}
                 {input.meta.error && input.meta.dirty && (
