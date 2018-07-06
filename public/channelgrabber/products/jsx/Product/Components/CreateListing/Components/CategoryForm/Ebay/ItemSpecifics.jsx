@@ -236,8 +236,6 @@ define([
             />
         },
         renderItemSpecificInput: function(field) {
-            ;
-            
             if (field.options.type == TYPE_TEXT) {
                 return this.renderTextInput(field);
             } else if (field.options.type == TYPE_SELECT || field.options.type == TYPE_TEXT_SELECT) {
