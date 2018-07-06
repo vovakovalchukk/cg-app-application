@@ -23,16 +23,19 @@ class Mapper
 
     public function cgShipStationAccountFromShippingAccount(Account $shippingAccount): Account
     {
-        $credentials = $this->cryptor->encrypt(new ChannelGrabberCredentials());
+        $shippingAccountCreds = $this->cryptor->decrypt($shippingAccount->getCredentials());
+        $shipStationAccountCreds = $this->cryptor->encrypt(new ChannelGrabberCredentials());
         return $this->accountMapper->fromArray([
             'channel' => 'shipstationAccount',
             'organisationUnitId' => $shippingAccount->getOrganisationUnitId(),
             'displayName' => 'ShipStation',
-            'credentials' => $credentials,
+            'credentials' => $shipStationAccountCreds,
             'active' => true,
             'deleted' => false,
             'pending' => false,
             'type' => [AccountType::SHIPPING_PROVIDER],
+            // For USPS we store the warehouseId in the credentials, copy it over
+            'externalData' => ['warehouseId' => $shippingAccountCreds->get('warehouseId')],
         ]);
     }
 
