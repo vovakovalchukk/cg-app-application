@@ -5,7 +5,7 @@ define([
     'Common/Components/MultiSelect',
     'Common/Components/Input',
     '../../../Validators'
-], function (
+], function(
     React,
     ReduxForm,
     Select,
@@ -24,19 +24,19 @@ define([
     const TYPE_CUSTOM = "custom";
     
     return React.createClass({
-        getInitialState: function () {
+        getInitialState: function() {
             return {
                 selectOptions: {},
                 optionalItemSpecificsSelectOptions: null
             }
         },
-        getDefaultProps: function () {
+        getDefaultProps: function() {
             return {
                 categoryId: 0,
                 product: {}
             }
         },
-        componentDidMount: function () {
+        componentDidMount: function() {
             var optionalItems = this.props.itemSpecifics.optional;
             if (!optionalItems || Object.keys(optionalItems).length == 0) {
                 return null;
@@ -45,7 +45,7 @@ define([
                 optionalItemSpecificsSelectOptions: this.buildOptionalItemSpecificsSelectOptions(optionalItems)
             });
         },
-        renderRequiredItemSpecificInputs: function () {
+        renderRequiredItemSpecificInputs: function() {
             var requiredItems = this.props.itemSpecifics.required;
             if (!requiredItems || Object.keys(requiredItems).length == 0) {
                 return null;
@@ -55,7 +55,7 @@ define([
             
             return this.renderItemSpecificsInputsFromOptions(requiredItems, true);
         },
-        filterItemSpecifics: function (itemSpecifics) {
+        filterItemSpecifics: function(itemSpecifics) {
             if (!this.props.product.attributeNames || !(this.props.product.attributeNames instanceof Array)) {
                 return itemSpecifics;
             }
@@ -74,7 +74,7 @@ define([
             
             return result;
         },
-        renderItemSpecificsInputsFromOptions: function (items, required) {
+        renderItemSpecificsInputsFromOptions: function(items, required) {
             var inputs = [],
                 options;
             for (var name in items) {
@@ -83,7 +83,7 @@ define([
             }
             return <span>{inputs}</span>;
         },
-        renderItemSpecificFromOptions: function (name, options, required, optionalItemProps) {
+        renderItemSpecificFromOptions: function(name, options, required, optionalItemProps) {
             if (this.shouldRenderTextFieldArray(options)) {
                 return this.renderFieldArray(
                     name,
@@ -100,7 +100,7 @@ define([
                 optionalItemProps
             );
         },
-        renderOptionsItemSpecificInputs: function () {
+        renderOptionsItemSpecificInputs: function() {
             var optionalItems = this.props.itemSpecifics.optional;
             if (!optionalItems || Object.keys(optionalItems).length == 0) {
                 return null;
@@ -113,7 +113,7 @@ define([
                 itemSpecifics={optionalItems}
             />;
         },
-        renderOptionsItemSpecificComponents: function (input) {
+        renderOptionsItemSpecificComponents: function(input) {
             var options = this.getOptionalItemSpecificsSelectOptions(input.itemSpecifics);
             var fields = [<label>
                 <span className={"inputbox-label"}><b>Item Specifics (Optional)</b></span>
@@ -150,7 +150,7 @@ define([
                 {fields}
             </span>
         },
-        onOptionalItemSpecificSelected: function (input, selected) {
+        onOptionalItemSpecificSelected: function(input, selected) {
             if (-1 === this.state.optionalItemSpecificsSelectOptions.findIndex(option => selected.value == option.value)) {
                 return;
             }
@@ -160,7 +160,7 @@ define([
             });
             this.removeSelectedOptionFromOptions(selected);
         },
-        addRemovedItemSpecificToOptions: function (fieldKey, correspondingOption) {
+        addRemovedItemSpecificToOptions: function(fieldKey, correspondingOption) {
             this.setState((prevState) => {
                 let newOptions = prevState.optionalItemSpecificsSelectOptions;
                 let newOption = {};
@@ -172,7 +172,7 @@ define([
                 };
             });
         },
-        removeSelectedOptionFromOptions: function (selectedOption) {
+        removeSelectedOptionFromOptions: function(selectedOption) {
             var index = this.state.optionalItemSpecificsSelectOptions.findIndex(option => selectedOption.value == option.value);
             var newSelectOptions = this.state.optionalItemSpecificsSelectOptions.slice();
             newSelectOptions.splice(index, 1);
@@ -180,7 +180,7 @@ define([
                 optionalItemSpecificsSelectOptions: newSelectOptions
             });
         },
-        buildOptionalItemSpecificsSelectOptions: function (itemSpecifics) {
+        buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             var options = [];
             for (var name in itemSpecifics) {
                 options.push({
@@ -194,13 +194,13 @@ define([
             });
             return options;
         },
-        getOptionalItemSpecificsSelectOptions: function (itemSpecifics) {
+        getOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
             if (this.state.optionalItemSpecificsSelectOptions instanceof Array) {
                 return this.state.optionalItemSpecificsSelectOptions;
             }
             return this.buildOptionalItemSpecificsSelectOptions(itemSpecifics);
         },
-        renderOptionalItemSpecific: function (field) {
+        renderOptionalItemSpecific: function(field) {
             return this.renderItemSpecificFromOptions(
                 field.input.value.name,
                 field.input.value.options,
@@ -208,10 +208,10 @@ define([
                 field.optionalItemProps
             );
         },
-        shouldRenderTextFieldArray: function (options) {
+        shouldRenderTextFieldArray: function(options) {
             return options.type == TYPE_TEXT && this.isMultiOption(options);
         },
-        renderFieldArray: function (name, component, required, optionalItemProps) {
+        renderFieldArray: function(name, component, required, optionalItemProps) {
             var validator = (required ? Validators.required : null);
             let fieldArrayProps = {
                 optionalItemProps: optionalItemProps
@@ -224,7 +224,7 @@ define([
                 props={fieldArrayProps}
             />;
         },
-        renderItemSpecificField: function (name, component, options, required, optionalItemProps) {
+        renderItemSpecificField: function(name, component, options, required, optionalItemProps) {
             var validator = (required ? Validators.required : null);
             return <Field
                 name={name}
@@ -235,7 +235,7 @@ define([
                 optionalItemProps={optionalItemProps}
             />
         },
-        renderItemSpecificInput: function (field) {
+        renderItemSpecificInput: function(field) {
             ;
             
             if (field.options.type == TYPE_TEXT) {
@@ -247,7 +247,7 @@ define([
             }
             return null;
         },
-        renderTextInput: function (field) {
+        renderTextInput: function(field) {
             return <label className="input-container">
                 <span className={"inputbox-label"}>{!field.hideLabel ? field.displayTitle : ''}</span>
                 <div className={"order-inputbox-holder"}>
@@ -262,16 +262,16 @@ define([
                 {this.getActionButtonForInput(field, field.optionalItemProps.removeFieldClick)}
             </label>;
         },
-        isSingleTextInput: function (field) {
+        isSingleTextInput: function(field) {
             return (!('index' in field) || !field.fields);
         },
-        isLastInputOfTextInputArray: function (field) {
+        isLastInputOfTextInputArray: function(field) {
             return (field.index === field.fields.length - 1);
         },
-        onlyOneTextInputExistsInArray: function (field) {
+        onlyOneTextInputExistsInArray: function(field) {
             return field.fields.length === 1;
         },
-        getActionButtonForInput: function (field, removeFieldClick) {
+        getActionButtonForInput: function(field, removeFieldClick) {
             if (this.isSingleTextInput(field)) {
                 return (
                     <span className={'u-display-inline'}>
@@ -297,7 +297,7 @@ define([
             }
             return this.renderRemoveButton(() => field.fields.remove(field.index));
         },
-        renderTextInputArray: function (input) {
+        renderTextInputArray: function(input) {
             var fields = input.fields;
             if (fields.length === 0) {
                 fields.push("");
@@ -319,7 +319,7 @@ define([
                 )}
             </span>;
         },
-        renderSelectInput: function (field) {
+        renderSelectInput: function(field) {
             var SelectComponent = this.isMultiOption(field.options) ? MultiSelect : Select;
             var customOptionEnabled = field.options.type == TYPE_TEXT_SELECT;
             var options = this.buildSelectOptionsForItemSpecific(field.displayTitle, field.options.options);
@@ -347,13 +347,13 @@ define([
                 }) : ''}
             </label>;
         },
-        renderCustomItemSpecificField: function () {
+        renderCustomItemSpecificField: function() {
             return <FieldArray
                 name="customItemSpecifics"
                 component={this.renderCustomItemSpecificComponent}
             />
         },
-        renderCustomItemSpecificComponent: function (input) {
+        renderCustomItemSpecificComponent: function(input) {
             if (input.fields.length === 0) {
                 input.fields.push({name: "", value: ""});
             }
@@ -377,7 +377,7 @@ define([
                 })}
             </span>;
         },
-        renderCustomSpecificNameComponent: function (field) {
+        renderCustomSpecificNameComponent: function(field) {
             return (<span className={"inputbox-label container-extra-item-specific"}>
                 <Input
                     {...field.input}
@@ -385,7 +385,7 @@ define([
                 />
             </span>);
         },
-        renderCustomSpecificValueComponent: function (field) {
+        renderCustomSpecificValueComponent: function(field) {
             return (<div className={"order-inputbox-holder"}>
                 <Input
                     {...field.input}
@@ -393,14 +393,14 @@ define([
                 />
             </div>);
         },
-        onCustomItemSpecificChange: function (field, event) {
+        onCustomItemSpecificChange: function(field, event) {
             var value = event.target.value;
             field.input.onChange(value);
             if (field.fields.length === field.index + 1) {
                 field.fields.push({name: "", value: ""})
             }
         },
-        buildSelectOptionsForItemSpecific: function (title, options) {
+        buildSelectOptionsForItemSpecific: function(title, options) {
             if (this.state[title]) {
                 return this.state[title];
             }
@@ -412,25 +412,25 @@ define([
                 }
             });
         },
-        onOptionSelected: function (input, selectedOptions) {
+        onOptionSelected: function(input, selectedOptions) {
             if (selectedOptions instanceof Array) {
                 input.onChange(selectedOptions.map(option => option.value));
             }
             input.onChange(selectedOptions.value);
         },
-        findSelectedOption: function (value) {
+        findSelectedOption: function(value) {
             value = value instanceof Array ? null : value;
             return {
                 name: value || '',
                 value: value || ''
             };
         },
-        onCustomOption: function (newOption, allOptions, selectTitle) {
+        onCustomOption: function(newOption, allOptions, selectTitle) {
             this.setState(Object.assign(this.state.selectOptions, {
                 [selectTitle]: allOptions
             }));
         },
-        renderPlusButton: function (onClick) {
+        renderPlusButton: function(onClick) {
             return <span className="refresh-icon">
                 <i
                     className='fa fa-2x fa-plus-square icon-create-listing'
@@ -439,7 +439,7 @@ define([
                 />
             </span>;
         },
-        renderRemoveButton: function (onClick) {
+        renderRemoveButton: function(onClick) {
             return <span className="remove-icon">
                 <i
                     className='fa fa-2x fa-minus-square icon-create-listing'
@@ -448,10 +448,10 @@ define([
                 />
             </span>;
         },
-        isMultiOption: function (options) {
+        isMultiOption: function(options) {
             return (options.maxValues && options.maxValues > 1);
         },
-        render: function () {
+        render: function() {
             return <span>
                 {this.renderRequiredItemSpecificInputs()}
                 {this.renderOptionsItemSpecificInputs()}
