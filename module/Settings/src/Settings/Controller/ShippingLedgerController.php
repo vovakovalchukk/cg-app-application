@@ -12,7 +12,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Payment\Exception\FailedPaymentException;
 use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Settings\Channel\Service as ChannelService;
+use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -36,8 +36,8 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     protected $jsonModelFactory;
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
-    /** @var ChannelService */
-    protected $channelService;
+    /** @var AccountService */
+    protected $accountService;
     /** @var OneOffPaymentService */
     protected $oneOffPaymentService;
     /** @var OrganisationUnitService */
@@ -46,14 +46,14 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ShippingLedgerService $shippingLedgerService,
-        ChannelService $channelService,
+        AccountService $accountService,
         OneOffPaymentService $oneOffPaymentService,
         OrganisationUnitService $organisationUnitService
     )
     {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
-        $this->channelService = $channelService;
+        $this->accountService = $accountService;
         $this->oneOffPaymentService = $oneOffPaymentService;
         $this->organisationUnitService = $organisationUnitService;
     }
@@ -122,7 +122,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
 
     protected function getAccount($accountId): Account
     {
-        return $this->channelService->getAccount($accountId);
+        return $this->accountService->getAccount($accountId);
     }
 
     protected function getShippingLedgerForAccount(Account $account): ShippingLedger
