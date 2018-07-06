@@ -235,7 +235,8 @@ define([
                 optionalItemProps={optionalItemProps}
             />
         },
-        renderItemSpecificInput: function (field) {;
+        renderItemSpecificInput: function (field) {
+            ;
             
             if (field.options.type == TYPE_TEXT) {
                 return this.renderTextInput(field);
@@ -261,14 +262,14 @@ define([
                 {this.getActionButtonForInput(field, field.optionalItemProps.removeFieldClick)}
             </label>;
         },
-        isSingleTextInput: function(field){
+        isSingleTextInput: function (field) {
             return (!('index' in field) || !field.fields);
         },
-        isLastInputOfTextInputArray: function(field){
+        isLastInputOfTextInputArray: function (field) {
             return (field.index === field.fields.length - 1);
         },
-        onlyOneTextInputExistsInArray: function(field){
-          return field.fields.length===1;
+        onlyOneTextInputExistsInArray: function (field) {
+            return field.fields.length === 1;
         },
         getActionButtonForInput: function (field, removeFieldClick) {
             if (this.isSingleTextInput(field)) {
@@ -279,7 +280,7 @@ define([
                 );
             }
             if (this.isLastInputOfTextInputArray(field)) {
-                if(this.onlyOneTextInputExistsInArray(field)){
+                if (this.onlyOneTextInputExistsInArray(field)) {
                     return (
                         <span className={'u-display-inline'}>
                             {this.renderPlusButton(() => field.fields.push(""))};
