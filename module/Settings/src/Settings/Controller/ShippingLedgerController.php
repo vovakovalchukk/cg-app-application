@@ -64,11 +64,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
 
-        $this->logInfo(
-            'Attempting to top-up shipping account for OU: %s',
-            [$organisationUnit->getOrganisationUnitId()],
-            static::LOG_CONSTANT
-        );
+        $this->logInfo('Attempting to top-up shipping account for OU: %s', [$organisationUnit->getOrganisationUnitId()], static::LOG_CONSTANT);
 
         try {
             $transaction = $this->oneOffPaymentService->takeOneOffPayment(
@@ -84,11 +80,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
             if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
                 $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
             } else {
-                $this->logInfo(
-                    'Failed to confirm payment for shipping account top-up for OU: %s',
-                    [$organisationUnit->getOrganisationUnitId()],
-                    static::LOG_CONSTANT
-                );
+                $this->logInfo('Failed to confirm payment for shipping account top-up for OU: %s', [$organisationUnit->getOrganisationUnitId()], static::LOG_CONSTANT);
                 throw new FailedPaymentException('Unable to confirm if payment was successful, please contact us to resolve this.');
             }
         } catch (FailedPaymentException $exception) {
@@ -100,11 +92,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
             ]);
         }
 
-        $this->logInfo(
-            'Successfully topped-up shipping account for OU: %s',
-            [$organisationUnit->getOrganisationUnitId()],
-            static::LOG_CONSTANT
-        );
+        $this->logInfo('Successfully topped-up shipping account for OU: %s', [$organisationUnit->getOrganisationUnitId()], static::LOG_CONSTANT);
 
         return $this->jsonModelFactory->newInstance([
             'success' => true,
