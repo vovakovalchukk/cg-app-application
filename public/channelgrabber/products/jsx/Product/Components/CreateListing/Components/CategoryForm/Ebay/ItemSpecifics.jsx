@@ -278,23 +278,26 @@ define([
                     </span>
                 );
             }
-            if (this.isLastInputOfTextInputArray(field)) {
-                if (this.onlyOneTextInputExistsInArray(field)) {
-                    return (
-                        <span className={'u-display-inline'}>
-                            {this.renderPlusButton(() => field.fields.push(""))};
-                            {this.renderRemoveButton(removeFieldClick)};
-                        </span>
-                    );
-                }
+            
+            if (!this.isLastInputOfTextInputArray(field)) {
+                return this.renderRemoveButton(() => field.fields.remove(field.index));
+            }
+            
+            if (this.onlyOneTextInputExistsInArray(field)) {
                 return (
                     <span className={'u-display-inline'}>
                         {this.renderPlusButton(() => field.fields.push(""))};
-                        {this.renderRemoveButton(() => field.fields.pop())};
+                        {this.renderRemoveButton(removeFieldClick)};
                     </span>
                 );
             }
-            return this.renderRemoveButton(() => field.fields.remove(field.index));
+            
+            return (
+                <span className={'u-display-inline'}>
+                    {this.renderPlusButton(() => field.fields.push(""))};
+                    {this.renderRemoveButton(() => field.fields.pop())};
+                </span>
+            );
         },
         renderTextInputArray: function(input) {
             var fields = input.fields;
