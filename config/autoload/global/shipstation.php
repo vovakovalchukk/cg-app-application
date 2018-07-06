@@ -2,6 +2,7 @@
 
 use CG\ShipStation\Account as AccountService;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
+use CG\ShipStation\Account\Usps as UspsAccountConnector;
 use CG\ShipStation\Carrier\Label\Creator as LabelCreator;
 use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
@@ -29,6 +30,11 @@ return [
                 ]
             ],
             UspsAccountMapper::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            UspsAccountConnector::class => [
                 'parameters' => [
                     'cryptor' => 'shipstation_cryptor',
                 ]
