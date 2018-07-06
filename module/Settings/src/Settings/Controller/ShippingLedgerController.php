@@ -78,9 +78,10 @@ class ShippingLedgerController extends AbstractActionController implements Logge
                 static::USPS_INVOICE_DESCRIPTION,
                 static::USPS_ITEM_DESCRIPTION,
                 new \DateTime(),
+                $shippingLedger->getClearbooksCustomerId(),
                 static::SHIPPING_LEDGER_PAYMENT_TYPE
             );
-            if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
+            if($transaction->getStatus() !== TransactionStatus::STATUS_PAID) {
                 $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
             } else {
                 $this->logInfo(
@@ -114,10 +115,10 @@ class ShippingLedgerController extends AbstractActionController implements Logge
 
     public function saveAction()
     {
-        $input = $this->params()->fromPost();
+        $autoTopUp = $this->params()->fromPost('autoTopUp');
         $account = $this->getAccount($this->params()->fromRoute('account'));
         $shippingLedger = $this->getShippingLedgerForAccount($account);
-        $shippingLedger->setAutoTopUp($input['autoTopUp']);
+        $shippingLedger->setAutoTopUp(($autoTopUp === "true") ? true : false);
 
         try {
             $this->shippingLedgerService->save($shippingLedger);
@@ -138,7 +139,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
 
     protected function getShippingLedgerForAccount(Account $account): ShippingLedger
     {
-        return $this->shippingLedgerService->fetch($account->getId());
+        return $this->shippingLedgerService->fetch($account->getOrganisationUnitId());
     }
 
     protected function getOrganisationUnitForAccount(Account $account): OrganisationUnit
