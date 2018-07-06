@@ -142,7 +142,7 @@ class Service implements LoggerAwareInterface
     {
         $minPackage = $this->getMinimumRequiredPackageForAccess($rootOu);
         $contactNo = PhoneNumber::getForLocale($rootOu->getLocale());
-        $demoUrl = DemoLink::getForLocale($rootOu->getLocale()) ?? DemoLink::UK;
+        $demoUrl = DemoLink::getForLocale($rootOu->getLocale());
         return sprintf(static::MSG_UPGRADE, $minPackage->getName(), $contactNo, $demoUrl);
     }
 
