@@ -142,6 +142,7 @@ define([
                     name={name}
                     component={this.renderOptionalItemSpecific}
                     remderRemoveButton={true}
+                    renderInput={this.renderItemSpecificFromOptions}
                     optionalItemProps={optionalItemProps}
                 />;
             });
