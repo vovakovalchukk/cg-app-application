@@ -82,8 +82,10 @@ define([
                 <div className="ebay-channel-form-container channel-form-container">
                     {this.renderVariationImagePicker()}
                     <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
-                    <ShippingService shippingServices={this.props.shippingMethods} />
-                    <Field name="shippingPrice" component={this.renderShippingPrice} validate={Validators.required} />
+                    {/** We have to hide the shipping service and shipping price, as new we will show a per category
+                     shipping policy instead. We don't remove it completely as we might implement it again later */}
+                    {/*<ShippingService shippingServices={this.props.shippingMethods} />*/}
+                    {/*<Field name="shippingPrice" component={this.renderShippingPrice} validate={Validators.required} />*/}
                 </div>
             );
         }

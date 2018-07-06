@@ -111,6 +111,7 @@ define([
                             <Field
                                 type="text"
                                 name={field.name}
+                                placeholder="Variation name (e.g. Color)"
                                 className={"c-table-with-inputs__text-input"}
                                 component="input"
                                 onChange={(function(event) {
@@ -157,12 +158,15 @@ define([
             />
         },
         renderCustomSelect: function(field, reduxFormFieldProps) {
+            var isLastAttributeFieldColumn = field.isCustomAttribute && stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
             return <Select
+                disabled={isLastAttributeFieldColumn}
                 options={field.options}
                 autoSelectFirst={false}
                 fullWidth={true}
                 title={name}
                 customOptions={true}
+                customOptionsPlaceholder={field.isCustomAttribute ? "Add Attribute (e.g. Blue)" : null}
                 selectedOption={{
                     name: reduxFormFieldProps.input.value,
                     value: reduxFormFieldProps.input.value
