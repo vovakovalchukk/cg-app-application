@@ -1,52 +1,64 @@
-define([
-
-], function (
-
-) {
-    var EventHandler = function(service)
+define(['AjaxRequester'], function(ajaxRequester)
+{
+    function Settings(config)
     {
-        this.getService = function()
-        {
-            return service;
-        };
-
         var init = function()
         {
-            this.initSubmitListener()
-                .initEnterListener();
+            this.config = config;
+            this.attachAutoTopUpListener();
+            this.attachTopUpBalanceListener();
         };
         init.call(this);
-    };
 
-    EventHandler.SELECTOR_FORM = '#carrier-account-form';
-    EventHandler.SELECTOR_LINK_ACCOUNT = '#linkAccount';
-    EventHandler.KEY_ENTER = 13;
+        this.getAjaxRequester = function()
+        {
+            return ajaxRequester;
+        };
 
-    EventHandler.prototype.initSubmitListener = function()
+        this.getConfig = function()
+        {
+            return this.config;
+        };
+    }
+
+    Settings.LEDGER_AUTO_TOPUP_TOGGLE = "#autoTopUp";
+    Settings.LEDGER_TOP_UP_BUTTON = "#topUp";
+    Settings.LEDGER_TOPUP_URL = "/settings/channel/shipping/{{accountId}}/ledger/topup"
+    Settings.LEDGER_SAVE_URL = "/settings/channel/shipping/{{accountId}}/ledger/save"
+
+    Settings.prototype.attachAutoTopUpListener = function()
     {
-        var service = this.getService();
-        $(EventHandler.SELECTOR_LINK_ACCOUNT).off('click').on('click', function()
-        {
-            service.save();
-        });
-        $(EventHandler.SELECTOR_FORM).off('submit').on('submit', function(event)
-        {
-            return false;
-        });
-        return this;
-    };
+        $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).on("change", this.sendAjaxAutoTopUp.bind(this));
+    }
 
-    EventHandler.prototype.initEnterListener = function()
+    Settings.prototype.sendAjaxAutoTopUp = function()
     {
-        var service = this.getService();
-        $(EventHandler.SELECTOR_FORM + ' input').off('keypress').on('keypress', function(e)
-        {
-            if (e.which != EventHandler.KEY_ENTER) {
-                return;
+        var url = Settings.LEDGER_SAVE_URL.replace("{{accountId}}", this.getConfig().accountId);
+        var ajaxRequester = this.getAjaxRequester();
+        ajaxRequester.getNotificationHandler().notice('Saving preferences', true);
+        return ajaxRequester.sendRequest(
+            url,
+            {autoTopUp: $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).prop("checked")}
+        );
+    }
+
+    Settings.prototype.attachTopUpBalanceListener = function()
+    {
+        $(Settings.LEDGER_TOP_UP_BUTTON).on("click", this.sendAjaxBalanceTopUp.bind(this));
+    }
+
+    Settings.prototype.sendAjaxBalanceTopUp = function()
+    {
+        var url = Settings.LEDGER_TOPUP_URL.replace("{{accountId}}", this.getConfig().accountId);
+        var ajaxRequester = this.getAjaxRequester();
+        ajaxRequester.getNotificationHandler().notice('Topping up balance', true);
+        return ajaxRequester.sendRequest(
+            url,
+            {},
+            function(data) {
+                location.reload();
             }
-        });
-        return this;
-    };
-
-    return EventHandler;
+        );
+    }
+    return Settings;
 });
