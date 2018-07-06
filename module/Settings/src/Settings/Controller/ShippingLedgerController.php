@@ -28,7 +28,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     const ROUTE_SAVE = 'Save';
 
     const DEFAULT_TOPUP_AMMOUNT = 100;
-    const SHIPPING_LEDGER_PAYMENT_TYPE = '1002025';
+    const SHIPPING_CLEARBOOKS_ACCOUNT_CODE = '1002025';
     const USPS_INVOICE_DESCRIPTION = 'USPS Shipping';
     const USPS_ITEM_DESCRIPTION = 'USPS Shipping top-up';
 
@@ -78,7 +78,8 @@ class ShippingLedgerController extends AbstractActionController implements Logge
                 static::USPS_INVOICE_DESCRIPTION,
                 static::USPS_ITEM_DESCRIPTION,
                 new \DateTime(),
-                static::SHIPPING_LEDGER_PAYMENT_TYPE
+                $shippingLedger->getClearbooksCustomerId(),
+                static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE
             );
             if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
                 $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
