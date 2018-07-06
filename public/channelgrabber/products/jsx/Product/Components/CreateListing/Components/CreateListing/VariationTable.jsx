@@ -21,8 +21,13 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
-                renderCustomTableHeaders: function() {return null},
-                renderCustomTableRows: function() {return null}
+                imageDropdownsDisabled: false,
+                renderCustomTableHeaders: function() {
+                    return null
+                },
+                renderCustomTableRows: function() {
+                    return null
+                }
             }
         },
         renderImageHeader: function() {
@@ -31,7 +36,7 @@ define([
             }
             return <th>Image</th>;
         },
-        renderAttributeHeaders: function () {
+        renderAttributeHeaders: function() {
             return this.props.attributeNames.map(function(attributeName) {
                 var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
                 return <th
@@ -42,7 +47,7 @@ define([
                 </th>;
             }.bind(this));
         },
-        renderVariationRows: function () {
+        renderVariationRows: function() {
             return this.props.variationsDataForProduct.map(function(variation) {
                 return <tr>
                     {this.renderImageColumn(variation)}
@@ -78,6 +83,7 @@ define([
                 autoSelectFirst={false}
                 images={this.props.product.images}
                 onChange={this.onImageSelected.bind(this, field)}
+                dropdownDisabled={this.props.imageDropdownsDisabled}
             />
         },
         onImageSelected: function(field, image) {

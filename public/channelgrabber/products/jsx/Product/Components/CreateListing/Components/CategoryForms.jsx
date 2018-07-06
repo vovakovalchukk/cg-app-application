@@ -1,18 +1,25 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
     './CategoryForm',
-    './CategoryForm/Ebay'
+    './CategoryForm/Ebay',
+    '../Actions/CreateListings/Actions',
+    './CategoryForm/Amazon'
 ], function(
     React,
     ReduxForm,
+    ReactRedux,
     CategoryForm,
-    EbayForm
+    EbayForm,
+    Actions,
+    AmazonForm
 ) {
     "use strict";
 
     const channelToFormMap = {
-        'ebay': EbayForm
+        'ebay': EbayForm,
+        'amazon': AmazonForm
     };
 
     var FormSection = ReduxForm.FormSection;
@@ -22,7 +29,13 @@ define([
             return {
                 accounts: [],
                 categoryTemplates: {},
-                product: {}
+                product: {},
+                refreshAccountPolicies: () => {},
+                accountsData: {},
+                setReturnPoliciesForAccount: () => {},
+                variationsDataForProduct: [],
+                fieldChange: null,
+                resetSection: null
             };
         },
         renderForCategoryTemplates: function() {
@@ -59,6 +72,13 @@ define([
                 channelForm={ChannelForm}
                 categoryId={categoryId}
                 product={this.props.product}
+                refreshAccountPolicies={this.props.refreshAccountPolicies}
+                accountId={category.accountId}
+                accountData={this.props.accountsData[category.accountId]}
+                setPoliciesForAccount={this.props.setPoliciesForAccount}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                fieldChange={this.props.fieldChange}
+                resetSection={this.props.resetSection}
                 {...category}
             />);
         },
@@ -76,5 +96,23 @@ define([
             );
         }
     });
-    return CategoryFormsComponent;
+
+    const mapStateToProps = function(state) {
+        return {
+            accountsData: state.accountsData
+        };
+    };
+
+    const mapDispatchToProps = function(dispatch) {
+        return {
+            refreshAccountPolicies: function(accountId) {
+                dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
+            },
+            setPoliciesForAccount: function (accountId, policies) {
+                dispatch(Actions.setPoliciesForAccount(accountId, policies))
+            }
+        };
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);
 });

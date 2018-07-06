@@ -50,6 +50,12 @@
     max-width: 150px;
   }
 
+  .amazon-category-form-container {
+    .inputbox-label {
+      font-size: 1em;
+    }
+  }
+
   .container-extra-item-specific {
     input {
       max-width: 100px;
@@ -343,6 +349,12 @@
   }
 }
 
+.custom-select {
+  .filter-box, .custom-option {
+    display: flex;
+  }
+}
+
 .variation-picker-checkbox {
   width: 38px;
 }
@@ -353,3 +365,23 @@
   max-width: 1200px;
 }
 
+.sub-category-select-container {
+  .remove-icon {
+    display: inline-block;
+    margin-left: 14px;
+    position: absolute;
+    float: none;
+  }
+}
+
+.sub-category-select {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.form-section-container {
+  margin-left: 50px;
+  > label.input-container:first-of-type {
+    margin-left: -50px;
+  }
+}
