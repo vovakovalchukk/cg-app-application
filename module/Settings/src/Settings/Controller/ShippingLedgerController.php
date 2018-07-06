@@ -77,7 +77,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
                 $shippingLedger->getClearbooksCustomerId(),
                 static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE
             );
-            if($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
+            if ($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
                 $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
             } else {
                 $this->logInfo('Failed to confirm payment for shipping account top-up for OU: %s', [$organisationUnit->getOrganisationUnitId()], static::LOG_CONSTANT);
