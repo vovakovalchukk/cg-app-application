@@ -16,6 +16,7 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Clearbooks\Payment\PaymentService;
 
 class ShippingLedgerController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -39,23 +40,23 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     /** @var AccountService */
     protected $accountService;
     /** @var OneOffPaymentService */
-    protected $oneOffPaymentService;
-    /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var PaymentService */
+    protected $clearBooksPaymentService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ShippingLedgerService $shippingLedgerService,
         AccountService $accountService,
-        OneOffPaymentService $oneOffPaymentService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        PaymentService $clearBooksPaymentService
     )
     {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
         $this->accountService = $accountService;
-        $this->oneOffPaymentService = $oneOffPaymentService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->clearBooksPaymentService = $clearBooksPaymentService;
     }
 
     public function topupAction()
@@ -64,40 +65,22 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
 
-        $this->logInfo('Attempting to top-up shipping account for OU: %s', [$organisationUnit->getRootEntity()->getOrganisationUnitId()], static::LOG_CONSTANT);
-
-        try {
-            $transaction = $this->oneOffPaymentService->takeOneOffPayment(
-                null,
-                $organisationUnit,
-                static::DEFAULT_TOPUP_AMMOUNT,
-                static::USPS_INVOICE_DESCRIPTION,
-                static::USPS_ITEM_DESCRIPTION,
-                new \DateTime(),
-                $shippingLedger->getClearbooksCustomerId(),
-                static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE
-            );
-            if ($transaction->getStatus() == TransactionStatus::STATUS_PAID) {
-                $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
-            } else {
-                $this->logInfo('Failed to confirm payment for shipping account top-up for OU: %s', [$organisationUnit->getRootEntity()->getOrganisationUnitId()], static::LOG_CONSTANT);
-                throw new FailedPaymentException('Unable to confirm if payment was successful, please contact us to resolve this.');
-            }
-        } catch (FailedPaymentException $exception) {
-            $this->logException($exception, 'error', __NAMESPACE__);
+        if (
+        $this->clearBooksPaymentService->takeOneOffPaymentForCustomerAndAccountCode(
+            $organisationUnit, $shippingLedger->getClearbooksCustomerId(), static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE, static::DEFAULT_TOPUP_AMMOUNT, static::USPS_INVOICE_DESCRIPTION, static::USPS_ITEM_DESCRIPTION)
+        )
+        {
             return $this->jsonModelFactory->newInstance([
-                'success' => false,
+                'success' => true,
                 'balance' => $shippingLedger->getBalance(),
-                'error' => $exception->getMessage(),
+                'error' => '',
             ]);
+
         }
-
-        $this->logInfo('Successfully topped-up shipping account for OU: %s', [$organisationUnit->getRootEntity()->getOrganisationUnitId()], static::LOG_CONSTANT);
-
         return $this->jsonModelFactory->newInstance([
-            'success' => true,
+            'success' => false,
             'balance' => $shippingLedger->getBalance(),
-            'error' => '',
+            'error' => 'Unable to confirm if payment was successful, please contact us to resolve this.',
         ]);
     }
 
