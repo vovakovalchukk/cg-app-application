@@ -69,7 +69,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
             $organisationUnit, $shippingLedger->getClearbooksCustomerId(), static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE, static::DEFAULT_TOPUP_AMMOUNT, static::USPS_INVOICE_DESCRIPTION, static::USPS_ITEM_DESCRIPTION)
         )
         {
-            $this->addTransactionAmountToExistingBalance($transaction->getAmount(), $shippingLedger);
+            $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
             return $this->jsonModelFactory->newInstance([
                 'success' => true,
                 'balance' => $shippingLedger->getBalance(),
