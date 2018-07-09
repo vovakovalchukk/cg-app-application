@@ -105,7 +105,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
 
     protected function getAccount($accountId): Account
     {
-        return $this->accountService->getAccount($accountId);
+        return $this->accountService->fetch($accountId);
     }
 
     protected function getShippingLedgerForAccount(Account $account): ShippingLedger
