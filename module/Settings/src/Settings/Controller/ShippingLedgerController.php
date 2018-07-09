@@ -12,10 +12,11 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Payment\Exception\FailedPaymentException;
 use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Settings\Channel\Service as ChannelService;
+use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Clearbooks\Payment\PaymentService;
 
 class ShippingLedgerController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -28,7 +29,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     const ROUTE_SAVE = 'Save';
 
     const DEFAULT_TOPUP_AMMOUNT = 100;
-    const SHIPPING_LEDGER_PAYMENT_TYPE = '1002025';
+    const SHIPPING_CLEARBOOKS_ACCOUNT_CODE = '1002025';
     const USPS_INVOICE_DESCRIPTION = 'USPS Shipping';
     const USPS_ITEM_DESCRIPTION = 'USPS Shipping top-up';
 
@@ -36,26 +37,26 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     protected $jsonModelFactory;
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
-    /** @var ChannelService */
-    protected $channelService;
+    /** @var AccountService */
+    protected $accountService;
     /** @var OneOffPaymentService */
-    protected $oneOffPaymentService;
-    /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var PaymentService */
+    protected $clearBooksPaymentService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ShippingLedgerService $shippingLedgerService,
-        ChannelService $channelService,
-        OneOffPaymentService $oneOffPaymentService,
-        OrganisationUnitService $organisationUnitService
+        AccountService $accountService,
+        OrganisationUnitService $organisationUnitService,
+        PaymentService $clearBooksPaymentService
     )
     {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
-        $this->channelService = $channelService;
-        $this->oneOffPaymentService = $oneOffPaymentService;
+        $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
+        $this->clearBooksPaymentService = $clearBooksPaymentService;
     }
 
     public function topupAction()
@@ -64,52 +65,22 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
 
-        $this->logInfo(
-            'Attempting to top-up shipping account for OU: %s',
-            [$organisationUnit->getOrganisationUnitId()],
-            static::LOG_CONSTANT
-        );
-
-        try {
-            $transaction = $this->oneOffPaymentService->takeOneOffPayment(
-                null,
-                $organisationUnit,
-                static::DEFAULT_TOPUP_AMMOUNT,
-                static::USPS_INVOICE_DESCRIPTION,
-                static::USPS_ITEM_DESCRIPTION,
-                new \DateTime(),
-                $shippingLedger->getClearbooksCustomerId(),
-                static::SHIPPING_LEDGER_PAYMENT_TYPE
-            );
-            if($transaction->getStatus() !== TransactionStatus::STATUS_PAID) {
-                $this->addTransactionAmountToExistingBalance($transaction, $shippingLedger);
-            } else {
-                $this->logInfo(
-                    'Failed to confirm payment for shipping account top-up for OU: %s',
-                    [$organisationUnit->getOrganisationUnitId()],
-                    static::LOG_CONSTANT
-                );
-                throw new FailedPaymentException('Unable to confirm if payment was successful, please contact us to resolve this.');
-            }
-        } catch (FailedPaymentException $exception) {
-            $this->logException($exception, 'error', __NAMESPACE__);
+        if (
+        $this->clearBooksPaymentService->takeOneOffPaymentForCustomerAndAccountCode(
+            $organisationUnit, $shippingLedger->getClearbooksCustomerId(), static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE, static::DEFAULT_TOPUP_AMMOUNT, static::USPS_INVOICE_DESCRIPTION, static::USPS_ITEM_DESCRIPTION)
+        )
+        {
             return $this->jsonModelFactory->newInstance([
-                'success' => false,
+                'success' => true,
                 'balance' => $shippingLedger->getBalance(),
-                'error' => $exception->getMessage(),
+                'error' => '',
             ]);
+
         }
-
-        $this->logInfo(
-            'Successfully topped-up shipping account for OU: %s',
-            [$organisationUnit->getOrganisationUnitId()],
-            static::LOG_CONSTANT
-        );
-
         return $this->jsonModelFactory->newInstance([
-            'success' => true,
+            'success' => false,
             'balance' => $shippingLedger->getBalance(),
-            'error' => '',
+            'error' => 'Unable to confirm if payment was successful, please contact us to resolve this.',
         ]);
     }
 
@@ -134,7 +105,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
 
     protected function getAccount($accountId): Account
     {
-        return $this->channelService->getAccount($accountId);
+        return $this->accountService->getAccount($accountId);
     }
 
     protected function getShippingLedgerForAccount(Account $account): ShippingLedger
@@ -147,7 +118,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         return $this->organisationUnitService->fetch($account->getOrganisationUnitId());
     }
 
-    protected function addTransactionAmountToExistingBalance(Transaction $transaction, $shippingLedger) {
+    protected function addTransactionAmountToExistingBalance(Transaction $transaction, ShippingLedger $shippingLedger) {
         $newBalance = $shippingLedger->getBalance() + $transaction->getAmount();
         $shippingLedger->setBalance((float)$newBalance);
         $this->shippingLedgerService->save($shippingLedger);
