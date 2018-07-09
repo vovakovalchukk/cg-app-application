@@ -627,11 +627,6 @@ class MultiCreationService implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @param Account[] $accounts
-     * @param Category[] $categories
-     * @param CategoryTemplate[] $categoryTemplates
-     */
     protected function getAccountCategoryIterator(
         Accounts $accounts,
         Categories $categories,
