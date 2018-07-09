@@ -17,7 +17,9 @@ define([
                 onCreateProductClose: null,
                 submitFormDispatch: null,
                 onSaveAndList: null,
-                showVAT: true
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         handleContainerSubmit: function() {
@@ -61,6 +63,8 @@ define([
                     <CreateProductForm
                         onSubmit={this.handleSubmit}
                         showVAT={this.props.showVAT}
+                        massUnit={this.props.massUnit}
+                        lengthUnit={this.props.lengthUnit}
                     />
                     {this.renderSaveAndListButtion()}
                 </Container>

@@ -3,11 +3,14 @@ namespace CG\ShipStation\Messages;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Entity as Order;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Shipment
 {
     const EXTERNAL_ID_SEP = '|';
 
+    /** @var string */
+    protected $carrierId;
     /** @var string */
     protected $serviceCode;
     /** @var ShipmentAddress */
@@ -19,8 +22,15 @@ class Shipment
     /** @var Package[] */
     protected $packages;
 
-    public function __construct(string $serviceCode, ShipmentAddress $shipTo, string $warehouseId, string $externalShipmentId, Package ...$packages)
-    {
+    public function __construct(
+        string $carrierId,
+        string $serviceCode,
+        ShipmentAddress $shipTo,
+        string $warehouseId,
+        string $externalShipmentId,
+        Package ...$packages
+    ) {
+        $this->carrierId = $carrierId;
         $this->serviceCode = $serviceCode;
         $this->shipTo = $shipTo;
         $this->warehouseId = $warehouseId;
@@ -32,15 +42,18 @@ class Shipment
         Order $order,
         array $orderData,
         array $parcelsData,
-        Account $shipStationAccount
+        Account $shipStationAccount,
+        Account $shippingAccount,
+        OrganisationUnit $rootOu
     ): Shipment {
         $shipTo = ShipmentAddress::createFromOrder($order);
         $packages = [];
         foreach ($parcelsData as $parcelData) {
-            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData);
+            $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
         }
 
         return new static(
+            $shippingAccount->getExternalId(),
             $orderData['service'],
             $shipTo,
             $shipStationAccount->getExternalDataByKey('warehouseId'),
@@ -54,6 +67,33 @@ class Shipment
         // We want to link shipments back to our Orders but the external ID must be unique
         // and we ocassionally create a label more than once for an order
         return uniqid($order->getId() . static::EXTERNAL_ID_SEP);
+    }
+
+    public function toArray(): array
+    {
+        $array = [
+            'carrier_id' => $this->getCarrierId(),
+            'service_code' => $this->getServiceCode(),
+            'ship_to' => $this->getShipTo()->toArray(),
+            'warehouse_id' => $this->getWarehouseId(),
+            'external_shipment_id' => $this->getExternalShipmentId(),
+            'packages' => [],
+        ];
+        foreach ($this->packages as $package) {
+            $array['packages'][] = $package->toArray();
+        }
+        return $array;
+    }
+
+    public function getCarrierId(): string
+    {
+        return $this->carrierId;
+    }
+
+    public function setCarrierId(string $carrierId): Shipment
+    {
+        $this->carrierId = $carrierId;
+        return $this;
     }
 
     public function getServiceCode(): string

@@ -12,7 +12,11 @@ define([
                 fieldValues: {},
                 channelForm: null,
                 categoryId: null,
-                product: {}
+                accountId: null,
+                product: {},
+                variationsDataForProduct: [],
+                fieldChange: null,
+                resetSection: null
             };
         },
         render: function() {
@@ -21,9 +25,14 @@ define([
                 <div className="category-form-container">
                     <h2>Category: {this.props.title}</h2>
                     <ChannelForm
-                        {...this.props.fieldValues}
                         categoryId={this.props.categoryId}
+                        accountId={this.props.accountId}
+                        variationsDataForProduct={this.props.variationsDataForProduct}
                         product={this.props.product}
+                        fieldChange={this.props.fieldChange}
+                        resetSection={this.props.resetSection}
+                        {...this.props.fieldValues}
+                        {...this.props}
                     />
                 </div>
             );

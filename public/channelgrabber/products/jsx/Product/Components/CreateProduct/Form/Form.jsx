@@ -86,7 +86,9 @@ define([
                 uploadedImages: {},
                 taxRates: null,
                 newVariationRowRequest: null,
-                showVAT: true
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderEditableText: function(reduxFormFieldsProps) {
@@ -152,7 +154,7 @@ define([
                         />
                     </fieldset>
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
-                        <legend className={'u-heading-text'}>Variations</legend>
+                        <legend className={'u-heading-text'}>Product Details</legend>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
@@ -174,6 +176,8 @@ define([
                             legend={'Dimensions'}
                             formSectionName='dimensionsTable'
                             fieldChange={this.props.change}
+                            massUnit={this.props.massUnit}
+                            lengthUnit={this.props.lengthUnit}
                         />
                     </fieldset>
                     {this.renderVatTable(inputColumnRenderMethods.renderTaxRates)}
