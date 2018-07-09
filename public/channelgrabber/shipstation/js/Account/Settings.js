@@ -56,7 +56,11 @@ define(['AjaxRequester'], function(ajaxRequester)
             url,
             {},
             function(data) {
-                location.reload();
+                if (data.success === false) {
+                    ajaxRequester.handleFailure(data);
+                } else {
+                    location.reload();
+                }
             }
         );
     }
