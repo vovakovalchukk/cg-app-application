@@ -14,22 +14,22 @@ echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account
 */
 ?>
 <?php $mark = true;?>
-<div class="module clearfix">
-    <div style="margin-bottom: 40px;" class="clearfix">
-        <span class="heading-large" style="margin-bottom: 10px">Please note that postage purchases are made with USPS and are non-refundable</span>
-        <div style="margin-bottom: 5px; width:100%;">
-            <span class="heading-large" style="width: 150px;">Balance: <?=$currencySymbol;?><?=$balance;?></span>
+<div class="module clearfix shippingLedger usps">
+    <div class="clearfix balance">
+        <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
+        <div class="status">
+            <span class="heading-large">Balance: <?=$currencySymbol;?><?=$balance;?></span>
         </div>
-        <button id="topUp" name="topUp" class="button inline account-save" style="float:left;">Purchase $100 credit</button>
+        <button id="topUp" name="topUp" class="button inline account-save pull-left">Purchase $100 credit</button>
     </div>
     <span class="inputbox-label">Auto Top-up:</span>
-    <div class="alternate-input mustache" style="margin-bottom: 20px; width: 80px; min-width: 0;">
+    <div class="alternate-input mustache">
         <div class="enable-switch-auto-top-up">
             <?= $autoTopUpToggle ?>
         </div>
     </div>
-    <div class="tooltip-holder" style="width:30px; float: left;">
-        <span class="sprite-sprite sprite-question-16-white" id="topupTooltip" name="topupTooltip" style="border: 1px solid #54a8dc; padding: 0px; border-radius: 50%;">&nbsp;</span>
+    <div class="tooltip-holder">
+        <span class="fa fa-question-circle-o fa-2x" id="topupTooltip" name="topupTooltip"></span>
         <?= $autoTopUpTooltip ?>
     </div>
 </div>
