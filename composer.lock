@@ -637,12 +637,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "3fe7f21d75628386834dfb723208945229769d80"
+                "reference": "d03b61e2f965705b24704c3b19189eea012fddf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-d59da0.zip",
-                "reference": "3fe7f21d75628386834dfb723208945229769d80",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-8e0e7b.zip",
+                "reference": "d03b61e2f965705b24704c3b19189eea012fddf5",
                 "shasum": null
             },
             "require": {
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-09T08:32:51+00:00"
+            "time": "2018-07-09T09:03:35+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1916,12 +1916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "d654189e1e9395a956556cd67a5006d69c7fb41a"
+                "reference": "43b289d89af891121213f3771cf11ab0f4dcea12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-75a63d.zip",
-                "reference": "d654189e1e9395a956556cd67a5006d69c7fb41a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-9f0a0d.zip",
+                "reference": "43b289d89af891121213f3771cf11ab0f4dcea12",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-04T07:38:05+00:00"
+            "time": "2018-07-06T10:29:39+00:00"
         },
         {
             "name": "channelgrabber/permission",
