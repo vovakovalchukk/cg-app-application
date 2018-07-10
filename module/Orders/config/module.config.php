@@ -2450,7 +2450,7 @@ return [
             ],
             'CourierSpecificsCostColumn' => [
                 'parameters' => [
-                    'column' => 'saturday',
+                    'column' => 'cost',
                     'viewModel' => 'CourierSpecificsCostColumnView',
                     'class' => 'cost-col',
                     'sortable' => false,
