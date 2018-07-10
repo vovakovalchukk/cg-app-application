@@ -1280,6 +1280,8 @@ return [
                 'CourierSpecificsCourierPickupColumn' => DataTable\Column::class,
                 'CourierSpecificsSaturdayColumnView' => ViewModel::class,
                 'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
+                'CourierSpecificsCostColumnView' => ViewModel::class,
+                'CourierSpecificsCostColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2438,6 +2440,22 @@ return [
                     'sortable' => false,
                     'order' => 150,
                     'width' => '150px',
+                ],
+            ],
+            'CourierSpecificsCostColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Cost'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCostColumn' => [
+                'parameters' => [
+                    'column' => 'saturday',
+                    'viewModel' => 'CourierSpecificsCostColumnView',
+                    'class' => 'cost-col',
+                    'sortable' => false,
+                    'order' => 145,
+                    'defaultContent' => '',
                 ],
             ],
             'CourierSpecificsItemParcelAssignmentColumnView' => [
