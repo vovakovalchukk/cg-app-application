@@ -2445,7 +2445,8 @@ return [
             'CourierSpecificsCostColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Cost'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/cost.phtml',
                 ],
             ],
             'CourierSpecificsCostColumn' => [
