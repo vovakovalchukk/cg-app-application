@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "82f1d75d3e80c3ffdeac527e974387b6",
+    "content-hash": "5b6f624cfa40bed5135591db9bf5511e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3422,16 +3422,16 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.4.0",
+            "version": "dev-LIS-259-handle-400-response",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "f6485b3fcb75a74ee71ad7897362956594902df7"
+                "reference": "1fd77392d0f78fe08a267031d16b013a4546e133"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.4.0-3e1bc7.zip",
-                "reference": "f6485b3fcb75a74ee71ad7897362956594902df7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-259-handle-400-response-2d2174.zip",
+                "reference": "1fd77392d0f78fe08a267031d16b013a4546e133",
                 "shasum": null
             },
             "require": {
@@ -3439,6 +3439,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
+                "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/product": "^1.11.5",
                 "channelgrabber/stdlib": "^2.12.42",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
@@ -3465,7 +3466,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-05-11T14:41:19+00:00"
+            "time": "2018-06-18T07:30:13+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9963,6 +9964,12 @@
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-149-us-signup-flow-fixes",
             "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-LIS-259-handle-400-response",
+            "package": "channelgrabber/woocommerce"
         }
     ],
     "minimum-stability": "stable",
@@ -9971,6 +9978,7 @@
         "channelgrabber/locale": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
