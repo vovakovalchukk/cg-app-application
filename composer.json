@@ -30,7 +30,7 @@
         "channelgrabber/clearbooks": "~1.10.0",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-TECH-88-refactor-courier-arrays-to-objects as 1.0.29",
+        "channelgrabber/courier": "dev-TECH-88-refactor-courier-arrays-to-objects as 1.0.30",
         "channelgrabber/courieradapter": "~1.2.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.2.1",
