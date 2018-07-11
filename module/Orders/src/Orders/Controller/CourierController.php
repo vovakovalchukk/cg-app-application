@@ -240,6 +240,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
             ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
             ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
+            ->addChild($this->getTotalLabelCost(), 'totalLabelCost')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('isSidebarPresent', (count($courierOrders) > 1))
             ->setVariable('subHeaderHide', true);
@@ -437,6 +438,15 @@ class CourierController extends AbstractActionController
             ]
         ]);
         $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
+    protected function getTotalLabelCost()
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'value' => ''
+        ]);
+        $view->setTemplate('courier/totalLabelCost.mustache');
         return $view;
     }
 
