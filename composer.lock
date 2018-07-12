@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7d99717b02fa94bca9826b8a277687d",
+    "content-hash": "1faa925deec67ae28f3d72a11f28a495",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4319,17 +4319,11 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.2.3",
+            "version": "dev-TAC-151-optimise-frontend-to-improve-page-load-times",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "da805b991292634f354d53557e11fe9752ceb3dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.3-f862eb.zip",
-                "reference": "da805b991292634f354d53557e11fe9752ceb3dd",
-                "shasum": null
+                "reference": "62eafc04ef0a6fe9512dfdd95f91b788d0b1a5c5"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -4357,7 +4351,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-03T13:54:53+00:00"
+            "time": "2018-07-12T10:00:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -4503,7 +4497,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-12T08:35:11+00:00"
+            "time": "2018-07-12T09:04:55+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9943,6 +9937,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.2.2",
+            "alias_normalized": "1.4.2.2",
+            "version": "dev-TAC-151-optimise-frontend-to-improve-page-load-times",
+            "package": "channelgrabber/zf2-ssoclient"
+        },
+        {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-151-optimise-frontend-to-improve-page-load-times",
@@ -9952,10 +9952,11 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-ssoclient": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
