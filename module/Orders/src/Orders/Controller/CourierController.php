@@ -240,7 +240,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
             ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
             ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
-            ->addChild($this->getTotalLabelCost(), 'totalLabelCost')
+            ->addChild($this->getSpecificsTotalLabelCost(), 'totalLabelCost')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('isSidebarPresent', (count($courierOrders) > 1))
             ->setVariable('subHeaderHide', true);
@@ -441,7 +441,7 @@ class CourierController extends AbstractActionController
         return $view;
     }
 
-    protected function getTotalLabelCost()
+    protected function getSpecificsTotalLabelCost()
     {
         $view = $this->viewModelFactory->newInstance([
             'value' => ''
