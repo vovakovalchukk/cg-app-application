@@ -1,0 +1,19 @@
+{{#buttons}}
+<span data-cgtype='Button' class="button-holder">
+    <div class="button {{class}} {{#disabled}}disabled{{/disabled}} {{icon}} {{#icon}}icon{{/icon}}" id="{{id}}-shadow">
+        <span class="action" data-action="{{action}}">
+            {{#icon}}
+                <span class="icon sprite-sprite {{icon}}">&nbsp;</span>
+            {{/icon}}
+            <span class="title">{{#title}}{{.}}{{/title}}{{^title}}{{value}}{{/title}}</span>
+        </span>
+    </div>
+    <input class="button" type="{{#type}}{{.}}{{/type}}{{^type}}submit{{/type}}" value="{{value}}" data-action="{{action}}" id="{{id}}" style='display:none;'/>
+</span>
+{{/buttons}}
+
+{{#totalLabelCost}}
+<div class="total-cost pull-right">
+    <span class="total-cost-label">Total Cost</span> <span class="order-total-label-cost">{{value}}</span>
+</div>
+{{/totalLabelCost}}
