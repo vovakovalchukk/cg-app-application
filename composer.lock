@@ -4323,7 +4323,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "62eafc04ef0a6fe9512dfdd95f91b788d0b1a5c5"
+                "reference": "bdccdc3b15d771ef353aee8e882b7a2fb09c624e"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -4351,7 +4351,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-12T10:00:36+00:00"
+            "time": "2018-07-12T10:45:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
