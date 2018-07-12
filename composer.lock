@@ -4448,6 +4448,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "2b47e427a32ddb8186711f2a30ef63fe89768b3d"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-151-optimise-frontend-to-improve-page-load-times-7aa913.zip",
+                "reference": "2b47e427a32ddb8186711f2a30ef63fe89768b3d",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
