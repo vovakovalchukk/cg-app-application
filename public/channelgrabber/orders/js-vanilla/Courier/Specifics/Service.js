@@ -742,6 +742,7 @@ define([
             }
         }
         this.setLabelCosts(labelCosts);
+        this.addLabelCostDataToFirstParcelOfOrder();
     };
 
     Service.prototype.printAllLabels = function()
@@ -811,6 +812,14 @@ define([
             notifications.ajaxError(response);
             self.refresh();
         });
+    };
+
+    Service.prototype.addLabelCostDataToFirstParcelOfOrder = function()
+    {
+        var labelCosts = this.getLabelCosts();
+        for (order in labelCosts) {
+            $(EventHandler.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX + order + '-' + 1).data('label-costs', labelCosts);
+        }
     };
 
     return Service;

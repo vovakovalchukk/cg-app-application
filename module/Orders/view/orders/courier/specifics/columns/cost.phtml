@@ -2,7 +2,6 @@
 <script type='text/javascript'>
     require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Columns/Cost.js'], function(Cost)
     {
-        var templatePath = "<?=CG_UI\Module::PUBLIC_FOLDER;?>template/courier/columns/cost.mustache";
-        var cost = new Cost(templatePath);
+        var cost = new Cost();
     });
 </script>

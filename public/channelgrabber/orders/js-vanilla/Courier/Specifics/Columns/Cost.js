@@ -1,10 +1,7 @@
 define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOptionsAbstract)
 {
-    function Cost(templatePath)
+    function Cost()
     {
-        console.log(templatePath);
-        ServiceDependantOptionsAbstract.call(this, templatePath);
-
         var init = function()
         {
             this.listenForServiceChanges();
@@ -12,7 +9,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         init.call(this);
     }
 
-    Cost.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
+    Cost.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX = '#courier-parcel-cost-';
+    Cost.SELECTOR_COST_COLUMN_INPUT = '.courier-order-cost';
 
     Cost.prototype.listenForServiceChanges = function()
     {
@@ -20,57 +18,20 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         $(document).on('change', ServiceDependantOptionsAbstract.SELECTOR_SERVICE_SELECT, function(event, element, value)
         {
             var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
-            self.updateShippingLabelCost(orderId, value);
+            self.updateShippingLabelCost(orderId, value, element);
         });
         return this;
     };
 
-    Cost.prototype.updateShippingLabelCost = function(orderId, service)
+    Cost.prototype.updateShippingLabelCost = function(orderId, value, element)
     {
-        var self = this;
-
-        this.fetchTemplate()
-            .then(function(result)
-            {
-                var data = {
-                    order: orderId,
-                    option: self.getOptionName(),
-                    service: service
-                };
-                var accountId = $(ServiceDependantOptionsAbstract.SELECTOR_ACCOUNT_INPUT).val();
-                var uri = ServiceDependantOptionsAbstract.URI.replace('{accountId}', accountId);
-                self.getAjaxRequester().sendRequest(uri, data, function(response)
-                {
-                    console.log(response);
-                });
-            });
+        var labelCosts = $(Cost.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX + orderId + '-' + 1).data('label-costs');
+        if (labelCosts === undefined) {
+            return;
+        }
+        var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
+        currentCostColumn.val(labelCosts[orderId][value].cost);
         return this;
-    };
-
-    Cost.prototype.getSelectedValue = function(orderId)
-    {
-        return true;
-    };
-
-    Cost.prototype.getContainer = function(orderId)
-    {
-        return true;
-    };
-
-    Cost.prototype.getOptionName = function()
-    {
-        return 'cost';
-    };
-
-    Cost.prototype.renderNewOptions = function(
-        cgMustache,
-        template,
-        orderId,
-        options,
-        selected,
-        container
-    ) {
-        return true;
     };
 
     return Cost;
