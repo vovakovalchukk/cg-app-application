@@ -11,6 +11,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     Cost.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX = '#courier-parcel-cost-';
     Cost.SELECTOR_COST_COLUMN_INPUT = '.courier-order-cost';
+    Cost.SELECTOR_TOTAL_ORDER_LABEL_COST = '.order-total-label-cost';
 
     Cost.prototype.listenForServiceChanges = function()
     {
@@ -31,8 +32,18 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         }
         var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
         currentCostColumn.val(labelCosts[orderId][value].cost);
+        this.updateTotalShippingCost();
         return this;
     };
+
+    Cost.prototype.updateTotalShippingCost = function()
+    {
+        var totalLabelCost = 0;
+        $(Cost.SELECTOR_COST_COLUMN_INPUT).each(function() {
+           totalLabelCost += Number($(this).val());
+        });
+        $(Cost.SELECTOR_TOTAL_ORDER_LABEL_COST).text(totalLabelCost);
+    }
 
     return Cost;
 });
