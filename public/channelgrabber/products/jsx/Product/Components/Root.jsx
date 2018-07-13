@@ -92,6 +92,13 @@ define([
             window.addEventListener('getProductsBySku', this.onSkuRequest, false);
             window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+            
+            this.setState({
+                prototypeVariationData: getPrototypeVariationData()
+            },function(){
+                console.log('just set protoypeVariationData...');
+                console.log('this.state.prototypeVariationData: ' , this.state.prototypeVariationData);
+            });
         },
         componentWillUnmount: function() {
             this.productsRequest.abort();
@@ -411,26 +418,34 @@ define([
                     </div>
                 );
             }
-            return this.state.products.map(function(product) {
-                return <ProductRow
-                    key={product.id}
-                    product={product}
-                    variations={this.state.variations[product.id]}
-                    productLinks={this.state.allProductLinks[product.id]}
-                    maxVariationAttributes={this.state.maxVariationAttributes}
-                    maxListingsPerAccount={this.state.maxListingsPerAccount}
-                    linkedProductsEnabled={this.props.features.linkedProducts}
-                    fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-                    accounts={this.state.accounts}
-                    onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
-                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
-                    createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
-                    adminCompanyUrl={this.props.adminCompanyUrl}
-                    showVAT={this.props.showVAT}
-                    massUnit={this.props.massUnit}
-                    lengthUnit={this.props.lengthUnit}
-                />;
-            }.bind(this))
+            
+            
+            //todo need to to dummy with loads of products without pagination to make sure things don't fold under pressure
+            
+            
+            // - this will mean 400+ VariationRow...
+            // generate these randomly
+            
+            // return this.state.products.map(function(product) {
+            //     return <ProductRow
+            //         key={product.id}
+            //         product={product}
+            //         variations={this.state.variations[product.id]}
+            //         productLinks={this.state.allProductLinks[product.id]}
+            //         maxVariationAttributes={this.state.maxVariationAttributes}
+            //         maxListingsPerAccount={this.state.maxListingsPerAccount}
+            //         linkedProductsEnabled={this.props.features.linkedProducts}
+            //         fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
+            //         accounts={this.state.accounts}
+            //         onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+            //         createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+            //         createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
+            //         adminCompanyUrl={this.props.adminCompanyUrl}
+            //         showVAT={this.props.showVAT}
+            //         massUnit={this.props.massUnit}
+            //         lengthUnit={this.props.lengthUnit}
+            //     />;
+            // }.bind(this))
         },
         renderAccountSelectionPopup: function() {
             var CreateListingRootComponent = CreateListingRoot(
@@ -536,3 +551,25 @@ define([
 
     return RootComponent;
 });
+
+let getPrototypeVariationData = function(){
+    let variationData =[];
+    for(var i=0; i<500; i++){
+        variationData.push(variationDataGenerator());
+    }
+    return variationData;
+}
+let variationDataGenerator = function(){
+    return {
+        "stockModeType":'all',
+        "sku":Math.random().toString(36).substring(7),
+        "imageId":758,
+        "images":[{
+            "id": 758,
+            "url": "http://image.channelgrabber.com/dev/1/5b35f503b7d382.07611081.jpg"
+        }],
+        "attributeValues":{
+            "colour":"some colour "
+        }
+    };
+};
