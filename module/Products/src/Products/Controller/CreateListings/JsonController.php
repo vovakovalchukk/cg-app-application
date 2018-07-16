@@ -20,6 +20,7 @@ class JsonController extends AbstractJsonController
     const ROUTE_ACCOUNT_SPECIFIC_FIELD_VALUES = 'AccountSpecificFieldValues';
     const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
     const ROUTE_REFRESH_CATEGORIES = 'RefreshCategories';
+    const ROUTE_REFRESH_ACCOUNT_POLICIES = 'RefreshAccountPolicies';
 
     /** @var AccountService */
     protected $accountService;
@@ -117,6 +118,19 @@ class JsonController extends AbstractJsonController
             return $this->buildResponse([
                 'categories' => $this->channelService->refetchAndSaveCategories($this->fetchAccountFromRoute())
             ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
+    }
+
+    public function refreshAccountPoliciesAction()
+    {
+        try {
+            return $this->buildResponse(
+                $this->channelService->refreshAndFetchAccountPolicies($this->fetchAccountFromRoute())
+            );
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
