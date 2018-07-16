@@ -1,5 +1,6 @@
 define([
     'react',
+    'react-virtualized',
     'Product/Components/Search',
     'Product/Filter/Entity',
     'Product/Components/Footer',
@@ -11,6 +12,7 @@ define([
     'Product/Components/CreateListing/Root'
 ], function(
     React,
+    ReactVirtualized,
     SearchBox,
     ProductFilter,
     ProductFooter,
@@ -411,26 +413,31 @@ define([
                     </div>
                 );
             }
-            return this.state.products.map(function(product) {
-                return <ProductRow
-                    key={product.id}
-                    product={product}
-                    variations={this.state.variations[product.id]}
-                    productLinks={this.state.allProductLinks[product.id]}
-                    maxVariationAttributes={this.state.maxVariationAttributes}
-                    maxListingsPerAccount={this.state.maxListingsPerAccount}
-                    linkedProductsEnabled={this.props.features.linkedProducts}
-                    fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-                    accounts={this.state.accounts}
-                    onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
-                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
-                    createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
-                    adminCompanyUrl={this.props.adminCompanyUrl}
-                    showVAT={this.props.showVAT}
-                    massUnit={this.props.massUnit}
-                    lengthUnit={this.props.lengthUnit}
-                />;
-            }.bind(this))
+            
+            console.log('in renderProducts with reactVirutalized: ' , ReactVirtualized);
+            return <div></div>
+            
+            
+            // return this.state.products.map(function(product) {
+            //     return <ProductRow
+            //         key={product.id}
+            //         product={product}
+            //         variations={this.state.variations[product.id]}
+            //         productLinks={this.state.allProductLinks[product.id]}
+            //         maxVariationAttributes={this.state.maxVariationAttributes}
+            //         maxListingsPerAccount={this.state.maxListingsPerAccount}
+            //         linkedProductsEnabled={this.props.features.linkedProducts}
+            //         fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
+            //         accounts={this.state.accounts}
+            //         onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+            //         createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+            //         createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
+            //         adminCompanyUrl={this.props.adminCompanyUrl}
+            //         showVAT={this.props.showVAT}
+            //         massUnit={this.props.massUnit}
+            //         lengthUnit={this.props.lengthUnit}
+            //     />;
+            // }.bind(this))
         },
         renderAccountSelectionPopup: function() {
             var CreateListingRootComponent = CreateListingRoot(
