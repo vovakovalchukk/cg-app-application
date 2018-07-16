@@ -13,8 +13,7 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
 
     public function __construct(
         ShippingLedgerService $shippingLedgerService
-    )
-    {
+    ) {
         $this->shippingLedgerService = $shippingLedgerService;
     }
 
