@@ -117,7 +117,8 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         return $this->organisationUnitService->fetch($account->getOrganisationUnitId());
     }
 
-    protected function addTransactionAmountToExistingBalance(Transaction $transaction, ShippingLedger $shippingLedger) {
+    protected function addTransactionAmountToExistingBalance(Transaction $transaction, ShippingLedger $shippingLedger)
+    {
         $newBalance = $shippingLedger->getBalance() + $transaction->getAmount();
         $shippingLedger->setBalance((float)$newBalance);
         $this->shippingLedgerService->save($shippingLedger);
