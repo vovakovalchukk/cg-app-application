@@ -13,6 +13,8 @@ use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDat
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\AccountDeciderInterface;
+use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
 use CG\ShipStation\Carrier\Rates\Service as RatesService;
 use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
@@ -30,6 +32,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     protected $labelCanceller;
     /** @var RatesService */
     protected $ratesService;
+    /** @var AccountDeciderFactory */
+    protected $accountDeciderFactory;
 
     protected $carrierRateSupport = [
         'usps-ss' => true,
@@ -40,13 +44,15 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         ShipStationService $shipStationService,
         Creator $labelCreator,
         Canceller $labelCanceller,
-        RatesService $ratesService
+        RatesService $ratesService,
+        AccountDeciderFactory $accountDeciderFactory
     ) {
         $this->carrierServive = $carrierServive;
         $this->shipStationService = $shipStationService;
         $this->labelCreator = $labelCreator;
         $this->labelCanceller = $labelCanceller;
         $this->ratesService = $ratesService;
+        $this->accountDeciderFactory = $accountDeciderFactory;
     }
 
     /**
@@ -82,15 +88,19 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $ordersData = OrderDataCollection::fromArray($ordersData);
         $orderParcelsData = OrderParcelsDataCollection::fromArray($orderParcelsData);
 
-        $shipStationAccount = $this->shipStationService->getShipStationAccountForShippingAccount($shippingAccount);
+        /** @var AccountDeciderInterface $accountDecider */
+        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
+        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
+        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
+
         return $this->labelCreator->createLabelsForOrders(
             $orders,
             $orderLabels,
             $ordersData,
             $orderParcelsData,
             $rootOu,
-            $shippingAccount,
-            $shipStationAccount
+            $shippingAccountToUse,
+            $shipStationAccountToUse
         );
     }
 
@@ -104,8 +114,12 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         OrderCollection $orders,
         Account $shippingAccount
     ) {
-        $shipStationAccount = $this->shipStationService->getShipStationAccountForShippingAccount($shippingAccount);
-        $this->labelCanceller->cancelOrderLabels($orderLabels, $orders, $shippingAccount, $shipStationAccount);
+        /** @var AccountDeciderInterface $accountDecider */
+        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
+        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
+        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
+
+        $this->labelCanceller->cancelOrderLabels($orderLabels, $orders, $shippingAccountToUse, $shipStationAccountToUse);
     }
 
     public function isFetchRatesAllowedForOrder(Account $shippingAccount, Order $order): bool
@@ -121,13 +135,19 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         OrganisationUnit $rootOu,
         Account $shippingAccount
     ): ShippingRateCollection {
+        /** @var AccountDeciderInterface $accountDecider */
+        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
+        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
+        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
+
         return $this->ratesService->fetchRatesForOrders(
             $orders,
             $ordersData,
             $ordersParcelsData,
             $ordersItemsData,
             $rootOu,
-            $shippingAccount
+            $shippingAccountToUse,
+            $shipStationAccountToUse
         );
     }
 }
