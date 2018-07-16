@@ -88,6 +88,13 @@ class Service
         return $service->refetchAndSaveCategories($account);
     }
 
+    public function refreshAndFetchAccountPolicies(Account $account, array $postData = []): array
+    {
+        /** @var AccountPoliciesInterface $service */
+        $service = $this->factory->fetchAndValidateChannelService($account, AccountPoliciesInterface::class, $postData);
+        return $service->refreshAccountPolicies($account);
+    }
+
     protected function getAllowedChannelsForOu(OrganisationUnit $ou): array
     {
         if (!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_AMAZON, $ou)) {
