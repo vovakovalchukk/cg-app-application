@@ -12,6 +12,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     Cost.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX = '#courier-parcel-cost-';
     Cost.SELECTOR_COST_COLUMN_INPUT = '.courier-order-cost';
     Cost.SELECTOR_TOTAL_ORDER_LABEL_COST = '.order-total-label-cost';
+    Cost.SELECTOR_CURRENCY_SYMBOL_DISPLAY = '.total-cost .currency';
 
     Cost.prototype.listenForServiceChanges = function()
     {
@@ -38,6 +39,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     Cost.prototype.updateTotalShippingCost = function()
     {
+        $(Cost.SELECTOR_CURRENCY_SYMBOL_DISPLAY).removeClass('hidden');
+
         var totalLabelCost = 0;
         $(Cost.SELECTOR_COST_COLUMN_INPUT).each(function() {
            totalLabelCost += Number($(this).val());

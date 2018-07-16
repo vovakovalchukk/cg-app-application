@@ -33,3 +33,11 @@
 .shipping-label-table {
     margin-bottom: 25px;
 }
+
+.courier-order-cost {
+    background-color: $color-grey;
+
+    &:hover {
+        border-color: $color-lgrey;
+    }
+}
