@@ -247,7 +247,6 @@ return [
                             'allowsManifesting' => false,
                             'fields' => [],
                             'bookingOptions' => [
-                                'parcels' => 'parcels',
                                 'weight' => 'weight',
                                 'height' => 'height',
                                 'width' => 'width',
