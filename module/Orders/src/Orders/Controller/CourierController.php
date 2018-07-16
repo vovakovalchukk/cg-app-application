@@ -317,11 +317,14 @@ class CourierController extends AbstractActionController
                     'class' => 'courier-fetch-all-rates-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
-            ],
-            'totalLabelCost' => [
-                'value' => 'N/A'
             ]
         ];
+
+        $options = $this->service->getCarrierOptions($selectedAccount);
+        if (isset($options['cost'])) {
+            $viewConfig['totalLabelCost'] = ['value' => 'N/A'];
+        }
+
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
             array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);
         }
