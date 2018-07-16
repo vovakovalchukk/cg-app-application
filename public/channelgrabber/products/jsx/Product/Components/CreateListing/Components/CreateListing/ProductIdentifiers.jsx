@@ -62,7 +62,7 @@ define([
         },
         {
             "name": "isbn",
-            "displayTitle" : "ISBN (if applicable)",
+            "displayTitle": "ISBN (if applicable)",
             "validate": function(value) {
                 if (!value) {
                     return undefined;
@@ -88,10 +88,14 @@ define([
                 product: {},
                 attributeNames: [],
                 attributeNameMap: {},
+                renderImagePicker: true,
+                shouldRenderStaticImagesFromVariationValues: false,
+                containerCssClasses: '',
+                tableCssClasses: ''
             }
         },
-        renderIdentifierHeaders: function () {
-            return identifiers.map(function (identifier) {
+        renderIdentifierHeaders: function() {
+            return identifiers.map(function(identifier) {
                 return <th
                     title={identifier.displayTitle}
                     className={"with-title"}
@@ -100,8 +104,8 @@ define([
                 </th>;
             });
         },
-        renderIdentifierColumns: function (variation) {
-            return identifiers.map(function (identifier) {
+        renderIdentifierColumns: function(variation) {
+            return identifiers.map(function(identifier) {
                 return (<td>
                     <Field
                         name={"identifiers." + variation.sku + "." + identifier.name}
@@ -136,6 +140,10 @@ define([
                     showImages={true}
                     attributeNames={this.props.attributeNames}
                     attributeNameMap={this.props.attributeNameMap}
+                    renderImagePicker={this.props.renderImagePicker}
+                    shouldRenderStaticImagesFromVariationValues={this.props.shouldRenderStaticImagesFromVariationValues}
+                    containerCssClasses={this.props.containerCssClasses}
+                    tableCssClasses={this.props.tableCssClasses}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
                 />

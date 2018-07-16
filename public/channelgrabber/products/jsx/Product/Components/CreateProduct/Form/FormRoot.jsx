@@ -22,7 +22,8 @@ define([
         return {
             uploadedImages: state.uploadedImages,
             taxRates: state.account.taxRates,
-            variationRowProperties: state.variationRowProperties
+            variationRowProperties: state.variationRowProperties,
+            formValues: ReduxForm.getFormValues('createProductForm')(state)
         }
     };
     const mapDispatchToProps = function(dispatch) {

@@ -1,14 +1,18 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
     './CategoryForm',
     './CategoryForm/Ebay',
+    '../Actions/CreateListings/Actions',
     './CategoryForm/Amazon'
 ], function(
     React,
     ReduxForm,
+    ReactRedux,
     CategoryForm,
     EbayForm,
+    Actions,
     AmazonForm
 ) {
     "use strict";
@@ -26,6 +30,9 @@ define([
                 accounts: [],
                 categoryTemplates: {},
                 product: {},
+                refreshAccountPolicies: () => {},
+                accountsData: {},
+                setReturnPoliciesForAccount: () => {},
                 variationsDataForProduct: [],
                 fieldChange: null,
                 resetSection: null
@@ -65,6 +72,10 @@ define([
                 channelForm={ChannelForm}
                 categoryId={categoryId}
                 product={this.props.product}
+                refreshAccountPolicies={this.props.refreshAccountPolicies}
+                accountId={category.accountId}
+                accountData={this.props.accountsData[category.accountId]}
+                setPoliciesForAccount={this.props.setPoliciesForAccount}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 fieldChange={this.props.fieldChange}
                 resetSection={this.props.resetSection}
@@ -85,5 +96,23 @@ define([
             );
         }
     });
-    return CategoryFormsComponent;
+
+    const mapStateToProps = function(state) {
+        return {
+            accountsData: state.accountsData
+        };
+    };
+
+    const mapDispatchToProps = function(dispatch) {
+        return {
+            refreshAccountPolicies: function(accountId) {
+                dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
+            },
+            setPoliciesForAccount: function (accountId, policies) {
+                dispatch(Actions.setPoliciesForAccount(accountId, policies))
+            }
+        };
+    };
+
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);
 });
