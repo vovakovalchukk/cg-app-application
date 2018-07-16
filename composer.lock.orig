@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b41306b0aa735db997cdad2009443c90",
+<<<<<<< HEAD
+    "content-hash": "e1af077322ca895cfdbb61cbe295ee51",
+=======
+    "content-hash": "69a74003c11965a8172f50cf99d97284",
+>>>>>>> origin/TECH-88-refactor-courier-arrays-to-objects
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +155,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "version": "1.27.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "df22d99fefc3565bd84b43b3066f2bc5860dc76f"
+                "reference": "4ef679d4ba3d86643bc41955c4222d822d29abad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-TAC-118-ship-action-fetch-rates-5211fa.zip",
-                "reference": "df22d99fefc3565bd84b43b3066f2bc5860dc76f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.1-9aeb76.zip",
+                "reference": "4ef679d4ba3d86643bc41955c4222d822d29abad",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-TAC-118-ship-action-fetch-rates as 1.37.0",
+                "channelgrabber/channel": "^1.36.3",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -215,7 +219,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-07-04T11:17:27+00:00"
+            "time": "2018-07-04T09:31:00+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -304,16 +308,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.2",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5"
+                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.2-df41d3.zip",
-                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.1-0b66e6.zip",
+                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1",
                 "shasum": null
             },
             "require": {
@@ -358,7 +362,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-04T10:48:25+00:00"
+            "time": "2018-06-20T14:42:22+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -518,16 +522,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "1.36.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e32eb3b67b02ee47c93eeeb7a8aec6d4fd08546f"
+                "reference": "4cd726751d6529564879175c9df62886148739d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-a84a80.zip",
-                "reference": "e32eb3b67b02ee47c93eeeb7a8aec6d4fd08546f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.36.4-041d70.zip",
+                "reference": "4cd726751d6529564879175c9df62886148739d3",
                 "shasum": null
             },
             "require": {
@@ -583,11 +587,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-TAC-125-fetch-usps-rates": "1.37.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -602,7 +601,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-16T13:14:14+00:00"
+            "time": "2018-07-05T13:14:37+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -758,13 +757,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "1522b43f44b649b0db8d5fd0f09af256108ff68b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TECH-88-refactor-courier-arrays-to-objects-ffdb21.zip",
-                "reference": "1522b43f44b649b0db8d5fd0f09af256108ff68b",
-                "shasum": null
+                "reference": "661adefaaaee402c67c07a8ba89b7cc316400d3b"
             },
             "require": {
                 "channelgrabber/courieradapter": "~1.2.0",
@@ -795,7 +788,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-11T09:55:39+00:00"
+            "time": "2018-07-03T09:46:47+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1532,16 +1525,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.4",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "055601ebd261438fbcb322f17ae0ec08bc689866"
+                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.4-d90cc9.zip",
-                "reference": "055601ebd261438fbcb322f17ae0ec08bc689866",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.3-d1b51e.zip",
+                "reference": "1bfce714c09866f5c3033dd8ea9a4b97d10c9a2b",
                 "shasum": null
             },
             "require": {
@@ -1564,7 +1557,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-16T07:31:30+00:00"
+            "time": "2018-06-25T15:05:33+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -1838,17 +1831,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1ee76b7ced22e6342a518a785a0e64bb2b900422"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-125-fetch-usps-rates-b0b021.zip",
-                "reference": "1ee76b7ced22e6342a518a785a0e64bb2b900422",
-                "shasum": null
+                "reference": "588b1233933c57a53eeda93241cd866c8e3485c3"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1918,7 +1905,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-06T15:39:46+00:00"
+            "time": "2018-07-03T09:44:34+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4138,23 +4125,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.9",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "e80d7cff4f02dee56b2379a22ae389fec553c792"
+                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.9-634515.zip",
-                "reference": "e80d7cff4f02dee56b2379a22ae389fec553c792",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.8-6b26ad.zip",
+                "reference": "761352677d3c7e5ac61e7cb813d63512c0373ee2",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.13.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
-                "channelgrabber/locale": "^1.1.4",
+                "channelgrabber/locale": "^1.1.1",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.25.0",
@@ -4186,7 +4173,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-07-16T07:39:28+00:00"
+            "time": "2018-07-03T14:27:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4453,16 +4440,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "1.23.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb"
+                "reference": "1bb58685faad50d4305af934c83c207522c90dc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-108-add-usps-courier-a66282.zip",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.9-319b9d.zip",
+                "reference": "1bb58685faad50d4305af934c83c207522c90dc2",
                 "shasum": null
             },
             "require": {
@@ -4514,7 +4501,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-29T10:30:39+00:00"
+            "time": "2018-06-25T14:25:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5488,7 +5475,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6281,7 +6268,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8162,7 +8149,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -8776,7 +8763,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
+                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -8807,7 +8794,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9152,8 +9139,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -9954,47 +9940,26 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.2",
-            "alias_normalized": "1.27.2.0",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "dev-TAC-118-ship-action-fetch-rates",
-            "alias_normalized": "dev-TAC-118-ship-action-fetch-rates",
-            "version": "dev-TAC-125-fetch-usps-rates",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.30",
-            "alias_normalized": "1.0.30.0",
+            "alias": "1.0.29",
+            "alias_normalized": "1.0.29.0",
             "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
             "package": "channelgrabber/courier"
         },
         {
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
             "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.23.10",
-            "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-108-add-usps-courier",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
