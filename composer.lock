@@ -4438,12 +4438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "14a9974215bb5a0b758c8ecb7a1e92d12ed5a2eb"
+                "reference": "e894fd78b7f4733bc9f81fefd66f42484ea4f9a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-83f047.zip",
-                "reference": "14a9974215bb5a0b758c8ecb7a1e92d12ed5a2eb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-d7dcca.zip",
+                "reference": "e894fd78b7f4733bc9f81fefd66f42484ea4f9a8",
                 "shasum": null
             },
             "require": {
@@ -4495,7 +4495,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-12T12:55:43+00:00"
+            "time": "2018-07-16T13:17:15+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
