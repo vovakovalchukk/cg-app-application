@@ -7,6 +7,7 @@ define([
     'Common/Components/ChannelBadge',
     'CategoryMapper/Components/CategoryMap',
     'CategoryMapper/Service/SubmitCategoryMapForm',
+    'Common/Components/BlockerModal',
     'Product/Components/CreateListing/Actions/Actions',
     'Product/Components/CreateListing/Components/AccountSelect',
     'Product/Components/CreateListing/Components/CategoryMapSelect',
@@ -21,6 +22,7 @@ define([
     ChannelBadgeComponent,
     CategoryMap,
     submitCategoryMapForm,
+    BlockerModal,
     Actions,
     AccountSelectComponent,
     CategoryMapSelectComponent,
@@ -36,7 +38,11 @@ define([
         getDefaultProps: function() {
             return {
                 product: {},
-                addNewCategoryVisible: false
+                addNewCategoryVisible: false,
+                listingCreationAllowed: null,
+                managePackageUrl: null,
+                salesPhoneNumber: null,
+                demoLink: null
             }
         },
         componentDidMount: function() {
@@ -73,6 +79,33 @@ define([
                 accountSettings={this.props.accountSettings}
                 fetchSettingsForAccount={this.props.fetchSettingsForAccount}
                 touch={this.props.touch}
+            />
+        },
+        renderBlockerModal: function() {
+            return <BlockerModal
+                headerText={'Access Listings Now'}
+                contentJsx={
+                    <span>
+                        <p>Create multiple listings in one go from one simple interface. </p>
+                        <p>Generate more sales with more listings. </p>
+                    </span>
+                }
+                buttonText={'Add Listings To My Subscription'}
+                buttonOnClick={() => {
+                    window.location = 'https://' + this.props.managePackageUrl;
+                }}
+                footerJsx={
+                    <span>
+                        Not sure? Contact our ecommerce specialists on {this.props.salesPhoneNumber} to discuss or&nbsp;
+                        <a href={this.props.demoLink}
+                           alt="calendar-diary"
+                           target="_blank"
+                        >
+                            Click Here
+                        </a>
+                        &nbsp;to book a demo.
+                    </span>
+                }
             />
         },
         renderAddNewCategoryComponent: function() {
@@ -140,6 +173,7 @@ define([
                     noButtonText="Cancel"
                     yesButtonDisabled={this.isSubmitButtonDisabled()}
                 >
+                    {!this.props.listingCreationAllowed ? this.renderBlockerModal() : ''}
                     {this.renderForm()}
                 </Container>
             );
@@ -177,7 +211,7 @@ define([
             }
 
             var accounts = [];
-            values.accounts.forEach(function (accountId) {
+            values.accounts.forEach(function(accountId) {
                 if (accountId) {
                     accounts.push(accountId);
                 }
@@ -207,7 +241,7 @@ define([
         return [];
     };
 
-    var convertStateToCategoryMaps = function (state) {
+    var convertStateToCategoryMaps = function(state) {
         var categories = {},
             accountId;
 
@@ -222,7 +256,7 @@ define([
         return categories;
     };
 
-    var mapStateToProps = function (state) {
+    var mapStateToProps = function(state) {
         return {
             accounts: Object.assign({}, state.accounts),
             addNewCategoryVisible: state.addNewCategoryVisible.isVisible,
@@ -232,7 +266,7 @@ define([
         }
     };
 
-    var mapDispatchToProps = function (dispatch) {
+    var mapDispatchToProps = function(dispatch) {
         return {
             fetchCategoryRoots: function() {
                 dispatch(Actions.fetchCategoryRoots(dispatch));

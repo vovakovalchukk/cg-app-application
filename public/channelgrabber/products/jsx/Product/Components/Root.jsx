@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
+    'Product/Components/CreateListing/Root'
 ], function(
     React,
     SearchBox,
@@ -43,12 +43,20 @@ define([
                 isAdmin: false,
                 initialSearchTerm: '',
                 adminCompanyUrl: null,
+                managePackageUrl: null,
                 features: {},
+                taxRates: {},
+                stockModeOptions: {},
                 ebaySiteOptions: {},
                 categoryTemplateOptions: {},
                 createListingData: {},
                 conditionOptions: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                salesPhoneNumber: null,
+                demoLink: null,
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         getInitialState: function() {
@@ -121,7 +129,7 @@ define([
                     skuList: skuList,
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
-                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
                 }, function() {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -413,12 +421,14 @@ define([
                     maxListingsPerAccount={this.state.maxListingsPerAccount}
                     linkedProductsEnabled={this.props.features.linkedProducts}
                     fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-                    createListingsEnabled={this.props.features.createListings}
                     accounts={this.state.accounts}
                     onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                     createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
+                    showVAT={this.props.showVAT}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />;
             }.bind(this))
         },
@@ -426,15 +436,19 @@ define([
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
+                this.state.createListingsAllowedVariationChannels,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
-                this.showCreateListingPopup
+                this.showCreateListingPopup,
+                this.state.createListing.product,
+                this.props.listingCreationAllowed,
+                this.props.managePackageUrl,
+                this.props.salesPhoneNumber,
+                this.props.demoLink
             );
             this.fetchVariationForProductListingCreation();
-            return <CreateListingRootComponent
-                product={this.state.createListing.product}
-            />;
+            return <CreateListingRootComponent/>;
         },
         fetchVariationForProductListingCreation: function() {
             if (this.state.variations[this.state.createListing.product.id]
@@ -456,6 +470,8 @@ define([
                 defaultCurrency={this.props.defaultCurrency}
                 onCreateListingClose={this.onCreateListingClose}
                 onBackButtonPressed={this.showAccountsSelectionPopup}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />;
         },
         formatConditionOptions: function() {
@@ -468,16 +484,25 @@ define([
             }
             return options;
         },
+        redirectToProducts: function() {
+            this.state.currentView = PRODUCT_LIST_VIEW;
+            this.forceUpdate();
+        },
         renderCreateNewProduct: function() {
             return <CreateProductRoot
                 onCreateProductClose={this.onCreateProductClose}
+                taxRates={this.props.taxRates}
+                stockModeOptions={this.props.stockModeOptions}
+                redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                showVAT={this.props.showVAT}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />
         },
         renderProductListView: function() {
             return (
                 <div id='products-app'>
-
                     {this.renderSearchBox()}
                     {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
 

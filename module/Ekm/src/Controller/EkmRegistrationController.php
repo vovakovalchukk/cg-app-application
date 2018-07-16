@@ -5,10 +5,12 @@ use CG\Ekm\Registration\Entity as Registration;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationFailed;
 use CG\Ekm\Registration\Exception\Runtime\RegistrationPending;
 use CG\Ekm\Registration\Service as RegistrationService;
+use CG\Locale\PhoneNumber;
 use CG\Permission\Exception as PermissionException;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Form\ErrorMessagesToViewTrait;
 use CG_Login\Controller\LoginController;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -44,17 +46,17 @@ class EkmRegistrationController extends AbstractActionController implements Logg
     protected $cgSupportTelephoneNumber;
 
     public function __construct(
+        ActiveUserInterface $activeUser,
         RegistrationService $registrationService,
         RegistrationLoginAction $registrationLoginAction,
         ViewModelFactory $viewModelFactory,
-        JsonModelFactory $jsonModelFactory,
-        array $cgSupportTelephoneNumber
+        JsonModelFactory $jsonModelFactory
     ) {
         $this->registrationService = $registrationService;
         $this->registrationLoginAction = $registrationLoginAction;
         $this->viewModelFactory = $viewModelFactory;
         $this->jsonModelFactory = $jsonModelFactory;
-        $this->cgSupportTelephoneNumber = $cgSupportTelephoneNumber[0];
+        $this->cgSupportTelephoneNumber = PhoneNumber::getForLocale($activeUser->getLocale());
     }
 
     public function indexAction()

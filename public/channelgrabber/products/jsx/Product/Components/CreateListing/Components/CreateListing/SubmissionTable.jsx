@@ -7,7 +7,8 @@ define([
 ) {
     "use strict";
 
-    const defaultStatus = "Not started";
+    const DEFAULT_STATUS = "Not started";
+    const STATUS_STARTED = "started";
 
     var SubmissionTableComponent = React.createClass({
         getDefaultProps: function () {
@@ -61,21 +62,24 @@ define([
         },
         getStatusForAccountAndCategory: function (accountId, categoryId) {
             if (!this.props.statuses.accounts || Object.keys(this.props.statuses.accounts).length === 0) {
-                return defaultStatus;
+                return this.getDefaultStatus();
             }
 
             var accounts = this.props.statuses.accounts;
             if (!accounts[accountId]) {
-                return defaultStatus;
+                return this.getDefaultStatus();
             }
 
             var account = accounts[accountId];
             if (!account[categoryId]) {
-                return defaultStatus;
+                return this.getDefaultStatus();
             }
 
             var category = account[categoryId];
-            return category.status ? category.status : defaultStatus;
+            return category.status ? category.status : this.getDefaultStatus();
+        },
+        getDefaultStatus: function() {
+            return this.props.statuses.inProgress ? STATUS_STARTED : DEFAULT_STATUS;
         },
         getResponseForAccountAndCategory: function (accountId, categoryId) {
             var status = this.getStatusForAccountAndCategory(accountId, categoryId);

@@ -2,7 +2,10 @@
 namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
-use CG\Billing\Package\Entity as Package;
+use CG\Billing\Price\Service as PriceService;
+use CG\Billing\Subscription\Entity as Subscription;
+use CG\Locale\DemoLink;
+use CG\Locale\PhoneNumber;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
@@ -19,6 +22,7 @@ class PaymentController extends AbstractActionController
 {
     const ROUTE_PAYMENT = 'Payment';
     const ROUTE_PACKAGE_REMEMBER = 'PackageRemember';
+    const ROUTE_BILLING_DURATION_REMEMBER = 'BillingDurationRemember';
     const ROUTE_PACKAGE_SET = 'PackageSet';
 
     /** @var SetupService */
@@ -65,12 +69,16 @@ class PaymentController extends AbstractActionController
 
     protected function getBody(): ViewModel
     {
+        $locale = $this->packageService->getLocale();
         $body = $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
-            ->setVariable('locale', $this->packageService->getLocale())
+            ->setVariable('locale', $locale)
+            ->setVariable('phoneNumber', PhoneNumber::getForLocale($locale))
             ->setVariable('selectedPackage', $this->getSelectedPackage())
+            ->setVariable('selectedBillingDuration', $this->getSelectedBillingDuration())
             ->setVariable('packages', $this->getPackagesData())
-            ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod());
+            ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod())
+            ->setVariable('demoLink', DemoLink::getForLocale($locale));
 
         if (!$this->paymentViewService->isSinglePaymentMethod()) {
             return $body->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethodSelect');
@@ -84,6 +92,11 @@ class PaymentController extends AbstractActionController
         return $this->session->getStorage()['setup-payment']['selected-package'] ?? false;
     }
 
+    protected function getSelectedBillingDuration(): int
+    {
+        return $this->session->getStorage()['setup-payment']['selected-duration'] ?? Subscription::DEFAULT_BILLING_DURATION;
+    }
+
     protected function getPackagesData(): array
     {
         $packages = [];
@@ -92,8 +105,27 @@ class PaymentController extends AbstractActionController
                 'id' => $package->getId(),
                 'name' => $package->getName(),
                 'band' => $package->getBand(),
-                'price' => $this->packageService->getPackagePrice($package),
-                'orderVolume' => $this->getOrderVolumeForPackage($package),
+                'monthlyPrice' => [
+                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getPackageMonthlyPrice(
+                        $package,
+                        PriceService::BILLING_DURATION_MONTHLY
+                    ),
+                    PriceService::BILLING_DURATION_ANNUAL => $this->packageService->getPackageMonthlyPrice(
+                        $package,
+                        PriceService::BILLING_DURATION_ANNUAL
+                    ),
+                ],
+                'price' => [
+                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getPackagePrice(
+                        $package,
+                        PriceService::BILLING_DURATION_MONTHLY
+                    ),
+                    PriceService::BILLING_DURATION_ANNUAL => $this->packageService->getPackagePrice(
+                        $package,
+                        PriceService::BILLING_DURATION_ANNUAL
+                    ),
+                ],
+                'orderVolume' => $package->getLicences()->getTotalLicenceAmount(Licence::TYPE_ORDER),
             ];
         }
         usort(
@@ -109,19 +141,6 @@ class PaymentController extends AbstractActionController
             }
         );
         return $packages;
-    }
-
-    protected function getOrderVolumeForPackage(Package $package): int
-    {
-        $orderVolume = 0;
-        /** @var Licence $licence */
-        foreach ($package->getLicences() as $licence) {
-            if ($licence->getType() !== Licence::TYPE_ORDER) {
-                continue;
-            }
-            $orderVolume += $licence->getAmount();
-        }
-        return $orderVolume;
     }
 
     protected function getFooter(): ViewModel
@@ -141,11 +160,27 @@ class PaymentController extends AbstractActionController
         return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 
+    public function rememberBillingDurationAction()
+    {
+        $storage = $this->session->getStorage();
+        if (!isset($storage['setup-payment'])) {
+            $storage['setup-payment'] = [];
+        }
+        $storage['setup-payment']['selected-duration'] = $this->params()->fromRoute('duration');
+        return $this->jsonModelFactory->newInstance(['success' => true]);
+    }
+
     public function setPackageAction()
     {
         $response = ['success' => false, 'error' => ''];
         try {
-            $this->packageManagementService->setPackage($this->params()->fromRoute('id'));
+            $this->packageManagementService->setPackage(
+                $this->packageManagementService->createPackageUpgradeRequest(
+                    $this->params()->fromRoute('id'),
+                    null,
+                    $this->params()->fromPost('billingDuration') ?? null
+                )
+            );
             $response['success'] = true;
         } catch (SetPackageException\PricingSchemeMismatch $pricingSchemeMismatch) {
             $newPackage = $pricingSchemeMismatch->getPackage();

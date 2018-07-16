@@ -2309,7 +2309,7 @@ return [
             // Optional columns, will be added to table dynamically as required
             'CourierSpecificsWeightColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Weight<br />(kg)'],
+                    'variables' => ['value' => 'Weight<br />({unit})'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -2324,7 +2324,7 @@ return [
             ],
             'CourierSpecificsHeightColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Height<br />(cm)'],
+                    'variables' => ['value' => 'Height<br />({unit})'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -2339,7 +2339,7 @@ return [
             ],
             'CourierSpecificsWidthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Width<br />(cm)'],
+                    'variables' => ['value' => 'Width<br />({unit})'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -2354,7 +2354,7 @@ return [
             ],
             'CourierSpecificsLengthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Length<br />(cm)'],
+                    'variables' => ['value' => 'Length<br />({unit})'],
                     'template' => 'value.phtml',
                 ],
             ],
