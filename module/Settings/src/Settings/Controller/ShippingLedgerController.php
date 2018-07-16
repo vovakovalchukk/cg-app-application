@@ -65,11 +65,10 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account);
 
-        if (
-        $this->clearBooksPaymentService->takeOneOffPaymentForCustomerAndAccountCode(
-            $organisationUnit, $shippingLedger->getClearbooksCustomerId(), static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE, static::DEFAULT_TOPUP_AMMOUNT, static::USPS_INVOICE_DESCRIPTION, static::USPS_ITEM_DESCRIPTION)
-        )
-        {
+        $attemptPayment = $this->clearBooksPaymentService->takeOneOffPaymentForCustomerAndAccountCode(
+            $organisationUnit, $shippingLedger->getClearbooksCustomerId(), static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE, static::DEFAULT_TOPUP_AMMOUNT, static::USPS_INVOICE_DESCRIPTION, static::USPS_ITEM_DESCRIPTION
+        );
+        if ($attemptPayment) {
             return $this->jsonModelFactory->newInstance([
                 'success' => true,
                 'balance' => $shippingLedger->getBalance(),
