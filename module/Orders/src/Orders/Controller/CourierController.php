@@ -322,7 +322,10 @@ class CourierController extends AbstractActionController
 
         $options = $this->service->getCarrierOptions($selectedAccount);
         if (isset($options['cost'])) {
-            $viewConfig['totalLabelCost'] = ['value' => 'N/A'];
+            $viewConfig['totalLabelCost'] = [
+                'currencySymbol' => '$',
+                'value' => 'N/A'
+            ];
         }
 
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
