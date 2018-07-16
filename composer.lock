@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e368090e2cf1e734f6741abd7c77b90e",
+    "content-hash": "aba0fbc35b3aa6c5ff5c074be9bddd30",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1901,7 +1901,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-03T09:44:34+00:00"
+            "time": "2018-07-05T08:57:18+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4434,16 +4434,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "dev-TAC-119-ship-cost-column",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb"
+                "reference": "14a9974215bb5a0b758c8ecb7a1e92d12ed5a2eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-108-add-usps-courier-a66282.zip",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-83f047.zip",
+                "reference": "14a9974215bb5a0b758c8ecb7a1e92d12ed5a2eb",
                 "shasum": null
             },
             "require": {
@@ -4495,7 +4495,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-29T10:30:39+00:00"
+            "time": "2018-07-12T12:55:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9935,8 +9935,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.1",
-            "alias_normalized": "1.27.1.0",
+            "alias": "1.27.2",
+            "alias_normalized": "1.27.2.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
             "package": "channelgrabber/amazon"
         },
@@ -9961,7 +9961,7 @@
         {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "dev-TAC-119-ship-cost-column",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
@@ -9974,8 +9974,8 @@
         "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
