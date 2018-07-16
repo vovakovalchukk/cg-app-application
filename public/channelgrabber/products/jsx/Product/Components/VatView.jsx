@@ -15,10 +15,11 @@ define([
             return {
                 variationCount: 0,
                 fullView: false,
-                autoSelectFirst:false,
-                onChange:null,
-                onVatChanged:null,
-                onVatChangeWithFullSelection: null
+                autoSelectFirst: false,
+                onChange: null,
+                onVatChanged: null,
+                onVatChangeWithFullSelection: null,
+                tableCssClassNames: ''
             };
         },
         getHeaders: function() {
@@ -105,12 +106,12 @@ define([
             selectedVatRates[memberState] = taxRateId;
             this.setState({
                 selectedVatRates: selectedVatRates
-            },function(){
-                if(this.props.onVatChangeWithFullSelection){
+            }, function() {
+                if (this.props.onVatChangeWithFullSelection) {
                     this.props.onVatChangeWithFullSelection(this.state.selectedVatRates)
                 }
             });
-            if(this.props.onVatChanged){
+            if (this.props.onVatChanged) {
                 this.props.onVatChanged(taxRateId);
             }
         },
@@ -123,14 +124,14 @@ define([
             return (
                 <div className="vat-table">
                     <div className="head">
-                        <table>
+                        <table className={this.props.tableCssClassNames}>
                             <thead>
                             <tr>{this.getHeaders()}</tr>
                             </thead>
                         </table>
                     </div>
                     <div className="body" style={style}>
-                        <table>
+                        <table className={this.props.tableCssClassNames}>
                             <tbody>
                             {this.getVatRows()}
                             </tbody>

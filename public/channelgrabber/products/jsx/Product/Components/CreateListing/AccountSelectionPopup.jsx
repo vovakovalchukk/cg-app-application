@@ -41,7 +41,8 @@ define([
                 addNewCategoryVisible: false,
                 listingCreationAllowed: null,
                 managePackageUrl: null,
-                salesPhoneNumber: null
+                salesPhoneNumber: null,
+                demoLink: null
             }
         },
         componentDidMount: function() {
@@ -96,7 +97,7 @@ define([
                 footerJsx={
                     <span>
                         Not sure? Contact our ecommerce specialists on {this.props.salesPhoneNumber} to discuss or&nbsp;
-                        <a href="https://meetings.hubspot.com/sam197/cgdemo"
+                        <a href={this.props.demoLink}
                            alt="calendar-diary"
                            target="_blank"
                         >

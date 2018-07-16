@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-249-no-category-refresh-icon-when-creating-a-new-category-map-at-the-listing-stage":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#9a261a309072754eb55ef5320c51fbbce030bb38"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#683fea4c5a98146a014d44f68a657918b98aa985"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"

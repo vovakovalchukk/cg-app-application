@@ -2,6 +2,10 @@
 namespace Products\Listing\Channel\Ebay;
 
 use CG\Account\Credentials\Cryptor;
+use CG\Account\Policy\Collection as AccountPolicyCollection;
+use CG\Account\Policy\Entity as AccountPolicy;
+use CG\Account\Policy\Filter as AccountPolicyFilter;
+use CG\Account\Policy\Service as AccountPolicyService;
 use CG\Account\Shared\Entity as Account;
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
@@ -19,16 +23,19 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use function CG\Stdlib\isArrayAssociative;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
+use Products\Listing\Channel\AccountPoliciesInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 use Products\Listing\Channel\DefaultAccountSettingsInterface;
+use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
 
 class Service implements
     CategoryDependentServiceInterface,
     DefaultAccountSettingsInterface,
     ChannelSpecificValuesInterface,
-    CategoryChildrenInterface
+    CategoryChildrenInterface,
+    AccountPoliciesInterface
 {
     const ALLOWED_SETTINGS_KEYS = [
         'listingLocation' => 'listingLocation',
@@ -55,6 +62,10 @@ class Service implements
     protected $activeUser;
     /** @var array */
     protected $postData;
+    /** @var AccountPolicyService */
+    protected $accountPolicyService;
+    /** @var EbayPoliciesService */
+    protected $ebayPoliciesService;
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -67,6 +78,8 @@ class Service implements
         ShippingMethodService $shippingMethodService,
         CategoryExternalService $categoryExternalService,
         ActiveUserInterface $activeUser,
+        AccountPolicyService $accountPolicyService,
+        EbayPoliciesService $ebayPoliciesService,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -75,6 +88,8 @@ class Service implements
         $this->categoryExternalService = $categoryExternalService;
         $this->activeUser = $activeUser;
         $this->postData = $postData;
+        $this->accountPolicyService = $accountPolicyService;
+        $this->ebayPoliciesService =  $ebayPoliciesService;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -92,13 +107,55 @@ class Service implements
     {
         $ebayData = $this->fetchEbayCategoryData($categoryId);
 
+        return array_merge(
+            [
+                'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
+                'shippingMethods' => $this->getShippingMethodsForAccount(
+                    $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
+                ),
+                'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData)
+            ],
+            $this->fetchPoliciesForAccount($account)
+        );
+    }
+
+    protected function fetchPoliciesForAccount(Account $account): array
+    {
+        try {
+            /** @var AccountPolicyCollection $accountPolicies */
+            $accountPolicies = $this->accountPolicyService->fetchCollectionByFilter(
+                (new AccountPolicyFilter)
+                    ->setLimit('all')
+                    ->setPage(1)
+                    ->setAccountId([$account->getId()])
+            );
+            $returnPolicies = $this->formatReturnPolicies($accountPolicies->getBy('type', AccountPolicy::TYPE_RETURN));
+            $shippingPolicies = $this->formatReturnPolicies($accountPolicies->getBy('type', AccountPolicy::TYPE_SHIPPING));
+            $paymentPolicies = $this->formatReturnPolicies($accountPolicies->getBy('type', AccountPolicy::TYPE_PAYMENT));
+        } catch (NotFound $exception) {
+            $returnPolicies = [];
+            $shippingPolicies = [];
+            $paymentPolicies = [];
+        }
+
         return [
-            'listingDuration' => $this->getListingDurationsFromEbayCategoryData($ebayData),
-            'shippingMethods' => $this->getShippingMethodsForAccount(
-                $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
-            ),
-            'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
+            'returnPolicies' => $returnPolicies,
+            'shippingPolicies' => $shippingPolicies,
+            'paymentPolicies' => $paymentPolicies
         ];
+    }
+
+    protected function formatReturnPolicies(AccountPolicyCollection $accountPolicies): array
+    {
+        $policies = [];
+        /** @var AccountPolicy $policy */
+        foreach ($accountPolicies as $policy) {
+            $policies[] = [
+                'name' => $policy->getName(),
+                'value' => $policy->getExternalId()
+            ];
+        }
+        return $policies;
     }
 
     public function getDefaultSettingsForAccount(Account $account): array
@@ -115,6 +172,12 @@ class Service implements
             'sites' => SiteMap::getIdToNameMap(),
             'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account)
         ];
+    }
+
+    public function refreshAccountPolicies(Account $account): array
+    {
+        $this->ebayPoliciesService->fetchAndSaveUserPreferenceForAccount($account);
+        return $this->fetchPoliciesForAccount($account);
     }
 
     protected function fetchEbayCategoryData(int $categoryId): ?Data
