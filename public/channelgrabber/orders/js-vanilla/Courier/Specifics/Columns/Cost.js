@@ -45,7 +45,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         $(Cost.SELECTOR_COST_COLUMN_INPUT).each(function() {
            totalLabelCost += Number($(this).val());
         });
-        $(Cost.SELECTOR_TOTAL_ORDER_LABEL_COST).text(totalLabelCost);
+        $(Cost.SELECTOR_TOTAL_ORDER_LABEL_COST).text(totalLabelCost.toFixed(2));
     }
 
     return Cost;
