@@ -78,6 +78,43 @@ define([
         return values;
     };
 
+    let formatThemeDetails = function(details) {
+        let formattedDetails = [];
+        details.forEach((detailsObject) => {
+            let detailsWithValidValues = detailsObject;
+            detailsWithValidValues.validValues = formatValidValues(detailsObject.theme);
+            delete detailsWithValidValues.theme;
+            formattedDetails.push(detailsWithValidValues);
+        });
+        return formattedDetails;
+    };
+
+    let formatValidValues = function(themeData) {
+        let formattedValidValues = {};
+
+        for (let sku in themeData) {
+            let currentSku = themeData[sku];
+            formattedValidValues[sku] = [];
+
+            for (let attributeData in currentSku) {
+                let currentAttributeData = currentSku[attributeData];
+                let formattedAttribute = {
+                    displayName: currentAttributeData.displayName
+                };
+                delete currentAttributeData.displayName;
+
+                for (var attribute in currentAttributeData) {
+                    formattedAttribute["name"] = attribute;
+                    formattedAttribute["option"] = currentAttributeData[attribute];
+                    break;
+                }
+                formattedValidValues[sku].push(formattedAttribute);
+            }
+        }
+
+        return formattedValidValues;
+    };
+
     var formatProductCategoryDetail = function(values, props) {
         if (!values.category || Object.keys(values.category).length === 0) {
             return [];
@@ -97,6 +134,9 @@ define([
 
             details.push(categoryDetail);
         }
+
+        details = formatThemeDetails(details);
+
         return details;
     };
 
@@ -250,6 +290,34 @@ define([
                     formValues: formValues
                 }
             };
+        },
+        refreshAccountPolicies: function (dispatch, accountId) {
+            $.ajax({
+                url: '/products/create-listings/' + accountId + '/refresh-account-policies',
+                type: 'GET',
+                success: function (response) {
+                    dispatch(ResponseActions.accountPoliciesFetched(accountId, response));
+                },
+                error: function () {
+                    dispatch(ResponseActions.accountPoliciesFetchError());
+                }
+            });
+
+            return {
+                type: "FETCH_ACCOUNT_POLICIES",
+                payload: {
+                    accountId: accountId
+                }
+            }
+        },
+        setPoliciesForAccount: function(accountId, policies) {
+            return {
+                type: "SET_POLICIES_FOR_ACCOUNT",
+                payload: {
+                    accountId: accountId,
+                    policies: policies
+                }
+            }
         }
     };
 });

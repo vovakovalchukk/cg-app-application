@@ -21,15 +21,12 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
+                imageDropdownsDisabled: false,
                 shouldRenderStaticImagesFromVariationValues: false,
                 containerCssClasses:'',
                 tableCssClasses:'',
-                renderCustomTableHeaders: function() {
-                    return null
-                },
-                renderCustomTableRows: function() {
-                    return null
-                }
+                renderCustomTableHeaders: function() { return null; },
+                renderCustomTableRows: function() { return null; }
             }
         },
         renderImageHeader: function() {
@@ -88,6 +85,7 @@ define([
                 autoSelectFirst={false}
                 images={this.props.product.images}
                 onChange={this.onImageSelected.bind(this, field)}
+                dropdownDisabled={this.props.imageDropdownsDisabled}
             />
         },
         onImageSelected: function(field, image) {
