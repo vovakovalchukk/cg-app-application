@@ -38,7 +38,7 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
             return;
         }
 
-        currentCostColumn.val(this.getStorage()["labelCosts"][orderId][value].cost);
+        currentCostColumn.val(this.getStorage().get["labelCosts"][orderId][value].cost);
         this.updateTotalShippingCost();
         return this;
     };

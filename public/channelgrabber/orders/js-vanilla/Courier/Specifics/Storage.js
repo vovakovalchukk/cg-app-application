@@ -1,16 +1,16 @@
 define(function()
 {
-    var instance = null;
-
     function Storage() {}
 
-    Storage.getInstance = function()
+    Storage.prototype.set(key, value)
     {
-        if (instance === null) {
-            instance = new Storage();
-        }
-        return instance;
-    };
+        this.key = value;
+    }
 
-    return Storage.getInstance();
+    Storage.prototype.get(key)
+    {
+        return this.key;
+    }
+
+    return new Storage();
 });
