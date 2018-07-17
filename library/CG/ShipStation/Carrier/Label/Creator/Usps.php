@@ -2,12 +2,14 @@
 namespace CG\ShipStation\Carrier\Label\Creator;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Billing\Shipping\Charge\Entity as ShippingCharge;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
+use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Label\Creator\Exception\InsufficientBalanceException;
@@ -54,6 +56,7 @@ class Usps extends Other
         }
 
         $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
+        $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
@@ -74,5 +77,15 @@ class Usps extends Other
     {
         // TODO: get total cost from $ordersData once TAC-121 has added it
         return $shippingLedger->getBalance() >= $ordersData->getTotalCost();
+    }
+
+    protected function setCostOnOrderLabels(OrderLabelCollection $orderLabels, OrderDataCollection $ordersData): void
+    {
+        /** @var OrderLabel $orderLabel */
+        foreach ($orderLabels as $orderLabel) {
+            $orderData = $ordersData->getById($orderLabel->getOrderId());
+            $orderLabel->setCostPrice($orderData->getCost());
+            $orderLabel->setCostCurrencyCode(ShippingCharge::VALUE_CURRENCY);
+        }
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73bd21eae93eb3472a1ad076c6b4ccdf",
+    "content-hash": "e82d7571d118601e2e3e25c2600c02b2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,7 +308,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "606332344a5cb368b935c143905405824b358d5e"
+                "reference": "fa20c45fc0735806c783a6795a34d7931c4b14f7"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -1832,17 +1832,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-TAC-125-TAC-116",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1ee76b7ced22e6342a518a785a0e64bb2b900422"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-125-fetch-usps-rates-b0b021.zip",
-                "reference": "1ee76b7ced22e6342a518a785a0e64bb2b900422",
-                "shasum": null
+                "reference": "b47b1544137b2c06e46419bfcfe74b04ac7e5fb9"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -9981,6 +9975,12 @@
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
             "version": "dev-TAC-125-fetch-usps-rates",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.38.9",
+            "alias_normalized": "1.38.9.0",
+            "version": "dev-TAC-125-TAC-116",
             "package": "channelgrabber/order"
         },
         {
