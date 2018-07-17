@@ -10,6 +10,7 @@ use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDat
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\Label\Creator\Exception\InsufficientBalanceException;
 use CG\ShipStation\Client as ShipStationClient;
 use Guzzle\Http\Client as GuzzleClient;
 
@@ -19,9 +20,6 @@ class Usps extends Other
 
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
-    
-    /** @var ShippingLedger */
-    protected $shippingLedger;
     
     public function __construct(
         ShipStationClient $shipStationClient,
@@ -45,12 +43,17 @@ class Usps extends Other
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create USPS labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
-        if (!$this->hasSufficientBalance($rootOu)) {
-            if (!$this->isAutoTopUpEnabled()) {
+        $shippingLedger = $this->shippingLedgerService->fetch($rootOu->getId());
+        if (!$this->hasSufficientBalance($shippingLedger, $ordersData)) {
+            if (!$shippingLedger->isAutoTopUp()) {
+                $this->logNotice('Insufficient funds and auto-topup disabled, cant continue', [], [static::LOG_CODE, 'InsufficientFunds']);
                 throw new InsufficientBalanceException();
             }
-            $this->topUpShippingLedgerByRequiredIncrement();
+            $this->logInfo('Insufficient funds but auto-topup enabled, topping up', [], [static::LOG_CODE, 'AutoTopUp']);
+            $this->shippingLedgerService->topUp($shippingLedger, $ordersData->getTotalCost());
         }
+
+        $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
 
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
@@ -67,18 +70,9 @@ class Usps extends Other
         return $this->buildResponseArray($orders, $errors);
     }
 
-    protected function hasSufficientBalance(OrganisationUnit $rootOu): bool
+    protected function hasSufficientBalance(ShippingLedger $shippingLedger, OrderDataCollection $ordersData): bool
     {
-        $shippingLedger = $this->fetchShippingLedgerForOu($rootOu);
-        // TODO: get total cost
-    }
-    
-    protected function fetchShippingLedgerForOu(OrganisationUnit $rootOu): ShippingLedger
-    {
-        if ($this->shippingLedger) {
-            return $this->shippingLedger;
-        }
-        $this->shippingLedger = $this->shippingLedgerService->fetch($rootOu->getId());
-        return $this->shippingLedger;
+        // TODO: get total cost from $ordersData once TAC-121 has added it
+        return $shippingLedger->getBalance() >= $ordersData->getTotalCost();
     }
 }
