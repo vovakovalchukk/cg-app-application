@@ -33,12 +33,13 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
     Cost.prototype.updateShippingLabelCost = function(orderId, shippingService, element)
     {
         var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
+        var labelCosts = this.getStorage().get("labelCosts");
 
-        if (this.getStorage()["labelCosts"] === undefined) {
+        if (labelCosts === undefined) {
             return;
         }
 
-        currentCostColumn.val(this.getStorage().get["labelCosts"][orderId][shippingService].cost);
+        currentCostColumn.val(labelCosts[orderId][shippingService].cost);
         this.updateTotalShippingCost();
         return this;
     };

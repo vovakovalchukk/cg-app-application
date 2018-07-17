@@ -1,15 +1,19 @@
 define(function()
 {
-    function Storage() {}
-
-    Storage.prototype.set(key, value)
+    function Storage()
     {
-        this.key = value;
+        this.data = {};
     }
 
-    Storage.prototype.get(key)
+    Storage.prototype.set = function(key, value)
     {
-        return this.key;
+        this.data[key] = value;
+        return this;
+    }
+
+    Storage.prototype.get = function(key)
+    {
+        return this.data[key];
     }
 
     return new Storage();
