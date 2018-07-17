@@ -1831,12 +1831,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "329cf7c82c3535091b7b934b2363559ebd89951b"
+                "reference": "217b1c2c1f108c4fda702bb6cd57ac469a443dc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-119-ship-cost-column-1539b0.zip",
-                "reference": "329cf7c82c3535091b7b934b2363559ebd89951b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-119-ship-cost-column-d5792e.zip",
+                "reference": "217b1c2c1f108c4fda702bb6cd57ac469a443dc0",
                 "shasum": null
             },
             "require": {
@@ -1907,7 +1907,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-17T12:58:35+00:00"
+            "time": "2018-07-17T14:56:21+00:00"
         },
         {
             "name": "channelgrabber/payment",
