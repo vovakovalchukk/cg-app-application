@@ -1906,7 +1906,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-06T15:39:46+00:00"
+            "time": "2018-07-17T15:09:42+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4441,16 +4441,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "dev-TAC-119-ship-cost-column",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb"
+                "reference": "2bb0dad4aafba7f6fd031dbb1d017121f5073227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-108-add-usps-courier-a66282.zip",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-8e7a20.zip",
+                "reference": "2bb0dad4aafba7f6fd031dbb1d017121f5073227",
                 "shasum": null
             },
             "require": {
@@ -4502,7 +4502,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-29T10:30:39+00:00"
+            "time": "2018-07-16T13:32:17+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9974,7 +9974,7 @@
         {
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-TAC-125-TAC-116-TAC-119",
             "package": "channelgrabber/order"
         },
         {
@@ -10004,7 +10004,7 @@
         {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "dev-TAC-119-ship-cost-column",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
