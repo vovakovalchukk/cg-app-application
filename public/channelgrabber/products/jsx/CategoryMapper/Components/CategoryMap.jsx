@@ -55,7 +55,6 @@ define([
         },
         renderAccountCategorySelectComponent: function(accountId, field) {
             var accountData = this.props.accounts[accountId];
-
             return <label>
                 <span
                     className={"inputbox-label"}>{accountData.displayName}
