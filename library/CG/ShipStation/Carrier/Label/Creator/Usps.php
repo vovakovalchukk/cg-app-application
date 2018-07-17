@@ -16,7 +16,10 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Label\Creator\Exception\InsufficientBalanceException;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Request\Shipping\Label\Rate as RateLabelRequest;
+use CG\ShipStation\Response\Shipping\Label as LabelResponse;
 use Guzzle\Http\Client as GuzzleClient;
+use Guzzle\Http\Exception\BadResponseException;
+use Throwable;
 
 class Usps extends Other
 {
@@ -60,12 +63,16 @@ class Usps extends Other
         $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
-        $labels = $this->createLabelsFromRates($ordersData, $shipStationAccount, $shippingAccount);
-        $labelErrors = $this->getErrorsForFailedLabels($labels, $this->mapRateIdsToOrderIds($ordersData));
-        $labelPdfs = $this->downloadPdfsForLabels($labels);
+        $labelResults = $this->createLabelsFromRates($ordersData, $shipStationAccount, $shippingAccount);
+        $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
+        $labelErrors = $this->getErrorsForUnsuccessfulLabels($labelResults->getResponses());
+        // Note: we're deliberately NOT refunding the users balance for any failures as there's
+        // no way for us to know if we've been charged by Stamps.com or not
+
+        $labelPdfs = $this->downloadPdfsForLabels($labelResults->getResponses());
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
-        $errors = array_merge($labelErrors, $pdfErrors);
-        $this->updateOrderLabels($orderLabels, $labels, $labelPdfs, $errors);
+        $errors = array_merge($labelExceptions, $labelErrors, $pdfErrors);
+        $this->updateOrderLabels($orderLabels, $labelResults->getResponses(), $labelPdfs, $errors);
 
         $this->logInfo('Labels created for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'End']);
         $this->removeGlobalLogEventParams(['ou', 'rootOu', 'account']);
@@ -93,24 +100,50 @@ class Usps extends Other
         OrderDataCollection $ordersData,
         Account $shippingAccount,
         Account $shipStationAccount
-    ) {
+    ): LabelResults {
         $this->logDebug('Requesting labels from rates', [], [static::LOG_CODE, 'Labels']);
-        $labels = [];
+        $labelResults = new LabelResults();
         /** @var OrderData $orderData */
         foreach ($ordersData as $orderData) {
-            $request = new RateLabelRequest($orderData->getService(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
-            $labels[$orderData->getId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
+            try {
+                $request = new RateLabelRequest($orderData->getService(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
+                $labelResults->addResponse($orderData->getId(), $this->shipStationClient->sendRequest($request, $shipStationAccount));
+            } catch (Throwable $throwable) {
+                $this->logCriticalException($throwable, 'Problem creating label from rate, we dont know if money was used or not.', [], [static::LOG_CODE, 'Failure']);
+                $labelResults->addThrowable($orderData->getId(), $throwable);
+            }
         }
-        return $labels;
+        return $labelResults;
     }
 
-    protected function mapRateIdsToOrderIds(OrderDataCollection $ordersData): array
+    protected function getErrorsForFailedLabels(array $throwables): array
     {
-        $map = [];
-        /** @var OrderData $orderData */
-        foreach ($ordersData as $orderData) {
-            $map[$orderData->getService()] = $orderData->getId();
+        $errors = [];
+        /** @var Throwable $throwable */
+        foreach ($throwables as $orderId => $throwable) {
+            $errors[$orderId] = $this->parseErrorMessageFromThrowable($throwable);
         }
-        return $map;
+        return $errors;
+    }
+
+    protected function parseErrorMessageFromThrowable(Throwable $throwable): string
+    {
+        $defaultError = 'There was an unknown problem generating a label for this order.';
+        $previous = $throwable;
+        while (!$previous instanceof BadResponseException && $previous->getPrevious()) {
+            $previous = $previous->getPrevious();
+        }
+        if (!$previous instanceof BadResponseException) {
+            return $defaultError;
+        }
+        try {
+            $json = $previous->getResponse()->json();
+        } catch (\Exception $e) {
+            return $defaultError;
+        }
+        if (!isset($json['errors'], $json['errors'][0]['message'])) {
+            return $defaultError;
+        }
+        return implode('; ', array_column($json['errors'], 'message'));
     }
 }
