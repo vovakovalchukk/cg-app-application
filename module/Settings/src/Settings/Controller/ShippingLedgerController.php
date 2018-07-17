@@ -3,6 +3,7 @@ namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use CG\Billing\Shipping\Ledger\Exception\ShippingLedgerTopUpException;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Billing\Transaction\Entity as Transaction;
 use CG\Billing\Transaction\Status as TransactionStatus;
@@ -16,7 +17,6 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Clearbooks\Payment\PaymentService;
 
 class ShippingLedgerController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -41,22 +41,18 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     protected $accountService;
     /** @var OneOffPaymentService */
     protected $organisationUnitService;
-    /** @var PaymentService */
-    protected $clearBooksPaymentService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ShippingLedgerService $shippingLedgerService,
         AccountService $accountService,
-        OrganisationUnitService $organisationUnitService,
-        PaymentService $clearBooksPaymentService
+        OrganisationUnitService $organisationUnitService
     )
     {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
         $this->accountService = $accountService;
         $this->organisationUnitService = $organisationUnitService;
-        $this->clearBooksPaymentService = $clearBooksPaymentService;
     }
 
     public function topupAction()
@@ -65,21 +61,21 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account)->getRootEntity();
 
-        $attemptPayment = $this->clearBooksPaymentService->takeOneOffPaymentForCustomerAndAccountCode(
-            $organisationUnit, $shippingLedger->getClearbooksCustomerId(), static::SHIPPING_CLEARBOOKS_ACCOUNT_CODE, static::DEFAULT_TOPUP_AMMOUNT, static::USPS_INVOICE_DESCRIPTION, static::USPS_ITEM_DESCRIPTION
-        );
-        if ($attemptPayment) {
-            return $this->jsonModelFactory->newInstance([
-                'success' => true,
-                'balance' => $shippingLedger->getBalance(),
-                'error' => '',
-            ]);
 
+        try {
+            $this->shippingLedgerService->topUpLedger($shippingLedger, $organisationUnit);
+        } catch (ShippingLedgerTopUpException $e) {
+            return $this->jsonModelFactory->newInstance([
+                'success' => false,
+                'balance' => $shippingLedger->getBalance(),
+                'error' => 'Unable to confirm if payment was successful, please contact us to resolve this.',
+            ]);
         }
+
         return $this->jsonModelFactory->newInstance([
-            'success' => false,
+            'success' => true,
             'balance' => $shippingLedger->getBalance(),
-            'error' => 'Unable to confirm if payment was successful, please contact us to resolve this.',
+            'error' => '',
         ]);
     }
 
@@ -115,12 +111,5 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     protected function getOrganisationUnitForAccount(Account $account): OrganisationUnit
     {
         return $this->organisationUnitService->fetch($account->getOrganisationUnitId());
-    }
-
-    protected function addTransactionAmountToExistingBalance(Transaction $transaction, ShippingLedger $shippingLedger)
-    {
-        $newBalance = $shippingLedger->getBalance() + $transaction->getAmount();
-        $shippingLedger->setBalance((float)$newBalance);
-        $this->shippingLedgerService->save($shippingLedger);
     }
 }
