@@ -64,7 +64,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
 
 
         try {
-            $this->shippingLedgerService->topUpLedger($shippingLedger, $organisationUnit);
+            $this->shippingLedgerService->topUp($shippingLedger, $organisationUnit);
         } catch (ShippingLedgerTopUpException $e) {
             return $this->jsonModelFactory->newInstance([
                 'success' => false,
