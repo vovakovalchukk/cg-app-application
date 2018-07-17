@@ -126,7 +126,7 @@ define([
 
         this.store = function(key, value)
         {
-            this.getStorage()[key] = value;
+            this.getStorage().set(key, value);
         }
 
         var init = function()
