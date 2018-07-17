@@ -34,8 +34,7 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
     {
         var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
 
-        if (this.getStorage()["labelCosts"] === undefined)
-        {
+        if (this.getStorage()["labelCosts"] === undefined) {
             return;
         }
 
