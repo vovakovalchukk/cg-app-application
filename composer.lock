@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48a6d47f2850bff2b712e282d9a36590",
+    "content-hash": "d6f1200d09ee28bb1a0774bd1690ab5b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-115-shipping-ledger-endpoint",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "b68caadff8ffde089fbaf09407e95b4ce104d2a8"
+                "reference": "977370fdb3e74717327bf375183428b44ce6d2ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-115-shipping-ledger-endpoint-4053c0.zip",
-                "reference": "b68caadff8ffde089fbaf09407e95b4ce104d2a8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-usps-balance-and-topup-368b01.zip",
+                "reference": "977370fdb3e74717327bf375183428b44ce6d2ff",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-28T12:31:12+00:00"
+            "time": "2018-07-17T09:51:19+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -637,7 +637,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "aca0cf25fbfd691cc841d35bf9bb21014d9bbd5c"
+                "reference": "f40cdcd1d28ae22b71562d610be5a520a2887c39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-7b483a.zip",
+                "reference": "f40cdcd1d28ae22b71562d610be5a520a2887c39",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.17.1",
@@ -666,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-09T09:03:35+00:00"
+            "time": "2018-07-17T09:52:48+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -9938,7 +9944,7 @@
         {
             "alias": "1.17.2",
             "alias_normalized": "1.17.2.0",
-            "version": "dev-TAC-115-shipping-ledger-endpoint",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "package": "channelgrabber/billing"
         },
         {

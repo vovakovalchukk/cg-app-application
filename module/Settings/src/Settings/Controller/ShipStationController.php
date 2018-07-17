@@ -17,8 +17,7 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ShippingLedgerService $shippingLedgerService
-    )
-    {
+    ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
     }
