@@ -3,7 +3,7 @@ namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
-use CG\Billing\Shipping\Ledger\Exception\ShippingLedgerTopUpException;
+use CG\Billing\Shipping\Ledger\Exception\TopUpException as ShippingLedgerTopUpException;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
