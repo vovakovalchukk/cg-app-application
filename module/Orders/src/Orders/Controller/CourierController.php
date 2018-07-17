@@ -319,12 +319,21 @@ class CourierController extends AbstractActionController
                 ],
             ]
         ];
+
+        $options = $this->service->getCarrierOptions($selectedAccount);
+        if (isset($options['cost'])) {
+            $viewConfig['totalLabelCost'] = [
+                'currencySymbol' => '$',
+                'value' => 'N/A'
+            ];
+        }
+
         if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
             array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);
         }
 
         $view = $this->viewModelFactory->newInstance($viewConfig);
-        $view->setTemplate('elements/buttons.mustache');
+        $view->setTemplate('courier/bulkActions.mustache');
         return $view;
     }
 

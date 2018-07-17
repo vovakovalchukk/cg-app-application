@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b41306b0aa735db997cdad2009443c90",
+    "content-hash": "5614907d92285b47b0cc7136718733cb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.2",
+            "version": "1.17.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5"
+                "reference": "53514e18503237e3a34915246edc65aabf471f68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.2-df41d3.zip",
-                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.3-3dd777.zip",
+                "reference": "53514e18503237e3a34915246edc65aabf471f68",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-04T10:48:25+00:00"
+            "time": "2018-07-16T12:17:42+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1838,16 +1838,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-TAC-125-TAC-116-TAC-119",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1ee76b7ced22e6342a518a785a0e64bb2b900422"
+                "reference": "9acc274d5faee6a27e4c6db9cea4afa3b759db99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-125-fetch-usps-rates-b0b021.zip",
-                "reference": "1ee76b7ced22e6342a518a785a0e64bb2b900422",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-125-TAC-116-TAC-119-187360.zip",
+                "reference": "9acc274d5faee6a27e4c6db9cea4afa3b759db99",
                 "shasum": null
             },
             "require": {
@@ -1918,7 +1918,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-06T15:39:46+00:00"
+            "time": "2018-07-17T15:09:42+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4453,16 +4453,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "dev-TAC-119-ship-cost-column",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb"
+                "reference": "2bb0dad4aafba7f6fd031dbb1d017121f5073227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-108-add-usps-courier-a66282.zip",
-                "reference": "e5e7107a837eca77f09eb70305aa86c985e303bb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-8e7a20.zip",
+                "reference": "2bb0dad4aafba7f6fd031dbb1d017121f5073227",
                 "shasum": null
             },
             "require": {
@@ -4514,7 +4514,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-06-29T10:30:39+00:00"
+            "time": "2018-07-16T13:32:17+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9974,13 +9974,13 @@
         {
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-TAC-125-TAC-116-TAC-119",
             "package": "channelgrabber/order"
         },
         {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "dev-TAC-119-ship-cost-column",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

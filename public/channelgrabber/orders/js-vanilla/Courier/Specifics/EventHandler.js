@@ -34,6 +34,7 @@ define([], function()
     EventHandler.SELECTOR_PARCEL_INPUT = '.courier-parcels .courier-parcels-input';
     EventHandler.SELECTOR_ITEM_WEIGHT_INPUT = '.courier-item-weight';
     EventHandler.SELECTOR_ORDER_WEIGHT_INPUT_PREFIX = '#courier-order-weight-';
+    EventHandler.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX = '#courier-parcel-cost-';
     EventHandler.SELECTOR_CREATE_LABEL_BUTTON = '.courier-create-label-button';
     EventHandler.SELECTOR_EXPORT_LABEL_BUTTON = '.courier-export-label-button';
     EventHandler.SELECTOR_PRINT_LABEL_BUTTON = '.courier-print-label-button';
