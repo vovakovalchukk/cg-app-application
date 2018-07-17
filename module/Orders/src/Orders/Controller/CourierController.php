@@ -5,6 +5,9 @@ use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\DataTable;
@@ -427,12 +430,19 @@ class CourierController extends AbstractActionController
 
     public function exportAction()
     {
+        $rawOrdersData = $this->params()->fromPost('orderData', []);
+        $rawOrdersParcelsData = $this->params()->fromPost('parcelData', []);
+        $rawOrdersItemsData = $this->params()->fromPost('itemData', []);
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
+        $orderItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
+
         try {
             $export = $this->labelExportService->exportOrders(
                 $this->params()->fromPost('order', []),
-                $this->params()->fromPost('orderData', []),
-                $this->params()->fromPost('parcelData', []),
-                $this->params()->fromPost('itemData', []),
+                $ordersData,
+                $ordersParcelsData,
+                $orderItemsData,
                 (int)$this->params()->fromPost('account')
             );
         } catch (StorageException $exception) {
