@@ -30,7 +30,7 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
         return this;
     };
 
-    Cost.prototype.updateShippingLabelCost = function(orderId, value, element)
+    Cost.prototype.updateShippingLabelCost = function(orderId, shippingService, element)
     {
         var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
 
@@ -38,7 +38,7 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
             return;
         }
 
-        currentCostColumn.val(this.getStorage().get["labelCosts"][orderId][value].cost);
+        currentCostColumn.val(this.getStorage().get["labelCosts"][orderId][shippingService].cost);
         this.updateTotalShippingCost();
         return this;
     };
