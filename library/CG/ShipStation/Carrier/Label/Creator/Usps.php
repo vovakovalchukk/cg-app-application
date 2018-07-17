@@ -67,7 +67,8 @@ class Usps extends Other
         $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labelResults->getResponses());
         // Note: we're deliberately NOT refunding the users balance for any failures as there's
-        // no way for us to know if we've been charged by Stamps.com or not
+        // no way for us to know if we've been charged by Stamps.com or not.
+        // Most user errors SHOULD be caught at the fetch-rates stage.
 
         $labelPdfs = $this->downloadPdfsForLabels($labelResults->getResponses());
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
@@ -82,7 +83,6 @@ class Usps extends Other
 
     protected function hasSufficientBalance(ShippingLedger $shippingLedger, OrderDataCollection $ordersData): bool
     {
-        // TODO: get total cost from $ordersData once TAC-121 has added it
         return $shippingLedger->getBalance() >= $ordersData->getTotalCost();
     }
 

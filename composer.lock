@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e82d7571d118601e2e3e25c2600c02b2",
+    "content-hash": "686db7b14c4c8149522a11ca23939b66",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,7 +308,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "fa20c45fc0735806c783a6795a34d7931c4b14f7"
+                "reference": "30109a8d56c31f7ba9f13968ad1888ea485ffe3a"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -1832,11 +1832,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-125-TAC-116",
+            "version": "dev-TAC-109-create-usps-labels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b47b1544137b2c06e46419bfcfe74b04ac7e5fb9"
+                "reference": "0f9eab54c98c533c1c54ad6e4f4686988f4b7462"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -9981,6 +9981,18 @@
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
             "version": "dev-TAC-125-TAC-116",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.39.0",
+            "alias_normalized": "1.39.0.0",
+            "version": "dev-TAC-125-TAC-116-TAC-119",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.39.0",
+            "alias_normalized": "1.39.0.0",
+            "version": "dev-TAC-109-create-usps-labels",
             "package": "channelgrabber/order"
         },
         {
