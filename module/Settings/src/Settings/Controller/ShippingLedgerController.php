@@ -2,16 +2,12 @@
 namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
-use CG\OrganisationUnit\Entity as OrganisatuonUnit;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Exception\ShippingLedgerTopUpException;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
-use CG\Billing\Transaction\Entity as Transaction;
-use CG\Billing\Transaction\Status as TransactionStatus;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Payment\Exception\FailedPaymentException;
 use CG\Payment\OneOffPaymentService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\Account\Client\Service as AccountService;
