@@ -1,4 +1,4 @@
-define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOptionsAbstract)
+define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(ServiceDependantOptionsAbstract, Storage)
 {
     function Cost()
     {
@@ -7,6 +7,11 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             this.listenForServiceChanges();
         };
         init.call(this);
+
+        this.getStorage = function()
+        {
+            return Storage;
+        };
     }
 
     Cost.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX = '#courier-parcel-cost-';
@@ -27,12 +32,14 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     Cost.prototype.updateShippingLabelCost = function(orderId, value, element)
     {
-        var labelCosts = $(Cost.SELECTOR_ORDER_LABEL_COST_INPUT_PREFIX + orderId + '-' + 1).data('label-costs');
-        if (labelCosts === undefined) {
+        var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
+
+        if (this.getStorage()["labelCosts"] === undefined)
+        {
             return;
         }
-        var currentCostColumn = element.parents('tr').find(Cost.SELECTOR_COST_COLUMN_INPUT);
-        currentCostColumn.val(labelCosts[orderId][value].cost);
+
+        currentCostColumn.val(this.getStorage()["labelCosts"][orderId][value].cost);
         this.updateTotalShippingCost();
         return this;
     };

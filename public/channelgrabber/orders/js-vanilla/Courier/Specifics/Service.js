@@ -4,14 +4,16 @@ define([
     './Mapper.js',
     './InputData.js',
     './ItemParcelAssignment.js',
-    '../ShippingServices.js'
+    '../ShippingServices.js',
+    './Storage.js'
 ], function(
     EventHandler,
     ajaxRequester,
     mapper,
     inputDataService,
     ItemParcelAssignment,
-    shippingServices
+    shippingServices,
+    storage
 ) {
     // Also requires global CourierSpecificsDataTable class to be present
     function Service(dataTable, courierAccountId, ipaManager)
@@ -116,6 +118,16 @@ define([
         {
             return n;
         };
+
+        this.getStorage = function()
+        {
+            return storage;
+        };
+
+        this.store = function(key, value)
+        {
+            this.getStorage()[key] = value;
+        }
 
         var init = function()
         {
@@ -741,8 +753,8 @@ define([
                 };
             }
         }
-        this.setLabelCosts(labelCosts);
-        this.addLabelCostDataToFirstParcelOfOrder();
+        this.store('labelCosts', labelCosts);
+        //this.addLabelCostDataToFirstParcelOfOrder();
     };
 
     Service.prototype.printAllLabels = function()
