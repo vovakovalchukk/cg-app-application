@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aba0fbc35b3aa6c5ff5c074be9bddd30",
+    "content-hash": "abe50def9bd8d65e46c80faca080ad4e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1827,11 +1827,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
+            "version": "dev-TAC-119-ship-cost-column",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "588b1233933c57a53eeda93241cd866c8e3485c3"
+                "reference": "329cf7c82c3535091b7b934b2363559ebd89951b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-119-ship-cost-column-1539b0.zip",
+                "reference": "329cf7c82c3535091b7b934b2363559ebd89951b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1901,7 +1907,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-05T08:57:18+00:00"
+            "time": "2018-07-17T12:58:35+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9955,7 +9961,7 @@
         {
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
-            "version": "dev-TECH-88-refactor-courier-arrays-to-objects",
+            "version": "dev-TAC-119-ship-cost-column",
             "package": "channelgrabber/order"
         },
         {
