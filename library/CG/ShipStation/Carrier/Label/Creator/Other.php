@@ -68,7 +68,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
         $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
-        $labelErrors = $this->getErrorsForFailedLabels($labels, $shipments);
+        $labelErrors = $this->getErrorsForFailedLabels($labels, $this->mapShipmentIdsToOrderIds($shipments));
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
         $errors = array_merge($shipmentErrors, $labelErrors, $pdfErrors);
@@ -143,7 +143,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         return true;
     }
 
-    protected function getErrorsForFailedLabels(array $labelResponses, ShipmentsResponse $shipments): array
+    protected function getErrorsForFailedLabels(array $labelResponses, array $shipmentIdsToOrderIds): array
     {
         $errors = [];
         /** @var LabelResponse $labelResponse */
@@ -151,11 +151,21 @@ class Other implements CreatorInterface, LoggerAwareInterface
             if (empty($labelResponse->getErrors())) {
                 continue;
             }
-            $shipment = $shipments->getShipmentById($labelResponse->getShipmentId());
-            $errors[$shipment->getOrderId()] = $labelResponse->getErrors();
-            $this->logNotice('Failed to create label for Order %s', ['order' => $shipment->getOrderId()], [static::LOG_CODE, 'LabelFail']);
+            $orderId = $shipmentIdsToOrderIds[$labelResponse->getShipmentId()];
+            $errors[$orderId] = $labelResponse->getErrors();
+            $this->logNotice('Failed to create label for Order %s', ['order' => $orderId], [static::LOG_CODE, 'LabelFail']);
         }
         return $errors;
+    }
+
+    protected function mapShipmentIdsToOrderIds(ShipmentsResponse $shipments): array
+    {
+        $map = [];
+        /** @var Shipment $shipment */
+        foreach ($shipments as $shipment) {
+            $map[$shipment->getShipmentId()] = $shipment->getOrderId();
+        }
+        return $map;
     }
 
     protected function downloadPdfsForLabels(array $labels): array

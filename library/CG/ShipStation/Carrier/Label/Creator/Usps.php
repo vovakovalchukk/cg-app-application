@@ -6,6 +6,7 @@ use CG\Billing\Shipping\Charge\Entity as ShippingCharge;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData as OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -14,6 +15,7 @@ use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Label\Creator\Exception\InsufficientBalanceException;
 use CG\ShipStation\Client as ShipStationClient;
+use CG\ShipStation\Request\Shipping\Label\Rate as RateLabelRequest;
 use Guzzle\Http\Client as GuzzleClient;
 
 class Usps extends Other
@@ -58,13 +60,11 @@ class Usps extends Other
         $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
-        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
-        $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
-        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
-        $labelErrors = $this->getErrorsForFailedLabels($labels, $shipments);
+        $labels = $this->createLabelsFromRates($ordersData, $shipStationAccount, $shippingAccount);
+        $labelErrors = $this->getErrorsForFailedLabels($labels, $this->mapRateIdsToOrderIds($ordersData));
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
-        $errors = array_merge($shipmentErrors, $labelErrors, $pdfErrors);
+        $errors = array_merge($labelErrors, $pdfErrors);
         $this->updateOrderLabels($orderLabels, $labels, $labelPdfs, $errors);
 
         $this->logInfo('Labels created for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'End']);
@@ -87,5 +87,30 @@ class Usps extends Other
             $orderLabel->setCostPrice($orderData->getCost());
             $orderLabel->setCostCurrencyCode(ShippingCharge::VALUE_CURRENCY);
         }
+    }
+
+    protected function createLabelsFromRates(
+        OrderDataCollection $ordersData,
+        Account $shippingAccount,
+        Account $shipStationAccount
+    ) {
+        $this->logDebug('Requesting labels from rates', [], [static::LOG_CODE, 'Labels']);
+        $labels = [];
+        /** @var OrderData $orderData */
+        foreach ($ordersData as $orderData) {
+            $request = new RateLabelRequest($orderData->getService(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
+            $labels[$orderData->getId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
+        }
+        return $labels;
+    }
+
+    protected function mapRateIdsToOrderIds(OrderDataCollection $ordersData): array
+    {
+        $map = [];
+        /** @var OrderData $orderData */
+        foreach ($ordersData as $orderData) {
+            $map[$orderData->getService()] = $orderData->getId();
+        }
+        return $map;
     }
 }
