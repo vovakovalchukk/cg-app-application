@@ -2,6 +2,7 @@
 namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
+use CG\OrganisationUnit\Entity as OrganisatuonUnit;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Exception\ShippingLedgerTopUpException;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
@@ -58,8 +59,8 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     public function topupAction()
     {
         $account = $this->getAccount($this->params()->fromRoute('account'));
-        $shippingLedger = $this->getShippingLedgerForAccount($account);
         $organisationUnit = $this->getOrganisationUnitForAccount($account)->getRootEntity();
+        $shippingLedger = $this->getShippingLedgerForOrganisationUnit($organisationUnit);
 
 
         try {
@@ -103,9 +104,9 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         return $this->accountService->fetch($accountId);
     }
 
-    protected function getShippingLedgerForAccount(Account $account): ShippingLedger
+    protected function getShippingLedgerForOrganisationUnit(OrganisatuonUnit $organisationUnit): ShippingLedger
     {
-        return $this->shippingLedgerService->fetch($account->getId());
+        return $this->shippingLedgerService->fetch($organisationUnit->getId());
     }
 
     protected function getOrganisationUnitForAccount(Account $account): OrganisationUnit
