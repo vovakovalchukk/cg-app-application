@@ -57,7 +57,7 @@ class Usps extends Other
                 throw new InsufficientBalanceException();
             }
             $this->logInfo('Insufficient funds but auto-topup enabled, topping up', [], [static::LOG_CODE, 'AutoTopUp']);
-            $this->shippingLedgerService->topUp($shippingLedger, $ordersData->getTotalCost());
+            $this->shippingLedgerService->topUp($shippingLedger, $rootOu, $ordersData->getTotalCost());
         }
 
         $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
