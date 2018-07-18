@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c0bc9d8d45d2ddb36294bee3f012721",
+    "content-hash": "8e089488e262130852907fca6d297b5f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -749,16 +749,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.29",
+            "version": "1.0.30",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771"
+                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.29-265268.zip",
-                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.30-b6a566.zip",
+                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c",
                 "shasum": null
             },
             "require": {
@@ -790,7 +790,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-04-04T11:56:59+00:00"
+            "time": "2018-07-17T13:49:38+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1833,16 +1833,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.38.8",
+            "version": "1.38.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e703918c14d7048d03315b3802097b4d3e1c9626"
+                "reference": "528ae361b03a4ea67042197062defaa1337d9e37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.8-75e515.zip",
-                "reference": "e703918c14d7048d03315b3802097b4d3e1c9626",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.9-573d66.zip",
+                "reference": "528ae361b03a4ea67042197062defaa1337d9e37",
                 "shasum": null
             },
             "require": {
@@ -1913,7 +1913,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-06-06T08:38:59+00:00"
+            "time": "2018-07-17T13:49:15+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4448,16 +4448,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.10",
+            "version": "1.23.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ab140c8c4986998a13983c07924d2943a0ffdb6c"
+                "reference": "6cc98e270e4a8e3022eaf01fe1a39dd3f82418bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.10-d97fb8.zip",
-                "reference": "ab140c8c4986998a13983c07924d2943a0ffdb6c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.11-bb2176.zip",
+                "reference": "6cc98e270e4a8e3022eaf01fe1a39dd3f82418bc",
                 "shasum": null
             },
             "require": {
@@ -4509,7 +4509,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-16T07:34:26+00:00"
+            "time": "2018-07-17T15:35:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
