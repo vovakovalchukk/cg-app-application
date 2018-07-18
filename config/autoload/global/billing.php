@@ -13,6 +13,8 @@ use CG\Settings\Billing\Clearbooks\Customer\Storage\Api as ClearbooksCustomerApi
 use CG\Settings\Billing\Clearbooks\Customer\StorageInterface as ClearbooksCustomerStorage;
 use CG\Settings\Contact\Storage\Api as ContactApiStorage;
 use CG\Settings\Contact\StorageInterface as ContactStorage;
+use CG\Billing\Shipping\Ledger\StorageInterface as ShippingLedgerStorage;
+use CG\Billing\Shipping\Ledger\Storage\Api as ShippingLedgerApi;
 
 return [
     'di' => [
@@ -25,6 +27,7 @@ return [
                 ClearbooksCustomerStorage::class => ClearbooksCustomerApiStorage::class,
                 ContactStorage::class => ContactApiStorage::class,
                 PaymentAllocationService::class => ClearbooksPaymentAllocationService::class,
+                ShippingLedgerStorage::class => ShippingLedgerApi::class
             ],
             PricingSchemeAssignmentApiStorage::class => [
                 'parameters' => [
@@ -47,6 +50,11 @@ return [
                 ],
             ],
             ContactApiStorage::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle',
+                ],
+            ],
+            ShippingLedgerApi::class => [
                 'parameters' => [
                     'client' => 'billing_guzzle',
                 ],
