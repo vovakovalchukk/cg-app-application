@@ -1,10 +1,8 @@
 <?php
-use CG\Gearman\Client as CGGearmanClient;
-use CG\Http\Guzzle\Http\FailoverClient as Guzzle;
-use Predis\Client as Predis;
-use Predis\ResponseErrorInterface as PredisError;
-use Zend\Db\Sql\Sql;
-use Zend\Di\Di;
+use CG\CGLib\Status;
+use CG\Log\Logger;
+use CG\Stdlib\Log\LogTrait;
+use Zend\Mvc\Router\Http\TreeRouteStack as Router;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 
@@ -17,100 +15,49 @@ try {
 
     $serviceManager = new ServiceManager(new ServiceManagerConfig($appConfig['service_manager'] ?? []));
     $serviceManager->setService('ApplicationConfig', $appConfig);
-    $serviceManager->get('ModuleManager')->loadModules();
+    $serviceManager->addDelegator('Router', function() { return new Router(); });
+    $serviceManager->get('ModuleManager')->setModules(['CG_Log'])->loadModules();
+    $serviceManager->get('Application')->bootstrap();
 
     if (ENVIRONMENT !== 'dev') {
         ob_start(function() { /* Ignore all output */ });
     }
 
-    /** @var Di $di */
-    $di = $serviceManager->get(Di::class);
-    $getAliases = function($className) use($di): array {
-        $className = (array) $className;
-        return array_keys(array_filter(
-            $di->instanceManager()->getAliases(),
-            function(string $aliasClassName) use($className) {
-                return in_array($aliasClassName, $className);
-            }
-        ));
-    };
+    /** @var Status $statusChecker */
+    $statusChecker = $serviceManager->get(Status::class);
+    $detailStatus = $statusChecker->getStatus($status);
 
-    $services = [
-        'redis' => [
-            'checks' => $getAliases(Predis::class),
-            'checker' => function(string $connection) use($di): string {
-                /** @var Predis $predis */
-                $predis = $di->newInstance($connection);
-                $ping = $predis->ping();
-                if ($ping instanceof PredisError) {
-                    throw new RuntimeException($ping->getMessage());
-                }
-                if ($ping !== true) {
-                    throw new RuntimeException('Unknown connection error');
-                }
-                return 'passed';
-            }
-        ],
-        'mysql' => [
-            'checks' => $getAliases(Sql::class),
-            'checker' => function(string $connection) use($di): string {
-                /** @var Sql $sql */
-                $sql = $di->newInstance($connection);
-                /** @var mysqli $mysqli */
-                $mysqli = $sql->getAdapter()->getDriver()->getConnection()->getResource();
-                if ($mysqli->ping() !== true) {
-                    throw new RuntimeException($mysqli->error, $mysqli->errno);
-                }
-                return 'passed';
-            }
-        ],
-        'gearman' => [
-            'checks' => $getAliases([GearmanClient::class, CGGearmanClient::class]),
-            'checker' => function(string $connection) use($di): string {
-                /** @var GearmanClient $gearmanClient */
-                $gearmanClient = $di->newInstance($connection);
-                if ($gearmanClient->ping('ping') !== true) {
-                    throw new RuntimeException($gearmanClient->error(), $gearmanClient->getErrno());
-                }
-                return 'passed';
-            }
-        ],
-        'apps' => [
-            'checks' => $getAliases(Guzzle::class),
-            'checker' => function(string $connection) use($di): string {
-                if (in_array($connection, ['sso_guzzle'])) {
-                    return 'skipped';
-                }
-                /** @var Guzzle $guzzle */
-                $guzzle = $di->newInstance($connection);
-                $request = $guzzle->head();
-                $response = $guzzle->send($request);
-                if ($response->getStatusCode() !== 200) {
-                    throw new RuntimeException(sprintf('Recieved a %d response from %s', $response->getStatusCode(), $request->getUrl()));
-                }
-                return 'passed';
-            }
-        ],
-    ];
+    if (!$status) {
+        $statusCode = 500;
+    }
 
-    foreach ($services as $service => $config) {
+    foreach ($detailStatus as $service => $serviceStatus) {
         echo $service . PHP_EOL;
-        foreach ($config['checks'] as $check) {
-            echo sprintf('>>> %s: ', $check);
-            try {
-                echo $config['checker']($check);
-            } catch (\Throwable $throwable) {
-                $statusCode = 500;
-                echo sprintf('%s %s', get_class($throwable), $throwable->getMessage());
-            } finally {
-                echo PHP_EOL;
-            }
+        foreach ($serviceStatus as $check => $checkStatus) {
+            echo sprintf('>>> %s: %s', $check, $checkStatus) . PHP_EOL;
         }
         echo PHP_EOL;
     }
 } catch (\Throwable $throwable) {
     $statusCode = 500;
-    echo sprintf('%s %s', get_class($throwable), $throwable->getMessage()) . PHP_EOL;
+    echo get_class($throwable) . PHP_EOL . $throwable->getMessage() . PHP_EOL . $throwable->getTraceAsString();
+    if (!isset($serviceManager)) {
+        return;
+    }
+    try {
+        $logger = new class($serviceManager->get(Logger::class))
+        {
+            use LogTrait;
+
+            public function __construct(Logger $logger)
+            {
+                $this->logger = $logger;
+            }
+        };
+        $logger->logEmergencyException($throwable, 'Unknown status check failure', [], Status::LOG_CODE);
+    } catch (\Throwable $throwable) {
+        // Ignore log failures
+    }
 } finally {
     header('Content-type: text/plain', true, $statusCode);
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfa31d0502530ea6362941fb71c07f03",
+    "content-hash": "309d08139311055da527fd99dfa5efb6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -455,16 +455,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.2",
+            "version": "dev-CGIV-8543-CustomStatusPage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "f654abcfd4b5364094561fe8c28f254766715fed"
+                "reference": "c369d394b337718004009c606828429ee645ce2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.2-3924e4.zip",
-                "reference": "f654abcfd4b5364094561fe8c28f254766715fed",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8543-CustomStatusPage-b05b54.zip",
+                "reference": "c369d394b337718004009c606828429ee645ce2f",
                 "shasum": null
             },
             "require": {
@@ -514,7 +514,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-07T09:15:35+00:00"
+            "time": "2018-07-18T15:08:39+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -4361,16 +4361,16 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.3.0",
+            "version": "dev-CGIV-8543-CustomStatusPage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "effbf020ab730ac20d64ce3f7a7aa7e5b633b1da"
+                "reference": "58b6184d3d1ba2a533b12fb9f11860dc62a320ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.3.0-1217fb.zip",
-                "reference": "effbf020ab730ac20d64ce3f7a7aa7e5b633b1da",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-8543-CustomStatusPage-082892.zip",
+                "reference": "58b6184d3d1ba2a533b12fb9f11860dc62a320ae",
                 "shasum": null
             },
             "require": {
@@ -4401,7 +4401,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-03T08:18:51+00:00"
+            "time": "2018-07-18T15:21:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -9947,10 +9947,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.3",
+            "alias_normalized": "1.16.3.0",
+            "version": "dev-CGIV-8543-CustomStatusPage",
+            "package": "channelgrabber/cglib"
+        },
+        {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-CGIV-8543-CustomStatusPage",
+            "package": "channelgrabber/zf2-stdlib"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-stdlib": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
