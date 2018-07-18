@@ -63,7 +63,7 @@ class Usps extends Other
         $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
-        $labelResults = $this->createLabelsFromRates($ordersData, $shipStationAccount, $shippingAccount);
+        $labelResults = $this->createLabelsFromRates($ordersData, $shippingAccount, $shipStationAccount);
         $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labelResults->getResponses());
         // Note: we're deliberately NOT refunding the users balance for any failures as there's
