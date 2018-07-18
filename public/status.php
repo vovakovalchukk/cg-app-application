@@ -19,6 +19,10 @@ try {
     $serviceManager->setService('ApplicationConfig', $appConfig);
     $serviceManager->get('ModuleManager')->loadModules();
 
+    if (ENVIRONMENT !== 'dev') {
+        ob_start(function() { /* Ignore all output */ });
+    }
+
     /** @var Di $di */
     $di = $serviceManager->get(Di::class);
     $getAliases = function($className) use($di): array {
