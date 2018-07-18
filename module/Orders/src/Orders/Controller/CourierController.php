@@ -3,6 +3,7 @@ namespace Orders\Controller;
 
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Shipping\Provider\Service\FetchRatesInterface;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
@@ -23,6 +24,9 @@ use Orders\Module;
 use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
+use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 
 class CourierController extends AbstractActionController
 {
@@ -66,6 +70,10 @@ class CourierController extends AbstractActionController
     protected $shippingAccountsService;
     /** @var OrderService */
     protected $orderService;
+    /** @var CarrierProviderServiceRepository */
+    protected $carrierProviderServiceRepository;
+    /** @var ShippingLedgerService */
+    protected $shippingLedgerService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -78,7 +86,9 @@ class CourierController extends AbstractActionController
         ManifestService $manifestService,
         OrdersToOperateOn $ordersToOperatorOn,
         ShippingAccountsService $shippingAccountsService,
-        OrderService $orderService
+        OrderService $orderService,
+        CarrierProviderServiceRepository $carrierProviderServiceRepository,
+        ShippingLedgerService $shippingLedgerService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->reviewTable = $reviewTable;
@@ -91,6 +101,8 @@ class CourierController extends AbstractActionController
         $this->ordersToOperatorOn = $ordersToOperatorOn;
         $this->shippingAccountsService = $shippingAccountsService;
         $this->orderService = $orderService;
+        $this->carrierProviderServiceRepository = $carrierProviderServiceRepository;
+        $this->shippingLedgerService = $shippingLedgerService;
     }
 
     public function indexAction()
@@ -243,6 +255,13 @@ class CourierController extends AbstractActionController
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('isSidebarPresent', (count($courierOrders) > 1))
             ->setVariable('subHeaderHide', true);
+
+        $provider = $this->carrierProviderServiceRepository->getProviderForAccount($selectedCourier);
+        if ($provider instanceof FetchRatesInterface) {
+            $view->addChild(
+                $this->getAccountBalanceSection($this->shippingLedgerService->fetch($selectedCourier->getRootOrganisationUnitId())),
+                'accountBalanceSection');
+        }
 
         return $view;
     }
@@ -446,6 +465,24 @@ class CourierController extends AbstractActionController
             ]
         ]);
         $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
+    protected function getAccountBalanceSection(ShippingLedger $shippingLedger)
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'accountBalance' => [
+                'amount' => $shippingLedger->getBalance(),
+                'currencySymbol' => '$'
+            ],
+            'buttons' => [
+                'value' => 'Top Up',
+                'id' => 'top-up-balance-button',
+                'class' => 'top-up-balance-button',
+                'disabled' => false,
+            ]
+        ]);
+        $view->setTemplate('courier/accountBalance.mustache');
         return $view;
     }
 
