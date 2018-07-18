@@ -7,20 +7,35 @@ use CG\ShipStation\ResponseAbstract;
 class Rates extends ResponseAbstract
 {
     /** @var Rate[] */
-    protected $rates;
-
-    public function __construct(Rate ...$rates)
-    {
-        $this->rates = $rates;
-    }
+    protected $rates = [];
+    /** @var Rate[] */
+    protected $invalidRates = [];
 
     protected static function build($decodedJson)
     {
-        $rates = [];
+        $rates = new static();
         foreach ($decodedJson->rate_response->rates as $rateJson) {
-            $rates[] = Rate::build($rateJson);
+            $rates->addRate(Rate::build($rateJson));
         }
-        return new static(...$rates);
+        if (!isset($decodedJson->rate_response->invalid_rates)) {
+            return $rates;
+        }
+        foreach ($decodedJson->rate_response->invalid_rates as $invalidRateJson) {
+            $rates->addInvalidRate(Rate::build($invalidRateJson));
+        }
+        return $rates;
+    }
+
+    public function addRate(Rate $rate): Rates
+    {
+        $this->rates[] = $rate;
+        return $this;
+    }
+
+    public function addInvalidRate(Rate $rate): Rates
+    {
+        $this->invalidRates[] = $rate;
+        return $this;
     }
 
     /**
@@ -29,5 +44,13 @@ class Rates extends ResponseAbstract
     public function getRates(): array
     {
         return $this->rates;
+    }
+
+    /**
+     * @return array Rate[]
+     */
+    public function getInvalidRates(): array
+    {
+        return $this->invalidRates;
     }
 }
