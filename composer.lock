@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "686db7b14c4c8149522a11ca23939b66",
+    "content-hash": "e93cbba626ef7a14173a6bcdf92ab7d4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,7 +308,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "30109a8d56c31f7ba9f13968ad1888ea485ffe3a"
+                "reference": "18550915ee2af78df5dafa11a57709d9de7486ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-b645ef.zip",
+                "reference": "18550915ee2af78df5dafa11a57709d9de7486ea",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -352,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-16T12:17:42+00:00"
+            "time": "2018-07-18T12:18:45+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -516,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e32eb3b67b02ee47c93eeeb7a8aec6d4fd08546f"
+                "reference": "019776472a3f302a86ae7cb8e59fe84b00dca824"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-a84a80.zip",
-                "reference": "e32eb3b67b02ee47c93eeeb7a8aec6d4fd08546f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-3922be.zip",
+                "reference": "019776472a3f302a86ae7cb8e59fe84b00dca824",
                 "shasum": null
             },
             "require": {
@@ -596,7 +602,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-16T13:14:14+00:00"
+            "time": "2018-07-18T11:19:01+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -636,12 +642,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "06e9ca1f8139923601b3c5dfcaa610ce0123c91d"
+                "reference": "fee76fd5be50ab78467cf1020ed40838d87ee8a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-a2ff6a.zip",
-                "reference": "06e9ca1f8139923601b3c5dfcaa610ce0123c91d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-18e121.zip",
+                "reference": "fee76fd5be50ab78467cf1020ed40838d87ee8a1",
                 "shasum": null
             },
             "require": {
@@ -671,7 +677,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-16T11:40:45+00:00"
+            "time": "2018-07-17T10:59:08+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1838,6 +1844,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "0f9eab54c98c533c1c54ad6e4f4686988f4b7462"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-109-create-usps-labels-f4b5bb.zip",
+                "reference": "0f9eab54c98c533c1c54ad6e4f4686988f4b7462",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
@@ -1906,7 +1918,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-17T15:09:42+00:00"
+            "time": "2018-07-17T15:13:10+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9972,24 +9984,6 @@
             "package": "channelgrabber/courier"
         },
         {
-            "alias": "1.38.9",
-            "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-125-TAC-116-TAC-119",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.38.9",
-            "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-125-TAC-116",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.39.0",
-            "alias_normalized": "1.39.0.0",
-            "version": "dev-TAC-125-TAC-116-TAC-119",
-            "package": "channelgrabber/order"
-        },
-        {
             "alias": "1.39.0",
             "alias_normalized": "1.39.0.0",
             "version": "dev-TAC-109-create-usps-labels",
@@ -10020,8 +10014,8 @@
         "channelgrabber/payment": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
