@@ -3,6 +3,14 @@ namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData\Collection as ItemDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -10,7 +18,6 @@ use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\ShippableInterface as Order;
-use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 
@@ -30,10 +37,10 @@ class CreateService extends ServiceAbstract
 
     public function createForOrdersData(
         array $orderIds,
-        array $ordersData,
-        array $orderParcelsData,
-        array $ordersItemsData,
-        $shippingAccountId
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
+        OrderItemsDataCollection $ordersItemsData,
+        int $shippingAccountId
     ) {
         $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
@@ -62,9 +69,10 @@ class CreateService extends ServiceAbstract
             $labelReadyStatuses = $this->getCarrierProviderService($shippingAccount)->createLabelsForOrders(
                 $orders,
                 $orderLabels,
-                $ordersData,
-                $orderParcelsData,
-                $ordersItemsData,
+                // These toArray()s are temporary until we update the Carrier Providers to work with the value objects
+                $ordersData->toArray(),
+                $orderParcelsData->toArray(),
+                $ordersItemsData->toArray(),
                 $rootOu,
                 $shippingAccount,
                 $user
@@ -84,16 +92,20 @@ class CreateService extends ServiceAbstract
         }
     }
 
-    protected function createOrderLabelsForOrders(OrderCollection $orders, array $ordersData, array $orderParcelsData, Account $shippingAccount)
-    {
+    protected function createOrderLabelsForOrders(
+        OrderCollection $orders,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
+        Account $shippingAccount
+    ) {
         $orderLabelsData = [
             'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
             'errors' => [],
         ];
 
         foreach ($orders as $order) {
-            $orderData = $ordersData[$order->getId()];
-            $parcelsData = $orderParcelsData[$order->getId()] ?? [];
+            $orderData = $ordersData->getById($order->getId());
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
             try {
                 $orderLabelsData['orderLabels']->attach(
                     $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount)
@@ -107,8 +119,8 @@ class CreateService extends ServiceAbstract
 
     protected function createOrderLabelForOrder(
         Order $order,
-        array $orderData,
-        array $orderParcelsData,
+        OrderData $orderData,
+        OrderParcelsData $orderParcelsData,
         Account $shippingAccount
     ) {
         $orderLabel = parent::createOrderLabelForOrder(
@@ -181,22 +193,31 @@ class CreateService extends ServiceAbstract
         }
     }
 
-    protected function ensureOrderItemsData(OrderCollection $orders, array $ordersItemsData, array $orderParcelsData)
-    {
+    protected function ensureOrderItemsData(
+        OrderCollection $orders,
+        OrderItemsDataCollection $ordersItemsData,
+        OrderParcelsDataCollection $orderParcelsData
+    ) {
         // Each table row can be an item, a parcel or both (when there's only one item we collapse the item and parcel
         // into one row). In the latter case we end up with parcelData but not itemData. We'll rectify that if we can.
         foreach ($orders as $order) {
-            if (isset($ordersItemsData[$order->getId()])) {
+            if ($ordersItemsData->containsId($order->getId())) {
                 continue;
             }
-            $parcelData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []); 
-            if (count($order->getItems()) > 1 || count($parcelData) > 1) {
+            /** @var OrderParcelsData $parcelsData */
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
+            if (count($order->getItems()) > 1 || !$parcelsData || count($parcelsData->getParcels()) > 1) {
                 continue;
             }
             $items = $order->getItems();
             $items->rewind();
             $item = $items->current();
-            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($parcelData);
+
+            $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item->getId());
+            $itemsData = new ItemDataCollection();
+            $itemsData->attach($itemData);
+            $orderItemsData = new OrderItemsData($order->getId(), $itemsData);
+            $ordersItemsData->attach($orderItemsData);
         }
         return $ordersItemsData;
     }
