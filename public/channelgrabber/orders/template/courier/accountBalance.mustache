@@ -1,0 +1,9 @@
+<div class="account-balance" id="account-balance">
+{{> elements/buttons}}
+
+{{#accountBalance}}
+<div class="total-cost pull-right">
+    <span class="total-cost-label">Balance:&nbsp;</span><span class="currency">{{currencySymbol}}</span><span class="order-total-label-cost">{{amount}}</span>
+</div>
+{{/accountBalance}}
+</div>
