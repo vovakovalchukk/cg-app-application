@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Billing\Shipping\Ledger\Exception\InsufficientBalanceException;
 use CG\CourierAdapter\Exception\UserError;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
@@ -230,6 +231,8 @@ class CourierJsonController extends AbstractActionController
             return $this->handleLabelCreationFailure($e);
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+        } catch (InsufficientBalanceException $e) {
+            return $this->handleLabelCreationInsufficientBalance($e, $ordersData);
         }
     }
 
@@ -383,6 +386,17 @@ class CourierJsonController extends AbstractActionController
             ->setTemplate('courier/messages/label-creation/orderErrorList.mustache');
         $viewRender = $this->getServiceLocator()->get(MustacheViewHelper::class);
         return $viewRender($orderErrorsView);
+    }
+
+    protected function handleLabelCreationInsufficientBalance(InsufficientBalanceException $e, OrderDataCollection $ordersData)
+    {
+        return $this->jsonModelFactory->newInstance([
+            'readyStatuses' => [],
+            'readyCount' => 0,
+            'notReadyCount' => 0,
+            'errorCount' => count($ordersData),
+            'partialErrorMessage' => 'You have insufficient funds to create these labels.<br />Please top up your balance or enable automatic top up.',
+        ]);
     }
 
     public function optionsAction()
