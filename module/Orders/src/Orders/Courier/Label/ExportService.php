@@ -5,6 +5,14 @@ use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface;
 use CG\Order\Shared\Collection as Orders;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData\Collection as ItemDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
@@ -19,9 +27,9 @@ class ExportService extends ServiceAbstract
 
     public function exportOrders(
         array $orderIds,
-        array $ordersData,
-        array $orderParcelsData,
-        array $ordersItemsData,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
+        OrderItemsDataCollection $ordersItemsData,
         int $shippingAccountId
     ): ExportDocumentInterface {
         $rootOu = $this->userOUService->getRootOuByActiveUser();
@@ -46,9 +54,9 @@ class ExportService extends ServiceAbstract
             $export = $carrier->exportOrders(
                 $orders,
                 $orderLabels,
-                $ordersData,
-                $orderParcelsData,
-                $ordersItemsData,
+                $ordersData->toArray(),
+                $orderParcelsData->toArray(),
+                $ordersItemsData->toArray(),
                 $rootOu,
                 $shippingAccount,
                 $user
@@ -66,8 +74,8 @@ class ExportService extends ServiceAbstract
 
     protected function getOrCreateOrderLabelsForOrders(
         Orders $orders,
-        array $orderData,
-        array $orderParcelsData,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
         Account $shippingAccount
     ): OrderLabels {
         try {
@@ -85,8 +93,8 @@ class ExportService extends ServiceAbstract
             $orderLabels->attach(
                 $this->createOrderLabelForOrder(
                     $orders->getById($missingOrderId),
-                    $orderData[$missingOrderId] ?? [],
-                    $orderParcelsData[$missingOrderId] ?? [],
+                    $ordersData->getById($missingOrderId),
+                    ($orderParcelsData->containsId($missingOrderId) ? $orderParcelsData->getById($missingOrderId) : null),
                     $shippingAccount
                 )
             );

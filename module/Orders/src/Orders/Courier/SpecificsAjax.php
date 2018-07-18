@@ -11,6 +11,11 @@ use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -78,11 +83,15 @@ class SpecificsAjax
         $this->courierService = $courierService;
     }
 
-    /**
-     * @return array
-     */
-    public function getSpecificsListData(array $orderIds, $courierAccountId, array $ordersData, array $ordersParcelsData)
-    {
+    public function getSpecificsListData(
+        array $orderIds,
+        int $courierAccountId,
+        OrderDataCollection $ordersData = null,
+        OrderParcelsDataCollection $ordersParcelsData = null
+    ): array {
+        $ordersData = $ordersData ?? new OrderDataCollection();
+        $ordersParcelsData = $ordersParcelsData ?? new OrderParcelsDataCollection();
+
         $orders = $this->courierService->fetchOrdersById($orderIds);
         $this->courierService->removeZeroQuantityItemsFromOrders($orders);
         $courierAccount = $this->accountService->fetchShippingAccount((int) $courierAccountId);
@@ -93,10 +102,10 @@ class SpecificsAjax
     protected function formatOrdersAsSpecificsListData(
         OrderCollection $orders,
         Account $courierAccount,
-        array $ordersData,
-        array $ordersParcelsData
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $ordersParcelsData
     ) {
-        $data = [];
+        $specificsListData = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->courierService->getProductsForOrders($orders, $rootOu);
         $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
@@ -111,35 +120,39 @@ class SpecificsAjax
                 $orderLabels->rewind();
                 $orderLabel = $orderLabels->current();
             }
-            $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
-            $options = $this->courierService->getCarrierOptions($courierAccount, (isset($inputData['service']) ? $inputData['service'] : null));
+            /** @var OrderData $inputData */
+            $inputData = ($ordersData->containsId($order->getId()) ? $ordersData->getById($order->getId()) : null);
+            $options = $this->courierService->getCarrierOptions($courierAccount, $inputData ? $inputData->getService() : null);
             $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
-            $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
-            if (isset($inputData['service']) && $inputData['service'] === "") {
-                unset($inputData['service']);
+            /** @var OrderParcelsData $parcelsInputData */
+            $parcelsInputData = ($ordersParcelsData->containsId($order->getId()) ? $ordersParcelsData->getById($order->getId()) : null);
+
+            $inputDataArray = ($inputData ? $inputData->toArray() : []);
+            if (isset($inputDataArray['service']) && $inputDataArray['service'] === "") {
+                unset($inputDataArray['service']);
             }
-            $orderData = array_merge($orderData, $specificsOrderData, $inputData);
-            $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
+            $orderData = array_merge($orderData, $specificsOrderData, $inputDataArray);
+            $orderData = $this->checkOrderDataParcels($orderData, $order, $parcelsInputData);
             $itemsData = $this->formatOrderItemsAsSpecificsListData(
                 $order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions, $rootOu
             );
             $parcelsData = $this->getParcelOrderListData(
-                $order, $orderData, $parcelsInputData, $options, $carrierOptions, $rootOu
+                $order, $orderData, $options, $carrierOptions, $rootOu, $parcelsInputData
             );
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
-            $data = array_merge($data, $itemsData);
+            $specificsListData = array_merge($specificsListData, $itemsData);
         }
         $now = (new DateTime())->setTimezone(new DateTimeZone($this->getUsersTimezone()));
-        foreach ($data as &$row) {
+        foreach ($specificsListData as &$row) {
             $row['currentTime'] = $now->format('H:i');
             $row['timezone'] = $now->getTimezone()->getName();
         }
-        $data = $this->performSumsOnSpecificsListData($data, $options);
-        $data = $this->courierService->getCarrierOptionsProvider($courierAccount)
-            ->addCarrierSpecificDataToListArray($data, $courierAccount);
-        return $data;
+        $specificsListData = $this->performSumsOnSpecificsListData($specificsListData, $options);
+        $specificsListData = $this->courierService->getCarrierOptionsProvider($courierAccount)
+            ->addCarrierSpecificDataToListArray($specificsListData, $courierAccount);
+        return $specificsListData;
     }
 
     protected function getUsersTimezone()
@@ -182,7 +195,7 @@ class SpecificsAjax
         return $data;
     }
 
-    protected function checkOrderDataParcels(array $orderData, array $parcelsData, Order $order)
+    protected function checkOrderDataParcels(array $orderData, Order $order, OrderParcelsData $parcelsData = null)
     {
         if ($orderData['parcels'] < static::MIN_PARCELS) {
             $orderData['parcels'] = static::MIN_PARCELS;
@@ -193,11 +206,18 @@ class SpecificsAjax
         $singleRow = ($orderData['parcels'] == 1 && count($order->getItems()) == 1);
         $orderData['parcelRow'] = $singleRow;
         $orderData['actionRow'] = $singleRow;
-        if ($singleRow && !empty($parcelsData)) {
-            $singleParcelData = array_shift($parcelsData);
-            $orderData = array_merge($orderData, $singleParcelData);
+        if ($singleRow && $parcelsData && count($parcelsData->getParcels()) > 0) {
+            $singleParcelData = $parcelsData->getParcels()->getFirst();
+            $orderData = array_merge($orderData, $this->parcelDataToSpecificsListArray($singleParcelData));
         }
         return $orderData;
+    }
+
+    protected function parcelDataToSpecificsListArray(ParcelData $parcelData): array
+    {
+        $array = $parcelData->toArray();
+        $array['itemParcelAssignment'] = json_encode($array['itemParcelAssignment']);
+        return $array;
     }
 
     /**
@@ -336,10 +356,10 @@ class SpecificsAjax
     protected function getParcelOrderListData(
         Order $order,
         array $orderData,
-        array $parcelsInputData,
         array $options,
         array $carrierOptions,
-        OrganisationUnit $rootOu
+        OrganisationUnit $rootOu,
+        OrderParcelsData $parcelsInputData = null
     ) {
         $parcels = $orderData['parcels'];
         if (count($order->getItems()) <= 1 && $parcels <= 1) {
@@ -366,8 +386,9 @@ class SpecificsAjax
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }
 
-            if (isset($parcelsInputData[$parcel])) {
-                $parcelData = array_merge($parcelData, $parcelsInputData[$parcel]);
+            if ($parcelsInputData && $parcelsInputData->getParcels()->containsId($parcel)) {
+                $existingParcelData = $parcelsInputData->getParcels()->getById($parcel);
+                $parcelData = array_merge($parcelData, $this->parcelDataToSpecificsListArray($existingParcelData));
             }
 
             $parcelsData[] = $parcelData;

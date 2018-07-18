@@ -26,7 +26,8 @@ define([
         product,
         listingCreationAllowed,
         managePackageUrl,
-        salesPhoneNumber
+        salesPhoneNumber,
+        demoLink
     ) {
         var Provider = ReactRedux.Provider;
 
@@ -81,6 +82,7 @@ define([
                             listingCreationAllowed={listingCreationAllowed}
                             managePackageUrl={managePackageUrl}
                             salesPhoneNumber={salesPhoneNumber}
+                            demoLink={demoLink}
                         />
                     </Provider>
                 );
