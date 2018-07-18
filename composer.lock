@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "977370fdb3e74717327bf375183428b44ce6d2ff"
+                "reference": "ba6b0ae42476e0c41fb157fe275d4ae19ca4699b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-usps-balance-and-topup-368b01.zip",
-                "reference": "977370fdb3e74717327bf375183428b44ce6d2ff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-usps-balance-and-topup-c37e8d.zip",
+                "reference": "ba6b0ae42476e0c41fb157fe275d4ae19ca4699b",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-17T09:51:19+00:00"
+            "time": "2018-07-17T15:28:52+00:00"
         },
         {
             "name": "channelgrabber/cache",
