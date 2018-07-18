@@ -690,7 +690,7 @@ define([
 
     Service.prototype.processFetchRatesResponse = function(response)
     {
-        if (!response.rates) {
+        if (!response.rates || response.rates.length == 0) {
             return this.handleRatesError(response);
         }
         for (var orderId in response.rates) {
@@ -721,7 +721,11 @@ define([
 
     Service.prototype.handleRatesError = function(response)
     {
-        var error = response.error || 'There was a problem fetching the shipping rates. Please contact support if this continues.';
+        var error = 'There was a problem fetching the shipping rates. Please contact support if this continues.';
+        if (response.errors && response.errors.length > 0) {
+            error = '<p>Some problems were encountered when fetching the rates:</p>';
+            error += '<ul><li>' + response.errors.join('</li><li>') + '</li></ul>';
+        }
         this.getNotifications().error(error);
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
