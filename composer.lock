@@ -308,7 +308,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "2b7bd0d5ea3e1fe3c470dc398185a798d22b643a"
+                "reference": "c714085ed192cc928f5a982fd47c32c00d910791"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-5baee3.zip",
+                "reference": "c714085ed192cc928f5a982fd47c32c00d910791",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -352,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-18T12:18:45+00:00"
+            "time": "2018-07-19T07:28:06+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -636,12 +642,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "fee76fd5be50ab78467cf1020ed40838d87ee8a1"
+                "reference": "42c96d31f4c129551eb64ffa77c963136f736e0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-18e121.zip",
-                "reference": "fee76fd5be50ab78467cf1020ed40838d87ee8a1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-bc6038.zip",
+                "reference": "42c96d31f4c129551eb64ffa77c963136f736e0f",
                 "shasum": null
             },
             "require": {
@@ -671,7 +677,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-17T10:59:08+00:00"
+            "time": "2018-07-18T15:35:32+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -10008,8 +10014,8 @@
         "channelgrabber/payment": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
