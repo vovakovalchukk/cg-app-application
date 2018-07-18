@@ -3,7 +3,7 @@
 use CG\ShipStation\Account as AccountService;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
 use CG\ShipStation\Account\Usps as UspsAccountConnector;
-use CG\ShipStation\Carrier\Label\Creator as LabelCreator;
+use CG\ShipStation\Carrier\Label\Creator\Factory as LabelCreatorFactory;
 use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
 use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
@@ -39,7 +39,7 @@ return [
                     'cryptor' => 'shipstation_cryptor',
                 ]
             ],
-            LabelCreator::class => [
+            LabelCreatorFactory::class => [
                 'parameters' => [
                     // Don't use our FailoverClient, use Guzzle directly, as this is for talking to a third-party
                     'guzzleClient' => GuzzleClient::class,
