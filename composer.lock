@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b41306b0aa735db997cdad2009443c90",
+    "content-hash": "d7da9b88d2bd32f8ce5fd4263f467141",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.2",
+            "version": "dev-TAC-125-fetch-usps-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5"
+                "reference": "9b1dc5f965930e296ae8eac2308b3602f38a89d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.2-df41d3.zip",
-                "reference": "3a3236170e94764502371c399cf1bcfd2621aab5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-125-fetch-usps-rates-60e1b9.zip",
+                "reference": "9b1dc5f965930e296ae8eac2308b3602f38a89d0",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-04T10:48:25+00:00"
+            "time": "2018-07-18T11:04:49+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -9960,6 +9960,12 @@
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.17.3",
+            "alias_normalized": "1.17.3.0",
+            "version": "dev-TAC-125-fetch-usps-rates",
+            "package": "channelgrabber/billing"
+        },
+        {
             "alias": "dev-TAC-118-ship-action-fetch-rates",
             "alias_normalized": "dev-TAC-118-ship-action-fetch-rates",
             "version": "dev-TAC-125-fetch-usps-rates",
@@ -9987,6 +9993,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
+        "channelgrabber/billing": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
