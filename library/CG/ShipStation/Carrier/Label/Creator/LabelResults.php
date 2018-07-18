@@ -7,9 +7,9 @@ use Throwable;
 class LabelResults
 {
     /** @var array */
-    protected $responses;
+    protected $responses = [];
     /** @var array */
-    protected $throwables;
+    protected $throwables = [];
 
     public function addResponse(string $orderId, LabelResponse $response): LabelResults
     {
