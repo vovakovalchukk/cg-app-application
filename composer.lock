@@ -522,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e32eb3b67b02ee47c93eeeb7a8aec6d4fd08546f"
+                "reference": "019776472a3f302a86ae7cb8e59fe84b00dca824"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-a84a80.zip",
-                "reference": "e32eb3b67b02ee47c93eeeb7a8aec6d4fd08546f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-3922be.zip",
+                "reference": "019776472a3f302a86ae7cb8e59fe84b00dca824",
                 "shasum": null
             },
             "require": {
@@ -602,7 +602,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-16T13:14:14+00:00"
+            "time": "2018-07-18T11:19:01+00:00"
         },
         {
             "name": "channelgrabber/cilex",
