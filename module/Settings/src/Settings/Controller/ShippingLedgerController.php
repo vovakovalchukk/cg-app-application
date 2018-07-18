@@ -100,7 +100,7 @@ class ShippingLedgerController extends AbstractActionController implements Logge
         return $this->accountService->fetch($accountId);
     }
 
-    protected function getShippingLedgerForOrganisationUnit(OrganisatuonUnit $organisationUnit): ShippingLedger
+    protected function getShippingLedgerForOrganisationUnit(OrganisationUnit $organisationUnit): ShippingLedger
     {
         return $this->shippingLedgerService->fetch($organisationUnit->getId());
     }
