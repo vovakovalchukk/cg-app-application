@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abe50def9bd8d65e46c80faca080ad4e",
+    "content-hash": "7c419f816d1a595f14e473cc9fcae1b3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.1",
+            "version": "1.17.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1"
+                "reference": "53514e18503237e3a34915246edc65aabf471f68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.1-0b66e6.zip",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.3-3dd777.zip",
+                "reference": "53514e18503237e3a34915246edc65aabf471f68",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:42:22+00:00"
+            "time": "2018-07-16T12:17:42+00:00"
         },
         {
             "name": "channelgrabber/cache",
