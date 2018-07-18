@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c419f816d1a595f14e473cc9fcae1b3",
+    "content-hash": "d7dd333b4e6dded6acd38971bf75066c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4440,17 +4440,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-119-ship-cost-column",
+            "version": "dev-TAC-120-ship-specifics-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e894fd78b7f4733bc9f81fefd66f42484ea4f9a8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-d7dcca.zip",
-                "reference": "e894fd78b7f4733bc9f81fefd66f42484ea4f9a8",
-                "shasum": null
+                "reference": "eb7bcb9cda8e005989ccf0f11bdc21f0bc8275ff"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4501,7 +4495,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-16T13:17:15+00:00"
+            "time": "2018-07-18T12:14:05+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9967,7 +9961,7 @@
         {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-119-ship-cost-column",
+            "version": "dev-TAC-120-ship-specifics-balance-and-topup",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
