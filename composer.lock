@@ -1916,12 +1916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "783790c8d5cee95d40111d45a363729ad556f8dc"
+                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-7a799c.zip",
-                "reference": "783790c8d5cee95d40111d45a363729ad556f8dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-707f13.zip",
+                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-19T10:22:52+00:00"
+            "time": "2018-07-19T11:44:39+00:00"
         },
         {
             "name": "channelgrabber/permission",
