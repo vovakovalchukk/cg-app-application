@@ -80,8 +80,14 @@ class ShippingLedgerController extends AbstractActionController implements Logge
     {
         $input = $this->params()->fromPost();
         $account = $this->getAccount($this->params()->fromRoute('account'));
-        $shippingLedger = $this->getShippingLedgerForAccount($account);
-        $shippingLedger->setAutoTopUp($input['autoTopUp']);
+        $organisationUnit = $this->getOrganisationUnitForAccount($account)->getRootEntity();
+        $shippingLedger = $this->getShippingLedgerForOrganisationUnit($organisationUnit);
+
+        if (isset($input['autoTopUp']) && $input['autoTopUp'] == "true") {
+            $shippingLedger->setAutoTopUp(true);
+        } else if (isset($input['autoTopUp']) && $input['autoTopUp'] == "false") {
+            $shippingLedger->setAutoTopUp(false);
+        }
 
         try {
             $this->shippingLedgerService->save($shippingLedger);
