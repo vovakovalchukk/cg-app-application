@@ -1921,12 +1921,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "472ac59475c3418dc6edfa6c02d3bf289b972325"
+                "reference": "e54c89f1c9b73e58020c138ce412995a00e4f8d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9656-fix-billing-issues-812065.zip",
-                "reference": "472ac59475c3418dc6edfa6c02d3bf289b972325",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9656-fix-billing-issues-e1b881.zip",
+                "reference": "e54c89f1c9b73e58020c138ce412995a00e4f8d3",
                 "shasum": null
             },
             "require": {
@@ -1964,7 +1964,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-13T15:42:47+00:00"
+            "time": "2018-07-19T08:53:05+00:00"
         },
         {
             "name": "channelgrabber/permission",
