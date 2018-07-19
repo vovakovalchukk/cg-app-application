@@ -7,3 +7,15 @@
     </div>
     {{/accountBalance}}
 </div>
+
+{{#accountBalance}}
+    <script type="text/javascript">
+    require([
+            '{{publicFolder}}js/Courier/Specifics/Balance.js',
+        ], function(
+            Balance
+        ) {
+            var Balance = new Balance();
+        });
+    </script>
+{{/accountBalance}}
