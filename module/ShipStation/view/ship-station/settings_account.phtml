@@ -14,23 +14,7 @@ echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account
 */
 ?>
 <div class="module clearfix shippingLedger usps">
-    <div class="clearfix balance">
-        <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
-        <div class="status">
-            <span class="heading-large">Balance: <?=$currencySymbol;?><?=$balance;?></span>
-        </div>
-        <button id="topUp" name="topUp" class="button inline account-save pull-left">Purchase $100 credit</button>
-    </div>
-    <span class="inputbox-label">Auto Top-up:</span>
-    <div class="alternate-input mustache">
-        <div class="enable-switch-auto-top-up">
-            <?= $autoTopUpToggle ?>
-        </div>
-    </div>
-    <div class="tooltip-holder">
-        <span class="fa fa-question-circle-o fa-2x" id="topupTooltip" name="topupTooltip"></span>
-        <?= $autoTopUpTooltip ?>
-    </div>
+    <?=$this->accountTopUp?>
 </div>
 <?php if (! empty($clearbooksStatementUrl)) : ?>
     <div class="module clearfix">

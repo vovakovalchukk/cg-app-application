@@ -29,41 +29,32 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
         }
         $shippingLedger = $this->shippingLedgerService->fetch($account->getRootOrganisationUnitId());
         $view->setVariables([
-            'balance' => $shippingLedger->getBalance(),
-            'autoTopUp' => $shippingLedger->isAutoTopUp(),
-            'topUpAmount' => 100,
-            'currencySymbol' => '$',
-            'clearbooksStatementUrl' => $shippingLedger->getClearbooksStatementUrl(),
-        ])->addChild($this->getAutoTopUpToggleView($shippingLedger), 'autoTopUpToggle')
-          ->addChild($this->getAutoTopUpTooltipView(), 'autoTopUpTooltip');
-
+            'clearbooksStatementUrl' => $shippingLedger->getClearbooksStatementUrl()
+        ])->addChild($this->getAccountTopUpView($shippingLedger), 'accountTopUp');
     }
 
-    protected function getAutoTopUpToggleView(ShippingLedger $shippingLedger)
+    protected function getAccountTopUpView(ShippingLedger $shippingLedger)
     {
-        return $this->viewModelFactory
-            ->newInstance(
-                [
-                    'id' => 'autoTopUp',
-                    'name' => 'autoTopUp',
-                    'selected' => $shippingLedger->isAutoTopUp(),
-                    'class' => 'autoTopUp'
-                ]
-            )
-            ->setTemplate('elements/toggle.mustache');
-    }
+        $config = [
+            'accountBalance' => [
+                'balance' => $shippingLedger->getBalance(),
+                'topUpAmount' => 100,
+                'currencySymbol' => '$',
+            ],
+            'autoTopUp' => [
+                'id' => 'autoTopUp',
+                'name' => 'autoTopUp',
+                'selected' => $shippingLedger->isAutoTopUp(),
+                'class' => 'autoTopUp'
+            ],
+            'tooltip' => [
+                'id' => 'autoTopUpTooltip',
+                'name' => 'autoTopUpTooltip',
+                'attach' => '#topupTooltip',
+                'content' => 'When automatic top-ups are enabled ChannelGrabber will automatically purchase $100 of UPS postage when your balance drops below $100',
+            ]
+        ];
 
-    protected function getAutoTopUpTooltipView()
-    {
-        return $this->viewModelFactory
-            ->newInstance(
-                [
-                    'id' => 'autoTopUpTooltip',
-                    'name' => 'autoTopUpTooltip',
-                    'attach' => '#topupTooltip',
-                    'content' => 'When automatic top-ups are enabled ChannelGrabber will automatically purchase $100 of UPS postage when your balance drops below $100',
-                ]
-            )
-            ->setTemplate('elements/tooltip.mustache');
+        return $this->viewModelFactory->newInstance($config)->setTemplate('accountTopUp.mustache');
     }
 }
