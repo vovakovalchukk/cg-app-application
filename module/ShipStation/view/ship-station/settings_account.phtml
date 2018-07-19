@@ -12,3 +12,21 @@ $setupRoute = implode('/', [
 $url = $this->url($setupRoute, ['channel' => $account->getChannel()]) . '?accountId=' . $account->getId();
 echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url'));
 */
+?>
+<div class="module clearfix shippingLedger usps">
+    <?=$this->accountTopUp?>
+</div>
+<?php if (! empty($clearbooksStatementUrl)) : ?>
+    <div class="module clearfix">
+        <span class="heading-large heading-spacing">Full ClearBooks Statement</span>
+        <iframe src="<?= $clearbooksStatementUrl ?>" class="clearbooks-statement-url-frame"></iframe>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    require(['<?=ShipStation\Module::PUBLIC_FOLDER;?>/js/Account/Settings.js'], function(Settings)
+    {
+        $(document).ready(function() {
+            new Settings({"accountId": <?=$account->getId();?>});
+        });
+    });
+</script>

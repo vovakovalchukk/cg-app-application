@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.3",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "53514e18503237e3a34915246edc65aabf471f68"
+                "reference": "a3789ecd07e314203a612beb853de62f18d4f4c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.3-3dd777.zip",
-                "reference": "53514e18503237e3a34915246edc65aabf471f68",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-usps-balance-and-topup-a39a92.zip",
+                "reference": "a3789ecd07e314203a612beb853de62f18d4f4c4",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-16T12:17:42+00:00"
+            "time": "2018-07-19T11:25:07+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -633,16 +633,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.10.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb"
+                "reference": "8327436820ce8f794948f7f2cbc66108b780e689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.10.0-6d1481.zip",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-bf85dc.zip",
+                "reference": "8327436820ce8f794948f7f2cbc66108b780e689",
                 "shasum": null
             },
             "require": {
@@ -672,7 +672,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-19T10:40:21+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1911,20 +1911,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.8.1",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1"
+                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.8.1-ecefd5.zip",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-707f13.zip",
+                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "dev-TAC-121-usps-balance-and-topup as 1.17.4",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1958,7 +1958,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-19T11:44:39+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9935,6 +9935,24 @@
     ],
     "aliases": [
         {
+            "alias": "1.18.0",
+            "alias_normalized": "1.18.0.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/billing"
+        },
+        {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/clearbooks"
+        },
+        {
+            "alias": "1.8.2",
+            "alias_normalized": "1.8.2.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/payment"
+        },
+        {
             "alias": "1.27.2",
             "alias_normalized": "1.27.2.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
@@ -9969,9 +9987,12 @@
     "stability-flags": {
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
+        "channelgrabber/billing": 20,
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/payment": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
