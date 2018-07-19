@@ -2,9 +2,9 @@
 <div class="clearfix balance">
     <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
     <div class="status">
-        <span class="heading-large">Balance: {{accountBalance.currencySymbol}}{{accountBalance.balance}}</span>
+        <span class="heading-large">Balance: {{currencySymbol}}{{balance}}</span>
     </div>
-    <button id="topUp" name="topUp" class="button inline account-save pull-left">Purchase {{$currencySymbol}}{{topUpAmount}} credit</button>
+    <button id="topUp" name="topUp" class="button inline account-save pull-left">Purchase {{currencySymbol}}{{topUpAmount}} credit</button>
 </div>
 {{/accountBalance}}
 {{#autoTopUp}}
