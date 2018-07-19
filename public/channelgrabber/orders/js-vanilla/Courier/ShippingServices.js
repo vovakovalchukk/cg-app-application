@@ -25,6 +25,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
     ShippingServices.SELECT_ID_PREFIX = 'courier-service-options-';
     ShippingServices.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
     ShippingServices.URI_SERVICES_FOR_ORDER = '/orders/courier/services';
+    ShippingServices.SELECT_ELEMENTS = ".courier-service-custom-select";
 
     ShippingServices.prototype.loadServicesSelectForOrder = function(orderId, accountId, name)
     {
@@ -60,6 +61,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             );
 
             container.empty().append(html);
+            $(ShippingServices.SELECT_ELEMENTS).change();
         });
     };
 
