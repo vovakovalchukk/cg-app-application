@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7d2d959e226fabcb4746e4256f6a5de1a1ada44c"
+                "reference": "a8f73f29754b4c1fe210bc2e2dec6936cbd65acf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-837174.zip",
-                "reference": "7d2d959e226fabcb4746e4256f6a5de1a1ada44c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-abb448.zip",
+                "reference": "a8f73f29754b4c1fe210bc2e2dec6936cbd65acf",
                 "shasum": null
             },
             "require": {
@@ -363,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-19T14:03:03+00:00"
+            "time": "2018-07-19T16:51:48+00:00"
         },
         {
             "name": "channelgrabber/cache",

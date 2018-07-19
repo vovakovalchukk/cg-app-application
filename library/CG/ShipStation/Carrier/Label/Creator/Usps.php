@@ -51,16 +51,7 @@ class Usps extends Other
         $this->logInfo('Create USPS labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
         $shippingLedger = $this->shippingLedgerService->fetch($rootOu->getId());
-        if (!$this->hasSufficientBalance($shippingLedger, $ordersData)) {
-            if (!$shippingLedger->isAutoTopUp()) {
-                $this->logNotice('Insufficient funds and auto-topup disabled, cant continue', [], [static::LOG_CODE, 'InsufficientFunds']);
-                throw new InsufficientBalanceException();
-            }
-            $this->logInfo('Insufficient funds but auto-topup enabled, topping up', [], [static::LOG_CODE, 'AutoTopUp']);
-            $this->shippingLedgerService->topUp($shippingLedger, $rootOu, $ordersData->getTotalCost());
-        }
-
-        $this->shippingLedgerService->debit($shippingLedger, $ordersData->getTotalCost());
+        $this->shippingLedgerService->debit($shippingLedger, $rootOu, $ordersData->getTotalCost());
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
         $labelResults = $this->createLabelsFromRates($ordersData, $shippingAccount, $shipStationAccount);
