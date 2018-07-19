@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e93cbba626ef7a14173a6bcdf92ab7d4",
+    "content-hash": "b9bfa5a3802595e551103fda460602e9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "c714085ed192cc928f5a982fd47c32c00d910791"
+                "reference": "7d2d959e226fabcb4746e4256f6a5de1a1ada44c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-5baee3.zip",
-                "reference": "c714085ed192cc928f5a982fd47c32c00d910791",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-837174.zip",
+                "reference": "7d2d959e226fabcb4746e4256f6a5de1a1ada44c",
                 "shasum": null
             },
             "require": {
@@ -343,6 +343,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-TAC-109-create-usps-labels": "1.17.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -358,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-19T07:28:06+00:00"
+            "time": "2018-07-19T14:03:03+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -642,12 +647,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "42c96d31f4c129551eb64ffa77c963136f736e0f"
+                "reference": "8327436820ce8f794948f7f2cbc66108b780e689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-bc6038.zip",
-                "reference": "42c96d31f4c129551eb64ffa77c963136f736e0f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-bf85dc.zip",
+                "reference": "8327436820ce8f794948f7f2cbc66108b780e689",
                 "shasum": null
             },
             "require": {
@@ -677,7 +682,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-18T15:35:32+00:00"
+            "time": "2018-07-19T10:40:21+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -758,12 +763,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "1522b43f44b649b0db8d5fd0f09af256108ff68b"
+                "reference": "e3c1dea7535d4de466cca2361ac82e8391bfd5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TECH-88-refactor-courier-arrays-to-objects-ffdb21.zip",
-                "reference": "1522b43f44b649b0db8d5fd0f09af256108ff68b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TECH-88-refactor-courier-arrays-to-objects-1633d2.zip",
+                "reference": "e3c1dea7535d4de466cca2361ac82e8391bfd5a3",
                 "shasum": null
             },
             "require": {
@@ -795,7 +800,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-11T09:55:39+00:00"
+            "time": "2018-07-17T13:49:30+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1926,16 +1931,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "43b289d89af891121213f3771cf11ab0f4dcea12"
+                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-9f0a0d.zip",
-                "reference": "43b289d89af891121213f3771cf11ab0f4dcea12",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-707f13.zip",
+                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "dev-TAC-121-usps-balance-and-topup as 1.17.4",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1969,7 +1974,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-06T10:29:39+00:00"
+            "time": "2018-07-19T11:44:39+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9960,8 +9965,8 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.17.4",
-            "alias_normalized": "1.17.4.0",
+            "alias": "dev-TAC-121-usps-balance-and-topup",
+            "alias_normalized": "dev-TAC-121-usps-balance-and-topup",
             "version": "dev-TAC-109-create-usps-labels",
             "package": "channelgrabber/billing"
         },
