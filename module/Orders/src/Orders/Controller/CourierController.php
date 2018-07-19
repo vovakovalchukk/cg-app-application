@@ -27,6 +27,7 @@ use Zend\View\Model\ViewModel;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use Orders\Module as OrdersModule;
 
 class CourierController extends AbstractActionController
 {
@@ -473,7 +474,8 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance([
             'accountBalance' => [
                 'amount' => $shippingLedger->getBalance(),
-                'currencySymbol' => '$'
+                'currencySymbol' => '$',
+                'publicFolder' => OrdersModule::PUBLIC_FOLDER
             ],
             'buttons' => [
                 'value' => 'Top Up',
