@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7dd333b4e6dded6acd38971bf75066c",
+    "content-hash": "8f9d0fe6a69f8980214e38cf60393779",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4444,7 +4444,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "eb7bcb9cda8e005989ccf0f11bdc21f0bc8275ff"
+                "reference": "172be3b4244edd15855000ba3001b8c5320ea65e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-120-ship-specifics-balance-and-topup-abc6bd.zip",
+                "reference": "172be3b4244edd15855000ba3001b8c5320ea65e",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4495,7 +4501,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-18T12:14:05+00:00"
+            "time": "2018-07-20T10:47:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9935,34 +9941,28 @@
     ],
     "aliases": [
         {
-            "alias": "1.18.0",
-            "alias_normalized": "1.18.0.0",
-            "version": "dev-TAC-121-usps-balance-and-topup",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.10.1",
-            "alias_normalized": "1.10.1.0",
-            "version": "dev-TAC-121-usps-balance-and-topup",
-            "package": "channelgrabber/clearbooks"
-        },
-        {
-            "alias": "1.8.2",
-            "alias_normalized": "1.8.2.0",
-            "version": "dev-TAC-121-usps-balance-and-topup",
-            "package": "channelgrabber/payment"
-        },
-        {
             "alias": "1.27.2",
             "alias_normalized": "1.27.2.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.18.0",
+            "alias_normalized": "1.18.0.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/billing"
+        },
+        {
             "alias": "1.37.0",
             "alias_normalized": "1.37.0.0",
             "version": "dev-TAC-118-ship-action-fetch-rates",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/clearbooks"
         },
         {
             "alias": "1.0.29",
@@ -9977,6 +9977,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "1.8.2",
+            "alias_normalized": "1.8.2.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/payment"
+        },
+        {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-120-ship-specifics-balance-and-topup",
@@ -9986,8 +9992,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/billing": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
