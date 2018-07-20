@@ -1,5 +1,23 @@
 .account-top-up.popup {
 
+    .heading-holder {
+        height: 20px;
+    }
+
+    .header-large {
+        background-color: #5fafda;
+        border-radius: 10px 10px 0 0;
+        color: white;
+        left: 0;
+        margin-bottom: 20px;
+        padding: 7px 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0px;
+        width: 100%;
+    }
+
     .heading-large {
         margin-bottom: 20px;
     }
