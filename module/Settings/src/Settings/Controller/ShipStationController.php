@@ -30,12 +30,13 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
         $shippingLedger = $this->shippingLedgerService->fetch($account->getRootOrganisationUnitId());
         $view->setVariables([
             'clearbooksStatementUrl' => $shippingLedger->getClearbooksStatementUrl()
-        ])->addChild($this->getAccountTopUpView($shippingLedger), 'accountTopUp');
+        ])->addChild($this->getAccountTopUpView($shippingLedger, $account), 'accountTopUp');
     }
 
-    protected function getAccountTopUpView(ShippingLedger $shippingLedger)
+    protected function getAccountTopUpView(ShippingLedger $shippingLedger, Account $account)
     {
         $config = [
+            'accountId' => $account->getId(),
             'accountBalance' => [
                 'balance' => $shippingLedger->getBalance(),
                 'topUpAmount' => 100,

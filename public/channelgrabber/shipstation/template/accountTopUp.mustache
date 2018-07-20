@@ -11,7 +11,7 @@
 <span class="inputbox-label">Auto Top-up:</span>
 <div class="alternate-input mustache">
     <div class="enable-switch-auto-top-up">
-            {{> elements/toggle.mustache}}
+        {{> elements/toggle.mustache}}
     </div>
 </div>
 {{/autoTopUp}}
@@ -21,3 +21,11 @@
     {{> elements/tooltip.mustache}}
 </div>
 {{/tooltip}}
+<script type="text/javascript">
+    require(['/cg-built/shipstation/js/Account/Settings.js'], function(Settings)
+    {
+        $(document).ready(function() {
+            new Settings({"accountId": {{accountId}}});
+        });
+        });
+</script>

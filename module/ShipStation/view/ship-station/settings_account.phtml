@@ -22,11 +22,3 @@ echo $this->partial(ChannelModule::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account
         <iframe src="<?= $clearbooksStatementUrl ?>" class="clearbooks-statement-url-frame"></iframe>
     </div>
 <?php endif; ?>
-<script type="text/javascript">
-    require(['<?=ShipStation\Module::PUBLIC_FOLDER;?>/js/Account/Settings.js'], function(Settings)
-    {
-        $(document).ready(function() {
-            new Settings({"accountId": <?=$account->getId();?>});
-        });
-    });
-</script>
