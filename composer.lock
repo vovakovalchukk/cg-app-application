@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfa31d0502530ea6362941fb71c07f03",
+    "content-hash": "f163c30d6b7ed6009cc4db8564df0f93",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.1",
+            "version": "dev-CGIV-9597-ekm-create-free-subscription",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1"
+                "reference": "5315126a76a5788b424c92f8de3ef6bc94a5f73d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.1-0b66e6.zip",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-9597-ekm-create-free-subscription-9c7084.zip",
+                "reference": "5315126a76a5788b424c92f8de3ef6bc94a5f73d",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:42:22+00:00"
+            "time": "2018-07-20T12:41:25+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3589,20 +3589,20 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.0",
+            "version": "dev-CGIV-9597-ekm-create-free-subscription",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb"
+                "reference": "32c11552ba1548c04cd8153fcfbacbe845248f81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.0-cf2b1c.zip",
-                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9597-ekm-create-free-subscription-86f130.zip",
+                "reference": "32c11552ba1548c04cd8153fcfbacbe845248f81",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.0",
+                "channelgrabber/billing": "dev-CGIV-9597-ekm-create-free-subscription as 1.17.4-dev",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.8.0",
@@ -3636,7 +3636,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-06-19T15:37:56+00:00"
+            "time": "2018-07-20T14:39:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9947,10 +9947,25 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.4",
+            "alias_normalized": "1.17.4.0",
+            "version": "dev-CGIV-9597-ekm-create-free-subscription",
+            "package": "channelgrabber/billing"
+        },
+        {
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
+            "version": "dev-CGIV-9597-ekm-create-free-subscription",
+            "package": "channelgrabber/zf2-billing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
