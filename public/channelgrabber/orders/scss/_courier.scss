@@ -14,4 +14,8 @@
         float: right;
         max-width: 50%;
     }
+
+    .alternate-input.mustache {
+        min-width: 0;
+    }
 }
