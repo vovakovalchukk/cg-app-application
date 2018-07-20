@@ -37,6 +37,7 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
     {
         $config = [
             'accountId' => $account->getId(),
+            'showStatus' => true,
             'accountBalance' => [
                 'balance' => $shippingLedger->getBalance(),
                 'topUpAmount' => 100,

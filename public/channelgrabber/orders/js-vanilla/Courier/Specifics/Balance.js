@@ -36,8 +36,10 @@ define(['popup/mustache'], function(MustachePopup)
     Balance.prototype.getPopupSettings = function()
     {
         var popupSettings = {
+            "title": "Buy Postage",
             "accountId": "2",
             "accountBalance": {
+                "additionalClass": "popup",
                 "currencySymbol": "$",
                 "balance": 1000,
                 "topUpAmount": 100

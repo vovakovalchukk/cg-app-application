@@ -1,24 +1,32 @@
+{{#title}}
+    <div class="header-large">{{title}}</div>
+{{/title}}
 {{# accountBalance}}
-<div class="clearfix balance">
-    <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
-    <div class="status">
-        <span class="heading-large">Balance: {{currencySymbol}}{{balance}}</span>
+<div class="account-top-up {{additionalClass}}">
+    <div class="clearfix balance">
+        <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
+        <div class="status">
+            <span class="heading-large">Balance: {{currencySymbol}}{{balance}}</span>
+        </div>
     </div>
-    <button id="topUp" name="topUp" class="button inline account-save pull-left">Purchase {{currencySymbol}}{{topUpAmount}} credit</button>
-</div>
+    <button id="topUp" name="topUp" class="button inline account-topup pull-left">Purchase {{currencySymbol}}{{topUpAmount}} credit</button>
+
 {{/accountBalance}}
-{{#autoTopUp}}
-<span class="inputbox-label">Auto Top-up:</span>
-<div class="alternate-input mustache">
-    <div class="enable-switch-auto-top-up">
-        {{> elements/toggle.mustache}}
+    {{#autoTopUp}}
+    <div class="top-up-holder">
+        <span class="inputbox-label">Auto Top-up:</span>
+        <div class="alternate-input mustache">
+            <div class="enable-switch-auto-top-up">
+                {{> elements/toggle.mustache}}
+            </div>
+        </div>
+        {{/autoTopUp}}
+        {{#tooltip}}
+        <div class="tooltip-holder">
+            <span class="fa fa-question-circle-o fa-2x" id="topupTooltip" name="topupTooltip"></span>
+            {{> elements/tooltip.mustache}}
+        </div>
     </div>
-</div>
-{{/autoTopUp}}
-{{#tooltip}}
-<div class="tooltip-holder">
-    <span class="fa fa-question-circle-o fa-2x" id="topupTooltip" name="topupTooltip"></span>
-    {{> elements/tooltip.mustache}}
 </div>
 {{/tooltip}}
 <script type="text/javascript">
