@@ -5,12 +5,14 @@ use CG\CourierAdapter\Provider\Implementation\Email\Client as EmailClient;
 use CG\CourierAdapter\Provider\Implementation\Service;
 use CG\CourierAdapter\Provider\Implementation\Storage\Redis as RedisStorage;
 use CG\CourierAdapter\StorageInterface;
+use Zend\Di\Di;
 
 // Adapter implementations
 use CG\Courier\Geopost\Dpd\Courier as DpdCourier;
 use CG\Courier\Geopost\Interlink\Courier as InterlinkCourier;
 use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\MyHermes\Courier as MyHermesCourier;
+use CG\Hermes\CourierAdapter as HermesCorporateCourier;
 
 return [
     'di' => [
@@ -61,6 +63,15 @@ return [
                             {
                                 $courier = new MyHermesCourier();
                                 return $courier;
+                            }
+                        ],
+                        [
+                            'channelName' => 'hermes-ca',
+                            'displayName' => 'Hermes',
+                            'featureFlag' => HermesCorporateCourier::FEATURE_FLAG,
+                            'courierFactory' => function(Di $di)
+                            {
+                                return $di->get(HermesCorporateCourier::class);
                             }
                         ],
                     ]
