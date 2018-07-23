@@ -1,5 +1,7 @@
 .account-top-up.popup {
 
+    max-width: 370px;
+
     .heading-holder {
         height: 20px;
     }
@@ -22,18 +24,31 @@
         margin-bottom: 20px;
     }
 
-    max-width: 370px;
-
     .status {
         display: none;
     }
 
     .top-up-holder {
         float: right;
-        max-width: 50%;
-    }
+        width: calc(100% - 200px);
 
-    .alternate-input.mustache {
-        min-width: 0;
+
+        .inputbox-label {
+            min-width: 0;
+            width: 75px;
+        }
+        .alternate-input.mustache {
+            min-width: 0;
+            width: 30px;
+
+            .enable_switch label {
+                left: 8px;
+            }
+        }
+
+        .tooltip-holder {
+            float: right;
+            width: 30px;
+        }
     }
 }
