@@ -16,6 +16,7 @@ use CG\Order\Shared\ShippableInterface as Order;
 use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
+use Zend\Di\Di;
 
 class Service implements
     ShippingProviderChannelsInterface,
@@ -26,6 +27,8 @@ class Service implements
 {
     /** @var Mapper */
     protected $mapper;
+    /** @var Di */
+    protected $di;
     /** @var Collection */
     protected $adapterImplementations;
     /** @var PsrLoggerInterface */
@@ -40,9 +43,10 @@ class Service implements
     /**
      * @param array $adapterImplementationsConfig [['channelName' => 'example', 'displayName' => 'Example', 'courierFactory' => function() { return new \ExampleImplementation\Courier(); }]]
      */
-    public function __construct(Mapper $mapper, array $adapterImplementationsConfig = [])
+    public function __construct(Mapper $mapper, Di $di, array $adapterImplementationsConfig = [])
     {
         $this->setMapper($mapper);
+        $this->di = $di;
         $this->setAdapterImplementations(new Collection(Entity::class, __CLASS__));
         foreach ($adapterImplementationsConfig as $adapterImplementationConfig) {
             $this->adapterImplementations->attach($this->mapper->fromArray($adapterImplementationConfig));
@@ -98,7 +102,7 @@ class Service implements
             return $courierInstance;
         }
 
-        $courierInstance = call_user_func($adapterImplementation->getCourierFactory());
+        $courierInstance = call_user_func($adapterImplementation->getCourierFactory(), $this->di);
         $this->checkCourierInstanceAgainstSpecificInterface(
             $adapterImplementation->getChannelName(), $courierInstance, $specificInterface
         );
