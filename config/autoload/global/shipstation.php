@@ -252,6 +252,7 @@ return [
                                 'width' => 'width',
                                 'length' => 'length',
                                 'cost' => 'cost',
+                                'packageType' => 'packageType'
                             ]
                         ],
                     ],
