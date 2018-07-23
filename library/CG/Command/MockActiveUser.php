@@ -8,46 +8,46 @@ class MockActiveUser implements ActiveUserInterface
 {
     public function getActiveUser()
     {
-        // TODO: Implement getActiveUser() method.
+        // No-op
     }
 
     public function setActiveUser(User $activeUser)
     {
-        // TODO: Implement setActiveUser() method.
+        // No-op
     }
 
     public function getActiveUserRootOrganisationUnitId()
     {
-        // TODO: Implement getActiveUserRootOrganisationUnitId() method.
+        // No-op
     }
 
     public function isAdmin()
     {
-        // TODO: Implement isAdmin() method.
+        // No-op
     }
 
     public function getCompanyId()
     {
-        // TODO: Implement getCompanyId() method.
+        // No-op
     }
 
     public function getTimezone(): string
     {
-        // TODO: Implement getTimezone() method.
+        // No-op
     }
 
     public function setTimezone(string $timezone)
     {
-        // TODO: Implement setTimezone() method.
+        // No-op
     }
 
     public function getLocale(): string
     {
-        // TODO: Implement getLocale() method.
+        // No-op
     }
 
     public function setLocale(string $locale)
     {
-        // TODO: Implement setLocale() method.
+        // No-op
     }
 }
