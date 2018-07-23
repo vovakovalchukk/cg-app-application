@@ -45,6 +45,7 @@ define([
     {
         var self = this;
         $(Balance.SELECTOR_TOPUP_BUTTON).click(function(event) {
+            $(this).addClass('disabled');
             event.preventDefault();
             self.renderPopup();
         });
@@ -76,13 +77,13 @@ define([
             "accountId": this.getAccountId(),
             "accountBalance": {
                 "currencySymbol": "$",
-                "balance": data.balance,
+                "balance": data.shippingLedger.balance,
                 "topUpAmount": 100
             },
             "autoTopUp": {
                 "id": "autoTopUp",
                 "name": "autoTopUp",
-                "selected": data.autoTopUp,
+                "selected": data.shippingLedger.autoTopUp,
                 "class": "autoTopUp"
             },
             "tooltip": {
@@ -93,11 +94,12 @@ define([
             }
         };
         this.getPopup().show(popupSettings, 'popup');
+        $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
     }
 
     Balance.fail = function(data)
     {
-
+        $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
     }
 
     return Balance;
