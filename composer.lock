@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "309d08139311055da527fd99dfa5efb6",
+    "content-hash": "9f403a77b90b1dddc1ca53f60f22f72a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1917,16 +1917,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1"
+                "reference": "06d9f89c73ba3bcb97d702809ab1eb5d73c08858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.8.1-ecefd5.zip",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.9.0-246ed6.zip",
+                "reference": "06d9f89c73ba3bcb97d702809ab1eb5d73c08858",
                 "shasum": null
             },
             "require": {
@@ -1964,7 +1964,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-23T14:10:54+00:00"
         },
         {
             "name": "channelgrabber/permission",
