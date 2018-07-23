@@ -1,6 +1,7 @@
 <?php
 
 use CG\CourierAdapter\EmailClientInterface;
+use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Email\Client as EmailClient;
 use CG\CourierAdapter\Provider\Implementation\Service;
 use CG\CourierAdapter\Provider\Implementation\Storage\Redis as RedisStorage;
@@ -22,6 +23,11 @@ return [
             RedisStorage::class => [
                 'parameters' => [
                     'predisClient' => 'reliable_redis',
+                ]
+            ],
+            CAAccountMapper::class => [
+                'parameters' => [
+                    'cryptor' => 'courieradapter_cryptor'
                 ]
             ],
             Service::class => [
