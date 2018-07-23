@@ -472,6 +472,7 @@ class CourierController extends AbstractActionController
     protected function getAccountBalanceSection(ShippingLedger $shippingLedger)
     {
         $view = $this->viewModelFactory->newInstance([
+            'accountId' => $shippingLedger->getOrganisationUnitId(),
             'accountBalance' => [
                 'amount' => $shippingLedger->getBalance(),
                 'currencySymbol' => '$',
