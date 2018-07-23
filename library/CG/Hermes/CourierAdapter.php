@@ -10,6 +10,7 @@ use CG\CourierAdapter\Exception\OperationFailed;
 use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\Hermes\Credentials\FormFactory as CredentialsFormFactory;
+use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use Psr\Log\LoggerInterface;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface
@@ -18,21 +19,20 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface
 
     /** @var CredentialsFormFactory */
     protected $credentialsFormFactory;
+    /** @var DeliveryServiceService */
+    protected $deliveryServiceService;
 
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory)
+    public function __construct(CredentialsFormFactory $credentialsFormFactory, DeliveryServiceService $deliveryServiceService)
     {
         $this->credentialsFormFactory = $credentialsFormFactory;
+        $this->deliveryServiceService = $deliveryServiceService;
     }
 
     /**
-     * This will return the fields that the application will need to populate to connect an account.
-     * This will likely include things like access token, or username and password. Any data provided by the user for
-     * these fields will be treated as sensitive and be encrypted for storage.
-     *
-     * @return \Zend\Form\Form
+     * @inheritdoc
      */
     public function getCredentialsForm()
     {
@@ -53,63 +53,45 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface
     }
 
     /**
-     * This will fetch all available services for the courier
-     *
-     * @throws OperationFailed
-     * @return DeliveryServiceInterface[]
+     * @inheritdoc
      */
     public function fetchDeliveryServices()
     {
-        // To be implmented in TAC-171
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
-     * This will fetch a delivery service by it's reference
-     *
-     * @param string $reference The reference for the delivery service to be fetched
-     * @throws NotFound
-     * @return DeliveryServiceInterface
+     * @inheritdoc
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        // To be implmented in TAC-171
+        return $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
-     * This will fetch all available services for an account.
-     * If the courier doesn't provide per account services, this should wrap self::fetchDeliveryServices().
-     *
-     * @throws OperationFailed
-     * @return DeliveryServiceInterface[]
+     * @inheritdoc
      */
     public function fetchDeliveryServicesForAccount(Account $account)
     {
-        // To be implmented in TAC-171
+        return $this->fetchDeliveryServices();
     }
 
     /**
-     * This will fetch all available services for an account and country code.
-     *
-     * @param Account $account
-     * @param string $isoAlpha2CountryCode
-     * @throws OperationFailed
-     * @return DeliveryServiceInterface[]
+     * @inheritdoc
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        // To be implmented in TAC-171
+        return $this->deliveryServiceService->getDeliveryServicesForCountry($isoAlpha2CountryCode);
     }
 
     /**
-     * This will fetch all available services for a shipment. This will usually be an order, or part there of. If not
-     * explicitly supported, wrap self::fetchDeliveryServicesForAccount() passing the account from $shipment
-     *
-     * @throws OperationFailed
-     * @return DeliveryServiceInterface[]
+     * @inheritdoc
      */
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        // To be implmented in TAC-171
+        return $this->deliveryServiceService->getDeliveryServicesForCountry(
+            $shipment->getDeliveryAddress()->getISOAlpha2CountryCode()
+        );
     }
 
     public function setLogger(LoggerInterface $logger)
