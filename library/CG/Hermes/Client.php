@@ -2,11 +2,16 @@
 namespace CG\Hermes;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use Guzzle\Http\Client as GuzzleClient;
+use Guzzle\Http\Message\Response as GuzzleResponse;
 use SimpleXMLElement;
 
-class Client
+class Client implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const LOG_CODE = 'HermesClient';
 
     /** @var GuzzleClient */
@@ -34,7 +39,7 @@ class Client
 
     protected function createGuzzleRequest(RequestInterface $request, CourierAdapterAccount $account)
     {
-        return $this->guzzle->createRequest(
+        return $this->guzzleClient->createRequest(
             $request->getMethod(),
             $request->getUri(),
             $this->getRequestHeaders($account),
@@ -51,7 +56,7 @@ class Client
         ];
     }
 
-    protected function buildResponse(RequestInterface $request, HttpResponse $response)
+    protected function buildResponse(RequestInterface $request, GuzzleResponse $response)
     {
         try {
             $responseBody = $response->getBody(true);
