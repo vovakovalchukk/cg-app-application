@@ -883,7 +883,18 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
-                                    ]
+                                    ],
+                                    CourierJsonController::ROUTE_SPECIFICS_FETCH_ACCOUNT_BALANCE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/fetchAccountBalance',
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'fetchAccountBalance',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                             CourierController::ROUTE_LABEL => [
