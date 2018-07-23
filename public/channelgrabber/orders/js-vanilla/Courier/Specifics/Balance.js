@@ -1,6 +1,11 @@
-define(['popup/mustache'], function(MustachePopup)
-{
-    function Balance()
+define([
+    'popup/mustache',
+    'AjaxRequester',
+], function(
+    MustachePopup,
+    ajaxRequester
+) {
+    function Balance(accountId)
     {
         var popup;
         var init = function()
@@ -18,36 +23,66 @@ define(['popup/mustache'], function(MustachePopup)
         this.getPopup = function()
         {
             return popup;
-        }
+        };
+
+        this.getAccountId = function()
+        {
+            return accountId;
+        };
+
+        this.getAjaxRequester = function()
+        {
+            return ajaxRequester;
+        };
+
         init.call(this);
     }
 
     Balance.SELECTOR_TOPUP_BUTTON = "#top-up-balance-button-shadow";
+    Balance.FETCH_ACCOUNT_BALANCE_URL = '/orders/courier/specifics/{{accountId}}/fetchAccountBalance';
 
     Balance.prototype.listenForTopUpClick = function()
     {
         var self = this;
         $(Balance.SELECTOR_TOPUP_BUTTON).click(function(event) {
             event.preventDefault();
-            self.getPopup().show(self.getPopupSettings(), 'popup');
+            self.renderPopup();
         });
     };
 
-    Balance.prototype.getPopupSettings = function()
+    Balance.prototype.getShippingLedgerDetails = function()
     {
+        var self = this;
+        var data = {
+            "account": this.getAccountId()
+        };
+
+        var uri = Balance.FETCH_ACCOUNT_BALANCE_URL.replace('{{accountId}}', data.account);
+
+        this.getAjaxRequester().sendRequest(uri, data, self.showPopup, self.fail, self);
+    };
+
+    Balance.prototype.renderPopup = function()
+    {
+        this.getShippingLedgerDetails();
+    }
+
+    Balance.prototype.showPopup = function(data)
+    {
+        console.log(data);
         var popupSettings = {
             "additionalClass": "popup",
             "title": "Buy Postage",
-            "accountId": "2",
+            "accountId": this.getAccountId(),
             "accountBalance": {
                 "currencySymbol": "$",
-                "balance": 1000,
+                "balance": data.balance,
                 "topUpAmount": 100
             },
             "autoTopUp": {
                 "id": "autoTopUp",
                 "name": "autoTopUp",
-                "selected": true,
+                "selected": data.autoTopUp,
                 "class": "autoTopUp"
             },
             "tooltip": {
@@ -57,8 +92,13 @@ define(['popup/mustache'], function(MustachePopup)
                 "content": "When automatic top-ups are enabled ChannelGrabber will automatically purchase $100 of UPS postage when your balance drops below $100"
             }
         };
-        return popupSettings;
-    };
+        this.getPopup().show(popupSettings, 'popup');
+    }
+
+    Balance.fail = function(data)
+    {
+
+    }
 
     return Balance;
 });
