@@ -19,6 +19,7 @@ use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\ReviewAjax as ReviewAjaxService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 
 class CourierJsonController extends AbstractActionController
 {
@@ -31,6 +32,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_OPTIONS = 'Options';
     const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
+    const ROUTE_SPECIFICS_FETCH_ACCOUNT_BALANCE = 'Fetch Account Balance';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
@@ -69,6 +71,8 @@ class CourierJsonController extends AbstractActionController
     protected $manifestService;
     /** @var RatesService */
     protected $ratesService;
+    /** @var ShippingLedgerService */
+    protected $shippingLedgerService;
 
     protected $errorMessageMap = [
     ];
@@ -83,7 +87,8 @@ class CourierJsonController extends AbstractActionController
         LabelReadyService $labelReadyService,
         LabelDispatchService $labelDispatchService,
         ManifestService $manifestService,
-        RatesService $ratesService
+        RatesService $ratesService,
+        ShippingLedgerService $shippingLedgerService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
@@ -95,6 +100,7 @@ class CourierJsonController extends AbstractActionController
         $this->labelReadyService = $labelReadyService;
         $this->manifestService = $manifestService;
         $this->ratesService = $ratesService;
+        $this->shippingLedgerService = $shippingLedgerService;
     }
 
     public function servicesOptionsAction()
@@ -551,5 +557,12 @@ class CourierJsonController extends AbstractActionController
             $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
         );
         return $this->jsonModelFactory->newInstance(['rates' => $rates->toArray()]);
+    }
+
+    public function fetchAccountBalanceAction()
+    {
+        $accountId = $this->params()->fromRoute('account');
+        $shippingLedger = $this->shippingLedgerService->fetch($accountId);
+        return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }
 }
