@@ -70,7 +70,6 @@ define([
 
     Balance.prototype.showPopup = function(data)
     {
-        console.log(data);
         var popupSettings = {
             "additionalClass": "popup",
             "title": "Buy Postage",
