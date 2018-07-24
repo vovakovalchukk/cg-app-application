@@ -472,8 +472,8 @@ class CourierController extends AbstractActionController
     protected function getShippingLedgerBalanceSection(ShippingLedger $shippingLedger)
     {
         $view = $this->viewModelFactory->newInstance([
-            'accountId' => $shippingLedger->getOrganisationUnitId(),
-            'accountBalance' => [
+            'organisationUnitId' => $shippingLedger->getOrganisationUnitId(),
+            'shippingLedgerBalance' => [
                 'amount' => $shippingLedger->getBalance(),
                 'currencySymbol' => '$',
                 'publicFolder' => OrdersModule::PUBLIC_FOLDER
@@ -485,7 +485,7 @@ class CourierController extends AbstractActionController
                 'disabled' => false,
             ]
         ]);
-        $view->setTemplate('courier/accountBalance.mustache');
+        $view->setTemplate('courier/shippingLedgerBalance.mustache');
         return $view;
     }
 

@@ -1,21 +1,21 @@
 <div class="account-balance" id="account-balance">
     {{> elements/buttons}}
 
-    {{#accountBalance}}
+    {{#shippingLedgerBalance}}
     <div class="balance-holder">
         <span class="account-balance-label">Balance:&nbsp;</span><span class="currency">{{currencySymbol}}</span><span class="account-balance-amount">{{amount}}</span>
     </div>
-    {{/accountBalance}}
+    {{/shippingLedgerBalance}}
 </div>
 
-{{#accountBalance}}
+{{#shippingLedgerBalance}}
     <script type="text/javascript">
     require([
             '{{publicFolder}}js/Courier/Specifics/Balance.js',
         ], function(
             Balance
         ) {
-            var Balance = new Balance({{accountId}});
+            var Balance = new Balance({{organisationUnitId}});
         });
     </script>
-{{/accountBalance}}
+{{/shippingLedgerBalance}}

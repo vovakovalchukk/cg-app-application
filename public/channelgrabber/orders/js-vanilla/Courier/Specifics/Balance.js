@@ -5,7 +5,7 @@ define([
     MustachePopup,
     ajaxRequester
 ) {
-    function Balance(accountId)
+    function Balance(organisationUnitId)
     {
         var popup;
         var init = function()
@@ -25,9 +25,9 @@ define([
             return popup;
         };
 
-        this.getAccountId = function()
+        this.getOrganisationUnitId = function()
         {
-            return accountId;
+            return organisationUnitId;
         };
 
         this.getAjaxRequester = function()
@@ -39,7 +39,7 @@ define([
     }
 
     Balance.SELECTOR_TOPUP_BUTTON = "#top-up-balance-button-shadow";
-    Balance.FETCH_ACCOUNT_BALANCE_URL = '/orders/courier/specifics/{{accountId}}/fetchAccountBalance';
+    Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL = '/orders/courier/specifics/{{organisationUnitId}}/fetchShippingLedgerBalance';
 
     Balance.prototype.listenForTopUpClick = function()
     {
@@ -55,10 +55,10 @@ define([
     {
         var self = this;
         var data = {
-            "account": this.getAccountId()
+            "organisationUnitId": this.getOrganisationUnitId()
         };
 
-        var uri = Balance.FETCH_ACCOUNT_BALANCE_URL.replace('{{accountId}}', data.account);
+        var uri = Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL.replace('{{organisationUnitId}}', data.organisationUnitId);
 
         this.getAjaxRequester().sendRequest(uri, data, self.showPopup, self.fail, self);
     };
@@ -73,8 +73,8 @@ define([
         var popupSettings = {
             "additionalClass": "popup",
             "title": "Buy Postage",
-            "accountId": this.getAccountId(),
-            "accountBalance": {
+            "organisationUnitId": this.getOrganisationUnitId(),
+            "shippingLedgerBalance": {
                 "currencySymbol": "$",
                 "balance": data.shippingLedger.balance,
                 "topUpAmount": 100
