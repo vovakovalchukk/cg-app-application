@@ -7,15 +7,8 @@ use CG\Hermes\DeliveryService;
 
 class Service
 {
-    const SERVICE_STANDARD = 'Standard';
-    const SERVICE_NEXTDAY = 'NextDay';
-    const SERVICE_SUNDAY = 'Sunday';
-
-    protected $deliveryServices = [
-        self::SERVICE_STANDARD => 'Standard Service',
-        self::SERVICE_NEXTDAY  => 'Next Day',
-        self::SERVICE_SUNDAY   => 'Sunday Service',
-    ];
+    /** @var DeliveryServiceInterface[] */
+    protected $deliveryServices;
 
     public function __construct(array $servicesConfig = [], array $defaultConfig = [])
     {
