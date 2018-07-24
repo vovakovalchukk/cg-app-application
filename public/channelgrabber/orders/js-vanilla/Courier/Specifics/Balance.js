@@ -78,7 +78,7 @@ define([
         var popupSettings = {
             "additionalClass": "popup",
             "title": "Buy Postage",
-            "organisationUnitId": this.getOrganisationUnitId(),
+            "accountId": this.getCourierAccountId(),
             "shippingLedgerBalance": {
                 "currencySymbol": "$",
                 "balance": data.shippingLedger.balance,
