@@ -401,6 +401,35 @@ define([
                 </div>
             )
         },
+    
+        // todo - check for other renderRows
+        renderRow({ index, key, style }) {
+            return (
+                <div key={key} style={style} className="u-display-flex">
+                    <div className="image">
+                        <img src={this.list()[index].image} alt="" />
+                    </div>
+                    <div className="content">
+                        <div>{this.list()[index].name}</div>
+                        <div>{this.list()[index].text}</div>
+                    </div>
+                </div>
+            );
+        },
+        
+        list: function(){
+            let rowCount = 500;
+    
+            return Array(rowCount).fill().map((val, i) => {
+                return {
+                    id: i,
+                    name: 'John Doe '+i,
+                    image: 'http://via.placeholder.com/40',
+                    text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
+                }
+            });
+        },
+        
         renderProducts: function() {
             if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
                 return (
@@ -413,9 +442,23 @@ define([
                     </div>
                 );
             }
+    
+            const listHeight = 600;
+            const rowHeight = 50;
+            const rowWidth = 800;
             
-            console.log('in renderProducts with reactVirutalized: ' , ReactVirtualized);
-            return <div></div>
+            const ReactVirtualizedList = ReactVirtualized.List;
+            
+            return <ReactVirtualizedList
+                width={rowWidth}
+                height={listHeight}
+                rowHeight={rowHeight}
+                rowRenderer={this.renderRow}
+                rowCount={this.list().length}
+            />
+            
+            
+            
             
             
             // return this.state.products.map(function(product) {
