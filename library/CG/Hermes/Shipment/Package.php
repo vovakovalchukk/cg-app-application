@@ -3,10 +3,12 @@ namespace CG\Hermes\Shipment;
 
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
+use CG\CourierAdapter\Package\ContentInterface;
+use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
 
-abstract class PackageAbstract implements PackageInterface, WeightInterface, DimensionsInterface
+class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
 {
     /** @var int */
     protected $number;
@@ -18,21 +20,41 @@ abstract class PackageAbstract implements PackageInterface, WeightInterface, Dim
     protected $width;
     /** @var float */
     protected $length;
+    /** @var ContentInterface[] */
+    protected $contents;
+
     /** @var LabelInterface */
     protected $label;
     /** @var string */
     protected $trackingReference;
 
-    public function __construct(int $number, float $weight, float $height, float $width, float $length)
-    {
+    public function __construct(
+        int $number,
+        float $weight,
+        float $height,
+        float $width,
+        float $length,
+        array $contents
+    ) {
         $this->number = $number;
         $this->weight = $weight;
         $this->height = $height;
         $this->width = $width;
         $this->length = $length;
+        $this->contents = $contents;
     }
 
-    abstract public static function fromArray(array $array);
+    public static function fromArray(array $array): International
+    {
+        return new static(
+            $array['number'],
+            $array['weight'],
+            $array['height'],
+            $array['width'],
+            $array['length'],
+            $array['contents']
+        );
+    }
 
     /**
      * @inheritdoc
@@ -84,6 +106,14 @@ abstract class PackageAbstract implements PackageInterface, WeightInterface, Dim
             'width' => $this->getWidth(),
             'length' => $this->getLength(),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getContents()
+    {
+        return $this->contents;
     }
 
     /**

@@ -10,13 +10,16 @@ use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
+use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
+use CG\Hermes\Shipment\Package;
 use DateTime;
 
-abstract class ShipmentAbstract implements
+class Shipment implements
     ShipmentInterface,
     DeliveryInstructionsInterface,
     CollectionDateInterface,
-    PackagesInterface
+    PackagesInterface,
+    SignatureRequiredInterface
 {
     /** @var string */
     protected $customerReference;
@@ -30,6 +33,8 @@ abstract class ShipmentAbstract implements
     protected $collectionDate;
     /** @var PackageInterface[] */
     protected $packages;
+    /** @var bool */
+    protected $signatureRequired;
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
      /** @var string */
@@ -46,6 +51,7 @@ abstract class ShipmentAbstract implements
         string $deliveryInstructions,
         DateTime $collectionDate,
         array $packages,
+        bool $signatureRequired,
         DeliveryServiceInterface $deliveryService
     ) {
         $this->customerReference = $customerReference;
@@ -54,19 +60,51 @@ abstract class ShipmentAbstract implements
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
+        $this->signatureRequired = $signatureRequired;
         $this->deliveryService = $deliveryService;
     }
 
-    abstract public static function fromArray(array $array): ShipmentAbstract;
-    /**
-     * @inheritdoc
-     */
-    abstract public static function getPackageClass();
+    public static function fromArray(array $array): Shipment
+    {
+        return new static(
+            $array['customerReference'],
+            $array['account'],
+            $array['deliveryAddress'],
+            $array['deliveryInstructions'],
+            $array['collectionDate'],
+            $array['packages'],
+            $array['signatureRequired'],
+            $array['deliveryService']
+        );
+    }
 
     /**
      * @inheritdoc
      */
-    abstract public static function createPackage(array $packageDetails);
+    public static function getPackageClass()
+    {
+        return Package::class;
+    }
+
+    /**
+     * Create a ShipmentInterface object from an array of details. Allowed values are:
+     * [
+     *     weight => float (optional)
+     *     height => float (optional)
+     *     width => float (optional)
+     *     length => float (optional)
+     *     type => Package\TypeInterface (optional)
+     *     contents => Package\ContentInterface[] (optional)
+     *     number => integer
+     * ]
+     *
+     * @param array $packageDetails
+     * @return PackageInterface
+     */
+    public static function createPackage(array $packageDetails)
+    {
+        // To be done in TAC-172
+    }
 
     /**
      * @inheritdoc
@@ -130,6 +168,14 @@ abstract class ShipmentAbstract implements
     public function getPackages()
     {
         return $this->packages;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isSignatureRequired()
+    {
+        return $this->signatureRequired;
     }
 
      /**

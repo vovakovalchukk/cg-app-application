@@ -6,6 +6,7 @@ use CG\CourierAdapter\OperationFailed;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\UserError;
 use CG\Hermes\DeliveryService\Option as DeliveryServiceOption;
+use CG\Hermes\Shipment;
 
 class DeliveryService implements DeliveryServiceInterface
 {
@@ -52,6 +53,41 @@ class DeliveryService implements DeliveryServiceInterface
     /**
      * @inheritdoc
      */
+    public function getShipmentClass()
+    {
+        return Shipment::class;
+    }
+
+    /**
+     * Create a ShipmentInterface object from an array of details. Allowed values are:
+     * [
+     *     customerReference => string
+     *     account => Account
+     *     deliveryAddress => AddressInterface
+     *     collectionAddress => AddressInterface (optional)
+     *     collectionDateTime => \DateTime (optional)
+     *     deliveryInstructions => string (optional)
+     *     insuranceRequired => bool (optional)
+     *     insuranceAmount => float (optional)
+     *     insuranceOption => InsuranceOptionInterface (optional)
+     *     packages => PackageInterface[] (optional)
+     *     signatureRequired => bool (optional)
+     *     saturdayDelivery => bool (optional)
+     * ]
+     *
+     * @param array $shipmentDetails
+     * @throws OperationFailed on system error
+     * @throws UserError on invalid shipment data e.g. weight too high or invalid postcode
+     * @return ShipmentInterface
+     */
+    public function createShipment(array $shipmentDetails)
+    {
+        // To be implemented in TAC-172
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getDisplayName()
     {
         return $this->displayName;
@@ -82,50 +118,5 @@ class DeliveryService implements DeliveryServiceInterface
             return true;
         }
         return in_array($isoAlpha2CountryCode, $this->countries);
-    }
-
-    /**
-     * This method will return the fully namespaced class to the shipment class compatible with this delivery service.
-     * This allows for different shipment fields per delivery service.
-     *
-     * The usage for this will be along the lines of:
-     *     $deliveryService = $courier->getDeliveryServiceByReference('ref');
-     *     $shipmentClass = $deliveryService->getShipmentClass();
-     *     if (is_a($shipmentClass, Shipment\SupportedField\InsuranceRequiredInterface::class, true) {
-     *         //show insurance required checkbox
-     *     }
-     *
-     * @return string
-     */
-    public function getShipmentClass()
-    {
-        // TODO: use a factory to decide the shipment class based on from and to addresses
-    }
-
-    /**
-     * Create a ShipmentInterface object from an array of details. Allowed values are:
-     * [
-     *     customerReference => string
-     *     account => Account
-     *     deliveryAddress => AddressInterface
-     *     collectionAddress => AddressInterface (optional)
-     *     collectionDateTime => \DateTime (optional)
-     *     deliveryInstructions => string (optional)
-     *     insuranceRequired => bool (optional)
-     *     insuranceAmount => float (optional)
-     *     insuranceOption => InsuranceOptionInterface (optional)
-     *     packages => PackageInterface[] (optional)
-     *     signatureRequired => bool (optional)
-     *     saturdayDelivery => bool (optional)
-     * ]
-     *
-     * @param array $shipmentDetails
-     * @throws OperationFailed on system error
-     * @throws UserError on invalid shipment data e.g. weight too high or invalid postcode
-     * @return ShipmentInterface
-     */
-    public function createShipment(array $shipmentDetails)
-    {
-        // To be implemented in TAC-172
     }
 }
