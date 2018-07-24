@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "a3789ecd07e314203a612beb853de62f18d4f4c4"
+                "reference": "72f7ba27d21a3353e44c7216401d4cc8e66fe603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-usps-balance-and-topup-a39a92.zip",
-                "reference": "a3789ecd07e314203a612beb853de62f18d4f4c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-usps-balance-and-topup-6158ff.zip",
+                "reference": "72f7ba27d21a3353e44c7216401d4cc8e66fe603",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-19T11:25:07+00:00"
+            "time": "2018-07-19T13:43:15+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -4444,12 +4444,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "172be3b4244edd15855000ba3001b8c5320ea65e"
+                "reference": "50e13cde80387ddac0958e557369211be4b9b33d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-120-ship-specifics-balance-and-topup-abc6bd.zip",
-                "reference": "172be3b4244edd15855000ba3001b8c5320ea65e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-120-ship-specifics-balance-and-topup-a9dab5.zip",
+                "reference": "50e13cde80387ddac0958e557369211be4b9b33d",
                 "shasum": null
             },
             "require": {
@@ -4501,7 +4501,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-20T10:47:33+00:00"
+            "time": "2018-07-24T07:37:50+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
