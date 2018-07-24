@@ -561,7 +561,7 @@ class CourierJsonController extends AbstractActionController
 
     public function fetchShippingLedgerBalanceAction()
     {
-        $organisationUnitId = $this->params()->fromRoute('organisationUnitId');
+        $accountId = $this->params()->fromRoute('account');
         $shippingLedger = $this->shippingLedgerService->fetch($organisationUnitId);
         return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }

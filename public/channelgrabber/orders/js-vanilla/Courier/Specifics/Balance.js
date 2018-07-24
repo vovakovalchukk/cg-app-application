@@ -5,7 +5,7 @@ define([
     MustachePopup,
     ajaxRequester
 ) {
-    function Balance(organisationUnitId)
+    function Balance(organisationUnitId, courierAccountId)
     {
         var popup;
         var init = function()
@@ -30,6 +30,11 @@ define([
             return organisationUnitId;
         };
 
+        this.getCourierAccountId = function()
+        {
+            return courierAccountId;
+        }
+
         this.getAjaxRequester = function()
         {
             return ajaxRequester;
@@ -39,7 +44,7 @@ define([
     }
 
     Balance.SELECTOR_TOPUP_BUTTON = "#top-up-balance-button-shadow";
-    Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL = '/orders/courier/specifics/{{organisationUnitId}}/fetchShippingLedgerBalance';
+    Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL = '/orders/courier/specifics/{{courierAccountId}}/fetchShippingLedgerBalance';
 
     Balance.prototype.listenForTopUpClick = function()
     {
@@ -58,7 +63,7 @@ define([
             "organisationUnitId": this.getOrganisationUnitId()
         };
 
-        var uri = Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL.replace('{{organisationUnitId}}', data.organisationUnitId);
+        var uri = Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL.replace('{{courierAccountId}}', this.getCourierAccountId());
 
         this.getAjaxRequester().sendRequest(uri, data, self.showPopup, self.fail, self);
     };

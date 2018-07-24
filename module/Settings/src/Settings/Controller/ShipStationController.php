@@ -36,7 +36,7 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
     protected function getShippingLedgerTopUpView(ShippingLedger $shippingLedger, Account $account)
     {
         $config = [
-            'organisationUnitId' => $account->getId(),
+            'accountId' => $account->getId(),
             'showStatus' => true,
             'shippingLedgerBalance' => [
                 'balance' => $shippingLedger->getBalance(),
