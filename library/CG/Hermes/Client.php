@@ -8,6 +8,9 @@ use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Message\Response as GuzzleResponse;
 use SimpleXMLElement;
 
+/**
+ * Don't use this class directly, use the Client\Factory to generate a correctly configured version of this class.
+ */
 class Client implements LoggerAwareInterface
 {
     use LogTrait;
@@ -16,15 +19,18 @@ class Client implements LoggerAwareInterface
 
     /** @var GuzzleClient */
     protected $guzzleClient;
+    /** @var CourierAdapterAccount  */
+    protected $account;
 
-    public function __construct(GuzzleClient $guzzleClient)
+    public function __construct(GuzzleClient $guzzleClient, CourierAdapterAccount $account)
     {
         $this->guzzleClient = $guzzleClient;
+        $this->account = $account;
     }
 
-    public function sendRequest(RequestInterface $request, CourierAdapterAccount $account)
+    public function sendRequest(RequestInterface $request)
     {
-        $guzzleRequest = $this->createGuzzleRequest($request, $account);
+        $guzzleRequest = $this->createGuzzleRequest($request);
         $this->logInfo(str_replace('%', '%%', (string)$guzzleRequest), [], [static::LOG_CODE, 'Request']);
         try {
             $httpResponse = $guzzleRequest->send();
@@ -37,19 +43,19 @@ class Client implements LoggerAwareInterface
         }
     }
 
-    protected function createGuzzleRequest(RequestInterface $request, CourierAdapterAccount $account)
+    protected function createGuzzleRequest(RequestInterface $request)
     {
         return $this->guzzleClient->createRequest(
             $request->getMethod(),
             $request->getUri(),
-            $this->getRequestHeaders($account),
+            $this->getRequestHeaders(),
             $request->asXML()
         );
     }
 
-    protected function getRequestHeaders(CourierAdapterAccount $account)
+    protected function getRequestHeaders()
     {
-        $credentials = $account->getCredentials();
+        $credentials = $this->account->getCredentials();
         return [
             'Content-Type' => 'text/xml',
             'Authorization' => 'Basic ' . base64_encode($credentials['username'].':'.$credentials['password']),
