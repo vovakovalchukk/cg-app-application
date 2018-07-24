@@ -260,8 +260,8 @@ class CourierController extends AbstractActionController
         $provider = $this->carrierProviderServiceRepository->getProviderForAccount($selectedCourier);
         if ($provider instanceof FetchRatesInterface) {
             $view->addChild(
-                $this->getAccountBalanceSection($this->shippingLedgerService->fetch($selectedCourier->getRootOrganisationUnitId())),
-                'accountBalanceSection');
+                $this->getShippingLedgerBalanceSection($this->shippingLedgerService->fetch($selectedCourier->getRootOrganisationUnitId())),
+                'shippingBalanceSection');
         }
 
         return $view;
@@ -469,7 +469,7 @@ class CourierController extends AbstractActionController
         return $view;
     }
 
-    protected function getAccountBalanceSection(ShippingLedger $shippingLedger)
+    protected function getShippingLedgerBalanceSection(ShippingLedger $shippingLedger)
     {
         $view = $this->viewModelFactory->newInstance([
             'accountId' => $shippingLedger->getOrganisationUnitId(),
