@@ -30,15 +30,15 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
         $shippingLedger = $this->shippingLedgerService->fetch($account->getRootOrganisationUnitId());
         $view->setVariables([
             'clearbooksStatementUrl' => $shippingLedger->getClearbooksStatementUrl()
-        ])->addChild($this->getAccountTopUpView($shippingLedger, $account), 'accountTopUp');
+        ])->addChild($this->getShippingLedgerTopUpView($shippingLedger, $account), 'shippingLedgerTopUp');
     }
 
-    protected function getAccountTopUpView(ShippingLedger $shippingLedger, Account $account)
+    protected function getShippingLedgerTopUpView(ShippingLedger $shippingLedger, Account $account)
     {
         $config = [
-            'accountId' => $account->getId(),
+            'organisationUnitId' => $account->getId(),
             'showStatus' => true,
-            'accountBalance' => [
+            'shippingLedgerBalance' => [
                 'balance' => $shippingLedger->getBalance(),
                 'topUpAmount' => 100,
                 'currencySymbol' => '$',
@@ -57,6 +57,6 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
             ]
         ];
 
-        return $this->viewModelFactory->newInstance($config)->setTemplate('accountTopUp.mustache');
+        return $this->viewModelFactory->newInstance($config)->setTemplate('shippingLedgerTopUp.mustache');
     }
 }

@@ -12,7 +12,7 @@ define([
         {
             popup = new MustachePopup(
                 {
-                    'popup': '/cg-built/shipstation/template/accountTopUp.mustache',
+                    'popup': '/cg-built/shipstation/template/shippingLedgerTopUp.mustache',
                     'elements/toggle.mustache': '/cg-built/zf2-v4-ui/templates/elements/toggle.mustache',
                     'elements/tooltip.mustache': '/cg-built/zf2-v4-ui/templates/elements/tooltip.mustache'
                 }

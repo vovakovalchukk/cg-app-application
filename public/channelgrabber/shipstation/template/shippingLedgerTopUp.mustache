@@ -4,7 +4,7 @@
             <div class="header-large">{{title}}</div>
         </div>
     {{/title}}
-    {{# accountBalance}}
+    {{# shippingLedgerBalance}}
     <div class="clearfix balance">
         <span class="heading-large">Please note that postage purchases are made with USPS and are non-refundable</span>
         <div class="status">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <button id="topUp" name="topUp" class="button inline account-topup pull-left">Purchase {{currencySymbol}}{{topUpAmount}} credit</button>
-    {{/accountBalance}}
+    {{/shippingLedgerBalance}}
     {{#autoTopUp}}
     <div class="top-up-holder">
         <span class="inputbox-label">Auto Top-up:</span>
@@ -34,7 +34,7 @@
     require(['/cg-built/shipstation/js/Account/Settings.js'], function(Settings)
     {
         $(document).ready(function() {
-            new Settings({"accountId": {{accountId}}});
+            new Settings({"organisationUnitId": {{organisationUnitId}}});
         });
     });
 </script>
