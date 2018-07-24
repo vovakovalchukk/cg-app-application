@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f403a77b90b1dddc1ca53f60f22f72a",
+    "content-hash": "6910bd793ab458b185472ab9089c018d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -455,16 +455,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-8543-CustomStatusPage",
+            "version": "1.16.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "48642388f32f26961ef177ce28e7d7ef843db646"
+                "reference": "b4821e8e6d108968d52207f1cfeeaae6a5e8dd01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-8543-CustomStatusPage-1f0fd2.zip",
-                "reference": "48642388f32f26961ef177ce28e7d7ef843db646",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.4-cb0ff4.zip",
+                "reference": "b4821e8e6d108968d52207f1cfeeaae6a5e8dd01",
                 "shasum": null
             },
             "require": {
@@ -514,7 +514,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-24T13:37:04+00:00"
+            "time": "2018-07-24T14:08:27+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -4361,16 +4361,16 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "dev-CGIV-8543-CustomStatusPage",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "58b6184d3d1ba2a533b12fb9f11860dc62a320ae"
+                "reference": "cba55f6a7adb65f316235e74b7bc959716f4385a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-8543-CustomStatusPage-082892.zip",
-                "reference": "58b6184d3d1ba2a533b12fb9f11860dc62a320ae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.3.1-853d26.zip",
+                "reference": "cba55f6a7adb65f316235e74b7bc959716f4385a",
                 "shasum": null
             },
             "require": {
@@ -4401,7 +4401,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-18T15:21:01+00:00"
+            "time": "2018-07-24T14:08:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -8403,7 +8403,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8458,7 +8458,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8513,7 +8513,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8564,7 +8564,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8650,7 +8650,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9947,25 +9947,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.3",
-            "alias_normalized": "1.16.3.0",
-            "version": "dev-CGIV-8543-CustomStatusPage",
-            "package": "channelgrabber/cglib"
-        },
-        {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
-            "version": "dev-CGIV-8543-CustomStatusPage",
-            "package": "channelgrabber/zf2-stdlib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-stdlib": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
