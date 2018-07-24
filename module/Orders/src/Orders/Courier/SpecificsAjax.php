@@ -3,6 +3,8 @@ namespace Orders\Courier;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shipping\Service as AccountService;
+use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as CarrierServiceProviderFetchRatesInterface;
@@ -60,6 +62,8 @@ class SpecificsAjax
     protected $productDetailService;
     /** @var Service */
     protected $courierService;
+    /** @var ShippingLedgerService */
+    protected $shippingLedgerService;
 
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment', 'deliveryExperience'];
@@ -72,7 +76,8 @@ class SpecificsAjax
         OrderLabelStorage $orderLabelStorage,
         CarrierServiceProviderRepository $carrierServiceProviderRepository,
         ProductDetailService $productDetailService,
-        Service $courierService
+        Service $courierService,
+        ShippingLedgerService $shippingLedgerService
     ) {
         $this->orderService = $orderService;
         $this->accountService = $accountService;
@@ -82,6 +87,7 @@ class SpecificsAjax
         $this->carrierServiceProviderRepository = $carrierServiceProviderRepository;
         $this->productDetailService = $productDetailService;
         $this->courierService = $courierService;
+        $this->shippingLedgerService = $shippingLedgerService;
     }
 
     public function getSpecificsListData(
@@ -503,6 +509,12 @@ class SpecificsAjax
         $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         return $this->courierService->getCarrierOptionsProvider($account)
             ->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu, $productDetails);
+    }
+
+    public function getShippingLedgerForActiveUser(): ShippingLedger
+    {
+        $rootOuId = $this->userOuService->getActiveUser()->getRootOuId();
+        return $this->shippingLedgerService->fetch($rootOuId);
     }
 
     protected function getCarrierServiceProvider(Account $account)

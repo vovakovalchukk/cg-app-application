@@ -19,7 +19,6 @@ use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\ReviewAjax as ReviewAjaxService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 
 class CourierJsonController extends AbstractActionController
 {
@@ -71,8 +70,6 @@ class CourierJsonController extends AbstractActionController
     protected $manifestService;
     /** @var RatesService */
     protected $ratesService;
-    /** @var ShippingLedgerService */
-    protected $shippingLedgerService;
 
     protected $errorMessageMap = [
     ];
@@ -87,8 +84,7 @@ class CourierJsonController extends AbstractActionController
         LabelReadyService $labelReadyService,
         LabelDispatchService $labelDispatchService,
         ManifestService $manifestService,
-        RatesService $ratesService,
-        ShippingLedgerService $shippingLedgerService
+        RatesService $ratesService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
@@ -100,7 +96,6 @@ class CourierJsonController extends AbstractActionController
         $this->labelReadyService = $labelReadyService;
         $this->manifestService = $manifestService;
         $this->ratesService = $ratesService;
-        $this->shippingLedgerService = $shippingLedgerService;
     }
 
     public function servicesOptionsAction()
@@ -561,8 +556,7 @@ class CourierJsonController extends AbstractActionController
 
     public function fetchShippingLedgerBalanceAction()
     {
-        $accountId = $this->params()->fromRoute('account');
-        $shippingLedger = $this->shippingLedgerService->fetch($organisationUnitId);
+        $shippingLedger = $this->specificsAjaxService->getShippingLedgerForActiveUser();
         return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }
 }
