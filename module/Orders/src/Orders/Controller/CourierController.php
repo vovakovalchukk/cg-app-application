@@ -261,7 +261,7 @@ class CourierController extends AbstractActionController
         if ($provider instanceof FetchRatesInterface) {
             $view->addChild(
                 $this->getShippingLedgerBalanceSection($this->shippingLedgerService->fetch($selectedCourier->getRootOrganisationUnitId())),
-                'shippingBalanceSection');
+                'shippingLedgerBalanceSection');
         }
 
         return $view;
