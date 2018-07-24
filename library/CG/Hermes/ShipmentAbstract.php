@@ -5,15 +5,18 @@ use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\LabelInterface;
+use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
+use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use DateTime;
 
 abstract class ShipmentAbstract implements
-     ShipmentInterface,
-     DeliveryInstructionsInterface,
-     CollectionDateInterface
+    ShipmentInterface,
+    DeliveryInstructionsInterface,
+    CollectionDateInterface,
+    PackagesInterface
 {
     /** @var string */
     protected $customerReference;
@@ -25,6 +28,8 @@ abstract class ShipmentAbstract implements
     protected $deliveryInstructions;
     /** @var DateTime */
     protected $collectionDate;
+    /** @var PackageInterface[] */
+    protected $packages;
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
      /** @var string */
@@ -40,6 +45,7 @@ abstract class ShipmentAbstract implements
         AddressInterface $deliveryAddress,
         string $deliveryInstructions,
         DateTime $collectionDate,
+        array $packages,
         DeliveryServiceInterface $deliveryService
     ) {
         $this->customerReference = $customerReference;
@@ -47,10 +53,20 @@ abstract class ShipmentAbstract implements
         $this->deliveryAddress = $deliveryAddress;
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
+        $this->packages = $packages;
         $this->deliveryService = $deliveryService;
     }
 
     abstract public static function fromArray(array $array): ShipmentAbstract;
+    /**
+     * @inheritdoc
+     */
+    abstract public static function getPackageClass();
+
+    /**
+     * @inheritdoc
+     */
+    abstract public static function createPackage(array $packageDetails);
 
     /**
      * @inheritdoc
@@ -107,6 +123,14 @@ abstract class ShipmentAbstract implements
      {
          return $this->collectionDate;
      }
+
+    /**
+     * @inheritdoc
+     */
+    public function getPackages()
+    {
+        return $this->packages;
+    }
 
      /**
       * @inheritdoc

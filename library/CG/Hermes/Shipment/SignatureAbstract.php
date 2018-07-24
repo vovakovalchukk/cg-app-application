@@ -7,7 +7,7 @@ use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\Hermes\ShipmentAbstract;
 
-class Signature extends ShipmentAbstract implements SignatureRequiredInterface
+abstract class SignatureAbstract extends ShipmentAbstract implements SignatureRequiredInterface
 {
     /** @var bool */
     protected $signatureRequired;

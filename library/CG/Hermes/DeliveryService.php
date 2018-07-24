@@ -99,7 +99,7 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function getShipmentClass()
     {
-        // To be implemented in TAC-172
+        // TODO: use a factory to decide the shipment class based on from and to addresses
     }
 
     /**
