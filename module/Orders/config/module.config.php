@@ -884,13 +884,13 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
-                                    CourierJsonController::ROUTE_SPECIFICS_FETCH_ACCOUNT_BALANCE => [
+                                    CourierJsonController::ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-                                            'route' => '/fetchAccountBalance',
+                                            'route' => '/fetchShippingLedgerBalance',
                                             'defaults' => [
                                                 'controller' => CourierJsonController::class,
-                                                'action' => 'fetchAccountBalance',
+                                                'action' => 'fetchShippingLedgerBalance',
                                             ]
                                         ],
                                         'may_terminate' => true,

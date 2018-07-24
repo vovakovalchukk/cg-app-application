@@ -32,7 +32,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_OPTIONS = 'Options';
     const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
-    const ROUTE_SPECIFICS_FETCH_ACCOUNT_BALANCE = 'Fetch Account Balance';
+    const ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE = 'Fetch Shipping Ledger Balance';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
@@ -559,10 +559,10 @@ class CourierJsonController extends AbstractActionController
         return $this->jsonModelFactory->newInstance(['rates' => $rates->toArray()]);
     }
 
-    public function fetchAccountBalanceAction()
+    public function fetchShippingLedgerBalanceAction()
     {
-        $accountId = $this->params()->fromRoute('account');
-        $shippingLedger = $this->shippingLedgerService->fetch($accountId);
+        $organisationUnitId = $this->params()->fromRoute('organisationUnitId');
+        $shippingLedger = $this->shippingLedgerService->fetch($organisationUnitId);
         return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }
 }
