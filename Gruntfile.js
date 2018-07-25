@@ -67,7 +67,6 @@ module.exports = function(grunt) {
                         src: [
                             '**/dist/**/*.min.js',
                             '**/umd/**/*.min.js',
-                            'react-virtualized/dist/umd/**/*.js',
                             'cg-*/dist/**/*.js'
                         ],
                         dest: 'public/cg-built/vendor'
