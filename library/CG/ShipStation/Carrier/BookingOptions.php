@@ -55,11 +55,12 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         }
 
         $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
-        // What do we do here if we only get one package type? it might not be suitable
-
         $potentialPackageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
-
         $packageTypes = $this->restrictPackageTypesByItemRequirements($order, $productDetails, $potentialPackageTypes);
+
+        if (!count($packageTypes) > 0) {
+            return [$this->packageTypeService::USPS_DEFAULT_PACKAGE_TYPE];
+        }
 
         return array_keys($packageTypes->getIds());
     }
@@ -98,12 +99,12 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         return 'Create all label';
     }
 
-    protected function getPossiblePackageTypesForService(string $service): ?PackageTypeCollection
+    protected function getPossiblePackageTypesForService(string $service): PackageTypeCollection
     {
         return $this->packageTypeService->getPackageTypesForService($service);
     }
 
-    public function restrictPackageTypesByLocalityOfOrder(OrderEntity $order, PackageTypeCollection $packageCollection): ?PackageTypeCollection
+    public function restrictPackageTypesByLocalityOfOrder(OrderEntity $order, PackageTypeCollection $packageCollection): PackageTypeCollection
     {
         $countryCode = $order->getShippingAddressCountryCodeForCourier();
         if ($this->isShippingCountryDomestic($countryCode)) {
@@ -118,14 +119,14 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         return ($countryCode == 'IE');
     }
 
-    protected function restrictPackageTypesByItemRequirements(OrderEntity $order, ProductDetailCollection $productDetails, PackageTypeCollection $packageCollection)
+    protected function restrictPackageTypesByItemRequirements(OrderEntity $order, ProductDetailCollection $productDetails, PackageTypeCollection $packageTypeCollection)
     {
         $product = $productDetails->getFirst();
-        foreach ($packageCollection as $potentialPackage) {
-            if (!$this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackage, $product)) {
-                $packageCollection->detach($potentialPackage);
+        foreach ($packageTypeCollection as $potentialPackageType) {
+            if (!$this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackageType, $product)) {
+                $packageTypeCollection->detach($potentialPackageType);
             }
         }
-        return $packageCollection;
+        return $packageTypeCollection;
     }
 }
