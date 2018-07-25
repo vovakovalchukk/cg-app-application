@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfa31d0502530ea6362941fb71c07f03",
+    "content-hash": "c8afda905d7e37ba4782dc583e9e65be",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4448,16 +4448,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.11",
+            "version": "dev-TAC-170-add-hermes-courier",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6cc98e270e4a8e3022eaf01fe1a39dd3f82418bc"
+                "reference": "91e2706bc4e9596f62c07f875f2249d6e611091f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.11-bb2176.zip",
-                "reference": "6cc98e270e4a8e3022eaf01fe1a39dd3f82418bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-170-add-hermes-courier-d26868.zip",
+                "reference": "91e2706bc4e9596f62c07f875f2249d6e611091f",
                 "shasum": null
             },
             "require": {
@@ -4509,7 +4509,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-17T15:35:25+00:00"
+            "time": "2018-07-25T08:11:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9947,10 +9947,18 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.23.12",
+            "alias_normalized": "1.23.12.0",
+            "version": "dev-TAC-170-add-hermes-courier",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
