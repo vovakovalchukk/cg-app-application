@@ -116,7 +116,7 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
 
     protected function isShippingCountryDomestic($countryCode)
     {
-        return ($countryCode == 'IE');
+        return ($countryCode == 'US');
     }
 
     protected function restrictPackageTypesByItemRequirements(OrderEntity $order, ProductDetailCollection $productDetails, PackageTypeCollection $packageTypeCollection)
