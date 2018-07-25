@@ -7,6 +7,10 @@ use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 
 try {
+    if (extension_loaded('newrelic')) {
+        newrelic_name_transaction('status');
+    }
+
     $statusCode = 200;
 
     require_once __DIR__.'/../application/bootstrap.php';
