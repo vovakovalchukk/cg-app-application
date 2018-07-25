@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8afda905d7e37ba4782dc583e9e65be",
+    "content-hash": "d10d53d69fa603e696989f2a2dfdc578",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -749,16 +749,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.30",
+            "version": "dev-TAC-170-add-hermes-courier",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c"
+                "reference": "70f1cf52126c0d08a04fc6faeacd6506002b839a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.30-b6a566.zip",
-                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-170-add-hermes-courier-919bc1.zip",
+                "reference": "70f1cf52126c0d08a04fc6faeacd6506002b839a",
                 "shasum": null
             },
             "require": {
@@ -790,7 +790,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-17T13:49:38+00:00"
+            "time": "2018-07-25T12:38:33+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -799,6 +799,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
                 "reference": "eb1129a484b1a392855c9023e530c3f359cd4aaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-170-add-hermes-courier-8ea9aa.zip",
+                "reference": "eb1129a484b1a392855c9023e530c3f359cd4aaf",
+                "shasum": null
             },
             "require": {
                 "psr/log": "^1.0",
@@ -817,7 +823,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-04-04T11:51:33+00:00"
+            "time": "2018-07-25T11:15:39+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -9943,6 +9949,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.31",
+            "alias_normalized": "1.0.31.0",
+            "version": "dev-TAC-170-add-hermes-courier",
+            "package": "channelgrabber/courier"
+        },
+        {
             "alias": "1.2.1",
             "alias_normalized": "1.2.1.0",
             "version": "dev-TAC-170-add-hermes-courier",
@@ -9958,11 +9970,12 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
