@@ -3,7 +3,7 @@
 
 define([
     'react',
-    'fixed-data-table',
+    // 'fixed-data-table',
     'Product/Components/Search',
     'Product/Filter/Entity',
     'Product/Components/Footer',
@@ -13,9 +13,10 @@ define([
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
     'Product/Components/CreateListing/Root',
+    'Product/Components/ProductList/Root',
 ], function(
     React,
-    FixedDataTable,
+    // FixedDataTable,
     SearchBox,
     ProductFilter,
     ProductFooter,
@@ -24,7 +25,8 @@ define([
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
-    CreateListingRoot
+    CreateListingRoot,
+    ProductListRoot
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -33,11 +35,11 @@ define([
     const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-
-    const Cell = FixedDataTable.Cell;
-    const Table = FixedDataTable.Table;
-    const Column = FixedDataTable.Column;
-    
+    //
+    // const Cell = FixedDataTable.Cell;
+    // const Table = FixedDataTable.Table;
+    // const Column = FixedDataTable.Column;
+    //
     let TextCell = React.createClass({
         render:function(){
             console.log('in text cell render class data: ' , data, ' field ', field);
@@ -96,11 +98,11 @@ define([
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
-                pagination: {
-                    total: 0,
-                    limit: 0,
-                    page: 0
-                },
+                // pagination: {
+                //     total: 0,
+                //     limit: 0,
+                //     page: 0
+                // },
                 fetchingUpdatedStockLevelsForSkus: {},
                 accounts: {},
                 createListing: {
@@ -407,38 +409,38 @@ define([
                 ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
             }
         },
-        renderSearchBox: function() {
-            if (this.props.searchAvailable) {
-                return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
-                                  submitCallback={this.filterBySearch}/>
-            }
-        },
-        renderAddNewProductButton: function() {
-            return (
-                <div className=" navbar-strip--push-up-fix ">
-                        <span className="navbar-strip__button " onClick={this.addNewProductButtonClick}>
-                            <span className="fa-plus left icon icon--medium navbar-strip__button__icon">&nbsp;</span>
-                            <span className="navbar-strip__button__text">Add</span>
-                        </span>
-                </div>
-            )
-        },
+        // renderSearchBox: function() {
+        //     if (this.props.searchAvailable) {
+        //         return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
+        //                           submitCallback={this.filterBySearch}/>
+        //     }
+        // },
+        // renderAddNewProductButton: function() {
+        //     return (
+        //         <div className=" navbar-strip--push-up-fix ">
+        //                 <span className="navbar-strip__button " onClick={this.addNewProductButtonClick}>
+        //                     <span className="fa-plus left icon icon--medium navbar-strip__button__icon">&nbsp;</span>
+        //                     <span className="navbar-strip__button__text">Add</span>
+        //                 </span>
+        //         </div>
+        //     )
+        // },
         
-        getList: function(){
-            let rowCount = 50;
-            //todo - replace this dummy data with something significant
-            return Array(rowCount).fill().map((val, i) => {
-                return {
-                    id: i,
-                    image: 'http://via.placeholder.com/40',
-                    link: 'https://app.dev.orderhub.io/products',
-                    sku:'sku '+i,
-                    name: 'Product Name '+i,
-                    available:0,
-                    text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
-                }
-            });
-        },
+        // getList: function(){
+        //     let rowCount = 50;
+        //     //todo - replace this dummy data with something significant
+        //     return Array(rowCount).fill().map((val, i) => {
+        //         return {
+        //             id: i,
+        //             image: 'http://via.placeholder.com/40',
+        //             link: 'https://app.dev.orderhub.io/products',
+        //             sku:'sku '+i,
+        //             name: 'Product Name '+i,
+        //             available:0,
+        //             text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
+        //         }
+        //     });
+        // },
         
         renderAccountSelectionPopup: function() {
             var CreateListingRootComponent = CreateListingRoot(
@@ -482,75 +484,75 @@ define([
                 lengthUnit={this.props.lengthUnit}
             />;
         },
-        renderProducts: function() {
-            // if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
-            //     return (
-            //         <div className="no-products-message-holder">
-            //             <span className="sprite-noproducts"></span>
-            //             <div className="message-holder">
-            //                 <span className="heading-large">No Products to Display</span>
-            //                 <span className="message">Please Search or Filter</span>
-            //             </div>
-            //         </div>
-            //     );
-            // }
-            let rows = this.getList();
-            // return {
-            //     id: i,
-            //     image: 'http://via.placeholder.com/40',
-            //     link: 'https://app.dev.orderhub.io/products',
-            //     sku:'sku '+i,
-            //     name: 'Product Name '+i,
-            //     available:0,
-            //     text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
-            // }
-            return (
-                <Table
-                    rowHeight={50}
-                    rowsCount={rows.length}
-                    width={1000}
-                    height={400}
-                    headerHeight={50}
-                    data={rows}
-                    rowGetter={(index)=>{
-                        return rows[index];
-                    }}
-                    footerHeight={0}
-                    groupHeaderHeight={0}
-                    showScrollbarX={true}
-                    showScrollbarY={true}
-                >
-                    <Column
-                        columnKey="id"
-                        width={300}
-                        label="id"
-                        header={<Cell> id head </Cell>}
-                        cell={ props => {
-                            return(
-                                <Cell>
-                                    {props.rowIndex}
-                                </Cell>
-                            );
-                        }}
-                    />
-                    <Column
-                        columnKey="sku"
-                        width={300}
-                        label="sku"
-                        header={<Cell> sku head </Cell>}
-                        cell={ props => {
-                            return(
-                                <Cell>
-                                    {rows[props.rowIndex][props.columnKey]}
-                                </Cell>
-                            );
-                        }}
-                    />
-                </Table>
-            )
-        
-        
-        },
+        // renderProducts: function() {
+        //     // if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
+        //     //     return (
+        //     //         <div className="no-products-message-holder">
+        //     //             <span className="sprite-noproducts"></span>
+        //     //             <div className="message-holder">
+        //     //                 <span className="heading-large">No Products to Display</span>
+        //     //                 <span className="message">Please Search or Filter</span>
+        //     //             </div>
+        //     //         </div>
+        //     //     );
+        //     // }
+        //     let rows = this.getList();
+        //     // return {
+        //     //     id: i,
+        //     //     image: 'http://via.placeholder.com/40',
+        //     //     link: 'https://app.dev.orderhub.io/products',
+        //     //     sku:'sku '+i,
+        //     //     name: 'Product Name '+i,
+        //     //     available:0,
+        //     //     text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
+        //     // }
+        //     return (
+        //         <Table
+        //             rowHeight={50}
+        //             rowsCount={rows.length}
+        //             width={1000}
+        //             height={400}
+        //             headerHeight={50}
+        //             data={rows}
+        //             rowGetter={(index)=>{
+        //                 return rows[index];
+        //             }}
+        //             footerHeight={0}
+        //             groupHeaderHeight={0}
+        //             showScrollbarX={true}
+        //             showScrollbarY={true}
+        //         >
+        //             <Column
+        //                 columnKey="id"
+        //                 width={300}
+        //                 label="id"
+        //                 header={<Cell> id head </Cell>}
+        //                 cell={ props => {
+        //                     return(
+        //                         <Cell>
+        //                             {props.rowIndex}
+        //                         </Cell>
+        //                     );
+        //                 }}
+        //             />
+        //             <Column
+        //                 columnKey="sku"
+        //                 width={300}
+        //                 label="sku"
+        //                 header={<Cell> sku head </Cell>}
+        //                 cell={ props => {
+        //                     return(
+        //                         <Cell>
+        //                             {rows[props.rowIndex][props.columnKey]}
+        //                         </Cell>
+        //                     );
+        //                 }}
+        //             />
+        //         </Table>
+        //     )
+        //
+        //
+        // },
         formatConditionOptions: function() {
             var options = [];
             for (var value in this.props.conditionOptions) {
@@ -578,25 +580,36 @@ define([
             />
         },
         renderProductListView: function() {
-            return (
-                <div id='products-app'>
-                    {this.renderSearchBox()}
-                    {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
-
-                    <div className='products-list__container'>
-                        <div id="products-list">
-                            {this.renderProducts()}
-                        </div>
-                        <ProductLinkEditor
-                            productLink={this.state.editingProductLink}
-                            onEditorClose={this.onProductLinksEditorClose}
-                            fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
-                        />
-                        {(this.state.products.length ?
-                            <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
-                    </div>
-                </div>
-            );
+            // return (
+            //     <div id='products-app'>
+            //         {this.renderSearchBox()}
+            //         {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
+            //
+            //         <div className='products-list__container'>
+            //             <div id="products-list">
+            //                 {this.renderProducts()}
+            //             </div>
+            //             <ProductLinkEditor
+            //                 productLink={this.state.editingProductLink}
+            //                 onEditorClose={this.onProductLinksEditorClose}
+            //                 fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+            //             />
+            //             {(this.state.products.length ?
+            //                 <ProductFooter pagination={this.state.pagination} onPageChange={this.onPageChange}/> : '')}
+            //         </div>
+            //     </div>
+            // );
+            
+            
+            return(
+                <ProductListRoot
+                
+                    products={this.state.products}
+                    features={this.props.features}
+                    addNewProductButtonClick={this.addNewProductButtonClick}
+                />
+            )
+            
         },
         render: function() {
             var viewRenderers = this.getViewRenderers();
