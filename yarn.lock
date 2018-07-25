@@ -1287,6 +1287,10 @@ electron-to-chromium@^1.3.18:
   version "1.3.22"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.22.tgz#4322d52c151406e3eaef74ad02676883e8416418"
 
+element-resize-event@^2.0.4:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/element-resize-event/-/element-resize-event-2.0.9.tgz#2f5e1581a296eb5275210c141bc56342e218f876"
+
 emitter-steward@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/emitter-steward/-/emitter-steward-1.0.0.tgz#f3411ade9758a7565df848b2da0cbbd1b46cbd64"
@@ -2743,6 +2747,12 @@ rc@^1.1.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
+
+react-dimensions@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-dimensions/-/react-dimensions-1.3.1.tgz#89c29bcd48828a74faeb07da1e461e1a354ccc48"
+  dependencies:
+    element-resize-event "^2.0.4"
 
 react-dom@^15.4.2:
   version "15.4.2"
