@@ -32,10 +32,22 @@ $screen-padding: 20px;
 
 .products-list__container {
     margin-top: 50px;
-    background-color: $color-bluegrey;
+    //background-color: $color-bluegrey;
+    background-color: white;
     overflow: hidden;
 }
 
+.products-list__row{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+.products-list__cell{
+    padding:1em;
+}
+
+
+// todo - remove the redundant old classes here
 #products-list {
     width: 100%;
     height: auto;

@@ -9,7 +9,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root'
+    'Product/Components/CreateListing/Root',
 ], function(
     React,
     ReactVirtualized,
@@ -404,27 +404,58 @@ define([
     
         // todo - check for other renderRows
         renderRow({ index, key, style }) {
+            let list = this.list();
+            let row = list[index];
             return (
-                <div key={key} style={style} className="u-display-flex">
-                    <div className="image">
-                        <img src={this.list()[index].image} alt="" />
+                <div key={key} style={style} className="products-list__row">
+                    <div className="products-list__cell">
+                        <div className="products-list__image">
+                            <img src={row.image} alt="" />
+                        </div>
                     </div>
-                    <div className="content">
-                        <div>{this.list()[index].name}</div>
-                        <div>{this.list()[index].text}</div>
+                    <div className="products-list__cell">
+                        {row.sku}
+                    </div>
+                    <div className="products-list__cell">
+                        {row.name}
+                    </div>
+                    <div className="products-list__cell">
+                        {row.available}
+                    </div>
+                    <div className="products-list__cell">
+                        {row.text}
+                    </div>
+                </div>
+            );
+        },
+        
+        renderTabRow: function ({ index, key, style })  {
+            let list = this.list();
+            let row = list[index];
+            return (
+                <div key={key} style={style} className="products-list__row">
+                    <div className="products-list__cell">
+                        tab cell data
+                        {row.sku}
+                    </div>
+                    <div className="products-list__cell">
+                        tab cell data 2
                     </div>
                 </div>
             );
         },
         
         list: function(){
-            let rowCount = 500;
+            let rowCount = 50;
     
             return Array(rowCount).fill().map((val, i) => {
                 return {
                     id: i,
-                    name: 'John Doe '+i,
                     image: 'http://via.placeholder.com/40',
+                    link: 'https://app.dev.orderhub.io/products',
+                    sku:'sku '+i,
+                    name: 'Product Name '+i,
+                    available:0,
                     text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
                 }
             });
@@ -446,16 +477,42 @@ define([
             const listHeight = 600;
             const rowHeight = 50;
             const rowWidth = 800;
-            
-            const ReactVirtualizedList = ReactVirtualized.List;
-            
-            return <ReactVirtualizedList
-                width={rowWidth}
-                height={listHeight}
-                rowHeight={rowHeight}
-                rowRenderer={this.renderRow}
-                rowCount={this.list().length}
-            />
+    
+    
+            return (
+                <ReactVirtualized.ScrollSync>
+                    {({ clientHeight, clientWidth, onScroll, scrollHeight, scrollLeft, scrollTop, scrollWidth}) => (
+                       <div className={'u-display-flex'}>
+                            <div className='LeftColumn'>
+                                <ReactVirtualized.List
+                                    scrollTop={scrollTop}
+                                    onScroll={onScroll}
+    
+                                    width={rowWidth}
+                                    height={listHeight}
+                                    rowHeight={rowHeight}
+                                    rowRenderer={this.renderRow}
+                                    rowCount={this.list().length}
+                                />
+                            </div>
+                            <div className="RightColumn">
+                                <ReactVirtualized.List
+                                    scrollTop={scrollTop}
+
+                                    onScroll={onScroll}
+                                    width={rowWidth}
+                                    height={listHeight}
+                                    rowHeight={rowHeight}
+                                    rowRenderer={this.renderTabRow}
+                                    rowCount={this.list().length}
+                                />
+                            </div>
+                       </div>
+                    )}
+                </ReactVirtualized.ScrollSync>
+                
+    
+            )
             
             
             
