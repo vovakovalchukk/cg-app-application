@@ -32,6 +32,7 @@ define([
             columnKey="image"
             width={300}
             label="image"
+            fixed={true}
             header={<Cell> image head </Cell>}
             cell={props => {
                 return (
