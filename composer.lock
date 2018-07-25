@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.26.3",
+            "version": "1.26.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "513d438ab03c88008fe39add6718f9bf1f3f5a54"
+                "reference": "689d8f7cc6a56da7d9386b1f013ea1c3849a2bd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.26.3-7085aa.zip",
-                "reference": "513d438ab03c88008fe39add6718f9bf1f3f5a54",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.26.9-4c8ba0.zip",
+                "reference": "689d8f7cc6a56da7d9386b1f013ea1c3849a2bd1",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-02-23T14:47:17+00:00"
+            "time": "2018-03-21T11:30:11+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -511,7 +511,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c52fc5d3da6fe7674315d64d5891afe971dd3177"
+                "reference": "a6b2ff61b3ec67b69fbefe24621fc722299e7033"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-245-bigcommerce-listing-creation-2ab36b.zip",
+                "reference": "a6b2ff61b3ec67b69fbefe24621fc722299e7033",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -584,7 +590,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-29T08:21:03+00:00"
+            "time": "2018-05-30T08:03:38+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -736,16 +742,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.29",
+            "version": "1.0.30",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771"
+                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.29-265268.zip",
-                "reference": "f0ace983484d8ba2c8adc97b63127a6e8b8b8771",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.30-b6a566.zip",
+                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c",
                 "shasum": null
             },
             "require": {
@@ -777,7 +783,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-04-04T11:56:59+00:00"
+            "time": "2018-07-17T13:49:38+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -4414,21 +4420,22 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.3",
+            "version": "1.23.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "81d7c5a6491ea50d6b458e47c5249ee9c720087a"
+                "reference": "209377da5562fa6c003a69f28276b45f555bcfab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.3-703cc4.zip",
-                "reference": "81d7c5a6491ea50d6b458e47c5249ee9c720087a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.6-c0dcd6.zip",
+                "reference": "209377da5562fa6c003a69f28276b45f555bcfab",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/feature-flags": "^2.0.1",
@@ -4474,7 +4481,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-05-22T15:22:34+00:00"
+            "time": "2018-06-07T14:45:51+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
