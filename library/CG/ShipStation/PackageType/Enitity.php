@@ -21,7 +21,7 @@ class Entity
     /** @var float */
     protected $width;
 
-    public function __construct(?float $height, ?float $length, ?string $locality, ?string $name, ?string $service, ?string $restrictionType, ?float $weight, ?float $width)
+    public function __construct(?float $height, ?float $length, ?string $locality, ?string $name, ?string $restrictionType, ?string $service, ?float $weight, ?float $width)
     {
         $this->height = $height;
         $this->length = $length;
@@ -38,6 +38,7 @@ class Entity
         return [
             'height' => $this->height,
             'length' => $this->length,
+            'locality' => $this->locality,
             'name' => $this->name,
             'restrictionType' => $this->restrictionType,
             'service' => $this->service,

@@ -57,11 +57,11 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
         // What do we do here if we only get one package type? it might not be suitable
 
-        $potentialPackageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackages);
+        $potentialPackageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
 
-        $packageTypes = $this->restrictPackageTypesByItemRequirements($order, $productDetails, $potentialPackages);
+        $packageTypes = $this->restrictPackageTypesByItemRequirements($order, $productDetails, $potentialPackageTypes);
 
-        return $packageTypes->toArray();
+        return array_keys($packageTypes->getIds());
     }
 
     public function isProvidedAccount(AccountEntity $account)
