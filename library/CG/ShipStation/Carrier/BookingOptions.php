@@ -5,11 +5,12 @@ use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateAllActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface;
-use CG\Order\Shared\Item\Collection as OrderCollection;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\Product\Detail\Entity as ProductDetailEntity;
 use CG\ShipStation\PackageType\Collection as PackageTypeCollection;
+use CG\ShipStation\PackageType\Entity as PackageTypeEntity;
 use CG\ShipStation\PackageType\Service as PackageTypeService;
 
 class BookingOptions implements BookingOptionsInterface, CreateActionDescriptionInterface, CreateAllActionDescriptionInterface
@@ -121,7 +122,10 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
 
     protected function restrictPackageTypesByItemRequirements(OrderEntity $order, ProductDetailCollection $productDetails, PackageTypeCollection $packageTypeCollection)
     {
+        /** @var ProductDetailEntity $product */
         $product = $productDetails->getFirst();
+
+        /** @var PackageTypeEntity $potentialPackageType */
         foreach ($packageTypeCollection as $potentialPackageType) {
             if (!$this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackageType, $product)) {
                 $packageTypeCollection->detach($potentialPackageType);
