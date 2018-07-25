@@ -1,6 +1,9 @@
+// import 'fixed-data-table-2/dist/fixed-data-table.css';
+
+
 define([
     'react',
-    'react-virtualized',
+    'fixed-data-table',
     'Product/Components/Search',
     'Product/Filter/Entity',
     'Product/Components/Footer',
@@ -12,7 +15,7 @@ define([
     'Product/Components/CreateListing/Root',
 ], function(
     React,
-    ReactVirtualized,
+    FixedDataTable,
     SearchBox,
     ProductFilter,
     ProductFooter,
@@ -31,6 +34,25 @@ define([
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 
+    const Cell = FixedDataTable.Cell;
+    const Table = FixedDataTable.Table;
+    const Column = FixedDataTable.Column;
+    
+    let TextCell = React.createClass({
+        render:function(){
+            console.log('in text cell render class data: ' , data, ' field ', field);
+            let data = this.props.data;
+            let field = this.props.field;
+            let rowIndex = this.props.rowIndex;
+            return (
+                <Cell>
+                    in cell
+                    {data[rowIndex][field]}
+                </Cell>
+            )
+        }
+    });
+    //
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
@@ -401,53 +423,10 @@ define([
                 </div>
             )
         },
-    
-        // todo - check for other renderRows
-        renderRow({ index, key, style }) {
-            let list = this.list();
-            let row = list[index];
-            return (
-                <div key={key} style={style} className="products-list__row">
-                    <div className="products-list__cell">
-                        <div className="products-list__image">
-                            <img src={row.image} alt="" />
-                        </div>
-                    </div>
-                    <div className="products-list__cell">
-                        {row.sku}
-                    </div>
-                    <div className="products-list__cell">
-                        {row.name}
-                    </div>
-                    <div className="products-list__cell">
-                        {row.available}
-                    </div>
-                    <div className="products-list__cell">
-                        {row.text}
-                    </div>
-                </div>
-            );
-        },
         
-        renderTabRow: function ({ index, key, style })  {
-            let list = this.list();
-            let row = list[index];
-            return (
-                <div key={key} style={style} className="products-list__row">
-                    <div className="products-list__cell">
-                        tab cell data
-                        {row.sku}
-                    </div>
-                    <div className="products-list__cell">
-                        tab cell data 2
-                    </div>
-                </div>
-            );
-        },
-        
-        list: function(){
+        getList: function(){
             let rowCount = 50;
-    
+            //todo - replace this dummy data with something significant
             return Array(rowCount).fill().map((val, i) => {
                 return {
                     id: i,
@@ -461,84 +440,6 @@ define([
             });
         },
         
-        renderProducts: function() {
-            if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
-                return (
-                    <div className="no-products-message-holder">
-                        <span className="sprite-noproducts"></span>
-                        <div className="message-holder">
-                            <span className="heading-large">No Products to Display</span>
-                            <span className="message">Please Search or Filter</span>
-                        </div>
-                    </div>
-                );
-            }
-    
-            const listHeight = 600;
-            const rowHeight = 50;
-            const rowWidth = 800;
-    
-    
-            return (
-                <ReactVirtualized.ScrollSync>
-                    {({ clientHeight, clientWidth, onScroll, scrollHeight, scrollLeft, scrollTop, scrollWidth}) => (
-                       <div className={'u-display-flex'}>
-                            <div className='LeftColumn'>
-                                <ReactVirtualized.List
-                                    scrollTop={scrollTop}
-                                    onScroll={onScroll}
-    
-                                    width={rowWidth}
-                                    height={listHeight}
-                                    rowHeight={rowHeight}
-                                    rowRenderer={this.renderRow}
-                                    rowCount={this.list().length}
-                                />
-                            </div>
-                            <div className="RightColumn">
-                                <ReactVirtualized.List
-                                    scrollTop={scrollTop}
-
-                                    onScroll={onScroll}
-                                    width={rowWidth}
-                                    height={listHeight}
-                                    rowHeight={rowHeight}
-                                    rowRenderer={this.renderTabRow}
-                                    rowCount={this.list().length}
-                                />
-                            </div>
-                       </div>
-                    )}
-                </ReactVirtualized.ScrollSync>
-                
-    
-            )
-            
-            
-            
-            
-            
-            // return this.state.products.map(function(product) {
-            //     return <ProductRow
-            //         key={product.id}
-            //         product={product}
-            //         variations={this.state.variations[product.id]}
-            //         productLinks={this.state.allProductLinks[product.id]}
-            //         maxVariationAttributes={this.state.maxVariationAttributes}
-            //         maxListingsPerAccount={this.state.maxListingsPerAccount}
-            //         linkedProductsEnabled={this.props.features.linkedProducts}
-            //         fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
-            //         accounts={this.state.accounts}
-            //         onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
-            //         createListingsAllowedChannels={this.state.createListingsAllowedChannels}
-            //         createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
-            //         adminCompanyUrl={this.props.adminCompanyUrl}
-            //         showVAT={this.props.showVAT}
-            //         massUnit={this.props.massUnit}
-            //         lengthUnit={this.props.lengthUnit}
-            //     />;
-            // }.bind(this))
-        },
         renderAccountSelectionPopup: function() {
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
@@ -580,6 +481,75 @@ define([
                 massUnit={this.props.massUnit}
                 lengthUnit={this.props.lengthUnit}
             />;
+        },
+        renderProducts: function() {
+            // if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
+            //     return (
+            //         <div className="no-products-message-holder">
+            //             <span className="sprite-noproducts"></span>
+            //             <div className="message-holder">
+            //                 <span className="heading-large">No Products to Display</span>
+            //                 <span className="message">Please Search or Filter</span>
+            //             </div>
+            //         </div>
+            //     );
+            // }
+            let rows = this.getList();
+            // return {
+            //     id: i,
+            //     image: 'http://via.placeholder.com/40',
+            //     link: 'https://app.dev.orderhub.io/products',
+            //     sku:'sku '+i,
+            //     name: 'Product Name '+i,
+            //     available:0,
+            //     text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
+            // }
+            return (
+                <Table
+                    rowHeight={50}
+                    rowsCount={rows.length}
+                    width={1000}
+                    height={400}
+                    headerHeight={50}
+                    data={rows}
+                    rowGetter={(index)=>{
+                        return rows[index];
+                    }}
+                    footerHeight={0}
+                    groupHeaderHeight={0}
+                    showScrollbarX={true}
+                    showScrollbarY={true}
+                >
+                    <Column
+                        columnKey="id"
+                        width={300}
+                        label="id"
+                        header={<Cell> id head </Cell>}
+                        cell={ props => {
+                            return(
+                                <Cell>
+                                    {props.rowIndex}
+                                </Cell>
+                            );
+                        }}
+                    />
+                    <Column
+                        columnKey="sku"
+                        width={300}
+                        label="sku"
+                        header={<Cell> sku head </Cell>}
+                        cell={ props => {
+                            return(
+                                <Cell>
+                                    {rows[props.rowIndex][props.columnKey]}
+                                </Cell>
+                            );
+                        }}
+                    />
+                </Table>
+            )
+        
+        
         },
         formatConditionOptions: function() {
             var options = [];
