@@ -9,11 +9,15 @@ use CG\Order\Shared\Item\Collection as OrderCollection;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\ShipStation\PackageType\Collection as PackageTypeCollection;
+use CG\ShipStation\PackageType\Service as PackageTypeService;
 
 class BookingOptions implements BookingOptionsInterface, CreateActionDescriptionInterface, CreateAllActionDescriptionInterface
 {
     /** @var Service */
     protected $service;
+    /** @var PackageTypeService */
+    protected $packageTypeService;
 
     protected $courierActionsMap = [
         'usps-ss' => [
@@ -22,9 +26,10 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         ]
     ];
 
-    public function __construct(Service $service)
+    public function __construct(Service $service, PackageTypeService $packageTypeService)
     {
         $this->service = $service;
+        $this->packageTypeService = $packageTypeService;
     }
 
     public function getCarrierBookingOptionsForAccount(AccountEntity $account, $serviceCode = null)
@@ -49,50 +54,14 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             return [];
         }
 
-        return [
-            'Letter' => [
-                'height' => 0.5,
-                'length' => 9.5,
-                'weight' => 70,
-                'width' => 12.5,
-            ],
-            'Large Envelope' => [
-                'weight' => 70,
-                'length' => 35.3,
-                'width' => 25,
-                'height' => 2.5,
-            ],
-            'Package' => [
-                'weight' => 70,
-                'length' => 61,
-                'width' => 46,
-                'height' => 46,
-            ],
-            'Flat Rate Envelope' => [
+        $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
+        // What do we do here if we only get one package type? it might not be suitable
 
-            ],
-            'Flat Rate Padded Envelope' => [
+        $potentialPackageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackages);
 
-            ],
-            'Legal Flat Rate Envelope' => [
+        $packageTypes = $this->restrictPackageTypesByItemRequirements($order, $productDetails, $potentialPackages);
 
-            ],
-            'Small Flat Rate Box' => [
-
-            ],
-            'Medium Flat Rate Box' => [
-
-            ],
-            'Large Flat Rate Box' => [
-
-            ],
-            'Regional Rate Box A' => [
-
-            ],
-            'Regional Rate Box B' => [
-
-            ]
-        ];
+        return $packageTypes->toArray();
     }
 
     public function isProvidedAccount(AccountEntity $account)
@@ -129,48 +98,34 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         return 'Create all label';
     }
 
-    protected function getPackageTypeForOrder(OrderEntity $order, $service, ProductDetailCollection $productDetails)
+    protected function getPossiblePackageTypesForService(string $service): ?PackageTypeCollection
     {
-        /** @var OrderCollection $items */
-        $items = $order->getItems();
-        $items->rewind();
-        $item = $items->current();
-        // No easy way to figure this out for multiple items
-        if ($items->count() > 1 || $item->getItemQuantity() > 1 || $productDetails->count() == 0) {
-            // We need to default to something here
-        }
-        $productDetails->rewind();
-        $productDetail = $productDetails->current();
-        $data = [
-            'service' => $service,
-            'shippingCountryCode' => $order->getShippingAddressCountryCodeForCourier(),
-            'weight' => $productDetail->getWeight(),
-            'height' => $productDetail->getHeight(),
-            'width' => $productDetail->getWidth(),
-            'length' => $productDetail->getLength(),
-        ];
-        return $this->getPackageTypeForListRow($data);
+        return $this->packageTypeService->getPackageTypesForService($service);
     }
 
-    protected function getPackageTypeForListRow(array &$row)
+    public function restrictPackageTypesByLocalityOfOrder(OrderEntity $order, PackageTypeCollection $packageCollection): ?PackageTypeCollection
     {
-        if (isset($row['packageType']) && $row['packageType']) {
-            return $row['packageType'];
-        }
-        if (!isset($row['service']) ||
-            !isset($row['weight'], $row['height'], $row['width'], $row['length']) ||
-            !$row['weight'] || !$row['height'] || !$row['width'] || !$row['length']
-        ) {
-            // Do something default
-        }
-
-        // Domestic and International package type dimensions are different
-        if ($this->isListRowDomestic($row)) {
-            $packageType = DomesticPackageType::getForMeasurements($row['weight'], $row['length'], $row['width'], $row['height']);
+        $countryCode = $order->getShippingAddressCountryCodeForCourier();
+        if ($this->isShippingCountryDomestic($countryCode)) {
+            return $this->packageTypeService->getDomesticPackages($packageCollection);
         } else {
-            $packageType = InternationalPackageType::getForMeasurements($row['weight'], $row['length'], $row['width'], $row['height']);
+            return $this->packageTypeService->getInternationalPackages($packageCollection);
         }
+    }
 
-        return $this->ensurePackageTypeIsAvailableForListRow($row, $packageType);
+    protected function isShippingCountryDomestic($countryCode)
+    {
+        return ($countryCode == 'IE');
+    }
+
+    protected function restrictPackageTypesByItemRequirements(OrderEntity $order, ProductDetailCollection $productDetails, PackageTypeCollection $packageCollection)
+    {
+        $product = $productDetails->getFirst();
+        foreach ($packageCollection as $potentialPackage) {
+            if (!$this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackage, $product)) {
+                $packageCollection->detach($potentialPackage);
+            }
+        }
+        return $packageCollection;
     }
 }
