@@ -8,15 +8,27 @@ class Entity
     protected $height;
     /** @var float */
     protected $length;
+    /** @var string */
+    protected $locality;
+    /** @var string */
+    protected $name;
+    /** @var string */
+    protected $restrictionType;
+    /** @var string */
+    protected $service;
     /** @var float */
     protected $weight;
     /** @var float */
     protected $width;
 
-    public function __construct(?float $height, ?float $length, ?float $weight, ?float $width)
+    public function __construct(?float $height, ?float $length, ?string $locality, ?string $name, ?string $service, ?string $restrictionType, ?float $weight, ?float $width)
     {
         $this->height = $height;
         $this->length = $length;
+        $this->locality = $locality;
+        $this->restrictionType = $restrictionType;
+        $this->service = $service;
+        $this->name = $name;
         $this->weight = $weight;
         $this->width = $width;
     }
@@ -26,9 +38,23 @@ class Entity
         return [
             'height' => $this->height,
             'length' => $this->length,
+            'name' => $this->name,
+            'restrictionType' => $this->restrictionType,
+            'service' => $this->service,
             'weight' => $this->weight,
             'width' => $this->width
         ];
+    }
+
+    public function setName(?string $name): Entity
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     public function setHeight(?float $height): Entity
@@ -48,7 +74,7 @@ class Entity
         return $this;
     }
 
-    public function getLength(): ?null
+    public function getLength(): ?float
     {
         return $this->length;
     }
@@ -73,5 +99,43 @@ class Entity
     public function getWidth(): ?float
     {
         return $this->width;
+    }
+
+    public function setService(?string $service): Entity
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    public function getService(): ?string
+    {
+        return $this->service;
+    }
+
+    // Required by collection
+    public function getId()
+    {
+        return $this->name;
+    }
+
+    public function setLocality(?string $locality): Entity
+    {
+        $this->locality = $locality;
+    }
+
+    public function getLocality(): ?string
+    {
+        return $this->locality;
+    }
+
+    public function setRestrictionType(?string $restrictionType): Entity
+    {
+        $this->restrictionType = $restrictionType;
+        return $this;
+    }
+
+    public function getRestrictionType(): ?string
+    {
+        return $this->restrictionType;
     }
 }
