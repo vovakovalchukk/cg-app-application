@@ -6,6 +6,7 @@ use CG\ShipStation\Carrier\Label\Creator as LabelCreator;
 use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
 use Guzzle\Http\Client as GuzzleClient;
+use CG\ShipStation\PackageType\Service as PackageTypeService;
 
 return [
     'di' => [
@@ -262,6 +263,132 @@ return [
                         'height' => 'height',
                         'width' => 'width',
                         'length' => 'length',
+                    ]
+                ]
+            ],
+            PackageTypeService::class => [
+                'parameters' => [
+                    'packageTypes' => [
+                        'First Class' => [
+                            'Letter' => [
+                                'weight' => 0.09,
+                                'length' => 11.5,
+                                'width' => 6.125,
+                                'height' => 0.25,
+                            ],
+                            'Large Envelope' => [
+                                'weight' => 0.44,
+                                'length' => 15,
+                                'width' => 12,
+                                'height' => 0.75,
+                            ],
+                            'Package' => [
+                                'weight' => 31.75,
+                                'length' => 61,
+                                'width' => 46,
+                                'height' => 46,
+                            ]
+                        ],
+                        'Media' => [
+                            'Letter' => [
+                                'weight' => 0.09,
+                                'length' => 11.5,
+                                'width' => 6.125,
+                                'height' => 0.25,
+                            ],
+                            'Large Envelope' => [
+                                'weight' => 0.44,
+                                'length' => 15,
+                                'width' => 12,
+                                'height' => 0.75,
+                            ],
+                            'Package' => [
+                                'weight' => 31.75,
+                                'length' => 61,
+                                'width' => 46,
+                                'height' => 46,
+                            ]
+                        ],
+                        'Priority' => [
+                            'Letter' => [
+                                'weight' => 0.09,
+                                'length' => 11.5,
+                                'width' => 6.125,
+                                'height' => 0.25,
+                            ],
+                            'Large Envelope' => [
+                                'weight' => 0.44,
+                                'length' => 15,
+                                'width' => 12,
+                                'height' => 0.75,
+                            ],
+                            'Package' => [
+                                'weight' => 31.75,
+                                'length' => 61,
+                                'width' => 46,
+                                'height' => 46,
+                            ],
+                            'Flat Rate Envelope' => [
+                                'weight' => 31.75,
+                                'length' => 12.5,
+                                'width' => 9.5,
+                                'height' => 3, // No height provided, set at reasonable size for envelope
+                            ],
+                            'Flat Rate Padded Envelope' => [
+                                'weight' => 31.75,
+                                'length' => 9.5,
+                                'width' => 12.5,
+                                'height' => 3, // No height provided, set at reasonable size for envelope
+                            ],
+                            'Legal Flat Rate Envelope' => [
+                                'weight' => 31.75,
+                                'length' => 15,
+                                'width' => 9.5,
+                                'height' => 3, // No height provided, set at reasonable size for envelope
+                            ],
+                            'Small Flat Rate Box' => [
+                                'weight' => 31.75,
+                                'length' => 8.625,
+                                'width' => 5.375,
+                                'height' => 1.625,
+                            ],
+                            'Medium Flat Rate Box' => [
+                                'weight' => 31.75,
+                                'length' => 13.625,
+                                'width' => 11.875,
+                                'height' => 3.375,
+                            ],
+                            'Large Flat Rate Box' => [
+                                'weight' => 31.75,
+                                'length' => 12,
+                                'width' => 12,
+                                'height' => 5.5,
+                            ],
+                            'Regional Rate Box A1' => [
+                                'weight' => 6.8,
+                                'length' => 10,
+                                'width' => 7,
+                                'height' => 4.75,
+                            ],
+                            'Regional Rate Box A2' => [
+                                'weight' => 6.8,
+                                'length' => 10.9375,
+                                'width' => 12.8125,
+                                'height' => 2.375,
+                            ],
+                            'Regional Rate Box B1' => [
+                                'weight' => 9,
+                                'length' => 12,
+                                'width' => 10.25,
+                                'height' => 5,
+                            ],
+                            'Regional Rate Box B2' => [
+                                'weight' => 9,
+                                'length' => 15.875,
+                                'width' => 14.375,
+                                'height' => 2.875,
+                            ]
+                        ]
                     ]
                 ]
             ]
