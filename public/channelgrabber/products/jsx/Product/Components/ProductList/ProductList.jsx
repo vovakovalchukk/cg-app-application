@@ -2,13 +2,14 @@ define([
     'react',
     'fixed-data-table',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/Footer'
-
+    'Product/Components/Footer',
+    'Product/Components/ProductList/Service/columnCreator'
 ], function(
     React,
     FixedDataTable,
     ProductLinkEditor,
-    ProductFooter
+    ProductFooter,
+    columnCreator
 ) {
     "use strict";
     
@@ -20,12 +21,12 @@ define([
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
             return {
-                products:[],
-                features:{}
+                products: [],
+                features: {}
             };
         },
-        getInitialState: function(){
-            return{
+        getInitialState: function() {
+            return {
                 pagination: {
                     total: 0,
                     limit: 0,
@@ -60,20 +61,38 @@ define([
                 }
             });
         },
-        getList: function(){
+        getList: function() {
             let rowCount = 50;
             //todo - replace this dummy data with something significant
             return Array(rowCount).fill().map((val, i) => {
                 return {
-                    id: i,
+                    // id: i,
                     image: 'http://via.placeholder.com/40',
                     link: 'https://app.dev.orderhub.io/products',
-                    sku:'sku '+i,
-                    name: 'Product Name '+i,
-                    available:0,
-                    text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
+                    sku: 'sku ' + i,
+                    name: 'Product Name ' + i,
+                    available: 0,
                 }
             });
+        },
+     
+        renderTextColumn: function() {
+        
+        },
+        renderColumns: function(data) {
+            
+            let columnKeys = Object.keys(data[0]);
+            
+            console.log('columnKeys: ', columnKeys);
+            
+            return columnKeys.map( (columnKey,columnIndex) => {
+                    return columnCreator({
+                        data,
+                        columnKey,
+                        columnIndex
+                    });
+                }
+            );
         },
         renderProducts: function() {
             // if (this.props.products.length === 0 && this.state.initialLoadOccurred) {
@@ -87,7 +106,7 @@ define([
             //         </div>
             //     );
             // }
-            let rows = this.getList();
+            let data = this.getList();
             // return {
             //     id: i,
             //     image: 'http://via.placeholder.com/40',
@@ -100,57 +119,32 @@ define([
             return (
                 <Table
                     rowHeight={50}
-                    rowsCount={rows.length}
+                    rowsCount={data.length}
                     width={1000}
                     height={400}
                     headerHeight={50}
-                    data={rows}
-                    rowGetter={(index)=>{
-                        return rows[index];
+                    data={data}
+                    rowGetter={(index) => {
+                        return data[index];
                     }}
                     footerHeight={0}
                     groupHeaderHeight={0}
                     showScrollbarX={true}
                     showScrollbarY={true}
                 >
-                    <Column
-                        columnKey="id"
-                        width={300}
-                        label="id"
-                        header={<Cell> id head </Cell>}
-                        cell={ props => {
-                            return(
-                                <Cell>
-                                    {props.rowIndex}
-                                </Cell>
-                            );
-                        }}
-                    />
-                    <Column
-                        columnKey="sku"
-                        width={300}
-                        label="sku"
-                        header={<Cell> sku head </Cell>}
-                        cell={ props => {
-                            return(
-                                <Cell>
-                                    {rows[props.rowIndex][props.columnKey]}
-                                </Cell>
-                            );
-                        }}
-                    />
+                    {this.renderColumns(data)}
                 </Table>
             )
-        
-        
+            
+            
         },
         render: function() {
-    
+            
             return (
                 <div id='products-app'>
                     {this.renderSearchBox()}
                     {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
-
+                    
                     <div className='products-list__container'>
                         <div id="products-list">
                             {this.renderProducts()}
@@ -161,31 +155,14 @@ define([
                             fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                         />
                         {(this.props.products.length ?
-                            <ProductFooter
-                                pagination={this.state.pagination}
-                                onPageChange={this.onPageChange}
-                            /> : ''
+                                <ProductFooter
+                                    pagination={this.state.pagination}
+                                    onPageChange={this.onPageChange}
+                                /> : ''
                         )}
                     </div>
                 </div>
             );
-            // return (
-            //     <div>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         <br/>
-            //         in the product list app
-            //
-            //     </div>
-            // );
         }
     });
     

@@ -603,7 +603,6 @@ define([
             
             return(
                 <ProductListRoot
-                
                     products={this.state.products}
                     features={this.props.features}
                     addNewProductButtonClick={this.addNewProductButtonClick}
