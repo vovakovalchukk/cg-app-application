@@ -112,4 +112,14 @@ class DeliveryService implements DeliveryServiceInterface
         }
         return in_array($isoAlpha2CountryCode, $this->countries);
     }
+
+    public function isNextDay(): bool
+    {
+        return $this->nextDay;
+    }
+
+    public function getSpecificDay(): ?int
+    {
+        return $this->specificDay;
+    }
 }
