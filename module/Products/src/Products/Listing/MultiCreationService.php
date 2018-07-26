@@ -688,7 +688,7 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         array $productData
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $this->activeUserContainer->getLocale(), $productData);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $productData);
     }
 
     protected function generateCreateVariationListingJobs(
