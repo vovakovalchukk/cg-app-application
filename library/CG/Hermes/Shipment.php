@@ -213,21 +213,27 @@ class Shipment implements
         $this->trackingReferences;
     }
 
-    public function setCourierReference(string $courierReference): ShipmentAbstract
+    public function setCourierReference(string $courierReference): Shipment
     {
         $this->courierReference = $courierReference;
         return $this;
     }
 
-    public function addLabel(LabelInterface $label): ShipmentAbstract
+    public function addLabel(LabelInterface $label): Shipment
     {
         $this->labels[] = $label;
         return $this;
     }
 
-    public function addTrackingReference(string $trackingReference): ShipmentAbstract
+    public function addTrackingReference(string $trackingReference): Shipment
     {
         $this->trackingReferences[] = $trackingReference;
+        return $this;
+    }
+
+    public function setTrackingReferences(array $trackingReferences): Shipment
+    {
+        $this->trackingReferences = $trackingReferences;
         return $this;
     }
 }
