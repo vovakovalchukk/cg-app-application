@@ -18,9 +18,10 @@ require([
         "orderDetails/OrderDetailsPage",
         "tracking/orderTracking",
         "Clipboard",
-        "Orders/ProductPayment"
+        "Orders/ProductPayment",
+        "Common/Components/SafeInput"
     ],
-    function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard, ProductPayment) {
+    function(React, ReactDOM, NoteComponent, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard, ProductPayment, SafeInput) {
         //References to n need to be migrated, it is the notification library
         var existingNotes = <?= $existingNotes ?>;
         var orderId = '<?= $order->getId() ?>';
@@ -30,6 +31,16 @@ require([
         var orderTracking = new OrderTracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, alert, orderTracking);
+
+        ReactDOM.render(
+            React.createElement(SafeInput, {
+                name: 'trackingNumber',
+                initialValue: '54487' //this.getStockModeLevel()
+                //submitCallback: this.updateStockLevel,
+                //disabled: this.shouldInputBeDisabled()
+            }),
+            document.getElementById('trackingNumberColumn')
+        );
 
         var billingClipboard = new Clipboard(
             '#copy-billing-address',

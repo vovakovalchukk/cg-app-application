@@ -32,7 +32,16 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
                 <span class="grid-table-col col-split tracking-no-col">
-                    <?php foreach ($trackings as $tracking){ echo "<span>".$tracking['number']."</span>"; } ?>
+
+                    <div id="trackingNumberColumn"></div>
+
+
+                    <?php foreach ($trackings as $tracking):
+//                        echo "<span>".$tracking['number']."</span>";
+/*                        <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= $tracking['number']; ?>" >*/
+                    ?>
+
+                    <?php endforeach; ?>
                 </span>
                 <span class="grid-table-col action-col">
                     <span class="grid-table-button-holder"><?= $this->printButton; ?></span>
