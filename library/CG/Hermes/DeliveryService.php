@@ -14,13 +14,23 @@ class DeliveryService implements DeliveryServiceInterface
     protected $reference;
     /** @var string */
     protected $displayName;
+    /** @var bool */
+    protected $nextDay;
+    /** @var int|null */
+    protected $specificDay;
     /** @var array|null */
     protected $countries;
     /** @var array|null */
     protected $options;
 
-    public function __construct(string $reference, string $displayName, array $countries = null, array $options = null)
-    {
+    public function __construct(
+        string $reference,
+        string $displayName,
+        bool $nextDay,
+        ?int $specificDay = null,
+        array $countries = null,
+        array $options = null
+    ) {
         $this->reference = $reference;
         $this->displayName = $displayName;
         $this->countries = $countries;
@@ -32,6 +42,8 @@ class DeliveryService implements DeliveryServiceInterface
         return new static(
             $array['reference'],
             $array['displayName'],
+            $array['nextDay'] ?? false,
+            $array['specificDay'] ?? null,
             $array['countries'] ?? null,
             $array['options'] ? DeliveryServiceOption::multipleFromArrayOfArrays($array['options']) : null
         );
