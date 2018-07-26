@@ -87,23 +87,11 @@ class Shipment implements
     }
 
     /**
-     * Create a ShipmentInterface object from an array of details. Allowed values are:
-     * [
-     *     weight => float (optional)
-     *     height => float (optional)
-     *     width => float (optional)
-     *     length => float (optional)
-     *     type => Package\TypeInterface (optional)
-     *     contents => Package\ContentInterface[] (optional)
-     *     number => integer
-     * ]
-     *
-     * @param array $packageDetails
-     * @return PackageInterface
+     * @inheritdoc
      */
     public static function createPackage(array $packageDetails)
     {
-        // To be done in TAC-172
+        return Package::fromArray($packageDetails);
     }
 
     /**

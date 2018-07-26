@@ -71,30 +71,11 @@ class DeliveryService implements DeliveryServiceInterface
     }
 
     /**
-     * Create a ShipmentInterface object from an array of details. Allowed values are:
-     * [
-     *     customerReference => string
-     *     account => Account
-     *     deliveryAddress => AddressInterface
-     *     collectionAddress => AddressInterface (optional)
-     *     collectionDateTime => \DateTime (optional)
-     *     deliveryInstructions => string (optional)
-     *     insuranceRequired => bool (optional)
-     *     insuranceAmount => float (optional)
-     *     insuranceOption => InsuranceOptionInterface (optional)
-     *     packages => PackageInterface[] (optional)
-     *     signatureRequired => bool (optional)
-     *     saturdayDelivery => bool (optional)
-     * ]
-     *
-     * @param array $shipmentDetails
-     * @throws OperationFailed on system error
-     * @throws UserError on invalid shipment data e.g. weight too high or invalid postcode
-     * @return ShipmentInterface
+     * @inheritdoc
      */
     public function createShipment(array $shipmentDetails)
     {
-        // To be implemented in TAC-172
+        return Shipment::fromArray($shipmentDetails);
     }
 
     /**
