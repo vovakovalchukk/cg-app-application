@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfa31d0502530ea6362941fb71c07f03",
+    "content-hash": "d10d53d69fa603e696989f2a2dfdc578",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.1",
+            "version": "1.17.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1"
+                "reference": "34e427f507a2c8c55924fd76a23cdc9023a1a133"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.1-0b66e6.zip",
-                "reference": "7762f04f77d4659878e8d6575ff8099268a1e9b1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.5-c41118.zip",
+                "reference": "34e427f507a2c8c55924fd76a23cdc9023a1a133",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:42:22+00:00"
+            "time": "2018-07-25T10:49:20+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -455,20 +455,20 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.2",
+            "version": "1.16.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "f654abcfd4b5364094561fe8c28f254766715fed"
+                "reference": "3f868a5ff531fbcafc74961c45802e1f6d839a1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.2-3924e4.zip",
-                "reference": "f654abcfd4b5364094561fe8c28f254766715fed",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.5-d1a9de.zip",
+                "reference": "3f868a5ff531fbcafc74961c45802e1f6d839a1e",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.14.0",
+                "channelgrabber/billing": "^1.17.5",
                 "channelgrabber/channel": "^1.32.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.2",
@@ -514,7 +514,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-07T09:15:35+00:00"
+            "time": "2018-07-25T11:01:25+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -749,16 +749,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.30",
+            "version": "dev-TAC-170-add-hermes-courier",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c"
+                "reference": "70f1cf52126c0d08a04fc6faeacd6506002b839a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.30-b6a566.zip",
-                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-170-add-hermes-courier-919bc1.zip",
+                "reference": "70f1cf52126c0d08a04fc6faeacd6506002b839a",
                 "shasum": null
             },
             "require": {
@@ -790,20 +790,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-17T13:49:38+00:00"
+            "time": "2018-07-25T12:38:33+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.2.0",
+            "version": "dev-TAC-170-add-hermes-courier",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf"
+                "reference": "eb1129a484b1a392855c9023e530c3f359cd4aaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.2.0-0d7aae.zip",
-                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-170-add-hermes-courier-8ea9aa.zip",
+                "reference": "eb1129a484b1a392855c9023e530c3f359cd4aaf",
                 "shasum": null
             },
             "require": {
@@ -823,7 +823,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-04-04T11:51:33+00:00"
+            "time": "2018-07-25T11:15:39+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -1393,16 +1393,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.2.8",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "132ff9a822f835a7ed4437f2413a454d7357e187"
+                "reference": "e180c588d7c0bc04d32d3c7d6774f43ee18410cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.8-bd4201.zip",
-                "reference": "132ff9a822f835a7ed4437f2413a454d7357e187",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.9-812ec5.zip",
+                "reference": "e180c588d7c0bc04d32d3c7d6774f43ee18410cb",
                 "shasum": null
             },
             "require": {
@@ -1425,7 +1425,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2018-04-12T08:02:40+00:00"
+            "time": "2018-07-26T08:12:59+00:00"
         },
         {
             "name": "channelgrabber/intercom",
@@ -1833,16 +1833,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.38.9",
+            "version": "1.38.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "528ae361b03a4ea67042197062defaa1337d9e37"
+                "reference": "d97fcc0330b92370c601ecf76dc233cecfd268b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.9-573d66.zip",
-                "reference": "528ae361b03a4ea67042197062defaa1337d9e37",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.10-5e94cf.zip",
+                "reference": "d97fcc0330b92370c601ecf76dc233cecfd268b7",
                 "shasum": null
             },
             "require": {
@@ -1913,20 +1913,20 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-17T13:49:15+00:00"
+            "time": "2018-07-18T13:40:35+00:00"
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1"
+                "reference": "06d9f89c73ba3bcb97d702809ab1eb5d73c08858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.8.1-ecefd5.zip",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.9.0-246ed6.zip",
+                "reference": "06d9f89c73ba3bcb97d702809ab1eb5d73c08858",
                 "shasum": null
             },
             "require": {
@@ -1964,7 +1964,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-23T14:10:54+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3589,20 +3589,20 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb"
+                "reference": "f18f0dd2b029e13908dd94908f4d53cd3cd50d22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.0-cf2b1c.zip",
-                "reference": "be30e18acbe97d78989dce8ff80e7d7fe4eef2fb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.1-6ee9a8.zip",
+                "reference": "f18f0dd2b029e13908dd94908f4d53cd3cd50d22",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.0",
+                "channelgrabber/billing": "^1.17.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.8.0",
@@ -3636,7 +3636,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-06-19T15:37:56+00:00"
+            "time": "2018-07-25T11:01:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -4133,20 +4133,21 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.9",
+            "version": "1.6.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "e80d7cff4f02dee56b2379a22ae389fec553c792"
+                "reference": "b2c88b173db4d11c884d8af5e53a1cf91556312a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.9-634515.zip",
-                "reference": "e80d7cff4f02dee56b2379a22ae389fec553c792",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.10-d2f6fe.zip",
+                "reference": "b2c88b173db4d11c884d8af5e53a1cf91556312a",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/cglib": "^1.13.2",
+                "channelgrabber/billing": "^1.17.5",
+                "channelgrabber/cglib": "^1.16.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.2.0",
                 "channelgrabber/locale": "^1.1.4",
@@ -4181,7 +4182,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-07-16T07:39:28+00:00"
+            "time": "2018-07-25T11:14:03+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4361,16 +4362,16 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "effbf020ab730ac20d64ce3f7a7aa7e5b633b1da"
+                "reference": "cba55f6a7adb65f316235e74b7bc959716f4385a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.3.0-1217fb.zip",
-                "reference": "effbf020ab730ac20d64ce3f7a7aa7e5b633b1da",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.3.1-853d26.zip",
+                "reference": "cba55f6a7adb65f316235e74b7bc959716f4385a",
                 "shasum": null
             },
             "require": {
@@ -4401,7 +4402,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-03T08:18:51+00:00"
+            "time": "2018-07-24T14:08:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -4448,16 +4449,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.11",
+            "version": "dev-TAC-170-add-hermes-courier",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6cc98e270e4a8e3022eaf01fe1a39dd3f82418bc"
+                "reference": "91e2706bc4e9596f62c07f875f2249d6e611091f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.11-bb2176.zip",
-                "reference": "6cc98e270e4a8e3022eaf01fe1a39dd3f82418bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-170-add-hermes-courier-d26868.zip",
+                "reference": "91e2706bc4e9596f62c07f875f2249d6e611091f",
                 "shasum": null
             },
             "require": {
@@ -4509,7 +4510,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-17T15:35:25+00:00"
+            "time": "2018-07-25T08:11:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8403,7 +8404,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8458,7 +8459,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8513,7 +8514,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8564,7 +8565,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8650,7 +8651,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9947,10 +9948,32 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.31",
+            "alias_normalized": "1.0.31.0",
+            "version": "dev-TAC-170-add-hermes-courier",
+            "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
+            "version": "dev-TAC-170-add-hermes-courier",
+            "package": "channelgrabber/courieradapter"
+        },
+        {
+            "alias": "1.23.12",
+            "alias_normalized": "1.23.12.0",
+            "version": "dev-TAC-170-add-hermes-courier",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
+        "channelgrabber/courieradapter": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
