@@ -16,12 +16,6 @@ define([
     var columnCreator = function(creatorObject) {
         const {data, columnKey} = creatorObject;
         let columnRenderers = getColumnRenderers();
-    
-        console.log('in columnCreator with columnKey: ' , columnKey);
-    
-        console.log('columnRenderers: ', columnRenderers);
-        
-        
         return columnRenderers[columnKey]();
     };
     
@@ -30,7 +24,7 @@ define([
     function renderImageColumn() {
         return (<Column
             columnKey="image"
-            width={300}
+            width={200}
             label="image"
             fixed={true}
             header={<Cell> image head </Cell>}

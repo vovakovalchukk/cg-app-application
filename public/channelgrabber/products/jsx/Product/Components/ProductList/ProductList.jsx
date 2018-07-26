@@ -1,22 +1,21 @@
 define([
     'react',
     'fixed-data-table',
+    'react-dimensions',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
     'Product/Components/ProductList/Service/columnCreator'
 ], function(
     React,
     FixedDataTable,
+    ReactDimensions,
     ProductLinkEditor,
     ProductFooter,
     columnCreator
 ) {
     "use strict";
     
-    const Cell = FixedDataTable.Cell;
     const Table = FixedDataTable.Table;
-    const Column = FixedDataTable.Column;
-    
     
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -75,16 +74,9 @@ define([
                 }
             });
         },
-     
-        renderTextColumn: function() {
-        
-        },
         renderColumns: function(data) {
-            
             let columnKeys = Object.keys(data[0]);
-            
             console.log('columnKeys: ', columnKeys);
-            
             return columnKeys.map( (columnKey,columnIndex) => {
                     return columnCreator({
                         data,
@@ -135,10 +127,11 @@ define([
                     {this.renderColumns(data)}
                 </Table>
             )
-            
-            
         },
         render: function() {
+            
+            console.log('ReactDimensions: ', ReactDimensions);
+            
             
             return (
                 <div id='products-app'>
