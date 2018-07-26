@@ -55,7 +55,6 @@ define([
         },
         renderAccountCategorySelectComponent: function(accountId, field) {
             var accountData = this.props.accounts[accountId];
-
             return <label>
                 <span
                     className={"inputbox-label"}>{accountData.displayName}
@@ -77,6 +76,10 @@ define([
         renderCategorySelects: function() {
             var selects = [];
             for (var accountId in this.props.accounts) {
+                var account = this.props.accounts[accountId];
+                if (!account.channel || !account.displayName) {
+                    continue;
+                }
                 selects.push(
                     <FieldArray
                         component={this.renderAccountCategorySelectComponent.bind(this, accountId)}

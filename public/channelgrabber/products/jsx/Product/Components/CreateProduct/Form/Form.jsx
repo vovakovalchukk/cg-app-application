@@ -1,27 +1,38 @@
 define([
     'react',
     'redux-form',
+    'react-redux',
+    'Product/Components/CreateProduct/functions/stateFilters',
+    'Common/Components/ReduxForm/InputWithValidation',
     'Common/Components/ImageUploader/ImageUploaderRoot',
+    'Common/Components/EditableText',
     'Common/Components/ImagePicker',
-    'Common/Components/FormRow'
+    'Common/Components/FormRow',
+    'Product/Components/VatView',
+    'Product/Components/CreateProduct/VariationsTable/Root',
+    'Product/Components/CreateProduct/DimensionsTable/Root',
+    'Product/Components/CreateListing/Components/CreateListing/ProductIdentifiers'
 ], function(
     React,
     reduxForm,
+    ReactRedux,
+    stateFilters,
+    InputWithValidation,
     ImageUploader,
+    EditableText,
     ImagePicker,
-    FormRow
+    FormRow,
+    VatView,
+    VariationsTable,
+    DimensionsTable,
+    ProductIdentifiers
 ) {
-    var Field = reduxForm.Field;
-    var Form = reduxForm.Form;
+    const Field = reduxForm.Field;
+    const Form = reduxForm.Form;
 
     var inputColumnRenderMethods = {
-        newProductName: function() {
-            return (
-                <Field type="text" name="title" component="input"/>
-            )
-        },
-        renderMainImageComponent: function(props){
-            var uploadedImages = this.props.uploadedImages.images;
+        renderMainImagePickerComponent: function(props) {
+            var uploadedImages = props.uploadedImages.images;
             return (
                 <ImagePicker
                     images={
@@ -32,13 +43,41 @@ define([
                 />
             );
         },
-        mainImage: function() {
+        renderMainImage: function() {
             return (
-                <div>
-                    <Field model="main-image" type="text" name="Main Image" component={inputColumnRenderMethods.renderMainImageComponent.bind(this)}/>
-                    <ImageUploader/>
+                <div className={"o-container-wrap"}>
+                    <Field
+                        model="main-image"
+                        type="text"
+                        name="mainImage"
+                        uploadedImages={this.props.uploadedImages}
+                        component={inputColumnRenderMethods.renderMainImagePickerComponent}
+                    />
+                    <ImageUploader className={"u-float-none"}/>
                 </div>
             );
+        },
+        renderVatViewComponent: function(props) {
+            return (<VatView
+                parentProduct={{
+                    taxRates: props.taxRates
+                }}
+                fullView={true}
+                onVatChangeWithFullSelection={selection => {
+                    var currentValueOnState = props.input.value;
+                    var newValueForState = Object.assign(currentValueOnState, selection);
+                    props.input.onChange(newValueForState);
+                }}
+                variationCount={0}
+                tableCssClassNames={'u-width-600px'}
+            />);
+        },
+        renderTaxRates: function() {
+            return (<Field
+                name="taxRates"
+                taxRates={this.props.taxRates}
+                component={inputColumnRenderMethods.renderVatViewComponent}
+            />);
         }
     };
 
@@ -47,26 +86,255 @@ define([
             return {
                 handleSubmit: null,
                 addImage: null,
-                uploadedImages: {}
+                uploadedImages: {},
+                taxRates: null,
+                newVariationRowRequest: null,
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             };
+        },
+        renderEditableText: function(reduxFormFieldsProps) {
+            return (<EditableText
+                    fieldId={reduxFormFieldsProps.fieldId}
+                    classNames={reduxFormFieldsProps.classNames}
+                    onChange={(e) => {
+                        return reduxFormFieldsProps.input.onChange(e.target.textContent);
+                    }}
+                />
+            );
+        },
+        componentWillReceiveProps: function() {
+            if (!this.props.initialized) {
+                var defaultValues = this.getDefaultValues();
+                this.props.initialize(defaultValues);
+            }
+        },
+        getDefaultValues: function() {
+            return {
+                taxRates: this.getDefaultTaxRates()
+            }
+        },
+        getDefaultTaxRates: function() {
+            var defaultTaxRates = {};
+            for (var taxRate in this.props.taxRates) {
+                for (var taxCodes in this.props.taxRates[taxRate]) {
+                    var firstOption = this.props.taxRates[taxRate][taxCodes]
+                    defaultTaxRates[taxRate] = firstOption['taxRateId'];
+                    break;
+                }
+            }
+            return defaultTaxRates;
+        },
+        formatVariationImagesForProductIdentifiersComponent: function(formVariations) {
+            if (!this.props.uploadedImages || !this.props.uploadedImages.images.length || !this.props.uploadedImages.images) {
+                return formVariations;
+            }
+
+            let uploadedImages = this.props.uploadedImages.images;
+
+            let formattedVariations = formVariations;
+
+            formVariations.forEach((variation, i) => {
+                let matchedUploadedImage = uploadedImages.find(uploadedImage => {
+                    return uploadedImage.id === variation.imageId;
+                });
+                if (!matchedUploadedImage) {
+                    return
+                }
+                formattedVariations[i].images = [{
+                    id: matchedUploadedImage.id,
+                    url: matchedUploadedImage.url
+                }];
+            });
+            return formattedVariations;
+        },
+        getAttributeNamesFromFormValues: function() {
+            let customAttributes = this.props.formValues.attributes;
+            if (!customAttributes) {
+                return [];
+            }
+            let attributeNames = [];
+            for (let customAttributeKey in customAttributes) {
+                attributeNames.push(customAttributes[customAttributeKey]);
+            }
+
+            return attributeNames;
+        },
+        formatAttributeValuesForVariation: function(customAttributesObject, attributeNames, variation) {
+            let formattedAttributeValues = {};
+
+            for (let attributeKey in customAttributesObject) {
+                for (let attributeName of attributeNames) {
+                    if (customAttributesObject[attributeKey] !== attributeName) {
+                        continue;
+                    }
+                    formattedAttributeValues[attributeName] = variation[attributeKey];
+                }
+            }
+            variation.attributeValues = formattedAttributeValues;
+            return variation;
+        },
+        addAttributeValuesToVariationsData: function(variationsData) {
+            let attributeNames = this.getAttributeNamesFromFormValues();
+            let customAttributesObject = this.props.formValues.attributes;
+            let variations = this.props.formValues.variations;
+
+            if (!attributeNames.length || !customAttributesObject || !variations) {
+                return variationsData;
+            }
+
+            let formattedVariationData = [];
+
+            for (let variation of variationsData) {
+                let variationDataWithAttributes = this.formatAttributeValuesForVariation(customAttributesObject, attributeNames, variation);
+                formattedVariationData.push(variationDataWithAttributes);
+            }
+
+            return formattedVariationData
+        },
+        formatReduxFormValuesForProductIdentifiersComponent: function() {
+            let formVariations = this.props.formValues.variations;
+            formVariations = Object.keys(formVariations).map(variation => {
+                return formVariations[variation];
+            });
+            formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
+            formVariations = this.addAttributeValuesToVariationsData(formVariations);
+            return formVariations;
+        },
+        variationsDataExistsInRedux: function() {
+            if (
+                this.props.formValues &&
+                this.props.formValues.variations
+            ) {
+                return true;
+            }
+        },
+        renderProductIdentifiers: function() {
+            let product = {
+                images: this.props.uploadedImages.images
+            };
+            let variationsData = [
+                {
+                    sku: '',
+                    images: [
+                        {url: ''}
+                    ]
+                }
+            ];
+            let attributeNames = [];
+
+            if (this.variationsDataExistsInRedux()) {
+                variationsData = this.formatReduxFormValuesForProductIdentifiersComponent();
+                attributeNames = this.getAttributeNamesFromFormValues();
+            }
+
+            return (
+                <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
+                    <legend className={'u-heading-text'}>Product Identifiers</legend>
+                    <ProductIdentifiers
+                        variationsDataForProduct={variationsData}
+                        product={product}
+                        renderImagePicker={false}
+                        shouldRenderStaticImagesFromVariationValues={true}
+                        containerCssClasses={'u-margin-top-none u-max-width-80'}
+                        tableCssClasses={'u-min-width-50 u-width-inherit'}
+                        attributeNames={attributeNames}
+                    />
+                </fieldset>
+            );
+        },
+        renderVatTable: function(renderTaxRates) {
+            if (!this.props.showVAT) {
+                return;
+            }
+            return (
+                <fieldset className={'u-margin-bottom-small'}>
+                    <legend className={'u-heading-text'}>VAT</legend>
+                    <div className={'u-max-width-80'}>
+                        {renderTaxRates.call(this)}
+                    </div>
+                </fieldset>
+            );
         },
         render: function() {
             return (
-                <Form id="create-product-form" onSubmit={this.props.handleSubmit}>
-                    <FormRow
-                        label={'New Product Name'}
-                        inputColumnContent={inputColumnRenderMethods.newProductName.call(this)}
-                    />
-                    <FormRow
-                        label={'Main Image'}
-                        inputColumnContent={inputColumnRenderMethods.mainImage.call(this)}
-                    />
+                <Form id="create-product-form" className={"form-root margin-bottom-small"}>
+                    <fieldset className={'form-root__fieldset margin-bottom-small'}>
+                        <Field
+                            type="text"
+                            name="title"
+                            placeholderText={"Enter Product Name"}
+                            fieldId={"title"}
+                            classNames={['c-editable-field', 'u-heading-text', 'u-margin-top-bottom-small']}
+                            component={this.renderEditableText}
+                        />
+                        <FormRow
+                            label={'Main Image'}
+                            inputColumnContent={inputColumnRenderMethods.renderMainImage.call(this)}
+                        />
+                    </fieldset>
+                    <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
+                        <legend className={'u-heading-text'}>Product Details</legend>
+                        <VariationsTable
+                            resetSection={this.props.resetSection}
+                            untouch={this.props.untouch}
+                            fieldChange={this.props.change}
+                            unregister={this.props.unregister}
+                        />
+                    </fieldset>
+                    <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
+                        <DimensionsTable
+                            stateSelectors={{
+                                fields: ['variationsTable', 'fields'],
+                                rows: ['variationsTable', 'variations'],
+                                values: ['form', 'createProductForm', 'variations']
+                            }}
+                            stateFilters={{
+                                fields: stateFilters.filterFields.bind(2)
+                            }}
+                            formName='createProductForm'
+                            legend={'Dimensions'}
+                            formSectionName='dimensionsTable'
+                            fieldChange={this.props.change}
+                            massUnit={this.props.massUnit}
+                            lengthUnit={this.props.lengthUnit}
+                        />
+                    </fieldset>
+                    {this.renderVatTable(inputColumnRenderMethods.renderTaxRates)}
+                    {this.renderProductIdentifiers()}
                 </Form>
             );
         }
     });
 
     return reduxForm.reduxForm({
-        form: 'createProductForm'
+        form: 'createProductForm',
+        initialValues: {
+            variations: {}
+        },
+        validate: validate
     })(createFormComponent);
+
+    function validate(values) {
+        const errors = {};
+        if (!values.variations) {
+            return;
+        }
+        const variationIdentifiers = Object.keys(values.variations);
+        if (!values.title || values.title === "Enter Product Name") {
+            errors.title = 'Required';
+        }
+        if (variationIdentifiers.length > 0) {
+            errors.variations = {};
+            for (var i = 0; i < variationIdentifiers.length; i++) {
+                var variation = values.variations[variationIdentifiers[i]]
+                errors.variations[variationIdentifiers[i]] = {};
+                if (!variation.sku) {
+                    errors.variations[variationIdentifiers[i]].sku = 'Required'
+                }
+            }
+        }
+        return errors;
+    }
 });

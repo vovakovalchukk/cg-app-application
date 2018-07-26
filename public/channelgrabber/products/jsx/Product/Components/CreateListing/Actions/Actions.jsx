@@ -1,6 +1,6 @@
 define([
     'CategoryMapper/Actions/ApiHelper',
-    'Product/Components/CreateListing/Actions/ResponseActions',
+    'Product/Components/CreateListing/Actions/ResponseActions'
 ], function(
     ApiHelper,
     ResponseActions
@@ -54,7 +54,7 @@ define([
                 context: this,
                 url: '/products/create-listings/' + accountId + '/default-settings',
                 type: 'GET',
-                success: function (response) {
+                success: function(response) {
                     if (response.error == 'NO_SETTINGS') {
                         dispatch(ResponseActions.noAccountSettings(accountId));
                         return;
