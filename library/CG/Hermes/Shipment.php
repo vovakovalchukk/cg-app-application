@@ -7,6 +7,7 @@ use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\ShipmentInterface;
+use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
@@ -16,6 +17,7 @@ use DateTime;
 
 class Shipment implements
     ShipmentInterface,
+    CollectionAddressInterface,
     DeliveryInstructionsInterface,
     CollectionDateInterface,
     PackagesInterface,
@@ -27,6 +29,8 @@ class Shipment implements
     protected $account;
     /** @var AddressInterface */
     protected $deliveryAddress;
+    /** @var AddressInterface */
+    protected $collectionAddress;
     /** @var string */
     protected $deliveryInstructions;
     /** @var DateTime */
@@ -48,6 +52,7 @@ class Shipment implements
         string $customerReference,
         Account $account,
         AddressInterface $deliveryAddress,
+        AddressInterface $collectionAddress,
         string $deliveryInstructions,
         DateTime $collectionDate,
         array $packages,
@@ -57,6 +62,7 @@ class Shipment implements
         $this->customerReference = $customerReference;
         $this->account = $account;
         $this->deliveryAddress = $deliveryAddress;
+        $this->collectionAddress = $deliveryAddress;
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
@@ -70,6 +76,7 @@ class Shipment implements
             $array['customerReference'],
             $array['account'],
             $array['deliveryAddress'],
+            $array['collectionAddress'],
             $array['deliveryInstructions'],
             $array['collectionDate'],
             $array['packages'],
@@ -132,6 +139,14 @@ class Shipment implements
     public function getDeliveryAddress()
     {
         return $this->deliveryAddress;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getCollectionAddress()
+    {
+        return $this->collectionAddress;
     }
 
      /**
@@ -215,4 +230,4 @@ class Shipment implements
         $this->trackingReferences[] = $trackingReference;
         return $this;
     }
- }
+}
