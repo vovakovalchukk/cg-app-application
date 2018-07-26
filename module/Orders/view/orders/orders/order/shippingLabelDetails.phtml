@@ -1,6 +1,30 @@
 <?php
 use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
 ?>
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>",
+            'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+        }
+    });
+    require([
+        'react',
+        'react-dom',
+        "Common/Components/SafeInput"
+    ],
+    function(React, ReactDOM, SafeInput) {
+        ReactDOM.render(
+            React.createElement(SafeInput, {
+                name: 'trackingNumber',
+                initialValue: '78787845',
+                submitCallback: function(){},
+                disabled: false
+            }),
+            document.getElementById('trackingNumberColumn')
+        );
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
 <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
 <?php if (isset($this->shippingMethod)) : ?>
 <div class="shipping-method">
@@ -31,7 +55,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                 <span class="grid-table-col col-split weight-col">
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
-                <span class="grid-table-col col-split tracking-no-col">
+                <span class="grid-table-col">
 
                     <div id="trackingNumberColumn"></div>
 
