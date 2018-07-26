@@ -6,16 +6,13 @@ use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\CourierInterface;
-use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\EmailClientAwareInterface;
 use CG\CourierAdapter\EmailClientInterface;
-use CG\CourierAdapter\Exception\NotFound;
-use CG\CourierAdapter\Exception\OperationFailed;
-use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\Hermes\Credentials\FormFactory as CredentialsFormFactory;
 use CG\Hermes\Credentials\Requester as CredentialsRequester;
 use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
+use CG\Hermes\Shipment\Service as ShipmentService;
 use Psr\Log\LoggerInterface;
 use Zend\Form\Form as ZendForm;
 
@@ -29,6 +26,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     protected $credentialsRequester;
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
+    /** @var ShipmentService */
+    protected $shipmentService;
 
     /** @var LoggerInterface */
     protected $logger;
@@ -38,11 +37,13 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     public function __construct(
         CredentialsFormFactory $credentialsFormFactory,
         CredentialsRequester $credentialsRequester,
-        DeliveryServiceService $deliveryServiceService
+        DeliveryServiceService $deliveryServiceService,
+        ShipmentService $shipmentService
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsRequester = $credentialsRequester;
         $this->deliveryServiceService = $deliveryServiceService;
+        $this->shipmentService = $shipmentService;
     }
 
     /**
@@ -54,16 +55,11 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     }
 
     /**
-     * Book a shipment with the courier.
-     * This should populate the shipment's courierReference, labels and trackingReference fields for the app to make use of.
-     *
-     * @throws OperationFailed on system error e.g. unable to connect to the courier
-     * @throws UserError on invalid shipment data e.g. weight too high or invalid postcode
-     * @return ShipmentInterface
+     * @inheritdoc
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
-        // To be implmented in TAC-172
+        return $this->shipmentService->bookShipment($shipment);
     }
 
     /**
