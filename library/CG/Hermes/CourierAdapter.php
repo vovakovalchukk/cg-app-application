@@ -8,6 +8,8 @@ use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\EmailClientAwareInterface;
 use CG\CourierAdapter\EmailClientInterface;
+use CG\CourierAdapter\Exception\OperationFailed;
+use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\Hermes\Credentials\FormFactory as CredentialsFormFactory;
 use CG\Hermes\Credentials\Requester as CredentialsRequester;
@@ -16,7 +18,12 @@ use CG\Hermes\Shipment\Service as ShipmentService;
 use Psr\Log\LoggerInterface;
 use Zend\Form\Form as ZendForm;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialRequestInterface, EmailClientAwareInterface
+class CourierAdapter implements
+    CourierInterface,
+    LocalAuthInterface,
+    CredentialRequestInterface,
+    CancellingInterface,
+    EmailClientAwareInterface
 {
     const FEATURE_FLAG = 'Hermes Corporate';
 
@@ -171,5 +178,23 @@ EOS;
     public function setEmailClient(EmailClientInterface $emailClient)
     {
         $this->emailClient = $emailClient;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cancelShipment(ShipmentInterface $shipment)
+    {
+        // Hermes labels aren't charged for until they're scanned so we don't need to make any calls
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function updateShipment(ShipmentInterface $shipment)
+    {
+        $this->cancelShipment($shipment);
+        $this->bookShipment($shipment);
     }
 }
