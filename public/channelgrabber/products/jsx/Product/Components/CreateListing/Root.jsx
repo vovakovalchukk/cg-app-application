@@ -18,18 +18,28 @@ define([
     var CreateListingRoot = function(
         accounts,
         allowedChannels,
+        allowedVariationChannels,
         onCreateListingClose,
         ebaySiteOptions,
         categoryTemplateOptions,
-        renderCreateListingPopup
+        renderCreateListingPopup,
+        product,
+        listingCreationAllowed,
+        managePackageUrl,
+        salesPhoneNumber,
+        demoLink
     ) {
         var Provider = ReactRedux.Provider;
 
-        var getAccountOptions = function(accounts, allowedChannels) {
+        var getAccountOptions = function(accounts, allowedChannels, allowedVariationChannels) {
+            var channels = allowedChannels;
+            if (product.variationCount > 0) {
+                channels = allowedVariationChannels;
+            }
             var data = {};
             for (var accountId in accounts) {
                 var account = accounts[accountId];
-                if (CreateListingUtils.productCanListToAccount(account, allowedChannels)) {
+                if (CreateListingUtils.productCanListToAccount(account, channels)) {
                     data[accountId] = {name: account.displayName, id: account.id, channel: account.channel};
                 }
             }
@@ -49,7 +59,7 @@ define([
 
         var buildInitialStateFromData = function() {
             return {
-                accounts: getAccountOptions(accounts, allowedChannels),
+                accounts: getAccountOptions(accounts, allowedChannels, allowedVariationChannels),
                 categoryTemplateOptions: buildCategoryTemplateOptions(categoryTemplateOptions)
             };
         };
@@ -60,11 +70,6 @@ define([
         );
 
         var CreateListingRootComponent = React.createClass({
-            getDefaultProps: function() {
-                return {
-                    product: {}
-                }
-            },
             render: function () {
                 return (
                     <Provider store={store}>
@@ -72,8 +77,12 @@ define([
                             onCreateListingClose={onCreateListingClose}
                             onSubmit={this.onSubmit}
                             ebaySiteOptions={ebaySiteOptions}
-                            product={this.props.product}
+                            product={product}
                             renderCreateListingPopup={renderCreateListingPopup}
+                            listingCreationAllowed={listingCreationAllowed}
+                            managePackageUrl={managePackageUrl}
+                            salesPhoneNumber={salesPhoneNumber}
+                            demoLink={demoLink}
                         />
                     </Provider>
                 );

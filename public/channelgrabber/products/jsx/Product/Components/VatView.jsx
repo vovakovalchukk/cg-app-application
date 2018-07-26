@@ -6,7 +6,7 @@ define([
     "use strict";
 
     var VatViewComponent = React.createClass({
-        getInitialState: function () {
+        getInitialState: function() {
             return {
                 selectedVatRates: {}
             }
@@ -14,10 +14,15 @@ define([
         getDefaultProps: function() {
             return {
                 variationCount: 0,
-                fullView: false
+                fullView: false,
+                autoSelectFirst: false,
+                onChange: null,
+                onVatChanged: null,
+                onVatChangeWithFullSelection: null,
+                tableCssClassNames: ''
             };
         },
-        getHeaders: function () {
+        getHeaders: function() {
             this.headers = [
                 'Member State',
                 'Standard',
@@ -25,14 +30,13 @@ define([
                 'Super Reduced',
                 'Zero'
             ];
-
             return this.headers.map(function(header) {
-                return <th>{header}</th>;
+                return <th className={'c-table-with-inputs__cell'}>{header}</th>;
             });
         },
-        getVatRows: function () {
+        getVatRows: function() {
             var product = this.props.parentProduct;
-            if (! product.taxRates) {
+            if (!product.taxRates) {
                 return <tr>
                     <td>
                         In order to use this feature, please <a href={this.props.adminCompanyUrl}>set your company
@@ -40,14 +44,13 @@ define([
                     </td>
                 </tr>;
             }
-
             var vatRows = [];
             for (var memberState in product.taxRates) {
-                if (! product.taxRates.hasOwnProperty(memberState)) {
+                if (!product.taxRates.hasOwnProperty(memberState)) {
                     continue;
                 }
                 var rates = [];
-                this.headers.map(function (header) {
+                this.headers.map(function(header) {
                     var element = {};
                     for (var taxRateId in product.taxRates[memberState]) {
                         if (!product.taxRates[memberState].hasOwnProperty(taxRateId)) {
@@ -65,7 +68,7 @@ define([
                     rates.push(element);
                 }.bind(this));
 
-                var row = rates.map(function (object, index) {
+                var row = rates.map(function(object, index) {
                     if (object.name === undefined) {
                         var cellText = "";
                         if (index === 0) {
@@ -73,11 +76,14 @@ define([
                         }
                         return (<td>{cellText}</td>);
                     }
-                    return(<td>
+                    return (<td>
                         <span className="checkbox-wrapper">
                             <a className="std-checkbox">
-                                <input type="checkbox" id={object.taxRateId+"-radio-"+product.id} name={object.taxRateId+"-radio-"+product.id} value={object.taxRateId} onClick={this.onVatChanged.bind(this, object.taxRateId)} checked={object.selected === true} key={object.taxRateId}/>
-                                <label htmlFor={object.taxRateId+"-radio-"+product.id}></label>
+                                <input type="checkbox" id={object.taxRateId + "-radio-" + product.id}
+                                       name={object.taxRateId + "-radio-" + product.id} value={object.taxRateId}
+                                       onClick={this.onVatChanged.bind(this, object.taxRateId)}
+                                       checked={object.selected === true} key={object.taxRateId}/>
+                                <label htmlFor={object.taxRateId + "-radio-" + product.id}></label>
                             </a>
                             <span className="rate">{parseFloat(object.rate) + '%'}</span>
                         </span>
@@ -87,7 +93,7 @@ define([
             }
             return vatRows;
         },
-        onVatChanged: function (taxRateId) {
+        onVatChanged: function(taxRateId) {
             var product = this.props.parentProduct;
             var memberState = taxRateId.substring(0, 2);
             for (var taxRate in product.taxRates[memberState]) {
@@ -100,10 +106,16 @@ define([
             selectedVatRates[memberState] = taxRateId;
             this.setState({
                 selectedVatRates: selectedVatRates
+            }, function() {
+                if (this.props.onVatChangeWithFullSelection) {
+                    this.props.onVatChangeWithFullSelection(this.state.selectedVatRates)
+                }
             });
-            this.props.onVatChanged(taxRateId);
+            if (this.props.onVatChanged) {
+                this.props.onVatChanged(taxRateId);
+            }
         },
-        render: function () {
+        render: function() {
             var rowheight = 45;
             var numberRows = this.props.variationCount !== 0 ? (this.props.fullView ? this.props.variationCount : 2) : 1;
             var style = {
@@ -112,16 +124,16 @@ define([
             return (
                 <div className="vat-table">
                     <div className="head">
-                        <table>
+                        <table className={this.props.tableCssClassNames}>
                             <thead>
-                                <tr>{this.getHeaders()}</tr>
+                            <tr>{this.getHeaders()}</tr>
                             </thead>
                         </table>
                     </div>
                     <div className="body" style={style}>
-                        <table>
+                        <table className={this.props.tableCssClassNames}>
                             <tbody>
-                                {this.getVatRows()}
+                            {this.getVatRows()}
                             </tbody>
                         </table>
                     </div>

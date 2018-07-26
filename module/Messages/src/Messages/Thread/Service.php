@@ -185,14 +185,10 @@ class Service
         $threadData['accountName'] = $account->getDisplayName();
 
         $dateFormatter = $this->dateFormatter;
-        $threadData['created'] = $dateFormatter($threadData['created'], StdlibDateTime::FORMAT);
-        $threadData['updated'] = $dateFormatter($threadData['updated'], StdlibDateTime::FORMAT);
-        $created = new StdlibDateTime($threadData['created']);
-        $updated = new StdlibDateTime($threadData['updated']);
-        $threadData['created'] = $created->uiFormat();
-        $threadData['createdFuzzy'] = $created->fuzzyFormat();
-        $threadData['updated'] = $updated->uiFormat();
-        $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
+        $threadData['createdFuzzy'] = (new StdlibDateTime($threadData['created']))->fuzzyFormat();
+        $threadData['created'] = $dateFormatter($threadData['created']);
+        $threadData['updatedFuzzy'] = (new StdlibDateTime($threadData['updated']))->fuzzyFormat();
+        $threadData['updated'] = $dateFormatter($threadData['updated']);
         $threadData['ordersLink'] = call_user_func(
             $this->url,
             OrdersModule::ROUTE,

@@ -4,22 +4,34 @@ define([
     'react-dom',
     'react-redux',
     'redux-form',
+    'redux-thunk',
     'Common/Components/Container',
     'Product/Components/CreateListing/Reducers/CreateListing/Combined',
-    'Product/Components/CreateListing/CreateListingPopup',
+    'Product/Components/CreateListing/CreateListingPopup'
 ], function(
     React,
     Redux,
     ReactDom,
     ReactRedux,
     ReduxForm,
+    thunk,
     Container,
     CombinedReducer,
     CreateListingPopup
 ) {
     "use strict";
-
     var Provider = ReactRedux.Provider;
+
+    var enhancer = Redux.applyMiddleware(thunk.default);
+    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+        enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            latency: 0
+        })(Redux.applyMiddleware(thunk.default));
+    }
+    var store = Redux.createStore(
+        CombinedReducer,
+        enhancer
+    );
 
     var CreateListingRoot = React.createClass({
         getDefaultProps: function() {
@@ -30,11 +42,12 @@ define([
                 conditionOptions: [],
                 variationsDataForProduct: {},
                 accountsData: {},
-                defaultCurrency: null
+                defaultCurrency: null,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         render: function() {
-            var store = Redux.createStore(CombinedReducer);
             return (
                 <Provider store={store}>
                     <CreateListingPopup

@@ -1,11 +1,17 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Order\Shared\Entity as Order;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 
 class Package
 {
+    const WEIGHT_UNIT = 'kilogram';
+    const DIMENSION_UNIT = 'centimeter';
+
     /** @var float */
     protected $weight;
     /** @var string */
@@ -22,6 +28,13 @@ class Package
     protected $insuredValue;
     /** @var string */
     protected $insuredCurrency;
+
+    protected static $unitMap = [
+        'kg' => 'kilogram',
+        'oz' => 'ounce',
+        'cm' => 'centimeter',
+        'in' => 'inch',
+    ];
 
     public function __construct(
         float $weight,
@@ -47,32 +60,52 @@ class Package
     {
         return new static(
             $decodedJson->weight->value,
-            $decodedJson->weight->units,
+            $decodedJson->weight->unit,
             $decodedJson->dimensions->length,
             $decodedJson->dimensions->width,
             $decodedJson->dimensions->height,
-            $decodedJson->dimensions->units,
+            $decodedJson->dimensions->unit,
             $decodedJson->insured_value->amount,
             $decodedJson->insured_value->currency
         );
     }
 
-    public static function createFromOrderAndData(Order $order, array $orderData, array $parcelData): Package
+    public static function createFromOrderAndData(Order $order, array $orderData, array $parcelData, OrganisationUnit $rootOu): Package
     {
         $insuranceAmount = 0;
-        if (isset($orderData['insuranceMonetary'])) {
+        if (isset($orderData['insuranceMonetary']) && (float)$orderData['insuranceMonetary'] > 0) {
             $insuranceAmount = round($orderData['insuranceMonetary'] / $orderData['parcels'], 2);
         }
         return new static(
             $parcelData['weight'],
-            ProductDetail::DISPLAY_UNIT_MASS,
+            static::$unitMap[LocaleMass::getForLocale($rootOu->getLocale())],
             $parcelData['length'],
             $parcelData['width'],
             $parcelData['height'],
-            ProductDetail::DISPLAY_UNIT_LENGTH,
+            static::$unitMap[LocaleLength::getForLocale($rootOu->getLocale())],
             $insuranceAmount,
             $order->getCurrencyCode()
         );
+    }
+    
+    public function toArray(): array
+    {
+        return [
+            'weight' => [
+                'value' => $this->getWeight(),
+                'unit' => $this->getWeightUnit(),
+            ],
+            'dimensions' => [
+                'length' => $this->getLength(),
+                'width' => $this->getWidth(),
+                'height' => $this->getHeight(),
+                'unit' => $this->getDimensionsUnit(),
+            ],
+            'insured_value' => [
+                'amount' => $this->getInsuredValue(),
+                'currency' => $this->getInsuredCurrency(),
+            ],
+        ];
     }
 
     public function getWeight(): float

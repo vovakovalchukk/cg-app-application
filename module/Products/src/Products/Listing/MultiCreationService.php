@@ -9,6 +9,8 @@ use CG\Channel\Gearman\Generator\Listing\JobGeneratorFactory;
 use CG\Channel\Listing\CreationService\StatusService;
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Product\AccountDetail\Entity as ProductAccountDetail;
 use CG\Product\AccountDetail\Mapper as ProductAccountDetailMapper;
 use CG\Product\AccountDetail\Service as ProductAccountDetailService;
@@ -33,7 +35,9 @@ use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
 use Products\Listing\Channel\Service as ChannelService;
+use Products\Product\Listing\Service as ProductListingService;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -98,6 +102,10 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productCategoryDetailService;
     /** @var ChannelService */
     protected $channelService;
+    /** @var ProductListingService */
+    protected $productListingService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
     /** @var JobGeneratorFactory */
     protected $jobGeneratorFactory;
     /** @var StatusService */
@@ -117,6 +125,8 @@ class MultiCreationService implements LoggerAwareInterface
         ProductCategoryDetailMapper $productCategoryDetailMapper,
         ProductCategoryDetailService $productCategoryDetailService,
         ChannelService $channelService,
+        ProductListingService $productListingService,
+        ActiveUserInterface $activeUserContainer,
         JobGeneratorFactory $jobGeneratorFactory,
         StatusService $statusService
     ) {
@@ -133,6 +143,8 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productCategoryDetailMapper = $productCategoryDetailMapper;
         $this->productCategoryDetailService = $productCategoryDetailService;
         $this->channelService = $channelService;
+        $this->productListingService = $productListingService;
+        $this->activeUserContainer = $activeUserContainer;
         $this->jobGeneratorFactory = $jobGeneratorFactory;
         $this->statusService = $statusService;
     }
@@ -153,6 +165,9 @@ class MultiCreationService implements LoggerAwareInterface
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
             if (!$this->isRequiredListingDataSet($accountIds, $categoryTemplateIds, $productData)) {
+                return false;
+            }
+            if (!$this->isListingCreationAllowed()) {
                 return false;
             }
             /** @var Accounts $accounts */
@@ -235,6 +250,15 @@ class MultiCreationService implements LoggerAwareInterface
         $variationsData = $productData['variations'] ?? [];
         if (!isset($productData['variations']) || empty($productData['variations'])) {
             $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
+            return false;
+        }
+        return true;
+    }
+
+    protected function isListingCreationAllowed(): bool
+    {
+        if (!$this->productListingService->isListingCreationAllowed()) {
+            $this->logWarning('Listing creation requested but is not allowed for this OU', [], ['ListingMultiCreationService', 'NotAllowed']);
             return false;
         }
         return true;
@@ -337,11 +361,10 @@ class MultiCreationService implements LoggerAwareInterface
         return $this->productDetailMapper->fromArray([
             'organisationUnitId' => $ou,
             'sku' => $sku,
-            'weight' => $weight ? (float) $weight : null,
-            // Dimensions entered in centimetres but stored in metres
-            'width' => $width ? ProductDetail::convertLength((float) $width, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
-            'height' => $height ? ProductDetail::convertLength((float) $height, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
-            'length' => $length ? ProductDetail::convertLength((float) $length, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH) : null,
+            'weight' => $weight ? $this->convertWeightForStorage((float)$weight) : null,
+            'width' => $width ? $this->convertDimensionForStorage((float)$width) : null,
+            'height' => $height ? $this->convertDimensionForStorage((float)$height) : null,
+            'length' => $length ? $this->convertDimensionForStorage((float)$length) : null,
             'description' => $variationData['description'] ?? $productData['description'] ?? null,
             'ean' => $variationData['ean'] ?? $productData['ean'] ?? null,
             'brand' => $variationData['brand'] ?? $productData['brand'] ?? null,
@@ -354,6 +377,18 @@ class MultiCreationService implements LoggerAwareInterface
             'upc' => $variationData['upc'] ?? $productData['upc'] ?? null,
             'isbn' => $variationData['isbn'] ?? $productData['isbn'] ?? null,
         ]);
+    }
+
+    protected function convertWeightForStorage(float $weight): float
+    {
+        $displayUnit = LocaleMass::getForLocale($this->activeUserContainer->getLocale());
+        return ProductDetail::convertMass($weight, $displayUnit, ProductDetail::UNIT_MASS);
+    }
+
+    protected function convertDimensionForStorage(float $dimension): float
+    {
+        $displayUnit = LocaleLength::getForLocale($this->activeUserContainer->getLocale());
+        return ProductDetail::convertLength($dimension, $displayUnit, ProductDetail::UNIT_LENGTH);
     }
 
     protected function updateProductEntity(Product $product, array $productData): void
@@ -593,11 +628,6 @@ class MultiCreationService implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @param Account[] $accounts
-     * @param Category[] $categories
-     * @param CategoryTemplate[] $categoryTemplates
-     */
     protected function getAccountCategoryIterator(
         Accounts $accounts,
         Categories $categories,
@@ -658,7 +688,7 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         array $productData
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $productData);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $this->activeUserContainer->getLocale(), $productData);
     }
 
     protected function generateCreateVariationListingJobs(
@@ -695,6 +725,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $product,
                 $this->getSiteIdForAccount($account),
                 $guid,
+                $this->activeUserContainer->getLocale(),
                 $listingData,
                 $extractedVariations
             );

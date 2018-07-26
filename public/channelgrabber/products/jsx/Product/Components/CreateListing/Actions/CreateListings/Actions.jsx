@@ -66,7 +66,7 @@ define([
         return details;
     };
 
-    var formatProductChannelDataForChannel = function (values) {
+    let formatProductChannelDataForChannel = function(values) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
             var attributeImageMap = {};
@@ -78,8 +78,45 @@ define([
         return values;
     };
 
+    let formatThemeDetails = function(details) {
+        let formattedDetails = [];
+        details.forEach((detailsObject) => {
+            let detailsWithValidValues = detailsObject;
+            detailsWithValidValues.validValues = formatValidValues(detailsObject.theme);
+            delete detailsWithValidValues.theme;
+            formattedDetails.push(detailsWithValidValues);
+        });
+        return formattedDetails;
+    };
+
+    let formatValidValues = function(themeData) {
+        let formattedValidValues = {};
+
+        for (let sku in themeData) {
+            let currentSku = themeData[sku];
+            formattedValidValues[sku] = [];
+
+            for (let attributeData in currentSku) {
+                let currentAttributeData = currentSku[attributeData];
+                let formattedAttribute = {
+                    displayName: currentAttributeData.displayName
+                };
+                delete currentAttributeData.displayName;
+
+                for (var attribute in currentAttributeData) {
+                    formattedAttribute["name"] = attribute;
+                    formattedAttribute["option"] = currentAttributeData[attribute];
+                    break;
+                }
+                formattedValidValues[sku].push(formattedAttribute);
+            }
+        }
+
+        return formattedValidValues;
+    };
+
     var formatProductCategoryDetail = function(values, props) {
-        if (!values.category|| Object.keys(values.category).length === 0) {
+        if (!values.category || Object.keys(values.category).length === 0) {
             return [];
         }
         var details = [];
@@ -90,9 +127,16 @@ define([
             });
 
             categoryDetail.itemSpecifics = formatItemSpecificsForCategory(categoryDetail.itemSpecifics);
+            if (categoryDetail.subcategory) {
+                categoryDetail.subCategoryId = formatSubCategoryId(categoryDetail.subcategory);
+                delete categoryDetail.subcategory;
+            }
 
             details.push(categoryDetail);
         }
+
+        details = formatThemeDetails(details);
+
         return details;
     };
 
@@ -110,12 +154,37 @@ define([
             });
         }
 
+        if (itemSpecifics.selectedChoice) {
+            itemSpecifics = {
+                [itemSpecifics.selectedChoice]: itemSpecifics[itemSpecifics.selectedChoice]
+            };
+        }
+
         delete itemSpecifics.customItemSpecifics;
         delete itemSpecifics.optionalItemSpecifics;
+        var itemSpecific;
+        Object.keys(itemSpecifics).forEach(key => {
+            itemSpecific = itemSpecifics[key];
+            if (typeof itemSpecific !== 'object' || itemSpecific === null) {
+                return;
+            }
+            itemSpecifics[key] = formatItemSpecificsForCategory(itemSpecific);
+        });
         return itemSpecifics;
     };
 
-    var formatAccountCategoryMap = function (props) {
+    var formatSubCategoryId = function(subcategory) {
+        var subCategoryId = 0;
+        subcategory.forEach(category => {
+            if (!category || !(category.selected) || !(category.selected.value)) {
+                return;
+            }
+            subCategoryId = category.selected.value;
+        });
+        return subCategoryId;
+    };
+
+    var formatAccountCategoryMap = function(props) {
         var accounts = props.submissionStatuses.accounts;
         if (Object.keys(accounts).length === 0) {
             return [];
@@ -158,7 +227,7 @@ define([
             progressPolling.stopPolling();
             this.polling = setInterval(progressPolling.fetchListingProgress, 5000, dispatch, guid);
         },
-        stopPolling: function () {
+        stopPolling: function() {
             clearInterval(progressPolling.polling);
         },
         shouldStopPolling: function(accounts) {
@@ -194,7 +263,7 @@ define([
                 }
             };
         },
-        submitListingsForm: function (dispatch, formValues, props) {
+        submitListingsForm: function(dispatch, formValues, props) {
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',
@@ -221,6 +290,34 @@ define([
                     formValues: formValues
                 }
             };
+        },
+        refreshAccountPolicies: function (dispatch, accountId) {
+            $.ajax({
+                url: '/products/create-listings/' + accountId + '/refresh-account-policies',
+                type: 'GET',
+                success: function (response) {
+                    dispatch(ResponseActions.accountPoliciesFetched(accountId, response));
+                },
+                error: function () {
+                    dispatch(ResponseActions.accountPoliciesFetchError());
+                }
+            });
+
+            return {
+                type: "FETCH_ACCOUNT_POLICIES",
+                payload: {
+                    accountId: accountId
+                }
+            }
+        },
+        setPoliciesForAccount: function(accountId, policies) {
+            return {
+                type: "SET_POLICIES_FOR_ACCOUNT",
+                payload: {
+                    accountId: accountId,
+                    policies: policies
+                }
+            }
         }
     };
 });

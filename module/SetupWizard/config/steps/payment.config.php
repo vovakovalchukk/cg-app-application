@@ -45,6 +45,15 @@ return [
                                     ]
                                 ],
                             ],
+                            PaymentController::ROUTE_BILLING_DURATION_REMEMBER => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/rememberBillingDuration/:duration',
+                                    'defaults' => [
+                                        'action' => 'rememberBillingDuration',
+                                    ]
+                                ],
+                            ],
                             PaymentController::ROUTE_PACKAGE_SET => [
                                 'type' => Segment::class,
                                 'options' => [

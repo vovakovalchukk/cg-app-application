@@ -55,7 +55,9 @@ define([
                 defaultCurrency: null,
                 accountDefaultSettings: {},
                 submissionStatuses: {},
-                onCreateListingClose: function() {}
+                onCreateListingClose: function() {},
+                massUnit: null,
+                lengthUnit: null
             }
         },
         componentDidMount: function () {
@@ -118,6 +120,7 @@ define([
                         options={field.options}
                         selectedOption={this.findSelectedOption(field.input.value, field.options)}
                         className={Validators.shouldShowError(field) ? 'error' : null}
+                        classNames={'u-width-300px'}
                     />
                 </div>
                 {Validators.shouldShowError(field) && (
@@ -189,6 +192,10 @@ define([
                 component={CategoryForms}
                 accounts={this.props.accounts}
                 categoryTemplates={this.props.categoryTemplates}
+                product={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                fieldChange={this.props.change}
+                resetSection={this.props.resetSection}
             />;
         },
         renderProductIdentifiers: function() {
@@ -210,6 +217,9 @@ define([
                     attributeNames={this.props.product.attributeNames}
                     change={this.props.change}
                     initialDimensions={this.props.initialDimensions}
+                    accounts={this.getSelectedAccountsData()}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />
             </span>);
         },
@@ -291,7 +301,8 @@ define([
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
-            submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses))
+            submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
+            resetSection: ReduxForm.resetSection
         };
     };
 

@@ -46,7 +46,7 @@ class Account implements AccountInterface, LoggerAwareInterface
     const LOG_MESSAGE_EXISTING_SHIPSTATION_ACCOUNT = 'Using the existing ShipStation account with ID "%s"';
     const LOG_MESSAGE_ACCOUNT_CREATED = 'Successfully created a ShipStation account for OU with ID "%s"';
     const LOG_MESSAGE_API_KEY_GENERATED = 'Successfully generated a new API Key for user with ShipStation account ID "%s"';
-    const LOG_MESSAGE_WAREHOUSE_CREATED = 'Successfully created a new warehouse with ID "%s%" for OU "%s"';
+    const LOG_MESSAGE_WAREHOUSE_CREATED = 'Successfully created a new warehouse with ID "%s" for OU "%s"';
     const LOG_MESSAGE_ACCOUNT_SAVED = 'Successfully created a new ShipStation account with ID "%s" for OU "%s"';
     const LOG_MESSAGE_CARRIER_ACCOUNT_CONNECTED = 'Successfully connected a new "%s" account with ID "%s" for OU "%s"';
     const LOG_MESSAGE_SERVICES_SAVED = 'Successfully fetched and saved the shipping services for ShipStation account ID "%s';
