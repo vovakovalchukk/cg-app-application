@@ -97,7 +97,7 @@ class Mapper
         Account $account
     ) {
         return [
-            'customerReference' => $order->getId(),
+            'customerReference' => $order->getExternalId(),
             'account' => $this->caAccountMapper->fromOHAccount($account),
             'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($order),
         ];
