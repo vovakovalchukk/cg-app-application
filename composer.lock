@@ -267,12 +267,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "6fd9688e6a39fe5e4c59e68c9dd7aa9ccc27cec1"
+                "reference": "ac14236de75a0da606baa99d4757c3e04fd788ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-245-bigcommerce-specific-job-generator-5942bf.zip",
-                "reference": "6fd9688e6a39fe5e4c59e68c9dd7aa9ccc27cec1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-245-bigcommerce-specific-job-generator-9e9228.zip",
+                "reference": "ac14236de75a0da606baa99d4757c3e04fd788ef",
                 "shasum": null
             },
             "require": {
@@ -303,7 +303,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-07-26T12:57:39+00:00"
+            "time": "2018-07-26T13:17:42+00:00"
         },
         {
             "name": "channelgrabber/billing",
