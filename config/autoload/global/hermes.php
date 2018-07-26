@@ -20,7 +20,7 @@ return [
                         ],
                         'Sunday' => [
                             'displayName' => 'Sunday service',
-                            'specificDay' => 'sunday',
+                            'specificDay' => 7,
                         ]
                     ],
                     'defaultConfig' => [
