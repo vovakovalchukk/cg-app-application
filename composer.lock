@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bb4921baa91f45ab3658962c388740c",
+    "content-hash": "01ec32f34d77b43c74fc02de5c8717fe",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -267,11 +267,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "409ed5d1f1acf97707b1ecac3571f434c5c0a992"
+                "reference": "71de2e149032a60ba90887e306deb319d5e9fb6d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-245-bigcommerce-specific-job-generator-3d6c62.zip",
+                "reference": "71de2e149032a60ba90887e306deb319d5e9fb6d",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.33.2",
+                "channelgrabber/channel": "^1.36.0",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/listing": "^1.16.2",
+                "channelgrabber/locale": "^1.1.3",
+                "channelgrabber/product": "^1.14.0",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/webhook-framework": "^1.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
@@ -294,7 +303,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-03-15T09:46:14+00:00"
+            "time": "2018-07-26T09:29:52+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -512,11 +521,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
+            "version": "dev-LIS-245-bigcommerce-listing-creation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "26a41511dc4760cd57b743f4b52a1f46cc82b335"
+                "reference": "567fb6b8aea668703b466663294ad67ff05ad294"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-245-bigcommerce-listing-creation-7c19f3.zip",
+                "reference": "567fb6b8aea668703b466663294ad67ff05ad294",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.11.10",
@@ -585,7 +600,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-23T12:27:19+00:00"
+            "time": "2018-07-26T10:44:02+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8392,7 +8407,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8447,7 +8462,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8502,7 +8517,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8553,7 +8568,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8639,7 +8654,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9938,21 +9953,15 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.5",
-            "alias_normalized": "1.1.5.0",
+            "alias": "1.2.3",
+            "alias_normalized": "1.2.3.0",
             "version": "dev-LIS-245-bigcommerce-specific-job-generator",
             "package": "channelgrabber/bigcommerce"
         },
         {
-            "alias": "1.34.13",
-            "alias_normalized": "1.34.13.0",
-            "version": "dev-LIS-244-create-listing-factory",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.34.13",
-            "alias_normalized": "1.34.13.0",
-            "version": "dev-LIS-245-bigcommerce-specific-job-generator",
+            "alias": "1.36.6",
+            "alias_normalized": "1.36.6.0",
+            "version": "dev-LIS-245-bigcommerce-listing-creation",
             "package": "channelgrabber/channel"
         }
     ],
@@ -9962,8 +9971,8 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
