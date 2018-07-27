@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "59bd361f3e46e76422b4a9d71f225056",
+    "content-hash": "4eedba5d4bcd9c275be7e95d728e7b77",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -9950,8 +9950,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.23.10",
-            "alias_normalized": "1.23.10.0",
+            "alias": "1.23.11",
+            "alias_normalized": "1.23.11.0",
             "version": "dev-TAC-163-create-the-core-table-layout-for-the-new-products-page",
             "package": "channelgrabber/zf2-v4-ui"
         }
