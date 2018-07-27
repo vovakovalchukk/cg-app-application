@@ -114,6 +114,10 @@ class OrderDetailsController extends AbstractActionController
     protected function getCarrierSelect(Order $order)
     {
         $carriers = $this->courierHelper->getCarriersData();
+
+
+//        print_r($carriers);
+
         $tracking = $order->getFirstTracking();
         $priorityOptions = $this->courierHelper->getCarrierPriorityOptions($tracking);
         $options = [];
@@ -197,7 +201,10 @@ class OrderDetailsController extends AbstractActionController
 
         try {
 
-            print_r($order->getTrackings()->toArray());
+//            $this->getCarrierSelect($order);
+
+//            print_r($order->getTrackings()->toArray());
+
 
             $labels = $this->courierHelper->getNonCancelledOrderLabelsForOrders([$order->getId()]);
 

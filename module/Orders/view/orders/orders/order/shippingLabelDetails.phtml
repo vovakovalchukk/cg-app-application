@@ -14,15 +14,43 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
         "Common/Components/SafeInput"
     ],
     function(React, ReactDOM, SafeInput) {
+        var orderId = '<?= $order->getId() ?>';
+        var path = '<?= $this->url('Orders/order/tracking', ['order' => $order->getId()]); ?>';
+
+
+        var submitRequest = function(name, value)
+        {
+            console.log("HELLO WORLD2");
+            return new Promise(function(resolve, reject) {
+                console.log("HELLO WORLD");
+
+                console.log(path);
+
+                $.ajax({
+                    url: path,
+                    type: 'POST',
+                    dataType : 'json',
+                    data: {
+                        carrier: carrier,
+                        trackingNumber: value,
+                        eTag: ''
+                    }
+                });
+            });
+        };
+
         ReactDOM.render(
             React.createElement(SafeInput, {
-                name: 'trackingNumber',
+                name: 'trackingNumber-0',
+                type: 'text',
                 initialValue: '78787845',
-                submitCallback: function(){},
+                submitCallback: submitRequest,
                 disabled: false
             }),
-            document.getElementById('trackingNumberColumn')
+            document.getElementById('trackingNumberColumn-0')
         );
+
+
     });
 <?php $this->inlineScript()->captureEnd(); ?>
 <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
@@ -45,6 +73,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
             <span class="grid-table-col action-col">Action</span>
         </span>
             <?php foreach ($this->labels as $label) : ?>
+
             <span class="grid-table-row">
                 <span class="grid-table-col carrier-col"><span class="logo-large <?= $label['channelName']; ?>"></span></span>
                 <span class="grid-table-col carrier-service-col"><?= $label['courierService'] ?></span>
@@ -57,7 +86,10 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                 </span>
                 <span class="grid-table-col">
 
-                    <div id="trackingNumberColumn" class="tracking-number-column"></div>
+                    <?php foreach ($trackings as $key => $tracking): ?>
+                        <input type="hidden" name="carrier" value="<?=$tracking['carrier'] ?>">
+                        <div id="trackingNumberColumn-<?=$key;?>" class="tracking-number-column"></div>
+                    <?php endforeach; ?>
 
 
                     <?php foreach ($trackings as $tracking):
