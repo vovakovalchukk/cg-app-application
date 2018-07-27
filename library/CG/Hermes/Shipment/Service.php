@@ -7,7 +7,6 @@ use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\LabelInterface;
 use CG\Hermes\Client;
 use CG\Hermes\Client\Factory as ClientFactory;
-use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use CG\Hermes\Request\RouteDeliveryCreatePreadviceAndLabel as Request;
 use CG\Hermes\Response\RouteDeliveryCreatePreadviceAndLabel as Response;
 use CG\Hermes\Shipment;
@@ -15,14 +14,11 @@ use CG\Hermes\Shipment\Label;
 
 class Service
 {
-    /** @var DeliveryServiceService */
-    protected $deliveryServiceService;
     /** @var ClientFactory */
     protected $clientFactory;
 
-    public function __construct(DeliveryServiceService $deliveryServiceService, ClientFactory $clientFactory)
+    public function __construct(ClientFactory $clientFactory)
     {
-        $this->deliveryServiceService = $deliveryServiceService;
         $this->clientFactory = $clientFactory;
     }
 
@@ -35,8 +31,7 @@ class Service
 
     protected function buildRequestFromShipment(Shipment $shipment): Request
     {
-        $deliveryService = $this->deliveryServiceService->getDeliveryServiceByReference($shipment->getDeliveryService());
-        return new Request($shipment, $deliveryService);
+        return new Request($shipment, $shipment->getDeliveryService());
     }
 
     protected function sendRequest(Request $request, CourierAdapterAccount $account)
