@@ -722,35 +722,25 @@ class MultiCreationService implements LoggerAwareInterface
         array $variations = []
     ) {
         $listingData = $this->getListingDataFromProductData($productData, $product);
-
-        $accountCategories = [];
-
-        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
-            $accountCategories[$account->getId()]['account'] = $account;
-            if (!isset($accountCategories[$account->getId()]['categories']) || !$accountCategories[$account->getId()]['categories'] instanceof CategoryCollection) {
-                $accountCategories[$account->getId()]['categories'] = new CategoryCollection(Category::class, __CLASS__);
-            }
-            $accountCategories[$account->getId()]['categories']->attach($category);
-        }
-
+        $accountCategories = $this->getAccountAndCategoriesArray($accounts, $categories, $categoryTemplates, $accountCategoriesMap);
         $extractedVariations = [];
         if (!empty($variations)) {
             $extractedVariations = $this->extractVariationProductIds($variations);
         }
 
         foreach ($accountCategories as $accountId => $categoriesByAccount) {
-            $this->jobGeneratorFactory->getGeneratorForChannel($account)->generateJob(
+            $this->jobGeneratorFactory->getGeneratorForChannel($categoriesByAccount['account'])->generateJob(
                 $categoriesByAccount['account'],
                 $categoriesByAccount['categories'],
                 $product,
-                $this->getSiteIdForAccount($account),
+                $this->getSiteIdForAccount($categoriesByAccount['account']),
                 $guid,
                 $this->activeUserContainer->getLocale(),
                 $listingData,
                 $extractedVariations
             );
             foreach ($categoriesByAccount['categories'] as $category) {
-                $this->statusService->markListingAsStarted($guid, $account->getId(), $category->getId());
+                $this->statusService->markListingAsStarted($guid, $categoriesByAccount['account']->getId(), $category->getId());
             }
         }
     }
@@ -791,5 +781,18 @@ class MultiCreationService implements LoggerAwareInterface
     {
         $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
         return isset($channelSpecificValues['defaultSiteId']) ? $channelSpecificValues['defaultSiteId'] : 0;
+    }
+
+    protected function getAccountAndCategoriesArray(Accounts $accounts, CategoryCollection $categories, CategoryTemplates $categoryTemplates, array $accountCategoriesMap)
+    {
+        $accountCategories = [];
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
+            $accountCategories[$account->getId()]['account'] = $account;
+            if (!isset($accountCategories[$account->getId()]['categories']) || !$accountCategories[$account->getId()]['categories'] instanceof CategoryCollection) {
+                $accountCategories[$account->getId()]['categories'] = new CategoryCollection(Category::class, __CLASS__);
+            }
+            $accountCategories[$account->getId()]['categories']->attach($category);
+        }
+        return $accountCategories;
     }
 }
