@@ -148,7 +148,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
                 );
                 $contentNode->addChild('hsCode', $content->getHSCode());
                 $contentNode->addChild('value', $this->convertValueToMinorUnits($content->getUnitValue()));
-                }
+            }
         }
     }
 
@@ -177,8 +177,11 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $sendersAddressNode->addChild('addressLine4', $this->sanitiseString($sendersAddress->getLine4()));
     }
 
-    protected function sanitiseString(string $string, int $maxLength = null): string
+    protected function sanitiseString(?string $string = null, ?int $maxLength = null): string
     {
+        if ($string === null) {
+            return '';
+        }
         return substr($string, 0, $maxLength ?? static::DEFAULT_MAX_LEN);
     }
 
