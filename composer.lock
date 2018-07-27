@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d10d53d69fa603e696989f2a2dfdc578",
+    "content-hash": "a800ac6e0d71f9415a0a99de43f95315",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1527,16 +1527,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "055601ebd261438fbcb322f17ae0ec08bc689866"
+                "reference": "b281345e5db046f40a67368cdba81aa76c539c9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.1.4-d90cc9.zip",
-                "reference": "055601ebd261438fbcb322f17ae0ec08bc689866",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.2.0-8d2490.zip",
+                "reference": "b281345e5db046f40a67368cdba81aa76c539c9e",
                 "shasum": null
             },
             "require": {
@@ -1559,7 +1559,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-16T07:31:30+00:00"
+            "time": "2018-07-27T14:32:51+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -3949,16 +3949,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "db2c08f42c0af81747bd222f5b49e2e5c69469e2"
+                "reference": "53aa746360417b9c95efedfdd378aed1e38b30ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.1-513288.zip",
-                "reference": "db2c08f42c0af81747bd222f5b49e2e5c69469e2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.2-84a856.zip",
+                "reference": "53aa746360417b9c95efedfdd378aed1e38b30ce",
                 "shasum": null
             },
             "require": {
@@ -3966,7 +3966,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/intercom": "^1.1.2",
-                "channelgrabber/locale": "^1.1.0",
+                "channelgrabber/locale": "^1.2.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": "^1.26.0",
@@ -4001,7 +4001,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-06-15T11:01:59+00:00"
+            "time": "2018-07-27T14:43:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4133,16 +4133,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.10",
+            "version": "1.6.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "b2c88b173db4d11c884d8af5e53a1cf91556312a"
+                "reference": "37fbc34cd85fd5599e6d3aed3c0175bdfcea489a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.10-d2f6fe.zip",
-                "reference": "b2c88b173db4d11c884d8af5e53a1cf91556312a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.11-df07d1.zip",
+                "reference": "37fbc34cd85fd5599e6d3aed3c0175bdfcea489a",
                 "shasum": null
             },
             "require": {
@@ -4182,7 +4182,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-07-25T11:14:03+00:00"
+            "time": "2018-07-27T14:33:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
