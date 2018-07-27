@@ -213,6 +213,9 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 
     protected function determineCurrencyOfPackage(Package $package): string
     {
+        if (empty($package->getContents())) {
+            return '';
+        }
         return $package->getContents()[0]->getUnitCurrency();
     }
 
