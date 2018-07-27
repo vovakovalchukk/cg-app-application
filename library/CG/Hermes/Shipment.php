@@ -63,7 +63,7 @@ class Shipment implements
         $this->customerReference = $customerReference;
         $this->account = $account;
         $this->deliveryAddress = $deliveryAddress;
-        $this->collectionAddress = $deliveryAddress;
+        $this->collectionAddress = $collectionAddress;
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;

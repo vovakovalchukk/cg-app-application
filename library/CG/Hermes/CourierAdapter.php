@@ -2,7 +2,8 @@
 namespace CG\Hermes;
 
 use CG\CourierAdapter\Account;
-use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackFile;
+use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\CourierInterface;
@@ -13,6 +14,7 @@ use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\Hermes\Credentials\FormFactory as CredentialsFormFactory;
 use CG\Hermes\Credentials\Requester as CredentialsRequester;
+use CG\Hermes\Credentials\Request\TestPackGenerator;
 use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use CG\Hermes\Shipment\Service as ShipmentService;
 use Psr\Log\LoggerInterface;
@@ -21,7 +23,7 @@ use Zend\Form\Form as ZendForm;
 class CourierAdapter implements
     CourierInterface,
     LocalAuthInterface,
-    CredentialRequestInterface,
+    TestPackInterface,
     CancellingInterface,
     EmailClientAwareInterface
 {
@@ -35,6 +37,8 @@ class CourierAdapter implements
     protected $deliveryServiceService;
     /** @var ShipmentService */
     protected $shipmentService;
+    /** @var TestPackGenerator */
+    protected $testPackGenerator;
 
     /** @var LoggerInterface */
     protected $logger;
@@ -45,12 +49,14 @@ class CourierAdapter implements
         CredentialsFormFactory $credentialsFormFactory,
         CredentialsRequester $credentialsRequester,
         DeliveryServiceService $deliveryServiceService,
-        ShipmentService $shipmentService
+        ShipmentService $shipmentService,
+        TestPackGenerator $testPackGenerator
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsRequester = $credentialsRequester;
         $this->deliveryServiceService = $deliveryServiceService;
         $this->shipmentService = $shipmentService;
+        $this->testPackGenerator = $testPackGenerator;
     }
 
     /**
@@ -143,6 +149,20 @@ EOS;
         return $instructions;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getTestModeInstructions()
+    {
+        $instructions = <<<EOS
+<h1 style="float:none">Connecting Hermes with ChannelGrabber</h1>
+<ol style="list-style-type: decimal">
+EOS;
+        $instructions .= $this->getTestPackInstructionsPartial();
+        $instructions .= '</ol>';
+        return $instructions;
+    }
+
     protected function getTestPackInstructionsPartial(): string
     {
         return <<<EOS
@@ -200,5 +220,38 @@ EOS;
     {
         $this->cancelShipment($shipment);
         $this->bookShipment($shipment);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isAccountInTestMode(Account $account)
+    {
+        $credentials = $account->getCredentials();
+        // Accounts are considered to be in test mode until they have live credentials AND
+        // the live test pack has been approved by Hermes
+        if (isset($credentials['liveCredentials'], $credentials['testPackApproved']) &&
+            $credentials['liveCredentials'] &&
+            $credentials['testPackApproved']
+        ) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getTestPackFileList()
+    {
+        return $this->testPackGenerator->getTestPackFileList();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function generateTestPackFile(TestPackFile $file, Account $account, AddressInterface $collectionAddress)
+    {
+        return $this->testPackGenerator->generateTestPackFile($file, $account, $collectionAddress);
     }
 }
