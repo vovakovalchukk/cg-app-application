@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d02878b5f3b78d4aadaea1b946b2080",
+    "content-hash": "cb8dc3430d2007ec886dbe7dad989fa7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,16 +151,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.26.9",
+            "version": "1.27.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "689d8f7cc6a56da7d9386b1f013ea1c3849a2bd1"
+                "reference": "4ef679d4ba3d86643bc41955c4222d822d29abad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.26.9-4c8ba0.zip",
-                "reference": "689d8f7cc6a56da7d9386b1f013ea1c3849a2bd1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.1-9aeb76.zip",
+                "reference": "4ef679d4ba3d86643bc41955c4222d822d29abad",
                 "shasum": null
             },
             "require": {
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-03-21T11:30:11+00:00"
+            "time": "2018-07-04T09:31:00+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -267,7 +267,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "4d0acbf2c0888894bf218462fe98503059d11143"
+                "reference": "15b20a686c9fb808a7b8923baeaeef3985a6a969"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-245-bigcommerce-specific-job-generator-59ac42.zip",
+                "reference": "15b20a686c9fb808a7b8923baeaeef3985a6a969",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.36.0",
@@ -297,7 +303,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-05-29T08:42:00+00:00"
+            "time": "2018-07-26T15:02:23+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -519,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a6b2ff61b3ec67b69fbefe24621fc722299e7033"
+                "reference": "ee78e992bfbe7bea90a35283704b5ff7bab342f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-245-bigcommerce-listing-creation-2ab36b.zip",
-                "reference": "a6b2ff61b3ec67b69fbefe24621fc722299e7033",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-245-bigcommerce-listing-creation-2c534d.zip",
+                "reference": "ee78e992bfbe7bea90a35283704b5ff7bab342f0",
                 "shasum": null
             },
             "require": {
@@ -594,7 +600,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-05-30T08:03:38+00:00"
+            "time": "2018-07-26T13:35:54+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3423,12 +3429,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "7a743005bba83ad3e60114ec3add12d8ad1193e4"
+                "reference": "43cb8481fa738c7aa7c3dbcb8c63501fc98fd985"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-246-woocomerce-specific-listing-fa0849.zip",
-                "reference": "7a743005bba83ad3e60114ec3add12d8ad1193e4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-246-woocomerce-specific-listing-83fd18.zip",
+                "reference": "43cb8481fa738c7aa7c3dbcb8c63501fc98fd985",
                 "shasum": null
             },
             "require": {
@@ -3464,7 +3470,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-05-30T09:55:38+00:00"
+            "time": "2018-07-25T12:28:15+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9959,8 +9965,8 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.4.1",
-            "alias_normalized": "1.4.1.0",
+            "alias": "1.5.2",
+            "alias_normalized": "1.5.2.0",
             "version": "dev-LIS-246-woocomerce-specific-listing",
             "package": "channelgrabber/woocommerce"
         }
