@@ -23,7 +23,9 @@ define([
                 formName: null,
                 formSectionName: null,
                 fieldChange: null,
-                legend: null
+                legend: null,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderHeadings: function() {
@@ -33,8 +35,13 @@ define([
             }.bind(this));
         },
         renderHeading: function(field) {
+            let label = field.label;
+            if (field.isDimensionsField) {
+                let units = (field.name == 'weight' ? this.props.massUnit : this.props.lengthUnit);
+                label += ' (' + units + ')';
+            }
             return (
-                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{field.label}</th>
+                <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading '}>{label}</th>
             );
         },
         renderHeaderRow: function() {
@@ -66,13 +73,8 @@ define([
             />
         },
         isFirstVariationRow: function(variationId, field) {
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            if (firstVariation == 'variation-' + variationId.toString()) {
-                return true;
-            }
+            // As the first row can't be deleted this should be safe
+            return (variationId === 0);
         },
         changeAllOtherUnchangedValuesToMatchField: function(field, targetValue) {
             var variations = this.props.values.variations;
@@ -110,11 +112,15 @@ define([
                     }
                 }
                 return (
-                    <span>
-                        <img
-                            src={imageUrl}/>
-                    </span>
-                )
+                    <div className="image-dropdown-target">
+                        <div className="react-image-picker">
+                        <span className="react-image-picker-image">
+                            <img src={imageUrl}/>
+                        </span>
+                        </div>
+                    </div>
+
+                );
             },
             customOptionsSelect: function(variationId, field, value) {
                 return <span>{value}</span>;
@@ -188,36 +194,6 @@ define([
             }
             return false;
         },
-        isFirstRowVariation(variationId) {
-            if (!this.props.values || !this.props.values.variations) {
-                return undefined;
-            }
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            if (firstVariation == 'variation-' + variationId + toString()) {
-                return true;
-            }
-            return false;
-        },
-        getFirstRowValue: function(variationId, fieldName) {
-            if (!this.props.values || !this.props.values.variations) {
-                return undefined;
-            }
-            var variations = this.props.values.variations;
-            for (var firstVariation in variations) {
-                break;
-            }
-            var firstVariationObject = variations[firstVariation];
-            if (utility.isEmptyObject(firstVariationObject)) {
-                return undefined;
-            }
-            if (!firstVariationObject[fieldName]) {
-                return undefined;
-            }
-            return firstVariationObject[fieldName];
-        },
         renderField: function(variationId, field) {
             var renderFieldMethod = null;
             var fieldValue = ''
@@ -246,24 +222,25 @@ define([
                 </FormSection>
             )
         },
-        renderRows: function() {
+        renderRows: function(isEmpty) {
             var rows = this.props.rows;
             var rowsToRender = [];
-            for (var i = 0; i < rows.length - 1; i++) {
+
+            let loopLength = isEmpty ? 2 : rows.length;
+
+            for (var i = 0; i < loopLength - 1; i++) {
                 rowsToRender.push(this.renderRow(rows[i].id));
             }
             return rowsToRender;
         },
         renderTable: function() {
-            if (this.props.rows.length <= 1) {
-                return <div></div>
-            }
+            let isEmpty = this.props.rows.length <= 1;
             return (
                 <FormSection name={"variations"}>
                     {this.props.legend ? <legend className={'u-heading-text'}>{this.props.legend}</legend> : ''}
-                    <table className={'c-table-with-inputs '}>
+                    <table className={'c-table-with-inputs u-width-inherit u-min-width-50'}>
                         {this.renderHeaderRow()}
-                        {this.renderRows()}
+                        {this.renderRows(isEmpty)}
                     </table>
                 </FormSection>
             );

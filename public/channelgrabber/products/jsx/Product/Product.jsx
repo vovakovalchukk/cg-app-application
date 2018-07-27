@@ -23,7 +23,11 @@ define([
         categoryTemplateOptions,
         conditionOptions,
         defaultCurrency,
-        salesPhoneNumber
+        salesPhoneNumber,
+        demoLink,
+        showVAT,
+        massUnit,
+        lengthUnit
     ) {
         ReactDOM.render(
             <RootComponent
@@ -43,6 +47,10 @@ define([
                 conditionOptions={conditionOptions}
                 defaultCurrency={defaultCurrency}
                 salesPhoneNumber={salesPhoneNumber}
+                demoLink={demoLink}
+                showVAT={showVAT}
+                massUnit={massUnit}
+                lengthUnit={lengthUnit}
             />,
             mountingNode
         );

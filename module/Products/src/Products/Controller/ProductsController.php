@@ -7,6 +7,9 @@ use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
 use CG\Locale\CurrencyCode;
+use CG\Locale\DemoLink;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
@@ -127,7 +130,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
-        $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($this->activeUserContainer->getLocale()));
+        $locale = $this->activeUserContainer->getLocale();
+        $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($locale));
+        $view->setVariable('demoLink', DemoLink::getForLocale($locale));
+        $view->setVariable('showVAT', $this->productService->isVatRelevant());
+        $view->setVariable('massUnit', LocaleMass::getForLocale($locale));
+        $view->setVariable('lengthUnit', LocaleLength::getForLocale($locale));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

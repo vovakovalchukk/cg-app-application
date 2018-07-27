@@ -18,7 +18,13 @@ class Account extends PartnerRequestAbstract
     public function __construct(User $user, string $externalAccountId)
     {
         $this->user = $user;
-        $this->externalAccountId = $externalAccountId;
+        $this->externalAccountId = $this->generateExternalId($externalAccountId);
+    }
+
+    protected function generateExternalId(string $externalAccountId): string
+    {
+        // Prefix with environment as these have to be unique and we don't want dev/qa taking up real OU IDs
+        return ENVIRONMENT . '-' . $externalAccountId;
     }
 
     public function toArray(): array

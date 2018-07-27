@@ -7,6 +7,8 @@ use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRep
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
+use CG\Locale\Length as LocaleLength;
+use CG\Locale\Mass as LocaleMass;
 use CG\Locking\Failure as LockingFailure;
 use CG\Locking\Service as LockingService;
 use CG\Order\Client\Label\Service as OrderLabelService;
@@ -14,6 +16,15 @@ use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData;
+use CG\Order\Shared\Courier\Label\OrderItemsData\ItemData\Collection as ItemDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
@@ -153,16 +164,15 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function persistProductDetailsForOrders(
         OrderCollection $orders,
-        array $orderParcelsData,
-        array $ordersItemsData,
+        OrderParcelsDataCollection $orderParcelsData,
+        OrderItemsDataCollection $ordersItemsData,
         OrganisationUnit $rootOu
     ) {
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
-            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
             // If there's multiple items and we don't have specific data for each then we don't know how the parcel data is made up
-            if (count($order->getItems()) > 1 && !isset($ordersItemsData[$order->getId()])) {
+            if (count($order->getItems()) > 1 && !$ordersItemsData->containsId($order->getId())) {
                 continue;
             }
             $suitableOrders->attach($order);
@@ -170,13 +180,17 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
-            $parcelsData = (isset($orderParcelsData[$order->getId()]) ? $orderParcelsData[$order->getId()] : []);
-            $parcelCount = count($parcelsData);
-            $parcelData = (!empty($parcelsData) ? array_pop($parcelsData) : []);
-            $itemData = (isset($ordersItemsData[$order->getId()]) ? $ordersItemsData[$order->getId()] : []);
+            /** @var OrderParcelsData $parcelsData */
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
+            /** @var OrderParcelsData $parcelsData */
+            $parcelCount = count($parcelsData->getParcels());
+            /** @var ParcelData $parcelData */
+            $parcelData = (!empty($parcelsData) ? $parcelsData->getParcels()->getFirst() : null);
+            /** @var OrderItemsData $itemsData */
+            $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
             $items = $order->getItems();
             foreach ($items as $item) {
-                $productDetailData = (isset($itemData[$item->getId()]) ? $itemData[$item->getId()] : $parcelData);
+                $productDetailData = ($itemsData && $itemsData->getItems()->containsId($item->getId()) ? $itemsData->getItems()->getById($item->getId())->toArray() : ($parcelData ? $parcelData->toArray() : []));
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
@@ -258,7 +272,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function processWeightForProductDetails($value, Item $item, $parcelCount)
     {
-        return ProductDetail::convertMass($value / $item->getItemQuantity(), ProductDetail::DISPLAY_UNIT_MASS, ProductDetail::UNIT_MASS);
+        $displayUnit = LocaleMass::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
+        return ProductDetail::convertMass($value / $item->getItemQuantity(), $displayUnit, ProductDetail::UNIT_MASS);
     }
 
     protected function processDimensionForProductDetails($value, Item $item, $parcelCount)
@@ -267,52 +282,56 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         if ($item->getItemQuantity() > 1 || $parcelCount > 1) {
             return null;
         }
-        // Dimensions entered in centimetres but stored in metres
-        return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
+        $displayUnit = LocaleLength::getForLocale($this->userOUService->getActiveUserContainer()->getLocale());
+        return ProductDetail::convertLength($value, $displayUnit, ProductDetail::UNIT_LENGTH);
     }
 
-    protected function createOrderLabelForOrder(Order $order, array $orderData, array $orderParcelsData, Account $shippingAccount)
-    {
+    protected function createOrderLabelForOrder(
+        Order $order,
+        OrderData $orderData,
+        OrderParcelsData $orderParcelsData,
+        Account $shippingAccount
+    ) {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
 
-        $serviceName = (isset($orderData['serviceName']) && $orderData['serviceName'] ? $orderData['serviceName'] : '');
+        $serviceName = $orderData->getServiceName();
         if (!$serviceName) {
             $services = $this->shippingServiceFactory->createShippingService($shippingAccount)->getShippingServicesForOrder($order);
-            $serviceName = $services[$orderData['service']] ?? $orderData['service'];
+            $serviceName = $services[$orderData->getService()] ?? $orderData->getService();
         }
 
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
             'shippingAccountId' => $shippingAccount->getId(),
-            'shippingServiceCode' => $orderData['service'],
+            'shippingServiceCode' => $orderData->getService(),
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
             'channelName' => $shippingAccount->getChannel(),
             'courierName' => $shippingAccount->getDisplayName(),
             'courierService' => (string)$serviceName,
-            'insurance' => isset($orderData['insurance']) ? $orderData['insurance'] : '',
-            'insuranceMonetary' => isset($orderData['insuranceMonetary']) ? $orderData['insuranceMonetary'] : '',
-            'signature' => isset($orderData['signature']) ? $orderData['signature'] : '',
-            'deliveryInstructions' => isset($orderData['deliveryInstructions']) ? $orderData['deliveryInstructions'] : '',
+            'insurance' => $orderData->getInsurance() ?? '',
+            'insuranceMonetary' => $orderData->getInsuranceMonetary() ?? '',
+            'signature' => $orderData->getSignature() ?? '',
+            'deliveryInstructions' => $orderData->getDeliveryInstructions() ?? '',
             'parcels' => [],
         ];
 
-        if (empty($orderParcelsData)) {
-            array_push($orderParcelsData, []);
+        // If there's no parcels then add a default one
+        if (count($orderParcelsData->getParcels()) == 0) {
+            $orderParcelsData->getParcels()->attach(ParcelData::fromArray(['number' => 1]));
         }
 
-        $parcelCount = 1;
-        foreach ($orderParcelsData as $parcel) {
+        /** @var ParcelData $parcel */
+        foreach ($orderParcelsData->getParcels() as $parcel) {
             $orderLabelData['parcels'][] = [
-                'number' => $parcelCount,
-                'weight' => isset($parcel['weight']) ? $parcel['weight'] : '',
-                'width' => isset($parcel['width']) ? $parcel['width'] : '',
-                'height' => isset($parcel['height']) ? $parcel['height'] : '',
-                'length' => isset($parcel['length']) ? $parcel['length'] : '',
+                'number' => $parcel->getNumber(),
+                'weight' => $parcel->getWeight() ?? '',
+                'width' => $parcel->getWidth() ?? '',
+                'height' => $parcel->getHeight() ?? '',
+                'length' => $parcel->getLength() ?? '',
             ];
-            $parcelCount++;
         }
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
 
@@ -357,5 +376,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function getProductDetailService()
     {
         return $this->productDetailService;
+    }
+
+    protected function getEmptyParcelDataForOrder(Order $order): OrderParcelsData
+    {
+        return new OrderParcelsData($order->getId(), new OrderParcelsData\ParcelData\Collection());
     }
 }

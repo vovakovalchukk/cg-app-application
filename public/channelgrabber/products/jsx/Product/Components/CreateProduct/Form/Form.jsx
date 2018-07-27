@@ -10,7 +10,8 @@ define([
     'Common/Components/FormRow',
     'Product/Components/VatView',
     'Product/Components/CreateProduct/VariationsTable/Root',
-    'Product/Components/CreateProduct/DimensionsTable/Root'
+    'Product/Components/CreateProduct/DimensionsTable/Root',
+    'Product/Components/CreateListing/Components/CreateListing/ProductIdentifiers'
 ], function(
     React,
     reduxForm,
@@ -23,7 +24,8 @@ define([
     FormRow,
     VatView,
     VariationsTable,
-    DimensionsTable
+    DimensionsTable,
+    ProductIdentifiers
 ) {
     const Field = reduxForm.Field;
     const Form = reduxForm.Form;
@@ -56,7 +58,7 @@ define([
             );
         },
         renderVatViewComponent: function(props) {
-            return <VatView
+            return (<VatView
                 parentProduct={{
                     taxRates: props.taxRates
                 }}
@@ -67,7 +69,8 @@ define([
                     props.input.onChange(newValueForState);
                 }}
                 variationCount={0}
-            />
+                tableCssClassNames={'u-width-600px'}
+            />);
         },
         renderTaxRates: function() {
             return (<Field
@@ -85,7 +88,10 @@ define([
                 addImage: null,
                 uploadedImages: {},
                 taxRates: null,
-                newVariationRowRequest: null
+                newVariationRowRequest: null,
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             };
         },
         renderEditableText: function(reduxFormFieldsProps) {
@@ -120,6 +126,137 @@ define([
             }
             return defaultTaxRates;
         },
+        formatVariationImagesForProductIdentifiersComponent: function(formVariations) {
+            if (!this.props.uploadedImages || !this.props.uploadedImages.images.length || !this.props.uploadedImages.images) {
+                return formVariations;
+            }
+
+            let uploadedImages = this.props.uploadedImages.images;
+
+            let formattedVariations = formVariations;
+
+            formVariations.forEach((variation, i) => {
+                let matchedUploadedImage = uploadedImages.find(uploadedImage => {
+                    return uploadedImage.id === variation.imageId;
+                });
+                if (!matchedUploadedImage) {
+                    return
+                }
+                formattedVariations[i].images = [{
+                    id: matchedUploadedImage.id,
+                    url: matchedUploadedImage.url
+                }];
+            });
+            return formattedVariations;
+        },
+        getAttributeNamesFromFormValues: function() {
+            let customAttributes = this.props.formValues.attributes;
+            if (!customAttributes) {
+                return [];
+            }
+            let attributeNames = [];
+            for (let customAttributeKey in customAttributes) {
+                attributeNames.push(customAttributes[customAttributeKey]);
+            }
+
+            return attributeNames;
+        },
+        formatAttributeValuesForVariation: function(customAttributesObject, attributeNames, variation) {
+            let formattedAttributeValues = {};
+
+            for (let attributeKey in customAttributesObject) {
+                for (let attributeName of attributeNames) {
+                    if (customAttributesObject[attributeKey] !== attributeName) {
+                        continue;
+                    }
+                    formattedAttributeValues[attributeName] = variation[attributeKey];
+                }
+            }
+            variation.attributeValues = formattedAttributeValues;
+            return variation;
+        },
+        addAttributeValuesToVariationsData: function(variationsData) {
+            let attributeNames = this.getAttributeNamesFromFormValues();
+            let customAttributesObject = this.props.formValues.attributes;
+            let variations = this.props.formValues.variations;
+
+            if (!attributeNames.length || !customAttributesObject || !variations) {
+                return variationsData;
+            }
+
+            let formattedVariationData = [];
+
+            for (let variation of variationsData) {
+                let variationDataWithAttributes = this.formatAttributeValuesForVariation(customAttributesObject, attributeNames, variation);
+                formattedVariationData.push(variationDataWithAttributes);
+            }
+
+            return formattedVariationData
+        },
+        formatReduxFormValuesForProductIdentifiersComponent: function() {
+            let formVariations = this.props.formValues.variations;
+            formVariations = Object.keys(formVariations).map(variation => {
+                return formVariations[variation];
+            });
+            formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
+            formVariations = this.addAttributeValuesToVariationsData(formVariations);
+            return formVariations;
+        },
+        variationsDataExistsInRedux: function() {
+            if (
+                this.props.formValues &&
+                this.props.formValues.variations
+            ) {
+                return true;
+            }
+        },
+        renderProductIdentifiers: function() {
+            let product = {
+                images: this.props.uploadedImages.images
+            };
+            let variationsData = [
+                {
+                    sku: '',
+                    images: [
+                        {url: ''}
+                    ]
+                }
+            ];
+            let attributeNames = [];
+
+            if (this.variationsDataExistsInRedux()) {
+                variationsData = this.formatReduxFormValuesForProductIdentifiersComponent();
+                attributeNames = this.getAttributeNamesFromFormValues();
+            }
+
+            return (
+                <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
+                    <legend className={'u-heading-text'}>Product Identifiers</legend>
+                    <ProductIdentifiers
+                        variationsDataForProduct={variationsData}
+                        product={product}
+                        renderImagePicker={false}
+                        shouldRenderStaticImagesFromVariationValues={true}
+                        containerCssClasses={'u-margin-top-none u-max-width-80'}
+                        tableCssClasses={'u-min-width-50 u-width-inherit'}
+                        attributeNames={attributeNames}
+                    />
+                </fieldset>
+            );
+        },
+        renderVatTable: function(renderTaxRates) {
+            if (!this.props.showVAT) {
+                return;
+            }
+            return (
+                <fieldset className={'u-margin-bottom-small'}>
+                    <legend className={'u-heading-text'}>VAT</legend>
+                    <div className={'u-max-width-80'}>
+                        {renderTaxRates.call(this)}
+                    </div>
+                </fieldset>
+            );
+        },
         render: function() {
             return (
                 <Form id="create-product-form" className={"form-root margin-bottom-small"}>
@@ -138,11 +275,11 @@ define([
                         />
                     </fieldset>
                     <fieldset className={'u-margin-bottom-small u-margin-top-small'}>
-                        <legend className={'u-heading-text'}>Variations</legend>
+                        <legend className={'u-heading-text'}>Product Details</legend>
                         <VariationsTable
                             resetSection={this.props.resetSection}
                             untouch={this.props.untouch}
-                            change={this.props.change}
+                            fieldChange={this.props.change}
                             unregister={this.props.unregister}
                         />
                     </fieldset>
@@ -160,14 +297,12 @@ define([
                             legend={'Dimensions'}
                             formSectionName='dimensionsTable'
                             fieldChange={this.props.change}
+                            massUnit={this.props.massUnit}
+                            lengthUnit={this.props.lengthUnit}
                         />
                     </fieldset>
-                    <fieldset className={'u-margin-bottom-small'}>
-                        <legend className={'u-heading-text'}>VAT</legend>
-                        <div className={'u-max-width-60'}>
-                            {inputColumnRenderMethods.renderTaxRates.call(this)}
-                        </div>
-                    </fieldset>
+                    {this.renderVatTable(inputColumnRenderMethods.renderTaxRates)}
+                    {this.renderProductIdentifiers()}
                 </Form>
             );
         }

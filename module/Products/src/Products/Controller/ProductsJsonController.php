@@ -11,6 +11,7 @@ use CG\Listing\Entity as ListingEntity;
 use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
 use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
@@ -161,7 +162,8 @@ class ProductsJsonController extends AbstractActionController
                 $rootOrganisationUnit->getId()
             );
 
-            $allowedCreateListingChannels = $allowedCreateListingVariationsChannels = $this->listingChannelService->getAllowedCreateListingsChannels();
+            $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit);
+            $allowedCreateListingVariationsChannels = $this->listingChannelService->getAllowedCreateListingsVariationsChannels($rootOrganisationUnit);
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData(
                     $product,
@@ -214,8 +216,8 @@ class ProductsJsonController extends AbstractActionController
 
     protected function toArrayProductEntityWithEmbeddedData(
         ProductEntity $productEntity,
-        $accounts,
-        $rootOrganisationUnit,
+        array $accounts,
+        OrganisationUnit $rootOrganisationUnit,
         array $merchantLocationIds
     ) {
         $product = $productEntity->toArray();
@@ -271,13 +273,14 @@ class ProductsJsonController extends AbstractActionController
 
         $detailsEntity = $productEntity->getDetails();
         if ($detailsEntity) {
+            $locale = $rootOrganisationUnit->getLocale();
             $product['details'] = [
                 'id' => $detailsEntity->getId(),
                 'sku' => $detailsEntity->getSku(),
-                'weight' => $detailsEntity->getDisplayWeight(),
-                'width' => $detailsEntity->getDisplayWidth(),
-                'height' => $detailsEntity->getDisplayHeight(),
-                'length' => $detailsEntity->getDisplayLength(),
+                'weight' => $detailsEntity->getDisplayWeight($locale),
+                'width' => $detailsEntity->getDisplayWidth($locale),
+                'height' => $detailsEntity->getDisplayHeight($locale),
+                'length' => $detailsEntity->getDisplayLength($locale),
                 'price' => $detailsEntity->getPrice(),
                 'description' => $detailsEntity->getDescription(),
                 'condition' => $detailsEntity->getCondition(),

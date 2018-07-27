@@ -35,7 +35,11 @@ function(ProductRoot, Clipboard, ImageUtils) {
         <?= json_encode($categoryTemplateOptions); ?>,
         <?= json_encode($conditionOptions); ?>,
         '<?= $defaultCurrency; ?>',
-        '<?= $salesPhoneNumber; ?>'
+        '<?= $salesPhoneNumber; ?>',
+        '<?= $demoLink; ?>',
+        <?= ($showVAT ? 'true' : 'false') ?>,
+        '<?= $massUnit; ?>',
+        '<?= $lengthUnit; ?>'
     );
     new Clipboard('td.sku-cell', [], 'data-copy');
 });

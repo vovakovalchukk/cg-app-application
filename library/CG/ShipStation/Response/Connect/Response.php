@@ -16,7 +16,7 @@ class Response extends ResponseAbstract
 
     protected static function build($decodedJson): Response
     {
-        return new static((new Carrier($decodedJson->{"carrier-id"})));
+        return new static((new Carrier($decodedJson->{"carrier_id"})));
     }
 
     public function getCarrier(): Carrier

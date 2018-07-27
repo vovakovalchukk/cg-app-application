@@ -44,6 +44,36 @@ class Address
         $this->email = $email;
     }
 
+    public static function fromArray(array $array): Address
+    {
+        return new static(
+            $array['company'],
+            $array['phone'],
+            $array['address1'],
+            $array['city'],
+            $array['state'],
+            $array['postal_code'] ?? $array['postal code'],
+            $array['country_code'] ?? $array['country code'],
+            $array['address2'],
+            $array['email']
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'phone' => $this->getPhone(),
+            'address_line1' => $this->getAddressLine1(),
+            'address_line2' => $this->getAddressLine2(),
+            'city_locality' => $this->getCityLocality(),
+            'state_province' => $this->getProvince(),
+            'postal_code' => $this->getPostalCode(),
+            'country_code' => $this->getCountryCode(),
+            'email' => $this->getEmail(),
+        ];
+    }
+
     public function getName(): ?string
     {
         return $this->name;

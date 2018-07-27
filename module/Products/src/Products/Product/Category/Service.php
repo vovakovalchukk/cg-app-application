@@ -96,7 +96,7 @@ class Service
                 (new CategoryTemplateFilter('all', 1))->setId($categoryTemplateIds)
             );
             $categories = $this->getCategoriesForCategoryTemplates($categoryTemplates);
-            $accounts = $this->getAccountsForCategories($categories);
+            $accounts = $this->getAccountsForCategories($categoryTemplates);
             return $this->getTemplateDependentFieldValuesArray($categoryTemplates, $categories, $accounts);
         } catch (NotFound $exception) {
             return [];
@@ -119,9 +119,15 @@ class Service
         return $this->categoryStorage->fetchCollectionByFilter($filter);
     }
 
-    protected function getAccountsForCategories(Categories $categories): Accounts
+    protected function getAccountsForCategories(CategoryTemplates $categoryTemplates): Accounts
     {
-        $accountIds = array_filter($categories->getArrayOf('accountId'));
+        $accountIds = [];
+        /** @var CategoryTemplate $categoryTemplate */
+        foreach ($categoryTemplates as $categoryTemplate) {
+            foreach ($categoryTemplate->getAccountCategories() as $accountCategory) {
+                $accountIds[$accountCategory->getAccountId()] = $accountCategory->getAccountId();
+            }
+        }
 
         $filter = (new AccountFilter('all', 1))->setId($accountIds);
         if (empty($accountIds)) {
@@ -155,9 +161,9 @@ class Service
                 }
 
                 try {
-                    $account = ($accountId = $category->getAccountId()) ? $accounts->getById($accountId) : null;
+                    $account = $accounts->getById($accountCategory->getAccountId());
                     $fieldValues = $this
-                        ->getCategoryDependentServiceInterface($account ?? $category->getChannel())
+                        ->getCategoryDependentServiceInterface($account)
                         ->getCategoryDependentValues($account, $category->getId());
                 } catch (ListingException $exception) {
                     // Field values are not supported on selected category

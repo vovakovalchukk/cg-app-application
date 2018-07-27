@@ -52,7 +52,11 @@ define([
                 createListingData: {},
                 conditionOptions: {},
                 defaultCurrency: null,
-                salesPhoneNumber: null
+                salesPhoneNumber: null,
+                demoLink: null,
+                showVAT: true,
+                massUnit: null,
+                lengthUnit: null
             }
         },
         getInitialState: function() {
@@ -422,6 +426,9 @@ define([
                     createListingsAllowedChannels={this.state.createListingsAllowedChannels}
                     createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
                     adminCompanyUrl={this.props.adminCompanyUrl}
+                    showVAT={this.props.showVAT}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />;
             }.bind(this))
         },
@@ -429,18 +436,19 @@ define([
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
+                this.state.createListingsAllowedVariationChannels,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup,
+                this.state.createListing.product,
                 this.props.listingCreationAllowed,
                 this.props.managePackageUrl,
-                this.props.salesPhoneNumber
+                this.props.salesPhoneNumber,
+                this.props.demoLink
             );
             this.fetchVariationForProductListingCreation();
-            return <CreateListingRootComponent
-                product={this.state.createListing.product}
-            />;
+            return <CreateListingRootComponent/>;
         },
         fetchVariationForProductListingCreation: function() {
             if (this.state.variations[this.state.createListing.product.id]
@@ -462,6 +470,8 @@ define([
                 defaultCurrency={this.props.defaultCurrency}
                 onCreateListingClose={this.onCreateListingClose}
                 onBackButtonPressed={this.showAccountsSelectionPopup}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />;
         },
         formatConditionOptions: function() {
@@ -485,6 +495,9 @@ define([
                 stockModeOptions={this.props.stockModeOptions}
                 redirectToProducts={this.redirectToProducts}
                 onSaveAndList={this.showAccountsSelectionPopup}
+                showVAT={this.props.showVAT}
+                massUnit={this.props.massUnit}
+                lengthUnit={this.props.lengthUnit}
             />
         },
         renderProductListView: function() {

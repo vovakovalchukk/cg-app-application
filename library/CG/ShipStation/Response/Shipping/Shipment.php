@@ -135,7 +135,7 @@ class Shipment
             $decodedJson->insurance_provider,
             $decodedJson->tags ?? [],
             $decodedJson->total_weight->value,
-            $decodedJson->total_weight->units,
+            $decodedJson->total_weight->unit,
             $packages,
             $errors
         );
