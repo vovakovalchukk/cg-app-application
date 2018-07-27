@@ -49,16 +49,17 @@ class Shipment implements
     protected $trackingReferences = [];
 
     public function __construct(
+        DeliveryServiceInterface $deliveryService,
         string $customerReference,
         Account $account,
         AddressInterface $deliveryAddress,
-        AddressInterface $collectionAddress,
-        string $deliveryInstructions,
-        DateTime $collectionDate,
-        array $packages,
-        bool $signatureRequired,
-        DeliveryServiceInterface $deliveryService
+        ?AddressInterface $collectionAddress = null,
+        ?string $deliveryInstructions = null,
+        ?DateTime $collectionDate = null,
+        array $packages = [],
+        ?bool $signatureRequired = null
     ) {
+        $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
         $this->account = $account;
         $this->deliveryAddress = $deliveryAddress;
@@ -67,21 +68,20 @@ class Shipment implements
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
         $this->signatureRequired = $signatureRequired;
-        $this->deliveryService = $deliveryService;
     }
 
     public static function fromArray(array $array): Shipment
     {
         return new static(
+            $array['deliveryService'],
             $array['customerReference'],
             $array['account'],
             $array['deliveryAddress'],
-            $array['collectionAddress'],
-            $array['deliveryInstructions'],
-            $array['collectionDateTime'],
-            $array['packages'],
-            $array['signatureRequired'],
-            $array['deliveryService']
+            $array['collectionAddress'] ?? null,
+            $array['deliveryInstructions'] ?? null,
+            $array['collectionDateTime'] ?? null,
+            $array['packages'] ?? [],
+            $array['signatureRequired'] ?? null
         );
     }
 
