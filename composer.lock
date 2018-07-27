@@ -267,12 +267,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "ac14236de75a0da606baa99d4757c3e04fd788ef"
+                "reference": "00e01d18d9bd2f36cf497fb449877482b8239638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-245-bigcommerce-specific-job-generator-9e9228.zip",
-                "reference": "ac14236de75a0da606baa99d4757c3e04fd788ef",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-LIS-245-bigcommerce-specific-job-generator-ef592f.zip",
+                "reference": "00e01d18d9bd2f36cf497fb449877482b8239638",
                 "shasum": null
             },
             "require": {
@@ -303,7 +303,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-07-26T13:17:42+00:00"
+            "time": "2018-07-27T10:35:06+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -4513,7 +4513,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-17T15:35:25+00:00"
+            "time": "2018-06-07T14:45:51+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
