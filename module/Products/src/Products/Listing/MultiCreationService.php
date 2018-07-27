@@ -38,6 +38,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Product\Listing\Service as ProductListingService;
+use CG\Product\Category\Collection as CategoryCollection;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -206,6 +207,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $categories,
                     $product,
                     $guid,
+                    $categoryTemplates,
+                    $accountCategoriesMap,
                     $productData
                 );
             } else {
@@ -220,6 +223,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $product,
                     $variations,
                     $guid,
+                    $categoryTemplates,
+                    $accountCategoriesMap,
                     $productData
                 );
             }
@@ -686,9 +691,11 @@ class MultiCreationService implements LoggerAwareInterface
         Categories $categories,
         Product $product,
         string $guid,
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap,
         array $productData
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $productData);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData);
     }
 
     protected function generateCreateVariationListingJobs(
@@ -697,9 +704,11 @@ class MultiCreationService implements LoggerAwareInterface
         Product $product,
         array $variations,
         string $guid,
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap,
         array $productData
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $productData, $variations);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $variations);
     }
 
     protected function generateListingJobs(
@@ -707,21 +716,32 @@ class MultiCreationService implements LoggerAwareInterface
         Categories $categories,
         Product $product,
         string $guid,
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap,
         array $productData,
         array $variations = []
     ) {
         $listingData = $this->getListingDataFromProductData($productData, $product);
+
+        $accountCategories = [];
+
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
+            $accountCategories[$account->getId()]['account'] = $account;
+            if (!isset($accountCategories[$account->getId()]['categories']) || !$accountCategories[$account->getId()]['categories'] instanceof CategoryCollection) {
+                $accountCategories[$account->getId()]['categories'] = new CategoryCollection(Category::class, __CLASS__);
+            }
+            $accountCategories[$account->getId()]['categories']->attach($category);
+        }
 
         $extractedVariations = [];
         if (!empty($variations)) {
             $extractedVariations = $this->extractVariationProductIds($variations);
         }
 
-        foreach ($accounts as $account) {
-            $accountCategories = $categories->getBy('accountId', $account->getId());
+        foreach ($accountCategories as $accountId => $categoriesByAccount) {
             $this->jobGeneratorFactory->getGeneratorForChannel($account)->generateJob(
-                $account,
-                $accountCategories,
+                $categoriesByAccount['account'],
+                $categoriesByAccount['categories'],
                 $product,
                 $this->getSiteIdForAccount($account),
                 $guid,
@@ -729,7 +749,7 @@ class MultiCreationService implements LoggerAwareInterface
                 $listingData,
                 $extractedVariations
             );
-            foreach ($accountCategories as $category) {
+            foreach ($categoriesByAccount['categories'] as $category) {
                 $this->statusService->markListingAsStarted($guid, $account->getId(), $category->getId());
             }
         }
