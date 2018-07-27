@@ -41,7 +41,7 @@ class TestPackGenerator
         ];
     }
 
-    public function generateTestPackFile(TestPackFile $file, Account $account, AddressInterface $collectionAddress)
+    public function generateTestPackFile(TestPackFile $file, Account $account, AddressInterface $collectionAddress): string
     {
         if ($file->getReference() != 'labels') {
             throw new \UnexpectedValueException(__METHOD__ . ' did not expect a test file of "' . $file->getReference() . '"');
