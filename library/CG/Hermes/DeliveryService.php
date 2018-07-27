@@ -33,6 +33,8 @@ class DeliveryService implements DeliveryServiceInterface
     ) {
         $this->reference = $reference;
         $this->displayName = $displayName;
+        $this->nextDay = $nextDay;
+        $this->specificDay = $specificDay;
         $this->countries = $countries;
         $this->options = $options;
     }

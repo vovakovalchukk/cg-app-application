@@ -65,9 +65,10 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         }
 
         $credentials = $this->shipment->getAccount()->getCredentials();
-        $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?>');
+        $this->xml = new SimpleXMLElement(
+            '<?xml version="1.0" encoding="UTF-8"?><deliveryRoutingRequest></deliveryRoutingRequest>'
+        );
         $routingRequestNode = $this->xml
-            ->addChild('deliveryRoutingRequest')
             ->addChild('clientId', $credentials['clientId'])
             ->addChild('clientName', $credentials['clientName'])
             ->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST)

@@ -78,7 +78,7 @@ class Shipment implements
             $array['deliveryAddress'],
             $array['collectionAddress'],
             $array['deliveryInstructions'],
-            $array['collectionDate'],
+            $array['collectionDateTime'],
             $array['packages'],
             $array['signatureRequired'],
             $array['deliveryService']

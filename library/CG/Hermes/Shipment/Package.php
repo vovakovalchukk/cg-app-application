@@ -44,7 +44,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         $this->contents = $contents;
     }
 
-    public static function fromArray(array $array): International
+    public static function fromArray(array $array): Package
     {
         return new static(
             $array['number'],
