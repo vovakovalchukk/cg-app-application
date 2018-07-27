@@ -66,12 +66,12 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
         return $errors;
     }
 
-    public function getBarcodeNumbers(): string
+    public function getBarcodeNumbers(): array
     {
         return $this->barcodeNumbers;
     }
 
-    public function getLabels(): string
+    public function getLabels(): array
     {
         return $this->labels;
     }
