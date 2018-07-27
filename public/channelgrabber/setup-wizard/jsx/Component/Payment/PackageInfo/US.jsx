@@ -16,7 +16,7 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
         },
         getInitialState: function() {
             return {
-                billingDuration: 1
+                billingDuration: 12
             };
         },
         billingDurationChanged: function(billingDuration) {
