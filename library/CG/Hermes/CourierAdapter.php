@@ -66,6 +66,7 @@ class CourierAdapter implements
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
+        $this->logger->debug('Booking Hermes shipment for Account {account}', ['account' => $shipment->getAccount()->getId()]);
         return $this->shipmentService->bookShipment($shipment);
     }
 
@@ -167,6 +168,8 @@ EOS;
      */
     public function submitCredentialsRequestForm(ZendForm $credentialsRequestForm)
     {
+        $customer = $credentialsRequestForm->getData()['clientName'];
+        $this->logger->debug('Submitting Hermes credentials request form for {customer}', ['customer' => $customer]);
         ($this->credentialsRequester)($credentialsRequestForm, $this->emailClient, $this->logger);
     }
 
@@ -185,6 +188,7 @@ EOS;
      */
     public function cancelShipment(ShipmentInterface $shipment)
     {
+        $this->logger->debug('Cancelling Hermes shipment for Account {account} (no request required)', ['account' => $shipment->getAccount()->getId()]);
         // Hermes labels aren't charged for until they're scanned so we don't need to make any calls
         return true;
     }
