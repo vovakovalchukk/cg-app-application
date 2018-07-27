@@ -3429,12 +3429,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "04b517ef4fa73e4d0fc4e24e21d27e20e4a5f6c1"
+                "reference": "4a49d3962a84d1df782fae4c85d404dc5043c3fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-246-woocomerce-specific-listing-d78c49.zip",
-                "reference": "04b517ef4fa73e4d0fc4e24e21d27e20e4a5f6c1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-LIS-246-woocomerce-specific-listing-48f78d.zip",
+                "reference": "4a49d3962a84d1df782fae4c85d404dc5043c3fa",
                 "shasum": null
             },
             "require": {
@@ -3470,7 +3470,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-07-27T09:26:22+00:00"
+            "time": "2018-07-27T10:04:02+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
