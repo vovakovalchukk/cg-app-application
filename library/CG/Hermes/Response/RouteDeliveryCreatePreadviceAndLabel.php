@@ -29,7 +29,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
 
     public static function createFromXml(SimpleXMLElement $xml)
     {
-        if (!isset($xml->routingResponsetEntries, $xml->routingResponsetEntries->deliveryRoutingRequestEntry)) {
+        if (!isset($xml->routingResponseEntries, $xml->routingResponseEntries->routingResponseEntry)) {
             throw new \RuntimeException('RouteDeliveryCreatePreadviceAndLabel response not in expected format');
         }
         $barcodes = [];
@@ -37,7 +37,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
         $errors = [];
         $warnings = [];
         /** @var SimpleXMLElement $response */
-        foreach ($xml->routingResponsetEntries->deliveryRoutingRequestEntry as $response) {
+        foreach ($xml->routingResponseEntries->routingResponseEntry as $response) {
             if (isset($response->errorMessages)) {
                 $errors = array_merge($errors, static::parseErrorsFromXml($response->errorMessages));
                 continue;
