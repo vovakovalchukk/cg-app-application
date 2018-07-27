@@ -1,14 +1,12 @@
 define([
     'react',
     'fixed-data-table',
-    'react-dimensions',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
     'Product/Components/ProductList/Service/columnCreator'
 ], function(
     React,
     FixedDataTable,
-    ReactDimensions,
     ProductLinkEditor,
     ProductFooter,
     columnCreator
@@ -32,6 +30,15 @@ define([
                     page: 0
                 },
             }
+        },
+        componentDidMount() {
+            console.log('in component did mount of ProductList')
+            this.setState({
+                productsListContainer: {
+                    height: this.productsListContainer.clientHeight,
+                    width: this.productsListContainer.clientWidth
+                }
+            })
         },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
@@ -98,47 +105,52 @@ define([
             //         </div>
             //     );
             // }
+            // do not want to create the table until the dimensions have been captured from the container
+            if(!this.state.productsListContainer || !this.state.productsListContainer.height){
+                console.log('breaking out... this.state.productsListContainer: ' , JSON.stringify(this.productsListContainer,null,1));
+                return;
+            }else{
+                console.log('no error so continuing forward: ' , JSON.stringify(this.state.productsListContainer,null,1));
+            }
             let data = this.getList();
-            // return {
-            //     id: i,
-            //     image: 'http://via.placeholder.com/40',
-            //     link: 'https://app.dev.orderhub.io/products',
-            //     sku:'sku '+i,
-            //     name: 'Product Name '+i,
-            //     available:0,
-            //     text: 'lorem  sdfoisjdofnsigndigfdifgberineorgn'
-            // }
-            return (
-                <Table
-                    rowHeight={50}
-                    rowsCount={data.length}
-                    width={1000}
-                    height={400}
-                    headerHeight={50}
-                    data={data}
-                    rowGetter={(index) => {
-                        return data[index];
-                    }}
-                    footerHeight={0}
-                    groupHeaderHeight={0}
-                    showScrollbarX={true}
-                    showScrollbarY={true}
-                >
-                    {this.renderColumns(data)}
-                </Table>
+        
+            let height = this.state.productsListContainer.height;
+            let width = this.state.productsListContainer.width;
+            
+            console.log('height: ', height);
+            console.log('width: ', width);
+            
+                
+            return(
+                    <Table
+                        rowHeight={50}
+                        rowsCount={data.length}
+                        width={width}
+                        height={height}
+                        headerHeight={50}
+                        data={data}
+                        rowGetter={(index) => {
+                            return data[index];
+                        }}
+                        footerHeight={0}
+                        groupHeaderHeight={0}
+                        showScrollbarX={true}
+                        showScrollbarY={true}
+                    >
+                        {this.renderColumns(data)}
+                    </Table>
             )
         },
         render: function() {
-            
-            console.log('ReactDimensions: ', ReactDimensions);
-            
-            
             return (
                 <div id='products-app'>
                     {this.renderSearchBox()}
                     {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     
-                    <div className='products-list__container'>
+                    <div
+                        className='products-list__container'
+                        ref={ (productsListContainer) => this.productsListContainer = productsListContainer}
+                    >
                         <div id="products-list">
                             {this.renderProducts()}
                         </div>
