@@ -51,7 +51,7 @@ class Service
             throw new UserError(implode('; ', $response->getErrorMessages()));
         }
         // There is no courier reference as such, just use the first barcode
-        $courierReference = $response->getBarcodeNumbers() ? array_shift($response->getBarcodeNumbers()) : '';
+        $courierReference = $response->getBarcodeNumbers() ? $response->getBarcodeNumbers()[0] : '';
         $shipment->setCourierReference($courierReference);
         $shipment->setTrackingReferences($response->getBarcodeNumbers());
         foreach ($response->getLabels() as $labelData) {
