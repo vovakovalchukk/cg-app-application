@@ -29,6 +29,9 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
 
     public static function createFromXml(SimpleXMLElement $xml)
     {
+        if (!isset($xml->routingResponsetEntries, $xml->routingResponsetEntries->deliveryRoutingRequestEntry)) {
+            throw new \RuntimeException('RouteDeliveryCreatePreadviceAndLabel response not in expected format');
+        }
         $barcodes = [];
         $labels = [];
         $errors = [];
