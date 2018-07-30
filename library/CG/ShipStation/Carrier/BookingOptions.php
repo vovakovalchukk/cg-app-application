@@ -55,12 +55,16 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             return [];
         }
 
+        if (count($order->getItems()) > 1) {
+            return $this->returnDefaultPackage();
+        }
+
         $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
         $potentialPackageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
         $packageTypes = $this->restrictPackageTypesByItemRequirements($order, $productDetails, $potentialPackageTypes);
 
         if (!count($packageTypes) > 0) {
-            return [$this->packageTypeService::USPS_DEFAULT_PACKAGE_TYPE];
+            return $this->returnDefaultPackage();
         }
 
         return $this->preparePackageTypesForView($packageTypes);
@@ -142,5 +146,10 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             $packageTypesData[$packageType->getCode()] = $packageType->getName();
         }
         return $packageTypesData;
+    }
+
+    protected function returnDefaultPackage()
+    {
+        return [$this->packageTypeService::USPS_DEFAULT_PACKAGE_CODE => $this->packageTypeService::USPS_DEFAULT_PACKAGE_NAME];
     }
 }
