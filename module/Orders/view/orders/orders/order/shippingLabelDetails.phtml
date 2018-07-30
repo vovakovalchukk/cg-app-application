@@ -16,6 +16,9 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
     function(React, ReactDOM, SafeInput) {
         var orderId = '<?= $order->getId() ?>';
         var path = '<?= $this->url('Orders/order/tracking', ['order' => $order->getId()]); ?>';
+        var trackingNumberData = <?=json_encode($trackings);?>
+
+        console.log(trackingNumberData);
 
    /* .attr('data-actionMessage');
     };
@@ -37,6 +40,9 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
         {
             var notificationObject = n;
             var actionMessagesSelector = $('#tracking-number-messages');
+
+
+
 
 
             n.notice(actionMessagesSelector.attr('data-actionMessage'));
@@ -71,16 +77,25 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
             });
         };
 
-        ReactDOM.render(
-            React.createElement(SafeInput, {
-                name: 'trackingNumber-0',
-                type: 'text',
-                initialValue: '78787845',
-                submitCallback: submitRequest,
-                disabled: false
-            }),
-            document.getElementById('trackingNumberColumn-0')
-        );
+
+        trackingNumberData.forEach(function(tracking, key) {
+            console.log(tracking.number);
+            console.log(key);
+
+
+            ReactDOM.render(
+                React.createElement(SafeInput, {
+                    name: 'trackingNumber-'+key,
+                    type: 'text',
+                    initialValue: tracking.number,
+                    submitCallback: submitRequest,
+                    disabled: false
+                }),
+                document.getElementById('trackingNumberColumn-0')
+            );
+        });
+
+
 
 
     });
