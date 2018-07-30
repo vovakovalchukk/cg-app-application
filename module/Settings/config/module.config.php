@@ -317,6 +317,22 @@ return [
                                                         'action' => 'saveOAuth',
                                                     ],
                                                 ],
+                                                'child_routes' => [
+                                                    'checkOAuth' => [
+                                                        'type' => Segment::class,
+                                                        'options' => [
+                                                            'route' => '/:accountId',
+                                                            'defaults' => [
+                                                                'controller' => EbayController::class,
+                                                                'action' => 'checkOAuth',
+                                                            ],
+                                                            'constraints' => [
+                                                                'accountId' => '[0-9]*'
+                                                            ],
+                                                        ],
+                                                        'may_terminate' => true
+                                                    ]
+                                                ],
                                                 'may_terminate' => true
                                             ]
                                         ],

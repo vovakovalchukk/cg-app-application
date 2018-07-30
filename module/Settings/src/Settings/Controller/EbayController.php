@@ -1,10 +1,19 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Account\CreationServiceAbstract as AccountCreationService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Products\Listing\Channel\Service as ListingChannelService;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
@@ -12,6 +21,33 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
 {
     const DEFAULT_DURATION = ListingDuration::GTC;
     const DEFAULT_DISPATCH_DAYS = 3;
+
+    /** @var ListingChannelService */
+    protected $listingChannelService;
+    /** @var AccountService */
+    protected $accountService;
+
+    public function __construct(
+        AccountCreationService $accountCreationService,
+        ActiveUserInterface $activeUserContainer,
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
+        FeatureFlagsService $featureFlagsService,
+        OrganisationUnitService $organisationUnitService,
+        ListingChannelService $listingChannelService,
+        AccountService $accountService
+    ) {
+        parent::__construct(
+            $accountCreationService,
+            $activeUserContainer,
+            $jsonModelFactory,
+            $viewModelFactory,
+            $featureFlagsService,
+            $organisationUnitService
+        );
+        $this->listingChannelService = $listingChannelService;
+        $this->accountService = $accountService;
+    }
 
     public function saveAction()
     {
@@ -48,6 +84,24 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
         die;
         echo $this->params()->fromQuery('code') . PHP_EOL . $this->params()->fromQuery('expires_in');
         die;
+    }
+
+    public function checkOAuthAction()
+    {
+        $accountId = $this->params()->fromRoute('accountId');
+        try {
+            /** @var Account $account */
+            $account = $this->accountService->fetch($accountId);
+            $accountData = $this->listingChannelService->getAccountData($account);
+            return $this->jsonModelFactory->newInstance([
+                'listingsAuthActive' => $accountData['listingsAuthActive'] ?? false
+            ]);
+        } catch (NotFound $e) {
+            return $this->jsonModelFactory->newInstance([
+                'error' => true,
+                'message' => 'There is no account with the ID ' . $accountId
+            ]);
+        }
     }
 
     protected function getListingDurationView(?string $selected = null): ViewModel
