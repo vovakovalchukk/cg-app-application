@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abe50def9bd8d65e46c80faca080ad4e",
+    "content-hash": "0e0060d266dd2a8f200c24d0e3eca0ea",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1827,16 +1827,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-119-ship-cost-column",
+            "version": "dev-TAC-125-TAC-116-TAC-119",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "217b1c2c1f108c4fda702bb6cd57ac469a443dc0"
+                "reference": "9acc274d5faee6a27e4c6db9cea4afa3b759db99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-119-ship-cost-column-d5792e.zip",
-                "reference": "217b1c2c1f108c4fda702bb6cd57ac469a443dc0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-125-TAC-116-TAC-119-187360.zip",
+                "reference": "9acc274d5faee6a27e4c6db9cea4afa3b759db99",
                 "shasum": null
             },
             "require": {
@@ -1907,7 +1907,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-17T14:56:21+00:00"
+            "time": "2018-07-17T15:09:42+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9961,7 +9961,7 @@
         {
             "alias": "1.38.9",
             "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-119-ship-cost-column",
+            "version": "dev-TAC-125-TAC-116-TAC-119",
             "package": "channelgrabber/order"
         },
         {
