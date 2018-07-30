@@ -13,13 +13,16 @@ use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class TrackingController extends AbstractActionController implements StatsAwareInterface
+class TrackingController extends AbstractActionController implements StatsAwareInterface, LoggerAwareInterface
 {
     use StatsTrait;
+    use LogTrait;
 
     const STAT_ORDER_ACTION_TRACKED = 'orderAction.tracked.%s.%d.%d';
 
@@ -138,8 +141,17 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     {
         try {
             $orderId = $this->params('order');
+            $trackingId = $this->params()->fromPost('trackingId');
+
+            /* @var $trackingCollection \CG\Order\Shared\Tracking\Collection */
             $trackingCollection = $this->getService()->fetchCollectionByOrderIds([$orderId]);
             $trackings = $trackingCollection->getByOrderId($orderId);
+
+            $tracking = $trackings->getById($trackingId);
+            if ($tracking instanceof Tracking) {
+                return $tracking;
+            }
+
             $trackings->rewind();
             $tracking = $trackings->current();
         } catch (NotFound $e) {

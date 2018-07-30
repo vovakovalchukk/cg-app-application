@@ -16,7 +16,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
     ],
     function(React, ReactDOM, TrackingNumber, SafeInput) {
         var orderId = '<?= $order->getId() ?>';
-        var trackingNumberData = <?=json_encode($trackings);?>
+        var trackingNumberData = <?=json_encode($trackings);?>;
         var trackingNumber = new TrackingNumber(n, '#tracking-number-messages');
 
         trackingNumberData.forEach(function(tracking, key) {
@@ -73,6 +73,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                     ></div>
                     <?php foreach ($trackings as $key => $tracking): ?>
                         <input id="tracking-number-carrier-<?=$key;?>" class="tracking-number-carrier" type="hidden" name="carrier" value="<?=$tracking['carrier'] ?>">
+                        <input id="tracking-number-id-<?=$key;?>" class="tracking-number-carrier" type="hidden" name="trackingId" value="<?=$tracking['id'] ?>">
                         <div id="trackingNumberColumn-<?=$key;?>" class="tracking-number-column"></div>
                     <?php endforeach; ?>
                 </span>

@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-9682-click-drop-orders-details":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#64c9a7ce65e665921e0c738cbcd26ac39fea877f"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#90dbc39240c0ee9d033c13319ba1f004edceb913"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
