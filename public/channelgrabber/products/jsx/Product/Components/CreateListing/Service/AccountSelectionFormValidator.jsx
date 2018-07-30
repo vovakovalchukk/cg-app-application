@@ -61,6 +61,15 @@ define([
                         linkUrl: "/settings/channel/sales/" + accountId
                     });
                 }
+
+                var accountData = props.product.accounts[accountId];
+                if (accountData.channel == 'ebay' && !accountData.listingsAuthActive) {
+                    accountsError[accountIndex] = JSON.stringify({
+                        message: "Give us access to your eBay account: ",
+                        linkTitle: "here",
+                        linkUrl: accountData.authTokenInitialisationUrl
+                    });
+                }
             });
 
             if (accounts.length === 0) {
