@@ -51,7 +51,7 @@ return [
                     'carriersConfig' => [
                         'fedex' => [
                             'channelName' => 'fedex-ss',
-                            'displayName' => 'FedEx (US)',
+                            'code' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -133,7 +133,7 @@ return [
                         ],
                         'ups' => [
                             'channelName' => 'ups-ss',
-                            'displayName' => 'UPS (US)',
+                            'code' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -255,7 +255,7 @@ return [
                         ],
                         'usps' => [
                             'channelName' => 'usps-ss',
-                            'displayName' => 'USPS',
+                            'code' => 'USPS',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [],
@@ -289,21 +289,28 @@ return [
                                     'length' => 11.5,
                                     'width' => 6.125,
                                     'height' => 0.25,
-                                    'displayName' => 'Letter',
+                                    'code' => 'letter',
                                 ],
-                                'Large Envelope' => [
+                                'Large Envelope Or Flat' => [
                                     'weight' => 15.9,
                                     'length' => 15,
                                     'width' => 12,
                                     'height' => 0.75,
-                                    'displayName' => 'Large Envelope',
+                                    'code' => 'large_envelope_or_flat',
                                 ],
                                 'Package' => [
                                     'weight' => 15.9,
                                     'length' => 61,
                                     'width' => 46,
                                     'height' => 46,
-                                    'displayName' => 'Package',
+                                    'code' => 'package',
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
                                 ]
                             ],
                             'usps_media_mail' => [
@@ -312,21 +319,28 @@ return [
                                     'length' => 11.5,
                                     'width' => 6.125,
                                     'height' => 0.25,
-                                    'displayName' => 'Letter',
+                                    'code' => 'letter',
                                 ],
-                                'Large Envelope' => [
+                                'Large Envelope Or Flat' => [
                                     'weight' => 15.9,
                                     'length' => 15,
                                     'width' => 12,
                                     'height' => 0.75,
-                                    'displayName' => 'Large Envelope',
+                                    'code' => 'large_envelope_or_flat',
                                 ],
                                 'Package' => [
                                     'weight' => 15.9,
                                     'length' => 61,
                                     'width' => 46,
                                     'height' => 46,
-                                    'displayName' => 'Package',
+                                    'code' => 'package',
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
                                 ]
                             ],
                             'usps_priority_mail' => [
@@ -335,21 +349,29 @@ return [
                                     'length' => 11.5,
                                     'width' => 6.125,
                                     'height' => 0.25,
-                                    'displayName' => 'Letter',
+                                    'code' => 'letter',
                                 ],
-                                'Large Envelope' => [
+                                'Large Envelope Or Flat' => [
                                     'weight' => 1120,
                                     'length' => 15,
                                     'width' => 12,
                                     'height' => 0.75,
-                                    'displayName' => 'Large Envelope',
+                                    'code' => 'large_envelope_or_flat',
                                 ],
                                 'Package' => [
                                     'weight' => 1120,
                                     'length' => 61,
                                     'width' => 46,
                                     'height' => 46,
-                                    'displayName' => 'Package',
+                                    'code' => 'package',
+                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
                                     'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Flat Rate Envelope' => [
@@ -357,70 +379,70 @@ return [
                                     'length' => 12.5,
                                     'width' => 9.5,
                                     'height' => 3, // No height provided, set at reasonable size for envelope
-                                    'displayName' => 'Flat Rate Envelope',
+                                    'code' => 'flat_rate_envelope',
                                 ],
                                 'Flat Rate Padded Envelope' => [
                                     'weight' => 1120,
                                     'length' => 9.5,
                                     'width' => 12.5,
                                     'height' => 3, // No height provided, set at reasonable size for envelope
-                                    'displayName' => 'Flat Rate Padded Envelope',
+                                    'code' => 'flat_rate_padded_envelope',
                                 ],
                                 'Legal Flat Rate Envelope' => [
                                     'weight' => 1120,
                                     'length' => 15,
                                     'width' => 9.5,
                                     'height' => 3, // No height provided, set at reasonable size for envelope
-                                    'displayName' => 'Legal Flat Rate Envelope',
+                                    'code' => 'flat_rat_legal_envelope',
                                 ],
                                 'Small Flat Rate Box' => [
                                     'weight' => 1120,
                                     'length' => 8.625,
                                     'width' => 5.375,
                                     'height' => 1.625,
-                                    'displayName' => 'Small Flat Rate Box',
+                                    'code' => 'small_flat_rate_box',
                                 ],
                                 'Medium Flat Rate Box' => [
                                     'weight' => 1120,
                                     'length' => 13.625,
                                     'width' => 11.875,
                                     'height' => 3.375,
-                                    'displayName' => 'Medium Flat Rate Box',
+                                    'code' => 'medium_flat_rate_box',
                                 ],
-                                'Large Flat Rate Box' => [
+                                'Large Flat Rate Boxx' => [
                                     'weight' => 1120,
                                     'length' => 12,
                                     'width' => 12,
                                     'height' => 5.5,
-                                    'displayName' => 'Large Flat Rate Box',
+                                    'code' => 'large_flat_rate_box',
                                 ],
                                 'Regional Rate Box A1' => [
                                     'weight' => 240,
                                     'length' => 10,
                                     'width' => 7,
                                     'height' => 4.75,
-                                    'displayName' => 'Regional Rate Box A1',
+                                    'code' => 'regional_rate_box_a',
                                 ],
                                 'Regional Rate Box A2' => [
                                     'weight' => 240,
                                     'length' => 10.9375,
                                     'width' => 12.8125,
                                     'height' => 2.375,
-                                    'displayName' => 'Regional Rate Box A2',
+                                    'code' => 'regional_rate_box_a',
                                 ],
                                 'Regional Rate Box B1' => [
                                     'weight' => 320,
                                     'length' => 12,
                                     'width' => 10.25,
                                     'height' => 5,
-                                    'displayName' => 'Regional Rate Box B1',
+                                    'code' => 'regional_rate_box_b',
                                 ],
                                 'Regional Rate Box B2' => [
                                     'weight' => 320,
                                     'length' => 15.875,
                                     'width' => 14.375,
                                     'height' => 2.875,
-                                    'displayName' => 'Regional Rate Box B2',
+                                    'code' => 'regional_rate_box_b',
                                 ]
                             ]
                         ],
@@ -431,21 +453,29 @@ return [
                                     'length' => 11.5,
                                     'width' => 6.125,
                                     'height' => 0.25,
-                                    'displayName' => 'Letter',
+                                    'code' => 'Letter',
                                 ],
-                                'Large Envelope' => [
+                                'Large Envelope Or Flat' => [
                                     'weight' => 64,
                                     'length' => 15,
                                     'width' => 12,
                                     'height' => 0.75,
-                                    'displayName' => 'Large Envelope',
+                                    'code' => 'large_envelope_or_flat',
                                 ],
                                 'Package' => [
                                     'weight' => 64,
                                     'length' => 61,
                                     'width' => 46,
                                     'height' => 46,
-                                    'displayName' => 'Package',
+                                    'code' => 'Package',
+                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'Package',
                                     'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ]
                             ],
@@ -455,23 +485,31 @@ return [
                                     'length' => 11.5,
                                     'width' => 6.125,
                                     'height' => 0.25,
-                                    'displayName' => 'Letter',
+                                    'code' => 'letter',
                                 ],
-                                'Large Envelope' => [
+                                'Large Envelope Or Flat' => [
                                     'weight' => 64,
                                     'length' => 15,
                                     'width' => 12,
                                     'height' => 0.75,
-                                    'displayName' => 'Large Envelope',
+                                    'code' => 'large_envelope_or_flat',
                                 ],
                                 'Package' => [
                                     'weight' => 64,
                                     'length' => 61,
                                     'width' => 46,
                                     'height' => 46,
-                                    'displayName' => 'Package',
+                                    'code' => 'package',
                                     'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
-                                ]
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
                             ],
                             'usps_priority_mail' => [
                                 'Letter' => [
@@ -479,21 +517,29 @@ return [
                                     'length' => 11.5,
                                     'width' => 6.125,
                                     'height' => 0.25,
-                                    'displayName' => 'Letter',
+                                    'code' => 'letter',
                                 ],
-                                'Large Envelope' => [
+                                'Large Envelope Or Flat' => [
                                     'weight' => 1056,
                                     'length' => 15,
                                     'width' => 12,
                                     'height' => 0.75,
-                                    'displayName' => 'Large Envelope',
+                                    'code' => 'large_envelope_or_flat',
                                 ],
                                 'Package' => [
                                     'weight' => 1120,
                                     'length' => 61,
                                     'width' => 46,
                                     'height' => 46,
-                                    'displayName' => 'Package',
+                                    'code' => 'package',
+                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
                                     'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Flat Rate Envelope' => [
@@ -501,42 +547,42 @@ return [
                                     'length' => 12.5,
                                     'width' => 9.5,
                                     'height' => 3, // No height provided, set at reasonable size for envelope
-                                    'displayName' => 'Flat Rate Envelope',
+                                    'code' => 'flat_rate_envelope',
                                 ],
                                 'Flat Rate Padded Envelope' => [
                                     'weight' => 64,
                                     'length' => 9.5,
                                     'width' => 12.5,
                                     'height' => 3, // No height provided, set at reasonable size for envelope
-                                    'displayName' => 'Flat Rate Padded Envelope',
+                                    'code' => 'flat_rate_padded_envelope',
                                 ],
                                 'Legal Flat Rate Envelope' => [
                                     'weight' => 64,
                                     'length' => 15,
                                     'width' => 9.5,
                                     'height' => 3, // No height provided, set at reasonable size for envelope
-                                    'displayName' => 'Legal Flat Rate Envelope',
+                                    'code' => 'flat_rate_legal_envelope',
                                 ],
                                 'Small Flat Rate Box' => [
                                     'weight' => 320,
                                     'length' => 8.625,
                                     'width' => 5.375,
                                     'height' => 1.625,
-                                    'displayName' => 'Small Flat Rate Box',
+                                    'code' => 'small_flat_rate_box',
                                 ],
                                 'Medium Flat Rate Box' => [
                                     'weight' => 320,
                                     'length' => 13.625,
                                     'width' => 11.875,
                                     'height' => 3.375,
-                                    'displayName' => 'Medium Flat Rate Box',
+                                    'code' => 'medium_flat_rate_box',
                                 ],
                                 'Large Flat Rate Box' => [
                                     'weight' => 320,
                                     'length' => 12,
                                     'width' => 12,
                                     'height' => 5.5,
-                                    'displayName' => 'Large Flat Rate Box',
+                                    'code' => 'large_flat_rate_box',
                                 ]
                             ]
                         ]

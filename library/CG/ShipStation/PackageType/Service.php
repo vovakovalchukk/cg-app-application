@@ -22,20 +22,22 @@ class Service
 
     public function __construct(Mapper $mapper, array $packageTypesConfig)
     {
-        $this->setMapper($mapper);
-        $collection = new Collection(Entity::class, __CLASS__);
-        foreach ($packageTypesConfig as $locality => $servicePackages) {
-            foreach ($servicePackages as $serviceName => $packageTypes) {
-                foreach ($packageTypes as $packageType => $config) {
-                    $data = $config;
-                    $data['service'] = $serviceName;
-                    $data['type'] = $packageType;
-                    $data['locality'] = $locality;
-                    $collection->attach($this->mapper->fromArray($data));
+        if ($this->packageTypes === null) {
+            $this->setMapper($mapper);
+            $collection = new Collection(Entity::class, __CLASS__);
+            foreach ($packageTypesConfig as $locality => $servicePackages) {
+                foreach ($servicePackages as $serviceName => $packageTypes) {
+                    foreach ($packageTypes as $packageName => $config) {
+                        $data = $config;
+                        $data['service'] = $serviceName;
+                        $data['name'] = $packageName;
+                        $data['locality'] = $locality;
+                        $collection->attach($this->mapper->fromArray($data));
+                    }
                 }
             }
+            $this->setPackageTypes($collection);
         }
-        $this->setPackageTypes($collection);
     }
 
     public function setMapper(Mapper $mapper): Service

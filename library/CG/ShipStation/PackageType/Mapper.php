@@ -6,11 +6,11 @@ class Mapper
     public function fromArray(array $data)
     {
         return new Entity(
-            $data['displayName'] ?? null,
+            $data['code'] ?? null,
             $data['height'] ?? null,
             $data['length'] ?? null,
             $data['locality'] ?? null,
-            $data['type'] ?? null,
+            $data['name'] ?? null,
             $data['restrictionType'] ?? null,
             $data['service'] ?? null,
             $data['weight'] ?? null,
