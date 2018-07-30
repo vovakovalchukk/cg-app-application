@@ -17,23 +17,55 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
         var orderId = '<?= $order->getId() ?>';
         var path = '<?= $this->url('Orders/order/tracking', ['order' => $order->getId()]); ?>';
 
+   /* .attr('data-actionMessage');
+    };
+
+    Tracking.prototype.getConfirmMessage = function()
+    {
+    return $(this.getSelector()).attr('data-confirmMessage');
+    };
+
+    Tracking.prototype.getSuccessMessage = function()
+    {
+    return $(this.getSelector()).attr('data-successMessage');
+    }; */
+
+
+
 
         var submitRequest = function(name, value)
         {
+            var notificationObject = n;
+            var actionMessagesSelector = $('#tracking-number-messages');
+
+
+            n.notice(actionMessagesSelector.attr('data-actionMessage'));
+
+            var name = $(this).attr('name').split('-');
+            var key = name[1];
+
+            var carrier = $('#tracking-number-carrier-'+key).val();
+
+            console.log('NAME ');
+            console.log(name);
+
             console.log("HELLO WORLD2");
             return new Promise(function(resolve, reject) {
                 console.log("HELLO WORLD");
 
                 console.log(path);
 
-                $.ajax({
-                    url: path,
+               $.ajax({
+                    url: path + '/update',
                     type: 'POST',
                     dataType : 'json',
                     data: {
                         carrier: carrier,
                         trackingNumber: value,
                         eTag: ''
+                    },
+                    success: function() {
+                        n.success(actionMessagesSelector.attr('data-successMessage'));
                     }
                 });
             });
@@ -85,9 +117,14 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
                 <span class="grid-table-col">
+                    <div id="tracking-number-messages"
+                         data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
+                         data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
+                         data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
+                    ></div>
 
                     <?php foreach ($trackings as $key => $tracking): ?>
-                        <input type="hidden" name="carrier" value="<?=$tracking['carrier'] ?>">
+                        <input id="tracking-number-carrier-<?=$key;?>" class="tracking-number-carrier" type="hidden" name="carrier" value="<?=$tracking['carrier'] ?>">
                         <div id="trackingNumberColumn-<?=$key;?>" class="tracking-number-column"></div>
                     <?php endforeach; ?>
 
