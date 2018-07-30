@@ -7,6 +7,7 @@ use CG\Account\Policy\Entity as AccountPolicy;
 use CG\Account\Policy\Filter as AccountPolicyFilter;
 use CG\Account\Policy\Service as AccountPolicyService;
 use CG\Account\Shared\Entity as Account;
+use CG\Ebay\CatalogApi\Token\InitialisationService as TokenInitialisationService;
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
@@ -69,6 +70,8 @@ class Service implements
     protected $accountPolicyService;
     /** @var EbayPoliciesService */
     protected $ebayPoliciesService;
+    /** @var TokenInitialisationService */
+    protected $tokenInitialisationService;
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -83,6 +86,7 @@ class Service implements
         ActiveUserInterface $activeUser,
         AccountPolicyService $accountPolicyService,
         EbayPoliciesService $ebayPoliciesService,
+        TokenInitialisationService $tokenInitialisationService,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -93,6 +97,7 @@ class Service implements
         $this->postData = $postData;
         $this->accountPolicyService = $accountPolicyService;
         $this->ebayPoliciesService =  $ebayPoliciesService;
+        $this->tokenInitialisationService = $tokenInitialisationService;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -185,10 +190,13 @@ class Service implements
 
     public function getAccountData(Account $account): array
     {
+        $listingsAuthActive = $this->hasOAuthTokenActive($account);
+        $initialisationUrl = !$listingsAuthActive ? $this->tokenInitialisationService->getInitializationUrl($account) : null;
         return array_merge(
             $account->toArray(),
             [
-                'listingsAuthActive' => $this->hasOAuthTokenActive($account)
+                'listingsAuthActive' => $listingsAuthActive,
+                'authTokenInitialisationUrl' => $initialisationUrl
             ]
         );
     }
