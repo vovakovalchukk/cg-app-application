@@ -34,7 +34,7 @@
         "channelgrabber/courieradapter": "~1.2.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.2.1",
-        "channelgrabber/ebay": "~1.13.0",
+        "channelgrabber/ebay": "dev-TAC-153-implement-catalog-api as 1.13.2",
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
