@@ -16,78 +16,21 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
     ],
     function(React, ReactDOM, TrackingNumber, SafeInput) {
         var orderId = '<?= $order->getId() ?>';
-        /* var path = '<?= $this->url('Orders/order/tracking', ['order' => $order->getId()]); ?>'; */
         var trackingNumberData = <?=json_encode($trackings);?>
-
-        console.log(trackingNumberData);
-
-        var trackingNumber = TrackingNumber(n, '#tracking-number-messages');
-
-/*
-
-        var submitRequest = function(name, value)
-        {
-            var notificationObject = n;
-            var actionMessagesSelector = $('#tracking-number-messages');
-
-
-
-
-
-            n.notice(actionMessagesSelector.attr('data-actionMessage'));
-
-            var name = $(this).attr('name').split('-');
-            var key = name[1];
-
-            var carrier = $('#tracking-number-carrier-'+key).val();
-
-            console.log('NAME ');
-            console.log(name);
-
-            console.log("HELLO WORLD2");
-            return new Promise(function(resolve, reject) {
-                console.log("HELLO WORLD");
-
-                console.log(path);
-
-               $.ajax({
-                    url: path + '/update',
-                    type: 'POST',
-                    dataType : 'json',
-                    data: {
-                        carrier: carrier,
-                        trackingNumber: value,
-                        eTag: ''
-                    },
-                    success: function() {
-                        n.success(actionMessagesSelector.attr('data-successMessage'));
-                    }
-                });
-            });
-        };
-
-*/
+        var trackingNumber = new TrackingNumber(n, '#tracking-number-messages');
 
         trackingNumberData.forEach(function(tracking, key) {
-            console.log(tracking.number);
-            console.log(key);
-
-
             ReactDOM.render(
                 React.createElement(SafeInput, {
                     name: 'trackingNumber-'+key,
                     type: 'text',
                     initialValue: tracking.number,
-                    submitCallback: trackingNumber.save,
+                    submitCallback: trackingNumber.confirmAndSave,
                     disabled: false
                 }),
-                document.getElementById('trackingNumberColumn-0')
+                document.getElementById('trackingNumberColumn-'+key)
             );
         });
-
-
-
-
     });
 <?php $this->inlineScript()->captureEnd(); ?>
 <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
@@ -128,18 +71,9 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                          data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
                          data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
                     ></div>
-
                     <?php foreach ($trackings as $key => $tracking): ?>
                         <input id="tracking-number-carrier-<?=$key;?>" class="tracking-number-carrier" type="hidden" name="carrier" value="<?=$tracking['carrier'] ?>">
                         <div id="trackingNumberColumn-<?=$key;?>" class="tracking-number-column"></div>
-                    <?php endforeach; ?>
-
-
-                    <?php foreach ($trackings as $tracking):
-//                        echo "<span>".$tracking['number']."</span>";
-/*                        <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= $tracking['number']; ?>" >*/
-                    ?>
-
                     <?php endforeach; ?>
                 </span>
                 <span class="grid-table-col action-col">

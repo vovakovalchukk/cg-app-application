@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a800ac6e0d71f9415a0a99de43f95315",
+    "content-hash": "42e1db0515e50acf23ef2f7423aee6a6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4453,7 +4453,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "adc471a4220a769f8bcdc765ff3c00256299cd24"
+                "reference": "e5b8afa0effc04d5c59388e445d19df1666057ee"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
