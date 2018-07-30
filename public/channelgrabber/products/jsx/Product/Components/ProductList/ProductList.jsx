@@ -33,6 +33,14 @@ define([
         },
         componentDidMount() {
             console.log('in component did mount of ProductList')
+            this.updateDimensions();
+            window.addEventListener("resize", this.updateDimensions);
+        },
+        componentWillUnmount: function() {
+            window.removeEventListener("resize", this.updateDimensions);
+        },
+        updateDimensions: function() {
+            console.log('in updateDimensions');
             this.setState({
                 productsListContainer: {
                     height: this.productsListContainer.clientHeight,
@@ -83,7 +91,6 @@ define([
         },
         renderColumns: function(data) {
             let columnKeys = Object.keys(data[0]);
-            console.log('columnKeys: ', columnKeys);
             return columnKeys.map( (columnKey,columnIndex) => {
                     return columnCreator({
                         data,
@@ -107,19 +114,16 @@ define([
             // }
             // do not want to create the table until the dimensions have been captured from the container
             if(!this.state.productsListContainer || !this.state.productsListContainer.height){
-                console.log('breaking out... this.state.productsListContainer: ' , JSON.stringify(this.productsListContainer,null,1));
+                // console.log('breaking out... this.state.productsListContainer: ' , JSON.stringify(this.productsListContainer,null,1));
                 return;
             }else{
-                console.log('no error so continuing forward: ' , JSON.stringify(this.state.productsListContainer,null,1));
+                // console.log('no error so continuing forward: ' , JSON.stringify(this.state.productsListContainer,null,1));
             }
+            
             let data = this.getList();
         
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
-            
-            console.log('height: ', height);
-            console.log('width: ', width);
-            
                 
             return(
                     <Table
