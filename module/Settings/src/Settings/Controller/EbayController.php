@@ -3,11 +3,17 @@ namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
+use CG\Ebay\Account\CreationService as EbayCreationService;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class EbayController
+ * @method EbayCreationService getAccountCreationService()
+ * @package Settings\Controller
+ */
 class EbayController extends ChannelControllerAbstract implements AddChannelSpecificVariablesToViewInterface
 {
     const DEFAULT_DURATION = ListingDuration::GTC;
@@ -44,10 +50,9 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
 
     public function saveOAuthAction()
     {
-        var_dump($this->params()->fromQuery());
-        die;
-        echo $this->params()->fromQuery('code') . PHP_EOL . $this->params()->fromQuery('expires_in');
-        die;
+        $authCode = $this->params()->fromQuery('code');
+        $accountId = (int) base64_decode(urldecode($this->params()->fromQuery('state')));
+        $this->getAccountCreationService()->saveOAuthToken($authCode, $accountId);
     }
 
     protected function getListingDurationView(?string $selected = null): ViewModel
