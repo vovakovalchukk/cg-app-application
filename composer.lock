@@ -525,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e7d2da764a7f93826f104efc164bd7331cc4e3d0"
+                "reference": "58f04cc195efc859222b6916994aa101e677254f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-245-bigcommerce-listing-creation-30a86d.zip",
-                "reference": "e7d2da764a7f93826f104efc164bd7331cc4e3d0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-244-create-listing-factory-19aaf7.zip",
+                "reference": "58f04cc195efc859222b6916994aa101e677254f",
                 "shasum": null
             },
             "require": {
@@ -600,7 +600,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-26T12:32:23+00:00"
+            "time": "2018-07-26T12:31:55+00:00"
         },
         {
             "name": "channelgrabber/cilex",

@@ -181,7 +181,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
             /** @var OrderParcelsData $parcelsData */
-            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
             /** @var OrderParcelsData $parcelsData */
             $parcelCount = count($parcelsData->getParcels());
             /** @var ParcelData $parcelData */
@@ -376,5 +376,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function getProductDetailService()
     {
         return $this->productDetailService;
+    }
+
+    protected function getEmptyParcelDataForOrder(Order $order): OrderParcelsData
+    {
+        return new OrderParcelsData($order->getId(), new OrderParcelsData\ParcelData\Collection());
     }
 }
