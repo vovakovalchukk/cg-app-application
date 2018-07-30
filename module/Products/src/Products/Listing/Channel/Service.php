@@ -8,6 +8,7 @@ use CG\FeatureFlags\Service as FeatureFlagService;
 use CG\Listing\Client\Service as ListingService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use Products\Listing\Channel\Factory as CreateListingsFactory;
+use Products\Listing\Exception as ListingException;
 
 class Service
 {
@@ -93,6 +94,17 @@ class Service
         /** @var AccountPoliciesInterface $service */
         $service = $this->factory->fetchAndValidateChannelService($account, AccountPoliciesInterface::class, $postData);
         return $service->refreshAccountPolicies($account);
+    }
+
+    public function getAccountData(Account $account, array  $postData = []): array
+    {
+        try {
+            /** @var AccountDataInterface $service */
+            $service = $this->factory->fetchAndValidateChannelService($account, AccountDataInterface::class, $postData);
+            return $service->getAccountData($account);
+        } catch (ListingException $e) {
+            return $account->toArray();
+        }
     }
 
     protected function getAllowedChannelsForOu(OrganisationUnit $ou): array

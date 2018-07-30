@@ -307,6 +307,19 @@ return [
                                                 'action' => 'save'
                                             ]
                                         ],
+                                        'child_routes' => [
+                                            'oauth' => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/oauth',
+                                                    'defaults' => [
+                                                        'controller' => EbayController::class,
+                                                        'action' => 'saveOAuth',
+                                                    ],
+                                                ],
+                                                'may_terminate' => true
+                                            ]
+                                        ],
                                         'may_terminate' => true
                                     ],
                                     AmazonAccount::ROUTE => [

@@ -5,7 +5,6 @@ use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
-use CG\Listing\Client\Service as ListingService;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
@@ -41,6 +40,14 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
         $view
             ->addChild($this->getListingDurationView($account->getExternalDataByKey('listingDuration')), 'listingDurationSelect')
             ->addChild($this->getPaymentMethodView($account->getExternalDataByKey('listingPaymentMethods')), 'paymentMethodsSelect');
+    }
+
+    public function saveOAuthAction()
+    {
+        var_dump($this->params()->fromQuery());
+        die;
+        echo $this->params()->fromQuery('code') . PHP_EOL . $this->params()->fromQuery('expires_in');
+        die;
     }
 
     protected function getListingDurationView(?string $selected = null): ViewModel

@@ -10,6 +10,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
+use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
 use CG\Ebay\Site\CurrencyMap;
 use CG\Ebay\Site\Map as SiteMap;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
@@ -19,23 +20,25 @@ use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
 use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use function CG\Stdlib\isArrayAssociative;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
+use Products\Listing\Channel\AccountDataInterface;
 use Products\Listing\Channel\AccountPoliciesInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 use Products\Listing\Channel\DefaultAccountSettingsInterface;
-use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
+use function CG\Stdlib\isArrayAssociative;
 
 class Service implements
     CategoryDependentServiceInterface,
     DefaultAccountSettingsInterface,
     ChannelSpecificValuesInterface,
     CategoryChildrenInterface,
-    AccountPoliciesInterface
+    AccountPoliciesInterface,
+    AccountDataInterface
 {
     const ALLOWED_SETTINGS_KEYS = [
         'listingLocation' => 'listingLocation',
@@ -178,6 +181,25 @@ class Service implements
     {
         $this->ebayPoliciesService->fetchAndSaveUserPreferenceForAccount($account);
         return $this->fetchPoliciesForAccount($account);
+    }
+
+    public function getAccountData(Account $account): array
+    {
+        return array_merge(
+            $account->toArray(),
+            [
+                'listingsAuthActive' => $this->hasOAuthTokenActive($account)
+            ]
+        );
+    }
+
+    protected function hasOAuthTokenActive(Account $account): bool
+    {
+        $tokenExpiryDate = $account->getExternalData()['oAuthExpiryDate'] ?? null;
+        if ($tokenExpiryDate) {
+            return $tokenExpiryDate > (new DateTime())->stdFormat();
+        }
+        return false;
     }
 
     protected function fetchEbayCategoryData(int $categoryId): ?Data
