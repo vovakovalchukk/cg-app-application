@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e0060d266dd2a8f200c24d0e3eca0ea",
+    "content-hash": "351e8e3b3ab00a784dae8af50d93e1b9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -308,7 +308,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "84c44316f8b0b5887344505bf273ab1fe785f76a"
+                "reference": "cbc6772c6dbae4de5c731307d097fe7524922362"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-121-TAC-125-4750f4.zip",
+                "reference": "cbc6772c6dbae4de5c731307d097fe7524922362",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -337,6 +343,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-TAC-121-TAC-125": "1.17.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -352,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-18T11:04:49+00:00"
+            "time": "2018-07-19T13:44:30+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -632,16 +643,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.10.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb"
+                "reference": "8327436820ce8f794948f7f2cbc66108b780e689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.10.0-6d1481.zip",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-bf85dc.zip",
+                "reference": "8327436820ce8f794948f7f2cbc66108b780e689",
                 "shasum": null
             },
             "require": {
@@ -671,7 +682,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-19T10:40:21+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -752,12 +763,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "1522b43f44b649b0db8d5fd0f09af256108ff68b"
+                "reference": "e3c1dea7535d4de466cca2361ac82e8391bfd5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TECH-88-refactor-courier-arrays-to-objects-ffdb21.zip",
-                "reference": "1522b43f44b649b0db8d5fd0f09af256108ff68b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TECH-88-refactor-courier-arrays-to-objects-1633d2.zip",
+                "reference": "e3c1dea7535d4de466cca2361ac82e8391bfd5a3",
                 "shasum": null
             },
             "require": {
@@ -789,7 +800,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-11T09:55:39+00:00"
+            "time": "2018-07-17T13:49:30+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1916,20 +1927,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.8.1",
+            "version": "dev-TAC-121-usps-balance-and-topup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1"
+                "reference": "af485c65008114f90934e2a02eeecda81ee0b966"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.8.1-ecefd5.zip",
-                "reference": "a9f34f3b5b99c9e48fabdd9bc8c28ee8845872e1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-024a01.zip",
+                "reference": "af485c65008114f90934e2a02eeecda81ee0b966",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "dev-TAC-121-usps-balance-and-topup as 1.17.4",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1950,6 +1961,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "TAC-121-usps-balance-and-topup": "1.9.2-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -1963,7 +1979,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-07-26T08:45:45+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -9954,14 +9970,8 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.17.3",
-            "alias_normalized": "1.17.3.0",
-            "version": "dev-TAC-125-fetch-usps-rates",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "0.0.0",
-            "alias_normalized": "0.0.0.0",
+            "alias": "dev-TAC-121-usps-balance-and-topup",
+            "alias_normalized": "dev-TAC-121-usps-balance-and-topup",
             "version": "dev-TAC-121-TAC-125",
             "package": "channelgrabber/billing"
         },
@@ -9970,6 +9980,12 @@
             "alias_normalized": "dev-TAC-118-ship-action-fetch-rates",
             "version": "dev-TAC-125-fetch-usps-rates",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/clearbooks"
         },
         {
             "alias": "1.0.30",
@@ -9984,6 +10000,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "1.8.2",
+            "alias_normalized": "1.8.2.0",
+            "version": "dev-TAC-121-usps-balance-and-topup",
+            "package": "channelgrabber/payment"
+        },
+        {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-119-ship-cost-column",
@@ -9995,13 +10017,15 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/billing": 20,
         "channelgrabber/channel": 20,
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/payment": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
