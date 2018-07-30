@@ -58,7 +58,8 @@ define([
                     accountsError[accountIndex] = JSON.stringify({
                         message: "In order to create listings on this account, please first create the ",
                         linkTitle: "default listing settings.",
-                        linkUrl: "/settings/channel/sales/" + accountId
+                        linkUrl: "/settings/channel/sales/" + accountId,
+                        target: '_blank'
                     });
                 }
 
