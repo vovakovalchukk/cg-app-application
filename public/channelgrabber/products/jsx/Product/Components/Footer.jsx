@@ -41,11 +41,24 @@ define([
 
             return (
                 <div id="product-pagination-container">
-                    <div className="pagination table-footer u-padding-none" id="product-pagination">
-                        <div className="dataTables_info">
+                    <div className="
+                        u-padding-none
+                        u-padding-left-small
+                        u-border-none
+                        u-background-none"
+                         id="product-pagination"
+                         style={{
+                             justifyContent: 'center',
+                             alignItems: 'center'
+                         }}
+                    >
+                        
+                        {/*CENTER ME*/}
+                        
+                        <div className=" u-inline-block">
                             Showing <span className="first-record">{firstRecord}</span> to <span className="last-record">{lastRecord}</span> of <span className="total-records">{this.props.pagination.total}</span>
                         </div>
-                        <div className="dataTables_paginate paging_full_numbers">
+                        <div className="dataTables_paginate paging_full_numbers u-inline-block u-margin-left-small">
                             <a onClick={this.props.onPageChange.bind(this, firstPage)} className={"first "+(this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')}>First</a>
                             <span className="pagination-page-links">
                                 {this.getPageLinksFromPaginationData(this.props.pagination.limit, this.props.pagination.page, this.props.pagination.total, 5)}

@@ -129,10 +129,8 @@ define([
                     <Table
                         rowHeight={50}
                         rowsCount={data.length}
-                        // width={width}
-                        // height={height}
-                        width={600}
-                        height={500}
+                        width={width}
+                        height={height}
                         headerHeight={50}
                         data={data}
                         rowGetter={(index) => {
@@ -168,15 +166,17 @@ define([
                         />
                         
                     </div>
-                    {(this.props.products.length ?
-                        <ProductFooter
-                        pagination={this.state.pagination}
-                        onPageChange={this.onPageChange}
-                        /> : ''
-                    )}
-                    {/*<div className="dummy-pagination-footer">*/}
-                        {/*<h3>this is the temporary pagination footer to test layout</h3>*/}
-                    {/*</div>*/}
+                    {/*{(this.props.products.length ?*/}
+                        {/*<ProductFooter*/}
+                        {/*pagination={this.state.pagination}*/}
+                        {/*onPageChange={this.onPageChange}*/}
+                        {/*/> : ''*/}
+                    {/*)}*/}
+    
+                            <ProductFooter
+                                pagination={this.state.pagination}
+                                onPageChange={this.onPageChange}
+                            />
                 </div>
             );
         }

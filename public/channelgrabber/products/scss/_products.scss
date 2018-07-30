@@ -30,11 +30,33 @@ $screen-padding: 20px;
     color: $color-black;
 }
 
+#product-pagination-container{
+    flex:1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+#products-list {
+    width: 100%;
+
+    float: left;
+    clear: both;
+    box-sizing: border-box;
+    transition: all 0.5s ease;
+}
+
 .products-list__container {
     margin-top: 50px;
-    //background-color: $color-bluegrey;
-    background-color: white;
+    flex: 18;
+    background:green;
+
+    background-color: $color-bluegrey;
+    //background-color: white;
     overflow: hidden;
+    //height: calc(100vh - #{$combined-height-of-non-list-ui-elements});
+    //min-height: 80vh;
+    //height:400px;
 }
 
 .products-list__row{
@@ -47,26 +69,12 @@ $screen-padding: 20px;
 }
 
 // todo - maybe refactor this not to target the react mount eleent
+$combined-height-of-non-list-ui-elements : $header-height+$pagination-height+50px;
 
 #products-app{
     display:flex;
     flex-flow:column;
-    div{
-        flex:1
-    }
-}
-
-$combined-height-of-non-list-ui-elements : $header-height+$pagination-height+50px;
-
-#products-list {
-    width: 100%;
-    //height: calc(100vh - #{$combined-height-of-non-list-ui-elements});
-    //min-height: 80vh;
-    float: left;
-    clear: both;
-    flex:1;
-    box-sizing: border-box;
-    transition: all 0.5s ease;
+    height: calc(100vh - #{$header-height});
 }
 
 .icon-create-listing {
