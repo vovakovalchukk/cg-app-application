@@ -290,6 +290,34 @@ define([
                     formValues: formValues
                 }
             };
+        },
+        refreshAccountPolicies: function (dispatch, accountId) {
+            $.ajax({
+                url: '/products/create-listings/' + accountId + '/refresh-account-policies',
+                type: 'GET',
+                success: function (response) {
+                    dispatch(ResponseActions.accountPoliciesFetched(accountId, response));
+                },
+                error: function () {
+                    dispatch(ResponseActions.accountPoliciesFetchError());
+                }
+            });
+
+            return {
+                type: "FETCH_ACCOUNT_POLICIES",
+                payload: {
+                    accountId: accountId
+                }
+            }
+        },
+        setPoliciesForAccount: function(accountId, policies) {
+            return {
+                type: "SET_POLICIES_FOR_ACCOUNT",
+                payload: {
+                    accountId: accountId,
+                    policies: policies
+                }
+            }
         }
     };
 });

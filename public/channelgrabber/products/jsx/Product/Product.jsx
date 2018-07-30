@@ -24,6 +24,7 @@ define([
         conditionOptions,
         defaultCurrency,
         salesPhoneNumber,
+        demoLink,
         showVAT,
         massUnit,
         lengthUnit
@@ -46,6 +47,7 @@ define([
                 conditionOptions={conditionOptions}
                 defaultCurrency={defaultCurrency}
                 salesPhoneNumber={salesPhoneNumber}
+                demoLink={demoLink}
                 showVAT={showVAT}
                 massUnit={massUnit}
                 lengthUnit={lengthUnit}

@@ -515,6 +515,16 @@ return [
                                 'constraints' => [
                                     'categoryId' => '[0-9]+'
                                 ]
+                            ],
+                            CreateListingsJsonController::ROUTE_REFRESH_ACCOUNT_POLICIES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refresh-account-policies',
+                                    'defaults' => [
+                                        'controller' => CreateListingsJsonController::class,
+                                        'action' => 'refreshAccountPolicies'
+                                    ],
+                                ],
                             ]
                         ]
                     ],

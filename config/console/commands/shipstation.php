@@ -15,7 +15,7 @@ return [
         'description' => 'Run arbitrary queries against the ShipStation api',
         'arguments' => [
             'accountId' => [
-                'description' => 'The account to send the request to',
+                'description' => 'The account to send the request to. This should be the shipstation account, not the courier account.',
                 'required' => true,
             ],
             'endpoint' => [
@@ -23,12 +23,12 @@ return [
                 'required' => true,
             ],
             'payload' => [
-                'description' => 'Payload to send as part of request'
+                'description' => '(Optional) Payload to send as part of request'
             ],
         ],
         'options' => [
             'request' => [
-                'description' => 'Specifies the request method to use',
+                'description' => 'Specifies the request method to use e.g. GET, POST',
                 'value' => true,
                 'required' => true,
                 'shortcut' => 'X',
@@ -59,6 +59,26 @@ return [
                 public function getCompanyId()
                 {
                     // TODO: Implement getCompanyId() method.
+                }
+
+                public function getLocale(): string
+                {
+                    // TODO: Implement getLocale() method.
+                }
+
+                public function setLocale(string $locale)
+                {
+                    // TODO: Implement setLocale() method.
+                }
+
+                public function getTimezone(): string
+                {
+                    // TODO: Implement getTimezone() method.
+                }
+
+                public function setTimezone(string $timezone)
+                {
+                    // TODO: Implement setTimezone() method.
                 }
             }]);
             /** @var Client $client */
