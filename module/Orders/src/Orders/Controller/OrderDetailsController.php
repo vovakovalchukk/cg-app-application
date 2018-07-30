@@ -6,6 +6,8 @@ use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Label\Entity as OrderLabel;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Service as UsageService;
@@ -200,14 +202,6 @@ class OrderDetailsController extends AbstractActionController
         $view->setVariable('order', $order);
 
         try {
-
-//            $this->getCarrierSelect($order);
-
-//            print_r($order->getTrackings()->toArray());
-
-
-
-
             $labels = $this->courierHelper->getNonCancelledOrderLabelsForOrders([$order->getId()]);
 
 //            print_r($labels);
@@ -224,7 +218,13 @@ class OrderDetailsController extends AbstractActionController
 
             $view->setVariable('trackings', $trackingNumbers);
             $view->setVariable('labels', $labelData);
-            $view->addChild($this->getPrintLabelButton($order), 'printButton');
+
+            $labels->rewind();
+            /* @var $label \CG\Order\Shared\Label\Entity */
+            $label = $labels->current();
+            if (in_array($label->getStatus(), OrderLabelStatus::getPrintableStatuses())) {
+                $view->addChild($this->getPrintLabelButton($order), 'printButton');
+            }
         } catch (NotFound $e) {
             $view->addChild($this->getCarrierSelect($order), 'carrierSelect');
             $view->setVariable('tracking', $order->getFirstTracking());
@@ -235,6 +235,8 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getPrintLabelButton(Order $order)
     {
+
+
         $buttons = $this->viewModelFactory->newInstance([
             'buttons' => [
                 'value' => 'Print',
