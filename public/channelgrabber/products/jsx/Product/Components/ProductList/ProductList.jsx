@@ -129,8 +129,10 @@ define([
                     <Table
                         rowHeight={50}
                         rowsCount={data.length}
-                        width={width}
-                        height={height}
+                        // width={width}
+                        // height={height}
+                        width={600}
+                        height={500}
                         headerHeight={50}
                         data={data}
                         rowGetter={(index) => {
@@ -148,9 +150,10 @@ define([
         render: function() {
             return (
                 <div id='products-app'>
-                    {this.renderSearchBox()}
-                    {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
-                    
+                    <div className="top-toolbar">
+                        {this.renderSearchBox()}
+                        {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
+                    </div>
                     <div
                         className='products-list__container'
                         ref={ (productsListContainer) => this.productsListContainer = productsListContainer}
@@ -163,13 +166,17 @@ define([
                             onEditorClose={this.onProductLinksEditorClose}
                             fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                         />
-                        {(this.props.products.length ?
-                                <ProductFooter
-                                    pagination={this.state.pagination}
-                                    onPageChange={this.onPageChange}
-                                /> : ''
-                        )}
+                        
                     </div>
+                    {(this.props.products.length ?
+                        <ProductFooter
+                        pagination={this.state.pagination}
+                        onPageChange={this.onPageChange}
+                        /> : ''
+                    )}
+                    {/*<div className="dummy-pagination-footer">*/}
+                        {/*<h3>this is the temporary pagination footer to test layout</h3>*/}
+                    {/*</div>*/}
                 </div>
             );
         }

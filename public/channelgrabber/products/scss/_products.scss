@@ -46,15 +46,25 @@ $screen-padding: 20px;
     padding:1em;
 }
 
+// todo - maybe refactor this not to target the react mount eleent
 
-// todo - remove the redundant old classes here
+#products-app{
+    display:flex;
+    flex-flow:column;
+    div{
+        flex:1
+    }
+}
+
+$combined-height-of-non-list-ui-elements : $header-height+$pagination-height+50px;
+
 #products-list {
     width: 100%;
-    height: auto;
-    min-height: 90vh;
+    //height: calc(100vh - #{$combined-height-of-non-list-ui-elements});
+    //min-height: 80vh;
     float: left;
     clear: both;
-    margin-bottom: 20px;
+    flex:1;
     box-sizing: border-box;
     transition: all 0.5s ease;
 }

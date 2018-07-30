@@ -41,7 +41,7 @@ define([
 
             return (
                 <div id="product-pagination-container">
-                    <div className="pagination table-footer" id="product-pagination">
+                    <div className="pagination table-footer u-padding-none" id="product-pagination">
                         <div className="dataTables_info">
                             Showing <span className="first-record">{firstRecord}</span> to <span className="last-record">{lastRecord}</span> of <span className="total-records">{this.props.pagination.total}</span>
                         </div>
