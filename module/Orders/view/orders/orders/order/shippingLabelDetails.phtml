@@ -11,30 +11,19 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
     require([
         'react',
         'react-dom',
-        "Common/Components/SafeInput"
+        'tracking/trackingNumber',
+        'Common/Components/SafeInput'
     ],
-    function(React, ReactDOM, SafeInput) {
+    function(React, ReactDOM, TrackingNumber, SafeInput) {
         var orderId = '<?= $order->getId() ?>';
-        var path = '<?= $this->url('Orders/order/tracking', ['order' => $order->getId()]); ?>';
+        /* var path = '<?= $this->url('Orders/order/tracking', ['order' => $order->getId()]); ?>'; */
         var trackingNumberData = <?=json_encode($trackings);?>
 
         console.log(trackingNumberData);
 
-   /* .attr('data-actionMessage');
-    };
+        var trackingNumber = TrackingNumber(n, '#tracking-number-messages');
 
-    Tracking.prototype.getConfirmMessage = function()
-    {
-    return $(this.getSelector()).attr('data-confirmMessage');
-    };
-
-    Tracking.prototype.getSuccessMessage = function()
-    {
-    return $(this.getSelector()).attr('data-successMessage');
-    }; */
-
-
-
+/*
 
         var submitRequest = function(name, value)
         {
@@ -77,6 +66,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
             });
         };
 
+*/
 
         trackingNumberData.forEach(function(tracking, key) {
             console.log(tracking.number);
@@ -88,7 +78,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                     name: 'trackingNumber-'+key,
                     type: 'text',
                     initialValue: tracking.number,
-                    submitCallback: submitRequest,
+                    submitCallback: trackingNumber.save,
                     disabled: false
                 }),
                 document.getElementById('trackingNumberColumn-0')
@@ -133,6 +123,7 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                 </span>
                 <span class="grid-table-col">
                     <div id="tracking-number-messages"
+                         data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
                          data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
                          data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
                          data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
