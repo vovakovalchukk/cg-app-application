@@ -63,7 +63,7 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             return [$this->packageTypeService::USPS_DEFAULT_PACKAGE_TYPE];
         }
 
-        return array_keys($packageTypes->getIds());
+        return $this->preparePackageTypesForView($packageTypes);
     }
 
     public function isProvidedAccount(AccountEntity $account)
@@ -132,5 +132,15 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             }
         }
         return $packageTypeCollection;
+    }
+
+    protected function preparePackageTypesForView(PackageTypeCollection $packageTypeCollection): array
+    {
+        $packageTypesData = [];
+        /** @var PackageTypeEntity $packageType */
+        foreach ($packageTypeCollection as $packageType) {
+            $packageTypesData[$packageType->getCode()] = $packageType->getName();
+        }
+        return $packageTypesData;
     }
 }

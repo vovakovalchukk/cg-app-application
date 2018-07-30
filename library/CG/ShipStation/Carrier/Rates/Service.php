@@ -62,14 +62,16 @@ class Service
         $exception = new ValidationMessagesException(StatusCode::BAD_REQUEST);
         foreach ($orders as $order) {
             try {
+                $orderData = $ordersData->getById($order->getId());
                 $shipStationRates = $this->fetchRatesForOrderFromShipStation(
                     $order,
-                    $ordersData->getById($order->getId()),
+                    $orderData,
                     $ordersParcelsData->getById($order->getId()),
                     $shipStationAccountToUse,
                     $shippingAccountToUse,
                     $rootOu
                 );
+                $shipStationRates = $this->filterShipStationRatesByPackageType($shipStationRates, $orderData->getPackageType());
                 $orderRates = $this->mapShipstationRatesToOrderShippingRates($order->getId(), $shipStationRates);
                 $rates->attach($orderRates);
             } catch (ValidationException $e) {
@@ -139,5 +141,15 @@ class Service
         }
         // No exception thrown yet, throw a generic one
         throw new ValidationException(static::DEFAULT_RATE_ERROR);
+    }
+
+    protected function filterShipStationRatesByPackageType(array $shipStationRates, string $packageType): array
+    {
+        foreach ($shipStationRates as $key => $shipStationRate) {
+            if ($shipStationRate->getPackageType() !== $packageType) {
+                 unset($shipStationRates[$key]);
+            }
+        }
+        return $shipStationRates;
     }
 }
