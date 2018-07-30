@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb8dc3430d2007ec886dbe7dad989fa7",
+    "content-hash": "a0a3fdf1db6ddbc5c92d176a725ff80a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -525,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ee78e992bfbe7bea90a35283704b5ff7bab342f0"
+                "reference": "58f04cc195efc859222b6916994aa101e677254f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-245-bigcommerce-listing-creation-2c534d.zip",
-                "reference": "ee78e992bfbe7bea90a35283704b5ff7bab342f0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-LIS-244-create-listing-factory-19aaf7.zip",
+                "reference": "58f04cc195efc859222b6916994aa101e677254f",
                 "shasum": null
             },
             "require": {
@@ -600,7 +600,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-26T13:35:54+00:00"
+            "time": "2018-07-26T12:31:55+00:00"
         },
         {
             "name": "channelgrabber/cilex",
