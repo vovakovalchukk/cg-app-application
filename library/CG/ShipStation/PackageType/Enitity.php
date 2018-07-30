@@ -4,6 +4,8 @@ namespace CG\ShipStation\PackageType;
 
 class Entity
 {
+    /** @var string */
+    protected $displayName;
     /** @var float */
     protected $height;
     /** @var float */
@@ -11,7 +13,7 @@ class Entity
     /** @var string */
     protected $locality;
     /** @var string */
-    protected $name;
+    protected $type;
     /** @var string */
     protected $restrictionType;
     /** @var string */
@@ -21,14 +23,14 @@ class Entity
     /** @var float */
     protected $width;
 
-    public function __construct(?float $height, ?float $length, ?string $locality, ?string $name, ?string $restrictionType, ?string $service, ?float $weight, ?float $width)
+    public function __construct(?string $displayName, ?float $height, ?float $length, ?string $locality, ?string $type, ?string $restrictionType, ?string $service, ?float $weight, ?float $width)
     {
         $this->height = $height;
         $this->length = $length;
         $this->locality = $locality;
         $this->restrictionType = $restrictionType;
         $this->service = $service;
-        $this->name = $name;
+        $this->type = $type;
         $this->weight = $weight;
         $this->width = $width;
     }
@@ -36,10 +38,11 @@ class Entity
     public function toArray()
     {
         return [
+            'displayName' => $this->displayName,
             'height' => $this->height,
             'length' => $this->length,
             'locality' => $this->locality,
-            'name' => $this->name,
+            'type' => $this->type,
             'restrictionType' => $this->restrictionType,
             'service' => $this->service,
             'weight' => $this->weight,
@@ -47,15 +50,26 @@ class Entity
         ];
     }
 
-    public function setName(?string $name): Entity
+    public function setType(?string $type): Entity
     {
-        $this->name = $name;
+        $this->type = $type;
         return $this;
     }
 
-    public function getName(): ?string
+    public function getType(): ?string
     {
-        return $this->name;
+        return $this->type;
+    }
+
+    public function setDisplayName(?string $displayName): Entity
+    {
+        $this->displayName = $displayName;
+        return $this;
+    }
+
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
     }
 
     public function setHeight(?float $height): Entity
@@ -116,7 +130,7 @@ class Entity
     // Required by collection
     public function getId()
     {
-        return $this->name;
+        return $this->type;
     }
 
     public function setLocality(?string $locality): Entity

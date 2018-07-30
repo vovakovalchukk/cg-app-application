@@ -29,7 +29,7 @@ class Service
                 foreach ($packageTypes as $packageType => $config) {
                     $data = $config;
                     $data['service'] = $serviceName;
-                    $data['name'] = $packageType;
+                    $data['type'] = $packageType;
                     $data['locality'] = $locality;
                     $collection->attach($this->mapper->fromArray($data));
                 }
