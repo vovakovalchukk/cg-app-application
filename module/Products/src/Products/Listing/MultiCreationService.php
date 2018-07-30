@@ -783,7 +783,7 @@ class MultiCreationService implements LoggerAwareInterface
         return isset($channelSpecificValues['defaultSiteId']) ? $channelSpecificValues['defaultSiteId'] : 0;
     }
 
-    protected function getAccountAndCategoriesArray(Accounts $accounts, CategoryCollection $categories, CategoryTemplates $categoryTemplates, array $accountCategoriesMap)
+    protected function getAccountAndCategoriesArray(Accounts $accounts, CategoryCollection $categories, CategoryTemplates $categoryTemplates, array $accountCategoriesMap): array
     {
         $accountCategories = [];
         foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
