@@ -102,10 +102,8 @@ class Service
 
     public function doesItemMeetPackageTypeGirthAndLengthRequirements(ProductDetailEntity $product): bool
     {
-        if (
-            ($product->getWidth() + $product->getWidth() + $product->getHeight() + $product->getHeight())
-            + $product->getLength() > static::LENGTH_AND_GIRTH_TOTAL_RESTRICTION
-        ) {
+        $girth = ($product->getWidth() * 2) + ($product->getHeight() * 2);
+        if ($girth + $product->getLength() > static::LENGTH_AND_GIRTH_TOTAL_RESTRICTION) {
             return false;
         }
 
