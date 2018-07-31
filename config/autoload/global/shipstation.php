@@ -394,7 +394,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 1120,
@@ -402,7 +402,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'thick_envelope',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Flat Rate Envelope' => [
                                     'weight' => 1120,
@@ -521,7 +521,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 64,
@@ -529,7 +529,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
                             'usps_parcel_select_ground' => [
@@ -553,7 +553,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 64,
@@ -561,7 +561,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
                             'usps_media_mail' => [
@@ -585,7 +585,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 64,
@@ -593,7 +593,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'thick_envelope',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
                             'usps_priority_mail' => [
@@ -617,7 +617,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'package',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 1120,
@@ -625,7 +625,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'thick_envelope',
-                                    'restrictionType' => PackageTypeService::USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Flat Rate Envelope' => [
                                     'weight' => 64,
