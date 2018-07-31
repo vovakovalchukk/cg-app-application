@@ -66,6 +66,7 @@ define([
                         options={this.getCategorySelectOptions()}
                         selectedOptions={this.getSelectedOptions()}
                         disabled={this.props.disabled}
+                        classNames={'u-width-300px'}
                     />
                     {this.renderErrorMessage(this.props.meta)}
                 </div>
