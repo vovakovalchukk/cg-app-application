@@ -18,6 +18,11 @@ class Service
     public const VOLUME_ANY_SINGLE_SIDE_RESTRICTION = 24;
     public const LENGTH_AND_GIRTH_TOTAL_RESTRICTION = 108;
 
+    protected $restrictionTypeMap = [
+        self::VOLUME_RESTRICTION_TYPE => 'doesItemMeetPackageTypeVolumeRequirements',
+        self::LENGTH_AND_GIRTH_RESTRICTION_TYPE => 'doesItemMeetPackageTypeGirthAndLengthRequirements',
+    ];
+
     public function __construct(Mapper $mapper, array $packageTypesConfig)
     {
         $this->mapper = $mapper;
@@ -74,10 +79,9 @@ class Service
 
     public function isPackageSuitableForItemWeightAndDimensions(Entity $packageType, ProductDetailEntity $product)
     {
-        if ($packageType->getRestrictionType() === static::VOLUME_RESTRICTION_TYPE) {
-            return $this->doesItemMeetPackageTypeVolumeRequirements($product);
-        } elseif ($packageType->getRestrictionType() === static::LENGTH_AND_GIRTH_RESTRICTION_TYPE) {
-            return $this->doesItemMeetPackageTypeGirthAndLengthRequirements($product);
+        if (isset($this->restrictionTypeMap[$packageType->getRestrictionType()])) {
+            $method = $this->restrictionTypeMap[$packageType->getRestrictionType()];
+            return $this->{$method}($product);
         } else {
             return $this->doesItemMeetPackageTypeStandardDimensionRequirements($packageType, $product);
         }
