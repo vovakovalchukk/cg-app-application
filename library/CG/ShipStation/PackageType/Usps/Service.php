@@ -20,7 +20,7 @@ class Service
 
     public function __construct(Mapper $mapper, array $packageTypesConfig)
     {
-        $this->setMapper($mapper);
+        $this->mapper = $mapper;
         $collection = new Collection(Entity::class, __CLASS__);
         foreach ($packageTypesConfig as $locality => $servicePackages) {
             foreach ($servicePackages as $serviceName => $packageTypes) {
