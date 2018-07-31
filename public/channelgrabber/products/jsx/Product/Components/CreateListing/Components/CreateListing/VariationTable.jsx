@@ -21,8 +21,12 @@ define([
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
-                renderCustomTableHeaders: function() {return null},
-                renderCustomTableRows: function() {return null}
+                imageDropdownsDisabled: false,
+                shouldRenderStaticImagesFromVariationValues: false,
+                containerCssClasses:'',
+                tableCssClasses:'',
+                renderCustomTableHeaders: function() { return null; },
+                renderCustomTableRows: function() { return null; }
             }
         },
         renderImageHeader: function() {
@@ -31,7 +35,7 @@ define([
             }
             return <th>Image</th>;
         },
-        renderAttributeHeaders: function () {
+        renderAttributeHeaders: function() {
             return this.props.attributeNames.map(function(attributeName) {
                 var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
                 return <th
@@ -42,7 +46,7 @@ define([
                 </th>;
             }.bind(this));
         },
-        renderVariationRows: function () {
+        renderVariationRows: function() {
             return this.props.variationsDataForProduct.map(function(variation) {
                 return <tr>
                     {this.renderImageColumn(variation)}
@@ -53,6 +57,8 @@ define([
             }.bind(this));
         },
         renderImageColumn: function(variation) {
+            let fieldName = "images." + variation.sku + ".imageId";
+
             if (!this.props.showImages) {
                 return;
             }
@@ -62,7 +68,7 @@ define([
 
             return (<td>
                 <Field
-                    name={"images." + variation.sku + ".imageId"}
+                    name={fieldName}
                     component={this.renderImageField}
                     variation={variation}
                 />
@@ -72,19 +78,27 @@ define([
             if (!this.props.renderImagePicker) {
                 return this.renderStaticImage(field);
             }
+
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
             return <ImageDropDown
                 selected={selected}
                 autoSelectFirst={false}
                 images={this.props.product.images}
                 onChange={this.onImageSelected.bind(this, field)}
+                dropdownDisabled={this.props.imageDropdownsDisabled}
             />
         },
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);
         },
+        getStaticImage: function(fieldValue, fieldVariation) {
+            if (this.props.shouldRenderStaticImagesFromVariationValues && fieldVariation.images) {
+                return fieldVariation.images[0];
+            }
+            return this.findSelectedImageForVariation(fieldValue);
+        },
         renderStaticImage: function(field) {
-            var image = this.findSelectedImageForVariation(field.input.value);
+            var image = this.getStaticImage(field.input.value, field.variation);
             return (
                 <div className="image-dropdown-target">
                     <div className="react-image-picker">
@@ -93,7 +107,6 @@ define([
                         </span>
                     </div>
                 </div>
-
             );
         },
         findSelectedImageForVariation: function(imageId) {
@@ -114,8 +127,8 @@ define([
         },
         render: function() {
             return (
-                <div className={"variation-picker"}>
-                    <table>
+                <div className={"variation-picker "+this.props.containerCssClasses}>
+                    <table className={this.props.tableCssClasses}>
                         <thead>
                         <tr>
                             {this.renderImageHeader()}

@@ -41,7 +41,8 @@ define([
                 addNewCategoryVisible: false,
                 listingCreationAllowed: null,
                 managePackageUrl: null,
-                salesPhoneNumber: null
+                salesPhoneNumber: null,
+                demoLink: null
             }
         },
         componentDidMount: function() {
@@ -96,7 +97,7 @@ define([
                 footerJsx={
                     <span>
                         Not sure? Contact our ecommerce specialists on {this.props.salesPhoneNumber} to discuss or&nbsp;
-                        <a href="https://meetings.hubspot.com/sam197/cgdemo"
+                        <a href={this.props.demoLink}
                            alt="calendar-diary"
                            target="_blank"
                         >
@@ -240,6 +241,14 @@ define([
         return [];
     };
 
+    var isRefreshableChannel = function(channel) {
+        const channelsThatAreNotRefreshable = [
+            'ebay',
+            'amazon'
+        ];
+        return channelsThatAreNotRefreshable.indexOf(channel) === -1;
+    };
+
     var convertStateToCategoryMaps = function(state) {
         var categories = {},
             accountId;
@@ -250,6 +259,10 @@ define([
                 selectedCategories: getSelectedCategoriesFromState(state, accountId),
                 displayName: state.accounts[accountId].name
             });
+        }
+
+        for (let category in categories) {
+            categories[category].refreshable = isRefreshableChannel(categories[category].channel);
         }
 
         return categories;

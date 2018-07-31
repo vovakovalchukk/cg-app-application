@@ -53,6 +53,7 @@ define([
                 conditionOptions: {},
                 defaultCurrency: null,
                 salesPhoneNumber: null,
+                demoLink: null,
                 showVAT: true,
                 massUnit: null,
                 lengthUnit: null
@@ -435,18 +436,19 @@ define([
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
+                this.state.createListingsAllowedVariationChannels,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup,
+                this.state.createListing.product,
                 this.props.listingCreationAllowed,
                 this.props.managePackageUrl,
-                this.props.salesPhoneNumber
+                this.props.salesPhoneNumber,
+                this.props.demoLink
             );
             this.fetchVariationForProductListingCreation();
-            return <CreateListingRootComponent
-                product={this.state.createListing.product}
-            />;
+            return <CreateListingRootComponent/>;
         },
         fetchVariationForProductListingCreation: function() {
             if (this.state.variations[this.state.createListing.product.id]
