@@ -203,9 +203,7 @@ class OrderDetailsController extends AbstractActionController
 
         try {
             $labels = $this->courierHelper->getNonCancelledOrderLabelsForOrders([$order->getId()]);
-
-//            print_r($labels);
-
+            
             $labelData = [];
             foreach ($labels as $label) {
                 $labelData[] = $label->toArray();
