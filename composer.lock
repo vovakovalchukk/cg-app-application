@@ -922,13 +922,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "ae8c78277308a57ea6050820d65104a5956a1c1d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-153-implement-catalog-api-3fc474.zip",
-                "reference": "ae8c78277308a57ea6050820d65104a5956a1c1d",
-                "shasum": null
+                "reference": "22c40e7379caad6d55d63aca4f05873c811cd385"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9969,8 +9963,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
