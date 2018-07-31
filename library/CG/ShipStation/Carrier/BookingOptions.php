@@ -149,9 +149,4 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
 
         return $packageTypesData;
     }
-
-    protected function returnDefaultPackage()
-    {
-        return [$this->packageTypeService::USPS_DEFAULT_PACKAGE_CODE => $this->packageTypeService::USPS_DEFAULT_PACKAGE_NAME];
-    }
 }

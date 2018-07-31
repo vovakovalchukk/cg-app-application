@@ -11,9 +11,6 @@ class Service
     /** @var Mapper */
     protected $mapper;
 
-    public const USPS_DEFAULT_PACKAGE_NAME = 'Package';
-    public const USPS_DEFAULT_PACKAGE_CODE = 'package';
-
     public const USPS_LENGTH_AND_GIRTH_RESTRICTION_TYPE = 'lengthAndGirthRestriction';
     public const USPS_VOLUME_RESTRICTION_TYPE = 'volumeRestriction';
 
