@@ -281,7 +281,7 @@ return [
             PackageTypeService::class => [
                 'parameters' => [
                     'packageTypesConfig' => [
-                        // Measurements stored in inches and ounces
+                        // Measurements stored in inches and ounces, keep these in order from smallest to largest within each service
                         'Domestic' => [
                             'usps_first_class_mail' => [
                                 'Letter' => [

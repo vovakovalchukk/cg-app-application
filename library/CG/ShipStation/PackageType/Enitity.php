@@ -134,7 +134,7 @@ class Entity
     // Required by collection
     public function getId(): ?string
     {
-        return $this->getName();
+        return $this->getService() . '-' . $this->getName();
     }
 
     public function setLocality(?string $locality): Entity

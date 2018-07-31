@@ -86,7 +86,7 @@ class Usps implements BookingOptionInterface
         foreach ($packageTypeCollection as $packageType) {
             $packageTypesData[$packageType->getCode()] = [
                     'title' => $packageType->getName(),
-                    'selected' => ($selectedPackage !== null && $selectedPackage->getName() == $packageType->getName()) ? $selectedPackage->getName() : false
+                    'selected' => ($selectedPackage !== null && $selectedPackage->getName() == $packageType->getName()) ? true : false
                 ];
         }
 
