@@ -38,7 +38,7 @@ class Entity
         $this->width = $width;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'code' => $this->code,
@@ -132,7 +132,7 @@ class Entity
     }
 
     // Required by collection
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getName();
     }

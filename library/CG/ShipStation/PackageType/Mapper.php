@@ -3,7 +3,7 @@ namespace CG\ShipStation\PackageType;
 
 class Mapper
 {
-    public function fromArray(array $data)
+    public function fromArray(array $data): Entity
     {
         return new Entity(
             $data['code'] ?? null,
