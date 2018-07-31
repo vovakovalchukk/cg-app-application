@@ -522,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3a70bc7365232808a1188607a61e13ec5805fb00"
+                "reference": "5954e0212c7a53ee38af64d1c28842949edcdb8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-153-implement-catalog-api-f244c1.zip",
-                "reference": "3a70bc7365232808a1188607a61e13ec5805fb00",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-153-implement-catalog-api-5d5416.zip",
+                "reference": "5954e0212c7a53ee38af64d1c28842949edcdb8c",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-30T08:59:46+00:00"
+            "time": "2018-07-30T15:31:20+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -922,12 +922,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "d104c5ec2c74c537f0d42d1107ea5dc2431f049e"
+                "reference": "3cbca99ffad371e73fa44c06c636ba12ea8115bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-153-implement-catalog-api-84b83a.zip",
-                "reference": "d104c5ec2c74c537f0d42d1107ea5dc2431f049e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-153-implement-catalog-api-e77ce4.zip",
+                "reference": "3cbca99ffad371e73fa44c06c636ba12ea8115bc",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-07-30T10:27:25+00:00"
+            "time": "2018-07-31T08:54:37+00:00"
         },
         {
             "name": "channelgrabber/ekm",
