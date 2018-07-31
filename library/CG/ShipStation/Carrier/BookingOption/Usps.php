@@ -84,12 +84,10 @@ class Usps implements BookingOptionInterface
         $packageTypesData = [];
         /** @var PackageTypeEntity $packageType */
         foreach ($packageTypeCollection as $packageType) {
-            $packageTypesData[$packageType->getCode()] = $packageType->getName();
-        }
-
-        if ($selectedPackage !== null) {
-            unset($packageTypesData[$selectedPackage->getCode()]);
-            $packageTypesData = [$selectedPackage->getCode() => $selectedPackage->getName()] + $packageTypesData;
+            $packageTypesData[$packageType->getCode()] = [
+                    'title' => $packageType->getName(),
+                    'selected' => ($selectedPackage !== null && $selectedPackage->getName() == $packageType->getName()) ? $selectedPackage->getName() : false
+                ];
         }
 
         return $packageTypesData;
