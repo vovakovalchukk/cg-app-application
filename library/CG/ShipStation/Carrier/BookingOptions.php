@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateAllActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface;
+use CG\NetDespatch\ShippingService\OptionTypes\PackageType;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
@@ -55,19 +56,14 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             return [];
         }
 
-        if (count($order->getItems()) > 1) {
-            return $this->returnDefaultPackage();
-        }
-
         $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
-        $potentialPackageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
-        $packageTypes = $this->restrictPackageTypesByItemRequirements($order, $productDetails, $potentialPackageTypes);
+        $packageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
 
-        if (!count($packageTypes) > 0) {
-            return $this->returnDefaultPackage();
+        if (count($productDetails) > 1) {
+            $selectedPackage = $this->getMostAppropriatePackageTypeByItemRequirements($productDetails, $potentialPackageTypes);
         }
 
-        return $this->preparePackageTypesForView($packageTypes);
+        return $this->preparePackageTypesForView($packageTypes, $selectedPackage ?? null);
     }
 
     public function isProvidedAccount(AccountEntity $account)
@@ -124,27 +120,33 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         return ($countryCode == 'US');
     }
 
-    protected function restrictPackageTypesByItemRequirements(OrderEntity $order, ProductDetailCollection $productDetails, PackageTypeCollection $packageTypeCollection)
+    protected function getMostAppropriatePackageTypeByItemRequirements(ProductDetailCollection $productDetails, PackageTypeCollection $packageTypeCollection): ?PackageTypeEntity
     {
         /** @var ProductDetailEntity $product */
         $product = $productDetails->getFirst();
 
         /** @var PackageTypeEntity $potentialPackageType */
         foreach ($packageTypeCollection as $potentialPackageType) {
-            if (!$this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackageType, $product)) {
-                $packageTypeCollection->detach($potentialPackageType);
+            if ($this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackageType, $product)) {
+                return $potentialPackageType;
             }
         }
-        return $packageTypeCollection;
+        return null;
     }
 
-    protected function preparePackageTypesForView(PackageTypeCollection $packageTypeCollection): array
+    protected function preparePackageTypesForView(PackageTypeCollection $packageTypeCollection, ?PackageTypeEntity $selectedPackage): array
     {
         $packageTypesData = [];
         /** @var PackageTypeEntity $packageType */
         foreach ($packageTypeCollection as $packageType) {
             $packageTypesData[$packageType->getCode()] = $packageType->getName();
         }
+
+        if ($selectedPackage !== null) {
+            unset($packageTypesData[$selectedPackage->getCode()]);
+            $packageTypesData = [$selectedPackage->getCode() => $selectedPackage->getName()] + $packageTypesData;
+        }
+
         return $packageTypesData;
     }
 
