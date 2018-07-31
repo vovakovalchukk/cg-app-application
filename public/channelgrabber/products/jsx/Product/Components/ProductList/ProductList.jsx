@@ -108,10 +108,6 @@ define([
             const products = this.props.products;
             const accounts = this.props.accounts;
             
-            console.log('products: ', products);
-            console.log('accounts: ', accounts);
-            
-            
             if (products && products.length <= 0) {
                 return;
             }
@@ -186,12 +182,15 @@ define([
                 return;
             }
             return data.map((rowData) => {
-                    rowData.values.map((columnData, columnIndex) => {
-                        return columnCreator({
+                    return rowData.values.map((columnData, columnIndex) => {
+                        let column = columnCreator({
                             data,
                             columnKey: columnData.columnKey,
                             columnIndex
                         });
+                        return column
+                        
+                        
                     })
                 }
             );

@@ -10,7 +10,6 @@ define([
     "use strict";
     console.log('in columnCreator');
     const Cell = FixedDataTable.Cell;
-    const Table = FixedDataTable.Table;
     const Column = FixedDataTable.Column;
     
     var columnCreator = function(creatorObject) {
@@ -41,11 +40,6 @@ define([
         />);
     }
     function renderNameColumn(creatorObject) {
-        console.log('in renderNameColumn wtih creatorObject: ' , creatorObject);
-        console.log('nder cnsl');
-        
-        
-        
         return (<Column
             columnKey="name"
             width={200}
@@ -53,12 +47,7 @@ define([
             fixed={true}
             header={<Cell> name head </Cell>}
             cell={props => {
-                console.log('in props: ' , props);
-                
-                
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
-                console.log('value in name : ', value );
-                
                 return (
                     <Cell>
                         {value}
@@ -119,10 +108,12 @@ define([
     }
     
     function getValue(columnKey, data, rowIndex){
-        console.log('in getValue with data: ' , data);
-        
-        
-        return data[rowIndex].values[columnKey].value;
+        let rowValues = data[rowIndex].values;
+        for(let column of rowValues){
+            if(column.columnKey === columnKey){
+                return column.value;
+            }
+        }
     }
     
     function getColumnRenderers() {

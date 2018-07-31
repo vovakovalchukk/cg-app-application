@@ -4453,13 +4453,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fcd0eea3af48daa55d670d0d65769d5273421444"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-163-create-the-core-table-layout-for-the-new-products-page-9fc441.zip",
-                "reference": "fcd0eea3af48daa55d670d0d65769d5273421444",
-                "shasum": null
+                "reference": "848493a47f65728118fcd8890b3dccab28ed1ab4"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -9961,8 +9955,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
