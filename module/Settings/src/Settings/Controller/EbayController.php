@@ -6,6 +6,7 @@ use CG\Channel\Type as ChannelType;
 use CG\Ebay\Account\CreationService as EbayCreationService;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
+use Products\Module as ProductsModule;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
@@ -51,8 +52,11 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
     public function saveOAuthAction()
     {
         $authCode = $this->params()->fromQuery('code');
-        $accountId = (int) base64_decode(urldecode($this->params()->fromQuery('state')));
+        $accountId = (int) base64_decode(urldecode($this->params()->fromQuery('state', '')));
         $this->getAccountCreationService()->saveOAuthToken($authCode, $accountId);
+
+        $url = $this->plugin('url')->fromRoute(ProductsModule::ROUTE);
+        $this->plugin('redirect')->toUrl($url);
     }
 
     protected function getListingDurationView(?string $selected = null): ViewModel
