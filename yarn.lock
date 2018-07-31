@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#LIS-175-allow-users-to-remove-optional-item-specific-fields":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#4d7e8cc85cfb21380a474a8dc20e78f1f8736892"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#59b533bb965163b02fd779cc6b2debf35a31cc25"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
