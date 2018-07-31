@@ -58,7 +58,8 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
         $packageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
 
-        if (count($productDetails) > 1) {
+        // If we only have one item, we can attempt to determine the appropriate package to select by default
+        if (count($productDetails) == 1) {
             $selectedPackage = $this->getMostAppropriatePackageTypeByItemRequirements($productDetails, $potentialPackageTypes);
         }
 
