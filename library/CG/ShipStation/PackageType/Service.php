@@ -122,7 +122,7 @@ class Service
         if (
             $product->getLength() > $packageType->getLength()
             || $product->getWidth() > $packageType->getWidth()
-            || $product->getHeight() > $product->getHeight()
+            || $product->getHeight() > $packageType->getHeight()
         ) {
             return false;
         }
