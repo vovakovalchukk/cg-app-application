@@ -597,12 +597,16 @@ define([
             //         </div>
             //     </div>
             // );
+            if(!this.state.accounts){
+                return
+            }
             
             return(
                 <ProductListRoot
                     products={this.state.products}
                     features={this.props.features}
                     addNewProductButtonClick={this.addNewProductButtonClick}
+                    accounts={this.state.accounts}
                 />
             )
             

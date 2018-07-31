@@ -14,12 +14,12 @@ define([
     const Column = FixedDataTable.Column;
     
     var columnCreator = function(creatorObject) {
-        console.log('in columnCreator with creatorObject: ' , creatorObject);
-        
-        
+        // console.log('in columnCreator with creatorObject: ' , creatorObject);
         const {data, columnKey} = creatorObject;
         let columnRenderers = getColumnRenderers();
-        return columnRenderers[columnKey](creatorObject);
+        let columnRenderer = columnRenderers[columnKey];
+        
+        return columnRenderer(creatorObject);
     };
     
     return columnCreator;
@@ -41,6 +41,11 @@ define([
         />);
     }
     function renderNameColumn(creatorObject) {
+        console.log('in renderNameColumn wtih creatorObject: ' , creatorObject);
+        console.log('nder cnsl');
+        
+        
+        
         return (<Column
             columnKey="name"
             width={200}
@@ -48,8 +53,12 @@ define([
             fixed={true}
             header={<Cell> name head </Cell>}
             cell={props => {
+                console.log('in props: ' , props);
+                
+                
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
-    
+                console.log('value in name : ', value );
+                
                 return (
                     <Cell>
                         {value}
@@ -100,7 +109,6 @@ define([
             header={<Cell> sku head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
-    
                 return (
                     <Cell>
                         {value}
@@ -111,10 +119,10 @@ define([
     }
     
     function getValue(columnKey, data, rowIndex){
-        console.log('in getValue with columnKey:  '  , columnKey, ' data : ', data, ' and rowIndex: ' , rowIndex);
+        console.log('in getValue with data: ' , data);
         
         
-        return data[rowIndex][columnKey];
+        return data[rowIndex].values[columnKey].value;
     }
     
     function getColumnRenderers() {

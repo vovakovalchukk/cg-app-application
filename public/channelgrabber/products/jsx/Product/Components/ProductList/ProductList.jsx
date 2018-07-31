@@ -19,7 +19,8 @@ define([
         getDefaultProps: function() {
             return {
                 products: [],
-                features: {}
+                features: {},
+                accounts: []
             };
         },
         getInitialState: function() {
@@ -32,7 +33,6 @@ define([
             }
         },
         componentDidMount() {
-            console.log('in component did mount of ProductList')
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
@@ -42,7 +42,6 @@ define([
             document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
         updateDimensions: function() {
-            console.log('in updateDimensions');
             this.setState({
                 productsListContainer: {
                     height: this.productsListContainer.clientHeight,
@@ -77,49 +76,123 @@ define([
                 }
             });
         },
+        //todo - remove this commented code (it is only here for easy reference to the existing implementation of listings tab
+        // getHoverText: function (listing) {
+        //     var hoverText = {
+        //         'active': 'This is an active listing with available stock',
+        //         'pending': 'We have recently sent a stock update to this listing, and are currently waiting for '+$.trim(listing.channel)+' to confirm they have received and processed the stock update',
+        //         'paused': 'Listing is paused due to no stock being available for sale',
+        //         'error': 'We received an error when sending a stock update for this listing and so we are not currently able to manage the stock for this listing.',
+        //         'inactive': 'You do not currently have this SKU listed in this location',
+        //         'unimported': 'This listing has not yet been imported or does not exist'
+        //     };
+        //     return hoverText[$.trim(listing.status)];
+        // },
+        // getValues: function() {
+        //     var values = [];
+        //     for (var accountId in this.props.listingsPerAccount) {
+        //         this.props.listingsPerAccount[accountId].map(function(listingId) {
+        //             if (this.props.listings.hasOwnProperty(listingId)) {
+        //                 var listing = this.props.listings[listingId];
+        //                 var status = $.trim(listing.status);
+        //                 var listingUrl = $.trim(listing.url);
+        //                 values.push(<td title={this.getHoverText(listing)}><a target="_blank" href={listingUrl}><span className={"listing-status " + status}></span></a></td>);
+        //             } else {
+        //                 values.push(<td title={this.getHoverText({status: 'unimported'})}><span className={"listing-status unknown"}></span></td>);
+        //             }
+        //         }.bind(this));
+        //     }
+        //     return values;
+        // },
         getList: function() {
             const products = this.props.products;
+            const accounts = this.props.accounts;
+            
+            console.log('products: ', products);
+            console.log('accounts: ', accounts);
+            
+            
             if (products && products.length <= 0) {
                 return;
             }
-            let rowCount = 50;
             
-            console.log('returning products list');
-            
-            
-            return products.map((product, i) => {
-                return {
-                    image: 'http://via.placeholder.com/40',
-                    link: 'https://app.dev.orderhub.io/products',
-                    sku: product.sku,
-                    name: product.name,
-                    available: 0
+            let list = products.map((product, i) => {
+                // console.log('in list map with product: ', product);
+                
+                let row = {
+                    rowIndex: i,
+                    values: [
+                        {
+                            columnKey: 'image',
+                            value: 'http://via.placeholder.com/40'
+                        },
+                        {
+                            columnKey: 'link',
+                            value: 'https://app.dev.orderhub.io/products'
+                        },
+                        {
+                            columnKey: 'sku',
+                            value: product.sku
+                        },
+                        {
+                            columnKey: 'name',
+                            value: product.name
+                        },
+                        {
+                            columnKey: 'available',
+                            value: 0
+                        }
+                    ]
+                };
+                
+                let listingsTabData = {};
+                
+                // for all accounts
+                for (var accountId in product.listingsPerAccount) {
+                    
+                    //todo create a property of account name here
+                    // console.log('accountId in map: ', accountId);
+                    
+                    let listingsInAccount = product.listingsPerAccount[accountId]
+                    
+                    listingsInAccount.forEach(function(listingId) {
+                        let listing = product.listings[listingId];
+                        let status = $.trim(listing.status);
+                        let listingUrl = $.trim(listing.url);
+                    })
                 }
+                
+                return row;
             });
             
-            // //todo - replace this dummy data with something significant
-            // return Array(rowCount).fill().map((val, i) => {
-            //     return {
-            //         // id: i,
-            //         image: 'http://via.placeholder.com/40',
-            //         link: 'https://app.dev.orderhub.io/products',
-            //         sku: 'sku ' + i,
-            //         name: 'Product Name ' + i,
-            //         available: 0
+            // for (var accountId in this.props.listingsPerAccount) {
+            //         this.props.listingsPerAccount[accountId].map(function(listingId) {
+            //             if (this.props.listings.hasOwnProperty(listingId)) {
+            //                 var listing = this.props.listings[listingId];
+            //                 var status = $.trim(listing.status);
+            //                 var listingUrl = $.trim(listing.url);
+            //                 values.push();
+            //             } else {
+            //                 values.push(<td title={this.getHoverText({status: 'unimported'})}><span className={"listing-status unknown"}></span></td>);
+            //             }
+            //         }.bind(this));
             //     }
-            // });
+            
+            return list;
         },
         renderColumns: function(data) {
+            // console.log('in renderCOlumns with data: ', data);
             if (!data || data.length === 0) {
                 return;
             }
-            let columnKeys = Object.keys(data[0]);
-            return columnKeys.map((columnKey, columnIndex) => {
-                    return columnCreator({
-                        data,
-                        columnKey,
-                        columnIndex
-                    });
+            return data.map((rowData) => {
+                    rowData.values.map((columnData, columnIndex) => {
+                        return columnCreator({
+                            data,
+                            columnKey: columnData.columnKey,
+                            columnIndex
+                        });
+                    })
                 }
             );
         },
@@ -188,7 +261,6 @@ define([
                             onEditorClose={this.onProductLinksEditorClose}
                             fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                         />
-                    
                     </div>
                     {/*{(this.props.products.length ?*/}
                     {/*<ProductFooter*/}
