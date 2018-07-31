@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "378ef8d704d1f1fc227f0f5117f04a00",
@@ -522,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5954e0212c7a53ee38af64d1c28842949edcdb8c"
+                "reference": "9b83059f40c641ca1ae0fbe8ddb6aadf8eb6a14f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-153-implement-catalog-api-5d5416.zip",
-                "reference": "5954e0212c7a53ee38af64d1c28842949edcdb8c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-153-implement-catalog-api-f7d1c1.zip",
+                "reference": "9b83059f40c641ca1ae0fbe8ddb6aadf8eb6a14f",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-30T15:31:20+00:00"
+            "time": "2018-07-31T15:06:30+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -922,12 +922,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0b06afe2ab3fc2a015027b39200f64552c8c0ea4"
+                "reference": "6df680cfed08f7b14c111bad62243729de4a23a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-153-implement-catalog-api-c32e60.zip",
-                "reference": "0b06afe2ab3fc2a015027b39200f64552c8c0ea4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-153-implement-catalog-api-020527.zip",
+                "reference": "6df680cfed08f7b14c111bad62243729de4a23a8",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-07-31T12:58:16+00:00"
+            "time": "2018-07-31T14:46:27+00:00"
         },
         {
             "name": "channelgrabber/ekm",
