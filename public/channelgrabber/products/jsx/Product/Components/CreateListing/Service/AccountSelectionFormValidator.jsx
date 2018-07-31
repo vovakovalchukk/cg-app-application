@@ -64,7 +64,7 @@ define([
                 }
 
                 var accountData = props.product.accounts[accountId];
-                if (accountData.channel == 'ebay' && !accountData.listingsAuthActive) {
+                if (props.productSearchActive && accountData.channel == 'ebay' && !accountData.listingsAuthActive) {
                     accountsError[accountIndex] = JSON.stringify({
                         message: "Give us access to your eBay account: ",
                         linkTitle: "here",

@@ -203,11 +203,21 @@ class Service implements
 
     protected function hasOAuthTokenActive(Account $account): bool
     {
+        if (!$this->isMarketplaceSupportedByOAuth($account)) {
+            return true;
+        }
         $tokenExpiryDate = $account->getExternalData()['oAuthExpiryDate'] ?? null;
         if ($tokenExpiryDate) {
             return $tokenExpiryDate > (new DateTime())->stdFormat();
         }
         return false;
+    }
+
+    protected function isMarketplaceSupportedByOAuth(Account $account): bool
+    {
+        /** @var Credentials $credentials */
+        $credentials = $this->cryptor->decrypt($account->getCredentials());
+        return SiteMap::isMarketplaceAllowedForCatalogApi($credentials->getSiteId());
     }
 
     protected function fetchEbayCategoryData(int $categoryId): ?Data
