@@ -13,16 +13,13 @@ use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class TrackingController extends AbstractActionController implements StatsAwareInterface, LoggerAwareInterface
+class TrackingController extends AbstractActionController implements StatsAwareInterface
 {
     use StatsTrait;
-    use LogTrait;
 
     const STAT_ORDER_ACTION_TRACKED = 'orderAction.tracked.%s.%d.%d';
 

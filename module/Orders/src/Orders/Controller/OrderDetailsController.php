@@ -116,10 +116,6 @@ class OrderDetailsController extends AbstractActionController
     protected function getCarrierSelect(Order $order)
     {
         $carriers = $this->courierHelper->getCarriersData();
-
-
-//        print_r($carriers);
-
         $tracking = $order->getFirstTracking();
         $priorityOptions = $this->courierHelper->getCarrierPriorityOptions($tracking);
         $options = [];
@@ -203,7 +199,7 @@ class OrderDetailsController extends AbstractActionController
 
         try {
             $labels = $this->courierHelper->getNonCancelledOrderLabelsForOrders([$order->getId()]);
-            
+
             $labelData = [];
             foreach ($labels as $label) {
                 $labelData[] = $label->toArray();
@@ -233,8 +229,6 @@ class OrderDetailsController extends AbstractActionController
 
     protected function getPrintLabelButton(Order $order)
     {
-
-
         $buttons = $this->viewModelFactory->newInstance([
             'buttons' => [
                 'value' => 'Print',
