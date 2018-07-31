@@ -51,7 +51,7 @@ return [
                     'carriersConfig' => [
                         'fedex' => [
                             'channelName' => 'fedex-ss',
-                            'code' => 'FedEx (US)',
+                            'displayName' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -133,7 +133,7 @@ return [
                         ],
                         'ups' => [
                             'channelName' => 'ups-ss',
-                            'code' => 'UPS (US)',
+                            'displayName' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -255,7 +255,7 @@ return [
                         ],
                         'usps' => [
                             'channelName' => 'usps-ss',
-                            'code' => 'USPS',
+                            'displayName' => 'USPS',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [],
