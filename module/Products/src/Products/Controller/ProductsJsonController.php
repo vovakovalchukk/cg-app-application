@@ -197,6 +197,7 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('accounts', $accountsArray)
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
+            ->setVariable('productSearchActive', $this->listingChannelService->isProductSearchActive($rootOrganisationUnit))
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }

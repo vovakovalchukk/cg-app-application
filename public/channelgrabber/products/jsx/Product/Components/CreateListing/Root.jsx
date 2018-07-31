@@ -19,6 +19,7 @@ define([
         accounts,
         allowedChannels,
         allowedVariationChannels,
+        productSearchActive,
         onCreateListingClose,
         ebaySiteOptions,
         categoryTemplateOptions,
@@ -83,6 +84,7 @@ define([
                             managePackageUrl={managePackageUrl}
                             salesPhoneNumber={salesPhoneNumber}
                             demoLink={demoLink}
+                            productSearchActive={productSearchActive}
                         />
                     </Provider>
                 );

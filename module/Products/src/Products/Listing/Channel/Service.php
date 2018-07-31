@@ -13,6 +13,7 @@ use Products\Listing\Exception as ListingException;
 class Service
 {
     const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
+    const FEATURE_FLAG_PBSE = 'eBay PBSE';
 
     /** @var FeatureFlagService */
     protected $featureFlagService;
@@ -113,5 +114,10 @@ class Service
             return static::CHANNELS_SUPPORTED;
         }
         return array_merge(static::CHANNELS_SUPPORTED, ['amazon' => 'amazon']);
+    }
+
+    public function isProductSearchActive(OrganisationUnit $ou): bool
+    {
+        return $this->featureFlagService->isActive(static::FEATURE_FLAG_PBSE, $ou);
     }
 }
