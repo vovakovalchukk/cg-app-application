@@ -8,17 +8,14 @@ use CG\Channel\Shipping\Provider\BookingOptionsInterface;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
-use CG\Product\Detail\Entity as ProductDetailEntity;
-use CG\ShipStation\PackageType\Usps\Collection as PackageTypeCollection;
-use CG\ShipStation\PackageType\Usps\Entity as PackageTypeEntity;
-use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
+use CG\ShipStation\Carrier\BookingOption\Factory as BookingOptionFactory;
 
 class BookingOptions implements BookingOptionsInterface, CreateActionDescriptionInterface, CreateAllActionDescriptionInterface
 {
     /** @var Service */
     protected $service;
-    /** @var PackageTypeService */
-    protected $packageTypeService;
+    /** @var BookingOptionFactory */
+    protected $bookingOptionFactory;
 
     protected $courierActionsMap = [
         'usps-ss' => [
@@ -27,10 +24,10 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         ]
     ];
 
-    public function __construct(Service $service, PackageTypeService $packageTypeService)
+    public function __construct(Service $service, BookingOptionFactory $bookingOptionFactory)
     {
         $this->service = $service;
-        $this->packageTypeService = $packageTypeService;
+        $this->bookingOptionFactory = $bookingOptionFactory;
     }
 
     public function getCarrierBookingOptionsForAccount(AccountEntity $account, $serviceCode = null)
@@ -51,19 +48,8 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
-        if ($account->getChannel() !== 'usps-ss' || $option != 'packageTypes') {
-            return [];
-        }
-
-        $potentialPackageTypes = $this->getPossiblePackageTypesForService($service);
-        $packageTypes = $this->restrictPackageTypesByLocalityOfOrder($order, $potentialPackageTypes);
-
-        // If we only have one item, we can attempt to determine the appropriate package to select by default
-        if (count($productDetails) == 1) {
-            $selectedPackage = $this->getMostAppropriatePackageTypeByItemRequirements($productDetails, $potentialPackageTypes);
-        }
-
-        return $this->preparePackageTypesForView($packageTypes, $selectedPackage ?? null);
+        $bookingOptionProvider = ($this->bookingOptionFactory)($account->getChannel());
+        return $bookingOptionProvider->getOptionsDataForOption($option, $order, $account, $service, $rootOu, $productDetails);
     }
 
     public function isProvidedAccount(AccountEntity $account)
@@ -98,55 +84,5 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
             return $this->courierActionsMap[$channel]['createAll'];
         }
         return 'Create all labels';
-    }
-
-    protected function getPossiblePackageTypesForService(string $service): PackageTypeCollection
-    {
-        return $this->packageTypeService->getPackageTypesForService($service);
-    }
-
-    public function restrictPackageTypesByLocalityOfOrder(OrderEntity $order, PackageTypeCollection $packageCollection): PackageTypeCollection
-    {
-        $countryCode = $order->getShippingAddressCountryCodeForCourier();
-        if ($this->isShippingCountryDomestic($countryCode)) {
-            return $this->packageTypeService->getDomesticPackages($packageCollection);
-        } else {
-            return $this->packageTypeService->getInternationalPackages($packageCollection);
-        }
-    }
-
-    protected function isShippingCountryDomestic($countryCode)
-    {
-        return ($countryCode == 'US');
-    }
-
-    protected function getMostAppropriatePackageTypeByItemRequirements(ProductDetailCollection $productDetails, PackageTypeCollection $packageTypeCollection): ?PackageTypeEntity
-    {
-        /** @var ProductDetailEntity $product */
-        $product = $productDetails->getFirst();
-
-        /** @var PackageTypeEntity $potentialPackageType */
-        foreach ($packageTypeCollection as $potentialPackageType) {
-            if ($this->packageTypeService->isPackageSuitableForItemWeightAndDimensions($potentialPackageType, $product)) {
-                return $potentialPackageType;
-            }
-        }
-        return null;
-    }
-
-    protected function preparePackageTypesForView(PackageTypeCollection $packageTypeCollection, ?PackageTypeEntity $selectedPackage): array
-    {
-        $packageTypesData = [];
-        /** @var PackageTypeEntity $packageType */
-        foreach ($packageTypeCollection as $packageType) {
-            $packageTypesData[$packageType->getCode()] = $packageType->getName();
-        }
-
-        if ($selectedPackage !== null) {
-            unset($packageTypesData[$selectedPackage->getCode()]);
-            $packageTypesData = [$selectedPackage->getCode() => $selectedPackage->getName()] + $packageTypesData;
-        }
-
-        return $packageTypesData;
     }
 }
