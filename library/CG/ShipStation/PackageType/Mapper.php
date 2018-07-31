@@ -1,5 +1,5 @@
 <?php
-namespace CG\ShipStation\PackageType;
+namespace CG\ShipStation\PackageType\Usps;
 
 class Mapper
 {

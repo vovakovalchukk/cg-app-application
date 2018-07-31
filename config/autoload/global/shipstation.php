@@ -8,7 +8,7 @@ use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
 use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
 use Guzzle\Http\Client as GuzzleClient;
-use CG\ShipStation\PackageType\Service as PackageTypeService;
+use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
 
 return [
     'di' => [

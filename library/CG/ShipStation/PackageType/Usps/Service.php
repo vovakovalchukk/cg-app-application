@@ -1,6 +1,6 @@
 <?php
 
-namespace CG\ShipStation\PackageType;
+namespace CG\ShipStation\PackageType\Usps;
 
 use CG\Product\Detail\Entity as ProductDetailEntity;
 

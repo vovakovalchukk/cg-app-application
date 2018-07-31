@@ -9,9 +9,9 @@ use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
 use CG\Product\Detail\Entity as ProductDetailEntity;
-use CG\ShipStation\PackageType\Collection as PackageTypeCollection;
-use CG\ShipStation\PackageType\Entity as PackageTypeEntity;
-use CG\ShipStation\PackageType\Service as PackageTypeService;
+use CG\ShipStation\PackageType\Usps\Collection as PackageTypeCollection;
+use CG\ShipStation\PackageType\Usps\Entity as PackageTypeEntity;
+use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
 
 class BookingOptions implements BookingOptionsInterface, CreateActionDescriptionInterface, CreateAllActionDescriptionInterface
 {
