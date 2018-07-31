@@ -598,7 +598,6 @@ define([
             //     </div>
             // );
             
-            
             return(
                 <ProductListRoot
                     products={this.state.products}

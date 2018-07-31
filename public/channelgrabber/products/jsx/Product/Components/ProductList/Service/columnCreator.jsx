@@ -14,17 +14,20 @@ define([
     const Column = FixedDataTable.Column;
     
     var columnCreator = function(creatorObject) {
+        console.log('in columnCreator with creatorObject: ' , creatorObject);
+        
+        
         const {data, columnKey} = creatorObject;
         let columnRenderers = getColumnRenderers();
-        return columnRenderers[columnKey]();
+        return columnRenderers[columnKey](creatorObject);
     };
     
     return columnCreator;
     
-    function renderImageColumn() {
+    function renderImageColumn(creatorObject) {
         return (<Column
             columnKey="image"
-            width={200}
+            width={100}
             label="image"
             fixed={true}
             header={<Cell> image head </Cell>}
@@ -37,41 +40,47 @@ define([
             }}
         />);
     }
-    function renderNameColumn() {
+    function renderNameColumn(creatorObject) {
         return (<Column
             columnKey="name"
-            width={300}
+            width={200}
             label="name"
+            fixed={true}
             header={<Cell> name head </Cell>}
             cell={props => {
+                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+    
                 return (
                     <Cell>
-                        name {props.rowIndex}
+                        {value}
                     </Cell>
                 );
             }}
         />);
     }
-    function renderLinkColumn(){
+    function renderLinkColumn(creatorObject){
         return (<Column
             columnKey="link"
-            width={300}
+            width={200}
             label="link"
+            fixed={true}
             header={<Cell> link head </Cell>}
             cell={props => {
+                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
                     <Cell>
-                        link {props.rowIndex}
+                        {value}
                     </Cell>
                 );
             }}
         />);
     }
-    function renderAvailableColumn(){
+    function renderAvailableColumn(creatorObject){
         return (<Column
             columnKey="available"
-            width={300}
+            width={100}
             label="available"
+            fixed={true}
             header={<Cell> available head </Cell>}
             cell={props => {
                 return (
@@ -82,20 +91,30 @@ define([
             }}
         />);
     }
-    function renderSkuColumn() {
+    function renderSkuColumn(creatorObject) {
         return (<Column
             columnKey="sku"
-            width={300}
+            width={200}
             label="sku"
+            fixed={true}
             header={<Cell> sku head </Cell>}
             cell={props => {
+                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+    
                 return (
                     <Cell>
-                        sku {props.rowIndex}
+                        {value}
                     </Cell>
                 );
             }}
         />);
+    }
+    
+    function getValue(columnKey, data, rowIndex){
+        console.log('in getValue with columnKey:  '  , columnKey, ' data : ', data, ' and rowIndex: ' , rowIndex);
+        
+        
+        return data[rowIndex][columnKey];
     }
     
     function getColumnRenderers() {
@@ -107,7 +126,5 @@ define([
             available: renderAvailableColumn
         }
     }
-    
-
     
 });

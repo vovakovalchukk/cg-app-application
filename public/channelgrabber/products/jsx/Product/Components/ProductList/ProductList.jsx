@@ -35,9 +35,11 @@ define([
             console.log('in component did mount of ProductList')
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
+            document.addEventListener("fullscreenchange", this.updateDimensions);
         },
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
+            document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
         updateDimensions: function() {
             console.log('in updateDimensions');
@@ -76,22 +78,43 @@ define([
             });
         },
         getList: function() {
+            const products = this.props.products;
+            if (products && products.length <= 0) {
+                return;
+            }
             let rowCount = 50;
-            //todo - replace this dummy data with something significant
-            return Array(rowCount).fill().map((val, i) => {
+            
+            console.log('returning products list');
+            
+            
+            return products.map((product, i) => {
                 return {
-                    // id: i,
                     image: 'http://via.placeholder.com/40',
                     link: 'https://app.dev.orderhub.io/products',
-                    sku: 'sku ' + i,
-                    name: 'Product Name ' + i,
-                    available: 0,
+                    sku: product.sku,
+                    name: product.name,
+                    available: 0
                 }
             });
+            
+            // //todo - replace this dummy data with something significant
+            // return Array(rowCount).fill().map((val, i) => {
+            //     return {
+            //         // id: i,
+            //         image: 'http://via.placeholder.com/40',
+            //         link: 'https://app.dev.orderhub.io/products',
+            //         sku: 'sku ' + i,
+            //         name: 'Product Name ' + i,
+            //         available: 0
+            //     }
+            // });
         },
         renderColumns: function(data) {
+            if (!data || data.length === 0) {
+                return;
+            }
             let columnKeys = Object.keys(data[0]);
-            return columnKeys.map( (columnKey,columnIndex) => {
+            return columnKeys.map((columnKey, columnIndex) => {
                     return columnCreator({
                         data,
                         columnKey,
@@ -112,37 +135,38 @@ define([
             //         </div>
             //     );
             // }
+            let data = this.getList();
+            
             // do not want to create the table until the dimensions have been captured from the container
-            if(!this.state.productsListContainer || !this.state.productsListContainer.height){
+            if (!this.state.productsListContainer || !this.state.productsListContainer.height || !data) {
                 // console.log('breaking out... this.state.productsListContainer: ' , JSON.stringify(this.productsListContainer,null,1));
                 return;
-            }else{
+            } else {
                 // console.log('no error so continuing forward: ' , JSON.stringify(this.state.productsListContainer,null,1));
             }
             
-            let data = this.getList();
-        
+            
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
-                
-            return(
-                    <Table
-                        rowHeight={50}
-                        rowsCount={data.length}
-                        width={width}
-                        height={height}
-                        headerHeight={50}
-                        data={data}
-                        rowGetter={(index) => {
-                            return data[index];
-                        }}
-                        footerHeight={0}
-                        groupHeaderHeight={0}
-                        showScrollbarX={true}
-                        showScrollbarY={true}
-                    >
-                        {this.renderColumns(data)}
-                    </Table>
+            
+            return (
+                <Table
+                    rowHeight={50}
+                    rowsCount={data.length}
+                    width={width}
+                    height={height}
+                    headerHeight={50}
+                    data={data}
+                    rowGetter={(index) => {
+                        return data[index];
+                    }}
+                    footerHeight={0}
+                    groupHeaderHeight={0}
+                    showScrollbarX={true}
+                    showScrollbarY={true}
+                >
+                    {this.renderColumns(data)}
+                </Table>
             )
         },
         render: function() {
@@ -154,7 +178,7 @@ define([
                     </div>
                     <div
                         className='products-list__container'
-                        ref={ (productsListContainer) => this.productsListContainer = productsListContainer}
+                        ref={(productsListContainer) => this.productsListContainer = productsListContainer}
                     >
                         <div id="products-list">
                             {this.renderProducts()}
@@ -164,19 +188,19 @@ define([
                             onEditorClose={this.onProductLinksEditorClose}
                             fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                         />
-                        
+                    
                     </div>
                     {/*{(this.props.products.length ?*/}
-                        {/*<ProductFooter*/}
-                        {/*pagination={this.state.pagination}*/}
-                        {/*onPageChange={this.onPageChange}*/}
-                        {/*/> : ''*/}
+                    {/*<ProductFooter*/}
+                    {/*pagination={this.state.pagination}*/}
+                    {/*onPageChange={this.onPageChange}*/}
+                    {/*/> : ''*/}
                     {/*)}*/}
-    
-                            <ProductFooter
-                                pagination={this.state.pagination}
-                                onPageChange={this.onPageChange}
-                            />
+                    
+                    <ProductFooter
+                        pagination={this.state.pagination}
+                        onPageChange={this.onPageChange}
+                    />
                 </div>
             );
         }
