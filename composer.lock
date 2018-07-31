@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42e1db0515e50acf23ef2f7423aee6a6",
+    "content-hash": "ed36b12d9186e0584dc435bd36750197",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -518,16 +518,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.36.4",
+            "version": "1.36.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4cd726751d6529564879175c9df62886148739d3"
+                "reference": "6d9c5b1ee0387beaa646f13e104b01d734526e7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.36.4-041d70.zip",
-                "reference": "4cd726751d6529564879175c9df62886148739d3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.36.7-7abecf.zip",
+                "reference": "6d9c5b1ee0387beaa646f13e104b01d734526e7b",
                 "shasum": null
             },
             "require": {
@@ -597,7 +597,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-05T13:14:37+00:00"
+            "time": "2018-07-30T14:32:21+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4320,16 +4320,16 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.2.3",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "da805b991292634f354d53557e11fe9752ceb3dd"
+                "reference": "3b199ae6832f3cd02ab65840fefdc93bd3863f86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.3-f862eb.zip",
-                "reference": "da805b991292634f354d53557e11fe9752ceb3dd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.3-56e8da.zip",
+                "reference": "3b199ae6832f3cd02ab65840fefdc93bd3863f86",
                 "shasum": null
             },
             "require": {
@@ -4358,7 +4358,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-03T13:54:53+00:00"
+            "time": "2018-07-30T11:57:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -4455,6 +4455,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "56ec32a6c13c2dfb7b7d2c97619d9faa8588cf18"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9682-click-drop-orders-details-9f0be0.zip",
+                "reference": "56ec32a6c13c2dfb7b7d2c97619d9faa8588cf18",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -4504,7 +4510,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-17T15:35:25+00:00"
+            "time": "2018-07-31T08:49:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8398,7 +8404,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8453,7 +8459,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8508,7 +8514,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8559,7 +8565,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8645,7 +8651,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9944,8 +9950,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.23.12",
-            "alias_normalized": "1.23.12.0",
+            "alias": "1.23.13",
+            "alias_normalized": "1.23.13.0",
             "version": "dev-CGIV-9682-click-drop-orders-details",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -9955,8 +9961,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
