@@ -313,7 +313,7 @@ return [
                                     'code' => 'thick_envelope',
                                 ],
                             ],
-                            'usps_parcel_select_ground' => [
+                            'usps_parcel_select' => [
                                 'Letter' => [
                                     'weight' => 3.5,
                                     'length' => 11.5,
@@ -532,7 +532,7 @@ return [
                                     'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
-                            'usps_parcel_select_ground' => [
+                            'usps_parcel_select' => [
                                 'Letter' => [
                                     'weight' => 3.5,
                                     'length' => 11.5,
