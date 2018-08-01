@@ -18,6 +18,11 @@ define([
         let columnRenderers = getColumnRenderers();
         let columnRenderer = columnRenderers[columnKey];
         
+        if(typeof columnRenderer !== 'function'){
+            //todo remove this debug error.log
+            console.error('can not render for creatorObject:  ',creatorObject);
+            return
+        }
         return columnRenderer(creatorObject);
     };
     
@@ -106,6 +111,23 @@ define([
             }}
         />);
     }
+    function renderParentProductExpand(creatorObject) {
+        return (<Column
+            columnKey= {creatorObject.columnKey}
+            width={200}
+            label="sku"
+            fixed={true}
+            header={<Cell> is Parent </Cell>}
+            cell={props => {
+                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                return (
+                    <Cell>
+                        {value}
+                    </Cell>
+                );
+            }}
+        />);
+    }
     
     function getValue(columnKey, data, rowIndex){
         let rowValues = data[rowIndex].values;
@@ -122,7 +144,8 @@ define([
             link: renderLinkColumn,
             sku: renderSkuColumn,
             name: renderNameColumn,
-            available: renderAvailableColumn
+            available: renderAvailableColumn,
+            parentProductExpand: renderParentProductExpand
         }
     }
     

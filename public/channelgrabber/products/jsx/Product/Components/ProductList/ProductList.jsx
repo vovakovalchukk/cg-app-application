@@ -104,16 +104,28 @@ define([
         //     }
         //     return values;
         // },
+        getListingHoverText:function(listing){
+            var hoverText = {
+                'active': 'This is an active listing with available stock',
+                'pending': 'We have recently sent a stock update to this listing, and are currently waiting for '+$.trim(listing.channel)+' to confirm they have received and processed the stock update',
+                'paused': 'Listing is paused due to no stock being available for sale',
+                'error': 'We received an error when sending a stock update for this listing and so we are not currently able to manage the stock for this listing.',
+                'inactive': 'You do not currently have this SKU listed in this location',
+                'unimported': 'This listing has not yet been imported or does not exist'
+            };
+            return hoverText[$.trim(listing.status)];
+        },
+        isParentProduct: function(product) {
+            return product.variationCount !== undefined && product.variationCount >= 1
+        },
         getList: function() {
             const products = this.props.products;
-            const accounts = this.props.accounts;
-            
             if (products && products.length <= 0) {
                 return;
             }
-            
             let list = products.map((product, i) => {
-                // console.log('in list map with product: ', product);
+                console.log('product: ', product);
+                console.log('isParentProduct(product): ', this.isParentProduct(product));
                 
                 let row = {
                     rowIndex: i,
@@ -121,6 +133,10 @@ define([
                         {
                             columnKey: 'image',
                             value: 'http://via.placeholder.com/40'
+                        },
+                        {
+                            columnKey:'parentProductExpand',
+                            value: this.isParentProduct(product) ? 'parent' : 'variation'
                         },
                         {
                             columnKey: 'link',
@@ -140,40 +156,40 @@ define([
                         }
                     ]
                 };
-                
-                let listingsTabData = {};
-                
-                // for all accounts
-                for (var accountId in product.listingsPerAccount) {
-                    
-                    //todo create a property of account name here
-                    // console.log('accountId in map: ', accountId);
-                    
-                    let listingsInAccount = product.listingsPerAccount[accountId]
-                    
-                    listingsInAccount.forEach(function(listingId) {
-                        let listing = product.listings[listingId];
-                        let status = $.trim(listing.status);
-                        let listingUrl = $.trim(listing.url);
-                    })
-                }
-                
+                // let listingsTabData = [];
+                // for (var accountId in product.listingsPerAccount) {
+                //     let listingsInAccount = product.listingsPerAccount[accountId]
+                //
+                //     listingsInAccount.forEach((listingId) => {
+                //         let listing = product.listings[listingId];
+                //         let listingUrl = $.trim(listing.url);
+                //         if(product.listings.hasOwnProperty(listingId)){
+                //             let status = $.trim(listing.status);
+                //             listingsTabData.push({
+                //                 columnKey: listing.channel,
+                //                 hoverText: this.getListingHoverText(listing),
+                //                 listing,
+                //                 status,
+                //                 listingUrl
+                //             })
+                //         }else{
+                //             let status = 'unimported';
+                //             listingsTabData.push({
+                //                 columnKey: listing.channel,
+                //                 hoverText: this.getListingHoverText({status: 'unimported'}),
+                //                 listing,
+                //                 status,
+                //                 listingUrl
+                //             })
+                //         }
+                //     })
+                // }
+                // console.log('listingsTabData: ', listingsTabData);
+                // row.values.concat(listingsTabData);
+                // console.log('row: ', row);
                 return row;
             });
-            
-            // for (var accountId in this.props.listingsPerAccount) {
-            //         this.props.listingsPerAccount[accountId].map(function(listingId) {
-            //             if (this.props.listings.hasOwnProperty(listingId)) {
-            //                 var listing = this.props.listings[listingId];
-            //                 var status = $.trim(listing.status);
-            //                 var listingUrl = $.trim(listing.url);
-            //                 values.push();
-            //             } else {
-            //                 values.push(<td title={this.getHoverText({status: 'unimported'})}><span className={"listing-status unknown"}></span></td>);
-            //             }
-            //         }.bind(this));
-            //     }
-            
+        
             return list;
         },
         renderColumns: function(data) {
