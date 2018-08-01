@@ -7,6 +7,7 @@ use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Listing\Client\Service as ListingClientService;
 use CG\Locale\CurrencyCode;
+use CG\Locale\DemoLink;
 use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\PhoneNumber;
@@ -131,6 +132,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
         $locale = $this->activeUserContainer->getLocale();
         $view->setVariable('salesPhoneNumber', PhoneNumber::getForLocale($locale));
+        $view->setVariable('demoLink', DemoLink::getForLocale($locale));
         $view->setVariable('showVAT', $this->productService->isVatRelevant());
         $view->setVariable('massUnit', LocaleMass::getForLocale($locale));
         $view->setVariable('lengthUnit', LocaleLength::getForLocale($locale));

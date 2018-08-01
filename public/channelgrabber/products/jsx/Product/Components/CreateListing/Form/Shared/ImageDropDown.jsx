@@ -71,8 +71,7 @@ define([
                                 : <span className="react-image-picker-select-text">Select an image</span>
                             }
                             {!this.props.dropdownDisabled
-                                ? <span
-                                    className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
+                                ? <span className={"sprite-arrow-" + (this.state.active ? "up" : "down") + "-10-black"}>&nbsp;</span>
                                 : ''
                             }
                         </div>

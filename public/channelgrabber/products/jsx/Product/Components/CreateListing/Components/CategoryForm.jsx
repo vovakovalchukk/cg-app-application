@@ -32,6 +32,7 @@ define([
                         fieldChange={this.props.fieldChange}
                         resetSection={this.props.resetSection}
                         {...this.props.fieldValues}
+                        {...this.props}
                     />
                 </div>
             );

@@ -134,7 +134,7 @@ class SpecificsAjax
             /** @var OrderParcelsData $parcelsInputData */
             $parcelsInputData = ($ordersParcelsData->containsId($order->getId()) ? $ordersParcelsData->getById($order->getId()) : null);
 
-            $inputDataArray = ($inputData ? $inputData->toArray() : []);
+            $inputDataArray = ($inputData ? array_filter($inputData->toArray()) : []);
             if (isset($inputDataArray['service']) && $inputDataArray['service'] === "") {
                 unset($inputDataArray['service']);
             }
