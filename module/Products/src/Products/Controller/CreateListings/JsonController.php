@@ -146,12 +146,18 @@ class JsonController extends AbstractJsonController
 
     public function searchAction()
     {
-        $account = $this->fetchAccountFromRoute();
-        $query = trim($this->params()->fromPost('query', ''));
-        $result = $this->searchService->search($account, $query);
-        return $this->buildResponse([
-            'products' => $result
-        ]);
+        try {
+            $account = $this->fetchAccountFromRoute();
+            $query = trim($this->params()->fromPost('query', ''));
+            $result = $this->searchService->search($account, $query);
+            return $this->buildResponse([
+                'products' => $result
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse();
+        }
     }
 
     protected function fetchAccountFromRoute(): Account
