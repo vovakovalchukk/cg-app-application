@@ -120,6 +120,7 @@ define([
                         options={field.options}
                         selectedOption={this.findSelectedOption(field.input.value, field.options)}
                         className={Validators.shouldShowError(field) ? 'error' : null}
+                        classNames={'u-width-300px'}
                     />
                 </div>
                 {Validators.shouldShowError(field) && (
