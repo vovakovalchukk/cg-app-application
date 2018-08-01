@@ -67,6 +67,7 @@ $screen-padding: 20px;
     padding:1em;
 }
 
+// todo - maybe refactor this not to target the react mount eleent
 $combined-height-of-non-list-ui-elements : $header-height+$pagination-height+50px;
 
 #products-app{

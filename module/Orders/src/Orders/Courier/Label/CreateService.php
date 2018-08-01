@@ -105,7 +105,7 @@ class CreateService extends ServiceAbstract
 
         foreach ($orders as $order) {
             $orderData = $ordersData->getById($order->getId());
-            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
+            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : null);
             try {
                 $orderLabelsData['orderLabels']->attach(
                     $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount)

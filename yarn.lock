@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-163-create-the-core-table-layout-for-the-new-products-page":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#e41ffe281659b87ddde2b5f1c2c90568e0a3951b"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#09a798642e49cac9337aec9dcb955d221ac7898a"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"

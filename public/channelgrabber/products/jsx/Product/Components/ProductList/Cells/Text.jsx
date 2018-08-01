@@ -14,7 +14,7 @@ define([
         getDefaultProps: function() {
             return {};
         },
-        getInitialState: function() {
+        getInitialState: function(){
             return {};
         },
         render() {

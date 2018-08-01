@@ -5,8 +5,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
-use CG\Channel\Gearman\Generator\Listing\JobGeneratorFactory;
-use CG\Channel\Listing\CreationService\StatusService;
+use CG\Channel\Gearman\Generator\Listing\CreateListing as CreateListingJobGenerator;
 use CG\Channel\Listing\Import\ProductDetail\Importer as ProductDetailImporter;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Locale\Length as LocaleLength;
@@ -38,7 +37,6 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Product\Listing\Service as ProductListingService;
-use CG\Product\Category\Collection as CategoryCollection;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -101,16 +99,14 @@ class MultiCreationService implements LoggerAwareInterface
     protected $productCategoryDetailMapper;
     /** @var ProductCategoryDetailService */
     protected $productCategoryDetailService;
+    /** @var CreateListingJobGenerator */
+    protected $createListingJobGenerator;
     /** @var ChannelService */
     protected $channelService;
     /** @var ProductListingService */
     protected $productListingService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
-    /** @var JobGeneratorFactory */
-    protected $jobGeneratorFactory;
-    /** @var StatusService */
-    protected $statusService;
 
     public function __construct(
         AccountService $accountService,
@@ -125,11 +121,10 @@ class MultiCreationService implements LoggerAwareInterface
         ProductAccountDetailService $productAccountDetailService,
         ProductCategoryDetailMapper $productCategoryDetailMapper,
         ProductCategoryDetailService $productCategoryDetailService,
+        CreateListingJobGenerator $createListingJobGenerator,
         ChannelService $channelService,
         ProductListingService $productListingService,
-        ActiveUserInterface $activeUserContainer,
-        JobGeneratorFactory $jobGeneratorFactory,
-        StatusService $statusService
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->accountService = $accountService;
         $this->categoryTemplateService = $categoryTemplateService;
@@ -143,11 +138,10 @@ class MultiCreationService implements LoggerAwareInterface
         $this->productAccountDetailService = $productAccountDetailService;
         $this->productCategoryDetailMapper = $productCategoryDetailMapper;
         $this->productCategoryDetailService = $productCategoryDetailService;
+        $this->createListingJobGenerator = $createListingJobGenerator;
         $this->channelService = $channelService;
         $this->productListingService = $productListingService;
         $this->activeUserContainer = $activeUserContainer;
-        $this->jobGeneratorFactory = $jobGeneratorFactory;
-        $this->statusService = $statusService;
     }
 
     public function generateUniqueId(): string
@@ -695,7 +689,22 @@ class MultiCreationService implements LoggerAwareInterface
         array $accountCategoriesMap,
         array $productData
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData);
+        $listingData = $this->getListingDataFromProductData($productData, $product);
+        /**
+         * @var Account $account
+         * @var Category $category
+         */
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
+            $this->createListingJobGenerator->generateJob(
+                $account,
+                $category,
+                $product,
+                $this->getSiteIdForAccount($account),
+                $guid,
+                $this->activeUserContainer->getLocale(),
+                $listingData
+            );
+        }
     }
 
     protected function generateCreateVariationListingJobs(
@@ -708,40 +717,22 @@ class MultiCreationService implements LoggerAwareInterface
         array $accountCategoriesMap,
         array $productData
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $variations);
-    }
-
-    protected function generateListingJobs(
-        Accounts $accounts,
-        Categories $categories,
-        Product $product,
-        string $guid,
-        CategoryTemplates $categoryTemplates,
-        array $accountCategoriesMap,
-        array $productData,
-        array $variations = []
-    ) {
         $listingData = $this->getListingDataFromProductData($productData, $product);
-        $accountCategories = $this->getAccountAndCategoriesArray($accounts, $categories, $categoryTemplates, $accountCategoriesMap);
-        $extractedVariations = [];
-        if (!empty($variations)) {
-            $extractedVariations = $this->extractVariationProductIds($variations);
-        }
-
-        foreach ($accountCategories as $accountId => $categoriesByAccount) {
-            $this->jobGeneratorFactory->getGeneratorForChannel($categoriesByAccount['account'])->generateJob(
-                $categoriesByAccount['account'],
-                $categoriesByAccount['categories'],
+        /**
+         * @var Account $account
+         * @var Category $category
+         */
+        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
+            $this->createListingJobGenerator->generateJob(
+                $account,
+                $category,
                 $product,
-                $this->getSiteIdForAccount($categoriesByAccount['account']),
+                $this->getSiteIdForAccount($account),
                 $guid,
                 $this->activeUserContainer->getLocale(),
                 $listingData,
-                $extractedVariations
+                $this->extractVariationProductIds($variations)
             );
-            foreach ($categoriesByAccount['categories'] as $category) {
-                $this->statusService->markListingAsStarted($guid, $categoriesByAccount['account']->getId(), $category->getId());
-            }
         }
     }
 
@@ -781,18 +772,5 @@ class MultiCreationService implements LoggerAwareInterface
     {
         $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
         return isset($channelSpecificValues['defaultSiteId']) ? $channelSpecificValues['defaultSiteId'] : 0;
-    }
-
-    protected function getAccountAndCategoriesArray(Accounts $accounts, CategoryCollection $categories, CategoryTemplates $categoryTemplates, array $accountCategoriesMap): array
-    {
-        $accountCategories = [];
-        foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
-            $accountCategories[$account->getId()]['account'] = $account;
-            if (!isset($accountCategories[$account->getId()]['categories']) || !$accountCategories[$account->getId()]['categories'] instanceof CategoryCollection) {
-                $accountCategories[$account->getId()]['categories'] = new CategoryCollection(Category::class, __CLASS__);
-            }
-            $accountCategories[$account->getId()]['categories']->attach($category);
-        }
-        return $accountCategories;
     }
 }
