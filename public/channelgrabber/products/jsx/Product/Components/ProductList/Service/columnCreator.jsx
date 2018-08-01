@@ -16,7 +16,7 @@ define([
         const {columnKey} = creatorObject;
         let columnRenderers = getColumnRenderers();
         let columnRenderer = columnRenderers[columnKey];
-        if(typeof columnRenderer !== 'function'){
+        if (typeof columnRenderer !== 'function') {
             return
         }
         return columnRenderer(creatorObject);
@@ -40,6 +40,7 @@ define([
             }}
         />);
     }
+    
     function renderNameColumn(creatorObject) {
         return (<Column
             columnKey="name"
@@ -57,7 +58,8 @@ define([
             }}
         />);
     }
-    function renderLinkColumn(creatorObject){
+    
+    function renderLinkColumn(creatorObject) {
         return (<Column
             columnKey="link"
             width={100}
@@ -74,7 +76,8 @@ define([
             }}
         />);
     }
-    function renderAvailableColumn(creatorObject){
+    
+    function renderAvailableColumn(creatorObject) {
         return (<Column
             columnKey="available"
             width={100}
@@ -90,6 +93,7 @@ define([
             }}
         />);
     }
+    
     function renderSkuColumn(creatorObject) {
         return (<Column
             columnKey="sku"
@@ -107,7 +111,8 @@ define([
             }}
         />);
     }
-    function renderDummyListingColumn(creatorObject){
+    
+    function renderDummyListingColumn(creatorObject) {
         return (<Column
             columnKey={creatorObject.columnKey}
             width={200}
@@ -125,10 +130,10 @@ define([
         />);
     }
     
-    function getValue(columnKey, data, rowIndex){
+    function getValue(columnKey, data, rowIndex) {
         let rowValues = data[rowIndex].values;
-        for(let column of rowValues){
-            if(column.columnKey === columnKey){
+        for (let column of rowValues) {
+            if (column.columnKey === columnKey) {
                 return column.value;
             }
         }

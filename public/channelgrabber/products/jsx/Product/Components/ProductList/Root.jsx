@@ -1,10 +1,9 @@
 define([
     'react',
-
+    
     'Product/Components/ProductList/ProductList'
 ], function(
     React,
-
     ProductList
 ) {
     "use strict";
@@ -12,13 +11,13 @@ define([
     var ProductListRoot = React.createClass({
         getDefaultProps: function() {
             return {
-                products:[],
-                features:{}
+                products: [],
+                features: {}
             };
         },
         render: function() {
             return (
-                    <ProductList {...this.props} />
+                <ProductList {...this.props} />
             );
         }
     });
