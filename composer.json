@@ -25,7 +25,7 @@
         "channelgrabber/billing": "dev-TAC-121-usps-balance-and-topup as 1.18.0",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.4",
-        "channelgrabber/channel": "dev-TAC-118-ship-action-fetch-rates as 1.37.0",
+        "channelgrabber/channel": "dev-TAC-125-fetch-usps-rates as dev-TAC-118-ship-action-fetch-rates",
         "channelgrabber/cilex": "~1.2.0",
         "channelgrabber/clearbooks": "dev-TAC-121-usps-balance-and-topup as 1.10.1",
         "channelgrabber/communication": "~1.0.6",
