@@ -64,6 +64,7 @@ return [
                     'courierPickup' => Module::PUBLIC_FOLDER . 'template/courier/columns/courierPickup.mustache',
                     'collectionTime' => Module::PUBLIC_FOLDER . 'template/courier/columns/collectionTime.mustache',
                     'saturday' => Module::PUBLIC_FOLDER . 'template/courier/columns/saturday.mustache',
+                    'cost' => Module::PUBLIC_FOLDER . 'template/courier/columns/cost.mustache',
                 ],
             ],
         ],
