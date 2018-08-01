@@ -1,5 +1,5 @@
 <?php
-namespace CG\ShipStation\Carrier\Label;
+namespace CG\ShipStation\Carrier\Label\Creator;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
@@ -11,6 +11,7 @@ use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\Label\CreatorInterface;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Messages\Exception\InvalidStateException;
 use CG\ShipStation\Request\Shipping\Label as LabelRequest;
@@ -27,7 +28,7 @@ use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\MultiTransferException;
 use Guzzle\Http\Message\Request as GuzzleRequest;
 
-class Creator implements LoggerAwareInterface
+class Other implements CreatorInterface, LoggerAwareInterface
 {
     use LogTrait;
 
@@ -67,7 +68,7 @@ class Creator implements LoggerAwareInterface
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
         $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
-        $labelErrors = $this->getErrorsForFailedLabels($labels, $shipments);
+        $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
         $errors = array_merge($shipmentErrors, $labelErrors, $pdfErrors);
@@ -142,17 +143,16 @@ class Creator implements LoggerAwareInterface
         return true;
     }
 
-    protected function getErrorsForFailedLabels(array $labelResponses, ShipmentsResponse $shipments): array
+    protected function getErrorsForUnsuccessfulLabels(array $labelResponses): array
     {
         $errors = [];
         /** @var LabelResponse $labelResponse */
-        foreach ($labelResponses as $labelResponse) {
+        foreach ($labelResponses as $orderId => $labelResponse) {
             if (empty($labelResponse->getErrors())) {
                 continue;
             }
-            $shipment = $shipments->getShipmentById($labelResponse->getShipmentId());
-            $errors[$shipment->getOrderId()] = $labelResponse->getErrors();
-            $this->logNotice('Failed to create label for Order %s', ['order' => $shipment->getOrderId()], [static::LOG_CODE, 'LabelFail']);
+            $errors[$orderId] = $labelResponse->getErrors();
+            $this->logNotice('Failed to create label for Order %s', ['order' => $orderId], [static::LOG_CODE, 'LabelFail']);
         }
         return $errors;
     }
