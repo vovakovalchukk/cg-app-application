@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce97bbbd9cceba3fdb84c9101075b8d7",
+    "content-hash": "23d106713c7a378ac2a634daeaf07e18",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "df22d99fefc3565bd84b43b3066f2bc5860dc76f"
+                "reference": "c7865237ba538704c8a7ea0872160f8f68322731"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-TAC-118-ship-action-fetch-rates-5211fa.zip",
-                "reference": "df22d99fefc3565bd84b43b3066f2bc5860dc76f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-QA-EPIC-USPS-97b88d.zip",
+                "reference": "c7865237ba538704c8a7ea0872160f8f68322731",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-TAC-118-ship-action-fetch-rates as 1.37.0",
+                "channelgrabber/channel": "dev-QA-EPIC-USPS as 1.37.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -181,7 +181,7 @@
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.34.3",
-                "channelgrabber/predis": "~1.0.12",
+                "channelgrabber/predis": "^1.0.12",
                 "channelgrabber/product": "^1.14.0",
                 "channelgrabber/scraper": "^1.1.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-07-04T11:17:27+00:00"
+            "time": "2018-08-01T11:40:42+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-109-create-usps-labels",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "c583cefa4455777f206b4a237c66e792f02ec1d8"
+                "reference": "a2ec43bde89a78277c36ceae3ef7d4be3857d6d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-109-create-usps-labels-99b6d5.zip",
-                "reference": "c583cefa4455777f206b4a237c66e792f02ec1d8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-QA-EPIC-USPS-e491a1.zip",
+                "reference": "a2ec43bde89a78277c36ceae3ef7d4be3857d6d8",
                 "shasum": null
             },
             "require": {
@@ -329,7 +329,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
                 "channelgrabber/phinx": "~0.3.2",
-                "channelgrabber/settings": "^1.5.5",
+                "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stdlib": "^2.13.2",
                 "channelgrabber/user": "^1.22.4",
@@ -345,7 +345,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-TAC-109-create-usps-labels": "1.17.x-dev"
+                    "dev-QA-EPIC-USPS": "1.17.x-dev"
                 }
             },
             "autoload": {
@@ -363,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-01T08:06:14+00:00"
+            "time": "2018-08-01T08:54:08+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -523,16 +523,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "019776472a3f302a86ae7cb8e59fe84b00dca824"
+                "reference": "d6f939470a3644954a596c9ca84ee8b8d3474bd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-3922be.zip",
-                "reference": "019776472a3f302a86ae7cb8e59fe84b00dca824",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-QA-EPIC-USPS-82e0ce.zip",
+                "reference": "d6f939470a3644954a596c9ca84ee8b8d3474bd0",
                 "shasum": null
             },
             "require": {
@@ -607,7 +607,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-07-18T11:19:01+00:00"
+            "time": "2018-08-01T09:11:37+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -643,26 +643,20 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "dev-TAC-121-usps-balance-and-topup",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "8327436820ce8f794948f7f2cbc66108b780e689"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-121-usps-balance-and-topup-bf85dc.zip",
-                "reference": "8327436820ce8f794948f7f2cbc66108b780e689",
-                "shasum": null
+                "reference": "17afd4f3438af8337f8234a6bc1377bb2c562616"
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "^1.17.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.4.0",
-                "channelgrabber/settings": "^1.2.0",
+                "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.10.6",
                 "channelgrabber/user": "^1.25.0",
                 "php": ">=7.1"
@@ -682,7 +676,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-19T10:40:21+00:00"
+            "time": "2018-08-01T08:31:43+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1843,17 +1837,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-109-create-usps-labels",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "0f9eab54c98c533c1c54ad6e4f4686988f4b7462"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-109-create-usps-labels-f4b5bb.zip",
-                "reference": "0f9eab54c98c533c1c54ad6e4f4686988f4b7462",
-                "shasum": null
+                "reference": "4a81f6622e4cdc51a9625ffda1d387b2fee6766d"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1923,24 +1911,24 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-17T15:13:10+00:00"
+            "time": "2018-08-01T09:21:05+00:00"
         },
         {
             "name": "channelgrabber/payment",
-            "version": "dev-TAC-121-usps-balance-and-topup",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c"
+                "reference": "3ff61d0fd3e96ea1c7194612c5efe841e35c3d38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-TAC-121-usps-balance-and-topup-707f13.zip",
-                "reference": "0dbc8ecf34fc328de00e985ad7027cec0c6b9f4c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-QA-EPIC-USPS-589a51.zip",
+                "reference": "3ff61d0fd3e96ea1c7194612c5efe841e35c3d38",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-TAC-121-usps-balance-and-topup as 1.17.4",
+                "channelgrabber/billing": "dev-QA-EPIC-USPS as 1.17.5",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1961,6 +1949,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "TAC-121-usps-balance-and-topup": "1.9.2-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -1974,7 +1967,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-19T11:44:39+00:00"
+            "time": "2018-08-01T11:34:42+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4459,16 +4452,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-119-ship-cost-column",
+            "version": "dev-QA-EPIC-USPS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2bb0dad4aafba7f6fd031dbb1d017121f5073227"
+                "reference": "26aad9878f99afa7b10a3ace7c8b08d757c3e192"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-8e7a20.zip",
-                "reference": "2bb0dad4aafba7f6fd031dbb1d017121f5073227",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-EPIC-USPS-82f6c5.zip",
+                "reference": "26aad9878f99afa7b10a3ace7c8b08d757c3e192",
                 "shasum": null
             },
             "require": {
@@ -4520,7 +4513,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-16T13:32:17+00:00"
+            "time": "2018-08-01T08:04:08+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9960,45 +9953,45 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.2",
-            "alias_normalized": "1.27.2.0",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "alias": "1.27.4",
+            "alias_normalized": "1.27.4.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "dev-TAC-121-usps-balance-and-topup",
-            "alias_normalized": "dev-TAC-121-usps-balance-and-topup",
-            "version": "dev-TAC-109-create-usps-labels",
+            "alias": "1.18.1",
+            "alias_normalized": "1.18.1.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/billing"
         },
         {
-            "alias": "dev-TAC-118-ship-action-fetch-rates",
-            "alias_normalized": "dev-TAC-118-ship-action-fetch-rates",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "alias": "1.36.8",
+            "alias_normalized": "1.36.8.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.10.1",
-            "alias_normalized": "1.10.1.0",
-            "version": "dev-TAC-121-usps-balance-and-topup",
+            "alias": "1.11.1",
+            "alias_normalized": "1.11.1.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/clearbooks"
         },
         {
-            "alias": "1.39.0",
-            "alias_normalized": "1.39.0.0",
-            "version": "dev-TAC-109-create-usps-labels",
+            "alias": "1.39.1",
+            "alias_normalized": "1.39.1.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.8.2",
-            "alias_normalized": "1.8.2.0",
-            "version": "dev-TAC-121-usps-balance-and-topup",
+            "alias": "1.9.2",
+            "alias_normalized": "1.9.2.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/payment"
         },
         {
-            "alias": "1.23.10",
-            "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-119-ship-cost-column",
+            "alias": "1.23.13",
+            "alias_normalized": "1.23.13.0",
+            "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
