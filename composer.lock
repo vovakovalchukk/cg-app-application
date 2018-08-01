@@ -4453,7 +4453,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "848493a47f65728118fcd8890b3dccab28ed1ab4"
+                "reference": "b8337a1f89a3b78b9cadcae5f0a1980691961543"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-163-create-the-core-table-layout-for-the-new-products-page-e57c5c.zip",
+                "reference": "b8337a1f89a3b78b9cadcae5f0a1980691961543",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -4504,7 +4510,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-07-25T11:19:29+00:00"
+            "time": "2018-08-01T11:23:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9955,8 +9961,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
