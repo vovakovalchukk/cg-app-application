@@ -25,7 +25,7 @@
         "channelgrabber/billing": "~1.17.5",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.4",
-        "channelgrabber/channel": "~1.36.7",
+        "channelgrabber/channel": "dev-TAC-178-make-create-listing-generator-factory-more-abstract as 1.36.8",
         "channelgrabber/cilex": "~1.2.0",
         "channelgrabber/clearbooks": "~1.10.0",
         "channelgrabber/communication": "~1.0.6",

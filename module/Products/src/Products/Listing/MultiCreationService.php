@@ -728,19 +728,26 @@ class MultiCreationService implements LoggerAwareInterface
             $extractedVariations = $this->extractVariationProductIds($variations);
         }
 
-        foreach ($accountCategories as $accountId => $categoriesByAccount) {
-            $this->jobGeneratorFactory->getGeneratorForChannel($categoriesByAccount['account'])->generateJob(
-                $categoriesByAccount['account'],
-                $categoriesByAccount['categories'],
+        $accountsByChannel = $this->groupAccountsByChannel($accounts);
+
+        /** @var Accounts $channelAccounts */
+        foreach ($accountsByChannel as $channel => $channelAccounts) {
+            $channelAccountCategories = $this->filterAccountCategoriesToSpecificAccounts($accountCategories, $channelAccounts);
+            $channelGenerator = $this->jobGeneratorFactory->getGeneratorForChannel($channelAccounts->getFirst());
+            $channelGenerator->generateJobs(
+                $channelAccounts,
+                $channelAccountCategories,
                 $product,
-                $this->getSiteIdForAccount($categoriesByAccount['account']),
+                $this->getSiteIdsByAccount($channelAccounts),
                 $guid,
                 $this->activeUserContainer->getLocale(),
                 $listingData,
                 $extractedVariations
             );
-            foreach ($categoriesByAccount['categories'] as $category) {
-                $this->statusService->markListingAsStarted($guid, $categoriesByAccount['account']->getId(), $category->getId());
+            foreach ($channelAccountCategories as $accountId => $categories) {
+                foreach ($categories as $category) {
+                    $this->statusService->markListingAsStarted($guid, $accountId, $category->getId());
+                }
             }
         }
     }
@@ -777,22 +784,46 @@ class MultiCreationService implements LoggerAwareInterface
         return $ids;
     }
 
-    protected function getSiteIdForAccount(Account $account)
+    protected function getSiteIdsByAccount(Accounts $accounts): array
     {
-        $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
-        return isset($channelSpecificValues['defaultSiteId']) ? $channelSpecificValues['defaultSiteId'] : 0;
+        $siteIdsByAccount = [];
+        foreach ($accounts as $account) {
+            $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
+            $siteIdsByAccount[$account->getId()] = $channelSpecificValues['defaultSiteId'] ?? 0;
+        }
+        return $siteIdsByAccount;
     }
 
-    protected function getAccountAndCategoriesArray(Accounts $accounts, CategoryCollection $categories, CategoryTemplates $categoryTemplates, array $accountCategoriesMap): array
-    {
+    protected function getAccountAndCategoriesArray(
+        Accounts $accounts,
+        CategoryCollection $categories,
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap
+    ): array {
         $accountCategories = [];
         foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
-            $accountCategories[$account->getId()]['account'] = $account;
-            if (!isset($accountCategories[$account->getId()]['categories']) || !$accountCategories[$account->getId()]['categories'] instanceof CategoryCollection) {
-                $accountCategories[$account->getId()]['categories'] = new CategoryCollection(Category::class, __CLASS__);
+            if (!isset($accountCategories[$account->getId()]) || !$accountCategories[$account->getId()] instanceof CategoryCollection) {
+                $accountCategories[$account->getId()] = new CategoryCollection(Category::class, __CLASS__);
             }
-            $accountCategories[$account->getId()]['categories']->attach($category);
+            $accountCategories[$account->getId()]->attach($category);
         }
         return $accountCategories;
+    }
+
+    protected function groupAccountsByChannel(Accounts $accounts): array
+    {
+        $accountsByChannel = [];
+        $channels = array_unique($accounts->getArrayOf('channel'));
+        foreach ($channels as $channel) {
+            $accountsByChannel[$channel] = $accounts->getBy('channel', $channel);
+        }
+        return $accountsByChannel;
+    }
+
+    protected function filterAccountCategoriesToSpecificAccounts(array $accountCategories, Accounts $accounts): array
+    {
+        return array_filter($accountCategories, function ($accountId) use ($accounts) {
+            return $accounts->containsId($accountId);
+        }, ARRAY_FILTER_USE_KEY);
     }
 }
