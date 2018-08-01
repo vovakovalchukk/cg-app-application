@@ -25,11 +25,12 @@ define([
     return columnCreator;
     
     function renderImageColumn(creatorObject) {
+        
         return (<Column
             columnKey="image"
-            width={200}
+            width={100}
             label="image"
-            fixed={false}
+            fixed={true}
             header={<Cell> image head </Cell>}
             cell={props => {
                 return (
@@ -43,9 +44,9 @@ define([
     function renderNameColumn(creatorObject) {
         return (<Column
             columnKey="name"
-            width={200}
+            width={150}
             label="name"
-            fixed={false}
+            fixed={true}
             header={<Cell> name head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -60,9 +61,9 @@ define([
     function renderLinkColumn(creatorObject){
         return (<Column
             columnKey="link"
-            width={200}
+            width={100}
             label="link"
-            fixed={false}
+            fixed={true}
             header={<Cell> link head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -77,9 +78,9 @@ define([
     function renderAvailableColumn(creatorObject){
         return (<Column
             columnKey="available"
-            width={200}
+            width={100}
             label="available"
-            fixed={false}
+            fixed={true}
             header={<Cell> available head </Cell>}
             cell={props => {
                 return (
@@ -93,9 +94,9 @@ define([
     function renderSkuColumn(creatorObject) {
         return (<Column
             columnKey="sku"
-            width={200}
+            width={150}
             label="sku"
-            fixed={false}
+            fixed={true}
             header={<Cell> sku head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -112,7 +113,7 @@ define([
             columnKey={creatorObject.columnKey}
             width={200}
             label={creatorObject.columnKey}
-            fixed={false}
+            fixed={creatorObject.isFixed}
             header={<Cell> {creatorObject.columnKey} </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -146,6 +147,10 @@ define([
             dummyListingColumn2: renderDummyListingColumn,
             dummyListingColumn3: renderDummyListingColumn,
             dummyListingColumn4: renderDummyListingColumn,
+            dummyListingColumn5: renderDummyListingColumn,
+            dummyListingColumn6: renderDummyListingColumn,
+            dummyListingColumn7: renderDummyListingColumn,
+            dummyListingColumn8: renderDummyListingColumn,
         }
     }
     

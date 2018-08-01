@@ -14,6 +14,9 @@ define([
     "use strict";
     
     const Table = FixedDataTable.Table;
+    const Column = FixedDataTable.Column;
+    const Cell = FixedDataTable.Cell;
+    
     
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -76,6 +79,7 @@ define([
                 }
             });
         },
+        //todo - use in TAC-184
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
@@ -90,68 +94,120 @@ define([
                     values: [
                         {
                             columnKey: 'image',
-                            value: 'http://via.placeholder.com/40'
+                            value: 'http://via.placeholder.com/40',
+                            isFixed:true
                         },
                         {
                             columnKey: 'link',
-                            value: 'https://app.dev.orderhub.io/products'
+                            value: 'https://app.dev.orderhub.io/products',
+                            isFixed:true
+    
                         },
-                        // {
-                        //     columnKey: 'sku',
-                        //     value: product.sku
-                        // },
-                        // {
-                        //     columnKey: 'name',
-                        //     value: product.name
-                        // },
-                        // {
-                        //     columnKey: 'available',
-                        //     value: 0
-                        // },
+                        {
+                            columnKey: 'sku',
+                            value: product.sku,
+                            isFixed:true
+    
+                        },
+                        {
+                            columnKey: 'name',
+                            value: product.name,
+                            isFixed:true
+    
+                        },
+                        {
+                            columnKey: 'available',
+                            value: 0,
+                            isFixed:true
+    
+                        },
                         // //todo - change this dummy data to something significant in TAC-165
-                        // {
-                        //     columnKey:'dummyListingColumn1',
-                        //     value:1
-                        // },
-                        // {
-                        //     columnKey:'dummyListingColumn2',
-                        //     value:2
-                        // },
-                        // {
-                        //     columnKey:'dummyListingColumn3',
-                        //     value:3
-                        // },
-                        // {
-                        //     columnKey:'dummyListingColumn4',
-                        //     value:4
-                        // }
+                        {
+                            columnKey:'dummyListingColumn1',
+                            value:1
+                        },
+                        {
+                            columnKey:'dummyListingColumn2',
+                            value:2
+                        },
+                        {
+                            columnKey:'dummyListingColumn3',
+                            value:3
+                        },
+                        {
+                            columnKey:'dummyListingColumn4',
+                            value:4
+                        },
+                        {
+                            columnKey:'dummyListingColumn5',
+                            value:4
+                        },
+                        {
+                            columnKey:'dummyListingColumn6',
+                            value:4
+                        },
+                        {
+                            columnKey:'dummyListingColumn7',
+                            value:4
+                        },
+                        {
+                            columnKey:'dummyListingColumn8',
+                            value:4
+                        }
                     ]
                 };
+                // let row = "row"+i;
                 return row;
             });
             return list;
         },
         renderColumns: function(data) {
-            if (!data || data.length === 0) {
-                return;
-            }
-            return data.map((rowData) => {
-                    return rowData.values.map((columnData, columnIndex) => {
-                        let column = columnCreator({
-                            data,
-                            columnKey: columnData.columnKey,
-                            columnIndex
-                        });
-                        return column
-                    })
+            // if (!data || data.length === 0) {
+            //     return;
+            // }
+            console.log('in renderColumns with data: ', data);
+            
+            let columns = [];
+            //todo - debug this part (this is where error occurs
+            data.forEach((rowData) => {
+                    columns = rowData.values;
                 }
             );
+            console.log('columns: ', columns);
+            
+            return columns.map((columnData, columnIndex) => {
+                let column = columnCreator({
+                    data,
+                    columnKey: columnData.columnKey,
+                    columnIndex
+                });
+        
+                return column
+                // return (
+                //     <Column
+                //         columnKey={columnData.columnKey}
+                //         width={200}
+                //         label="sku"
+                //         fixed={false}
+                //         header={<Cell>  {columnData.columnKey} </Cell>}
+                //         cell={props => {
+                //             return (
+                //                 <Cell>
+                //                     first thing
+                //                 </Cell>
+                //             );
+                //         }}
+                //     />
+                // );
+            })
         },
-        isReadyToRenderTable: function(data){
+        isReadyToRenderTable: function(data) {
             return this.state.productsListContainer && this.state.productsListContainer.height && data;
         },
         renderProducts: function() {
             let data = this.getList();
+            console.log('data: ', data);
+            
             // do not create the table until the dimensions have been captured from the initial render
             if (!this.isReadyToRenderTable(data)) {
                 return;
