@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "378ef8d704d1f1fc227f0f5117f04a00",
+    "content-hash": "dff269f2b511a9e2c30d6c6206913713",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -918,17 +918,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-153-implement-catalog-api",
+            "version": "dev-TAC-154-ebay-product-search-endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "c0aa47ed06b747fc41fac3ec2607338920bf26cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-153-implement-catalog-api-224ef4.zip",
-                "reference": "c0aa47ed06b747fc41fac3ec2607338920bf26cc",
-                "shasum": null
+                "reference": "b57d16deb7142a07092c5984f40f45bd82ff0f46"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9961,6 +9955,12 @@
             "alias_normalized": "1.13.2.0",
             "version": "dev-TAC-153-implement-catalog-api",
             "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.13.2",
+            "alias_normalized": "1.13.2.0",
+            "version": "dev-TAC-154-ebay-product-search-endpoint",
+            "package": "channelgrabber/ebay"
         }
     ],
     "minimum-stability": "stable",
@@ -9969,8 +9969,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
