@@ -27,7 +27,7 @@
         "channelgrabber/cglib": "~1.16.4",
         "channelgrabber/channel": "~1.36.7",
         "channelgrabber/cilex": "~1.2.0",
-        "channelgrabber/clearbooks": "~1.10.0",
+        "channelgrabber/clearbooks": "dev-TAC-137-clearbooks-shipping-ledger as 1.10.1",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.0.30",

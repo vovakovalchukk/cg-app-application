@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "b819a293cd51e95821705e75cde25a4d",
+=======
+    "content-hash": "ebce978e646a4605b735b3176fbb1237",
+>>>>>>> TAC-137-clearbooks-shipping-ledger
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +308,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.5",
+            "version": "1.17.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "34e427f507a2c8c55924fd76a23cdc9023a1a133"
+                "reference": "94cf1ef43f5d86550cf5adfbfa9077aec3c59ca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.5-c41118.zip",
-                "reference": "34e427f507a2c8c55924fd76a23cdc9023a1a133",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.6-4a8b51.zip",
+                "reference": "94cf1ef43f5d86550cf5adfbfa9077aec3c59ca0",
                 "shasum": null
             },
             "require": {
@@ -329,7 +333,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
                 "channelgrabber/phinx": "~0.3.2",
-                "channelgrabber/settings": "^1.5.5",
+                "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stdlib": "^2.13.2",
                 "channelgrabber/user": "^1.22.4",
@@ -343,6 +347,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-9469-ou-vat-status-override": "1.16.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -358,7 +367,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-25T10:49:20+00:00"
+            "time": "2018-07-26T13:44:38+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -633,26 +642,26 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.10.0",
+            "version": "dev-TAC-137-clearbooks-shipping-ledger",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb"
+                "reference": "b9ce43ce81c919cd75dd8f209cf05e850eee5bb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.10.0-6d1481.zip",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-137-clearbooks-shipping-ledger-68780a.zip",
+                "reference": "b9ce43ce81c919cd75dd8f209cf05e850eee5bb9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "^1.17.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.4.0",
-                "channelgrabber/settings": "^1.2.0",
+                "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.10.6",
                 "channelgrabber/user": "^1.25.0",
                 "php": ">=7.1"
@@ -672,7 +681,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-08-01T08:31:05+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2682,16 +2691,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e566dc6445b659bbd4306a81e397743d9ffbbc7b"
+                "reference": "3b368e6dba4fd4a7225cf87f171bc3636eb15aa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.6.1-7c6a16.zip",
-                "reference": "e566dc6445b659bbd4306a81e397743d9ffbbc7b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.6.2-8a9c1f.zip",
+                "reference": "3b368e6dba4fd4a7225cf87f171bc3636eb15aa6",
                 "shasum": null
             },
             "require": {
@@ -2715,7 +2724,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2018-06-20T12:08:52+00:00"
+            "time": "2018-07-26T12:59:52+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -9950,14 +9959,26 @@
     ],
     "aliases": [
         {
+<<<<<<< HEAD
             "alias": "1.23.13",
             "alias_normalized": "1.23.13.0",
+=======
+            "alias": "1.10.1",
+            "alias_normalized": "1.10.1.0",
+            "version": "dev-TAC-137-clearbooks-shipping-ledger",
+            "package": "channelgrabber/clearbooks"
+        },
+        {
+            "alias": "1.23.10",
+            "alias_normalized": "1.23.10.0",
+>>>>>>> TAC-137-clearbooks-shipping-ledger
             "version": "dev-TAC-108-add-usps-courier",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
