@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
+use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as CarrierServiceProviderFetchRatesInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
 use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Locale\Length as LocaleLength;
@@ -176,6 +177,8 @@ class SpecificsAjax
             && $providerService->isCancellationAllowedForOrder($courierAccount, $order));
         $dispatchable = ($order->getStatus() != OrderStatus::DISPATCHING)
             && OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING);
+        $rateable = ($providerService instanceof CarrierServiceProviderFetchRatesInterface
+            && $providerService->isFetchRatesAllowedForOrder($courierAccount, $order));
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
@@ -184,6 +187,7 @@ class SpecificsAjax
             'exportable' => $exportable,
             'cancellable' => $cancellable,
             'dispatchable' => $dispatchable,
+            'rateable' => $rateable,
             'services' => $services,
         ];
         foreach ($options as $option) {
@@ -379,6 +383,7 @@ class SpecificsAjax
             $parcelData['serviceOptions'] = $orderData['serviceOptions'];
             $parcelData['exportable'] = $orderData['exportable'];
             $parcelData['cancellable'] = $orderData['cancellable'];
+            $parcelData['rateable'] = $orderData['rateable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
             $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
