@@ -922,7 +922,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b57d16deb7142a07092c5984f40f45bd82ff0f46"
+                "reference": "e849f6e9d634e2ef47a82c7db7926ebc7f613ab6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
