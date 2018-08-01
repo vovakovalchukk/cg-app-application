@@ -76,7 +76,6 @@ define([
                 }
             });
         },
-        //todo - use in TAC-184
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
@@ -92,6 +91,10 @@ define([
                         {
                             columnKey: 'image',
                             value: 'http://via.placeholder.com/40',
+                        },
+                        {
+                            column: 'parentProductDropdown',
+                            value: this.isParentProduct(product)
                         },
                         {
                             columnKey: 'link',
@@ -111,36 +114,36 @@ define([
                         },
                         //todo - change this dummy data to something significant in TAC-165
                         {
-                            columnKey:'dummyListingColumn1',
-                            value:1
+                            columnKey: 'dummyListingColumn1',
+                            value: 1
                         },
                         {
-                            columnKey:'dummyListingColumn2',
-                            value:2
+                            columnKey: 'dummyListingColumn2',
+                            value: 2
                         },
                         {
-                            columnKey:'dummyListingColumn3',
-                            value:3
+                            columnKey: 'dummyListingColumn3',
+                            value: 3
                         },
                         {
-                            columnKey:'dummyListingColumn4',
-                            value:4
+                            columnKey: 'dummyListingColumn4',
+                            value: 4
                         },
                         {
-                            columnKey:'dummyListingColumn5',
-                            value:4
+                            columnKey: 'dummyListingColumn5',
+                            value: 4
                         },
                         {
-                            columnKey:'dummyListingColumn6',
-                            value:4
+                            columnKey: 'dummyListingColumn6',
+                            value: 4
                         },
                         {
-                            columnKey:'dummyListingColumn7',
-                            value:4
+                            columnKey: 'dummyListingColumn7',
+                            value: 4
                         },
                         {
-                            columnKey:'dummyListingColumn8',
-                            value:4
+                            columnKey: 'dummyListingColumn8',
+                            value: 4
                         }
                     ]
                 };
