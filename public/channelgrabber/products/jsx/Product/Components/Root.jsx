@@ -53,6 +53,7 @@ define([
                 conditionOptions: {},
                 defaultCurrency: null,
                 salesPhoneNumber: null,
+                demoLink: null,
                 showVAT: true,
                 massUnit: null,
                 lengthUnit: null
@@ -443,7 +444,8 @@ define([
                 this.state.createListing.product,
                 this.props.listingCreationAllowed,
                 this.props.managePackageUrl,
-                this.props.salesPhoneNumber
+                this.props.salesPhoneNumber,
+                this.props.demoLink
             );
             this.fetchVariationForProductListingCreation();
             return <CreateListingRootComponent/>;
