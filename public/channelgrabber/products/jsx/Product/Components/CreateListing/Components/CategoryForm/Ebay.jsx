@@ -1,30 +1,64 @@
 define([
     'react',
     'redux-form',
+    './Ebay/AccountPolicy',
     './Ebay/ListingDuration',
     './Ebay/ItemSpecifics'
 ], function(
     React,
     ReduxForm,
+    AccountPolicy,
     ListingDuration,
     ItemSpecifics
 ) {
     "use strict";
 
-    var FormSection = ReduxForm.FormSection;
+    let FormSection = ReduxForm.FormSection;
 
-    var EbayCategoryFormComponent = React.createClass({
+    let EbayCategoryFormComponent = React.createClass({
         getDefaultProps: function() {
             return {
                 categoryId: null,
                 listingDuration: {},
                 itemSpecifics: {},
-                product: {}
+                returnPolicies: {},
+                paymentPolicies: {},
+                shippingPolicies: {},
+                product: {},
+                accountId: null,
+                refreshAccountPolicies: () => {},
+                accountData: {},
+                setPoliciesForAccount: () => {}
             };
         },
+        componentDidMount: function() {
+            this.props.setPoliciesForAccount(this.props.accountId, {
+                returnPolicies: this.props.returnPolicies,
+                paymentPolicies: this.props.paymentPolicies,
+                shippingPolicies: this.props.shippingPolicies,
+            });
+        },
+        arePoliciesFetching: function() {
+            return this.props.accountData.policies ? !!(this.props.accountData.policies.isFetching) : false;
+        },
+        getReturnPolicies: function() {
+            let policies = this.props.accountData.policies;
+            return {
+                returnPolicies: (policies && policies.returnPolicies) ? policies.returnPolicies : [],
+                paymentPolicies: (policies && policies.paymentPolicies) ? policies.paymentPolicies : [],
+                shippingPolicies: (policies && policies.shippingPolicies) ? policies.shippingPolicies : [],
+            }
+        },
         render: function() {
+            let policies = this.getReturnPolicies();
             return (
                 <div className="ebay-category-form-container">
+                    <AccountPolicy
+                        {...policies}
+                        accountId={this.props.accountId}
+                        refreshAccountPolicies={this.props.refreshAccountPolicies}
+                        disabled={this.arePoliciesFetching()}
+                    />
                     <ListingDuration listingDurations={this.props.listingDuration} />
                     <FormSection
                         name="itemSpecifics"
