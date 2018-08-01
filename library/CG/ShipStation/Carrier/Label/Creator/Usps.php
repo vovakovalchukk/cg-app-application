@@ -112,7 +112,7 @@ class Usps extends Other
         $errors = [];
         /** @var Throwable $throwable */
         foreach ($throwables as $orderId => $throwable) {
-            $errors[$orderId] = $this->parseErrorMessageFromThrowable($throwable);
+            $errors[$orderId] = [$this->parseErrorMessageFromThrowable($throwable)];
         }
         return $errors;
     }
