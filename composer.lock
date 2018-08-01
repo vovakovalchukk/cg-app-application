@@ -924,6 +924,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "e849f6e9d634e2ef47a82c7db7926ebc7f613ab6"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-154-ebay-product-search-endpoint-dd4d64.zip",
+                "reference": "e849f6e9d634e2ef47a82c7db7926ebc7f613ab6",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
@@ -973,7 +979,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-01T08:02:35+00:00"
+            "time": "2018-08-01T14:54:45+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9953,12 +9959,6 @@
         {
             "alias": "1.13.2",
             "alias_normalized": "1.13.2.0",
-            "version": "dev-TAC-153-implement-catalog-api",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.13.2",
-            "alias_normalized": "1.13.2.0",
             "version": "dev-TAC-154-ebay-product-search-endpoint",
             "package": "channelgrabber/ebay"
         }
@@ -9969,8 +9969,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
