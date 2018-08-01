@@ -158,9 +158,12 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     /**
      * @return bool
      */
-    public function isManifestingAllowedForAccount(Account $account)
+    public function isManifestingAllowedForAccount(Account $account): bool
     {
-        // TODO: Implement isManifestingAllowedForAccount() method.
+        if ($account->getChannel() === 'usps-ss') {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -168,7 +171,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      */
     public function isManifestingOnlyAllowedOncePerDayForAccount(Account $account)
     {
-        // TODO: Implement isManifestingOnlyAllowedOncePerDayForAccount() method.
+        return false;
     }
 
     /**
