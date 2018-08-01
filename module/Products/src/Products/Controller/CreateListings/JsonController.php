@@ -10,6 +10,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Listing\Exception as ListingException;
 use Products\Product\Category\Service as CategoryService;
+use Products\Listing\SearchService;
 
 class JsonController extends AbstractJsonController
 {
@@ -21,6 +22,7 @@ class JsonController extends AbstractJsonController
     const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
     const ROUTE_REFRESH_CATEGORIES = 'RefreshCategories';
     const ROUTE_REFRESH_ACCOUNT_POLICIES = 'RefreshAccountPolicies';
+    const ROUTE_PRODUCT_SEARCH = 'ProductSearch';
 
     /** @var AccountService */
     protected $accountService;
@@ -28,17 +30,21 @@ class JsonController extends AbstractJsonController
     protected $channelService;
     /** @var CategoryService */
     protected $categoryService;
+    /** @var SearchService */
+    protected $searchService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         AccountService $accountService,
         ChannelService $channelService,
-        CategoryService $categoryService
+        CategoryService $categoryService,
+        SearchService $searchService
     ) {
         parent::__construct($jsonModelFactory);
         $this->accountService = $accountService;
         $this->channelService = $channelService;
         $this->categoryService = $categoryService;
+        $this->searchService = $searchService;
     }
 
     public function defaultSettingsAjaxAction()
@@ -136,6 +142,13 @@ class JsonController extends AbstractJsonController
         } catch (\Throwable $e) {
             return $this->buildGenericErrorResponse();
         }
+    }
+
+    public function searchAction()
+    {
+        $account = $this->fetchAccountFromRoute();
+        $query = $this->params()->fromPost('query');
+        $this->searchService->search($account, $query);
     }
 
     protected function fetchAccountFromRoute(): Account
