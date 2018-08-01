@@ -320,7 +320,7 @@ class MultiCreationService implements LoggerAwareInterface
                 (new CategoryFilter('all', 1))->setId($categoryIds)
             );
         } catch (NotFound $exception) {
-            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORIES_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_CATEGORIES_NOT_FOUND);
             return null;
         }
     }
