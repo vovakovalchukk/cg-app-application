@@ -25,7 +25,6 @@ define([
     return columnCreator;
     
     function renderImageColumn(creatorObject) {
-        
         return (<Column
             columnKey="image"
             width={100}
@@ -153,5 +152,4 @@ define([
             dummyListingColumn8: renderDummyListingColumn,
         }
     }
-    
 });

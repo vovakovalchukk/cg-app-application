@@ -14,9 +14,6 @@ define([
     "use strict";
     
     const Table = FixedDataTable.Table;
-    const Column = FixedDataTable.Column;
-    const Cell = FixedDataTable.Cell;
-    
     
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -95,33 +92,24 @@ define([
                         {
                             columnKey: 'image',
                             value: 'http://via.placeholder.com/40',
-                            isFixed:true
                         },
                         {
                             columnKey: 'link',
                             value: 'https://app.dev.orderhub.io/products',
-                            isFixed:true
-    
                         },
                         {
                             columnKey: 'sku',
                             value: product.sku,
-                            isFixed:true
-    
                         },
                         {
                             columnKey: 'name',
                             value: product.name,
-                            isFixed:true
-    
                         },
                         {
                             columnKey: 'available',
                             value: 0,
-                            isFixed:true
-    
                         },
-                        // //todo - change this dummy data to something significant in TAC-165
+                        //todo - change this dummy data to something significant in TAC-165
                         {
                             columnKey:'dummyListingColumn1',
                             value:1
@@ -156,49 +144,27 @@ define([
                         }
                     ]
                 };
-                // let row = "row"+i;
                 return row;
             });
             return list;
         },
         renderColumns: function(data) {
-            // if (!data || data.length === 0) {
-            //     return;
-            // }
-            console.log('in renderColumns with data: ', data);
-            
+            if (!data || data.length === 0) {
+                return;
+            }
             let columns = [];
             //todo - debug this part (this is where error occurs
             data.forEach((rowData) => {
                     columns = rowData.values;
                 }
             );
-            console.log('columns: ', columns);
-            
             return columns.map((columnData, columnIndex) => {
                 let column = columnCreator({
                     data,
                     columnKey: columnData.columnKey,
                     columnIndex
                 });
-        
                 return column
-                // return (
-                //     <Column
-                //         columnKey={columnData.columnKey}
-                //         width={200}
-                //         label="sku"
-                //         fixed={false}
-                //         header={<Cell>  {columnData.columnKey} </Cell>}
-                //         cell={props => {
-                //             return (
-                //                 <Cell>
-                //                     first thing
-                //                 </Cell>
-                //             );
-                //         }}
-                //     />
-                // );
             })
         },
         isReadyToRenderTable: function(data) {
@@ -206,8 +172,6 @@ define([
         },
         renderProducts: function() {
             let data = this.getList();
-            console.log('data: ', data);
-            
             // do not create the table until the dimensions have been captured from the initial render
             if (!this.isReadyToRenderTable(data)) {
                 return;
