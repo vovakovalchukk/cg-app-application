@@ -2,8 +2,10 @@
 namespace CG\ShipStation\Carrier\Label;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shared\Manifest\Entity as AccountManifest;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as ShippingProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as ShippingProviderFetchRatesInterface;
+use CG\Channel\Shipping\Provider\Service\ManifestInterface;
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as ShippingRateCollection;
 use CG\Channel\Shipping\Provider\ServiceInterface as ShippingProviderServiceInterface;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -21,7 +23,7 @@ use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
 
-class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface
+class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, ManifestInterface
 {
     /** @var CarrierService */
     protected $carrierServive;
@@ -151,5 +153,33 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             $shippingAccountToUse,
             $shipStationAccountToUse
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManifestingAllowedForAccount(Account $account)
+    {
+        // TODO: Implement isManifestingAllowedForAccount() method.
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManifestingOnlyAllowedOncePerDayForAccount(Account $account)
+    {
+        // TODO: Implement isManifestingOnlyAllowedOncePerDayForAccount() method.
+    }
+
+    /**
+     * Generate the manifest with the courier then call setExternalId() with the courier's ID for the manifest
+     * and setManifest() with the base64 encoded PDF data of the manifest itself.
+     * @param Account $shippingAccount
+     * @param AccountManifest $accountManifest
+     * @throws \CG\Stdlib\Exception\Storage if there is a problem generating the manifest
+     */
+    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
+    {
+        // TODO: Implement createManifestForAccount() method.
     }
 }
