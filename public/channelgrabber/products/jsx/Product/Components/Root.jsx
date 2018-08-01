@@ -1,9 +1,5 @@
-// import 'fixed-data-table-2/dist/fixed-data-table.css';
-
-
 define([
     'react',
-    // 'fixed-data-table',
     'Product/Components/Search',
     'Product/Filter/Entity',
     'Product/Components/ProductRow',
@@ -15,7 +11,6 @@ define([
     'Product/Components/ProductList/Root',
 ], function(
     React,
-    // FixedDataTable,
     SearchBox,
     ProductFilter,
     ProductRow,
@@ -33,26 +28,7 @@ define([
     const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-    //
-    // const Cell = FixedDataTable.Cell;
-    // const Table = FixedDataTable.Table;
-    // const Column = FixedDataTable.Column;
-    //
-    let TextCell = React.createClass({
-        render:function(){
-            console.log('in text cell render class data: ' , data, ' field ', field);
-            let data = this.props.data;
-            let field = this.props.field;
-            let rowIndex = this.props.rowIndex;
-            return (
-                <Cell>
-                    in cell
-                    {data[rowIndex][field]}
-                </Cell>
-            )
-        }
-    });
-    //
+    
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
@@ -96,11 +72,6 @@ define([
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
-                // pagination: {
-                //     total: 0,
-                //     limit: 0,
-                //     page: 0
-                // },
                 fetchingUpdatedStockLevelsForSkus: {},
                 accounts: {},
                 createListing: {
@@ -142,6 +113,7 @@ define([
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null, null, skuList);
             filter.setPage(pageNumber);
+            
             function successCallback(result) {
                 var self = this;
                 this.setState({
@@ -159,9 +131,11 @@ define([
                     self.onNewProductsReceived();
                 });
             }
+            
             function errorCallback() {
                 throw 'Unable to load products';
             }
+            
             this.fetchProducts(filter, successCallback, errorCallback);
         },
         fetchProducts: function(filter, successCallback, errorCallback) {
@@ -176,6 +150,7 @@ define([
         },
         fetchVariations: function(filter) {
             $('#products-loading-message').show();
+            
             function onSuccess(data) {
                 var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
                 this.setState({
@@ -185,6 +160,7 @@ define([
                     $('#products-loading-message').hide()
                 }.bind(this));
             }
+            
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function() {
@@ -436,7 +412,7 @@ define([
             var variationData = this.state.variations[this.state.createListingData.product.id]
                 ? this.state.variations[this.state.createListingData.product.id]
                 : [this.state.createListingData.product];
-
+            
             return <CreateListingPopupRoot
                 {...this.state.createListingData}
                 conditionOptions={this.formatConditionOptions()}
@@ -476,10 +452,10 @@ define([
             />
         },
         renderProductListView: function() {
-            if(!this.state.accounts){
+            if (!this.state.accounts) {
                 return
             }
-            return(
+            return (
                 <ProductListRoot
                     products={this.state.products}
                     features={this.props.features}
@@ -494,12 +470,12 @@ define([
             return viewRenderer();
         }
     });
-
+    
     RootComponent.childContextTypes = {
         imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };
-
+    
     return RootComponent;
 });
