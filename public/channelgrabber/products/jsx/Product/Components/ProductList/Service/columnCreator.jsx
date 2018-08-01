@@ -5,22 +5,18 @@ define([
 ], function(
     React,
     FixedDataTable,
+    //todo flesh out individual cell components properly from TAC-165 onwards
     TextCell
 ) {
     "use strict";
-    console.log('in columnCreator');
     const Cell = FixedDataTable.Cell;
     const Column = FixedDataTable.Column;
     
     var columnCreator = function(creatorObject) {
-        // console.log('in columnCreator with creatorObject: ' , creatorObject);
-        const {data, columnKey} = creatorObject;
+        const {columnKey} = creatorObject;
         let columnRenderers = getColumnRenderers();
         let columnRenderer = columnRenderers[columnKey];
-        
         if(typeof columnRenderer !== 'function'){
-            //todo remove this debug error.log
-            console.error('can not render for creatorObject:  ',creatorObject);
             return
         }
         return columnRenderer(creatorObject);
@@ -31,9 +27,9 @@ define([
     function renderImageColumn(creatorObject) {
         return (<Column
             columnKey="image"
-            width={100}
+            width={200}
             label="image"
-            fixed={true}
+            fixed={false}
             header={<Cell> image head </Cell>}
             cell={props => {
                 return (
@@ -49,7 +45,7 @@ define([
             columnKey="name"
             width={200}
             label="name"
-            fixed={true}
+            fixed={false}
             header={<Cell> name head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -66,7 +62,7 @@ define([
             columnKey="link"
             width={200}
             label="link"
-            fixed={true}
+            fixed={false}
             header={<Cell> link head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -81,9 +77,9 @@ define([
     function renderAvailableColumn(creatorObject){
         return (<Column
             columnKey="available"
-            width={100}
+            width={200}
             label="available"
-            fixed={true}
+            fixed={false}
             header={<Cell> available head </Cell>}
             cell={props => {
                 return (
@@ -99,7 +95,7 @@ define([
             columnKey="sku"
             width={200}
             label="sku"
-            fixed={true}
+            fixed={false}
             header={<Cell> sku head </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -111,13 +107,13 @@ define([
             }}
         />);
     }
-    function renderParentProductExpand(creatorObject) {
+    function renderDummyListingColumn(creatorObject){
         return (<Column
-            columnKey= {creatorObject.columnKey}
+            columnKey={creatorObject.columnKey}
             width={200}
-            label="sku"
-            fixed={true}
-            header={<Cell> is Parent </Cell>}
+            label={creatorObject.columnKey}
+            fixed={false}
+            header={<Cell> {creatorObject.columnKey} </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
@@ -145,7 +141,11 @@ define([
             sku: renderSkuColumn,
             name: renderNameColumn,
             available: renderAvailableColumn,
-            parentProductExpand: renderParentProductExpand
+            //todo - change these to represent actual data in TAC-165
+            dummyListingColumn1: renderDummyListingColumn,
+            dummyListingColumn2: renderDummyListingColumn,
+            dummyListingColumn3: renderDummyListingColumn,
+            dummyListingColumn4: renderDummyListingColumn,
         }
     }
     
