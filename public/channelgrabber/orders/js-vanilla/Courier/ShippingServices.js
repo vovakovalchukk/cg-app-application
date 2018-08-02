@@ -61,7 +61,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             );
 
             container.empty().append(html);
-            $(ShippingServices.SELECT_ELEMENTS).change();
+            $(ShippingServices.SELECT_ELEMENTS).trigger("change", [$(ShippingServices.SELECT_ELEMENTS), $(ShippingServices.SELECT_ELEMENTS).find("> input:hidden").val()]);
         });
     };
 
@@ -101,13 +101,33 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 
     ShippingServices.prototype.renderServicesSelect = function(orderId, serviceOptions, template, cgMustache, name)
     {
+        var selected;
+        var FoundSelectedException = {};
+        try {
+        serviceOptions.forEach(function(serviceOption) {
+            if (serviceOption.selected) {
+                selected = serviceOption.value;
+                throw FoundSelectedException;
+            }
+        });
+        } catch (exception) {
+            if (exception !== FoundSelectedException) {
+                throw exception;
+            }
+        }
+
         var data = {
             id: ShippingServices.SELECT_ID_PREFIX + 'select-' + orderId,
             name: name || 'service_' + orderId,
             class: 'courier-service-select required',
             searchField: true,
-            options: serviceOptions
+            options: serviceOptions,
         };
+
+        if (selected !== undefined) {
+            data.initialValue = selected;
+        }
+
         var html = cgMustache.renderTemplate(template, data);
 
         var $html = $(html);
