@@ -83,7 +83,10 @@ define([
                 <span className="search-product-image-container">
                     {this.renderProductImage(product)}
                 </span>
-                <div className="button container-btn yes">
+                <div
+                    className="button container-btn yes"
+                    onClick={this.selectProduct.bind(this, product)}
+                >
                     Select
                 </div>
             </span>;
@@ -112,6 +115,11 @@ define([
             return <span className="search-product-item-specifics">
                 {itemSpecifics}
             </span>;
+        },
+        selectProduct: function(product) {
+            this.props.renderCreateListingPopup(Object.assign(this.props.createListingData, {
+                selectedProductDetails: product
+            }));
         },
         render: function() {
             return (
