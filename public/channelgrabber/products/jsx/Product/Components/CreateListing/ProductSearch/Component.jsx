@@ -68,7 +68,7 @@ define([
             return <span className="search-product-container">
                 {this.renderProductTitle(product)}
                 <span className="search-product-details-container">
-                    {this.renderProductImage(product)}
+                    {this.renderProductImageAndSelectButton(product)}
                     {this.renderProductItemSpecifics(product)}
                 </span>
             </span>
@@ -78,16 +78,24 @@ define([
                 {product.title}
             </span>;
         },
+        renderProductImageAndSelectButton(product) {
+            return <span className="search-product-image-select-container">
+                <span className="search-product-image-container">
+                    {this.renderProductImage(product)}
+                </span>
+                <div className="button container-btn yes">
+                    Select
+                </div>
+            </span>;
+        },
         renderProductImage(product) {
             if (!product.imageUrl) {
                 return null;
             }
-            return <span className="search-product-image-container">
-                <img
-                    src={product.imageUrl}
-                    className="search-product-image"
-                />
-            </span>;
+            return <img
+                src={product.imageUrl}
+                className="search-product-image"
+            />;
         },
         renderProductItemSpecifics(product) {
             if (!product.itemSpecifics || Object.keys(product.itemSpecifics).length === 0) {
