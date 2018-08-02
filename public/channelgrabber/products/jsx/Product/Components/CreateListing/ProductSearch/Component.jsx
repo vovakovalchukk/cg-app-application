@@ -28,7 +28,7 @@ define([
             };
         },
         renderForm: function() {
-            return <form>
+            return <form className="search-product-form">
                 <Field name="search" component={this.renderInputComponent} displayTitle={"Enter a UPC, EAN, ISBN, part number or a product name"}/>
             </form>
         },
@@ -67,12 +67,14 @@ define([
         renderProduct: function (product) {
             return <span className="search-product-container">
                 {this.renderProductTitle(product)}
-                {this.renderProductImage(product)}
-                {this.renderProductItemSpecifics(product)}
+                <span className="search-product-details-container">
+                    {this.renderProductImage(product)}
+                    {this.renderProductItemSpecifics(product)}
+                </span>
             </span>
         },
         renderProductTitle: function (product) {
-            return <span className="search-product-title">
+            return <span className="search-product-title" title={product.title}>
                 {product.title}
             </span>;
         },
@@ -88,8 +90,20 @@ define([
             </span>;
         },
         renderProductItemSpecifics(product) {
-            // todo - implement this
-            return null;
+            if (!product.itemSpecifics || Object.keys(product.itemSpecifics).length === 0) {
+                return null;
+            }
+
+            let itemSpecifics = Object.keys(product.itemSpecifics).map(name => {
+                let value = product.itemSpecifics[name];
+                return <span className="search-product-item-specific">
+                    {name + ': ' + (Array.isArray(value) ? value.join(', ') : value)}
+                </span>;
+            });
+
+            return <span className="search-product-item-specifics">
+                {itemSpecifics}
+            </span>;
         },
         render: function() {
             return (
