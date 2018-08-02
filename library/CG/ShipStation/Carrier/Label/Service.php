@@ -183,6 +183,6 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      */
     public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
     {
-        // TODO: Implement createManifestForAccount() method.
+        $this->manifestService->createManifest();
     }
 }
