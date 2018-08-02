@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "dc8be35d00864d114143721f493b458c2a4e772a"
+                "reference": "658ae7999fd0d879429c138d1e1e283262e434f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-126-cancel-usps-labels-2af43b.zip",
-                "reference": "dc8be35d00864d114143721f493b458c2a4e772a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-126-cancel-usps-labels-3de36f.zip",
+                "reference": "658ae7999fd0d879429c138d1e1e283262e434f2",
                 "shasum": null
             },
             "require": {
@@ -363,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-01T13:15:05+00:00"
+            "time": "2018-08-02T08:53:09+00:00"
         },
         {
             "name": "channelgrabber/cache",
