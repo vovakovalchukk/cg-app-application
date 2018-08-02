@@ -3,9 +3,10 @@ define([
 ], function(
     reducerCreator
 ) {
-    let initialState = {};
-
-    return reducerCreator(initialState, {
+    return reducerCreator({}, {
+        "FETCH_SEARCH_RESULTS": function() {
+            return {};
+        },
         "SEARCH_RESULTS_FETCHED": function(state, action) {
             return action.payload.products;
         }

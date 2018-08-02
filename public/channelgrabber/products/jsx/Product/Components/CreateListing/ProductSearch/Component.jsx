@@ -51,6 +51,44 @@ define([
             this.props.fetchSearchResults(this.props.accountId, this.props.searchQuery);
         },
         renderSearchResults: function() {
+            if (Object.keys(this.props.products).length === 0) {
+                return null;
+            }
+
+            let products = Object.keys(this.props.products).map(productKey => {
+                let product = this.props.products[productKey];
+                return this.renderProduct(product);
+            });
+
+            return <span className="search-products-container">
+                {products}
+            </span>
+        },
+        renderProduct: function (product) {
+            return <span className="search-product-container">
+                {this.renderProductTitle(product)}
+                {this.renderProductImage(product)}
+                {this.renderProductItemSpecifics(product)}
+            </span>
+        },
+        renderProductTitle: function (product) {
+            return <span className="search-product-title">
+                {product.title}
+            </span>;
+        },
+        renderProductImage(product) {
+            if (!product.imageUrl) {
+                return null;
+            }
+            return <span className="search-product-image-container">
+                <img
+                    src={product.imageUrl}
+                    className="search-product-image"
+                />
+            </span>;
+        },
+        renderProductItemSpecifics(product) {
+            // todo - implement this
             return null;
         },
         render: function() {

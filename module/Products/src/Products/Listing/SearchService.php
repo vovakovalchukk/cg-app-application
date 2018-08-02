@@ -116,7 +116,7 @@ class SearchService implements LoggerAwareInterface
                 'brand' => $summary->getBrand(),
                 'mpn' => $summary->getMpn()[0] ?? null,
                 'title' => $summary->getTitle(),
-                'imageUrl' => $summary->getImage(),
+                'imageUrl' => $summary->getImage()->getUrl(),
                 'itemSpecifics' => $this->formatItemSpecificsArray($summary->getAspects())
             ];
         }
