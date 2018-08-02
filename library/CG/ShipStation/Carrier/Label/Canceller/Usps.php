@@ -31,7 +31,7 @@ class Usps extends Other implements LoggerAwareInterface
     {
 
         $shippingLedger = $this->shippingLedgerService->fetch($shippingAccount->getRootOrganisationUnitId());
-        $this->logInfo('Successfully cancelled order label %s for order %s and attempting to refund shipping ledger %s by %f belonging to OU: %s', [$orderLabel->getId(), $orderLabel->getOrderId(), $shippingLedger->getId(), $orderLabel->getCostPrice(), $shippingLedger->getOrganisationUnitId()]);
+        $this->logInfo('Successfully cancelled order label %s for order %s and attempting to credit shipping ledger %s by %f belonging to OU: %s', [$orderLabel->getId(), $orderLabel->getOrderId(), $shippingLedger->getId(), $orderLabel->getCostPrice(), $shippingLedger->getOrganisationUnitId()]);
         $organisationUnit = $this->organisationUnitService->fetch($shippingAccount->getRootOrganisationUnitId());
         $this->shippingLedgerService->credit($shippingLedger, $organisationUnit, $orderLabel->getCostPrice());
     }
