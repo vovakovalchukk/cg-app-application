@@ -29,7 +29,6 @@ class Usps extends Other implements LoggerAwareInterface
 
     protected function handleSuccess(OrderLabel $orderLabel, Account $shippingAccount): void
     {
-
         $shippingLedger = $this->shippingLedgerService->fetch($shippingAccount->getRootOrganisationUnitId());
         $this->logInfo('Successfully cancelled order label %s for order %s and attempting to credit shipping ledger %s by %f belonging to OU: %s', [$orderLabel->getId(), $orderLabel->getOrderId(), $shippingLedger->getId(), $orderLabel->getCostPrice(), $shippingLedger->getOrganisationUnitId()]);
         $organisationUnit = $this->organisationUnitService->fetch($shippingAccount->getRootOrganisationUnitId());
