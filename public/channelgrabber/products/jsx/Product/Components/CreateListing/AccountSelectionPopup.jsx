@@ -201,6 +201,30 @@ define([
         return accountDefaultSettings;
     };
 
+    const getSearchAccountId = function(props) {
+        let accounts = props.product.accounts;
+        let selectedAccountIds = props.accounts;
+        let accountIndex = selectedAccountIds.findIndex(selectedAccountId => {
+            let accountData =  accounts[selectedAccountId];
+
+            if (!accountData) {
+                return false;
+            }
+
+            if (accountData.channel !== 'ebay' || !accountData.listingsAuthActive) {
+                return false;
+            }
+
+            return true;
+        });
+
+        if (accountIndex > -1) {
+            return selectedAccountIds[accountIndex];
+        }
+        
+        return false;
+    };
+
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
         initialValues: {
@@ -228,8 +252,13 @@ define([
 
             fetchCategoryTemplateDependentFieldValues(values.categories).then(function(result) {
                 values.categoryTemplates = result.categoryTemplates;
-                props.renderSearchPopup(values);
-                // props.renderCreateListingPopup(values);
+                let searchAccountId = getSearchAccountId(values);
+                if (searchAccountId) {
+                    values.searchAccountId = searchAccountId;
+                    props.renderSearchPopup(values);
+                    return;
+                }
+                props.renderCreateListingPopup(values);
             });
         },
         validate: accountSelectionFormValidator

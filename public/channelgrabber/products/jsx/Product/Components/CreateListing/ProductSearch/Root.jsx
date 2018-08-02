@@ -40,6 +40,7 @@ define([
                 <Provider store={store}>
                     <ProductSearchComponent
                         {...this.props}
+                        accountId={this.props.createListingData.searchAccountId}
                     />
                 </Provider>
             );
