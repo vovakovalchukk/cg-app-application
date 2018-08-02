@@ -105,6 +105,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         for (key in serviceOptions) {
             if (serviceOptions[key].selected) {
                 selected = serviceOptions[key].value;
+                break;
             }
         }
 
