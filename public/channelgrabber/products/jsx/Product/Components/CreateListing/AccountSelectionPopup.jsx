@@ -43,7 +43,9 @@ define([
                 managePackageUrl: null,
                 salesPhoneNumber: null,
                 demoLink: null,
-                productSearchActive: false
+                productSearchActive: false,
+                renderCreateListingPopup: () => {},
+                renderSearchPopup: () => {}
             }
         },
         componentDidMount: function() {
@@ -226,7 +228,8 @@ define([
 
             fetchCategoryTemplateDependentFieldValues(values.categories).then(function(result) {
                 values.categoryTemplates = result.categoryTemplates;
-                props.renderCreateListingPopup(values);
+                props.renderSearchPopup(values);
+                // props.renderCreateListingPopup(values);
             });
         },
         validate: accountSelectionFormValidator

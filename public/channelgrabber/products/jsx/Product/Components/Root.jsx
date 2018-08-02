@@ -8,7 +8,8 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root'
+    'Product/Components/CreateListing/Root',
+    'Product/Components/CreateListing/ProductSearch'
 ], function(
     React,
     SearchBox,
@@ -19,7 +20,8 @@ define([
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
-    CreateListingRoot
+    CreateListingRoot,
+    ProductSearch
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -28,6 +30,7 @@ define([
     const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
+    const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
 
     var RootComponent = React.createClass({
         getChildContext: function() {
@@ -376,12 +379,19 @@ define([
                 createListingData: data
             });
         },
+        showSearchPopup: function(data) {
+            this.setState({
+                currentView: PRODUCT_SEARCH_VIEW,
+                createListingData: data
+            });
+        },
         getViewRenderers: function() {
             return {
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
                 PRODUCT_LIST_VIEW: this.renderProductListView,
-                ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
+                ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
+                PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
             }
         },
         renderSearchBox: function() {
@@ -443,6 +453,7 @@ define([
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup,
+                this.showSearchPopup,
                 this.state.createListing.product,
                 this.props.listingCreationAllowed,
                 this.props.managePackageUrl,
@@ -522,6 +533,12 @@ define([
                     </div>
                 </div>
             );
+        },
+        renderProductSearchView: function () {
+            return <ProductSearch
+                createListingData={this.state.createListingData}
+                renderCreateListingPopup={this.showCreateListingPopup}
+            />;
         },
         render: function() {
             var viewRenderers = this.getViewRenderers();
