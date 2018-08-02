@@ -23,7 +23,8 @@ define([
             return {
                 accountId: 0,
                 createListingData: {},
-                renderCreateListingPopup: () => {}
+                renderCreateListingPopup: () => {},
+                products: {}
             };
         },
         renderForm: function() {
@@ -49,6 +50,9 @@ define([
         fetchSearchResults: function() {
             this.props.fetchSearchResults(this.props.accountId, this.props.searchQuery);
         },
+        renderSearchResults: function() {
+            return null;
+        },
         render: function() {
             return (
                 <Container
@@ -63,6 +67,7 @@ define([
                     onBackButtonPressed={() => {}}
                 >
                     {this.renderForm()}
+                    {this.renderSearchResults()}
                 </Container>
             );
         }
@@ -77,7 +82,8 @@ define([
 
     const mapStateToProps = function(state) {
         return {
-            searchQuery: Selector(state, 'search')
+            searchQuery: Selector(state, 'search'),
+            products: state.products
         };
     };
 

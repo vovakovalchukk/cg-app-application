@@ -1,14 +1,17 @@
 define([
     'redux',
-    'redux-form'
+    'redux-form',
+    './Products'
 ], function(
     Redux,
-    ReduxForm
+    ReduxForm,
+    ProductsSearchReducer
 ) {
     "use strict";
 
     const CombinedReducer = Redux.combineReducers({
-        form: ReduxForm.reducer
+        form: ReduxForm.reducer,
+        products: ProductsSearchReducer
     });
 
     return CombinedReducer;
