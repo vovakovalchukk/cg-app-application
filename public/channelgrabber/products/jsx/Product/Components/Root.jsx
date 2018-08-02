@@ -9,7 +9,7 @@ define([
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
     'Product/Components/CreateListing/Root',
-    'Product/Components/CreateListing/ProductSearch'
+    'Product/Components/CreateListing/ProductSearch/Root'
 ], function(
     React,
     SearchBox,
@@ -21,7 +21,7 @@ define([
     CreateProductRoot,
     AjaxHandler,
     CreateListingRoot,
-    ProductSearch
+    ProductSearchRoot
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -535,7 +535,7 @@ define([
             );
         },
         renderProductSearchView: function () {
-            return <ProductSearch
+            return <ProductSearchRoot
                 createListingData={this.state.createListingData}
                 renderCreateListingPopup={this.showCreateListingPopup}
             />;
