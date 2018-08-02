@@ -102,17 +102,9 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
     ShippingServices.prototype.renderServicesSelect = function(orderId, serviceOptions, template, cgMustache, name)
     {
         var selected;
-        var FoundSelectedException = {};
-        try {
-        serviceOptions.forEach(function(serviceOption) {
-            if (serviceOption.selected) {
-                selected = serviceOption.value;
-                throw FoundSelectedException;
-            }
-        });
-        } catch (exception) {
-            if (exception !== FoundSelectedException) {
-                throw exception;
+        for (key in serviceOptions) {
+            if (serviceOptions[key].selected) {
+                selected = serviceOptions[key].value;
             }
         }
 
@@ -122,11 +114,8 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             class: 'courier-service-select required',
             searchField: true,
             options: serviceOptions,
+            initialValue: selected
         };
-
-        if (selected !== undefined) {
-            data.initialValue = selected;
-        }
 
         var html = cgMustache.renderTemplate(template, data);
 
