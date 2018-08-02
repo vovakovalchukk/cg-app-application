@@ -6,9 +6,15 @@ use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class Usps extends Other
+class Usps extends Other implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    const LOG_CODE = 'USPS Label Cancellation';
+
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
     /** @var OrganisationUnitService */
@@ -26,5 +32,6 @@ class Usps extends Other
         $shippingLedger = $this->shippingLedgerService->fetch($shippingAccount->getRootOrganisationUnitId());
         $organisationUnit = $this->organisationUnitService->fetch($shippingAccount->getRootOrganisationUnitId());
         $this->shippingLedgerService->credit($shippingLedger, $organisationUnit, $orderLabel->getCostPrice());
+        $this->logInfo('Successfully cancelled order label %s and refunded shipping ledger %s by %f belonging to OU: %s', [$orderLabel->getId(), $shippingLedger->getId(), $orderLabel->getCostPrice(), $shippingLedger->getOrganisationUnitId()]);
     }
 }
