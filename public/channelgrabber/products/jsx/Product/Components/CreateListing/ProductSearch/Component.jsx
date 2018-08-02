@@ -131,7 +131,7 @@ define([
                     yesButtonText={"Search"}
                     noButtonText="Enter details manually"
                     onYesButtonPressed={this.fetchSearchResults}
-                    onNoButtonPressed={() => {}}
+                    onNoButtonPressed={this.props.renderCreateListingPopup.bind(this, this.props.createListingData)}
                     onBackButtonPressed={() => {}}
                 >
                     {this.renderForm()}
