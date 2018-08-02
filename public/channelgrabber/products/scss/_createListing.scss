@@ -399,6 +399,7 @@
   margin: 10px;
   padding: 5px;
   border-radius: 20px;
+  flex-flow: column;
 }
 
 .search-product-details-container {
@@ -406,7 +407,6 @@
 }
 
 .search-product-image-container {
-  display: flex;
 }
 
 .search-product-image {
@@ -419,7 +419,6 @@
   white-space:  nowrap;
   overflow: hidden;
   cursor: pointer;
-  display: flex;
 }
 
 .search-product-item-specifics {
