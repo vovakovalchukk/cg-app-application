@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "ed9e9b50e62584ca6946a6900ac12f39",
@@ -1917,20 +1917,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "06d9f89c73ba3bcb97d702809ab1eb5d73c08858"
+                "reference": "3abe0948359946925bb85c931810600a1fd03c89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.9.0-246ed6.zip",
-                "reference": "06d9f89c73ba3bcb97d702809ab1eb5d73c08858",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.9.1-e56ec1.zip",
+                "reference": "3abe0948359946925bb85c931810600a1fd03c89",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "^1.17.4",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1964,7 +1964,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-23T14:10:54+00:00"
+            "time": "2018-07-24T14:14:45+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4453,12 +4453,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "19904fc7205c7ba720040f74af182dcf066f725d"
+                "reference": "ba0f5e265b7329708f0e5afedfb6108c564a1968"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-83ca2b.zip",
-                "reference": "19904fc7205c7ba720040f74af182dcf066f725d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-119-ship-cost-column-43d443.zip",
+                "reference": "ba0f5e265b7329708f0e5afedfb6108c564a1968",
                 "shasum": null
             },
             "require": {
@@ -4510,7 +4510,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-01T08:00:08+00:00"
+            "time": "2018-08-02T09:53:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
