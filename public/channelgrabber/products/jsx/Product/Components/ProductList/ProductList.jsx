@@ -89,28 +89,46 @@ define([
                     rowIndex: i,
                     values: [
                         {
-                            columnKey: 'image',
-                            value: 'http://via.placeholder.com/40',
+                            columnKey: 'debug',
+                            value: 'a',
+                            rowIndex:i,
+                            product
                         },
                         {
-                            column: 'parentProductDropdown',
-                            value: this.isParentProduct(product)
+                            columnKey: 'image',
+                            value: 'http://via.placeholder.com/40',
+                            rowIndex:i,
+                            product
+                        },
+                        {
+                            columnKey:'parentProductExpand',
+                            value: this.isParentProduct(product) ? 'parent' : '',
+                            rowIndex:i,
+                            product
                         },
                         {
                             columnKey: 'link',
                             value: 'https://app.dev.orderhub.io/products',
+                            rowIndex:i,
+                            product
                         },
                         {
                             columnKey: 'sku',
                             value: product.sku,
+                            rowIndex:i,
+                            product
                         },
                         {
                             columnKey: 'name',
                             value: product.name,
+                            rowIndex:i,
+                            product
                         },
                         {
                             columnKey: 'available',
                             value: 0,
+                            rowIndex:i,
+                            product
                         },
                         //todo - change this dummy data to something significant in TAC-165
                         {
@@ -162,10 +180,13 @@ define([
                 }
             );
             return columns.map((columnData, columnIndex) => {
+                let {columnKey, product,rowIndex} = columnData;
                 let column = columnCreator({
                     data,
-                    columnKey: columnData.columnKey,
-                    columnIndex
+                    columnKey,
+                    columnIndex,
+                    product,
+                    rowIndex,
                 });
                 return column
             })

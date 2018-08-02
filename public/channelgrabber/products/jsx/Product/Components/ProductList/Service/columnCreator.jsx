@@ -17,6 +17,7 @@ define([
         let columnRenderers = getColumnRenderers();
         let columnRenderer = columnRenderers[columnKey];
         if (typeof columnRenderer !== 'function') {
+            console.error("no function for column renderer reatorObject: "  , creatorObject)
             return
         }
         return columnRenderer(creatorObject);
@@ -24,6 +25,27 @@ define([
     
     return columnCreator;
     
+    function renderDebugColumn(creatorObject){
+        return (<Column
+            columnKey="debug"
+            width={100}
+            label="debug"
+            fixed={true}
+            creatorObject={creatorObject}
+            testProp={'testProp'}
+            header={<Cell> debug</Cell>}
+            cell={props => {
+                return (
+                    <Cell creatorObject={props.creatorObject}>
+                        <div onClick={()=>{
+                            console.log('product cell props in debug:' , props);
+                        }}>click for product log </div>
+                    </Cell>
+                );
+            }}
+        />);
+        
+    }
     function renderImageColumn(creatorObject) {
         return (<Column
             columnKey="image"
@@ -40,7 +62,6 @@ define([
             }}
         />);
     }
-    
     function renderNameColumn(creatorObject) {
         return (<Column
             columnKey="name"
@@ -111,13 +132,29 @@ define([
             }}
         />);
     }
-    
     function renderDummyListingColumn(creatorObject) {
         return (<Column
             columnKey={creatorObject.columnKey}
             width={200}
             label={creatorObject.columnKey}
             fixed={creatorObject.isFixed}
+            header={<Cell> {creatorObject.columnKey} </Cell>}
+            cell={props => {
+                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                return (
+                    <Cell>
+                        {value}
+                    </Cell>
+                );
+            }}
+        />);
+    }
+    function renderParentProductExpand(creatorObject){
+        return (<Column
+            columnKey={creatorObject.columnKey}
+            width={100}
+            label={creatorObject.columnKey}
+            fixed={true}
             header={<Cell> {creatorObject.columnKey} </Cell>}
             cell={props => {
                 let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
@@ -141,6 +178,8 @@ define([
     
     function getColumnRenderers() {
         return {
+            debug:renderDebugColumn,
+            parentProductExpand:renderParentProductExpand,
             image: renderImageColumn,
             link: renderLinkColumn,
             sku: renderSkuColumn,
