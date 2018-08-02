@@ -1,6 +1,5 @@
 define([
     'react',
-    
     'Product/Components/ProductList/ProductList'
 ], function(
     React,

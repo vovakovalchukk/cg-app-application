@@ -153,7 +153,6 @@ define([
                 return;
             }
             let columns = [];
-            //todo - debug this part (this is where error occurs
             data.forEach((rowData) => {
                     columns = rowData.values;
                 }
