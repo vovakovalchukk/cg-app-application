@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f20834e92faf22c997134be1f78a4801",
+    "content-hash": "5e88a9aa228db80b272035cc3acaa1d8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.17.6",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "94cf1ef43f5d86550cf5adfbfa9077aec3c59ca0"
+                "reference": "7d0d6d09eb7d04b81013602e832922433d25b1ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.17.6-4a8b51.zip",
-                "reference": "94cf1ef43f5d86550cf5adfbfa9077aec3c59ca0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.0-a2f017.zip",
+                "reference": "7d0d6d09eb7d04b81013602e832922433d25b1ca",
                 "shasum": null
             },
             "require": {
@@ -345,7 +345,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-9469-ou-vat-status-override": "1.16.x-dev"
+                    "TAC-121-usps-balance-and-topup": "1.17.6-dev"
                 }
             },
             "autoload": {
@@ -363,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-26T13:44:38+00:00"
+            "time": "2018-08-02T12:44:24+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1922,20 +1922,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.9.1",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "3abe0948359946925bb85c931810600a1fd03c89"
+                "reference": "0b3131a6417ef30ac70f3287f1c01cd7c0ab0895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.9.1-e56ec1.zip",
-                "reference": "3abe0948359946925bb85c931810600a1fd03c89",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.0-e7c015.zip",
+                "reference": "0b3131a6417ef30ac70f3287f1c01cd7c0ab0895",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.4",
+                "channelgrabber/billing": "^1.19.0",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1956,6 +1956,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "TAC-121-usps-balance-and-topup": "1.9.2-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -1969,7 +1974,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-24T14:14:45+00:00"
+            "time": "2018-08-02T13:10:02+00:00"
         },
         {
             "name": "channelgrabber/permission",
