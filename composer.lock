@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10950a97ddcf3e26b0baf7d52a3c97c2",
+    "content-hash": "16707f3a263bb2e4983731a570773cef",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3425,20 +3425,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.5.3",
+            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "e02bc9c6b529dc822f206b8fd84df920fffaaa6b"
+                "reference": "0184eb05d83965a277203c27043bdda20abbd0ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.5.3-3b08aa.zip",
-                "reference": "e02bc9c6b529dc822f206b8fd84df920fffaaa6b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-TAC-178-make-create-listing-generator-factory-more-abstract-c6fe8c.zip",
+                "reference": "0184eb05d83965a277203c27043bdda20abbd0ab",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.36.0",
+                "channelgrabber/channel": "dev-TAC-178-make-create-listing-generator-factory-more-abstract as 1.36.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3470,7 +3470,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-07-09T14:27:29+00:00"
+            "time": "2018-08-02T13:39:55+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9963,6 +9963,12 @@
             "alias_normalized": "1.36.8.0",
             "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.5.3",
+            "alias_normalized": "1.5.3.0",
+            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
+            "package": "channelgrabber/woocommerce"
         }
     ],
     "minimum-stability": "stable",
@@ -9970,6 +9976,7 @@
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
