@@ -213,9 +213,8 @@ class OrderDetailsController extends AbstractActionController
             $view->setVariable('trackings', $trackingNumbers);
             $view->setVariable('labels', $labelData);
 
-            $labels->rewind();
             /* @var $label \CG\Order\Shared\Label\Entity */
-            $label = $labels->current();
+            $label = $labels->getFirst();
             if (in_array($label->getStatus(), OrderLabelStatus::getPrintableStatuses())) {
                 $view->addChild($this->getPrintLabelButton($order), 'printButton');
             }
