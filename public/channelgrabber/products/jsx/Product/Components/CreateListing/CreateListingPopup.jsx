@@ -57,7 +57,8 @@ define([
                 submissionStatuses: {},
                 onCreateListingClose: function() {},
                 massUnit: null,
-                lengthUnit: null
+                lengthUnit: null,
+                selectedProductDetails: {}
             }
         },
         componentDidMount: function () {
@@ -265,6 +266,7 @@ define([
             return this.props.submissionStatuses.inProgress;
         },
         render: function() {
+            console.log(this.props);
             var isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return (
                 <Container
@@ -319,7 +321,8 @@ define([
                         props.accounts,
                         props.accountDefaultSettings,
                         props.accountsData,
-                        props.categoryTemplates
+                        props.categoryTemplates,
+                        props.selectedProductDetails
                     )
                 );
             }
