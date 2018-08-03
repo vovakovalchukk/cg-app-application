@@ -35,7 +35,6 @@ class Service
 
     public function generateShipStationManifest(Account $shippingAccount, Account $shipStationAccount, AccountManifest $accountManifest): ?ManifestResponse
     {
-        //string $carrierId, $warehouseId, $shipDate, $excludedLabelIds = []
         $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
         $dateTime = new DateTime($shippingAccount->getCgCreationDate());
         $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $dateTime);
