@@ -162,7 +162,13 @@ define([
                 {itemSpecifics}
             </table>;
         },
-        selectProduct: function(product) {
+        selectProduct: function() {
+            let product = this.state.selectedProduct;
+
+            if (Object.keys(product).length === 0) {
+                return null;
+            }
+
             this.props.renderCreateListingPopup(Object.assign(this.props.createListingData, {
                 selectedProductDetails: product
             }));
@@ -174,6 +180,8 @@ define([
                     className="product-search-container"
                     closeOnYes={false}
                     headerText={"Create a listing"}
+                    yesButtonText={"Select"}
+                    onYesButtonPressed={this.selectProduct}
                     onBackButtonPressed={() => {}}
                 >
                     {this.renderForm()}
