@@ -1,12 +1,14 @@
 define([
     'react',
     'fixed-data-table',
+    'Product/Components/ProductList/tableDataWrapper',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
-    'Product/Components/ProductList/Service/columnCreator'
+    'Product/Components/ProductList/ColumnCreator/factory'
 ], function(
     React,
     FixedDataTable,
+    tableDataWrapper,
     ProductLinkEditor,
     ProductFooter,
     columnCreator
@@ -36,10 +38,23 @@ define([
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
+    
+           
+            
         },
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
+        },
+        shouldComponentUpdate:function(){
+          if(this.dataShouldBeStored()){
+              tableDataWrapper.storeData(this.props.products);
+              console.log('just storedData... ' , tableDataWrapper.getData());
+          }
+          return true;
+        },
+        dataShouldBeStored:function(){
+            return this.props.products.length && (tableDataWrapper.getData() !== this.props.products)
         },
         updateDimensions: function() {
             this.setState({
@@ -79,56 +94,58 @@ define([
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
+        getTableDataWrapper: function(){
+            //todo -- eventually get this returning a js class that acts as a filter tool / row extraction tool
+            // console.log('in getTableDataWrapper witht his.props.products: ' , this.props.products);
+            // console.log('tableDatWrapper : ' , tableDataWrapper);
+            
+            
+            
+            return tableDataWrapper;
+        },
         getList: function() {
             const products = this.props.products;
             if (products && products.length <= 0) {
                 return;
             }
             let list = products.map((product, i) => {
+                //
                 let row = {
                     rowIndex: i,
                     values: [
                         {
                             columnKey: 'debug',
-                            value: 'a',
-                            rowIndex:i,
-                            product
+                            value: 'a'
                         },
                         {
                             columnKey: 'image',
                             value: 'http://via.placeholder.com/40',
-                            rowIndex:i,
-                            product
                         },
                         {
                             columnKey:'parentProductExpand',
                             value: this.isParentProduct(product) ? 'parent' : '',
-                            rowIndex:i,
-                            product
+    
                         },
                         {
                             columnKey: 'link',
                             value: 'https://app.dev.orderhub.io/products',
-                            rowIndex:i,
-                            product
+    
                         },
                         {
                             columnKey: 'sku',
-                            value: product.sku,
-                            rowIndex:i,
-                            product
+                            // value: product.sku,
                         },
                         {
                             columnKey: 'name',
                             value: product.name,
-                            rowIndex:i,
-                            product
+                            // rowIndex:i,
+                            // product
                         },
                         {
                             columnKey: 'available',
                             value: 0,
-                            rowIndex:i,
-                            product
+                            // rowIndex:i,
+                            // product
                         },
                         //todo - change this dummy data to something significant in TAC-165
                         {
@@ -179,15 +196,16 @@ define([
                     columns = rowData.values;
                 }
             );
+            
+            
             return columns.map((columnData, columnIndex) => {
-                let {columnKey, product,rowIndex} = columnData;
+                let {columnKey, product} = columnData;
                 let column = columnCreator({
-                    data,
                     columnKey,
                     columnIndex,
-                    product,
-                    rowIndex,
+                    data: this.getTableDataWrapper()
                 });
+                // /
                 return column
             })
         },

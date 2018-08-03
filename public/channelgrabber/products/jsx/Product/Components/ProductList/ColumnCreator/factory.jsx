@@ -1,52 +1,71 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/Cells/Text'
+    'Product/Components/ProductList/Cells/Text',
+    
+    'Product/Components/ProductList/Cells/DebugCell'
 ], function(
     React,
     FixedDataTable,
     //todo flesh out individual cell components properly from TAC-165 onwards
-    TextCell
+    TextCell,
+    
+    DebugCell
 ) {
     "use strict";
     const Cell = FixedDataTable.Cell;
     const Column = FixedDataTable.Column;
     
-    var columnCreator = function(creatorObject) {
-        const {columnKey} = creatorObject;
+    var columnCreator = function(column) {
+        // console.log('in columnCretor withcolumn : '  ,column);
+        
+        
+        
+        // const {columnKey} = creatorObject;
         let columnRenderers = getColumnRenderers();
-        let columnRenderer = columnRenderers[columnKey];
+        let columnRenderer = columnRenderers[column.columnKey];
         if (typeof columnRenderer !== 'function') {
-            console.error("no function for column renderer reatorObject: "  , creatorObject)
+            console.error("no function for column renderer column "  , column)
             return
         }
-        return columnRenderer(creatorObject);
+        
+        ///
+        // //
+        
+        return columnRenderer(column);
     };
     
     return columnCreator;
     
-    function renderDebugColumn(creatorObject){
+    function renderDebugColumn(column){
+        // console.log('outside of cell in renderDebugColumn with creatorObject: ', column);
+        let testVar = 'have the variable'
         return (<Column
             columnKey="debug"
             width={100}
             label="debug"
             fixed={true}
-            creatorObject={creatorObject}
-            testProp={'testProp'}
             header={<Cell> debug</Cell>}
-            cell={props => {
-                return (
-                    <Cell creatorObject={props.creatorObject}>
-                        <div onClick={()=>{
-                            console.log('product cell props in debug:' , props);
-                        }}>click for product log </div>
-                    </Cell>
-                );
-            }}
+            cell={<DebugCell
+                testVar={testVar}
+                
+                // columnObject={creatorObject}
+            />}
+            // cell={(props) => {
+            //     console.log('outside of cell return with props: ' , props , ' and creatorObject: ' ,  creatorObject);
+            //     return (
+            //         //
+            //         <Cell rowObject={creatorObject}>
+            //             <div onClick={()=>{
+            //                 console.log('---inside of cell in debugColumn props.rowObject: ' , props.rowObject);
+            //             }}>click for product log </div>
+            //         </Cell>
+            //     );
+            // }}
         />);
         
     }
-    function renderImageColumn(creatorObject) {
+    function renderImageColumn(column) {
         return (<Column
             columnKey="image"
             width={100}
@@ -62,7 +81,7 @@ define([
             }}
         />);
     }
-    function renderNameColumn(creatorObject) {
+    function renderNameColumn(column) {
         return (<Column
             columnKey="name"
             width={150}
@@ -70,10 +89,10 @@ define([
             fixed={true}
             header={<Cell> name head </Cell>}
             cell={props => {
-                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                // let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
                     <Cell>
-                        {value}
+                        {/*{value}*/}sdfs
                     </Cell>
                 );
             }}
@@ -88,10 +107,10 @@ define([
             fixed={true}
             header={<Cell> link head </Cell>}
             cell={props => {
-                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                // let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
                     <Cell>
-                        {value}
+                        {/*{value}*/}
                     </Cell>
                 );
             }}
@@ -123,10 +142,10 @@ define([
             fixed={true}
             header={<Cell> sku head </Cell>}
             cell={props => {
-                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                // let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
                     <Cell>
-                        {value}
+                        {/*{value}*/}
                     </Cell>
                 );
             }}
@@ -140,10 +159,10 @@ define([
             fixed={creatorObject.isFixed}
             header={<Cell> {creatorObject.columnKey} </Cell>}
             cell={props => {
-                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                // let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
                     <Cell>
-                        {value}
+                        {/*{value}*/}
                     </Cell>
                 );
             }}
@@ -157,10 +176,10 @@ define([
             fixed={true}
             header={<Cell> {creatorObject.columnKey} </Cell>}
             cell={props => {
-                let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
+                // let value = getValue(creatorObject.columnKey, creatorObject.data, props.rowIndex);
                 return (
                     <Cell>
-                        {value}
+                        {/*{value}*/}
                     </Cell>
                 );
             }}
