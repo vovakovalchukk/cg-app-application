@@ -19,7 +19,8 @@ define([
                 brand: values.brand,
                 condition: values.condition,
                 productChannelDetail: formatProductChannelDetail(values, props),
-                productCategoryDetail: formatProductCategoryDetail(values, props)
+                productCategoryDetail: formatProductCategoryDetail(values, props),
+                epid: props.selectedProductDetails ? props.selectedProductDetails.epid : null
             },
             accountCategories: formatAccountCategoryMap(props)
         };

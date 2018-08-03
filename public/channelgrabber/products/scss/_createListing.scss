@@ -216,6 +216,10 @@
     color: $color-lblue;
     cursor: pointer;
   }
+
+  .custom-select {
+    min-width: 300px;
+  }
 }
 
 .react-image-picker {
