@@ -27,14 +27,40 @@ define([
                 products: {}
             };
         },
+        getInitialState: function() {
+            return {
+                selectedProduct: {}
+            }
+        },
         renderForm: function() {
-            return <form className="search-product-form">
+            return <form className="search-product-form" onSubmit={this.onFormSubmit}>
                 <Field name="search" component={this.renderInputComponent} displayTitle={"Enter a UPC, EAN, ISBN, part number or a product name"}/>
+                {this.renderSearchButton()}
+                {this.renderEnterDetailsManuallyButton()}
             </form>
+        },
+        onFormSubmit: function (event) {
+            event.preventDefault();
+        },
+        renderSearchButton: function() {
+            return <div
+                className="button container-btn yes search-button"
+                onClick={this.fetchSearchResults}
+            >
+                Search
+            </div>;
+        },
+        renderEnterDetailsManuallyButton: function() {
+            return <div
+                className="button container-btn no"
+                onClick={this.props.renderCreateListingPopup.bind(this, this.props.createListingData)}
+            >
+                Enter details manually
+            </div>;
         },
         renderInputComponent: function(field) {
             return <label className="input-container">
-                <span className={"inputbox-label"}>{field.displayTitle}</span>
+                <span className={"inputbox-label search-label-container"}>{field.displayTitle}</span>
                 <div className={"order-inputbox-holder"}>
                     <Input
                         name={field.input.name}
@@ -65,13 +91,35 @@ define([
             </span>
         },
         renderProduct: function (product) {
-            return <span className="search-product-container">
+            return <div
+                className={this.getProductContainerClassName(product)}
+                onClick={this.markProductAsSelected.bind(this, product)}
+            >
                 {this.renderProductTitle(product)}
                 <span className="search-product-details-container">
                     {this.renderProductImageAndSelectButton(product)}
                     {this.renderProductItemSpecifics(product)}
                 </span>
-            </span>
+            </div>
+        },
+        getProductContainerClassName: function(product) {
+            let className = "search-product-container";
+            if (product.epid === this.state.selectedProduct.epid) {
+                return className + ' selected';
+            }
+            return className;
+        },
+        markProductAsSelected: function (product) {
+            if (product.epid === this.state.selectedProduct.epid) {
+                this.setState({
+                    selectedProduct: {}
+                });
+                return;
+            }
+
+            this.setState({
+                selectedProduct: product
+            });
         },
         renderProductTitle: function (product) {
             return <span className="search-product-title" title={product.title}>
@@ -125,13 +173,9 @@ define([
             return (
                 <Container
                     initiallyActive={true}
-                    className="editor-popup product-create-listing"
+                    className="product-search-container"
                     closeOnYes={false}
                     headerText={"Create a listing"}
-                    yesButtonText={"Search"}
-                    noButtonText="Enter details manually"
-                    onYesButtonPressed={this.fetchSearchResults}
-                    onNoButtonPressed={this.props.renderCreateListingPopup.bind(this, this.props.createListingData)}
                     onBackButtonPressed={() => {}}
                 >
                     {this.renderForm()}
