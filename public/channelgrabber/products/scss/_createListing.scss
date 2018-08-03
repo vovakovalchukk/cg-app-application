@@ -397,11 +397,11 @@
 }
 
 .search-product-container {
-  max-width: 300px;
+  width: 370px;
   border: 2px solid grey;
   margin: 10px;
   padding: 5px;
-  border-radius: 20px;
+  border-radius: 10px;
   flex-flow: column;
   cursor: pointer;
   max-height: 250px;
@@ -424,8 +424,8 @@
 }
 
 .search-product-image {
-  max-width: 200px;
-  max-height: 200px;
+  width: 150px;
+  max-height: 150px;
   object-fit: contain;
 }
 
@@ -434,9 +434,25 @@
   font-size: 1.1em;
 }
 
-.search-product-item-specifics {
-  display: flex;
-  flex-direction: column;
+table.search-product-item-specifics {
+  display: block;
+  height: 150px;
+  overflow-y: auto;
+
+  tr {
+    td {
+      font-size: 1em;
+      max-height: none;
+      height: auto;
+      text-align: left;
+    }
+    td:last-child {
+      border-right: none;
+    }
+    td:first-child {
+      border-left: none;
+    }
+  }
 }
 
 .search-product-item-specific {

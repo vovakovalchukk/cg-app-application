@@ -74,6 +74,9 @@ define([
             input.onChange(value);
         },
         fetchSearchResults: function() {
+            this.setState({
+                selectedProduct: {}
+            });
             this.props.fetchSearchResults(this.props.accountId, this.props.searchQuery);
         },
         renderSearchResults: function() {
@@ -149,14 +152,15 @@ define([
 
             let itemSpecifics = Object.keys(product.itemSpecifics).map(name => {
                 let value = product.itemSpecifics[name];
-                return <span className="search-product-item-specific">
-                    {name + ': ' + (Array.isArray(value) ? value.join(', ') : value)}
-                </span>;
+                return <tr>
+                    <td>{name}</td>
+                    <td>{Array.isArray(value) ? value.join(', ') : value}</td>
+                </tr>;
             });
 
-            return <span className="search-product-item-specifics">
+            return <table className="search-product-item-specifics">
                 {itemSpecifics}
-            </span>;
+            </table>;
         },
         selectProduct: function(product) {
             this.props.renderCreateListingPopup(Object.assign(this.props.createListingData, {

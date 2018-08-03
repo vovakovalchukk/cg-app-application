@@ -14,7 +14,7 @@ class SearchService implements LoggerAwareInterface
 {
     use LogTrait;
 
-    const DEFAULT_LIMIT = 10;
+    const DEFAULT_LIMIT = 12;
 
     const LOG_CODE = 'ListingsSearchService';
     const LOG_MESSAGE_SEARCH_API_ERROR = 'There was an error when performing a Search request on the CatalogAPI';
