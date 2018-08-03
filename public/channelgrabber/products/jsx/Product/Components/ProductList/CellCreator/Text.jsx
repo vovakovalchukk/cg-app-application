@@ -18,10 +18,14 @@ define([
             return {};
         },
         render() {
-            const {rowIndex, columnKey, data} = this.props;
+            console.log('in TextCell with this.props: ', this.props);
+            
+            
+            
+            
             return (
                 <Cell {...this.props}>
-                    {data[rowIndex][columnKey]}
+                    in text cell
                 </Cell>
             );
         }

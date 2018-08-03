@@ -31,10 +31,7 @@ define([
             // console.log('tableDataWrapper: ', tableDataWrapper);
             
             
-            console.log('in debug render and data in tableDataWrapper: ' , tableDataWrapper.getData());
-            
-            
-            
+            // console.log('in debug render and data in tableDataWrapper: ' , tableDataWrapper.getData());
             return (
                 <Cell {...this.props}>
                     {/*{data[rowIndex][columnKey]}*/}
