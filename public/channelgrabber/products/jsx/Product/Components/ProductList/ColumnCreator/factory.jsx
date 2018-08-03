@@ -1,38 +1,40 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/Cells/Text',
+    // 'Product/Components/ProductList/Cells/Text',
+    'Product/Components/ProductList/CellCreator/factory',
     
-    'Product/Components/ProductList/Cells/DebugCell'
+    // 'Product/Components/ProductList/Cells/DebugCell'
 ], function(
     React,
     FixedDataTable,
     //todo flesh out individual cell components properly from TAC-165 onwards
-    TextCell,
+    cellCreator
+    // TextCell,
     
-    DebugCell
+    // DebugCell
 ) {
     "use strict";
     const Cell = FixedDataTable.Cell;
     const Column = FixedDataTable.Column;
     
     var columnCreator = function(column) {
-        // console.log('in columnCretor withcolumn : '  ,column);
-        
-        
-        
-        // const {columnKey} = creatorObject;
-        let columnRenderers = getColumnRenderers();
-        let columnRenderer = columnRenderers[column.columnKey];
-        if (typeof columnRenderer !== 'function') {
-            console.error("no function for column renderer column "  , column)
-            return
-        }
-        
-        ///
-        // //
-        
-        return columnRenderer(column);
+        return (
+            <Column
+                columnKey={column.key}
+                width={column.width}
+                // label=
+                fixed={column.fixed}
+                header={column.headerText}
+                cell={props => {
+                    let {columnKey, rowIndex} = props;
+                    return cellCreator({
+                        columnKey,
+                        rowIndex
+                    })
+                }}
+            />
+        )
     };
     
     return columnCreator;

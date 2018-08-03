@@ -38,9 +38,6 @@ define([
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
-    
-           
-            
         },
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
@@ -98,9 +95,6 @@ define([
             //todo -- eventually get this returning a js class that acts as a filter tool / row extraction tool
             // console.log('in getTableDataWrapper witht his.props.products: ' , this.props.products);
             // console.log('tableDatWrapper : ' , tableDataWrapper);
-            
-            
-            
             return tableDataWrapper;
         },
         getList: function() {
@@ -109,76 +103,110 @@ define([
                 return;
             }
             let list = products.map((product, i) => {
-                //
                 let row = {
                     rowIndex: i,
                     values: [
                         {
-                            columnKey: 'debug',
-                            value: 'a'
+                            key: 'debug',
+                            width:100,
+                            fixed:true,
+                            headerText:'debug'
                         },
                         {
-                            columnKey: 'image',
-                            value: 'http://via.placeholder.com/40',
+                            key: 'image',
+                            width:100,
+                            fixed:true,
+                            headerText:'Image'
                         },
                         {
-                            columnKey:'parentProductExpand',
-                            value: this.isParentProduct(product) ? 'parent' : '',
-    
+                            key:'parentProductExpand',
+                            width:100,
+                            fixed:true,
+                            headerText:'expand product'
                         },
                         {
-                            columnKey: 'link',
-                            value: 'https://app.dev.orderhub.io/products',
-    
+                            key: 'link',
+                            width:100,
+                            fixed:true,
+                            headerText:'Link'
                         },
                         {
-                            columnKey: 'sku',
-                            // value: product.sku,
+                            key: 'sku',
+                            width:200,
+                            fixed:true,
+                            headerText:'Sku'
                         },
                         {
-                            columnKey: 'name',
-                            value: product.name,
-                            // rowIndex:i,
-                            // product
+                            key: 'name',
+                            width:200,
+                            fixed:true,
+                            headerText:'Name'
                         },
                         {
-                            columnKey: 'available',
-                            value: 0,
-                            // rowIndex:i,
-                            // product
+                            key: 'available',
+                            width:100,
+                            fixed:true,
+                            headerText:'Available'
                         },
                         //todo - change this dummy data to something significant in TAC-165
                         {
-                            columnKey: 'dummyListingColumn1',
-                            value: 1
+                            key: 'dummyListingColumn1',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
                         },
                         {
-                            columnKey: 'dummyListingColumn2',
-                            value: 2
+                            key: 'dummyListingColumn2',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
-                            columnKey: 'dummyListingColumn3',
-                            value: 3
+                            key: 'dummyListingColumn3',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
-                            columnKey: 'dummyListingColumn4',
-                            value: 4
+                            key: 'dummyListingColumn4',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
-                            columnKey: 'dummyListingColumn5',
-                            value: 4
+                            key: 'dummyListingColumn5',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
                         },
                         {
-                            columnKey: 'dummyListingColumn6',
-                            value: 4
+                            key: 'dummyListingColumn6',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
                         },
                         {
-                            columnKey: 'dummyListingColumn7',
-                            value: 4
+                            key: 'dummyListingColumn7',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
-                            columnKey: 'dummyListingColumn8',
-                            value: 4
+                            key: 'dummyListingColumn8',
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
                         }
                     ]
                 };
@@ -197,16 +225,17 @@ define([
                 }
             );
             
-            
-            return columns.map((columnData, columnIndex) => {
-                let {columnKey, product} = columnData;
-                let column = columnCreator({
-                    columnKey,
-                    columnIndex,
-                    data: this.getTableDataWrapper()
+            return columns.map((column, columnIndex) => {
+                let {key,width,fixed,headerText} = column;
+                let createdColumn = columnCreator({
+                    key,
+                    width,
+                    headerText,
+                    fixed,
+                    columnIndex
                 });
                 // /
-                return column
+                return createdColumn
             })
         },
         isReadyToRenderTable: function(data) {
