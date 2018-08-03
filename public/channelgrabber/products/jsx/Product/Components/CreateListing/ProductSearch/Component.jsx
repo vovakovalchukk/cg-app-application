@@ -181,8 +181,10 @@ define([
                     closeOnYes={false}
                     headerText={"Create a listing"}
                     yesButtonText={"Select"}
+                    noButtonText={"Go back"}
                     onYesButtonPressed={this.selectProduct}
                     onBackButtonPressed={() => {}}
+                    onNoButtonPressed={() => {}}
                 >
                     {this.renderForm()}
                     {this.renderSearchResults()}
