@@ -42,7 +42,8 @@ define([
                 listingCreationAllowed: null,
                 managePackageUrl: null,
                 salesPhoneNumber: null,
-                demoLink: null
+                demoLink: null,
+                productSearchActive: false
             }
         },
         componentDidMount: function() {
