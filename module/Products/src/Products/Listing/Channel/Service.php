@@ -4,6 +4,7 @@ namespace Products\Listing\Channel;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Name;
+use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\FeatureFlags\Service as FeatureFlagService;
 use CG\Listing\Client\Service as ListingService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -12,7 +13,6 @@ use Products\Listing\Channel\Factory as CreateListingsFactory;
 class Service
 {
     const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
-    const FEATURE_FLAG_PBSE = 'eBay PBSE';
 
     /** @var FeatureFlagService */
     protected $featureFlagService;
@@ -106,6 +106,6 @@ class Service
 
     public function isProductSearchActive(OrganisationUnit $ou): bool
     {
-        return $this->featureFlagService->isActive(static::FEATURE_FLAG_PBSE, $ou);
+        return $this->featureFlagService->isActive(EbayListingCreator::FEATURE_FLAG_PBSE, $ou);
     }
 }

@@ -921,17 +921,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.13.0",
+            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "edf8ab04e98d172e1825338a491e53d4379b4289"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.13.0-e36a9e.zip",
-                "reference": "edf8ab04e98d172e1825338a491e53d4379b4289",
-                "shasum": null
+                "reference": "6cf06bd49fa722b6184c3f74953b4057721ae435"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9965,6 +9959,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.5.3",
             "alias_normalized": "1.5.3.0",
             "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
@@ -9976,10 +9976,11 @@
         "channelgrabber/bigcommerce": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
