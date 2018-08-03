@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16707f3a263bb2e4983731a570773cef",
+    "content-hash": "a1b65cbebb9b992068db623de06b4b2c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -925,7 +925,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "6cf06bd49fa722b6184c3f74953b4057721ae435"
+                "reference": "2f02128fd2643e45c630a98c0ba50f534314e31b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1470,17 +1470,11 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.17.3",
+            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "4338e665a48c54955cb898aaaafd2c1f12b9b723"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.17.3-b91399.zip",
-                "reference": "4338e665a48c54955cb898aaaafd2c1f12b9b723",
-                "shasum": null
+                "reference": "05a3b3ee84f26103764316abdda61ce2807da098"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9965,6 +9959,12 @@
             "package": "channelgrabber/ebay"
         },
         {
+            "alias": "1.17.4",
+            "alias_normalized": "1.17.4.0",
+            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
+            "package": "channelgrabber/listing"
+        },
+        {
             "alias": "1.5.3",
             "alias_normalized": "1.5.3.0",
             "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
@@ -9977,6 +9977,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
+        "channelgrabber/listing": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,

@@ -46,7 +46,7 @@
         "channelgrabber/http": "~1.3.32",
         "channelgrabber/image": "~1.2.9",
         "channelgrabber/intercom": "~1.5.4",
-        "channelgrabber/listing": "~1.17.3",
+        "channelgrabber/listing": "dev-TAC-179-ebay-pbse-listing-job-generator as 1.17.4",
         "channelgrabber/locale": "~1.2.0",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
