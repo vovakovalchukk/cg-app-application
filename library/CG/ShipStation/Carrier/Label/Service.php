@@ -22,6 +22,7 @@ use CG\ShipStation\Carrier\Rates\Service as RatesService;
 use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
+use CG\ShipStation\Carrier\Label\Manifest\Service as ManifestService;
 
 class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, ManifestInterface
 {
@@ -37,8 +38,14 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     protected $ratesService;
     /** @var AccountDeciderFactory */
     protected $accountDeciderFactory;
+    /** @var ManifestService */
+    protected $manifestService;
 
     protected $carrierRateSupport = [
+        'usps-ss' => true,
+    ];
+
+    protected $carrierManifestSupport = [
         'usps-ss' => true,
     ];
 
@@ -48,7 +55,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         LabelCreatorFactory $labelCreatorFactory,
         Canceller $labelCanceller,
         RatesService $ratesService,
-        AccountDeciderFactory $accountDeciderFactory
+        AccountDeciderFactory $accountDeciderFactory,
+        ManifestService $manifestService
     ) {
         $this->carrierServive = $carrierServive;
         $this->shipStationService = $shipStationService;
@@ -56,6 +64,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $this->labelCanceller = $labelCanceller;
         $this->ratesService = $ratesService;
         $this->accountDeciderFactory = $accountDeciderFactory;
+        $this->manifestService = $manifestService;
     }
 
     /**
@@ -160,10 +169,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      */
     public function isManifestingAllowedForAccount(Account $account): bool
     {
-        if ($account->getChannel() === 'usps-ss') {
-            return true;
-        }
-        return false;
+        return $this->carrierManifestSupport[$account->getChannel()] ?? false;
     }
 
     /**
@@ -183,6 +189,14 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      */
     public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
     {
-        $this->manifestService->createManifest();
+        /** @var AccountDeciderInterface $accountDecider */
+        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
+        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
+        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
+
+        $shipStationManifest = $this->manifestService->generateShipStationManifest($shippingAccountToUse, $shipStationAccountToUse, $accountManifest);
+        $manifestPdf = $this->manifestService->retrievePdfForManifest($shipStationManifest);
+        $accountManifest->setExternalId($shipStationManifest->getFormId());
+        $accountManifest->setManifest(base64_encode($manifestPdf));
     }
 }

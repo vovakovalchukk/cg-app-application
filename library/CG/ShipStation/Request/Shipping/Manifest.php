@@ -9,7 +9,7 @@ use CG\Stdlib\DateTime;
 class Manifest extends RequestAbstract
 {
     const METHOD = 'POST';
-    const URI = '/v1/manifests';
+    const URI = '/manifests';
 
     const FORMAT_PDF = 'pdf';
 
@@ -35,7 +35,7 @@ class Manifest extends RequestAbstract
         return [
             'carrier_id' => $this->getCarrierId(),
             'warehouse_id' => $this->getWarehouseId(),
-            'ship_date' => $this->getShipDate(),
+            'ship_date' => $this->getShipDate()->format(DateTime::ISO8601),
             'excluded_label_ids' => $this->getExcludedLabelIds(),
         ];
     }
@@ -47,21 +47,22 @@ class Manifest extends RequestAbstract
 
     public function getCarrierId(): string
     {
-        return $this->getCarrierId();
+        return $this->carrierId;
     }
 
     public function getWarehouseId(): string
     {
-        return $this->getWarehouseId();
+        return $this->warehouseId;
     }
 
     public function getShipDate(): DateTime
     {
-        return $this->getShipDate();
+        //return $this->shipDate;
+        return new DateTime();
     }
 
     public function getExcludedLabelIds(): array
     {
-        return $this->getExcludedLabelIds();
+        return $this->excludedLabelIds;
     }
 }

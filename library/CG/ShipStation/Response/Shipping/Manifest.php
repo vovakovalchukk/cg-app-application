@@ -1,16 +1,47 @@
 <?php
 namespace CG\ShipStation\Response\Shipping;
 
-use CG\ShipStation\Messages\Carrier;
 use CG\ShipStation\Messages\Downloadable;
 use CG\ShipStation\ResponseAbstract;
-use CG\Stdlib\DateTime;
 
-class Label extends ResponseAbstract
+class Manifest extends ResponseAbstract
 {
+
+    /** @var string */
+    protected $formId;
+    /** @var Downloadable */
+    protected $manifestDownload;
+
+    public function __construct(string $formId, Downloadable $manifestDownload)
+    {
+        $this->formId = $formId;
+        $this->manifestDownload = $manifestDownload;
+    }
+
+
 
     protected static function build($decodedJson)
     {
-        var_dump($decodedJson);
+        $errors = [];
+        if (isset($decodedJson->errors)) {
+            foreach ($decodedJson->errors as $errorJson) {
+                $errors[] = $errorJson->message;
+            }
+        }
+
+        return new static(
+            $decodedJson->form_id,
+            isset($decodedJson->manifest_download) ? Downloadable::build($decodedJson->manifest_download) : null
+        );
+    }
+
+    public function getFormId(): string
+    {
+        return $this->formId;
+    }
+
+    public function getManifestDownload(): Downloadable
+    {
+        return $this->manifestDownload;
     }
 }
