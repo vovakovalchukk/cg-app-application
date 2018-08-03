@@ -108,7 +108,7 @@ define([
                     values: [
                         {
                             key: 'debug',
-                            width:100,
+                            width:200,
                             fixed:true,
                             headerText:'debug'
                         },
@@ -250,7 +250,7 @@ define([
             let width = this.state.productsListContainer.width;
             return (
                 <Table
-                    rowHeight={50}
+                    rowHeight={70}
                     rowsCount={list.length}
                     width={width}
                     height={height}
