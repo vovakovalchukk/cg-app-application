@@ -97,7 +97,7 @@ define([
             >
                 {this.renderProductTitle(product)}
                 <span className="search-product-details-container">
-                    {this.renderProductImageAndSelectButton(product)}
+                    {this.renderProductImage(product)}
                     {this.renderProductItemSpecifics(product)}
                 </span>
             </div>
@@ -126,17 +126,11 @@ define([
                 {product.title}
             </span>;
         },
-        renderProductImageAndSelectButton(product) {
+        renderProductImage(product) {
             return <span className="search-product-image-select-container">
                 <span className="search-product-image-container">
                     {this.renderProductImage(product)}
                 </span>
-                <div
-                    className="button container-btn yes"
-                    onClick={this.selectProduct.bind(this, product)}
-                >
-                    Select
-                </div>
             </span>;
         },
         renderProductImage(product) {

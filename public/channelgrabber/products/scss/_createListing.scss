@@ -397,7 +397,6 @@
 }
 
 .search-product-container {
-  display: flex;
   max-width: 300px;
   border: 2px solid grey;
   margin: 10px;
@@ -405,6 +404,7 @@
   border-radius: 20px;
   flex-flow: column;
   cursor: pointer;
+  max-height: 250px;
 }
 
 .search-product-container.selected {
@@ -426,6 +426,7 @@
 .search-product-image {
   max-width: 200px;
   max-height: 200px;
+  object-fit: contain;
 }
 
 .search-product-title {
