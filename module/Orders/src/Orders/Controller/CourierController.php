@@ -244,6 +244,12 @@ class CourierController extends AbstractActionController
             ->setVariable('isSidebarPresent', (count($courierOrders) > 1))
             ->setVariable('subHeaderHide', true);
 
+        // Dummy data to be replaced by TAC-120
+        $view->setVariable('balance', 10)
+            ->setVariable('autoTopUp', false)
+            ->setVariable('topUpAmount', 100)
+            ->setVariable('currencySymbol', '$');
+
         return $view;
     }
 
