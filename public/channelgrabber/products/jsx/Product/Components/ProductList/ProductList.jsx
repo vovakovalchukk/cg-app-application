@@ -214,13 +214,13 @@ define([
             });
             return list;
         },
-        renderColumns: function(data) {
-            if (!data || data.length === 0) {
+        renderColumns: function(list) {
+            if (!list || list.length === 0) {
                 return;
             }
             let columns = [];
             //todo - debug this part (this is where error occurs
-            data.forEach((rowData) => {
+            list.forEach((rowData) => {
                     columns = rowData.values;
                 }
             );
@@ -234,7 +234,6 @@ define([
                     fixed,
                     columnIndex
                 });
-                // /
                 return createdColumn
             })
         },
@@ -242,9 +241,9 @@ define([
             return this.state.productsListContainer && this.state.productsListContainer.height && data;
         },
         renderProducts: function() {
-            let data = this.getList();
+            let list = this.getList();
             // do not create the table until the dimensions have been captured from the initial render
-            if (!this.isReadyToRenderTable(data)) {
+            if (!this.isReadyToRenderTable(list)) {
                 return;
             }
             let height = this.state.productsListContainer.height;
@@ -252,20 +251,17 @@ define([
             return (
                 <Table
                     rowHeight={50}
-                    rowsCount={data.length}
+                    rowsCount={list.length}
                     width={width}
                     height={height}
                     headerHeight={50}
-                    data={data}
-                    rowGetter={(index) => {
-                        return data[index];
-                    }}
+                    data={list}
                     footerHeight={0}
                     groupHeaderHeight={0}
                     showScrollbarX={true}
                     showScrollbarY={true}
                 >
-                    {this.renderColumns(data)}
+                    {this.renderColumns(list)}
                 </Table>
             )
         },

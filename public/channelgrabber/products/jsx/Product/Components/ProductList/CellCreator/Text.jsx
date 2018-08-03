@@ -1,10 +1,11 @@
 define([
     'react',
-    'fixed-data-table'
-
+    'fixed-data-table',
+    'Product/Components/ProductList/tableDataWrapper'
 ], function(
     React,
-    FixedDataTable
+    FixedDataTable,
+    tableDataWrapper
 ) {
     "use strict";
     
@@ -18,14 +19,14 @@ define([
             return {};
         },
         render() {
-            console.log('in TextCell with this.props: ', this.props);
+            // console.log('in TextCell with this.props: ', this.props);
+            let {columnKey,rowIndex} = this.props;
             
-            
-            
+            let cellValue = tableDataWrapper.getCellData(columnKey,rowIndex)
             
             return (
                 <Cell {...this.props}>
-                    in text cell
+                    {cellValue}
                 </Cell>
             );
         }

@@ -10,11 +10,11 @@ define([
     DebugCell
 ) {
     "use strict";
-    const Cell = FixedDataTable.Cell;
-    const Column = FixedDataTable.Column;
+    // const Cell = FixedDataTable.Cell;
+    // const Column = FixedDataTable.Column;
     
     var CellCreator = function(creatorObject) {
-        console.log('in cellCreator with creatorObject...',creatorObject);
+        // console.log('in cellCreator with creatorObject...',creatorObject);
         let cellRenderers = getCellComponents();
         let CellComponent = cellRenderers[creatorObject.columnKey];
     
@@ -23,12 +23,10 @@ define([
             return
         }
         
-        
         return <CellComponent
-                    dummyProp={'dummy prop'}
-                    />
-        
-        
+                    // dummyProp={'dummy prop'}
+            {...creatorObject}
+        />
     };
     
     return CellCreator;
