@@ -4,6 +4,7 @@ namespace Orders\Courier;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shipping\Service as AccountService;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
+use CG\Channel\Shipping\Provider\Service\CreateRestrictedInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as CarrierServiceProviderFetchRatesInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
@@ -179,6 +180,11 @@ class SpecificsAjax
             && OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING);
         $rateable = ($providerService instanceof CarrierServiceProviderFetchRatesInterface
             && $providerService->isFetchRatesAllowedForOrder($courierAccount, $order));
+
+        $creatable = true;
+        if ($providerService instanceof CreateRestrictedInterface) {
+            $creatable = $providerService->isCreateAllowedForOrder($courierAccount, $order);
+        }
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
@@ -189,6 +195,7 @@ class SpecificsAjax
             'dispatchable' => $dispatchable,
             'rateable' => $rateable,
             'services' => $services,
+            'creatable' => $creatable
         ];
         foreach ($options as $option) {
             $data[$option] = '';
