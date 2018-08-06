@@ -134,7 +134,9 @@ define([
             }
 
             this.setState({
-                selectedProduct: product
+                selectedProduct: Object.assign(product, {
+                    epidAccountId: this.props.accountId
+                })
             });
         },
         renderProductTitle: function (product) {
@@ -182,6 +184,9 @@ define([
             }
             if (product.isbn) {
                 itemSpecifics["ISBN"] = product.isbn;
+            }
+            if (product.mpn) {
+                itemSpecifics["MPN"] = product.mpn;
             }
 
             return itemSpecifics;

@@ -28,10 +28,13 @@ define([
             if (!defaults.ebay) {
                 account = data.accountDefaultSettings[accountId];
                 defaults.ebay = {
-                    dispatchTimeMax: account.listingDispatchTime
+                    dispatchTimeMax: account.listingDispatchTime,
+                    epid: data.selectedProductDetails.epid ? data.selectedProductDetails.epid : null,
+                    epidAccountId: data.selectedProductDetails.epidAccountId ? data.selectedProductDetails.epidAccountId : null
                 };
             }
         }
+
         return defaults;
     };
 
@@ -51,14 +54,14 @@ define([
             var template = data.categoryTemplates[templateId];
             for (var categoryId in template.categories) {
                 var category = template.categories[categoryId];
+
                 if (category.channel !== 'ebay') {
                     continue;
                 }
-                var defaultsForCategory = {};
-                if (account.listingDuration) {
-                    defaultsForCategory.listingDuration = account.listingDuration;
-                }
-                defaults[categoryId] = defaultsForCategory;
+
+                defaults[categoryId] = Object.assign(data.selectedProductDetails, {
+                    listingDuration: account.listingDuration
+                });
             }
         }
 
