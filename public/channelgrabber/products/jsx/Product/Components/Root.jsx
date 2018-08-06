@@ -538,6 +538,9 @@ define([
             return <ProductSearchRoot
                 createListingData={this.state.createListingData}
                 renderCreateListingPopup={this.showCreateListingPopup}
+                onCreateListingClose={this.onCreateListingClose}
+                onBackButtonPressed={this.showAccountsSelectionPopup}
+                defaultProductImage={this.props.utilities.image.getImageSource()}
             />;
         },
         render: function() {

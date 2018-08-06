@@ -266,7 +266,6 @@ define([
             return this.props.submissionStatuses.inProgress;
         },
         render: function() {
-            console.log(this.props);
             var isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return (
                 <Container

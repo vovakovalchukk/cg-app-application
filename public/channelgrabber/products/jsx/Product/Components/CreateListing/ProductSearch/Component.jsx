@@ -24,7 +24,9 @@ define([
                 accountId: 0,
                 createListingData: {},
                 renderCreateListingPopup: () => {},
-                products: {}
+                onCreateListingClose: () => {},
+                products: {},
+                defaultProductImage: ''
             };
         },
         getInitialState: function() {
@@ -137,11 +139,9 @@ define([
             </span>;
         },
         renderProductImage(product) {
-            if (!product.imageUrl) {
-                return null;
-            }
+            let imageUrl = product.imageUrl ? product.imageUrl : this.props.defaultProductImage;
             return <img
-                src={product.imageUrl}
+                src={imageUrl}
                 className="search-product-image"
             />;
         },
@@ -181,10 +181,10 @@ define([
                     closeOnYes={false}
                     headerText={"Create a listing"}
                     yesButtonText={"Select"}
-                    noButtonText={"Go back"}
+                    noButtonText={"Cancel"}
                     onYesButtonPressed={this.selectProduct}
-                    onBackButtonPressed={() => {}}
-                    onNoButtonPressed={() => {}}
+                    onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.createListingData.product)}
+                    onNoButtonPressed={this.props.onCreateListingClose}
                 >
                     {this.renderForm()}
                     {this.renderSearchResults()}
