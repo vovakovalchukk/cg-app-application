@@ -19,7 +19,6 @@ define([], function() {
             },
             getCellData: (columnKey, rowIndex) => {
                 // console.log('in getCellData with rowIndex,', rowIndex, 'and columnKey', columnKey);
-                // console.log('self.data: ', self.data);
                 
                 if (!self.data) {
                     return;
