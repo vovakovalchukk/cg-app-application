@@ -18,8 +18,6 @@ class Manifest extends ResponseAbstract
         $this->manifestDownload = $manifestDownload;
     }
 
-
-
     protected static function build($decodedJson)
     {
         $errors = [];
