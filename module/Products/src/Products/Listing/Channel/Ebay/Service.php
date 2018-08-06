@@ -1,6 +1,7 @@
 <?php
 namespace Products\Listing\Channel\Ebay;
 
+use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Policy\Collection as AccountPolicyCollection;
 use CG\Account\Policy\Entity as AccountPolicy;
@@ -29,6 +30,7 @@ use Products\Listing\Channel\AccountDataInterface;
 use Products\Listing\Channel\AccountPoliciesInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
+use Products\Listing\Channel\ChannelDataInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 use Products\Listing\Channel\DefaultAccountSettingsInterface;
 use function CG\Stdlib\isArrayAssociative;
@@ -39,7 +41,8 @@ class Service implements
     ChannelSpecificValuesInterface,
     CategoryChildrenInterface,
     AccountPoliciesInterface,
-    AccountDataInterface
+    AccountDataInterface,
+    ChannelDataInterface
 {
     const ALLOWED_SETTINGS_KEYS = [
         'listingLocation' => 'listingLocation',
@@ -72,6 +75,8 @@ class Service implements
     protected $ebayPoliciesService;
     /** @var TokenInitialisationService */
     protected $tokenInitialisationService;
+    /** @var AccountService */
+    protected $accountService;
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -87,6 +92,7 @@ class Service implements
         AccountPolicyService $accountPolicyService,
         EbayPoliciesService $ebayPoliciesService,
         TokenInitialisationService $tokenInitialisationService,
+        AccountService $accountService,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -98,6 +104,7 @@ class Service implements
         $this->accountPolicyService = $accountPolicyService;
         $this->ebayPoliciesService =  $ebayPoliciesService;
         $this->tokenInitialisationService = $tokenInitialisationService;
+        $this->accountService = $accountService;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -199,6 +206,29 @@ class Service implements
                 'authTokenInitialisationUrl' => $initialisationUrl
             ]
         );
+    }
+
+    public function formatExternalChannelData(array $data): array
+    {
+        if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
+            return $data;
+        }
+
+        try {
+            /** @var Account $account */
+            $account = $this->accountService->fetch($epidAccountId);
+            /** @var Credentials $credentials */
+            $credentials = $this->cryptor->decrypt($account->getCredentials());
+        } catch (NotFound $e) {
+            unset($data['epid'], $data['epidAccountId']);
+            return $data;
+        }
+
+        unset($data['epidAccountId']);
+
+        return array_merge($data, [
+            'marketplace' => $credentials->getSiteId()
+        ]);
     }
 
     protected function hasOAuthTokenActive(Account $account): bool

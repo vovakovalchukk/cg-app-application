@@ -120,4 +120,15 @@ class Service
     {
         return $this->featureFlagService->isActive(static::FEATURE_FLAG_PBSE, $ou);
     }
+
+    public function formatExternalChannelData(string $channel, array $data): array
+    {
+        try {
+            /** @var ChannelDataInterface $service */
+            $service = $this->factory->fetchAndValidateChannelService($channel, ChannelDataInterface::class, $data);
+            return $service->formatExternalChannelData($data);
+        } catch (ListingException $e) {
+            return $data;
+        }
+    }
 }
