@@ -3,12 +3,29 @@ define([
 ], function(
     reducerCreator
 ) {
-    return reducerCreator({}, {
+    let initialState = {
+        isFetching: false,
+        products: {}
+    };
+
+    return reducerCreator(initialState, {
         "FETCH_SEARCH_RESULTS": function() {
-            return {};
+            return {
+                isFetching: true,
+                products: {}
+            };
         },
         "SEARCH_RESULTS_FETCHED": function(state, action) {
-            return action.payload.products;
+            return {
+                isFetching: false,
+                products: action.payload.products
+            };
+        },
+        "SEARCH_RESULTS_ERROR": function() {
+            return {
+                isFetching: false,
+                products: {}
+            };
         }
     });
 });

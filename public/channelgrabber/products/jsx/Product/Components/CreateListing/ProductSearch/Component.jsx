@@ -26,8 +26,9 @@ define([
                 renderCreateListingPopup: () => {},
                 onCreateListingClose: () => {},
                 products: {},
+                isFetching: false,
                 defaultProductImage: ''
-            };
+            }
         },
         getInitialState: function() {
             return {
@@ -36,7 +37,11 @@ define([
         },
         renderForm: function() {
             return <form className="search-product-form" onSubmit={this.onFormSubmit}>
-                <Field name="search" component={this.renderInputComponent} displayTitle={"Enter a UPC, EAN, ISBN, part number or a product name"}/>
+                <Field
+                    name="search"
+                    component={this.renderInputComponent}
+                    displayTitle={"Enter a UPC, EAN, ISBN, part number or a product name"}
+                />
                 {this.renderSearchButton()}
                 {this.renderEnterDetailsManuallyButton()}
             </form>
@@ -46,11 +51,14 @@ define([
         },
         renderSearchButton: function() {
             return <div
-                className="button container-btn yes search-button"
+                className={this.getSearchButtonClassName()}
                 onClick={this.fetchSearchResults}
             >
-                Search
+                {this.props.isFetching ? "Searching..." : "Search"}
             </div>;
+        },
+        getSearchButtonClassName: function() {
+            return "button container-btn yes search-button" + (this.props.isFetching ? ' disabled' : '');
         },
         renderEnterDetailsManuallyButton: function() {
             return <div
@@ -76,6 +84,9 @@ define([
             input.onChange(value);
         },
         fetchSearchResults: function() {
+            if (this.props.isFetching) {
+                return null;
+            }
             this.setState({
                 selectedProduct: {}
             });
@@ -185,6 +196,7 @@ define([
                     onYesButtonPressed={this.selectProduct}
                     onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.createListingData.product)}
                     onNoButtonPressed={this.props.onCreateListingClose}
+                    yesButtonDisabled={Object.keys(this.state.selectedProduct).length === 0}
                 >
                     {this.renderForm()}
                     {this.renderSearchResults()}
@@ -203,7 +215,8 @@ define([
     const mapStateToProps = function(state) {
         return {
             searchQuery: Selector(state, 'search'),
-            products: state.products
+            products: state.products.products,
+            isFetching: state.products.isFetching
         };
     };
 
