@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d253b5c41c1870b0a72e2ebf2392ff90",
+    "content-hash": "0ffb145fa95ce73b9648d86f018f954e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2254,16 +2254,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-9737-AllowDuplicatedProductLinkDeletion",
+            "version": "dev-CGIV-9742-AllowDuplicatedProductLinkDeletionUi",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "837b96ae772335b8845e965553bf6d95d909f860"
+                "reference": "210d478d474fa684ac2d375fd380b772e5df467b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9737-AllowDuplicatedProductLinkDeletion-95797a.zip",
-                "reference": "837b96ae772335b8845e965553bf6d95d909f860",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9742-AllowDuplicatedProductLinkDeletionUi-faf25f.zip",
+                "reference": "210d478d474fa684ac2d375fd380b772e5df467b",
                 "shasum": null
             },
             "require": {
@@ -2316,7 +2316,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-08-06T12:20:03+00:00"
+            "time": "2018-08-06T12:58:27+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9962,7 +9962,7 @@
         {
             "alias": "1.16.1",
             "alias_normalized": "1.16.1.0",
-            "version": "dev-CGIV-9737-AllowDuplicatedProductLinkDeletion",
+            "version": "dev-CGIV-9742-AllowDuplicatedProductLinkDeletionUi",
             "package": "channelgrabber/product"
         }
     ],

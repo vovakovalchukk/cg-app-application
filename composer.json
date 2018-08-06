@@ -59,7 +59,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "dev-CGIV-9737-AllowDuplicatedProductLinkDeletion as 1.16.1",
+        "channelgrabber/product": "dev-CGIV-9742-AllowDuplicatedProductLinkDeletionUi as 1.16.1",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
