@@ -2,20 +2,28 @@
 
 namespace CG\ShipStation\Carrier\Label\Manifest;
 
-use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Manifest\Entity as AccountManifest;
+use CG\ShipStation\Carrier\Label\Exception\InvalidResponse;
 use CG\ShipStation\Client;
 use CG\ShipStation\Request\Shipping\Manifest as ManifestRequest;
 use CG\ShipStation\Response\Shipping\Manifest as ManifestResponse;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\Zendesk\Exception\Collection\Invalid;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\MultiTransferException;
+use Psr\Log\LogLevel;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    protected const LOG_CODE = 'ShipStationManifestService';
+
     /** @var ShipStationService */
     protected $shipStationService;
     /** @var Client */
@@ -36,17 +44,21 @@ class Service
     public function generateShipStationManifest(Account $shippingAccount, Account $shipStationAccount, AccountManifest $accountManifest): ?ManifestResponse
     {
         $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
-        $dateTime = new DateTime($shippingAccount->getCgCreationDate());
+        $dateTime = new DateTime();
         $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $dateTime);
         $this->client->sendRequest($manifestRequest, $shipStationAccount);
+        $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
         try {
             /** @var ManifestResponse $response */
             $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
         } catch (\Exception $e) {
+            $this->logException($e, 'critical', __NAMESPACE__);
+            $this->logCritical('Failed to create manifest for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
             throw new ValidationException('Fail', $e->getCode(), $e);
         }
 
         if (empty($response->getFormId())) {
+            $this->logCritical('Failed to retrieve field form_id from manifest creation response for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
             return null;
         }
 
@@ -62,7 +74,8 @@ class Service
             $pdf = $response->getBody(true);
             return $pdf;
         } catch (MultiTransferException $e) {
-
+            $this->logException($e, 'critical', __NAMESPACE__);
+            $this->logCritical('Failed to download PDF of manifest %s at URL %S', [$manifest->getFormId(), $manifest->getManifestDownload()->getHref(), static::LOG_CODE);
         }
     }
 }
