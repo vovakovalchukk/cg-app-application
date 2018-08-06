@@ -19,8 +19,6 @@ define([
     const Column = FixedDataTable.Column;
     
     var columnCreator = function(column) {
-        console.log('in columnCreator with column: ', column);
-        
         return (
             <Column
                 columnKey={column.key}

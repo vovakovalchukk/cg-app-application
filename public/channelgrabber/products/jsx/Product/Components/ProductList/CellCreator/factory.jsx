@@ -1,41 +1,51 @@
 define([
     'react',
     'fixed-data-table',
+    'Product/Components/ProductList/tableDataWrapper',
+    
     'Product/Components/ProductList/CellCreator/Text',
-    'Product/Components/ProductList/CellCreator/DebugCell'
+    'Product/Components/ProductList/CellCreator/DebugCell',
+    'Product/Components/ProductList/CellCreator/ProductExpandCell'
+
 ], function(
     React,
     FixedDataTable,
+    tableDataWrapper,
     TextCell,
-    DebugCell
+    DebugCell,
+    ProductExpandCell
 ) {
     "use strict";
     
+    const Cell = FixedDataTable.Cell;
+    
     var CellCreator = function(creatorObject) {
         // console.log('in cell creator with creatorObject: ', creatorObject);
-        
+        let rowData = tableDataWrapper.getRowData(creatorObject.rowIndex);
+        if(!rowData){
+            return <Cell></Cell>
+        }
         let cellRenderers = getCellComponents();
         let CellComponent = cellRenderers[creatorObject.columnKey];
-    
+        
         if (typeof CellComponent !== 'function') {
-            console.error("no function for column renderer column "  , column)
+            console.error("no function for column renderer column ", column)
             return
         }
         
         return <CellComponent
             {...creatorObject}
+            rowData={rowData}
         />
     };
     
     return CellCreator;
-  
- 
     
-    // /
+    
     function getCellComponents() {
         return {
             debug: DebugCell,
-            parentProductExpand:TextCell,
+            productExpand: ProductExpandCell,
             image: TextCell,
             link: TextCell,
             sku: TextCell,

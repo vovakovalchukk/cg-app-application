@@ -15,25 +15,19 @@ define([
     
     let DebugCell = React.createClass({
         getDefaultProps: function() {
-            return {};
+            return {
+                rowData:{}
+            };
         },
         getInitialState: function() {
             return {};
         },
         render() {
             
-            // console.log('in render of DebugCell with this.props: ' , this.props);
+            console.log('in render of DebugCell with this.props: ' , this.props);
             // console.log('tableDataWrapper: ', tableDataWrapper);
-            const {rowIndex, columnKey} = this.props;
-    
-            let rowData = tableDataWrapper.getRowData(rowIndex);
-            console.log('rowData returned from getter: ', rowData);
-            if(!rowData){
-                return <Cell></Cell>
-            }
+            const {rowIndex, columnKey, rowData} = this.props;
             
-            
-    
             let variationIds = rowData.variationIds.map((variation) =>
                 <span>{variation} </span>
             );

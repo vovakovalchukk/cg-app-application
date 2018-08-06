@@ -120,8 +120,8 @@ define([
                             headerText:'Image'
                         },
                         {
-                            key:'parentProductExpand',
-                            width:100,
+                            key:'productExpand',
+                            width:200,
                             fixed:true,
                             headerText:'expand product'
                         },
