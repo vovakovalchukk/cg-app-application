@@ -6,6 +6,7 @@ use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as S
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 
 class RatesService extends ServiceAbstract
 {
@@ -28,7 +29,7 @@ class RatesService extends ServiceAbstract
             $orders = $this->getOrdersByIds($orderIds);
 
             $this->logDebug('Fetching shipping rates for orders %s with shipping account %d', [implode(',', $orderIds), $shippingAccountId], static::LOG_CODE);
-            return $carrier->fetchRatesForOrders(
+            $shippingRates = $carrier->fetchRatesForOrders(
                 $orders,
                 $ordersData,
                 $ordersParcelsData,
@@ -36,7 +37,14 @@ class RatesService extends ServiceAbstract
                 $rootOu,
                 $shippingAccount
             );
-
+            $orderLabels = $this->getOrCreateOrderLabelsForOrders(
+                $orders,
+                $ordersData,
+                $ordersParcelsData,
+                $shippingAccount
+            );
+            $this->updateOrderLabelStatus($orderLabels, OrderLabelStatus::RATES_FETCHED);
+            return $shippingRates;
         } finally {
             $this->removeGlobalLogEventParams(['ou', 'account']);
         }
