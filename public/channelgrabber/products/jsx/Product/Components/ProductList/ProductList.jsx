@@ -108,7 +108,8 @@ define([
                     values: [
                         {
                             key: 'debug',
-                            width:200,
+
+                            width:100,
                             fixed:true,
                             headerText:'debug'
                         },
@@ -234,6 +235,7 @@ define([
                     fixed,
                     columnIndex
                 });
+
                 return createdColumn
             })
         },

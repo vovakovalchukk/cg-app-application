@@ -27,6 +27,7 @@ define([
             return (
                 <Cell {...this.props}>
                     {cellValue}
+
                 </Cell>
             );
         }

@@ -19,7 +19,8 @@ define([
             return {};
         },
         render() {
-            const {data, rowIndex, columnKey, collapsedRows, callback, ...props} = this.props;
+            
+            const {data, rowIndex, columnKey, collapsedRows, callback} = this.props;
             return (
                 <Cell {...props}>
                     <a onClick={() => callback(rowIndex)}>

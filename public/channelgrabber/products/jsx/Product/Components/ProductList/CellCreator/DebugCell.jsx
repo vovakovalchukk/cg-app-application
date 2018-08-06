@@ -37,6 +37,7 @@ define([
             let variationIds = rowData.variationIds.map((variation) =>
                 <span>{variation} </span>
             );
+
             // console.log('in debug render and data in tableDataWrapper: ' , tableDataWrapper.getData());
             return (
                 <Cell
