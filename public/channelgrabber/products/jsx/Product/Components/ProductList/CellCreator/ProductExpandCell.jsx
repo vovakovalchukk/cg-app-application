@@ -36,7 +36,8 @@ define([
             return (this.state.isExpanded ?  '\u25BC':'\u25BA')
         },
         onExpandClick: function(){
-            // console.log('on expand click');
+            console.log('on expand click');
+            this.props.addRow(this.props.rowIndex)
             this.setState({
                 isExpanded:!this.state.isExpanded
             });
