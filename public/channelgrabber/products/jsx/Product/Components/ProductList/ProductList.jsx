@@ -35,6 +35,7 @@ define([
             }
         },
         componentDidMount() {
+            this.setState({products:this.props.products})
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
@@ -44,7 +45,12 @@ define([
             document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
         shouldComponentUpdate:function(){
+          
+            
           if(this.dataShouldBeStored()){
+              console.log('storing initial data...');
+              
+              //todo - trigger redux here
               tableDataWrapper.storeData(this.props.products);
               console.log('just storedData... ' , tableDataWrapper.getData());
           }
@@ -98,7 +104,7 @@ define([
             return tableDataWrapper;
         },
         getList: function() {
-            const products = this.props.products;
+            const products = this.state.products;
             if (products && products.length <= 0) {
                 return;
             }
@@ -109,7 +115,7 @@ define([
                         {
                             key: 'debug',
 
-                            width:100,
+                            width:120,
                             fixed:true,
                             headerText:'debug'
                         },
@@ -121,7 +127,7 @@ define([
                         },
                         {
                             key:'productExpand',
-                            width:200,
+                            width:50,
                             fixed:true,
                             headerText:'expand product'
                         },
@@ -242,6 +248,14 @@ define([
         isReadyToRenderTable: function(data) {
             return this.state.productsListContainer && this.state.productsListContainer.height && data;
         },
+        //todo - remove this once the add row functionality has been correctly prototyped
+        addRow:function(rowIndex){
+          console.log('in add Row in productList');
+          
+          
+          
+        },
+        
         renderProducts: function() {
             let list = this.getList();
             // do not create the table until the dimensions have been captured from the initial render

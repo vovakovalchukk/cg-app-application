@@ -17,6 +17,14 @@ define([], function() {
                 }
                 return self.data[rowIndex];
             },
+            // addRow:(rowIndex)=>{
+            //
+            //
+            //   self.data.splice(rowIndex, 0, {name:'dummy row'})
+            //     console.log('in add Row... ' , self.data)
+            //
+            //
+            // },
             getCellData: (columnKey, rowIndex) => {
                 // console.log('in getCellData with rowIndex,', rowIndex, 'and columnKey', columnKey);
                 

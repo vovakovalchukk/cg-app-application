@@ -14,7 +14,9 @@ define([
     let ProductExpandCell = React.createClass({
         getDefaultProps: function() {
             return {
-                rowData: {}
+                rowData: {},
+                rowIndex:null,
+                addRow:null
             };
         },
         getInitialState: function() {

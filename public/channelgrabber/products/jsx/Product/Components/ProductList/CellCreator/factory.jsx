@@ -36,6 +36,7 @@ define([
         return <CellComponent
             {...creatorObject}
             rowData={rowData}
+            
         />
     };
     
