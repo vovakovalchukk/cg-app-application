@@ -11,6 +11,7 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 class RatesService extends ServiceAbstract
 {
     const LOG_CODE = 'OrderCourierLabelRatesService';
+    const LOG_UPDATE = 'Updating OrderLabel to rates fetched for Order %s';
 
     public function fetchRates(
         array $orderIds,

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb0bff53c04971a530d8851bc1d1c076",
+    "content-hash": "3405379176aa81d834212e39ebbaf00e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1838,17 +1838,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.38.10",
+            "version": "dev-TAC-150-enforce-fetch-rates-before-label-purchase",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d97fcc0330b92370c601ecf76dc233cecfd268b7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.38.10-5e94cf.zip",
-                "reference": "d97fcc0330b92370c601ecf76dc233cecfd268b7",
-                "shasum": null
+                "reference": "f9d271b08d938aa9c9f320e906f44b11c917faa4"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1918,7 +1912,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-07-18T13:40:35+00:00"
+            "time": "2018-08-06T09:22:11+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9967,6 +9961,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.38.10",
+            "alias_normalized": "1.38.10.0",
+            "version": "dev-TAC-150-enforce-fetch-rates-before-label-purchase",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.23.10",
             "alias_normalized": "1.23.10.0",
             "version": "dev-TAC-108-add-usps-courier",
@@ -9978,6 +9978,7 @@
         "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

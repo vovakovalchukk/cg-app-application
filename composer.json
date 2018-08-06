@@ -53,7 +53,7 @@
         "channelgrabber/log": "~2.2.1",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.2.15",
-        "channelgrabber/order": "~1.38.9",
+        "channelgrabber/order": "dev-TAC-150-enforce-fetch-rates-before-label-purchase as 1.38.10",
         "channelgrabber/payment": "~1.9.0",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
