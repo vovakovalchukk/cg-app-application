@@ -142,27 +142,21 @@ define([
                 {product.title}
             </span>;
         },
-        renderProductImage(product) {
-            return <span className="search-product-image-select-container">
-                <span className="search-product-image-container">
-                    {this.renderProductImage(product)}
-                </span>
-            </span>;
-        },
-        renderProductImage(product) {
+        renderProductImage: function(product) {
             let imageUrl = product.imageUrl ? product.imageUrl : this.props.defaultProductImage;
             return <img
                 src={imageUrl}
                 className="search-product-image"
             />;
         },
-        renderProductItemSpecifics(product) {
-            if (!product.itemSpecifics || Object.keys(product.itemSpecifics).length === 0) {
+        renderProductItemSpecifics: function(product) {
+            let productItemSpecifics = this.getItemSpecificsForProduct(product);
+            if (!productItemSpecifics) {
                 return null;
             }
 
-            let itemSpecifics = Object.keys(product.itemSpecifics).map(name => {
-                let value = product.itemSpecifics[name];
+            let itemSpecifics = Object.keys(productItemSpecifics).map(name => {
+                let value = productItemSpecifics[name];
                 return <tr>
                     <td>{name}</td>
                     <td>{Array.isArray(value) ? value.join(', ') : value}</td>
@@ -172,6 +166,25 @@ define([
             return <table className="search-product-item-specifics">
                 {itemSpecifics}
             </table>;
+        },
+        getItemSpecificsForProduct: function(product) {
+            if (!product.itemSpecifics || Object.keys(product.itemSpecifics).length === 0) {
+                return null;
+            }
+
+            let itemSpecifics = product.itemSpecifics;
+
+            if (product.ean) {
+                itemSpecifics["EAN"] = product.ean;
+            }
+            if (product.upc) {
+                itemSpecifics["UPC"] = product.upc;
+            }
+            if (product.isbn) {
+                itemSpecifics["ISBN"] = product.isbn;
+            }
+
+            return itemSpecifics;
         },
         selectProduct: function() {
             let product = this.state.selectedProduct;
