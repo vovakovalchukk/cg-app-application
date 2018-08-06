@@ -204,6 +204,11 @@ define([
     const getSearchAccountId = function(props) {
         let accounts = props.product.accounts;
         let selectedAccountIds = props.accounts;
+
+        if (props.product.variationCount > 1) {
+            return false;
+        }
+
         let accountIndex = selectedAccountIds.findIndex(selectedAccountId => {
             let accountData =  accounts[selectedAccountId];
 
