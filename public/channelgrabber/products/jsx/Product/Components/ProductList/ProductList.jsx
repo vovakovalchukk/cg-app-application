@@ -256,6 +256,11 @@ define([
                     height={height}
                     headerHeight={50}
                     data={list}
+                    rowExpanded={()=>{
+                        console.log('in rowExpanded ');
+                        
+                        
+                    }}
                     footerHeight={0}
                     groupHeaderHeight={0}
                     showScrollbarX={true}
