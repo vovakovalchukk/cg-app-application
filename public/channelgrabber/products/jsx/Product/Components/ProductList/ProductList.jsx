@@ -31,11 +31,11 @@ define([
                     total: 0,
                     limit: 0,
                     page: 0
-                },
-                products: []
+                }
             }
         },
         componentDidMount() {
+            this.setState({products:this.props.products})
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
@@ -44,40 +44,20 @@ define([
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
-        shouldComponentUpdate: function() {
+        shouldComponentUpdate:function(){
+          
             
-            console.log('in componentSHouldUpdate with this.state: ', this.state, 'this.props: ', this.props);
-            
-            
-            if (this.dataShouldBeStored()) {
-                
-                if(!tableDataWrapper.getData() || !tableDataWrapper.getData().length ){
-                    console.log('storing initial data...');
-                    this.setState({products: this.props.products});
-                    
-                    
-                    tableDataWrapper.storeData(this.props.products);
-                    console.log('initial store ',tableDataWrapper.getData());
-    
-                    return
-                }else{
-                    
-                    if(this.state.products && this.state.products.length && this.state.products !== tableDataWrapper.getData() ){
-                        tableDataWrapper.storeData(this.state.products);
-                        
-                    }
-                    
-    
-                }
-                
-    
-                //todo - trigger redux here
-                console.log('just storedData... ', tableDataWrapper.getData());
-            }
-            return true;
+          if(this.dataShouldBeStored()){
+              console.log('storing initial data...');
+              
+              //todo - trigger redux here
+              tableDataWrapper.storeData(this.props.products);
+              console.log('just storedData... ' , tableDataWrapper.getData());
+          }
+          return true;
         },
-        dataShouldBeStored: function() {
-            return this.props.products.length && (tableDataWrapper.getData() !== this.state.products)
+        dataShouldBeStored:function(){
+            return this.props.products.length && (tableDataWrapper.getData() !== this.props.products)
         },
         updateDimensions: function() {
             this.setState({
@@ -117,130 +97,123 @@ define([
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
-        getTableDataWrapper: function() {
+        getTableDataWrapper: function(){
             //todo -- eventually get this returning a js class that acts as a filter tool / row extraction tool
             // console.log('in getTableDataWrapper witht his.props.products: ' , this.props.products);
             // console.log('tableDatWrapper : ' , tableDataWrapper);
             return tableDataWrapper;
         },
         getList: function() {
-            
-            
             const products = this.state.products;
-            console.log('in getList this.state.products: ', products);
-            
             if (products && products.length <= 0) {
                 return;
             }
-            
-            
             let list = products.map((product, i) => {
                 let row = {
                     rowIndex: i,
                     values: [
                         {
                             key: 'debug',
-                            
-                            width: 120,
-                            fixed: true,
-                            headerText: 'debug'
+
+                            width:120,
+                            fixed:true,
+                            headerText:'debug'
                         },
                         {
                             key: 'image',
-                            width: 100,
-                            fixed: true,
-                            headerText: 'Image'
+                            width:100,
+                            fixed:true,
+                            headerText:'Image'
                         },
                         {
-                            key: 'productExpand',
-                            width: 50,
-                            fixed: true,
-                            headerText: 'expand product',
-                            addRow: this.addRow
+                            key:'productExpand',
+                            width:50,
+                            fixed:true,
+                            headerText:'expand product'
                         },
                         {
                             key: 'link',
-                            width: 100,
-                            fixed: true,
-                            headerText: 'Link'
+                            width:100,
+                            fixed:true,
+                            headerText:'Link'
                         },
                         {
                             key: 'sku',
-                            width: 200,
-                            fixed: true,
-                            headerText: 'Sku'
+                            width:200,
+                            fixed:true,
+                            headerText:'Sku'
                         },
                         {
                             key: 'name',
-                            width: 200,
-                            fixed: true,
-                            headerText: 'Name'
+                            width:200,
+                            fixed:true,
+                            headerText:'Name'
                         },
                         {
                             key: 'available',
-                            width: 100,
-                            fixed: true,
-                            headerText: 'Available'
+                            width:100,
+                            fixed:true,
+                            headerText:'Available'
                         },
                         //todo - change this dummy data to something significant in TAC-165
                         {
                             key: 'dummyListingColumn1',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
                         },
                         {
                             key: 'dummyListingColumn2',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
                             key: 'dummyListingColumn3',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
                             key: 'dummyListingColumn4',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
                             key: 'dummyListingColumn5',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
                         },
                         {
                             key: 'dummyListingColumn6',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
                         },
                         {
                             key: 'dummyListingColumn7',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
+    
                         },
                         {
                             key: 'dummyListingColumn8',
-                            width: 200,
-                            headerText: 'dummy listing col',
-                            fixed: false
-                            
+                            width:200,
+                            headerText:'dummy listing col',
+                            fixed:false
+    
                         }
                     ]
                 };
@@ -260,37 +233,22 @@ define([
             );
             
             return columns.map((column, columnIndex) => {
-                let {key, width, fixed, headerText, addRow} = column;
+                let {key,width,fixed,headerText} = column;
                 let createdColumn = columnCreator({
                     key,
                     width,
                     headerText,
                     fixed,
-                    columnIndex,
-                    addRow
+                    columnIndex
                 });
-                
+
                 return createdColumn
             })
         },
         isReadyToRenderTable: function(data) {
             return this.state.productsListContainer && this.state.productsListContainer.height && data;
         },
-        //todo - remove this once the add row functionality has been correctly prototyped
-        addRow: function(rowIndex) {
-            console.log('in add Row in productList rowIndex: ', rowIndex);
-            
-            let products = this.state.products.slice();
-            
-            products.splice(rowIndex+1, 0, {name: 'dummy product'});
-
-            console.log('newProducts to be set on state: ' , products);
-            
-            
-            this.setState({
-                products
-            });
-        },
+        
         renderProducts: function() {
             let list = this.getList();
             // do not create the table until the dimensions have been captured from the initial render

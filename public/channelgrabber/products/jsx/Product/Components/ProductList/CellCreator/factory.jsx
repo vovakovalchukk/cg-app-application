@@ -22,8 +22,6 @@ define([
     var CellCreator = function(creatorObject) {
         // console.log('in cell creator with creatorObject: ', creatorObject);
         let rowData = tableDataWrapper.getRowData(creatorObject.rowIndex);
-        // console.log('cellCreator rowData: ', rowData);
-        
         if(!rowData){
             return <Cell></Cell>
         }

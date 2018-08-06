@@ -10,6 +10,8 @@ define([], function() {
             },
             getRowData : (rowIndex) => {
                 // console.log('in getRowData with rowIndex: ' , rowIndex , 'data: ' , self.data);
+                
+                
                 if (!self.data) {
                     return;
                 }
@@ -24,7 +26,8 @@ define([], function() {
             //
             // },
             getCellData: (columnKey, rowIndex) => {
-                // console.log('in getCellData with self.data: ' , self.data);
+                // console.log('in getCellData with rowIndex,', rowIndex, 'and columnKey', columnKey);
+                
                 if (!self.data) {
                     return;
                 }
