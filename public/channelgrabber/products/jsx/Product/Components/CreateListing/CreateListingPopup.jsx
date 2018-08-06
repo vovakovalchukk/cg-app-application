@@ -321,7 +321,7 @@ define([
                         props.accountDefaultSettings,
                         props.accountsData,
                         props.categoryTemplates,
-                        props.selectedProductDetails
+                        props.selectedProductDetails ? props.selectedProductDetails : {}
                     )
                 );
             }
