@@ -57,8 +57,7 @@ class Manifest extends RequestAbstract
 
     public function getShipDate(): DateTime
     {
-        //return $this->shipDate;
-        return new DateTime();
+        return $this->shipDate;
     }
 
     public function getExcludedLabelIds(): array
