@@ -222,6 +222,12 @@
   }
 }
 
+.container-wrapper.product-create-listing.account-form {
+  .custom-select {
+    min-width: 0;
+  }
+}
+
 .react-image-picker {
   float: left;
 }
