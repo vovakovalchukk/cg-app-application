@@ -21,13 +21,20 @@ define([
             defaults = {};
 
         for (var accountId in data.accountDefaultSettings) {
-            if (data.accountsData[accountId].channel === 'ebay' && !defaults.ebay) {
+            if (data.accountsData[accountId].channel !== 'ebay') {
+                continue;
+            }
+
+            if (!defaults.ebay) {
                 account = data.accountDefaultSettings[accountId];
                 defaults.ebay = {
-                    dispatchTimeMax: account.listingDispatchTime
+                    dispatchTimeMax: account.listingDispatchTime,
+                    epid: data.selectedProductDetails.epid ? data.selectedProductDetails.epid : null,
+                    epidAccountId: data.selectedProductDetails.epidAccountId ? data.selectedProductDetails.epidAccountId : null
                 };
             }
         }
+
         return defaults;
     };
 
@@ -47,25 +54,39 @@ define([
             var template = data.categoryTemplates[templateId];
             for (var categoryId in template.categories) {
                 var category = template.categories[categoryId];
+
                 if (category.channel !== 'ebay') {
                     continue;
                 }
-                var defaultsForCategory = {};
-                if (account.listingDuration) {
-                    defaultsForCategory.listingDuration = account.listingDuration;
-                }
-                defaults[categoryId] = defaultsForCategory;
+
+                defaults[categoryId] = Object.assign(data.selectedProductDetails, {
+                    listingDuration: account.listingDuration
+                });
             }
         }
 
         return defaults;
     };
 
+    var getProductIdentifiers = function(variationData, selectedProductDetails) {
+        var identifiers = {};
+        variationData.forEach(function(variation) {
+            identifiers[variation.sku] = {
+                ean: variation.details.ean ? variation.details.ean : selectedProductDetails.ean,
+                upc: variation.details.upc ? variation.details.upc : selectedProductDetails.upc,
+                isbn: variation.details.isbn ? variation.details.isbn : selectedProductDetails.isbn,
+                mpn: variation.details.mpn ? variation.details.mpn : selectedProductDetails.mpn
+            };
+        });
+        return identifiers;
+    };
+
     return reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
                 variationData = action.payload.variationData,
-                selectedAccounts = action.payload.selectedAccounts;
+                selectedAccounts = action.payload.selectedAccounts,
+                selectedProductDetails = action.payload.selectedProductDetails;
 
             var dimensions = {};
             variationData.map(function(variation) {
@@ -87,24 +108,14 @@ define([
                 prices[variation.sku] = pricesForVariation;
             });
 
-            var identifiers = {};
-            variationData.map(function(variation) {
-                identifiers[variation.sku] = {
-                    ean: variation.details.ean,
-                    upc: variation.details.upc,
-                    isbn: variation.details.isbn,
-                    mpn: variation.details.mpn
-                };
-            });
-
             var productDetails = product.detail ? product.details : {};
 
             return {
-                title: product.name,
+                title: selectedProductDetails.title ? selectedProductDetails.title : product.name,
                 description: getDetailForProduct('description', productDetails, variationData),
                 condition: getDetailForProduct('condition', productDetails, variationData),
-                brand: getDetailForProduct('brand', productDetails, variationData),
-                identifiers: identifiers,
+                brand: selectedProductDetails.brand ? selectedProductDetails.brand : getDetailForProduct('brand', productDetails, variationData),
+                identifiers: getProductIdentifiers(variationData, selectedProductDetails),
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),

@@ -58,7 +58,17 @@ define([
                     accountsError[accountIndex] = JSON.stringify({
                         message: "In order to create listings on this account, please first create the ",
                         linkTitle: "default listing settings.",
-                        linkUrl: "/settings/channel/sales/" + accountId
+                        linkUrl: "/settings/channel/sales/" + accountId,
+                        target: '_blank'
+                    });
+                }
+
+                var accountData = props.product.accounts[accountId];
+                if (props.productSearchActive && accountData.channel == 'ebay' && !accountData.listingsAuthActive) {
+                    accountsError[accountIndex] = JSON.stringify({
+                        message: "",
+                        linkTitle: "Click here to authorise us to create listings on your eBay account.",
+                        linkUrl: accountData.authTokenInitialisationUrl
                     });
                 }
             });

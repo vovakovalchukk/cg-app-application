@@ -4,6 +4,7 @@ namespace Products\Controller;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
+use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Image\Uploader as ImageUploader;
@@ -209,8 +210,9 @@ class ProductsJsonController extends AbstractActionController
     protected function getAccountsIndexedById(AccountCollection $accounts): array
     {
         $indexedAccounts = [];
+        /** @var Account $account */
         foreach($accounts as $account) {
-            $indexedAccounts[$account->getId()] = $account->toArray();
+            $indexedAccounts[$account->getId()] = $this->listingChannelService->getAccountData($account);
         }
         return $indexedAccounts;
     }

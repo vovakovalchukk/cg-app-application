@@ -445,7 +445,7 @@ class MultiCreationService implements LoggerAwareInterface
             'productId' => $productId,
             'channel' => $channel,
             'organisationUnitId' => $ou,
-            'external' => $productChannelData,
+            'external' => $this->channelService->formatExternalChannelData($channel, $productChannelData),
         ]);
     }
 

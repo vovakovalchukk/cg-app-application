@@ -57,7 +57,8 @@ define([
                 submissionStatuses: {},
                 onCreateListingClose: function() {},
                 massUnit: null,
-                lengthUnit: null
+                lengthUnit: null,
+                selectedProductDetails: {}
             }
         },
         componentDidMount: function () {
@@ -319,7 +320,8 @@ define([
                         props.accounts,
                         props.accountDefaultSettings,
                         props.accountsData,
-                        props.categoryTemplates
+                        props.categoryTemplates,
+                        props.selectedProductDetails ? props.selectedProductDetails : {}
                     )
                 );
             }
