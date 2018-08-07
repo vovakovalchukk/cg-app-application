@@ -52,8 +52,7 @@ class Service implements LoggerAwareInterface
             /** @var ManifestResponse $response */
             $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
         } catch (\Exception $e) {
-            $this->logException($e, 'critical', __NAMESPACE__);
-            $this->logCritical('Failed to create manifest for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
+            $this->logCriticalException($e, 'Failed to create manifest for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
             throw new ValidationException('Fail', $e->getCode(), $e);
         }
 
@@ -74,8 +73,7 @@ class Service implements LoggerAwareInterface
             $pdf = $response->getBody(true);
             return $pdf;
         } catch (MultiTransferException $e) {
-            $this->logException($e, 'critical', __NAMESPACE__);
-            $this->logCritical('Failed to download PDF of manifest %s at URL %S', [$manifest->getFormId(), $manifest->getManifestDownload()->getHref(), static::LOG_CODE);
+            $this->logCriticalException($e, 'Failed to download PDF of manifest %s at URL %S', [$manifest->getFormId(), $manifest->getManifestDownload()->getHref()], static::LOG_CODE);
         }
     }
 }
