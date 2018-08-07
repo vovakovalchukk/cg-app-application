@@ -271,7 +271,7 @@ return [
                         ],
                         'royal-mail' => [
                             'channelName' => 'royal-mail-ss',
-                            'displayName' => 'Royal Mail',
+                            'displayName' => 'Royal Mail (OBA)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => true,
                             'fields' => [
