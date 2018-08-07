@@ -82,7 +82,7 @@ define([
             return product.variationCount !== undefined && product.variationCount >= 1
         },
         getList: function() {
-            const products = this.props.products.simpleAndParentProducts;
+            const products = this.props.products.visibleRows;
             if (products && products.length <= 0) {
                 return;
             }

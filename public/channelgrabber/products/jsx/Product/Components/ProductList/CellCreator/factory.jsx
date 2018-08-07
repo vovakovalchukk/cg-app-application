@@ -2,6 +2,7 @@ define([
     'react',
     'react-redux',
     'fixed-data-table',
+    'Product/Components/ProductList/stateFilters',
     'Product/Components/ProductList/tableDataWrapper',
     'Product/Components/ProductList/CellCreator/Text',
     'Product/Components/ProductList/CellCreator/DebugCell',
@@ -10,6 +11,7 @@ define([
     React,
     ReactRedux,
     FixedDataTable,
+    stateFilters,
     tableDataWrapper,
     TextCell,
     DebugCell,
@@ -19,24 +21,29 @@ define([
     
     const Cell = FixedDataTable.Cell;
     
-    const mapStateToProps = function(state) {
-        return {
-            products:state.products,
-        }
-    };
     const mapDispatchToProps = function(dispatch) {
         return {};
     };
-    const ReduxConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
     
     var CellCreator = function(creatorObject) {
-        console.log('in cell creator with creatorObject: ', creatorObject);
-        // let rowData = tableDataWrapper.getRowData(creatorObject.rowIndex);
-        // if(!rowData){
-        //     return <Cell></Cell>
-        // }
+        // console.log('in cell creator with creatorObject: ', creatorObject);
         let cellRenderers = getCellComponents();
         let CellContentComponent = cellRenderers[creatorObject.columnKey];
+    
+        const mapStateToProps = function(state) {
+            //todo - clever stuff in here to extract state
+            return {
+                products:state.products,
+                rowData: stateFilters.getRowData(state.products.visibleRows,creatorObject.rowIndex),
+                cellData: stateFilters.getCellData(
+                    state.products.visibleRows,
+                    creatorObject.columnKey,
+                    creatorObject.rowIndex
+                )
+            }
+        };
+        const ReduxConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+        
         let ConnectedCellContentComponent = ReduxConnector(CellContentComponent);
         
         if (typeof CellContentComponent !== 'function') {

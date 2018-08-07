@@ -18,7 +18,8 @@ define([
                 completeInitialLoads:{
                     simpleAndParentProducts:true
                 },
-                simpleAndParentProducts:action.payload.products
+                simpleAndParentProducts:action.payload.products,
+                visibleRows: action.payload.products
             });
             return newState;
         }
