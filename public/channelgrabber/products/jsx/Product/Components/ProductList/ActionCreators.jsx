@@ -31,37 +31,33 @@ define([
             };
         },
         expandProduct: (productRowIdToExpand) => {
-            // return{
-            //     type:"PRODUCT_EXPAND",
-            //     payload:{
-            //         productRowIdToExpand
-            //     }
-            // }
             return function(dispatch, getState) {
-                console.log('in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
-                var filter = new ProductFilter(null, event.detail.productId);
-    
-    
-                dispatch({
-                    type: 'PRODUCT_EXPAND_REQUEST'
-                });
-                // let filter =
                 
+                //todo need to do something where it pulls on existing data if they exist
+                //IF IT DOESN EXIST ALREADY
+                
+                
+                console.log('in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
+                dispatch({
+                    type: 'PRODUCT_VARIATIONS_GET_REQUEST'
+                });
     
-                let callback = function(data){
-                    console.log('in callback with data ' , data, ' and dispatch : ', dispatch);
-    
+                var filter = new ProductFilter(null, productRowIdToExpand);
+                
+                let fetchProductVariationsCallback = function(data){
+                    console.log('data.products: ', data.products);
                     var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
-                    console.log('variationsByParent in callback: ', variationsByParent);
-                    
                     dispatch({
-                        type: 'PRODUCT_EXPAND_SUCCESS',
-                        payload:data
-                    })
+                        type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
+                        payload:variationsByParent
+                    });
+                    dispatch({
+                        type: 'PRODUCT_EXPAND',
+                        payload:productRowIdToExpand
+                    });
                 };
-                AjaxHandler.fetchByFilter(filter,callback.bind(dispatch));
+                AjaxHandler.fetchByFilter(filter,fetchProductVariationsCallback);
             }
-    
         },
         collapseProduct:(productRowIdToCollapse )=>{
             return{

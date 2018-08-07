@@ -8,7 +8,8 @@ define([
         completeInitialLoads: {
             simpleAndParentProducts: false
         },
-        simpleAndParentProducts: []
+        simpleAndParentProducts: [],
+        variationsByParent:[]
     };
     
     var ProductsReducer = reducerCreator(initialState, {
@@ -21,6 +22,13 @@ define([
                 simpleAndParentProducts: action.payload.products,
                 visibleRows: action.payload.products
             });
+            return newState;
+        },
+        "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state,action){
+            console.log('r- PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS action : ' , action , ' state: ' , state);
+            let newState = Object.assign({}, state,{
+                variationsByParent:action.payload
+            })
             return newState;
         },
         "PRODUCT_EXPAND": function(state, action) {
