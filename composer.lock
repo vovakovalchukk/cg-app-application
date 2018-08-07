@@ -4477,6 +4477,12 @@
                 "reference": "fea5c87885085c88458a1c557a6d07e8d8beed8c",
                 "shasum": null
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-51fb57.zip",
+                "reference": "fea5c87885085c88458a1c557a6d07e8d8beed8c",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
