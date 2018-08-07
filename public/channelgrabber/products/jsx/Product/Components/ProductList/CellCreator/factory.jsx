@@ -1,18 +1,20 @@
 define([
     'react',
+    'redux',
     'react-redux',
     'fixed-data-table',
     'Product/Components/ProductList/stateFilters',
-    'Product/Components/ProductList/tableDataWrapper',
+    'Product/Components/ProductList/ActionCreators',
     'Product/Components/ProductList/CellCreator/Text',
     'Product/Components/ProductList/CellCreator/DebugCell',
     'Product/Components/ProductList/CellCreator/ProductExpandCell'
 ], function(
     React,
+    Redux,
     ReactRedux,
     FixedDataTable,
     stateFilters,
-    tableDataWrapper,
+    ActionCreators,
     TextCell,
     DebugCell,
     ProductExpandCell
@@ -21,27 +23,14 @@ define([
     
     const Cell = FixedDataTable.Cell;
     
-    const mapDispatchToProps = function(dispatch) {
-        return {};
-    };
-    
     var CellCreator = function(creatorObject) {
         // console.log('in cell creator with creatorObject: ', creatorObject);
         let cellRenderers = getCellComponents();
         let CellContentComponent = cellRenderers[creatorObject.columnKey];
     
-        const mapStateToProps = function(state) {
-            //todo - clever stuff in here to extract state
-            return {
-                products:state.products,
-                rowData: stateFilters.getRowData(state.products.visibleRows,creatorObject.rowIndex),
-                cellData: stateFilters.getCellData(
-                    state.products.visibleRows,
-                    creatorObject.columnKey,
-                    creatorObject.rowIndex
-                )
-            }
-        };
+        const mapStateToProps = getMapStateToProps(creatorObject);
+        const mapDispatchToProps = getMapDispatchToProps(creatorObject);
+        
         const ReduxConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
         
         let ConnectedCellContentComponent = ReduxConnector(CellContentComponent);
@@ -54,14 +43,6 @@ define([
         return (<Cell >
             <ConnectedCellContentComponent {...creatorObject}/>
         </Cell>)
-        
-        // // connecting manually to Redux since using a container here causes issues with fixed-data-table
-        // CellComponent.contextTypes = {
-        //     store: React.PropTypes.object.isRequired
-        // };
-        // return <CellComponent
-        //     {...creatorObject}
-        // />
     };
     
     return CellCreator;
@@ -86,4 +67,39 @@ define([
             dummyListingColumn8: TextCell,
         }
     }
+    
+    function getMapStateToProps (creatorObject){
+        return function(state){
+            return {
+                products:state.products,
+                rowData: stateFilters.getRowData(state.products.visibleRows,creatorObject.rowIndex),
+                cellData: stateFilters.getCellData(
+                    state.products.visibleRows,
+                    creatorObject.columnKey,
+                    creatorObject.rowIndex
+                )
+            }
+        }
+    }
+    
+    function getMapDispatchToProps(creatorObject){
+        // console.log('in getMapDispatchTOProps');
+        
+        const {
+            expandProduct,
+            collapseProduct
+        } = ActionCreators;
+        // console.log('ActionCreators: ', ActionCreators);
+        
+        // todo in later tickets restrict the dispatch methods to only relevant cells
+        return function(dispatch) {
+            return Redux.bindActionCreators({
+                expandProduct,
+                collapseProduct
+            }, dispatch);
+        };
+    }
+    
+    
+    
 });

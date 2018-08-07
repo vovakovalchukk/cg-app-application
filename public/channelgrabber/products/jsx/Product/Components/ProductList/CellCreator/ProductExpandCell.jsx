@@ -16,7 +16,8 @@ define([
             return {
                 rowData: {},
                 rowIndex:null,
-                addRow:null
+                expandProduct:null,
+                collapseProduct:null
             };
         },
         getInitialState: function() {
@@ -40,9 +41,10 @@ define([
             this.setState({
                 isExpanded:!this.state.isExpanded
             });
+            this.props.expandProduct(this.props.rowData.id);
         },
         render() {
-            // console.log('in productExpandCell with this.props: ', this.props);
+            console.log('in productExpandCell with this.props: ', this.props);
             
             // let {columnKey,rowIndex} = this.props;
             // const {data, rowIndex, columnKey, collapsedRows, callback} = this.props;

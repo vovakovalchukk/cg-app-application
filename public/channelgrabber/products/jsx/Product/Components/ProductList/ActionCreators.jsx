@@ -12,5 +12,21 @@ define([
                 }
             };
         },
+        expandProduct: (productRowIdToExpand) => {
+            return{
+                type:"PRODUCT_EXPAND",
+                payload:{
+                    productRowIdToExpand
+                }
+            }
+        },
+        collapseProduct:(productRowIdToCollapse )=>{
+            return{
+                type:"PRODUCT_COLLAPSE",
+                payload:{
+                    productRowIdToCollapse
+                }
+            }
+        }
     };
 });

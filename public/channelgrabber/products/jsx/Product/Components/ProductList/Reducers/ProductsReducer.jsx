@@ -22,6 +22,24 @@ define([
                 visibleRows: action.payload.products
             });
             return newState;
+        },
+        "PRODUCT_EXPAND":function(state,action){
+            console.log('in product expand with action: ' , action, ' state: ' , state);
+            let currentVisibleProducts = state.visibleRows.slice();
+            
+            let parentProduct = currentVisibleProducts.find(function(product){
+                return product.id === action.payload.productRowIdToExpand
+            });
+    
+            // // todo - loop through variation Ids and retrieve all of the relevant variations
+            // parentProduct.variationIds.forEach(variationId=>{
+            //
+            // });
+    
+            console.log('parentProduct: ' , parentProduct);
+            
+            return state;
+            
         }
     });
     
