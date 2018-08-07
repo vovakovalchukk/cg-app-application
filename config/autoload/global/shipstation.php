@@ -275,6 +275,7 @@ return [
                             'featureFlag' => Service::FEATURE_FLAG_ROYAL_MAIL,
                             'allowsCancellation' => true,
                             'allowsManifesting' => true,
+                            'activationDelayed' => true,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',

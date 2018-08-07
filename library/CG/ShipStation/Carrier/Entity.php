@@ -17,6 +17,7 @@ class Entity
     /** @var array */
     protected $bookingOptions;
     protected $featureFlag;
+    protected $activationDelayed;
 
     protected $requiredFields = null;
 
@@ -28,7 +29,8 @@ class Entity
         ?string $allowsCancellation = null,
         ?string $allowsManifesting = null,
         ?array $bookingOptions = null,
-        ?string $featureFlag = null
+        ?string $featureFlag = null,
+        bool $activationDelayed = false
     ) {
         $this
             ->setChannelName($channelName)
@@ -38,7 +40,8 @@ class Entity
             ->setAllowsCancellation($allowsCancellation)
             ->setAllowsManifesting($allowsManifesting)
             ->setBookingOptions($bookingOptions)
-            ->setFeatureFlag($featureFlag);
+            ->setFeatureFlag($featureFlag)
+            ->setActivationDelayed($activationDelayed);
     }
 
     public function getRequiredFieldNames(): array
@@ -158,6 +161,17 @@ class Entity
     public function setFeatureFlag(?string $featureFlag): Entity
     {
         $this->featureFlag = $featureFlag;
+        return $this;
+    }
+
+    public function isActivationDelayed(): bool
+    {
+        return $this->activationDelayed;
+    }
+
+    public function setActivationDelayed(bool $activationDelayed): Entity
+    {
+        $this->activationDelayed = $activationDelayed;
         return $this;
     }
 

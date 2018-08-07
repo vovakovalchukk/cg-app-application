@@ -42,7 +42,8 @@ class CreationService extends CreationServiceAbstract
         $carrier = $this->carrierService->getCarrierForAccount($account);
         $account->setType([ChannelType::SHIPPING])
             ->setDisplayName($carrier->getDisplayName())
-            ->setCredentials($this->getCredentialsFromParams($params));
+            ->setCredentials($this->getCredentialsFromParams($params))
+            ->setPending($carrier->isActivationDelayed());
 
         return $this->getChannelAccount()->connect($account, $params);
     }
