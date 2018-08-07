@@ -22,7 +22,8 @@ class Mapper
             $carrierConfig['salesChannelName'] ?? null,
             $carrierConfig['allowsCancellation'] ?? null,
             $carrierConfig['allowsManifesting'] ?? null,
-            $carrierConfig['bookingOptions'] ?? null
+            $carrierConfig['bookingOptions'] ?? null,
+            $carrierConfig['featureFlag'] ?? null
         );
     }
 

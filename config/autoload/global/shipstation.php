@@ -256,6 +256,7 @@ return [
                         'usps' => [
                             'channelName' => 'usps-ss',
                             'displayName' => 'USPS',
+                            'featureFlag' => Service::FEATURE_FLAG_USPS,
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [],

@@ -16,17 +16,19 @@ class Entity
     protected $fields;
     /** @var array */
     protected $bookingOptions;
+    protected $featureFlag;
 
     protected $requiredFields = null;
 
     public function __construct(
-        $channelName,
+        string $channelName,
         FieldCollection $fields,
-        $displayName = null,
-        $salesChannelName = null,
-        $allowsCancellation = null,
-        $allowsManifesting = null,
-        array $bookingOptions = null
+        ?string $displayName = null,
+        ?string $salesChannelName = null,
+        ?string $allowsCancellation = null,
+        ?string $allowsManifesting = null,
+        ?array $bookingOptions = null,
+        ?string $featureFlag = null
     ) {
         $this
             ->setChannelName($channelName)
@@ -35,7 +37,8 @@ class Entity
             ->setSalesChannelName($salesChannelName)
             ->setAllowsCancellation($allowsCancellation)
             ->setAllowsManifesting($allowsManifesting)
-            ->setBookingOptions($bookingOptions);
+            ->setBookingOptions($bookingOptions)
+            ->setFeatureFlag($featureFlag);
     }
 
     public function getRequiredFieldNames(): array
@@ -144,6 +147,17 @@ class Entity
     public function setBookingOptions(array $bookingOptions = null): Entity
     {
         $this->bookingOptions = $bookingOptions ?? [];
+        return $this;
+    }
+
+    public function getFeatureFlag(): ?string
+    {
+        return $this->featureFlag;
+    }
+
+    public function setFeatureFlag(?string $featureFlag): Entity
+    {
+        $this->featureFlag = $featureFlag;
         return $this;
     }
 
