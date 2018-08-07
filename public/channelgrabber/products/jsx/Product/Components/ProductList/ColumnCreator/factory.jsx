@@ -65,7 +65,6 @@ define([
             //     );
             // }}
         />);
-        
     }
     function renderImageColumn(column) {
         return (<Column

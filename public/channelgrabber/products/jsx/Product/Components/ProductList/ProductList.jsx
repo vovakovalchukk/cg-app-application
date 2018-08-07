@@ -1,14 +1,12 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/tableDataWrapper',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
     'Product/Components/ProductList/ColumnCreator/factory'
 ], function(
     React,
     FixedDataTable,
-    tableDataWrapper,
     ProductLinkEditor,
     ProductFooter,
     columnCreator
@@ -35,7 +33,8 @@ define([
             }
         },
         componentDidMount() {
-            this.setState({products:this.props.products})
+            
+            console.log('ProductList CDM this.props: ', this.props);
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
@@ -43,21 +42,6 @@ define([
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
-        },
-        shouldComponentUpdate:function(){
-          
-            
-          if(this.dataShouldBeStored()){
-              console.log('storing initial data...');
-              
-              //todo - trigger redux here
-              tableDataWrapper.storeData(this.props.products);
-              console.log('just storedData... ' , tableDataWrapper.getData());
-          }
-          return true;
-        },
-        dataShouldBeStored:function(){
-            return this.props.products.length && (tableDataWrapper.getData() !== this.props.products)
         },
         updateDimensions: function() {
             this.setState({
@@ -97,14 +81,8 @@ define([
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
-        getTableDataWrapper: function(){
-            //todo -- eventually get this returning a js class that acts as a filter tool / row extraction tool
-            // console.log('in getTableDataWrapper witht his.props.products: ' , this.props.products);
-            // console.log('tableDatWrapper : ' , tableDataWrapper);
-            return tableDataWrapper;
-        },
         getList: function() {
-            const products = this.state.products;
+            const products = this.props.products.simpleAndParentProducts;
             if (products && products.length <= 0) {
                 return;
             }
@@ -248,7 +226,6 @@ define([
         isReadyToRenderTable: function(data) {
             return this.state.productsListContainer && this.state.productsListContainer.height && data;
         },
-        
         renderProducts: function() {
             let list = this.getList();
             // do not create the table until the dimensions have been captured from the initial render
@@ -275,6 +252,9 @@ define([
             )
         },
         render: function() {
+            console.log('ProductList render this.props: ',this.props);
+            
+            
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">

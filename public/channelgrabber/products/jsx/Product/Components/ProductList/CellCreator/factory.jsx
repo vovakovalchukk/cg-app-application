@@ -20,11 +20,11 @@ define([
     const Cell = FixedDataTable.Cell;
     
     var CellCreator = function(creatorObject) {
-        // console.log('in cell creator with creatorObject: ', creatorObject);
-        let rowData = tableDataWrapper.getRowData(creatorObject.rowIndex);
-        if(!rowData){
-            return <Cell></Cell>
-        }
+        console.log('in cell creator with creatorObject: ', creatorObject);
+        // let rowData = tableDataWrapper.getRowData(creatorObject.rowIndex);
+        // if(!rowData){
+        //     return <Cell></Cell>
+        // }
         let cellRenderers = getCellComponents();
         let CellComponent = cellRenderers[creatorObject.columnKey];
         
@@ -33,11 +33,17 @@ define([
             return
         }
         
+        // connecting manually to Redux since using a container here causes issues with fixed-data-table
+        CellComponent.contextTypes = {
+            store: React.PropTypes.object.isRequired
+        };
         return <CellComponent
             {...creatorObject}
-            rowData={rowData}
-            
         />
+        // return <CellComponent
+        //     {...creatorObject}
+        //     rowData={rowData}
+        // />
     };
     
     return CellCreator;

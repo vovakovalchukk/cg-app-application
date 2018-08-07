@@ -8,7 +8,7 @@ define([
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
     'Product/Components/CreateListing/Root',
-    'Product/Components/ProductList/Root',
+    'Product/Components/ProductList/Provider',
 ], function(
     React,
     SearchBox,
@@ -19,7 +19,7 @@ define([
     CreateProductRoot,
     AjaxHandler,
     CreateListingRoot,
-    ProductListRoot
+    ProductListProvider
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -456,7 +456,7 @@ define([
                 return
             }
             return (
-                <ProductListRoot
+                <ProductListProvider
                     products={this.state.products}
                     features={this.props.features}
                     addNewProductButtonClick={this.addNewProductButtonClick}

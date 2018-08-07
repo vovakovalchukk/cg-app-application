@@ -1,26 +1,40 @@
 define([
     'react',
-    
+    'redux',
+    'react-redux',
+    'redux-thunk',
+    'Product/Components/ProductList/ActionCreators',
+    'Product/Components/ProductList/Reducers/CombinedReducer',
     'Product/Components/ProductList/ProductList'
 ], function(
     React,
+    Redux,
+    ReactRedux,
+    thunk,
+    ActionCreators,
+    CombinedReducer,
     ProductList
 ) {
     "use strict";
     
-    var ProductListRoot = React.createClass({
-        getDefaultProps: function() {
-            return {
-                products: [],
-                features: {}
-            };
-        },
-        render: function() {
-            return (
-                <ProductList {...this.props} />
-            );
-        }
-    });
+    let mapStateToProps = function(state) {
+        return {
+            products: state.products
+        };
+    };
     
-    return ProductListRoot;
+    let mapDispatchToProps = function(dispatch, props) {
+        return {
+            // loadInitialValues: function() {
+            //     dispatch(
+            //         ActionCreators.loadInitialValues(
+            //         )
+            //     );
+            // }
+        };
+    };
+    
+    
+    // return ProductListRoot;
+    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);
 });

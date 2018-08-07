@@ -24,7 +24,7 @@ define([
         },
         render() {
             
-            console.log('in render of DebugCell with this.props: ' , this.props);
+            console.log('in render of DebugCell with this.props: ' , this.props , ' this.context: ' , this.context);
             // console.log('tableDataWrapper: ', tableDataWrapper);
             const {rowIndex, columnKey, rowData} = this.props;
             
