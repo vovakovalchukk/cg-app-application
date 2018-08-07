@@ -12,6 +12,7 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
 {
     const FEATURE_FLAG_SHIPSTATION = 'ShipStation';
     const FEATURE_FLAG_USPS = 'USPS';
+    const FEATURE_FLAG_ROYAL_MAIL = 'ShipStation Royal Mail';
 
     /** @var Mapper */
     protected $mapper;

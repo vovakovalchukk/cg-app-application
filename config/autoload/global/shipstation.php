@@ -272,6 +272,7 @@ return [
                         'royal-mail' => [
                             'channelName' => 'royal-mail-ss',
                             'displayName' => 'Royal Mail (OBA)',
+                            'featureFlag' => Service::FEATURE_FLAG_ROYAL_MAIL,
                             'allowsCancellation' => true,
                             'allowsManifesting' => true,
                             'fields' => [
