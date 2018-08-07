@@ -25,10 +25,10 @@ define([
             let cellValue = tableDataWrapper.getCellData(columnKey,rowIndex)
             
             return (
-                <Cell {...this.props}>
+                <div {...this.props}>
                     {cellValue}
 
-                </Cell>
+                </div>
             );
         }
     });

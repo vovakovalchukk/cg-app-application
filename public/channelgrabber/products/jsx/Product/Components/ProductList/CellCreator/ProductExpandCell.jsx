@@ -47,11 +47,11 @@ define([
             // let {columnKey,rowIndex} = this.props;
             // const {data, rowIndex, columnKey, collapsedRows, callback} = this.props;
             return (
-                <Cell {...this.props}>
+                <div {...this.props}>
                     <a onClick={this.onExpandClick}>
                         {this.renderExpandIcon()}
                         </a>
-                </Cell>
+                </div>
             );
         }
     });

@@ -28,19 +28,22 @@ define([
             // console.log('tableDataWrapper: ', tableDataWrapper);
             const {rowIndex, columnKey, rowData} = this.props;
             
-            let variationIds = rowData.variationIds.map((variation) =>
-                <span>{variation} </span>
-            );
-
-            // console.log('in debug render and data in tableDataWrapper: ' , tableDataWrapper.getData());
-            return (
-                <Cell
-                    // rowData={rowData}
-                >
-                    id: {rowData.id} <br />
-                    variations :{variationIds}
-                </Cell>
-            );
+            return <div> in the debug cell </div>
+            
+            //todo implement below once you have properly got redux in
+            // let variationIds = rowData.variationIds.map((variation) =>
+            //     <span>{variation} </span>
+            // );
+            //
+            // // console.log('in debug render and data in tableDataWrapper: ' , tableDataWrapper.getData());
+            // return (
+            //     <div
+            //         // rowData={rowData}
+            //     >
+            //         id: {rowData.id} <br />
+            //         variations :{variationIds}
+            //     </div>
+            // );
         }
     });
     

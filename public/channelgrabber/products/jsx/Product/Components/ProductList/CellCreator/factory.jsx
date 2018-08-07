@@ -1,14 +1,14 @@
 define([
     'react',
+    'react-redux',
     'fixed-data-table',
     'Product/Components/ProductList/tableDataWrapper',
-    
     'Product/Components/ProductList/CellCreator/Text',
     'Product/Components/ProductList/CellCreator/DebugCell',
     'Product/Components/ProductList/CellCreator/ProductExpandCell'
-
 ], function(
     React,
+    ReactRedux,
     FixedDataTable,
     tableDataWrapper,
     TextCell,
@@ -19,6 +19,16 @@ define([
     
     const Cell = FixedDataTable.Cell;
     
+    const mapStateToProps = function(state) {
+        return {
+            products:state.products,
+        }
+    };
+    const mapDispatchToProps = function(dispatch) {
+        return {};
+    };
+    const ReduxConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+    
     var CellCreator = function(creatorObject) {
         console.log('in cell creator with creatorObject: ', creatorObject);
         // let rowData = tableDataWrapper.getRowData(creatorObject.rowIndex);
@@ -26,28 +36,28 @@ define([
         //     return <Cell></Cell>
         // }
         let cellRenderers = getCellComponents();
-        let CellComponent = cellRenderers[creatorObject.columnKey];
+        let CellContentComponent = cellRenderers[creatorObject.columnKey];
+        let ConnectedCellContentComponent = ReduxConnector(CellContentComponent);
         
-        if (typeof CellComponent !== 'function') {
+        if (typeof CellContentComponent !== 'function') {
             console.error("no function for column renderer column ", column)
             return
         }
         
-        // connecting manually to Redux since using a container here causes issues with fixed-data-table
-        CellComponent.contextTypes = {
-            store: React.PropTypes.object.isRequired
-        };
-        return <CellComponent
-            {...creatorObject}
-        />
+        return (<Cell >
+            <ConnectedCellContentComponent {...creatorObject}/>
+        </Cell>)
+        
+        // // connecting manually to Redux since using a container here causes issues with fixed-data-table
+        // CellComponent.contextTypes = {
+        //     store: React.PropTypes.object.isRequired
+        // };
         // return <CellComponent
         //     {...creatorObject}
-        //     rowData={rowData}
         // />
     };
     
     return CellCreator;
-    
     
     function getCellComponents() {
         return {
