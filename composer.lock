@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e087f858d7569e33560bc611c0cfb63",
+    "content-hash": "124035a89d153ba3e224155c757ef702",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -644,8 +644,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-QA-EPIC-USPS-8196e7.zip",
-                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-QA-EPIC-USPS-6c3509.zip",
+                "reference": "d8dcd61912745dac73719358cd7383ea3a0bea31",
                 "shasum": null
             },
             "require": {
@@ -4459,16 +4459,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "dev-TAC-192-royal-mail-via-shipstation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7bbc37e29758c9f3ed12ffd25e78af7efa8a0a92"
+                "reference": "f1e7ba21d77c6bf665e9df1c92ec62762deac335"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-EPIC-USPS-9ac053.zip",
-                "reference": "7bbc37e29758c9f3ed12ffd25e78af7efa8a0a92",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-ccc6eb.zip",
+                "reference": "f1e7ba21d77c6bf665e9df1c92ec62762deac335",
                 "shasum": null
             },
             "require": {
@@ -4520,7 +4520,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-20T14:31:04+00:00"
+            "time": "2018-08-08T15:28:41+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9996,9 +9996,9 @@
             "package": "channelgrabber/payment"
         },
         {
-            "alias": "1.23.16",
-            "alias_normalized": "1.23.16.0",
-            "version": "dev-QA-EPIC-USPS",
+            "alias": "1.23.14",
+            "alias_normalized": "1.23.14.0",
+            "version": "dev-TAC-192-royal-mail-via-shipstation",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
