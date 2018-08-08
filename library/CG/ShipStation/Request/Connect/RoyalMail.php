@@ -5,7 +5,7 @@ use CG\ShipStation\Messages\ConnectAddress;
 use CG\ShipStation\RequestAbstract;
 use CG\ShipStation\Response\Connect\Response;
 
-class Royalmail extends RequestAbstract implements ConnectInterface
+class RoyalMail extends RequestAbstract implements ConnectInterface
 {
     const METHOD = 'POST';
     const URI = '/connections/carriers/royal_mail';
@@ -77,7 +77,7 @@ class Royalmail extends RequestAbstract implements ConnectInterface
         return $this->nickname;
     }
 
-    public function setNickname(string $nickname): Royalmail
+    public function setNickname(string $nickname): RoyalMail
     {
         $this->nickname = $nickname;
         return $this;
@@ -88,7 +88,7 @@ class Royalmail extends RequestAbstract implements ConnectInterface
         return $this->accountNumber;
     }
 
-    public function setAccountNumber(string $accountNumber): Royalmail
+    public function setAccountNumber(string $accountNumber): RoyalMail
     {
         $this->accountNumber = $accountNumber;
         return $this;
@@ -99,7 +99,7 @@ class Royalmail extends RequestAbstract implements ConnectInterface
         return $this->obaEmail;
     }
 
-    public function setObaEmail(string $obaEmail): Royalmail
+    public function setObaEmail(string $obaEmail): RoyalMail
     {
         $this->obaEmail = $obaEmail;
         return $this;
@@ -110,7 +110,7 @@ class Royalmail extends RequestAbstract implements ConnectInterface
         return $this->contactName;
     }
 
-    public function setContactName(string $contactName): Royalmail
+    public function setContactName(string $contactName): RoyalMail
     {
         $this->contactName = $contactName;
         return $this;
@@ -121,7 +121,7 @@ class Royalmail extends RequestAbstract implements ConnectInterface
         return $this->address;
     }
 
-    public function setAddress(ConnectAddress $address): Royalmail
+    public function setAddress(ConnectAddress $address): RoyalMail
     {
         $this->address = $address;
         return $this;
