@@ -78,7 +78,8 @@ class PaymentController extends AbstractActionController
             ->setVariable('selectedBillingDuration', $this->getSelectedBillingDuration())
             ->setVariable('packages', $this->getPackagesData())
             ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod())
-            ->setVariable('demoLink', DemoLink::getForLocale($locale));
+            ->setVariable('demoLink', DemoLink::getForLocale($locale))
+            ->setVariable('takePayment', (bool) $this->params()->fromQuery('cardAuth'));
 
         if (!$this->paymentViewService->isSinglePaymentMethod()) {
             return $body->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethodSelect');
