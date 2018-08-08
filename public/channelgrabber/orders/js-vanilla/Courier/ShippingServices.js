@@ -25,6 +25,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
     ShippingServices.SELECT_ID_PREFIX = 'courier-service-options-';
     ShippingServices.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
     ShippingServices.URI_SERVICES_FOR_ORDER = '/orders/courier/services';
+    ShippingServices.SELECT_ELEMENTS = ".courier-service-custom-select";
 
     ShippingServices.prototype.loadServicesSelectForOrder = function(orderId, accountId, name)
     {
@@ -44,6 +45,23 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             );
 
             container.empty().append(html);
+        });
+    };
+
+    ShippingServices.prototype.loadServicesSelectForOrderAndServices = function(orderId, serviceOptions, name)
+    {
+        var self = this;
+        var container = $('#' + ShippingServices.SELECT_ID_PREFIX + orderId);
+        container.empty().append(ShippingServices.LOADER);
+
+        self.fetchTemplate().then(function(templateResponse)
+        {
+            var html = self.renderServicesSelect(
+                orderId, serviceOptions, templateResponse.template, templateResponse.cgMustache, name
+            );
+
+            container.empty().append(html);
+            $(ShippingServices.SELECT_ELEMENTS).trigger("change", [$(ShippingServices.SELECT_ELEMENTS), $(ShippingServices.SELECT_ELEMENTS).find("> input:hidden").val()]);
         });
     };
 
@@ -83,13 +101,23 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 
     ShippingServices.prototype.renderServicesSelect = function(orderId, serviceOptions, template, cgMustache, name)
     {
+        var selected;
+        for (key in serviceOptions) {
+            if (serviceOptions[key].selected) {
+                selected = serviceOptions[key].value;
+                break;
+            }
+        }
+
         var data = {
             id: ShippingServices.SELECT_ID_PREFIX + 'select-' + orderId,
             name: name || 'service_' + orderId,
-            class: 'courier-service-select',
+            class: 'courier-service-select required',
             searchField: true,
-            options: serviceOptions
+            options: serviceOptions,
+            initialValue: selected
         };
+
         var html = cgMustache.renderTemplate(template, data);
 
         var $html = $(html);

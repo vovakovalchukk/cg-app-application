@@ -14,6 +14,7 @@ use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\DispatchService as LabelDispatchService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
+use Orders\Courier\Label\RatesService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\ReviewAjax as ReviewAjaxService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
@@ -30,6 +31,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_OPTIONS = 'Options';
     const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
+    const ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE = 'Fetch Shipping Ledger Balance';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
@@ -38,6 +40,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_LABEL_DISPATCH_URI = '/dispatch';
     const ROUTE_LABEL_READY_CHECK = 'Ready Check';
     const ROUTE_LABEL_READY_CHECK_URI = '/readyCheck';
+    const ROUTE_LABEL_FETCH_RATES = 'Fetch Rates';
     const ROUTE_MANIFEST = 'Manifest';
     const ROUTE_MANIFEST_URI = '/manifest';
     const ROUTE_MANIFEST_ACCOUNTS = 'Accounts';
@@ -65,6 +68,8 @@ class CourierJsonController extends AbstractActionController
     protected $labelReadyService;
     /** @var ManifestService */
     protected $manifestService;
+    /** @var RatesService */
+    protected $ratesService;
 
     protected $errorMessageMap = [
     ];
@@ -78,7 +83,8 @@ class CourierJsonController extends AbstractActionController
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
         LabelDispatchService $labelDispatchService,
-        ManifestService $manifestService
+        ManifestService $manifestService,
+        RatesService $ratesService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
@@ -89,6 +95,7 @@ class CourierJsonController extends AbstractActionController
         $this->labelDispatchService = $labelDispatchService;
         $this->labelReadyService = $labelReadyService;
         $this->manifestService = $manifestService;
+        $this->ratesService = $ratesService;
     }
 
     public function servicesOptionsAction()
@@ -524,5 +531,32 @@ class CourierJsonController extends AbstractActionController
                 'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         }
+    }
+
+    public function fetchRatesAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $orderIds = $this->params()->fromPost('order', []);
+        $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
+        $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+        $rawOrdersItemsData = $this->params()->fromPost('itemData', []);
+
+        $this->decodeItemParcelAssignment($rawOrdersParcelsData)
+            ->assignParcelNumbers($rawOrdersParcelsData);
+
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
+        $ordersItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
+
+        $rates = $this->ratesService->fetchRates(
+            $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
+        );
+        return $this->jsonModelFactory->newInstance(['rates' => $rates->toArray()]);
+    }
+
+    public function fetchShippingLedgerBalanceAction()
+    {
+        $shippingLedger = $this->specificsAjaxService->getShippingLedgerForActiveUser();
+        return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }
 }

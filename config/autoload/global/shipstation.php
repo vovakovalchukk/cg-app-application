@@ -246,6 +246,13 @@ return [
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'height' => 'height',
+                                'width' => 'width',
+                                'length' => 'length',
+                                'cost' => 'cost',
+                            ]
                         ],
                     ],
                     'defaultBookingOptions' => [
