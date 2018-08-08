@@ -7,6 +7,16 @@ define([], function() {
         var self = {};
         
         return {
+            getProductIndex: (products, productId) => {
+                return products.findIndex((product) => {
+                    return product.id === productId;
+                });
+            },
+            getProductById: (products, productId) => {
+                return products.find((product) => {
+                    return product.id === productId;
+                });
+            },
             getRowData : (products,rowIndex) => {
                 return products[rowIndex];
             },

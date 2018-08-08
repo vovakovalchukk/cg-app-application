@@ -83,8 +83,8 @@ define([
         },
         getList: function() {
             const products = this.props.products.visibleRows;
-            console.log('in getList with products: ', products);
-            
+            // console.log('in getList with products: ', products);
+            //
             
             if (products && products.length <= 0) {
                 return;
@@ -255,7 +255,7 @@ define([
             )
         },
         render: function() {
-            console.log('ProductList render this.props: ',this.props);
+            // console.log('ProductList render this.props: ',this.props);
             
             
             return (

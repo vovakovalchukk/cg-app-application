@@ -1,11 +1,9 @@
 define([
     'react',
-    'fixed-data-table',
-    'Product/Components/ProductList/tableDataWrapper',
+    'fixed-data-table'
 ], function(
     React,
-    FixedDataTable,
-    tableDataWrapper,
+    FixedDataTable
 ) {
     "use strict";
     

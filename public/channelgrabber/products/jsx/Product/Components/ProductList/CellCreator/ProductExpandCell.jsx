@@ -1,11 +1,9 @@
 define([
     'react',
-    'fixed-data-table',
-    'Product/Components/ProductList/tableDataWrapper'
+    'fixed-data-table'
 ], function(
     React,
-    FixedDataTable,
-    tableDataWrapper
+    FixedDataTable
 ) {
     "use strict";
     
@@ -22,7 +20,7 @@ define([
         },
         getInitialState: function() {
             return {
-                isExpanded:false
+                // isExpanded:false
             };
         },
         isParentProduct: function(rowData) {
@@ -33,15 +31,30 @@ define([
             if(!isParentProduct){
                 return;
             }
-            
             return (this.state.isExpanded ?  '\u25BC':'\u25BA')
         },
         onExpandClick: function(){
-            // console.log('on expand click');
+            console.log('on expand click');
+            if(!this.state.isExpanded){
+                console.log('not expanded so going to expand');
+                
+                
+                this.props.expandProduct(this.props.rowData.id);
+                this.setState({
+                    isExpanded:true
+                },function(){
+                    console.log('just set isExpanded to true');
+                });
+                return;
+            }
+            
+            console.log('expanded so going to collapse');
+            
+            
+            this.props.collapseProduct(this.props.rowData.id);
             this.setState({
-                isExpanded:!this.state.isExpanded
+                isExpanded:false
             });
-            this.props.expandProduct(this.props.rowData.id);
         },
         render() {
             // console.log('in productExpandCell with this.props: ', this.props);
@@ -52,7 +65,8 @@ define([
                 <div {...this.props}>
                     <a onClick={this.onExpandClick}>
                         {this.renderExpandIcon()}
-                        </a>
+                        {this.state.isExpanded ? 'expanded' : 'collapsed'}
+                    </a>
                 </div>
             );
         }

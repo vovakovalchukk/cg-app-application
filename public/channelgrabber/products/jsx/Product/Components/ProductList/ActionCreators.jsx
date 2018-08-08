@@ -45,13 +45,13 @@ define([
                 var filter = new ProductFilter(null, productRowIdToExpand);
                 
                 let fetchProductVariationsCallback = function(data){
-                    console.log('data.products: ', data.products);
+                    // console.log('data.products: ', data.products);
                     var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
                     dispatch({
                         type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
                         payload:variationsByParent
                     });
-                    console.log('about to dispatch the product expand...');
+                    // console.log('about to dispatch the product expand...');
                     dispatch({
                         type: 'PRODUCT_EXPAND',
                         payload:{
