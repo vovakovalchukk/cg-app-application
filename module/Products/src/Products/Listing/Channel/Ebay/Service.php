@@ -203,7 +203,8 @@ class Service implements
             $account->toArray(),
             [
                 'listingsAuthActive' => $listingsAuthActive,
-                'authTokenInitialisationUrl' => $initialisationUrl
+                'authTokenInitialisationUrl' => $initialisationUrl,
+                'siteId' => $this->fetchDefaultSiteIdForAccount($account)
             ]
         );
     }
