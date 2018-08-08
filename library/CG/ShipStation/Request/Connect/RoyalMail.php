@@ -37,16 +37,17 @@ class RoyalMail extends RequestAbstract implements ConnectInterface
 
     public static function fromArray(array $params): ConnectInterface
     {
-        $params['address1'] = $params['street_line1'];
-        $params['address2'] = $params['street_line2'];
+        $params['address1'] = $params['street line1'] ?? $params['street_line1'];
+        $params['address2'] = $params['street line2'] ?? $params['street_line2'];
         $params['state'] = '';
         $params['company'] = '';
+        $params['country_code'] = 'GB';
 
         return new self(
             $params['nickname'],
-            $params['account_number'],
-            $params['oba_email'],
-            $params['contact_name'],
+            $params['account number'] ?? $params['account_number'],
+            $params['oba email'] ?? $params['oba_email'],
+            $params['contact name'] ?? $params['contact_name'],
             ConnectAddress::fromArray($params)
         );
     }
