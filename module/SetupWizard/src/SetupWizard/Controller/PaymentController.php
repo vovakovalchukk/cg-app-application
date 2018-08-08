@@ -146,7 +146,10 @@ class PaymentController extends AbstractActionController
     protected function getFooter(): ViewModel
     {
         return $this->viewModelFactory->newInstance([
-            'buttons' => $this->setupService->getNextButtonViewConfig(),
+            'buttons' => array_merge(
+                $this->setupService->getNextButtonViewConfig(),
+                ['value' => 'Pay now']
+            ),
         ])->setTemplate('setup-wizard/payment/footer');
     }
 
