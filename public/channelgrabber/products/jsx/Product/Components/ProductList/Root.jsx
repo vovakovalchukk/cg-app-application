@@ -17,23 +17,21 @@ define([
 ) {
     "use strict";
     
-    let mapStateToProps = function(state) {
+    const mapStateToProps = function(state) {
+        console.log('root - in productList mapStateToProps: ' , state);
         return {
             products: state.products
         };
     };
     
-    let mapDispatchToProps = function(dispatch, props) {
-        return {
-            // loadInitialValues: function() {
-            //     dispatch(
-            //         ActionCreators.loadInitialValues(
-            //         )
-            //     );
-            // }
-        };
-    };
     
+    // const mapDispatchToProps = function(dispatch) {
+    //     return Redux.bindActionCreators(ActionCreators, dispatch);
+    // };
+    
+    const mapDispatchToProps = function(dispatch) {
+        return {actions:Redux.bindActionCreators(ActionCreators, dispatch)};
+    };
     
     // return ProductListRoot;
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);

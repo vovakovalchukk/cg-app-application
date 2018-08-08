@@ -17,7 +17,7 @@ define([
             return {};
         },
         render() {
-            // console.log('in TextCellxtCell with this.props: ', this.props, ' this : ' , this);
+            // console.log('in TextCell with this.props: ', this.props, ' this : ' , this);
             let {columnKey,rowIndex} = this.props;
             
             // let cellValue = tableDataWrapper.getCellData(columnKey,rowIndex)

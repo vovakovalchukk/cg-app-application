@@ -33,7 +33,6 @@ define([
             }
         },
         componentDidMount() {
-            
             console.log('ProductList CDM this.props: ', this.props);
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
@@ -84,7 +83,6 @@ define([
         getList: function() {
             const products = this.props.products.visibleRows;
             // console.log('in getList with products: ', products);
-            //
             
             if (products && products.length <= 0) {
                 return;
@@ -213,6 +211,17 @@ define([
                 }
             );
             
+            //todo - need to pass visible rows to the app
+            //... this way you can have all you need at a cell level to render the necessary data
+            
+            // rowData: stateFilters.getRowData(state.products.visibleRows,creatorObject.rowIndex),
+            //     cellData: stateFilters.getCellData(
+            //     state.products.visibleRows,
+            //     creatorObject.columnKey,
+            //     creatorObject.rowIndex
+            // )
+            
+            
             return columns.map((column, columnIndex) => {
                 let {key,width,fixed,headerText} = column;
                 let createdColumn = columnCreator({
@@ -220,9 +229,12 @@ define([
                     width,
                     headerText,
                     fixed,
-                    columnIndex
+                    columnIndex,
+                    products:this.props.products
                 });
-
+                
+                // todo
+                // context surrounds createdColumn
                 return createdColumn
             })
         },
@@ -255,7 +267,7 @@ define([
             )
         },
         render: function() {
-            // console.log('ProductList render this.props: ',this.props);
+            console.log('ProductList render this.props: ',this.props);
             
             
             return (

@@ -20,14 +20,18 @@ define([
         },
         getInitialState: function() {
             return {
-                // isExpanded:false
+                isExpanded:false
             };
         },
         isParentProduct: function(rowData) {
+            // console.log('rowData: ', rowData);
+            
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
         },
         renderExpandIcon: function(){
             let isParentProduct = this.isParentProduct(this.props.rowData);
+            // console.log('isParentProduct: ', isParentProduct);
+            
             if(!isParentProduct){
                 return;
             }
@@ -39,7 +43,7 @@ define([
                 console.log('not expanded so going to expand');
                 
                 
-                this.props.expandProduct(this.props.rowData.id);
+                // this.props.expandProduct(this.props.rowData.id);
                 this.setState({
                     isExpanded:true
                 },function(){
@@ -57,7 +61,7 @@ define([
             });
         },
         render() {
-            // console.log('in productExpandCell with this.props: ', this.props);
+            console.log('in productExpandCell with this.props: ', this.props, ' this.state: ' , this.state);
             
             // let {columnKey,rowIndex} = this.props;
             // const {data, rowIndex, columnKey, collapsedRows, callback} = this.props;

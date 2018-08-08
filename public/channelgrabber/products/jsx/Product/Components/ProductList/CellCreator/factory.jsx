@@ -27,21 +27,16 @@ define([
         // console.log('in cell creator with creatorObject: ', creatorObject);
         let cellRenderers = getCellComponents();
         let CellContentComponent = cellRenderers[creatorObject.columnKey];
-    
-        const mapStateToProps = getMapStateToProps(creatorObject);
-        const mapDispatchToProps = getMapDispatchToProps(creatorObject);
         
-        const ReduxConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-        
-        let ConnectedCellContentComponent = ReduxConnector(CellContentComponent);
-        
-        if (typeof CellContentComponent !== 'function') {
-            console.error("no function for column renderer column ", column)
-            return
-        }
+        let rowData = stateFilters.getRowData(creatorObject.products.visibleRows, creatorObject.rowIndex);
+        let cellData = stateFilters.getCellData(creatorObject.products.visibleRows, creatorObject.columnKey, creatorObject.rowIndex);
         
         return (<Cell >
-            <ConnectedCellContentComponent {...creatorObject}/>
+            <CellContentComponent
+                {...creatorObject}
+                rowData={rowData}
+                cellData={cellData}
+            />
         </Cell>)
     };
     
@@ -84,7 +79,6 @@ define([
     
     function getMapDispatchToProps(creatorObject){
         // console.log('in getMapDispatchTOProps');
-        
         const {
             expandProduct,
             collapseProduct
