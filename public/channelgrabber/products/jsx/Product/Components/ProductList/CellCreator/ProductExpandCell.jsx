@@ -43,7 +43,7 @@ define([
                 console.log('not expanded so going to expand');
                 
                 
-                // this.props.expandProduct(this.props.rowData.id);
+                this.props.expandProduct(this.props.rowData.id);
                 this.setState({
                     isExpanded:true
                 },function(){

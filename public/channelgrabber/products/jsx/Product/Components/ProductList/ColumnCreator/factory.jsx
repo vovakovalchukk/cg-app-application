@@ -32,7 +32,8 @@ define([
                     return cellCreator({
                         columnKey,
                         rowIndex,
-                        products:column.products
+                        products:column.products,
+                        expandProduct:column.expandProduct
                     })
                 }}
             />
@@ -55,17 +56,6 @@ define([
                 
                 // columnObject={creatorObject}
             />}
-            // cell={(props) => {
-            //     console.log('outside of cell return with props: ' , props , ' and creatorObject: ' ,  creatorObject);
-            //     return (
-            //         //
-            //         <Cell rowObject={creatorObject}>
-            //             <div onClick={()=>{
-            //                 console.log('---inside of cell in debugColumn props.rowObject: ' , props.rowObject);
-            //             }}>click for product log </div>
-            //         </Cell>
-            //     );
-            // }}
         />);
     }
     function renderImageColumn(column) {

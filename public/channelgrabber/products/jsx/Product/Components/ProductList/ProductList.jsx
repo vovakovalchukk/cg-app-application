@@ -230,7 +230,8 @@ define([
                     headerText,
                     fixed,
                     columnIndex,
-                    products:this.props.products
+                    products:this.props.products,
+                    expandProduct:this.props.actions.expandProduct
                 });
                 
                 // todo
