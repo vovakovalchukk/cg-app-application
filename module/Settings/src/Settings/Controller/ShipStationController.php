@@ -2,8 +2,6 @@
 namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Clearbooks\Invoice\Statement;
-use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\AddChannelSpecificVariablesToViewInterface;
 use ShipStation\Account\ChannelSpecificVariables\Factory;
 use Zend\View\Model\ViewModel;
