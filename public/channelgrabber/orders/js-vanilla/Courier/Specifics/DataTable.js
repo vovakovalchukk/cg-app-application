@@ -58,7 +58,8 @@ CourierSpecificsDataTable.labelStatusActions = {
     'printed': {'print': true, 'dispatch': true},
     'cancelled': {'create': true},
     'creating': {},
-    'dispatched': {'cancel': true}
+    'dispatched': {'cancel': true},
+    'rates fetched': {'create': true, 'fetchrates': true}
 };
 
 CourierSpecificsDataTable.columnRenderers = {
@@ -210,7 +211,8 @@ CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
         rowData.exportable,
         rowData.cancellable,
         rowData.dispatchable,
-        rowData.rateable
+        rowData.rateable,
+        rowData.creatable
     );
 };
 
@@ -295,7 +297,7 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
 {
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
     {
-        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled' || aData.labelStatus == 'exported') {
+        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled' || aData.labelStatus == 'exported' || aData.labelStatus == 'rates fetched') {
             return;
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
@@ -407,7 +409,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     return buttonsHtml;
 };
 
-CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable, rateable)
+CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable, rateable, creatable)
 {
     var actions = this.labelStatusActions[labelStatus];
     if (actions['create'] && exportable) {
@@ -423,6 +425,12 @@ CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, expo
         delete actions['dispatch'];
     }
     if (actions['fetchrates'] && !rateable) {
+        delete actions['fetchrates'];
+    }
+    if (actions['create'] && !creatable) {
+        delete actions['create'];
+    }
+    if (actions['fetchrates'] && creatable) {
         delete actions['fetchrates'];
     }
     return actions;

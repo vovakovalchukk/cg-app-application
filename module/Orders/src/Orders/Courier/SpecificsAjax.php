@@ -183,7 +183,7 @@ class SpecificsAjax
 
         $creatable = true;
         if ($providerService instanceof CreateRestrictedInterface) {
-            $creatable = $providerService->isCreateAllowedForOrder($courierAccount, $order);
+            $creatable = $providerService->isCreateAllowedForOrder($courierAccount, $order, $orderLabel);
         }
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
@@ -391,6 +391,7 @@ class SpecificsAjax
             $parcelData['exportable'] = $orderData['exportable'];
             $parcelData['cancellable'] = $orderData['cancellable'];
             $parcelData['rateable'] = $orderData['rateable'];
+            $parcelData['creatable'] = $orderData['creatable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
             $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);

@@ -134,6 +134,7 @@ define([
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
     Service.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
     Service.SELECTOR_ORDER_RATEABLE_TPL = '#datatable input[name="orderInfo[_orderId_][rateable]"]';
+    Service.SELECTOR_ORDER_CREATABLE_TPL = '#datatable input[name="orderInfo[_orderId_][creatable]"]';
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
@@ -649,8 +650,10 @@ define([
         var dispatchable = $(dispatchableSelector).val();
         var rateableSelector = Service.SELECTOR_ORDER_RATEABLE_TPL.replace('_orderId_', orderId);
         var rateable = $(rateableSelector).val();
+        var creatableSelector = Service.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId);
+        var creatable = $(creatableSelector).val();
         var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-            labelStatus, exportable, cancellable, dispatchable, rateable
+            labelStatus, exportable, cancellable, dispatchable, rateable, creatable
         );
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
         $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
@@ -684,6 +687,10 @@ define([
         {
             $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
             $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
+            $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).hide();
+            $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).hide();
+            $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).show();
+            $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).show();
             self.getNotifications().ajaxError(response);
         });
     };
