@@ -2,12 +2,11 @@
 namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
-use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
-use Settings\Controller\AddChannelSpecificVariablesToViewInterface;
-use Zend\View\Model\ViewModel;
-use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Clearbooks\Invoice\Statement;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Controller\AddChannelSpecificVariablesToViewInterface;
+use ShipStation\Account\ChannelSpecificVariables\Factory;
+use Zend\View\Model\ViewModel;
 
 class ShipStationController implements AddChannelSpecificVariablesToViewInterface
 {
@@ -15,22 +14,30 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
     protected $shippingLedgerService;
     protected $viewModelFactory;
     protected $statement;
+    /** @var Factory */
+    protected $factory;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ShippingLedgerService $shippingLedgerService,
-        Statement $statement
+        Statement $statement,
+        Factory $factory
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
         $this->statement = $statement;
+        $this->factory = $factory;
     }
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
     {
-        if ($account->getChannel() != 'usps-ss') {
-            return;
+        $courierSpecificVariablesHandler = ($this->factory)($account);
+        $courierView = $courierSpecificVariablesHandler();
+        if ($courierView) {
+            $view->addChild($courierView, 'courierView');
         }
+
+        // TODO: move this into a Usps class called by the above factory
         $shippingLedger = $this->shippingLedgerService->fetch($account->getRootOrganisationUnitId());
         $view->setVariables([
             'clearbooksStatementUrl' => $this->statement->getSecureUrlFromInsecureUrl($shippingLedger->getClearbooksStatementUrl())
