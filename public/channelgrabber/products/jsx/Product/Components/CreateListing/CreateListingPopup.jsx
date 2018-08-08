@@ -197,6 +197,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 fieldChange={this.props.change}
                 resetSection={this.props.resetSection}
+                selectedProductDetails={this.props.selectedProductDetails}
             />;
         },
         renderProductIdentifiers: function() {
