@@ -28,11 +28,11 @@ define([
             console.log('r- PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS action : ' , action , ' state: ' , state);
             let newState = Object.assign({}, state,{
                 variationsByParent:action.payload
-            })
+            });
             return newState;
         },
         "PRODUCT_EXPAND": function(state, action) {
-            console.log('in product expand with action: ', action, ' state: ', state);
+            console.log('r- in product expand with action: ', action, ' state: ', state);
             let currentVisibleProducts = state.visibleRows.slice();
             let parentProductIndex = null;
             let parentProduct = currentVisibleProducts.find((product, index) => {
@@ -41,17 +41,24 @@ define([
                     return product.id === action.payload.productRowIdToExpand
                 }
             });
-      
-            let rowsToAdd = [];
-            parentProduct.variationIds.forEach(variationId => {
-                //todo - change this to provide something more meaningful later
-                rowsToAdd.push(
-                    {
-                        name: 'name',
-                        sku: 'id - ' + variationId
-                    }
-                );
-            });
+            //
+            // let rowsToAdd = [];
+            console.log('parentProduct to expand on: ', parentProduct);
+            
+            let rowsToAdd = state.variationsByParent[action.payload.productRowIdToExpand];
+            
+            
+            // parentProduct.variationIds.forEach(variationId => {
+            //     //todo - change this to provide something more meaningful later
+            //     // rowsToAdd.push(
+            //     //     {
+            //     //         name: 'name',
+            //     //         sku: 'id - ' + variationId
+            //     //     }
+            //     // );
+            //     rowsToAdd.variationsByParent[]
+            // });
+            console.log('rowsToAdd: ', rowsToAdd);
             
             currentVisibleProducts.splice(
                 parentProductIndex + 1,

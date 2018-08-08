@@ -37,7 +37,7 @@ define([
                 //IF IT DOESN EXIST ALREADY
                 
                 
-                console.log('in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
+                console.log('aq - in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
                 dispatch({
                     type: 'PRODUCT_VARIATIONS_GET_REQUEST'
                 });
@@ -51,9 +51,12 @@ define([
                         type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
                         payload:variationsByParent
                     });
+                    console.log('about to dispatch the product expand...');
                     dispatch({
                         type: 'PRODUCT_EXPAND',
-                        payload:productRowIdToExpand
+                        payload:{
+                            productRowIdToExpand
+                        }
                     });
                 };
                 AjaxHandler.fetchByFilter(filter,fetchProductVariationsCallback);
