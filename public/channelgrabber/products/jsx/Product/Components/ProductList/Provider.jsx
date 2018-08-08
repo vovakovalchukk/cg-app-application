@@ -22,7 +22,8 @@ define([
     var enhancer = Redux.applyMiddleware(thunk.default);
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
         enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            latency: 0
+            latency: 0,
+            name: 'ProductsList'
         })(Redux.applyMiddleware(thunk.default));
     }
     var store = Redux.createStore(
