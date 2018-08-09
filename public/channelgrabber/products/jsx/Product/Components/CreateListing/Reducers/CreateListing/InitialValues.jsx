@@ -58,10 +58,11 @@ define([
                 if (category.channel !== 'ebay') {
                     continue;
                 }
-
-                defaults[categoryId] = Object.assign(data.selectedProductDetails, {
-                    listingDuration: account.listingDuration
-                });
+                let defaultsForCategory = {};
+                if (account.listingDuration) {
+                    defaultsForCategory.listingDuration = account.listingDuration;
+                }
+                defaults[categoryId] = defaultsForCategory;
             }
         }
 

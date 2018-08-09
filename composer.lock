@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1b65cbebb9b992068db623de06b4b2c",
+    "content-hash": "41e7ecbd18673b191bed8bd6e1a424eb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -930,12 +930,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "56a6159f5a22b572abb48f0b0d303b997e16ecee"
+                "reference": "4f6458723b79b2d75e60ba81b704cda1cc36eeba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-179-ebay-pbse-listing-job-generator-1c8485.zip",
-                "reference": "56a6159f5a22b572abb48f0b0d303b997e16ecee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-179-ebay-pbse-listing-job-generator-28327d.zip",
+                "reference": "4f6458723b79b2d75e60ba81b704cda1cc36eeba",
                 "shasum": null
             },
             "require": {
@@ -945,7 +945,6 @@
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/feature-flags": "~2.1.1",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": "dev-TAC-179-ebay-pbse-listing-job-generator as 1.17.4",
@@ -988,7 +987,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-07T09:39:48+00:00"
+            "time": "2018-08-09T08:00:06+00:00"
         },
         {
             "name": "channelgrabber/ekm",

@@ -24,7 +24,8 @@ define([
         },
         validateAccounts: function(values, props) {
             var accountsError = {},
-               accounts = [];
+                accounts = [],
+                siteId;
 
             values && values.accounts && values.accounts.forEach(function(accountId) {
                if (!accountId) {
@@ -64,6 +65,16 @@ define([
                 }
 
                 var accountData = props.product.accounts[accountId];
+                if (accountData.channel == 'ebay') {
+                    siteId = siteId ? siteId : accountData.siteId;
+                    if (siteId !== accountData.siteId) {
+                        accountsError[accountIndex] = JSON.stringify({
+                            message: 'You cannot choose eBay accounts that belong to different marketplaces.'
+                        });
+                        return;
+                    }
+                }
+
                 if (props.productSearchActive && accountData.channel == 'ebay' && !accountData.listingsAuthActive) {
                     accountsError[accountIndex] = JSON.stringify({
                         message: "",
