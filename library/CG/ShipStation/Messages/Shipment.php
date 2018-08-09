@@ -2,6 +2,9 @@
 namespace CG\ShipStation\Messages;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\Entity as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
@@ -40,21 +43,22 @@ class Shipment
 
     public static function createFromOrderAndData(
         Order $order,
-        array $orderData,
-        array $parcelsData,
+        OrderData $orderData,
+        OrderParcelsData $parcelsData,
         Account $shipStationAccount,
         Account $shippingAccount,
         OrganisationUnit $rootOu
     ): Shipment {
         $shipTo = ShipmentAddress::createFromOrder($order);
         $packages = [];
-        foreach ($parcelsData as $parcelData) {
+        /** @var ParcelData $parcelData */
+        foreach ($parcelsData->getParcels() as $parcelData) {
             $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
         }
 
         return new static(
             $shippingAccount->getExternalId(),
-            $orderData['service'],
+            $orderData->getService(),
             $shipTo,
             $shipStationAccount->getExternalDataByKey('warehouseId'),
             static::getUniqueIdForOrder($order),

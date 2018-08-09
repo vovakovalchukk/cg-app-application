@@ -3,6 +3,8 @@ namespace CG\ShipStation\Request\Shipping;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\ShipStation\Messages\Shipment;
 use CG\ShipStation\Messages\ShipmentAddress;
 use CG\ShipStation\RequestAbstract;
@@ -43,16 +45,16 @@ class Shipments extends RequestAbstract
 
     public static function createFromOrdersAndData(
         OrderCollection $orders,
-        array $ordersData,
-        array $orderParcelsData,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
         Account $shipStationAccount,
         Account $shippingAccount,
         OrganisationUnit $rootOu
     ): Shipments {
         $shipments = [];
         foreach ($orders as $order) {
-            $orderData = $ordersData[$order->getId()];
-            $parcelsData = $orderParcelsData[$order->getId()];
+            $orderData = $ordersData->getById($order->getId());
+            $parcelsData = $orderParcelsData->getById($order->getId());
             $shipments[] = Shipment::createFromOrderAndData($order, $orderData, $parcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         }
 
