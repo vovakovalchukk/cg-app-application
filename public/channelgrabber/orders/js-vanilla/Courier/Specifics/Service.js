@@ -145,6 +145,8 @@ define([
     Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
     Service.URI_FETCH_RATES = '/orders/courier/label/fetchRates';
     Service.URI_SERVICE_REQ_OPTIONS = '/orders/courier/specifics/{accountId}/options';
+    Service.LABEL_STATUS_DEFAULT = 'not printed';
+    Service.LABEL_STATUS_RATES_FETCHED = 'rates fetched';
     Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
 
     Service.prototype.listenForTableLoad = function()
@@ -637,21 +639,22 @@ define([
         select.find('.selected-content').text('');
     };
 
-    Service.prototype.markOrderLabelAsReady = function(orderId)
+    Service.prototype.markOrderLabelAsReady = function(orderId, labelStatus)
     {
-        var labelStatus = 'not printed';
+        labelStatus = labelStatus || Service.LABEL_STATUS_DEFAULT;
+
         var labelStatusSelector = Service.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
         $(labelStatusSelector).val(labelStatus);
         var exportableSelector = Service.SELECTOR_ORDER_EXPORTABLE_TPL.replace('_orderId_', orderId);
-        var exportable = $(exportableSelector).val();
+        var exportable = parseInt($(exportableSelector).val());
         var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
-        var cancellable = $(cancellableSelector).val();
+        var cancellable = parseInt($(cancellableSelector).val());
         var dispatchableSelector = Service.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
-        var dispatchable = $(dispatchableSelector).val();
+        var dispatchable = parseInt($(dispatchableSelector).val());
         var rateableSelector = Service.SELECTOR_ORDER_RATEABLE_TPL.replace('_orderId_', orderId);
-        var rateable = $(rateableSelector).val();
+        var rateable = parseInt($(rateableSelector).val());
         var creatableSelector = Service.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId);
-        var creatable = $(creatableSelector).val();
+        var creatable = parseInt($(creatableSelector).val());
         var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
             labelStatus, exportable, cancellable, dispatchable, rateable, creatable
         );
@@ -687,10 +690,6 @@ define([
         {
             $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
             $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
-            $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).hide();
-            $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).hide();
-            $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).show();
-            $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).show();
             self.getNotifications().ajaxError(response);
         });
     };
@@ -707,6 +706,8 @@ define([
             var selectedService = input.val();
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
+            $(Service.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId)).val(1);
+            this.markOrderLabelAsReady(orderId, Service.LABEL_STATUS_RATES_FETCHED);
         }
         this.recordLabelCostsFromRatesResponse(response.rates);
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');

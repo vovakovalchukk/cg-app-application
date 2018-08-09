@@ -59,7 +59,7 @@ CourierSpecificsDataTable.labelStatusActions = {
     'cancelled': {'create': true},
     'creating': {},
     'dispatched': {'cancel': true},
-    'rates fetched': {'create': true, 'fetchrates': true}
+    'rates fetched': {'create': true}
 };
 
 CourierSpecificsDataTable.columnRenderers = {
