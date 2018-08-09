@@ -2,9 +2,11 @@
 
 use CG\ShipStation\Account as AccountService;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
+use CG\ShipStation\Account\Usps as UspsAccountConnector;
 use CG\ShipStation\Carrier\Label\Creator as LabelCreator;
 use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
+use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
 use Guzzle\Http\Client as GuzzleClient;
 
 return [
@@ -23,6 +25,16 @@ return [
                 ]
             ],
             AccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            UspsAccountMapper::class => [
+                'parameters' => [
+                    'cryptor' => 'shipstation_cryptor',
+                ]
+            ],
+            UspsAccountConnector::class => [
                 'parameters' => [
                     'cryptor' => 'shipstation_cryptor',
                 ]
@@ -246,6 +258,13 @@ return [
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'height' => 'height',
+                                'width' => 'width',
+                                'length' => 'length',
+                                'cost' => 'cost',
+                            ]
                         ],
                     ],
                     'defaultBookingOptions' => [

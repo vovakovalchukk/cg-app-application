@@ -13,10 +13,11 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
+            PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . '/template',
         ],
         'template_map' => [
             ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . 'ShipStation' => dirname(__DIR__) . '/view/ship-station/settings_account.phtml',
-        ]
+        ],
     ],
     'router' => [
         'routes' => [

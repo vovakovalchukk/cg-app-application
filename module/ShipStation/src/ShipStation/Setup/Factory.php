@@ -1,16 +1,17 @@
 <?php
 namespace ShipStation\Setup;
 
-use ShipStation\SetupInterface;
-use ShipStation\Setup\Other;
-use function CG\Stdlib\hyphenToClassname;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG\ShipStation\GetClassNameForChannelTrait;
+use ShipStation\SetupInterface;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\Plugin\Redirect as RedirectHelper;
 use Zend\Mvc\Controller\Plugin\Url as UrlHelper;
 
 class Factory
 {
+    use GetClassNameForChannelTrait;
+
     /** @var DI */
     protected $di;
 
@@ -38,10 +39,5 @@ class Factory
             throw new \RuntimeException($className . ' does not implement ' . SetupInterface::class);
         }
         return $class;
-    }
-
-    protected function getClassNameForChannel(string $channel)
-    {
-        return hyphenToClassname(preg_replace('/-ss$/', '', $channel));
     }
 }

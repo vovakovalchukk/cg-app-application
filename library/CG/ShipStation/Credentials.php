@@ -46,4 +46,9 @@ class Credentials implements CredentialsInterface
         $this->data[$field] = $value;
         return $this;
     }
+
+    public function has(string $field): bool
+    {
+        return isset($this->data[$field]);
+    }
 }
