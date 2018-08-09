@@ -134,7 +134,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         );
     }
 
-    public function isCreateAllowedForOrder(Account $shippingAccount, Order $order, OrderLabel $orderLabel = null)
+    public function isCreateAllowedForOrder(Account $shippingAccount, Order $order, OrderLabel $orderLabel = null): bool
     {
         if ($orderLabel === null || $orderLabel->getStatus() !== OrderLabelStatus::RATES_FETCHED) {
             return false;
