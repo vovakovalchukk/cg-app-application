@@ -33,33 +33,42 @@ define([
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
                 
-                //todo need to do something where it pulls on existing data if they exist
-                //IF IT DOESN EXIST ALREADY
-                
-                
-                console.log('aq - in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
-                dispatch({
-                    type: 'PRODUCT_VARIATIONS_GET_REQUEST'
-                });
+                return new Promise(function(resolve, reject) {
+                    //todo need to do something where it pulls on existing data if they exist
+                    //IF IT DOESN EXIST ALREADY
     
-                var filter = new ProductFilter(null, productRowIdToExpand);
+    
+                    console.log('aq - in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
+                    dispatch({
+                        type: 'PRODUCT_VARIATIONS_GET_REQUEST'
+                    });
+    
+                    var filter = new ProductFilter(null, productRowIdToExpand);
+    
+                    let fetchProductVariationsCallback = function(data){
+                        // console.log('data.products: ', data.products);
+                        var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                        dispatch({
+                            type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
+                            payload:variationsByParent
+                        });
+                        // console.log('about to dispatch the product expand...');
+                        dispatch({
+                            type: 'PRODUCT_EXPAND',
+                            payload:{
+                                productRowIdToExpand
+                            }
+                        });
+                        
+                        resolve({
+                            productRowIdExpanded:productRowIdToExpand
+                        });
+                        
+                    };
+                    AjaxHandler.fetchByFilter(filter,fetchProductVariationsCallback);
+    
+                })
                 
-                let fetchProductVariationsCallback = function(data){
-                    // console.log('data.products: ', data.products);
-                    var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
-                    dispatch({
-                        type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
-                        payload:variationsByParent
-                    });
-                    // console.log('about to dispatch the product expand...');
-                    dispatch({
-                        type: 'PRODUCT_EXPAND',
-                        payload:{
-                            productRowIdToExpand
-                        }
-                    });
-                };
-                AjaxHandler.fetchByFilter(filter,fetchProductVariationsCallback);
             }
         },
         collapseProduct:(productRowIdToCollapse )=>{
