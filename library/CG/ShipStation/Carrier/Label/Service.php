@@ -3,6 +3,7 @@ namespace CG\ShipStation\Carrier\Label;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as ShippingProviderCancelInterface;
+use CG\Channel\Shipping\Provider\Service\CreateRestrictedInterface;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as ShippingProviderFetchRatesInterface;
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as ShippingRateCollection;
 use CG\Channel\Shipping\Provider\ServiceInterface as ShippingProviderServiceInterface;
@@ -11,14 +12,16 @@ use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
+use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Rates\Service as RatesService;
 use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 
-class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface
+class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, CreateRestrictedInterface
 {
     /** @var CarrierService */
     protected $carrierServive;
@@ -129,5 +132,13 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             $rootOu,
             $shippingAccount
         );
+    }
+
+    public function isCreateAllowedForOrder(Account $shippingAccount, Order $order, OrderLabel $orderLabel = null)
+    {
+        if ($orderLabel === null || $orderLabel->getStatus() !== OrderLabelStatus::RATES_FETCHED) {
+            return false;
+        }
+        return true;
     }
 }

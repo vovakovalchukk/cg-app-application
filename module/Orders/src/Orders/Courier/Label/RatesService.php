@@ -27,12 +27,14 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 
 class RatesService implements LoggerAwareInterface
 {
     use LogTrait;
 
     const LOG_CODE = 'OrderCourierLabelRatesService';
+    const LOG_UPDATE = 'Updating OrderLabel to rates fetched for Order %s';
 
     /** @var AccountService */
     protected $accountService;
@@ -108,7 +110,7 @@ class RatesService implements LoggerAwareInterface
         $carrier = $this->carrierProviderServiceRepo->getProviderForAccount($shippingAccount);
 
         $this->logDebug('Fetching shipping rates for orders %s with shipping account %d', [implode(',', $orders->getIds()), $shippingAccount->getId()], [static::LOG_CODE, 'FetchRates']);
-        return $carrier->fetchRatesForOrders(
+        $shippingRates = $carrier->fetchRatesForOrders(
             $orders,
             $ordersData,
             $ordersParcelsData,
@@ -116,6 +118,14 @@ class RatesService implements LoggerAwareInterface
             $rootOu,
             $shippingAccount
         );
+        $orderLabels = $this->getOrCreateOrderLabelsForOrders(
+            $orders,
+            $ordersData,
+            $ordersParcelsData,
+            $shippingAccount
+        );
+        $this->updateOrderLabelStatus($orderLabels, OrderLabelStatus::RATES_FETCHED);
+        return $shippingRates;
     }
 
     protected function addShippingChargeToRates(
