@@ -109,7 +109,7 @@ define([
         renderProduct: function (product) {
             return <div
                 className={this.getProductContainerClassName(product)}
-                onClick={this.markProductAsSelected.bind(this, product)}
+                onClick={this.toggleProductSelection.bind(this, product)}
             >
                 {this.renderProductTitle(product)}
                 <span className="search-product-details-container">
@@ -125,7 +125,7 @@ define([
             }
             return className;
         },
-        markProductAsSelected: function (product) {
+        toggleProductSelection: function (product) {
             if (product.epid === this.state.selectedProduct.epid) {
                 this.setState({
                     selectedProduct: {}
@@ -191,7 +191,7 @@ define([
 
             return itemSpecifics;
         },
-        selectProduct: function() {
+        proceedWithSelectedProduct: function() {
             let product = this.state.selectedProduct;
 
             if (Object.keys(product).length === 0) {
@@ -211,7 +211,7 @@ define([
                     headerText={"Create a listing"}
                     yesButtonText={"Select"}
                     noButtonText={"Cancel"}
-                    onYesButtonPressed={this.selectProduct}
+                    onYesButtonPressed={this.proceedWithSelectedProduct}
                     onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.createListingData.product)}
                     onNoButtonPressed={this.props.onCreateListingClose}
                     yesButtonDisabled={Object.keys(this.state.selectedProduct).length === 0}
