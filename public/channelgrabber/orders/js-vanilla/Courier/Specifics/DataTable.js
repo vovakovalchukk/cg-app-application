@@ -27,7 +27,7 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
                 .disableInputsForNonRequiredOptions()
-                .listenForPreventCreation();
+                .listenForDimensionsChange();
         });
         dataTable.on('fnServerData fnPreRowsUpdatedCallback', function()
         {
@@ -53,7 +53,7 @@ CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actio
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
 CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS = '.courier-order-dimension';
 CourierSpecificsDataTable.LABEL_STATUS_DEFAULT = 'not printed';
-CourierSpecificsDataTable.LABEL_STATUS_cancelled = 'cancelled';
+CourierSpecificsDataTable.LABEL_STATUS_CANCELLED = 'cancelled';
 CourierSpecificsDataTable.LABEL_STATUS_RATES_FETCHED = 'rates fetched';
 CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
 CourierSpecificsDataTable.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
@@ -67,13 +67,15 @@ CourierSpecificsDataTable.SELECTOR_ORDER_RATEABLE_TPL = '#datatable input[name="
 CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL = '#datatable input[name="orderInfo[_orderId_][creatable]"]';
 CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
 CourierSpecificsDataTable.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
+CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON = '#fetchrates-all-labels-button-shadow';
+CourierSpecificsDataTable.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button-shadow';
 
 CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true, 'export': true, 'fetchrates': true},
     'exported': {"export": true},
     'not printed': {'print': true, 'cancel': true, 'dispatch': true},
     'printed': {'print': true, 'dispatch': true},
-    'cancelled': {'create': true},
+    'cancelled': {'create': true, 'fetchrates': true},
     'creating': {},
     'dispatched': {'cancel': true},
     'rates fetched': {'create': true, 'fetchrates': true}
@@ -413,37 +415,24 @@ CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, expo
     var actions = this.labelStatusActions[labelStatus];
     if (actions['create'] && exportable) {
         delete actions['create'];
-        console.log(1);
     }
     if (actions['export'] && !exportable) {
         delete actions['export'];
-        console.log(2);
-
     }
     if (actions['cancel'] && !cancellable) {
         delete actions['cancel'];
-        console.log(3);
-
     }
     if (actions['dispatch'] && !dispatchable) {
         delete actions['dispatch'];
-        console.log(4);
-
     }
     if (actions['fetchrates'] && !rateable) {
         delete actions['fetchrates'];
-        console.log(5);
-
     }
     if (actions['create'] && !creatable) {
         delete actions['create'];
-        console.log(6);
-
     }
     if (actions['fetchrates'] && creatable) {
         delete actions['fetchrates'];
-        console.log(7);
-
     }
     return actions;
 };
@@ -452,6 +441,7 @@ CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
 {
     $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
     var actions = this.distinctStatusActions;
+    console.log(actions);
     // If there's items still left to be created then only show pre-creation actions
     if (actions.create) {
         var createActions = {"create": true};
@@ -504,21 +494,24 @@ CourierSpecificsDataTable.prototype.resetOrderLabelStatus = function(orderId, la
     var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, labelStatus);
 
     var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-        labelStatus, values.exportable, values.cancellable, values.dispatchable, values.rateable, values.creatable
+        labelStatus, values.exportable, values.cancellable, values.dispatchable, values.rateable, 0
     );
 
     var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
     $(CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
 }
 
-CourierSpecificsDataTable.prototype.listenForPreventCreation = function()
+CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 {
     var self = this;
     $(document).on("change", CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS, function() {
         var orderId = $(this).parents('.courier-parcel-row').siblings('.courier-order-row').attr("id").replace('courier-order-row_', '');
         var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_DEFAULT);
         if (values.creatable && values.rateable) {
-            self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_DEFAULT);
+            self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
+            self.setBulkActionButtons();
+            $(CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON).show();
+            $(CourierSpecificsDataTable.SELECTOR_CREATE_ALL_LABELS_BUTTON).hide();
         }
     });
     return this;
