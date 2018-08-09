@@ -29,7 +29,7 @@ use CG\User\OrganisationUnit\Service as UserOuService;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 
-class RatesService implements LoggerAwareInterface
+class RatesService extends ServiceAbstract
 {
     use LogTrait;
 
