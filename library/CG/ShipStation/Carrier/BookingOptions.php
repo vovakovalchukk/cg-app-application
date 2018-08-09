@@ -78,6 +78,6 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         if (isset($this->courierActionsMap[$channel], $this->courierActionsMap[$channel]['create'])) {
             return $this->courierActionsMap[$channel]['createAll'];
         }
-        return 'Create all label';
+        return 'Create all labels';
     }
 }

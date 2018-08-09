@@ -31,6 +31,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_OPTIONS = 'Options';
     const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
+    const ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE = 'Fetch Shipping Ledger Balance';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
@@ -547,9 +548,29 @@ class CourierJsonController extends AbstractActionController
         $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
         $ordersItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
 
-        $rates = $this->ratesService->fetchRates(
-            $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
-        );
-        return $this->jsonModelFactory->newInstance(['rates' => $rates->toArray()]);
+        try {
+            $rates = $this->ratesService->fetchRates(
+                $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
+            );
+            return $this->jsonModelFactory->newInstance(['rates' => $rates->toArray()]);
+
+        } catch (ValidationMessagesException $e) {
+            $errors = $this->convertValidationMessagesExceptionToArray($e);
+            return $this->jsonModelFactory->newInstance(['rates' => [], 'errors' => $errors]);
+        }
+    }
+
+    protected function convertValidationMessagesExceptionToArray(ValidationMessagesException $e): array
+    {
+        return array_map(function($orderExternalId, $error)
+        {
+            return $orderExternalId . ': ' . $error;
+        }, array_keys($e->getErrors()), array_values($e->getErrors()));
+    }
+
+    public function fetchShippingLedgerBalanceAction()
+    {
+        $shippingLedger = $this->specificsAjaxService->getShippingLedgerForActiveUser();
+        return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }
 }

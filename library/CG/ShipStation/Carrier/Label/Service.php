@@ -1,7 +1,6 @@
 <?php
 namespace CG\ShipStation\Carrier\Label;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as ShippingProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\CreateRestrictedInterface;
@@ -18,6 +17,7 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Rates\Service as RatesService;
 use CG\ShipStation\Carrier\Service as CarrierService;
+use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 
@@ -25,8 +25,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
 {
     /** @var CarrierService */
     protected $carrierServive;
-    /** @var AccountService */
-    protected $accountService;
+    /** @var ShipStationService */
+    protected $shipStationService;
     /** @var Creator */
     protected $labelCreator;
     /** @var Canceller */
@@ -40,13 +40,13 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
 
     public function __construct(
         CarrierService $carrierServive,
-        AccountService $accountService,
+        ShipStationService $shipStationService,
         Creator $labelCreator,
         Canceller $labelCanceller,
         RatesService $ratesService
     ) {
         $this->carrierServive = $carrierServive;
-        $this->accountService = $accountService;
+        $this->shipStationService = $shipStationService;
         $this->labelCreator = $labelCreator;
         $this->labelCanceller = $labelCanceller;
         $this->ratesService = $ratesService;
@@ -81,7 +81,11 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         Account $shippingAccount,
         User $user
     ) {
-        $shipStationAccount = $this->getShipStationAccountForShippingAccount($shippingAccount);
+        // If / when TECH-92 is done we'll be passed these objects instead of the arrays and so wont need these lines any more
+        $ordersData = OrderDataCollection::fromArray($ordersData);
+        $orderParcelsData = OrderParcelsDataCollection::fromArray($orderParcelsData);
+
+        $shipStationAccount = $this->shipStationService->getShipStationAccountForShippingAccount($shippingAccount);
         return $this->labelCreator->createLabelsForOrders(
             $orders,
             $orderLabels,
@@ -103,14 +107,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         OrderCollection $orders,
         Account $shippingAccount
     ) {
-        $shipStationAccount = $this->getShipStationAccountForShippingAccount($shippingAccount);
+        $shipStationAccount = $this->shipStationService->getShipStationAccountForShippingAccount($shippingAccount);
         $this->labelCanceller->cancelOrderLabels($orderLabels, $orders, $shippingAccount, $shipStationAccount);
-    }
-
-    protected function getShipStationAccountForShippingAccount(Account $shippingAccount): Account
-    {
-        $shipStationAccountId = $shippingAccount->getExternalDataByKey('shipstationAccountId');
-        return $this->accountService->fetch($shipStationAccountId);
     }
 
     public function isFetchRatesAllowedForOrder(Account $shippingAccount, Order $order): bool
