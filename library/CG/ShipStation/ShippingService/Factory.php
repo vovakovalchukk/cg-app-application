@@ -3,11 +3,13 @@ namespace CG\ShipStation\ShippingService;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
-use function CG\Stdlib\hyphenToClassname;
+use CG\ShipStation\GetClassNameForChannelTrait;
 use Zend\Di\Di;
 
 class Factory
 {
+    use GetClassNameForChannelTrait;
+
     /** @var Di */
     protected $di;
 
@@ -27,10 +29,5 @@ class Factory
             throw new \RuntimeException($className . ' does not implement ' . ShippingServiceInterface::class);
         }
         return $class;
-    }
-
-    protected function getClassNameForChannel(string $channel)
-    {
-        return hyphenToClassname(preg_replace('/-ss$/', '', $channel));
     }
 }

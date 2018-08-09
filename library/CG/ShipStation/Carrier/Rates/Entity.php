@@ -2,6 +2,7 @@
 namespace CG\ShipStation\Carrier\Rates;
 
 use CG\Channel\Shipping\Provider\Service\ShippingRateInterface;
+use CG\ShipStation\Messages\Rate;
 
 class Entity implements ShippingRateInterface
 {
@@ -25,14 +26,14 @@ class Entity implements ShippingRateInterface
         $this->currencyCode = $currencyCode;
     }
 
-    public static function fromShipEngineRateData(array $data): Entity
+    public static function fromShipEngineRate(Rate $rate): Entity
     {
         return new static(
-            $data['rate_id'],
-            $data['service_type'],
-            $data['service_code'],
-            $data['shipping_amount']['amount'],
-            $data['shipping_amount']['currency']
+            $rate->getRateId(),
+            $rate->getServiceType(),
+            $rate->getServiceCode(),
+            $rate->getShippingAmount()->getAmount(),
+            $rate->getShippingAmount()->getCurrency()
         );
     }
 
@@ -59,5 +60,12 @@ class Entity implements ShippingRateInterface
     public function getCurrencyCode(): string
     {
         return $this->currencyCode;
+    }
+
+    // Cost can be overridden when we add our margin on to it
+    public function setCost(float $cost): Entity
+    {
+        $this->cost = $cost;
+        return $this;
     }
 }
