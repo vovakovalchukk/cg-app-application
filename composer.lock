@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2ae802e5fa30ed8fe133a8ed074279d",
+    "content-hash": "1e6470722c0bdbe824eb7b3a34e62aea",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -151,23 +151,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
+            "version": "1.27.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "3453cc4833957e927653dae62968edd3156d49b2"
+                "reference": "1e59aafb37af69e40b76a45e43d657d6888ef7f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-TAC-118-ship-action-fetch-rates-d38171.zip",
-                "reference": "3453cc4833957e927653dae62968edd3156d49b2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.5-1d0da4.zip",
+                "reference": "1e59aafb37af69e40b76a45e43d657d6888ef7f2",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-TAC-118-ship-action-fetch-rates as 1.37.0",
+                "channelgrabber/channel": "^1.37.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -215,7 +215,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-08-01T09:30:55+00:00"
+            "time": "2018-08-07T14:45:31+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -304,16 +304,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "1.19.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "4c1ae841a37420f7998697e271a8bcaefb8dac36"
+                "reference": "301bbf4f3b9520f60c1dc4344025d3efe1b535a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-125-fetch-usps-rates-379a78.zip",
-                "reference": "4c1ae841a37420f7998697e271a8bcaefb8dac36",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.1-9229f0.zip",
+                "reference": "301bbf4f3b9520f60c1dc4344025d3efe1b535a3",
                 "shasum": null
             },
             "require": {
@@ -345,7 +345,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-9469-ou-vat-status-override": "1.16.x-dev"
+                    "TAC-121-usps-balance-and-topup": "1.17.6-dev"
                 }
             },
             "autoload": {
@@ -363,7 +363,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-01T08:40:40+00:00"
+            "time": "2018-08-09T08:47:09+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -523,16 +523,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "1.37.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5a546a2fb941b707d948137dc9d4da986dd3537e"
+                "reference": "4397946b600683c73a965cdf3fd8c6c73280da09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-125-fetch-usps-rates-cf1306.zip",
-                "reference": "5a546a2fb941b707d948137dc9d4da986dd3537e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.37.2-4b893b.zip",
+                "reference": "4397946b600683c73a965cdf3fd8c6c73280da09",
                 "shasum": null
             },
             "require": {
@@ -607,7 +607,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-01T09:10:41+00:00"
+            "time": "2018-08-09T08:47:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -643,26 +643,26 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.10.0",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb"
+                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.10.0-6d1481.zip",
-                "reference": "2f9813bfb565fc89a6afae88694dcc11be7e62cb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.1-8196e7.zip",
+                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.1",
+                "channelgrabber/billing": "^1.17.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.4.0",
-                "channelgrabber/settings": "^1.2.0",
+                "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.10.6",
                 "channelgrabber/user": "^1.25.0",
                 "php": ">=7.1"
@@ -682,7 +682,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-06-20T14:48:58+00:00"
+            "time": "2018-08-02T12:51:50+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1843,11 +1843,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-125-fetch-usps-rates",
+            "version": "1.39.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3ac64930fa9f5842626a5ac76abf8292ff2de62f"
+                "reference": "96657787ffe13bed53dd7d859943c5d4260ff59b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.2-11c99c.zip",
+                "reference": "96657787ffe13bed53dd7d859943c5d4260ff59b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1917,24 +1923,24 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-08-01T09:15:06+00:00"
+            "time": "2018-08-09T08:47:47+00:00"
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.9.1",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "3abe0948359946925bb85c931810600a1fd03c89"
+                "reference": "0b3131a6417ef30ac70f3287f1c01cd7c0ab0895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.9.1-e56ec1.zip",
-                "reference": "3abe0948359946925bb85c931810600a1fd03c89",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.0-e7c015.zip",
+                "reference": "0b3131a6417ef30ac70f3287f1c01cd7c0ab0895",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.17.4",
+                "channelgrabber/billing": "^1.19.0",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1955,6 +1961,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "TAC-121-usps-balance-and-topup": "1.9.2-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -1968,7 +1979,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-07-24T14:14:45+00:00"
+            "time": "2018-08-02T13:10:02+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4453,16 +4464,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-108-add-usps-courier",
+            "version": "1.23.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1d4019600e207c608e5296e36613e2d58608adfb"
+                "reference": "540b86a32e681cf24fdc66d42bf9a90a4e938e2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-108-add-usps-courier-399800.zip",
-                "reference": "1d4019600e207c608e5296e36613e2d58608adfb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.15-1daf83.zip",
+                "reference": "540b86a32e681cf24fdc66d42bf9a90a4e938e2e",
                 "shasum": null
             },
             "require": {
@@ -4514,7 +4525,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-01T07:58:51+00:00"
+            "time": "2018-08-07T15:33:29+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8408,7 +8419,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8463,7 +8474,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8518,7 +8529,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8569,7 +8580,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8655,7 +8666,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -9952,46 +9963,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.27.2",
-            "alias_normalized": "1.27.2.0",
-            "version": "dev-TAC-118-ship-action-fetch-rates",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.17.5",
-            "alias_normalized": "1.17.5.0",
-            "version": "dev-TAC-125-fetch-usps-rates",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "dev-TAC-118-ship-action-fetch-rates",
-            "alias_normalized": "dev-TAC-118-ship-action-fetch-rates",
-            "version": "dev-TAC-125-fetch-usps-rates",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.38.9",
-            "alias_normalized": "1.38.9.0",
-            "version": "dev-TAC-125-fetch-usps-rates",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.23.10",
-            "alias_normalized": "1.23.10.0",
-            "version": "dev-TAC-108-add-usps-courier",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/billing": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

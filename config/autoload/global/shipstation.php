@@ -263,6 +263,7 @@ return [
                                 'height' => 'height',
                                 'width' => 'width',
                                 'length' => 'length',
+                                'cost' => 'cost',
                             ]
                         ],
                     ],

@@ -184,6 +184,11 @@ use CG\Stdlib\Sites;
 use CG\Settings\PackageRules\StorageInterface as PackageRulesStorage;
 use CG\Settings\PackageRules\Storage\Api as PackageRulesApiStorage;
 
+// Shipping Ledger
+use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
+use CG\Billing\Shipping\Ledger\Storage\Api as ShippingLedgerApi;
+use CG\Billing\Shipping\Ledger\Mapper as ShippingLedgerMapper;
+
 use CG\Email\Smtp;
 
 $config = array(
@@ -659,6 +664,22 @@ $config = array(
                 'parameters' => [
                     'client' => 'imagetemplate_guzzle',
                 ],
+            ],
+            ShippingLedgerService::class => [
+                'parameters' => [
+                    'repository' => ShippingLedgerApi::class,
+                    'mapper' => ShippingLedgerMapper::class
+                ]
+            ],
+            ShippingLedgerApi::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle',
+                ]
+            ],
+            ListingApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
             ],
         ),
     ),
