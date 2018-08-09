@@ -9,6 +9,8 @@ use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Controller\ChannelController;
+use Settings\Module as SettingsModule;
 use ShipStation\Setup\Factory as SetupFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -88,5 +90,10 @@ class AccountController extends AbstractActionController
         $url .= '/' . $accountEntity->getId();
         $view->setVariable('redirectUrl', $url);
         return $view;
+    }
+
+    protected function getAccountRoute()
+    {
+        return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS]);
     }
 }
