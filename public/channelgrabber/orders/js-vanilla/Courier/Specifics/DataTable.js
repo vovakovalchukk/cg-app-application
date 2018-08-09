@@ -411,7 +411,6 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
 
 CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable, rateable, creatable)
 {
-    console.log(labelStatus, exportable, cancellable, dispatchable, rateable, creatable);
     var actions = this.labelStatusActions[labelStatus];
     if (actions['create'] && exportable) {
         delete actions['create'];
@@ -441,7 +440,6 @@ CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
 {
     $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
     var actions = this.distinctStatusActions;
-    console.log(actions);
     // If there's items still left to be created then only show pre-creation actions
     if (actions.create) {
         var createActions = {"create": true};
