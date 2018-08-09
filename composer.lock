@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13978a5a5c97794878834f72b72dabe2",
+    "content-hash": "d8a9b9e9af115f706676f7b1bac8e621",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -523,16 +523,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.37.0",
+            "version": "1.37.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c022857a1b3d53c4a8500d7fcc7c6142d634ec54"
+                "reference": "4397946b600683c73a965cdf3fd8c6c73280da09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.37.0-5a6061.zip",
-                "reference": "c022857a1b3d53c4a8500d7fcc7c6142d634ec54",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.37.2-4b893b.zip",
+                "reference": "4397946b600683c73a965cdf3fd8c6c73280da09",
                 "shasum": null
             },
             "require": {
@@ -588,6 +588,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-TAC-125-fetch-usps-rates": "1.37.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -602,7 +607,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-07T14:29:31+00:00"
+            "time": "2018-08-09T08:47:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1838,16 +1843,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.39.1",
+            "version": "1.39.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e62d7a2cb6c19a5edcc887c6d17dbcc23762561c"
+                "reference": "96657787ffe13bed53dd7d859943c5d4260ff59b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.1-b7df52.zip",
-                "reference": "e62d7a2cb6c19a5edcc887c6d17dbcc23762561c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.2-11c99c.zip",
+                "reference": "96657787ffe13bed53dd7d859943c5d4260ff59b",
                 "shasum": null
             },
             "require": {
@@ -1918,7 +1923,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-08-07T15:12:57+00:00"
+            "time": "2018-08-09T08:47:47+00:00"
         },
         {
             "name": "channelgrabber/payment",
