@@ -505,7 +505,10 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 {
     var self = this;
     $(document).on("change", CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS, function() {
-        var orderId = $(this).parents('.courier-parcel-row').siblings('.courier-order-row').attr("id").replace('courier-order-row_', '');
+        var orderId = self.getOrderIdForParcelInput($(this));
+        if (orderId === null) {
+            return;
+        }
         var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_DEFAULT);
         if (values.creatable && values.rateable) {
             self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
@@ -515,4 +518,15 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
         }
     });
     return this;
+}
+
+CourierSpecificsDataTable.prototype.getOrderIdForParcelInput = function(element)
+{
+    var orderIdReference = $(element).parents('.courier-order-row').attr("id")
+        || $(element).parents('.courier-item-row').siblings('.courier-order-row').attr("id")
+        || $(element).parents('.courier-parcel-row').siblings('.courier-order-row').attr("id");
+    if (orderIdReference === undefined) {
+        return null;
+    }
+    return orderIdReference.replace('courier-order-row_', '');
 }
