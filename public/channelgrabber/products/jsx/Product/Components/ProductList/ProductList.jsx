@@ -138,6 +138,9 @@ define([
                         {this.renderSearchBox()}
                         {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     </div>
+                    <div className={"products-tabs-container"}>
+                        this is where the tabs be
+                    </div>
                     <div
                         className='products-list__container'
                         ref={(productsListContainer) => this.productsListContainer = productsListContainer}

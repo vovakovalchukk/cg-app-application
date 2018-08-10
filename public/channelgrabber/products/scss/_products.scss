@@ -742,6 +742,8 @@ $medium-margin-distance: 2rem;
 $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
+$navbar-height:50px;
+$tabs-container-height:50px;
 
 .navbar-strip {
     &__button {
@@ -790,5 +792,11 @@ $vertical-margin: 3px;
 
 .tooltip-hover {
     z-index: 99999;
+}
+
+.products-tabs-container{
+    position:relative;
+    top: $navbar-height;
+    height:$tabs-container-height;
 }
 
