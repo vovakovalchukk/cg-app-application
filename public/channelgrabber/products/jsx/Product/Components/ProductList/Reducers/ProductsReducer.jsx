@@ -99,8 +99,6 @@ define([
             let newState = Object.assign({}, state, {
                 visibleRows: currentVisibleProducts
             });
-            console.log('newState after collapse: ', newState);
-            
             return newState;
         }
         

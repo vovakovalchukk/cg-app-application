@@ -48,10 +48,7 @@ define([
             }
             if(!rowData.expandStatus || rowData.expandStatus === 'collapsed'){
                 console.log('not expanded so going to expand this.getRowData(): ' , this.getRowData());
-                this.props.actions.expandProduct(rowData.id).then((resp)=>{
-                    //
-                });
-                
+                this.props.actions.expandProduct(rowData.id)
                 return;
             }
             // console.log('expanded so going to collapse');

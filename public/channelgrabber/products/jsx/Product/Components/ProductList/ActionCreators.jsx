@@ -32,60 +32,47 @@ define([
         },
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
+                // console.log('aq - in epxandProduct with productRowIdToExpand: ', productRowIdToExpand);
+                dispatch({
+                    type: 'PRODUCT_VARIATIONS_GET_REQUEST'
+                });
+                dispatch({
+                    type: 'PRODUCT_EXPAND_REQUEST',
+                    payload: {
+                        productRowIdToExpand: productRowIdToExpand
+                    }
+                });
                 
-                return new Promise(function(resolve, reject) {
-                    //todo need to do something where it pulls on existing data if they exist
-                    //IF IT DOESN EXIST ALREADY
-    
-    
-                    console.log('aq - in epxandProduct with productRowIdToExpand: ' , productRowIdToExpand);
+                var filter = new ProductFilter(null, productRowIdToExpand);
+                
+                AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
+                
+                function fetchProductVariationsCallback(data) {
+                    var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
                     dispatch({
-                        type: 'PRODUCT_VARIATIONS_GET_REQUEST'
+                        type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
+                        payload: variationsByParent
                     });
+                    // console.log('about to dispatch the product expand...');
                     dispatch({
-                        type: 'PRODUCT_EXPAND_REQUEST',
-                        payload:{
-                            productRowIdToExpand:productRowIdToExpand
+                        type: 'PRODUCT_EXPAND_SUCCESS',
+                        payload: {
+                            productRowIdToExpand
                         }
                     });
-                    
-                    var filter = new ProductFilter(null, productRowIdToExpand);
-    
-                    let fetchProductVariationsCallback = function(data){
-                        // console.log('data.products: ', data.products);
-                        var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
-                        dispatch({
-                            type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
-                            payload:variationsByParent
-                        });
-                        // console.log('about to dispatch the product expand...');
-                        dispatch({
-                            type: 'PRODUCT_EXPAND_SUCCESS',
-                            payload:{
-                                productRowIdToExpand
-                            }
-                        });
-                        
-                        resolve({
-                            productRowIdExpanded:productRowIdToExpand
-                        });
-                        
-                    };
-                    AjaxHandler.fetchByFilter(filter,fetchProductVariationsCallback);
-    
-                })
-                
+                }
             }
         },
-        collapseProduct:(productRowIdToCollapse )=>{
-            return{
-                type:"PRODUCT_COLLAPSE",
-                payload:{
+        collapseProduct: (productRowIdToCollapse) => {
+            return {
+                type: "PRODUCT_COLLAPSE",
+                payload: {
                     productRowIdToCollapse
                 }
             }
         }
     };
+    
     function sortVariationsByParentId(newVariations, parentProductId) {
         var variationsByParent = {};
         // if (parentProductId) {
