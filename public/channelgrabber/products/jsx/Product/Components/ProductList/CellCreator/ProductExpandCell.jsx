@@ -19,14 +19,8 @@ define([
                 rowIndex:null
             };
         },
-        getInitialState: function() {
-            // console.log('productExpandCell GIS this.propps: ', this.props);
-            this.rowData = stateFilters.getRowData(this.props.products, this.props.rowIndex);
-            return null;
-        },
-        componentDidUpdate: function(){
-            // console.log('ProductExpandCell componentDidUpdate this.props',this.props);
-            this.rowData = stateFilters.getRowData(this.props.products, this.props.rowIndex);
+        getRowData:function(){
+            return stateFilters.getRowData(this.props.products, this.props.rowIndex)
         },
         isParentProduct: function(rowData) {
             // console.log('rowData: ', rowData);
@@ -34,35 +28,37 @@ define([
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
         },
         renderExpandIcon: function(){
+            let rowData = this.getRowData();
             // console.log('in renderExpandIcon this.rowData.expandStatus: ', this.rowData.expandStatus);
-            let isParentProduct = this.isParentProduct(this.rowData);
+            let isParentProduct = this.isParentProduct(rowData);
             if(!isParentProduct){
                 return;
             }
             
-            if( this.rowData.expandStatus === 'loading'){
+            if( this.getRowData().expandStatus === 'loading'){
                 return 'loading....'
             }
-            return (!this.rowData.expandStatus || this.rowData.expandStatus ==='collapsed'  ?'\u25BA'  : '\u25BC')
+            return (!this.getRowData().expandStatus || this.getRowData().expandStatus ==='collapsed'  ?'\u25BA'  : '\u25BC')
         },
         onExpandClick: function(){
-            // console.log('on expand click this.rowData.expandStatus: ', this.rowData.expandStatus);
-            if(this.rowData.expandStatus==='loading'){
+            // console.log('on expand click this.getRowData().expandStatus: ', this.getRowData().expandStatus);
+            let rowData = this.getRowData();
+            if(rowData.expandStatus==='loading'){
                 return;
             }
-            if(!this.rowData.expandStatus || this.rowData.expandStatus === 'collapsed'){
-                console.log('not expanded so going to expand this.rowData: ' , this.rowData);
-                this.props.actions.expandProduct(this.rowData.id).then((resp)=>{
+            if(!rowData.expandStatus || rowData.expandStatus === 'collapsed'){
+                console.log('not expanded so going to expand this.getRowData(): ' , this.getRowData());
+                this.props.actions.expandProduct(rowData.id).then((resp)=>{
                     //
                 });
                 
                 return;
             }
             // console.log('expanded so going to collapse');
-            this.props.actions.collapseProduct(this.rowData.id);
+            this.props.actions.collapseProduct(rowData.id);
         },
         render() {
-            // console.log('in productExpandCell R with this.props: ', this.props, ' this.state: ' , this.state, 'this.rowData.expandStatus: ' , this.rowData.expandStatus);
+            // console.log('in productExpandCell R with this.props: ', this.props, ' this.state: ' , this.state, 'this.getRowData().expandStatus: ' , this.getRowData().expandStatus);
             
             // let {columnKey,rowIndex} = this.props;
             // const {data, rowIndex, columnKey, collapsedRows, callback} = this.props;

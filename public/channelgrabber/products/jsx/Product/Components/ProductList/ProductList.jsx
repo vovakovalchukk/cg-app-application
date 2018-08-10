@@ -437,9 +437,6 @@ define([
             )
         },
         render: function() {
-            console.log('ProductList render this.props: ', this.props);
-            
-            
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">

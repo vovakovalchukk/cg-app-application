@@ -77,22 +77,25 @@ define([
         "PRODUCT_COLLAPSE": function(state,action){
             // console.log('r- in product collapse with action: ', action, ' state: ', state);
             let currentVisibleProducts = state.visibleRows.slice();
-            let productRowIdToExpand = action.payload.productRowIdToCollapse;
+            let productRowId = action.payload.productRowIdToCollapse;
     
-            let parentProductIndex = stateFilters.getProductIndex(currentVisibleProducts, productRowIdToExpand);
+            let parentProductIndex = stateFilters.getProductIndex(currentVisibleProducts, productRowId);
             
             console.log('in PRODUCT_COLLPASE action: ', action);
             
-            
-            let numberOfRowsToRemove = state.variationsByParent[action.payload.productRowIdToCollapse].length;
+            let numberOfRowsToRemove = state.variationsByParent[productRowId].length;
     
             currentVisibleProducts.splice(
                 parentProductIndex + 1,
                 numberOfRowsToRemove
             );
     
-            currentVisibleProducts[action.payload.productRowIdToExpand].expandStatus = 'collapsed';
-    
+            currentVisibleProducts = changeExpandStatus(
+                currentVisibleProducts,
+                productRowId,
+                'collapsed'
+            );
+            
             let newState = Object.assign({}, state, {
                 visibleRows: currentVisibleProducts
             });
