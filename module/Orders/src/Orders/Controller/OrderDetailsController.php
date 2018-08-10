@@ -261,10 +261,7 @@ class OrderDetailsController extends AbstractActionController
             return $trackings->toArray();
         }
 
-        $carrier = $label->getChannelName();
-        if (in_array($carrier, $this->courierNameMapper)) {
-            $carrier = $this->courierNameMapper[$carrier];
-        }
+        $carrier = $this->courierNameMapper[$label->getChannelName()] ?: $label->getChannelName() ;
 
         $orderTracking = $this->orderTrackingMapper->fromArray(
             [
