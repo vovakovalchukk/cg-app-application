@@ -36,6 +36,9 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         var self = this;
         $(document).on('change', ServiceDependantOptionsAbstract.SELECTOR_SERVICE_SELECT, function(event, element, value)
         {
+            if (this.preventUpdateOptions()) {
+                return;
+            }
             var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
             self.updateOptionsForOrder(orderId, value);
         });
@@ -110,6 +113,11 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         container
     ) {
         throw 'renderNewOptions must be overridden';
+    };
+
+    ServiceDependantOptionsAbstract.prototype.preventUpdateOptions = function()
+    {
+        return false;
     };
 
     return ServiceDependantOptionsAbstract;
