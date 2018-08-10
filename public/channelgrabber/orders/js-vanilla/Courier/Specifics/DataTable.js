@@ -481,7 +481,7 @@ CourierSpecificsDataTable.getValuesForLabelStatus = function(orderId, labelStatu
         cancellable: cancellable,
         dispatchable: dispatchable,
         rateable: rateable,
-        creatable, creatable
+        creatable: creatable
     };
 };
 
