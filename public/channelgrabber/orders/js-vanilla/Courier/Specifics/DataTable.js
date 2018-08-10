@@ -503,7 +503,7 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 {
     var self = this;
     $(document).on("change", CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS, function() {
-        var orderId = self.getOrderIdForParcelInput($(this));
+        var orderId = self.getOrderIdForParcelInput(this);
         if (orderId === null) {
             return;
         }
