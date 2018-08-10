@@ -85,16 +85,16 @@ define([
         },
         renderCell: function(props) {
             let {columnKey, rowIndex} = props;
-    
+            
             return cellCreator({
                 columnKey,
                 rowIndex,
                 products: props.products,
-                actions:props.actions
+                actions: props.actions
             });
         },
-        getVisibleRows:function(){
-          return this.props.products.visibleRows;
+        getVisibleRows: function() {
+            return this.props.products.visibleRows;
         },
         renderColumns: function() {
             return columns.map((column) => {

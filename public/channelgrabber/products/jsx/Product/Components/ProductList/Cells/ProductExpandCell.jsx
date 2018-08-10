@@ -14,32 +14,32 @@ define([
         getDefaultProps: function() {
             return {
                 rowData: {},
-                rowIndex:null
+                rowIndex: null
             };
         },
-        getRowData:function(){
+        getRowData: function() {
             return stateFilters.getRowData(this.props.products, this.props.rowIndex)
         },
         isParentProduct: function(rowData) {
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
         },
-        renderExpandIcon: function(){
+        renderExpandIcon: function() {
             let rowData = this.getRowData();
             let isParentProduct = this.isParentProduct(rowData);
-            if(!isParentProduct){
+            if (!isParentProduct) {
                 return;
             }
-            if( this.getRowData().expandStatus === 'loading'){
+            if (this.getRowData().expandStatus === 'loading') {
                 return 'loading....'
             }
-            return (!rowData.expandStatus || rowData.expandStatus ==='collapsed'  ?'\u25BA'  : '\u25BC')
+            return (!rowData.expandStatus || rowData.expandStatus === 'collapsed' ? '\u25BA' : '\u25BC')
         },
-        onExpandClick: function(){
+        onExpandClick: function() {
             let rowData = this.getRowData();
-            if(rowData.expandStatus==='loading'){
+            if (rowData.expandStatus === 'loading') {
                 return;
             }
-            if(!rowData.expandStatus || rowData.expandStatus === 'collapsed'){
+            if (!rowData.expandStatus || rowData.expandStatus === 'collapsed') {
                 this.props.actions.expandProduct(rowData.id)
                 return;
             }

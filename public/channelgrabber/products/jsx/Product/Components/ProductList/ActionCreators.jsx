@@ -6,7 +6,7 @@ define([
     ProductFilter
 ) {
     "use strict";
-  
+    
     return {
         initialSimpleAndParentProductsLoad: (products) => {
             return {
@@ -30,7 +30,7 @@ define([
                 
                 let variationsByParent = getState().products.variationsByParent;
                 
-                if(variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)){
+                if (variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)) {
                     dispatch({
                         type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
                         payload: variationsByParent
@@ -84,8 +84,8 @@ define([
         return variationsByParent;
     }
     
-    function variationsHaveAlreadyBeenRequested(variationsByParent,productId){
-        if(variationsByParent[productId]){
+    function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
+        if (variationsByParent[productId]) {
             return true;
         }
     }

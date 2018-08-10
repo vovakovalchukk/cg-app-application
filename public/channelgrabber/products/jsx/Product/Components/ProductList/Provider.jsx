@@ -38,27 +38,21 @@ define([
                 features: {}
             };
         },
-        shouldComponentUpdate:function(){
-            if(this.initialProductsShouldBeStored()){
-                // console.log('!!!!!storing initial data...');
+        shouldComponentUpdate: function() {
+            if (this.initialProductsShouldBeStored()) {
                 store.dispatch(ActionCreators.initialSimpleAndParentProductsLoad(this.props.products))
                 return true;
-            }else{
+            } else {
                 return false;
             }
             return true;
         },
-        initialProductsShouldBeStored:function(){
+        initialProductsShouldBeStored: function() {
             let storeState = store.getState();
-            // console.log('!storeState.initialLoadComplete: ', !storeState.products.initialLoadComplete);
-            // console.log('this.props.products.length: ', this.props.products.length);
-            
             return this.props.products.length && !storeState.products.completeInitialLoads.simpleAndParentProducts;
         },
         render: function() {
-            // console.log('in render of Provider this.props: '  , this.props);
-            if(!this.props.products || !this.props.products.length){
-                // todo add message here for when the user has no products
+            if (!this.props.products || !this.props.products.length) {
                 return <span>no products available</span>
             }
             return (

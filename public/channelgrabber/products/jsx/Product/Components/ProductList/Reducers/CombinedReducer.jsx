@@ -7,9 +7,10 @@ define([
     // ReduxForm,
     productsReducer
 ) {
+    "use strict";
+    
     var appReducer = Redux.combineReducers({
         products: productsReducer
-        // form: ReduxForm.reducer,
     });
     
     const combinedReducer = (state, action) => {

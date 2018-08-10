@@ -13,13 +13,13 @@ define([], function() {
                     return product.id === productId;
                 });
             },
-            getRowData : (products,rowIndex) => {
+            getRowData: (products, rowIndex) => {
                 return products.visibleRows[rowIndex];
             },
-            getCellData: (products,columnKey, rowIndex) => {
+            getCellData: (products, columnKey, rowIndex) => {
                 let row = products.visibleRows[rowIndex];
                 var keyToCellDataMap = {
-                    sku : row['sku'],
+                    sku: row['sku'],
                     name: row['name'],
                 }
                 let cellData = keyToCellDataMap[columnKey]

@@ -24,7 +24,7 @@ define([
     };
     
     const mapDispatchToProps = function(dispatch) {
-        return {actions:Redux.bindActionCreators(ActionCreators, dispatch)};
+        return {actions: Redux.bindActionCreators(ActionCreators, dispatch)};
     };
     
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);
