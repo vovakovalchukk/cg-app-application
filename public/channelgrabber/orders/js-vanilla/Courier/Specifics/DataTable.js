@@ -461,7 +461,7 @@ CourierSpecificsDataTable.elementToHtmlString = function(element)
     return $('<div>').append(element).html();
 };
 
-CourierSpecificsDataTable.getValuesForLabelStatus = function(orderId, labelStatus)
+CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus = function(orderId, labelStatus)
 {
     var labelStatusSelector = CourierSpecificsDataTable.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
     $(labelStatusSelector).val(labelStatus);
@@ -481,34 +481,34 @@ CourierSpecificsDataTable.getValuesForLabelStatus = function(orderId, labelStatu
         cancellable: cancellable,
         dispatchable: dispatchable,
         rateable: rateable,
-        creatable, creatable
+        creatable: creatable
     };
-}
+};
 
 CourierSpecificsDataTable.prototype.resetOrderLabelStatus = function(orderId, labelStatus)
 {
     var labelStatus = labelStatus || CourierSpecificsDataTable.LABEL_STATUS_DEFAULT;
 
-    var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, labelStatus);
+    var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, labelStatus);
 
     var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-        labelStatus, values.exportable, values.cancellable, values.dispatchable, values.rateable, 0
+        labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, actionAvailability.creatable
     );
 
     var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
     $(CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
-}
+};
 
 CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 {
     var self = this;
     $(document).on("change", CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS, function() {
-        var orderId = self.getOrderIdForParcelInput($(this));
+        var orderId = self.getOrderIdForParcelInput(this);
         if (orderId === null) {
             return;
         }
-        var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, '');
-        if (values.creatable && values.rateable) {
+        var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, '');
+        if (actionAvailability.creatable && actionAvailability.rateable) {
             self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
             self.setBulkActionButtons();
             $(CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON).show();
@@ -516,15 +516,9 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
         }
     });
     return this;
-}
+};
 
 CourierSpecificsDataTable.prototype.getOrderIdForParcelInput = function(element)
 {
-    var orderIdReference = $(element).parents('.courier-order-row').attr("id")
-        || $(element).parents('.courier-item-row').siblings('.courier-order-row').attr("id")
-        || $(element).parents('.courier-parcel-row').siblings('.courier-order-row').attr("id");
-    if (orderIdReference === undefined) {
-        return null;
-    }
-    return orderIdReference.replace('courier-order-row_', '');
-}
+    return element.name.split(/[\[\]]/)[1];
+};
