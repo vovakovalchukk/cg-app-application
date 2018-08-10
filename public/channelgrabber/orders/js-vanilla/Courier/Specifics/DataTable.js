@@ -492,7 +492,7 @@ CourierSpecificsDataTable.prototype.resetOrderLabelStatus = function(orderId, la
     var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, labelStatus);
 
     var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-        labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, 0
+        labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, actionAvailability.creatable
     );
 
     var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
@@ -520,11 +520,5 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 
 CourierSpecificsDataTable.prototype.getOrderIdForParcelInput = function(element)
 {
-    var orderIdReference = $(element).parents('.courier-order-row').attr("id")
-        || $(element).parents('.courier-item-row').siblings('.courier-order-row').attr("id")
-        || $(element).parents('.courier-parcel-row').siblings('.courier-order-row').attr("id");
-    if (orderIdReference === undefined) {
-        return null;
-    }
-    return orderIdReference.replace('courier-order-row_', '');
+    return element.name.split(/[\[\]]/)[1];
 };
