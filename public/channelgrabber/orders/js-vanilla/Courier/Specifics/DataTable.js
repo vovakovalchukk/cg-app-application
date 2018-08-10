@@ -461,7 +461,7 @@ CourierSpecificsDataTable.elementToHtmlString = function(element)
     return $('<div>').append(element).html();
 };
 
-CourierSpecificsDataTable.getValuesForLabelStatus = function(orderId, labelStatus)
+CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus = function(orderId, labelStatus)
 {
     var labelStatusSelector = CourierSpecificsDataTable.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
     $(labelStatusSelector).val(labelStatus);
@@ -489,10 +489,10 @@ CourierSpecificsDataTable.prototype.resetOrderLabelStatus = function(orderId, la
 {
     var labelStatus = labelStatus || CourierSpecificsDataTable.LABEL_STATUS_DEFAULT;
 
-    var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, labelStatus);
+    var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, labelStatus);
 
     var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-        labelStatus, values.exportable, values.cancellable, values.dispatchable, values.rateable, 0
+        labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, 0
     );
 
     var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
@@ -507,8 +507,8 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
         if (orderId === null) {
             return;
         }
-        var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, '');
-        if (values.creatable && values.rateable) {
+        var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, '');
+        if (actionAvailability.creatable && actionAvailability.rateable) {
             self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
             self.setBulkActionButtons();
             $(CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON).show();

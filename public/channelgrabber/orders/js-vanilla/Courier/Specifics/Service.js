@@ -643,10 +643,10 @@ define([
     {
         labelStatus = labelStatus || CourierSpecificsDataTable.LABEL_STATUS_DEFAULT;
 
-        var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, labelStatus);
+        var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, labelStatus);
 
         var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-            labelStatus, values.exportable, values.cancellable, values.dispatchable, values.rateable, values.creatable
+            labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, actionAvailability.creatable
         );
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
         $(CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
