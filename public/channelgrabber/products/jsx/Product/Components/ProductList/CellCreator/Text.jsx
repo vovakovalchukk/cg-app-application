@@ -20,7 +20,7 @@ define([
         },
         render() {
             let cellData = stateFilters.getCellData(
-                this.props.products.visibleRows,
+                this.props.products,
                 this.props.columnKey,
                 this.props.rowIndex
             );

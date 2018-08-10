@@ -16,20 +16,17 @@ define([
         getDefaultProps: function() {
             return {
                 rowData: {},
-                rowIndex:null,
-                expandProduct:null,
-                collapseProduct:null
+                rowIndex:null
             };
-        },
-        componentDidMount: function(){
-          console.log('ProductExpandCell componentDIdMount this.props',this.props);
-          
-          
         },
         getInitialState: function() {
-            return {
-                status:'collapsed'
-            };
+            // console.log('productExpandCell GIS this.propps: ', this.props);
+            this.rowData = stateFilters.getRowData(this.props.products, this.props.rowIndex);
+            return null;
+        },
+        componentDidUpdate: function(){
+            // console.log('ProductExpandCell componentDidUpdate this.props',this.props);
+            this.rowData = stateFilters.getRowData(this.props.products, this.props.rowIndex);
         },
         isParentProduct: function(rowData) {
             // console.log('rowData: ', rowData);
@@ -37,48 +34,35 @@ define([
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
         },
         renderExpandIcon: function(){
-            let rowData = stateFilters.getRowData(this.props.products.visibleRows, this.props.rowIndex);
-            let isParentProduct = this.isParentProduct(rowData);
-            // console.log('isParentProduct: ', isParentProduct);
-            
+            // console.log('in renderExpandIcon this.rowData.expandStatus: ', this.rowData.expandStatus);
+            let isParentProduct = this.isParentProduct(this.rowData);
             if(!isParentProduct){
                 return;
             }
             
-            if(this.state.status ==='loading'){
+            if( this.rowData.expandStatus === 'loading'){
                 return 'loading....'
             }
-            
-            return (this.state.status ==='expanded' ?  '\u25BC':'\u25BA')
+            return (!this.rowData.expandStatus || this.rowData.expandStatus ==='collapsed'  ?'\u25BA'  : '\u25BC')
         },
         onExpandClick: function(){
-            let rowData = stateFilters.getRowData(this.props.products.visibleRows, this.props.rowIndex);
-            console.log('on expand click');
-            if(this.state.status === 'collapsed'){
-                console.log('not expanded so going to expand');
-                this.props.actions.expandProduct(rowData.id).then((resp)=>{
-                    this.setState({
-                        status:'expanded'
-                    });
-                });
-                //todo put buffering thing here
-                this.setState({
-                    status:'loading'
-                },function(){
-                    console.log('just set status to loading...');
-                    
-                    
-                });
+            // console.log('on expand click this.rowData.expandStatus: ', this.rowData.expandStatus);
+            if(this.rowData.expandStatus==='loading'){
                 return;
             }
-            console.log('expanded so going to collapse');
-            this.props.actions.collapseProduct(rowData.id);
-            this.setState({
-                status:'collapsed'
-            });
+            if(!this.rowData.expandStatus || this.rowData.expandStatus === 'collapsed'){
+                console.log('not expanded so going to expand this.rowData: ' , this.rowData);
+                this.props.actions.expandProduct(this.rowData.id).then((resp)=>{
+                    //
+                });
+                
+                return;
+            }
+            // console.log('expanded so going to collapse');
+            this.props.actions.collapseProduct(this.rowData.id);
         },
         render() {
-            // console.log('in productExpandCell with this.props: ', this.props, ' this.state: ' , this.state);
+            // console.log('in productExpandCell R with this.props: ', this.props, ' this.state: ' , this.state, 'this.rowData.expandStatus: ' , this.rowData.expandStatus);
             
             // let {columnKey,rowIndex} = this.props;
             // const {data, rowIndex, columnKey, collapsedRows, callback} = this.props;

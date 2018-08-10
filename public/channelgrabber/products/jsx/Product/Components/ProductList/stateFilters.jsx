@@ -18,7 +18,7 @@ define([], function() {
                 });
             },
             getRowData : (products,rowIndex) => {
-                return products[rowIndex];
+                return products.visibleRows[rowIndex];
             },
             //
             // addRow:(rowIndex)=>{
@@ -31,7 +31,7 @@ define([], function() {
             // },
             getCellData: (products,columnKey, rowIndex) => {
                 // return self.data[rowIndex][columnKey];
-                let row = products[rowIndex];
+                let row = products.visibleRows[rowIndex];
                 var keyToCellDataMap = {
                     sku : row['sku'],
                     name: row['name'],

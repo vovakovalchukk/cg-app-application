@@ -33,8 +33,23 @@ define([
             });
             return newState;
         },
-        "PRODUCT_EXPAND": function(state, action) {
-            // console.log('r- in product expand with action: ', action, ' state: ', state);
+        "PRODUCT_EXPAND_REQUEST": function(state, action) {
+            console.log('r- in PRODUCT_EXPAND_REQUEST with action: ', action, ' state: ', state);
+            let currentVisibleProducts = state.visibleRows.slice();
+    
+            currentVisibleProducts = changeExpandStatus(
+                currentVisibleProducts,
+                action.payload.productRowIdToExpand,
+                'loading'
+            );
+            
+            let newState = Object.assign({}, state, {
+                visibleRows: currentVisibleProducts
+            });
+            return newState;
+        },
+        "PRODUCT_EXPAND_SUCCESS": function(state, action) {
+            console.log('r- in product_expand_success with action: ', action, ' state: ', state);
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowIdToExpand = action.payload.productRowIdToExpand;
             
@@ -45,6 +60,13 @@ define([
                 parentProductIndex + 1,
                 0,
                 ...rowsToAdd
+            );
+            
+            
+            currentVisibleProducts = changeExpandStatus(
+                currentVisibleProducts,
+                action.payload.productRowIdToExpand,
+                'expanded'
             );
             
             let newState = Object.assign({}, state, {
@@ -69,6 +91,8 @@ define([
                 numberOfRowsToRemove
             );
     
+            currentVisibleProducts[action.payload.productRowIdToExpand].expandStatus = 'collapsed';
+    
             let newState = Object.assign({}, state, {
                 visibleRows: currentVisibleProducts
             });
@@ -79,5 +103,13 @@ define([
         
     });
     
-    return ProductsReducer;
+    return ProductsReducer
+    
+    function changeExpandStatus(products,productId, desiredStatus){
+        let productRowIndex = products.findIndex((product)=>{
+            return product.id === productId;
+        });
+        products[productRowIndex].expandStatus = desiredStatus;
+        return products;
+    }
 });

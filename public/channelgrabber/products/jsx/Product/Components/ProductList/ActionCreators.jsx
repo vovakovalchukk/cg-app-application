@@ -42,7 +42,13 @@ define([
                     dispatch({
                         type: 'PRODUCT_VARIATIONS_GET_REQUEST'
                     });
-    
+                    dispatch({
+                        type: 'PRODUCT_EXPAND_REQUEST',
+                        payload:{
+                            productRowIdToExpand:productRowIdToExpand
+                        }
+                    });
+                    
                     var filter = new ProductFilter(null, productRowIdToExpand);
     
                     let fetchProductVariationsCallback = function(data){
@@ -54,7 +60,7 @@ define([
                         });
                         // console.log('about to dispatch the product expand...');
                         dispatch({
-                            type: 'PRODUCT_EXPAND',
+                            type: 'PRODUCT_EXPAND_SUCCESS',
                             payload:{
                                 productRowIdToExpand
                             }
