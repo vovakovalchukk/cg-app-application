@@ -20,13 +20,13 @@ class CarrierServices extends ResponseAbstract
         $services = [];
         foreach ($decodedJson->services as $service) {
             $carrier = new Carrier($service->carrier_id, $service->carrier_code);
-            $carrierService = new CarrierService(
-                $service->service_code,
-                $service->name,
-                $service->domestic,
-                $service->international,
-                $service->is_multi_package_supported
-            );
+            $carrierService = CarrierService::fromArray([
+                'serviceCode' => $service->service_code,
+                'name' => $service->name,
+                'domestic' => $service->domestic,
+                'international' => $service->international,
+                'isMultiPackageSupported' => $service->is_multi_package_supported
+            ]);
             $services[] = new CarrierServiceEntity($carrier, $carrierService);
         }
         return new static($services);
