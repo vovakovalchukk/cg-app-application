@@ -6,7 +6,7 @@ use CG\ShipStation\Response\Webhook\Create as Response;
 
 class Create extends RequestAbstract
 {
-    const EVENT_CARRIER_CONNECTED = 'API_CARRIER_CONNECTED';
+    const EVENT_CARRIER_CONNECTED = 'carrier_connected';
 
     const METHOD = 'POST';
     const URI = '/environment/webhooks';
