@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7d654f9f4b68e9a37ce0cf6e14394ad",
+    "content-hash": "92fe0fa114e29303a67794cc069758b1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,20 +263,20 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
+            "version": "dev-TAC-148-ebay-pbse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "1a781d08fee3fa8880fecface2684a8b5b0c60f3"
+                "reference": "18b5b5bbf5d8cd2f809b870ceda197c831c2454f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-TAC-178-make-create-listing-generator-factory-more-abstract-a14c4c.zip",
-                "reference": "1a781d08fee3fa8880fecface2684a8b5b0c60f3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-TAC-148-ebay-pbse-7cb2d8.zip",
+                "reference": "18b5b5bbf5d8cd2f809b870ceda197c831c2454f",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-178-make-create-listing-generator-factory-more-abstract as 1.36.8",
+                "channelgrabber/channel": "dev-TAC-148-ebay-pbse as 1.36.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
@@ -303,7 +303,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-08-02T11:32:00+00:00"
+            "time": "2018-08-10T08:12:33+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -526,16 +526,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.37.2",
+            "version": "dev-TAC-148-ebay-pbse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4397946b600683c73a965cdf3fd8c6c73280da09"
+                "reference": "75cf918fe94241420b9f0cada32e8199e8c261b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.37.2-4b893b.zip",
-                "reference": "4397946b600683c73a965cdf3fd8c6c73280da09",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-148-ebay-pbse-d91f32.zip",
+                "reference": "75cf918fe94241420b9f0cada32e8199e8c261b2",
                 "shasum": null
             },
             "require": {
@@ -610,7 +610,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-09T08:47:28+00:00"
+            "time": "2018-08-09T15:20:50+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -931,28 +931,28 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
+            "version": "dev-TAC-148-ebay-pbse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "4f6458723b79b2d75e60ba81b704cda1cc36eeba"
+                "reference": "ede3b6e85ffff2de31dc7859bbdaeeb40e46347a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-179-ebay-pbse-listing-job-generator-28327d.zip",
-                "reference": "4f6458723b79b2d75e60ba81b704cda1cc36eeba",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-148-ebay-pbse-6fc1f3.zip",
+                "reference": "ede3b6e85ffff2de31dc7859bbdaeeb40e46347a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "dev-TAC-178-make-create-listing-generator-factory-more-abstract as 1.36.8",
+                "channelgrabber/channel": "dev-TAC-148-ebay-pbse as 1.36.8",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "dev-TAC-179-ebay-pbse-listing-job-generator as 1.17.4",
+                "channelgrabber/listing": "dev-TAC-148-ebay-pbse as 1.17.4",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
@@ -992,7 +992,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-09T08:00:06+00:00"
+            "time": "2018-08-09T15:26:35+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1487,7 +1487,7 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
+            "version": "dev-TAC-148-ebay-pbse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
@@ -1495,7 +1495,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-179-ebay-pbse-listing-job-generator-bc4b8b.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-148-ebay-pbse-bc4b8b.zip",
                 "reference": "05a3b3ee84f26103764316abdda61ce2807da098",
                 "shasum": null
             },
@@ -3441,20 +3441,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
+            "version": "dev-TAC-148-ebay-pbse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "0184eb05d83965a277203c27043bdda20abbd0ab"
+                "reference": "45975b70eafd7e5ae3b3d89bbedbf22284bbd67b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-TAC-178-make-create-listing-generator-factory-more-abstract-c6fe8c.zip",
-                "reference": "0184eb05d83965a277203c27043bdda20abbd0ab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-TAC-148-ebay-pbse-736455.zip",
+                "reference": "45975b70eafd7e5ae3b3d89bbedbf22284bbd67b",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-178-make-create-listing-generator-factory-more-abstract as 1.36.8",
+                "channelgrabber/channel": "dev-TAC-148-ebay-pbse as 1.36.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3486,7 +3486,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-08-02T13:39:55+00:00"
+            "time": "2018-08-10T08:22:16+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -9969,33 +9969,33 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
-            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
+            "alias": "1.1.5",
+            "alias_normalized": "1.1.5.0",
+            "version": "dev-TAC-148-ebay-pbse",
             "package": "channelgrabber/bigcommerce"
         },
         {
-            "alias": "1.36.8",
-            "alias_normalized": "1.36.8.0",
-            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
+            "alias": "1.37.2",
+            "alias_normalized": "1.37.2.0",
+            "version": "dev-TAC-148-ebay-pbse",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
-            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
+            "version": "dev-TAC-148-ebay-pbse",
             "package": "channelgrabber/ebay"
         },
         {
             "alias": "1.17.4",
             "alias_normalized": "1.17.4.0",
-            "version": "dev-TAC-179-ebay-pbse-listing-job-generator",
+            "version": "dev-TAC-148-ebay-pbse",
             "package": "channelgrabber/listing"
         },
         {
             "alias": "1.5.3",
             "alias_normalized": "1.5.3.0",
-            "version": "dev-TAC-178-make-create-listing-generator-factory-more-abstract",
+            "version": "dev-TAC-148-ebay-pbse",
             "package": "channelgrabber/woocommerce"
         }
     ],
