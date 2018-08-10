@@ -10,6 +10,7 @@ use CG\Channel\AccountInterface;
 use CG\Channel\Type;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\Messages\User as UserRequestEntity;
 use CG\ShipStation\Request\Connect\Factory as ConnectFactory;
 use CG\ShipStation\Request\Partner\Account as AccountRequest;
@@ -31,6 +32,7 @@ use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use ShipStation\Webhook\Service as WebhookService;
 
 class Account implements AccountInterface, LoggerAwareInterface
 {
@@ -66,6 +68,10 @@ class Account implements AccountInterface, LoggerAwareInterface
     protected $urlHelper;
     /** @var WarehouseService */
     protected $warehouseService;
+    /** @var CarrierService */
+    protected $carrierService;
+    /** @var WebhookService */
+    protected $webhookService;
 
     public function __construct(
         Client $client,
@@ -76,7 +82,9 @@ class Account implements AccountInterface, LoggerAwareInterface
         ConnectFactory $factory,
         AccountMapper $accountMapper,
         UrlHelper $urlHelper,
-        WarehouseService $warehouseService
+        WarehouseService $warehouseService,
+        CarrierService $carrierService,
+        WebhookService $webhookService
     ) {
         $this->client = $client;
         $this->userService = $userService;
@@ -87,6 +95,8 @@ class Account implements AccountInterface, LoggerAwareInterface
         $this->accountMapper = $accountMapper;
         $this->urlHelper = $urlHelper;
         $this->warehouseService = $warehouseService;
+        $this->carrierService = $carrierService;
+        $this->webhookService = $webhookService;
     }
 
     public function getInitialisationUrl(AccountEntity $account, $route)
@@ -129,6 +139,12 @@ class Account implements AccountInterface, LoggerAwareInterface
         $connect = $this->connectCarrierToShipStation($account, $shipStationAccount, $params);
         $this->logDebug(static::LOG_MESSAGE_CARRIER_ACCOUNT_CONNECTED, [$account->getChannel(), $connect->getCarrier()->getCarrierId(), $account->getOrganisationUnitId()]);
         $account->setExternalId($connect->getCarrier()->getCarrierId());
+
+        $carrier = $this->carrierService->getCarrierForAccount($account);
+        if ($carrier->isActivationDelayed()) {
+            $this->webhookService->registerForCarrierConnectedWithActiveUser($account, $shipStationAccount);
+            return;
+        }
         $account->setExternalDataByKey(
             'services',
             $this->getCarrierServices($connect, $shipStationAccount)->getJsonResponse()

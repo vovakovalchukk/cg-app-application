@@ -8,6 +8,9 @@ class Create extends RequestAbstract
 {
     const EVENT_CARRIER_CONNECTED = 'API_CARRIER_CONNECTED';
 
+    const METHOD = 'POST';
+    const URI = '/environment/webhooks';
+
     /** @var string */
     protected $event;
     /** @var string */

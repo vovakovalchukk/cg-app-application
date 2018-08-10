@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "124035a89d153ba3e224155c757ef702",
+    "content-hash": "dba8f3c44df9822a9ffbd8206a4bbbd4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2726,6 +2726,34 @@
                 }
             },
             "time": "2018-07-26T12:59:52+00:00"
+        },
+        {
+            "name": "channelgrabber/shipstation",
+            "version": "dev-TAC-194-royal-mail-shipstation-webhook",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
+                "reference": "4ac27403645bb89e5b59f8d37df4500039e70f79"
+            },
+            "require": {
+                "channelgrabber/channel": "^1.36.5",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/predis": "^1.0.9",
+                "channelgrabber/user": "^1.26.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\ShipStation\\": "src"
+                }
+            },
+            "authors": [
+                {
+                    "name": "ChannelGrabber",
+                    "email": "dev@channelgrabber.com"
+                }
+            ],
+            "time": "2018-08-10T11:20:48+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -10016,8 +10044,14 @@
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.23.14",
-            "alias_normalized": "1.23.14.0",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-TAC-194-royal-mail-shipstation-webhook",
+            "package": "channelgrabber/shipstation"
+        },
+        {
+            "alias": "1.23.16",
+            "alias_normalized": "1.23.16.0",
             "version": "dev-TAC-192-royal-mail-via-shipstation",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -10032,6 +10066,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/payment": 20,
         "channelgrabber/netdespatch": 20,
+        "channelgrabber/shipstation": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
