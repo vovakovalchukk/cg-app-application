@@ -62,7 +62,6 @@ define([
                 ...rowsToAdd
             );
             
-            
             currentVisibleProducts = changeExpandStatus(
                 currentVisibleProducts,
                 action.payload.productRowIdToExpand,

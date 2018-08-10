@@ -4,7 +4,8 @@ define([
     React,
 ) {
     "use strict";
-    return   [
+    
+    return [
         {
             key: 'image',
             width: 100,
@@ -47,23 +48,18 @@ define([
             width: 200,
             headerText: 'dummy listing col',
             fixed: false
-            
         },
         {
             key: 'dummyListingColumn2',
             width: 200,
             headerText: 'dummy listing col',
             fixed: false
-            
-            
         },
         {
             key: 'dummyListingColumn3',
             width: 200,
             headerText: 'dummy listing col',
             fixed: false
-            
-            
         },
         {
             key: 'dummyListingColumn4',
@@ -88,14 +84,11 @@ define([
             width: 200,
             headerText: 'dummy listing col',
             fixed: false
-            
-            
         },
         {
             key: 'dummyListingColumn8',
             width: 200,
             headerText: 'dummy listing col',
             fixed: false
-            
         }];
 });

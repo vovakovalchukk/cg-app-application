@@ -6,21 +6,7 @@ define([
     ProductFilter
 ) {
     "use strict";
-    // fetchVariations: function(filter) {
-    //     $('#products-loading-message').show();
-    //
-    //     function onSuccess(data) {
-    //         var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
-    //         this.setState({
-    //             variations: variationsByParent
-    //         }, function() {
-    //             this.fetchLinkedProducts();
-    //             $('#products-loading-message').hide()
-    //         }.bind(this));
-    //     }
-    //
-    //     AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
-    // },
+  
     return {
         initialSimpleAndParentProductsLoad: (products) => {
             return {
@@ -32,7 +18,6 @@ define([
         },
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
-                // console.log('aq - in epxandProduct with productRowIdToExpand: ', productRowIdToExpand);
                 dispatch({
                     type: 'PRODUCT_VARIATIONS_GET_REQUEST'
                 });
@@ -43,17 +28,31 @@ define([
                     }
                 });
                 
-                var filter = new ProductFilter(null, productRowIdToExpand);
+                let variationsByParent = getState().products.variationsByParent;
                 
-                AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-                
-                function fetchProductVariationsCallback(data) {
-                    var variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                if(variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)){
                     dispatch({
                         type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
                         payload: variationsByParent
                     });
-                    // console.log('about to dispatch the product expand...');
+                    dispatch({
+                        type: 'PRODUCT_EXPAND_SUCCESS',
+                        payload: {
+                            productRowIdToExpand
+                        }
+                    });
+                    return;
+                }
+                
+                var filter = new ProductFilter(null, productRowIdToExpand);
+                AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
+                
+                function fetchProductVariationsCallback(data) {
+                    let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                    dispatch({
+                        type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
+                        payload: variationsByParent
+                    });
                     dispatch({
                         type: 'PRODUCT_EXPAND_SUCCESS',
                         payload: {
@@ -75,11 +74,6 @@ define([
     
     function sortVariationsByParentId(newVariations, parentProductId) {
         var variationsByParent = {};
-        // if (parentProductId) {
-        //     variationsByParent = this.state.variations;
-        //     variationsByParent[parentProductId] = newVariations;
-        //     return variationsByParent;
-        // }
         for (var index in newVariations) {
             var variation = newVariations[index];
             if (!variationsByParent[variation.parentProductId]) {
@@ -88,5 +82,11 @@ define([
             variationsByParent[variation.parentProductId].push(variation);
         }
         return variationsByParent;
+    }
+    
+    function variationsHaveAlreadyBeenRequested(variationsByParent,productId){
+        if(variationsByParent[productId]){
+            return true;
+        }
     }
 });

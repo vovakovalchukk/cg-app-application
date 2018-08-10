@@ -37,7 +37,6 @@ define([
             }
         },
         componentDidMount() {
-            // console.log('ProductList CDM this.props: ', this.props);
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
@@ -106,9 +105,10 @@ define([
             })
         },
         isReadyToRenderTable: function() {
-            return this.state.productsListContainer && this.state.productsListContainer.height && this.props.products.visibleRows.length;
+            return this.state.productsListContainer && this.state.productsListContainer.height && this.getVisibleRows().length;
         },
         renderProducts: function() {
+            let rows = this.getVisibleRows();
             if (!this.isReadyToRenderTable()) {
                 return;
             }
@@ -117,11 +117,11 @@ define([
             return (
                 <Table
                     rowHeight={70}
-                    rowsCount={this.getVisibleRows().length}
+                    rowsCount={rows.length}
                     width={width}
                     height={height}
                     headerHeight={50}
-                    data={this.getVisibleRows()}
+                    data={rows}
                     footerHeight={0}
                     groupHeaderHeight={0}
                     showScrollbarX={true}

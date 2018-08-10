@@ -1,23 +1,15 @@
 define([
     'react',
     'fixed-data-table',
-    // 'Product/Components/ProductList/Cells/Text',
-    // 'Product/Components/ProductList/CellCreator/factory',
-    'Product/Components/ProductList/CellCreator/Text',
-    'Product/Components/ProductList/CellCreator/DebugCell',
-    'Product/Components/ProductList/CellCreator/ProductExpandCell'
-    // 'Product/Components/ProductList/Cells/DebugCell'
+    'Product/Components/ProductList/Cells/Text',
+    'Product/Components/ProductList/Cells/DebugCell',
+    'Product/Components/ProductList/Cells/ProductExpandCell'
 ], function(
     React,
     FixedDataTable,
-    //todo flesh out individual cell components properly from TAC-165 onwards
-    // cellCreator,
     TextCell,
     DebugCell,
     ProductExpandCell
-    // TextCell,
-    
-    // DebugCell
 ) {
     "use strict";
     const Column = FixedDataTable.Column;
@@ -42,7 +34,6 @@ define([
     
     var columnCreator = function(column) {
         // console.log('in columnCreator with column: ', column);
-    
         let CreatedCell = cells[column.key];
     
         return (<Column
