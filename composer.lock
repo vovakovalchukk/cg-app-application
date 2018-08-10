@@ -2733,7 +2733,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "4ac27403645bb89e5b59f8d37df4500039e70f79"
+                "reference": "41117322b715bcc1681064ee3b8ac82e8d73e13a"
             },
             "require": {
                 "channelgrabber/channel": "^1.36.5",
@@ -10069,8 +10069,8 @@
         "channelgrabber/shipstation": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
