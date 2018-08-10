@@ -41,7 +41,6 @@ define([
         shouldComponentUpdate: function() {
             if (this.initialProductsShouldBeStored()) {
                 store.dispatch(ActionCreators.initialSimpleAndParentProductsLoad(this.props.products))
-                return true;
             } else {
                 return false;
             }
