@@ -6,13 +6,9 @@ use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
-use CG\Order\Shared\Tracking\Collection as OrderTrackings;
-use CG\Order\Shared\Tracking\Entity as OrderTracking;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
-use CG\Order\Shared\Tracking\Status;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -22,7 +18,6 @@ use Messages\Module as Messages;
 use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Controller\Helpers\OrderNotes as OrderNotesHelper;
 use Orders\Module;
-use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
@@ -218,15 +213,6 @@ class OrderDetailsController extends AbstractActionController
 
         try {
             $labels = $this->courierHelper->getNonCancelledOrderLabelsForOrders([$order->getId()]);
-
-            $carriers = $this->courierHelper->getCarriersData();
-
-            print_r($carriers);
-
-            echo "<br><br>\nLABELS\n";
-
-            print_r($labels);
-
             $labelData = [];
             foreach ($labels as $label) {
                 $labelData[] = $label->toArray();
@@ -236,22 +222,12 @@ class OrderDetailsController extends AbstractActionController
             $label = $labels->getFirst();
 
             $trackingNumbers = $this->getTrackingNumberDetails($order, $label);
-
-            echo "<br><br>\nTRAKINGS\n";
-            print_r($trackingNumbers);
-
-//            $trackingNumbers = $order->getTrackings()->toArray();
             usort($trackingNumbers, function ($a, $b) {
                 return ($a['packageNumber'] - $b['packageNumber']);
             });
 
-            
-
-
-
             $view->setVariable('trackings', $trackingNumbers);
             $view->setVariable('labels', $labelData);
-
 
             if (in_array($label->getStatus(), OrderLabelStatus::getPrintableStatuses())) {
                 $view->addChild($this->getPrintLabelButton($order), 'printButton');
