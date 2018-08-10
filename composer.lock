@@ -527,12 +527,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b2c25611e5b282f6495f15a78bb81fa062052411"
+                "reference": "07cb0860fb1a2e86aaf5ce719ed3ad7402794b30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-150-enforce-fetch-rates-before-label-purchase-2bf36e.zip",
-                "reference": "b2c25611e5b282f6495f15a78bb81fa062052411",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-150-enforce-fetch-rates-before-label-purchase-4fb4e3.zip",
+                "reference": "07cb0860fb1a2e86aaf5ce719ed3ad7402794b30",
                 "shasum": null
             },
             "require": {
@@ -607,7 +607,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-09T12:42:44+00:00"
+            "time": "2018-08-09T13:42:38+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1847,12 +1847,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f9d271b08d938aa9c9f320e906f44b11c917faa4"
+                "reference": "8d5ec5df4af280fe6ba846e22343bae7bfafef2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-150-enforce-fetch-rates-before-label-purchase-c04ad2.zip",
-                "reference": "f9d271b08d938aa9c9f320e906f44b11c917faa4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-150-enforce-fetch-rates-before-label-purchase-06af60.zip",
+                "reference": "8d5ec5df4af280fe6ba846e22343bae7bfafef2d",
                 "shasum": null
             },
             "require": {
@@ -1923,7 +1923,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-08-06T09:22:11+00:00"
+            "time": "2018-08-10T09:16:35+00:00"
         },
         {
             "name": "channelgrabber/payment",

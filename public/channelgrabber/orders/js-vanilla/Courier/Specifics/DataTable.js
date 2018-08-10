@@ -507,7 +507,7 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
         if (orderId === null) {
             return;
         }
-        var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_DEFAULT);
+        var values = CourierSpecificsDataTable.getValuesForLabelStatus(orderId, '');
         if (values.creatable && values.rateable) {
             self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
             self.setBulkActionButtons();
