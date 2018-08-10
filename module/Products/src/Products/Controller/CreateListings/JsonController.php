@@ -58,7 +58,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -71,7 +71,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -86,7 +86,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -99,7 +99,7 @@ class JsonController extends AbstractJsonController
                 ),
             ]);
         } catch (\Throwable $exception) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -114,7 +114,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -127,7 +127,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -140,7 +140,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -156,7 +156,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -176,8 +176,9 @@ class JsonController extends AbstractJsonController
         }
     }
 
-    protected function buildGenericErrorResponse()
+    protected function buildGenericErrorResponse(\Throwable $e)
     {
+        $this->logErrorException($e);
         return $this->buildErrorResponse('An error has occurred. Please try again');
     }
 

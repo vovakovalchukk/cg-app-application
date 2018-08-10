@@ -77,6 +77,8 @@ class Service implements
     protected $tokenInitialisationService;
     /** @var AccountService */
     protected $accountService;
+    /** @var array */
+    protected $credentials = [];
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -218,8 +220,6 @@ class Service implements
         try {
             /** @var Account $account */
             $account = $this->accountService->fetch($epidAccountId);
-            /** @var Credentials $credentials */
-            $credentials = $this->cryptor->decrypt($account->getCredentials());
         } catch (NotFound $e) {
             unset($data['epid'], $data['epidAccountId']);
             return $data;
@@ -228,27 +228,23 @@ class Service implements
         unset($data['epidAccountId']);
 
         return array_merge($data, [
-            'marketplace' => $credentials->getSiteId()
+            'marketplace' => $this->fetchDefaultSiteIdForAccount($account)
         ]);
     }
 
     protected function hasOAuthTokenActive(Account $account): bool
     {
         if (!$this->isMarketplaceSupportedByOAuth($account)) {
-            return true;
+            return false;
         }
         $tokenExpiryDate = $account->getExternalData()['oAuthExpiryDate'] ?? null;
-        if ($tokenExpiryDate) {
-            return $tokenExpiryDate > (new DateTime())->stdFormat();
-        }
-        return false;
+        return $tokenExpiryDate && $tokenExpiryDate > (new DateTime())->stdFormat()
+            && (bool) $this->fetchCredentialsForAccount($account)->getOAuthToken();
     }
 
     protected function isMarketplaceSupportedByOAuth(Account $account): bool
     {
-        /** @var Credentials $credentials */
-        $credentials = $this->cryptor->decrypt($account->getCredentials());
-        return SiteMap::isMarketplaceAllowedForCatalogApi($credentials->getSiteId());
+        return SiteMap::isMarketplaceAllowedForCatalogApi($this->fetchDefaultSiteIdForAccount($account));
     }
 
     protected function fetchEbayCategoryData(int $categoryId): ?Data
@@ -442,9 +438,20 @@ class Service implements
 
     protected function fetchDefaultSiteIdForAccount(Account $account): int
     {
+        $credentials = $this->fetchCredentialsForAccount($account);
+        return $credentials->getSiteId();
+    }
+
+    protected function fetchCredentialsForAccount(Account $account): Credentials
+    {
+        $credentials = $this->credentials[$account->getId()] ?? null;
+        if ($credentials instanceof Credentials) {
+            return $credentials;
+        }
         /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
-        return $credentials->getSiteId();
+        $this->credentials[$account->getId()] = $credentials;
+        return $credentials;
     }
 
     protected function formatShippingMethodsArray(ShippingMethodCollection $shippingMethods): array
