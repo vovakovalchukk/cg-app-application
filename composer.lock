@@ -931,17 +931,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-148-ebay-pbse",
+            "version": "dev-TAC-197-remove-mpn-search",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "45af2adfcdeaf29e44a9f669f91f640b80a4ea72"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-148-ebay-pbse-22c01b.zip",
-                "reference": "45af2adfcdeaf29e44a9f669f91f640b80a4ea72",
-                "shasum": null
+                "reference": "561b9a79f8373d6d341a999a09202c6ea3752a58"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9986,6 +9980,12 @@
             "package": "channelgrabber/ebay"
         },
         {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-197-remove-mpn-search",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.17.4",
             "alias_normalized": "1.17.4.0",
             "version": "dev-TAC-148-ebay-pbse",
@@ -10007,8 +10007,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

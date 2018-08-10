@@ -40,7 +40,7 @@ define([
                 <Field
                     name="search"
                     component={this.renderInputComponent}
-                    displayTitle={"Enter a UPC, EAN, ISBN, part number or a product name"}
+                    displayTitle={"Enter a UPC, EAN, ISBN or a product name"}
                 />
                 {this.renderSearchButton()}
                 {this.renderEnterDetailsManuallyButton()}
