@@ -10,20 +10,18 @@ use CG\Channel\AccountInterface;
 use CG\Channel\Type;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\ShipStation\Messages\Address;
 use CG\ShipStation\Messages\User as UserRequestEntity;
 use CG\ShipStation\Request\Connect\Factory as ConnectFactory;
 use CG\ShipStation\Request\Partner\Account as AccountRequest;
 use CG\ShipStation\Request\Partner\ApiKey as ApiKeyRequest;
 use CG\ShipStation\Request\Partner\GetAccountByExternalId as GetAccountByExternalIdRequest;
 use CG\ShipStation\Request\Shipping\CarrierServices as CarrierServicesRequest;
-use CG\ShipStation\Request\Warehouse\Create as CreateWarehouseRequest;
 use CG\ShipStation\Response\Connect\Response as ConnectResponse;
 use CG\ShipStation\Response\Partner\Account as AccountResponse;
 use CG\ShipStation\Response\Partner\ApiKey as ApiKeyResponse;
 use CG\ShipStation\Response\Shipping\CarrierServices as CarrierServicesResponse;
-use CG\ShipStation\Response\Warehouse\Create as CreateWarehouseResponse;
 use CG\ShipStation\ShipStation\Credentials;
+use CG\ShipStation\Warehouse\Service as WarehouseService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Storage as StorageException;
@@ -46,7 +44,6 @@ class Account implements AccountInterface, LoggerAwareInterface
     const LOG_MESSAGE_EXISTING_SHIPSTATION_ACCOUNT = 'Using the existing ShipStation account with ID "%s"';
     const LOG_MESSAGE_ACCOUNT_CREATED = 'Successfully created a ShipStation account for OU with ID "%s"';
     const LOG_MESSAGE_API_KEY_GENERATED = 'Successfully generated a new API Key for user with ShipStation account ID "%s"';
-    const LOG_MESSAGE_WAREHOUSE_CREATED = 'Successfully created a new warehouse with ID "%s" for OU "%s"';
     const LOG_MESSAGE_ACCOUNT_SAVED = 'Successfully created a new ShipStation account with ID "%s" for OU "%s"';
     const LOG_MESSAGE_CARRIER_ACCOUNT_CONNECTED = 'Successfully connected a new "%s" account with ID "%s" for OU "%s"';
     const LOG_MESSAGE_SERVICES_SAVED = 'Successfully fetched and saved the shipping services for ShipStation account ID "%s';
@@ -67,6 +64,8 @@ class Account implements AccountInterface, LoggerAwareInterface
     protected $accountMapper;
     /** @var UrlHelper */
     protected $urlHelper;
+    /** @var WarehouseService */
+    protected $warehouseService;
 
     public function __construct(
         Client $client,
@@ -76,7 +75,8 @@ class Account implements AccountInterface, LoggerAwareInterface
         Cryptor $cryptor,
         ConnectFactory $factory,
         AccountMapper $accountMapper,
-        UrlHelper $urlHelper
+        UrlHelper $urlHelper,
+        WarehouseService $warehouseService
     ) {
         $this->client = $client;
         $this->userService = $userService;
@@ -86,6 +86,7 @@ class Account implements AccountInterface, LoggerAwareInterface
         $this->connectFactory = $factory;
         $this->accountMapper = $accountMapper;
         $this->urlHelper = $urlHelper;
+        $this->warehouseService = $warehouseService;
     }
 
     public function getInitialisationUrl(AccountEntity $account, $route)
@@ -169,8 +170,7 @@ class Account implements AccountInterface, LoggerAwareInterface
         if (!empty($account->getExternalData()['warehouseId'])) {
             return;
         }
-        $createWarehouseResponse = $this->sendCreateWarehouseRequest($ou, $account);
-        $this->logDebug(static::LOG_MESSAGE_WAREHOUSE_CREATED, [$createWarehouseResponse->getWarehouseId(), $ou->getOrganisationUnitId()]);
+        $createWarehouseResponse = $this->warehouseService->createForOu($ou, $account);
         $account->setExternalDataByKey('warehouseId', $createWarehouseResponse->getWarehouseId());
     }
 
@@ -271,28 +271,6 @@ class Account implements AccountInterface, LoggerAwareInterface
     ): ApiKeyResponse {
         /** @var ApiKeyResponse $response */
         $response = $this->client->sendRequest($this->getApiKeyRequest($accountResponse), $shipStationAccount);
-        return $response;
-    }
-
-    protected function sendCreateWarehouseRequest(
-        OrganisationUnit $ou,
-        AccountEntity $shipStationAccount
-    ): CreateWarehouseResponse {
-        $address = new Address(
-            $ou->getAddressFullName(),
-            $ou->getPhoneNumber(),
-            $ou->getAddress1(),
-            $ou->getAddressCity(),
-            $ou->getAddressCounty(),
-            /** @TODO: check if our country code matches the one required by ShipStation */
-            $ou->getAddressPostcode(),
-            $ou->getAddressCountryCode(),
-            $ou->getAddress2(),
-            $ou->getEmailAddress()
-        );
-        $request = new CreateWarehouseRequest($address);
-        /** @var CreateWarehouseResponse $response */
-        $response = $this->client->sendRequest($request, $shipStationAccount);
         return $response;
     }
 }
