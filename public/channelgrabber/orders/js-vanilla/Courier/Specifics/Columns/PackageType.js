@@ -88,7 +88,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         return this;
     };
 
-    ServiceDependantOptionsAbstract.prototype.preventUpdateOptions = function(orderId)
+    PackageType.prototype.preventUpdateOptions = function(orderId)
     {
         var labelStatusSelector = PackageType.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
         if ($(labelStatusSelector).val() === 'rates fetched') {
