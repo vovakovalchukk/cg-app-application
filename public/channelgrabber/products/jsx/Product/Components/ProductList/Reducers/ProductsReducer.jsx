@@ -16,7 +16,6 @@ define([
     
     var ProductsReducer = reducerCreator(initialState, {
         "INITIAL_SIMPLE_AND_PARENT_PRODUCTS_LOAD": function(state, action) {
-            // console.log('r-in initial products load with action.payload.products: ', action.payload.products);
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -27,14 +26,12 @@ define([
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state,action){
-            // console.log('r- PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS action : ' , action , ' state: ' , state);
             let newState = Object.assign({}, state,{
                 variationsByParent:action.payload
             });
             return newState;
         },
         "PRODUCT_EXPAND_REQUEST": function(state, action) {
-            console.log('r- in PRODUCT_EXPAND_REQUEST with action: ', action, ' state: ', state);
             let currentVisibleProducts = state.visibleRows.slice();
     
             currentVisibleProducts = changeExpandStatus(
@@ -49,7 +46,6 @@ define([
             return newState;
         },
         "PRODUCT_EXPAND_SUCCESS": function(state, action) {
-            console.log('r- in product_expand_success with action: ', action, ' state: ', state);
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowIdToExpand = action.payload.productRowIdToExpand;
             
@@ -61,7 +57,6 @@ define([
                 0,
                 ...rowsToAdd
             );
-            
             currentVisibleProducts = changeExpandStatus(
                 currentVisibleProducts,
                 action.payload.productRowIdToExpand,
@@ -74,13 +69,10 @@ define([
             return newState;
         },
         "PRODUCT_COLLAPSE": function(state,action){
-            // console.log('r- in product collapse with action: ', action, ' state: ', state);
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowId = action.payload.productRowIdToCollapse;
     
             let parentProductIndex = stateFilters.getProductIndex(currentVisibleProducts, productRowId);
-            
-            console.log('in PRODUCT_COLLPASE action: ', action);
             
             let numberOfRowsToRemove = state.variationsByParent[productRowId].length;
     

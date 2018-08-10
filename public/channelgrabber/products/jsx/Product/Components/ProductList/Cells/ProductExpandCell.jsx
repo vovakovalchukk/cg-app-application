@@ -10,8 +10,6 @@ define([
 ) {
     "use strict";
     
-    const Cell = FixedDataTable.Cell;
-    
     let ProductExpandCell = React.createClass({
         getDefaultProps: function() {
             return {
@@ -37,7 +35,6 @@ define([
             return (!rowData.expandStatus || rowData.expandStatus ==='collapsed'  ?'\u25BA'  : '\u25BC')
         },
         onExpandClick: function(){
-            // console.log('on expand click this.getRowData().expandStatus: ', this.getRowData().expandStatus);
             let rowData = this.getRowData();
             if(rowData.expandStatus==='loading'){
                 return;
@@ -49,12 +46,10 @@ define([
             this.props.actions.collapseProduct(rowData.id);
         },
         render() {
-            // console.log('in productExpandCell R with this.props: ', this.props, ' this.state: ' , this.state, 'this.getRowData().expandStatus: ' , this.getRowData().expandStatus);
             return (
                 <div {...this.props}>
                     <a onClick={this.onExpandClick}>
                         {this.renderExpandIcon()}
-                        
                     </a>
                 </div>
             );

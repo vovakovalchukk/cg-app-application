@@ -9,8 +9,6 @@ define([
 ) {
     "use strict";
     
-    const Cell = FixedDataTable.Cell;
-    
     let TextCell = React.createClass({
         getDefaultProps: function() {
             return {};
@@ -24,11 +22,9 @@ define([
                 this.props.columnKey,
                 this.props.rowIndex
             );
-            // let cellValue = tableDataWrapper.getCellData(columnKey,rowIndex)
             
             return (
                 <div {...this.props}>
-                    {/*{cellValue}*/}
                     {cellData}
                 </div>
             );

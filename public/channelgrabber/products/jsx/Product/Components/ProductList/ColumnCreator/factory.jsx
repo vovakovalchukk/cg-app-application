@@ -33,9 +33,7 @@ define([
     };
     
     var columnCreator = function(column) {
-        // console.log('in columnCreator with column: ', column);
         let CreatedCell = cells[column.key];
-    
         return (<Column
             columnKey={column.key}
             width={column.width}
