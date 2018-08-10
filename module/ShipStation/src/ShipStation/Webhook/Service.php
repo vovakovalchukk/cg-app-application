@@ -62,7 +62,7 @@ class Service
         }
     }
 
-    protected function saveActiveUserForNotificationOfConnection(AccountEntity $account): void
+    protected function saveActiveUserForNotificationOfConnection(Account $account): void
     {
         $user = $this->activeUserContainer->getActiveUser();
         $this->notificationService->saveUserToNotifyOfCarrierConnected($user, $account);
