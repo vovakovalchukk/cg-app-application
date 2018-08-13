@@ -51,6 +51,11 @@ return [
                     'guzzleClient' => GuzzleClient::class,
                 ]
             ],
+            WebhookNotificationStorageRedis::class => [
+                'parameters' => [
+                    'predisClient' => 'reliable_redis'
+                ]
+            ],
             Service::class => [
                 'parameters' => [
                     'carriersConfig' => [
