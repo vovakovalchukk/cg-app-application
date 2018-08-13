@@ -392,6 +392,7 @@ class CourierJsonController extends AbstractActionController
     protected function handleLabelCreationInsufficientBalance(InsufficientBalanceException $e, OrderDataCollection $ordersData)
     {
         return $this->jsonModelFactory->newInstance([
+            'topupRequired' => true,
             'readyStatuses' => [],
             'readyCount' => 0,
             'notReadyCount' => 0,
