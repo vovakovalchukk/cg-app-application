@@ -30,7 +30,7 @@ class Mapper
     {
         $collection = new Collection(Entity::class, __FUNCTION__);
         foreach ($carriersConfig as $carrierConfig) {
-            $carrierConfig['bookingOptions'] = $carriersConfig['bookingOptions'] ?? $defaultBookingOptions;
+            $carrierConfig['bookingOptions'] = $carrierConfig['bookingOptions'] ?? $defaultBookingOptions;
             $collection->attach($this->fromArray($carrierConfig));
         }
         return $collection;
