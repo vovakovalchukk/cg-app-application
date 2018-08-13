@@ -2733,7 +2733,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "41117322b715bcc1681064ee3b8ac82e8d73e13a"
+                "reference": "4e26c676220d0e84d29b51322e7450a3cff93e84"
             },
             "require": {
                 "channelgrabber/channel": "^1.36.5",
