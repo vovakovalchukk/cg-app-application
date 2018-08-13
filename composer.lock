@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a8a8214bbbf8e85f5da79964627a4ab",
+    "content-hash": "c0c799406fba75aabce41da420966583",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3792,16 +3792,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.1",
+            "version": "dev-TAC-190-SetupSpeed",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "f18f0dd2b029e13908dd94908f4d53cd3cd50d22"
+                "reference": "1a7fc3170b24e4b177a5530e4f888568c6ab28e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.1-6ee9a8.zip",
-                "reference": "f18f0dd2b029e13908dd94908f4d53cd3cd50d22",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-190-SetupSpeed-6bf02f.zip",
+                "reference": "1a7fc3170b24e4b177a5530e4f888568c6ab28e3",
                 "shasum": null
             },
             "require": {
@@ -3839,7 +3839,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-07-25T11:01:25+00:00"
+            "time": "2018-08-13T13:48:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -10263,6 +10263,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-TAC-190-SetupSpeed",
+            "package": "channelgrabber/zf2-billing"
+        },
+        {
             "alias": "1.24.0",
             "alias_normalized": "1.24.0.0",
             "version": "dev-TAC-190-SetupSpeed",
@@ -10272,6 +10278,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
