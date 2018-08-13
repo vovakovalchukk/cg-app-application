@@ -237,6 +237,9 @@ define([], function()
         var service = this.getService();
         $(document).on('change', EventHandler.SELECTOR_SERVICE_SELECT, function(event, element, value)
         {
+            if (value === undefined) {
+                return;
+            }
             var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
             service.serviceChanged(orderId, value);
         });
