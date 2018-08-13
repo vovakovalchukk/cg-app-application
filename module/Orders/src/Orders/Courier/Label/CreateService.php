@@ -40,14 +40,13 @@ class CreateService extends ServiceAbstract
         OrderDataCollection $ordersData,
         OrderParcelsDataCollection $orderParcelsData,
         OrderItemsDataCollection $ordersItemsData,
-        int $shippingAccountId
+        Account $shippingAccount
     ) {
         $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $user = $this->userOUService->getActiveUser();
-        $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
-        $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $shippingAccount = $this->accountService->fetchShippingAccount((int) $shippingAccountId);
+        $this->addGlobalLogEventParam('account', $shippingAccount->getId())->addGlobalLogEventParam('ou', $rootOu->getId());
+        $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
         $orders = $this->getOrdersByIds($orderIds);
         $this->removeZeroQuantityItemsFromOrders($orders);
 
@@ -65,7 +64,7 @@ class CreateService extends ServiceAbstract
         $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
 
         try {
-            $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
             $labelReadyStatuses = $this->getCarrierProviderService($shippingAccount)->createLabelsForOrders(
                 $orders,
                 $orderLabels,
