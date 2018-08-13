@@ -34,7 +34,7 @@
         "channelgrabber/courieradapter": "~1.2.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.2.1",
-        "channelgrabber/ebay": "dev-TAC-148-ebay-pbse as 1.13.1",
+        "channelgrabber/ebay": "dev-TAC-196-remove-oauth-token-if-invalid as 1.13.1",
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
