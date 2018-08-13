@@ -931,17 +931,11 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-196-remove-oauth-token-if-invalid",
+            "version": "dev-TAC-177-create-new-pbse-catalog-product",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "372b33a2fa00403fba1e0bfb6be62988b144f7e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-196-remove-oauth-token-if-invalid-a366d5.zip",
-                "reference": "372b33a2fa00403fba1e0bfb6be62988b144f7e2",
-                "shasum": null
+                "reference": "40f1a3f6da7da15bbe62c2e616363a1ed95d0eb3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -9987,6 +9981,12 @@
             "package": "channelgrabber/ebay"
         },
         {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-177-create-new-pbse-catalog-product",
+            "package": "channelgrabber/ebay"
+        },
+        {
             "alias": "1.17.4",
             "alias_normalized": "1.17.4.0",
             "version": "dev-TAC-148-ebay-pbse",
@@ -10008,8 +10008,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
