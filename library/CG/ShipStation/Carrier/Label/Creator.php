@@ -4,6 +4,8 @@ namespace CG\ShipStation\Carrier\Label;
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
@@ -53,8 +55,8 @@ class Creator implements LoggerAwareInterface
     public function createLabelsForOrders(
         OrderCollection $orders,
         OrderLabelCollection $orderLabels,
-        array $ordersData,
-        array $orderParcelsData,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
         OrganisationUnit $rootOu,
         Account $shippingAccount,
         Account $shipStationAccount
@@ -79,8 +81,8 @@ class Creator implements LoggerAwareInterface
 
     protected function createShipmentsForOrders(
         OrderCollection $orders,
-        array $ordersData,
-        array $orderParcelsData,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
         Account $shipStationAccount,
         Account $shippingAccount,
         OrganisationUnit $rootOu

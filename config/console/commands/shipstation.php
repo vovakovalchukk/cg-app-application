@@ -16,7 +16,7 @@ return [
         'description' => 'Run arbitrary queries against the ShipStation api',
         'arguments' => [
             'accountId' => [
-                'description' => 'The account to send the request to',
+                'description' => 'The account to send the request to. This should be the shipstation account, not the courier account.',
                 'required' => true,
             ],
             'endpoint' => [
@@ -24,12 +24,12 @@ return [
                 'required' => true,
             ],
             'payload' => [
-                'description' => 'Payload to send as part of request'
+                'description' => '(Optional) Payload to send as part of request'
             ],
         ],
         'options' => [
             'request' => [
-                'description' => 'Specifies the request method to use',
+                'description' => 'Specifies the request method to use e.g. GET, POST',
                 'value' => true,
                 'required' => true,
                 'shortcut' => 'X',
