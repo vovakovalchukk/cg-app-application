@@ -4656,12 +4656,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8e56437a0b3ba29eeb00163160f5b14979be4ba3"
+                "reference": "bc5044b5ffdcae4193bf3ee653fd9bd5c8234b28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-190-SetupSpeed-deec21.zip",
-                "reference": "8e56437a0b3ba29eeb00163160f5b14979be4ba3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-190-SetupSpeed-dd4912.zip",
+                "reference": "bc5044b5ffdcae4193bf3ee653fd9bd5c8234b28",
                 "shasum": null
             },
             "require": {
@@ -4713,7 +4713,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-09T13:12:21+00:00"
+            "time": "2018-08-13T14:00:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
