@@ -392,7 +392,7 @@ class CourierJsonController extends AbstractActionController
     protected function handleLabelCreationInsufficientBalance(InsufficientBalanceException $e, OrderDataCollection $ordersData)
     {
         return $this->jsonModelFactory->newInstance([
-            'topupRequired' => true,
+            'topupRequired' => true, //@todo this is only hardcoded for testing, needs to be set for shipping accounts that require it. currently USPS.
             'readyStatuses' => [],
             'readyCount' => 0,
             'notReadyCount' => 0,
