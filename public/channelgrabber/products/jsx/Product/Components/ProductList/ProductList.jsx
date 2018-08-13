@@ -1,19 +1,25 @@
 define([
     'react',
     'fixed-data-table',
+    'styled-components',
     'Product/Components/ProductList/CellCreator/factory',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
     'Product/Components/ProductList/ColumnCreator/columns',
     'Product/Components/ProductList/ColumnCreator/factory',
+    
+    'Product/Components/ProductList/Components/Tabs'
+
 ], function(
     React,
     FixedDataTable,
+    styled,
     cellCreator,
     ProductLinkEditor,
     ProductFooter,
     columns,
     columnCreator,
+    Tabs
 ) {
     "use strict";
     
@@ -24,7 +30,8 @@ define([
             return {
                 products: [],
                 features: {},
-                accounts: []
+                accounts: [],
+                actions: {}
             };
         },
         getInitialState: function() {
@@ -132,15 +139,16 @@ define([
             )
         },
         render: function() {
+            const {changeTab} = this.props.actions;
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">
                         {this.renderSearchBox()}
                         {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     </div>
-                    <div className={"products-tabs-container"}>
-                        this is where the tabs be
-                    </div>
+                    <Tabs
+                        actions={{changeTab}}
+                    />
                     <div
                         className='products-list__container'
                         ref={(productsListContainer) => this.productsListContainer = productsListContainer}
@@ -164,4 +172,5 @@ define([
     });
     
     return CreateProduct;
-});
+})
+;

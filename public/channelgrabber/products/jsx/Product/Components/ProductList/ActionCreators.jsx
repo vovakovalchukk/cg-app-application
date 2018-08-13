@@ -69,6 +69,14 @@ define([
                     productRowIdToCollapse
                 }
             }
+        },
+        changeTab: (desiredTabKey)=>{
+            return {
+                type:"TAB_CHANGE",
+                payload: {
+                    desiredTabKey
+                }
+            }
         }
     };
     

@@ -46,16 +46,11 @@ $screen-padding: 20px;
 }
 
 .products-list__container {
-    margin-top: 50px;
+    margin-top: 48px;
     flex: 18;
-    background:green;
-
+    z-index:20;
     background-color: $color-bluegrey;
-    //background-color: white;
     overflow: hidden;
-    //height: calc(100vh - #{$combined-height-of-non-list-ui-elements});
-    //min-height: 80vh;
-    //height:400px;
 }
 
 .products-list__row{
