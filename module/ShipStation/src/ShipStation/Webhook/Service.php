@@ -6,6 +6,7 @@ use CG\Http\StatusCode as HttpStatusCode;
 use CG\ShipStation\Client;
 use CG\ShipStation\Request\Webhook\Create as WebhookRequest;
 use CG\ShipStation\Webhook\Notification\Service as NotificationService;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Helper\RemoteUrl;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -52,8 +53,10 @@ class Service
     {
         try {
             $this->client->sendRequest($request, $shipStationAccount);
-        } catch (ClientErrorResponseException $e) {
-            if ($e->getResponse()->getStatusCode() == HttpStatusCode::CONFLICT) {
+        } catch (StorageException $e) {
+            if ($e->getPrevious() instanceof ClientErrorResponseException &&
+                $e->getPrevious()->getResponse()->getStatusCode() == HttpStatusCode::CONFLICT
+            ) {
                 // No-op. ShipEngine doesn't allow the same hook to be registered twice,
                 // so this just means its already set up for this OU
                 return;
