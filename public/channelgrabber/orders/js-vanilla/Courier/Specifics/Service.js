@@ -16,7 +16,7 @@ define([
     storage
 ) {
     // Also requires global CourierSpecificsDataTable class to be present
-    function Service(dataTable, courierAccountId, ipaManager)
+    function Service(dataTable, courierAccountId, ipaManager, balanceService)
     {
         var eventHandler;
         var delayedLabelsOrderIds;
@@ -27,6 +27,11 @@ define([
         this.getDataTable = function()
         {
             return dataTable;
+        };
+
+        this.getBalanceService = function()
+        {
+          return balanceService;
         };
 
         this.getCourierAccountId = function()
@@ -127,7 +132,7 @@ define([
         this.store = function(key, value)
         {
             this.getStorage().set(key, value);
-        }
+        };
 
         var init = function()
         {
@@ -525,6 +530,12 @@ define([
 
     Service.prototype.handleNotReadysAndErrors = function(response)
     {
+
+        if (response.topupRequired) {
+            this.showBalanceTopUpPopUp();
+            return;
+        }
+
         var message = '';
         message += this.getLabelsNotReadyMessageForResponse(response);
         message += this.getLabelsErroredMessageForResponse(response, message);
@@ -827,6 +838,12 @@ define([
             notifications.ajaxError(response);
             self.refresh();
         });
+    };
+
+    Service.prototype.showBalanceTopUpPopUp = function()
+    {
+        this.getNotifications().clearNotifications();
+        this.getBalanceService().renderPopup();
     };
 
     return Service;
