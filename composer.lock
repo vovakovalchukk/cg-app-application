@@ -2735,9 +2735,16 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
                 "reference": "4e26c676220d0e84d29b51322e7450a3cff93e84"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-f1b911.zip",
+                "reference": "4e26c676220d0e84d29b51322e7450a3cff93e84",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.36.5",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/intercom": "^1.5.4",
                 "channelgrabber/predis": "^1.0.9",
                 "channelgrabber/user": "^1.26.1"
             },
@@ -2753,7 +2760,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-08-10T11:20:48+00:00"
+            "time": "2018-08-13T08:48:33+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -3290,16 +3297,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.0",
+            "version": "1.26.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "2887314b8cc4b6d2b0bed2cd4772c4f8e723012d"
+                "reference": "a9970e6f01a1b89ab263de11579fe7b7e3caf0f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.0-43db47.zip",
-                "reference": "2887314b8cc4b6d2b0bed2cd4772c4f8e723012d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.2-39cc65.zip",
+                "reference": "a9970e6f01a1b89ab263de11579fe7b7e3caf0f9",
                 "shasum": null
             },
             "require": {
@@ -3316,7 +3323,7 @@
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stats": ">=1.0.1, <2.0.0",
-                "channelgrabber/stdlib": "^2.12.29",
+                "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/validation": ">=1.2.5",
                 "channelgrabber/zf2-stdlib": ">=1.1.17,<2.0.0",
                 "guzzle/guzzle": "~3.7",
@@ -3340,7 +3347,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-06-15T10:44:42+00:00"
+            "time": "2018-07-23T13:57:27+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4497,18 +4504,6 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-ccc6eb.zip",
                 "reference": "f1e7ba21d77c6bf665e9df1c92ec62762deac335",
-                "shasum": null
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-51fb57.zip",
-                "reference": "fea5c87885085c88458a1c557a6d07e8d8beed8c",
-                "shasum": null
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-51fb57.zip",
-                "reference": "fea5c87885085c88458a1c557a6d07e8d8beed8c",
                 "shasum": null
             },
             "require": {
@@ -10069,8 +10064,8 @@
         "channelgrabber/shipstation": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

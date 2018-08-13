@@ -32,7 +32,6 @@ use CG\User\Entity as UserEntity;
 use CG\User\Service as UserService;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 use Guzzle\Http\Exception\ClientErrorResponseException;
-use ShipStation\Webhook\Service as WebhookService;
 
 class Account implements AccountInterface, LoggerAwareInterface
 {
@@ -70,8 +69,6 @@ class Account implements AccountInterface, LoggerAwareInterface
     protected $warehouseService;
     /** @var CarrierService */
     protected $carrierService;
-    /** @var WebhookService */
-    protected $webhookService;
 
     public function __construct(
         Client $client,
@@ -83,8 +80,7 @@ class Account implements AccountInterface, LoggerAwareInterface
         AccountMapper $accountMapper,
         UrlHelper $urlHelper,
         WarehouseService $warehouseService,
-        CarrierService $carrierService,
-        WebhookService $webhookService
+        CarrierService $carrierService
     ) {
         $this->client = $client;
         $this->userService = $userService;
@@ -96,7 +92,6 @@ class Account implements AccountInterface, LoggerAwareInterface
         $this->urlHelper = $urlHelper;
         $this->warehouseService = $warehouseService;
         $this->carrierService = $carrierService;
-        $this->webhookService = $webhookService;
     }
 
     public function getInitialisationUrl(AccountEntity $account, $route)
@@ -142,7 +137,6 @@ class Account implements AccountInterface, LoggerAwareInterface
 
         $carrier = $this->carrierService->getCarrierForAccount($account);
         if ($carrier->isActivationDelayed()) {
-            $this->webhookService->registerForCarrierConnectedWithActiveUser($account, $shipStationAccount);
             return;
         }
         $account->setExternalDataByKey(
