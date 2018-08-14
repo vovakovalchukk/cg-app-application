@@ -4,7 +4,9 @@ namespace CG\Hermes\Credentials;
 use Zend\Form\Element;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
+use Zend\Form\Element\Number;
 use Zend\Form\Element\Password;
+use Zend\Form\Element\Time;
 use Zend\Form\Fieldset;
 use Zend\Form\Form;
 
@@ -50,48 +52,46 @@ class FormFactory
         $form->add((new Element('Company Registration Number', [
             'label' => 'Company Registration Number'
         ]))->setAttribute('required', true));
+        $form->add((new Element('Company Name', [
+            'label' => 'Company Name'
+        ]))->setAttribute('required', true));
+        $form->add((new Email('Contact Email', [
+            'label' => 'Contact Email'
+        ]))->setAttribute('required', true));
         $companyAddress = $this->getAddressFieldset('Company Address');
         $form->add($companyAddress);
-        $collectionAddress = $this->getAddressFieldset('Collection Address', 'Collection Address (if different)');
+        $collectionAddress = $this->getAddressFieldset(
+            'Collection Address (if different)', 'Collection Address (if different)', false
+        );
         $form->add($collectionAddress);
-        $form->add((new Element('Preferred Collection Time Slot', [
-            'label' => 'Preferred Collection Time Slot'
+        $form->add((new Time('Preferred Collection Time Slot', [
+            'label' => 'Preferred Collection Time Slot',
+            'format' => 'H:i'
         ]))->setAttribute('required', true));
         $form->add((new Element('Average Weekly Volumes', [
             'label' => 'Average Weekly Volumes (via Hermes)'
         ]))->setAttribute('required', true));
         $form->add($this->getVolumeSplitPerWeightFieldset());
         $form->add($this->getVolumeSplitPerServiceFieldset());
-        // TODO: rest of fields
-
-/*
-1) Company Registration Number and Registered Address:
-2) Collection Address (If Different):
-3) Preferred collection time slot:
-4) Average weekly volumes (suitable for our network):
-5) % Volume Split per weight band:
-0-1Kg:
-1-2Kg:
-2-5Kg:
-5-10Kg:
-10-15Kg:
-6) % Volume Split per Service (UK48, Next Day, International):
-7) Average Parcel dimensions:
-8) Parcel presentation (i.e. Pallets / Cages / Sacks):
-9) Contents of the parcels you are wishing to send:
- */
+        $form->add($this->getAverageParcelDimensionsFieldset());
+        $form->add((new Element('Parcel Presentation', [
+            'label' => 'Parcel presentation (i.e. Pallets / Cages / Sacks)'
+        ]))->setAttribute('required', true));
+        $form->add((new Element('Parcel Contents', [
+            'label' => 'Contents of the parcels you are wishing to send'
+        ]))->setAttribute('required', true));
 
         return $form;
     }
 
-    protected function getAddressFieldset(string $name, ?string $label = null)
+    protected function getAddressFieldset(string $name, ?string $label = null, ?bool $required = true)
     {
         $address = new Fieldset($name, [
             'label' => $label ?? $name
         ]);
         $address->add((new Element('Line 1', [
             'label' => 'Line 1'
-        ]))->setAttribute('required', true));
+        ]))->setAttribute('required', $required));
         $address->add(new Element('Line 2', [
             'label' => 'Line 2'
         ]));
@@ -100,13 +100,13 @@ class FormFactory
         ]));
         $address->add((new Element('City', [
             'label' => 'City'
-        ]))->setAttribute('required', true));
+        ]))->setAttribute('required', $required));
         $address->add(new Element('County', [
             'label' => 'County'
         ]));
         $address->add((new Element('Post code', [
             'label' => 'Post code'
-        ]))->setAttribute('required', true));
+        ]))->setAttribute('required', $required));
         return $address;
     }
 
@@ -115,19 +115,19 @@ class FormFactory
         $weightSplit = new Fieldset('Percentage Volume Split per Weight Band', [
             'label' => '% Volume Split per Weight Band'
         ]);
-        $weightSplit->add((new Element('0-1kg', [
+        $weightSplit->add((new Number('0-1kg', [
             'label' => '0 - 1kg'
         ]))->setAttribute('required', true));
-        $weightSplit->add((new Element('1-2kg', [
+        $weightSplit->add((new Number('1-2kg', [
             'label' => '1 - 2kg'
         ]))->setAttribute('required', true));
-        $weightSplit->add((new Element('2-5kg', [
+        $weightSplit->add((new Number('2-5kg', [
             'label' => '2 - 5kg'
         ]))->setAttribute('required', true));
-        $weightSplit->add((new Element('5-10kg', [
+        $weightSplit->add((new Number('5-10kg', [
             'label' => '5 - 10kg'
         ]))->setAttribute('required', true));
-        $weightSplit->add((new Element('10-15kg', [
+        $weightSplit->add((new Number('10-15kg', [
             'label' => '10 - 15kg'
         ]))->setAttribute('required', true));
         return $weightSplit;
@@ -138,14 +138,32 @@ class FormFactory
         $serviceSplit = new Fieldset('Percentage Volume Split per Service', [
             'label' => '% Volume Split per Service'
         ]);
-        $serviceSplit->add((new Element('UK48', [
+        $serviceSplit->add((new Number('UK48', [
             'label' => 'UK 48'
         ]))->setAttribute('required', true));
-        $serviceSplit->add((new Element('Next Day', [
+        $serviceSplit->add((new Number('Next Day', [
             'label' => 'Next Day'
         ]))->setAttribute('required', true));
-        $serviceSplit->add((new Element('International', [
+        $serviceSplit->add((new Number('International', [
             'label' => 'International'
         ]))->setAttribute('required', true));
+        return $serviceSplit;
+    }
+
+    protected function getAverageParcelDimensionsFieldset()
+    {
+        $dimensions = new Fieldset('Average Parcel Dimensions (cm)', [
+            'label' => 'Average Parcel Dimensions (cm)'
+        ]);
+        $dimensions->add((new Number('Width', [
+            'label' => 'Width'
+        ]))->setAttribute('required', true));
+        $dimensions->add((new Number('Length', [
+            'label' => 'Length'
+        ]))->setAttribute('required', true));
+        $dimensions->add((new Number('Height', [
+            'label' => 'Height'
+        ]))->setAttribute('required', true));
+        return $dimensions;
     }
 }

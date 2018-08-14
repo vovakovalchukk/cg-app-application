@@ -21,7 +21,7 @@ class Requester
 
     public function __invoke(Form $credentialsRequestForm, EmailClientInterface $emailClient, LoggerInterface $logger)
     {
-        $company = $credentialsRequestForm->getData()['clientName'];
+        $company = $credentialsRequestForm->getData()['Company Name'];
         if (!$this->toEmail) {
             $logger->info('Not sending credentials request to Hermes for {company} as there\'s no \'to\' address defined.', ['company' => $company]);
             return;
@@ -36,8 +36,8 @@ class Requester
 
     protected function generateMessage(Form $credentialsRequestForm): string
     {
-        $company = $credentialsRequestForm->getData()['clientName'];
-        $companyEmail = $credentialsRequestForm->getData()['email'];
+        $company = $credentialsRequestForm->getData()['Company Name'];
+        $companyEmail = $credentialsRequestForm->getData()['Contact Email'];
         $message = <<<EOS
 Hello,
 <br /><br />
@@ -72,16 +72,24 @@ EOS;
     protected function convertFormToMessage(Form $credentialsRequestForm): string
     {
         $message = '<table border="1" cellpadding="3">';
-        foreach ($credentialsRequestForm->getData() as $field => $value) {
-            $label = $this->convertFieldToLabel($field);
-            $message .= '<tr><th>' . $label . '</th><td>' . $value . '</td></tr>';
-        }
+        $message .= $this->convertFieldValuesToTableRows($credentialsRequestForm->getData());
         $message .= '</table>';
         return $message;
     }
 
-    protected function convertFieldToLabel(string $field): string
+    protected function convertFieldValuesToTableRows(array $fieldValues, ?string $heading = null): string
     {
-        return ucfirst($field);
+        $rows = '';
+        if ($heading) {
+            $rows .= '<tr><th colspan="2">' . $heading . '</th></tr>' . PHP_EOL;
+        }
+        foreach ($fieldValues as $field => $value) {
+            if (is_array($value)) {
+                $rows .= $this->convertFieldValuesToTableRows($value, $field);
+                continue;
+            }
+            $rows .= '<tr><th>' . $field . '</th><td>' . $value . '</td></tr>' . PHP_EOL;
+        }
+        return $rows;
     }
 }
