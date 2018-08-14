@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b74e3e5e2b55991517571f28d53a80fc",
+    "content-hash": "07d9629c7165b1fbc8a76ff760b0d002",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -935,7 +935,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "40f1a3f6da7da15bbe62c2e616363a1ed95d0eb3"
+                "reference": "ed8c51f76ff5daa55fcf60381778e81fcfa362b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-177-create-new-pbse-catalog-product-e4733d.zip",
+                "reference": "ed8c51f76ff5daa55fcf60381778e81fcfa362b9",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -986,7 +992,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-13T10:05:34+00:00"
+            "time": "2018-08-14T13:23:29+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -9977,12 +9983,6 @@
         {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
-            "version": "dev-TAC-196-remove-oauth-token-if-invalid",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
             "version": "dev-TAC-177-create-new-pbse-catalog-product",
             "package": "channelgrabber/ebay"
         },
@@ -10008,8 +10008,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
