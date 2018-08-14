@@ -107,6 +107,16 @@ define([
             return columns.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
+                
+                //todo - if column.tab exists and is current then createColumn
+                
+                if(column.tab && column.tab !== this.props.tabs.currentTab){
+                    return;
+                }
+                
+                console.log('creating column : ' , column);
+                
+                
                 let createdColumn = columnCreator(column);
                 return createdColumn
             })

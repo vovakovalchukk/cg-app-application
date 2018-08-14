@@ -30,6 +30,15 @@ define([
         dummyListingColumn6: TextCell,
         dummyListingColumn7: TextCell,
         dummyListingColumn8: TextCell,
+        
+        dummyDetailsColumn1: TextCell,
+        dummyDetailsColumn2: TextCell,
+        dummyDetailsColumn3: TextCell,
+        dummyDetailsColumn4: TextCell,
+        dummyDetailsColumn5: TextCell,
+        dummyDetailsColumn6: TextCell,
+        dummyDetailsColumn7: TextCell,
+        dummyDetailsColumn8: TextCell,
     };
     
     var columnCreator = function(column) {

@@ -20,15 +20,14 @@ define([
                 label: 'VAT'
             },
         ],
-        currentTab: 'listings'
+        currentTab: 'details'
     };
     
-    var TableReducer = reducerCreator(initialState, {
+    var TabsReducer = reducerCreator(initialState, {
         "TAB_CHANGE": function(state, action) {
         
         }
-        
     });
     
-    return TableReducer
+    return TabsReducer
 });

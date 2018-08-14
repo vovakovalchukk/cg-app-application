@@ -18,11 +18,15 @@ define([], function() {
             },
             getCellData: (products, columnKey, rowIndex) => {
                 let row = products.visibleRows[rowIndex];
-                var keyToCellDataMap = {
+                let keyToCellDataMap = {
                     sku: row['sku'],
                     name: row['name'],
+                };
+                let cellData = keyToCellDataMap[columnKey];
+                // todo - change this dummy data to be something more significant from TAC-165 onwards
+                if(columnKey.indexOf('dummy')>-1){
+                    cellData = `${columnKey} ${rowIndex}`;
                 }
-                let cellData = keyToCellDataMap[columnKey]
                 return cellData;
             }
         };

@@ -68,9 +68,7 @@ define([
             return {}
         },
         render: function() {
-            console.log('in render of Tabs component with actions: ' , this.props.actions);
-            
-            
+            // console.log('in render of Tabs component with actions: ' , this.props.actions);
             return (
                 <Tabs.wrapper>
                     <Tabs>
@@ -89,7 +87,5 @@ define([
         }
     });
     
-    
     return TabsComponent;
-})
-;
+});

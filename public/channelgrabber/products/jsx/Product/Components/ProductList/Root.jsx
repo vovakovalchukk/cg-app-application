@@ -19,7 +19,8 @@ define([
     
     const mapStateToProps = function(state) {
         return {
-            products: state.products
+            products: state.products,
+            tabs:state.tabs
         };
     };
     
