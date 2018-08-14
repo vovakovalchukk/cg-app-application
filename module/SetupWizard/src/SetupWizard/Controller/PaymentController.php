@@ -4,8 +4,10 @@ namespace SetupWizard\Controller;
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
 use CG\Billing\Subscription\Entity as Subscription;
+use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
+use CG\User\ActiveUserInterface;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
@@ -17,6 +19,7 @@ use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
+
 
 class PaymentController extends AbstractActionController
 {
@@ -42,6 +45,10 @@ class PaymentController extends AbstractActionController
     /** @var SessionManager */
     protected $session;
 
+    protected $activeUser;
+
+    protected $subscriptionService;
+
     public function __construct(
         Service $setupService,
         PackageService $packageService,
@@ -50,7 +57,9 @@ class PaymentController extends AbstractActionController
         PaymentService $paymentService,
         PaymentViewService $paymentViewService,
         PackageManagementService $packageManagementService,
-        SessionManager $session
+        SessionManager $session,
+        ActiveUserInterface $activeUser,
+        SubscriptionService $subscriptionService
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
@@ -60,6 +69,8 @@ class PaymentController extends AbstractActionController
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
         $this->session = $session;
+        $this->activeUser = $activeUser;
+        $this->subscriptionService = $subscriptionService;
     }
 
     public function indexAction()
@@ -206,4 +217,10 @@ class PaymentController extends AbstractActionController
         }
         return $this->jsonModelFactory->newInstance($response);
     }
+
+    protected function checkSubscriptionStatus()
+    {
+        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+    }
+
 }
