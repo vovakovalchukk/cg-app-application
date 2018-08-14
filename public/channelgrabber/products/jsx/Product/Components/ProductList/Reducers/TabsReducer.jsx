@@ -11,21 +11,24 @@ define([
         tabs: [{
             key: 'listings',
             label: 'Listings'
-            }, {
+        }, {
             key: 'details',
             label: 'Details'
-            },
+        },
             {
-                key: 'listings',
+                key: 'vat',
                 label: 'VAT'
             },
         ],
-        currentTab: 'details'
+        currentTab: 'listings'
     };
     
     var TabsReducer = reducerCreator(initialState, {
         "TAB_CHANGE": function(state, action) {
-        
+            let newState = Object.assign({}, state, {
+                currentTab: action.payload.desiredTabKey
+            });
+            return newState;
         }
     });
     

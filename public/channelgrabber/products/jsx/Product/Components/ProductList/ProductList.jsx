@@ -8,7 +8,7 @@ define([
     'Product/Components/ProductList/ColumnCreator/columns',
     'Product/Components/ProductList/ColumnCreator/factory',
     
-    'Product/Components/ProductList/Components/Tabs'
+    'Product/Components/ProductList/Components/Tabs/Root'
 
 ], function(
     React,
@@ -114,9 +114,6 @@ define([
                     return;
                 }
                 
-                console.log('creating column : ' , column);
-                
-                
                 let createdColumn = columnCreator(column);
                 return createdColumn
             })
@@ -149,16 +146,13 @@ define([
             )
         },
         render: function() {
-            const {changeTab} = this.props.actions;
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">
                         {this.renderSearchBox()}
                         {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     </div>
-                    <Tabs
-                        actions={{changeTab}}
-                    />
+                    <Tabs />
                     <div
                         className='products-list__container'
                         ref={(productsListContainer) => this.productsListContainer = productsListContainer}

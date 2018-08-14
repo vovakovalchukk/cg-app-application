@@ -100,15 +100,9 @@ define([
             fixed: false,
             tab:'listings'
         }];
+    
         // todo - change this dummy data to be something more significant from TAC-165 onwards
         let detailsColumns = Array(7).fill(0).map((column,index)=>{
-            // return {
-            //     key: 'dummyDetailsColumn'+index,
-            //     width:200,
-            //     headerText:'dummy details col '+index,
-            //     fixed:false,
-            //     tab:'details'
-            // }
             return {
                 key: 'dummyDetailsColumn'+(index+1),
                 width: 200,
@@ -117,13 +111,8 @@ define([
                 tab: 'details'
             }
         });
-        console.log('detailsColumns: ', detailsColumns);
-        
         
         let allColumns = coreColumns.concat(listingColumns, detailsColumns);
-        
-        console.log('allColumns: ', allColumns);
-        
         
         return allColumns;
 });
