@@ -1,6 +1,7 @@
 <?php
 namespace CG\Hermes\Credentials;
 
+use CG\CourierAdapter\AddressInterface;
 use Zend\Form\Element;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
@@ -12,7 +13,7 @@ use Zend\Form\Form;
 
 class FormFactory
 {
-    public function getCredentialsForm()
+    public function getCredentialsForm(): Form
     {
         $form = new Form();
         $form->add((new Element("clientName", [
@@ -46,23 +47,24 @@ class FormFactory
         return $form;
     }
 
-    public function getCredentialsRequestForm()
+    public function getCredentialsRequestForm(AddressInterface $address, string $companyName): Form
     {
         $form = new Form();
         $form->add((new Element('Company Registration Number', [
             'label' => 'Company Registration Number'
         ]))->setAttribute('required', true));
         $form->add((new Element('Company Name', [
-            'label' => 'Company Name'
-        ]))->setAttribute('required', true));
+            'label' => 'Company Name',
+        ]))->setAttribute('required', true)->setValue($companyName));
+        $form->add((new Element('Contact Name', [
+            'label' => 'Contact Name'
+        ]))->setAttribute('required', true)->setValue($address->getFirstName() . ' ' . $address->getLastName()));
         $form->add((new Email('Contact Email', [
             'label' => 'Contact Email'
-        ]))->setAttribute('required', true));
-        $companyAddress = $this->getAddressFieldset('Company Address');
+        ]))->setAttribute('required', true)->setValue($address->getEmailAddress()));
+        $companyAddress = $this->getAddressFieldset('Company Address', $address);
         $form->add($companyAddress);
-        $collectionAddress = $this->getAddressFieldset(
-            'Collection Address (if different)', 'Collection Address (if different)', false
-        );
+        $collectionAddress = $this->getAddressFieldset('Collection Address (if different)', null, false);
         $form->add($collectionAddress);
         $form->add((new Time('Preferred Collection Time Slot', [
             'label' => 'Preferred Collection Time Slot',
@@ -84,33 +86,36 @@ class FormFactory
         return $form;
     }
 
-    protected function getAddressFieldset(string $name, ?string $label = null, ?bool $required = true)
-    {
-        $address = new Fieldset($name, [
-            'label' => $label ?? $name
+    protected function getAddressFieldset(
+        string $name,
+        ?AddressInterface $address = null,
+        ?bool $required = true
+    ): Fieldset  {
+        $addressFields = new Fieldset($name, [
+            'label' => $name
         ]);
-        $address->add((new Element('Line 1', [
+        $addressFields->add((new Element('Line 1', [
             'label' => 'Line 1'
-        ]))->setAttribute('required', $required));
-        $address->add(new Element('Line 2', [
+        ]))->setAttribute('required', $required)->setValue($address ? $address->getLine1() : null));
+        $addressFields->add((new Element('Line 2', [
             'label' => 'Line 2'
-        ]));
-        $address->add(new Element('Line 3', [
+        ]))->setValue($address ? $address->getLine2() : null));
+        $addressFields->add((new Element('Line 3', [
             'label' => 'Line 3'
-        ]));
-        $address->add((new Element('City', [
+        ]))->setValue($address ? $address->getLine3() : null));
+        $addressFields->add((new Element('City', [
             'label' => 'City'
-        ]))->setAttribute('required', $required));
-        $address->add(new Element('County', [
+        ]))->setAttribute('required', $required)->setValue($address ? $address->getLine4() : null));
+        $addressFields->add(new Element('County', [
             'label' => 'County'
         ]));
-        $address->add((new Element('Post code', [
+        $addressFields->add((new Element('Post code', [
             'label' => 'Post code'
-        ]))->setAttribute('required', $required));
-        return $address;
+        ]))->setAttribute('required', $required)->setValue($address ? $address->getPostCode() : null));
+        return $addressFields;
     }
 
-    protected function getVolumeSplitPerWeightFieldset()
+    protected function getVolumeSplitPerWeightFieldset(): Fieldset
     {
         $weightSplit = new Fieldset('Percentage Volume Split per Weight Band', [
             'label' => '% Volume Split per Weight Band'
@@ -133,7 +138,7 @@ class FormFactory
         return $weightSplit;
     }
 
-    protected function getVolumeSplitPerServiceFieldset()
+    protected function getVolumeSplitPerServiceFieldset(): Fieldset
     {
         $serviceSplit = new Fieldset('Percentage Volume Split per Service', [
             'label' => '% Volume Split per Service'
@@ -150,7 +155,7 @@ class FormFactory
         return $serviceSplit;
     }
 
-    protected function getAverageParcelDimensionsFieldset()
+    protected function getAverageParcelDimensionsFieldset(): Fieldset
     {
         $dimensions = new Fieldset('Average Parcel Dimensions (cm)', [
             'label' => 'Average Parcel Dimensions (cm)'

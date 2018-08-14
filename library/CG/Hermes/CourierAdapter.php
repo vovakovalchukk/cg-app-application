@@ -173,7 +173,7 @@ EOS;
      */
     public function getCredentialsRequestForm(AddressInterface $accountHolderAddress, $accountHolderCompanyName)
     {
-        return $this->credentialsFormFactory->getCredentialsRequestForm();
+        return $this->credentialsFormFactory->getCredentialsRequestForm($accountHolderAddress, $accountHolderCompanyName);
     }
 
     /**
