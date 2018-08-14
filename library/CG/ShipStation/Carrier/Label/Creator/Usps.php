@@ -30,6 +30,9 @@ class Usps extends Other
 
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
+
+    /** @var ShippingLedger */
+    protected $shippingLedger;
     
     public function __construct(
         ShipStationClient $shipStationClient,
@@ -53,8 +56,7 @@ class Usps extends Other
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create USPS labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
-        $shippingLedger = $this->shippingLedgerService->fetch($rootOu->getId());
-        $this->shippingLedgerService->debit($shippingLedger, $rootOu, $ordersData->getTotalCost());
+        $this->chargeForLabels($ordersData, $rootOu);
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
         $startDateTime = new DateTime();
@@ -80,9 +82,19 @@ class Usps extends Other
         return $this->buildResponseArray($orders, $errors);
     }
 
-    protected function hasSufficientBalance(ShippingLedger $shippingLedger, OrderDataCollection $ordersData): bool
+    protected function chargeForLabels(OrderDataCollection $ordersData, OrganisationUnit $rootOu): void
     {
-        return $shippingLedger->getBalance() >= $ordersData->getTotalCost();
+        $shippingLedger = $this->fetchShippingLedgerForOu($rootOu);
+        $this->shippingLedgerService->debit($shippingLedger, $rootOu, $ordersData->getTotalCost());
+    }
+
+    protected function fetchShippingLedgerForOu(OrganisationUnit $rootOu): ShippingLedger
+    {
+        if ($this->shippingLedger) {
+            return $this->shippingLedger;
+        }
+        $this->shippingLedger = $this->shippingLedgerService->fetch($rootOu->getId());
+        return $this->shippingLedger;
     }
 
     protected function setCostOnOrderLabels(OrderLabelCollection $orderLabels, OrderDataCollection $ordersData): void
