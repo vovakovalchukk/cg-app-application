@@ -3,6 +3,8 @@ namespace CG\ShipStation\Messages;
 
 use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
+use CG\Order\Shared\Courier\Label\OrderData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\Entity as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
@@ -70,18 +72,22 @@ class Package
         );
     }
 
-    public static function createFromOrderAndData(Order $order, array $orderData, array $parcelData, OrganisationUnit $rootOu): Package
-    {
+    public static function createFromOrderAndData(
+        Order $order,
+        OrderData $orderData,
+        ParcelData $parcelData,
+        OrganisationUnit $rootOu
+    ): Package {
         $insuranceAmount = 0;
-        if (isset($orderData['insuranceMonetary']) && (float)$orderData['insuranceMonetary'] > 0) {
-            $insuranceAmount = round($orderData['insuranceMonetary'] / $orderData['parcels'], 2);
+        if ((float)$orderData->getInsuranceMonetary() > 0) {
+            $insuranceAmount = round($orderData->getInsuranceMonetary() / $orderData->getParcels(), 2);
         }
         return new static(
-            $parcelData['weight'],
+            $parcelData->getWeight(),
             static::$unitMap[LocaleMass::getForLocale($rootOu->getLocale())],
-            $parcelData['length'],
-            $parcelData['width'],
-            $parcelData['height'],
+            $parcelData->getLength(),
+            $parcelData->getWidth(),
+            $parcelData->getHeight(),
             static::$unitMap[LocaleLength::getForLocale($rootOu->getLocale())],
             $insuranceAmount,
             $order->getCurrencyCode()
