@@ -3,20 +3,22 @@ define([
     'fixed-data-table',
     'Product/Components/ProductList/Cells/Text',
     'Product/Components/ProductList/Cells/DebugCell',
-    'Product/Components/ProductList/Cells/ProductExpandCell'
+    'Product/Components/ProductList/Cells/ProductExpandCell',
+    'Product/Components/ProductList/Cells/ImageCell'
 ], function(
     React,
     FixedDataTable,
     TextCell,
     DebugCell,
-    ProductExpandCell
+    ProductExpandCell,
+    ImageCell
 ) {
     "use strict";
     const Column = FixedDataTable.Column;
     
     let cells = {
         productExpand: ProductExpandCell,
-        image: TextCell,
+        image: ImageCell,
         link: TextCell,
         sku: TextCell,
         name: TextCell,

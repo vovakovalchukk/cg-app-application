@@ -71,8 +71,7 @@ define([
             }
         },
         changeTab: (desiredTabKey)=>{
-            console.log('in changeTab AQ desiredTabKey: ', desiredTabKey);
-            
+            // console.log('in changeTab AQ desiredTabKey: ', desiredTabKey);
             return {
                 type:"TAB_CHANGE",
                 payload: {

@@ -18,9 +18,14 @@ define([], function() {
             },
             getCellData: (products, columnKey, rowIndex) => {
                 let row = products.visibleRows[rowIndex];
+                
+                if(columnKey==='image'){
+                    console.log('looking at image in statefilters. row: ' , row)
+                }
                 let keyToCellDataMap = {
                     sku: row['sku'],
                     name: row['name'],
+                    image: getImage(row)
                 };
                 let cellData = keyToCellDataMap[columnKey];
                 // todo - change this dummy data to be something more significant from TAC-165 onwards
@@ -33,4 +38,16 @@ define([], function() {
     };
     
     return stateFilters()
+
+    function getImage(row){
+        if(!row.images || !row.images.length){
+            return;
+        }
+        let primaryImage = row.images[0];
+        return {
+            id: primaryImage.id,
+            url: primaryImage.url
+        };
+    }
+
 });
