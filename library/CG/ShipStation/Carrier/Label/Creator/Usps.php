@@ -56,7 +56,7 @@ class Usps extends Other
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create USPS labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
-        $this->chargeForLabels($ordersData, $rootOu);
+        $this->debitLedgerForLabels($ordersData, $rootOu);
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
         $startDateTime = new DateTime();
@@ -64,15 +64,15 @@ class Usps extends Other
         $labelResults = $this->checkIfFailedLabelsWereActuallyCreatedAndUpdateResults(
             $labelResults, $startDateTime, $ordersData, $shippingAccount, $shipStationAccount
         );
+        $this->creditBackFailedLabels($labelResults, $ordersData, $rootOu);
 
         $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labelResults->getResponses());
-        // Note: we're deliberately NOT refunding the users balance for any failures as there's
-        // no way for us to know if we've been charged by Stamps.com or not.
-        // Most user errors SHOULD be caught at the fetch-rates stage.
 
         $labelPdfs = $this->downloadPdfsForLabels($labelResults->getResponses());
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
+        // We don't do any refunds for errors at this stage as it is after the labels have been created
+
         $errors = array_merge($labelExceptions, $labelErrors, $pdfErrors);
         $this->updateOrderLabels($orderLabels, $labelResults->getResponses(), $labelPdfs, $errors);
 
@@ -82,7 +82,7 @@ class Usps extends Other
         return $this->buildResponseArray($orders, $errors);
     }
 
-    protected function chargeForLabels(OrderDataCollection $ordersData, OrganisationUnit $rootOu): void
+    protected function debitLedgerForLabels(OrderDataCollection $ordersData, OrganisationUnit $rootOu): void
     {
         $shippingLedger = $this->fetchShippingLedgerForOu($rootOu);
         $this->shippingLedgerService->debit($shippingLedger, $rootOu, $ordersData->getTotalCost());
@@ -220,6 +220,38 @@ class Usps extends Other
             $updatedResults->addResponse($orderId, $activeLabels[$orderData->getService()]);
         }
         return $updatedResults;
+    }
+
+    protected function creditBackFailedLabels(
+        LabelResults $labelResults,
+        OrderDataCollection $ordersData,
+        OrganisationUnit $rootOu
+    ): void {
+        $failCount = 0;
+        $amount = 0;
+        foreach ($labelResults->getThrowables() as $orderId => $throwable) {
+            /** @var OrderData $orderData */
+            $orderData = $ordersData->getById($orderId);
+            $amount += $orderData->getCost();
+            $failCount++;
+        }
+        /** @var LabelResponse $response */
+        foreach ($labelResults->getResponses() as $orderId => $response) {
+            if (empty($response->getErrors())) {
+                continue;
+            }
+            /** @var OrderData $orderData */
+            $orderData = $ordersData->getById($orderId);
+            $amount += $orderData->getCost();
+            $failCount++;
+        }
+        if ($amount == 0) {
+            return;
+        }
+
+        $this->logDebug('%d labels failed to create, crediting the user %.2f', [$failCount, $amount], [static::LOG_CODE, 'Failure', 'Refund']);
+        $shippingLedger = $this->fetchShippingLedgerForOu($rootOu);
+        $this->shippingLedgerService->credit($shippingLedger, $rootOu, $amount);
     }
 
     protected function getErrorsForFailedLabels(array $throwables): array
