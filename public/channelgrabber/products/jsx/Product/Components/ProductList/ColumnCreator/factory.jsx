@@ -4,22 +4,25 @@ define([
     'Product/Components/ProductList/Cells/Text',
     'Product/Components/ProductList/Cells/DebugCell',
     'Product/Components/ProductList/Cells/ProductExpandCell',
-    'Product/Components/ProductList/Cells/ImageCell'
+    'Product/Components/ProductList/Cells/ImageCell',
+    'Product/Components/ProductList/Cells/LinkCell'
 ], function(
     React,
     FixedDataTable,
     TextCell,
     DebugCell,
     ProductExpandCell,
-    ImageCell
+    ImageCell,
+    LinkCell
 ) {
     "use strict";
+    ////
     const Column = FixedDataTable.Column;
     
     let cells = {
         productExpand: ProductExpandCell,
         image: ImageCell,
-        link: TextCell,
+        link: LinkCell,
         sku: TextCell,
         name: TextCell,
         available: TextCell,

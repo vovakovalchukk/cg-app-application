@@ -21,7 +21,7 @@ define([], function() {
                 let keyToCellDataMap = {
                     sku: row['sku'],
                     name: row['name'],
-                    image: getImage(row)
+                    image: getImageData(row)
                 };
                 let cellData = keyToCellDataMap[columnKey];
                 // todo - change this dummy data to be something more significant from TAC-165 onwards
@@ -35,7 +35,7 @@ define([], function() {
     
     return stateFilters()
 
-    function getImage(row){
+    function getImageData(row){
         if(!row.images || !row.images.length){
             return;
         }

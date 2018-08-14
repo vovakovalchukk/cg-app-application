@@ -179,6 +179,10 @@ define([
                     skusToFindLinkedProductsFor[product.sku] = product.sku;
                 }
             });
+            
+            console.log('skusToFindLinkedProductsFor we are sending to /products/links/ajax: ', skusToFindLinkedProductsFor);
+            
+            
             $.ajax({
                 url: '/products/links/ajax',
                 data: {
@@ -186,6 +190,9 @@ define([
                 },
                 type: 'POST',
                 success: function(response) {
+                    console.log('have just fetched linked products . response: ' , response);
+                    
+                    
                     var products = [];
                     if (response.productLinks) {
                         products = response.productLinks;
@@ -193,7 +200,11 @@ define([
                     this.setState({
                             allProductLinks: products
                         },
-                        window.triggerEvent('fetchingProductLinksStop')
+                        ()=>{
+                            console.log('this.state: ' , this.state);
+                            window.triggerEvent('fetchingProductLinksStop')
+                        
+                        }
                     );
                 }.bind(this),
                 error: function(error) {

@@ -12,7 +12,6 @@ define([
     "use strict";
     
     styled = styled.default;
-    console.log('styleVars in Tabs: ', styleVars);
     
     const Tabs = styled.div`
         position:relative;
