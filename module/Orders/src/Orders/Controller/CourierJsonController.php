@@ -407,6 +407,7 @@ class CourierJsonController extends AbstractActionController
             'partialErrorMessage' => 'You have insufficient funds to create these labels.<br />Please top up your balance or enable automatic top up.',
         ];
 
+        // For now this is only relevant to USPS, if future channels also need this we should make a factory.
         if ($shippingAccount->getChannel() == 'usps-ss') {
             $viewData['topupRequired'] = true;
         }
