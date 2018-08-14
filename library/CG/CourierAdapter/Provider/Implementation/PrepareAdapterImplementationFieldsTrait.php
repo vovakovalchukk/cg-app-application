@@ -67,27 +67,22 @@ trait PrepareAdapterImplementationFieldsTrait
 
     protected function prepareAdapterImplementationFormValuesForSubmission(ZendFormFieldset $fieldset, array $values)
     {
-        // ZF2 replaces spaces with undercores :(
-        $normalisedValues = [];
-        foreach ($values as $key => $value) {
-            $normalisedValues[str_replace('_', ' ', $key)] = $value;
-        }
         $fieldsOrSets = array_merge($fieldset->getFieldsets(), $fieldset->getElements());
         foreach ($fieldsOrSets as $fieldsOrSet) {
             if ($fieldsOrSet instanceof ZendFormFieldset) {
-                $subSetValues = (isset($normalisedValues[$fieldsOrSet->getName()]) ? $normalisedValues[$fieldsOrSet->getName()] : []);
-                $normalisedValues[$fieldsOrSet->getName()] = $this->prepareAdapterImplementationFormValuesForSubmission($fieldsOrSet, $subSetValues);
+                $subSetValues = (isset($values[$fieldsOrSet->getName()]) ? $values[$fieldsOrSet->getName()] : []);
+                $values[$fieldsOrSet->getName()] = $this->prepareAdapterImplementationFormValuesForSubmission($fieldsOrSet, $subSetValues);
                 continue;
             }
-            if (isset($normalisedValues[$fieldsOrSet->getName()])) {
+            if (isset($values[$fieldsOrSet->getName()])) {
                 continue;
             }
             if ($fieldsOrSet instanceof ZendFormCheckbox) {
-                $normalisedValues[$fieldsOrSet->getName()] = $fieldsOrSet->getUncheckedValue();
+                $values[$fieldsOrSet->getName()] = $fieldsOrSet->getUncheckedValue();
             } else {
-                $normalisedValues[$fieldsOrSet->getName()] = null;
+                $values[$fieldsOrSet->getName()] = null;
             }
         }
-        return $normalisedValues;
+        return $values;
     }
 }
