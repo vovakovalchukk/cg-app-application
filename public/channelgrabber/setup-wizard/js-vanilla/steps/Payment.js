@@ -46,6 +46,11 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
     Payment.RememberSelectedPackageUrl = '/setup/payment/rememberPackage/';
     Payment.RememberSelectedBillingDurationUrl = '/setup/payment/rememberBillingDuration/';
 
+    Payment.prototype.takePayment = function()
+    {
+        this.getSetupWizard().clickNext();
+    };
+
     Payment.prototype.registerNextCallback = function()
     {
         var self = this;

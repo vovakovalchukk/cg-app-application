@@ -53,5 +53,6 @@
             }),
             document.getElementById('package-setup')
         );
+        <?php if ($this->takePayment) : ?>$(document).ready(payment.takePayment.bind(payment));<?php endif ?>
     });
 </script>
