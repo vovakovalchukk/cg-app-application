@@ -4,9 +4,12 @@ namespace SetupWizard\Controller;
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
 use CG\Billing\Subscription\Entity as Subscription;
+use CG\Billing\Subscription\Filter as SubscriptionFilter;
 use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
+use CG\Payment\PackageUpgrade\Request as PackageUpgradeRequest;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
@@ -19,6 +22,7 @@ use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
+use CG\Stdlib\DateTime as StdlibDateTime;
 
 
 class PaymentController extends AbstractActionController
@@ -189,13 +193,18 @@ class PaymentController extends AbstractActionController
     {
         $response = ['success' => false, 'error' => ''];
         try {
-            $this->packageManagementService->setPackage(
-                $this->packageManagementService->createPackageUpgradeRequest(
-                    $this->params()->fromRoute('id'),
-                    null,
-                    $this->params()->fromPost('billingDuration') ?? null
-                )
+            $packageUpgradeRequest = $this->packageManagementService->createPackageUpgradeRequest(
+                $this->params()->fromRoute('id'),
+                null,
+                $this->params()->fromPost('billingDuration') ?? null
             );
+
+            if (!$this->shouldAddNewSubscription($packageUpgradeRequest)) {
+                $response['success'] = true;
+            }
+
+            $this->packageManagementService->setPackage($packageUpgradeRequest);
+
             $response['success'] = true;
         } catch (SetPackageException\PricingSchemeMismatch $pricingSchemeMismatch) {
             $newPackage = $pricingSchemeMismatch->getPackage();
@@ -218,9 +227,34 @@ class PaymentController extends AbstractActionController
         return $this->jsonModelFactory->newInstance($response);
     }
 
-    protected function checkSubscriptionStatus()
+    protected function shouldAddNewSubscription(PackageUpgradeRequest $packageUpgradeRequest): bool
     {
-        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+//        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+        if(!$this->packageManagementService->isCurrentPackageTrialOrFree($packageUpgradeRequest)) {
+            return false;
+        }
+
+        try {
+            $now = new DateTime();
+
+            /* @var $subscriptions \CG\Billing\Subscription\Collection */
+            $subscriptions = $this->subscriptionService->fetchCollectionByFilter(
+                (new SubscriptionFilter())
+                    ->setOuId([$packageUpgradeRequest->getOrganisationUnit()])
+                    ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
+                    ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
+                    ->setLimit('all')
+                    ->setPage(1)
+            );
+
+            if ($subscriptions->count() <= 1) {
+                return true;
+            }
+        } catch (NotFound $e) {
+            //noop
+        }
+
+        return false;
     }
 
 }

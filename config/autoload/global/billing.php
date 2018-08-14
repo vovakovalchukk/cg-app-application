@@ -1,11 +1,15 @@
 <?php
 use CG\Billing\OneOffPaymentInterface;
+use CG\Billing\Licence\StorageInterface as LicenceStorage;
+use CG\Billing\Licence\Storage\Api as LicenceApiStorage;
 use CG\Billing\Package\Storage\Api as PackageApiStorage;
 use CG\Billing\Package\StorageInterface as PackageStorage;
 use CG\Billing\PricingSchemeAssignment\Storage\Api as PricingSchemeAssignmentApiStorage;
 use CG\Billing\PricingSchemeAssignment\StorageInterface as PricingSchemeAssignmentStorage;
 use CG\Billing\Subscription\Package\Storage\Api as SubscriptionPackageApiStorage;
 use CG\Billing\Subscription\Package\StorageInterface as SubscriptionPackageStorage;
+use CG\Billing\Subscription\StorageInterface as SubscriptionStorage;
+use CG\Billing\Subscription\Storage\Api as SubscriptionApiStorage;
 use CG\Clearbooks\Invoice\InvoiceInitialisationService;
 use CG\Clearbooks\Payment\AllocationService as ClearbooksPaymentAllocationService;
 use CG\Payment\AllocationServiceInterface as PaymentAllocationService;
@@ -22,6 +26,8 @@ return [
     'di' => [
         'instance' => [
             'preferences' => [
+                SubscriptionStorage::class => SubscriptionApiStorage::class,
+                LicenceStorage::class => LicenceApiStorage::class,
                 PricingSchemeAssignmentStorage::class => PricingSchemeAssignmentApiStorage::class,
                 SubscriptionPackageStorage::class => SubscriptionPackageApiStorage::class,
                 PackageStorage::class => PackageApiStorage::class,
@@ -31,6 +37,16 @@ return [
                 PaymentAllocationService::class => ClearbooksPaymentAllocationService::class,
                 OneOffPaymentInterface::class => OneOffPaymentService::class,
                 ShippingLedgerStorage::class => ShippingLedgerApi::class
+            ],
+            SubscriptionApiStorage::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle',
+                ],
+            ],
+            LicenceApiStorage::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle',
+                ],
             ],
             PricingSchemeAssignmentApiStorage::class => [
                 'parameters' => [
