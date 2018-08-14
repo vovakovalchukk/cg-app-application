@@ -2,9 +2,11 @@
 namespace CG\ShipStation\Carrier\Label;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shared\Manifest\Entity as AccountManifest;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as ShippingProviderCancelInterface;
 use CG\Channel\Shipping\Provider\Service\CreateRestrictedInterface;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as ShippingProviderFetchRatesInterface;
+use CG\Channel\Shipping\Provider\Service\ManifestInterface;
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as ShippingRateCollection;
 use CG\Channel\Shipping\Provider\ServiceInterface as ShippingProviderServiceInterface;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -24,8 +26,9 @@ use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\ShipStation\Carrier\Label\Manifest\Service as ManifestService;
 
-class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, CreateRestrictedInterface
+class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, CreateRestrictedInterface, ManifestInterface
 {
     /** @var CarrierService */
     protected $carrierServive;
@@ -39,8 +42,14 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     protected $ratesService;
     /** @var AccountDeciderFactory */
     protected $accountDeciderFactory;
+    /** @var ManifestService */
+    protected $manifestService;
 
     protected $carrierRateSupport = [
+        'usps-ss' => true,
+    ];
+
+    protected $carrierManifestSupport = [
         'usps-ss' => true,
     ];
 
@@ -50,7 +59,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         LabelCreatorFactory $labelCreatorFactory,
         LabelCancellerFactory $labelCancellerFactory,
         RatesService $ratesService,
-        AccountDeciderFactory $accountDeciderFactory
+        AccountDeciderFactory $accountDeciderFactory,
+        ManifestService $manifestService
     ) {
         $this->carrierServive = $carrierServive;
         $this->shipStationService = $shipStationService;
@@ -58,6 +68,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $this->labelCancellerFactory = $labelCancellerFactory;
         $this->ratesService = $ratesService;
         $this->accountDeciderFactory = $accountDeciderFactory;
+        $this->manifestService = $manifestService;
     }
 
     /**
@@ -171,5 +182,44 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManifestingAllowedForAccount(Account $account): bool
+    {
+        return $this->carrierManifestSupport[$account->getChannel()] ?? false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManifestingOnlyAllowedOncePerDayForAccount(Account $account)
+    {
+        return false;
+    }
+
+    /**
+     * Generate the manifest with the courier then call setExternalId() with the courier's ID for the manifest
+     * and setManifest() with the base64 encoded PDF data of the manifest itself.
+     * @param Account $shippingAccount
+     * @param AccountManifest $accountManifest
+     * @throws \CG\Stdlib\Exception\Storage if there is a problem generating the manifest
+     */
+    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
+    {
+        /** @var AccountDeciderInterface $accountDecider */
+        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
+        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
+        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
+
+        $shipStationManifest = $this->manifestService->generateShipStationManifest($shippingAccountToUse, $shipStationAccountToUse, $accountManifest);
+
+        if ($shipStationManifest !== null) {
+            $manifestPdf = $this->manifestService->retrievePdfForManifest($shipStationManifest);
+            $accountManifest->setExternalId($shipStationManifest->getFormId());
+            $accountManifest->setManifest(base64_encode($manifestPdf));
+        }
     }
 }
