@@ -77,7 +77,7 @@ class CreateService extends ServiceAbstract
                 $user
             );
             $this->unlockOrderLabels();
-            $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
 
             if (!empty($orderLabelsData['errors'])) {
