@@ -3,13 +3,12 @@ namespace CG\Hermes\Credentials;
 
 use Zend\Form\Element;
 use Zend\Form\Element\Checkbox;
-use Zend\Form\Element\Email;
 use Zend\Form\Element\Password;
 use Zend\Form\Form;
 
 class FormFactory
 {
-    public function getCredentialsForm()
+    public function __invoke()
     {
         $form = new Form();
         $form->add((new Element("clientName", [
@@ -40,22 +39,6 @@ class FormFactory
                 'title' => 'Only check this after your test pack generated with your LIVE credentials has been approved by Hermes. This fully activates your Hermes account.'
             ]
         ]));
-        return $form;
-    }
-
-    public function getCredentialsRequestForm()
-    {
-        $form = new Form();
-        $form->add((new Element("clientName", [
-            "label" => "Client Name"
-        ]))->setAttribute('required', true));
-        $form->add((new Element("clientId", [
-            "label" => "Client ID"
-        ]))->setAttribute('required', true));
-        $form->add((new Email("email", [
-            "label" => "Client Email"
-        ]))->setAttribute('required', true));
-
         return $form;
     }
 }
