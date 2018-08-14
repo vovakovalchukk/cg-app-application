@@ -16,7 +16,10 @@ use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Request\Shipping\Label\Rate as RateLabelRequest;
+use CG\ShipStation\Request\Shipping\Label\Query as QueryLabelRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
+use CG\ShipStation\Response\Shipping\Label\Query as QueryLabelResponse;
+use DateTime;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\BadResponseException;
 use Throwable;
@@ -54,7 +57,12 @@ class Usps extends Other
         $this->shippingLedgerService->debit($shippingLedger, $rootOu, $ordersData->getTotalCost());
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
+        $startDateTime = new DateTime();
         $labelResults = $this->createLabelsFromRates($ordersData, $shippingAccount, $shipStationAccount);
+        $labelResults = $this->checkIfFailedLabelsWereActuallyCreatedAndUpdateResults(
+            $labelResults, $startDateTime, $ordersData, $shippingAccount, $shipStationAccount
+        );
+
         $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labelResults->getResponses());
         // Note: we're deliberately NOT refunding the users balance for any failures as there's
@@ -105,6 +113,101 @@ class Usps extends Other
             }
         }
         return $labelResults;
+    }
+
+    /* Because we get charged by Stamps.com for any created labels we need to make sure any marked as
+     * failed were definitely not created before refunding them */
+    protected function checkIfFailedLabelsWereActuallyCreatedAndUpdateResults(
+        LabelResults $labelResults,
+        DateTime $startDateTime,
+        OrderDataCollection $ordersData,
+        Account $shippingAccount,
+        Account $shipStationAccount
+    ): LabelResults {
+        if (!$this->didAnyLabelsFailToCreate($labelResults)) {
+            return $labelResults;
+        }
+        $this->logNotice('Some labels seemingly failed to create, will double-check by attempting to fetch them', [], [static::LOG_CODE, 'Failure', 'Check']);
+        $labelCount = count($labelResults->getThrowables()) + count($labelResults->getResponses());
+        $labelsResponse = $this->fetchLabelsCreatedSince($startDateTime, $labelCount, $shippingAccount, $shipStationAccount);
+        $activeLabels = $this->filterQueryLabelsResponseToActiveLabelsByShipmentId($labelsResponse);
+        if (empty($activeLabels)) {
+            return $labelResults;
+        }
+        return $this->updateLabelResultsWithFetchedLabels($labelResults, $activeLabels, $ordersData);
+    }
+
+    protected function didAnyLabelsFailToCreate(LabelResults $labelResults): bool
+    {
+        if (!empty($labelResults->getThrowables())) {
+            return true;
+        }
+        foreach ($labelResults->getResponses() as $labelResponse) {
+            if (!empty($labelResponse->getErrors())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected function fetchLabelsCreatedSince(
+        DateTime $startDateTime,
+        int $pageSize,
+        Account $shippingAccount,
+        Account $shipStationAccount
+    ): QueryLabelResponse {
+        // Give ourselves a little overlap in case ShipEngines time is out of sync with ours
+        $startDateTime->sub(new \DateInterval('P1M'));
+        $request = (new QueryLabelRequest())
+            ->setCarrierId($shippingAccount->getExternalId())
+            ->setCreatedAtStart($startDateTime)
+            ->setPageSize($pageSize);
+        return $this->shipStationClient->sendRequest($request, $shipStationAccount);
+    }
+
+    /**
+     * @return LabelResponse[]
+     */
+    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(QueryLabelResponse $labelsResponse): array
+    {
+        $activeLabels = [];
+        foreach ($labelsResponse->getLabels() as $label) {
+            if (!in_array($label->getStatus(), LabelResponse::getActiveStatuses())) {
+                continue;
+            }
+            $activeLabels[$label->getShipmentId()] = $label;
+        }
+        return $activeLabels;
+    }
+
+    protected function updateLabelResultsWithFetchedLabels(
+        LabelResults $labelResults,
+        array $activeLabels,
+        OrderDataCollection $ordersData
+    ): LabelResults {
+        $updatedResults = new LabelResults();
+        foreach ($labelResults->getThrowables() as $orderId => $throwable) {
+            /** @var OrderData $orderData */
+            $orderData = $ordersData->getById($orderId);
+            if (!isset($activeLabels[$orderData->getService()])) {
+                $updatedResults->addThrowable($orderId, $throwable);
+                continue;
+            }
+            $updatedResults->addResponse($orderId, $activeLabels[$orderData->getService()]);
+        }
+        /** @var LabelResponse $response */
+        foreach ($labelResults->getResponses() as $orderId => $response) {
+            if (empty($response->getErrors())) {
+                $updatedResults->addResponse($orderId, $response);
+                continue;
+            }
+            if (!isset($activeLabels[$orderData->getService()])) {
+                $updatedResults->addResponse($orderId, $response);
+                continue;
+            }
+            $updatedResults->addResponse($orderId, $activeLabels[$orderData->getService()]);
+        }
+        return $updatedResults;
     }
 
     protected function getErrorsForFailedLabels(array $throwables): array
