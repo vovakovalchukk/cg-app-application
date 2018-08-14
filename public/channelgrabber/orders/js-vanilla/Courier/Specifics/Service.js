@@ -348,7 +348,7 @@ define([
         var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
         data.account = this.getCourierAccountId();
         data.order = [orderId];
-        this.sendCreateLabelsRequest(data);
+        this.sendCreateLabelsRequest(data, button);
     };
 
     Service.prototype.exportOrder = function(orderId, button)
@@ -456,7 +456,7 @@ define([
         $(button).addClass('disabled');
         $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).addClass('disabled');
         this.getNotifications().notice('Creating all labels');
-        this.sendCreateLabelsRequest(data);
+        this.sendCreateLabelsRequest(data, button);
     };
 
     Service.prototype.exportAll = function(button)
@@ -474,7 +474,7 @@ define([
         this.sendExportRequest(data);
     };
 
-    Service.prototype.sendCreateLabelsRequest = function(data)
+    Service.prototype.sendCreateLabelsRequest = function(data, button)
     {
         var self = this;
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
@@ -482,7 +482,7 @@ define([
             if (response.Records) {
                 self.refreshRowsWithData(response.Records);
             }
-            self.processCreateLabelsResponse(response);
+            self.processCreateLabelsResponse(response, button);
         }, function(response)
         {
             $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
@@ -517,20 +517,20 @@ define([
         $(formHtml).appendTo('body').submit().remove();
     };
 
-    Service.prototype.processCreateLabelsResponse = function(response)
+    Service.prototype.processCreateLabelsResponse = function(response, button)
     {
         if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
             this.getNotifications().success('Label(s) created successfully');
         } else {
-            this.handleNotReadysAndErrors(response);
+            this.handleNotReadysAndErrors(response, button);
         }
         $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
     };
 
-    Service.prototype.handleNotReadysAndErrors = function(response)
+    Service.prototype.handleNotReadysAndErrors = function(response, button)
     {
-
+        console.log(button);
         if (response.topupRequired) {
             this.showBalanceTopUpPopUp();
             return;
