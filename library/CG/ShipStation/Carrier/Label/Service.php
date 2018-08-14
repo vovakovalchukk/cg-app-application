@@ -16,6 +16,7 @@ use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\AccountDeciderInterface;
 use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
 use CG\ShipStation\Carrier\Label\Creator\Factory as LabelCreatorFactory;
+use CG\ShipStation\Carrier\Label\Canceller\Factory as LabelCancellerFactory;
 use CG\ShipStation\Carrier\Rates\Service as RatesService;
 use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
@@ -29,8 +30,8 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     protected $shipStationService;
     /** @var LabelCreatorFactory */
     protected $labelCreatorFactory;
-    /** @var Canceller */
-    protected $labelCanceller;
+    /** @var LabelCancellerFactory */
+    protected $labelCancellerFactory;
     /** @var RatesService */
     protected $ratesService;
     /** @var AccountDeciderFactory */
@@ -44,14 +45,14 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         CarrierService $carrierServive,
         ShipStationService $shipStationService,
         LabelCreatorFactory $labelCreatorFactory,
-        Canceller $labelCanceller,
+        LabelCancellerFactory $labelCancellerFactory,
         RatesService $ratesService,
         AccountDeciderFactory $accountDeciderFactory
     ) {
         $this->carrierServive = $carrierServive;
         $this->shipStationService = $shipStationService;
         $this->labelCreatorFactory = $labelCreatorFactory;
-        $this->labelCanceller = $labelCanceller;
+        $this->labelCancellerFactory = $labelCancellerFactory;
         $this->ratesService = $ratesService;
         $this->accountDeciderFactory = $accountDeciderFactory;
     }
@@ -94,6 +95,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
         $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
 
+        /** @var CreatorInterface $labelCreator */
         $labelCreator = ($this->labelCreatorFactory)($shippingAccount->getChannel());
         return $labelCreator->createLabelsForOrders(
             $orders,
@@ -121,7 +123,14 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
         $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
 
-        $this->labelCanceller->cancelOrderLabels($orderLabels, $orders, $shippingAccountToUse, $shipStationAccountToUse);
+        /** @var CancellerInterface $labelCanceller */
+        $labelCanceller = ($this->labelCancellerFactory)($shippingAccount->getChannel());
+        return $labelCanceller->cancelOrderLabels(
+            $orderLabels,
+            $orders,
+            $shippingAccountToUse,
+            $shipStationAccountToUse
+        );
     }
 
     public function isFetchRatesAllowedForOrder(Account $shippingAccount, Order $order): bool
