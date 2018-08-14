@@ -530,8 +530,8 @@ define([
 
     Service.prototype.handleNotReadysAndErrors = function(response, button)
     {
-        console.log(button);
         if (response.topupRequired) {
+            this.store('lastAttemptedCreateLabelButtonClicked', button);
             this.showBalanceTopUpPopUp();
             return;
         }
