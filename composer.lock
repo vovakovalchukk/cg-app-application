@@ -530,12 +530,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "75cf918fe94241420b9f0cada32e8199e8c261b2"
+                "reference": "2bfef4bf2435fd97d1c02432e9774e062e748e85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-148-ebay-pbse-d91f32.zip",
-                "reference": "75cf918fe94241420b9f0cada32e8199e8c261b2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-148-ebay-pbse-8926c3.zip",
+                "reference": "2bfef4bf2435fd97d1c02432e9774e062e748e85",
                 "shasum": null
             },
             "require": {
@@ -610,7 +610,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-09T15:20:50+00:00"
+            "time": "2018-08-10T12:38:18+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1491,12 +1491,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "05a3b3ee84f26103764316abdda61ce2807da098"
+                "reference": "0af1c4ca5483253a03fa616dcb41d0f34511babe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-148-ebay-pbse-bc4b8b.zip",
-                "reference": "05a3b3ee84f26103764316abdda61ce2807da098",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-148-ebay-pbse-4a0681.zip",
+                "reference": "0af1c4ca5483253a03fa616dcb41d0f34511babe",
                 "shasum": null
             },
             "require": {
@@ -1537,7 +1537,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-03T13:28:58+00:00"
+            "time": "2018-08-14T09:33:54+00:00"
         },
         {
             "name": "channelgrabber/locale",
