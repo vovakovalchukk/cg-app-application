@@ -18,10 +18,6 @@ define([], function() {
             },
             getCellData: (products, columnKey, rowIndex) => {
                 let row = products.visibleRows[rowIndex];
-                
-                if(columnKey==='image'){
-                    console.log('looking at image in statefilters. row: ' , row)
-                }
                 let keyToCellDataMap = {
                     sku: row['sku'],
                     name: row['name'],
