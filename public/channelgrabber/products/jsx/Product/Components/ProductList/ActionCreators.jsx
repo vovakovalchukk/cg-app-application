@@ -16,6 +16,15 @@ define([
                 }
             };
         },
+        productsLinksLoad: (allProductsLinks) => {
+            console.log('in productsLinksLoad AC with allProductsLinks: ', allProductsLinks);
+            return {
+                type: "PRODUCTS_LINKS_LOAD",
+                payload: {
+                    allProductsLinks
+                }
+            }
+        },
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
                 dispatch({
@@ -70,10 +79,10 @@ define([
                 }
             }
         },
-        changeTab: (desiredTabKey)=>{
+        changeTab: (desiredTabKey) => {
             // console.log('in changeTab AQ desiredTabKey: ', desiredTabKey);
             return {
-                type:"TAB_CHANGE",
+                type: "TAB_CHANGE",
                 payload: {
                     desiredTabKey
                 }

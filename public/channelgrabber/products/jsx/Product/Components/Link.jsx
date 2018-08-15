@@ -86,6 +86,9 @@ define([
             );
         },
         render: function() {
+            console.log('in Link component with this.props.productLinks:', this.props.productLinks);
+            
+            
             return <Tooltip hoverContent={this.getHoverContent()}>
                 {this.getLinkIcon()}
             </Tooltip>;

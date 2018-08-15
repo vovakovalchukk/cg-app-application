@@ -30,11 +30,28 @@ define([
             return {};
         },
         render() {
-            const rowData = stateFilters.getRowData(this.props.products, this.props.rowIndex)
-    
+            const {products,rowIndex}  = this.props;
+            const rowData = stateFilters.getRowData(products, rowIndex);
+            
+            let productLinks = [];
+            if(products.allProductsLinks && products.allProductsLinks[rowData.id]){
+                console.log('setting LinkCells productLinks to an array.. (supposeidely). products.allProductsLinks: ' , products.allProductsLinks , ' products.allProductsLinks[rowData.id] : '  ,products.allProductsLinks[rowData.id]);
+                
+                
+                productLinks = products.allProductsLinks[rowData.id];
+            }else{
+                console.log('didnt set linkcell to array appropriately');
+                
+                
+            }
+            
+            console.log('in linkCell with props: ' , this.props, ' productLinks : ', productLinks, ' this.props.products.allProductsLinks: ' , products.allProductsLinks);
             return (
                 <StyledLink.container>
-                    <StyledLink sku={rowData.sku}/>
+                    <StyledLink
+                        sku={rowData.sku}
+                        productLinks={productLinks}
+                    />
                 </ StyledLink.container>
             );
         }

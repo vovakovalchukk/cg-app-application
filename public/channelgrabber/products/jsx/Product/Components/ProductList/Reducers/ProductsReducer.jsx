@@ -26,6 +26,13 @@ define([
             });
             return newState;
         },
+        "PRODUCTS_LINKS_LOAD": function(state, action) {
+            // console.log('in PRODUCTS_LINK_LOAD -R with action ' , action);
+            let newState = Object.assign({}, state, {
+                allProductsLinks: action.payload.allProductsLinks
+            });
+            return newState;
+        },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
             let newState = Object.assign({}, state, {
                 variationsByParent: action.payload
