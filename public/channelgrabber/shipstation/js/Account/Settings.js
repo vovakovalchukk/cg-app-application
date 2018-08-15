@@ -86,6 +86,7 @@ define(['AjaxRequester'], function(ajaxRequester)
     {
         console.log(this.createLabelButtonToClick);
         if (this.createLabelButtonToClick !== undefined) {
+            this.createLabelButtonToClick = undefined;
             $('#' + this.createLabelButtonToClick).click();
             return;
         }

@@ -86,8 +86,8 @@ define(['AjaxRequester'], function(ajaxRequester)
     {
         console.log(this.createLabelButtonToClick);
         if (this.createLabelButtonToClick !== undefined) {
-            this.createLabelButtonToClick = undefined;
             $('#' + this.createLabelButtonToClick).click();
+            this.createLabelButtonToClick = undefined;
             return;
         }
         $('.shipping-ledger-balance-amount').text(data.balance);
