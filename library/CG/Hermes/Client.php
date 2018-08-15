@@ -2,9 +2,12 @@
 namespace CG\Hermes;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Guzzle\Http\Client as GuzzleClient;
+use Guzzle\Http\Exception\BadResponseException as GuzzleBadResponseException;
+use Guzzle\Http\Exception\CurlException as GuzzleCurlException;
 use Guzzle\Http\Message\Response as GuzzleResponse;
 use SimpleXMLElement;
 
