@@ -231,6 +231,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         } catch (SetPackageException\AlreadyExists $alreadyExists) {
             $this->logDebugException($alreadyExists);
             $response['success'] = true;
+
         } catch (\Throwable $throwable) {
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
         }
@@ -243,39 +244,30 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         if(!$this->packageManagementService->isCurrentPackageTrialOrFree($packageUpgradeRequest)) {
             return false;
         }
-
-        $this->logDebugDump($packageUpgradeRequest, 'MY TEST', [], 'MY TEST');
-
         try {
             $now = new \DateTime();
-
-            $filter = (new SubscriptionFilter())
-                    ->setOuId([$packageUpgradeRequest->getOrganisationUnit()->getId()])
-                ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
-                ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
-                ->setLimit('all')
-                ->setPage(1);
-
-            $this->logDebugDump($filter, 'MY TEST FILTER', [], 'MY TEST');
-
             /* @var $subscriptions \CG\Billing\Subscription\Collection */
-            $subscriptions = $this->subscriptionService->fetchCollectionByFilter($filter);
-
-            $this->logDebugDump($subscriptions, 'MY TEST SUBS', [], 'MY TEST');
+            $subscriptions = $this->subscriptionService->fetchCollectionByFilter(
+                (new SubscriptionFilter())
+                    ->setOuId([$packageUpgradeRequest->getOrganisationUnit()->getId()])
+                    ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
+                    ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
+                    ->setLimit('all')
+                    ->setPage(1)
+            );
 
             if ($subscriptions->count() <= 1) {
-
-                $this->logDebug('RETURN TRUE', [], 'MY TEST');
-
                 return true;
             }
         } catch (NotFound $e) {
             //noop
         }
-
-        $this->logDebug('RETURN FALSE', [], 'MY TEST');
-
         return false;
+    }
+
+    protected function sendEmail()
+    {
+
     }
 
 }
