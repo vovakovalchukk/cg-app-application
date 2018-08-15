@@ -125,6 +125,6 @@ define(['AjaxRequester'], function(ajaxRequester)
             return;
         }
         this.getAjaxRequester().getNotificationHandler().success('Preferences updated.');
-    }
+    };
     return Settings;
 });

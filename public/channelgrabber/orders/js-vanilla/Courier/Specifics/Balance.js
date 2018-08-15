@@ -74,7 +74,7 @@ define([
     Balance.prototype.renderPopup = function()
     {
         this.getShippingLedgerDetails();
-    }
+    };
 
     Balance.prototype.showPopup = function(data)
     {
@@ -104,17 +104,17 @@ define([
         console.log(this.getPopup());
         this.getPopup().show(settings, 'popup');
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
-    }
+    };
 
     Balance.prototype.fail = function(data)
     {
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
-    }
+    };
 
     Balance.prototype.setAdditionalPopupSettings = function(additionalPopupSettings)
     {
         this.additionalPopupSettings = additionalPopupSettings;
-    }
+    };
 
     return Balance;
 });
