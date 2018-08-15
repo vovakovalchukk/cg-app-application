@@ -29,7 +29,7 @@ define(['AjaxRequester'], function(ajaxRequester)
     Settings.prototype.attachAutoTopUpListener = function()
     {
         $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).on("change", this.sendAjaxAutoTopUp.bind(this));
-    }
+    };
 
     Settings.prototype.sendAjaxAutoTopUp = function()
     {
@@ -40,29 +40,46 @@ define(['AjaxRequester'], function(ajaxRequester)
             url,
             {autoTopUp: $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).prop("checked")}
         );
-    }
+    };
 
     Settings.prototype.attachTopUpBalanceListener = function()
     {
-        $(Settings.LEDGER_TOP_UP_BUTTON).on("click", this.sendAjaxBalanceTopUp.bind(this));
-    }
+        var self = this;
+        $(Settings.LEDGER_TOP_UP_BUTTON).on("click", function() {
+            var promise = self.sendAjaxBalanceTopUp();
+            promise.then(function(data) {
+                self.handleBalanceSuccess(data);
+            }).catch(function(data) {
+                self.getAjaxRequester().handleFailure(data);
+            });
+        });
+    };
 
     Settings.prototype.sendAjaxBalanceTopUp = function()
     {
         var url = Settings.LEDGER_TOPUP_URL.replace("{{accountId}}", this.getConfig().accountId);
         var ajaxRequester = this.getAjaxRequester();
-        ajaxRequester.getNotificationHandler().notice('Topping up balance', true);
-        return ajaxRequester.sendRequest(
-            url,
-            {},
-            function(data) {
-                if (data.success === false) {
-                    ajaxRequester.handleFailure(data);
-                } else {
-                    location.reload();
+        return new Promise(function(resolve, reject) {
+
+            ajaxRequester.getNotificationHandler().notice('Topping up balance', true);
+            ajaxRequester.sendRequest(
+                url,
+                {},
+                function(data) {
+                    if (data.success === false) {
+                        reject(data);
+                    } else {
+                        resolve(data);
+                    }
                 }
-            }
-        );
-    }
+            );
+        });
+    };
+
+    Settings.prototype.handleBalanceSuccess = function(data)
+    {
+        $('.shipping-ledger-balance-amount').text(data.balance);
+        this.getAjaxRequester().getNotificationHandler().success('Balance topped up successfully.');
+    };
     return Settings;
 });
