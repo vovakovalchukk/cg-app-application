@@ -1,15 +1,26 @@
 define([
     'react',
     'Product/Components/Link',
-    'Product/Components/ProductList/stateFilters'
+    'Product/Components/ProductList/stateFilters',
+    'styled-components'
 
 ], function(
     React,
     Link,
-    stateFilters
+    stateFilters,
+    styled
 
 ) {
     "use strict";
+    
+    styled = styled.default;
+    
+    const StyledLink = styled(Link)`
+    `;
+    StyledLink.container = styled.div`
+           display: flex;
+           justify-content: center;
+    `;
     
     let LinkCell = React.createClass({
         getDefaultProps: function() {
@@ -22,9 +33,9 @@ define([
             const rowData = stateFilters.getRowData(this.props.products, this.props.rowIndex)
     
             return (
-                <div >
-                    <Link />
-                </div>
+                <StyledLink.container>
+                    <StyledLink sku={rowData.sku}/>
+                </ StyledLink.container>
             );
         }
     });

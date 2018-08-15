@@ -187,22 +187,15 @@ define([
                 type: 'POST',
                 success: function(response) {
                     console.log('have just fetched linked products . response: ', response);
-                    
-                    
                     var products = [];
                     if (response.productLinks) {
                         products = response.productLinks;
                     }
-    
+                    
                     this.setState({
                             allProductLinks: products
                         },
-                        () => {
-                            console.log('just set product links to state');
-                            
-                            
-                            window.triggerEvent('fetchingProductLinksStop')
-                        }
+                        window.triggerEvent('fetchingProductLinksStop')
                     );
                 }.bind(this),
                 error: function(error) {
@@ -467,7 +460,7 @@ define([
             return (
                 <ProductListProvider
                     products={this.state.products}
-                    allProductsLinks = {this.state.allProductLinks}
+                    allProductsLinks={this.state.allProductLinks}
                     features={this.props.features}
                     addNewProductButtonClick={this.addNewProductButtonClick}
                     accounts={this.state.accounts}

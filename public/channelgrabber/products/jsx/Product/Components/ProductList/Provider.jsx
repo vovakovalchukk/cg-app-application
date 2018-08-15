@@ -48,10 +48,9 @@ define([
             // console.log('in componentWillReceiveProps newProps: '  ,newProps , 'typeof newProps.allProductsLinks: ', typeof newProps.allProductsLinks, ' isEmptyObject(newProps.allProductsLinks) : ' , isEmptyObject(newProps.allProductsLinks) );
             
             // console.log('typeof newProps.allProductsLinks : ' , typeof newProps.allProductsLinks);
-            if (typeof newProps.allProductsLinks === 'object' && !isEmptyObject(newProps.allProductsLinks)) {
-                console.log('readytostore... in componentWIllReceiveProps with all ProductLinks newPRops: ', newProps);
+            if (this.productLinksShouldBeStored(newProps.allProductsLinks)) {
+                console.log('readytostore product links... in componentWIllReceiveProps with all ProductLinks newPRops: ', newProps);
             }
-            
         },
         shouldComponentUpdate: function() {
             if (this.initialProductsShouldBeStored()) {
@@ -60,6 +59,9 @@ define([
                 return false;
             }
             return true;
+        },
+        productLinksShouldBeStored: function(productLinks){
+            return typeof productLinks === 'object' && !isEmptyObject(productLinks)
         },
         initialProductsShouldBeStored: function() {
             let storeState = store.getState();
@@ -80,7 +82,6 @@ define([
     return ProductListProvider;
     
     function isEmptyObject(obj) {
-        console.log(' Object.getOwnPropertyNames(obj) : ' , Object.getOwnPropertyNames(obj));
         return Object.getOwnPropertyNames(obj).length === 0;
     }
 });
