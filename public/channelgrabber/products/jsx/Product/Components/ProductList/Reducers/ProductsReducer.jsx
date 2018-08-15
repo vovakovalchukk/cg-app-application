@@ -1,9 +1,9 @@
 define([
     'Common/Reducers/creator',
-    'Product/Components/ProductList/stateFilters'
+    'Product/Components/ProductList/stateUtility'
 ], function(
     reducerCreator,
-    stateFilters
+    stateUtility
 ) {
     "use strict";
     
@@ -57,7 +57,7 @@ define([
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowIdToExpand = action.payload.productRowIdToExpand;
             
-            let parentProductIndex = stateFilters.getProductIndex(currentVisibleProducts, productRowIdToExpand);
+            let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
             
             let rowsToAdd = state.variationsByParent[action.payload.productRowIdToExpand];
             currentVisibleProducts.splice(
@@ -80,7 +80,7 @@ define([
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowId = action.payload.productRowIdToCollapse;
             
-            let parentProductIndex = stateFilters.getProductIndex(currentVisibleProducts, productRowId);
+            let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowId);
             
             let numberOfRowsToRemove = state.variationsByParent[productRowId].length;
             

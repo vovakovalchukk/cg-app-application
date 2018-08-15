@@ -1,9 +1,9 @@
 define([
     'Common/Reducers/creator',
-    'Product/Components/ProductList/stateFilters'
+    'Product/Components/ProductList/stateUtility'
 ], function(
     reducerCreator,
-    stateFilters
+    stateUtility
 ) {
     "use strict";
     

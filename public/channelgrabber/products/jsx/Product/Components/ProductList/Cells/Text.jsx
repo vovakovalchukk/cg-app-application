@@ -1,11 +1,11 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/stateFilters'
+    'Product/Components/ProductList/stateUtility'
 ], function(
     React,
     FixedDataTable,
-    stateFilters
+    stateUtility
 ) {
     "use strict";
     
@@ -17,7 +17,7 @@ define([
             return {};
         },
         render() {
-            let cellData = stateFilters.getCellData(
+            let cellData = stateUtility.getCellData(
                 this.props.products,
                 this.props.columnKey,
                 this.props.rowIndex

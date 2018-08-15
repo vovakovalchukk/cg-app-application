@@ -1,13 +1,13 @@
 define([
     'react',
     'Product/Components/Link',
-    'Product/Components/ProductList/stateFilters',
+    'Product/Components/ProductList/stateUtility',
     'styled-components'
 
 ], function(
     React,
     Link,
-    stateFilters,
+    stateUtility,
     styled
 ) {
     "use strict";
@@ -30,7 +30,7 @@ define([
         },
         render() {
             const {products, rowIndex} = this.props;
-            const rowData = stateFilters.getRowData(products, rowIndex);
+            const rowData = stateUtility.getRowData(products, rowIndex);
             
             let productLinks;
             if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {

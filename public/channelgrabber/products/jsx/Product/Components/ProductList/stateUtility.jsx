@@ -1,7 +1,7 @@
 define([], function() {
     "use strict";
     
-    let stateFilters = function() {
+    let stateUtility = function() {
         return {
             getProductIndex: (products, productId) => {
                 return products.findIndex((product) => {
@@ -29,11 +29,14 @@ define([], function() {
                     cellData = `${columnKey} ${rowIndex}`;
                 }
                 return cellData;
+            },
+            isParentProduct: (rowData) =>{
+                return rowData.variationCount !== undefined && rowData.variationCount >= 1
             }
         };
     };
     
-    return stateFilters()
+    return stateUtility()
 
     function getImageData(row){
         if(!row.images || !row.images.length){

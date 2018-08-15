@@ -1,12 +1,12 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/stateFilters',
+    'Product/Components/ProductList/stateUtility',
     'styled-components'
 ], function(
     React,
     FixedDataTable,
-    stateFilters,
+    stateUtility,
     styled
 ) {
     "use strict";
@@ -28,7 +28,7 @@ define([
             return {};
         },
         renderImage: function(){
-            let cellData = stateFilters.getCellData(
+            let cellData = stateUtility.getCellData(
                 this.props.products,
                 this.props.columnKey,
                 this.props.rowIndex
