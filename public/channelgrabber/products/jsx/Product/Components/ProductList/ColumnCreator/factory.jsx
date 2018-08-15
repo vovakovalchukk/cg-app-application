@@ -5,7 +5,8 @@ define([
     'Product/Components/ProductList/Cells/DebugCell',
     'Product/Components/ProductList/Cells/ProductExpandCell',
     'Product/Components/ProductList/Cells/ImageCell',
-    'Product/Components/ProductList/Cells/LinkCell'
+    'Product/Components/ProductList/Cells/LinkCell',
+    'Product/Components/ProductList/Cells/NameCell'
 ], function(
     React,
     FixedDataTable,
@@ -13,7 +14,8 @@ define([
     DebugCell,
     ProductExpandCell,
     ImageCell,
-    LinkCell
+    LinkCell,
+    NameCell
 ) {
     "use strict";
     ////
@@ -24,7 +26,7 @@ define([
         image: ImageCell,
         link: LinkCell,
         sku: TextCell,
-        name: TextCell,
+        name: NameCell,
         available: TextCell,
         //todo - change these to represent actual data in TAC-165
         dummyListingColumn1: TextCell,

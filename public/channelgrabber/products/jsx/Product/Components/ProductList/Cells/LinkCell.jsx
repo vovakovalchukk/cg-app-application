@@ -33,8 +33,6 @@ define([
             const rowData = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(rowData);
             
-            console.log('rowData: ', rowData);
-            
             let productLinks;
             if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {
                 productLinks = products.allProductsLinks[rowData.id][rowData.id];

@@ -20,19 +20,18 @@ define([], function() {
                 let row = products.visibleRows[rowIndex];
                 let keyToCellDataMap = {
                     sku: row['sku'],
-                    name: row['name'],
                     image: getImageData(row),
                     available: stateUtility().getStockAvailable(row)
                 };
                 let cellData = keyToCellDataMap[columnKey];
                 // todo - change this dummy data to be something more significant from TAC-165 onwards
-                if(columnKey.indexOf('dummy')>-1){
+                if (columnKey.indexOf('dummy') > -1) {
                     cellData = `${columnKey} ${rowIndex}`;
                 }
                 
                 return cellData;
             },
-            isParentProduct: (rowData) =>{
+            isParentProduct: (rowData) => {
                 return rowData.variationCount !== undefined && rowData.variationCount >= 1
             },
             
@@ -50,9 +49,9 @@ define([], function() {
     };
     
     return stateUtility();
-
-    function getImageData(row){
-        if(!row.images || !row.images.length){
+    
+    function getImageData(row) {
+        if (!row.images || !row.images.length) {
             return;
         }
         let primaryImage = row.images[0];
@@ -61,5 +60,5 @@ define([], function() {
             url: primaryImage.url
         };
     }
-
+    
 });
