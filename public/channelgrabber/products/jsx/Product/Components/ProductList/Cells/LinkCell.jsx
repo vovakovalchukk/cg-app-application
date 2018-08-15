@@ -17,7 +17,7 @@ define([
     const StyledLink = styled(Link)`
     `;
     StyledLink.container = styled.div`
-           display: flex;
+           display: 'flex';
            justify-content: center;
     `;
     
@@ -31,6 +31,8 @@ define([
         render() {
             const {products, rowIndex} = this.props;
             const rowData = stateUtility.getRowData(products, rowIndex);
+            const isParentProduct = stateUtility.isParentProduct(rowData);
+            console.log('isParentProduct in LinkCell....: ', isParentProduct);
             
             let productLinks;
             if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {
@@ -38,10 +40,13 @@ define([
             }
             return (
                 <StyledLink.container>
-                    <StyledLink
-                        sku={rowData.sku}
-                        productLinks={productLinks}
-                    />
+                    {!isParentProduct ?
+                        <StyledLink
+                            sku={rowData.sku}
+                            productLinks={productLinks}
+                        />
+                        : ''
+                    }
                 </ StyledLink.container>
             );
         }

@@ -457,9 +457,7 @@ define([
                 lengthUnit={this.props.lengthUnit}
             />
         },
-        //
         renderProductListView: function() {
-            
             if (!this.state.accounts) {
                 return
             }
@@ -472,8 +470,6 @@ define([
                         addNewProductButtonClick={this.addNewProductButtonClick}
                         accounts={this.state.accounts}
                     />
-                    
-                    ABOVE LINK EDITOR
                     <ProductLinkEditor
                         productLink={this.state.editingProductLink}
                         onEditorClose={this.onProductLinksEditorClose}

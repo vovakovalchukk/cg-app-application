@@ -36,7 +36,7 @@ define([], function() {
         };
     };
     
-    return stateUtility()
+    return stateUtility();
 
     function getImageData(row){
         if(!row.images || !row.images.length){
