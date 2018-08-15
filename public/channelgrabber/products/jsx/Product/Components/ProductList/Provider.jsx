@@ -35,8 +35,23 @@ define([
         getDefaultProps: function() {
             return {
                 products: [],
-                features: {}
+                features: {},
+                allProductsLinks: {}
             };
+        },
+        getInitialState: function() {
+            return {
+                initialProductsSaved: {}
+            }
+        },
+        componentWillReceiveProps: function(newProps) {
+            // console.log('in componentWillReceiveProps newProps: '  ,newProps , 'typeof newProps.allProductsLinks: ', typeof newProps.allProductsLinks, ' isEmptyObject(newProps.allProductsLinks) : ' , isEmptyObject(newProps.allProductsLinks) );
+            
+            // console.log('typeof newProps.allProductsLinks : ' , typeof newProps.allProductsLinks);
+            if (typeof newProps.allProductsLinks === 'object' && !isEmptyObject(newProps.allProductsLinks)) {
+                console.log('readytostore... in componentWIllReceiveProps with all ProductLinks newPRops: ', newProps);
+            }
+            
         },
         shouldComponentUpdate: function() {
             if (this.initialProductsShouldBeStored()) {
@@ -63,4 +78,9 @@ define([
     });
     
     return ProductListProvider;
+    
+    function isEmptyObject(obj) {
+        console.log(' Object.getOwnPropertyNames(obj) : ' , Object.getOwnPropertyNames(obj));
+        return Object.getOwnPropertyNames(obj).length === 0;
+    }
 });
