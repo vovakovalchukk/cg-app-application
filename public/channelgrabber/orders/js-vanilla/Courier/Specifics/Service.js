@@ -531,7 +531,10 @@ define([
     Service.prototype.handleNotReadysAndErrors = function(response, button)
     {
         if (response.topupRequired) {
-            this.store('lastAttemptedCreateLabelButtonClicked', button);
+            this.getBalanceService().setAdditionalPopupSettings({
+                "title": "Insufficient Funds",
+                "labelCreateButtonClicked": $(button).attr('id')
+            });
             this.showBalanceTopUpPopUp();
             return;
         }

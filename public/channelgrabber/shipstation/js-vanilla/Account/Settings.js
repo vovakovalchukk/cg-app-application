@@ -7,6 +7,7 @@ define(['AjaxRequester'], function(ajaxRequester)
             this.config = config;
             this.attachAutoTopUpListener();
             this.attachTopUpBalanceListener();
+            this.createLabelButtonToClick = undefined;
         };
         init.call(this);
 
@@ -19,12 +20,17 @@ define(['AjaxRequester'], function(ajaxRequester)
         {
             return this.config;
         };
+
+        this.setCreateLabelButtonToClick = function(createLabelButtonToClick)
+        {
+            this.createLabelButtonToClick = createLabelButtonToClick;
+        };
     }
 
     Settings.LEDGER_AUTO_TOPUP_TOGGLE = "#autoTopUp";
     Settings.LEDGER_TOP_UP_BUTTON = "#topUp";
-    Settings.LEDGER_TOPUP_URL = "/settings/channel/shipping/{{accountId}}/ledger/topup"
-    Settings.LEDGER_SAVE_URL = "/settings/channel/shipping/{{accountId}}/ledger/save"
+    Settings.LEDGER_TOPUP_URL = "/settings/channel/shipping/{{accountId}}/ledger/topup";
+    Settings.LEDGER_SAVE_URL = "/settings/channel/shipping/{{accountId}}/ledger/save";
 
     Settings.prototype.attachAutoTopUpListener = function()
     {
@@ -78,6 +84,12 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Settings.prototype.handleBalanceSuccess = function(data)
     {
+        console.log(this.createLabelButtonToClick);
+        if (this.createLabelButtonToClick !== undefined) {
+            this.createLabelButtonToClick = undefined;
+            $('#' + this.createLabelButtonToClick).click();
+            return;
+        }
         $('.shipping-ledger-balance-amount').text(data.balance);
         this.getAjaxRequester().getNotificationHandler().success('Balance topped up successfully.');
     };

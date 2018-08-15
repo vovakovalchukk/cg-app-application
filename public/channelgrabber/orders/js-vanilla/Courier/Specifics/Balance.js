@@ -43,6 +43,7 @@ define([
         init.call(this);
     }
 
+    Balance.additionalPopupSettings = {};
     Balance.SELECTOR_TOPUP_BUTTON = "#top-up-balance-button-shadow";
     Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL = '/orders/courier/specifics/{{courierAccountId}}/fetchShippingLedgerBalance';
 
@@ -99,13 +100,19 @@ define([
                 "content": "When automatic top-ups are enabled ChannelGrabber will automatically purchase $100 of UPS postage when your balance drops below $100"
             }
         };
-        this.getPopup().show(popupSettings, 'popup');
+        var settings = Object.assign(popupSettings, this.additionalPopupSettings);
+        this.getPopup().show(settings, 'popup');
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
     }
 
-    Balance.fail = function(data)
+    Balance.prototype.fail = function(data)
     {
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
+    }
+
+    Balance.prototype.setAdditionalPopupSettings = function(additionalPopupSettings)
+    {
+        this.additionalPopupSettings = additionalPopupSettings;
     }
 
     return Balance;
