@@ -261,8 +261,12 @@ define([
             this.fetchLinkedProducts();
         },
         onEditProductLink: function(event) {
+            
+            
             var productSku = event.detail.sku;
             var productLinks = event.detail.productLinks;
+            
+            console.log('in onEditProductLink in Root with productSku: ', event.detail.sku, 'productLinks: ', productLinks);
             this.setState({
                 editingProductLink: {
                     sku: productSku,
@@ -453,18 +457,29 @@ define([
                 lengthUnit={this.props.lengthUnit}
             />
         },
+        //
         renderProductListView: function() {
+            
             if (!this.state.accounts) {
                 return
             }
             return (
-                <ProductListProvider
-                    products={this.state.products}
-                    allProductsLinks={this.state.allProductLinks}
-                    features={this.props.features}
-                    addNewProductButtonClick={this.addNewProductButtonClick}
-                    accounts={this.state.accounts}
-                />
+                <div>
+                    <ProductListProvider
+                        products={this.state.products}
+                        allProductsLinks={this.state.allProductLinks}
+                        features={this.props.features}
+                        addNewProductButtonClick={this.addNewProductButtonClick}
+                        accounts={this.state.accounts}
+                    />
+                    
+                    ABOVE LINK EDITOR
+                    <ProductLinkEditor
+                        productLink={this.state.editingProductLink}
+                        onEditorClose={this.onProductLinksEditorClose}
+                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                    />
+                </div>
             )
         },
         render: function() {

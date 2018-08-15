@@ -34,11 +34,8 @@ define([
             
             let productLinks;
             if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {
-                // console.log('setting LinkCells productLinks to an array.. (supposeidely). products.allProductsLinks: ', products.allProductsLinks, ' products.allProductsLinks[rowData.id] : ', products.allProductsLinks[rowData.id]);
-                productLinks = products.allProductsLinks[rowData.id];
+                productLinks = products.allProductsLinks[rowData.id][rowData.id];
             }
-            
-            console.log('in linkCell with props: ', this.props, ' productLinks : ', productLinks, ' this.props.products.allProductsLinks: ', products.allProductsLinks);
             return (
                 <StyledLink.container>
                     <StyledLink

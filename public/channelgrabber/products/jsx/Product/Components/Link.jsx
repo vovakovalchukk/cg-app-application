@@ -36,6 +36,7 @@ define([
             this.setState({ fetchingLinks: false });
         },
         onClick: function () {
+            console.log('onClick in Link . this.props.sku: ' , this.props.sku);
             window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
         },
         onLinkRowClick: function (sku) {
@@ -86,9 +87,6 @@ define([
             );
         },
         render: function() {
-            console.log('in Link component with this.props.productLinks:', this.props.productLinks);
-            
-            
             return <Tooltip hoverContent={this.getHoverContent()}>
                 {this.getLinkIcon()}
             </Tooltip>;

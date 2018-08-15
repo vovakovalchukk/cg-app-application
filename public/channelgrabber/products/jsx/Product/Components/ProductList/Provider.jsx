@@ -46,11 +46,14 @@ define([
         },
         componentWillReceiveProps: function(newProps) {
             // console.log('in componentWillReceiveProps newProps: '  ,newProps , 'typeof newProps.allProductsLinks: ', typeof newProps.allProductsLinks, ' isEmptyObject(newProps.allProductsLinks) : ' , isEmptyObject(newProps.allProductsLinks) );
-            
             // console.log('typeof newProps.allProductsLinks : ' , typeof newProps.allProductsLinks);
             if (this.productLinksShouldBeStored(newProps.allProductsLinks)) {
                 console.log('readytostore product links... in componentWIllReceiveProps with all ProductLinks newPRops: ', newProps);
                 store.dispatch(ActionCreators.productsLinksLoad(newProps.allProductsLinks))
+            }else{
+                console.log('not sotring product links');
+                
+                
             }
         },
         shouldComponentUpdate: function() {
@@ -63,8 +66,9 @@ define([
         },
         productLinksShouldBeStored: function(productLinks) {
             let storeState = store.getState();
-            
-            return typeof productLinks === 'object' && !isEmptyObject(productLinks) && !storeState.products.allProductsLinks
+            let productsLinksAreValid = typeof productLinks === 'object' && !isEmptyObject(productLinks)
+            let productsLinksAreDifferentToThoseInState = storeState.products.allProductsLinks !== productLinks
+            return productsLinksAreValid && productsLinksAreDifferentToThoseInState;
         },
         initialProductsShouldBeStored: function() {
             let storeState = store.getState();

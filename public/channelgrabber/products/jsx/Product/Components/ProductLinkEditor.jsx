@@ -202,6 +202,7 @@ define([
         },
         render: function()
         {
+            // console.log('ProductLinkEditor render this.props: ' , this.props);
             return (
                 <Popup
                     initiallyActive={!!this.state.sku}
