@@ -21,17 +21,30 @@ define([], function() {
                 let keyToCellDataMap = {
                     sku: row['sku'],
                     name: row['name'],
-                    image: getImageData(row)
+                    image: getImageData(row),
+                    available: stateUtility().getStockAvailable(row)
                 };
                 let cellData = keyToCellDataMap[columnKey];
                 // todo - change this dummy data to be something more significant from TAC-165 onwards
                 if(columnKey.indexOf('dummy')>-1){
                     cellData = `${columnKey} ${rowIndex}`;
                 }
+                
                 return cellData;
             },
             isParentProduct: (rowData) =>{
                 return rowData.variationCount !== undefined && rowData.variationCount >= 1
+            },
+            
+            
+            getStockAvailable(rowData) {
+                return stateUtility().getOnHandStock(rowData) - Math.max(stateUtility().getAllocatedStock(rowData), 0);
+            },
+            getOnHandStock: function(rowData) {
+                return (rowData.stock ? rowData.stock.locations[0].onHand : '');
+            },
+            getAllocatedStock: function(rowData) {
+                return (rowData.stock ? rowData.stock.locations[0].allocated : '');
             }
         };
     };
