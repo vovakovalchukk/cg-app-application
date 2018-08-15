@@ -34,18 +34,15 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Settings.prototype.attachAutoTopUpListener = function()
     {
-        $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).on("change", this.sendAjaxAutoTopUp.bind(this));
-    };
-
-    Settings.prototype.sendAjaxAutoTopUp = function()
-    {
-        var url = Settings.LEDGER_SAVE_URL.replace("{{accountId}}", this.getConfig().accountId);
-        var ajaxRequester = this.getAjaxRequester();
-        ajaxRequester.getNotificationHandler().notice('Saving preferences', true);
-        return ajaxRequester.sendRequest(
-            url,
-            {autoTopUp: $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).prop("checked")}
-        );
+        var self = this;
+        $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).on("change", function() {
+            var promise = self.sendAjaxAutoTopUp();
+            promise.then(function(data) {
+                self.handleAutoTopUpSuccess(data);
+            }).catch(function(data) {
+                self.getAjaxRequester().handleFailure(data);
+            });
+        });
     };
 
     Settings.prototype.attachTopUpBalanceListener = function()
@@ -61,12 +58,31 @@ define(['AjaxRequester'], function(ajaxRequester)
         });
     };
 
+    Settings.prototype.sendAjaxAutoTopUp = function()
+    {
+        var url = Settings.LEDGER_SAVE_URL.replace("{{accountId}}", this.getConfig().accountId);
+        var ajaxRequester = this.getAjaxRequester();
+        return new Promise(function(resolve, reject) {
+            ajaxRequester.getNotificationHandler().notice('Updating your auto-topup preference', true);
+            ajaxRequester.sendRequest(
+                url,
+                {autoTopUp: $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).prop("checked")},
+                function(data) {
+                    if (data.success === false) {
+                        reject(data);
+                    } else {
+                        resolve(data);
+                    }
+                }
+            );
+        });
+    };
+
     Settings.prototype.sendAjaxBalanceTopUp = function()
     {
         var url = Settings.LEDGER_TOPUP_URL.replace("{{accountId}}", this.getConfig().accountId);
         var ajaxRequester = this.getAjaxRequester();
         return new Promise(function(resolve, reject) {
-
             ajaxRequester.getNotificationHandler().notice('Topping up balance', true);
             ajaxRequester.sendRequest(
                 url,
@@ -84,14 +100,31 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Settings.prototype.handleBalanceSuccess = function(data)
     {
-        console.log(this.createLabelButtonToClick);
         if (this.createLabelButtonToClick !== undefined) {
+            var button = $('#' + this.createLabelButtonToClick)
             this.createLabelButtonToClick = undefined;
-            $('#' + this.createLabelButtonToClick).click();
+            button.click();
+            $(Settings.LEDGER_TOP_UP_BUTTON).parents('div.popup').each(function(element) {
+               element.bPopup().close();
+            });
             return;
         }
         $('.shipping-ledger-balance-amount').text(data.balance);
         this.getAjaxRequester().getNotificationHandler().success('Balance topped up successfully.');
     };
+
+    Settings.prototype.handleAutoTopUpSuccess = function(data)
+    {
+        if (this.createLabelButtonToClick !== undefined) {
+            var button = $('#' + this.createLabelButtonToClick)
+            this.createLabelButtonToClick = undefined;
+            button.click();
+            $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).parents('div.popup').each(function(element) {
+                element.bPopup().close();
+            });
+            return;
+        }
+        this.getAjaxRequester().getNotificationHandler().success('Preferences updated.');
+    }
     return Settings;
 });
