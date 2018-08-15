@@ -62,9 +62,9 @@ class Rate
         CurrencyAmount $otherAmount,
         ?string $zone,
         ?string $packageType,
-        int $deliveryDays,
+        ?int $deliveryDays,
         bool $guaranteedService,
-        string $estimatedDeliveryDate,
+        ?string $estimatedDeliveryDate,
         ?string $carrierDeliveryDays,
         string $shipDate,
         bool $negotiatedRate,
@@ -179,7 +179,7 @@ class Rate
         return $this->packageType;
     }
 
-    public function getDeliveryDays(): int
+    public function getDeliveryDays(): ?int
     {
         return $this->deliveryDays;
     }
@@ -189,7 +189,7 @@ class Rate
         return $this->guaranteedService;
     }
 
-    public function getEstimatedDeliveryDate(): string
+    public function getEstimatedDeliveryDate(): ?string
     {
         return $this->estimatedDeliveryDate;
     }

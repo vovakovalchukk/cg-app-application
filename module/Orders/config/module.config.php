@@ -883,7 +883,18 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
-                                    ]
+                                    ],
+                                    CourierJsonController::ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/fetchShippingLedgerBalance',
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'fetchShippingLedgerBalance',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                             CourierController::ROUTE_LABEL => [

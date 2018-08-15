@@ -24,9 +24,13 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
         var self = this;
         $(document).on('change', ServiceDependantOptionsAbstract.SELECTOR_SERVICE_SELECT, function(event, element, value)
         {
-            var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
-            self.updateShippingLabelCost(orderId, value, element);
+            if (value === undefined) {
+                return;
+            }
+                var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
+                self.updateShippingLabelCost(orderId, value, element);
         });
+
         return this;
     };
 
