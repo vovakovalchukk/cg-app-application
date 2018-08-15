@@ -25,19 +25,19 @@ define([
         },
         {
             key: 'sku',
-            width: 200,
+            width: 160,
             fixed: true,
             headerText: 'Sku'
         },
         {
             key: 'name',
-            width: 200,
+            width: 160,
             fixed: true,
             headerText: 'Name'
         },
         {
             key: 'available',
-            width: 100,
+            width: 80,
             fixed: true,
             headerText: 'Available'
         }]

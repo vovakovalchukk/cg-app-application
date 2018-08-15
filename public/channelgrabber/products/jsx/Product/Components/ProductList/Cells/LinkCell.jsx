@@ -32,7 +32,8 @@ define([
             const {products, rowIndex} = this.props;
             const rowData = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(rowData);
-            console.log('isParentProduct in LinkCell....: ', isParentProduct);
+            
+            console.log('rowData: ', rowData);
             
             let productLinks;
             if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {
