@@ -3,12 +3,18 @@ namespace Settings\Controller;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
+use CG\Ebay\Account\CreationService as EbayCreationService;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
-use CG\Listing\Client\Service as ListingService;
+use Products\Module as ProductsModule;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class EbayController
+ * @method EbayCreationService getAccountCreationService()
+ * @package Settings\Controller
+ */
 class EbayController extends ChannelControllerAbstract implements AddChannelSpecificVariablesToViewInterface
 {
     const DEFAULT_DURATION = ListingDuration::GTC;
@@ -41,6 +47,16 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
         $view
             ->addChild($this->getListingDurationView($account->getExternalDataByKey('listingDuration')), 'listingDurationSelect')
             ->addChild($this->getPaymentMethodView($account->getExternalDataByKey('listingPaymentMethods')), 'paymentMethodsSelect');
+    }
+
+    public function saveOAuthAction()
+    {
+        $authCode = $this->params()->fromQuery('code');
+        $accountId = (int) base64_decode(urldecode($this->params()->fromQuery('state', '')));
+        $this->getAccountCreationService()->saveOAuthToken($authCode, $accountId);
+
+        $url = $this->plugin('url')->fromRoute(ProductsModule::ROUTE);
+        $this->plugin('redirect')->toUrl($url);
     }
 
     protected function getListingDurationView(?string $selected = null): ViewModel
