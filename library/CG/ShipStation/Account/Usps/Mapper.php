@@ -35,7 +35,7 @@ class Mapper
             'pending' => false,
             'type' => [AccountType::SHIPPING_PROVIDER],
             // For USPS we store the warehouseId in the credentials, copy it over
-            'externalData' => ['warehouseId' => $shippingAccountCreds->get('warehouseId')],
+            'externalData' => ['warehouseId' => ($shippingAccountCreds->has('warehouseId') ? $shippingAccountCreds->get('warehouseId') : null)],
         ]);
     }
 
