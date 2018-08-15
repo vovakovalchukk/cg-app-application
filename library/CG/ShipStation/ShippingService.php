@@ -25,29 +25,7 @@ class ShippingService implements ShippingServiceInterface
 
     public function getShippingServices()
     {
-        // This dummy data and code will be replaced and refactored in TAC-108
-        if ($this->account->getChannel() == 'usps-ss') {
-            return [
-                'usps_first_class_mail' => 'USPS First Class Mail',
-                'usps_media_mail' => 'USPS Media Mail',
-                'usps_parcel_select' => 'USPS Parcel Select Ground',
-            ];
-        }
-
-        $services = [];
-        try {
-            $response = $this->getAccountShippingServices();
-            foreach ($response->getServices() as $service) {
-                // We are not supporting international for now. If we add it later remove this check.
-                if ($service->getCarrierService()->isInternational()) {
-                    continue;
-                }
-                $services[$service->getCarrierService()->getServiceCode()] = $service->getCarrierService()->getName();
-            }
-        } catch (NotFound $e) {
-            // No services found, leave the services array empty
-        }
-        return $services;
+        return $this->getAccountShippingService()->getShippingServices();
     }
 
     protected function getAccountShippingService(): ShippingServiceInterface
