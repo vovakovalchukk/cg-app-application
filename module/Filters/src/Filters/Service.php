@@ -25,6 +25,7 @@ class Service
     const FILTER_ORDER_SHIPPING_COUNTRY = 'orderShippingCountry';
     const FILTER_ORDER_CURRENCY_CODE = 'orderCurrencyCode';
     const FILTER_ORDER_TOTAL = 'orderTotal';
+    const FILTER_ORDER_WEIGHT = 'orderWeight';
     const FILTER_ORDER_CHANNEL = 'orderChannel';
     const FILTER_ORDER_ACCOUNT = 'orderAccount';
     const FILTER_ORDER_BATCH = 'orderBatch';
@@ -166,6 +167,16 @@ class Service
                 'variables' => [
                     'name' => 'total',
                     'title' => 'Total',
+                    'isOptional' => true,
+                    'id' => ''
+                ]
+            ],
+            self::FILTER_ORDER_WEIGHT => [
+                'filterType' => 'numberRange',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'weight',
+                    'title' => 'Weight',
                     'isOptional' => true,
                     'id' => ''
                 ]

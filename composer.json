@@ -53,7 +53,7 @@
         "channelgrabber/log": "~2.2.1",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.2.15",
-        "channelgrabber/order": "~1.39.2",
+        "channelgrabber/order": "dev-TAC-60-OrderWeightFilter as 1.40.0",
         "channelgrabber/payment": "~1.10.0",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
