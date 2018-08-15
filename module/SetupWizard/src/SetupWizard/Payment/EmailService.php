@@ -14,42 +14,47 @@ class EmailService implements LoggerAwareInterface
     const LOG_MSG_PREPARE = 'Preparing to send email for subscription error';
     const LOG_MSG_SENT = 'Sent email for subscription error';
 
+    const EMAIL_SUBJECT = 'A user may have experienced an error during subscription payment';
     const EMAIL_TEMPLATE = 'orderhub/email_upgrade_package_error';
 
+    const SUPPORT_EMAIL_ADDRESS = 'help@channelgrabber.com';
+    const BILLING_EMAIL_ADDRESS = 'billing@channelgrabber.com';
+
     protected $mailer;
+    protected $emailAddresses;
+
 
     public function __construct(
-        Mailer $mailer
+        Mailer $mailer,
+        array $emailAddresses
     ) {
         $this->mailer = $mailer;
+        $this->emailAddresses = $emailAddresses;
     }
 
     public function sendErrorToSupport()
     {
+        $emailAdresses = [
+            static::SUPPORT_EMAIL_ADDRESS,
+            static::BILLING_EMAIL_ADDRESS
+        ];
 
+        $viewModel = $this->createErrorViewModel(static::EMAIL_TEMPLATE);
+        $this->send($this->emailAddresses, static::EMAIL_SUBJECT, $viewModel);
     }
 
-    protected function send()
+    protected function send(array $emailAddresses, string $emailSubject, ViewModel $viewModel)
     {
         $this->logCritical(static::LOG_MSG_PREPARE, [], static::LOG_CODE);
         $this->mailer->send(
             $emailAddresses,
-            $this->createSubject($changeType),
-            $this->createViewModel($changeType)
+            $emailSubject,
+            $viewModel
         );
         $this->logCritical(static::LOG_MSG_SENT, [], static::LOG_CODE);
     }
 
-    protected function createSubject($changeType)
-    {
-        return sprintf(
-            $this->subjectMap[$changeType],
-            ($this->currentPackage ? $this->currentPackage->getName() : 'N/A'),
-            ($this->newPackage ? $this->newPackage->getName() : 'N/A')
-        );
-    }
-
-    protected function createViewModel(): ViewModel
+    protected function createErrorViewModel($emailTemplate): ViewModel
     {
         $variables = [
             'locale' => ($this->ou ? $this->ou->getLocale() : UserLocale::LOCALE_DEFAULT),
@@ -62,6 +67,6 @@ class EmailService implements LoggerAwareInterface
             'discountName' => ($this->discount ? $this->discount->getName() : 'NONE APPLIED'),
         ];
 
-        return (new ViewModel($variables))->setTemplate(static::EMAIL_TEMPLATE);
+        return (new ViewModel($variables))->setTemplate($emailTemplate);
     }
 }
