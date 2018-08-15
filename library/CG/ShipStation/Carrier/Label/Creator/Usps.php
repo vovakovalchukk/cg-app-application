@@ -23,6 +23,7 @@ use DateTime;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\BadResponseException;
 use Throwable;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 
 class Usps extends Other
 {
@@ -33,12 +34,16 @@ class Usps extends Other
 
     /** @var ShippingLedger */
     protected $shippingLedger;
+
+    /** @var ShipmentIdStorage */
+    protected $shipmentIdStorage;
     
     public function __construct(
         ShipStationClient $shipStationClient,
         GuzzleClient $guzzleClient,
         OrderLabelService $orderLabelService,
-        ShippingLedgerService $shippingLedgerService
+        ShippingLedgerService $shippingLedgerService,
+        ShipmentIdStorage $shipmentIdStorage
     ) {
         parent::__construct($shipStationClient, $guzzleClient, $orderLabelService);
         $this->shippingLedgerService = $shippingLedgerService;

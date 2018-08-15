@@ -8,6 +8,7 @@ use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
 use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
 use Guzzle\Http\Client as GuzzleClient;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 
 return [
     'di' => [
@@ -274,6 +275,11 @@ return [
                         'width' => 'width',
                         'length' => 'length',
                     ]
+                ]
+            ],
+            ShipmentIdStorage::class => [
+                'parameters' => [
+                    'redisClient' => 'reliable_redis'
                 ]
             ]
         ]
