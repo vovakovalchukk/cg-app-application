@@ -2,10 +2,12 @@
 namespace Orders\Controller;
 
 use ArrayObject;
+use CG\Locale\Mass as LocaleMass;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -31,8 +33,8 @@ use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\I18n\View\Helper\CurrencyFormat;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -328,12 +330,26 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             );
         }
 
-        // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
+        // Must reformat dates/weights *after* persisting otherwise it'll happen again when its reloaded
         if ($filter->getPurchaseDateFrom()) {
             $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));
         }
         if ($filter->getPurchaseDateTo()) {
             $filter->setPurchaseDateTo($this->dateFormatInput($filter->getPurchaseDateTo()));
+        }
+        if ($filter->getWeightMin()) {
+            $filter->setWeightMin(ProductDetail::convertMass(
+                $filter->getWeightMin(),
+                LocaleMass::getForLocale($this->activeUserContainer->getLocale()),
+                ProductDetail::UNIT_MASS
+            ));
+        }
+        if ($filter->getWeightMax()) {
+            $filter->setWeightMax(ProductDetail::convertMass(
+                $filter->getWeightMax(),
+                LocaleMass::getForLocale($this->activeUserContainer->getLocale()),
+                ProductDetail::UNIT_MASS
+            ));
         }
 
         try {
