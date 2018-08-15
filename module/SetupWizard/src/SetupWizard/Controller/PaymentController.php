@@ -23,14 +23,20 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
 
-class PaymentController extends AbstractActionController
+class PaymentController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE_PAYMENT = 'Payment';
     const ROUTE_PACKAGE_REMEMBER = 'PackageRemember';
     const ROUTE_BILLING_DURATION_REMEMBER = 'BillingDurationRemember';
     const ROUTE_PACKAGE_SET = 'PackageSet';
+
+    const ALREADY_EXISTS_EXCEPTION_MSG = 'Billable subscription already exists for OU %d';
 
     /** @var SetupService */
     protected $setupService;
@@ -62,7 +68,7 @@ class PaymentController extends AbstractActionController
         PaymentViewService $paymentViewService,
         PackageManagementService $packageManagementService,
         SessionManager $session,
-        ActiveUserInterface $activeUser,
+//        ActiveUserInterface $activeUser,
         SubscriptionService $subscriptionService
     ) {
         $this->setupService = $setupService;
@@ -73,7 +79,7 @@ class PaymentController extends AbstractActionController
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
         $this->session = $session;
-        $this->activeUser = $activeUser;
+//        $this->activeUser = $activeUser;
         $this->subscriptionService = $subscriptionService;
     }
 
@@ -200,7 +206,8 @@ class PaymentController extends AbstractActionController
             );
 
             if (!$this->shouldAddNewSubscription($packageUpgradeRequest)) {
-                $response['success'] = true;
+                $msg = sprintf(static::ALREADY_EXISTS_EXCEPTION_MSG, $packageUpgradeRequest->getOrganisationUnit()->getId());
+                throw new SetPackageException\AlreadyExists($msg);
             }
 
             $this->packageManagementService->setPackage($packageUpgradeRequest);
@@ -221,6 +228,9 @@ class PaymentController extends AbstractActionController
                 . '<br/>Please check them and try again.',
                 $failure->getType()
             );
+        } catch (SetPackageException\AlreadyExists $alreadyExists) {
+            $this->logDebugException($alreadyExists);
+            $response['success'] = true;
         } catch (\Throwable $throwable) {
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
         }
@@ -234,25 +244,36 @@ class PaymentController extends AbstractActionController
             return false;
         }
 
+        $this->logDebugDump($packageUpgradeRequest, 'MY TEST', [], 'MY TEST');
+
         try {
-            $now = new DateTime();
+            $now = new \DateTime();
+
+            $filter = (new SubscriptionFilter())
+                    ->setOuId([$packageUpgradeRequest->getOrganisationUnit()->getId()])
+                ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
+                ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
+                ->setLimit('all')
+                ->setPage(1);
+
+            $this->logDebugDump($filter, 'MY TEST FILTER', [], 'MY TEST');
 
             /* @var $subscriptions \CG\Billing\Subscription\Collection */
-            $subscriptions = $this->subscriptionService->fetchCollectionByFilter(
-                (new SubscriptionFilter())
-                    ->setOuId([$packageUpgradeRequest->getOrganisationUnit()])
-                    ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
-                    ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
-                    ->setLimit('all')
-                    ->setPage(1)
-            );
+            $subscriptions = $this->subscriptionService->fetchCollectionByFilter($filter);
+
+            $this->logDebugDump($subscriptions, 'MY TEST SUBS', [], 'MY TEST');
 
             if ($subscriptions->count() <= 1) {
+
+                $this->logDebug('RETURN TRUE', [], 'MY TEST');
+
                 return true;
             }
         } catch (NotFound $e) {
             //noop
         }
+
+        $this->logDebug('RETURN FALSE', [], 'MY TEST');
 
         return false;
     }
