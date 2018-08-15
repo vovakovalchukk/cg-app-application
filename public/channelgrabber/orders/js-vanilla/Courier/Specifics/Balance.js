@@ -52,6 +52,8 @@ define([
         $(Balance.SELECTOR_TOPUP_BUTTON).click(function(event) {
             $(this).addClass('disabled');
             event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
             self.renderPopup();
         });
     };
