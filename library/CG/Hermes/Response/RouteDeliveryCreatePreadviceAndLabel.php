@@ -60,7 +60,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
     protected static function parseErrorsFromXml(SimpleXMLElement $errorMessages): array
     {
         $errors = [];
-        foreach ($errorMessages->message as $errorMessage) {
+        foreach ($errorMessages as $errorMessage) {
             $errors[(string)$errorMessage->errorCode] = (string)$errorMessage->errorDescription;
         }
         return $errors;
