@@ -1,6 +1,6 @@
 <?php
 
-use CG\Command\MockActiveUser;
+use CG\Command\NullActiveUser;
 use CG\Hermes\Command\Api as ApiCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,7 +38,7 @@ return [
             $body = $input->getArgument('body');
             $method = $input->getOption('method') ?? 'POST';
 
-            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new MockActiveUser()]);
+            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new NullActiveUser()]);
             /** @var ApiCommand $command */
             $command = $di->get(ApiCommand::class);
             $output->write($command($accountId, $method, $endpoint, $body));

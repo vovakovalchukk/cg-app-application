@@ -4,7 +4,7 @@ namespace CG\Command;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 
-class MockActiveUser implements ActiveUserInterface
+class NullActiveUser implements ActiveUserInterface
 {
     public function getActiveUser()
     {
