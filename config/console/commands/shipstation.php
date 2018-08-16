@@ -1,7 +1,7 @@
 <?php
 use CG\Account\Client\Storage\Api as AccountService;
 use CG\Account\Shared\Entity as Account;
-use CG\Command\MockActiveUser;
+use CG\Command\NullActiveUser;
 use CG\Di\Di;
 use CG\ShipStation\Client;
 use CG\ShipStation\Command\Request as ApiRequest;
@@ -36,7 +36,7 @@ return [
             ]
         ],
         'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
-            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new MockActiveUser()]);
+            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new NullActiveUser()]);
             /** @var Client $client */
             $client = $di->get(Client::class);
             /** @var AccountService $accountService */
