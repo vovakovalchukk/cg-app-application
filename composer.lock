@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b726e07d4e08f031dd0f27401575cc1f",
+    "content-hash": "39385b984c0b593686543b0718c6695a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3782,6 +3782,12 @@
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
                 "reference": "ea973b4eb4a63accc1eff6ebeb6368d914698947"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9760-double-subscriptions-be3e8f.zip",
+                "reference": "ea973b4eb4a63accc1eff6ebeb6368d914698947",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/zf2-v4-ui": "^1.23.5",
@@ -3803,7 +3809,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-06-07T09:09:36+00:00"
+            "time": "2018-08-16T09:41:26+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
@@ -9968,8 +9974,8 @@
             "package": "channelgrabber/zf2-billing"
         },
         {
-            "alias": "1.0.23",
-            "alias_normalized": "1.0.23.0",
+            "alias": "1.0.25",
+            "alias_normalized": "1.0.25.0",
             "version": "dev-CGIV-9760-double-subscriptions",
             "package": "channelgrabber/zf2-email-template"
         }
@@ -9980,8 +9986,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
