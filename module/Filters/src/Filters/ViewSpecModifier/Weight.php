@@ -1,11 +1,11 @@
 <?php
-namespace Filters\Spec;
+namespace Filters\ViewSpecModifier;
 
 use CG\Locale\Mass;
 use CG\User\ActiveUserInterface;
-use CG_UI\View\Filters\SpecProviderInterface;
+use CG_UI\View\Filters\ViewSpecModifierInterface;
 
-class Weight implements SpecProviderInterface
+class Weight implements ViewSpecModifierInterface
 {
     /** @var ActiveUserInterface */
     protected $activeUser;
@@ -15,7 +15,7 @@ class Weight implements SpecProviderInterface
         $this->activeUser = $activeUser;
     }
 
-    public function updateSpec(array &$spec): void
+    public function modifySpec(array &$spec): void
     {
         if (isset($spec['variables']['title'])) {
             $spec['variables']['title'] = sprintf(

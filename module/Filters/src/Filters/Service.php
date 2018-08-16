@@ -4,7 +4,7 @@ namespace Filters;
 use CG\Order\Shared\Status;
 use Filters\Options\Account;
 use Filters\Options\Channel;
-use Filters\Spec\Weight;
+use Filters\ViewSpecModifier\Weight;
 use Orders\Controller\OrdersController;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
@@ -181,7 +181,7 @@ class Service
                     'isOptional' => true,
                     'id' => ''
                 ],
-                'specProvider' => Weight::class,
+                'specModifier' => Weight::class,
             ],
             self::FILTER_ORDER_CHANNEL => [
                 'filterType' => 'customSelectGroup',
