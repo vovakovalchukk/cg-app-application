@@ -22,12 +22,8 @@ class EmailService implements LoggerAwareInterface
     const EMAIL_SUBJECT = 'A user may have experienced an error during subscription payment';
     const EMAIL_TEMPLATE = 'orderhub/email_upgrade_package_error';
 
-    const SUPPORT_EMAIL_ADDRESS = 'help@channelgrabber.com';
-    const BILLING_EMAIL_ADDRESS = 'billing@channelgrabber.com';
-
     protected $mailer;
     protected $emailAddresses;
-
 
     public function __construct(
         Mailer $mailer,
@@ -60,7 +56,6 @@ class EmailService implements LoggerAwareInterface
         OrganisationUnit $organisationUnit
     ): ViewModel {
         $variables = [
-            'locale' => $organisationUnit->getLocale(),
             'companyId' => $organisationUnit->getId(),
             'companyName' => $organisationUnit->getAddressCompanyName(),
             'subscriptions' => $subscriptions,

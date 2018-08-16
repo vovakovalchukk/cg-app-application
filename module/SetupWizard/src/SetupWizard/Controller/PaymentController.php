@@ -5,13 +5,10 @@ use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
 use CG\Billing\Subscription\Collection as Subscriptions;
 use CG\Billing\Subscription\Entity as Subscription;
-use CG\Billing\Subscription\Filter as SubscriptionFilter;
-use CG\Billing\Subscription\Service as SubscriptionService;
 use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
 use CG\Payment\PackageUpgrade\Request as PackageUpgradeRequest;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\User\ActiveUserInterface;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
@@ -24,10 +21,8 @@ use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-
 
 class PaymentController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -56,11 +51,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     protected $packageManagementService;
     /** @var SessionManager */
     protected $session;
-
-    protected $activeUser;
-
-    protected $subscriptionService;
-
     protected $emailService;
 
     public function __construct(
@@ -72,8 +62,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         PaymentViewService $paymentViewService,
         PackageManagementService $packageManagementService,
         SessionManager $session,
-//        ActiveUserInterface $activeUser,
-        SubscriptionService $subscriptionService,
         EmailService $emailService
     ) {
         $this->setupService = $setupService;
@@ -84,8 +72,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
         $this->session = $session;
-//        $this->activeUser = $activeUser;
-        $this->subscriptionService = $subscriptionService;
         $this->emailService = $emailService;
     }
 
@@ -236,6 +222,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             );
         } catch (SetPackageException\AlreadyExists $alreadyExists) {
             $this->logDebugException($alreadyExists);
+            $this->sendErrorEmail($packageUpgradeRequest);
             $response['success'] = true;
 
         } catch (\Throwable $throwable) {
@@ -246,12 +233,11 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
 
     protected function shouldAddNewSubscription(PackageUpgradeRequest $packageUpgradeRequest): bool
     {
-//        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
         if(!$this->packageManagementService->isCurrentPackageTrialOrFree($packageUpgradeRequest)) {
             return false;
         }
         try {
-            $subscriptions = $this->getSubscriptions($packageUpgradeRequest);
+            $subscriptions = $this->packageService->getAllActiveSubscriptions($packageUpgradeRequest->getOrganisationUnit()->getId());
             if ($subscriptions->count() <= 1) {
                 return true;
             }
@@ -264,25 +250,11 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     protected function sendErrorEmail(PackageUpgradeRequest $packageUpgradeRequest)
     {
         try {
-            $subscriptions = $this->getSubscriptions($packageUpgradeRequest);
+            $subscriptions = $this->packageService->getAllActiveSubscriptions($packageUpgradeRequest->getOrganisationUnit()->getId());
         } catch (NotFound $e) {
             $subscriptions = new Subscriptions(Subscription::class);
         }
 
         $this->emailService->sendErrorToSupport($subscriptions, $packageUpgradeRequest->getOrganisationUnit());
     }
-
-    protected function getSubscriptions(PackageUpgradeRequest $packageUpgradeRequest): Subscriptions
-    {
-        $now = new \DateTime();
-        return $this->subscriptionService->fetchCollectionByFilter(
-            (new SubscriptionFilter())
-                ->setOuId([$packageUpgradeRequest->getOrganisationUnit()->getId()])
-                ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
-                ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
-                ->setLimit('all')
-                ->setPage(1)
-        );
-    }
-
 }
