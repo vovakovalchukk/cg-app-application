@@ -47,6 +47,7 @@ class Usps extends Other
     ) {
         parent::__construct($shipStationClient, $guzzleClient, $orderLabelService);
         $this->shippingLedgerService = $shippingLedgerService;
+        $this->shipmentIdStorage = $shipmentIdStorage;
     }
 
     public function createLabelsForOrders(
@@ -191,6 +192,7 @@ class Usps extends Other
         foreach ($labelsResponse->getLabels() as $label) {
             /** @var OrderData $orderData */
             foreach ($orderDataCollection as $orderData) {
+                // If we have the shipmentId stored, and it matches that of a label then the label was created successfully
                 if ($this->doesShipmentIdExistInStorage($label->getShipmentId(), $orderData->getId())) {
                     $activeLabels[$label->getShipmentId()] = $label;
                     continue;
