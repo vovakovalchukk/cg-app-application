@@ -210,7 +210,7 @@ class Shipment implements
      */
     public function getTrackingReferences()
     {
-        $this->trackingReferences;
+        return $this->trackingReferences;
     }
 
     public function setCourierReference(string $courierReference): Shipment
