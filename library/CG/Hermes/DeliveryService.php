@@ -7,6 +7,7 @@ use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\UserError;
 use CG\Hermes\DeliveryService\Option as DeliveryServiceOption;
 use CG\Hermes\Shipment;
+use CG\Locale\CountryCode;
 
 class DeliveryService implements DeliveryServiceInterface
 {
@@ -49,14 +50,6 @@ class DeliveryService implements DeliveryServiceInterface
             $array['countries'] ?? null,
             $array['options'] ? DeliveryServiceOption::multipleFromArrayOfArrays($array['options']) : null
         );
-    }
-
-    public function supportsCountryCode(string $countryCode): bool
-    {
-        if (!$this->countries) {
-            return true;
-        }
-        return in_array($countryCode, $this->countries);
     }
 
     public function supportsOption(string $option): bool
@@ -110,6 +103,12 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
+        // For now we're only supporting EU countries.
+        // If we decide to support other countries we'll have to do work to get the required HS Codes from the user.
+        // See comments on TAC-172.
+        if (!CountryCode::isEUCountryCode($isoAlpha2CountryCode)) {
+            return false;
+        }
         if (!$this->countries) {
             return true;
         }

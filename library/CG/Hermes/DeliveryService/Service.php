@@ -42,7 +42,7 @@ class Service
         $countryServices = [];
         /** @var DeliveryService $deliveryService */
         foreach ($allServices as $deliveryService) {
-            if (!$deliveryService->supportsCountryCode($countryCode)) {
+            if (!$deliveryService->isISOAlpha2CountryCodeSupported($countryCode)) {
                 continue;
             }
             $countryServices[$deliveryService->getReference()] = $deliveryService;
