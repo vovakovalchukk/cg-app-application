@@ -147,7 +147,7 @@ class Usps extends Other
         $this->logNotice('Some labels seemingly failed to create, will double-check by attempting to fetch them', [], [static::LOG_CODE, 'Failure', 'Check']);
         $labelCount = count($labelResults->getThrowables()) + count($labelResults->getResponses());
         $labelsResponse = $this->fetchLabelsCreatedSince($startDateTime, $labelCount, $shippingAccount, $shipStationAccount);
-        $activeLabels = $this->filterQueryLabelsResponseToActiveLabelsByShipmentId($labelsResponse);
+        $activeLabels = $this->filterQueryLabelsResponseToActiveLabelsByShipmentId($labelsResponse, $ordersData);
         if (empty($activeLabels)) {
             return $labelResults;
         }
@@ -185,16 +185,24 @@ class Usps extends Other
     /**
      * @return LabelResponse[]
      */
-    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(QueryLabelResponse $labelsResponse): array
+    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(QueryLabelResponse $labelsResponse, OrderDataCollection $orderDataCollection): array
     {
         $activeLabels = [];
         foreach ($labelsResponse->getLabels() as $label) {
-            if (!in_array($label->getStatus(), LabelResponse::getActiveStatuses())) {
-                continue;
+            /** @var OrderData $orderData */
+            foreach ($orderDataCollection as $orderData) {
+                if ($this->doesShipmentIdExistInStorage($label->getShipmentId(), $orderData->getId())) {
+                    $activeLabels[$label->getShipmentId()] = $label;
+                    continue;
+                }
             }
-            $activeLabels[$label->getShipmentId()] = $label;
         }
         return $activeLabels;
+    }
+
+    protected function doesShipmentIdExistInStorage(string $shipmentId, string $orderId): bool
+    {
+        return ($shipmentId === $this->shipmentIdStorage->get($orderId));
     }
 
     protected function updateLabelResultsWithFetchedLabels(
