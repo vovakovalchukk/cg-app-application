@@ -28,7 +28,8 @@ define([
                 accountId: null,
                 refreshAccountPolicies: () => {},
                 accountData: {},
-                setPoliciesForAccount: () => {}
+                setPoliciesForAccount: () => {},
+                selectedProductDetails: {}
             };
         },
         componentDidMount: function() {
@@ -49,6 +50,18 @@ define([
                 shippingPolicies: (policies && policies.shippingPolicies) ? policies.shippingPolicies : [],
             }
         },
+        renderItemSpecifics: function() {
+            if (this.props.selectedProductDetails && Object.keys(this.props.selectedProductDetails).length > 0) {
+                return null;
+            }
+            return <FormSection
+                name="itemSpecifics"
+                component={ItemSpecifics}
+                categoryId={this.props.categoryId}
+                itemSpecifics={this.props.itemSpecifics}
+                product={this.props.product}
+            />;
+        },
         render: function() {
             let policies = this.getReturnPolicies();
             return (
@@ -60,13 +73,7 @@ define([
                         disabled={this.arePoliciesFetching()}
                     />
                     <ListingDuration listingDurations={this.props.listingDuration} />
-                    <FormSection
-                        name="itemSpecifics"
-                        component={ItemSpecifics}
-                        categoryId={this.props.categoryId}
-                        itemSpecifics={this.props.itemSpecifics}
-                        product={this.props.product}
-                    />
+                    {this.renderItemSpecifics()}
                 </div>
             );
         }

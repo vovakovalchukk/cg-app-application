@@ -250,7 +250,15 @@ define([
     };
 
     return {
-        loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData, categoryTemplates) {
+        loadInitialValues: function(
+            product,
+            variationData,
+            accounts,
+            accountDefaultSettings,
+            accountsData,
+            categoryTemplates,
+            selectedProductDetails
+        ) {
             return {
                 type: "LOAD_INITIAL_VALUES",
                 payload: {
@@ -259,7 +267,8 @@ define([
                     selectedAccounts: accounts,
                     accountDefaultSettings: accountDefaultSettings,
                     accountsData: accountsData,
-                    categoryTemplates: categoryTemplates
+                    categoryTemplates: categoryTemplates,
+                    selectedProductDetails: selectedProductDetails
                 }
             };
         },
