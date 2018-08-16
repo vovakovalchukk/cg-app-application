@@ -66,21 +66,25 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 
         $credentials = $this->shipment->getAccount()->getCredentials();
         $this->xml = new SimpleXMLElement(
-            '<?xml version="1.0" encoding="UTF-8"?><routeDeliveryCreatePreadviceAndLabel></routeDeliveryCreatePreadviceAndLabel>'
+            '<?xml version="1.0" encoding="UTF-8"?><deliveryRoutingRequest></deliveryRoutingRequest>'
         );
-        $deliveryRoutingRequestNode = $this->xml->addChild('deliveryRoutingRequest');
-        $deliveryRoutingRequestNode->addChild('clientId', $credentials['clientId']);
-        $deliveryRoutingRequestNode->addChild('clientName', $credentials['clientName']);
-        $deliveryRoutingRequestNode->addChild('creationDate', (new \DateTime())->format('c'));
-        $deliveryRoutingRequestNode->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
-        $deliveryRoutingRequestEntriesNode = $deliveryRoutingRequestNode->addChild('deliveryRoutingRequestEntries');
-        $deliveryRoutingRequestEntryNode = $deliveryRoutingRequestEntriesNode->addChild('deliveryRoutingRequestEntry');
-        $this->addCustomerToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $this->addParcelsToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $this->addServicesToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $this->addSenderToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $deliveryRoutingRequestEntryNode->addChild('expectedDespatchDate', $this->shipment->getCollectionDate()->format('c'));
-        $deliveryRoutingRequestEntryNode->addChild('countryOfOrigin', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        $this->xml->addChild('clientId', $credentials['clientId']);
+        $this->xml->addChild('clientName', $credentials['clientName']);
+        $this->xml->addChild('creationDate', (new \DateTime())->format('c'));
+        $this->xml->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
+        $deliveryRoutingRequestEntriesNode = $this->xml->addChild('deliveryRoutingRequestEntries');
+        /** @var Package $package */
+        foreach ($this->shipment->getPackages() as $package) {
+            $deliveryRoutingRequestEntryNode = $deliveryRoutingRequestEntriesNode->addChild('deliveryRoutingRequestEntry');
+            $this->addCustomerToRoutingRequestNode($deliveryRoutingRequestEntryNode);
+            $this->addParcelToRoutingRequestNode($deliveryRoutingRequestEntryNode, $package);
+            $this->addServicesToRoutingRequestNode($deliveryRoutingRequestEntryNode);
+            $this->addSenderToRoutingRequestNode($deliveryRoutingRequestEntryNode);
+            $deliveryRoutingRequestEntryNode->addChild('expectedDespatchDate',
+                $this->shipment->getCollectionDate()->format('c'));
+            $deliveryRoutingRequestEntryNode->addChild('countryOfOrigin',
+                $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        }
 
         return $this->xml;
     }
@@ -117,23 +121,24 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $customerAddressNode->addChild('countryCode', strtoupper($deliveryAddress->getISOAlpha2CountryCode()));
     }
 
-    protected function addParcelsToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode): void
+    protected function addParcelToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode, Package $package): void
     {
-        /** @var Package $package */
-        foreach ($this->shipment->getPackages() as $package) {
-            $parcelNode = $deliveryRoutingRequestEntryNode->addChild('parcel');
-            $parcelNode->addChild('weight', $this->convertWeight($package->getWeight()));
-            $parcelNode->addChild('length', $this->convertDimension($package->getLength()));
-            $parcelNode->addChild('width', $this->convertDimension($package->getWidth()));
-            $parcelNode->addChild('depth', $this->convertDimension($package->getHeight()));
-            $parcelNode->addChild('girth', 0);
-            $parcelNode->addChild('combinedDimension', 0);
-            $parcelNode->addChild('volume', 0);
-            $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
-            $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
-            $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
-            $this->addContentsToParcelNode($parcelNode, $package);
-        }
+        $parcelNode = $deliveryRoutingRequestEntryNode->addChild('parcel');
+        $parcelNode->addChild('weight', $this->convertWeight($package->getWeight()));
+        $parcelNode->addChild('length', $this->convertDimension($package->getLength()));
+        $parcelNode->addChild('width', $this->convertDimension($package->getWidth()));
+        $parcelNode->addChild('depth', $this->convertDimension($package->getHeight()));
+        $parcelNode->addChild('girth', 0);
+        $parcelNode->addChild('combinedDimension', 0);
+        $parcelNode->addChild('volume', 0);
+        $parcelNode->addChild('value', static::DEFAULT_VALUE);
+        $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
+
+        // As we're only supporting EU orders for now the 'currency' and 'contents' sections are not required.
+        // If / when we support non-EU orders we'll need to add these back in.
+        //$parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
+        //$this->addContentsToParcelNode($parcelNode, $package);
+        //$parcelNode->addChild('value', $this->calculateValueOfPackage($package));
     }
 
     protected function addContentsToParcelNode(SimpleXMLElement $parcelNode, Package $package): void
@@ -159,7 +164,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             $this->addSpecificDayToServicesNode($servicesNode, $this->deliveryService->getSpecificDay());
         }
         $servicesNode->addChild('nextDay', $this->sanitiseBoolean($this->deliveryService->isNextDay()));
-        $servicesNode->addChild('signature', $this->sanitiseBoolean($this->deliveryService->isNextDay()));
+        $servicesNode->addChild('signature', $this->sanitiseBoolean($this->shipment->isSignatureRequired()));
     }
 
     protected function addSpecificDayToServicesNode(SimpleXMLElement $servicesNode, int $specificDay): void

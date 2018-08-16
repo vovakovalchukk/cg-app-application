@@ -4,10 +4,12 @@ namespace Products\Listing\Channel;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Name;
+use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\FeatureFlags\Service as FeatureFlagService;
 use CG\Listing\Client\Service as ListingService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use Products\Listing\Channel\Factory as CreateListingsFactory;
+use Products\Listing\Exception as ListingException;
 
 class Service
 {
@@ -95,11 +97,38 @@ class Service
         return $service->refreshAccountPolicies($account);
     }
 
+    public function getAccountData(Account $account, array  $postData = []): array
+    {
+        try {
+            /** @var AccountDataInterface $service */
+            $service = $this->factory->fetchAndValidateChannelService($account, AccountDataInterface::class, $postData);
+            return $service->getAccountData($account);
+        } catch (ListingException $e) {
+            return $account->toArray();
+        }
+    }
+
     protected function getAllowedChannelsForOu(OrganisationUnit $ou): array
     {
         if (!$this->featureFlagService->isActive(ListingService::FEATURE_FLAG_CREATE_LISTINGS_AMAZON, $ou)) {
             return static::CHANNELS_SUPPORTED;
         }
         return array_merge(static::CHANNELS_SUPPORTED, ['amazon' => 'amazon']);
+    }
+
+    public function isProductSearchActive(OrganisationUnit $ou): bool
+    {
+        return $this->featureFlagService->isActive(EbayListingCreator::FEATURE_FLAG_PBSE, $ou);
+    }
+
+    public function formatExternalChannelData(string $channel, array $data): array
+    {
+        try {
+            /** @var ChannelDataInterface $service */
+            $service = $this->factory->fetchAndValidateChannelService($channel, ChannelDataInterface::class, $data);
+            return $service->formatExternalChannelData($data);
+        } catch (ListingException $e) {
+            return $data;
+        }
     }
 }

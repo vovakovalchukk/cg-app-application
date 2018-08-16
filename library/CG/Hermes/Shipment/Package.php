@@ -3,12 +3,11 @@ namespace CG\Hermes\Shipment;
 
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
-use CG\CourierAdapter\Package\ContentInterface;
-use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
 
-class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
+// If / when we support non-EU shipments we'll need to implement CG\CourierAdapter\Package\SupportedField\ContentsInterface
+class Package implements PackageInterface, WeightInterface, DimensionsInterface
 {
     /** @var int */
     protected $number;
@@ -20,8 +19,6 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $width;
     /** @var float */
     protected $length;
-    /** @var ContentInterface[] */
-    protected $contents;
 
     /** @var LabelInterface */
     protected $label;
@@ -33,15 +30,13 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         float $weight,
         float $height,
         float $width,
-        float $length,
-        array $contents
+        float $length
     ) {
         $this->number = $number;
         $this->weight = $weight;
         $this->height = $height;
         $this->width = $width;
         $this->length = $length;
-        $this->contents = $contents;
     }
 
     public static function fromArray(array $array): Package
@@ -51,8 +46,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
             $array['weight'],
             $array['height'],
             $array['width'],
-            $array['length'],
-            $array['contents']
+            $array['length']
         );
     }
 
@@ -106,14 +100,6 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
             'width' => $this->getWidth(),
             'length' => $this->getLength(),
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getContents()
-    {
-        return $this->contents;
     }
 
     /**

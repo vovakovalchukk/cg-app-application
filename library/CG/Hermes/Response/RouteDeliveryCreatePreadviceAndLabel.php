@@ -52,7 +52,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
             if (!isset($response->outboundCarriers->carrier1, $response->outboundCarriers->carrier1->barcode1)) {
                 continue;
             }
-            $barcodes[] = (string)$response->outboundCarriers->carrier1->barcode1->barcodeNumber;
+            $barcodes[] = (string)$response->outboundCarriers->carrier1->barcode1->barcodeDisplay;
         }
         return new static($barcodes, $labels, $errors, $warnings);
     }
@@ -60,7 +60,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements ResponseInterface
     protected static function parseErrorsFromXml(SimpleXMLElement $errorMessages): array
     {
         $errors = [];
-        foreach ($errorMessages->message as $errorMessage) {
+        foreach ($errorMessages as $errorMessage) {
             $errors[(string)$errorMessage->errorCode] = (string)$errorMessage->errorDescription;
         }
         return $errors;
