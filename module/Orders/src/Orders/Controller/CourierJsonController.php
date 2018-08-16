@@ -241,7 +241,7 @@ class CourierJsonController extends AbstractActionController
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         } catch (InsufficientBalanceException $e) {
-            return $this->handleLabelCreationInsufficientBalance($e, $ordersData, $shippingAccount);
+            return $this->handleLabelCreationInsufficientBalance($e, $ordersData);
         }
     }
 
@@ -397,7 +397,7 @@ class CourierJsonController extends AbstractActionController
         return $viewRender($orderErrorsView);
     }
 
-    protected function handleLabelCreationInsufficientBalance(InsufficientBalanceException $e, OrderDataCollection $ordersData, Account $shippingAccount)
+    protected function handleLabelCreationInsufficientBalance(InsufficientBalanceException $e, OrderDataCollection $ordersData)
     {
         $viewData = [
             'readyStatuses' => [],
