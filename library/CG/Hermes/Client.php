@@ -5,8 +5,10 @@ use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use Guzzle\Http\Client as GuzzleClient;
-use Guzzle\Http\Message\Response as GuzzleResponse;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\BadResponseException as GuzzleBadResponseException;
+use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
+use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
 use SimpleXMLElement;
 
 /**
@@ -29,32 +31,34 @@ class Client implements LoggerAwareInterface
         $this->account = $account;
     }
 
-    public function sendRequest(RequestInterface $request)
+    public function sendRequest(RequestInterface $request): ResponseInterface
     {
         $guzzleRequest = $this->createGuzzleRequest($request);
         $this->logInfo(str_replace('%', '%%', (string)$guzzleRequest), [], [static::LOG_CODE, 'Request']);
         try {
-            $httpResponse = $guzzleRequest->send();
+            $httpResponse = $this->guzzleClient->send($guzzleRequest);
             $this->logInfo(str_replace('%', '%%', (string)$httpResponse), [], [static::LOG_CODE, 'Response']);
             return $this->buildResponse($request, $httpResponse);
-        } catch (GuzzleCurlException|GuzzleBadResponseException $e) {
+        } catch (GuzzleBadResponseException $e) {
             $this->logInfo(str_replace('%', '%%', (string)$e->getResponse()), [], [static::LOG_CODE, 'Response', 'Error']);
             $this->logException($e, 'log:error', __NAMESPACE__);
             throw new StorageException('Hermes API error', $e->getCode(), $e);
         }
     }
 
-    protected function createGuzzleRequest(RequestInterface $request)
+    protected function createGuzzleRequest(RequestInterface $request): GuzzleRequest
     {
         return $this->guzzleClient->createRequest(
             $request->getMethod(),
             $request->getUri(),
-            $this->getRequestHeaders(),
-            $request->asXML()
+            [
+                'headers' => $this->getRequestHeaders(),
+                'body' => $request->asXML()
+            ]
         );
     }
 
-    protected function getRequestHeaders()
+    protected function getRequestHeaders(): array
     {
         $credentials = $this->account->getCredentials();
         return [
@@ -63,7 +67,7 @@ class Client implements LoggerAwareInterface
         ];
     }
 
-    protected function buildResponse(RequestInterface $request, GuzzleResponse $response)
+    protected function buildResponse(RequestInterface $request, GuzzleResponse $response): ResponseInterface
     {
         try {
             $responseBody = $response->getBody(true);
