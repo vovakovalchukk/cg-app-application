@@ -73,13 +73,18 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $this->xml->addChild('creationDate', (new \DateTime())->format('c'));
         $this->xml->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
         $deliveryRoutingRequestEntriesNode = $this->xml->addChild('deliveryRoutingRequestEntries');
-        $deliveryRoutingRequestEntryNode = $deliveryRoutingRequestEntriesNode->addChild('deliveryRoutingRequestEntry');
-        $this->addCustomerToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $this->addParcelsToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $this->addServicesToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $this->addSenderToRoutingRequestNode($deliveryRoutingRequestEntryNode);
-        $deliveryRoutingRequestEntryNode->addChild('expectedDespatchDate', $this->shipment->getCollectionDate()->format('c'));
-        $deliveryRoutingRequestEntryNode->addChild('countryOfOrigin', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        /** @var Package $package */
+        foreach ($this->shipment->getPackages() as $package) {
+            $deliveryRoutingRequestEntryNode = $deliveryRoutingRequestEntriesNode->addChild('deliveryRoutingRequestEntry');
+            $this->addCustomerToRoutingRequestNode($deliveryRoutingRequestEntryNode);
+            $this->addParcelToRoutingRequestNode($deliveryRoutingRequestEntryNode, $package);
+            $this->addServicesToRoutingRequestNode($deliveryRoutingRequestEntryNode);
+            $this->addSenderToRoutingRequestNode($deliveryRoutingRequestEntryNode);
+            $deliveryRoutingRequestEntryNode->addChild('expectedDespatchDate',
+                $this->shipment->getCollectionDate()->format('c'));
+            $deliveryRoutingRequestEntryNode->addChild('countryOfOrigin',
+                $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        }
 
         return $this->xml;
     }
@@ -116,23 +121,20 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $customerAddressNode->addChild('countryCode', strtoupper($deliveryAddress->getISOAlpha2CountryCode()));
     }
 
-    protected function addParcelsToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode): void
+    protected function addParcelToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode, Package $package): void
     {
-        /** @var Package $package */
-        foreach ($this->shipment->getPackages() as $package) {
-            $parcelNode = $deliveryRoutingRequestEntryNode->addChild('parcel');
-            $parcelNode->addChild('weight', $this->convertWeight($package->getWeight()));
-            $parcelNode->addChild('length', $this->convertDimension($package->getLength()));
-            $parcelNode->addChild('width', $this->convertDimension($package->getWidth()));
-            $parcelNode->addChild('depth', $this->convertDimension($package->getHeight()));
-            $parcelNode->addChild('girth', 0);
-            $parcelNode->addChild('combinedDimension', 0);
-            $parcelNode->addChild('volume', 0);
-            $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
-            $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
-            $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
-            $this->addContentsToParcelNode($parcelNode, $package);
-        }
+        $parcelNode = $deliveryRoutingRequestEntryNode->addChild('parcel');
+        $parcelNode->addChild('weight', $this->convertWeight($package->getWeight()));
+        $parcelNode->addChild('length', $this->convertDimension($package->getLength()));
+        $parcelNode->addChild('width', $this->convertDimension($package->getWidth()));
+        $parcelNode->addChild('depth', $this->convertDimension($package->getHeight()));
+        $parcelNode->addChild('girth', 0);
+        $parcelNode->addChild('combinedDimension', 0);
+        $parcelNode->addChild('volume', 0);
+        $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
+        $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
+        $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
+        $this->addContentsToParcelNode($parcelNode, $package);
     }
 
     protected function addContentsToParcelNode(SimpleXMLElement $parcelNode, Package $package): void

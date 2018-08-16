@@ -53,9 +53,17 @@ class Service
         // There is no courier reference as such, just use the first barcode
         $courierReference = $response->getBarcodeNumbers() ? $response->getBarcodeNumbers()[0] : '';
         $shipment->setCourierReference($courierReference);
-        $shipment->setTrackingReferences($response->getBarcodeNumbers());
-        foreach ($response->getLabels() as $labelData) {
-            $shipment->addLabel(new Label($labelData, LabelInterface::TYPE_PDF));
+        $labels = $response->getLabels();
+        $barcodes = $response->getBarcodeNumbers();
+        foreach ($shipment->getPackages() as $package) {
+            $labelData = current($labels);
+            if ($labelData) {
+                $package->setLabel(new Label($labelData, LabelInterface::TYPE_PDF));
+            }
+            $barcode = current($barcodes) ?? '';
+            $package->setTrackingReference($barcode);
+            next($labels);
+            next($barcodes);
         }
         return $shipment;
     }

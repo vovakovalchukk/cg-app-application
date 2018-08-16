@@ -43,10 +43,6 @@ class Shipment implements
     protected $deliveryService;
      /** @var string */
      protected $courierReference;
-    /** @var LabelInterface[] */
-    protected $labels = [];
-    /** @var string[] */
-    protected $trackingReferences = [];
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -202,7 +198,11 @@ class Shipment implements
      */
     public function getLabels()
     {
-        return $this->labels;
+        $labels = [];
+        foreach ($this->packages as $package) {
+            $labels[] = $package->getLabel();
+        }
+        return $labels;
     }
 
     /**
@@ -210,30 +210,16 @@ class Shipment implements
      */
     public function getTrackingReferences()
     {
-        return $this->trackingReferences;
+        $references = [];
+        foreach ($this->packages as $package) {
+            $references[] = $package->getTrackingReference();
+        }
+        return $references;
     }
 
     public function setCourierReference(string $courierReference): Shipment
     {
         $this->courierReference = $courierReference;
-        return $this;
-    }
-
-    public function addLabel(LabelInterface $label): Shipment
-    {
-        $this->labels[] = $label;
-        return $this;
-    }
-
-    public function addTrackingReference(string $trackingReference): Shipment
-    {
-        $this->trackingReferences[] = $trackingReference;
-        return $this;
-    }
-
-    public function setTrackingReferences(array $trackingReferences): Shipment
-    {
-        $this->trackingReferences = $trackingReferences;
         return $this;
     }
 }
