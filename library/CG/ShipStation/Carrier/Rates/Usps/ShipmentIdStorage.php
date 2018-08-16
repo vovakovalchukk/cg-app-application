@@ -6,6 +6,8 @@ use Predis\Client as PredisClient;
 class ShipmentIdStorage
 {
     const REDIS_KEY_TEMPLATE = 'usps_shipment_id_from_rates_%s';
+    const REDIS_EXPIRY_TIME = 3600;
+
     /** @var PredisClient */
     protected $redisClient;
 
@@ -14,9 +16,9 @@ class ShipmentIdStorage
         $this->redisClient = $redisClient;
     }
 
-    public function put(string $orderId, string $shippmentId): ShipmentIdStorage
+    public function save(string $orderId, string $shipmentId): ShipmentIdStorage
     {
-        $this->redisClient->set($this->buildKeyForOrderId($orderId), $shippmentId);
+        $this->redisClient->setex($this->buildKeyForOrderId($orderId), static::REDIS_EXPIRY_TIME, $shipmentId);
         return $this;
     }
 
