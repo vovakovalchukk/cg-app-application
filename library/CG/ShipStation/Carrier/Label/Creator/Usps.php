@@ -186,18 +186,14 @@ class Usps extends Other
     /**
      * @return LabelResponse[]
      */
-    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(QueryLabelResponse $labelsResponse, OrderDataCollection $orderDataCollection): array
+    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(QueryLabelResponse $labelsResponse): array
     {
         $activeLabels = [];
         foreach ($labelsResponse->getLabels() as $label) {
-            /** @var OrderData $orderData */
-            foreach ($orderDataCollection as $orderData) {
-                // If we have the shipmentId stored, and it matches that of a label then the label was created successfully
-                if ($this->doesShipmentIdExistInStorage($label->getShipmentId(), $orderData->getId())) {
-                    $activeLabels[$label->getShipmentId()] = $label;
-                    continue;
-                }
+            if (!in_array($label->getStatus(), LabelResponse::getActiveStatuses())) {
+                continue;
             }
+            $activeLabels[$label->getShipmentId()] = $label;
         }
         return $activeLabels;
     }
