@@ -259,10 +259,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function checkForSafeDeletionWithProductLinks(array $productIds = [])
     {
         $filter = new ProductFilter('all', 1, [], null, [], $productIds);
-        $products = $this->productService->fetchCollectionByFilter($filter);
-
-        $ouIdSkuListOfProductsAndVariations = $this->productService->getSkusOfProductsAndVariations($products);
-        $this->productLinkNodeService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
+        $ouIdSkuListOfProductsAndVariations = $this->productService->getSkusOfProductsAndVariationsWithoutDuplicateSku(
+            $this->productService->fetchCollectionByFilter($filter)
+        );
+        if (!empty($ouIdSkuListOfProductsAndVariations)) {
+            $this->productLinkNodeService->getLinkSkusForDeletion($ouIdSkuListOfProductsAndVariations);
+        }
     }
 
     public function checkProgressOfDeleteProducts($progressKey)

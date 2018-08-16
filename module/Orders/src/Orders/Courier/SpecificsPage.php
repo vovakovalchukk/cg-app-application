@@ -38,11 +38,13 @@ class SpecificsPage implements LoggerAwareInterface
         'Cancel' => BookingOptions\CancelActionDescriptionInterface::class,
         'Print' => BookingOptions\PrintActionDescriptionInterface::class,
         'Dispatch' => BookingOptions\DispatchActionDescriptionInterface::class,
+        'FetchRates' => BookingOptions\FetchRatesActionDescriptionInterface::class,
         'CreateAll' => BookingOptions\CreateAllActionDescriptionInterface::class,
         'ExportAll' => BookingOptions\ExportAllActionDescriptionInterface::class,
         'CancelAll' => BookingOptions\CancelAllActionDescriptionInterface::class,
         'PrintAll' => BookingOptions\PrintAllActionDescriptionInterface::class,
         'DispatchAll' => BookingOptions\DispatchAllActionDescriptionInterface::class,
+        'FetchAllRates' => BookingOptions\FetchAllRatesActionDescriptionInterface::class,
     ];
 
     protected $columnModifiers = [
@@ -147,6 +149,11 @@ class SpecificsPage implements LoggerAwareInterface
         return $this->getActionDescription('Dispatch', 'Dispatch order', $account);
     }
 
+    public function getFetchRatesActionDescription(Account $account): string
+    {
+        return $this->getActionDescription('FetchRates', 'Fetch rates', $account);
+    }
+
     public function getCreateAllActionDescription(Account $account): string
     {
         return $this->getActionDescription('CreateAll', 'Create all labels', $account);
@@ -172,12 +179,17 @@ class SpecificsPage implements LoggerAwareInterface
         return $this->getActionDescription('DispatchAll', 'Dispatch all orders', $account);
     }
 
+    public function getFetchAllRatesActionDescription(Account $account): string
+    {
+        return $this->getActionDescription('FetchAllRates', 'Fetch all rates', $account);
+    }
+
     protected function getActionDescription(string $action, string $defaultDescription, Account $account): string
     {
-        $provider = $this->courierService->getCarrierOptionsProvider($account);;
+        $provider = $this->courierService->getCarrierOptionsProvider($account);
         if (!($provider instanceof $this->bookOptionInterfaces[$action] ?? '')) {
             return $defaultDescription;
         }
-        return $provider->{'get' . $action . 'ActionDescription'}();
+        return $provider->{'get' . $action . 'ActionDescription'}($account);
     }
 }
