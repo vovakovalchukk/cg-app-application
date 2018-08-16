@@ -14,6 +14,8 @@ use iio\libmergepdf\Merger as PDFMerger;
 
 class TestPackGenerator
 {
+    const DEFAULT_COUNTRY_CODE = 'GB';
+
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
     /** @var ShipmentService */
@@ -57,6 +59,7 @@ class TestPackGenerator
         $defaultShipmentData = ['account' => $account, 'collectionAddress' => $collectionAddress, 'collectionDateTime' => new \DateTime()];
         $shipments = [];
         foreach ($this->shipmentsData as $shipmentData) {
+            $shipmentData['deliveryAddress']['ISOAlpha2CountryCode'] = $shipmentData['deliveryAddress']['ISOAlpha2CountryCode'] ?? static::DEFAULT_COUNTRY_CODE;
             $shipmentData['deliveryAddress'] = Address::fromArray($shipmentData['deliveryAddress']);
             $shipmentData['deliveryService'] = $this->deliveryServiceService->getDeliveryServiceByReference($shipmentData['deliveryService']);
             $shipmentData['packages'] = $this->mapPackagesDataToPackages($shipmentData['packages']);
