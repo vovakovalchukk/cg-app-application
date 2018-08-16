@@ -37,14 +37,6 @@ class DeliveryService implements DeliveryServiceInterface
         );
     }
 
-    public function supportsCountryCode(string $countryCode): bool
-    {
-        if (!$this->countries) {
-            return true;
-        }
-        return in_array($countryCode, $this->countries);
-    }
-
     public function supportsOption(string $option): bool
     {
         return isset($this->options[$option]);
