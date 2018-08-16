@@ -125,7 +125,7 @@ class Usps extends Other
                 $request = new RateLabelRequest($orderData->getService(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
                 $labelResults->addResponse($orderData->getId(), $this->shipStationClient->sendRequest($request, $shipStationAccount));
             } catch (Throwable $throwable) {
-                $this->logCriticalException($throwable, 'Problem creating label from rate, we dont know if money was used or not.', [], [static::LOG_CODE, 'Failure']);
+                $this->logCriticalException($throwable, 'Problem creating label from rate, we don\'t know if money was used or not.', [], [static::LOG_CODE, 'Failure']);
                 $labelResults->addThrowable($orderData->getId(), $throwable);
             }
         }
