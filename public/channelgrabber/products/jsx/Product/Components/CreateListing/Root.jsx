@@ -19,10 +19,12 @@ define([
         accounts,
         allowedChannels,
         allowedVariationChannels,
+        productSearchActive,
         onCreateListingClose,
         ebaySiteOptions,
         categoryTemplateOptions,
         renderCreateListingPopup,
+        renderSearchPopup,
         product,
         listingCreationAllowed,
         managePackageUrl,
@@ -79,10 +81,12 @@ define([
                             ebaySiteOptions={ebaySiteOptions}
                             product={product}
                             renderCreateListingPopup={renderCreateListingPopup}
+                            renderSearchPopup={renderSearchPopup}
                             listingCreationAllowed={listingCreationAllowed}
                             managePackageUrl={managePackageUrl}
                             salesPhoneNumber={salesPhoneNumber}
                             demoLink={demoLink}
+                            productSearchActive={productSearchActive}
                         />
                     </Provider>
                 );
