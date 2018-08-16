@@ -36,7 +36,7 @@ class PackageService
     protected $renderer;
     /** @var CurrencyFormatter */
     protected $currencyFormatter;
-
+    /** @var Subscriptions */
     protected $subscriptionService;
 
     public function __construct(

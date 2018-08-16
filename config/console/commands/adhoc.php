@@ -11,7 +11,6 @@ use CG\User\Entity as User;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use CG\Stdlib\DateTime as StdlibDateTime;
 
 /** @var Di $di */
 return [
@@ -104,57 +103,5 @@ return [
             ],
         ],
         'options' => [],
-    ],
-
-
-    'adhoc:showSubscriptions' => [
-        'description' => '',
-        'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
-            /** @var \CG\Billing\Subscription\Service $subService */
-            $subService = $di->newInstance(CG\Billing\Subscription\Service::class);
-
-            $now = new DateTime();
-
-            $filter = new \CG\Billing\Subscription\Filter();
-            $filter->setLimit('all')
-                ->setPage(1)
-                ->setStartedOnOrBeforeDate('2018-01-01 00:00:00') //$now->format(StdlibDateTime::FORMAT)
-                ->setEndedOnOrAfterDate('2018-01-01 05:00:00') //$now->format(StdlibDateTime::FORMAT)
-                ->setOuId([66]);
-
-            $subscriptions = $subService->fetchCollectionByFilter($filter);
-
-            print_r($subscriptions);
-
-            if ($subscriptions->count() <= 1) {
-                return true;
-            }
-return true;
-            /* @var $subscription \CG\Billing\Subscription\Entity */
-            foreach ($subscriptions as $subscription) {
-                /* @var $packages \CG\Billing\Package\Collection */
-                $packages = $subscription->getPackages();
-
-                /* @var $package \CG\Billing\Package\Entity */
-                $package = $packages->getFirst();
-
-
-
-                if ($package->getName() == 'Trial') {
-                    continue;
-                }
-
-                echo $package->getName()."\n";
-
-//                print_r($packages);
-            }
-
-
-        },
-        'arguments' => [],
-        'options' => [],
     ]
-
-
-
 ];

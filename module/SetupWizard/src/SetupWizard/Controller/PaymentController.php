@@ -224,7 +224,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             $this->logDebugException($alreadyExists);
             $this->sendErrorEmail($packageUpgradeRequest);
             $response['success'] = true;
-
         } catch (\Throwable $throwable) {
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
         }
