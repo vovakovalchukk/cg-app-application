@@ -101,7 +101,6 @@ define([
             }
         };
         var settings = Object.assign(popupSettings, this.additionalPopupSettings);
-        console.log(this.getPopup());
         this.getPopup().show(settings, 'popup');
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
     };
