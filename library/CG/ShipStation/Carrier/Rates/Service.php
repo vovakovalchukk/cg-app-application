@@ -13,6 +13,7 @@ use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCol
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 use CG\ShipStation\Client;
 use CG\ShipStation\Messages\Rate as ShipStationRate;
 use CG\ShipStation\Messages\Shipment;
@@ -30,13 +31,17 @@ class Service
     protected $shipStationService;
     /** @var Client */
     protected $client;
+    /** @var ShipmentIdStorage */
+    protected $shipmentIdStorage;
 
     public function __construct(
         ShipStationService $shipStationService,
-        Client $client
+        Client $client,
+        ShipmentIdStorage $shipmentIdStorage
     ) {
         $this->shipStationService = $shipStationService;
         $this->client = $client;
+        $this->shipmentIdStorage = $shipmentIdStorage;
     }
 
     public function fetchRatesForOrders(
@@ -97,6 +102,7 @@ class Service
             throw new ValidationException(static::DEFAULT_RATE_ERROR, $e->getCode(), $e);
         }
         if (!empty($response->getRates())) {
+            $this->shipmentIdStorage->save($order->getId(), $response->getShipmentId());
             return $response->getRates();
         }
         return $this->handleInvalidRatesResponse($response, $order);
