@@ -6,14 +6,18 @@ use CG\Account\Shared\Entity as Account;
 use CG\Locale\EUCountryNameByVATCode;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Label\Entity as OrderLabel;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
+use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Service as UsageService;
 use Messages\Module as Messages;
 use Orders\Controller\Helpers\Courier as CourierHelper;
 use Orders\Controller\Helpers\OrderNotes as OrderNotesHelper;
 use Orders\Module;
-use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Timeline\Service as TimelineService;
@@ -42,6 +46,14 @@ class OrderDetailsController extends AbstractActionController
     /** @var OrderNotesHelper $orderNotesHelper */
     protected $orderNotesHelper;
 
+    protected $orderTrackingMapper;
+
+    protected $activeUserContainer;
+
+    protected $courierNameMapper = [
+        'royal-mail-click-drop' => 'Royal Mail',
+    ];
+
     public function __construct(
         UsageService $usageService,
         CourierHelper $courierHelper,
@@ -50,7 +62,9 @@ class OrderDetailsController extends AbstractActionController
         BulkActionsService $bulkActionsService,
         AccountService $accountService,
         TimelineService $timelineService,
-        OrderNotesHelper $orderNotesHelper
+        OrderNotesHelper $orderNotesHelper,
+        OrderTrackingMapper $orderTrackingMapper,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->usageService = $usageService;
         $this->courierHelper = $courierHelper;
@@ -60,6 +74,8 @@ class OrderDetailsController extends AbstractActionController
         $this->accountService = $accountService;
         $this->timelineService = $timelineService;
         $this->orderNotesHelper = $orderNotesHelper;
+        $this->orderTrackingMapper = $orderTrackingMapper;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function orderAction()
@@ -197,20 +213,25 @@ class OrderDetailsController extends AbstractActionController
 
         try {
             $labels = $this->courierHelper->getNonCancelledOrderLabelsForOrders([$order->getId()]);
-
             $labelData = [];
             foreach ($labels as $label) {
                 $labelData[] = $label->toArray();
             }
 
-            $trackingNumbers = $order->getTrackings()->toArray();
+            /* @var $label \CG\Order\Shared\Label\Entity */
+            $label = $labels->getFirst();
+
+            $trackingNumbers = $this->getTrackingNumberDetails($order, $label);
             usort($trackingNumbers, function ($a, $b) {
                 return ($a['packageNumber'] - $b['packageNumber']);
             });
 
             $view->setVariable('trackings', $trackingNumbers);
             $view->setVariable('labels', $labelData);
-            $view->addChild($this->getPrintLabelButton($order), 'printButton');
+
+            if (in_array($label->getStatus(), OrderLabelStatus::getPrintableStatuses())) {
+                $view->addChild($this->getPrintLabelButton($order), 'printButton');
+            }
         } catch (NotFound $e) {
             $view->addChild($this->getCarrierSelect($order), 'carrierSelect');
             $view->setVariable('tracking', $order->getFirstTracking());
@@ -231,6 +252,29 @@ class OrderDetailsController extends AbstractActionController
         ]);
         $buttons->setTemplate('elements/buttons.mustache');
         return $buttons;
+    }
+
+    protected function getTrackingNumberDetails(Order $order, OrderLabel $label): array
+    {
+        $trackings = $order->getTrackings();
+        if ($trackings->count() > 0) {
+            return $trackings->toArray();
+        }
+
+        $carrier = $this->courierNameMapper[$label->getChannelName()] ?? $label->getChannelName() ;
+
+        $orderTracking = $this->orderTrackingMapper->fromArray(
+            [
+                'userId' =>  $this->activeUserContainer->getActiveUser()->getId(),
+                'orderId' => $order->getId(),
+                'number' => null,
+                'carrier' => $carrier,
+                'timestamp' => date(StdlibDateTime::FORMAT),
+                'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+            ]
+        );
+
+        return [$orderTracking->toArray()];
     }
 
     protected function getAccountDetails(Order $order)
