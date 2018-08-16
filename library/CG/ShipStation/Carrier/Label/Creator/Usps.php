@@ -247,6 +247,7 @@ class Usps extends Other
             $orderData = $ordersData->getById($orderId);
             $amount += $orderData->getCost();
             $failCount++;
+            $this->logDebug('Failed to create label for Order %d, cost %.2f', [$orderId, $amount], [static::LOG_CODE, 'Failure', 'Order']);
         }
         /** @var LabelResponse $response */
         foreach ($labelResults->getResponses() as $orderId => $response) {
@@ -257,12 +258,13 @@ class Usps extends Other
             $orderData = $ordersData->getById($orderId);
             $amount += $orderData->getCost();
             $failCount++;
+            $this->logDebug('Failed to create label for Order %d, cost %.2f', [$orderId, $amount], [static::LOG_CODE, 'Failure', 'Order']);
         }
         if ($amount == 0) {
             return;
         }
 
-        $this->logDebug('%d labels failed to create, crediting the user %.2f', [$failCount, $amount], [static::LOG_CODE, 'Failure', 'Refund']);
+        $this->logDebug('%d labels failed to create, crediting the user a total of %.2f', [$failCount, $amount], [static::LOG_CODE, 'Failure', 'Credit']);
         $shippingLedger = $this->fetchShippingLedgerForOu($rootOu);
         $this->shippingLedgerService->credit($shippingLedger, $rootOu, $amount);
     }
