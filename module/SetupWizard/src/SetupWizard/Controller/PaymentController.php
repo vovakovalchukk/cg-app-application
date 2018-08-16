@@ -33,6 +33,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     const ROUTE_BILLING_DURATION_REMEMBER = 'BillingDurationRemember';
     const ROUTE_PACKAGE_SET = 'PackageSet';
 
+    const LOG_CODE = 'SetupWizardPaymentController';
     const ALREADY_EXISTS_EXCEPTION_MSG = 'Billable subscription already exists for OU %d';
 
     /** @var SetupService */
@@ -221,7 +222,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
                 $failure->getType()
             );
         } catch (SetPackageException\AlreadyExists $alreadyExists) {
-            $this->logDebugException($alreadyExists);
+            $this->logDebugException($alreadyExists, '', [], static::LOG_CODE);
             $this->sendErrorEmail($packageUpgradeRequest);
             $response['success'] = true;
         } catch (\Throwable $throwable) {
