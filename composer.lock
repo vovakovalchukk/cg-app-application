@@ -3780,12 +3780,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "ea973b4eb4a63accc1eff6ebeb6368d914698947"
+                "reference": "940bbccb4beb23dfbdb2efa9c850783b7d979dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9760-double-subscriptions-be3e8f.zip",
-                "reference": "ea973b4eb4a63accc1eff6ebeb6368d914698947",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9760-double-subscriptions-96d235.zip",
+                "reference": "940bbccb4beb23dfbdb2efa9c850783b7d979dce",
                 "shasum": null
             },
             "require": {
@@ -3809,7 +3809,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-08-16T09:41:26+00:00"
+            "time": "2018-08-16T11:05:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
