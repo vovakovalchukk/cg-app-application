@@ -26,7 +26,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
                 .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels()
-                .disableInputsForNonRequiredOptions();
+                .disableInputsForNonRequiredOptions()
+                .listenForDimensionsChange();
         });
         dataTable.on('fnServerData fnPreRowsUpdatedCallback', function()
         {
@@ -50,15 +51,34 @@ CourierSpecificsDataTable.SELECTOR_ITEM_PARCELS_ASSIGN = '#courier-itemParcelAss
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER = '#courier-specifics-bulk-actions';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions div.courier-status-all-labels-button';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
+CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS = '.courier-order-dimension';
+CourierSpecificsDataTable.LABEL_STATUS_DEFAULT = 'not printed';
+CourierSpecificsDataTable.LABEL_STATUS_CANCELLED = 'cancelled';
+CourierSpecificsDataTable.LABEL_STATUS_RATES_FETCHED = 'rates fetched';
+CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
+CourierSpecificsDataTable.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
+CourierSpecificsDataTable.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
+CourierSpecificsDataTable.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_EXPORTABLE_TPL = '#datatable input[name="orderInfo[_orderId_][exportable]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_RATEABLE_TPL = '#datatable input[name="orderInfo[_orderId_][rateable]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL = '#datatable input[name="orderInfo[_orderId_][creatable]"]';
+CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
+CourierSpecificsDataTable.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
+CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON = '#fetchrates-all-labels-button-shadow';
+CourierSpecificsDataTable.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button-shadow';
 
 CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true, 'export': true, 'fetchrates': true},
     'exported': {"export": true},
     'not printed': {'print': true, 'cancel': true, 'dispatch': true},
     'printed': {'print': true, 'dispatch': true},
-    'cancelled': {'create': true},
+    'cancelled': {'create': true, 'fetchrates': true},
     'creating': {},
-    'dispatched': {'cancel': true}
+    'dispatched': {'cancel': true},
+    'rates fetched': {'create': true, 'fetchrates': true}
 };
 
 CourierSpecificsDataTable.columnRenderers = {
@@ -210,7 +230,8 @@ CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
         rowData.exportable,
         rowData.cancellable,
         rowData.dispatchable,
-        rowData.rateable
+        rowData.rateable,
+        rowData.creatable
     );
 };
 
@@ -295,7 +316,7 @@ CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
 {
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
     {
-        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled' || aData.labelStatus == 'exported') {
+        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled' || aData.labelStatus == 'exported' || aData.labelStatus == 'rates fetched') {
             return;
         }
         $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
@@ -351,25 +372,6 @@ CourierSpecificsDataTable.prototype.disableInputsForNonRequiredOptions = functio
     return this;
 };
 
-CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
-{
-    $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
-    var actions = this.distinctStatusActions;
-    // If there's items still left to be created then only show pre-creation actions
-    if (actions.create) {
-        var createActions = {"create": true};
-        if (actions.fetchrates) {
-            createActions.fetchrates = true;
-        }
-        actions = createActions;
-    }
-    for (var action in actions) {
-        $('#' + action + CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX).show();
-    }
-    $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER).show();
-    return this;
-};
-
 CourierSpecificsDataTable.prototype.triggerInitialItemWeightKeypress = function()
 {
     $(CourierSpecificsDataTable.SELECTOR_ITEM_WEIGHT_INPUT).each(function()
@@ -407,7 +409,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     return buttonsHtml;
 };
 
-CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable, rateable)
+CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable, rateable, creatable)
 {
     var actions = this.labelStatusActions[labelStatus];
     if (actions['create'] && exportable) {
@@ -425,11 +427,98 @@ CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, expo
     if (actions['fetchrates'] && !rateable) {
         delete actions['fetchrates'];
     }
+    if (actions['create'] && !creatable) {
+        delete actions['create'];
+    }
+    if (actions['fetchrates'] && creatable) {
+        delete actions['fetchrates'];
+    }
     return actions;
+};
+
+CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
+{
+    $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
+    var actions = this.distinctStatusActions;
+    // If there's items still left to be created then only show pre-creation actions
+    if (actions.create) {
+        var createActions = {"create": true};
+        if (actions.fetchrates) {
+            createActions.fetchrates = true;
+        }
+        actions = createActions;
+    }
+    for (var action in actions) {
+        $('#' + action + CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX).show();
+    }
+    $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER).show();
+    return this;
 };
 
 CourierSpecificsDataTable.elementToHtmlString = function(element)
 {
     // Easiest way: add to a temporary element then get its innerHTML
     return $('<div>').append(element).html();
+};
+
+CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus = function(orderId, labelStatus)
+{
+    var labelStatusSelector = CourierSpecificsDataTable.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
+    $(labelStatusSelector).val(labelStatus);
+    var exportableSelector = CourierSpecificsDataTable.SELECTOR_ORDER_EXPORTABLE_TPL.replace('_orderId_', orderId);
+    var exportable = parseInt($(exportableSelector).val());
+    var cancellableSelector = CourierSpecificsDataTable.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
+    var cancellable = parseInt($(cancellableSelector).val());
+    var dispatchableSelector = CourierSpecificsDataTable.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
+    var dispatchable = parseInt($(dispatchableSelector).val());
+    var rateableSelector = CourierSpecificsDataTable.SELECTOR_ORDER_RATEABLE_TPL.replace('_orderId_', orderId);
+    var rateable = parseInt($(rateableSelector).val());
+    var creatableSelector = CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId);
+    var creatable = parseInt($(creatableSelector).val());
+
+    return {
+        exportable: exportable,
+        cancellable: cancellable,
+        dispatchable: dispatchable,
+        rateable: rateable,
+        creatable: creatable
+    };
+};
+
+CourierSpecificsDataTable.prototype.resetOrderLabelStatus = function(orderId, labelStatus)
+{
+    var labelStatus = labelStatus || CourierSpecificsDataTable.LABEL_STATUS_DEFAULT;
+
+    var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, labelStatus);
+
+    var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
+        labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, actionAvailability.creatable
+    );
+
+    var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
+    $(CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
+};
+
+CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
+{
+    var self = this;
+    $(document).on("change", CourierSpecificsDataTable.SELECTOR_COURIER_ORDER_DIMENSIONS, function() {
+        var orderId = self.getOrderIdForParcelInput(this);
+        if (orderId === null) {
+            return;
+        }
+        var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, '');
+        if (actionAvailability.creatable && actionAvailability.rateable) {
+            self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
+            self.setBulkActionButtons();
+            $(CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON).show();
+            $(CourierSpecificsDataTable.SELECTOR_CREATE_ALL_LABELS_BUTTON).hide();
+        }
+    });
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.getOrderIdForParcelInput = function(element)
+{
+    return element.name.split(/[\[\]]/)[1];
 };

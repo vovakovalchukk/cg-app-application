@@ -8,6 +8,7 @@ use CG\ShipStation\Carrier\Service;
 use CG\ShipStation\Client;
 use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
 use Guzzle\Http\Client as GuzzleClient;
+use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
 use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 
 return [
@@ -265,6 +266,7 @@ return [
                                 'width' => 'width',
                                 'length' => 'length',
                                 'cost' => 'cost',
+                                'packageType' => 'packageType'
                             ]
                         ],
                     ],
@@ -274,6 +276,425 @@ return [
                         'height' => 'height',
                         'width' => 'width',
                         'length' => 'length',
+                    ]
+                ]
+            ],
+            PackageTypeService::class => [
+                'parameters' => [
+                    'packageTypesConfig' => [
+                        // Measurements stored in inches and ounces, keep these in order from smallest to largest within each service
+                        'Domestic' => [
+                            'usps_first_class_mail' => [
+                                'Letter' => [
+                                    'weight' => 3.5,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 15.9,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'package',
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                ],
+                            ],
+                            'usps_parcel_select' => [
+                                'Letter' => [
+                                    'weight' => 3.5,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 15.9,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'package',
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                ],
+                            ],
+                            'usps_media_mail' => [
+                                'Letter' => [
+                                    'weight' => 3.5,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 15.9,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'package',
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 15.9,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                ],
+                            ],
+                            'usps_priority_mail' => [
+                                'Letter' => [
+                                    'weight' => 1120,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 1120,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 1120,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Flat Rate Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 12.5,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_envelope',
+                                ],
+                                'Flat Rate Padded Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 9.5,
+                                    'width' => 12.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_padded_envelope',
+                                ],
+                                'Legal Flat Rate Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 15,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rat_legal_envelope',
+                                ],
+                                'Small Flat Rate Box' => [
+                                    'weight' => 1120,
+                                    'length' => 8.625,
+                                    'width' => 5.375,
+                                    'height' => 1.625,
+                                    'code' => 'small_flat_rate_box',
+                                ],
+                                'Medium Flat Rate Box' => [
+                                    'weight' => 1120,
+                                    'length' => 13.625,
+                                    'width' => 11.875,
+                                    'height' => 3.375,
+                                    'code' => 'medium_flat_rate_box',
+                                ],
+                                'Large Flat Rate Boxx' => [
+                                    'weight' => 1120,
+                                    'length' => 12,
+                                    'width' => 12,
+                                    'height' => 5.5,
+                                    'code' => 'large_flat_rate_box',
+                                ],
+                                'Regional Rate Box A1' => [
+                                    'weight' => 240,
+                                    'length' => 10,
+                                    'width' => 7,
+                                    'height' => 4.75,
+                                    'code' => 'regional_rate_box_a',
+                                ],
+                                'Regional Rate Box A2' => [
+                                    'weight' => 240,
+                                    'length' => 10.9375,
+                                    'width' => 12.8125,
+                                    'height' => 2.375,
+                                    'code' => 'regional_rate_box_a',
+                                ],
+                                'Regional Rate Box B1' => [
+                                    'weight' => 320,
+                                    'length' => 12,
+                                    'width' => 10.25,
+                                    'height' => 5,
+                                    'code' => 'regional_rate_box_b',
+                                ],
+                                'Regional Rate Box B2' => [
+                                    'weight' => 320,
+                                    'length' => 15.875,
+                                    'width' => 14.375,
+                                    'height' => 2.875,
+                                    'code' => 'regional_rate_box_b',
+                                ],
+                            ],
+                            'usps_priority_mail_express' => [
+                                'Flat Rate Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 12.5,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_envelope',
+                                ],
+                                'Flat Rate Padded Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 9.5,
+                                    'width' => 12.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_padded_envelope',
+                                ],
+                                'Legal Flat Rate Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 15,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rat_legal_envelope',
+                                ],
+                            ]
+                        ],
+                        'International' => [
+                            'usps_first_class_mail' => [
+                                'Letter' => [
+                                    'weight' => 3.5,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'Letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 64,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'Package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'Package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                            ],
+                            'usps_parcel_select' => [
+                                'Letter' => [
+                                    'weight' => 3.5,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'Letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 64,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'Package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'Package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                            ],
+                            'usps_media_mail' => [
+                                'Letter' => [
+                                    'weight' => 3.5,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 64,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                            ],
+                            'usps_priority_mail' => [
+                                'Letter' => [
+                                    'weight' => 1120,
+                                    'length' => 11.5,
+                                    'width' => 6.125,
+                                    'height' => 0.25,
+                                    'code' => 'letter',
+                                ],
+                                'Large Envelope Or Flat' => [
+                                    'weight' => 1056,
+                                    'length' => 15,
+                                    'width' => 12,
+                                    'height' => 0.75,
+                                    'code' => 'large_envelope_or_flat',
+                                ],
+                                'Package' => [
+                                    'weight' => 1120,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'package',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Thick Envelope' => [
+                                    'weight' => 1120,
+                                    'length' => 61,
+                                    'width' => 46,
+                                    'height' => 46,
+                                    'code' => 'thick_envelope',
+                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                ],
+                                'Flat Rate Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 12.5,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_envelope',
+                                ],
+                                'Flat Rate Padded Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 9.5,
+                                    'width' => 12.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_padded_envelope',
+                                ],
+                                'Legal Flat Rate Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 15,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_legal_envelope',
+                                ],
+                                'Small Flat Rate Box' => [
+                                    'weight' => 320,
+                                    'length' => 8.625,
+                                    'width' => 5.375,
+                                    'height' => 1.625,
+                                    'code' => 'small_flat_rate_box',
+                                ],
+                                'Medium Flat Rate Box' => [
+                                    'weight' => 320,
+                                    'length' => 13.625,
+                                    'width' => 11.875,
+                                    'height' => 3.375,
+                                    'code' => 'medium_flat_rate_box',
+                                ],
+                                'Large Flat Rate Box' => [
+                                    'weight' => 320,
+                                    'length' => 12,
+                                    'width' => 12,
+                                    'height' => 5.5,
+                                    'code' => 'large_flat_rate_box',
+                                ],
+                            ],
+                            'usps_priority_mail_express' => [
+                                'Flat Rate Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 12.5,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_envelope',
+                                ],
+                                'Flat Rate Padded Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 9.5,
+                                    'width' => 12.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_padded_envelope',
+                                ],
+                                'Legal Flat Rate Envelope' => [
+                                    'weight' => 64,
+                                    'length' => 15,
+                                    'width' => 9.5,
+                                    'height' => 3, // No height provided, set at reasonable size for envelope
+                                    'code' => 'flat_rate_legal_envelope',
+                                ],
+                            ]
+                        ]
                     ]
                 ]
             ],

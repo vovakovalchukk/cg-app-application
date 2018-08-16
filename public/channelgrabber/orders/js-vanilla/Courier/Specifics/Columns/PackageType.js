@@ -13,6 +13,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     PackageType.SELECTOR_PACKAGE_TYPE_PREFIX = '#courier-package-type_';
     PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER = '.courier-package-type-options';
+    PackageType.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
 
     PackageType.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
@@ -85,6 +86,15 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         var html = cgMustache.renderTemplate(template, data);
         container.empty().append(html);
         return this;
+    };
+
+    PackageType.prototype.preventUpdateOptions = function(orderId)
+    {
+        var labelStatusSelector = PackageType.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
+        if ($(labelStatusSelector).val() === 'rates fetched') {
+            return true;
+        }
+        return false;
     };
 
     return PackageType;
