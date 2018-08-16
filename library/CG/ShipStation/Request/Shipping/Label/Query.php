@@ -9,6 +9,8 @@ class Query extends RequestAbstract
 {
     const URI = '/labels';
 
+    const MAX_PAGE_SIZE = 500;
+
     /** @var string|null */
     protected $labelStatus;
     /** @var string|null */

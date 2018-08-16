@@ -126,7 +126,7 @@ class Usps extends Other
                 $request = new RateLabelRequest($orderData->getService(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
                 $labelResults->addResponse($orderData->getId(), $this->shipStationClient->sendRequest($request, $shipStationAccount));
             } catch (Throwable $throwable) {
-                $this->logCriticalException($throwable, 'Problem creating label from rate, we don\'t know if money was used or not.', [], [static::LOG_CODE, 'Failure']);
+                $this->logWarningException($throwable, 'Problem creating label from rate, we don\'t know if money was used or not.', [], [static::LOG_CODE, 'Failure']);
                 $labelResults->addThrowable($orderData->getId(), $throwable);
             }
         }
@@ -146,9 +146,8 @@ class Usps extends Other
             return $labelResults;
         }
         $this->logNotice('Some labels seemingly failed to create, will double-check by attempting to fetch them', [], [static::LOG_CODE, 'Failure', 'Check']);
-        $labelCount = count($labelResults->getThrowables()) + count($labelResults->getResponses());
-        $labelsResponse = $this->fetchLabelsCreatedSince($startDateTime, $labelCount, $shippingAccount, $shipStationAccount);
-        $activeLabels = $this->filterQueryLabelsResponseToActiveLabelsByShipmentId($labelsResponse, $ordersData);
+        $fetchedLabels = $this->fetchLabelsCreatedSince($startDateTime, $shippingAccount, $shipStationAccount);
+        $activeLabels = $this->filterQueryLabelsResponseToActiveLabelsByShipmentId($fetchedLabels, $ordersData);
         if (empty($activeLabels)) {
             return $labelResults;
         }
@@ -168,28 +167,47 @@ class Usps extends Other
         return false;
     }
 
+    /** @return LabelResponse[] */
     protected function fetchLabelsCreatedSince(
         DateTime $startDateTime,
-        int $pageSize,
         Account $shippingAccount,
         Account $shipStationAccount
-    ): QueryLabelResponse {
+    ): array {
         // Give ourselves a little overlap in case ShipEngines time is out of sync with ours
         $startDateTime->sub(new \DateInterval('P1M'));
+        $page = 0;
+        $labels = [];
+        do {
+            $response = $this->fetchPageOfLabelsCreatedSince(
+                $startDateTime, $shippingAccount, $shipStationAccount, ++$page
+            );
+            $labels = array_merge($labels, $response->getLabels());
+        } while ($response->getPages() > $page);
+        return $labels;
+    }
+
+    protected function fetchPageOfLabelsCreatedSince(
+        DateTime $startDateTime,
+        Account $shippingAccount,
+        Account $shipStationAccount,
+        int $page
+    ): QueryLabelResponse {
         $request = (new QueryLabelRequest())
             ->setCarrierId($shippingAccount->getExternalId())
             ->setCreatedAtStart($startDateTime)
-            ->setPageSize($pageSize);
+            ->setPage($page)
+            ->setPageSize(QueryLabelRequest::MAX_PAGE_SIZE);
         return $this->shipStationClient->sendRequest($request, $shipStationAccount);
     }
 
     /**
      * @return LabelResponse[]
      */
-    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(QueryLabelResponse $labelsResponse): array
+    protected function filterQueryLabelsResponseToActiveLabelsByShipmentId(array $labels): array
     {
         $activeLabels = [];
-        foreach ($labelsResponse->getLabels() as $label) {
+        /** @var LabelResponse $label */
+        foreach ($labels as $label) {
             if (!in_array($label->getStatus(), LabelResponse::getActiveStatuses())) {
                 continue;
             }
