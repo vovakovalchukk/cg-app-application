@@ -3,6 +3,7 @@ namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
+use CG\Billing\Subscription\Collection as Subscriptions;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Billing\Subscription\Filter as SubscriptionFilter;
 use CG\Billing\Subscription\Service as SubscriptionService;
@@ -18,6 +19,7 @@ use CG_Billing\Payment\View\Service as PaymentViewService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
+use SetupWizard\Payment\EmailService;
 use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
@@ -59,6 +61,8 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
 
     protected $subscriptionService;
 
+    protected $emailService;
+
     public function __construct(
         Service $setupService,
         PackageService $packageService,
@@ -69,7 +73,8 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         PackageManagementService $packageManagementService,
         SessionManager $session,
 //        ActiveUserInterface $activeUser,
-        SubscriptionService $subscriptionService
+        SubscriptionService $subscriptionService,
+        EmailService $emailService
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
@@ -81,6 +86,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         $this->session = $session;
 //        $this->activeUser = $activeUser;
         $this->subscriptionService = $subscriptionService;
+        $this->emailService = $emailService;
     }
 
     public function indexAction()
@@ -245,17 +251,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             return false;
         }
         try {
-            $now = new \DateTime();
-            /* @var $subscriptions \CG\Billing\Subscription\Collection */
-            $subscriptions = $this->subscriptionService->fetchCollectionByFilter(
-                (new SubscriptionFilter())
-                    ->setOuId([$packageUpgradeRequest->getOrganisationUnit()->getId()])
-                    ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
-                    ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
-                    ->setLimit('all')
-                    ->setPage(1)
-            );
-
+            $subscriptions = $this->getSubscriptions($packageUpgradeRequest);
             if ($subscriptions->count() <= 1) {
                 return true;
             }
@@ -265,9 +261,28 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         return false;
     }
 
-    protected function sendEmail()
+    protected function sendErrorEmail(PackageUpgradeRequest $packageUpgradeRequest)
     {
+        try {
+            $subscriptions = $this->getSubscriptions($packageUpgradeRequest);
+        } catch (NotFound $e) {
+            $subscriptions = new Subscriptions(Subscription::class);
+        }
 
+        $this->emailService->sendErrorToSupport($subscriptions, $packageUpgradeRequest->getOrganisationUnit());
+    }
+
+    protected function getSubscriptions(PackageUpgradeRequest $packageUpgradeRequest): Subscriptions
+    {
+        $now = new \DateTime();
+        return $this->subscriptionService->fetchCollectionByFilter(
+            (new SubscriptionFilter())
+                ->setOuId([$packageUpgradeRequest->getOrganisationUnit()->getId()])
+                ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
+                ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
+                ->setLimit('all')
+                ->setPage(1)
+        );
     }
 
 }

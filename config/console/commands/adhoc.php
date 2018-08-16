@@ -118,18 +118,18 @@ return [
             $filter = new \CG\Billing\Subscription\Filter();
             $filter->setLimit('all')
                 ->setPage(1)
-                ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
-                ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
+                ->setStartedOnOrBeforeDate('2018-01-01 00:00:00') //$now->format(StdlibDateTime::FORMAT)
+                ->setEndedOnOrAfterDate('2018-01-01 05:00:00') //$now->format(StdlibDateTime::FORMAT)
                 ->setOuId([66]);
 
             $subscriptions = $subService->fetchCollectionByFilter($filter);
 
-//            print_r($subscriptions);
+            print_r($subscriptions);
 
             if ($subscriptions->count() <= 1) {
                 return true;
             }
-
+return true;
             /* @var $subscription \CG\Billing\Subscription\Entity */
             foreach ($subscriptions as $subscription) {
                 /* @var $packages \CG\Billing\Package\Collection */

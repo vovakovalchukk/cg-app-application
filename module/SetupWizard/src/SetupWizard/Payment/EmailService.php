@@ -1,9 +1,14 @@
 <?php
 namespace SetupWizard\Payment;
 
+use CG\Billing\Subscription\Collection as Subscriptions;
+use CG\Billing\Subscription\Entity as Subscription;
 use CG\Email\Mailer;
+use CG\Locale\UserLocaleInterface as UserLocale;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+
 use Zend\View\Model\ViewModel;
 
 class EmailService implements LoggerAwareInterface
@@ -32,14 +37,9 @@ class EmailService implements LoggerAwareInterface
         $this->emailAddresses = $emailAddresses;
     }
 
-    public function sendErrorToSupport()
+    public function sendErrorToSupport(Subscriptions $subscriptions, OrganisationUnit $organisationUnit)
     {
-        $emailAdresses = [
-            static::SUPPORT_EMAIL_ADDRESS,
-            static::BILLING_EMAIL_ADDRESS
-        ];
-
-        $viewModel = $this->createErrorViewModel(static::EMAIL_TEMPLATE);
+        $viewModel = $this->createErrorViewModel(static::EMAIL_TEMPLATE, $subscriptions, $organisationUnit);
         $this->send($this->emailAddresses, static::EMAIL_SUBJECT, $viewModel);
     }
 
@@ -54,17 +54,16 @@ class EmailService implements LoggerAwareInterface
         $this->logCritical(static::LOG_MSG_SENT, [], static::LOG_CODE);
     }
 
-    protected function createErrorViewModel($emailTemplate): ViewModel
-    {
+    protected function createErrorViewModel(
+        string $emailTemplate,
+        Subscriptions $subscriptions,
+        OrganisationUnit $organisationUnit
+    ): ViewModel {
         $variables = [
-            'locale' => ($this->ou ? $this->ou->getLocale() : UserLocale::LOCALE_DEFAULT),
-            'companyId' => ($this->ou ? $this->ou->getId() : ''),
-            'companyName' => ($this->ou ? $this->ou->getAddressCompanyName() : ''),
-            'currentPackage' => ($this->currentPackage ? $this->currentPackage->getName() : 'N/A'),
-            'newPackage' => ($this->newPackage ? $this->newPackage->getName() : 'N/A'),
-            'amount' => ($this->transaction ? $this->transaction->getAmount() : null),
-            'paymentMethod' => ($this->transaction ? $this->transaction->getType() : 'N/A'),
-            'discountName' => ($this->discount ? $this->discount->getName() : 'NONE APPLIED'),
+            'locale' => $organisationUnit->getLocale(),
+            'companyId' => $organisationUnit->getId(),
+            'companyName' => $organisationUnit->getAddressCompanyName(),
+            'subscriptions' => $subscriptions,
         ];
 
         return (new ViewModel($variables))->setTemplate($emailTemplate);
