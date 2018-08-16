@@ -329,7 +329,25 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             );
         }
 
-        // Must reformat dates/weights *after* persisting otherwise it'll happen again when its reloaded
+        // Must localise the filter *after* persisting otherwise it'll happen again when its reloaded
+        $this->localiseFilterData($filter);
+
+        try {
+            $orders = $this->orderService->getOrders($filter);
+            $this->mergeOrderDataWithJsonData(
+                $pageLimit,
+                $data,
+                $this->orderTableHelper->mapOrdersCollectionToArray($orders, $this->getEvent())
+            );
+        } catch (NotFound $exception) {
+            // No Orders so ignoring
+        }
+
+        return $this->jsonModelFactory->newInstance($data);
+    }
+
+    protected function localiseFilterData(Filter $filter): void
+    {
         if ($filter->getPurchaseDateFrom()) {
             $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));
         }
@@ -348,19 +366,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 Mass::getForLocale($this->activeUserContainer->getLocale())
             ));
         }
-
-        try {
-            $orders = $this->orderService->getOrders($filter);
-            $this->mergeOrderDataWithJsonData(
-                $pageLimit,
-                $data,
-                $this->orderTableHelper->mapOrdersCollectionToArray($orders, $this->getEvent())
-            );
-        } catch (NotFound $exception) {
-            // No Orders so ignoring
-        }
-
-        return $this->jsonModelFactory->newInstance($data);
     }
 
     public function jsonFilterIdAction()
