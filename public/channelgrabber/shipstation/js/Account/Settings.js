@@ -35,7 +35,10 @@ define(['AjaxRequester'], function(ajaxRequester)
     Settings.prototype.attachAutoTopUpListener = function()
     {
         var self = this;
-        $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).on("change", function() {
+        $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).on("change", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
             var promise = self.sendAjaxAutoTopUp();
             promise.then(function(data) {
                 self.handleAutoTopUpSuccess(data);
@@ -48,11 +51,16 @@ define(['AjaxRequester'], function(ajaxRequester)
     Settings.prototype.attachTopUpBalanceListener = function()
     {
         var self = this;
-        $(Settings.LEDGER_TOP_UP_BUTTON).on("click", function() {
+        $(Settings.LEDGER_TOP_UP_BUTTON).on("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
             var promise = self.sendAjaxBalanceTopUp();
             promise.then(function(data) {
                 self.handleBalanceSuccess(data);
             }).catch(function(data) {
+                console.log('Caught something:');
+                console.log(data);
                 self.getAjaxRequester().handleFailure(data);
             });
         });
@@ -100,31 +108,31 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Settings.prototype.handleBalanceSuccess = function(data)
     {
-        if (this.createLabelButtonToClick !== undefined) {
-            var button = $('#' + this.createLabelButtonToClick)
-            this.createLabelButtonToClick = undefined;
-            button.click();
-            $(Settings.LEDGER_TOP_UP_BUTTON).parents('div.popup').each(function(element) {
-               element.bPopup().close();
-            });
-            return;
-        }
-        $('.shipping-ledger-balance-amount').text(data.balance);
+        this.continueUserActionAfterTopupSuccess($(Settings.LEDGER_TOP_UP_BUTTON));
         this.getAjaxRequester().getNotificationHandler().success('Balance topped up successfully.');
     };
 
     Settings.prototype.handleAutoTopUpSuccess = function(data)
     {
+        this.continueUserActionAfterTopupSuccess($(Settings.LEDGER_AUTO_TOPUP_TOGGLE));
+        this.getAjaxRequester().getNotificationHandler().success('Preferences updated.');
+    };
+
+    Settings.prototype.continueUserActionAfterTopupSuccess = function(elementInPopUp)
+    {
         if (this.createLabelButtonToClick !== undefined) {
+            var self = this;
             var button = $('#' + this.createLabelButtonToClick)
             this.createLabelButtonToClick = undefined;
             button.click();
-            $(Settings.LEDGER_AUTO_TOPUP_TOGGLE).parents('div.popup').each(function(element) {
-                element.bPopup().close();
+            elementInPopUp.parents('div.popup').each(function(key, element) {
+                if (typeof $(element).bPopup === "function") {
+                    $(element).bPopup().close();
+                }
             });
             return;
         }
-        this.getAjaxRequester().getNotificationHandler().success('Preferences updated.');
     }
+
     return Settings;
 });

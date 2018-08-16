@@ -61,23 +61,40 @@ define([
 
     Balance.prototype.getShippingLedgerDetails = function()
     {
-        var self = this;
         var data = {
             "organisationUnitId": this.getOrganisationUnitId()
         };
-
         var uri = Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL.replace('{{courierAccountId}}', this.getCourierAccountId());
-
-        this.getAjaxRequester().sendRequest(uri, data, self.showPopup, self.fail, self);
+        var ajaxRequester = this.getAjaxRequester();
+        return new Promise(function(resolve, reject) {
+            ajaxRequester.sendRequest(
+                uri,
+                data,
+                function (data) {
+                    if (data.success === false) {
+                        reject(data);
+                    } else {
+                        resolve(data);
+                    }
+                }
+            );
+        });
     };
 
-    Balance.prototype.renderPopup = function()
+    Balance.prototype.renderPopup = function(additionalPopupSettings)
     {
-        this.getShippingLedgerDetails();
+        var self = this;
+        var promise = this.getShippingLedgerDetails();
+        promise.then(function(data) {
+            self.showPopup(data, additionalPopupSettings);
+        }).catch(function(data) {
+            self.fail(data);
+        });
     };
 
-    Balance.prototype.showPopup = function(data)
+    Balance.prototype.showPopup = function(data, additionalPopupSettings)
     {
+        additionalPopupSettings = additionalPopupSettings || {};
         var popupSettings = {
             "additionalClass": "popup",
             "title": "Buy Postage",
@@ -100,7 +117,7 @@ define([
                 "content": "When automatic top-ups are enabled ChannelGrabber will automatically purchase $100 of UPS postage when your balance drops below $100"
             }
         };
-        var settings = Object.assign(popupSettings, this.additionalPopupSettings);
+        var settings = Object.assign(popupSettings, additionalPopupSettings);
         this.getPopup().show(settings, 'popup');
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
     };
@@ -108,11 +125,6 @@ define([
     Balance.prototype.fail = function(data)
     {
         $(Balance.SELECTOR_TOPUP_BUTTON).removeClass('disabled');
-    };
-
-    Balance.prototype.setAdditionalPopupSettings = function(additionalPopupSettings)
-    {
-        this.additionalPopupSettings = additionalPopupSettings;
     };
 
     return Balance;

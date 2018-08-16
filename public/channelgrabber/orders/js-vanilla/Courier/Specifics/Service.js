@@ -531,11 +531,7 @@ define([
     Service.prototype.handleNotReadysAndErrors = function(response, button)
     {
         if (response.topupRequired) {
-            this.getBalanceService().setAdditionalPopupSettings({
-                "title": "Insufficient Funds",
-                "labelCreateButtonClicked": $(button).attr('id')
-            });
-            this.showBalanceTopUpPopUp();
+            this.showBalanceTopUpPopUp(button);
             return;
         }
 
@@ -843,10 +839,14 @@ define([
         });
     };
 
-    Service.prototype.showBalanceTopUpPopUp = function()
+    Service.prototype.showBalanceTopUpPopUp = function(button)
     {
         this.getNotifications().clearNotifications();
-        this.getBalanceService().renderPopup();
+        var additionalPopupSettings = {
+            "title": "Insufficient Funds",
+            "labelCreateButtonClicked": $(button).attr('id')
+        };
+        this.getBalanceService().renderPopup(additionalPopupSettings);
     };
 
     return Service;
