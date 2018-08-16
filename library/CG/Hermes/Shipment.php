@@ -200,6 +200,9 @@ class Shipment implements
     {
         $labels = [];
         foreach ($this->packages as $package) {
+            if (!$package->getLabel()) {
+                continue;
+            }
             $labels[] = $package->getLabel();
         }
         return $labels;
