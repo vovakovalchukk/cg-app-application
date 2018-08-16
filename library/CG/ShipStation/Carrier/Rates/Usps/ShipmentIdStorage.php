@@ -6,7 +6,7 @@ use Predis\Client as PredisClient;
 class ShipmentIdStorage
 {
     const REDIS_KEY_TEMPLATE = 'usps_shipment_id_from_rates_%s';
-    const REDIS_EXPIRY_TIME = 3600;
+    const REDIS_EXPIRY_TIME = 86400;
 
     /** @var PredisClient */
     protected $redisClient;
