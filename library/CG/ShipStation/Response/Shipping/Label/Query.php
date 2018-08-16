@@ -18,7 +18,7 @@ class Query extends ResponseAbstract
     {
         $labels = [];
         foreach ($decodedJson->labels as $labelJson) {
-            $labels = Label::createFromJson($labelJson);
+            $labels[] = Label::build($labelJson);
         }
         return new static($labels);
     }
