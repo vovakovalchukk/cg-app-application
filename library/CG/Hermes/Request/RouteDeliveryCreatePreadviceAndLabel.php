@@ -131,10 +131,14 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $parcelNode->addChild('girth', 0);
         $parcelNode->addChild('combinedDimension', 0);
         $parcelNode->addChild('volume', 0);
-        $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
-        $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
+        $parcelNode->addChild('value', static::DEFAULT_VALUE);
         $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
-        $this->addContentsToParcelNode($parcelNode, $package);
+
+        // As we're only supporting EU orders for now the 'currency' and 'contents' sections are not required.
+        // If / when we support non-EU orders we'll need to add these back in.
+        //$parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
+        //$this->addContentsToParcelNode($parcelNode, $package);
+        //$parcelNode->addChild('value', $this->calculateValueOfPackage($package));
     }
 
     protected function addContentsToParcelNode(SimpleXMLElement $parcelNode, Package $package): void
