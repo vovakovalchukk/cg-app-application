@@ -164,7 +164,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             $this->addSpecificDayToServicesNode($servicesNode, $this->deliveryService->getSpecificDay());
         }
         $servicesNode->addChild('nextDay', $this->sanitiseBoolean($this->deliveryService->isNextDay()));
-        $servicesNode->addChild('signature', $this->sanitiseBoolean($this->deliveryService->isNextDay()));
+        $servicesNode->addChild('signature', $this->sanitiseBoolean($this->shipment->isSignatureRequired()));
     }
 
     protected function addSpecificDayToServicesNode(SimpleXMLElement $servicesNode, int $specificDay): void
