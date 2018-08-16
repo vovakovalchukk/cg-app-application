@@ -43,7 +43,6 @@ define([
         init.call(this);
     }
 
-    Balance.additionalPopupSettings = {};
     Balance.SELECTOR_TOPUP_BUTTON = "#top-up-balance-button-shadow";
     Balance.FETCH_SHIPPING_LEDGER_BALANCE_URL = '/orders/courier/specifics/{{courierAccountId}}/fetchShippingLedgerBalance';
 
