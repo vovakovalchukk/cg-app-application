@@ -66,14 +66,13 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 
         $credentials = $this->shipment->getAccount()->getCredentials();
         $this->xml = new SimpleXMLElement(
-            '<?xml version="1.0" encoding="UTF-8"?><routeDeliveryCreatePreadviceAndLabel></routeDeliveryCreatePreadviceAndLabel>'
+            '<?xml version="1.0" encoding="UTF-8"?><deliveryRoutingRequest></deliveryRoutingRequest>'
         );
-        $deliveryRoutingRequestNode = $this->xml->addChild('deliveryRoutingRequest');
-        $deliveryRoutingRequestNode->addChild('clientId', $credentials['clientId']);
-        $deliveryRoutingRequestNode->addChild('clientName', $credentials['clientName']);
-        $deliveryRoutingRequestNode->addChild('creationDate', (new \DateTime())->format('c'));
-        $deliveryRoutingRequestNode->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
-        $deliveryRoutingRequestEntriesNode = $deliveryRoutingRequestNode->addChild('deliveryRoutingRequestEntries');
+        $this->xml->addChild('clientId', $credentials['clientId']);
+        $this->xml->addChild('clientName', $credentials['clientName']);
+        $this->xml->addChild('creationDate', (new \DateTime())->format('c'));
+        $this->xml->addChild('sourceOfRequest', static::SOURCE_OF_REQUEST);
+        $deliveryRoutingRequestEntriesNode = $this->xml->addChild('deliveryRoutingRequestEntries');
         $deliveryRoutingRequestEntryNode = $deliveryRoutingRequestEntriesNode->addChild('deliveryRoutingRequestEntry');
         $this->addCustomerToRoutingRequestNode($deliveryRoutingRequestEntryNode);
         $this->addParcelsToRoutingRequestNode($deliveryRoutingRequestEntryNode);
