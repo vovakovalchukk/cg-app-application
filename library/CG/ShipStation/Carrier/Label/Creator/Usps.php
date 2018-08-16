@@ -198,9 +198,9 @@ class Usps extends Other
         return $activeLabels;
     }
 
-    protected function doesShipmentIdExistInStorage(string $shipmentId, string $orderId): bool
+    protected function getStoredShipmentIdForOrderId(string $orderId): ?string
     {
-        return ($shipmentId === $this->shipmentIdStorage->get($orderId));
+        return $this->shipmentIdStorage->get($orderId);
     }
 
     protected function updateLabelResultsWithFetchedLabels(
@@ -210,25 +210,27 @@ class Usps extends Other
     ): LabelResults {
         $updatedResults = new LabelResults();
         foreach ($labelResults->getThrowables() as $orderId => $throwable) {
+            $storedShipmentId = $this->getStoredShipmentIdForOrderId($orderId);
             /** @var OrderData $orderData */
             $orderData = $ordersData->getById($orderId);
-            if (!isset($activeLabels[$orderData->getService()])) {
+            if (!isset($activeLabels[$storedShipmentId])) {
                 $updatedResults->addThrowable($orderId, $throwable);
                 continue;
             }
-            $updatedResults->addResponse($orderId, $activeLabels[$orderData->getService()]);
+            $updatedResults->addResponse($orderId, $activeLabels[$storedShipmentId]);
         }
         /** @var LabelResponse $response */
         foreach ($labelResults->getResponses() as $orderId => $response) {
+            $storedShipmentId = $this->getStoredShipmentIdForOrderId($orderId);
             if (empty($response->getErrors())) {
                 $updatedResults->addResponse($orderId, $response);
                 continue;
             }
-            if (!isset($activeLabels[$orderData->getService()])) {
+            if (!isset($activeLabels[$storedShipmentId])) {
                 $updatedResults->addResponse($orderId, $response);
                 continue;
             }
-            $updatedResults->addResponse($orderId, $activeLabels[$orderData->getService()]);
+            $updatedResults->addResponse($orderId, $activeLabels[$storedShipmentId]);
         }
         return $updatedResults;
     }
