@@ -1,11 +1,9 @@
 define([
     'redux',
-    // 'redux-form',
     'Product/Components/ProductList/Reducers/ProductsReducer',
     'Product/Components/ProductList/Reducers/TabsReducer'
 ], function(
     Redux,
-    // ReduxForm,
     productsReducer,
     tabsReducer
 ) {
@@ -13,7 +11,7 @@ define([
     
     var appReducer = Redux.combineReducers({
         products: productsReducer,
-        tabs:tabsReducer
+        tabs: tabsReducer
     });
     
     const combinedReducer = (state, action) => {

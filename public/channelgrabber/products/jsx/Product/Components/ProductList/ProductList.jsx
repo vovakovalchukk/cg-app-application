@@ -7,9 +7,7 @@ define([
     'Product/Components/Footer',
     'Product/Components/ProductList/ColumnCreator/columns',
     'Product/Components/ProductList/ColumnCreator/factory',
-    
     'Product/Components/ProductList/Components/Tabs/Root'
-
 ], function(
     React,
     FixedDataTable,
@@ -103,17 +101,19 @@ define([
         getVisibleRows: function() {
             return this.props.products.visibleRows;
         },
+        isTabSpecificColumn: function(column) {
+            return !!column.tab;
+        },
+        isColumnSpecificToCurrentTab: function(column) {
+            return column.tab !== this.props.tabs.currentTab
+        },
         renderColumns: function() {
             return columns.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
-                
-                //todo - if column.tab exists and is current then createColumn
-                
-                if(column.tab && column.tab !== this.props.tabs.currentTab){
+                if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                     return;
                 }
-                
                 let createdColumn = columnCreator(column);
                 return createdColumn
             })
@@ -146,15 +146,13 @@ define([
             )
         },
         render: function() {
-            // console.log('in ProductList with this.props: ', this.props);
-            
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">
                         {this.renderSearchBox()}
                         {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     </div>
-                    <Tabs />
+                    <Tabs/>
                     <div
                         className='products-list__container'
                         ref={(productsListContainer) => this.productsListContainer = productsListContainer}

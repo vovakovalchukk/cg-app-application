@@ -33,27 +33,27 @@ define([
     var TabsComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                actions:{},
-                tabs:{}
+                actions: {},
+                tabs: {}
             };
         },
         getInitialState: function() {
             return {}
         },
-        isCurrentTab: function(tab){
+        isCurrentTab: function(tab) {
             return this.props.tabs.currentTab === tab.key;
         },
-        renderTabs:function(){
-          const {tabs} = this.props.tabs;
-          return tabs.map((tab)=>{
-              return(
-                 <Tab
-                    isCurrentTab = {this.isCurrentTab(tab)}
-                    actions={this.props.actions}
-                    tab={tab}
-                 />
-              )
-          })
+        renderTabs: function() {
+            const {tabs} = this.props.tabs;
+            return tabs.map((tab) => {
+                return (
+                    <Tab
+                        isCurrentTab={this.isCurrentTab(tab)}
+                        actions={this.props.actions}
+                        tab={tab}
+                    />
+                )
+            })
         },
         render: function() {
             return (

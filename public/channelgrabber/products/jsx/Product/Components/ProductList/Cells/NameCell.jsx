@@ -16,7 +16,7 @@ define([
         getInitialState: function() {
             return {};
         },
-        getVariationName:function(row){
+        getVariationName: function(row) {
             return Object.keys(row.attributeValues).map((key, index) => {
                 return (
                     <div>{key}: {row.attributeValues[key]}</div>
@@ -41,5 +41,4 @@ define([
     });
     
     return NameCell;
-    
 });

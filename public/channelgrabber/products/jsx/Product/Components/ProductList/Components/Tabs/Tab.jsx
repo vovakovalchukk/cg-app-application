@@ -1,11 +1,9 @@
 define([
     'react',
-    'styled-components',
-    'Product/Components/ProductList/styleVars'
+    'styled-components'
 ], function(
     React,
-    styled,
-    styleVars
+    styled
 ) {
     "use strict";
     

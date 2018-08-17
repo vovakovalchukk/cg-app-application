@@ -18,7 +18,7 @@ define([
     NameCell
 ) {
     "use strict";
-    ////
+    
     const Column = FixedDataTable.Column;
     
     let cells = {

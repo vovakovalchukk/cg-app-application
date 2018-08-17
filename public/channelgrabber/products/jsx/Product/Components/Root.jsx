@@ -194,7 +194,6 @@ define([
                 },
                 type: 'POST',
                 success: function(response) {
-                    console.log('have just fetched linked products . response: ', response);
                     var products = [];
                     if (response.productLinks) {
                         products = response.productLinks;
@@ -269,12 +268,8 @@ define([
             this.fetchLinkedProducts();
         },
         onEditProductLink: function(event) {
-            
-            
             var productSku = event.detail.sku;
             var productLinks = event.detail.productLinks;
-            
-            console.log('in onEditProductLink in Root with productSku: ', event.detail.sku, 'productLinks: ', productLinks);
             this.setState({
                 editingProductLink: {
                     sku: productSku,

@@ -17,7 +17,7 @@ define([
         display:flex;
         justify-content:center;
     `;
-
+    
     const EXPAND_STATUSES = {
         expanded: 'expanded',
         loading: 'loading',
@@ -47,12 +47,12 @@ define([
                 return;
             }
             if (this.getRowData().expandStatus === EXPAND_STATUSES.loading) {
-               return <img
+                return <img
                     title={'loading product variations...'}
                     src={"/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif"}
                     class={"b-loader"}
                 />
-		 }
+            }
             return (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed ? RIGHT_ARROW : DOWN_ARROW)
         },
         onExpandClick: function() {

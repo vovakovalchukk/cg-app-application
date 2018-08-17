@@ -17,7 +17,6 @@ define([
             };
         },
         productsLinksLoad: (allProductsLinks) => {
-            console.log('in productsLinksLoad AC with allProductsLinks: ', allProductsLinks);
             return {
                 type: "PRODUCTS_LINKS_LOAD",
                 payload: {
@@ -28,47 +27,19 @@ define([
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
                 dispatch({
-                    type: 'PRODUCT_VARIATIONS_GET_REQUEST'
-                });
-                dispatch({
                     type: 'PRODUCT_EXPAND_REQUEST',
                     payload: {
                         productRowIdToExpand: productRowIdToExpand
                     }
                 });
-                
                 let variationsByParent = getState().products.variationsByParent;
                 
                 if (variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)) {
-                    dispatch({
-                        type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
-                        payload: variationsByParent
-                    });
-                    dispatch({
-                        type: 'PRODUCT_EXPAND_SUCCESS',
-                        payload: {
-                            productRowIdToExpand
-                        }
-                    });
+                    dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand);
                     return;
                 }
                 
-                var filter = new ProductFilter(null, productRowIdToExpand);
-                AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-                
-                function fetchProductVariationsCallback(data) {
-                    let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
-                    dispatch({
-                        type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
-                        payload: variationsByParent
-                    });
-                    dispatch({
-                        type: 'PRODUCT_EXPAND_SUCCESS',
-                        payload: {
-                            productRowIdToExpand
-                        }
-                    });
-                }
+                dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand);
             }
         },
         collapseProduct: (productRowIdToCollapse) => {
@@ -80,7 +51,6 @@ define([
             }
         },
         changeTab: (desiredTabKey) => {
-            // console.log('in changeTab AQ desiredTabKey: ', desiredTabKey);
             return {
                 type: "TAB_CHANGE",
                 payload: {
@@ -105,6 +75,41 @@ define([
     function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
         if (variationsByParent[productId]) {
             return true;
+        }
+    }
+    
+    function dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand) {
+        dispatch({
+            type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
+            payload: variationsByParent
+        });
+        dispatch({
+            type: 'PRODUCT_EXPAND_SUCCESS',
+            payload: {
+                productRowIdToExpand
+            }
+        });
+    }
+    
+    function dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand) {
+        let filter = new ProductFilter(null, productRowIdToExpand);
+        AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
+        dispatch({
+            type: 'PRODUCT_VARIATIONS_GET_REQUEST'
+        });
+        
+        function fetchProductVariationsCallback(data) {
+            let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+            dispatch({
+                type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
+                payload: variationsByParent
+            });
+            dispatch({
+                type: 'PRODUCT_EXPAND_SUCCESS',
+                payload: {
+                    productRowIdToExpand
+                }
+            });
         }
     }
 });

@@ -10,15 +10,15 @@ define([
     styled
 ) {
     "use strict";
-
+    
     styled = styled.default;
-
+    
     let Image = styled.img`
-        max-width: ${props =>  props.width}px;
+        max-width: ${props => props.width}px;
         max-height: ${props => props.height}px;
         object-fit:contain;
     `;
- 
+    
     
     let TextCell = React.createClass({
         getDefaultProps: function() {
@@ -27,18 +27,18 @@ define([
         getInitialState: function() {
             return {};
         },
-        renderImage: function(){
+        renderImage: function() {
             let cellData = stateUtility.getCellData(
                 this.props.products,
                 this.props.columnKey,
                 this.props.rowIndex
             );
-            if(!cellData || !cellData.id){
+            if (!cellData || !cellData.id) {
                 return '';
             }
             return (
                 <Image
-                    title={'image-'+cellData.id}
+                    title={'image-' + cellData.id}
                     src={cellData.url}
                     width={this.props.width}
                     height={this.props.height}

@@ -4,6 +4,7 @@ define([
     React,
 ) {
     "use strict";
+    
     let coreColumns =  [
         {
             key: 'image',
