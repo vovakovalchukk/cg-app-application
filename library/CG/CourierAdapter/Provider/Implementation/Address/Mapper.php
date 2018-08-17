@@ -2,7 +2,7 @@
 namespace CG\CourierAdapter\Provider\Implementation\Address;
 
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
-use CG\CourierAdapter\Provider\Implementation\Address as CAAddress;
+use CG\CourierAdapter\Address as CAAddress;
 use CG\Order\Shared\ShippableInterface as OHOrder;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 

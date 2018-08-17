@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd528dae8e7e4bf8671e50b5b1198500",
+    "content-hash": "6fa49c9d6b861c2e0af1d6fd0527d573",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -762,20 +762,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-TAC-170-add-hermes-courier",
+            "version": "dev-TAC-172-create-hermes-labels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "70f1cf52126c0d08a04fc6faeacd6506002b839a"
+                "reference": "d1a88ec7f5882af306f50a35b5a60cf957de443a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-170-add-hermes-courier-919bc1.zip",
-                "reference": "70f1cf52126c0d08a04fc6faeacd6506002b839a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-172-create-hermes-labels-9225b5.zip",
+                "reference": "d1a88ec7f5882af306f50a35b5a60cf957de443a",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "~1.2.0",
+                "channelgrabber/courieradapter": "dev-TAC-172-create-hermes-labels as 1.3.0",
                 "channelgrabber/locale": "^1.0.17",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
@@ -803,20 +803,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-25T12:38:33+00:00"
+            "time": "2018-08-17T10:53:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-TAC-170-add-hermes-courier",
+            "version": "dev-TAC-172-create-hermes-labels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "eb1129a484b1a392855c9023e530c3f359cd4aaf"
+                "reference": "3d428e29d814f169bc480bfbdfb25801db459919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-170-add-hermes-courier-8ea9aa.zip",
-                "reference": "eb1129a484b1a392855c9023e530c3f359cd4aaf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-172-create-hermes-labels-a1ca08.zip",
+                "reference": "3d428e29d814f169bc480bfbdfb25801db459919",
                 "shasum": null
             },
             "require": {
@@ -836,7 +836,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-07-25T11:15:39+00:00"
+            "time": "2018-08-17T10:43:58+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -9971,18 +9971,18 @@
         {
             "alias": "1.0.31",
             "alias_normalized": "1.0.31.0",
-            "version": "dev-TAC-170-add-hermes-courier",
+            "version": "dev-TAC-172-create-hermes-labels",
             "package": "channelgrabber/courier"
         },
         {
             "alias": "1.2.1",
             "alias_normalized": "1.2.1.0",
-            "version": "dev-TAC-170-add-hermes-courier",
+            "version": "dev-TAC-172-create-hermes-labels",
             "package": "channelgrabber/courieradapter"
         },
         {
-            "alias": "1.23.12",
-            "alias_normalized": "1.23.12.0",
+            "alias": "1.23.16",
+            "alias_normalized": "1.23.16.0",
             "version": "dev-TAC-170-add-hermes-courier",
             "package": "channelgrabber/zf2-v4-ui"
         }
