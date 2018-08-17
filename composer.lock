@@ -766,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d1a88ec7f5882af306f50a35b5a60cf957de443a"
+                "reference": "d5ba3a4215461b04081200556ef183fc469408de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-172-create-hermes-labels-9225b5.zip",
-                "reference": "d1a88ec7f5882af306f50a35b5a60cf957de443a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-172-create-hermes-labels-58160f.zip",
+                "reference": "d5ba3a4215461b04081200556ef183fc469408de",
                 "shasum": null
             },
             "require": {
@@ -803,7 +803,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-08-17T10:53:04+00:00"
+            "time": "2018-08-17T11:46:04+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
