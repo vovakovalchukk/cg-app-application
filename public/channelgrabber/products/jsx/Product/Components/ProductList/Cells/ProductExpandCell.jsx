@@ -11,12 +11,12 @@ define([
     "use strict";
     
     const EXPAND_STATUSES = {
-        expanded:'expanded',
-        loading:'loading',
-        collapsed:'collapsed'
+        expanded: 'expanded',
+        loading: 'loading',
+        collapsed: 'collapsed'
     };
     
-    const RIGHT_ARROW ='\u25BA';
+    const RIGHT_ARROW = '\u25BA';
     const DOWN_ARROW = '\u25BC';
     
     let ProductExpandCell = React.createClass({
