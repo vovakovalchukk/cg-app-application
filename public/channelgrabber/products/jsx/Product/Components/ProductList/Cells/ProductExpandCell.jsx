@@ -10,6 +10,15 @@ define([
 ) {
     "use strict";
     
+    const EXPAND_STATUSES = {
+        expanded:'expanded',
+        loading:'loading',
+        collapsed:'collapsed'
+    };
+    
+    const RIGHT_ARROW ='\u25BA';
+    const DOWN_ARROW = '\u25BC';
+    
     let ProductExpandCell = React.createClass({
         getDefaultProps: function() {
             return {
@@ -29,17 +38,17 @@ define([
             if (!isParentProduct) {
                 return;
             }
-            if (this.getRowData().expandStatus === 'loading') {
+            if (this.getRowData().expandStatus === EXPAND_STATUSES.loading) {
                 return 'loading....'
             }
-            return (!rowData.expandStatus || rowData.expandStatus === 'collapsed' ? '\u25BA' : '\u25BC')
+            return (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed ? RIGHT_ARROW : DOWN_ARROW)
         },
         onExpandClick: function() {
             let rowData = this.getRowData();
-            if (rowData.expandStatus === 'loading') {
+            if (rowData.expandStatus === EXPAND_STATUSES.loading) {
                 return;
             }
-            if (!rowData.expandStatus || rowData.expandStatus === 'collapsed') {
+            if (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed) {
                 this.props.actions.expandProduct(rowData.id)
                 return;
             }
