@@ -45,7 +45,7 @@ class Usps implements BookingOptionInterface
         return $this->preparePackageTypesForView($packageTypes, $selectedPackage ?? null);
     }
 
-    protected function getPossiblePackageTypesForService(string $service): PackageTypeCollection
+    public function getPossiblePackageTypesForService(string $service): PackageTypeCollection
     {
         return $this->packageTypeService->getPackageTypesForService($service);
     }
@@ -79,14 +79,15 @@ class Usps implements BookingOptionInterface
         return null;
     }
 
-    protected function preparePackageTypesForView(PackageTypeCollection $packageTypeCollection, ?PackageTypeEntity $selectedPackage): array
+    public function preparePackageTypesForView(PackageTypeCollection $packageTypeCollection, ?PackageTypeEntity $selectedPackage): array
     {
         $packageTypesData = [];
         /** @var PackageTypeEntity $packageType */
         foreach ($packageTypeCollection as $packageType) {
             $packageTypesData[$packageType->getCode()] = [
                     'title' => $packageType->getName(),
-                    'selected' => ($selectedPackage !== null && $selectedPackage->getName() == $packageType->getName()) ? true : false
+                    'selected' => ($selectedPackage !== null && $selectedPackage->getName() == $packageType->getName()) ? true : false,
+                    'value' => $packageType->getCode()
                 ];
         }
 
