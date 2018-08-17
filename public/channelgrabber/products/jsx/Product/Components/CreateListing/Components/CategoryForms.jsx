@@ -35,7 +35,8 @@ define([
                 setReturnPoliciesForAccount: () => {},
                 variationsDataForProduct: [],
                 fieldChange: null,
-                resetSection: null
+                resetSection: null,
+                selectedProductDetails: {}
             };
         },
         renderForCategoryTemplates: function() {
@@ -79,6 +80,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 fieldChange={this.props.fieldChange}
                 resetSection={this.props.resetSection}
+                selectedProductDetails={this.props.selectedProductDetails}
                 {...category}
             />);
         },
