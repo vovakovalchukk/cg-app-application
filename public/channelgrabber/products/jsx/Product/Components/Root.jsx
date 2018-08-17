@@ -2,6 +2,7 @@ define([
     'react',
     'Product/Components/Search',
     'Product/Filter/Entity',
+    'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
     'Product/Components/CreateListing/CreateListingRoot',
@@ -14,6 +15,7 @@ define([
     React,
     SearchBox,
     ProductFilter,
+    ProductFooter,
     ProductRow,
     ProductLinkEditor,
     CreateListingPopupRoot,
@@ -30,7 +32,6 @@ define([
     const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-    
     const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
 
     var RootComponent = React.createClass({
@@ -76,6 +77,11 @@ define([
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
+                pagination: {
+                    total: 0,
+                    limit: 0,
+                    page: 0
+                },
                 fetchingUpdatedStockLevelsForSkus: {},
                 accounts: {},
                 createListing: {
@@ -117,7 +123,6 @@ define([
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null, null, skuList);
             filter.setPage(pageNumber);
-            
             function successCallback(result) {
                 var self = this;
                 this.setState({
@@ -136,11 +141,9 @@ define([
                     self.onNewProductsReceived();
                 });
             }
-            
             function errorCallback() {
                 throw 'Unable to load products';
             }
-            
             this.fetchProducts(filter, successCallback, errorCallback);
         },
         fetchProducts: function(filter, successCallback, errorCallback) {
@@ -155,7 +158,6 @@ define([
         },
         fetchVariations: function(filter) {
             $('#products-loading-message').show();
-            
             function onSuccess(data) {
                 var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
                 this.setState({
@@ -165,7 +167,6 @@ define([
                     $('#products-loading-message').hide()
                 }.bind(this));
             }
-            
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         fetchLinkedProducts: function() {
@@ -395,6 +396,55 @@ define([
                 PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
             }
         },
+        renderSearchBox: function() {
+            if (this.props.searchAvailable) {
+                return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
+                                  submitCallback={this.filterBySearch}/>
+            }
+        },
+        renderAddNewProductButton: function() {
+            return (
+                <div className=" navbar-strip--push-up-fix ">
+                        <span className="navbar-strip__button " onClick={this.addNewProductButtonClick}>
+                            <span className="fa-plus left icon icon--medium navbar-strip__button__icon">&nbsp;</span>
+                            <span className="navbar-strip__button__text">Add</span>
+                        </span>
+                </div>
+            )
+        },
+        renderProducts: function() {
+            if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
+                return (
+                    <div className="no-products-message-holder">
+                        <span className="sprite-noproducts"></span>
+                        <div className="message-holder">
+                            <span className="heading-large">No Products to Display</span>
+                            <span className="message">Please Search or Filter</span>
+                        </div>
+                    </div>
+                );
+            }
+            return this.state.products.map(function(product) {
+                return <ProductRow
+                    key={product.id}
+                    product={product}
+                    variations={this.state.variations[product.id]}
+                    productLinks={this.state.allProductLinks[product.id]}
+                    maxVariationAttributes={this.state.maxVariationAttributes}
+                    maxListingsPerAccount={this.state.maxListingsPerAccount}
+                    linkedProductsEnabled={this.props.features.linkedProducts}
+                    fetchingUpdatedStockLevelsForSkus={this.state.fetchingUpdatedStockLevelsForSkus}
+                    accounts={this.state.accounts}
+                    onCreateListingIconClick={this.onCreateListingIconClick.bind(this)}
+                    createListingsAllowedChannels={this.state.createListingsAllowedChannels}
+                    createListingsAllowedVariationChannels={this.state.createListingsAllowedVariationChannels}
+                    adminCompanyUrl={this.props.adminCompanyUrl}
+                    showVAT={this.props.showVAT}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
+                />;
+            }.bind(this))
+        },
         renderAccountSelectionPopup: function() {
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
@@ -426,7 +476,7 @@ define([
             var variationData = this.state.variations[this.state.createListingData.product.id]
                 ? this.state.variations[this.state.createListingData.product.id]
                 : [this.state.createListingData.product];
-            
+
             return <CreateListingPopupRoot
                 {...this.state.createListingData}
                 conditionOptions={this.formatConditionOptions()}
@@ -466,9 +516,6 @@ define([
             />
         },
         renderProductListView: function() {
-            if (!this.state.accounts) {
-                return
-            }
             return (
                 <ProductListProvider
                     products={this.state.products}
@@ -493,12 +540,12 @@ define([
             return viewRenderer();
         }
     });
-    
+
     RootComponent.childContextTypes = {
         imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };
-    
+
     return RootComponent;
 });
