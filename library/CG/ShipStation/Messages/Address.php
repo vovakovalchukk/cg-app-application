@@ -1,6 +1,8 @@
 <?php
 namespace CG\ShipStation\Messages;
 
+use CG\OrganisationUnit\Entity as OrganisationUnit;
+
 class Address
 {
     /** @var  string */
@@ -57,6 +59,21 @@ class Address
             $array['address2'],
             $array['email']
         );
+    }
+
+    public static function fromOrganisationUnit(OrganisationUnit $ou): Address
+    {
+        return static::fromArray([
+            'company' => $ou->getAddressFullName(),
+            'phone' => $ou->getPhoneNumber(),
+            'address1' => $ou->getAddress1(),
+            'city' => $ou->getAddressCity(),
+            'state' => $ou->getAddressCounty(),
+            'postal_code' => $ou->getAddressPostcode(),
+            'country_code' => $ou->getAddressCountryCode(),
+            'address2' => $ou->getAddress2(),
+            'email' => $ou->getEmailAddress(),
+        ]);
     }
 
     public function toArray(): array

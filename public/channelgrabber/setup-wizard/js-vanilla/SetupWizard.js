@@ -97,6 +97,11 @@ define(['popup/confirm'], function(Confirm)
         return this;
     };
 
+    SetupWizard.prototype.clickSkip = function()
+    {
+        $(SetupWizard.SELECTOR_SKIP).click();
+    };
+
     SetupWizard.prototype.listenForSkip = function()
     {
         var self = this;
@@ -107,6 +112,11 @@ define(['popup/confirm'], function(Confirm)
             self.skip(nextUri);
         });
         return this;
+    };
+
+    SetupWizard.prototype.clickNext = function()
+    {
+        $(SetupWizard.SELECTOR_NEXT).click();
     };
 
     SetupWizard.prototype.listenForNext = function()

@@ -9,6 +9,7 @@ define([
     'Product/Storage/Ajax',
     'Product/Components/CreateListing/Root',
     'Product/Components/ProductList/Root',
+    'Product/Components/CreateListing/ProductSearch/Root'
 ], function(
     React,
     SearchBox,
@@ -19,7 +20,8 @@ define([
     CreateProductRoot,
     AjaxHandler,
     CreateListingRoot,
-    ProductListRoot
+    ProductListRoot,
+    ProductSearchRoot
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -28,7 +30,8 @@ define([
     const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-    
+    const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
+
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
@@ -125,7 +128,8 @@ define([
                     skuList: skuList,
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
-                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
+                    productSearchActive: result.productSearchActive
                 }, function() {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -375,12 +379,19 @@ define([
                 createListingData: data
             });
         },
+        showSearchPopup: function(data) {
+            this.setState({
+                currentView: PRODUCT_SEARCH_VIEW,
+                createListingData: data
+            });
+        },
         getViewRenderers: function() {
             return {
                 NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
                 PRODUCT_LIST_VIEW: this.renderProductListView,
-                ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
+                ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
+                PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
             }
         },
         renderAccountSelectionPopup: function() {
@@ -388,10 +399,12 @@ define([
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
                 this.state.createListingsAllowedVariationChannels,
+                this.state.productSearchActive,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
                 this.showCreateListingPopup,
+                this.showSearchPopup,
                 this.state.createListing.product,
                 this.props.listingCreationAllowed,
                 this.props.managePackageUrl,
@@ -463,6 +476,15 @@ define([
                     accounts={this.state.accounts}
                 />
             )
+        },
+        renderProductSearchView: function () {
+            return <ProductSearchRoot
+                createListingData={this.state.createListingData}
+                renderCreateListingPopup={this.showCreateListingPopup}
+                onCreateListingClose={this.onCreateListingClose}
+                onBackButtonPressed={this.showAccountsSelectionPopup}
+                defaultProductImage={this.props.utilities.image.getImageSource()}
+            />;
         },
         render: function() {
             var viewRenderers = this.getViewRenderers();

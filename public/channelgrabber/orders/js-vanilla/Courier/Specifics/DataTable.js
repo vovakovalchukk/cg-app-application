@@ -52,7 +52,7 @@ CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actio
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
 
 CourierSpecificsDataTable.labelStatusActions = {
-    '': {'create': true, 'export': true},
+    '': {'create': true, 'export': true, 'fetchrates': true},
     'exported': {"export": true},
     'not printed': {'print': true, 'cancel': true, 'dispatch': true},
     'printed': {'print': true, 'dispatch': true},
@@ -209,7 +209,8 @@ CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
         rowData.labelStatus,
         rowData.exportable,
         rowData.cancellable,
-        rowData.dispatchable
+        rowData.dispatchable,
+        rowData.rateable
     );
 };
 
@@ -354,9 +355,13 @@ CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
 {
     $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
     var actions = this.distinctStatusActions;
-    // If there's items still left to be created then only show 'Create all'
+    // If there's items still left to be created then only show pre-creation actions
     if (actions.create) {
-        actions = {"create": true};
+        var createActions = {"create": true};
+        if (actions.fetchrates) {
+            createActions.fetchrates = true;
+        }
+        actions = createActions;
     }
     for (var action in actions) {
         $('#' + action + CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX).show();
@@ -402,7 +407,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
     return buttonsHtml;
 };
 
-CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable)
+CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, exportable, cancellable, dispatchable, rateable)
 {
     var actions = this.labelStatusActions[labelStatus];
     if (actions['create'] && exportable) {
@@ -416,6 +421,9 @@ CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, expo
     }
     if (actions['dispatch'] && !dispatchable) {
         delete actions['dispatch'];
+    }
+    if (actions['fetchrates'] && !rateable) {
+        delete actions['fetchrates'];
     }
     return actions;
 };
