@@ -12,6 +12,7 @@ use CG\Ebay\CatalogApi\Token\InitialisationService as TokenInitialisationService
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
+use CG\Ebay\Listing\Epid\Storage as EpidStorage;
 use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
 use CG\Ebay\Site\CurrencyMap;
 use CG\Ebay\Site\Map as SiteMap;
@@ -77,6 +78,8 @@ class Service implements
     protected $tokenInitialisationService;
     /** @var AccountService */
     protected $accountService;
+    /** @var EpidStorage */
+    protected $epidStorage;
     /** @var array */
     protected $credentials = [];
 
@@ -95,6 +98,7 @@ class Service implements
         EbayPoliciesService $ebayPoliciesService,
         TokenInitialisationService $tokenInitialisationService,
         AccountService $accountService,
+        EpidStorage $epidStorage,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -107,6 +111,7 @@ class Service implements
         $this->ebayPoliciesService =  $ebayPoliciesService;
         $this->tokenInitialisationService = $tokenInitialisationService;
         $this->accountService = $accountService;
+        $this->epidStorage = $epidStorage;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -214,7 +219,13 @@ class Service implements
     public function formatExternalChannelData(array $data): array
     {
         if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
-            return $data;
+            try {
+                $epidEntity = $this->epidStorage->fetchByGuid($data['processGuid']);
+                $epid = $epidEntity->getEpid();
+                $epidAccountId = $epidEntity->getAccountId();
+            } catch (NotFound $e) {
+                return $data;
+            }
         }
 
         try {
@@ -228,7 +239,8 @@ class Service implements
         unset($data['epidAccountId']);
 
         return array_merge($data, [
-            'marketplace' => $this->fetchDefaultSiteIdForAccount($account)
+            'marketplace' => $this->fetchDefaultSiteIdForAccount($account),
+            'epid' => $epid
         ]);
     }
 

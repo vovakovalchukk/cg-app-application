@@ -3,7 +3,6 @@ namespace Products\Listing;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
-use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Gearman\Generator\Listing\JobGeneratorFactory;
 use CG\Channel\Listing\CreationService\StatusService;
@@ -15,6 +14,7 @@ use CG\Product\AccountDetail\Entity as ProductAccountDetail;
 use CG\Product\AccountDetail\Mapper as ProductAccountDetailMapper;
 use CG\Product\AccountDetail\Service as ProductAccountDetailService;
 use CG\Product\Category\Collection as Categories;
+use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
@@ -38,7 +38,6 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Product\Listing\Service as ProductListingService;
-use CG\Product\Category\Collection as CategoryCollection;
 
 class MultiCreationService implements LoggerAwareInterface
 {
