@@ -36,7 +36,6 @@ define([
             this.setState({ fetchingLinks: false });
         },
         onClick: function () {
-            console.log('onClick in Link . this.props.sku: ' , this.props.sku);
             window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
         },
         onLinkRowClick: function (sku) {
