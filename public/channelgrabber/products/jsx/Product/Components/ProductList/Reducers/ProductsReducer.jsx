@@ -27,7 +27,6 @@ define([
             return newState;
         },
         "PRODUCTS_LINKS_LOAD": function(state, action) {
-            // console.log('in PRODUCTS_LINK_LOAD -R with action ' , action);
             let newState = Object.assign({}, state, {
                 allProductsLinks: action.payload.allProductsLinks
             });
