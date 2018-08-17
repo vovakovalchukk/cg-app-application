@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43b59a04d9e9748738a5588a549a96bf",
+    "content-hash": "1ebd6ca03ef32e4764031f6dedd50f12",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -646,16 +646,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.11.1",
+            "version": "dev-CGIV-9661-ClearbooksInvoiceErrors",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa"
+                "reference": "c38c097057aa0169574c2219d5f0f0295b369a20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.1-8196e7.zip",
-                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-CGIV-9661-ClearbooksInvoiceErrors-4e9f9d.zip",
+                "reference": "c38c097057aa0169574c2219d5f0f0295b369a20",
                 "shasum": null
             },
             "require": {
@@ -666,7 +666,7 @@
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.4.0",
                 "channelgrabber/settings": "^1.6.2",
-                "channelgrabber/stdlib": "^2.10.6",
+                "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/user": "^1.25.0",
                 "php": ">=7.1"
             },
@@ -685,7 +685,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-02T12:51:50+00:00"
+            "time": "2018-08-17T14:29:56+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -5503,7 +5503,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6296,7 +6296,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8177,7 +8177,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -8423,7 +8423,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8478,7 +8478,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8533,7 +8533,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8584,7 +8584,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8670,7 +8670,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -8791,7 +8791,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
+                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -8822,7 +8822,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9167,8 +9167,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -9967,9 +9966,17 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.11.2",
+            "alias_normalized": "1.11.2.0",
+            "version": "dev-CGIV-9661-ClearbooksInvoiceErrors",
+            "package": "channelgrabber/clearbooks"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
