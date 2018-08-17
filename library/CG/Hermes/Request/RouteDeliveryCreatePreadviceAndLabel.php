@@ -115,8 +115,8 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $customerAddressNode->addChild('lastName', $this->sanitiseString($deliveryAddress->getLastName()));
         $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
         $customerAddressNode->addChild('addressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
-        $customerAddressNode->addChild('city', $this->sanitiseString($this->determineCityFromAddress($deliveryAddress)));
-        $customerAddressNode->addChild('region', $this->sanitiseString($deliveryAddress->getLine4()));
+        $customerAddressNode->addChild('city', $this->sanitiseString($deliveryAddress->determineCityFromAddressLines()));
+        $customerAddressNode->addChild('region', $this->sanitiseString($deliveryAddress->determineRegionFromAddressLines()));
         $customerAddressNode->addChild('postCode', $this->sanitiseString($deliveryAddress->getPostCode()));
         $customerAddressNode->addChild('countryCode', strtoupper($deliveryAddress->getISOAlpha2CountryCode()));
     }
@@ -193,17 +193,6 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     protected function sanitiseBoolean(bool $boolean): string
     {
         return $boolean ? 'true' : 'false';
-    }
-
-    protected function determineCityFromAddress(AddressInterface $address): string
-    {
-        if ($address->getLine3()) {
-            return $address->getLine3();
-        }
-        if ($address->getLine4()) {
-            return $address->getLine4();
-        }
-        return $address->getLine2();
     }
 
     protected function convertWeight(float $weight): float
