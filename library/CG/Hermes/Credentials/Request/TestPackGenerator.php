@@ -3,8 +3,8 @@ namespace CG\Hermes\Credentials\Request;
 
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackFile;
+use CG\CourierAdapter\Address;
 use CG\CourierAdapter\AddressInterface;
-use CG\Hermes\Address;
 use CG\Hermes\DeliveryService\Service as DeliveryServiceService;
 use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Label;
@@ -59,14 +59,31 @@ class TestPackGenerator
         $defaultShipmentData = ['account' => $account, 'collectionAddress' => $collectionAddress, 'collectionDateTime' => new \DateTime()];
         $shipments = [];
         foreach ($this->shipmentsData as $shipmentData) {
-            $shipmentData['deliveryAddress']['ISOAlpha2CountryCode'] = $shipmentData['deliveryAddress']['ISOAlpha2CountryCode'] ?? static::DEFAULT_COUNTRY_CODE;
-            $shipmentData['deliveryAddress'] = Address::fromArray($shipmentData['deliveryAddress']);
+            $shipmentData['deliveryAddress'] = $this->mapDataToAddress($shipmentData['deliveryAddress']);
             $shipmentData['deliveryService'] = $this->deliveryServiceService->getDeliveryServiceByReference($shipmentData['deliveryService']);
             $shipmentData['packages'] = $this->mapPackagesDataToPackages($shipmentData['packages']);
             $shipmentData = array_merge($defaultShipmentData, $shipmentData);
             $shipments[] = Shipment::fromArray($shipmentData);
         }
         return $shipments;
+    }
+
+    protected function mapDataToAddress(array $addressData): Address
+    {
+        return new Address(
+            $addressData['companyName'] ?? '',
+            $addressData['firstName'],
+            $addressData['lastName'],
+            $addressData['line1'],
+            $addressData['line2'],
+            $addressData['line3'],
+            $addressData['line4'],
+            $addressData['postCode'],
+            $addressData['country'] ?? '',
+            $addressData['ISOAlpha2CountryCode'] ?? static::DEFAULT_COUNTRY_CODE,
+            $addressData['emailAddress'] ?? '',
+            $addressData['phoneNumber'] ?? ''
+        );
     }
 
     protected function mapPackagesDataToPackages(array $packagesData): array
