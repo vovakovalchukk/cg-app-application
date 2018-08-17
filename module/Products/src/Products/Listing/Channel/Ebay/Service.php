@@ -24,7 +24,10 @@ use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\DateTime;
+use CG\Stdlib\Exception\Runtime\InvalidCredentialsException;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\AccountDataInterface;
@@ -43,8 +46,11 @@ class Service implements
     CategoryChildrenInterface,
     AccountPoliciesInterface,
     AccountDataInterface,
-    ChannelDataInterface
+    ChannelDataInterface,
+    LoggerAwareInterface
 {
+    use LogTrait;
+
     const ALLOWED_SETTINGS_KEYS = [
         'listingLocation' => 'listingLocation',
         'listingCurrency' => 'listingCurrency',
@@ -250,8 +256,13 @@ class Service implements
             return false;
         }
         $tokenExpiryDate = $account->getExternalData()['oAuthExpiryDate'] ?? null;
-        return $tokenExpiryDate && $tokenExpiryDate > (new DateTime())->stdFormat()
-            && (bool) $this->fetchCredentialsForAccount($account)->getOAuthToken();
+
+        try {
+            return $tokenExpiryDate && $tokenExpiryDate > (new DateTime())->stdFormat()
+                && (bool)$this->fetchCredentialsForAccount($account)->getOAuthToken();
+        } catch (InvalidCredentialsException $e) {
+            return false;
+        }
     }
 
     protected function isMarketplaceSupportedByOAuth(Account $account): bool
@@ -450,8 +461,14 @@ class Service implements
 
     protected function fetchDefaultSiteIdForAccount(Account $account): int
     {
-        $credentials = $this->fetchCredentialsForAccount($account);
-        return $credentials->getSiteId();
+        try {
+            $credentials = $this->fetchCredentialsForAccount($account);
+            return $credentials->getSiteId();
+        } catch (InvalidCredentialsException $e) {
+            $this->logErrorException($e);
+            // We need this to prevent various callers of the current method to break
+            return SiteMap::SITE_CODE_UK;
+        }
     }
 
     protected function fetchCredentialsForAccount(Account $account): Credentials
