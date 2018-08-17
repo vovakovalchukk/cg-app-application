@@ -14,8 +14,8 @@ define([
     
     styled = styled.default;
     
-    const StyledLink = styled(Link)`
-    `;
+    const StyledLink = styled(Link)([]);
+    
     StyledLink.container = styled.div`
            display: flex;
            justify-content: center;

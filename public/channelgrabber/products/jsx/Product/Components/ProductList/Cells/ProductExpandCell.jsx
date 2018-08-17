@@ -49,7 +49,7 @@ define([
             if (this.getRowData().expandStatus === EXPAND_STATUSES.loading) {
                 return <img
                     title={'loading product variations...'}
-                    src={"/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif"}
+                    src={"/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif"}
                     class={"b-loader"}
                 />
             }

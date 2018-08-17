@@ -105,7 +105,7 @@ define([
             return !!column.tab;
         },
         isColumnSpecificToCurrentTab: function(column) {
-            return column.tab !== this.props.tabs.currentTab
+            return column.tab === this.props.tabs.currentTab
         },
         renderColumns: function() {
             return columns.map((column) => {
