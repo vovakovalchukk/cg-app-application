@@ -59,8 +59,6 @@ define(['AjaxRequester'], function(ajaxRequester)
             promise.then(function(data) {
                 self.handleBalanceSuccess(data);
             }).catch(function(data) {
-                console.log('Caught something:');
-                console.log(data);
                 self.getAjaxRequester().handleFailure(data);
             });
         });
