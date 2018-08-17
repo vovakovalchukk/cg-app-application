@@ -1,0 +1,54 @@
+.shipping-ledger-top-up.popup {
+
+    max-width: 370px;
+
+    .heading-holder {
+        height: 20px;
+    }
+
+    .header-large {
+        background-color: #5fafda;
+        border-radius: 10px 10px 0 0;
+        color: white;
+        left: 0;
+        margin-bottom: 20px;
+        padding: 7px 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0px;
+        width: 100%;
+    }
+
+    .heading-large {
+        margin-bottom: 20px;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .top-up-holder {
+        float: right;
+        width: calc(100% - 200px);
+
+
+        .inputbox-label {
+            min-width: 0;
+            width: 75px;
+        }
+        .alternate-input.mustache {
+            min-width: 0;
+            width: 30px;
+
+            .enable_switch label {
+                left: 8px;
+            }
+        }
+
+        .tooltip-holder {
+            float: right;
+            width: 30px;
+        }
+    }
+}

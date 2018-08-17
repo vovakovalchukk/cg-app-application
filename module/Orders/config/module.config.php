@@ -883,7 +883,18 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
-                                    ]
+                                    ],
+                                    CourierJsonController::ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/fetchShippingLedgerBalance',
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'fetchShippingLedgerBalance',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                             CourierController::ROUTE_LABEL => [
@@ -954,6 +965,16 @@ return [
                                             'route' => CourierJsonController::ROUTE_LABEL_READY_CHECK_URI,
                                             'defaults' => [
                                                 'action' => 'readyCheck',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_LABEL_FETCH_RATES => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/fetchRates',
+                                            'defaults' => [
+                                                'action' => 'fetchRates',
                                             ]
                                         ],
                                         'may_terminate' => true,
@@ -1270,6 +1291,8 @@ return [
                 'CourierSpecificsCourierPickupColumn' => DataTable\Column::class,
                 'CourierSpecificsSaturdayColumnView' => ViewModel::class,
                 'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
+                'CourierSpecificsCostColumnView' => ViewModel::class,
+                'CourierSpecificsCostColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2428,6 +2451,23 @@ return [
                     'sortable' => false,
                     'order' => 150,
                     'width' => '150px',
+                ],
+            ],
+            'CourierSpecificsCostColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Cost'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/cost.phtml',
+                ],
+            ],
+            'CourierSpecificsCostColumn' => [
+                'parameters' => [
+                    'column' => 'cost',
+                    'viewModel' => 'CourierSpecificsCostColumnView',
+                    'class' => 'cost-col',
+                    'sortable' => false,
+                    'order' => 145,
+                    'defaultContent' => '',
                 ],
             ],
             'CourierSpecificsItemParcelAssignmentColumnView' => [
