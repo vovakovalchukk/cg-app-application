@@ -17,6 +17,15 @@ define([
         display:flex;
         justify-content:center;
     `;
+
+    const EXPAND_STATUSES = {
+        expanded: 'expanded',
+        loading: 'loading',
+        collapsed: 'collapsed'
+    };
+    
+    const RIGHT_ARROW = '\u25BA';
+    const DOWN_ARROW = '\u25BC';
     
     let ProductExpandCell = React.createClass({
         getDefaultProps: function() {
@@ -37,22 +46,21 @@ define([
             if (!isParentProduct) {
                 return;
             }
-            if (this.getRowData().expandStatus === 'loading') {
-                // todo make this the buffering icon
-                return <img
+            if (this.getRowData().expandStatus === EXPAND_STATUSES.loading) {
+               return <img
                     title={'loading product variations...'}
                     src={"/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif"}
                     class={"b-loader"}
                 />
-            }
-            return (!rowData.expandStatus || rowData.expandStatus === 'collapsed' ? '\u25BA' : '\u25BC')
+		 }
+            return (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed ? RIGHT_ARROW : DOWN_ARROW)
         },
         onExpandClick: function() {
             let rowData = this.getRowData();
-            if (rowData.expandStatus === 'loading') {
+            if (rowData.expandStatus === EXPAND_STATUSES.loading) {
                 return;
             }
-            if (!rowData.expandStatus || rowData.expandStatus === 'collapsed') {
+            if (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed) {
                 this.props.actions.expandProduct(rowData.id)
                 return;
             }
