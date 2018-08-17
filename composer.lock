@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "07d9629c7165b1fbc8a76ff760b0d002",
+    "content-hash": "67b776199ff536e123f23c842ae60c75",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -263,20 +263,20 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "dev-TAC-148-ebay-pbse",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "18b5b5bbf5d8cd2f809b870ceda197c831c2454f"
+                "reference": "918d64ac3c4be216f5f157f56f873feefa66996f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-TAC-148-ebay-pbse-7cb2d8.zip",
-                "reference": "18b5b5bbf5d8cd2f809b870ceda197c831c2454f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.3.0-1752e7.zip",
+                "reference": "918d64ac3c4be216f5f157f56f873feefa66996f",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-148-ebay-pbse as 1.36.8",
+                "channelgrabber/channel": "^1.38.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
@@ -303,7 +303,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-08-10T08:12:33+00:00"
+            "time": "2018-08-15T11:09:45+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -526,16 +526,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-148-ebay-pbse",
+            "version": "1.38.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "75cf918fe94241420b9f0cada32e8199e8c261b2"
+                "reference": "ac3f373c488133e7d64ff27bff1ad17eb3582140"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-148-ebay-pbse-d91f32.zip",
-                "reference": "75cf918fe94241420b9f0cada32e8199e8c261b2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.38.0-35f93f.zip",
+                "reference": "ac3f373c488133e7d64ff27bff1ad17eb3582140",
                 "shasum": null
             },
             "require": {
@@ -610,7 +610,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-09T15:20:50+00:00"
+            "time": "2018-08-15T10:55:23+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -940,13 +940,13 @@
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "dev-TAC-148-ebay-pbse as 1.36.8",
+                "channelgrabber/channel": "^1.38.0",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "dev-TAC-148-ebay-pbse as 1.17.4",
+                "channelgrabber/listing": "^1.18.0",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
@@ -986,7 +986,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-14T14:03:13+00:00"
+            "time": "2018-08-17T11:49:46+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1481,16 +1481,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-TAC-148-ebay-pbse",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "05a3b3ee84f26103764316abdda61ce2807da098"
+                "reference": "5da44b3eeba8d8063a9c00a3504f14bf2ff92960"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-148-ebay-pbse-bc4b8b.zip",
-                "reference": "05a3b3ee84f26103764316abdda61ce2807da098",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.18.0-f46508.zip",
+                "reference": "5da44b3eeba8d8063a9c00a3504f14bf2ff92960",
                 "shasum": null
             },
             "require": {
@@ -1531,7 +1531,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-03T13:28:58+00:00"
+            "time": "2018-08-15T10:52:45+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -3435,20 +3435,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-TAC-148-ebay-pbse",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "45975b70eafd7e5ae3b3d89bbedbf22284bbd67b"
+                "reference": "36f5ecea81b25b30e53cd158e98b5932149c4108"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-TAC-148-ebay-pbse-736455.zip",
-                "reference": "45975b70eafd7e5ae3b3d89bbedbf22284bbd67b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.6.0-7e733c.zip",
+                "reference": "36f5ecea81b25b30e53cd158e98b5932149c4108",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-148-ebay-pbse as 1.36.8",
+                "channelgrabber/channel": "^1.38.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3480,7 +3480,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-08-10T08:22:16+00:00"
+            "time": "2018-08-15T12:23:17+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -4462,16 +4462,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.23.15",
+            "version": "1.23.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "540b86a32e681cf24fdc66d42bf9a90a4e938e2e"
+                "reference": "78c8544f2de0d75540ce4218538450945df7c4b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.15-1daf83.zip",
-                "reference": "540b86a32e681cf24fdc66d42bf9a90a4e938e2e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.23.16-5ab97e.zip",
+                "reference": "78c8544f2de0d75540ce4218538450945df7c4b7",
                 "shasum": null
             },
             "require": {
@@ -4523,7 +4523,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-07T15:33:29+00:00"
+            "time": "2018-08-16T12:01:29+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9963,47 +9963,19 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.5",
-            "alias_normalized": "1.1.5.0",
-            "version": "dev-TAC-148-ebay-pbse",
-            "package": "channelgrabber/bigcommerce"
-        },
-        {
-            "alias": "1.37.2",
-            "alias_normalized": "1.37.2.0",
-            "version": "dev-TAC-148-ebay-pbse",
-            "package": "channelgrabber/channel"
-        },
-        {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
             "version": "dev-TAC-177-create-new-pbse-catalog-product",
             "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.17.4",
-            "alias_normalized": "1.17.4.0",
-            "version": "dev-TAC-148-ebay-pbse",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.5.3",
-            "alias_normalized": "1.5.3.0",
-            "version": "dev-TAC-148-ebay-pbse",
-            "package": "channelgrabber/woocommerce"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/bigcommerce": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
-        "channelgrabber/listing": 20,
-        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

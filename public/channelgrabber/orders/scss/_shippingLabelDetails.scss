@@ -33,3 +33,28 @@
 .shipping-label-table {
     margin-bottom: 25px;
 }
+
+.tracking-number-column {
+    width: 90%;
+    padding-bottom: 18px;
+    padding-top: 16px;
+
+    .safe-input-box {
+        .submit-input {
+            width: 100%;
+
+            input {
+                max-width: none;
+            }
+
+            .submit-cancel {
+                margin-left: 35%;
+                margin-right: auto;
+
+                .active {
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
