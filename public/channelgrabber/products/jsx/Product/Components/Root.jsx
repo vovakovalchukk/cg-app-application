@@ -10,6 +10,7 @@ define([
     'Product/Storage/Ajax',
     'Product/Components/CreateListing/Root',
     'Product/Components/ProductList/Provider',
+    'Product/Components/ProductList/Root',
     'Product/Components/CreateListing/ProductSearch/Root'
 ], function(
     React,
@@ -23,6 +24,7 @@ define([
     AjaxHandler,
     CreateListingRoot,
     ProductListProvider,
+    ProductListRoot,
     ProductSearchRoot
 ) {
     "use strict";
