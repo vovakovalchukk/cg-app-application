@@ -138,8 +138,17 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     {
         try {
             $orderId = $this->params('order');
+            $trackingId = $this->params()->fromPost('trackingId');
+
+            /* @var $trackingCollection \CG\Order\Shared\Tracking\Collection */
             $trackingCollection = $this->getService()->fetchCollectionByOrderIds([$orderId]);
             $trackings = $trackingCollection->getByOrderId($orderId);
+
+            $tracking = $trackings->getById($trackingId);
+            if ($tracking instanceof Tracking) {
+                return $tracking;
+            }
+
             $trackings->rewind();
             $tracking = $trackings->current();
         } catch (NotFound $e) {

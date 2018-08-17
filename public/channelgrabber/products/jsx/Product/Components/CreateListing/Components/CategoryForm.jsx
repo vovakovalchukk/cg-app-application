@@ -16,7 +16,8 @@ define([
                 product: {},
                 variationsDataForProduct: [],
                 fieldChange: null,
-                resetSection: null
+                resetSection: null,
+                selectedProductDetails: {}
             };
         },
         render: function() {
@@ -31,6 +32,7 @@ define([
                         product={this.props.product}
                         fieldChange={this.props.fieldChange}
                         resetSection={this.props.resetSection}
+                        selectedProductDetails={this.props.selectedProductDetails}
                         {...this.props.fieldValues}
                         {...this.props}
                     />

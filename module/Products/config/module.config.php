@@ -4,6 +4,7 @@ namespace Products;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
 use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Channel\Listing\Download\Service as ChannelListingDownloadService;
+use CG\Ebay\CatalogApi\Client\Factory;
 use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
@@ -525,7 +526,17 @@ return [
                                         'action' => 'refreshAccountPolicies'
                                     ],
                                 ],
-                            ]
+                            ],
+                            CreateListingsJsonController::ROUTE_PRODUCT_SEARCH => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/search',
+                                    'defaults' => [
+                                        'controller' => CreateListingsJsonController::class,
+                                        'action' => 'search'
+                                    ],
+                                ],
+                            ],
                         ]
                     ],
                     CreateListingsJsonController::ROUTE_CATEGORY_TEMPLATE_DEPENDENT_FIELD_VALUES => [
