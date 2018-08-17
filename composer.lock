@@ -811,12 +811,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "3d428e29d814f169bc480bfbdfb25801db459919"
+                "reference": "f56112cbd18a50d6179423a19ab90a0ca6c6fd6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-172-create-hermes-labels-a1ca08.zip",
-                "reference": "3d428e29d814f169bc480bfbdfb25801db459919",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-172-create-hermes-labels-d0f202.zip",
+                "reference": "f56112cbd18a50d6179423a19ab90a0ca6c6fd6c",
                 "shasum": null
             },
             "require": {
@@ -836,7 +836,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-08-17T10:43:58+00:00"
+            "time": "2018-08-17T12:40:24+00:00"
         },
         {
             "name": "channelgrabber/currency",
