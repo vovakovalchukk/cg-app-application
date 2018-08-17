@@ -25,10 +25,12 @@ define([
             return this.getOnHandStock() - Math.max(this.getAllocatedStock(), 0);
         },
         getColumns: function(variation) {
+            console.log('in getColumns for variation: ' , variation);
+            
+            
             return [
                 <td key="stock-available" className="product-stock-available">
-                    {/*<div>{this.getStockAvailable()}</div>*/}
-                    <div>this is udmmy</div>
+                    <div>{this.getStockAvailable()}</div>
                 </td>,
                 <td key="stock-undispatched" className="product-stock-allocated">
                     <div>{this.getAllocatedStock()}</div>

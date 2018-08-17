@@ -45,7 +45,7 @@ define([
             }
         },
         componentWillReceiveProps: function(newProps) {
-            if (this.productLinksShouldBeStored(newProps.allProductsLinks)) {
+            if (this.shouldProductLinksBeStored(newProps.allProductsLinks)) {
                 store.dispatch(ActionCreators.productsLinksLoad(newProps.allProductsLinks))
             }
         },
@@ -57,7 +57,7 @@ define([
             }
             return true;
         },
-        productLinksShouldBeStored: function(productLinks) {
+        shouldProductLinksBeStored: function(productLinks) {
             let storeState = store.getState();
             let productsLinksAreValid = typeof productLinks === 'object' && !isEmptyObject(productLinks)
             let productsLinksAreDifferentToThoseInState = storeState.products.allProductsLinks !== productLinks
