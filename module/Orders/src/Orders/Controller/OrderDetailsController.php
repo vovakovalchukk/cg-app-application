@@ -222,6 +222,7 @@ class OrderDetailsController extends AbstractActionController
             $label = $labels->getFirst();
 
             $trackingNumbers = $this->getTrackingNumberDetails($order, $label);
+
             usort($trackingNumbers, function ($a, $b) {
                 return ($a['packageNumber'] - $b['packageNumber']);
             });
@@ -233,6 +234,7 @@ class OrderDetailsController extends AbstractActionController
                 $view->addChild($this->getPrintLabelButton($order), 'printButton');
             }
         } catch (NotFound $e) {
+            $view->setVariable('trackings', []);
             $view->addChild($this->getCarrierSelect($order), 'carrierSelect');
             $view->setVariable('tracking', $order->getFirstTracking());
         }
