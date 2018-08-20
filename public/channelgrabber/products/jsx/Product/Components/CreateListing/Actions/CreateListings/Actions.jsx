@@ -21,7 +21,8 @@ define([
                 productChannelDetail: formatProductChannelDetail(values, props),
                 productCategoryDetail: formatProductCategoryDetail(values, props)
             },
-            accountCategories: formatAccountCategoryMap(props)
+            accountCategories: formatAccountCategoryMap(props),
+            processGuid: props.submissionStatuses.processGuid
         };
     };
 
@@ -279,7 +280,7 @@ define([
                 data: formatFormValuesForSubmission(formValues, props),
                 success: function(response) {
                     if (response.allowed) {
-                        dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid));
+                        dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid, response.processGuid));
                         progressPolling.startListingProgressPolling(dispatch, response.guid);
                     } else {
                         dispatch(ResponseActions.listingFormSubmittedNotAllowed());

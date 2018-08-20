@@ -226,7 +226,11 @@ class Service implements
     {
         if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
             try {
-                $epidEntity = $this->epidStorage->fetchByGuid($data['processGuid']);
+                $processGuid = $data['processGuid'] ?? null;
+                if (!$processGuid) {
+                    throw new NotFound('The process GUID wasn\'t found on the listings data');
+                }
+                $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
                 $epid = $epidEntity->getEpid();
                 $epidAccountId = $epidEntity->getAccountId();
             } catch (NotFound $e) {

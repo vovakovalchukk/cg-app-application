@@ -29,6 +29,7 @@ class JsonController extends AbstractJsonController
     public function submitMultipleAction()
     {
         $guid = $this->multiCreationService->generateUniqueId();
+
         return $this->buildResponse([
             'allowed' => $this->multiCreationService->createListings(
                 $this->params()->fromPost('accountIds', []),
@@ -39,6 +40,7 @@ class JsonController extends AbstractJsonController
                 $this->formatAccountCategoriesFromPost()
             ),
             'guid' => $guid,
+            'processGuid' => $this->buildProcessGuid()
         ]);
     }
 
@@ -69,5 +71,11 @@ class JsonController extends AbstractJsonController
             $accountCategories[$accountCategory['accountId']][$accountCategory['categoryId']] = $accountCategory['categoryId'];
         }
         return $accountCategories;
+    }
+
+    protected function buildProcessGuid(): string
+    {
+        $processGuid = trim($this->params()->fromPost('processGuid', ''));
+        return !empty($processGuid) ? $processGuid :  $this->multiCreationService->generateUniqueId();
     }
 }
