@@ -19,10 +19,10 @@ define([
             return {};
         },
         componentDidMount: function() {
-            new Clipboard('div.js-'+this.getUniqueClassName(), [], 'data-copy');
+            new Clipboard('div.js-' + this.getUniqueClassName(), [], 'data-copy');
         },
-        getUniqueClassName:function(){
-          return this.props.columnKey+'-'+this.props.rowIndex;
+        getUniqueClassName: function() {
+            return this.props.columnKey + '-' + this.props.rowIndex;
         },
         render() {
             let cellData = stateUtility.getCellData(
@@ -31,7 +31,7 @@ define([
                 this.props.rowIndex
             );
             return (
-                <div className={'js-'+this.getUniqueClassName()} data-copy={cellData} {...this.props}>
+                <div className={'js-' + this.getUniqueClassName()} data-copy={cellData} {...this.props}>
                     {cellData}
                 </div>
             );

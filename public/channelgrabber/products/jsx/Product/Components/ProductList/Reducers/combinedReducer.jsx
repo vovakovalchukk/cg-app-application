@@ -14,7 +14,7 @@ define([
     var appReducer = Redux.combineReducers({
         products: productsReducer,
         tabs: tabsReducer,
-        columns:columnsReducer
+        columns: columnsReducer
     });
     
     const combinedReducer = (state, action) => {

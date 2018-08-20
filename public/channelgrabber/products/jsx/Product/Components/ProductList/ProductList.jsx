@@ -30,7 +30,7 @@ define([
                 features: {},
                 accounts: [],
                 actions: {},
-                tabs:{}
+                tabs: {}
             };
         },
         getInitialState: function() {
@@ -51,7 +51,7 @@ define([
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
-        componentWillReceiveProps:function(){
+        componentWillReceiveProps: function() {
             var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
             horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
         },
@@ -63,8 +63,8 @@ define([
                 }
             })
         },
-        updateHorizontalScrollIndex: function(){
-          this.props.actions.resetScrollbarIndex();
+        updateHorizontalScrollIndex: function() {
+            this.props.actions.resetHorizontalScrollbarIndex();
         },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {

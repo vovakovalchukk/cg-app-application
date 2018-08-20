@@ -19,20 +19,18 @@ define([
             },
         ],
         currentTab: 'listings',
-        currentColumnScrollIndex: undefined
+        currentColumnScrollIndex: null
     };
     
     var TabsReducer = reducerCreator(initialState, {
         "TAB_CHANGE": function(state, action) {
             let newState = Object.assign({}, state, {
                 currentTab: action.payload.desiredTabKey,
-                // todo needs to be calculated by the length of the visible fixed columns
-                // could just be state.columns.length.
-                currentColumnScrollIndex:action.payload.numberOfVisibleFixedColumns
+                currentColumnScrollIndex: action.payload.numberOfVisibleFixedColumns
             });
             return newState;
         },
-        "SCROLLBAR_INDEX_RESET": function(state,action){
+        "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state) {
             let newState = Object.assign({}, state, {
                 currentColumnScrollIndex: null
             });
