@@ -30,22 +30,49 @@ $screen-padding: 20px;
     color: $color-black;
 }
 
-.products-list__container {
-    margin-top: 50px;
-    background-color: $color-bluegrey;
-    overflow: hidden;
+#product-pagination-container{
+    flex:1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 #products-list {
     width: 100%;
-    height: auto;
-    min-height: 90vh;
     float: left;
     clear: both;
-    margin-bottom: 20px;
-    padding: 20px 20px 0px 20px !important;
     box-sizing: border-box;
     transition: all 0.5s ease;
+}
+
+.products-list__container {
+    margin-top: 50px;
+    flex: 18;
+    background:green;
+
+    background-color: $color-bluegrey;
+    //background-color: white;
+    overflow: hidden;
+    //height: calc(100vh - #{$combined-height-of-non-list-ui-elements});
+    //min-height: 80vh;
+    //height:400px;
+}
+
+.products-list__row{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+.products-list__cell{
+    padding:1em;
+}
+
+$combined-height-of-non-list-ui-elements : $header-height+$pagination-height+50px;
+
+#products-app{
+    display:flex;
+    flex-flow:column;
+    height: calc(100vh - #{$header-height});
 }
 
 .icon-create-listing {

@@ -20,9 +20,10 @@
     "user-home": "^1.1.1"
   },
   "dependencies": {
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.12",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-163-create-the-core-table-layout-for-the-new-products-page",
     "chart.js": "^2.7.0",
     "css-toggle-switch": "^4.1.0",
+    "fixed-data-table-2": "^0.8.13",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.7",
