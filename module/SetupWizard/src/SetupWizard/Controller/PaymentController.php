@@ -13,6 +13,7 @@ use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
 use CG_Billing\Payment\View\Service as PaymentViewService;
+use CG_Billing\Subscription\Exception\AlreadyExists as SubscriptionAlreadyExists;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -200,7 +201,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
 
             if (!$this->shouldAddNewSubscription($packageUpgradeRequest)) {
                 $msg = sprintf(static::ALREADY_EXISTS_EXCEPTION_MSG, $packageUpgradeRequest->getOrganisationUnit()->getId());
-                throw new SetPackageException\AlreadyExists($msg);
+                throw new SubscriptionAlreadyExists($msg);
             }
 
             $this->packageManagementService->setPackage($packageUpgradeRequest);
@@ -221,9 +222,8 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
                 . '<br/>Please check them and try again.',
                 $failure->getType()
             );
-        } catch (SetPackageException\AlreadyExists $alreadyExists) {
+        } catch (SubscriptionAlreadyExists $alreadyExists) {
             $this->logDebugException($alreadyExists, '', [], static::LOG_CODE);
-            $this->sendErrorEmail($packageUpgradeRequest);
             $response['success'] = true;
         } catch (\Throwable $throwable) {
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
