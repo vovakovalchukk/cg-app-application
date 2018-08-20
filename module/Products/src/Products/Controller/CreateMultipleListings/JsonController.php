@@ -29,6 +29,7 @@ class JsonController extends AbstractJsonController
     public function submitMultipleAction()
     {
         $guid = $this->multiCreationService->generateUniqueId();
+        $processGuid = $this->buildProcessGuid();
 
         return $this->buildResponse([
             'allowed' => $this->multiCreationService->createListings(
@@ -37,10 +38,11 @@ class JsonController extends AbstractJsonController
                 $this->params()->fromPost('siteId', ''),
                 $this->params()->fromPost('product', []),
                 $guid,
-                $this->formatAccountCategoriesFromPost()
+                $this->formatAccountCategoriesFromPost(),
+                $processGuid
             ),
             'guid' => $guid,
-            'processGuid' => $this->buildProcessGuid()
+            'processGuid' => $processGuid
         ]);
     }
 

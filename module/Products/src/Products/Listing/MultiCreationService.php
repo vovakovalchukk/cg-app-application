@@ -159,8 +159,9 @@ class MultiCreationService implements LoggerAwareInterface
         array $categoryTemplateIds,
         string $siteId,
         array $productData,
-        $guid,
-        array $accountCategoriesMap = []
+        string $guid,
+        array $accountCategoriesMap = [],
+        string $processGuid
     ): bool {
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
@@ -208,7 +209,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $guid,
                     $categoryTemplates,
                     $accountCategoriesMap,
-                    $productData
+                    $productData,
+                    $processGuid
                 );
             } else {
                 if (!$product->isParent()) {
@@ -224,7 +226,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $guid,
                     $categoryTemplates,
                     $accountCategoriesMap,
-                    $productData
+                    $productData,
+                    $processGuid
                 );
             }
 
@@ -692,9 +695,10 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         CategoryTemplates $categoryTemplates,
         array $accountCategoriesMap,
-        array $productData
+        array $productData,
+        string $processGuid
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $processGuid);
     }
 
     protected function generateCreateVariationListingJobs(
@@ -705,9 +709,10 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         CategoryTemplates $categoryTemplates,
         array $accountCategoriesMap,
-        array $productData
+        array $productData,
+        string $processGuid
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $variations);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $processGuid, $variations);
     }
 
     protected function generateListingJobs(
@@ -718,9 +723,10 @@ class MultiCreationService implements LoggerAwareInterface
         CategoryTemplates $categoryTemplates,
         array $accountCategoriesMap,
         array $productData,
+        string $processGuid,
         array $variations = []
     ) {
-        $listingData = $this->getListingDataFromProductData($productData, $product);
+        $listingData = $this->getListingDataFromProductData($productData, $product, $processGuid);
         $accountCategories = $this->getAccountAndCategoriesArray($accounts, $categories, $categoryTemplates, $accountCategoriesMap);
         $extractedVariations = [];
         if (!empty($variations)) {
@@ -751,11 +757,12 @@ class MultiCreationService implements LoggerAwareInterface
         }
     }
 
-    protected function getListingDataFromProductData(array $productData, Product $product): array
+    protected function getListingDataFromProductData(array $productData, Product $product, string $processGuid): array
     {
         // For now the only data that isn't persisted anywhere is the images
         $listingData = [
             'imageId' => $productData['imageId'] ?? null,
+            'processGuid' => $processGuid
         ];
         if (!$product->isParent()) {
             return $listingData;
