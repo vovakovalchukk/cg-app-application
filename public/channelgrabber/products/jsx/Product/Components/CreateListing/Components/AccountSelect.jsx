@@ -72,7 +72,8 @@ define([
             if (!error.linkTitle || !error.linkUrl) {
                 return null;
             }
-            return <a href={error.linkUrl} target={"_blank"}>
+            let target = error.target ? error.target : "_self";
+            return <a href={error.linkUrl} target={target}>
                 {error.linkTitle}
             </a>;
         },
