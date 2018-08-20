@@ -1,6 +1,38 @@
 <?php
 use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
 ?>
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>",
+            'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js/Common'
+        }
+    });
+    require([
+        'react',
+        'react-dom',
+        'tracking/trackingNumber',
+        'Common/Components/SafeInput'
+    ],
+    function(React, ReactDOM, TrackingNumber, SafeInput) {
+        var orderId = '<?= $order->getId() ?>';
+        var trackingNumberData = <?=json_encode($trackings);?>;
+        var trackingNumber = new TrackingNumber(n, '#tracking-number-messages');
+
+        trackingNumberData.forEach(function(tracking, key) {
+            ReactDOM.render(
+                React.createElement(SafeInput, {
+                    name: 'trackingNumber-'+key,
+                    type: 'text',
+                    initialValue: tracking.number,
+                    submitCallback: trackingNumber.confirmAndSave,
+                    disabled: false
+                }),
+                document.getElementById('trackingNumberColumn-'+key)
+            );
+        });
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
 <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
 <?php if (isset($this->shippingMethod)) : ?>
 <div class="shipping-method">
@@ -31,8 +63,18 @@ use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
                 <span class="grid-table-col col-split weight-col">
                     <?php foreach ($label['parcels'] as $parcel){ echo "<span>".(isset($parcel['weight'])?$parcel['weight']:'')."</span>"; } ?>
                 </span>
-                <span class="grid-table-col col-split tracking-no-col">
-                    <?php foreach ($trackings as $tracking){ echo "<span>".$tracking['number']."</span>"; } ?>
+                <span class="grid-table-col">
+                    <div id="tracking-number-messages"
+                         data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
+                         data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
+                         data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
+                         data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
+                    ></div>
+                    <?php foreach ($trackings as $key => $tracking): ?>
+                        <input id="tracking-number-carrier-<?=$key;?>" class="tracking-number-carrier" type="hidden" name="carrier" value="<?=$tracking['carrier'] ?>">
+                        <input id="tracking-number-id-<?=$key;?>" class="tracking-number-carrier" type="hidden" name="trackingId" value="<?=$tracking['id'] ?>">
+                        <div id="trackingNumberColumn-<?=$key;?>" class="tracking-number-column"></div>
+                    <?php endforeach; ?>
                 </span>
                 <span class="grid-table-col action-col">
                     <span class="grid-table-button-holder"><?= $this->printButton; ?></span>
