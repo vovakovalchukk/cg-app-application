@@ -130,7 +130,7 @@ class CreateService extends ServiceAbstract
             $shippingAccount
         );
 
-        // Check this label doesnt already exist before we try to create it
+        // Check this label doesn't already exist before we try to create it
         // This needs to happen inside the lock to prevent duplication
         if ($this->doesOrderLabelExistForOrder($order)) {
             $this->unlockOrderLabel($orderLabel);
