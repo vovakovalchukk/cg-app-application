@@ -3,8 +3,8 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
-    'Product/Components/ProductList/ActionCreators',
-    'Product/Components/ProductList/Reducers/CombinedReducer',
+    'Product/Components/ProductList/actionCreators',
+    'Product/Components/ProductList/Reducers/combinedReducer',
     'Product/Components/ProductList/Root'
 ], function(
     React,

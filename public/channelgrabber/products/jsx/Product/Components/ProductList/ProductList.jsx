@@ -29,7 +29,8 @@ define([
                 products: [],
                 features: {},
                 accounts: [],
-                actions: {}
+                actions: {},
+                tabs:{}
             };
         },
         getInitialState: function() {
@@ -50,6 +51,10 @@ define([
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
+        componentWillReceiveProps:function(){
+            var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
+            horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
+        },
         updateDimensions: function() {
             this.setState({
                 productsListContainer: {
@@ -57,6 +62,9 @@ define([
                     width: this.productsListContainer.clientWidth
                 }
             })
+        },
+        updateHorizontalScrollIndex: function(){
+          this.props.actions.resetScrollbarIndex();
         },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
@@ -128,6 +136,7 @@ define([
             }
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
+            console.log('in renderProducts currentColumnScrollIndex:', this.props.tabs.currentColumnScrollIndex);
             return (
                 <Table
                     rowHeight={70}
@@ -140,6 +149,7 @@ define([
                     groupHeaderHeight={0}
                     showScrollbarX={true}
                     showScrollbarY={true}
+                    scrollToColumn={this.props.tabs.currentColumnScrollIndex}
                 >
                     {this.renderColumns()}
                 </Table>
