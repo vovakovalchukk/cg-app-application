@@ -1,9 +1,11 @@
 define([
     'react',
+    'Clipboard',
     'fixed-data-table',
     'Product/Components/ProductList/stateUtility'
 ], function(
     React,
+    Clipboard,
     FixedDataTable,
     stateUtility
 ) {
@@ -23,18 +25,21 @@ define([
                 );
             });
         },
+        componentDidMount: function() {
+            new Clipboard('div.js-'+this.getUniqueClassName(), [], 'data-copy');
+        },
+        getUniqueClassName:function(){
+            return this.props.columnKey+'-'+this.props.rowIndex;
+        },
         render() {
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(row)
+            let name = isParentProduct ? row['name'] : this.getVariationName(row);
             
             return (
-                <div {...this.props}>
-                    {isParentProduct ?
-                        row['name']
-                        :
-                        this.getVariationName(row)
-                    }
+                <div {...this.props} className={'js-'+this.getUniqueClassName()} data-copy={name}>
+                    {name}
                 </div>
             );
         }

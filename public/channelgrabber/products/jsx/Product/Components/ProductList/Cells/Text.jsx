@@ -1,9 +1,11 @@
 define([
     'react',
+    'Clipboard',
     'fixed-data-table',
     'Product/Components/ProductList/stateUtility'
 ], function(
     React,
+    Clipboard,
     FixedDataTable,
     stateUtility
 ) {
@@ -16,15 +18,20 @@ define([
         getInitialState: function() {
             return {};
         },
+        componentDidMount: function() {
+            new Clipboard('div.js-'+this.getUniqueClassName(), [], 'data-copy');
+        },
+        getUniqueClassName:function(){
+          return this.props.columnKey+'-'+this.props.rowIndex;
+        },
         render() {
             let cellData = stateUtility.getCellData(
                 this.props.products,
                 this.props.columnKey,
                 this.props.rowIndex
             );
-            
             return (
-                <div {...this.props}>
+                <div className={'js-'+this.getUniqueClassName()} data-copy={cellData} {...this.props}>
                     {cellData}
                 </div>
             );

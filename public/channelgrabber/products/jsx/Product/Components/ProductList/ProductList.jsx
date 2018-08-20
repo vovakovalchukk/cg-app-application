@@ -136,7 +136,6 @@ define([
             }
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
-            console.log('in renderProducts currentColumnScrollIndex:', this.props.tabs.currentColumnScrollIndex);
             return (
                 <Table
                     rowHeight={70}
