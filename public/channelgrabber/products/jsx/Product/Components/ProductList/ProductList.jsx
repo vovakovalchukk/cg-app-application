@@ -1,19 +1,23 @@
 define([
     'react',
     'fixed-data-table',
+    'Product/Components/ProductList/CellCreator/factory',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
-    'Product/Components/ProductList/Service/columnCreator'
+    'Product/Components/ProductList/ColumnCreator/columns',
+    'Product/Components/ProductList/ColumnCreator/factory',
 ], function(
     React,
     FixedDataTable,
+    cellCreator,
     ProductLinkEditor,
     ProductFooter,
-    columnCreator
+    columns,
+    columnCreator,
 ) {
     "use strict";
     
-    const Table = FixedDataTable.Table;
+    const {Table} = FixedDataTable;
     
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -76,124 +80,54 @@ define([
                 }
             });
         },
-        //todo - use in TAC-184
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
-        getList: function() {
-            const products = this.props.products;
-            if (products && products.length <= 0) {
-                return;
-            }
-            let list = products.map((product, i) => {
-                let row = {
-                    rowIndex: i,
-                    values: [
-                        {
-                            columnKey: 'image',
-                            value: 'http://via.placeholder.com/40',
-                        },
-                        {
-                            columnKey: 'link',
-                            value: 'https://app.dev.orderhub.io/products',
-                        },
-                        {
-                            columnKey: 'sku',
-                            value: product.sku,
-                        },
-                        {
-                            columnKey: 'name',
-                            value: product.name,
-                        },
-                        {
-                            columnKey: 'available',
-                            value: 0,
-                        },
-                        //todo - change this dummy data to something significant in TAC-165
-                        {
-                            columnKey:'dummyListingColumn1',
-                            value:1
-                        },
-                        {
-                            columnKey:'dummyListingColumn2',
-                            value:2
-                        },
-                        {
-                            columnKey:'dummyListingColumn3',
-                            value:3
-                        },
-                        {
-                            columnKey:'dummyListingColumn4',
-                            value:4
-                        },
-                        {
-                            columnKey:'dummyListingColumn5',
-                            value:4
-                        },
-                        {
-                            columnKey:'dummyListingColumn6',
-                            value:4
-                        },
-                        {
-                            columnKey:'dummyListingColumn7',
-                            value:4
-                        },
-                        {
-                            columnKey:'dummyListingColumn8',
-                            value:4
-                        }
-                    ]
-                };
-                return row;
+        renderCell: function(props) {
+            let {columnKey, rowIndex} = props;
+            
+            return cellCreator({
+                columnKey,
+                rowIndex,
+                products: props.products,
+                actions: props.actions
             });
-            return list;
         },
-        renderColumns: function(data) {
-            if (!data || data.length === 0) {
-                return;
-            }
-            let columns = [];
-            data.forEach((rowData) => {
-                    columns = rowData.values;
-                }
-            );
-            return columns.map((columnData, columnIndex) => {
-                let column = columnCreator({
-                    data,
-                    columnKey: columnData.columnKey,
-                    columnIndex
-                });
-                return column
+        getVisibleRows: function() {
+            return this.props.products.visibleRows;
+        },
+        renderColumns: function() {
+            return columns.map((column) => {
+                column.actions = this.props.actions;
+                column.products = this.props.products;
+                let createdColumn = columnCreator(column);
+                return createdColumn
             })
         },
-        isReadyToRenderTable: function(data) {
-            return this.state.productsListContainer && this.state.productsListContainer.height && data;
+        isReadyToRenderTable: function() {
+            return this.state.productsListContainer && this.state.productsListContainer.height && this.getVisibleRows().length;
         },
         renderProducts: function() {
-            let data = this.getList();
-            // do not create the table until the dimensions have been captured from the initial render
-            if (!this.isReadyToRenderTable(data)) {
+            let rows = this.getVisibleRows();
+            if (!this.isReadyToRenderTable()) {
                 return;
             }
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
             return (
                 <Table
-                    rowHeight={50}
-                    rowsCount={data.length}
+                    rowHeight={70}
+                    rowsCount={rows.length}
                     width={width}
                     height={height}
                     headerHeight={50}
-                    data={data}
-                    rowGetter={(index) => {
-                        return data[index];
-                    }}
+                    data={rows}
                     footerHeight={0}
                     groupHeaderHeight={0}
                     showScrollbarX={true}
                     showScrollbarY={true}
                 >
-                    {this.renderColumns(data)}
+                    {this.renderColumns()}
                 </Table>
             )
         },

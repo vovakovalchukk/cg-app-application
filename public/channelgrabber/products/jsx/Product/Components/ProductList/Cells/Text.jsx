@@ -1,14 +1,13 @@
 define([
     'react',
-    'fixed-data-table'
-
+    'fixed-data-table',
+    'Product/Components/ProductList/stateFilters'
 ], function(
     React,
-    FixedDataTable
+    FixedDataTable,
+    stateFilters
 ) {
     "use strict";
-    
-    const Cell = FixedDataTable.Cell;
     
     let TextCell = React.createClass({
         getDefaultProps: function() {
@@ -18,11 +17,16 @@ define([
             return {};
         },
         render() {
-            const {rowIndex, columnKey, data} = this.props;
+            let cellData = stateFilters.getCellData(
+                this.props.products,
+                this.props.columnKey,
+                this.props.rowIndex
+            );
+            
             return (
-                <Cell {...this.props}>
-                    {data[rowIndex][columnKey]}
-                </Cell>
+                <div {...this.props}>
+                    {cellData}
+                </div>
             );
         }
     });
