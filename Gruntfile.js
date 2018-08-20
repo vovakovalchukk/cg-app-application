@@ -5,7 +5,8 @@ module.exports = function(grunt) {
         babel: {
             es6: {
                 options: {
-                    presets: ['es2015']
+                    presets: ['es2015'],
+                    plugins: ["babel-plugin-styled-components"]
                 },
                 files: [
                     {
@@ -22,7 +23,8 @@ module.exports = function(grunt) {
             },
             react: {
                 options: {
-                    presets: ['react']
+                    presets: ['react'],
+                    plugins: ["babel-plugin-styled-components"]
                 },
                 files: [
                     {
@@ -68,7 +70,7 @@ module.exports = function(grunt) {
                             '**/dist/**/*.min.js',
                             '**/umd/**/*.min.js',
                             'cg-*/dist/**/*.js',
-                            'react-dimensions/*.js'
+                            'styled-components/dist/styled-components.min.js'
                         ],
                         dest: 'public/cg-built/vendor'
                     }

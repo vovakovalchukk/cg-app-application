@@ -1,14 +1,22 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/stateFilters'
-
+    'Product/Components/ProductList/stateUtility',
+    'styled-components'
 ], function(
     React,
     FixedDataTable,
-    stateFilters
+    stateUtility,
+    styled
 ) {
     "use strict";
+    
+    styled = styled.default;
+    
+    let CellContainer = styled.div`
+        display:flex;
+        justify-content:center;
+    `;
     
     const EXPAND_STATUSES = {
         expanded: 'expanded',
@@ -27,10 +35,10 @@ define([
             };
         },
         getRowData: function() {
-            return stateFilters.getRowData(this.props.products, this.props.rowIndex)
+            return stateUtility.getRowData(this.props.products, this.props.rowIndex)
         },
         isParentProduct: function(rowData) {
-            return rowData.variationCount !== undefined && rowData.variationCount >= 1
+            return stateUtility.isParentProduct(rowData)
         },
         renderExpandIcon: function() {
             let rowData = this.getRowData();
@@ -39,7 +47,11 @@ define([
                 return;
             }
             if (this.getRowData().expandStatus === EXPAND_STATUSES.loading) {
-                return 'loading....'
+                return <img
+                    title={'loading product variations...'}
+                    src={"/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif"}
+                    class={"b-loader"}
+                />
             }
             return (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed ? RIGHT_ARROW : DOWN_ARROW)
         },
@@ -56,11 +68,11 @@ define([
         },
         render() {
             return (
-                <div {...this.props}>
+                <CellContainer {...this.props}>
                     <a onClick={this.onExpandClick}>
                         {this.renderExpandIcon()}
                     </a>
-                </div>
+                </CellContainer>
             );
         }
     });

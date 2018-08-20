@@ -1,19 +1,23 @@
 define([
     'react',
     'fixed-data-table',
+    'styled-components',
     'Product/Components/ProductList/CellCreator/factory',
     'Product/Components/ProductLinkEditor',
     'Product/Components/Footer',
     'Product/Components/ProductList/ColumnCreator/columns',
     'Product/Components/ProductList/ColumnCreator/factory',
+    'Product/Components/ProductList/Components/Tabs/Root'
 ], function(
     React,
     FixedDataTable,
+    styled,
     cellCreator,
     ProductLinkEditor,
     ProductFooter,
     columns,
     columnCreator,
+    Tabs
 ) {
     "use strict";
     
@@ -24,7 +28,8 @@ define([
             return {
                 products: [],
                 features: {},
-                accounts: []
+                accounts: [],
+                actions: {}
             };
         },
         getInitialState: function() {
@@ -96,10 +101,19 @@ define([
         getVisibleRows: function() {
             return this.props.products.visibleRows;
         },
+        isTabSpecificColumn: function(column) {
+            return !!column.tab;
+        },
+        isColumnSpecificToCurrentTab: function(column) {
+            return column.tab === this.props.tabs.currentTab
+        },
         renderColumns: function() {
             return columns.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
+                if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
+                    return;
+                }
                 let createdColumn = columnCreator(column);
                 return createdColumn
             })
@@ -138,6 +152,7 @@ define([
                         {this.renderSearchBox()}
                         {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     </div>
+                    <Tabs/>
                     <div
                         className='products-list__container'
                         ref={(productsListContainer) => this.productsListContainer = productsListContainer}
@@ -161,4 +176,5 @@ define([
     });
     
     return CreateProduct;
-});
+})
+;

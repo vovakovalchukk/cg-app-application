@@ -5,7 +5,7 @@ define([
 ) {
     "use strict";
     
-    return [
+    let coreColumns =  [
         {
             key: 'image',
             width: 100,
@@ -14,81 +14,106 @@ define([
         },
         {
             key: 'productExpand',
-            width: 50,
+            width: 30,
             fixed: true,
-            headerText: 'expand product'
+            headerText: ''
         },
         {
             key: 'link',
-            width: 100,
+            width: 50,
             fixed: true,
             headerText: 'Link'
         },
         {
             key: 'sku',
-            width: 200,
+            width: 160,
             fixed: true,
             headerText: 'Sku'
         },
         {
             key: 'name',
-            width: 200,
+            width: 160,
             fixed: true,
             headerText: 'Name'
         },
         {
             key: 'available',
-            width: 100,
+            width: 80,
             fixed: true,
             headerText: 'Available'
-        },
+        }]
+        
+        let listingColumns = [
         //todo - change this dummy data to something significant in TAC-165
         {
             key: 'dummyListingColumn1',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         },
         {
             key: 'dummyListingColumn2',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         },
         {
             key: 'dummyListingColumn3',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings',
         },
         {
             key: 'dummyListingColumn4',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         },
         {
             key: 'dummyListingColumn5',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         },
         {
             key: 'dummyListingColumn6',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         },
         {
             key: 'dummyListingColumn7',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         },
         {
             key: 'dummyListingColumn8',
             width: 200,
             headerText: 'dummy listing col',
-            fixed: false
+            fixed: false,
+            tab:'listings'
         }];
+    
+        // todo - change this dummy data to be something more significant from TAC-165 onwards
+        let detailsColumns = Array(7).fill(0).map((column,index)=>{
+            return {
+                key: 'dummyDetailsColumn'+(index+1),
+                width: 200,
+                headerText: 'dummy details col ' + (index+1),
+                fixed: false,
+                tab: 'details'
+            }
+        });
+        
+        let allColumns = coreColumns.concat(listingColumns, detailsColumns);
+        
+        return allColumns;
 });

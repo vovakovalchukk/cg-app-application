@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef290090cf299f8b96ad4b6ad00a6c14",
+    "content-hash": "c0c53d870a2fd9b7f6a4a18ec2bd9588",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4468,16 +4468,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-163-create-the-core-table-layout-for-the-new-products-page",
+            "version": "dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b8337a1f89a3b78b9cadcae5f0a1980691961543"
+                "reference": "d9846628c7d2a929f1b9f11dd21cda4750979454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-163-create-the-core-table-layout-for-the-new-products-page-e57c5c.zip",
-                "reference": "b8337a1f89a3b78b9cadcae5f0a1980691961543",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality-066a8e.zip",
+                "reference": "d9846628c7d2a929f1b9f11dd21cda4750979454",
                 "shasum": null
             },
             "require": {
@@ -4529,7 +4529,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-01T11:23:10+00:00"
+            "time": "2018-08-14T13:08:47+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9971,7 +9971,7 @@
         {
             "alias": "1.23.16",
             "alias_normalized": "1.23.16.0",
-            "version": "dev-TAC-163-create-the-core-table-layout-for-the-new-products-page",
+            "version": "dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

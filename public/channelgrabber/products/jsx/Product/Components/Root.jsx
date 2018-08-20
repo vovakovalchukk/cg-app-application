@@ -71,7 +71,7 @@ define([
                 currentView: PRODUCT_LIST_VIEW,
                 products: [],
                 variations: [],
-                allProductLinks: [],
+                allProductLinks: {},
                 editingProductLink: {
                     sku: "",
                     links: []
@@ -198,6 +198,7 @@ define([
                     if (response.productLinks) {
                         products = response.productLinks;
                     }
+                    
                     this.setState({
                             allProductLinks: products
                         },
@@ -519,12 +520,20 @@ define([
         },
         renderProductListView: function() {
             return (
-                <ProductListProvider
-                    products={this.state.products}
-                    features={this.props.features}
-                    addNewProductButtonClick={this.addNewProductButtonClick}
-                    accounts={this.state.accounts}
-                />
+                <div>
+                    <ProductListProvider
+                        products={this.state.products}
+                        allProductsLinks={this.state.allProductLinks}
+                        features={this.props.features}
+                        addNewProductButtonClick={this.addNewProductButtonClick}
+                        accounts={this.state.accounts}
+                    />
+                    <ProductLinkEditor
+                        productLink={this.state.editingProductLink}
+                        onEditorClose={this.onProductLinksEditorClose}
+                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                    />
+                </div>
             )
         },
         renderProductSearchView: function () {

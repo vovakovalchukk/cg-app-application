@@ -46,16 +46,11 @@ $screen-padding: 20px;
 }
 
 .products-list__container {
-    margin-top: 50px;
+    margin-top: 48px;
     flex: 18;
-    background:green;
-
+    z-index:20;
     background-color: $color-bluegrey;
-    //background-color: white;
     overflow: hidden;
-    //height: calc(100vh - #{$combined-height-of-non-list-ui-elements});
-    //min-height: 80vh;
-    //height:400px;
 }
 
 .products-list__row{
@@ -742,6 +737,8 @@ $medium-margin-distance: 2rem;
 $small-margin-distance: 1rem;
 $button-height: 22px;
 $vertical-margin: 3px;
+$navbar-height:50px;
+$tabs-container-height:50px;
 
 .navbar-strip {
     &__button {
@@ -790,5 +787,11 @@ $vertical-margin: 3px;
 
 .tooltip-hover {
     z-index: 99999;
+}
+
+.products-tabs-container{
+    position:relative;
+    top: $navbar-height;
+    height:$tabs-container-height;
 }
 

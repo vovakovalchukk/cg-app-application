@@ -35,8 +35,19 @@ define([
         getDefaultProps: function() {
             return {
                 products: [],
-                features: {}
+                features: {},
+                allProductsLinks: {}
             };
+        },
+        getInitialState: function() {
+            return {
+                initialProductsSaved: {}
+            }
+        },
+        componentWillReceiveProps: function(newProps) {
+            if (this.shouldProductLinksBeStored(newProps.allProductsLinks)) {
+                store.dispatch(ActionCreators.productsLinksLoad(newProps.allProductsLinks))
+            }
         },
         shouldComponentUpdate: function() {
             if (this.initialProductsShouldBeStored()) {
@@ -45,6 +56,12 @@ define([
                 return false;
             }
             return true;
+        },
+        shouldProductLinksBeStored: function(productLinks) {
+            let storeState = store.getState();
+            let productsLinksAreValid = typeof productLinks === 'object' && !isEmptyObject(productLinks)
+            let productsLinksAreDifferentToThoseInState = storeState.products.allProductsLinks !== productLinks
+            return productsLinksAreValid && productsLinksAreDifferentToThoseInState;
         },
         initialProductsShouldBeStored: function() {
             let storeState = store.getState();
@@ -63,4 +80,8 @@ define([
     });
     
     return ProductListProvider;
+    
+    function isEmptyObject(obj) {
+        return Object.getOwnPropertyNames(obj).length === 0;
+    }
 });
