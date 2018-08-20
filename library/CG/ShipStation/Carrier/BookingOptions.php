@@ -2,17 +2,20 @@
 namespace CG\ShipStation\Carrier;
 
 use CG\Account\Shared\Entity as AccountEntity;
-use CG\Channel\Shipping\Provider\BookingOptionsInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateAllActionDescriptionInterface;
+use CG\Channel\Shipping\Provider\BookingOptionsInterface;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\ShipStation\Carrier\BookingOption\Factory as BookingOptionFactory;
 
 class BookingOptions implements BookingOptionsInterface, CreateActionDescriptionInterface, CreateAllActionDescriptionInterface
 {
     /** @var Service */
     protected $service;
+    /** @var BookingOptionFactory */
+    protected $bookingOptionFactory;
 
     protected $courierActionsMap = [
         'usps-ss' => [
@@ -21,9 +24,10 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         ]
     ];
 
-    public function __construct(Service $service)
+    public function __construct(Service $service, BookingOptionFactory $bookingOptionFactory)
     {
         $this->service = $service;
+        $this->bookingOptionFactory = $bookingOptionFactory;
     }
 
     public function getCarrierBookingOptionsForAccount(AccountEntity $account, $serviceCode = null)
@@ -44,7 +48,8 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
-        return [];
+        $bookingOptionProvider = ($this->bookingOptionFactory)($account->getChannel());
+        return $bookingOptionProvider->getOptionsDataForOption($option, $order, $account, $service, $rootOu, $productDetails);
     }
 
     public function isProvidedAccount(AccountEntity $account)
