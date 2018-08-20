@@ -328,6 +328,12 @@ define([
                     policies: policies
                 }
             }
+        },
+        resetSubmissionStatuses: function() {
+            return {
+                type: "RESET_SUBMISSION_STATUSES",
+                payload: {}
+            }
         }
     };
 });

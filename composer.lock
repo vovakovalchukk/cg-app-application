@@ -935,7 +935,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "c39b5e5a053fc4052dc48fd1aa78f11ddc069d68"
+                "reference": "7fae6729f018c5fc86c6a94e1ea21ded98e06cc9"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",

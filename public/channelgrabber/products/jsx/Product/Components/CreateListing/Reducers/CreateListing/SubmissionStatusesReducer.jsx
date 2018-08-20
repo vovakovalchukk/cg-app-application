@@ -57,5 +57,8 @@ define([
                 inProgress: false
             });
         },
+        "RESET_SUBMISSION_STATUSES": function (state, action) {
+            return initialState;
+        }
     });
 });
