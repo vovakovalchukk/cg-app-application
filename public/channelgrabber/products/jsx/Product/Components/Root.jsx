@@ -92,7 +92,7 @@ define([
             }
         },
         componentDidMount: function() {
-            this.performProductsRequest();
+            // this.performProductsRequest();
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
@@ -119,13 +119,19 @@ define([
             this.performProductsRequest(null, null, skuList);
         },
         performProductsRequest: function(pageNumber, searchTerm, skuList) {
+            console.log('in performProductsRequest in prevRoot');
             pageNumber = pageNumber || 1;
             searchTerm = searchTerm || '';
             skuList = skuList || [];
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null, null, skuList);
+            console.log('Root- about to fetch with filter: ' , filter);
+    
             filter.setPage(pageNumber);
+            
             function successCallback(result) {
+                console.log('Root -in successCallback of performProductsRequest');
+    
                 var self = this;
                 this.setState({
                     products: result.products,
@@ -351,10 +357,14 @@ define([
             }
             this.setState({maxVariationAttributes: maxVariationAttributes});
             if (allDefaultVariationIds.length == 0) {
+                console.log('Root - about to fetch linked products');
                 this.fetchLinkedProducts();
                 return;
             }
             var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
+            console.log('Root - about to fetch variations');
+            
+            
             this.fetchVariations(productFilter);
         },
         onPageChange: function(pageNumber) {
