@@ -435,7 +435,7 @@ define([
         if ($(button).hasClass('disabled')) {
             return;
         }
-        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled', 'rates fetched']);
         if (!data) {
             return;
         }
