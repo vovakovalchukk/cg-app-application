@@ -44,6 +44,48 @@ define([
                 initialProductsSaved: {}
             }
         },
+        
+        //todo ----
+        componentDidMount: function(){
+            this.performProductsRequest();
+    
+        },
+        performProductsRequest: function(pageNumber, searchTerm, skuList) {
+            console.log('in performProductsRequest ');
+            pageNumber = pageNumber || 1;
+            searchTerm = searchTerm || '';
+            skuList = skuList || [];
+            $('#products-loading-message').show();
+            var filter = new ProductFilter(searchTerm, null, null, skuList);
+            filter.setPage(pageNumber);
+        
+            this.fetchProducts(filter, successCallback, errorCallback);
+        
+            function successCallback(result) {
+                var self = this;
+                this.setState({
+                    products: result.products,
+                    maxListingsPerAccount: result.maxListingsPerAccount,
+                    pagination: result.pagination,
+                    initialLoadOccurred: true,
+                    searchTerm: searchTerm,
+                    skuList: skuList,
+                    accounts: result.accounts,
+                    createListingsAllowedChannels: result.createListingsAllowedChannels,
+                    createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
+                    productSearchActive: result.productSearchActive
+                }, function() {
+                    $('#products-loading-message').hide();
+                    self.onNewProductsReceived();
+                });
+            }
+            function errorCallback() {
+                throw 'Unable to load products';
+            }
+        },
+        // todo ----
+        
+        
         componentWillReceiveProps: function(newProps) {
             if (this.shouldProductLinksBeStored(newProps.allProductsLinks)) {
                 store.dispatch(ActionCreators.productsLinksLoad(newProps.allProductsLinks))

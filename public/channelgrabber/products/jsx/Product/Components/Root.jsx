@@ -119,12 +119,16 @@ define([
             this.performProductsRequest(null, null, skuList);
         },
         performProductsRequest: function(pageNumber, searchTerm, skuList) {
+            console.log('in performProductsRequest ');
             pageNumber = pageNumber || 1;
             searchTerm = searchTerm || '';
             skuList = skuList || [];
             $('#products-loading-message').show();
             var filter = new ProductFilter(searchTerm, null, null, skuList);
             filter.setPage(pageNumber);
+            
+            this.fetchProducts(filter, successCallback, errorCallback);
+            
             function successCallback(result) {
                 var self = this;
                 this.setState({
@@ -146,7 +150,6 @@ define([
             function errorCallback() {
                 throw 'Unable to load products';
             }
-            this.fetchProducts(filter, successCallback, errorCallback);
         },
         fetchProducts: function(filter, successCallback, errorCallback) {
             this.productsRequest = $.ajax({
