@@ -10,11 +10,8 @@ use CG\Billing\Price\Service as PriceService;
 use CG\Billing\PricingScheme\PricingScheme;
 use CG\Billing\PricingSchemeAssignment\Entity as PricingSchemeAssignment;
 use CG\Billing\PricingSchemeAssignment\Service as PricingSchemeAssignmentService;
-use CG\Billing\Subscription\Collection as Subscriptions;
-use CG\Billing\Subscription\Filter as SubscriptionFilter;
-use CG\Billing\Subscription\Service as SubscriptionService;
+use CG\Billing\Subscription\Entity as Subscription;
 use CG\Currency\Formatter as CurrencyFormatter;
-use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_Mustache\View\Renderer;
@@ -36,8 +33,6 @@ class PackageService
     protected $renderer;
     /** @var CurrencyFormatter */
     protected $currencyFormatter;
-    /** @var Subscriptions */
-    protected $subscriptionService;
 
     public function __construct(
         Service $service,
@@ -45,8 +40,7 @@ class PackageService
         PricingSchemeAssignmentService $pricingSchemeAssignmentService,
         PriceService $priceService,
         ViewModelFactory $viewModelFactory,
-        Renderer $renderer,
-        SubscriptionService $subscriptionService
+        Renderer $renderer
     ) {
         $this->service = $service;
         $this->activeUser = $activeUser;
@@ -55,7 +49,6 @@ class PackageService
         $this->viewModelFactory = $viewModelFactory;
         $this->renderer = $renderer;
         $this->currencyFormatter = new CurrencyFormatter($this->activeUser, null, false);
-        $this->subscriptionService = $subscriptionService;
     }
 
     public function getLocale(): string
@@ -137,18 +130,5 @@ class PackageService
         ])->setTemplate('package/discountedPrice');
 
         return $this->renderer->render($monthlyPrice);
-    }
-
-    public function getAllActiveSubscriptions(int $ouId): Subscriptions
-    {
-        $now = new \DateTime();
-        return $this->subscriptionService->fetchCollectionByFilter(
-            (new SubscriptionFilter())
-                ->setOuId([$ouId])
-                ->setEndedOnOrAfterDate($now->format(StdlibDateTime::FORMAT))
-                ->setStartedOnOrBeforeDate($now->format(StdlibDateTime::FORMAT))
-                ->setLimit('all')
-                ->setPage(1)
-        );
     }
 }

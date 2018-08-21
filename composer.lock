@@ -3607,7 +3607,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "6ecf13ac7a353350d792e71f6782ad6ceaca9a0d"
+                "reference": "a6a28394f74e3dac9123058f94cc5d35871ec5b5"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
