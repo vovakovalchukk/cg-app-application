@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "950361aada6d4966dde8c699b2725def",
+    "content-hash": "eb8bba7fe790507a0e2223ba0311ec21",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1935,13 +1935,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "18471c056c5a6d77729e3c34638ed21f15420ff6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-d44900.zip",
-                "reference": "18471c056c5a6d77729e3c34638ed21f15420ff6",
-                "shasum": null
+                "reference": "086b9a83cda9c61d561854a64b4744bd6a9c401c"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.3",
@@ -3613,7 +3607,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "a552d9b325f29df39ca6e69ef3a96ba0f573dd4a"
+                "reference": "6ecf13ac7a353350d792e71f6782ad6ceaca9a0d"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -9958,8 +9952,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.10.1",
-            "alias_normalized": "1.10.1.0",
+            "alias": "1.10.2",
+            "alias_normalized": "1.10.2.0",
             "version": "dev-CGIV-9760-double-subscriptions",
             "package": "channelgrabber/payment"
         },
@@ -9983,8 +9977,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

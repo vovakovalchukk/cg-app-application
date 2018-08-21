@@ -3,23 +3,19 @@ namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
-use CG\Billing\Subscription\Collection as Subscriptions;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
-use CG\Payment\PackageUpgrade\Request as PackageUpgradeRequest;
-use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Payment\Exception\MultipleSubscriptionsException;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
 use CG_Billing\Payment\View\Service as PaymentViewService;
-use CG_Billing\Subscription\Exception\AlreadyExists as SubscriptionAlreadyExists;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
-use SetupWizard\Payment\EmailService;
 use SetupWizard\Payment\PackageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
@@ -35,7 +31,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     const ROUTE_PACKAGE_SET = 'PackageSet';
 
     const LOG_CODE = 'SetupWizardPaymentController';
-    const ALREADY_EXISTS_EXCEPTION_MSG = 'Billable subscription already exists for OU %d';
+//    const ALREADY_EXISTS_EXCEPTION_MSG = 'Billable subscription already exists for OU %d';
 
     /** @var SetupService */
     protected $setupService;
@@ -53,7 +49,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     protected $packageManagementService;
     /** @var SessionManager */
     protected $session;
-    protected $emailService;
+//    protected $emailService;
 
     public function __construct(
         Service $setupService,
@@ -63,8 +59,8 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         PaymentService $paymentService,
         PaymentViewService $paymentViewService,
         PackageManagementService $packageManagementService,
-        SessionManager $session,
-        EmailService $emailService
+        SessionManager $session
+//        EmailService $emailService
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
@@ -74,7 +70,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
         $this->session = $session;
-        $this->emailService = $emailService;
+//        $this->emailService = $emailService;
     }
 
     public function indexAction()
@@ -193,18 +189,24 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     {
         $response = ['success' => false, 'error' => ''];
         try {
-            $packageUpgradeRequest = $this->packageManagementService->createPackageUpgradeRequest(
-                $this->params()->fromRoute('id'),
-                null,
-                $this->params()->fromPost('billingDuration') ?? null
+//            $packageUpgradeRequest = $this->packageManagementService->createPackageUpgradeRequest(
+//                $this->params()->fromRoute('id'),
+//                null,
+//                $this->params()->fromPost('billingDuration') ?? null
+//            );
+
+//            if (!$this->shouldAddNewSubscription($packageUpgradeRequest)) {
+//                $msg = sprintf(static::ALREADY_EXISTS_EXCEPTION_MSG, $packageUpgradeRequest->getOrganisationUnit()->getId());
+//                throw new SubscriptionAlreadyExists($msg);
+//            }
+
+            $this->packageManagementService->setPackage(
+                $this->packageManagementService->createPackageUpgradeRequest(
+                    $this->params()->fromRoute('id'),
+                    null,
+                    $this->params()->fromPost('billingDuration') ?? null
+                )
             );
-
-            if (!$this->shouldAddNewSubscription($packageUpgradeRequest)) {
-                $msg = sprintf(static::ALREADY_EXISTS_EXCEPTION_MSG, $packageUpgradeRequest->getOrganisationUnit()->getId());
-                throw new SubscriptionAlreadyExists($msg);
-            }
-
-            $this->packageManagementService->setPackage($packageUpgradeRequest);
 
             $response['success'] = true;
         } catch (SetPackageException\PricingSchemeMismatch $pricingSchemeMismatch) {
@@ -222,8 +224,8 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
                 . '<br/>Please check them and try again.',
                 $failure->getType()
             );
-        } catch (SubscriptionAlreadyExists $alreadyExists) {
-            $this->logDebugException($alreadyExists, '', [], static::LOG_CODE);
+        } catch (MultipleSubscriptionsException $multipleSubscriptions) {
+            $this->logDebugException($multipleSubscriptions, '', [], static::LOG_CODE);
             $response['success'] = true;
         } catch (\Throwable $throwable) {
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
@@ -231,30 +233,30 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         return $this->jsonModelFactory->newInstance($response);
     }
 
-    protected function shouldAddNewSubscription(PackageUpgradeRequest $packageUpgradeRequest): bool
-    {
-        if(!$this->packageManagementService->isCurrentPackageTrialOrFree($packageUpgradeRequest)) {
-            return false;
-        }
-        try {
-            $subscriptions = $this->packageService->getAllActiveSubscriptions($packageUpgradeRequest->getOrganisationUnit()->getId());
-            if ($subscriptions->count() <= 1) {
-                return true;
-            }
-        } catch (NotFound $e) {
-            //noop
-        }
-        return false;
-    }
+//    protected function shouldAddNewSubscription(PackageUpgradeRequest $packageUpgradeRequest): bool
+//    {
+//        if(!$this->packageManagementService->isCurrentPackageTrialOrFree($packageUpgradeRequest)) {
+//            return false;
+//        }
+//        try {
+//            $subscriptions = $this->packageService->getAllActiveSubscriptions($packageUpgradeRequest->getOrganisationUnit()->getId());
+//            if ($subscriptions->count() <= 1) {
+//                return true;
+//            }
+//        } catch (NotFound $e) {
+//            //noop
+//        }
+//        return false;
+//    }
 
-    protected function sendErrorEmail(PackageUpgradeRequest $packageUpgradeRequest)
-    {
-        try {
-            $subscriptions = $this->packageService->getAllActiveSubscriptions($packageUpgradeRequest->getOrganisationUnit()->getId());
-        } catch (NotFound $e) {
-            $subscriptions = new Subscriptions(Subscription::class);
-        }
-
-        $this->emailService->sendErrorToSupport($subscriptions, $packageUpgradeRequest->getOrganisationUnit());
-    }
+//    protected function sendErrorEmail(PackageUpgradeRequest $packageUpgradeRequest)
+//    {
+//        try {
+//            $subscriptions = $this->packageService->getAllActiveSubscriptions($packageUpgradeRequest->getOrganisationUnit()->getId());
+//        } catch (NotFound $e) {
+//            $subscriptions = new Subscriptions(Subscription::class);
+//        }
+//
+//        $this->emailService->sendErrorToSupport($subscriptions, $packageUpgradeRequest->getOrganisationUnit());
+//    }
 }
