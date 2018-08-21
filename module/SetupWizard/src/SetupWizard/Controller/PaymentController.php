@@ -192,7 +192,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
                     $this->params()->fromPost('billingDuration') ?? null
                 )
             );
-
             $response['success'] = true;
         } catch (SetPackageException\PricingSchemeMismatch $pricingSchemeMismatch) {
             $newPackage = $pricingSchemeMismatch->getPackage();
