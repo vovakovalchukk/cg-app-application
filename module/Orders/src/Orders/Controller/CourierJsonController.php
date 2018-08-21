@@ -2,6 +2,9 @@
 namespace Orders\Controller;
 
 use CG\CourierAdapter\Exception\UserError;
+use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
+use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG_UI\View\Helper\Mustache as MustacheViewHelper;
@@ -11,6 +14,7 @@ use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\DispatchService as LabelDispatchService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
+use Orders\Courier\Label\RatesService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\ReviewAjax as ReviewAjaxService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
@@ -27,6 +31,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_OPTIONS = 'Options';
     const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
+    const ROUTE_SPECIFICS_FETCH_SHIPPING_LEDGER_BALANCE = 'Fetch Shipping Ledger Balance';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
@@ -35,6 +40,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_LABEL_DISPATCH_URI = '/dispatch';
     const ROUTE_LABEL_READY_CHECK = 'Ready Check';
     const ROUTE_LABEL_READY_CHECK_URI = '/readyCheck';
+    const ROUTE_LABEL_FETCH_RATES = 'Fetch Rates';
     const ROUTE_MANIFEST = 'Manifest';
     const ROUTE_MANIFEST_URI = '/manifest';
     const ROUTE_MANIFEST_ACCOUNTS = 'Accounts';
@@ -62,6 +68,8 @@ class CourierJsonController extends AbstractActionController
     protected $labelReadyService;
     /** @var ManifestService */
     protected $manifestService;
+    /** @var RatesService */
+    protected $ratesService;
 
     protected $errorMessageMap = [
     ];
@@ -75,7 +83,8 @@ class CourierJsonController extends AbstractActionController
         LabelCancelService $labelCancelService,
         LabelReadyService $labelReadyService,
         LabelDispatchService $labelDispatchService,
-        ManifestService $manifestService
+        ManifestService $manifestService,
+        RatesService $ratesService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
@@ -86,6 +95,7 @@ class CourierJsonController extends AbstractActionController
         $this->labelDispatchService = $labelDispatchService;
         $this->labelReadyService = $labelReadyService;
         $this->manifestService = $manifestService;
+        $this->ratesService = $ratesService;
     }
 
     public function servicesOptionsAction()
@@ -140,10 +150,14 @@ class CourierJsonController extends AbstractActionController
         $data = $this->getDefaultJsonData();
         $orderIds = $this->params()->fromPost('order', []);
         $courierId = $this->params()->fromRoute('account');
-        $ordersData = $this->params()->fromPost('orderData', []);
-        $ordersParcelsData = $this->params()->fromPost('parcelData', []);
-        $this->sanitiseInputArray($ordersData);
-        $this->sanitiseInputArray($ordersParcelsData);
+        $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
+        $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+
+        $this->decodeItemParcelAssignment($rawOrdersParcelsData)
+            ->assignParcelNumbers($rawOrdersParcelsData);
+
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
 
         if (!empty($orderIds)) {
             $data['Records'] = $this->specificsAjaxService->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
@@ -164,7 +178,7 @@ class CourierJsonController extends AbstractActionController
         ];
     }
 
-    protected function sanitiseInputArray(array &$inputArray)
+    protected function sanitiseInputArray(array $inputArray): array
     {
         foreach ($inputArray as &$array) {
             foreach ($array as $key => $value) {
@@ -173,7 +187,7 @@ class CourierJsonController extends AbstractActionController
                 }
             }
         }
-        return $this;
+        return $inputArray;
     }
 
     protected function countOrderRecords($records)
@@ -191,18 +205,22 @@ class CourierJsonController extends AbstractActionController
     {
         $accountId = $this->params()->fromPost('account');
         $orderIds = $this->params()->fromPost('order', []);
-        $ordersData = $this->params()->fromPost('orderData', []);
-        $ordersParcelsData = $this->params()->fromPost('parcelData', []);
-        $ordersItemsData = $this->params()->fromPost('itemData', []);
-        $this->sanitiseInputArray($ordersData)
-            ->sanitiseInputArray($ordersParcelsData)
-            ->decodeItemParcelAssignment($ordersParcelsData)
-            ->assignParcelNumbers($ordersParcelsData);
+        $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
+        $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+        $rawOrdersItemsData = $this->params()->fromPost('itemData', []);
+
+        $this->decodeItemParcelAssignment($rawOrdersParcelsData)
+            ->assignParcelNumbers($rawOrdersParcelsData);
+
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
+        $orderItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
+
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
-                $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
+                $orderIds, $ordersData, $ordersParcelsData, $orderItemsData, $accountId
             );
-            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
+            $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses);
             $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
             return $jsonView;
         } catch (StorageException $e) {
@@ -210,7 +228,7 @@ class CourierJsonController extends AbstractActionController
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         } catch (ValidationMessagesException $e) {
-            return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
+            return $this->handleLabelCreationFailure($e);
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -218,8 +236,8 @@ class CourierJsonController extends AbstractActionController
 
     protected function assignParcelNumbers(&$ordersParcelsData)
     {
-        $parcelCount = 1;
         foreach ($ordersParcelsData as &$parcelsData) {
+            $parcelCount = 1;
             foreach ($parcelsData as &$parcelData) {
                 $parcelData['number'] = $parcelCount;
                 $parcelCount++;
@@ -242,10 +260,7 @@ class CourierJsonController extends AbstractActionController
     }
 
     protected function handleLabelCreationFailure(
-        ValidationMessagesException $e,
-        array $ordersData,
-        array $ordersParcelsData,
-        $accountId
+        ValidationMessagesException $e
     ) {
         $orderFieldErrors = $this->validationExceptionToPerOrderErrorArray($e);
         $message = $this->getValidationFailureMessage($orderFieldErrors);
@@ -259,10 +274,7 @@ class CourierJsonController extends AbstractActionController
     }
 
     protected function handleFullOrPartialCreationSuccess(
-        array $labelReadyStatuses,
-        array $ordersData,
-        array $ordersParcelsData,
-        $accountId
+        array $labelReadyStatuses
     ) {
         $readyCount = 0;
         $notReadyCount = 0;
@@ -402,7 +414,7 @@ class CourierJsonController extends AbstractActionController
         try {
             $this->labelCancelService->cancelForOrders($orderIds, $accountId);
             $jsonView = $this->jsonModelFactory->newInstance([]);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId));
             return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
@@ -418,7 +430,7 @@ class CourierJsonController extends AbstractActionController
         try {
             $this->labelDispatchService->dispatchOrders($orderIds, $accountId);
             $jsonView = $this->jsonModelFactory->newInstance([]);
-            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, [], []));
+            $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId));
             return $jsonView;
         } catch (StorageException $e) {
             throw new \RuntimeException(
@@ -519,5 +531,46 @@ class CourierJsonController extends AbstractActionController
                 'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         }
+    }
+
+    public function fetchRatesAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $orderIds = $this->params()->fromPost('order', []);
+        $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
+        $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
+        $rawOrdersItemsData = $this->params()->fromPost('itemData', []);
+
+        $this->decodeItemParcelAssignment($rawOrdersParcelsData)
+            ->assignParcelNumbers($rawOrdersParcelsData);
+
+        $ordersData = OrderDataCollection::fromArray($rawOrdersData);
+        $ordersParcelsData = OrderParcelsDataCollection::fromArray($rawOrdersParcelsData);
+        $ordersItemsData = OrderItemsDataCollection::fromArray($rawOrdersItemsData);
+
+        try {
+            $rates = $this->ratesService->fetchRates(
+                $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
+            );
+            return $this->jsonModelFactory->newInstance(['rates' => $rates->toArray()]);
+
+        } catch (ValidationMessagesException $e) {
+            $errors = $this->convertValidationMessagesExceptionToArray($e);
+            return $this->jsonModelFactory->newInstance(['rates' => [], 'errors' => $errors]);
+        }
+    }
+
+    protected function convertValidationMessagesExceptionToArray(ValidationMessagesException $e): array
+    {
+        return array_map(function($orderExternalId, $error)
+        {
+            return $orderExternalId . ': ' . $error;
+        }, array_keys($e->getErrors()), array_values($e->getErrors()));
+    }
+
+    public function fetchShippingLedgerBalanceAction()
+    {
+        $shippingLedger = $this->specificsAjaxService->getShippingLedgerForActiveUser();
+        return $this->jsonModelFactory->newInstance(['shippingLedger' => $shippingLedger->toArray()]);
     }
 }

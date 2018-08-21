@@ -9,7 +9,6 @@ use CG\Amazon\Marketplace\Participation\Service as MarketplaceParticipationServi
 use CG\Channel\Type;
 use CG\Ebay\Account as EbayAccount;
 use CG\Ebay\Account\CreationService as EbayAccountCreationService;
-use CG\Ebay\Client\TradingApi;
 use CG\Ekm\Account as EkmAccount;
 use CG\Ekm\Account\CreationService as EkmAccountCreationService;
 use CG\FileStorage\S3\Adapter as S3Adapter;
@@ -56,6 +55,7 @@ use Settings\Controller\InvoiceController;
 use Settings\Controller\OrderController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
+use Settings\Controller\ShippingLedgerController;
 use Settings\Controller\StockController;
 use Settings\Controller\StockJsonController;
 use Settings\Controller\WooCommerceController;
@@ -307,6 +307,35 @@ return [
                                                 'action' => 'save'
                                             ]
                                         ],
+                                        'child_routes' => [
+                                            'oauth' => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/oauth',
+                                                    'defaults' => [
+                                                        'controller' => EbayController::class,
+                                                        'action' => 'saveOAuth',
+                                                    ],
+                                                ],
+                                                'child_routes' => [
+                                                    'checkOAuth' => [
+                                                        'type' => Segment::class,
+                                                        'options' => [
+                                                            'route' => '/:accountId',
+                                                            'defaults' => [
+                                                                'controller' => EbayController::class,
+                                                                'action' => 'checkOAuth',
+                                                            ],
+                                                            'constraints' => [
+                                                                'accountId' => '[0-9]*'
+                                                            ],
+                                                        ],
+                                                        'may_terminate' => true
+                                                    ]
+                                                ],
+                                                'may_terminate' => true
+                                            ]
+                                        ],
                                         'may_terminate' => true
                                     ],
                                     AmazonAccount::ROUTE => [
@@ -387,6 +416,35 @@ return [
                                                         'action' => 'autoImportListingsAjax',
                                                     ]
                                                 ],
+                                            ],
+                                            ShippingLedgerController::ROUTE => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/ledger',
+                                                    'defaults' => [
+                                                        'controller' => ShippingLedgerController::class,
+                                                    ]
+                                                ],
+                                                'child_routes' => [
+                                                    ShippingLedgerController::ROUTE_TOPUP => [
+                                                        'type' => Literal::class,
+                                                        'options' => [
+                                                            'route' => '/topup',
+                                                            'defaults' => [
+                                                                'action' => 'topup',
+                                                            ]
+                                                        ],
+                                                    ],
+                                                    ShippingLedgerController::ROUTE_SAVE => [
+                                                        'type' => Literal::class,
+                                                        'options' => [
+                                                            'route' => '/save',
+                                                            'defaults' => [
+                                                                'action' => 'save',
+                                                            ]
+                                                        ],
+                                                    ],
+                                                ]
                                             ],
                                         ],
                                     ],
@@ -987,7 +1045,6 @@ return [
                 ListingsCsvStorage::class => ListingsCsvStorageS3::class,
             ],
             'aliases' => [
-                'EbayGuzzle' => GuzzleHttpClient::class,
                 'InvoiceSettingsDataTable' => DataTable::class,
                 'salesAccountList' => DataTable::class,
                 'shippingAccountList' => DataTable::class,
@@ -1053,19 +1110,6 @@ return [
                 'parameters' => [
                     'client' => 'account_guzzle',
                 ],
-            ],
-            'EbayGuzzle' => [
-                'parameters' => [
-                    'baseUrl' => 'https://api.ebay.com/ws/api.dll'
-                ]
-            ],
-            TradingApi::class => [
-                'parameters' => [
-                    'client' => 'EbayGuzzle',
-                    'developerId' => '39b27d4e-07e2-4298-8eaa-7614e79dba4c',
-                    'applicationName' => 'ChannelG-9b1e-4478-a742-146c81a2b5a9',
-                    'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
-                ]
             ],
             InvoiceSettings::class => [
                 'parameters' => [

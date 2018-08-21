@@ -57,7 +57,8 @@ define([
                 submissionStatuses: {},
                 onCreateListingClose: function() {},
                 massUnit: null,
-                lengthUnit: null
+                lengthUnit: null,
+                selectedProductDetails: {}
             }
         },
         componentDidMount: function () {
@@ -120,6 +121,7 @@ define([
                         options={field.options}
                         selectedOption={this.findSelectedOption(field.input.value, field.options)}
                         className={Validators.shouldShowError(field) ? 'error' : null}
+                        classNames={'u-width-300px'}
                     />
                 </div>
                 {Validators.shouldShowError(field) && (
@@ -195,6 +197,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 fieldChange={this.props.change}
                 resetSection={this.props.resetSection}
+                selectedProductDetails={this.props.selectedProductDetails}
             />;
         },
         renderProductIdentifiers: function() {
@@ -318,7 +321,8 @@ define([
                         props.accounts,
                         props.accountDefaultSettings,
                         props.accountsData,
-                        props.categoryTemplates
+                        props.categoryTemplates,
+                        props.selectedProductDetails ? props.selectedProductDetails : {}
                     )
                 );
             }

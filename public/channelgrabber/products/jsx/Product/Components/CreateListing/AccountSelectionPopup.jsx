@@ -42,7 +42,10 @@ define([
                 listingCreationAllowed: null,
                 managePackageUrl: null,
                 salesPhoneNumber: null,
-                demoLink: null
+                demoLink: null,
+                productSearchActive: false,
+                renderCreateListingPopup: () => {},
+                renderSearchPopup: () => {}
             }
         },
         componentDidMount: function() {
@@ -198,6 +201,35 @@ define([
         return accountDefaultSettings;
     };
 
+    const getSearchAccountId = function(props) {
+        let accounts = props.product.accounts;
+        let selectedAccountIds = props.accounts;
+
+        if (props.product.variationCount > 1) {
+            return false;
+        }
+
+        let accountIndex = selectedAccountIds.findIndex(selectedAccountId => {
+            let accountData =  accounts[selectedAccountId];
+
+            if (!accountData) {
+                return false;
+            }
+
+            if (accountData.channel !== 'ebay' || !accountData.listingsAuthActive) {
+                return false;
+            }
+
+            return true;
+        });
+
+        if (accountIndex > -1) {
+            return selectedAccountIds[accountIndex];
+        }
+        
+        return false;
+    };
+
     AccountSelectionPopup = ReduxForm.reduxForm({
         form: "accountSelection",
         initialValues: {
@@ -225,6 +257,12 @@ define([
 
             fetchCategoryTemplateDependentFieldValues(values.categories).then(function(result) {
                 values.categoryTemplates = result.categoryTemplates;
+                let searchAccountId = getSearchAccountId(values);
+                if (searchAccountId) {
+                    values.searchAccountId = searchAccountId;
+                    props.renderSearchPopup(values);
+                    return;
+                }
                 props.renderCreateListingPopup(values);
             });
         },
@@ -241,6 +279,14 @@ define([
         return [];
     };
 
+    var isRefreshableChannel = function(channel) {
+        const channelsThatAreNotRefreshable = [
+            'ebay',
+            'amazon'
+        ];
+        return channelsThatAreNotRefreshable.indexOf(channel) === -1;
+    };
+
     var convertStateToCategoryMaps = function(state) {
         var categories = {},
             accountId;
@@ -251,6 +297,10 @@ define([
                 selectedCategories: getSelectedCategoriesFromState(state, accountId),
                 displayName: state.accounts[accountId].name
             });
+        }
+
+        for (let category in categories) {
+            categories[category].refreshable = isRefreshableChannel(categories[category].channel);
         }
 
         return categories;

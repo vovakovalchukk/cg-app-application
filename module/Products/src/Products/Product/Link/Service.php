@@ -26,7 +26,9 @@ class Service implements LoggerAwareInterface
     /** @var ProductLinkNodeService */
     protected $productLinkNodeService;
 
+    const LOG_CODE = 'ProductLinkService';
     const LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK = 'Product with sku <%s> was not loaded, but it was required as a link by product with sku <%s>';
+    const LOG_MSG_PARENT_PRODUCT_NOT_IN_COLLECTION = 'Parent product for variation with sku <%s> was not loaded, fetching directly';
 
     public function __construct(
         ProductService $productService,
@@ -103,7 +105,12 @@ class Service implements LoggerAwareInterface
             }
 
             foreach ($productLink->getStockSkuMap() as $stockSku => $stockQuantity) {
-                $productLinkProduct = $this->getProductForLinkSku($productsForLinks, $parentProducts, $productLink->getProductSku(), $stockSku);
+                try {
+                    $productLinkProduct = $this->getProductForLinkSku($productsForLinks, $parentProducts, $stockSku);
+                } catch (NotFound $exception) {
+                    $this->logCriticalException($exception, static::LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK, [$stockSku, $productLink->getProductSku()], static::LOG_CODE);
+                    continue;
+                }
 
                 if ($product->getParentProductId() == 0) {
                     $productLinksByProductId[$product->getId()][$product->getId()][] = [
@@ -132,20 +139,21 @@ class Service implements LoggerAwareInterface
     protected function getProductForLinkSku(
         ProductCollection $productsForLinks,
         ProductCollection $parentProductsForLinks,
-        string $productSkuOfLink,
         string $stockSku
     ): Product {
         $matchingProducts = $productsForLinks->getBy('sku', $stockSku);
-
         if (!$matchingProducts || count($matchingProducts) == 0) {
-            $this->logCritical(
-                static::LOG_MSG_PRODUCT_NOT_FOUND_FOR_LINK,
-                [$stockSku, $productSkuOfLink]
-            );
+            throw new NotFound(sprintf('Failed to find product sku <%s> in collection of products related to link', $stockSku));
         }
         $productLinkProduct = $matchingProducts->getFirst();
         if ($productLinkProduct->isVariation()) {
-            $productLinkProduct = $parentProductsForLinks->getById($productLinkProduct->getParentProductId());
+            $parentProductId = $productLinkProduct->getParentProductId();
+            if ($parentProductsForLinks->containsId($parentProductId)) {
+                $productLinkProduct = $parentProductsForLinks->getById($productLinkProduct->getParentProductId());
+            } else {
+                $this->logWarning(static::LOG_MSG_PARENT_PRODUCT_NOT_IN_COLLECTION, [$stockSku], static::LOG_CODE);
+                $productLinkProduct = $this->productService->fetch($parentProductId);
+            }
         }
 
         return $productLinkProduct;

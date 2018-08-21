@@ -184,6 +184,7 @@ define([
         },
         getVariationsBulkActions: function()
         {
+            
             return (
             <div className="footer-row">
                 <div className="variations-layout-column">

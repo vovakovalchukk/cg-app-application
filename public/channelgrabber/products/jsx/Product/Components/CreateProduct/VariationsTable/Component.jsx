@@ -64,29 +64,10 @@ define([
             }
         },
         attributeColumnNameChange: function(fieldName, value) {
-            this.props.attributeColumnNameChange(fieldName, value)
-            if (attributeColumnHasNoValue(this.props.variationValues, fieldName)) {
+            this.props.attributeColumnNameChange(fieldName, value);
+            if (attributeColumnHasNoValue(this.props.attributeValues, fieldName)) {
                 this.props.newAttributeColumnRequest();
             }
-        },
-        resetFieldValueInReduxForm: function(fieldPath) {
-            this.props.unregister(fieldPath);
-            this.props.change(fieldPath, null);
-            this.props.untouch(fieldPath);
-        },
-        unsetAttributeFieldOnAllVariations: function(field) {
-            var variationValues = this.props.variationValues;
-            for (var variation in variationValues) {
-                if (variation.indexOf('variation-') < 0) {
-                    continue;
-                }
-                this.resetFieldValueInReduxForm('variations.' + variation + '.' + field.name)
-            }
-        },
-        attributeColumnRemove: function(field) {
-            this.resetFieldValueInReduxForm('variations.c-table-with-inputs__headings.' + field.name);
-            this.unsetAttributeFieldOnAllVariations(field);
-            this.props.attributeColumnRemove(field.name);
         },
         variationRowRemove: function(variationId) {
             this.props.resetSection('variations.' + 'variation-' + variationId.toString());
@@ -95,6 +76,8 @@ define([
         renderVariationTableHeading: function(field) {
             if (field.isCustomAttribute) {
                 var isLastAttributeFieldColumn = stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
+                let fieldName = 'attributes.' + field.name;
+
                 var renderRemoveButton = () => {
                     return (
                         <button type="button"
@@ -105,12 +88,13 @@ define([
                         </button>
                     );
                 };
+
                 return (
                     <th className={'c-table-with-inputs__cell c-table-with-inputs__cell-heading'}>
                         <div>
                             <Field
                                 type="text"
-                                name={field.name}
+                                name={fieldName}
                                 placeholder="Variation name (e.g. Color)"
                                 className={"c-table-with-inputs__text-input"}
                                 component="input"
@@ -139,12 +123,10 @@ define([
         },
         renderVariationsTableHeaderRow: function() {
             return (
-                <FormSection name={"c-table-with-inputs__headings"}>
-                    <tr className={"c-table-with-inputs__header-row"}>
-                        <th style={firstColumnCellStyle}></th>
-                        {this.renderVariationHeadings()}
-                    </tr>
-                </FormSection>
+                <tr className={"c-table-with-inputs__header-row"}>
+                    <th style={firstColumnCellStyle}></th>
+                    {this.renderVariationHeadings()}
+                </tr>
             );
         },
         renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
@@ -281,7 +263,7 @@ define([
             var removeOnClick = isLastVariation ? function() {
             } : this.variationRowRemove.bind(this, variationId);
             return (
-                <FormSection name={"variation-" + variationId}>
+                <FormSection name={"variations.variation-" + variationId}>
                     <tr className={
                         "u-border-none " +
                         "c-table-with-inputs__row " +
@@ -309,12 +291,10 @@ define([
         renderVariationsTable: function() {
             return (
                 <Form>
-                    <FormSection name={"variations"}>
-                        <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
-                            {this.renderVariationsTableHeaderRow()}
-                            {this.renderVariations()}
-                        </table>
-                    </FormSection>
+                    <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
+                        {this.renderVariationsTableHeaderRow()}
+                        {this.renderVariations()}
+                    </table>
                 </Form>
             );
         },
@@ -341,7 +321,7 @@ define([
             }
         }
     }
-    function attributeColumnHasNoValue(variationValues, fieldName) {
-        return (!variationValues || !variationValues['c-table-with-inputs__headings'] || variationValues['c-table-with-inputs__headings'][fieldName] == undefined);
+    function attributeColumnHasNoValue(attributeValues, fieldName) {
+        return (!attributeValues || attributeValues[fieldName] == undefined);
     }
 });
