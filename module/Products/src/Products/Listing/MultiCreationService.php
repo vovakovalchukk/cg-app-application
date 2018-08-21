@@ -197,7 +197,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             $this->updateProductEntity($product, $productData);
             $this->saveProductDetails($product, $productData, $variationsData);
-            $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData);
+            $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData, $processGuid);
             $this->saveProductAccountDetails($accounts, $product, $variationsData);
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
@@ -441,18 +441,23 @@ class MultiCreationService implements LoggerAwareInterface
         int $productId,
         string $channel,
         int $ou,
-        array $productChannelData
+        array $productChannelData,
+        string $processGuid
     ): ProductChannelDetail {
         return $this->productChannelDetailMapper->fromArray([
             'productId' => $productId,
             'channel' => $channel,
             'organisationUnitId' => $ou,
-            'external' => $this->channelService->formatExternalChannelData($channel, $productChannelData),
+            'external' => $this->channelService->formatExternalChannelData($channel, $productChannelData, $processGuid),
         ]);
     }
 
-    protected function saveProductChannelDetails(array $channels, Product $product, array $productData)
-    {
+    protected function saveProductChannelDetails(
+        array $channels,
+        Product $product,
+        array $productData,
+        string $processGuid
+    ): void {
         foreach (($productData['productChannelDetail'] ?? []) as $productChannelData) {
             $channel = $productChannelData['channel'] ?? null;
             if (!$channel || !in_array($channel, $channels)) {
@@ -463,7 +468,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $product->getId(),
                     $channel,
                     $product->getOrganisationUnitId(),
-                    $productChannelData
+                    $productChannelData,
+                    $processGuid
                 )
             );
         }

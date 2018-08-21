@@ -222,14 +222,10 @@ class Service implements
         );
     }
 
-    public function formatExternalChannelData(array $data): array
+    public function formatExternalChannelData(array $data, string $processGuid): array
     {
         if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
             try {
-                $processGuid = $data['processGuid'] ?? null;
-                if (!$processGuid) {
-                    throw new NotFound('The process GUID wasn\'t found on the listings data');
-                }
                 $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
                 $epid = $epidEntity->getEpid();
                 $epidAccountId = $epidEntity->getAccountId();
