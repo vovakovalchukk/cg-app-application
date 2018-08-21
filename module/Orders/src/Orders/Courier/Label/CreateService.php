@@ -132,7 +132,7 @@ class CreateService extends ServiceAbstract
 
         // Check this label doesn't already exist before we try to create it
         // This needs to happen inside the lock to prevent duplication
-        if ($this->doesOrderLabelExistForOrder($order)) {
+        if ($this->doesOrderLabelExistForOrder($order) && !$this->labelInFetchRateStatus($orderLabel)) {
             $this->unlockOrderLabel($orderLabel);
             throw (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
         }
@@ -220,5 +220,10 @@ class CreateService extends ServiceAbstract
             $ordersItemsData->attach($orderItemsData);
         }
         return $ordersItemsData;
+    }
+
+    protected function labelInFetchRateStatus(OrderLabel $orderLabel)
+    {
+        return ($orderLabel->getStatus() !== OrderLabelStatus::RATES_FETCHED);
     }
 }
