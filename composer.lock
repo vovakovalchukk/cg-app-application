@@ -3769,7 +3769,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "45dae512de1f694c31a768d9cb75b48d553d2b9c"
+                "reference": "16bc7b1ff5f43ab088542e892946778ee3b3b460"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
