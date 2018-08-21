@@ -1259,12 +1259,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "395a9c8053e943b6de5c914d18e6cdc88039d335"
+                "reference": "aaa277765bd9e2876bcf8ed65a47b3ad66a34574"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-9782-update-gearmanclient-98cc79.zip",
-                "reference": "395a9c8053e943b6de5c914d18e6cdc88039d335",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-9782-update-gearmanclient-61a43d.zip",
+                "reference": "aaa277765bd9e2876bcf8ed65a47b3ad66a34574",
                 "shasum": null
             },
             "require": {
@@ -1295,7 +1295,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-08-21T08:19:23+00:00"
+            "time": "2018-08-21T11:52:24+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
