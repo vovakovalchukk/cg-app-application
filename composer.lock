@@ -4156,12 +4156,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "502b514df6cc8a3b2772bcbc6769735d50169463"
+                "reference": "8e9e9c066c82996361cd79413a84cac540e14750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-182-SignupCosmeticIssues-44b319.zip",
-                "reference": "502b514df6cc8a3b2772bcbc6769735d50169463",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-182-SignupCosmeticIssues-5b39b7.zip",
+                "reference": "8e9e9c066c82996361cd79413a84cac540e14750",
                 "shasum": null
             },
             "require": {
@@ -4201,7 +4201,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-08-07T14:27:14+00:00"
+            "time": "2018-08-21T10:28:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -5503,7 +5503,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6296,7 +6296,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8177,7 +8177,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -8791,7 +8791,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -8822,7 +8822,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9167,7 +9167,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
