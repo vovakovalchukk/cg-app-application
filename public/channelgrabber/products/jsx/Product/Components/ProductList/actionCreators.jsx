@@ -8,6 +8,7 @@ define([
     "use strict";
     
     const PRODUCTS_URL = "/products/ajax";
+    const INITIAL_VARIATION_COUNT = 2;
     
     var actionCreators = (function() {
         
@@ -49,7 +50,7 @@ define([
             });
         };
         let getProductsSuccess = function(data) {
-            console.log('in AQ getProductsSuccess with Data: ', data );
+            console.log('in AQ getProductsSuccess with Data: ', data);
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
@@ -58,9 +59,6 @@ define([
         };
         
         return {
-            initialSimpleAndParentProductsLoad: (products) => {
-            
-            },
             productsLinksLoad: (allProductsLinks) => {
                 return {
                     type: "PRODUCTS_LINKS_LOAD",
@@ -86,43 +84,42 @@ define([
                     function successCallback(data) {
                         console.log('Provider -in successCallback of performProductsRequest');
                         
-                        dispatch(getProductsSuccess(data))
-                        // var self = this;
-                        // this.setState({
-                        //     products: result.products,
-                        //     maxListingsPerAccount: result.maxListingsPerAccount,
-                        //     pagination: result.pagination,
-                        //     initialLoadOccurred: true,
-                        //     searchTerm: searchTerm,
-                        //     skuList: skuList,
-                        //     accounts: result.accounts,
-                        //     createListingsAllowedChannels: result.createListingsAllowedChannels,
-                        //     createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
-                        //     productSearchActive: result.productSearchActive
-                        // }, function() {
-                        //     $('#products-loading-message').hide();
-                        //     self.onNewProductsReceived();
-                        // });
+                        dispatch(getProductsSuccess(data));
+                        $('#products-loading-message').hide();
+                        
+                        var allDefaultVariationIds = [];
+                        data.products.forEach((product) => {
+                            var defaultVariationIds = product.variationIds.slice(0, INITIAL_VARIATION_COUNT);
+                            allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
+                        })
+                        
+                        if (allDefaultVariationIds.length == 0) {
+                            // TODO -implement below via Redux
+                            dispatch(actionCreators.getLinkedProducts())
+                            return;
+                        }
+    
+                            var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
+                            dispatch(actionCreators.getVariations(productFilter))
+                        
                     }
                     
                     function errorCallback(err) {
-                        console.log('in Provider error callback with err: ', err);
-                        
-                        
                         throw 'Unable to load products';
                     }
-                    
-                    
                 }
             },
             //todo - make this do something....
             getLinkedProducts: () => {
+                console.log('in getLinkedProducts');
+                
+                
                 return {
                     type: 'LINKED_PRODUCTS_REQUEST',
                     payload: {}
                 }
             },
-            fetchVariations: (filter) => {
+            getVariations: (filter) => {
                 return function(dispatch, getState) {
                     console.log('in fetchVariations aq');
                     dispatch(getProductVariationsRequest());
