@@ -307,16 +307,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.19.2",
+            "version": "1.19.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "78185c63a18beb1bbb8b575d993ca106d2e1c307"
+                "reference": "c60c98705fc5f351792ecd7cf09ce3c28fa3b39b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.2-732324.zip",
-                "reference": "78185c63a18beb1bbb8b575d993ca106d2e1c307",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.3-e44978.zip",
+                "reference": "c60c98705fc5f351792ecd7cf09ce3c28fa3b39b",
                 "shasum": null
             },
             "require": {
@@ -366,7 +366,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-09T13:22:22+00:00"
+            "time": "2018-08-10T13:11:38+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -1935,10 +1935,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "2214854255224f3ee89733e0da853c88e5952a44"
+                "reference": "77b79cc4432ada16eb0053dec802693ea10f4672"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-cf4da0.zip",
+                "reference": "77b79cc4432ada16eb0053dec802693ea10f4672",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.19.0",
+                "channelgrabber/billing": "^1.19.3",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1949,6 +1955,7 @@
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/transaction": ">=1.1.1, <2.0.0",
                 "channelgrabber/user": "^1.22.4",
+                "channelgrabber/zf2-email-template": "dev-CGIV-9760-double-subscriptions as 1.0.25",
                 "composer/composer": "@dev",
                 "symfony/console": "~2.1",
                 "zendframework/zend-di": ">=2.2.5",
@@ -1977,7 +1984,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-08-02T13:10:02+00:00"
+            "time": "2018-08-21T14:11:07+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3792,7 +3799,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-08-20T14:22:29+00:00"
+            "time": "2018-08-21T14:03:22+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
@@ -9976,8 +9983,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
