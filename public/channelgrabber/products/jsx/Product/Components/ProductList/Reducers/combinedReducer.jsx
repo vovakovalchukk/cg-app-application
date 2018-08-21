@@ -3,13 +3,15 @@ define([
     'Product/Components/ProductList/Reducers/productsReducer',
     'Product/Components/ProductList/Reducers/tabsReducer',
     'Product/Components/ProductList/Reducers/columnsReducer',
-    'Product/Components/ProductList/Reducers/listReducer'
+    'Product/Components/ProductList/Reducers/listReducer',
+    'Product/Components/ProductList/Reducers/accountReducer'
 ], function(
     Redux,
     productsReducer,
     tabsReducer,
     columnsReducer,
-    listReducer
+    listReducer,
+    accountReducer
 ) {
     "use strict";
     
@@ -17,7 +19,8 @@ define([
         products: productsReducer,
         tabs: tabsReducer,
         columns: columnsReducer,
-        list: listReducer
+        list: listReducer,
+        account: accountReducer
     });
     
     const combinedReducer = (state, action) => {

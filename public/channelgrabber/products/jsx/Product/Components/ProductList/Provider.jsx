@@ -37,8 +37,6 @@ define([
     );
     
     
-    
-    
     var ProductListProvider = React.createClass({
         getDefaultProps: function() {
             return {
@@ -54,6 +52,7 @@ define([
         },
         componentDidMount: function(){
           console.log('in CDM of Provider');
+            store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
             store.dispatch(ActionCreators.getProducts());
         },
         // componentWillReceiveProps: function(newProps) {

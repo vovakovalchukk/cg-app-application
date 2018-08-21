@@ -12,12 +12,13 @@ define([
             simpleAndParentProducts: false
         },
         simpleAndParentProducts: [],
-        variationsByParent: []
+        variationsByParent: [],
+        productLinks:{}
     };
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in productsReducer -R PRODUCTS_GET_REQUEST_SUCCESS action.payload.products : ' , action.payload.products);
+            // console.log('in productsReducer -R PRODUCTS_GET_REQUEST_SUCCESS action.payload.products : ' , action.payload.products);
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -27,16 +28,17 @@ define([
             });
             return newState;
         },
-        "PRODUCTS_LINKS_LOAD": function(state, action) {
+        "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
+            console.log('in PRODUCT_LINKS_GET_REQUEST_SUCCESS -R action.payload.productLinks: ' , action.payload.productLinks);
+            
+            
             let newState = Object.assign({}, state, {
-                allProductsLinks: action.payload.allProductsLinks
+                allProductsLinks: action.payload.productLinks
             });
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in product_variations_Get_request_success with action: ' , action);
-            
-            
+            // console.log('in product_variations_Get_request_success with action: ' , action);
             let newState = Object.assign({}, state, {
                 variationsByParent: action.payload
             });

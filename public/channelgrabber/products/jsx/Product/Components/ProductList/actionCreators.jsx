@@ -8,6 +8,7 @@ define([
     "use strict";
     
     const PRODUCTS_URL = "/products/ajax";
+    const PRODUCT_LINKS_URL = "/products/links/ajax"
     const INITIAL_VARIATION_COUNT = 2;
     
     var actionCreators = (function() {
@@ -50,15 +51,30 @@ define([
             });
         };
         let getProductsSuccess = function(data) {
-            console.log('in AQ getProductsSuccess with Data: ', data);
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
                 
             }
         };
+        let getProductLinksSuccess = (productLinks) => {
+            return {
+                type: "PRODUCT_LINKS_GET_REQUEST_SUCCESS",
+                payload: {
+                    productLinks
+                }
+            }
+        };
         
         return {
+            storeAccountFeatures: (features) => {
+                return {
+                    type: "ACCOUNT_FEATURES_STORE",
+                    payload: {
+                        features
+                    }
+                }
+            },
             productsLinksLoad: (allProductsLinks) => {
                 return {
                     type: "PRODUCTS_LINKS_LOAD",
@@ -98,9 +114,9 @@ define([
                             dispatch(actionCreators.getLinkedProducts())
                             return;
                         }
-    
-                            var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
-                            dispatch(actionCreators.getVariations(productFilter))
+                        
+                        var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
+                        dispatch(actionCreators.getVariations(productFilter))
                         
                     }
                     
@@ -113,15 +129,95 @@ define([
             getLinkedProducts: () => {
                 console.log('in getLinkedProducts');
                 
-                
-                return {
-                    type: 'LINKED_PRODUCTS_REQUEST',
-                    payload: {}
+                return function(dispatch, getState) {
+                    console.log('in getLinkedPRoducts getState: ', getState());
+                    let state = getState();
+                    if (!state.account.features.linkedProducts) {
+                        return;
+                    }
+                    window.triggerEvent('fetchingProductLinksStart');
+                    
+                    var skusToFindLinkedProductsFor = {};
+                    for (var productId in state.products.variations) {
+                        state.products.variations[productId].forEach(function(variation) {
+                            skusToFindLinkedProductsFor[variation.sku] = variation.sku;
+                        });
+                    }
+                    
+                    state.products.visibleRows.forEach(function(product) {
+                        if (product.variationCount == 0 && product.sku) {
+                            skusToFindLinkedProductsFor[product.sku] = product.sku;
+                        }
+                    });
+                    $.ajax({
+                        url: PRODUCT_LINKS_URL,
+                        data: {
+                            skus: JSON.stringify(skusToFindLinkedProductsFor)
+                        },
+                        type: 'POST',
+                        success: function(response) {
+                            console.log('getProductsLinks -AQ -success - response: ' , response);
+                            
+                            
+                            var products = [];
+                            if (response.productLinks) {
+                                products = response.productLinks;
+                            }
+                            
+                            dispatch(getProductLinksSuccess(response.productLinks))
+                            //TODO - set these products appropriately to reduxStore to interpret
+                            // this.setState({
+                            //     allProductLinks: products
+                            // },
+                            window.triggerEvent('fetchingProductLinksStop')
+                        },
+                        error: function(error) {
+                            console.warn(error);
+                        }
+                    });
+                    
+                    
+                    // if (!this.props.features.linkedProducts) {
+                    //     return;
+                    // }
+                    // window.triggerEvent('fetchingProductLinksStart');
+                    // var skusToFindLinkedProductsFor = {};
+                    // for (var productId in this.state.variations) {
+                    //     this.state.variations[productId].forEach(function(variation) {
+                    //         skusToFindLinkedProductsFor[variation.sku] = variation.sku;
+                    //     });
+                    // }
+                    // this.state.products.forEach(function(product) {
+                    //     if (product.variationCount == 0 && product.sku) {
+                    //         skusToFindLinkedProductsFor[product.sku] = product.sku;
+                    //     }
+                    // });
+                    // $.ajax({
+                    //     url: '/products/links/ajax',
+                    //     data: {
+                    //         skus: JSON.stringify(skusToFindLinkedProductsFor)
+                    //     },
+                    //     type: 'POST',
+                    //     success: function(response) {
+                    //         var products = [];
+                    //         if (response.productLinks) {
+                    //             products = response.productLinks;
+                    //         }
+                    //
+                    //         this.setState({
+                    //                 allProductLinks: products
+                    //             },
+                    //             window.triggerEvent('fetchingProductLinksStop')
+                    //         );
+                    //     }.bind(this),
+                    //     error: function(error) {
+                    //         console.warn(error);
+                    //     }
+                    // });
                 }
             },
             getVariations: (filter) => {
                 return function(dispatch, getState) {
-                    console.log('in fetchVariations aq');
                     dispatch(getProductVariationsRequest());
                     AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
                     $('#products-loading-message').show();
@@ -131,11 +227,9 @@ define([
                             data.products,
                             filter.getParentProductId()
                         );
-                        console.log('new variationsByParent in aqß: ', variationsByParent);
-                        
                         // set variations to state --- same effect as setting it to products.variationsByParent
                         dispatch(getProductVariationsRequestSuccess(variationsByParent))
-                        dispatch(actionCreators.getLinkedProducts())
+                        dispatch(actionCreators.getLinkedProducts());
                         
                         $('#products-loading-message').hide()
                     }
