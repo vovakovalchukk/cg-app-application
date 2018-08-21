@@ -6,6 +6,7 @@ use CG\Billing\Shipping\Charge\Entity as ShippingCharge;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Exception\InsufficientBalanceException;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
+use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData as OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
@@ -13,10 +14,12 @@ use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDat
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Request\Shipping\Label\Rate as RateLabelRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
+use CG\User\Entity as User;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\BadResponseException;
 use Throwable;
@@ -32,9 +35,11 @@ class Usps extends Other
         ShipStationClient $shipStationClient,
         GuzzleClient $guzzleClient,
         OrderLabelService $orderLabelService,
+        OrderTrackingMapper $orderTrackingMapper,
+        OrderTrackingService $orderTrackingService,
         ShippingLedgerService $shippingLedgerService
     ) {
-        parent::__construct($shipStationClient, $guzzleClient, $orderLabelService);
+        parent::__construct($shipStationClient, $guzzleClient, $orderLabelService, $orderTrackingMapper, $orderTrackingService);
         $this->shippingLedgerService = $shippingLedgerService;
     }
 
@@ -44,6 +49,7 @@ class Usps extends Other
         OrderDataCollection $ordersData,
         OrderParcelsDataCollection $orderParcelsData,
         OrganisationUnit $rootOu,
+        User $user,
         Account $shippingAccount,
         Account $shipStationAccount
     ): array {
@@ -55,6 +61,7 @@ class Usps extends Other
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
         $labelResults = $this->createLabelsFromRates($ordersData, $shippingAccount, $shipStationAccount);
+        $this->saveTrackingNumbersForSuccessfulLabels($labelResults->getResponses(), $orders, $user, $shippingAccount);
         $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labelResults->getResponses());
         // Note: we're deliberately NOT refunding the users balance for any failures as there's

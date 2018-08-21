@@ -117,6 +117,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             $ordersData,
             $orderParcelsData,
             $rootOu,
+            $user,
             $shippingAccountToUse,
             $shipStationAccountToUse
         );
