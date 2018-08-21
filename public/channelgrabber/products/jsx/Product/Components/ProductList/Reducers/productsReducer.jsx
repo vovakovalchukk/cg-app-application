@@ -30,8 +30,6 @@ define([
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
             console.log('in PRODUCT_LINKS_GET_REQUEST_SUCCESS -R action.payload.productLinks: ' , action.payload.productLinks);
-            
-            
             let newState = Object.assign({}, state, {
                 allProductsLinks: action.payload.productLinks
             });

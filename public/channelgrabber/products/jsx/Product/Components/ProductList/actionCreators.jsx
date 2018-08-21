@@ -92,10 +92,10 @@ define([
                     var filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
                     
-                    console.log('Provider - about to fetch with filter: ', filter);
                     dispatch(getProductsRequest());
                     
                     fetchProducts(filter, successCallback, errorCallback);
+                    
                     
                     function successCallback(data) {
                         console.log('Provider -in successCallback of performProductsRequest');
@@ -110,16 +110,13 @@ define([
                         })
                         
                         if (allDefaultVariationIds.length == 0) {
-                            // TODO -implement below via Redux
                             dispatch(actionCreators.getLinkedProducts())
                             return;
                         }
                         
                         var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
                         dispatch(actionCreators.getVariations(productFilter))
-                        
                     }
-                    
                     function errorCallback(err) {
                         throw 'Unable to load products';
                     }
@@ -127,7 +124,7 @@ define([
             },
             //todo - make this do something....
             getLinkedProducts: () => {
-                console.log('in getLinkedProducts');
+                console.log('in getLinkedProducts AC ...');
                 
                 return function(dispatch, getState) {
                     console.log('in getLinkedPRoducts getState: ', getState());
@@ -157,18 +154,7 @@ define([
                         type: 'POST',
                         success: function(response) {
                             console.log('getProductsLinks -AQ -success - response: ' , response);
-                            
-                            
-                            var products = [];
-                            if (response.productLinks) {
-                                products = response.productLinks;
-                            }
-                            
                             dispatch(getProductLinksSuccess(response.productLinks))
-                            //TODO - set these products appropriately to reduxStore to interpret
-                            // this.setState({
-                            //     allProductLinks: products
-                            // },
                             window.triggerEvent('fetchingProductLinksStop')
                         },
                         error: function(error) {
