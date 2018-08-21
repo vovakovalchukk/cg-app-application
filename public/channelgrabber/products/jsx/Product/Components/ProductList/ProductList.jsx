@@ -52,8 +52,11 @@ define([
             document.removeEventListener("fullscreenchange", this.updateDimensions);
         },
         componentWillReceiveProps: function() {
+            //todo get this working again
             var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
-            horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
+            if(horizontalScrollbar){
+                horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
+            }
         },
         updateDimensions: function() {
             this.setState({
@@ -127,7 +130,7 @@ define([
             })
         },
         isReadyToRenderTable: function() {
-            return this.state.productsListContainer && this.state.productsListContainer.height && this.getVisibleRows().length;
+            return this.state.productsListContainer && this.state.productsListContainer.height && this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length;
         },
         renderProducts: function() {
             let rows = this.getVisibleRows();

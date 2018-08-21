@@ -16,7 +16,8 @@ define([
     };
     
     var ProductsReducer = reducerCreator(initialState, {
-        "INITIAL_SIMPLE_AND_PARENT_PRODUCTS_LOAD": function(state, action) {
+        "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
+            console.log('in productsReducer -R PRODUCTS_GET_REQUEST_SUCCESS action.payload.products : ' , action.payload.products);
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -33,6 +34,9 @@ define([
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
+            console.log('in product_variations_Get_request_success with action: ' , action);
+            
+            
             let newState = Object.assign({}, state, {
                 variationsByParent: action.payload
             });
