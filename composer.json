@@ -54,7 +54,7 @@
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.2.15",
         "channelgrabber/order": "~1.39.2",
-        "channelgrabber/payment": "~1.10.0",
+        "channelgrabber/payment": "dev-CGIV-9760-double-subscriptions as 1.10.1",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
