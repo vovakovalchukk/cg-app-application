@@ -66,22 +66,22 @@ define([
         getInitialState: function() {
             return {
                 currentView: PRODUCT_LIST_VIEW,
-                products: [],
-                variations: [],
-                allProductLinks: {},
-                editingProductLink: {
-                    sku: "",
-                    links: []
-                },
+                // products: [],
+                // variations: [],
+                // allProductLinks: {},
+                // editingProductLink: {
+                //     sku: "",
+                //     links: []
+                // },
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
-                pagination: {
-                    total: 0,
-                    limit: 0,
-                    page: 0
-                },
-                fetchingUpdatedStockLevelsForSkus: {},
+                // pagination: {
+                //     total: 0,
+                //     limit: 0,
+                //     page: 0
+                // },
+                // fetchingUpdatedStockLevelsForSkus: {},
                 accounts: {},
                 createListing: {
                     productId: null

@@ -47,7 +47,8 @@ define([
                 productsListContainer: {
                     height: null,
                     width: null
-                }
+                },
+                fetchingUpdatedStockLevelsForSkus: {}
             }
         },
         componentDidMount() {
@@ -67,7 +68,10 @@ define([
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillReceiveProps: function() {
-            //todo get this working again
+            
+            console.log('ProductList CWRP: ', this.props.products);
+            
+            
             var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
             if(horizontalScrollbar){
                 horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
