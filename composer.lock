@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb8bba7fe790507a0e2223ba0311ec21",
+    "content-hash": "e5d62bba43650b9a3e18f8fcd0b4f25b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1937,6 +1937,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
                 "reference": "820025d28e34424cdfdbcefac11e8b1ae7346d20"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-020b5d.zip",
+                "reference": "820025d28e34424cdfdbcefac11e8b1ae7346d20",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/billing": "^1.19.3",
                 "channelgrabber/cglib": "^1.16.0",
@@ -1978,7 +1984,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-08-21T14:57:58+00:00"
+            "time": "2018-08-22T07:53:19+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3644,7 +3650,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-20T11:03:50+00:00"
+            "time": "2018-08-21T15:48:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -3771,6 +3777,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
                 "reference": "16bc7b1ff5f43ab088542e892946778ee3b3b460"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9760-double-subscriptions-c43fd9.zip",
+                "reference": "16bc7b1ff5f43ab088542e892946778ee3b3b460",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -9964,8 +9976,8 @@
             "package": "channelgrabber/zf2-billing"
         },
         {
-            "alias": "1.0.25",
-            "alias_normalized": "1.0.25.0",
+            "alias": "1.0.x-dev",
+            "alias_normalized": "1.0.9999999.9999999-dev",
             "version": "dev-CGIV-9760-double-subscriptions",
             "package": "channelgrabber/zf2-email-template"
         }
@@ -9977,8 +9989,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
