@@ -39,6 +39,14 @@ define([
                     total: 0,
                     limit: 0,
                     page: 0
+                },
+                editingProductLink: {
+                    sku: "",
+                    links: []
+                },
+                productsListContainer: {
+                    height: null,
+                    width: null
                 }
             }
         },
@@ -46,10 +54,17 @@ define([
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
+            
+            window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+    
         },
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
+    
+            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillReceiveProps: function() {
             //todo get this working again
@@ -75,11 +90,24 @@ define([
         // todo - change the below request to trigger new Redux products request
         //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
         // },
+        onProductLinkRefresh: function() {
+            this.props.actions.getLinkedProducts();
+        },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
                                   submitCallback={this.filterBySearch}/>
             }
+        },
+        onEditProductLink: function(event) {
+        
+            let {sku, productLinks} = event.detail;
+            this.setState({
+                editingProductLink: {
+                    sku,
+                    links: productLinks
+                }
+            }, console.log('in ProductList onEditProductLink with event.detail:',event.detail,'this.state.editingProductLInk: ' , this.state.editingProductLink));
         },
         renderAddNewProductButton: function() {
             return (
@@ -178,12 +206,12 @@ define([
                         <div id="products-list">
                             {this.renderProducts()}
                         </div>
-                        <ProductLinkEditor
-                            productLink={this.state.editingProductLink}
-                            onEditorClose={this.onProductLinksEditorClose}
-                            fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
-                        />
                     </div>
+                    <ProductLinkEditor
+                        productLink={this.state.editingProductLink}
+                        onEditorClose={this.onProductLinksEditorClose}
+                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
+                    />
                     <ProductFooter
                         pagination={this.props.list.pagination}
                         onPageChange={this.onPageChange}

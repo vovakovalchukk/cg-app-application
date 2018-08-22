@@ -230,7 +230,7 @@ define([
             
             function fetchProductVariationsCallback(data) {
                 let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
-                dispatch(productVariationsGetRequestSuccess(variationsByParent));
+                dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowIdToExpand))
             }
         }

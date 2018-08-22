@@ -93,8 +93,8 @@ define([
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
             window.addEventListener('getProductsBySku', this.onSkuRequest, false);
-            window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
-            window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+            // window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            // window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillUnmount: function() {
             this.productsRequest.abort();
@@ -102,8 +102,8 @@ define([
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
             window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
-            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
-            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+            // window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            // window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         filterBySearch: function(searchTerm) {
             this.performProductsRequest(null, searchTerm);
@@ -153,19 +153,9 @@ define([
                 updateStockLevelsRequest
             );
         },
-        onProductLinkRefresh: function() {
-            this.fetchLinkedProducts();
-        },
-        onEditProductLink: function(event) {
-            var productSku = event.detail.sku;
-            var productLinks = event.detail.productLinks;
-            this.setState({
-                editingProductLink: {
-                    sku: productSku,
-                    links: productLinks
-                }
-            });
-        },
+        // onProductLinkRefresh: function() {
+        //     this.fetchLinkedProducts();
+        // },
         onCreateListingIconClick: function(productId) {
             var product = this.state.products.find(function(product) {
                 return product.id == productId;
@@ -361,11 +351,6 @@ define([
                         features={this.props.features}
                         addNewProductButtonClick={this.addNewProductButtonClick}
                         accounts={this.state.accounts}
-                    />
-                    <ProductLinkEditor
-                        productLink={this.state.editingProductLink}
-                        onEditorClose={this.onProductLinksEditorClose}
-                        fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
                     />
                 </div>
             )
