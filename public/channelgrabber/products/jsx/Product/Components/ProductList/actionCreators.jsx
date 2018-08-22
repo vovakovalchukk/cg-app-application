@@ -100,11 +100,10 @@ define([
                 }
             },
             getProducts: (pageNumber, searchTerm, skuList) => {
-                return function(dispatch, getState) {
+                return function(dispatch) {
                     pageNumber = pageNumber || 1;
                     searchTerm = searchTerm || '';
                     skuList = skuList || [];
-                    $('#products-loading-message').show();
                     var filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
                     
@@ -113,10 +112,7 @@ define([
                     fetchProducts(filter, successCallback, errorCallback);
                     
                     function successCallback(data) {
-                        console.log('Provider -in successCallback of performProductsRequest');
-                        
                         dispatch(getProductsSuccess(data));
-                        $('#products-loading-message').hide();
                         
                         var allDefaultVariationIds = [];
                         data.products.forEach((product) => {
@@ -139,7 +135,6 @@ define([
             },
             getLinkedProducts: () => {
                 return function(dispatch, getState) {
-                    console.log('in getLinkedPRoducts getState: ', getState());
                     let state = getState();
                     if (!state.account.features.linkedProducts) {
                         return;
@@ -155,8 +150,8 @@ define([
                         },
                         type: 'POST',
                         success: function(response) {
-                            dispatch(getProductLinksSuccess(response.productLinks))
-                            window.triggerEvent('fetchingProductLinksStop')
+                            dispatch(getProductLinksSuccess(response.productLinks));
+                            window.triggerEvent('fetchingProductLinksStop');
                         },
                         error: function(error) {
                             console.warn(error);
@@ -166,7 +161,6 @@ define([
             },
             getUpdatedStockLevels(productSku) {
                 return function(dispatch, getState) {
-                    console.log('in getUpdatedStockLevels with productSku: ', productSku);
                     var fetchingStockLevelsForSkus= getState().list.fetchingUpdatedStockLevelsForSkus;
                     fetchingStockLevelsForSkus[productSku] = true;
                     
@@ -174,7 +168,6 @@ define([
                     updateStockLevelsRequest();
                     
                     function updateStockLevelsRequest() {
-                        console.log('in updateStockLevelsRequest in getUpdatedStcokLevels AC');
                         $.ajax({
                             url: '/products/stock/ajax/' + productSku,
                             type: 'GET',
