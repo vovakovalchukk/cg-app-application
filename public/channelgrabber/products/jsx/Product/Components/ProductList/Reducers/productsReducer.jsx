@@ -35,16 +35,21 @@ define([
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
-            console.log('in ProductsReducer with stock_levels_update_request_success state : ', state);
+            
             const {response} = action.payload;
             let productsCopy = state.simpleAndParentProducts.slice();
             let visibleRowsCopy = state.visibleRows.slice();
             let variationsCopy = Object.assign({}, state.variationsByParent);
-            
+    
+    
+            console.log('STOCK_LEVELS_UPDATE_REQUEST_SUCCESS in ProductsReducer with stock_levels_update_request_success state : ', state , ' variationsCopy',variationsCopy);
+    
+    
             let newProducts = applyStockResponseToProducts(productsCopy, response);
             let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
             let newVariations = applyStockResponseToVariations(productsCopy, variationsCopy, response);
             
+            //
             let newState = Object.assign({}, state, {
                 simpleAndParentProducts: newProducts,
                 visibleRows: newVisibleRows,
@@ -148,6 +153,9 @@ define([
     
     function applyStockResponseToVariations(products, variations, response) {
         products.forEach((product) => {
+            if (product.variationCount == 0) {
+                return;
+            }
             variations[product.id].forEach(function(product) {
                 if (!response.stock[product.sku]) {
                     return;
