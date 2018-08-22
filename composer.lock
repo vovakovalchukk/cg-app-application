@@ -650,12 +650,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "432e21e85c6ca56c873b8e63092038fca6721011"
+                "reference": "d8dcd61912745dac73719358cd7383ea3a0bea31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-122-usps-frontend-cbdfc2.zip",
-                "reference": "432e21e85c6ca56c873b8e63092038fca6721011",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-TAC-122-usps-frontend-6c3509.zip",
+                "reference": "d8dcd61912745dac73719358cd7383ea3a0bea31",
                 "shasum": null
             },
             "require": {
@@ -668,7 +668,8 @@
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.10.6",
                 "channelgrabber/user": "^1.25.0",
-                "php": ">=7.1"
+                "php": ">=7.1",
+                "zendframework/zend-uri": "^2.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2, <1.1.0",
@@ -685,7 +686,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-22T09:39:19+00:00"
+            "time": "2018-08-22T10:55:20+00:00"
         },
         {
             "name": "channelgrabber/communication",
