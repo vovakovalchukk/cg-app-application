@@ -73,6 +73,14 @@ define([
                 }
             }
         };
+        let updateFetchingStockLevelsForSkus = (fetchingStockLevelsForSkus) =>{
+            return{
+                type: "FETCHING_STOCK_LEVELS_FOR_SKUS_UPDATE",
+                payload:{
+                    fetchingStockLevelsForSkus
+                }
+            }
+        };
         
         return {
             storeAccountFeatures: (features) => {
@@ -158,79 +166,28 @@ define([
             },
             getUpdatedStockLevels(productSku) {
                 return function(dispatch, getState) {
-    
                     console.log('in getUpdatedStockLevels with productSku: ', productSku);
-                    // var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
-                    // fetchingStockLevelsForSkuState[productSku] = true;
-                    //
-                    // dispatch fetching stocklevels for sku[productSku] <- hold this information in a reducer
+                    var fetchingStockLevelsForSkus= getState().list.fetchingUpdatedStockLevelsForSkus;
+                    fetchingStockLevelsForSkus[productSku] = true;
                     
+                    dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
                     updateStockLevelsRequest();
-                    //
+                    
                     function updateStockLevelsRequest() {
                         console.log('in updateStockLevelsRequest in getUpdatedStcokLevels AC');
-                        
-                        
                         $.ajax({
                             url: '/products/stock/ajax/' + productSku,
                             type: 'GET',
                             success: function(response) {
-                                
                                 dispatch(updateStockLevelsRequestSuccess(response));
-                               //
-                               //  let stateCopy = getState();
-                               //  stateCopy.products.simpleAndParentProducts.forEach((product)=>{
-                               //          if (product.variationCount == 0) {
-                               //              if (!response.stock[product.sku]) {
-                               //                  return;
-                               //              }
-                               //              product.stock = response.stock[product.sku];
-                               //              return;
-                               //          }
-                               //          stateCopy.products.variations[product.id].forEach(function(product) {
-                               //              if (!response.stock[product.sku]) {
-                               //                  return;
-                               //              }
-                               //              product.stock = response.stock[product.sku];
-                               //              return;
-                               //          });
-                               //  });
-                               // stateCopy.fetchingUpdatedStockLevelsForSkus[productSku] = false;
-                               // //todo send back new state
-                               //
-                               // // this.setState(newState);
-                                
-                                
-                                
-                                // var newState = this.state;
-                                // newState.products.forEach(function(product) {
-                                //     if (product.variationCount == 0) {
-                                //         if (!response.stock[product.sku]) {
-                                //             return;
-                                //         }
-                                //         product.stock = response.stock[product.sku];
-                                //         return;
-                                //     }
-                                //     newState.variations[product.id].forEach(function(product) {
-                                //         if (!response.stock[product.sku]) {
-                                //             return;
-                                //         }
-                                //         product.stock = response.stock[product.sku];
-                                //         return;
-                                //     });
-                                // });
-                                // newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
-                                // this.setState(newState);
-                            }.bind(this),
+                            },
                             error: function(error) {
                                 console.error(error);
                             }
                         });
-                    };
-                    // this.setState(
-                    //     fetchingStockLevelsForSkuState,
-                    //     updateStockLevelsRequest
-                    // );
+                        fetchingStockLevelsForSkus[productSku]=false;
+                        dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
+                    }
                 }
             },
             getVariations: (filter) => {
@@ -244,8 +201,7 @@ define([
                             data.products,
                             filter.getParentProductId()
                         );
-                        // set variations to state --- same effect as setting it to products.variationsByParent
-                        dispatch(getProductVariationsRequestSuccess(variationsByParent))
+                        dispatch(getProductVariationsRequestSuccess(variationsByParent));
                         dispatch(actionCreators.getLinkedProducts());
                         
                         $('#products-loading-message').hide()
@@ -317,7 +273,6 @@ define([
                 dispatch(expandProductSuccess(productRowIdToExpand))
             }
         }
-        
     })();
     
     return actionCreators;

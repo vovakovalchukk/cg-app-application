@@ -13,7 +13,7 @@ define([
         },
         simpleAndParentProducts: [],
         variationsByParent: [],
-        productLinks:{}
+        productLinks: {}
     };
     
     var ProductsReducer = reducerCreator(initialState, {
@@ -29,45 +29,31 @@ define([
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
-            // console.log('in PRODUCT_LINKS_GET_REQUEST_SUCCESS -R action.payload.productLinks: ' , action.payload.productLinks);
             let newState = Object.assign({}, state, {
                 allProductsLinks: action.payload.productLinks
             });
             return newState;
         },
-        "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS":function(state,action){
-            console.log('in ProductsReducer with stock_levels_update_request_success state : ',state);
+        "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
+            console.log('in ProductsReducer with stock_levels_update_request_success state : ', state);
             const {response} = action.payload;
             let productsCopy = state.simpleAndParentProducts.slice();
-            let variationsCopy = Object.assign({},state.variationsByParent);
+            let visibleRowsCopy = state.visibleRows.slice();
+            let variationsCopy = Object.assign({}, state.variationsByParent);
             
-            // let stateCopy = getState();
-            productsCopy.forEach((product)=>{
-                if (product.variationCount == 0) {
-                    if (!response.stock[product.sku]) {
-                        return;
-                    }
-                    product.stock = response.stock[product.sku];
-                    return;
-                }
-                variationsCopy.forEach(function(product) {
-                    if (!response.stock[product.sku]) {
-                        return;
-                    }
-                    product.stock = response.stock[product.sku];
-                    return;
-                });
-            });
+            let newProducts = applyStockResponseToProducts(productsCopy, response);
+            let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
+            let newVariations = applyStockResponseToVariations(productsCopy, variationsCopy, response);
             
             let newState = Object.assign({}, state, {
-                simpleAndParentProducts: productsCopy,
-                variations:variationsCopy
+                simpleAndParentProducts: newProducts,
+                visibleRows: newVisibleRows,
+                variations: newVariations
             });
-            console.log('just updated stock mode to the products');
+            
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
-            // console.log('in product_variations_Get_request_success with action: ' , action);
             let newState = Object.assign({}, state, {
                 variationsByParent: action.payload
             });
@@ -137,7 +123,7 @@ define([
         
     });
     
-    return ProductsReducer
+    return ProductsReducer;
     
     function changeExpandStatus(products, productId, desiredStatus) {
         let productRowIndex = products.findIndex((product) => {
@@ -145,5 +131,31 @@ define([
         });
         products[productRowIndex].expandStatus = desiredStatus;
         return products;
+    }
+    
+    function applyStockResponseToProducts(products, response) {
+        products.forEach((product) => {
+            if (product.variationCount == 0) {
+                if (!response.stock[product.sku]) {
+                    return;
+                }
+                product.stock = response.stock[product.sku];
+                return;
+            }
+        });
+        return products;
+    }
+    
+    function applyStockResponseToVariations(products, variations, response) {
+        products.forEach((product) => {
+            variations[product.id].forEach(function(product) {
+                if (!response.stock[product.sku]) {
+                    return;
+                }
+                product.stock = response.stock[product.sku];
+                return;
+            });
+        });
+        return variations;
     }
 });
