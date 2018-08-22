@@ -164,8 +164,13 @@ define([
                     // fetchingStockLevelsForSkuState[productSku] = true;
                     //
                     // dispatch fetching stocklevels for sku[productSku] <- hold this information in a reducer
-    
-                    var updateStockLevelsRequest = function() {
+                    
+                    updateStockLevelsRequest();
+                    //
+                    function updateStockLevelsRequest() {
+                        console.log('in updateStockLevelsRequest in getUpdatedStcokLevels AC');
+                        
+                        
                         $.ajax({
                             url: '/products/stock/ajax/' + productSku,
                             type: 'GET',
@@ -221,7 +226,7 @@ define([
                                 console.error(error);
                             }
                         });
-                    }.bind(this);
+                    };
                     // this.setState(
                     //     fetchingStockLevelsForSkuState,
                     //     updateStockLevelsRequest

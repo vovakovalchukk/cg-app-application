@@ -37,29 +37,34 @@ define([
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS":function(state,action){
             console.log('in ProductsReducer with stock_levels_update_request_success state : ',state);
-            
+            const {response} = action.payload;
+            let productsCopy = state.simpleAndParentProducts.slice();
+            let variationsCopy = Object.assign({},state.variationsByParent);
             
             // let stateCopy = getState();
-            // stateCopy.products.simpleAndParentProducts.forEach((product)=>{
-            //     if (product.variationCount == 0) {
-            //         if (!response.stock[product.sku]) {
-            //             return;
-            //         }
-            //         product.stock = response.stock[product.sku];
-            //         return;
-            //     }
-            //     stateCopy.products.variations[product.id].forEach(function(product) {
-            //         if (!response.stock[product.sku]) {
-            //             return;
-            //         }
-            //         product.stock = response.stock[product.sku];
-            //         return;
-            //     });
-            // });
-            // stateCopy.fetchingUpdatedStockLevelsForSkus[productSku] = false;
-            //todo send back new state
-        
-            // this.setState(newState);
+            productsCopy.forEach((product)=>{
+                if (product.variationCount == 0) {
+                    if (!response.stock[product.sku]) {
+                        return;
+                    }
+                    product.stock = response.stock[product.sku];
+                    return;
+                }
+                variationsCopy.forEach(function(product) {
+                    if (!response.stock[product.sku]) {
+                        return;
+                    }
+                    product.stock = response.stock[product.sku];
+                    return;
+                });
+            });
+            
+            let newState = Object.assign({}, state, {
+                simpleAndParentProducts: productsCopy,
+                variations:variationsCopy
+            });
+            console.log('just updated stock mode to the products');
+            return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
             // console.log('in product_variations_Get_request_success with action: ' , action);
