@@ -115,44 +115,44 @@ define([
         filterBySku: function(skuList) {
             this.performProductsRequest(null, null, skuList);
         },
-        fetchUpdatedStockLevels(productSku) {
-            var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
-            fetchingStockLevelsForSkuState[productSku] = true;
-            var updateStockLevelsRequest = function() {
-                $.ajax({
-                    url: '/products/stock/ajax/' + productSku,
-                    type: 'GET',
-                    success: function(response) {
-                        var newState = this.state;
-                        newState.products.forEach(function(product) {
-                            if (product.variationCount == 0) {
-                                if (!response.stock[product.sku]) {
-                                    return;
-                                }
-                                product.stock = response.stock[product.sku];
-                                return;
-                            }
-                            newState.variations[product.id].forEach(function(product) {
-                                if (!response.stock[product.sku]) {
-                                    return;
-                                }
-                                product.stock = response.stock[product.sku];
-                                return;
-                            });
-                        });
-                        newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
-                        this.setState(newState);
-                    }.bind(this),
-                    error: function(error) {
-                        console.error(error);
-                    }
-                });
-            }.bind(this);
-            this.setState(
-                fetchingStockLevelsForSkuState,
-                updateStockLevelsRequest
-            );
-        },
+        // fetchUpdatedStockLevels(productSku) {
+        //     var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
+        //     fetchingStockLevelsForSkuState[productSku] = true;
+        //     var updateStockLevelsRequest = function() {
+        //         $.ajax({
+        //             url: '/products/stock/ajax/' + productSku,
+        //             type: 'GET',
+        //             success: function(response) {
+        //                 var newState = this.state;
+        //                 newState.products.forEach(function(product) {
+        //                     if (product.variationCount == 0) {
+        //                         if (!response.stock[product.sku]) {
+        //                             return;
+        //                         }
+        //                         product.stock = response.stock[product.sku];
+        //                         return;
+        //                     }
+        //                     newState.variations[product.id].forEach(function(product) {
+        //                         if (!response.stock[product.sku]) {
+        //                             return;
+        //                         }
+        //                         product.stock = response.stock[product.sku];
+        //                         return;
+        //                     });
+        //                 });
+        //                 newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
+        //                 this.setState(newState);
+        //             }.bind(this),
+        //             error: function(error) {
+        //                 console.error(error);
+        //             }
+        //         });
+        //     }.bind(this);
+        //     this.setState(
+        //         fetchingStockLevelsForSkuState,
+        //         updateStockLevelsRequest
+        //     );
+        // },
         // onProductLinkRefresh: function() {
         //     this.fetchLinkedProducts();
         // },
