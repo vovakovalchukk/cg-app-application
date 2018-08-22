@@ -8,7 +8,7 @@ define([
     "use strict";
     
     const PRODUCTS_URL = "/products/ajax";
-    const PRODUCT_LINKS_URL = "/products/links/ajax"
+    const PRODUCT_LINKS_URL = "/products/links/ajax";
     const INITIAL_VARIATION_COUNT = 2;
     
     var actionCreators = (function() {
@@ -125,7 +125,7 @@ define([
             //todo - make this do something....
             getLinkedProducts: () => {
                 console.log('in getLinkedProducts AC ...');
-                
+                ///
                 return function(dispatch, getState) {
                     console.log('in getLinkedPRoducts getState: ', getState());
                     let state = getState();
@@ -161,45 +161,6 @@ define([
                             console.warn(error);
                         }
                     });
-                    
-                    
-                    // if (!this.props.features.linkedProducts) {
-                    //     return;
-                    // }
-                    // window.triggerEvent('fetchingProductLinksStart');
-                    // var skusToFindLinkedProductsFor = {};
-                    // for (var productId in this.state.variations) {
-                    //     this.state.variations[productId].forEach(function(variation) {
-                    //         skusToFindLinkedProductsFor[variation.sku] = variation.sku;
-                    //     });
-                    // }
-                    // this.state.products.forEach(function(product) {
-                    //     if (product.variationCount == 0 && product.sku) {
-                    //         skusToFindLinkedProductsFor[product.sku] = product.sku;
-                    //     }
-                    // });
-                    // $.ajax({
-                    //     url: '/products/links/ajax',
-                    //     data: {
-                    //         skus: JSON.stringify(skusToFindLinkedProductsFor)
-                    //     },
-                    //     type: 'POST',
-                    //     success: function(response) {
-                    //         var products = [];
-                    //         if (response.productLinks) {
-                    //             products = response.productLinks;
-                    //         }
-                    //
-                    //         this.setState({
-                    //                 allProductLinks: products
-                    //             },
-                    //             window.triggerEvent('fetchingProductLinksStop')
-                    //         );
-                    //     }.bind(this),
-                    //     error: function(error) {
-                    //         console.warn(error);
-                    //     }
-                    // });
                 }
             },
             getVariations: (filter) => {

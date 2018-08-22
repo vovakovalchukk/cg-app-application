@@ -23,7 +23,7 @@ define([
     
     const {Table} = FixedDataTable;
     
-    var CreateProduct = React.createClass({
+    var ProductList = React.createClass({
         getDefaultProps: function() {
             return {
                 products: [],
@@ -48,7 +48,6 @@ define([
             
             window.addEventListener("resize", this.updateDimensions);
     
-            window.addEventListener('productLinkRefresh', this.props.actions.getLinkedProducts, false);
     
     
             document.addEventListener("fullscreenchange", this.updateDimensions);
@@ -58,9 +57,11 @@ define([
             window.removeEventListener("resize", this.updateDimensions);
     
     
-            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
     
             document.removeEventListener("fullscreenchange", this.updateDimensions);
+            
+            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
     
       
         },
@@ -71,6 +72,7 @@ define([
                 horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
             }
         },
+        //
         updateDimensions: function() {
             this.setState({
                 productsListContainer: {
@@ -82,6 +84,11 @@ define([
         updateHorizontalScrollIndex: function() {
             this.props.actions.resetHorizontalScrollbarIndex();
         },
+        //todo - use this as a basis for implementing functionality for TAC-173
+        // onPageChange: function(pageNumber) {
+        // todo - change the below request to trigger new Redux products request
+        //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
+        // },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
@@ -192,7 +199,7 @@ define([
                         />
                     </div>
                     <ProductFooter
-                        pagination={this.state.pagination}
+                        pagination={this.props.list.pagination}
                         onPageChange={this.onPageChange}
                     />
                 </div>
@@ -200,6 +207,6 @@ define([
         }
     });
     
-    return CreateProduct;
+    return ProductList;
 })
 ;
