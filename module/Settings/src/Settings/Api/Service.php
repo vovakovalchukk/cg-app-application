@@ -7,11 +7,10 @@ use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Package\Collection as PackageCollection;
 use CG\Billing\Package\Entity as Package;
 use CG\Billing\Package\Filter as PackageFilter;
-use CG\Locale\DemoLink;
-use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG\Billing\Package\Service as PackageService;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Billing\Subscription\Service as SubscriptionService;
+use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -20,7 +19,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Sites;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
-use CG_UI\View\Prototyper\ViewModelFactory;
+use CG_Billing\Package\ManagementService as PackageManagementService;
 
 class Service implements LoggerAwareInterface
 {
@@ -30,7 +29,10 @@ class Service implements LoggerAwareInterface
     const LOG_CREDENTIALS_GEN = 'Public API credentials not found for OU %d, will generate';
     const LOG_ACCESS_DENIED = 'Public API access denied: OU %d not in UK and not on suitable Package.';
 
-    const MIN_PACKAGE_BAND = 'Growth Accelerator (USA)';
+    const MIN_PACKAGE_BAND = [
+        OrganisationUnit::LOCALE_UK => 'Medium',
+        OrganisationUnit::LOCALE_US => 'Growth Accelerator (USA)',
+    ];
     const MSG_UPGRADE = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>API access is limited to our \'%s\' package or higher. Click below to upgrade now.</p><p>Not sure? Contact our eCommerce specialists on %s to discuss or <a href="%s" target="_blank">Click Here</a> to book a demo.</p>';
     const MANAGE_PACKAGE_URI = '/billing/package';
 
@@ -54,7 +56,6 @@ class Service implements LoggerAwareInterface
 
     public function __construct(
         ActiveUserContainer $activeUserContainer,
-        ViewModelFactory $viewModelFactory,
         ApiCredentialsService $apiCredentialsService,
         OrganisationUnitService $organisationUnitService,
         SubscriptionService $subscriptionService,
@@ -63,7 +64,6 @@ class Service implements LoggerAwareInterface
         Sites $sites
     ) {
         $this->activeUserContainer = $activeUserContainer;
-        $this->viewModelFactory = $viewModelFactory;
         $this->apiCredentialsService = $apiCredentialsService;
         $this->organisationUnitService = $organisationUnitService;
         $this->subscriptionService = $subscriptionService;
@@ -81,9 +81,10 @@ class Service implements LoggerAwareInterface
             return $response;
         }
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        /** @var OrganisationUnit $rootOu */
         $rootOu = $this->organisationUnitService->fetch($rootOuId);
 
-        if ($this->isLocaleUK($rootOu)) {
+        if (!isset(static::MIN_PACKAGE_BAND[$rootOu->getLocale()])) {
             $response->setAllowed(true);
             return $response;
         }
@@ -96,11 +97,6 @@ class Service implements LoggerAwareInterface
 
         $response->setAllowed(true);
         return $response;
-    }
-
-    protected function isLocaleUK(OrganisationUnit $ou)
-    {
-        return ($ou->getLocale() == $ou::LOCALE_UK);
     }
 
     protected function isOusCurrentPackageAllowedAccess(OrganisationUnit $rootOu): bool
@@ -149,10 +145,11 @@ class Service implements LoggerAwareInterface
     protected function getMinimumRequiredPackageForAccess(OrganisationUnit $rootOu): Package
     {
         $packages = $this->fetchAvailablePackagesForOu($rootOu);
-        $minRequiredPackage = $packages->getBy('band', static::MIN_PACKAGE_BAND)->getFirst();
-        if ($minRequiredPackage == null) {
+        $minRequiredPackageBand = static::MIN_PACKAGE_BAND[$rootOu->getLocale()];
+        $minRequiredPackage = $packages->getBy('band', $minRequiredPackageBand)->getFirst();
+        if ($minRequiredPackage === null) {
             $exception = new \RuntimeException(
-                sprintf('No Package of the minimum band %s found for OU %d', static::MIN_PACKAGE_BAND, $rootOu->getId())
+                sprintf('No Package of the minimum band %s found for OU %d', $minRequiredPackageBand, $rootOu->getId())
             );
             $this->logException($exception, 'warning', __NAMESPACE__);
             throw $exception;
