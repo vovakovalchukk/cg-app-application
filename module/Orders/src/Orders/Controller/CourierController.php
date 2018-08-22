@@ -258,7 +258,8 @@ class CourierController extends AbstractActionController
             ->setVariable('subHeaderHide', true);
 
         $provider = $this->carrierProviderServiceRepository->getProviderForAccount($selectedCourier);
-        if ($provider instanceof FetchRatesInterface) {
+        $order = $this->orderService->fetch($courierOrders[$courierIds[0]][0]);
+        if ($provider instanceof FetchRatesInterface && $provider->isFetchRatesAllowedForOrder($selectedCourier, $order)) {
             $view->addChild(
                 $this->getShippingLedgerBalanceSection($this->shippingLedgerService->fetch($selectedCourier->getRootOrganisationUnitId())),
                 'shippingLedgerBalanceSection');
