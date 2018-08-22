@@ -8,11 +8,15 @@ use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\FeatureFlags\Service as FeatureFlagService;
 use CG\Listing\Client\Service as ListingService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use Products\Listing\Channel\Factory as CreateListingsFactory;
 use Products\Listing\Exception as ListingException;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const CHANNELS_SUPPORTED = ['ebay', 'shopify', 'big-commerce', 'woo-commerce'];
 
     /** @var FeatureFlagService */
@@ -104,6 +108,9 @@ class Service
             $service = $this->factory->fetchAndValidateChannelService($account, AccountDataInterface::class, $postData);
             return $service->getAccountData($account);
         } catch (ListingException $e) {
+            return $account->toArray();
+        } catch (\Throwable $e) {
+            $this->logErrorException($e, 'There was an error while getting the account data for account %s', [$account->getId()], 'ChannelServiceGetAccountData');
             return $account->toArray();
         }
     }
