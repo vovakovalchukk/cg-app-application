@@ -44,7 +44,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     /** @var OrderLabelService */
     protected $orderLabelService;
 
-    protected $testLabelBlacklist = ['fedex-ss', 'ups-ss'];
+    protected $testLabelBlacklist = ['fedex-ss', 'ups-ss', 'royal-mail-ss'];
 
     public function __construct(ShipStationClient $shipStationClient, GuzzleClient $guzzleClient, OrderLabelService $orderLabelService)
     {
