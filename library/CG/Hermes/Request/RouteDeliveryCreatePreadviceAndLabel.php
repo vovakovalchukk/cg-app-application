@@ -110,13 +110,21 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 
     protected function addAddressToCustomerNode(SimpleXMLElement $customerNode, AddressInterface $deliveryAddress): void
     {
+        $line2 = $deliveryAddress->getLine2();
+        $city = $deliveryAddress->determineCityFromAddressLines();
+        $region = $deliveryAddress->determineRegionFromAddressLines();
+
         $customerAddressNode = $customerNode->addChild('address');
         $customerAddressNode->addChild('firstName', $this->sanitiseString($deliveryAddress->getFirstName()));
         $customerAddressNode->addChild('lastName', $this->sanitiseString($deliveryAddress->getLastName()));
         $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
-        $customerAddressNode->addChild('addressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
-        $customerAddressNode->addChild('city', $this->sanitiseString($deliveryAddress->determineCityFromAddressLines()));
-        $customerAddressNode->addChild('region', $this->sanitiseString($deliveryAddress->determineRegionFromAddressLines()));
+        if ($line2 && $line2 != $city && $line2 != $region) {
+            $customerAddressNode->addChild('addressLine2', $this->sanitiseString($line2));
+        }
+        $customerAddressNode->addChild('city', $this->sanitiseString($city));
+        if ($region && $region != $city) {
+            $customerAddressNode->addChild('region', $this->sanitiseString($region));
+        }
         $customerAddressNode->addChild('postCode', $this->sanitiseString($deliveryAddress->getPostCode()));
         $customerAddressNode->addChild('countryCode', strtoupper($deliveryAddress->getISOAlpha2CountryCode()));
     }
