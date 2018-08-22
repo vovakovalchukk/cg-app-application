@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e087f858d7569e33560bc611c0cfb63",
+    "content-hash": "7abe0eca176178fbc473105a80de0c37",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -644,8 +644,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-QA-EPIC-USPS-8196e7.zip",
-                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-QA-EPIC-USPS-6c3509.zip",
+                "reference": "d8dcd61912745dac73719358cd7383ea3a0bea31",
                 "shasum": null
             },
             "require": {
