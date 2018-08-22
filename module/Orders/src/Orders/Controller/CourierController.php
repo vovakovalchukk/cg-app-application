@@ -258,7 +258,10 @@ class CourierController extends AbstractActionController
             ->setVariable('subHeaderHide', true);
 
         $provider = $this->carrierProviderServiceRepository->getProviderForAccount($selectedCourier);
-        $order = $this->orderService->fetch($courierOrders[$courierIds[0]][0]);
+
+        // For now the first order will suffice as USPS only cares about the account.
+        // If this needs to be specific to the individual orders in the future, please update this as needed.
+        $order = $this->orderService->fetch($courierOrders[$selectedCourier->getId()][0]);
         if ($provider instanceof FetchRatesInterface && $provider->isFetchRatesAllowedForOrder($selectedCourier, $order)) {
             $view->addChild(
                 $this->getShippingLedgerBalanceSection($this->shippingLedgerService->fetch($selectedCourier->getRootOrganisationUnitId())),
