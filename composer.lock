@@ -1935,7 +1935,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "086b9a83cda9c61d561854a64b4744bd6a9c401c"
+                "reference": "820025d28e34424cdfdbcefac11e8b1ae7346d20"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.3",
