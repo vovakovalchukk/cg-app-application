@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0df744a7bde5da6454b3422532615cb",
+    "content-hash": "cde3389b7cbb9f873440211c6d140085",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1255,16 +1255,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "dev-CGIV-9782-update-gearmanclient",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "aaa277765bd9e2876bcf8ed65a47b3ad66a34574"
+                "reference": "1662a28cad17bc980b32e9f3bb048bde363655ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-9782-update-gearmanclient-61a43d.zip",
-                "reference": "aaa277765bd9e2876bcf8ed65a47b3ad66a34574",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.6-7db7fa.zip",
+                "reference": "1662a28cad17bc980b32e9f3bb048bde363655ab",
                 "shasum": null
             },
             "require": {
@@ -1295,7 +1295,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-08-21T11:52:24+00:00"
+            "time": "2018-08-22T08:31:09+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -9967,18 +9967,10 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.6",
-            "alias_normalized": "1.3.6.0",
-            "version": "dev-CGIV-9782-update-gearmanclient",
-            "package": "channelgrabber/gearman"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/gearman": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
