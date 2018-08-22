@@ -117,8 +117,9 @@ define([
                 </div>
             )
         },
+        // todo - get this working as it used to back when it lived in Root.jsx as part of TAC-173
         onPageChange: function(pageNumber) {
-            this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
+            // this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
         },
         onProductLinksEditorClose: function() {
             this.setState({
@@ -164,44 +165,6 @@ define([
         isReadyToRenderTable: function() {
             return this.state.productsListContainer && this.state.productsListContainer.height && this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length;
         },
-        // fetchUpdatedStockLevels(productSku) {
-        //     var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
-        //     fetchingStockLevelsForSkuState[productSku] = true;
-        //     var updateStockLevelsRequest = function() {
-        //         $.ajax({
-        //             url: '/products/stock/ajax/' + productSku,
-        //             type: 'GET',
-        //             success: function(response) {
-        //                 var newState = this.state;
-        //                 newState.products.forEach(function(product) {
-        //                     if (product.variationCount == 0) {
-        //                         if (!response.stock[product.sku]) {
-        //                             return;
-        //                         }
-        //                         product.stock = response.stock[product.sku];
-        //                         return;
-        //                     }
-        //                     newState.variations[product.id].forEach(function(product) {
-        //                         if (!response.stock[product.sku]) {
-        //                             return;
-        //                         }
-        //                         product.stock = response.stock[product.sku];
-        //                         return;
-        //                     });
-        //                 });
-        //                 newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
-        //                 this.setState(newState);
-        //             }.bind(this),
-        //             error: function(error) {
-        //                 console.error(error);
-        //             }
-        //         });
-        //     }.bind(this);
-        //     this.setState(
-        //         fetchingStockLevelsForSkuState,
-        //         updateStockLevelsRequest
-        //     );
-        // },
         renderProducts: function() {
             let rows = this.getVisibleRows();
             if (!this.isReadyToRenderTable()) {

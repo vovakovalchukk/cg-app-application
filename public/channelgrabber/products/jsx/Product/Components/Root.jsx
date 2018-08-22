@@ -66,22 +66,9 @@ define([
         getInitialState: function() {
             return {
                 currentView: PRODUCT_LIST_VIEW,
-                // products: [],
-                // variations: [],
-                // allProductLinks: {},
-                // editingProductLink: {
-                //     sku: "",
-                //     links: []
-                // },
                 maxVariationAttributes: 0,
                 maxListingsPerAccount: [],
                 initialLoadOccurred: false,
-                // pagination: {
-                //     total: 0,
-                //     limit: 0,
-                //     page: 0
-                // },
-                // fetchingUpdatedStockLevelsForSkus: {},
                 accounts: {},
                 createListing: {
                     productId: null
@@ -93,8 +80,6 @@ define([
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
             window.addEventListener('getProductsBySku', this.onSkuRequest, false);
-            // window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
-            // window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillUnmount: function() {
             this.productsRequest.abort();
@@ -102,13 +87,10 @@ define([
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
             window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
-            // window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
-            // window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         filterBySearch: function(searchTerm) {
             this.performProductsRequest(null, searchTerm);
         },
-        //
         /**
          * @param skuList array
          */
@@ -184,14 +166,6 @@ define([
         onVariationsRequest: function(event) {
             var filter = new ProductFilter(null, event.detail.productId);
             this.fetchVariations(filter);
-        },
-        onProductLinksEditorClose: function() {
-            this.setState({
-                editingProductLink: {
-                    sku: "",
-                    links: []
-                }
-            });
         },
         addNewProductButtonClick: function() {
             this.setState({
