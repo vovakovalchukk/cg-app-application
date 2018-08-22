@@ -29,11 +29,37 @@ define([
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in PRODUCT_LINKS_GET_REQUEST_SUCCESS -R action.payload.productLinks: ' , action.payload.productLinks);
+            // console.log('in PRODUCT_LINKS_GET_REQUEST_SUCCESS -R action.payload.productLinks: ' , action.payload.productLinks);
             let newState = Object.assign({}, state, {
                 allProductsLinks: action.payload.productLinks
             });
             return newState;
+        },
+        "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS":function(state,action){
+            console.log('in ProductsReducer with stock_levels_update_request_success state : ',state);
+            
+            
+            // let stateCopy = getState();
+            // stateCopy.products.simpleAndParentProducts.forEach((product)=>{
+            //     if (product.variationCount == 0) {
+            //         if (!response.stock[product.sku]) {
+            //             return;
+            //         }
+            //         product.stock = response.stock[product.sku];
+            //         return;
+            //     }
+            //     stateCopy.products.variations[product.id].forEach(function(product) {
+            //         if (!response.stock[product.sku]) {
+            //             return;
+            //         }
+            //         product.stock = response.stock[product.sku];
+            //         return;
+            //     });
+            // });
+            // stateCopy.fetchingUpdatedStockLevelsForSkus[productSku] = false;
+            //todo send back new state
+        
+            // this.setState(newState);
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
             // console.log('in product_variations_Get_request_success with action: ' , action);

@@ -202,9 +202,6 @@ define([
         },
         render: function()
         {
-            console.log('outside popup this.state: ' , this.state);
-            
-            
             return (
                 <Popup
                     initiallyActive={!!this.state.sku}
@@ -216,7 +213,6 @@ define([
                     yesButtonText="Save"
                     noButtonText="Cancel"
                 >
-                    {console.log('inside popup ')}
                     <div id="product-link-editor">
                         <div className="product-dropdown">
                             <ProductDropdown skuThatProductsCantLinkFrom={this.props.productLink.sku} />

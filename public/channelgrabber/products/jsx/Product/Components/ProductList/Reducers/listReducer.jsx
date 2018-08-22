@@ -19,7 +19,8 @@ define([
                 productSearchActive
             });
             return newState;
-        },
+        }
+      
     });
     
     return listReducer

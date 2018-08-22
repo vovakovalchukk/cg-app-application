@@ -65,6 +65,14 @@ define([
                 }
             }
         };
+        let updateStockLevelsRequestSuccess = (response) =>{
+            return {
+                type: "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS",
+                payload: {
+                    response
+                }
+            }
+        };
         
         return {
             storeAccountFeatures: (features) => {
@@ -132,7 +140,6 @@ define([
     
                     let skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
                   
-                    
                     $.ajax({
                         url: PRODUCT_LINKS_URL,
                         data: {
@@ -140,7 +147,6 @@ define([
                         },
                         type: 'POST',
                         success: function(response) {
-                            console.log('getProductsLinks -AQ -success - response: ' , response);
                             dispatch(getProductLinksSuccess(response.productLinks))
                             window.triggerEvent('fetchingProductLinksStop')
                         },
@@ -148,6 +154,78 @@ define([
                             console.warn(error);
                         }
                     });
+                }
+            },
+            getUpdatedStockLevels(productSku) {
+                return function(dispatch, getState) {
+    
+                    console.log('in getUpdatedStockLevels with productSku: ', productSku);
+                    // var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
+                    // fetchingStockLevelsForSkuState[productSku] = true;
+                    //
+                    // dispatch fetching stocklevels for sku[productSku] <- hold this information in a reducer
+    
+                    var updateStockLevelsRequest = function() {
+                        $.ajax({
+                            url: '/products/stock/ajax/' + productSku,
+                            type: 'GET',
+                            success: function(response) {
+                                
+                                dispatch(updateStockLevelsRequestSuccess(response));
+                               //
+                               //  let stateCopy = getState();
+                               //  stateCopy.products.simpleAndParentProducts.forEach((product)=>{
+                               //          if (product.variationCount == 0) {
+                               //              if (!response.stock[product.sku]) {
+                               //                  return;
+                               //              }
+                               //              product.stock = response.stock[product.sku];
+                               //              return;
+                               //          }
+                               //          stateCopy.products.variations[product.id].forEach(function(product) {
+                               //              if (!response.stock[product.sku]) {
+                               //                  return;
+                               //              }
+                               //              product.stock = response.stock[product.sku];
+                               //              return;
+                               //          });
+                               //  });
+                               // stateCopy.fetchingUpdatedStockLevelsForSkus[productSku] = false;
+                               // //todo send back new state
+                               //
+                               // // this.setState(newState);
+                                
+                                
+                                
+                                // var newState = this.state;
+                                // newState.products.forEach(function(product) {
+                                //     if (product.variationCount == 0) {
+                                //         if (!response.stock[product.sku]) {
+                                //             return;
+                                //         }
+                                //         product.stock = response.stock[product.sku];
+                                //         return;
+                                //     }
+                                //     newState.variations[product.id].forEach(function(product) {
+                                //         if (!response.stock[product.sku]) {
+                                //             return;
+                                //         }
+                                //         product.stock = response.stock[product.sku];
+                                //         return;
+                                //     });
+                                // });
+                                // newState.fetchingUpdatedStockLevelsForSkus[productSku] = false;
+                                // this.setState(newState);
+                            }.bind(this),
+                            error: function(error) {
+                                console.error(error);
+                            }
+                        });
+                    }.bind(this);
+                    // this.setState(
+                    //     fetchingStockLevelsForSkuState,
+                    //     updateStockLevelsRequest
+                    // );
                 }
             },
             getVariations: (filter) => {
