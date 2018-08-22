@@ -44,26 +44,12 @@ define([
         },
         componentDidMount() {
             this.updateDimensions();
-            
-            
             window.addEventListener("resize", this.updateDimensions);
-    
-    
-    
             document.addEventListener("fullscreenchange", this.updateDimensions);
         },
         componentWillUnmount: function() {
-            
             window.removeEventListener("resize", this.updateDimensions);
-    
-    
-    
             document.removeEventListener("fullscreenchange", this.updateDimensions);
-            
-            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
-            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    
-      
         },
         componentWillReceiveProps: function() {
             //todo get this working again

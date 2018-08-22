@@ -96,7 +96,6 @@ define([
                     
                     fetchProducts(filter, successCallback, errorCallback);
                     
-                    
                     function successCallback(data) {
                         console.log('Provider -in successCallback of performProductsRequest');
                         
@@ -122,10 +121,7 @@ define([
                     }
                 }
             },
-            //todo - make this do something....
             getLinkedProducts: () => {
-                console.log('in getLinkedProducts AC ...');
-                ///
                 return function(dispatch, getState) {
                     console.log('in getLinkedPRoducts getState: ', getState());
                     let state = getState();
@@ -133,19 +129,10 @@ define([
                         return;
                     }
                     window.triggerEvent('fetchingProductLinksStart');
+    
+                    let skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
+                  
                     
-                    var skusToFindLinkedProductsFor = {};
-                    for (var productId in state.products.variations) {
-                        state.products.variations[productId].forEach(function(variation) {
-                            skusToFindLinkedProductsFor[variation.sku] = variation.sku;
-                        });
-                    }
-                    
-                    state.products.visibleRows.forEach(function(product) {
-                        if (product.variationCount == 0 && product.sku) {
-                            skusToFindLinkedProductsFor[product.sku] = product.sku;
-                        }
-                    });
                     $.ajax({
                         url: PRODUCT_LINKS_URL,
                         data: {
@@ -277,5 +264,18 @@ define([
         }
     }
     
-    
+    function getSkusToFindLinkedProductsFor (products){
+        var skusToFindLinkedProductsFor = {};
+        for (var productId in products.variations) {
+            products.variations[productId].forEach(function(variation) {
+                skusToFindLinkedProductsFor[variation.sku] = variation.sku;
+            });
+        }
+        products.visibleRows.forEach(function(product) {
+            if (product.variationCount == 0 && product.sku) {
+                skusToFindLinkedProductsFor[product.sku] = product.sku;
+            }
+        });
+        return skusToFindLinkedProductsFor;
+    }
 });
