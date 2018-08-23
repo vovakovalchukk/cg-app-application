@@ -4498,12 +4498,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f1e7ba21d77c6bf665e9df1c92ec62762deac335"
+                "reference": "3ce601d5136819f03676c0163c7d8e63ccdcb13d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-ccc6eb.zip",
-                "reference": "f1e7ba21d77c6bf665e9df1c92ec62762deac335",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-e3f940.zip",
+                "reference": "3ce601d5136819f03676c0163c7d8e63ccdcb13d",
                 "shasum": null
             },
             "require": {
@@ -4555,7 +4555,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-08T15:28:41+00:00"
+            "time": "2018-08-23T11:22:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

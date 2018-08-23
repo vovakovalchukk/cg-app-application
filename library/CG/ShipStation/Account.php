@@ -254,10 +254,9 @@ class Account implements AccountInterface, LoggerAwareInterface
         $userRequestEntity = new UserRequestEntity(
             $user->getFirstName(),
             $user->getLastName(),
-            /** @TODO: TBC if this is the name we want to use or @ou->getAddressFullName() */
             $ou->getAddressCompanyName()
         );
-        return new AccountRequest($userRequestEntity, $ou->getId());
+        return new AccountRequest($userRequestEntity, $ou->getId(), $ou->getAddressCountryCode());
     }
 
     protected function getApiKeyRequest(AccountResponse $response)
