@@ -55,21 +55,18 @@ define([
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
-            
             window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    
         },
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
-    
             window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillReceiveProps: function() {
             var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
-            if(horizontalScrollbar){
+            if (horizontalScrollbar) {
                 horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
             }
         },
@@ -85,10 +82,10 @@ define([
             this.props.actions.resetHorizontalScrollbarIndex();
         },
         //todo - use this as a basis for implementing functionality for TAC-173
-        // onPageChange: function(pageNumber) {
+        onPageChange: function(pageNumber) {
         // todo - change the below request to trigger new Redux products request
         //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
-        // },
+        },
         onProductLinkRefresh: function() {
             this.props.actions.getLinkedProducts();
         },
@@ -116,10 +113,6 @@ define([
                         </span>
                 </div>
             )
-        },
-        // todo - get this working as it used to back when it lived in Root.jsx as part of TAC-173
-        onPageChange: function(pageNumber) {
-            // this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
         },
         onProductLinksEditorClose: function() {
             this.setState({

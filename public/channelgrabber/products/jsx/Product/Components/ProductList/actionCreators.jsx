@@ -114,11 +114,7 @@ define([
                     function successCallback(data) {
                         dispatch(getProductsSuccess(data));
                         
-                        var allDefaultVariationIds = [];
-                        data.products.forEach((product) => {
-                            var defaultVariationIds = product.variationIds.slice(0, INITIAL_VARIATION_COUNT);
-                            allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
-                        })
+                        let allDefaultVariationIds =  getAllDefaultVariationIdsFromProducts(data.products);
                         
                         if (allDefaultVariationIds.length == 0) {
                             dispatch(actionCreators.getLinkedProducts())
@@ -151,7 +147,6 @@ define([
                         type: 'POST',
                         success: function(response) {
                             dispatch(getProductLinksSuccess(response.productLinks));
-                            window.triggerEvent('fetchingProductLinksStop');
                         },
                         error: function(error) {
                             console.warn(error);
@@ -308,5 +303,14 @@ define([
             }
         });
         return skusToFindLinkedProductsFor;
+    }
+    
+    function getAllDefaultVariationIdsFromProducts(products){
+        var allDefaultVariationIds = [];
+        products.forEach((product) => {
+            var defaultVariationIds = product.variationIds.slice(0, INITIAL_VARIATION_COUNT);
+            allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
+        });
+        return allDefaultVariationIds;
     }
 });

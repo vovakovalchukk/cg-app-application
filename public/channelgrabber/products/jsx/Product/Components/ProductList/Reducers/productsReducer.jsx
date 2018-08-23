@@ -18,7 +18,6 @@ define([
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            // console.log('in productsReducer -R PRODUCTS_GET_REQUEST_SUCCESS action.payload.products : ' , action.payload.products);
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -32,24 +31,19 @@ define([
             let newState = Object.assign({}, state, {
                 allProductsLinks: action.payload.productLinks
             });
+            window.triggerEvent('fetchingProductLinksStop');
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
-            
             const {response} = action.payload;
             let productsCopy = state.simpleAndParentProducts.slice();
             let visibleRowsCopy = state.visibleRows.slice();
             let variationsCopy = Object.assign({}, state.variationsByParent);
     
-    
-            console.log('STOCK_LEVELS_UPDATE_REQUEST_SUCCESS in ProductsReducer with stock_levels_update_request_success state : ', state , ' variationsCopy',variationsCopy);
-    
-    
             let newProducts = applyStockResponseToProducts(productsCopy, response);
             let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
             let newVariations = applyStockResponseToVariations(productsCopy, variationsCopy, response);
             
-            //
             let newState = Object.assign({}, state, {
                 simpleAndParentProducts: newProducts,
                 visibleRows: newVisibleRows,
