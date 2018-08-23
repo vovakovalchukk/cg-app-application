@@ -39,7 +39,7 @@ define([
             let productsCopy = state.simpleAndParentProducts.slice();
             let visibleRowsCopy = state.visibleRows.slice();
             let variationsCopy = Object.assign({}, state.variationsByParent);
-    
+            
             let newProducts = applyStockResponseToProducts(productsCopy, response);
             let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
             let newVariations = applyStockResponseToVariations(productsCopy, variationsCopy, response);

@@ -33,7 +33,7 @@ define([
     const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
     const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
     const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
-
+    
     var RootComponent = React.createClass({
         getChildContext: function() {
             return {
@@ -237,7 +237,7 @@ define([
             var variationData = this.state.variations[this.state.createListingData.product.id]
                 ? this.state.variations[this.state.createListingData.product.id]
                 : [this.state.createListingData.product];
-
+            
             return <CreateListingPopupRoot
                 {...this.state.createListingData}
                 conditionOptions={this.formatConditionOptions()}
@@ -288,7 +288,7 @@ define([
                 </div>
             )
         },
-        renderProductSearchView: function () {
+        renderProductSearchView: function() {
             return <ProductSearchRoot
                 createListingData={this.state.createListingData}
                 renderCreateListingPopup={this.showCreateListingPopup}
@@ -303,12 +303,12 @@ define([
             return viewRenderer();
         }
     });
-
+    
     RootComponent.childContextTypes = {
         imageUtils: React.PropTypes.object,
         isAdmin: React.PropTypes.bool,
         initialVariationCount: React.PropTypes.number
     };
-
+    
     return RootComponent;
 });

@@ -65,7 +65,7 @@ define([
                 }
             }
         };
-        let updateStockLevelsRequestSuccess = (response) =>{
+        let updateStockLevelsRequestSuccess = (response) => {
             return {
                 type: "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS",
                 payload: {
@@ -73,10 +73,10 @@ define([
                 }
             }
         };
-        let updateFetchingStockLevelsForSkus = (fetchingStockLevelsForSkus) =>{
-            return{
+        let updateFetchingStockLevelsForSkus = (fetchingStockLevelsForSkus) => {
+            return {
                 type: "FETCHING_STOCK_LEVELS_FOR_SKUS_UPDATE",
-                payload:{
+                payload: {
                     fetchingStockLevelsForSkus
                 }
             }
@@ -114,7 +114,7 @@ define([
                     function successCallback(data) {
                         dispatch(getProductsSuccess(data));
                         
-                        let allDefaultVariationIds =  getAllDefaultVariationIdsFromProducts(data.products);
+                        let allDefaultVariationIds = getAllDefaultVariationIdsFromProducts(data.products);
                         
                         if (allDefaultVariationIds.length == 0) {
                             dispatch(actionCreators.getLinkedProducts())
@@ -124,6 +124,7 @@ define([
                         var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
                         dispatch(actionCreators.getVariations(productFilter))
                     }
+                    
                     function errorCallback(err) {
                         throw 'Unable to load products';
                     }
@@ -136,9 +137,9 @@ define([
                         return;
                     }
                     window.triggerEvent('fetchingProductLinksStart');
-    
+                    
                     let skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
-                  
+                    
                     $.ajax({
                         url: PRODUCT_LINKS_URL,
                         data: {
@@ -156,7 +157,7 @@ define([
             },
             getUpdatedStockLevels(productSku) {
                 return function(dispatch, getState) {
-                    var fetchingStockLevelsForSkus= getState().list.fetchingUpdatedStockLevelsForSkus;
+                    var fetchingStockLevelsForSkus = getState().list.fetchingUpdatedStockLevelsForSkus;
                     fetchingStockLevelsForSkus[productSku] = true;
                     
                     dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
@@ -173,7 +174,7 @@ define([
                                 console.error(error);
                             }
                         });
-                        fetchingStockLevelsForSkus[productSku]=false;
+                        fetchingStockLevelsForSkus[productSku] = false;
                         dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
                     }
                 }
@@ -191,7 +192,6 @@ define([
                         );
                         dispatch(getProductVariationsRequestSuccess(variationsByParent));
                         dispatch(actionCreators.getLinkedProducts());
-                        
                         $('#products-loading-message').hide()
                     }
                 }
@@ -265,7 +265,6 @@ define([
     
     return actionCreators;
     
-    
     function getVisibleFixedColumns(state) {
         return state.columns.filter((column) => {
             return column.fixed
@@ -290,7 +289,7 @@ define([
         }
     }
     
-    function getSkusToFindLinkedProductsFor (products){
+    function getSkusToFindLinkedProductsFor(products) {
         var skusToFindLinkedProductsFor = {};
         for (var productId in products.variations) {
             products.variations[productId].forEach(function(variation) {
@@ -305,7 +304,7 @@ define([
         return skusToFindLinkedProductsFor;
     }
     
-    function getAllDefaultVariationIdsFromProducts(products){
+    function getAllDefaultVariationIdsFromProducts(products) {
         var allDefaultVariationIds = [];
         products.forEach((product) => {
             var defaultVariationIds = product.variationIds.slice(0, INITIAL_VARIATION_COUNT);

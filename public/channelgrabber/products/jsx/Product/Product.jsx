@@ -31,9 +31,6 @@ define([
     ) {
         ReactDOM.render(
             <RootComponent
-                //todo - remove this after happy with ticket
-                productsUrl="/products/ajax"
-                
                 utilities={utils}
                 searchAvailable={searchAvailable}
                 listingCreationAllowed={listingCreationAllowed}

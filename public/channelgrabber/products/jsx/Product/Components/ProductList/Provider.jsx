@@ -33,7 +33,6 @@ define([
         enhancer
     );
     
-    
     var ProductListProvider = React.createClass({
         getDefaultProps: function() {
             return {
@@ -47,15 +46,10 @@ define([
                 initialProductsSaved: {}
             }
         },
-        componentDidMount: function(){
-          console.log('in CDM of Provider');
+        componentDidMount: function() {
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
             store.dispatch(ActionCreators.getProducts());
-    
-            window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    
         },
-        
         render: function() {
             return (
                 <Provider store={store}>

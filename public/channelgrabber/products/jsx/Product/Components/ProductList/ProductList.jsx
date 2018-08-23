@@ -83,8 +83,8 @@ define([
         },
         //todo - use this as a basis for implementing functionality for TAC-173
         onPageChange: function(pageNumber) {
-        // todo - change the below request to trigger new Redux products request
-        //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
+            // todo - change the below request to trigger a products request within Redux in TAC-173
+            //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
         },
         onProductLinkRefresh: function() {
             this.props.actions.getLinkedProducts();
