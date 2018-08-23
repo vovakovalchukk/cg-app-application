@@ -12,11 +12,12 @@ define([
             simpleAndParentProducts: false
         },
         simpleAndParentProducts: [],
-        variationsByParent: []
+        variationsByParent: [],
+        productLinks: {}
     };
     
     var ProductsReducer = reducerCreator(initialState, {
-        "INITIAL_SIMPLE_AND_PARENT_PRODUCTS_LOAD": function(state, action) {
+        "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -26,10 +27,29 @@ define([
             });
             return newState;
         },
-        "PRODUCTS_LINKS_LOAD": function(state, action) {
+        "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
             let newState = Object.assign({}, state, {
-                allProductsLinks: action.payload.allProductsLinks
+                allProductsLinks: action.payload.productLinks
             });
+            window.triggerEvent('fetchingProductLinksStop');
+            return newState;
+        },
+        "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
+            const {response} = action.payload;
+            let productsCopy = state.simpleAndParentProducts.slice();
+            let visibleRowsCopy = state.visibleRows.slice();
+            let variationsCopy = Object.assign({}, state.variationsByParent);
+            
+            let newProducts = applyStockResponseToProducts(productsCopy, response);
+            let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
+            let newVariations = applyStockResponseToVariations(productsCopy, variationsCopy, response);
+            
+            let newState = Object.assign({}, state, {
+                simpleAndParentProducts: newProducts,
+                visibleRows: newVisibleRows,
+                variations: newVariations
+            });
+            
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
@@ -102,7 +122,7 @@ define([
         
     });
     
-    return ProductsReducer
+    return ProductsReducer;
     
     function changeExpandStatus(products, productId, desiredStatus) {
         let productRowIndex = products.findIndex((product) => {
@@ -110,5 +130,34 @@ define([
         });
         products[productRowIndex].expandStatus = desiredStatus;
         return products;
+    }
+    
+    function applyStockResponseToProducts(products, response) {
+        products.forEach((product) => {
+            if (product.variationCount == 0) {
+                if (!response.stock[product.sku]) {
+                    return;
+                }
+                product.stock = response.stock[product.sku];
+                return;
+            }
+        });
+        return products;
+    }
+    
+    function applyStockResponseToVariations(products, variations, response) {
+        products.forEach((product) => {
+            if (product.variationCount == 0) {
+                return;
+            }
+            variations[product.id].forEach(function(product) {
+                if (!response.stock[product.sku]) {
+                    return;
+                }
+                product.stock = response.stock[product.sku];
+                return;
+            });
+        });
+        return variations;
     }
 });

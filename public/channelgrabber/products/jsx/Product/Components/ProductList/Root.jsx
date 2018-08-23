@@ -20,7 +20,8 @@ define([
     const mapStateToProps = function(state) {
         return {
             products: state.products,
-            tabs: state.tabs
+            tabs: state.tabs,
+            list: state.list
         };
     };
     
