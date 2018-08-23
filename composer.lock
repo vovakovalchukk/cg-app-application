@@ -1935,12 +1935,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "4a0dfa35aba9c7d2c02b14691b505173c0456fe1"
+                "reference": "6882ad120ed0ae3d938f1a7b4392c748a0c84b75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-e025ef.zip",
-                "reference": "4a0dfa35aba9c7d2c02b14691b505173c0456fe1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-642415.zip",
+                "reference": "6882ad120ed0ae3d938f1a7b4392c748a0c84b75",
                 "shasum": null
             },
             "require": {
@@ -1984,7 +1984,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-08-23T14:22:29+00:00"
+            "time": "2018-08-23T15:27:08+00:00"
         },
         {
             "name": "channelgrabber/permission",
