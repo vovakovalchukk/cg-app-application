@@ -64,6 +64,7 @@ return [
                             'displayName' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
+                            'allowsRates' => false,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
@@ -146,6 +147,7 @@ return [
                             'displayName' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
+                            'allowsRates' => false,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
@@ -268,7 +270,8 @@ return [
                             'displayName' => 'USPS',
                             'featureFlag' => Service::FEATURE_FLAG_USPS,
                             'allowsCancellation' => true,
-                            'allowsManifesting' => false,
+                            'allowsManifesting' => true,
+                            'allowsRates' => true,
                             'fields' => [],
                             'bookingOptions' => [
                                 'weight' => 'weight',
