@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6286003f9859e0db0a2aa8c3ce7dc5d",
+    "content-hash": "eb3c1633fabbd19d90998786e1a0f32c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1935,13 +1935,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "820025d28e34424cdfdbcefac11e8b1ae7346d20"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-020b5d.zip",
-                "reference": "820025d28e34424cdfdbcefac11e8b1ae7346d20",
-                "shasum": null
+                "reference": "6fd5b604572cfdcea538a238877c7e8970871768"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.3",
@@ -3782,13 +3776,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "16bc7b1ff5f43ab088542e892946778ee3b3b460"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9760-double-subscriptions-c43fd9.zip",
-                "reference": "16bc7b1ff5f43ab088542e892946778ee3b3b460",
-                "shasum": null
+                "reference": "0f48dd36a254cec5d6a9b8ab1a1a6f72320678ab"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -9982,8 +9970,8 @@
             "package": "channelgrabber/zf2-billing"
         },
         {
-            "alias": "1.0.x-dev",
-            "alias_normalized": "1.0.9999999.9999999-dev",
+            "alias": "0.0.0",
+            "alias_normalized": "0.0.0.0",
             "version": "dev-CGIV-9760-double-subscriptions",
             "package": "channelgrabber/zf2-email-template"
         }
@@ -9995,8 +9983,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
