@@ -7,12 +7,14 @@ class Entity
 {
     const DEFAULT_ALLOWS_CANCELLATION = true;
     const DEFAULT_ALLOWS_MANIFESTING = true;
+    const DEFAULT_ALLOWS_RATES = false;
 
     protected $channelName;
     protected $displayName;
     protected $salesChannelName;
     protected $allowsCancellation;
     protected $allowsManifesting;
+    protected $allowsRates;
     protected $fields;
     /** @var array */
     protected $bookingOptions;
@@ -26,8 +28,9 @@ class Entity
         FieldCollection $fields,
         ?string $displayName = null,
         ?string $salesChannelName = null,
-        ?string $allowsCancellation = null,
-        ?string $allowsManifesting = null,
+        ?bool $allowsCancellation = null,
+        ?bool $allowsManifesting = null,
+        ?bool $allowsRates = null,
         ?array $bookingOptions = null,
         ?string $featureFlag = null,
         bool $activationDelayed = false
@@ -39,6 +42,7 @@ class Entity
             ->setSalesChannelName($salesChannelName)
             ->setAllowsCancellation($allowsCancellation)
             ->setAllowsManifesting($allowsManifesting)
+            ->setAllowsRates($allowsRates)
             ->setBookingOptions($bookingOptions)
             ->setFeatureFlag($featureFlag)
             ->setActivationDelayed($activationDelayed);
@@ -128,6 +132,20 @@ class Entity
             $allowsManifesting = static::DEFAULT_ALLOWS_MANIFESTING;
         }
         $this->allowsManifesting = $allowsManifesting;
+        return $this;
+    }
+
+    public function isAllowsRates(): bool
+    {
+        return $this->allowsRates;
+    }
+
+    public function setAllowsRates(?bool $allowsRates): Entity
+    {
+        if ($allowsRates === null) {
+            $allowsRates = static::DEFAULT_ALLOWS_RATES;
+        }
+        $this->allowsRates = $allowsRates;
         return $this;
     }
 

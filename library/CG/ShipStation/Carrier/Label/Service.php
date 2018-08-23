@@ -45,14 +45,6 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     /** @var ManifestService */
     protected $manifestService;
 
-    protected $carrierRateSupport = [
-        'usps-ss' => true,
-    ];
-
-    protected $carrierManifestSupport = [
-        'usps-ss' => true,
-    ];
-
     public function __construct(
         CarrierService $carrierServive,
         ShipStationService $shipStationService,
@@ -149,7 +141,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
 
     public function isFetchRatesAllowedForOrder(Account $shippingAccount, Order $order): bool
     {
-        return $this->carrierRateSupport[$shippingAccount->getChannel()] ?? false;
+        return $this->carrierServive->getCarrierForAccount($shippingAccount)->isAllowsRates();
     }
 
     public function fetchRatesForOrders(
@@ -189,7 +181,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      */
     public function isManifestingAllowedForAccount(Account $account): bool
     {
-        return $this->carrierManifestSupport[$account->getChannel()] ?? false;
+        return $this->carrierServive->getCarrierForAccount($account)->isManifestingAllowed();
     }
 
     /**
