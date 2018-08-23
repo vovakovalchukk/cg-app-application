@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb3c1633fabbd19d90998786e1a0f32c",
+    "content-hash": "090e0d7bf5bdbab7c33ead2d27f75de6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1935,7 +1935,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "6fd5b604572cfdcea538a238877c7e8970871768"
+                "reference": "4a0dfa35aba9c7d2c02b14691b505173c0456fe1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-e025ef.zip",
+                "reference": "4a0dfa35aba9c7d2c02b14691b505173c0456fe1",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.19.3",
@@ -1978,7 +1984,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-08-22T07:53:19+00:00"
+            "time": "2018-08-23T14:22:29+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3607,12 +3613,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "e8711ed6f1f4e5dcdfb22c61f92697294fef5faa"
+                "reference": "d47ba67c9b9049b15a28a1cd9c5b65bb8bd33fc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9760-double-subscriptions-9205d5.zip",
-                "reference": "e8711ed6f1f4e5dcdfb22c61f92697294fef5faa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9760-double-subscriptions-4b68ca.zip",
+                "reference": "d47ba67c9b9049b15a28a1cd9c5b65bb8bd33fc1",
                 "shasum": null
             },
             "require": {
@@ -3650,7 +3656,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-22T08:10:00+00:00"
+            "time": "2018-08-23T14:25:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -3778,6 +3784,12 @@
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
                 "reference": "0f48dd36a254cec5d6a9b8ab1a1a6f72320678ab"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9760-double-subscriptions-a622b8.zip",
+                "reference": "0f48dd36a254cec5d6a9b8ab1a1a6f72320678ab",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/zf2-v4-ui": "^1.23.5",
@@ -3799,7 +3811,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-08-21T14:03:22+00:00"
+            "time": "2018-08-23T14:01:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
@@ -9970,8 +9982,8 @@
             "package": "channelgrabber/zf2-billing"
         },
         {
-            "alias": "0.0.0",
-            "alias_normalized": "0.0.0.0",
+            "alias": "1.0.25",
+            "alias_normalized": "1.0.25.0",
             "version": "dev-CGIV-9760-double-subscriptions",
             "package": "channelgrabber/zf2-email-template"
         }
@@ -9983,8 +9995,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
