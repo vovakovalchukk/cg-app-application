@@ -5,6 +5,18 @@ define([
 ) {
     "use strict";
     
+    var LimitSelect = (props) => {
+      return(
+          <select className={'u-margin-left-small'}>
+              {props.options.map((option)=>{
+                  return (<option value={option}>
+                      {option}
+                  </option>)
+              })}
+          </select>
+      )
+    };
+    
     var FooterComponent = React.createClass({
         getPageLinksFromPaginationData: function(limit, page, total, pageLinkCount) {
             var maxPages = Math.ceil(total / limit);
@@ -20,7 +32,7 @@ define([
             }
             for (var count = firstPageLink; count <= lastPageLink; count++) {
                 pageLinks.push(
-                    <a className={(count == page ? 'paginate_active' : 'paginate_button')}
+                    <a className={(count == page ? 'paginate_active' : 'paginate_button') + ' u-margin-left-small'}
                        onClick={this.props.onPageChange.bind(this, count)}>{count}</a>
                 );
             }
@@ -59,13 +71,15 @@ define([
                         </div>
                         <div className="dataTables_paginate paging_full_numbers u-inline-block u-margin-left-small">
                             <a onClick={this.props.onPageChange.bind(this, firstPage)}
-                               className={"first " + (this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')}>First</a>
+                               className={"first " + (this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')} >First</a>
                             <span className="pagination-page-links">
                                 {this.getPageLinksFromPaginationData(this.props.pagination.limit, this.props.pagination.page, this.props.pagination.total, 5)}
                             </span>
                             <a onClick={this.props.onPageChange.bind(this, maxPages)}
-                               className={"last " + (this.props.pagination.page === maxPages ? 'paginate_active' : 'paginate_button')}>Last</a>
+                               className={"last " + (this.props.pagination.page === maxPages ? 'paginate_active' : 'paginate_button')+' u-margin-left-small'}>Last</a>
                         </div>
+                        
+                        <LimitSelect options={[50,100,150,200]}/>
                     </div>
                 </div>
             );

@@ -4,7 +4,7 @@ define([
     'styled-components',
     'Product/Components/ProductList/CellCreator/factory',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/Footer',
+    'Product/Components/ProductListFooter',
     'Product/Components/ProductList/ColumnCreator/columns',
     'Product/Components/ProductList/ColumnCreator/factory',
     'Product/Components/ProductList/Components/Tabs/Root'
@@ -83,8 +83,9 @@ define([
         },
         //todo - use this as a basis for implementing functionality for TAC-173
         onPageChange: function(pageNumber) {
-            // todo - change the below request to trigger a products request within Redux in TAC-173
-            //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
+            console.log('in onPageChange with pageNumber: ');
+            //todo - figure out reason for last parameter and replace second parameter with the search term
+            this.props.actions.getProducts(pageNumber, '');
         },
         onProductLinkRefresh: function() {
             this.props.actions.getLinkedProducts();

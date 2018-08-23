@@ -43,7 +43,7 @@ define([
         let fetchProducts = function(filter, successCallback, errorCallback) {
             self.productsRequest = $.ajax({
                 'url': PRODUCTS_URL,
-                'data': {'filter': filter.toObject()},
+                'data': {filter},
                 'method': 'POST',
                 'dataType': 'json',
                 'success': successCallback.bind(this),
@@ -99,7 +99,7 @@ define([
                     }
                 }
             },
-            getProducts: (pageNumber, searchTerm, skuList) => {
+            getProducts: (pageNumber, searchTerm, skuList, limit) => {
                 return function(dispatch) {
                     pageNumber = pageNumber || 1;
                     searchTerm = searchTerm || '';
@@ -108,6 +108,9 @@ define([
                     filter.setPage(pageNumber);
                     
                     dispatch(getProductsRequest());
+                    
+                    filter = filter.toObject();
+                    filter.limit = limit;
                     
                     fetchProducts(filter, successCallback, errorCallback);
                     
