@@ -41,10 +41,6 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
     /** @var ManifestService */
     protected $manifestService;
 
-    protected $carrierRateSupport = [
-        'usps-ss' => true,
-    ];
-
     public function __construct(
         CarrierService $carrierServive,
         ShipStationService $shipStationService,
@@ -133,7 +129,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
 
     public function isFetchRatesAllowedForOrder(Account $shippingAccount, Order $order): bool
     {
-        return $this->carrierRateSupport[$shippingAccount->getChannel()] ?? false;
+        return $this->carrierServive->getCarrierForAccount($shippingAccount)->isAllowsRates();
     }
 
     public function fetchRatesForOrders(
