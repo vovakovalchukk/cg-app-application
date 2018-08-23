@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d641759f19c10a1afddb28ca243c01da",
+    "content-hash": "36f9c3ecf5eb7123b89f20a75d98ebdf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -951,12 +951,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "e3c1dea7535d4de466cca2361ac82e8391bfd5a3"
+                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TECH-88-refactor-courier-arrays-to-objects-1633d2.zip",
-                "reference": "e3c1dea7535d4de466cca2361ac82e8391bfd5a3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.30-b6a566.zip",
+                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c",
                 "shasum": null
             },
             "require": {
@@ -988,7 +988,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-17T13:49:30+00:00"
+            "time": "2018-07-17T13:49:38+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1440,16 +1440,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.3.4",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "8e6cb5ba2c467da92a22fabe7d97c47454cdf43a"
+                "reference": "1662a28cad17bc980b32e9f3bb048bde363655ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.4-4b4921.zip",
-                "reference": "8e6cb5ba2c467da92a22fabe7d97c47454cdf43a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.6-7db7fa.zip",
+                "reference": "1662a28cad17bc980b32e9f3bb048bde363655ab",
                 "shasum": null
             },
             "require": {
@@ -1480,7 +1480,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-06T09:28:54+00:00"
+            "time": "2018-08-22T08:31:09+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -3793,16 +3793,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-TAC-190-SetupSpeed",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "1a7fc3170b24e4b177a5530e4f888568c6ab28e3"
+                "reference": "e7b1a04f4a6090112156e6005388e22b01020080"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-TAC-190-SetupSpeed-6bf02f.zip",
-                "reference": "1a7fc3170b24e4b177a5530e4f888568c6ab28e3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.2-5cacc5.zip",
+                "reference": "e7b1a04f4a6090112156e6005388e22b01020080",
                 "shasum": null
             },
             "require": {
@@ -3840,7 +3840,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-13T13:48:24+00:00"
+            "time": "2018-08-23T14:58:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -4653,16 +4653,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-190-SetupSpeed",
+            "version": "1.24.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fd00e963ab564672073b19fe76ba03d5010d7cee"
+                "reference": "0160368c1324d645296f1f6e5ae3aeff67c1b6e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-190-SetupSpeed-c833a9.zip",
-                "reference": "fd00e963ab564672073b19fe76ba03d5010d7cee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.24.0-26c36e.zip",
+                "reference": "0160368c1324d645296f1f6e5ae3aeff67c1b6e4",
                 "shasum": null
             },
             "require": {
@@ -4714,7 +4714,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-20T09:17:33+00:00"
+            "time": "2018-08-23T14:59:06+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10260,27 +10260,55 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
-        }
-    ],
-    "aliases": [
-        {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
-            "version": "dev-TAC-190-SetupSpeed",
-            "package": "channelgrabber/zf2-billing"
         },
         {
-            "alias": "1.24.0",
-            "alias_normalized": "1.24.0.0",
-            "version": "dev-TAC-190-SetupSpeed",
-            "package": "channelgrabber/zf2-v4-ui"
+            "name": "whichbrowser/whichbrowser",
+            "version": "v1.0.1048",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WhichBrowser/Legacy.git",
+                "reference": "4f1f3b4c78cecf502a4415c2bbd20b71cf64c043"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/whichbrowser-whichbrowser-4f1f3b4c78cecf502a4415c2bbd20b71cf64c043-zip-89f322.zip",
+                "reference": "4f1f3b4c78cecf502a4415c2bbd20b71cf64c043",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/parser.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niels Leenheer",
+                    "email": "niels@leenheer.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Project containing the legacy version of WhichBrowser",
+            "homepage": "http://whichbrowser.net",
+            "keywords": [
+                "browser",
+                "useragent"
+            ],
+            "abandoned": "whichbrowser/legacy",
+            "time": "2015-11-25T15:29:49+00:00"
         }
     ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-billing": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
