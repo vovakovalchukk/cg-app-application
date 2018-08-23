@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "090e0d7bf5bdbab7c33ead2d27f75de6",
+    "content-hash": "53ad636d65d9655517c03e05d9f6ee0d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3613,12 +3613,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "d47ba67c9b9049b15a28a1cd9c5b65bb8bd33fc1"
+                "reference": "69126dec3b17b3b4e768e685e15328f84933ab08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9760-double-subscriptions-4b68ca.zip",
-                "reference": "d47ba67c9b9049b15a28a1cd9c5b65bb8bd33fc1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9760-double-subscriptions-c5e316.zip",
+                "reference": "69126dec3b17b3b4e768e685e15328f84933ab08",
                 "shasum": null
             },
             "require": {
@@ -3656,7 +3656,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-23T14:25:37+00:00"
+            "time": "2018-08-23T15:29:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -9976,8 +9976,8 @@
             "package": "channelgrabber/payment"
         },
         {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
+            "alias": "1.2.3",
+            "alias_normalized": "1.2.3.0",
             "version": "dev-CGIV-9760-double-subscriptions",
             "package": "channelgrabber/zf2-billing"
         },
