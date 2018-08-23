@@ -45,10 +45,6 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         'usps-ss' => true,
     ];
 
-    protected $carrierManifestSupport = [
-        'usps-ss' => true,
-    ];
-
     public function __construct(
         CarrierService $carrierServive,
         ShipStationService $shipStationService,
@@ -169,7 +165,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      */
     public function isManifestingAllowedForAccount(Account $account): bool
     {
-        return $this->carrierManifestSupport[$account->getChannel()] ?? false;
+        return $this->carrierServive->getCarrierForAccount($account)->isManifestingAllowed();
     }
 
     /**

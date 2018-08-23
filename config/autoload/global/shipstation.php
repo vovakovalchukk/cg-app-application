@@ -256,7 +256,7 @@ return [
                             'channelName' => 'usps-ss',
                             'displayName' => 'USPS',
                             'allowsCancellation' => true,
-                            'allowsManifesting' => false,
+                            'allowsManifesting' => true,
                             'fields' => [],
                             'bookingOptions' => [
                                 'weight' => 'weight',
