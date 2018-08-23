@@ -54,6 +54,7 @@ return [
                             'displayName' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
+                            'allowsRates' => false,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
@@ -136,6 +137,7 @@ return [
                             'displayName' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
+                            'allowsRates' => false,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
@@ -257,7 +259,8 @@ return [
                             'channelName' => 'usps-ss',
                             'displayName' => 'USPS',
                             'allowsCancellation' => true,
-                            'allowsManifesting' => false,
+                            'allowsManifesting' => true,
+                            'allowsRates' => true,
                             'fields' => [],
                             'bookingOptions' => [
                                 'weight' => 'weight',
