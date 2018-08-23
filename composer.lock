@@ -2733,12 +2733,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "082b2be8039ac65ededf0c70e3fa59beef34bcb3"
+                "reference": "5c3c82ae80cf9e114ba460e2584be3742b21e8a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-bc72f3.zip",
-                "reference": "082b2be8039ac65ededf0c70e3fa59beef34bcb3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-95f9de.zip",
+                "reference": "5c3c82ae80cf9e114ba460e2584be3742b21e8a2",
                 "shasum": null
             },
             "require": {
@@ -2760,7 +2760,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-08-22T14:23:27+00:00"
+            "time": "2018-08-23T14:46:22+00:00"
         },
         {
             "name": "channelgrabber/shopify",

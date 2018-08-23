@@ -21,6 +21,7 @@ use CG\ShipStation\Response\Connect\Response as ConnectResponse;
 use CG\ShipStation\Response\Partner\Account as AccountResponse;
 use CG\ShipStation\Response\Partner\ApiKey as ApiKeyResponse;
 use CG\ShipStation\Response\Shipping\CarrierServices as CarrierServicesResponse;
+use CG\ShipStation\ShippingService\Service as ShippingServiceService;
 use CG\ShipStation\ShipStation\Credentials;
 use CG\ShipStation\Warehouse\Service as WarehouseService;
 use CG\Stdlib\DateTime;
@@ -47,7 +48,6 @@ class Account implements AccountInterface, LoggerAwareInterface
     const LOG_MESSAGE_API_KEY_GENERATED = 'Successfully generated a new API Key for user with ShipStation account ID "%s"';
     const LOG_MESSAGE_ACCOUNT_SAVED = 'Successfully created a new ShipStation account with ID "%s" for OU "%s"';
     const LOG_MESSAGE_CARRIER_ACCOUNT_CONNECTED = 'Successfully connected a new "%s" account with ID "%s" for OU "%s"';
-    const LOG_MESSAGE_SERVICES_SAVED = 'Successfully fetched and saved the shipping services for ShipStation account ID "%s';
 
     /** @var Client  */
     protected $client;
@@ -69,6 +69,8 @@ class Account implements AccountInterface, LoggerAwareInterface
     protected $warehouseService;
     /** @var CarrierService */
     protected $carrierService;
+    /** @var ShippingServiceService */
+    protected $shippingServiceService;
 
     public function __construct(
         Client $client,
@@ -80,7 +82,8 @@ class Account implements AccountInterface, LoggerAwareInterface
         AccountMapper $accountMapper,
         UrlHelper $urlHelper,
         WarehouseService $warehouseService,
-        CarrierService $carrierService
+        CarrierService $carrierService,
+        ShippingServiceService $shippingServiceService
     ) {
         $this->client = $client;
         $this->userService = $userService;
@@ -92,6 +95,7 @@ class Account implements AccountInterface, LoggerAwareInterface
         $this->urlHelper = $urlHelper;
         $this->warehouseService = $warehouseService;
         $this->carrierService = $carrierService;
+        $this->shippingServiceService = $shippingServiceService;
     }
 
     public function getInitialisationUrl(AccountEntity $account, $route)
@@ -139,11 +143,7 @@ class Account implements AccountInterface, LoggerAwareInterface
         if ($carrier->isActivationDelayed()) {
             return;
         }
-        $account->setExternalDataByKey(
-            'services',
-            $this->getCarrierServices($connect, $shipStationAccount)->getJsonResponse()
-        );
-        $this->logDebug(static::LOG_MESSAGE_SERVICES_SAVED, [$shipStationAccount->getExternalId()]);
+        $this->shippingServiceService->fetchShippingServicesAndSetOnAccount($account, $shipStationAccount);
     }
 
     protected function createAccountOnShipStation(
@@ -191,16 +191,6 @@ class Account implements AccountInterface, LoggerAwareInterface
     ): ConnectResponse {
         return $this->client->sendRequest(
             $request = $this->connectFactory->buildRequestForAccount($account, $params),
-            $shipStationAccount
-        );
-    }
-
-    protected function getCarrierServices(
-        ConnectResponse $connect,
-        AccountEntity $shipStationAccount
-    ): CarrierServicesResponse {
-        return $this->client->sendRequest(
-            new CarrierServicesRequest($connect->getCarrier()),
             $shipStationAccount
         );
     }
