@@ -10,6 +10,7 @@ use CG\ShipStation\Client;
 use CG\ShipStation\Webhook\Notification\StorageInterface as WebhookNotificationStorage;
 use CG\ShipStation\Webhook\Notification\Storage\Redis as WebhookNotificationStorageRedis;
 use Guzzle\Http\Client as GuzzleClient;
+use CG\ShipStation\PackageType\RoyalMail\Service as RoyalMailPackageTypeService;
 use CG\ShipStation\PackageType\Usps\Service as UspsPackageTypeService;
 
 return [
@@ -407,9 +408,7 @@ return [
                             ],
                             'bookingOptions' => [
                                 'weight' => 'weight',
-                                'height' => 'height',
-                                'width' => 'width',
-                                'length' => 'length',
+                                'packageType' => 'packageType',
                             ],
                         ],
                     ],
@@ -840,7 +839,17 @@ return [
                         ]
                     ]
                 ]
-            ]
+            ],
+            RoyalMailPackageTypeService::class => [
+                'parameters' => [
+                    'domesticConfig' => [
+
+                    ],
+                    'internationalConfig' => [
+
+                    ]
+                ]
+            ],
         ]
     ]
 ];
