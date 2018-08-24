@@ -46,7 +46,6 @@ class Service implements LoggerAwareInterface
         $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
         $dateTime = new DateTime();
         $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $dateTime);
-        $this->client->sendRequest($manifestRequest, $shipStationAccount);
         $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
         try {
             /** @var ManifestResponse $response */
