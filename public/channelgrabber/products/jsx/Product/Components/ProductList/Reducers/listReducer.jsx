@@ -26,9 +26,6 @@ define([
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
-            console.log('in stock levels update success');
-            //
-            
             let {fetchingStockLevelsForSkus} = action.payload;
             let newState = Object.assign({}, state, {
                 fetchingStockLevelsForSkus
