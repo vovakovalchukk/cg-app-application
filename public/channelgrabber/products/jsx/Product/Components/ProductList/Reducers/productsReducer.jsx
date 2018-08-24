@@ -13,7 +13,7 @@ define([
         },
         simpleAndParentProducts: [],
         variationsByParent: [],
-        productLinks: {}
+        allProductsLinks: {}
     };
     
     var ProductsReducer = reducerCreator(initialState, {
@@ -42,7 +42,7 @@ define([
             
             let newProducts = applyStockResponseToProducts(productsCopy, response);
             let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
-            let newVariations = applyStockResponseToVariations(productsCopy, variationsCopy, response);
+            let newVariations = applyStockResponseToVariations(visibleRowsCopy, variationsCopy, response);
             
             let newState = Object.assign({}, state, {
                 simpleAndParentProducts: newProducts,
@@ -147,7 +147,7 @@ define([
     
     function applyStockResponseToVariations(products, variations, response) {
         products.forEach((product) => {
-            if (product.variationCount == 0) {
+            if (product.variationCount == 0 || !variations[product.id]) {
                 return;
             }
             variations[product.id].forEach(function(product) {

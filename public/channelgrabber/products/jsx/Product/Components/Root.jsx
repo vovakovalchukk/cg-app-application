@@ -280,7 +280,6 @@ define([
             return (
                 <div>
                     <ProductListProvider
-                        allProductsLinks={this.state.allProductLinks}
                         features={this.props.features}
                         addNewProductButtonClick={this.addNewProductButtonClick}
                         accounts={this.state.accounts}

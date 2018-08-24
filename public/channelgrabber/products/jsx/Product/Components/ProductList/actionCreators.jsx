@@ -9,21 +9,14 @@ define([
     
     const PRODUCTS_URL = "/products/ajax";
     const PRODUCT_LINKS_URL = "/products/links/ajax";
-    const INITIAL_VARIATION_COUNT = 2;
     
     var actionCreators = (function() {
-        
         let self = {};
         
-        let getProductsRequest = () => {
+        let getProductsRequestStart = () => {
             return {
-                type: 'PRODUCTS_GET_REQUEST'
+                type: 'PRODUCTS_GET_REQUEST_START'
             }
-        };
-        let getProductVariationsRequest = () => {
-            return {
-                type: 'PRODUCT_VARIATIONS_GET_REQUEST'
-            };
         };
         let getProductVariationsRequestSuccess = (variationsByParent) => {
             return {
@@ -41,20 +34,17 @@ define([
             }
         };
         let fetchProducts = function(filter, successCallback, errorCallback) {
-            self.productsRequest = $.ajax({
+            return self.productsRequest = $.ajax({
                 'url': PRODUCTS_URL,
                 'data': {'filter': filter.toObject()},
                 'method': 'POST',
-                'dataType': 'json',
-                'success': successCallback.bind(this),
-                'error': errorCallback.bind(this)
+                'dataType': 'json'
             });
         };
         let getProductsSuccess = function(data) {
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
-                
             }
         };
         let getProductLinksSuccess = (productLinks) => {
@@ -81,6 +71,15 @@ define([
                 }
             }
         };
+        let getProductLinksRequest = (skusToFindLinkedProductsFor)=>{
+            return $.ajax({
+                url: PRODUCT_LINKS_URL,
+                data: {
+                    skus: JSON.stringify(skusToFindLinkedProductsFor)
+                },
+                type: 'POST'
+            });
+        };
         
         return {
             storeAccountFeatures: (features) => {
@@ -100,59 +99,36 @@ define([
                 }
             },
             getProducts: (pageNumber, searchTerm, skuList) => {
-                return function(dispatch) {
+                return async function(dispatch) {
                     pageNumber = pageNumber || 1;
                     searchTerm = searchTerm || '';
                     skuList = skuList || [];
-                    var filter = new ProductFilter(searchTerm, null, null, skuList);
+                    let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
-                    
-                    dispatch(getProductsRequest());
-                    
-                    fetchProducts(filter, successCallback, errorCallback);
-                    
-                    function successCallback(data) {
+                    try{
+                        dispatch(getProductsRequestStart());
+                        let data = await fetchProducts(filter);
                         dispatch(getProductsSuccess(data));
-                        
-                        let allDefaultVariationIds = getAllDefaultVariationIdsFromProducts(data.products);
-                        
-                        if (allDefaultVariationIds.length == 0) {
-                            dispatch(actionCreators.getLinkedProducts())
-                            return;
-                        }
-                        
-                        var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
-                        dispatch(actionCreators.getVariations(productFilter))
-                    }
-                    
-                    function errorCallback(err) {
+                        dispatch(actionCreators.getLinkedProducts());
+                    }catch(err){
                         throw 'Unable to load products';
                     }
                 }
             },
             getLinkedProducts: () => {
-                return function(dispatch, getState) {
+                return async function(dispatch, getState) {
                     let state = getState();
                     if (!state.account.features.linkedProducts) {
                         return;
                     }
                     window.triggerEvent('fetchingProductLinksStart');
-                    
                     let skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
-                    
-                    $.ajax({
-                        url: PRODUCT_LINKS_URL,
-                        data: {
-                            skus: JSON.stringify(skusToFindLinkedProductsFor)
-                        },
-                        type: 'POST',
-                        success: function(response) {
-                            dispatch(getProductLinksSuccess(response.productLinks));
-                        },
-                        error: function(error) {
-                            console.warn(error);
-                        }
-                    });
+                    try{
+                        let response = await getProductLinksRequest(skusToFindLinkedProductsFor);
+                        dispatch(getProductLinksSuccess(response.productLinks));
+                    }catch(error){
+                        console.warn(error);
+                    }
                 }
             },
             getUpdatedStockLevels(productSku) {
@@ -176,23 +152,6 @@ define([
                         });
                         fetchingStockLevelsForSkus[productSku] = false;
                         dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
-                    }
-                }
-            },
-            getVariations: (filter) => {
-                return function(dispatch, getState) {
-                    dispatch(getProductVariationsRequest());
-                    AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
-                    $('#products-loading-message').show();
-                    
-                    function onSuccess(data) {
-                        var variationsByParent = sortVariationsByParentId(
-                            data.products,
-                            filter.getParentProductId()
-                        );
-                        dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                        dispatch(actionCreators.getLinkedProducts());
-                        $('#products-loading-message').hide()
                     }
                 }
             },
@@ -240,7 +199,6 @@ define([
                     type: "HORIZONTAL_SCROLLBAR_INDEX_RESET",
                     payload: {}
                 }
-                
             }
         };
         
@@ -251,14 +209,14 @@ define([
         
         function dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand) {
             let filter = new ProductFilter(null, productRowIdToExpand);
-            
-            dispatch(getProductVariationsRequest());
             AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
             
             function fetchProductVariationsCallback(data) {
+                $('#products-loading-message').hide()
                 let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                dispatch(expandProductSuccess(productRowIdToExpand))
+                dispatch(expandProductSuccess(productRowIdToExpand));
+                dispatch(actionCreators.getLinkedProducts());
             }
         }
     })();
@@ -291,25 +249,11 @@ define([
     
     function getSkusToFindLinkedProductsFor(products) {
         var skusToFindLinkedProductsFor = {};
-        for (var productId in products.variations) {
-            products.variations[productId].forEach(function(variation) {
-                skusToFindLinkedProductsFor[variation.sku] = variation.sku;
-            });
-        }
-        products.visibleRows.forEach(function(product) {
-            if (product.variationCount == 0 && product.sku) {
+        products.visibleRows.forEach((product) => {
+            if (product.sku) {
                 skusToFindLinkedProductsFor[product.sku] = product.sku;
             }
         });
         return skusToFindLinkedProductsFor;
-    }
-    
-    function getAllDefaultVariationIdsFromProducts(products) {
-        var allDefaultVariationIds = [];
-        products.forEach((product) => {
-            var defaultVariationIds = product.variationIds.slice(0, INITIAL_VARIATION_COUNT);
-            allDefaultVariationIds = allDefaultVariationIds.concat(defaultVariationIds);
-        });
-        return allDefaultVariationIds;
     }
 });

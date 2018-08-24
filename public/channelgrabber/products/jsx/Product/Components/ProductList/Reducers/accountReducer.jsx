@@ -6,7 +6,6 @@ define([
     "use strict";
     
     var initialState = {
-        pagination: {},
         productSearchActive: false
     };
     
