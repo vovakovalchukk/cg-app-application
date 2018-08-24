@@ -404,7 +404,13 @@ return [
                                     'required' => true,
                                     'inputType' => 'number',
                                 ],
-                            ]
+                            ],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'height' => 'height',
+                                'width' => 'width',
+                                'length' => 'length',
+                            ],
                         ],
                     ],
                     'defaultBookingOptions' => [
