@@ -119,7 +119,6 @@ define([
             });
             return newState;
         }
-        
     });
     
     return ProductsReducer;
@@ -134,13 +133,13 @@ define([
     
     function applyStockResponseToProducts(products, response) {
         products.forEach((product) => {
-            if (product.variationCount == 0) {
-                if (!response.stock[product.sku]) {
-                    return;
-                }
-                product.stock = response.stock[product.sku];
+            if (product.variationCount !== 0) {
                 return;
             }
+            if (!response.stock[product.sku]) {
+                return;
+            }
+            product.stock = response.stock[product.sku];
         });
         return products;
     }

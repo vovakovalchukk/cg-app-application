@@ -33,7 +33,7 @@ define([
                     }
             }
         };
-        let fetchProducts = function(filter, successCallback, errorCallback) {
+        let fetchProducts = function(filter) {
             return self.productsRequest = $.ajax({
                 'url': PRODUCTS_URL,
                 'data': {'filter': filter.toObject()},
@@ -71,7 +71,7 @@ define([
                 }
             }
         };
-        let getProductLinksRequest = (skusToFindLinkedProductsFor)=>{
+        let getProductLinksRequest = (skusToFindLinkedProductsFor) => {
             return $.ajax({
                 url: PRODUCT_LINKS_URL,
                 data: {
@@ -81,11 +81,11 @@ define([
             });
         };
         let updateStockLevelsRequest = function(productSku) {
-               return $.ajax({
-                    url: '/products/stock/ajax/' + productSku,
-                    type: 'GET'
-                });
-            };
+            return $.ajax({
+                url: '/products/stock/ajax/' + productSku,
+                type: 'GET'
+            });
+        };
         
         
         return {
@@ -112,12 +112,12 @@ define([
                     skuList = skuList || [];
                     let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
-                    try{
+                    try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);
                         dispatch(getProductsSuccess(data));
                         dispatch(actionCreators.getLinkedProducts());
-                    }catch(err){
+                    } catch (err) {
                         throw 'Unable to load products';
                     }
                 }
@@ -130,10 +130,10 @@ define([
                     }
                     window.triggerEvent('fetchingProductLinksStart');
                     let skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
-                    try{
+                    try {
                         let response = await getProductLinksRequest(skusToFindLinkedProductsFor);
                         dispatch(getProductLinksSuccess(response.productLinks));
-                    }catch(error){
+                    } catch (error) {
                         console.warn(error);
                     }
                 }
@@ -143,10 +143,10 @@ define([
                     var fetchingStockLevelsForSkus = getState().list.fetchingUpdatedStockLevelsForSkus;
                     fetchingStockLevelsForSkus[productSku] = true;
                     dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
-                    try{
+                    try {
                         let response = await updateStockLevelsRequest(productSku);
                         dispatch(updateStockLevelsRequestSuccess(response));
-                    }catch(err){
+                    } catch (err) {
                         console.error(error);
                     }
                     fetchingStockLevelsForSkus[productSku] = false;
