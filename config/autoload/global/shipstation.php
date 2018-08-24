@@ -10,7 +10,7 @@ use CG\ShipStation\Client;
 use CG\ShipStation\Webhook\Notification\StorageInterface as WebhookNotificationStorage;
 use CG\ShipStation\Webhook\Notification\Storage\Redis as WebhookNotificationStorageRedis;
 use Guzzle\Http\Client as GuzzleClient;
-use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
+use CG\ShipStation\PackageType\Usps\Service as UspsPackageTypeService;
 
 return [
     'di' => [
@@ -422,7 +422,7 @@ return [
                     ]
                 ]
             ],
-            PackageTypeService::class => [
+            UspsPackageTypeService::class => [
                 'parameters' => [
                     'packageTypesConfig' => [
                         // Measurements stored in inches and ounces, keep these in order from smallest to largest within each service
@@ -538,7 +538,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 1120,
@@ -546,7 +546,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'thick_envelope',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Flat Rate Envelope' => [
                                     'weight' => 1120,
@@ -665,7 +665,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 64,
@@ -673,7 +673,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
                             'usps_parcel_select' => [
@@ -697,7 +697,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 64,
@@ -705,7 +705,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'Package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
                             'usps_media_mail' => [
@@ -729,7 +729,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 64,
@@ -737,7 +737,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'thick_envelope',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
                             'usps_priority_mail' => [
@@ -761,7 +761,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'package',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Thick Envelope' => [
                                     'weight' => 1120,
@@ -769,7 +769,7 @@ return [
                                     'width' => 46,
                                     'height' => 46,
                                     'code' => 'thick_envelope',
-                                    'restrictionType' => PackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
+                                    'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                                 'Flat Rate Envelope' => [
                                     'weight' => 64,
