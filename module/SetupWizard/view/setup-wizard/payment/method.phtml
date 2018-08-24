@@ -1,0 +1,18 @@
+<div class="half"></div>
+<script type="text/javascript">
+    require(
+        ['AjaxRequester'],
+        function(ajaxRequester) {
+            ajaxRequester.sendRequest(
+                "<?= $this->url(CG_Billing\Controller\PaymentJsonController::ROUTE_PAYMENT_SELECTION) ?>",
+                {
+                    method: "<?= $this->method ?>",
+                    initialise: false
+                },
+                function(data) {
+                    $('.payment-setup').html(data['html'] || '');
+                }
+            );
+        }
+    );
+</script>
