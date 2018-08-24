@@ -1935,13 +1935,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "6882ad120ed0ae3d938f1a7b4392c748a0c84b75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9760-double-subscriptions-642415.zip",
-                "reference": "6882ad120ed0ae3d938f1a7b4392c748a0c84b75",
-                "shasum": null
+                "reference": "29c690a8e4f8d7430fd27480ad3d899dd904cb0f"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.3",
@@ -9995,8 +9989,8 @@
         "channelgrabber/zf2-billing": 20,
         "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
