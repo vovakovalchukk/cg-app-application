@@ -80,6 +80,13 @@ define([
                 type: 'POST'
             });
         };
+        let updateStockLevelsRequest = function(productSku) {
+               return $.ajax({
+                    url: '/products/stock/ajax/' + productSku,
+                    type: 'GET'
+                });
+            };
+        
         
         return {
             storeAccountFeatures: (features) => {
@@ -132,27 +139,18 @@ define([
                 }
             },
             getUpdatedStockLevels(productSku) {
-                return function(dispatch, getState) {
+                return async function(dispatch, getState) {
                     var fetchingStockLevelsForSkus = getState().list.fetchingUpdatedStockLevelsForSkus;
                     fetchingStockLevelsForSkus[productSku] = true;
-                    
                     dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
-                    updateStockLevelsRequest();
-                    
-                    function updateStockLevelsRequest() {
-                        $.ajax({
-                            url: '/products/stock/ajax/' + productSku,
-                            type: 'GET',
-                            success: function(response) {
-                                dispatch(updateStockLevelsRequestSuccess(response));
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            }
-                        });
-                        fetchingStockLevelsForSkus[productSku] = false;
-                        dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
+                    try{
+                        let response = await updateStockLevelsRequest(productSku);
+                        dispatch(updateStockLevelsRequestSuccess(response));
+                    }catch(err){
+                        console.error(error);
                     }
+                    fetchingStockLevelsForSkus[productSku] = false;
+                    dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
                 }
             },
             expandProduct: (productRowIdToExpand) => {
