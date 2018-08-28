@@ -22,6 +22,8 @@ class Shipment
     protected $warehouseId;
     /** @var string */
     protected $externalShipmentId;
+    /** @var string|null */
+    protected $confirmation;
     /** @var Package[] */
     protected $packages;
 
@@ -31,6 +33,7 @@ class Shipment
         ShipmentAddress $shipTo,
         string $warehouseId,
         string $externalShipmentId,
+        ?string $confirmation,
         Package ...$packages
     ) {
         $this->carrierId = $carrierId;
@@ -38,6 +41,7 @@ class Shipment
         $this->shipTo = $shipTo;
         $this->warehouseId = $warehouseId;
         $this->externalShipmentId = $externalShipmentId;
+        $this->confirmation = $confirmation;
         $this->packages = $packages;
     }
 
@@ -50,6 +54,7 @@ class Shipment
         OrganisationUnit $rootOu
     ): Shipment {
         $shipTo = ShipmentAddress::createFromOrder($order);
+        $confirmation = $orderData->getSignature() ? 'signature' : null;
         $packages = [];
         /** @var ParcelData $parcelData */
         foreach ($parcelsData->getParcels() as $parcelData) {
@@ -62,6 +67,7 @@ class Shipment
             $shipTo,
             $shipStationAccount->getExternalDataByKey('warehouseId'),
             static::getUniqueIdForOrder($order),
+            $confirmation,
             ...$packages
         );
     }
@@ -81,6 +87,7 @@ class Shipment
             'ship_to' => $this->getShipTo()->toArray(),
             'warehouse_id' => $this->getWarehouseId(),
             'external_shipment_id' => $this->getExternalShipmentId(),
+            'confirmation' => $this->getConfirmation(),
             'packages' => [],
         ];
         foreach ($this->packages as $package) {
@@ -150,6 +157,17 @@ class Shipment
     public function setExternalShipmentId(string $externalShipmentId): Shipment
     {
         $this->externalShipmentId = $externalShipmentId;
+        return $this;
+    }
+
+    public function getConfirmation(): ?string
+    {
+        return $this->confirmation;
+    }
+
+    public function setConfirmation(?string $confirmation): Shipment
+    {
+        $this->confirmation = $confirmation;
         return $this;
     }
 
