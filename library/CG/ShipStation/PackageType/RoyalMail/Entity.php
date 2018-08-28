@@ -40,6 +40,15 @@ class Entity
         );
     }
 
+    public function toOptionArray(bool $selected = false): array
+    {
+        return [
+            'title' => $this->getName(),
+            'value' => $this->getCode(),
+            'selected' => $selected,
+        ];
+    }
+
     public function supportsProductWeightAndDimensions(ProductDetail $productDetail): bool
     {
         if ((float)$productDetail->getWeight() <= $this->weight &&

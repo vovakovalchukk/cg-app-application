@@ -5,5 +5,14 @@ use CG\StdLib\Collection as StdlibCollection;
 
 class Collection extends StdlibCollection
 {
-
+    public function toOptionsArrayOfArrays(?Entity $selectedPackageType = null): array
+    {
+        $options = [];
+        /** @var PackageType $packageType */
+        foreach ($this as $packageType) {
+            $selected = $selectedPackageType && $packageType->getCode() == $selectedPackageType->getCode();
+            $options[] = $packageType->toOptionArray($selected);
+        }
+        return $options;
+    }
 }
