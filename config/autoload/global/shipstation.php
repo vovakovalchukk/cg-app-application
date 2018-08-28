@@ -842,11 +842,67 @@ return [
             ],
             RoyalMailPackageTypeService::class => [
                 'parameters' => [
+                    // Measurements in kg and cm
+                    // Keep these in size order, smallest to biggest
                     'domesticConfig' => [
-
+                        'Letter' => [
+                            'name' => 'Letter',
+                            'code' => 'letter',
+                            'weight' => 0.1,
+                            'length' => 24,
+                            'width' => 16.5,
+                            'height' => 0.5,
+                        ],
+                        'Large Letter' => [
+                            'name' => 'Large Letter',
+                            'code' => 'large_letter',
+                            'weight' => 0.75,
+                            'length' => 35.3,
+                            'width' => 25,
+                            'height' => 2.5,
+                        ],
+                        'Parcel' => [
+                            'name' => 'Parcel',
+                            'code' => 'parcel',
+                            'weight' => 15,
+                            'length' => 61,
+                            'width' => 46,
+                            'height' => 46,
+                        ],
                     ],
                     'internationalConfig' => [
-
+                        'Letter' => [
+                            'name' => 'Letter',
+                            'code' => 'letter',
+                            'weight' => 0.1,
+                            'length' => 24,
+                            'width' => 16.5,
+                            'height' => 0.5,
+                        ],
+                        'Large Letter' => [
+                            'name' => 'Large Letter',
+                            'code' => 'large_letter',
+                            'weight' => 0.5,
+                            'length' => 38.1,
+                            'width' => 30.5,
+                            'height' => 2,
+                        ],
+                        'Parcel' => [
+                            'name' => 'Parcel',
+                            'code' => 'parcel',
+                            'weight' => 2,
+                            'length' => 60,
+                            'width' => 60,
+                            'height' => 60,
+                        ],
+                        /* This doesnt seem to be supported by ShipStation, here in case they enable it
+                        'Printed Papers' => [
+                            'weight' => 5,
+                            'length' => 60,
+                            'width' => 60,
+                            'height' => 60,
+                        ],
+                        */
                     ]
                 ]
             ],
