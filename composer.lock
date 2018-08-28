@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "159ed3dc0b6af070d425a1956b0bf7dd",
+    "content-hash": "aa2facb7fe1d59445c5b6cf2e9bddccd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -831,16 +831,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.11.1",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa"
+                "reference": "0dd3746a160b35c3bb7537f6e2e68d4cb385f612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.1-8196e7.zip",
-                "reference": "7fc8b2c9db3cd022e2cf57265b5aed78d90ae7fa",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.2-e54c90.zip",
+                "reference": "0dd3746a160b35c3bb7537f6e2e68d4cb385f612",
                 "shasum": null
             },
             "require": {
@@ -851,7 +851,7 @@
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/payment": "^1.4.0",
                 "channelgrabber/settings": "^1.6.2",
-                "channelgrabber/stdlib": "^2.10.6",
+                "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/user": "^1.25.0",
                 "php": ">=7.1"
             },
@@ -870,7 +870,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-02T12:51:50+00:00"
+            "time": "2018-08-28T12:36:20+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -4153,16 +4153,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "53aa746360417b9c95efedfdd378aed1e38b30ce"
+                "reference": "0560e7b57edd72812d9adcef785e87f49176b656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.2-84a856.zip",
-                "reference": "53aa746360417b9c95efedfdd378aed1e38b30ce",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.3-38f700.zip",
+                "reference": "0560e7b57edd72812d9adcef785e87f49176b656",
                 "shasum": null
             },
             "require": {
@@ -4205,7 +4205,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-07-27T14:43:48+00:00"
+            "time": "2018-08-28T08:34:31+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4341,12 +4341,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "01bd03d6cb671b197a97267ab16906a3d5385fd0"
+                "reference": "a29188947deb5b3aec2592f2cc7a87dec0b9a00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-9770-ensure-all-company-details-set-3f957f.zip",
-                "reference": "01bd03d6cb671b197a97267ab16906a3d5385fd0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-9770-ensure-all-company-details-set-6ab741.zip",
+                "reference": "a29188947deb5b3aec2592f2cc7a87dec0b9a00a",
                 "shasum": null
             },
             "require": {
@@ -4386,7 +4386,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-08-24T15:03:45+00:00"
+            "time": "2018-08-28T12:55:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -10307,8 +10307,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.6.12",
-            "alias_normalized": "1.6.12.0",
+            "alias": "1.6.14",
+            "alias_normalized": "1.6.14.0",
             "version": "dev-CGIV-9770-ensure-all-company-details-set",
             "package": "channelgrabber/zf2-register"
         }
