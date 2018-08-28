@@ -53,8 +53,13 @@ define([
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
+            console.log('in PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS with state: ', state, 'action : ' , action);
+            let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
+            
+            console.log('newVariationsByParent: ', newVariationsByParent);
+            
             let newState = Object.assign({}, state, {
-                variationsByParent: action.payload
+                variationsByParent: newVariationsByParent
             });
             return newState;
         },
@@ -73,6 +78,7 @@ define([
             return newState;
         },
         "PRODUCT_EXPAND_SUCCESS": function(state, action) {
+            console.log('in product_expand_success with state: ' ,  state);
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowIdToExpand = action.payload.productRowIdToExpand;
             
