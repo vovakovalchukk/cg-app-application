@@ -14,21 +14,23 @@ class Package
     const WEIGHT_UNIT = 'kilogram';
     const DIMENSION_UNIT = 'centimeter';
 
-    /** @var float */
+    /** @var float|null */
     protected $weight;
-    /** @var string */
+    /** @var string|null */
     protected $weightUnit;
-    /** @var float */
+    /** @var float|null */
     protected $length;
-    /** @var float */
+    /** @var float|null */
     protected $width;
-    /** @var float */
+    /** @var float|null */
     protected $height;
-    /** @var string */
+    /** @var string|null */
     protected $dimensionsUnit;
-    /** @var float */
+    /** @var string|null */
+    protected $packageCode;
+    /** @var float|null */
     protected $insuredValue;
-    /** @var string */
+    /** @var string|null */
     protected $insuredCurrency;
 
     protected static $unitMap = [
@@ -39,14 +41,15 @@ class Package
     ];
 
     public function __construct(
-        float $weight,
-        string $weightUnit,
-        float $length,
-        float $width,
-        float $height,
-        string $dimensionsUnit,
-        float $insuredValue,
-        string $insuredCurrency
+        ?float $weight,
+        ?string $weightUnit,
+        ?float $length,
+        ?float $width,
+        ?float $height,
+        ?string $dimensionsUnit,
+        ?string $packageCode,
+        ?float $insuredValue,
+        ?string $insuredCurrency
     ) {
         $this->weight = $weight;
         $this->weightUnit = $weightUnit;
@@ -54,6 +57,7 @@ class Package
         $this->width = $width;
         $this->height = $height;
         $this->dimensionsUnit = $dimensionsUnit;
+        $this->packageCode = $packageCode;
         $this->insuredValue = $insuredValue;
         $this->insuredCurrency = $insuredCurrency;
     }
@@ -61,14 +65,15 @@ class Package
     public static function build($decodedJson): Package
     {
         return new static(
-            $decodedJson->weight->value,
-            $decodedJson->weight->unit,
-            $decodedJson->dimensions->length,
-            $decodedJson->dimensions->width,
-            $decodedJson->dimensions->height,
-            $decodedJson->dimensions->unit,
-            $decodedJson->insured_value->amount,
-            $decodedJson->insured_value->currency
+            $decodedJson->weight->value ?? null,
+            $decodedJson->weight->unit ?? null,
+            $decodedJson->dimensions->length ?? null,
+            $decodedJson->dimensions->width ?? null,
+            $decodedJson->dimensions->height ?? null,
+            $decodedJson->dimensions->unit ?? null,
+            $decodedJson->package_code ?? null,
+            $decodedJson->insured_value->amount ?? null,
+            $decodedJson->insured_value->currency ?? null
         );
     }
 
@@ -89,6 +94,7 @@ class Package
             $parcelData->getWidth(),
             $parcelData->getHeight(),
             static::$unitMap[LocaleLength::getForLocale($rootOu->getLocale())],
+            $parcelData->getPackageType(),
             $insuranceAmount,
             $order->getCurrencyCode()
         );
@@ -96,131 +102,128 @@ class Package
     
     public function toArray(): array
     {
-        return [
-            'weight' => [
+        $array = [];
+        // ShipEngine doesn't handle null values
+        if ($this->getWeight() !== null) {
+            $array['weight'] = [
                 'value' => $this->getWeight(),
                 'unit' => $this->getWeightUnit(),
-            ],
-            'dimensions' => [
+            ];
+        }
+        if ($this->getLength() !== null || $this->getWidth() !== null || $this->getHeight() !== null) {
+            $array['dimensions'] = [
                 'length' => $this->getLength(),
                 'width' => $this->getWidth(),
                 'height' => $this->getHeight(),
                 'unit' => $this->getDimensionsUnit(),
-            ],
-            'insured_value' => [
+            ];
+        }
+        if ($this->getInsuredValue() !== null) {
+            $array['insured_value'] = [
                 'amount' => $this->getInsuredValue(),
                 'currency' => $this->getInsuredCurrency(),
-            ],
-        ];
+            ];
+        }
+        if ($this->getPackageCode() !== null) {
+            $array['package_code'] = $this->getPackageCode();
+        }
+        return $array;
     }
 
-    public function getWeight(): float
+    public function getWeight(): ?float
     {
         return $this->weight;
     }
 
-    /**
-     * @return self
-     */
-    public function setWeight(float $weight)
+    public function setWeight(?float $weight): self
     {
         $this->weight = $weight;
         return $this;
     }
 
-    public function getWeightUnit(): string
+    public function getWeightUnit(): ?string
     {
         return $this->weightUnit;
     }
 
-    /**
-     * @return self
-     */
-    public function setWeightUnit(string $weightUnit)
+    public function setWeightUnit(?string $weightUnit): self
     {
         $this->weightUnit = $weightUnit;
         return $this;
     }
 
-    public function getLength(): float
+    public function getLength(): ?float
     {
         return $this->length;
     }
 
-    /**
-     * @return self
-     */
-    public function setLength(float $length)
+    public function setLength(?float $length): self
     {
         $this->length = $length;
         return $this;
     }
 
-    public function getWidth(): float
+    public function getWidth(): ?float
     {
         return $this->width;
     }
 
-    /**
-     * @return self
-     */
-    public function setWidth(float $width)
+    public function setWidth(?float $width): self
     {
         $this->width = $width;
         return $this;
     }
 
-    public function getHeight(): float
+    public function getHeight(): ?float
     {
         return $this->height;
     }
 
-    /**
-     * @return self
-     */
-    public function setHeight(float $height)
+    public function setHeight(?float $height): self
     {
         $this->height = $height;
         return $this;
     }
 
-    public function getDimensionsUnit(): string
+    public function getDimensionsUnit(): ?string
     {
         return $this->dimensionsUnit;
     }
 
-    /**
-     * @return self
-     */
-    public function setDimensionsUnit(string $dimensionsUnit)
+    public function setDimensionsUnit(?string $dimensionsUnit): self
     {
         $this->dimensionsUnit = $dimensionsUnit;
         return $this;
     }
 
-    public function getInsuredValue(): float
+    public function getPackageCode(): ?string
+    {
+        return $this->packageCode;
+    }
+
+    public function setPackageCode(?string $packageCode): self
+    {
+        $this->packageCode = $packageCode;
+        return $this;
+    }
+
+    public function getInsuredValue(): ?float
     {
         return $this->insuredValue;
     }
 
-    /**
-     * @return self
-     */
-    public function setInsuredValue(float $insuredValue)
+    public function setInsuredValue(?float $insuredValue): self
     {
         $this->insuredValue = $insuredValue;
         return $this;
     }
 
-    public function getInsuredCurrency(): string
+    public function getInsuredCurrency(): ?string
     {
         return $this->insuredCurrency;
     }
 
-    /**
-     * @return self
-     */
-    public function setInsuredCurrency(string $insuredCurrency)
+    public function setInsuredCurrency(?string $insuredCurrency): self
     {
         $this->insuredCurrency = $insuredCurrency;
         return $this;
