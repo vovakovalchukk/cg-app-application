@@ -1,6 +1,8 @@
 <?php
 namespace CG\ShipStation\PackageType\RoyalMail;
 
+use CG\Product\Detail\Entity as ProductDetail;
+
 class Entity
 {
     /** @var string */
@@ -36,6 +38,18 @@ class Entity
             $array['length'],
             $array['height']
         );
+    }
+
+    public function supportsProductWeightAndDimensions(ProductDetail $productDetail): bool
+    {
+        if ((float)$productDetail->getWeight() <= $this->weight &&
+            (float)$productDetail->getLength() <= $this->length &&
+            (float)$productDetail->getWidth()  <= $this->width  &&
+            (float)$productDetail->getHeight() <= $this->height
+        ) {
+            return true;
+        }
+        return false;
     }
 
     public function getName(): string
