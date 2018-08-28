@@ -4,6 +4,7 @@ namespace CG\ShipStation\Carrier\Label\Creator;
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -19,6 +20,7 @@ use CG\ShipStation\Request\Shipping\Shipments as ShipmentsRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
 use CG\ShipStation\Response\Shipping\Shipment;
 use CG\ShipStation\Response\Shipping\Shipments as ShipmentsResponse;
+use CG\ShipStation\ShippingService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
@@ -43,14 +45,21 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected $guzzleClient;
     /** @var OrderLabelService */
     protected $orderLabelService;
+    /** @var ShippingService */
+    protected $shippingService;
 
     protected $testLabelBlacklist = ['fedex-ss', 'ups-ss', 'royal-mail-ss'];
 
-    public function __construct(ShipStationClient $shipStationClient, GuzzleClient $guzzleClient, OrderLabelService $orderLabelService)
-    {
+    public function __construct(
+        ShipStationClient $shipStationClient,
+        GuzzleClient $guzzleClient,
+        OrderLabelService $orderLabelService,
+        ShippingService $shippingService
+    ) {
         $this->shipStationClient = $shipStationClient;
         $this->guzzleClient = $guzzleClient;
         $this->orderLabelService = $orderLabelService;
+        $this->shippingService = $shippingService;
     }
 
     public function createLabelsForOrders(
@@ -65,6 +74,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
+        $this->injectSignatureRequiredData($ordersData);
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
         $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
@@ -78,6 +88,16 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->removeGlobalLogEventParams(['ou', 'rootOu', 'account']);
 
         return $this->buildResponseArray($orders, $errors);
+    }
+
+    protected function injectSignatureRequiredData(OrderDataCollection $ordersData): void
+    {
+        /** @var OrderData $orderData */
+        foreach ($ordersData as $orderData) {
+            if ($this->shippingService->doesServiceRequireSignature($orderData->getService())) {
+                $orderData->setSignature(true);
+            }
+        }
     }
 
     protected function createShipmentsForOrders(
