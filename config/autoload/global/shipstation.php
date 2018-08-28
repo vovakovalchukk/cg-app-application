@@ -12,6 +12,7 @@ use CG\ShipStation\Webhook\Notification\Storage\Redis as WebhookNotificationStor
 use Guzzle\Http\Client as GuzzleClient;
 use CG\ShipStation\PackageType\RoyalMail\Service as RoyalMailPackageTypeService;
 use CG\ShipStation\PackageType\Usps\Service as UspsPackageTypeService;
+use CG\ShipStation\ShippingService\RoyalMail as RoyalMailShippingService;
 
 return [
     'di' => [
@@ -906,6 +907,77 @@ return [
                     ]
                 ]
             ],
+            RoyalMailShippingService::class => [
+                'parameters' => [
+                    'signatureServices' => [
+                        'rm_special_delivery_1pm_500',
+                        'rm_special_delivery_1pm_1000',
+                        'rm_special_delivery_1pm_2500',
+                        'rm_special_delivery_9am_50',
+                        'rm_special_delivery_9am_1000',
+                        'rm_special_delivery_9am_2500',
+                        'rm_special_delivery_1pm_500_sg',
+                        'rm_special_delivery_1pm_1000_sg',
+                        'rm_special_delivery_1pm_2500_sg',
+                        'rm_special_delivery_9am_50_sg',
+                        'rm_special_delivery_9am_1000_sg',
+                        'rm_special_delivery_9am_2500_sg',
+                        'rm_special_delivery_1pm_500_lcsg',
+                        'rm_special_delivery_1pm_1000_lcsg',
+                        'rm_special_delivery_1pm_2500_lcsg',
+                        'rm_special_delivery_9am_50_lcsg',
+                        'rm_special_delivery_9am_1000_lcsg',
+                        'rm_special_delivery_9am_2500_lcsg',
+                        'rm_special_delivery_1pm_500_sg',
+                        'rm_special_delivery_1pm_1000_sg',
+                        'rm_special_delivery_1pm_2500_sg',
+                        'rm_special_delivery_9am_50_sg',
+                        'rm_special_delivery_9am_1000_sg',
+                        'rm_special_delivery_9am_2500_sg',
+                        'rm_special_delivery_1pm_500_lcsg',
+                        'rm_special_delivery_1pm_1000_lcsg',
+                        'rm_special_delivery_1pm_2500_lcsg',
+                        'rm_special_delivery_9am_50_lcsg',
+                        'rm_special_delivery_9am_1000_lcsg',
+                        'rm_special_delivery_9am_2500_lcsg',
+                        'rm_1st_class_signed_for',
+                        'rm_2nd_class_signed_for',
+                        'rm_hm_forces_signed_for',
+                        'rm_hm_forces_special_delivery',
+                        'rm_hm_forces_special_delivery_1000',
+                        'rm_hm_forces_special_delivery_2500',
+                        'rm_intl_business_mail_signed_zonal',
+                        'rm_intl_business_mail_signed_country',
+                        'rm_intl_business_mail_signed_extra_zonal',
+                        'rm_intl_business_mail_signed_extra_country',
+                        'rm_intl_business_parcels_signed_zonal',
+                        'rm_intl_business_parcels_signed_country',
+                        'rm_intl_business_parcels_signed_extra_zonal',
+                        'rm_intl_business_parcels_signed_extra_country',
+                        'rm_intl_signed_on_account',
+                        'rm_intl_signed_on_account_extra',
+                        'rm_intl_business_mail_tracked_signed_zonal',
+                        'rm_intl_business_mail_tracked_signed_country',
+                        'rm_intl_business_mail_tracked_signed_extra_zonal',
+                        'rm_intl_business_mail_tracked_signed_extra_country',
+                        'rm_intl_business_parcels_tracked_signed_zonal',
+                        'rm_intl_business_parcels_tracked_signed_country',
+                        'rm_intl_business_parcels_tracked_signed_extra_zonal',
+                        'rm_intl_business_parcels_tracked_signed_extra_country',
+                        'rm_intl_tracked_signed_on_account',
+                        'rm_intl_tracked_signed_on_account_extra',
+                        'rm_hm_forces_signed_for',
+                        'rm_intl_business_parcels_tracked_signed_country_hi_vol',
+                        'rm_intl_business_parcel_signed_country_hi_vol',
+                        'rm_intl_business_parcel_tracked_signed_extra_country_hi_vol',
+                        'rm_intl_business_parcel_signed_extra_country_hi_vol',
+                        'rm_intl_business_mail_tracked_signed_letter_hi_vol',
+                        'rm_intl_business_mail_tracked_signed_letter_extra_comp_country_hi_vol',
+                        'rm_intl_business_mail_signed_letter_country_hi_vol',
+                        'rm_intl_business_mail_signed_letter_extra_comp_country_hi_vol',
+                    ]
+                ]
+            ]
         ]
     ]
 ];
