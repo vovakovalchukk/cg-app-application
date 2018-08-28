@@ -27,7 +27,7 @@
         "channelgrabber/cglib": "~1.16.4",
         "channelgrabber/channel": "~1.38.0",
         "channelgrabber/cilex": "~1.2.0",
-        "channelgrabber/clearbooks": "dev-CGIV-9661-ClearbooksInvoiceErrors as 1.11.2",
+        "channelgrabber/clearbooks": "~1.11.2",
         "channelgrabber/communication": "~1.0.6",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.0.30",

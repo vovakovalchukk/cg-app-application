@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86675e9d4158a4b9e989fd01fd600c88",
+    "content-hash": "81b4a50dcb72d54948a0f6cd204daa23",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -831,16 +831,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "dev-CGIV-9661-ClearbooksInvoiceErrors",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "d86e5c859e16c37ff2d0290d677a920ed225dc52"
+                "reference": "0dd3746a160b35c3bb7537f6e2e68d4cb385f612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-CGIV-9661-ClearbooksInvoiceErrors-8338af.zip",
-                "reference": "d86e5c859e16c37ff2d0290d677a920ed225dc52",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.2-e54c90.zip",
+                "reference": "0dd3746a160b35c3bb7537f6e2e68d4cb385f612",
                 "shasum": null
             },
             "require": {
@@ -870,7 +870,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-28T09:20:11+00:00"
+            "time": "2018-08-28T12:36:20+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -10305,17 +10305,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.2",
-            "alias_normalized": "1.11.2.0",
-            "version": "dev-CGIV-9661-ClearbooksInvoiceErrors",
-            "package": "channelgrabber/clearbooks"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
