@@ -176,12 +176,13 @@ class ProductsJsonController extends AbstractActionController
             $total = $products->getTotal();
 
             $productSearchActive = $this->listingChannelService->isProductSearchActive($rootOrganisationUnit);
+            $productSearchActiveForVariations = $this->listingChannelService->isProductSearchActiveForVariations($rootOrganisationUnit);
         } catch(NotFound $e) {
             $allowedCreateListingChannels = [];
             $allowedCreateListingVariationsChannels = [];
             $accountsArray = [];
             $productSearchActive = false;
-            //noop
+            $productSearchActiveForVariations = false;
         }
 
         $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
@@ -201,6 +202,7 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
             ->setVariable('productSearchActive', $productSearchActive)
+            ->setVariable('productSearchActiveForVariations', $productSearchActiveForVariations)
             ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
         return $view;
     }

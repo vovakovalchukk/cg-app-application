@@ -34,7 +34,7 @@
         "channelgrabber/courieradapter": "~1.2.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.2.1",
-        "channelgrabber/ebay": "dev-TAC-177-create-new-pbse-catalog-product as 1.13.1",
+        "channelgrabber/ebay": "dev-STRAT-3-feature-flag-pbse-variations as 1.13.1",
         "channelgrabber/ekm": "~1.9.3",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
