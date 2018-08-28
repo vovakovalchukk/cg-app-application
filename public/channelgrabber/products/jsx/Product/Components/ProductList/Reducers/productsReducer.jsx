@@ -33,6 +33,7 @@ define([
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
+            console.log('in product_links_Get_request_success -R');
             let newState = Object.assign({}, state, {
                 allProductsLinks: action.payload.productLinks
             });
@@ -202,7 +203,7 @@ define([
     }
     
     function applyFetchingStatusToNewVisibleRows(visibleRowsCopy, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS){
-        console.log('in applyFetchingStatusToNewVisibleRows visibleRowsCopy: ' , visibleRowsCopy, ' skusToFindLinkedProductsFor: ' , skusToFindLinkedProductsFor);
+        // console.log('in applyFetchingStatusToNewVisibleRows visibleRowsCopy: ' , visibleRowsCopy, ' skusToFindLinkedProductsFor: ' , skusToFindLinkedProductsFor);
         visibleRowsCopy.forEach((row,i)=>{
             if(skusToFindLinkedProductsFor.indexOf(row.sku) < 0){
                 return;

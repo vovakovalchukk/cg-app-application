@@ -37,6 +37,10 @@ define([
             if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {
                 productLinks = products.allProductsLinks[rowData.id][rowData.id];
             }
+            
+            // console.log('in linkCell with products.allProductsLinks: '  , products.allProductsLinks);
+            
+            
             return (
                 <StyledLink.container>
                     {!isParentProduct ?

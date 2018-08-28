@@ -72,9 +72,7 @@ define([
             }
         };
         const getProductLinksRequest = (skusToFindLinkedProductsFor) => {
-            console.log('in getProductLinksRequest with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
-            
-            
+            console.log('!!! in getProductLinksRequest - AC with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
             return $.ajax({
                 url: PRODUCT_LINKS_URL,
                 data: {
@@ -89,7 +87,6 @@ define([
                 type: 'GET'
             });
         };
-        
         const fetchingProductLinksStart = (skusToFindLinkedProductsFor) => {
             return {
                 type: "FETCHING_LINKED_PRODUCTS_START",
@@ -158,7 +155,7 @@ define([
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                     
                     try {
-                        let response = await getProductLinksRequest(skusToFindLinkedProductsFor);
+                        let response = await getProductLinksRequest(formattedSkus);
                         dispatch(getProductLinksSuccess(response.productLinks));
                     } catch (error) {
                         console.warn(error);
@@ -291,11 +288,11 @@ define([
         return skusToFindLinkedProductsFor;
     }
     
-    function formatSkusForLinkApi(skusToFindLinkedProductsFor){
-        return skusToFindLinkedProductsFor.map((sku)=>{
-            return {
-                sku
-            }
+    function formatSkusForLinkApi(skusToFindLinkedProductsFor) {
+        let linkObj = {};
+        skusToFindLinkedProductsFor.forEach((sku) => {
+            linkObj[sku] = sku;
         });
+        return linkObj;
     }
 });
