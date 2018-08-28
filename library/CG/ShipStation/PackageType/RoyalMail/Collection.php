@@ -11,7 +11,7 @@ class Collection extends StdlibCollection
         /** @var PackageType $packageType */
         foreach ($this as $packageType) {
             $selected = $selectedPackageType && $packageType->getCode() == $selectedPackageType->getCode();
-            $options[] = $packageType->toOptionArray($selected);
+            $options[$packageType->getCode()] = $packageType->toOptionArray($selected);
         }
         return $options;
     }
