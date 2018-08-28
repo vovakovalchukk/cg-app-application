@@ -207,8 +207,9 @@ class Service
     {
         $account = $this->accountService->fetch($accountId);
         $accountManifest = $this->createAccountManifest($account);
+        $lastManifestDate = $this->getLatestManifestDateForShippingAccount($account);
         try {
-            $this->getCarrierProviderService($account)->createManifestForAccount($account, $accountManifest);
+            $this->getCarrierProviderService($account)->createManifestForAccount($account, $accountManifest, $lastManifestDate);
 
             $accountManifest->setStatus(AccountManifestStatus::NOT_PRINTED)
                 ->setCreated((new StdlibDateTime())->stdFormat());

@@ -23,6 +23,7 @@ use CG\ShipStation\Carrier\Service as CarrierService;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
 use CG\ShipStation\Carrier\Label\Manifest\Service as ManifestService;
+use CG\Stdlib\DateTime;
 
 class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, ManifestInterface
 {
@@ -186,12 +187,15 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
         $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
 
-        $shipStationManifest = $this->manifestService->generateShipStationManifest($shippingAccountToUse, $shipStationAccountToUse, $accountManifest);
+        $shipStationManifests = $this->manifestService->generateShipStationManifests($shippingAccountToUse, $shipStationAccountToUse, $accountManifest);
 
-        if ($shipStationManifest !== null) {
-            $manifestPdf = $this->manifestService->retrievePdfForManifest($shipStationManifest);
-            $accountManifest->setExternalId($shipStationManifest->getFormId());
-            $accountManifest->setManifest(base64_encode($manifestPdf));
+        if ($shipStationManifests !== null && count($shipStationManifests) > 0) {
+            $manifestPdfs = [];
+            foreach ($shipStationManifests as $shipStationManifest) {
+                $manifestPdf = $this->manifestService->retrievePdfForManifest($shipStationManifest);
+                $accountManifest->setExternalId($shipStationManifest->getFormId());
+                $accountManifest->setManifest(base64_encode($manifestPdf));
+            }
         }
     }
 }
