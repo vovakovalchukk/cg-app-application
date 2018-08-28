@@ -1,9 +1,11 @@
 define([
     'Common/Reducers/creator',
-    'Product/Components/ProductList/stateUtility'
+    'Product/Components/ProductList/stateUtility',
+    'Product/Components/ProductList/Config/constants'
 ], function(
     reducerCreator,
-    stateUtility
+    stateUtility,
+    constants
 ) {
     "use strict";
     
@@ -16,13 +18,12 @@ define([
         allProductsLinks: {}
     };
     
-    const LINK_STATUSES = {
-        fetching: "fetching",
-        success: "success"
-    }
+    const {LINK_STATUSES } = constants;
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
+            
+            
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -30,6 +31,8 @@ define([
                 simpleAndParentProducts: action.payload.products,
                 visibleRows: action.payload.products
             });
+            console.log('in PRODUCTS_GET_REQUEST_SUCCESS -R newState: ' ,  newState);
+    
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
@@ -143,6 +146,7 @@ define([
                 LINK_STATUSES.fetching
             );
             
+            console.log('just SET link fetch start with newVisibleRows: ' , newVisibleRows);
             return Object.assign({}, state, {
                 variationsByParent: newVariationsByParent,
                 visibleRows: newVisibleRows

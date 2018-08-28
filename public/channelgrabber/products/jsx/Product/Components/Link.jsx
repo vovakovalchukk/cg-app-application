@@ -1,17 +1,22 @@
 define([
     'react',
-    'Product/Components/Tooltip'
+    'Product/Components/Tooltip',
+    'Product/Components/ProductList/Config/constants'
 ], function(
     React,
-    Tooltip
+    Tooltip,
+    constants
 ) {
     "use strict";
 
+    const {LINK_STATUSES} = constants;
+    
     var LinkComponent = React.createClass({
         getDefaultProps: function () {
             return {
                 sku: "",
-                productLinks: []
+                productLinks: [],
+                linkStatus: ''
             }
         },
         getInitialState: function() {
@@ -21,20 +26,23 @@ define([
         },
         componentDidMount: function()
         {
-            window.addEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
-            window.addEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
+            if(this.props.linkStatus = LINK_STATUSES.fetching ){
+                // this.onStartFetchingLinks();/
+            }
+            // window.addEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
+            // window.addEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
         },
-        componentWillUnmount: function()
-        {
-            window.removeEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
-            window.removeEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-        },
-        onStartFetchingLinks: function () {
-            this.setState({ fetchingLinks: true });
-        },
-        onStopFetchingLinks: function () {
-            this.setState({ fetchingLinks: false });
-        },
+        // componentWillUnmount: function()
+        // {
+        //     window.removeEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
+        //     window.removeEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
+        // },
+        // onStartFetchingLinks: function () {
+        //     this.setState({ fetchingLinks: true });
+        // },
+        // onStopFetchingLinks: function () {
+        //     this.setState({ fetchingLinks: false });
+        // },
         onClick: function () {
             window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
         },
@@ -67,7 +75,12 @@ define([
             }.bind(this));
         },
         getLinkIcon: function () {
-            if (this.state.fetchingLinks) {
+            
+            // console.log('in getLinkIcon this.props.linkStatus: ' , this.props.linkStatus);
+            
+            
+            
+            if (this.props.linkStatus == LINK_STATUSES.fetching) {
                 return (
                     <span>
                         <img

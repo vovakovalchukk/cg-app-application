@@ -1,14 +1,15 @@
 define([
     'Product/Storage/Ajax',
-    'Product/Filter/Entity'
+    'Product/Filter/Entity',
+    'Product/Components/ProductList/Config/constants'
 ], function(
     AjaxHandler,
-    ProductFilter
+    ProductFilter,
+    constants
 ) {
     "use strict";
     
-    const PRODUCTS_URL = "/products/ajax";
-    const PRODUCT_LINKS_URL = "/products/links/ajax";
+    const {PRODUCTS_URL, PRODUCT_LINKS_URL} = constants;
     
     var actionCreators = (function() {
         let self = {};
@@ -34,6 +35,7 @@ define([
             }
         };
         const fetchProducts = function(filter) {
+            console.log('in fetchProducts PRODUCTS_URL: ' , PRODUCTS_URL);
             return self.productsRequest = $.ajax({
                 'url': PRODUCTS_URL,
                 'data': {'filter': filter.toObject()},
@@ -42,6 +44,7 @@ define([
             });
         };
         const getProductsSuccess = function(data) {
+            console.log('in getProductsSuccess -AC');
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
@@ -126,7 +129,7 @@ define([
                         dispatch(getProductsSuccess(data));
                         dispatch(actionCreators.getLinkedProducts());
                     } catch (err) {
-                        throw 'Unable to load products';
+                        throw 'Unable to load products... error: '+ err;
                     }
                 }
             },
@@ -137,21 +140,18 @@ define([
                         return;
                     }
                     
-                    //todo need to trigger an action to set the linkStatus to 'loading' or something
-                    
-                    window.triggerEvent('fetchingProductLinksStart');
-                    
-                    
+                    // // // todo - eventually remove this after replacing with redux implementation
+                    // window.triggerEvent('fetchingProductLinksStart');
+                    // //
+                    //
                     let skusToFindLinkedProductsFor = [];
                     if (!productSkus) {
                         skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
                     } else {
                         skusToFindLinkedProductsFor = productSkus;
                     }
-                    
                     // console.log('skusToFindLinkedProductsFor before dispatch : '  , skusToFindLinkedProductsFor);
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
-                    
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                     
                     try {
