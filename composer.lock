@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad0a9c975a35b183343e343d806e69fb",
+    "content-hash": "5f7101aac34ac8a49da8138548acac7e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4153,16 +4153,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-TAC-182-SignupCosmeticIssues",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ec3a79f4e4669a42dc5fc999421442a171fa2c6a"
+                "reference": "0560e7b57edd72812d9adcef785e87f49176b656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-TAC-182-SignupCosmeticIssues-66dbf9.zip",
-                "reference": "ec3a79f4e4669a42dc5fc999421442a171fa2c6a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.3-38f700.zip",
+                "reference": "0560e7b57edd72812d9adcef785e87f49176b656",
                 "shasum": null
             },
             "require": {
@@ -4205,7 +4205,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-08-07T12:57:22+00:00"
+            "time": "2018-08-28T08:34:31+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4337,16 +4337,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-TAC-182-SignupCosmeticIssues",
+            "version": "1.6.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "bad84cf6ee231e873a2d44114a1a572cb962a853"
+                "reference": "bfeb692e872fdbef15139ea83b1dcb2912dfebe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-TAC-182-SignupCosmeticIssues-310266.zip",
-                "reference": "bad84cf6ee231e873a2d44114a1a572cb962a853",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.13-43cfbf.zip",
+                "reference": "bfeb692e872fdbef15139ea83b1dcb2912dfebe6",
                 "shasum": null
             },
             "require": {
@@ -4386,7 +4386,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-08-24T10:09:31+00:00"
+            "time": "2018-08-28T08:34:50+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -10305,25 +10305,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.3",
-            "alias_normalized": "1.6.3.0",
-            "version": "dev-TAC-182-SignupCosmeticIssues",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.6.12",
-            "alias_normalized": "1.6.12.0",
-            "version": "dev-TAC-182-SignupCosmeticIssues",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
