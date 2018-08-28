@@ -16,6 +16,11 @@ define([
         allProductsLinks: {}
     };
     
+    const LINK_STATUSES = {
+        fetching: "fetching",
+        success: "success"
+    }
+    
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
             let newState = Object.assign({}, state, {
@@ -53,11 +58,7 @@ define([
             return newState;
         },
         "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS with state: ', state, 'action : ' , action);
             let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
-            
-            console.log('newVariationsByParent: ', newVariationsByParent);
-            
             let newState = Object.assign({}, state, {
                 variationsByParent: newVariationsByParent
             });
@@ -78,7 +79,6 @@ define([
             return newState;
         },
         "PRODUCT_EXPAND_SUCCESS": function(state, action) {
-            console.log('in product_expand_success with state: ' ,  state);
             let currentVisibleProducts = state.visibleRows.slice();
             let productRowIdToExpand = action.payload.productRowIdToExpand;
             
@@ -124,6 +124,28 @@ define([
                 visibleRows: currentVisibleProducts
             });
             return newState;
+        },
+        "FETCHING_LINKED_PRODUCTS_START": function(state,action){
+            const {skusToFindLinkedProductsFor} = action.payload;
+            
+            let variationsByParentCopy = Object.assign({}, state.variationsByParent);
+            let visibleRowsCopy = state.visibleRows.slice();
+            
+            let newVariationsByParent = applyFetchingStatusToVariations(
+                variationsByParentCopy,
+                skusToFindLinkedProductsFor,
+                LINK_STATUSES.fetching
+            );
+            let newVisibleRows = applyFetchingStatusToNewVisibleRows(
+                visibleRowsCopy,
+                skusToFindLinkedProductsFor,
+                LINK_STATUSES.fetching
+            );
+            
+            return Object.assign({}, state, {
+                variationsByParent: newVariationsByParent,
+                visibleRows: newVisibleRows
+            })
         }
     });
     
@@ -164,5 +186,29 @@ define([
             });
         });
         return variations;
+    }
+    
+    function applyFetchingStatusToVariations(variationsByParent, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS){
+        Object.keys(variationsByParent).map(parentId => {
+            let variations =  variationsByParent[parentId];
+            variations.forEach((variation, i)=>{
+                if(skusToFindLinkedProductsFor.indexOf(variation.sku) < 0){
+                    return;
+                }
+                variationsByParent[parentId][i]["linkStatus"] = DESIRED_LINK_STATUS
+            });
+        });
+        return variationsByParent;
+    }
+    
+    function applyFetchingStatusToNewVisibleRows(visibleRowsCopy, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS){
+        console.log('in applyFetchingStatusToNewVisibleRows visibleRowsCopy: ' , visibleRowsCopy, ' skusToFindLinkedProductsFor: ' , skusToFindLinkedProductsFor);
+        visibleRowsCopy.forEach((row,i)=>{
+            if(skusToFindLinkedProductsFor.indexOf(row.sku) < 0){
+                return;
+            }
+            visibleRowsCopy[i]["linkStatus"] = DESIRED_LINK_STATUS;
+        });
+        return visibleRowsCopy;
     }
 });

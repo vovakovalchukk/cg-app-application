@@ -72,6 +72,9 @@ define([
             }
         };
         const getProductLinksRequest = (skusToFindLinkedProductsFor) => {
+            console.log('in getProductLinksRequest with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
+            
+            
             return $.ajax({
                 url: PRODUCT_LINKS_URL,
                 data: {
@@ -87,6 +90,14 @@ define([
             });
         };
         
+        const fetchingProductLinksStart = (skusToFindLinkedProductsFor) => {
+            return {
+                type: "FETCHING_LINKED_PRODUCTS_START",
+                payload: {
+                    skusToFindLinkedProductsFor
+                }
+            }
+        };
         
         return {
             storeAccountFeatures: (features) => {
@@ -122,14 +133,30 @@ define([
                     }
                 }
             },
-            getLinkedProducts: () => {
+            getLinkedProducts: (productSkus) => {
                 return async function(dispatch, getState) {
                     let state = getState();
                     if (!state.account.features.linkedProducts) {
                         return;
                     }
+                    
+                    //todo need to trigger an action to set the linkStatus to 'loading' or something
+                    
                     window.triggerEvent('fetchingProductLinksStart');
-                    let skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
+                    
+                    
+                    let skusToFindLinkedProductsFor = [];
+                    if (!productSkus) {
+                        skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
+                    } else {
+                        skusToFindLinkedProductsFor = productSkus;
+                    }
+                    
+                    // console.log('skusToFindLinkedProductsFor before dispatch : '  , skusToFindLinkedProductsFor);
+                    dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
+                    
+                    let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
+                    
                     try {
                         let response = await getProductLinksRequest(skusToFindLinkedProductsFor);
                         dispatch(getProductLinksSuccess(response.productLinks));
@@ -214,7 +241,16 @@ define([
                 let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowIdToExpand));
-                dispatch(actionCreators.getLinkedProducts());
+                
+                let newVariationSkus = data.products.map((product) => {
+                    return product.sku;
+                });
+                
+                console.log('in fetchProductVariationsCallbackw with data.products: ', data.products);
+                
+                
+                //todo - change this to - getLinkedProductsForSpecificIds
+                dispatch(actionCreators.getLinkedProducts(newVariationSkus));
             }
         }
     })();
@@ -246,12 +282,20 @@ define([
     }
     
     function getSkusToFindLinkedProductsFor(products) {
-        var skusToFindLinkedProductsFor = {};
+        var skusToFindLinkedProductsFor = [];
         products.visibleRows.forEach((product) => {
             if (product.sku) {
-                skusToFindLinkedProductsFor[product.sku] = product.sku;
+                skusToFindLinkedProductsFor.push(product.sku);
             }
         });
         return skusToFindLinkedProductsFor;
+    }
+    
+    function formatSkusForLinkApi(skusToFindLinkedProductsFor){
+        return skusToFindLinkedProductsFor.map((sku)=>{
+            return {
+                sku
+            }
+        });
     }
 });
