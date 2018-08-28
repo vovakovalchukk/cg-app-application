@@ -179,7 +179,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      * @param AccountManifest $accountManifest
      * @throws \CG\Stdlib\Exception\Storage if there is a problem generating the manifest
      */
-    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
+    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest, ?DateTime $lastManifestDate)
     {
         /** @var AccountDeciderInterface $accountDecider */
         $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
