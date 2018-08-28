@@ -13,18 +13,18 @@ define([
     var actionCreators = (function() {
         let self = {};
         
-        let getProductsRequestStart = () => {
+        const getProductsRequestStart = () => {
             return {
                 type: 'PRODUCTS_GET_REQUEST_START'
             }
         };
-        let getProductVariationsRequestSuccess = (variationsByParent) => {
+        const getProductVariationsRequestSuccess = (variationsByParent) => {
             return {
                 type: 'PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS',
                 payload: variationsByParent
             };
         };
-        let expandProductSuccess = (productRowIdToExpand) => {
+        const expandProductSuccess = (productRowIdToExpand) => {
             return {
                 type: 'PRODUCT_EXPAND_SUCCESS',
                 payload:
@@ -33,7 +33,7 @@ define([
                     }
             }
         };
-        let fetchProducts = function(filter) {
+        const fetchProducts = function(filter) {
             return self.productsRequest = $.ajax({
                 'url': PRODUCTS_URL,
                 'data': {'filter': filter.toObject()},
@@ -41,13 +41,13 @@ define([
                 'dataType': 'json'
             });
         };
-        let getProductsSuccess = function(data) {
+        const getProductsSuccess = function(data) {
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
             }
         };
-        let getProductLinksSuccess = (productLinks) => {
+        const getProductLinksSuccess = (productLinks) => {
             return {
                 type: "PRODUCT_LINKS_GET_REQUEST_SUCCESS",
                 payload: {
@@ -55,7 +55,7 @@ define([
                 }
             }
         };
-        let updateStockLevelsRequestSuccess = (response) => {
+        const updateStockLevelsRequestSuccess = (response) => {
             return {
                 type: "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS",
                 payload: {
@@ -63,7 +63,7 @@ define([
                 }
             }
         };
-        let updateFetchingStockLevelsForSkus = (fetchingStockLevelsForSkus) => {
+        const updateFetchingStockLevelsForSkus = (fetchingStockLevelsForSkus) => {
             return {
                 type: "FETCHING_STOCK_LEVELS_FOR_SKUS_UPDATE",
                 payload: {
@@ -71,7 +71,7 @@ define([
                 }
             }
         };
-        let getProductLinksRequest = (skusToFindLinkedProductsFor) => {
+        const getProductLinksRequest = (skusToFindLinkedProductsFor) => {
             return $.ajax({
                 url: PRODUCT_LINKS_URL,
                 data: {
@@ -80,7 +80,7 @@ define([
                 type: 'POST'
             });
         };
-        let updateStockLevelsRequest = function(productSku) {
+        const updateStockLevelsRequest = (productSku) => {
             return $.ajax({
                 url: '/products/stock/ajax/' + productSku,
                 type: 'GET'
@@ -182,7 +182,7 @@ define([
             changeTab: (desiredTabKey) => {
                 return function(dispatch, getState) {
                     let state = getState();
-                    let numberOfVisibleFixedColumns = getVisibleFixedColumns(state).length
+                    let numberOfVisibleFixedColumns = getVisibleFixedColumns(state).length;
                     dispatch({
                         type: "TAB_CHANGE",
                         payload: {
@@ -210,7 +210,7 @@ define([
             AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
             
             function fetchProductVariationsCallback(data) {
-                $('#products-loading-message').hide()
+                $('#products-loading-message').hide();
                 let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowIdToExpand));
