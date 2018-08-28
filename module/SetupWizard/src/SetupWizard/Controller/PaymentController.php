@@ -85,7 +85,12 @@ class PaymentController extends AbstractActionController
             return $body->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethodSelect');
         }
 
-        return $body->addChild($this->paymentViewService->getPaymentMethodView()->setTerminal(false), 'paymentMethod');
+        return $body->addChild(
+            $this->viewModelFactory->newInstance()
+                ->setTemplate('setup-wizard/payment/method')
+                ->setVariable('method', $this->paymentViewService->getDefaultPaymentProvider()),
+            'paymentMethod'
+        );
     }
 
     protected function getSelectedPackage(): ?int
