@@ -3,13 +3,17 @@ namespace CG\ShipStation\Carrier\Label\Creator;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\Tracking\Entity as OrderTracking;
+use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Carrier\Label\CreatorInterface;
 use CG\ShipStation\Client as ShipStationClient;
@@ -17,6 +21,7 @@ use CG\ShipStation\Messages\Exception\InvalidStateException;
 use CG\ShipStation\Request\Shipping\Label as LabelRequest;
 use CG\ShipStation\Request\Shipping\Shipments as ShipmentsRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
+use CG\ShipStation\Response\Shipping\Label;
 use CG\ShipStation\Response\Shipping\Shipment;
 use CG\ShipStation\Response\Shipping\Shipments as ShipmentsResponse;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -24,6 +29,7 @@ use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\Entity as User;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\MultiTransferException;
 use Guzzle\Http\Message\Request as GuzzleRequest;
@@ -43,14 +49,25 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected $guzzleClient;
     /** @var OrderLabelService */
     protected $orderLabelService;
+    /** @var OrderTrackingMapper */
+    protected $orderTrackingMapper;
+    /** @var OrderTrackingService */
+    protected $orderTrackingService;
 
     protected $testLabelBlacklist = ['fedex-ss', 'ups-ss'];
 
-    public function __construct(ShipStationClient $shipStationClient, GuzzleClient $guzzleClient, OrderLabelService $orderLabelService)
-    {
+    public function __construct(
+        ShipStationClient $shipStationClient,
+        GuzzleClient $guzzleClient,
+        OrderLabelService $orderLabelService,
+        OrderTrackingMapper $orderTrackingMapper,
+        OrderTrackingService $orderTrackingService
+    ) {
         $this->shipStationClient = $shipStationClient;
         $this->guzzleClient = $guzzleClient;
         $this->orderLabelService = $orderLabelService;
+        $this->orderTrackingMapper = $orderTrackingMapper;
+        $this->orderTrackingService = $orderTrackingService;
     }
 
     public function createLabelsForOrders(
@@ -59,6 +76,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         OrderDataCollection $ordersData,
         OrderParcelsDataCollection $orderParcelsData,
         OrganisationUnit $rootOu,
+        User $user,
         Account $shippingAccount,
         Account $shipStationAccount
     ): array {
@@ -68,6 +86,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
         $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
         $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
+        $this->saveTrackingNumbersForSuccessfulLabels($labels, $orders, $user, $shippingAccount);
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
@@ -130,6 +149,43 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
         }
         return $labels;
+    }
+
+    protected function saveTrackingNumbersForSuccessfulLabels(
+        array $labelResponses,
+        OrderCollection $orders,
+        User $user,
+        Account $shippingAccount
+    ): void {
+        /** @var LabelResponse $labelResponse */
+        foreach ($labelResponses as $orderId => $labelResponse) {
+            if (!empty($labelResponse->getErrors()) || $labelResponse->getTrackingNumber() == '') {
+                continue;
+            }
+            /** @var Order $order */
+            $order = $orders->getById($orderId);
+            foreach ($order->getChannelUpdatableOrders() as $updatableOrder) {
+                $tracking = $this->mapOrderTrackingFromLabelResponse($labelResponse, $updatableOrder, $user, $shippingAccount);
+                $this->orderTrackingService->save($tracking);
+                $this->orderTrackingService->createGearmanJob($updatableOrder);
+            }
+        }
+    }
+
+    protected function mapOrderTrackingFromLabelResponse(
+        LabelResponse $labelResponse,
+        Order $order,
+        User $user,
+        Account $shippingAccount
+    ): OrderTracking {
+        return $this->orderTrackingMapper->fromArray([
+            'organisationUnitId' => $order->getOrganisationUnitId(),
+            'orderId' => $order->getId(),
+            'userId' => $user->getId(),
+            'timestamp' => (new StdlibDateTime())->stdFormat(),
+            'carrier' => $shippingAccount->getDisplayableChannel(),
+            'number' => $labelResponse->getTrackingNumber(),
+        ]);
     }
 
     protected function isTestLabel(Account $shippingAccount): bool
