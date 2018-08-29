@@ -105,7 +105,6 @@ class Service implements LoggerAwareInterface
                 if (count($responses) > 0) {
                     throw $e;
                 }
-                $lastSuccessfulManifest = array_reset($responses);
                 $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
                 throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
             }
