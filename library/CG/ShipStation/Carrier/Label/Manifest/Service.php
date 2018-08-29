@@ -106,7 +106,7 @@ class Service implements LoggerAwareInterface
                     throw $e;
                 }
                 $lastSuccessfulManifest = array_reset($responses);
-                $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest, );
+                $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
                 throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
             }
         }
