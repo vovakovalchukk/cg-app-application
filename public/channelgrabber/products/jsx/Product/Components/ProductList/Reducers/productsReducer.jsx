@@ -32,11 +32,12 @@ define([
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in product_links_Get_request_success -R');
+            // let newState = applyNewProductLinksToState(state,)
+            let newProductLinks = Object.assign({},state.allProductsLinks, action.payload.productLinks);
             let newState = Object.assign({}, state, {
-                allProductsLinks: action.payload.productLinks
+                allProductsLinks: newProductLinks
             });
-            window.triggerEvent('fetchingProductLinksStop');
+            console.log('in product_links_Get_request_success -R oldProductLinks ', state.allProductsLinks, 'newProductLinks: ' , newProductLinks, ' and action.payload.productLinks: '  ,action.payload.productLinks);
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
@@ -145,8 +146,7 @@ define([
     
     return ProductsReducer;
     
-    function applyLinksStatusChangesToProducts(state,skusToFindLinkedProductsFor, desiredLinkStatus){
-        console.log('in applyLinkStatusChangesToProducts. ');
+    function applyLinksStatusChangesToProducts(state, skusToFindLinkedProductsFor, desiredLinkStatus){
         let variationsByParentCopy = Object.assign({}, state.variationsByParent);
         let visibleRowsCopy = state.visibleRows.slice();
     
@@ -160,6 +160,7 @@ define([
             skusToFindLinkedProductsFor,
             desiredLinkStatus
         );
+        
         return Object.assign({}, state, {
             variationsByParent: newVariationsByParent,
             visibleRows: newVisibleRows
