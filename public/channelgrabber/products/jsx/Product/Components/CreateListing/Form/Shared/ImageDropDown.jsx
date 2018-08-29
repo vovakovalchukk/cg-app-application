@@ -39,7 +39,7 @@ define([
             });
         },
         onClick: function() {
-            if (!this.props.dropdownDisabled) {
+            if (this.props.dropdownDisabled) {
                 return;
             }
             this.setState({
