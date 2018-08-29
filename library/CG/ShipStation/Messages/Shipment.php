@@ -87,9 +87,12 @@ class Shipment
             'ship_to' => $this->getShipTo()->toArray(),
             'warehouse_id' => $this->getWarehouseId(),
             'external_shipment_id' => $this->getExternalShipmentId(),
-            'confirmation' => $this->getConfirmation(),
             'packages' => [],
         ];
+        // ShipEngine doesnt handle nulls
+        if ($this->getConfirmation()) {
+            $array['confirmation'] = $this->getConfirmation();
+        }
         foreach ($this->packages as $package) {
             $array['packages'][] = $package->toArray();
         }
