@@ -1,8 +1,10 @@
 <?php
 namespace Products\Listing\Channel\Amazon;
 
+use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
+use CG\Amazon\Credentials;
 use CG\Product\Category\ExternalData\Entity as CategoryExternalData;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -30,19 +32,30 @@ class Service implements
     protected $categoryService;
     /** @var CategoryExternalService */
     protected $categoryExternalService;
+    /** @var Cryptor */
+    protected $cryptor;
 
     public function __construct(
         CategoryService $categoryService,
-        CategoryExternalService $categoryExternalService
+        CategoryExternalService $categoryExternalService,
+        Cryptor $cryptor
     ) {
         $this->categoryService = $categoryService;
         $this->categoryExternalService = $categoryExternalService;
+        $this->cryptor = $cryptor;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
+        /** @var Credentials $credentials */
+        $credentials = $this->cryptor->decrypt($account->getCredentials());
         return [
-            'categories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false)
+            'categories' => $this->categoryService->fetchRootCategoriesForAccount(
+                $account,
+                true,
+                $credentials->getDefaultMarketplaceId() ?? null,
+                false
+            )
         ];
     }
 
