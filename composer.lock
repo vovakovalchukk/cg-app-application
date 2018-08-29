@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dc7f1ac235973996f0242693d00bd53",
+    "content-hash": "93c8e10db78c7f14fbeddab99b99f7ca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1726,16 +1726,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-TAC-60-OrderWeightFilter",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "264313fe980f313f47ed36e99fa8b517e11771a2"
+                "reference": "d7c1ac9ef3d43406007e751fccc5a4071850ce55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-TAC-60-OrderWeightFilter-b5f9b4.zip",
-                "reference": "264313fe980f313f47ed36e99fa8b517e11771a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.2.1-fb7f25.zip",
+                "reference": "d7c1ac9ef3d43406007e751fccc5a4071850ce55",
                 "shasum": null
             },
             "require": {
@@ -1759,7 +1759,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-15T13:43:18+00:00"
+            "time": "2018-08-29T08:47:40+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -2033,16 +2033,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-60-OrderWeightFilter",
+            "version": "1.39.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3b76b486d9c5b5678fa06c839bde483d973facb8"
+                "reference": "1e9642c4ed58b8362e0397642f7699e5c7388db3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-60-OrderWeightFilter-6d7fa4.zip",
-                "reference": "3b76b486d9c5b5678fa06c839bde483d973facb8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.5-7c2d0f.zip",
+                "reference": "1e9642c4ed58b8362e0397642f7699e5c7388db3",
                 "shasum": null
             },
             "require": {
@@ -2113,7 +2113,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-08-28T14:57:20+00:00"
+            "time": "2018-08-29T08:47:59+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2449,16 +2449,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-60-OrderWeightFilter",
+            "version": "1.16.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "8326f7a42deff01cba4c5cda2420b996bac032a7"
+                "reference": "9d2d0be13763a5532f3df7b839b80f12bf444dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-TAC-60-OrderWeightFilter-082a1d.zip",
-                "reference": "8326f7a42deff01cba4c5cda2420b996bac032a7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.16.4-27cead.zip",
+                "reference": "9d2d0be13763a5532f3df7b839b80f12bf444dec",
                 "shasum": null
             },
             "require": {
@@ -2470,7 +2470,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
-                "channelgrabber/locale": "dev-TAC-60-OrderWeightFilter as 1.2.1",
+                "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.1",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
@@ -2510,7 +2510,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-08-28T15:15:23+00:00"
+            "time": "2018-08-29T08:52:24+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -4653,16 +4653,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-60-OrderWeightFilter",
+            "version": "1.24.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6a39b537d82f21020ea2510d33b75e9fcfcb1e2a"
+                "reference": "fa53f367a2bd9e33f683b19f8d1793eb21fa2419"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-60-OrderWeightFilter-230385.zip",
-                "reference": "6a39b537d82f21020ea2510d33b75e9fcfcb1e2a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.24.1-3951cd.zip",
+                "reference": "fa53f367a2bd9e33f683b19f8d1793eb21fa2419",
                 "shasum": null
             },
             "require": {
@@ -4714,7 +4714,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-28T14:58:26+00:00"
+            "time": "2018-08-29T08:48:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8718,7 +8718,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8773,7 +8773,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8828,7 +8828,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8879,7 +8879,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8965,7 +8965,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -10305,39 +10305,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.1",
-            "alias_normalized": "1.2.1.0",
-            "version": "dev-TAC-60-OrderWeightFilter",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.39.5",
-            "alias_normalized": "1.39.5.0",
-            "version": "dev-TAC-60-OrderWeightFilter",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.16.4",
-            "alias_normalized": "1.16.4.0",
-            "version": "dev-TAC-60-OrderWeightFilter",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.24.1",
-            "alias_normalized": "1.24.1.0",
-            "version": "dev-TAC-60-OrderWeightFilter",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
