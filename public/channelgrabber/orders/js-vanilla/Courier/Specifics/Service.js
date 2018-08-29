@@ -269,6 +269,7 @@ define([
             // fnUpdate() doesnt automatically trigger fnRowCallback which some of our other code depends on
             this.getDataTable().trigger('fnRowCallback', [tr, record]);
         }
+        console.log('Rows refreshed');
         this.getDataTable().trigger('fnRowsUpdatedCallback');
     };
 
@@ -435,7 +436,7 @@ define([
         if ($(button).hasClass('disabled')) {
             return;
         }
-        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled', 'rates fetched']);
         if (!data) {
             return;
         }
@@ -466,6 +467,7 @@ define([
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
             if (response.Records) {
+                console.log('About to refresh rows');
                 self.refreshRowsWithData(response.Records);
             }
             self.processCreateLabelsResponse(response);

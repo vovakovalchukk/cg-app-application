@@ -9,6 +9,7 @@ use CG\ShipStation\Client;
 use CG\ShipStation\Account\Usps\Mapper as UspsAccountMapper;
 use Guzzle\Http\Client as GuzzleClient;
 use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 
 return [
     'di' => [
@@ -54,6 +55,7 @@ return [
                             'displayName' => 'FedEx (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
+                            'allowsRates' => false,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
@@ -136,6 +138,7 @@ return [
                             'displayName' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
+                            'allowsRates' => false,
                             'fields' => [
                                 'nickname' => [
                                     'name' => 'nickname',
@@ -257,7 +260,8 @@ return [
                             'channelName' => 'usps-ss',
                             'displayName' => 'USPS',
                             'allowsCancellation' => true,
-                            'allowsManifesting' => false,
+                            'allowsManifesting' => true,
+                            'allowsRates' => true,
                             'fields' => [],
                             'bookingOptions' => [
                                 'weight' => 'weight',
@@ -695,6 +699,11 @@ return [
                             ]
                         ]
                     ]
+                ]
+            ],
+            ShipmentIdStorage::class => [
+                'parameters' => [
+                    'redisClient' => 'reliable_redis'
                 ]
             ]
         ]
