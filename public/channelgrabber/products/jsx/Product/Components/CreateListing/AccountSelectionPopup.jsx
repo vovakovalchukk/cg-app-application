@@ -255,16 +255,14 @@ define([
                 accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings)
             });
 
-            fetchCategoryTemplateDependentFieldValues(values.categories).then(function(result) {
-                values.categoryTemplates = result.categoryTemplates;
-                let searchAccountId = getSearchAccountId(values);
-                if (searchAccountId) {
-                    values.searchAccountId = searchAccountId;
-                    props.renderSearchPopup(values);
-                    return;
-                }
-                props.renderCreateListingPopup(values);
-            });
+            // let searchAccountId = getSearchAccountId(values);
+            // if (searchAccountId) {
+            //     values.searchAccountId = searchAccountId;
+            //     props.renderSearchPopup(values);
+            //     return;
+            // }
+
+            props.renderCreateListingPopup(values);
         },
         validate: accountSelectionFormValidator
     })(AccountSelectionPopup);

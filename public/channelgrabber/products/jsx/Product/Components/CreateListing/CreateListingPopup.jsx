@@ -62,6 +62,7 @@ define([
             }
         },
         componentDidMount: function () {
+            this.props.fetchCategoryTemplateDependentFieldValues();
             this.props.loadInitialValues();
         },
         componentWillUnmount: function() {
@@ -295,19 +296,22 @@ define([
         form: "createListing",
         enableReinitialize: true,
         // This is required to make the images in the variation table show correctly
-        keepDirtyOnReinitialize: true,
+        // keepDirtyOnReinitialize: true,
+        // updateUnregisteredFields: true,
         onSubmit: function(values, dispatch, props) {
             dispatch(Actions.submitListingsForm(dispatch, values, props));
         },
     })(CreateListingPopup);
 
     var mapStateToProps = function(state) {
+        console.log(state.initialValues);
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
             submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
-            resetSection: ReduxForm.resetSection
+            resetSection: ReduxForm.resetSection,
+            categoryTemplates: state.categoryTemplates
         };
     };
 
@@ -331,6 +335,9 @@ define([
             },
             resetSubmissionStatuses: function () {
                 dispatch(Actions.resetSubmissionStatuses());
+            },
+            fetchCategoryTemplateDependentFieldValues: function() {
+                dispatch(Actions.fetchCategoryTemplateDependentFieldValues(props.categories, props.accountDefaultSettings, props.accountsData, dispatch));
             }
         };
     };

@@ -334,6 +334,21 @@ define([
                 type: "RESET_SUBMISSION_STATUSES",
                 payload: {}
             }
+        },
+        fetchCategoryTemplateDependentFieldValues: function(categoryTemplateIds, accountDefaultSettings, accountsData, dispatch) {
+            $.ajax({
+                url: '/products/create-listings/category-template-dependent-field-values',
+                data: {categoryTemplateIds: categoryTemplateIds},
+                method: 'POST',
+                success: function(response) {
+                    dispatch(ResponseActions.categoryTemplateDependentFieldValuesFetched(response.categoryTemplates, accountDefaultSettings, accountsData))
+                }
+            });
+
+            return {
+                type: "FETCH_CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES",
+                payload: {}
+            }
         }
     };
 });

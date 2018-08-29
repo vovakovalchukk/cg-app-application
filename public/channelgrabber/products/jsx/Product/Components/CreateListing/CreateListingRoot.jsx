@@ -48,6 +48,7 @@ define([
             }
         },
         render: function() {
+            console.log(this.props);
             return (
                 <Provider store={store}>
                     <CreateListingPopup

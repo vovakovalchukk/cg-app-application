@@ -122,6 +122,11 @@ define([
                 channel: formatChannelDefaultValues(action.payload),
                 category: formatCategoryDefaultValues(action.payload)
             };
+        },
+        "CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES_FETCHED": function(state, action) {
+            return Object.assign({}, state, {
+                category: formatCategoryDefaultValues(action.payload)
+            });
         }
     });
 });

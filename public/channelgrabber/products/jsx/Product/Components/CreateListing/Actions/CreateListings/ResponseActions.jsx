@@ -57,6 +57,16 @@ define([], function() {
                 type: "ACCOUNT_POLICIES_FETCH_ERROR",
                 payload: {}
             }
+        },
+        categoryTemplateDependentFieldValuesFetched: function(categoryTemplates, accountDefaultSettings, accountsData) {
+            return {
+                type: "CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES_FETCHED",
+                payload: {
+                    categoryTemplates: categoryTemplates,
+                    accountDefaultSettings: accountDefaultSettings,
+                    accountsData: accountsData
+                }
+            };
         }
     };
 });
