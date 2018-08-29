@@ -5,7 +5,6 @@ use CG\Account\Shared\Entity as ShippingAccount;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\ShipStation\ShippingService\Factory;
-use CG\ShipStation\ShippingService\RequiresSignatureInterface;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ShippingService implements ShippingServiceInterface
@@ -51,14 +50,5 @@ class ShippingService implements ShippingServiceInterface
     public function getOptionsForService($service, $selected = null)
     {
         return $this->getAccountShippingService()->getOptionsForService($service, $selected);
-    }
-
-    public function doesServiceRequireSignature(string $service): bool
-    {
-        $accountShippingService = $this->getAccountShippingService();
-        if (!$accountShippingService instanceof RequiresSignatureInterface) {
-            return false;
-        }
-        return $accountShippingService->doesServiceRequireSignature($service);
     }
 }
