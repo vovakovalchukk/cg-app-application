@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7abe0eca176178fbc473105a80de0c37",
+    "content-hash": "e2f1ff384327728beae55e46a0a99efa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6c94beaf4f33714e29964f2d1e8c7e61728515bc"
+                "reference": "4af0166897ebd6b9b929fdd02e2d35b0998e8a84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-QA-EPIC-USPS-9eb883.zip",
-                "reference": "6c94beaf4f33714e29964f2d1e8c7e61728515bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-QA-EPIC-USPS-f774d4.zip",
+                "reference": "4af0166897ebd6b9b929fdd02e2d35b0998e8a84",
                 "shasum": null
             },
             "require": {
@@ -785,7 +785,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-20T14:25:58+00:00"
+            "time": "2018-08-28T10:49:04+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -8709,7 +8709,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8764,7 +8764,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8819,7 +8819,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8870,7 +8870,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8956,7 +8956,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
@@ -10316,8 +10316,8 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.11.2",
-            "alias_normalized": "1.11.2.0",
+            "alias": "1.11.3",
+            "alias_normalized": "1.11.3.0",
             "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/clearbooks"
         },
@@ -10334,8 +10334,8 @@
             "package": "channelgrabber/payment"
         },
         {
-            "alias": "1.23.16",
-            "alias_normalized": "1.23.16.0",
+            "alias": "1.24.1",
+            "alias_normalized": "1.24.1.0",
             "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/zf2-v4-ui"
         }
