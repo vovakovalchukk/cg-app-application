@@ -56,6 +56,7 @@ define([
             }.bind(this));
         },
         getLinkIcon: function () {
+            // console.log('sku: ' , this.props.sku, ' this.props.productLinks: ' ,  this.props.productLinks);
             if (this.props.linkStatus == LINK_STATUSES.fetching) {
                 return (
                     <span>
