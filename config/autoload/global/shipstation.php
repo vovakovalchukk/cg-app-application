@@ -11,6 +11,7 @@ use CG\ShipStation\Webhook\Notification\StorageInterface as WebhookNotificationS
 use CG\ShipStation\Webhook\Notification\Storage\Redis as WebhookNotificationStorageRedis;
 use Guzzle\Http\Client as GuzzleClient;
 use CG\ShipStation\PackageType\Usps\Service as PackageTypeService;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 
 return [
     'di' => [
@@ -833,6 +834,11 @@ return [
                             ]
                         ]
                     ]
+                ]
+            ],
+            ShipmentIdStorage::class => [
+                'parameters' => [
+                    'redisClient' => 'reliable_redis'
                 ]
             ]
         ]

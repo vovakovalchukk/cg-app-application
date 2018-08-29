@@ -27,6 +27,7 @@ use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\User\Entity as User;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\ShipStation\Carrier\Label\Manifest\Service as ManifestService;
+use CG\Stdlib\DateTime;
 
 class Service implements ShippingProviderServiceInterface, ShippingProviderCancelInterface, ShippingProviderFetchRatesInterface, CreateRestrictedInterface, ManifestInterface
 {
@@ -109,6 +110,7 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
             $ordersData,
             $orderParcelsData,
             $rootOu,
+            $user,
             $shippingAccountToUse,
             $shipStationAccountToUse
         );
@@ -199,19 +201,13 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
      * @param AccountManifest $accountManifest
      * @throws \CG\Stdlib\Exception\Storage if there is a problem generating the manifest
      */
-    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
+    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest, ?DateTime $lastManifestDate)
     {
         /** @var AccountDeciderInterface $accountDecider */
         $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
         $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
         $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
 
-        $shipStationManifest = $this->manifestService->generateShipStationManifest($shippingAccountToUse, $shipStationAccountToUse, $accountManifest);
-
-        if ($shipStationManifest !== null) {
-            $manifestPdf = $this->manifestService->retrievePdfForManifest($shipStationManifest);
-            $accountManifest->setExternalId($shipStationManifest->getFormId());
-            $accountManifest->setManifest(base64_encode($manifestPdf));
-        }
+        $this->manifestService->generateShipStationManifest($shippingAccountToUse, $shipStationAccountToUse, $accountManifest, $lastManifestDate);
     }
 }
