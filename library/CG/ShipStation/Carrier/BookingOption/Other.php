@@ -5,10 +5,10 @@ use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\ShipStation\Carrier\BookingOptionInterface;
 
 class Other implements BookingOptionInterface
 {
-
     public function getOptionsDataForOption(
         $option,
         OrderEntity $order,
@@ -16,8 +16,7 @@ class Other implements BookingOptionInterface
         $service,
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
-    ): ?array
-    {
+    ): ?array {
         return [];
     }
 }

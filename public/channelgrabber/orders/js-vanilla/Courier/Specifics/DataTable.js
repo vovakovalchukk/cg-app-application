@@ -263,7 +263,6 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
 {
     this.fetchTemplate('select', cgMustache, function(template)
     {
-        console.log(template);
         var data = {
             id: 'courier-package-type_' + templateData.orderId,
             name: 'orderData[' + templateData.orderId + '][packageType]',
