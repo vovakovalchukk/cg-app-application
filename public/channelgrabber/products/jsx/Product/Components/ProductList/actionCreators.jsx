@@ -35,7 +35,6 @@ define([
             }
         };
         const fetchProducts = function(filter) {
-            console.log('in fetchProducts PRODUCTS_URL: ' , PRODUCTS_URL);
             return self.productsRequest = $.ajax({
                 'url': PRODUCTS_URL,
                 'data': {'filter': filter.toObject()},
@@ -44,7 +43,6 @@ define([
             });
         };
         const getProductsSuccess = function(data) {
-            console.log('in getProductsSuccess -AC');
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
@@ -75,7 +73,7 @@ define([
             }
         };
         const getProductLinksRequest = (skusToFindLinkedProductsFor) => {
-            console.log('!!! in getProductLinksRequest - AC with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
+            // console.log('in getProductLinksRequest - AC with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
             return $.ajax({
                 url: PRODUCT_LINKS_URL,
                 data: {
@@ -93,6 +91,14 @@ define([
         const fetchingProductLinksStart = (skusToFindLinkedProductsFor) => {
             return {
                 type: "FETCHING_LINKED_PRODUCTS_START",
+                payload: {
+                    skusToFindLinkedProductsFor
+                }
+            }
+        };
+        const fetchingProductLinksFinish = (skusToFindLinkedProductsFor)=>{
+            return {
+                type: "FETCHING_LINKED_PRODUCTS_FINISH",
                 payload: {
                     skusToFindLinkedProductsFor
                 }
@@ -150,13 +156,14 @@ define([
                     } else {
                         skusToFindLinkedProductsFor = productSkus;
                     }
-                    // console.log('skusToFindLinkedProductsFor before dispatch : '  , skusToFindLinkedProductsFor);
+                    
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                     
                     try {
                         let response = await getProductLinksRequest(formattedSkus);
                         dispatch(getProductLinksSuccess(response.productLinks));
+                        dispatch(fetchingProductLinksFinish(skusToFindLinkedProductsFor));
                     } catch (error) {
                         console.warn(error);
                     }
@@ -243,10 +250,6 @@ define([
                     return product.sku;
                 });
                 
-                console.log('in fetchProductVariationsCallbackw with data.products: ', data.products);
-                
-                
-                //todo - change this to - getLinkedProductsForSpecificIds
                 dispatch(actionCreators.getLinkedProducts(newVariationSkus));
             }
         }

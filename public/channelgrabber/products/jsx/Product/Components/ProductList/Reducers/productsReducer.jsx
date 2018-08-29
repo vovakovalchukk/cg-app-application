@@ -22,8 +22,6 @@ define([
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            
-            
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -31,8 +29,6 @@ define([
                 simpleAndParentProducts: action.payload.products,
                 visibleRows: action.payload.products
             });
-            console.log('in PRODUCTS_GET_REQUEST_SUCCESS -R newState: ' ,  newState);
-    
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
@@ -130,31 +126,45 @@ define([
             return newState;
         },
         "FETCHING_LINKED_PRODUCTS_START": function(state,action){
-            const {skusToFindLinkedProductsFor} = action.payload;
-            
-            let variationsByParentCopy = Object.assign({}, state.variationsByParent);
-            let visibleRowsCopy = state.visibleRows.slice();
-            
-            let newVariationsByParent = applyFetchingStatusToVariations(
-                variationsByParentCopy,
-                skusToFindLinkedProductsFor,
+            let newState = applyLinksStatusChangesToProducts(
+                state,
+                action.payload.skusToFindLinkedProductsFor,
                 LINK_STATUSES.fetching
             );
-            let newVisibleRows = applyFetchingStatusToNewVisibleRows(
-                visibleRowsCopy,
-                skusToFindLinkedProductsFor,
-                LINK_STATUSES.fetching
+            return newState;
+        },
+        "FETCHING_LINKED_PRODUCTS_FINISH": function(state,action){
+            let newState = applyLinksStatusChangesToProducts(
+                state,
+                action.payload.skusToFindLinkedProductsFor,
+                LINK_STATUSES.finishedFetching
             );
-            
-            console.log('just SET link fetch start with newVisibleRows: ' , newVisibleRows);
-            return Object.assign({}, state, {
-                variationsByParent: newVariationsByParent,
-                visibleRows: newVisibleRows
-            })
+            return newState;
         }
     });
     
     return ProductsReducer;
+    
+    function applyLinksStatusChangesToProducts(state,skusToFindLinkedProductsFor, desiredLinkStatus){
+        console.log('in applyLinkStatusChangesToProducts. ');
+        let variationsByParentCopy = Object.assign({}, state.variationsByParent);
+        let visibleRowsCopy = state.visibleRows.slice();
+    
+        let newVariationsByParent = applyFetchingStatusToVariations(
+            variationsByParentCopy,
+            skusToFindLinkedProductsFor,
+            desiredLinkStatus
+        );
+        let newVisibleRows = applyFetchingStatusToNewVisibleRows(
+            visibleRowsCopy,
+            skusToFindLinkedProductsFor,
+            desiredLinkStatus
+        );
+        return Object.assign({}, state, {
+            variationsByParent: newVariationsByParent,
+            visibleRows: newVisibleRows
+        })
+    }
     
     function changeExpandStatus(products, productId, desiredStatus) {
         let productRowIndex = products.findIndex((product) => {

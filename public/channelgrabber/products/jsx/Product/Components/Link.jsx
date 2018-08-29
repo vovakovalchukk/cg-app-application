@@ -75,11 +75,7 @@ define([
             }.bind(this));
         },
         getLinkIcon: function () {
-            
-            // console.log('in getLinkIcon this.props.linkStatus: ' , this.props.linkStatus);
-            
-            
-            
+            console.log('in getLinkIcon this.props.linkStatus: ' , this.props.linkStatus);
             if (this.props.linkStatus == LINK_STATUSES.fetching) {
                 return (
                     <span>

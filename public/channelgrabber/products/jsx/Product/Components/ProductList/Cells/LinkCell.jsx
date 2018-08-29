@@ -29,7 +29,7 @@ define([
             return {};
         },
         render() {
-            const {products, rowIndex, linkStatus} = this.props;
+            const {products, rowIndex} = this.props;
             const rowData = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(rowData);
             
@@ -38,17 +38,13 @@ define([
                 productLinks = products.allProductsLinks[rowData.id][rowData.id];
             }
             
-            console.log('in LinkCell with rowData: ' , rowData);
-            
-            
-            
             return (
                 <StyledLink.container>
                     {!isParentProduct ?
                         <StyledLink
                             sku={rowData.sku}
                             productLinks={productLinks}
-                            linkStatus={linkStatus}
+                            linkStatus={rowData.linkStatus}
                         />
                         : ''
                     }
