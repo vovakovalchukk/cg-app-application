@@ -21,10 +21,7 @@ define([
     let ProductSearchComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                accountId: 0,
-                createListingData: {},
-                renderCreateListingPopup: () => {},
-                onCreateListingClose: () => {},
+                accountId: null,
                 products: {},
                 isFetching: false,
                 defaultProductImage: ''
@@ -43,7 +40,6 @@ define([
                     displayTitle={"Enter a UPC, EAN, ISBN or a product name"}
                 />
                 {this.renderSearchButton()}
-                {this.renderEnterDetailsManuallyButton()}
             </form>
         },
         onFormSubmit: function (event) {
@@ -59,14 +55,6 @@ define([
         },
         getSearchButtonClassName: function() {
             return "button container-btn yes search-button" + (this.props.isFetching ? ' disabled' : '');
-        },
-        renderEnterDetailsManuallyButton: function() {
-            return <div
-                className="button container-btn no"
-                onClick={this.props.renderCreateListingPopup.bind(this, this.props.createListingData)}
-            >
-                Enter details manually
-            </div>;
         },
         renderInputComponent: function(field) {
             return <label className="input-container">
@@ -203,23 +191,10 @@ define([
             }));
         },
         render: function() {
-            return (
-                <Container
-                    initiallyActive={true}
-                    className="product-search-container"
-                    closeOnYes={false}
-                    headerText={"Create a listing"}
-                    yesButtonText={"Select"}
-                    noButtonText={"Cancel"}
-                    onYesButtonPressed={this.proceedWithSelectedProduct}
-                    onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.createListingData.product)}
-                    onNoButtonPressed={this.props.onCreateListingClose}
-                    yesButtonDisabled={Object.keys(this.state.selectedProduct).length === 0}
-                >
+            return <span>
                     {this.renderForm()}
                     {this.renderSearchResults()}
-                </Container>
-            );
+            </span>;
         }
     });
 

@@ -15,7 +15,8 @@ define([
     './Components/CreateListing/Dimensions',
     './Components/CreateListing/ProductPrice',
     './Components/CreateListing/SubmissionTable',
-    './Validators'
+    './Validators',
+    './ProductSearch/Root'
 ], function(
     React,
     ReactDom,
@@ -33,7 +34,8 @@ define([
     Dimensions,
     ProductPrice,
     SubmissionTable,
-    Validators
+    Validators,
+    ProductSearch
 ) {
     "use strict";
 
@@ -58,7 +60,8 @@ define([
                 onCreateListingClose: function() {},
                 massUnit: null,
                 lengthUnit: null,
-                selectedProductDetails: {}
+                selectedProductDetails: {},
+                productSearchActive: false
             }
         },
         componentDidMount: function () {
@@ -67,6 +70,15 @@ define([
         },
         componentWillUnmount: function() {
             this.props.resetSubmissionStatuses();
+        },
+        renderProductSearchComponent: function() {
+            if (!this.props.searchAccountId || !this.props.productSearchActive) {
+                return null;
+            }
+
+            return <ProductSearch
+                accountId={this.props.searchAccountId}
+            />;
         },
         renderForm: function() {
             return <form>
@@ -285,6 +297,7 @@ define([
                     onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
                     yesButtonDisabled={isSubmitButtonDisabled}
                 >
+                    {this.renderProductSearchComponent()}
                     {this.renderForm()}
                     {this.renderSubmissionTable()}
                 </Container>

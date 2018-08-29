@@ -20,6 +20,7 @@ define([
         allowedChannels,
         allowedVariationChannels,
         productSearchActive,
+        productSearchActiveForVariations,
         onCreateListingClose,
         ebaySiteOptions,
         categoryTemplateOptions,
@@ -87,6 +88,7 @@ define([
                             salesPhoneNumber={salesPhoneNumber}
                             demoLink={demoLink}
                             productSearchActive={productSearchActive}
+                            productSearchActiveForVariations={productSearchActiveForVariations}
                         />
                     </Provider>
                 );

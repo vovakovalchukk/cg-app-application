@@ -133,7 +133,8 @@ define([
                     accounts: result.accounts,
                     createListingsAllowedChannels: result.createListingsAllowedChannels,
                     createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
-                    productSearchActive: result.productSearchActive
+                    productSearchActive: result.productSearchActive,
+                    productSearchActiveForVariations: result.productSearchActiveForVariations
                 }, function() {
                     $('#products-loading-message').hide();
                     self.onNewProductsReceived();
@@ -449,6 +450,7 @@ define([
                 this.state.createListingsAllowedChannels,
                 this.state.createListingsAllowedVariationChannels,
                 this.state.productSearchActive,
+                this.state.productSearchActiveForVariations,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,

@@ -44,6 +44,7 @@ define([
                 salesPhoneNumber: null,
                 demoLink: null,
                 productSearchActive: false,
+                productSearchActiveForVariations: false,
                 renderCreateListingPopup: () => {},
                 renderSearchPopup: () => {}
             }
@@ -197,10 +198,6 @@ define([
         let accounts = props.product.accounts;
         let selectedAccountIds = props.accounts;
 
-        if (props.product.variationCount > 1) {
-            return false;
-        }
-
         let accountIndex = selectedAccountIds.findIndex(selectedAccountId => {
             let accountData =  accounts[selectedAccountId];
 
@@ -215,11 +212,11 @@ define([
             return true;
         });
 
-        if (accountIndex > -1) {
-            return selectedAccountIds[accountIndex];
-        }
-        
-        return false;
+        return accountIndex > -1 ? selectedAccountIds[accountIndex] : null;
+    };
+
+    const isProductSearchActive = function(props) {
+        return props.productSearchActive && (props.product.variationCount > 1 ? props.productSearchActiveForVariations : true);
     };
 
     AccountSelectionPopup = ReduxForm.reduxForm({
@@ -244,15 +241,11 @@ define([
             values = Object.assign(values, {
                 product: props.product,
                 accounts: values.accounts.filter(accountId => accountId),
-                accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings)
+                accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings),
+                productSearchActive: isProductSearchActive(props)
             });
 
-            // let searchAccountId = getSearchAccountId(values);
-            // if (searchAccountId) {
-            //     values.searchAccountId = searchAccountId;
-            //     props.renderSearchPopup(values);
-            //     return;
-            // }
+            values.searchAccountId = getSearchAccountId(values);
 
             props.renderCreateListingPopup(values);
         },
