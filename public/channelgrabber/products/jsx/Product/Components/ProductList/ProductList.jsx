@@ -86,8 +86,10 @@ define([
             // todo - change the below request to trigger a products request within Redux in TAC-173
             //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
         },
-        onProductLinkRefresh: function() {
-            this.props.actions.getLinkedProducts();
+        onProductLinkRefresh: function(event) {
+            let sku = event.detail;
+            console.log('onProductLinkRefresh.... about to fetch sku:',sku);
+            this.props.actions.getLinkedProducts([sku]);
         },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {

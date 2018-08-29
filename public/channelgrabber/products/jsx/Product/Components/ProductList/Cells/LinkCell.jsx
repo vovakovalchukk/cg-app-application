@@ -32,11 +32,8 @@ define([
             const {products, rowIndex} = this.props;
             const rowData = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(rowData);
-    
-    
-    
-            let productLinks = getProductLinks(products, rowData);
             
+            let productLinks = getProductLinks(products, rowData);
             
             return (
                 <StyledLink.container>
@@ -55,29 +52,28 @@ define([
     
     return LinkCell;
     
-    function getProductLinks(products,rowData) {
-        if(!doLinksExist(products) || isParentProduct(rowData)){
+    function getProductLinks(products, rowData) {
+        if (!doLinksExist(products) || isParentProduct(rowData)) {
             return [];
         }
         if (products.allProductsLinks && products.allProductsLinks[rowData.id] && !rowData.parentProductId) {
             return products.allProductsLinks[rowData.id][rowData.id];
         }
-        console.log('past if (should be variations only). getProductLinks rowData.sku ',rowData.sku,'products.allProductsLinks: ' , products.allProductsLinks, ' rowData.id: ',rowData.id , ' rowData:  ' , rowData);
-        if(!doesLinkExistForVariation(products, rowData)){
+        if (!doesLinkExistForVariation(products, rowData)) {
             return [];
         }
         return products.allProductsLinks[rowData.parentProductId][rowData.id];
     }
     
-    function doLinksExist(products){
+    function doLinksExist(products) {
         return !!Object.keys(products.allProductsLinks).length
     }
     
-    function isParentProduct(rowData){
+    function isParentProduct(rowData) {
         return !!rowData.variationIds.length;
     }
     
-    function doesLinkExistForVariation(products, rowData){
+    function doesLinkExistForVariation(products, rowData) {
         return products.allProductsLinks[rowData.parentProductId] && products.allProductsLinks[rowData.parentProductId][rowData.id]
     }
 });

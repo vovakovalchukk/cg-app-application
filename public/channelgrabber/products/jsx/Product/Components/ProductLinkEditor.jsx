@@ -127,8 +127,9 @@ define([
                 },
                 'method' : 'POST',
                 'dataType' : 'json',
-                'success' : function (response) {
-                    window.triggerEvent('productLinkRefresh');
+                'success' : function () {
+                    // console.log('onSaveProductLinks about to refresh links sku: ' , this.state.sku);
+                    window.triggerEvent('productLinkRefresh', this.state.sku);
                     this.setState(
                         {unlinkConfirmPopup: false},
                         function () {
@@ -158,8 +159,8 @@ define([
                 },
                 'method' : 'POST',
                 'dataType' : 'json',
-                'success' : function (response) {
-                    window.triggerEvent('productLinkRefresh');
+                'success' : function () {
+                    window.triggerEvent('productLinkRefresh', this.state.sku);
                     this.setState(
                         {unlinkConfirmPopup: false},
                         function () {
