@@ -278,6 +278,7 @@ define([
             // fnUpdate() doesnt automatically trigger fnRowCallback which some of our other code depends on
             this.getDataTable().trigger('fnRowCallback', [tr, record]);
         }
+        console.log('Rows refreshed');
         this.getDataTable().trigger('fnRowsUpdatedCallback');
     };
 
@@ -475,6 +476,7 @@ define([
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
             if (response.Records) {
+                console.log('About to refresh rows');
                 self.refreshRowsWithData(response.Records);
             }
             self.processCreateLabelsResponse(response);
