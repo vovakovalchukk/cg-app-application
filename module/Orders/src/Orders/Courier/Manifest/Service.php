@@ -101,7 +101,7 @@ class Service
     }
 
     /**
-     * @return DateTime|null
+     * @return StdlibDateTime|null
      */
     protected function getLatestManifestDateForShippingAccount(Account $account)
     {
@@ -114,14 +114,14 @@ class Service
                 ->setOrderDirection('DESC');
             $manifests = $this->accountManifestService->fetchCollectionByFilter($filter);
             $manifests->rewind();
-            return new DateTime($manifests->current()->getCreated());
+            return new StdlibDateTime($manifests->current()->getCreated());
 
         } catch (NotFound $e) {
             return null;
         }
     }
 
-    protected function getOpenOrderCountForAccount(Account $account, DateTime $latestManifestDate = null)
+    protected function getOpenOrderCountForAccount(Account $account, StdlibDateTime $latestManifestDate = null)
     {
         try {
             $filter = (new OrderLabelFilter())
