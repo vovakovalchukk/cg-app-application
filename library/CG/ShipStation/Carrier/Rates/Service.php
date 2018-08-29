@@ -150,7 +150,7 @@ class Service
                  unset($shipStationRates[$key]);
             }
         }
-        if (count($shipStationRate === 0)) {
+        if (count($shipStationRates) === 0) {
             throw new ValidationException('No rates found for the selected package type. Please select another package type and try again.');
         }
         return $shipStationRates;
