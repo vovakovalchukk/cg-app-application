@@ -6,6 +6,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Manifest\Entity as AccountManifest;
 use CG\ShipStation\Carrier\Label\Exception\InvalidResponse;
 use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
+use CG\ShipStation\Carrier\Label\Manifest\Exception\IncompleteManifestException;
 use CG\ShipStation\Client;
 use CG\ShipStation\Request\Shipping\Manifest as ManifestRequest;
 use CG\ShipStation\Response\Shipping\Manifest as ManifestResponse;
@@ -13,12 +14,14 @@ use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\Stdlib\Exception\Storage;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Zendesk\Exception\Collection\Invalid;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Exception\MultiTransferException;
 use Psr\Log\LogLevel;
+use CG\Stdlib\Exception\Storage as StorageException;
 
 class Service implements LoggerAwareInterface
 {
@@ -49,47 +52,19 @@ class Service implements LoggerAwareInterface
      * @param AccountManifest $accountManifest
      * @return ManifestResponse[]
      */
-    public function generateShipStationManifests(Account $shippingAccount, Account $shipStationAccount, AccountManifest $accountManifest): ?array
+    public function generateShipStationManifest(
+        Account $shippingAccount,
+        Account $shipStationAccount,
+        AccountManifest $accountManifest,
+        DateTime $lastManifestDate
+    ): ?array
     {
-        $this->logDebug('attempting to create manifest for shipstation account: %s belonging to OU: %s', [$shippingAccount->getId(), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
-        try {
-            $lastManifestDate = $this->getLatestManifestDateForShippingAccount($shippingAccount);
-            $this->logDebug('got last manifest date of %s for shipstation account: %s belonging to OU: %s', [$lastManifestDate->format('d-m-Y'), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
-        } catch (NotFound $exception) {
-            $this->logDebug('failed to retrieve date of last manifest; falling back to account creation date for shipstation account: %s belonging to OU: %s', [$lastManifestDate->format('d-m-Y'), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
-            $lastManifestDate = $shippingAccount->getCgCreationDate();
-        }
-
+        $this->logDebug('attempting to create manifest(s) for shipstation account %s belonging to OU %s', [$shippingAccount->getId(), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
         $today = new DateTime("today");
         $datesToManifest = $this->determineDatesRequiringManifests($lastManifestDate, $today);
         $totalNumberOfManifests = count($datesToManifest);
-        $this->logDebug('%u manifests required for OU: %s dating from %s to %s'. [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $today->format('d-m-y')], static::LOG_CODE);
-
-        $currentManifest = 0;
-        $responses = [];
-        /** @var \DateTime $manifestDate */
-        foreach ($datesToManifest as $manifestDate) {
-            $currentManifest++;
-            $this->logDebug('Attempting to create manifest %u of %u for OU: %s, dated %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')]);
-            $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
-            $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $manifestDate);
-            $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
-            try {
-                /** @var ManifestResponse $response */
-                $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
-                $responses[] = $response;
-            } catch (\Exception $e) {
-                $this->logCriticalException($e, 'Failed to create manifest for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
-                throw new ValidationException('Fail', $e->getCode(), $e);
-            }
-
-            if (empty($response->getFormId())) {
-                $this->logCritical('Failed to retrieve field form_id from manifest creation response for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
-                return null;
-            }
-        }
-
-        return $response;
+        $this->logDebug('%u manifest(s) required for OU %s dating from %s to %s'. [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $today->format('d-m-y')], static::LOG_CODE);
+        $manifests = $this->requestManifestsFromShipStation($shippingAccount, $shipStationAccount, $datesToManifest, $totalNumberOfManifests, $accountManifest);
     }
 
     public function retrievePdfForManifest(ManifestResponse $manifest)
@@ -103,6 +78,74 @@ class Service implements LoggerAwareInterface
         } catch (MultiTransferException $e) {
             $this->logCriticalException($e, 'Failed to download PDF of manifest %s at URL %S', [$manifest->getFormId(), $manifest->getManifestDownload()->getHref()], static::LOG_CODE);
         }
+    }
+
+    protected function requestManifestsFromShipStation(
+        Account $shippingAccount,
+        Account $shipStationAccount,
+        \DatePeriod $datesToManifest,
+        int $totalNumberOfManifests,
+        AccountManifest $accountManifest
+    )
+    {
+        $currentManifest = 0;
+        $responses = [];
+        /** @var \DateTime $manifestDate */
+        foreach ($datesToManifest as $manifestDate) {
+            $currentManifest++;
+            $this->logDebug('Attempting to create manifest %u of %u for OU %s, dated %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')]);
+            $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
+            $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $manifestDate);
+            $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
+            try {
+                /** @var ManifestResponse $response */
+                $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
+                $responses[] = $response;
+            } catch (StorageException $e) {
+                if (count($responses) > 0) {
+                    throw $e;
+                }
+                $lastSuccessfulManifest = array_reset($responses);
+                $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest, );
+                throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
+            }
+        }
+
+        $this->mergeManifests($responses, $accountManifest);
+    }
+
+    protected function endManifestingEarly(
+        Account $shippingAccount,
+        \Exception $exception,
+        array $responses,
+        $warehouseId,
+        int $currentManifest,
+        int $totalNumberOfManifests,
+        AccountManifest $accountManifest
+    )
+    {
+        $this->logCriticalException($exception, 'Failed to create manifest %u of %u for account %s for OU %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getId(), $warehouseId, $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
+        $this->logInfo('Stopping manifest creation early for account %s at manifest %u of %u for OU %s', [$shippingAccount->getId(), $currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
+        $this->mergeManifests($responses, $accountManifest);
+    }
+
+    protected function mergeManifests(array $responses, AccountManifest $accountManifest)
+    {
+        $finalFormId = '';
+        $pdfs = [];
+        /** @var ManifestResponse $response */
+        foreach ($responses as $response) {
+            $finalFormId .= $response->getFormId();
+            $pdfs[] = $this->retrievePdfForManifest($response);
+        }
+        $mergedPdfs = $this->mergeManifestPdfs($pdfs);
+        $accountManifest->setExternalId($finalFormId);
+        $accountManifest->setManifest(base64_encode($mergedPdfs));
+    }
+
+    protected function mergeManifestPdfs($manifestPdfs)
+    {
+        return base64_encode(\CG\Stdlib\mergePdfData($manifestPdfs));
     }
 
     /**

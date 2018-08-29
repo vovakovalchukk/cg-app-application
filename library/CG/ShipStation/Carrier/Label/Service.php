@@ -187,15 +187,6 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
         $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
         $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
 
-        $shipStationManifests = $this->manifestService->generateShipStationManifests($shippingAccountToUse, $shipStationAccountToUse, $accountManifest);
-
-        if ($shipStationManifests !== null && count($shipStationManifests) > 0) {
-            $manifestPdfs = [];
-            foreach ($shipStationManifests as $shipStationManifest) {
-                $manifestPdf = $this->manifestService->retrievePdfForManifest($shipStationManifest);
-                $accountManifest->setExternalId($shipStationManifest->getFormId());
-                $accountManifest->setManifest(base64_encode($manifestPdf));
-            }
-        }
+        $this->manifestService->generateShipStationManifest($shippingAccountToUse, $shipStationAccountToUse, $accountManifest, $lastManifestDate);
     }
 }
