@@ -8,6 +8,11 @@ use CG\Stdlib\DateTime;
 
 class Label extends ResponseAbstract
 {
+    const STATUS_PROCESSING = 'processing';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_ERROR = 'error';
+    const STATUS_VOIDED = 'voided';
+
     /** @var string */
     protected $labelId;
     /** @var string */
@@ -154,6 +159,13 @@ class Label extends ResponseAbstract
             isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null,
             $errors
         );
+    }
+
+    public static function getActiveStatuses()
+    {
+        return [
+            static::STATUS_PROCESSING, static::STATUS_COMPLETED
+        ];
     }
 
     public function getLabelId(): string

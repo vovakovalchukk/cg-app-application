@@ -10,6 +10,7 @@ use CG\ShipStation\Client;
 use CG\ShipStation\Webhook\Notification\StorageInterface as WebhookNotificationStorage;
 use CG\ShipStation\Webhook\Notification\Storage\Redis as WebhookNotificationStorageRedis;
 use Guzzle\Http\Client as GuzzleClient;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 use CG\ShipStation\PackageType\RoyalMail\Service as RoyalMailPackageTypeService;
 use CG\ShipStation\PackageType\Usps\Service as UspsPackageTypeService;
 use CG\ShipStation\ShippingService\RoyalMail as RoyalMailShippingService;
@@ -56,6 +57,11 @@ return [
             WebhookNotificationStorageRedis::class => [
                 'parameters' => [
                     'predisClient' => 'reliable_redis'
+                ]
+            ],
+            ShipmentIdStorage::class => [
+                'parameters' => [
+                    'redisClient' => 'reliable_redis'
                 ]
             ],
             Service::class => [
