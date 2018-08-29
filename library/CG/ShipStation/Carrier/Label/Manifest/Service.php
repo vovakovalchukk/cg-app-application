@@ -57,13 +57,15 @@ class Service implements LoggerAwareInterface
         Account $shipStationAccount,
         AccountManifest $accountManifest,
         DateTime $lastManifestDate
-    ): ?array
+    )
     {
         $this->logDebug('attempting to create manifest(s) for shipstation account %s belonging to OU %s', [$shippingAccount->getId(), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
-        $today = new DateTime("today");
-        $datesToManifest = $this->determineDatesRequiringManifests($lastManifestDate, $today);
+
+        // We use tomorrow to include any manifests that need generating for today
+        $tomorrow = new DateTime("tomorrow");
+        $datesToManifest = $this->determineDatesRequiringManifests($lastManifestDate, $tomorrow);
         $totalNumberOfManifests = count($datesToManifest);
-        $this->logDebug('%u manifest(s) required for OU %s dating from %s to %s'. [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $today->format('d-m-y')], static::LOG_CODE);
+        $this->logDebug('%u manifest(s) required for OU %s dating from %s to %s', [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $tomorrow->format('d-m-y')], static::LOG_CODE);
         $manifests = $this->requestManifestsFromShipStation($shippingAccount, $shipStationAccount, $datesToManifest, $totalNumberOfManifests, $accountManifest);
     }
 
@@ -163,8 +165,9 @@ class Service implements LoggerAwareInterface
         return new DateTime($manifests->current()->getCreated());
     }
 
-    protected function determineDatesRequiringManifests(DateTime $lastManifestDate, DateTime $today)
+    protected function determineDatesRequiringManifests(DateTime $lastManifestDate, DateTime $tomorrow)
     {
-        return new \DatePeriod($lastManifestDate, new \DateInterval('P1D') ,$today);
+        $interval = new \DateInterval('P1D');
+        return new \DatePeriod($lastManifestDate, $interval, $tomorrow);
     }
 }
