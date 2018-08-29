@@ -1,15 +1,17 @@
 define([
     'Product/Storage/Ajax',
     'Product/Filter/Entity',
-    'Product/Components/ProductList/Config/constants'
+    'Product/Components/ProductList/Config/constants',
+    'Product/Components/ProductList/ActionCreators/productLinkActions'
 ], function(
     AjaxHandler,
     ProductFilter,
-    constants
+    constants,
+    productLinkActions
 ) {
     "use strict";
     
-    const {PRODUCTS_URL, PRODUCT_LINKS_URL} = constants;
+    const {PRODUCTS_URL} = constants;
     
     var actionCreators = (function() {
         let self = {};
@@ -48,14 +50,6 @@ define([
                 payload: data
             }
         };
-        const getProductLinksSuccess = (productLinks) => {
-            return {
-                type: "PRODUCT_LINKS_GET_REQUEST_SUCCESS",
-                payload: {
-                    productLinks
-                }
-            }
-        };
         const updateStockLevelsRequestSuccess = (response) => {
             return {
                 type: "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS",
@@ -72,37 +66,11 @@ define([
                 }
             }
         };
-        const getProductLinksRequest = (skusToFindLinkedProductsFor) => {
-            // console.log('in getProductLinksRequest - AC with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
-            return $.ajax({
-                url: PRODUCT_LINKS_URL,
-                data: {
-                    skus: JSON.stringify(skusToFindLinkedProductsFor)
-                },
-                type: 'POST'
-            });
-        };
         const updateStockLevelsRequest = (productSku) => {
             return $.ajax({
                 url: '/products/stock/ajax/' + productSku,
                 type: 'GET'
             });
-        };
-        const fetchingProductLinksStart = (skusToFindLinkedProductsFor) => {
-            return {
-                type: "FETCHING_LINKED_PRODUCTS_START",
-                payload: {
-                    skusToFindLinkedProductsFor
-                }
-            }
-        };
-        const fetchingProductLinksFinish = (skusToFindLinkedProductsFor)=>{
-            return {
-                type: "FETCHING_LINKED_PRODUCTS_FINISH",
-                payload: {
-                    skusToFindLinkedProductsFor
-                }
-            }
         };
         
         return {
@@ -111,14 +79,6 @@ define([
                     type: "ACCOUNT_FEATURES_STORE",
                     payload: {
                         features
-                    }
-                }
-            },
-            productsLinksLoad: (allProductsLinks) => {
-                return {
-                    type: "PRODUCTS_LINKS_LOAD",
-                    payload: {
-                        allProductsLinks
                     }
                 }
             },
@@ -133,39 +93,9 @@ define([
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);
                         dispatch(getProductsSuccess(data));
-                        dispatch(actionCreators.getLinkedProducts());
+                        dispatch(productLinkActions.getLinkedProducts());
                     } catch (err) {
                         throw 'Unable to load products... error: '+ err;
-                    }
-                }
-            },
-            getLinkedProducts: (productSkus) => {
-                return async function(dispatch, getState) {
-                    let state = getState();
-                    if (!state.account.features.linkedProducts) {
-                        return;
-                    }
-                    
-                    // // // todo - eventually remove this after replacing with redux implementation
-                    // window.triggerEvent('fetchingProductLinksStart');
-                    // //
-                    //
-                    let skusToFindLinkedProductsFor = [];
-                    if (!productSkus) {
-                        skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
-                    } else {
-                        skusToFindLinkedProductsFor = productSkus;
-                    }
-                    
-                    dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
-                    let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
-                    
-                    try {
-                        let response = await getProductLinksRequest(formattedSkus);
-                        dispatch(getProductLinksSuccess(response.productLinks));
-                        dispatch(fetchingProductLinksFinish(skusToFindLinkedProductsFor));
-                    } catch (error) {
-                        console.warn(error);
                     }
                 }
             },
@@ -279,23 +209,5 @@ define([
         if (variationsByParent[productId]) {
             return true;
         }
-    }
-    
-    function getSkusToFindLinkedProductsFor(products) {
-        var skusToFindLinkedProductsFor = [];
-        products.visibleRows.forEach((product) => {
-            if (product.sku) {
-                skusToFindLinkedProductsFor.push(product.sku);
-            }
-        });
-        return skusToFindLinkedProductsFor;
-    }
-    
-    function formatSkusForLinkApi(skusToFindLinkedProductsFor) {
-        let linkObj = {};
-        skusToFindLinkedProductsFor.forEach((sku) => {
-            linkObj[sku] = sku;
-        });
-        return linkObj;
     }
 });

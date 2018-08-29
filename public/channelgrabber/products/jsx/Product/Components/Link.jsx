@@ -24,25 +24,6 @@ define([
                 fetchingLinks: false,
             }
         },
-        componentDidMount: function()
-        {
-            if(this.props.linkStatus = LINK_STATUSES.fetching ){
-                // this.onStartFetchingLinks();/
-            }
-            // window.addEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
-            // window.addEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-        },
-        // componentWillUnmount: function()
-        // {
-        //     window.removeEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
-        //     window.removeEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-        // },
-        // onStartFetchingLinks: function () {
-        //     this.setState({ fetchingLinks: true });
-        // },
-        // onStopFetchingLinks: function () {
-        //     this.setState({ fetchingLinks: false });
-        // },
         onClick: function () {
             window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
         },
@@ -75,7 +56,6 @@ define([
             }.bind(this));
         },
         getLinkIcon: function () {
-            console.log('in getLinkIcon this.props.linkStatus: ' , this.props.linkStatus);
             if (this.props.linkStatus == LINK_STATUSES.fetching) {
                 return (
                     <span>

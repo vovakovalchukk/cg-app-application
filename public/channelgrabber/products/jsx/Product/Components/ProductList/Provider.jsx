@@ -3,10 +3,9 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
-    'Product/Components/ProductList/actionCreators',
+    'Product/Components/ProductList/ActionCreators/productActions',
     'Product/Components/ProductList/Reducers/combinedReducer',
-    'Product/Components/ProductList/Root',
-    'Product/Filter/Entity'
+    'Product/Components/ProductList/Root'
 ], function(
     React,
     Redux,
@@ -14,8 +13,7 @@ define([
     thunk,
     ActionCreators,
     CombinedReducer,
-    ProductListRoot,
-    ProductFilter,
+    ProductListRoot
 ) {
     "use strict";
     
