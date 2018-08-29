@@ -304,7 +304,6 @@ define([
     })(CreateListingPopup);
 
     var mapStateToProps = function(state) {
-        console.log(state.initialValues);
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},

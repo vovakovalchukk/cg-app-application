@@ -183,14 +183,6 @@ define([
         }
     });
 
-    var fetchCategoryTemplateDependentFieldValues = function(categoryTemplateIds) {
-        return $.ajax({
-            url: '/products/create-listings/category-template-dependent-field-values',
-            data: {categoryTemplateIds: categoryTemplateIds},
-            method: 'POST'
-        });
-    };
-
     var filterOutEmptyAccountSettingsData = function(accountSettings) {
         var accountDefaultSettings = {};
         for (var accountId in accountSettings) {
