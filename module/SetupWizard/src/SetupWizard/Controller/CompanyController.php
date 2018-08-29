@@ -42,6 +42,7 @@ class CompanyController extends AbstractActionController
         if ($detailsForm->has('locale')) {
             $detailsForm->get('locale')->setValue(UserLocale::LOCALE_US);
         }
+        $detailsForm->get('address')->get('emailAddress')->setValue($this->registerCompanyService->getUsername());
 
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/company/index')->addChild($detailsFormView, 'detailsForm');
