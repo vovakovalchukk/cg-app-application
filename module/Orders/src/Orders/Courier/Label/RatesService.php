@@ -150,14 +150,18 @@ class RatesService extends ServiceAbstract
             $rootOu,
             $shippingAccount
         );
-        $orderLabels = $this->getOrCreateOrderLabelsForOrders(
-            $orders,
-            $ordersData,
-            $ordersParcelsData,
-            $shippingAccount
-        );
-        $this->updateOrderLabelStatus($orderLabels, OrderLabelStatus::RATES_FETCHED);
-        return $shippingRates;
+        try {
+            $orderLabels = $this->getOrCreateOrderLabelsForOrders(
+                $orders,
+                $ordersData,
+                $ordersParcelsData,
+                $shippingAccount
+            );
+            $this->updateOrderLabelStatus($orderLabels, OrderLabelStatus::RATES_FETCHED);
+            return $shippingRates;
+        } finally {
+            $this->unlockOrderLabels();
+        }
     }
 
     protected function addShippingChargeToRates(
