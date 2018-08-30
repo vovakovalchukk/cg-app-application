@@ -78,6 +78,8 @@ define([
 
             return <ProductSearch
                 accountId={this.props.searchAccountId}
+                mainProduct={this.props.product}
+                variationsDataForProduct={this.props.variationsDataForProduct}
             />;
         },
         renderForm: function() {

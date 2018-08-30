@@ -5,6 +5,7 @@ define([
     'redux-form',
     'Common/Components/Container',
     'Common/Components/Input',
+    'Common/Components/Select',
     './Actions/Actions'
 ], function(
     React,
@@ -13,6 +14,7 @@ define([
     ReduxForm,
     Container,
     Input,
+    Select,
     Actions
 ) {
     const Field = ReduxForm.Field;
@@ -24,7 +26,9 @@ define([
                 accountId: null,
                 products: {},
                 isFetching: false,
-                defaultProductImage: ''
+                defaultProductImage: '',
+                mainProduct: {},
+                variationsDataForProduct: {}
             }
         },
         getInitialState: function() {
@@ -104,6 +108,7 @@ define([
                     {this.renderProductImage(product)}
                     {this.renderProductItemSpecifics(product)}
                 </span>
+                {this.renderAssignSelect(product)}
             </div>
         },
         getProductContainerClassName: function(product) {
@@ -178,6 +183,29 @@ define([
             }
 
             return itemSpecifics;
+        },
+        renderAssignSelect: function (product) {
+            var options = this.props.variationsDataForProduct.map(function(variation) {
+                return {
+                    name: variation.sku,
+                    value: variation.sku
+                };
+            });
+
+            return <span className="search-product-assign-select">
+                <span>Assign to:</span>
+                <Select
+                    name="product-assign"
+                    options={options}
+                    autoSelectFirst={false}
+                    title="Assign Product"
+                    onOptionChange={this.onProductAssign.bind(this, product)}
+                    filterable={true}
+                />
+            </span>;
+        },
+        onProductAssign: function() {
+            console.log(arguments);
         },
         proceedWithSelectedProduct: function() {
             let product = this.state.selectedProduct;

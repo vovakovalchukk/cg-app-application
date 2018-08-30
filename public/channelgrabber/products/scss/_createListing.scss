@@ -220,6 +220,24 @@
   .custom-select {
     min-width: 300px;
   }
+
+  .search-product-assign-select {
+    display: flex;
+    margin-top: 10px;
+
+    > span {
+      font-size: 18px;
+    }
+
+    > div {
+      margin-left: 36px;
+    }
+
+    .custom-select {
+      min-width: 0;
+      width: 200px;
+    }
+  }
 }
 
 .container-wrapper.product-create-listing.account-form {
