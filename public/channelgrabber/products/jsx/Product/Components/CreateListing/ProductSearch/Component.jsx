@@ -6,7 +6,7 @@ define([
     'Common/Components/Container',
     'Common/Components/Input',
     'Common/Components/Select',
-    './Actions/Actions'
+    '../Actions/CreateListings/Actions'
 ], function(
     React,
     Redux,
@@ -15,7 +15,7 @@ define([
     Container,
     Input,
     Select,
-    Actions
+    CreateListingActions
 ) {
     const Field = ReduxForm.Field;
     const Selector = ReduxForm.formValueSelector('productSearch');
@@ -28,7 +28,8 @@ define([
                 isFetching: false,
                 defaultProductImage: '',
                 mainProduct: {},
-                variationsDataForProduct: {}
+                variationsDataForProduct: {},
+                selectedProducts: {}
             }
         },
         getInitialState: function() {
@@ -204,8 +205,8 @@ define([
                 />
             </span>;
         },
-        onProductAssign: function() {
-            console.log(arguments);
+        onProductAssign: function(searchProduct, selectedSku) {
+            this.props.assignSearchProductToCgProduct(searchProduct, selectedSku.value);
         },
         proceedWithSelectedProduct: function() {
             let product = this.state.selectedProduct;
@@ -219,6 +220,7 @@ define([
             }));
         },
         render: function() {
+            console.log(this.props);
             return <span>
                     {this.renderForm()}
                     {this.renderSearchResults()}
@@ -244,7 +246,12 @@ define([
     const mapDispatchToProps = function(dispatch) {
         return {
             fetchSearchResults: function(accountId, searchQuery) {
-                dispatch(Actions.fetchSearchResults(accountId, searchQuery, dispatch));
+                dispatch(CreateListingActions.fetchSearchResults(accountId, searchQuery, dispatch));
+            },
+            assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
+                console.log('action triggerd', searchProduct, cgProduct);
+                console.log('action: ', CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
+                dispatch(CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
             }
         };
     };

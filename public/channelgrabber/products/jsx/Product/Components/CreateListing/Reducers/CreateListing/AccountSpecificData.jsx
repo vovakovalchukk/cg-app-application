@@ -38,6 +38,10 @@ define([
             return setPoliciesOnStateForAccount(state, action.payload.accountId, Object.assign(action.payload.policies, {
                 isFetching: false
             }));
+        },
+        "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
+            console.log('TEST', state, action);
+            return {};
         }
     });
 });

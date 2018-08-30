@@ -61,7 +61,8 @@ define([
                 massUnit: null,
                 lengthUnit: null,
                 selectedProductDetails: {},
-                productSearchActive: false
+                productSearchActive: false,
+                selectedProducts: {}
             }
         },
         componentDidMount: function () {
@@ -80,6 +81,7 @@ define([
                 accountId={this.props.searchAccountId}
                 mainProduct={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                selectedProducts={this.props.selectedProducts}
             />;
         },
         renderForm: function() {
@@ -319,13 +321,15 @@ define([
     })(CreateListingPopup);
 
     var mapStateToProps = function(state) {
+        console.log('redux state', state);
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
             submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
             resetSection: ReduxForm.resetSection,
-            categoryTemplates: state.categoryTemplates
+            categoryTemplates: state.categoryTemplates,
+            selectedProducts: state.selectedProducts
         };
     };
 

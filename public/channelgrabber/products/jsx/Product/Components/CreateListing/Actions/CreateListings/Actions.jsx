@@ -349,6 +349,36 @@ define([
                 type: "FETCH_CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES",
                 payload: {}
             }
+        },
+        fetchSearchResults: function(accountId, query, dispatch) {
+            $.ajax({
+                context: this,
+                url: '/products/create-listings/' + accountId + '/search',
+                type: 'POST',
+                data: {
+                    'query': query
+                },
+                success: function(response) {
+                    dispatch(ResponseActions.searchResultsFetched(response));
+                },
+                error: function() {
+                    n.error("An unknown error has occurred. Please try again or contact support if the problem persists");
+                }
+            });
+
+            return {
+                type: "FETCH_SEARCH_RESULTS",
+                payload: {}
+            };
+        },
+        assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
+            return {
+                type: "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT",
+                payload: {
+                    searchProduct: searchProduct,
+                    cgProduct: cgProduct
+                }
+            }
         }
     };
 });
