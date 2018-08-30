@@ -14,11 +14,12 @@ define([
     var actionCreators = (function() {
         let self = {};
         
-        const getProductLinksSuccess = (productLinks) => {
+        const getProductLinksSuccess = (productLinks,formattedSkus) => {
             return {
                 type: "PRODUCT_LINKS_GET_REQUEST_SUCCESS",
                 payload: {
-                    productLinks
+                    productLinks,
+                    formattedSkus
                 }
             }
         };
@@ -63,13 +64,13 @@ define([
                     } else {
                         skusToFindLinkedProductsFor = productSkus;
                     }
-    
+                    console.log('in getLinkedProducts skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                     
                     try {
                         let response = await getProductLinksRequest(formattedSkus);
-                        dispatch(getProductLinksSuccess(response.productLinks));
+                        dispatch(getProductLinksSuccess(response.productLinks, formattedSkus));
                         dispatch(fetchingProductLinksFinish(skusToFindLinkedProductsFor));
                     } catch (error) {
                         console.warn(error);

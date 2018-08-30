@@ -151,7 +151,7 @@ define([
             });
         },
         unlinkProducts: function () {
-            n.notice('Removing product links.');
+            n.notice('Removing product links. this.state.sku: ' , this.state.sku);
             this.unlinkProductLinksRequest = $.ajax({
                 'url' : "/products/links/remove",
                 'data' : {

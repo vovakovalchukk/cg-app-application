@@ -15,7 +15,8 @@ define([
         },
         simpleAndParentProducts: [],
         variationsByParent: [],
-        allProductsLinks: {}
+        allProductsLinks: {},
+        visibleRows:[]
     };
     
     const {LINK_STATUSES} = constants;
@@ -32,11 +33,16 @@ define([
             return newState;
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
-            // let newState = applyNewProductLinksToState(state,)
-            let newState = applyNewProductLinksToState(state, action.payload.productLinks)
+            console.log('in PRODUCT_LINKS_GET_REQUEST_sUCCESS action: ' , action);
+            let skus = Object.keys(action.payload.formattedSkus);
+            let newState = {};
+            // todo - if the formattedSkus have productLinks already make these the same as the productLinks received
+            if(skus.length > 1){
+                newState = applyNewProductLinksToState(state, action.payload.productLinks)
+                return newState;
+            }
             
-            // Object.assign({},state.allProductsLinks, action.payload.productLinks);
-            // console.log('in product_links_Get_request_success -R oldProductLinks ', state.allProductsLinks, 'newProductLinks: ' , newProductLinks, ' and action.payload.productLinks: '  ,action.payload.productLinks);
+            newState = applySingleProductLinkChangeToState(state, action.payload.productLinks, skus[0]);
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
@@ -145,19 +151,53 @@ define([
     
     return ProductsReducer;
     
+    function applySingleProductLinkChangeToState(state,newLinks,sku){
+        console.log('in applySingleProductLink.... state: ' , state);
+        const normalizedNewLinks = normalizeLinks(newLinks);
+        const stateLinksCopy = Object.assign({}, state.allProductsLinks);
+        
+        const productIdFromSku = stateUtility.getProductIdFromSku(state.visibleRows, sku);
+        console.log('in applySingleProductLinkChangeToState with normalizedNewLinks: ' , normalizedNewLinks, ' stateLinksCopy: ' ,stateLinksCopy,' productIdFromSku: ', productIdFromSku);
+        
+        
+        
+        if(!normalizedNewLinks[productIdFromSku]){
+            // todo no links set remove the productId fromt stateLinksCopy
+            console.log('no newLinks for productsku so deleting what is there already');
+            delete stateLinksCopy[productIdFromSku];
+        }else{
+            // if(!!stateLinksCopy[productIdFromSku]){
+                console.log('productId exists on state so replacing whats there with normalizedNewLinks[productIdFromSku]:' , normalizedNewLinks[productIdFromSku]);
+                //todo - set the link to the new response
+                stateLinksCopy[productIdFromSku] = normalizedNewLinks[productIdFromSku];
+            // }
+        }
+    
+        
+        console.log('newState to set : ' , stateLinksCopy);
+        
+        
+        
+        let newState = Object.assign({}, state, {
+            allProductsLinks: stateLinksCopy
+        });
+
+        return newState;
+    }
+    
     function applyNewProductLinksToState(state, newLinks) {
         //todo go through a process of normalising from the start
         const normalizedNewLinks = normalizeLinks(newLinks);
         const stateLinksCopy = Object.assign({}, state.allProductsLinks);
         
         let newProductLinks = Object.assign({}, stateLinksCopy, normalizedNewLinks);
-        console.log('applyNewProductLinksToState state: ', state, 'newLinks:', newLinks, ' normalizedNewLinks ', normalizedNewLinks);
-        
+        // console.log('applyNewProductLinksToState state: ', state,  ' normalizedNewLinks ', normalizedNewLinks);
+        // console.log('newNormalized: ', normalizedNewLinks, 'linkstobesetonstate: ' , newProductLinks);
+    
         let newState = Object.assign({}, state, {
             allProductsLinks: newProductLinks
         });
         
-        console.log('newNormalized: ', normalizedNewLinks);
         return newState;
         // const stateLinksCopy = Object.assign({}, state.allProductsLinks);
         //
@@ -190,15 +230,13 @@ define([
         let simpleAndVariationLinks = {};
         Object.keys(links).forEach(productId => {
             if (isSimpleProductLink(links, productId)) {
-                console.log('productId: ', productId, ' is simple and not parent');
                 simpleAndVariationLinks[productId] = links[productId][productId];
                 return;
             }
             let variationLinkObjects = links[productId];
-            console.log('productId: ', productId, ' isparent . links: ' , links , ' variationLinkObjects: ' , variationLinkObjects);
             Object.keys(variationLinkObjects).forEach(productId => {
                 simpleAndVariationLinks[productId] = variationLinkObjects[productId];
-            })
+            });
         });
         return simpleAndVariationLinks;
     }
