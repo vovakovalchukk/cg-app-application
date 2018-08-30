@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd69c5635e09923cdda04f498ba0959b",
+    "content-hash": "f8858c04f3b60da0e32120200f02a785",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -947,20 +947,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-TAC-161-qa-1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "4660b5794019b918e018b5a5fa9f9accf9911229"
+                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-TAC-161-qa-1-8bbfc4.zip",
-                "reference": "4660b5794019b918e018b5a5fa9f9accf9911229",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.0-e403c9.zip",
+                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-TAC-161-qa-1 as 1.3.0",
+                "channelgrabber/courieradapter": "^1.3.0",
                 "channelgrabber/locale": "^1.0.17",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
@@ -988,20 +988,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-08-22T09:15:53+00:00"
+            "time": "2018-08-30T09:22:53+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-TAC-161-qa-1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ee2d136a123e9037a910c9f2bc5ce8e8b68004d8"
+                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-TAC-161-qa-1-aa00f1.zip",
-                "reference": "ee2d136a123e9037a910c9f2bc5ce8e8b68004d8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.3.0-14c937.zip",
+                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50",
                 "shasum": null
             },
             "require": {
@@ -1026,7 +1026,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-08-22T09:32:40+00:00"
+            "time": "2018-08-30T09:18:15+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -4658,16 +4658,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-170-add-hermes-courier",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5585009c41e14c649b8072563cd1922136eac898"
+                "reference": "9904f0c2229425b39ad41593359944991df51a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-170-add-hermes-courier-6034bc.zip",
-                "reference": "5585009c41e14c649b8072563cd1922136eac898",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.24.2-1e6287.zip",
+                "reference": "9904f0c2229425b39ad41593359944991df51a33",
                 "shasum": null
             },
             "require": {
@@ -4719,7 +4719,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-29T11:31:55+00:00"
+            "time": "2018-08-30T09:24:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10310,32 +10310,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.31",
-            "alias_normalized": "1.0.31.0",
-            "version": "dev-TAC-161-qa-1",
-            "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.3.0",
-            "alias_normalized": "1.3.0.0",
-            "version": "dev-TAC-161-qa-1",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.24.2",
-            "alias_normalized": "1.24.2.0",
-            "version": "dev-TAC-170-add-hermes-courier",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
