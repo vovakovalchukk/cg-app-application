@@ -8,9 +8,14 @@ use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\Package\Content as CAPackageContent;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
+use CG\Locale\Mass as LocaleMass;
+use CG\Locale\Length as LocaleLength;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Detail\Entity as ProductDetail;
+use PhpUnitsOfMeasure\PhysicalQuantity\Length;
+use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Mapper
 {
@@ -30,23 +35,42 @@ class Mapper
         array $parcelData,
         array $itemsData,
         $shipmentClass,
-        $packageClass
+        $packageClass,
+        OrganisationUnit $rootOu
     ) {
         $caPackageData = [
-            'weight' => (isset($parcelData['weight']) ? $parcelData['weight'] : null),
-            'height' => (isset($parcelData['height']) ? $parcelData['height'] : null),
-            'width' => (isset($parcelData['width']) ? $parcelData['width'] : null),
-            'length' => (isset($parcelData['length']) ? $parcelData['length'] : null),
-            'number' => (isset($parcelData['number']) ? $parcelData['number'] : null),
+            'weight' => (isset($parcelData['weight']) && $parcelData['weight'] !== '' ? $this->normaliseWeight($parcelData['weight'], $rootOu->getLocale()) : null),
+            'height' => (isset($parcelData['height']) && $parcelData['height'] !== '' ? $this->normaliseDimension($parcelData['height'], $rootOu->getLocale()) : null),
+            'width' => (isset($parcelData['width']) && $parcelData['width'] !== '' ? $this->normaliseDimension($parcelData['width'], $rootOu->getLocale()) : null),
+            'length' => (isset($parcelData['length']) && $parcelData['length'] !== '' ? $this->normaliseDimension($parcelData['length'], $rootOu->getLocale()) : null),
+            'number' => (isset($parcelData['number']) && $parcelData['number'] !== '' ? $parcelData['number'] : null),
         ];
-        if (isset($parcelData['packageType']) && is_a($shipmentClass, PackageTypesInterface::class, true)) {
+        if (isset($parcelData['packageType']) && $parcelData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
             $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
         }
-        if (isset($parcelData['itemParcelAssignment']) && is_a($packageClass, PackageContentsInterface::class, true)) {
+        if (isset($parcelData['itemParcelAssignment']) && $parcelData['itemParcelAssignment'] !== '' && is_a($packageClass, PackageContentsInterface::class, true)) {
             $caPackageData['contents'] = $this->ohOrderAndDataToPackageContents($order, $parcelData, $itemsData);
         }
 
         return $caPackageData;
+    }
+
+    protected function normaliseWeight(float $weight, string $locale): float
+    {
+        $localeUnit = LocaleMass::getForLocale($locale);
+        if ($localeUnit == ProductDetail::UNIT_MASS) {
+            return $weight;
+        }
+        return (new Mass($weight, $localeUnit))->toUnit(ProductDetail::UNIT_MASS);
+    }
+
+    protected function normaliseDimension(float $dimension, string $locale): float
+    {
+        $localeUnit = LocaleLength::getForLocale($locale);
+        if ($localeUnit == ProductDetail::UNIT_LENGTH) {
+            return $dimension;
+        }
+        return (new Length($dimension, $localeUnit))->toUnit(ProductDetail::UNIT_LENGTH);
     }
 
     protected function ohParcelDataToCAPackageType(array $parcelData, $shipmentClass)
@@ -97,7 +121,7 @@ class Mapper
         Account $account
     ) {
         return [
-            'customerReference' => $order->getId(),
+            'customerReference' => $order->getExternalId(),
             'account' => $this->caAccountMapper->fromOHAccount($account),
             'deliveryAddress' => $this->caAddressMapper->ohOrderToDeliveryAddress($order),
         ];

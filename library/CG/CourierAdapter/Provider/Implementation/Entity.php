@@ -9,15 +9,19 @@ class Entity
     protected $displayName;
     /** @var callable */
     protected $courierFactory;
+    /** @var string|null */
+    protected $featureFlag;
 
     public function __construct(
-        $channelName,
-        $displayName,
-        $courierFactory
+        string $channelName,
+        string $displayName,
+        callable $courierFactory,
+        ?string $featureFlag = null
     ) {
         $this->setChannelName($channelName)
             ->setDisplayName($displayName)
-            ->setCourierFactory($courierFactory);
+            ->setCourierFactory($courierFactory)
+            ->setFeatureFlag($featureFlag);
     }
 
     /**
@@ -42,6 +46,11 @@ class Entity
     public function getCourierFactory()
     {
         return $this->courierFactory;
+    }
+
+    public function getFeatureFlag(): ?string
+    {
+        return $this->featureFlag;
     }
 
     // Required by Collection
@@ -74,6 +83,12 @@ class Entity
     public function setCourierFactory(callable $courierFactory)
     {
         $this->courierFactory = $courierFactory;
+        return $this;
+    }
+
+    public function setFeatureFlag(?string $featureFlag): Entity
+    {
+        $this->featureFlag = $featureFlag;
         return $this;
     }
 }
