@@ -53,27 +53,6 @@ define([
     return LinkCell;
     
     function getProductLinks(products, rowData) {
-        if (!doLinksExist(products) || isParentProduct(rowData)) {
-            return [];
-        }
-        if (products.allProductsLinks && products.allProductsLinks[rowData.id] && !rowData.parentProductId) {
-            return products.allProductsLinks[rowData.id][rowData.id];
-        }
-        if (!doesLinkExistForVariation(products, rowData)) {
-            return [];
-        }
-        return products.allProductsLinks[rowData.parentProductId][rowData.id];
-    }
-    
-    function doLinksExist(products) {
-        return !!Object.keys(products.allProductsLinks).length
-    }
-    
-    function isParentProduct(rowData) {
-        return !!rowData.variationIds.length;
-    }
-    
-    function doesLinkExistForVariation(products, rowData) {
-        return products.allProductsLinks[rowData.parentProductId] && products.allProductsLinks[rowData.parentProductId][rowData.id]
+        return products.allProductsLinks[rowData.id];
     }
 });

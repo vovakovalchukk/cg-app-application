@@ -18,7 +18,7 @@ define([
         allProductsLinks: {}
     };
     
-    const {LINK_STATUSES } = constants;
+    const {LINK_STATUSES} = constants;
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
@@ -34,8 +34,8 @@ define([
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
             // let newState = applyNewProductLinksToState(state,)
             let newState = applyNewProductLinksToState(state, action.payload.productLinks)
-                
-                // Object.assign({},state.allProductsLinks, action.payload.productLinks);
+            
+            // Object.assign({},state.allProductsLinks, action.payload.productLinks);
             // console.log('in product_links_Get_request_success -R oldProductLinks ', state.allProductsLinks, 'newProductLinks: ' , newProductLinks, ' and action.payload.productLinks: '  ,action.payload.productLinks);
             return newState;
         },
@@ -125,7 +125,7 @@ define([
             });
             return newState;
         },
-        "FETCHING_LINKED_PRODUCTS_START": function(state,action){
+        "FETCHING_LINKED_PRODUCTS_START": function(state, action) {
             let newState = applyLinksStatusChangesToProducts(
                 state,
                 action.payload.skusToFindLinkedProductsFor,
@@ -133,7 +133,7 @@ define([
             );
             return newState;
         },
-        "FETCHING_LINKED_PRODUCTS_FINISH": function(state,action){
+        "FETCHING_LINKED_PRODUCTS_FINISH": function(state, action) {
             let newState = applyLinksStatusChangesToProducts(
                 state,
                 action.payload.skusToFindLinkedProductsFor,
@@ -145,12 +145,20 @@ define([
     
     return ProductsReducer;
     
-    function applyNewProductLinksToState(state,newLinks){
-        console.log('applyNewProductLinksToState state: ', state , ' newLinks ',newLinks);
+    function applyNewProductLinksToState(state, newLinks) {
         //todo go through a process of normalising from the start
-        let normalizedNewLinks = normalizeLinks(newLinks);
+        const normalizedNewLinks = normalizeLinks(newLinks);
+        const stateLinksCopy = Object.assign({}, state.allProductsLinks);
         
-        let newState = state;
+        let newProductLinks = Object.assign({}, stateLinksCopy, normalizedNewLinks);
+        console.log('applyNewProductLinksToState state: ', state, 'newLinks:', newLinks, ' normalizedNewLinks ', normalizedNewLinks);
+        
+        let newState = Object.assign({}, state, {
+            allProductsLinks: newProductLinks
+        });
+        
+        console.log('newNormalized: ', normalizedNewLinks);
+        return newState;
         // const stateLinksCopy = Object.assign({}, state.allProductsLinks);
         //
         // let idsOfNewLinks = Object.keys(newLinks);
@@ -176,40 +184,33 @@ define([
         //     allProductsLinks: newProductLinks
         // });
         // console.log('newState: ' , newState);
-        
-        
-        return newState;
     }
     
-    function normalizeLinks(links){
+    function normalizeLinks(links) {
         let simpleAndVariationLinks = {};
-        Object.keys(links).forEach(productId=>{
-            if(isSimpleOrParentProductLink(links[productId])){
-                if(isParentProductLinkObject(links,productId)){
-                    return;
-                }
+        Object.keys(links).forEach(productId => {
+            if (isSimpleProductLink(links, productId)) {
+                console.log('productId: ', productId, ' is simple and not parent');
                 simpleAndVariationLinks[productId] = links[productId][productId];
                 return;
             }
             let variationLinkObjects = links[productId];
-            Object.keys(variationLinkObjects).forEach(productId=>{
-                 simpleAndVariationLinks[productId] = variationLinkObjects[productId];
+            console.log('productId: ', productId, ' isparent . links: ' , links , ' variationLinkObjects: ' , variationLinkObjects);
+            Object.keys(variationLinkObjects).forEach(productId => {
+                simpleAndVariationLinks[productId] = variationLinkObjects[productId];
             })
         });
         return simpleAndVariationLinks;
     }
     
-    function isSimpleOrParentProductLink(linkObject){
-        return Object.keys(linkObject).length === 1
-    }
-    function isParentProductLinkObject(links,productId){
-        return !links[productId][productId];
+    function isSimpleProductLink(links,productId) {
+        return Object.keys(links[productId]).length === 1 && !!links[productId][productId];
     }
     
-    function applyLinksStatusChangesToProducts(state, skusToFindLinkedProductsFor, desiredLinkStatus){
+    function applyLinksStatusChangesToProducts(state, skusToFindLinkedProductsFor, desiredLinkStatus) {
         let variationsByParentCopy = Object.assign({}, state.variationsByParent);
         let visibleRowsCopy = state.visibleRows.slice();
-    
+        
         let newVariationsByParent = applyFetchingStatusToVariations(
             variationsByParentCopy,
             skusToFindLinkedProductsFor,
@@ -264,11 +265,11 @@ define([
         return variations;
     }
     
-    function applyFetchingStatusToVariations(variationsByParent, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS){
+    function applyFetchingStatusToVariations(variationsByParent, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS) {
         Object.keys(variationsByParent).map(parentId => {
-            let variations =  variationsByParent[parentId];
-            variations.forEach((variation, i)=>{
-                if(skusToFindLinkedProductsFor.indexOf(variation.sku) < 0){
+            let variations = variationsByParent[parentId];
+            variations.forEach((variation, i) => {
+                if (skusToFindLinkedProductsFor.indexOf(variation.sku) < 0) {
                     return;
                 }
                 variationsByParent[parentId][i]["linkStatus"] = DESIRED_LINK_STATUS
@@ -277,10 +278,10 @@ define([
         return variationsByParent;
     }
     
-    function applyFetchingStatusToNewVisibleRows(visibleRowsCopy, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS){
+    function applyFetchingStatusToNewVisibleRows(visibleRowsCopy, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS) {
         // console.log('in applyFetchingStatusToNewVisibleRows visibleRowsCopy: ' , visibleRowsCopy, ' skusToFindLinkedProductsFor: ' , skusToFindLinkedProductsFor);
-        visibleRowsCopy.forEach((row,i)=>{
-            if(skusToFindLinkedProductsFor.indexOf(row.sku) < 0){
+        visibleRowsCopy.forEach((row, i) => {
+            if (skusToFindLinkedProductsFor.indexOf(row.sku) < 0) {
                 return;
             }
             visibleRowsCopy[i]["linkStatus"] = DESIRED_LINK_STATUS;
