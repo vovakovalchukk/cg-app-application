@@ -42,6 +42,7 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_COUNTRY),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_CURRENCY_CODE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_TOTAL),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_WEIGHT),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_CHANNEL),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_ACCOUNT),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_BATCH),

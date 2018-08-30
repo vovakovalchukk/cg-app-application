@@ -938,20 +938,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.0.30",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c"
+                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.0.30-b6a566.zip",
-                "reference": "d95883d7f74ff605d75f1d1d2503289d31cd735c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.0-e403c9.zip",
+                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "~1.2.0",
+                "channelgrabber/courieradapter": "^1.3.0",
                 "channelgrabber/locale": "^1.0.17",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
@@ -979,20 +979,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-07-17T13:49:38+00:00"
+            "time": "2018-08-30T09:22:53+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf"
+                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.2.0-0d7aae.zip",
-                "reference": "9164284f3be42b53af47756dd23ce49e7bc3c3bf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.3.0-14c937.zip",
+                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50",
                 "shasum": null
             },
             "require": {
@@ -1000,6 +1000,11 @@
                 "zendframework/zend-form": "^2.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-TAC-180-generate-hermes-test-packs": "1.3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\CourierAdapter\\": "src"
@@ -1012,7 +1017,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-04-04T11:51:33+00:00"
+            "time": "2018-08-30T09:18:15+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -1717,20 +1722,21 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "b281345e5db046f40a67368cdba81aa76c539c9e"
+                "reference": "d7c1ac9ef3d43406007e751fccc5a4071850ce55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.2.0-8d2490.zip",
-                "reference": "b281345e5db046f40a67368cdba81aa76c539c9e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.2.1-fb7f25.zip",
+                "reference": "d7c1ac9ef3d43406007e751fccc5a4071850ce55",
                 "shasum": null
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0"
             },
             "conflict": {
                 "channelgrabber/user": "<1.26.0"
@@ -1749,20 +1755,20 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-27T14:32:51+00:00"
+            "time": "2018-08-29T08:47:40+00:00"
         },
         {
             "name": "channelgrabber/location",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "79ee12525f9982107ad933b4c2edc22e406279a6"
+                "reference": "2c401b5a118ce02ad6d0a476d478b7f5cfc0e0fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-1.2.0-da196c.zip",
-                "reference": "79ee12525f9982107ad933b4c2edc22e406279a6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-location-1.2.1-d02078.zip",
+                "reference": "2c401b5a118ce02ad6d0a476d478b7f5cfc0e0fa",
                 "shasum": null
             },
             "require": {
@@ -1801,7 +1807,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2017-09-27T08:41:26+00:00"
+            "time": "2018-08-17T09:27:42+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2036,7 +2042,6 @@
                 "shasum": null
             },
             "require": {
-                "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.14.0",
                 "channelgrabber/channel": "^1.32.7",
@@ -2049,7 +2054,7 @@
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/exchangerate": "^1.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
-                "channelgrabber/gearman": ">=1.1.0,<2.0.0",
+                "channelgrabber/gearman": ">=1.3.6,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.0.9",
@@ -2100,6 +2105,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets",
                     "CG\\Channel\\Test\\": "vendor/channelgrabber/channel/tests/Channel/Test",
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test",
+                    "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src",
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
@@ -2439,16 +2445,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.2",
+            "version": "1.16.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "2449757394246e504e73c38d10c6a9faa792ad35"
+                "reference": "9d2d0be13763a5532f3df7b839b80f12bf444dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.16.2-3caf7d.zip",
-                "reference": "2449757394246e504e73c38d10c6a9faa792ad35",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.16.4-27cead.zip",
+                "reference": "9d2d0be13763a5532f3df7b839b80f12bf444dec",
                 "shasum": null
             },
             "require": {
@@ -2460,8 +2466,8 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.15.0",
-                "channelgrabber/locale": "^1.1.3",
-                "channelgrabber/location": "1.2.0",
+                "channelgrabber/locale": "^1.2.1",
+                "channelgrabber/location": "^1.2.1",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
@@ -2472,7 +2478,6 @@
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
                 "php": ">=7.1",
-                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "conflict": {
@@ -2501,7 +2506,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-08-09T14:47:49+00:00"
+            "time": "2018-08-29T08:52:24+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
