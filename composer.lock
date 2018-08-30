@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8858c04f3b60da0e32120200f02a785",
+    "content-hash": "ffd61fabf19966f01998dd898eeb0dd1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1125,12 +1125,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "d1e33b7a0945ca7bf811661832946c7edc865143"
+                "reference": "e92f65835412b7b8cf7333348299035a0fa2dadc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-177-create-new-pbse-catalog-product-1dc19c.zip",
-                "reference": "d1e33b7a0945ca7bf811661832946c7edc865143",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-177-create-new-pbse-catalog-product-202ac7.zip",
+                "reference": "e92f65835412b7b8cf7333348299035a0fa2dadc",
                 "shasum": null
             },
             "require": {
@@ -1182,7 +1182,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-21T09:40:34+00:00"
+            "time": "2018-08-21T14:46:29+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1681,12 +1681,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "65885fad697920d3a0eea8aece2da832569a0404"
+                "reference": "08ada53c6bd762f55f9f819d626f04cce52f1245"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-177-create-new-pbse-catalog-product-dc0712.zip",
-                "reference": "65885fad697920d3a0eea8aece2da832569a0404",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-177-create-new-pbse-catalog-product-1bf999.zip",
+                "reference": "08ada53c6bd762f55f9f819d626f04cce52f1245",
                 "shasum": null
             },
             "require": {
@@ -1727,7 +1727,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-20T13:31:45+00:00"
+            "time": "2018-08-21T14:48:19+00:00"
         },
         {
             "name": "channelgrabber/locale",
