@@ -88,7 +88,6 @@ define([
         },
         onProductLinkRefresh: function(event) {
             let sku = event.detail;
-            console.log('onProductLinkRefresh.... about to fetch sku:',sku);
             this.props.actions.getLinkedProducts([sku]);
         },
         renderSearchBox: function() {

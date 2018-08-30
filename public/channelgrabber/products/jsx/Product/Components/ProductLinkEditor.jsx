@@ -128,7 +128,6 @@ define([
                 'method' : 'POST',
                 'dataType' : 'json',
                 'success' : function () {
-                    // console.log('onSaveProductLinks about to refresh links sku: ' , this.state.sku);
                     window.triggerEvent('productLinkRefresh', this.state.sku);
                     this.setState(
                         {unlinkConfirmPopup: false},
@@ -151,7 +150,7 @@ define([
             });
         },
         unlinkProducts: function () {
-            n.notice('Removing product links. this.state.sku: ' , this.state.sku);
+            n.notice('Removing product links.');
             this.unlinkProductLinksRequest = $.ajax({
                 'url' : "/products/links/remove",
                 'data' : {

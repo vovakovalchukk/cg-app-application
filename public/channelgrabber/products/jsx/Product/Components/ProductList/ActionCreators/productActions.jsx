@@ -95,7 +95,7 @@ define([
                         dispatch(getProductsSuccess(data));
                         dispatch(productLinkActions.getLinkedProducts());
                     } catch (err) {
-                        throw 'Unable to load products... error: '+ err;
+                        throw 'Unable to load products... error: ' + err;
                     }
                 }
             },

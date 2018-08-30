@@ -12,9 +12,7 @@ define([
     const {PRODUCT_LINKS_URL} = constants;
     
     var actionCreators = (function() {
-        let self = {};
-        
-        const getProductLinksSuccess = (productLinks,formattedSkus) => {
+        const getProductLinksSuccess = (productLinks, formattedSkus) => {
             return {
                 type: "PRODUCT_LINKS_GET_REQUEST_SUCCESS",
                 payload: {
@@ -24,7 +22,6 @@ define([
             }
         };
         const getProductLinksRequest = (skusToFindLinkedProductsFor) => {
-            // console.log('in getProductLinksRequest - AC with skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
             return $.ajax({
                 url: PRODUCT_LINKS_URL,
                 data: {
@@ -41,7 +38,7 @@ define([
                 }
             }
         };
-        const fetchingProductLinksFinish = (skusToFindLinkedProductsFor)=>{
+        const fetchingProductLinksFinish = (skusToFindLinkedProductsFor) => {
             return {
                 type: "FETCHING_LINKED_PRODUCTS_FINISH",
                 payload: {
@@ -64,7 +61,6 @@ define([
                     } else {
                         skusToFindLinkedProductsFor = productSkus;
                     }
-                    console.log('in getLinkedProducts skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                     
@@ -78,13 +74,12 @@ define([
                 }
             },
         };
-        
     })();
     
     return actionCreators;
     
     function getSkusToFindLinkedProductsFor(products) {
-        var skusToFindLinkedProductsFor = [];
+        let skusToFindLinkedProductsFor = [];
         products.visibleRows.forEach((product) => {
             if (product.sku) {
                 skusToFindLinkedProductsFor.push(product.sku);
