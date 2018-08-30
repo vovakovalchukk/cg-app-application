@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2f1ff384327728beae55e46a0a99efa",
+    "content-hash": "9de0d66e0a105cbfc1bd1b47c170b5c4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2033,12 +2033,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e69385fec71186f59ffdcff41961fee95de4a9bc"
+                "reference": "d28efe2162fcc12ec03de3dcfa25ca3d3af4bc92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-QA-EPIC-USPS-f96f28.zip",
-                "reference": "e69385fec71186f59ffdcff41961fee95de4a9bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-QA-EPIC-USPS-0cef63.zip",
+                "reference": "d28efe2162fcc12ec03de3dcfa25ca3d3af4bc92",
                 "shasum": null
             },
             "require": {
@@ -2109,7 +2109,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-08-20T14:26:51+00:00"
+            "time": "2018-08-30T12:53:08+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -10327,8 +10327,8 @@
             "package": "channelgrabber/clearbooks"
         },
         {
-            "alias": "1.39.3",
-            "alias_normalized": "1.39.3.0",
+            "alias": "1.39.8",
+            "alias_normalized": "1.39.8.0",
             "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/order"
         },
@@ -10339,8 +10339,8 @@
             "package": "channelgrabber/payment"
         },
         {
-            "alias": "1.24.1",
-            "alias_normalized": "1.24.1.0",
+            "alias": "1.24.3",
+            "alias_normalized": "1.24.3.0",
             "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/zf2-v4-ui"
         }
