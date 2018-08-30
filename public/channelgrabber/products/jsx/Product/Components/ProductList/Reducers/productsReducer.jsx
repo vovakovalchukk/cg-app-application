@@ -33,11 +33,10 @@ define([
         },
         "PRODUCT_LINKS_GET_REQUEST_SUCCESS": function(state, action) {
             // let newState = applyNewProductLinksToState(state,)
-            let newProductLinks = Object.assign({},state.allProductsLinks, action.payload.productLinks);
-            let newState = Object.assign({}, state, {
-                allProductsLinks: newProductLinks
-            });
-            console.log('in product_links_Get_request_success -R oldProductLinks ', state.allProductsLinks, 'newProductLinks: ' , newProductLinks, ' and action.payload.productLinks: '  ,action.payload.productLinks);
+            let newState = applyNewProductLinksToState(state, action.payload.productLinks)
+                
+                // Object.assign({},state.allProductsLinks, action.payload.productLinks);
+            // console.log('in product_links_Get_request_success -R oldProductLinks ', state.allProductsLinks, 'newProductLinks: ' , newProductLinks, ' and action.payload.productLinks: '  ,action.payload.productLinks);
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
@@ -145,6 +144,67 @@ define([
     });
     
     return ProductsReducer;
+    
+    function applyNewProductLinksToState(state,newLinks){
+        console.log('applyNewProductLinksToState state: ', state , ' newLinks ',newLinks);
+        //todo go through a process of normalising from the start
+        let normalizedNewLinks = normalizeLinks(newLinks);
+        
+        let newState = state;
+        // const stateLinksCopy = Object.assign({}, state.allProductsLinks);
+        //
+        // let idsOfNewLinks = Object.keys(newLinks);
+        //
+        // let simpleAndVariationProductLinks = {};
+        // Object.keys(stateLinksCopy).forEach(productId=>{
+        //     if(idsOfNewLinks.indexOf(productId) < 0){
+        //         return;
+        //     }
+        //     simpleAndVariationProductLinks[productId] = stateLinksCopy[productId];
+        // });
+        //
+        // //todo loop over the simpleandvariationproductlinks - this a layer less...
+        // Object.keys(simpleAndVariationProductLinks).forEach(productId=>{
+        //    console.log('productId: ', productId, ' simpleAndVariationProductLinks[productId] : ' , simpleAndVariationProductLinks[productId]);
+        //
+        //    //todo need to merge the objects here if the exists in newLinks
+        //
+        // });
+        //
+        // let newProductLinks = Object.assign({},stateLinksCopy, newLinks);
+        // let newState = Object.assign({},state, {
+        //     allProductsLinks: newProductLinks
+        // });
+        // console.log('newState: ' , newState);
+        
+        
+        return newState;
+    }
+    
+    function normalizeLinks(links){
+        let simpleAndVariationLinks = {};
+        Object.keys(links).forEach(productId=>{
+            if(isSimpleOrParentProductLink(links[productId])){
+                if(isParentProductLinkObject(links,productId)){
+                    return;
+                }
+                simpleAndVariationLinks[productId] = links[productId][productId];
+                return;
+            }
+            let variationLinkObjects = links[productId];
+            Object.keys(variationLinkObjects).forEach(productId=>{
+                 simpleAndVariationLinks[productId] = variationLinkObjects[productId];
+            })
+        });
+        return simpleAndVariationLinks;
+    }
+    
+    function isSimpleOrParentProductLink(linkObject){
+        return Object.keys(linkObject).length === 1
+    }
+    function isParentProductLinkObject(links,productId){
+        return !links[productId][productId];
+    }
     
     function applyLinksStatusChangesToProducts(state, skusToFindLinkedProductsFor, desiredLinkStatus){
         let variationsByParentCopy = Object.assign({}, state.variationsByParent);

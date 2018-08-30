@@ -63,7 +63,6 @@ define([
                     } else {
                         skusToFindLinkedProductsFor = productSkus;
                     }
-                    console.log('in getLinkedProducts with skusToFindLinkedProductsFor: ' , skusToFindLinkedProductsFor);
     
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
