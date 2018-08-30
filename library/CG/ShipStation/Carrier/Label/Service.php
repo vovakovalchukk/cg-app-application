@@ -172,6 +172,9 @@ class Service implements ShippingProviderServiceInterface, ShippingProviderCance
 
     public function isCreateAllowedForOrder(Account $shippingAccount, Order $order, OrderLabel $orderLabel = null): bool
     {
+        if (!$this->carrierServive->getCarrierForAccount($shippingAccount)->isAllowsRates()) {
+            return true;
+        }
         if ($orderLabel === null || $orderLabel->getStatus() !== OrderLabelStatus::RATES_FETCHED) {
             return false;
         }
