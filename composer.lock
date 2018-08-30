@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9de0d66e0a105cbfc1bd1b47c170b5c4",
+    "content-hash": "5e7ef7aa224f792ba900f793f21f898a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4649,16 +4649,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7bbc37e29758c9f3ed12ffd25e78af7efa8a0a92"
+                "reference": "9904f0c2229425b39ad41593359944991df51a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-EPIC-USPS-9ac053.zip",
-                "reference": "7bbc37e29758c9f3ed12ffd25e78af7efa8a0a92",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.24.2-1e6287.zip",
+                "reference": "9904f0c2229425b39ad41593359944991df51a33",
                 "shasum": null
             },
             "require": {
@@ -4710,7 +4710,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-20T14:31:04+00:00"
+            "time": "2018-08-30T09:24:14+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10337,12 +10337,6 @@
             "alias_normalized": "1.10.2.0",
             "version": "dev-QA-EPIC-USPS",
             "package": "channelgrabber/payment"
-        },
-        {
-            "alias": "1.24.3",
-            "alias_normalized": "1.24.3.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -10354,7 +10348,6 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "channelgrabber/payment": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
