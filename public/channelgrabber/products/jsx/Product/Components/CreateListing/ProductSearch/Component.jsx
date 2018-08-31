@@ -3,19 +3,19 @@ define([
     'redux',
     'react-redux',
     'redux-form',
-    'Common/Components/Container',
     'Common/Components/Input',
     'Common/Components/Select',
-    '../Actions/CreateListings/Actions'
+    '../Actions/CreateListings/Actions',
+    './AssignedProductsTable'
 ], function(
     React,
     Redux,
     ReactRedux,
     ReduxForm,
-    Container,
     Input,
     Select,
-    CreateListingActions
+    CreateListingActions,
+    AssignedProductsTable
 ) {
     const Field = ReduxForm.Field;
     const Selector = ReduxForm.formValueSelector('productSearch');
@@ -29,7 +29,9 @@ define([
                 defaultProductImage: '',
                 mainProduct: {},
                 variationsDataForProduct: {},
-                selectedProducts: {}
+                selectedProducts: {},
+                attributeNames: {},
+                attributeNameMap: {}
             }
         },
         getInitialState: function() {
@@ -199,21 +201,21 @@ define([
         onProductAssign: function(searchProduct, selectedSku) {
             this.props.assignSearchProductToCgProduct(searchProduct, selectedSku.value);
         },
-        proceedWithSelectedProduct: function() {
-            let product = this.state.selectedProduct;
-
-            if (Object.keys(product).length === 0) {
-                return null;
-            }
-
-            this.props.renderCreateListingPopup(Object.assign(this.props.createListingData, {
-                selectedProductDetails: product
-            }));
+        renderAssignedProductsTable: function () {
+            return <AssignedProductsTable
+                selectedProducts={this.props.selectedProducts}
+                variationsDataForProduct={this.props.variationsDataForProduct}
+                product={this.props.mainProduct}
+                attributeNames={this.props.mainProduct.attributeNames}
+                attributeNameMap={this.props.mainProduct.attributeNameMap}
+            />;
         },
         render: function() {
+            console.log(this.props);
             return <span>
-                    {this.renderForm()}
-                    {this.renderSearchResults()}
+                {this.renderForm()}
+                {this.renderSearchResults()}
+                {this.renderAssignedProductsTable()}
             </span>;
         }
     });
