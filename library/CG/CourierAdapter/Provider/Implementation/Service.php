@@ -12,10 +12,13 @@ use CG\CourierAdapter\Provider\Implementation\Entity;
 use CG\CourierAdapter\Provider\Implementation\Mapper;
 use CG\CourierAdapter\StorageAwareInterface;
 use CG\CourierAdapter\StorageInterface;
+use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Order\Shared\ShippableInterface as Order;
+use CG\User\OrganisationUnit\Service as UserOuService;
 use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
+use Zend\Di\Di;
 
 class Service implements
     ShippingProviderChannelsInterface,
@@ -26,6 +29,13 @@ class Service implements
 {
     /** @var Mapper */
     protected $mapper;
+    /** @var Di */
+    protected $di;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
+    /** @var UserOuService */
+    protected $userOuService;
+
     /** @var Collection */
     protected $adapterImplementations;
     /** @var PsrLoggerInterface */
@@ -38,11 +48,19 @@ class Service implements
     protected $adapterImplementationCourierInstances = [];
 
     /**
-     * @param array $adapterImplementationsConfig [['channelName' => 'example', 'displayName' => 'Example', 'courierFactory' => function() { return new \ExampleImplementation\Courier(); }]]
+     * @param array $adapterImplementationsConfig [['channelName' => 'example', 'displayName' => 'Example', 'courierFactory' => function() { return new \ExampleImplementation\Courier(); }, 'featureFlag' => '(Optional) Feature flag name']]
      */
-    public function __construct(Mapper $mapper, array $adapterImplementationsConfig = [])
-    {
-        $this->setMapper($mapper);
+    public function __construct(
+        Mapper $mapper,
+        Di $di,
+        FeatureFlagsService $featureFlagsService,
+        UserOuService $userOuService,
+        array $adapterImplementationsConfig = []
+    ) {
+        $this->mapper = $mapper;
+        $this->di = $di;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->userOuService = $userOuService;
         $this->setAdapterImplementations(new Collection(Entity::class, __CLASS__));
         foreach ($adapterImplementationsConfig as $adapterImplementationConfig) {
             $this->adapterImplementations->attach($this->mapper->fromArray($adapterImplementationConfig));
@@ -98,7 +116,7 @@ class Service implements
             return $courierInstance;
         }
 
-        $courierInstance = call_user_func($adapterImplementation->getCourierFactory());
+        $courierInstance = call_user_func($adapterImplementation->getCourierFactory(), $this->di);
         $this->checkCourierInstanceAgainstSpecificInterface(
             $adapterImplementation->getChannelName(), $courierInstance, $specificInterface
         );
@@ -194,20 +212,21 @@ class Service implements
      */
     public function getShippingChannelOptions()
     {
+        $rootOU = $this->userOuService->getRootOuByActiveUser();
         $options = [];
+        /** @var Entity $adapterImplementation */
         foreach ($this->adapterImplementations as $adapterImplementation) {
+            if ($adapterImplementation->getFeatureFlag() &&
+                !$this->featureFlagsService->isActive($adapterImplementation->getFeatureFlag(), $rootOU)
+            ) {
+                continue;
+            }
             $options[$adapterImplementation->getDisplayName()] = [
                 'channel' => $adapterImplementation->getChannelName(),
                 'region' => ''
             ];
         }
         return $options;
-    }
-
-    protected function setMapper(Mapper $mapper)
-    {
-        $this->mapper = $mapper;
-        return $this;
     }
 
     protected function setAdapterImplementations(Collection $adapterImplementations)
