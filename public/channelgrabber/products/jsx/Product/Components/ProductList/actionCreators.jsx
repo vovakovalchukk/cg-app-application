@@ -51,14 +51,32 @@ define([
             }
         },
         changeTab: (desiredTabKey) => {
-            return {
-                type: "TAB_CHANGE",
-                payload: {
-                    desiredTabKey
-                }
+            return function(dispatch, getState) {
+                let state = getState();
+                let numberOfVisibleFixedColumns = getVisibleFixedColumns(state).length
+                dispatch({
+                    type: "TAB_CHANGE",
+                    payload: {
+                        desiredTabKey,
+                        numberOfVisibleFixedColumns
+                    }
+                });
             }
+        },
+        resetHorizontalScrollbarIndex: () => {
+            return {
+                type: "HORIZONTAL_SCROLLBAR_INDEX_RESET",
+                payload: {}
+            }
+            
         }
     };
+    
+    function getVisibleFixedColumns(state) {
+        return state.columns.filter((column) => {
+            return column.fixed
+        });
+    }
     
     function sortVariationsByParentId(newVariations, parentProductId) {
         var variationsByParent = {};

@@ -1,17 +1,20 @@
 define([
     'redux',
-    'Product/Components/ProductList/Reducers/ProductsReducer',
-    'Product/Components/ProductList/Reducers/TabsReducer'
+    'Product/Components/ProductList/Reducers/productsReducer',
+    'Product/Components/ProductList/Reducers/tabsReducer',
+    'Product/Components/ProductList/Reducers/columnsReducer'
 ], function(
     Redux,
     productsReducer,
-    tabsReducer
+    tabsReducer,
+    columnsReducer
 ) {
     "use strict";
     
     var appReducer = Redux.combineReducers({
         products: productsReducer,
-        tabs: tabsReducer
+        tabs: tabsReducer,
+        columns: columnsReducer
     });
     
     const combinedReducer = (state, action) => {

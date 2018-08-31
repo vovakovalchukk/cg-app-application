@@ -2,7 +2,7 @@ define([
     'react',
     'redux',
     'react-redux',
-    'Product/Components/ProductList/ActionCreators',
+    'Product/Components/ProductList/actionCreators',
     'Product/Components/ProductList/Components/Tabs/Tabs',
 ], function(
     React,

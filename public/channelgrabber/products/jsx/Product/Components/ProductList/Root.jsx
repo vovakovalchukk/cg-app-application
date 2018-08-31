@@ -3,7 +3,7 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
-    'Product/Components/ProductList/ActionCreators',
+    'Product/Components/ProductList/actionCreators',
     'Product/Components/ProductList/Reducers/CombinedReducer',
     'Product/Components/ProductList/ProductList'
 ], function(
@@ -11,7 +11,7 @@ define([
     Redux,
     ReactRedux,
     thunk,
-    ActionCreators,
+    actionCreators,
     CombinedReducer,
     ProductList
 ) {
@@ -25,7 +25,7 @@ define([
     };
     
     const mapDispatchToProps = function(dispatch) {
-        return {actions: Redux.bindActionCreators(ActionCreators, dispatch)};
+        return {actions: Redux.bindActionCreators(actionCreators, dispatch)};
     };
     
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);
