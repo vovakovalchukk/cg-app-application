@@ -211,7 +211,6 @@ define([
             />;
         },
         render: function() {
-            console.log(this.props);
             return <span>
                 {this.renderForm()}
                 {this.renderSearchResults()}

@@ -43,7 +43,6 @@ define([
             );
         },
         render: function() {
-            console.log(this.props);
             return <VariationTable
                 sectionName={"assigned-products"}
                 variationsDataForProduct={this.props.variationsDataForProduct}

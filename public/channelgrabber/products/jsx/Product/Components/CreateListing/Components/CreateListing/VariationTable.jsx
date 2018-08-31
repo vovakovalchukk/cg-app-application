@@ -80,6 +80,7 @@ define([
             }
 
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
+            // console.log(selected);
             return <ImageDropDown
                 selected={selected}
                 autoSelectFirst={false}
@@ -89,12 +90,15 @@ define([
             />
         },
         onImageSelected: function(field, image) {
+            console.log(field, image);
             this.onInputChange(field.input, image.target.value);
         },
         getStaticImage: function(fieldValue, fieldVariation) {
+            // console.log(fieldValue, fieldVariation);
             if (this.props.shouldRenderStaticImagesFromVariationValues && fieldVariation.images) {
                 return fieldVariation.images[0];
             }
+            // console.log(this.findSelectedImageForVariation(fieldValue));
             return this.findSelectedImageForVariation(fieldValue);
         },
         renderStaticImage: function(field) {

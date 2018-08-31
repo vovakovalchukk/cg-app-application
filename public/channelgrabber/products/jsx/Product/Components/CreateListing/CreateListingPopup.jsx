@@ -39,10 +39,11 @@ define([
 ) {
     "use strict";
 
-    var Field = ReduxForm.Field;
-    var FormSection = ReduxForm.FormSection;
+    const Field = ReduxForm.Field;
+    const FormSection = ReduxForm.FormSection;
+    const Selector = ReduxForm.formValueSelector('productSearch');
 
-    var CreateListingPopup = React.createClass({
+    let CreateListingPopup = React.createClass({
         getDefaultProps: function() {
             return {
                 product: {},
@@ -319,7 +320,8 @@ define([
         },
     })(CreateListingPopup);
 
-    var mapStateToProps = function(state) {
+    const mapStateToProps = function(state) {
+        // console.log(state);
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
@@ -331,7 +333,7 @@ define([
         };
     };
 
-    var mapDispatchToProps = function(dispatch, props) {
+    const mapDispatchToProps = function(dispatch, props) {
         return {
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));

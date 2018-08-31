@@ -28,6 +28,7 @@ define([
             }
         },
         componentDidMount() {
+            console.log(this.props.selected);
             this.onImageSelected(this.props.selected);
         },
         onClickOutside: function(event) {
@@ -47,11 +48,11 @@ define([
             });
         },
         onImageSelected: function(image) {
+            this.props.onChange({target: {value: image.id}});
             this.setState({
                 active: false,
                 image: image
             });
-            this.props.onChange({target: {value: image.id}});
         },
         render: function() {
             return (
