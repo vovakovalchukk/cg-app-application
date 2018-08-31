@@ -5,7 +5,7 @@ define([
     './SubmissionStatusesReducer',
     './AccountSpecificData',
     './CategoryTemplates',
-    './SelectedProducts',
+    './ProductSearch',
 ], function(
     Redux,
     ReduxForm,
@@ -13,7 +13,7 @@ define([
     SubmissionStatusesReducer,
     AccountsReducer,
     CategoryTemplatesReducer,
-    SelectedProductsReducer
+    ProductSearchReducer
 ) {
     "use strict";
 
@@ -23,6 +23,6 @@ define([
         initialValues: InitialValuesReducer,
         submissionStatuses: SubmissionStatusesReducer,
         categoryTemplates: CategoryTemplatesReducer,
-        selectedProducts: SelectedProductsReducer
+        productSearch: ProductSearchReducer
     });
 });

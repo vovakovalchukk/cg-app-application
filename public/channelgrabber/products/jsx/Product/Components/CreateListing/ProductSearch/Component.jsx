@@ -236,10 +236,11 @@ define([
     })(ProductSearchComponent);
 
     const mapStateToProps = function(state) {
+        let productSearch = state.productSearch;
         return {
             searchQuery: Selector(state, 'search'),
-            products: state.products.products,
-            isFetching: state.products.isFetching
+            products: productSearch.products,
+            isFetching: productSearch.isFetching
         };
     };
 

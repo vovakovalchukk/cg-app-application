@@ -16,7 +16,7 @@ define([
     './Components/CreateListing/ProductPrice',
     './Components/CreateListing/SubmissionTable',
     './Validators',
-    './ProductSearch/Root'
+    './ProductSearch/Component'
 ], function(
     React,
     ReactDom,
@@ -62,7 +62,7 @@ define([
                 lengthUnit: null,
                 selectedProductDetails: {},
                 productSearchActive: false,
-                selectedProducts: {}
+                productSearch: {}
             }
         },
         componentDidMount: function () {
@@ -81,7 +81,7 @@ define([
                 accountId={this.props.searchAccountId}
                 mainProduct={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
-                selectedProducts={this.props.selectedProducts}
+                selectedProducts={this.props.productSearch}
             />;
         },
         renderForm: function() {
@@ -329,7 +329,7 @@ define([
             submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
             resetSection: ReduxForm.resetSection,
             categoryTemplates: state.categoryTemplates,
-            selectedProducts: state.selectedProducts
+            productSearch: state.productSearch
         };
     };
 
