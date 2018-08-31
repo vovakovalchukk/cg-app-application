@@ -81,7 +81,6 @@ define([
                 accountId={this.props.searchAccountId}
                 mainProduct={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
-                selectedProducts={this.props.productSearch}
             />;
         },
         renderForm: function() {
@@ -321,7 +320,6 @@ define([
     })(CreateListingPopup);
 
     var mapStateToProps = function(state) {
-        console.log('redux state', state);
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},

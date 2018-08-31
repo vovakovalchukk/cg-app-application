@@ -220,7 +220,6 @@ define([
             }));
         },
         render: function() {
-            console.log(this.props);
             return <span>
                     {this.renderForm()}
                     {this.renderSearchResults()}
@@ -240,7 +239,8 @@ define([
         return {
             searchQuery: Selector(state, 'search'),
             products: productSearch.products,
-            isFetching: productSearch.isFetching
+            isFetching: productSearch.isFetching,
+            selectedProducts: productSearch.selectedProducts
         };
     };
 
@@ -250,8 +250,6 @@ define([
                 dispatch(CreateListingActions.fetchSearchResults(accountId, searchQuery, dispatch));
             },
             assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
-                console.log('action triggerd', searchProduct, cgProduct);
-                console.log('action: ', CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
                 dispatch(CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
             }
         };

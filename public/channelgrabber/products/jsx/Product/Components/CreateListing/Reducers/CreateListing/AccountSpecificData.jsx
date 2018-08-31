@@ -40,7 +40,6 @@ define([
             }));
         },
         "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
-            console.log('TEST', state, action);
             return {};
         }
     });
