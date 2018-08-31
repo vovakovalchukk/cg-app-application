@@ -69,6 +69,9 @@ class ShippingAccountsService
         $courierOptions = [];
         /** @var Account $shippingAccount */
         foreach ($shippingAccounts as $shippingAccount) {
+            if ($shippingAccount->getPending() || $shippingAccount->getDeleted() || !$shippingAccount->getActive()) {
+                continue;
+            }
             $displayName = $this->getDisplayNameForAccount($shippingAccount);
             $courierOptions[] = [
                 'value' => $shippingAccount->getId(),
