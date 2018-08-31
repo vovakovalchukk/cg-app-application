@@ -5,7 +5,8 @@ define([
     'redux-thunk',
     'Product/Components/ProductList/actionCreators',
     'Product/Components/ProductList/Reducers/combinedReducer',
-    'Product/Components/ProductList/Root'
+    'Product/Components/ProductList/Root',
+    'Product/Filter/Entity'
 ], function(
     React,
     Redux,
@@ -13,7 +14,8 @@ define([
     thunk,
     ActionCreators,
     CombinedReducer,
-    ProductListRoot
+    ProductListRoot,
+    ProductFilter,
 ) {
     "use strict";
     
@@ -44,33 +46,11 @@ define([
                 initialProductsSaved: {}
             }
         },
-        componentWillReceiveProps: function(newProps) {
-            if (this.shouldProductLinksBeStored(newProps.allProductsLinks)) {
-                store.dispatch(ActionCreators.productsLinksLoad(newProps.allProductsLinks))
-            }
-        },
-        shouldComponentUpdate: function() {
-            if (this.initialProductsShouldBeStored()) {
-                store.dispatch(ActionCreators.initialSimpleAndParentProductsLoad(this.props.products))
-            } else {
-                return false;
-            }
-            return true;
-        },
-        shouldProductLinksBeStored: function(productLinks) {
-            let storeState = store.getState();
-            let productsLinksAreValid = typeof productLinks === 'object' && !isEmptyObject(productLinks)
-            let productsLinksAreDifferentToThoseInState = storeState.products.allProductsLinks !== productLinks
-            return productsLinksAreValid && productsLinksAreDifferentToThoseInState;
-        },
-        initialProductsShouldBeStored: function() {
-            let storeState = store.getState();
-            return this.props.products.length && !storeState.products.completeInitialLoads.simpleAndParentProducts;
+        componentDidMount: function() {
+            store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
+            store.dispatch(ActionCreators.getProducts());
         },
         render: function() {
-            if (!this.props.products || !this.props.products.length) {
-                return <span>no products available</span>
-            }
             return (
                 <Provider store={store}>
                     <ProductListRoot {...this.props} />
@@ -81,7 +61,4 @@ define([
     
     return ProductListProvider;
     
-    function isEmptyObject(obj) {
-        return Object.getOwnPropertyNames(obj).length === 0;
-    }
 });

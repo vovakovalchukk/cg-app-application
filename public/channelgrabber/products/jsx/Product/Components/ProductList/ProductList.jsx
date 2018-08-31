@@ -23,7 +23,7 @@ define([
     
     const {Table} = FixedDataTable;
     
-    var CreateProduct = React.createClass({
+    var ProductList = React.createClass({
         getDefaultProps: function() {
             return {
                 products: [],
@@ -39,21 +39,36 @@ define([
                     total: 0,
                     limit: 0,
                     page: 0
-                }
+                },
+                editingProductLink: {
+                    sku: "",
+                    links: []
+                },
+                productsListContainer: {
+                    height: null,
+                    width: null
+                },
+                fetchingUpdatedStockLevelsForSkus: {}
             }
         },
         componentDidMount() {
             this.updateDimensions();
             window.addEventListener("resize", this.updateDimensions);
             document.addEventListener("fullscreenchange", this.updateDimensions);
+            window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillUnmount: function() {
             window.removeEventListener("resize", this.updateDimensions);
             document.removeEventListener("fullscreenchange", this.updateDimensions);
+            window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+            window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
         componentWillReceiveProps: function() {
             var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
-            horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
+            if (horizontalScrollbar) {
+                horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
+            }
         },
         updateDimensions: function() {
             this.setState({
@@ -66,11 +81,28 @@ define([
         updateHorizontalScrollIndex: function() {
             this.props.actions.resetHorizontalScrollbarIndex();
         },
+        //todo - use this as a basis for implementing functionality for TAC-173
+        onPageChange: function(pageNumber) {
+            // todo - change the below request to trigger a products request within Redux in TAC-173
+            //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
+        },
+        onProductLinkRefresh: function() {
+            this.props.actions.getLinkedProducts();
+        },
         renderSearchBox: function() {
             if (this.props.searchAvailable) {
                 return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
                                   submitCallback={this.filterBySearch}/>
             }
+        },
+        onEditProductLink: function(event) {
+            let {sku, productLinks} = event.detail;
+            this.setState({
+                editingProductLink: {
+                    sku,
+                    links: productLinks
+                }
+            });
         },
         renderAddNewProductButton: function() {
             return (
@@ -81,9 +113,6 @@ define([
                         </span>
                 </div>
             )
-        },
-        onPageChange: function(pageNumber) {
-            this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
         },
         onProductLinksEditorClose: function() {
             this.setState({
@@ -127,7 +156,7 @@ define([
             })
         },
         isReadyToRenderTable: function() {
-            return this.state.productsListContainer && this.state.productsListContainer.height && this.getVisibleRows().length;
+            return this.state.productsListContainer && this.state.productsListContainer.height && this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length;
         },
         renderProducts: function() {
             let rows = this.getVisibleRows();
@@ -169,14 +198,14 @@ define([
                         <div id="products-list">
                             {this.renderProducts()}
                         </div>
-                        <ProductLinkEditor
-                            productLink={this.state.editingProductLink}
-                            onEditorClose={this.onProductLinksEditorClose}
-                            fetchUpdatedStockLevels={this.fetchUpdatedStockLevels}
-                        />
                     </div>
+                    <ProductLinkEditor
+                        productLink={this.state.editingProductLink}
+                        onEditorClose={this.onProductLinksEditorClose}
+                        fetchUpdatedStockLevels={this.props.actions.getUpdatedStockLevels}
+                    />
                     <ProductFooter
-                        pagination={this.state.pagination}
+                        pagination={this.props.list.pagination}
                         onPageChange={this.onPageChange}
                     />
                 </div>
@@ -184,6 +213,6 @@ define([
         }
     });
     
-    return CreateProduct;
+    return ProductList;
 })
 ;
