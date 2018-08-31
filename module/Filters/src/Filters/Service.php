@@ -4,6 +4,7 @@ namespace Filters;
 use CG\Order\Shared\Status;
 use Filters\Options\Account;
 use Filters\Options\Channel;
+use Filters\ViewSpecModifier\Weight;
 use Orders\Controller\OrdersController;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
@@ -25,6 +26,7 @@ class Service
     const FILTER_ORDER_SHIPPING_COUNTRY = 'orderShippingCountry';
     const FILTER_ORDER_CURRENCY_CODE = 'orderCurrencyCode';
     const FILTER_ORDER_TOTAL = 'orderTotal';
+    const FILTER_ORDER_WEIGHT = 'orderWeight';
     const FILTER_ORDER_CHANNEL = 'orderChannel';
     const FILTER_ORDER_ACCOUNT = 'orderAccount';
     const FILTER_ORDER_BATCH = 'orderBatch';
@@ -169,6 +171,17 @@ class Service
                     'isOptional' => true,
                     'id' => ''
                 ]
+            ],
+            self::FILTER_ORDER_WEIGHT => [
+                'filterType' => 'numberRange',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'weight',
+                    'title' => 'Weight (%s)',
+                    'isOptional' => true,
+                    'id' => ''
+                ],
+                'specModifier' => Weight::class,
             ],
             self::FILTER_ORDER_CHANNEL => [
                 'filterType' => 'customSelectGroup',
