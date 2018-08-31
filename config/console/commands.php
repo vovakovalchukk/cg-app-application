@@ -4,7 +4,8 @@ $files = [
     'adhoc.php',
     'netdespatch.php',
     'geopost.php',
-    'shipstation.php'
+    'shipstation.php',
+    'hermes.php',
 ];
 
 $commands = [];
