@@ -4,7 +4,7 @@ define([
     'styled-components',
     'Product/Components/ProductList/CellCreator/factory',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/ProductListFooter',
+    'Product/Components/ProductList/Components/Footer/Footer',
     'Product/Components/ProductList/ColumnCreator/columns',
     'Product/Components/ProductList/ColumnCreator/factory',
     'Product/Components/ProductList/Components/Tabs/Root'

@@ -5,7 +5,7 @@ define([
 ) {
     "use strict";
     
-    var LimitSelect = (props) => {
+    let LimitSelect = (props) => {
       return(
           <select className={'u-margin-left-small'}>
               {props.options.map((option)=>{
@@ -17,7 +17,7 @@ define([
       )
     };
     
-    var FooterComponent = React.createClass({
+    let FooterComponent = React.createClass({
         getPageLinksFromPaginationData: function(limit, page, total, pageLinkCount) {
             var maxPages = Math.ceil(total / limit);
             var pageLinks = [];
@@ -39,6 +39,9 @@ define([
             return pageLinks;
         },
         render: function() {
+            console.log('in footer render with this.props: ' , this.props);
+            
+            
             var firstPage = 1;
             var lastRecord = this.props.pagination.page * this.props.pagination.limit;
             var firstRecord = lastRecord - this.props.pagination.limit + 1;

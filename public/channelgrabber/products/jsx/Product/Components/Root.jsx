@@ -280,10 +280,6 @@ define([
             return (
                 <div>
                     <ProductListProvider
-<<<<<<< HEAD
-                        allProductsLinks={this.state.allProductLinks}
-=======
->>>>>>> TAC-211-fix-and-improve-link-cells-for-variation-rows
                         features={this.props.features}
                         addNewProductButtonClick={this.addNewProductButtonClick}
                         accounts={this.state.accounts}
