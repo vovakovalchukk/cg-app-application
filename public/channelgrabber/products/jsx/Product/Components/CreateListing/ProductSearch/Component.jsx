@@ -100,10 +100,7 @@ define([
             </span>
         },
         renderProduct: function (product) {
-            return <div
-                className={this.getProductContainerClassName(product)}
-                onClick={this.toggleProductSelection.bind(this, product)}
-            >
+            return <div className={'search-product-container'}>
                 {this.renderProductTitle(product)}
                 <span className="search-product-details-container">
                     {this.renderProductImage(product)}
@@ -111,27 +108,6 @@ define([
                 </span>
                 {this.renderAssignSelect(product)}
             </div>
-        },
-        getProductContainerClassName: function(product) {
-            let className = "search-product-container";
-            if (product.epid === this.state.selectedProduct.epid) {
-                return className + ' selected';
-            }
-            return className;
-        },
-        toggleProductSelection: function (product) {
-            if (product.epid === this.state.selectedProduct.epid) {
-                this.setState({
-                    selectedProduct: {}
-                });
-                return;
-            }
-
-            this.setState({
-                selectedProduct: Object.assign(product, {
-                    epidAccountId: this.props.accountId
-                })
-            });
         },
         renderProductTitle: function (product) {
             return <span className="search-product-title" title={product.title}>
@@ -202,8 +178,23 @@ define([
                     title="Assign Product"
                     onOptionChange={this.onProductAssign.bind(this, product)}
                     filterable={true}
+                    selectedOption={this.findSelectedOptionForProduct(product)}
                 />
             </span>;
+        },
+        findSelectedOptionForProduct: function (product) {
+            let selectedSku = '';
+            Object.keys(this.props.selectedProducts).map(function(sku) {
+                let searchProduct = this.props.selectedProducts[sku];
+                if (searchProduct.epid === product.epid) {
+                    selectedSku = sku;
+                }
+            }.bind(this));
+
+            return {
+                name: selectedSku,
+                value: selectedSku
+            };
         },
         onProductAssign: function(searchProduct, selectedSku) {
             this.props.assignSearchProductToCgProduct(searchProduct, selectedSku.value);

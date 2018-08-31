@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "86f3f7019c63d29bbe1692fe3c9daadf",
+    "content-hash": "15fd7457a456f813895914382e2e962a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -71,16 +71,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.67.1",
+            "version": "3.67.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a77e6796841056f46543393f5cd06aa9fa4cc40a"
+                "reference": "894658d3fcb459c5e451663a31db2e6562ee3aba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/aws-aws-sdk-php-a77e6796841056f46543393f5cd06aa9fa4cc40a-zip-7709f8.zip",
-                "reference": "a77e6796841056f46543393f5cd06aa9fa4cc40a",
+                "url": "https://composer.build.channelgrabber.com/dist/aws-aws-sdk-php-894658d3fcb459c5e451663a31db2e6562ee3aba-zip-978b76.zip",
+                "reference": "894658d3fcb459c5e451663a31db2e6562ee3aba",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-08-28T19:38:00+00:00"
+            "time": "2018-08-30T19:19:19+00:00"
         },
         {
             "name": "cache/adapter-common",
@@ -1182,7 +1182,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-21T14:46:29+00:00"
+            "time": "2018-08-29T13:26:34+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2122,16 +2122,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.10.2",
+            "version": "1.10.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "60a44a2014b8f4c4ccde8d095f0dc889c424142e"
+                "reference": "3533a2b4887af1d27e6ed6cd3050353bdd7c247a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.2-5ae192.zip",
-                "reference": "60a44a2014b8f4c4ccde8d095f0dc889c424142e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.3-cfa6b4.zip",
+                "reference": "3533a2b4887af1d27e6ed6cd3050353bdd7c247a",
                 "shasum": null
             },
             "require": {
@@ -2146,6 +2146,7 @@
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/transaction": ">=1.1.1, <2.0.0",
                 "channelgrabber/user": "^1.22.4",
+                "channelgrabber/zf2-email-template": "^1.0.25",
                 "composer/composer": "@dev",
                 "symfony/console": "~2.1",
                 "zendframework/zend-di": ">=2.2.5",
@@ -2174,7 +2175,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-08-29T10:56:32+00:00"
+            "time": "2018-08-31T09:44:06+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3799,26 +3800,26 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "e7b1a04f4a6090112156e6005388e22b01020080"
+                "reference": "420db1eadb3d76a85187597f405f314ad8d7ac18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.2-5cacc5.zip",
-                "reference": "e7b1a04f4a6090112156e6005388e22b01020080",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.3-f9654a.zip",
+                "reference": "420db1eadb3d76a85187597f405f314ad8d7ac18",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.8.0",
+                "channelgrabber/payment": "^1.10.3",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.25.0",
-                "channelgrabber/zf2-email-template": "^1.0.24",
+                "channelgrabber/zf2-email-template": "^1.0.25",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
@@ -3846,7 +3847,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-23T14:58:43+00:00"
+            "time": "2018-08-31T09:58:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -3968,16 +3969,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.24",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "8bff4df4f5fcf52562eaf3dc0777c70638ddb4ca"
+                "reference": "dc4b93cf8af3111301599b073aef013e98df0842"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.24-202830.zip",
-                "reference": "8bff4df4f5fcf52562eaf3dc0777c70638ddb4ca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.25-31d8b2.zip",
+                "reference": "dc4b93cf8af3111301599b073aef013e98df0842",
                 "shasum": null
             },
             "require": {
@@ -4001,7 +4002,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-06-07T09:09:36+00:00"
+            "time": "2018-08-31T09:32:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
