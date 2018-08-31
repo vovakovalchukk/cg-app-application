@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0c53d870a2fd9b7f6a4a18ec2bd9588",
+    "content-hash": "a306bccd5c31d5ebb0ff44ffc60bd4c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1255,16 +1255,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.3.4",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "8e6cb5ba2c467da92a22fabe7d97c47454cdf43a"
+                "reference": "1662a28cad17bc980b32e9f3bb048bde363655ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.4-4b4921.zip",
-                "reference": "8e6cb5ba2c467da92a22fabe7d97c47454cdf43a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.3.6-7db7fa.zip",
+                "reference": "1662a28cad17bc980b32e9f3bb048bde363655ab",
                 "shasum": null
             },
             "require": {
@@ -1295,7 +1295,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-04-06T09:28:54+00:00"
+            "time": "2018-08-22T08:31:09+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -3608,16 +3608,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "f18f0dd2b029e13908dd94908f4d53cd3cd50d22"
+                "reference": "e7b1a04f4a6090112156e6005388e22b01020080"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.1-6ee9a8.zip",
-                "reference": "f18f0dd2b029e13908dd94908f4d53cd3cd50d22",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.2-5cacc5.zip",
+                "reference": "e7b1a04f4a6090112156e6005388e22b01020080",
                 "shasum": null
             },
             "require": {
@@ -3655,7 +3655,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-07-25T11:01:25+00:00"
+            "time": "2018-08-23T14:58:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -8633,6 +8633,191 @@
             "time": "2013-06-02T19:09:45+00:00"
         },
         {
+            "name": "cache/adapter-common",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-cache/adapter-common.git",
+                "reference": "6320bb5f5574cb88438059b59f8708da6b6f1d32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/cache-adapter-common-6320bb5f5574cb88438059b59f8708da6b6f1d32-zip-163d25.zip",
+                "reference": "6320bb5f5574cb88438059b59f8708da6b6f1d32",
+                "shasum": ""
+            },
+            "require": {
+                "cache/tag-interop": "^1.0",
+                "php": "^5.6 || ^7.0",
+                "psr/cache": "^1.0",
+                "psr/log": "^1.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "require-dev": {
+                "cache/integration-tests": "^0.16",
+                "phpunit/phpunit": "^5.7.21"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cache\\Adapter\\Common\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Scherer",
+                    "email": "aequasi@gmail.com",
+                    "homepage": "https://github.com/aequasi"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/nyholm"
+                }
+            ],
+            "description": "Common classes for PSR-6 adapters",
+            "homepage": "http://www.php-cache.com/en/latest/",
+            "keywords": [
+                "cache",
+                "psr-6",
+                "tag"
+            ],
+            "time": "2018-07-08T13:04:33+00:00"
+        },
+        {
+            "name": "cache/apcu-adapter",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-cache/apcu-adapter.git",
+                "reference": "542a23dbf7c9c50a9099d341931faf14f8ffda9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/cache-apcu-adapter-542a23dbf7c9c50a9099d341931faf14f8ffda9b-zip-f42f3a.zip",
+                "reference": "542a23dbf7c9c50a9099d341931faf14f8ffda9b",
+                "shasum": ""
+            },
+            "require": {
+                "cache/adapter-common": "^1.0",
+                "php": "^5.6 || ^7.0",
+                "psr/cache": "^1.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "provide": {
+                "psr/cache-implementation": "^1.0"
+            },
+            "require-dev": {
+                "cache/integration-tests": "^0.16",
+                "phpunit/phpunit": "^5.7.21"
+            },
+            "suggest": {
+                "ext-apcu": "The extension required to use this pool."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cache\\Adapter\\Apcu\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Scherer",
+                    "email": "aequasi@gmail.com",
+                    "homepage": "https://github.com/aequasi"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/nyholm"
+                }
+            ],
+            "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
+            "homepage": "http://www.php-cache.com/en/latest/",
+            "keywords": [
+                "apcu",
+                "cache",
+                "psr-6"
+            ],
+            "time": "2017-07-16T21:09:25+00:00"
+        },
+        {
+            "name": "cache/tag-interop",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-cache/tag-interop.git",
+                "reference": "c7496dd81530f538af27b4f2713cde97bc292832"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/cache-tag-interop-c7496dd81530f538af27b4f2713cde97bc292832-zip-755055.zip",
+                "reference": "c7496dd81530f538af27b4f2713cde97bc292832",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "psr/cache": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cache\\TagInterop\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/nyholm"
+                },
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com",
+                    "homepage": "https://github.com/nicolas-grekas"
+                }
+            ],
+            "description": "Framework interoperable interfaces for tags",
+            "homepage": "http://www.php-cache.com/en/latest/",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr6",
+                "tag"
+            ],
+            "time": "2017-03-13T09:14:27+00:00"
+        },
+        {
             "name": "channelgrabber/codeception",
             "version": "1.2.1",
             "source": {
@@ -9681,6 +9866,100 @@
             "time": "2013-01-13T10:24:48+00:00"
         },
         {
+            "name": "psr/cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/psr-cache-d11b50ad223250cf17b86e38383413f5a6764bf8-zip-89985a.zip",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for caching libraries",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr-6"
+            ],
+            "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
+            "name": "psr/simple-cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/simple-cache.git",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/psr-simple-cache-408d5eafb83c57f6365a3ca330ff23aa4a5fa39b-zip-4dfb55.zip",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\SimpleCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for simple caching",
+            "keywords": [
+                "cache",
+                "caching",
+                "psr",
+                "psr-16",
+                "simple-cache"
+            ],
+            "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
             "name": "sebastian/comparator",
             "version": "2.1.0",
             "source": {
@@ -9965,12 +10244,71 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
+        },
+        {
+            "name": "whichbrowser/parser",
+            "version": "v2.0.35",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WhichBrowser/Parser-PHP.git",
+                "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/whichbrowser-parser-ad4fce96a17fc1bf6fc741b175de5e231bae7ebe-zip-0ce6d5.zip",
+                "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/cache": "^1.0"
+            },
+            "require-dev": {
+                "icomefromthenet/reverse-regex": "dev-master",
+                "phpunit/php-code-coverage": "^2.2|^3.0",
+                "phpunit/phpunit": "^4.0|^5.0",
+                "satooshi/php-coveralls": "^1.0",
+                "squizlabs/php_codesniffer": "2.5.*",
+                "symfony/yaml": ">=2.8"
+            },
+            "suggest": {
+                "cache/array-adapter": "Allows testing of the caching functionality"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WhichBrowser\\": [
+                        "src/",
+                        "tests/src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niels Leenheer",
+                    "email": "niels@leenheer.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Useragent sniffing library for PHP",
+            "homepage": "http://whichbrowser.net",
+            "keywords": [
+                "browser",
+                "sniffing",
+                "ua",
+                "useragent"
+            ],
+            "time": "2018-08-08T10:00:00+00:00"
         }
     ],
     "aliases": [
         {
-            "alias": "1.23.16",
-            "alias_normalized": "1.23.16.0",
+            "alias": "1.24.0",
+            "alias_normalized": "1.24.0.0",
             "version": "dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality",
             "package": "channelgrabber/zf2-v4-ui"
         }

@@ -12,7 +12,7 @@ define([
     };
     
     var listReducer = reducerCreator(initialState, {
-        "PRODUCTS_GET_REQUEST": function(state) {
+        "PRODUCTS_GET_REQUEST_START": function(state) {
             $('#products-loading-message').show();
             return state;
         },
@@ -25,7 +25,7 @@ define([
             $('#products-loading-message').hide();
             return newState;
         },
-        "FETCHING_STOCK_LEVELS_FOR_SKUS_UPDATE": function(state, action) {
+        "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
             let {fetchingStockLevelsForSkus} = action.payload;
             let newState = Object.assign({}, state, {
                 fetchingStockLevelsForSkus

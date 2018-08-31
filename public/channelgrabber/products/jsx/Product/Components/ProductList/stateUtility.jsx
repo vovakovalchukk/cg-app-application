@@ -42,6 +42,11 @@ define([], function() {
             },
             getAllocatedStock: function(rowData) {
                 return (rowData.stock ? rowData.stock.locations[0].allocated : '');
+            },
+            getProductIdFromSku(products,sku){
+                return products.find((product)=>{
+                    return product.sku === sku;
+                }).id
             }
         };
     };

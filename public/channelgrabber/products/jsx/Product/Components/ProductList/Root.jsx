@@ -3,7 +3,8 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
-    'Product/Components/ProductList/actionCreators',
+    'Product/Components/ProductList/ActionCreators/actionCreators',
+    'Product/Components/ProductList/ActionCreators/productLinkActions',
     'Product/Components/ProductList/Reducers/CombinedReducer',
     'Product/Components/ProductList/ProductList'
 ], function(
@@ -12,10 +13,13 @@ define([
     ReactRedux,
     thunk,
     actionCreators,
+    productLinkActions,
     CombinedReducer,
     ProductList
 ) {
     "use strict";
+    
+    let combinedActionCreators = combineActionCreators();
     
     const mapStateToProps = function(state) {
         return {
@@ -26,8 +30,15 @@ define([
     };
     
     const mapDispatchToProps = function(dispatch) {
-        return {actions: Redux.bindActionCreators(actionCreators, dispatch)};
+        return {actions: Redux.bindActionCreators(combinedActionCreators, dispatch)};
     };
     
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);
+
+    function combineActionCreators(){
+        return Object.assign(
+            actionCreators,
+            productLinkActions
+        );
+    }
 });

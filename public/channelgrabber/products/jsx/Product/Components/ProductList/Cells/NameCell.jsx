@@ -34,7 +34,7 @@ define([
         render() {
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            const isParentProduct = stateUtility.isParentProduct(row)
+            const isParentProduct = stateUtility.isParentProduct(row);
             let name = isParentProduct ? row['name'] : this.getVariationName(row);
             
             return (

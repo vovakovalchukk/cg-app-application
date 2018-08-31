@@ -33,16 +33,15 @@ define([
             const rowData = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(rowData);
             
-            let productLinks;
-            if (products.allProductsLinks && products.allProductsLinks[rowData.id]) {
-                productLinks = products.allProductsLinks[rowData.id][rowData.id];
-            }
+            let productLinks = getProductLinks(products, rowData);
+            
             return (
                 <StyledLink.container>
                     {!isParentProduct ?
                         <StyledLink
                             sku={rowData.sku}
                             productLinks={productLinks}
+                            linkStatus={rowData.linkStatus}
                         />
                         : ''
                     }
@@ -52,4 +51,8 @@ define([
     });
     
     return LinkCell;
+    
+    function getProductLinks(products, rowData) {
+        return products.allProductsLinks[rowData.id];
+    }
 });
