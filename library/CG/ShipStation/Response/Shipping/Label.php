@@ -13,6 +13,8 @@ class Label extends ResponseAbstract
     const STATUS_ERROR = 'error';
     const STATUS_VOIDED = 'voided';
 
+    const CARRIER_ERROR_PREFIX = '/^A shipping carrier reported an error when processing your request. Carrier ID: [^,]+, Carrier: [^\.]+. ?/';
+
     /** @var string */
     protected $labelId;
     /** @var string */
@@ -127,7 +129,7 @@ class Label extends ResponseAbstract
         $errors = [];
         if (isset($decodedJson->errors)) {
             foreach ($decodedJson->errors as $errorJson) {
-                $errors[] = $errorJson->message;
+                $errors[] = static::sanitiseError($errorJson->message);
             }
         }
 
@@ -159,6 +161,12 @@ class Label extends ResponseAbstract
             isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null,
             $errors
         );
+    }
+
+    public static function sanitiseError(string $error): string
+    {
+        // There's often some fluff at the start of the error that we can strip out
+        return preg_replace(static::CARRIER_ERROR_PREFIX, '', $error);
     }
 
     public static function getActiveStatuses()
