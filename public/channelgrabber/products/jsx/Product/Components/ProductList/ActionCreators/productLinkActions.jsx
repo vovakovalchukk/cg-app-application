@@ -63,7 +63,6 @@ define([
                     }
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
-                    
                     try {
                         let response = await getProductLinksRequest(formattedSkus);
                         dispatch(getProductLinksSuccess(response.productLinks, formattedSkus));

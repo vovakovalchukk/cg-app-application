@@ -3,8 +3,11 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
+    
     'Product/Components/ProductList/ActionCreators/productActions',
     'Product/Components/ProductList/ActionCreators/productLinkActions',
+    'Product/Components/ProductList/ActionCreators/paginationActions',
+    
     'Product/Components/ProductList/Reducers/CombinedReducer',
     'Product/Components/ProductList/ProductList'
 ], function(
@@ -14,6 +17,7 @@ define([
     thunk,
     actionCreators,
     productLinkActions,
+    paginationActions,
     CombinedReducer,
     ProductList
 ) {
@@ -25,7 +29,8 @@ define([
         return {
             products: state.products,
             tabs: state.tabs,
-            list: state.list
+            list: state.list,
+            pagination: state.pagination
         };
     };
     
@@ -38,7 +43,8 @@ define([
     function combineActionCreators(){
         return Object.assign(
             actionCreators,
-            productLinkActions
+            productLinkActions,
+            paginationActions
         );
     }
 });

@@ -94,6 +94,7 @@ define([
                         let data = await fetchProducts(filter);
                         dispatch(getProductsSuccess(data));
                         dispatch(productLinkActions.getLinkedProducts());
+                        return data;
                     } catch (err) {
                         throw 'Unable to load products... error: ' + err;
                     }

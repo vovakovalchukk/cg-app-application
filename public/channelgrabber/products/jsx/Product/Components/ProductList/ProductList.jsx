@@ -207,8 +207,11 @@ define([
                         fetchUpdatedStockLevels={this.props.actions.getUpdatedStockLevels}
                     />
                     <ProductFooter
-                        pagination={this.props.list.pagination}
-                        onPageChange={this.onPageChange}
+                        pagination={this.props.pagination}
+                        actions={{
+                            changePage:this.props.actions.changePage,
+                            changeLimit:this.props.actions.changeLimit
+                        }}
                     />
                 </div>
             );

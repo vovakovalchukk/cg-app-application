@@ -1,21 +1,80 @@
 define([
-    'react'
+    'react',
+    'styled-components',
+    'Common/Components/Select'
 ], function(
-    React
+    React,
+    styled,
+    Select
 ) {
     "use strict";
     
-    let LimitSelect = (props) => {
-      return(
-          <select className={'u-margin-left-small'}>
-              {props.options.map((option)=>{
-                  return (<option value={option}>
-                      {option}
-                  </option>)
-              })}
-          </select>
-      )
-    };
+    styled = styled.default;
+    
+    // const Link1 = ({className, children}) => (
+    //     <a>
+    //         {children}
+    //     </a>
+    //     // return (
+    //     //     <select value={props.limit} onChange={e => {
+    //     //         props.changeLimit(e.target.value);
+    //     //     }}>
+    //     //         {
+    //     //             props.options.map((option) => {
+    //     //                     return (<option value={option}>{option}</option>);
+    //     //                 }
+    //     //             )
+    //     //         }
+    //     //     </select>
+    //     // )
+    // );
+    const Link1 = ({className, children}) => (
+            <a className={className}>
+                {children}
+            </a>
+    );
+    const StyledLink1= styled(Link1)`
+        color: palevioletred;
+        font-weight: bold;
+`;
+    
+    const Link2 = ({className, children}) => (
+        <a className={className}>
+            {children}
+        </a>
+    );
+    const StyledLink2 = styled(Link2)`
+        color: palevioletred;
+        font-weight: bold;
+`;
+
+//
+//     const Link = ({ className, children }) => (
+//         <a className={className}>
+//             {children}
+//         </a>
+//     )
+//
+//     const StyledLink = styled(Link)`
+//   color: palevioletred;
+//   font-weight: bold;
+// `;
+    
+    let PageLink = styled.a.attrs({
+        title: props => {
+            return 'go to ' + props.count;
+        }
+    })`
+        color: ${props => props.isCurrentPage ? 'blue' : ''};
+        cursor:pointer;
+        margin-left:1rem;
+        margin-right:1rem;
+    `;
+    
+    let PaginationInfoContainer = styled.div`
+        display:inline-block;
+        min-width:170px;
+    `;
     
     let FooterComponent = React.createClass({
         getPageLinksFromPaginationData: function(limit, page, total, pageLinkCount) {
@@ -32,16 +91,18 @@ define([
             }
             for (var count = firstPageLink; count <= lastPageLink; count++) {
                 pageLinks.push(
-                    <a className={(count == page ? 'paginate_active' : 'paginate_button') + ' u-margin-left-small'}
-                       onClick={this.props.onPageChange.bind(this, count)}>{count}</a>
+                    <PageLink
+                        page={count}
+                        isCurrentPage={this.props.pagination.page === count}
+                        onClick={this.props.actions.changePage.bind(this, count)}
+                    >
+                        {count}
+                    </PageLink>
                 );
             }
             return pageLinks;
         },
         render: function() {
-            console.log('in footer render with this.props: ' , this.props);
-            
-            
             var firstPage = 1;
             var lastRecord = this.props.pagination.page * this.props.pagination.limit;
             var firstRecord = lastRecord - this.props.pagination.limit + 1;
@@ -52,7 +113,6 @@ define([
                 firstRecord = 1;
             }
             var maxPages = Math.ceil(this.props.pagination.total / this.props.pagination.limit);
-            
             return (
                 <div id="product-pagination-container">
                     <div className="
@@ -67,22 +127,28 @@ define([
                          }}
                     >
                         
-                        <div className=" u-inline-block">
+                        <PaginationInfoContainer>
                             Showing <span className="first-record">{firstRecord}</span> to <span
                             className="last-record">{lastRecord}</span> of
                             <span className="total-records">{this.props.pagination.total}</span>
-                        </div>
+                        </PaginationInfoContainer>
+                        
                         <div className="dataTables_paginate paging_full_numbers u-inline-block u-margin-left-small">
-                            <a onClick={this.props.onPageChange.bind(this, firstPage)}
-                               className={"first " + (this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')} >First</a>
+                            <a onClick={this.props.actions.changePage.bind(this, firstPage)}
+                               className={"first " + (this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')}>First</a>
+                            
                             <span className="pagination-page-links">
                                 {this.getPageLinksFromPaginationData(this.props.pagination.limit, this.props.pagination.page, this.props.pagination.total, 5)}
                             </span>
-                            <a onClick={this.props.onPageChange.bind(this, maxPages)}
-                               className={"last " + (this.props.pagination.page === maxPages ? 'paginate_active' : 'paginate_button')+' u-margin-left-small'}>Last</a>
+                            
+                            <a onClick={this.props.actions.changePage.bind(this, maxPages)}
+                               className={"last " + (this.props.pagination.page === maxPages ? 'paginate_active' : 'paginate_button') + ' u-margin-left-small'}>Last</a>
                         </div>
                         
-                        <LimitSelect options={[50,100,150,200]}/>
+                        
+                        <StyledLink2>StyledLink2 </StyledLink2>
+                        <StyledLink1>StyledLink1</StyledLink1>
+
                     </div>
                 </div>
             );
@@ -90,4 +156,30 @@ define([
     });
     
     return FooterComponent;
+    
+    {/*<StyledLimitSelect*/
+    }
+    {/*options={[50, 100, 150, 200]}*/
+    }
+    {/*changeLimit={this.props.actions.changeLimit}*/
+    }
+    {/*limit={this.props.pagination.limit}*/
+    }
+    {/*/>*/
+    }
+    
+    {/*<StyledLimitSelect*/
+    }
+    {/*options={[50, 100, 150, 200]}*/
+    }
+    {/*changeLimit={this.props.actions.changeLimit}*/
+    }
+    {/*limit={this.props.pagination.limit}*/
+    }
+    {/*>*/
+    }
+    {/*in the link*/
+    }
+    {/*</StyledLimitSelect>*/
+    }
 });

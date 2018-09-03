@@ -4,14 +4,18 @@ define([
     'Product/Components/ProductList/Reducers/tabsReducer',
     'Product/Components/ProductList/Reducers/columnsReducer',
     'Product/Components/ProductList/Reducers/listReducer',
-    'Product/Components/ProductList/Reducers/accountReducer'
+    'Product/Components/ProductList/Reducers/accountReducer',
+    'Product/Components/ProductList/Reducers/paginationReducer',
+    'Product/Components/ProductList/Reducers/searchReducer'
 ], function(
     Redux,
     productsReducer,
     tabsReducer,
     columnsReducer,
     listReducer,
-    accountReducer
+    accountReducer,
+    paginationReducer,
+    searchReducer
 ) {
     "use strict";
     
@@ -20,7 +24,9 @@ define([
         tabs: tabsReducer,
         columns: columnsReducer,
         list: listReducer,
-        account: accountReducer
+        account: accountReducer,
+        pagination: paginationReducer,
+        search: searchReducer
     });
     
     const combinedReducer = (state, action) => {
