@@ -508,8 +508,10 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
         if (orderId === null) {
             return;
         }
+        var creatableSelector = CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId);
+        $(creatableSelector).val(0);
         var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, '');
-        if (actionAvailability.creatable && actionAvailability.rateable) {
+        if (actionAvailability.rateable) {
             self.resetOrderLabelStatus(orderId, CourierSpecificsDataTable.LABEL_STATUS_CANCELLED);
             self.setBulkActionButtons();
             $(CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON).show();
