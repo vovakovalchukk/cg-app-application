@@ -13,7 +13,6 @@ define([
     
     var paginationReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in PRODUCTS_GET_REQUEST_SUCCESS -r action.payload:',action.payload);
             let {pagination} = action.payload;
             let {limit, page, total} = pagination;
             let newState = Object.assign({}, state, {
@@ -21,7 +20,6 @@ define([
                 page,
                 total
             });
-            console.log('newState being set: ', newState);
             return newState;
         },
         "LIMIT_CHANGE": function(state, action) {

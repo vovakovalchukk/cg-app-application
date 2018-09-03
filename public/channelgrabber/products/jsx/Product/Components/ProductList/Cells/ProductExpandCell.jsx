@@ -20,7 +20,6 @@ define([
     
     const ExpandLink = styled.a`
         user-select: none;
-        cursor: pointer;
     `;
     
     const EXPAND_STATUSES = {

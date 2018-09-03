@@ -92,10 +92,7 @@ define([
                     skuList = skuList || [];
                     let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
-                    
-                    //todo - figure out what needs to be sent to the backend to bring back the correct filter
-                    filter.limit = stateUtility.getPaginationLimit(state);
-                    console.log('in getProducts with filter: ' , filter);
+                    filter.setLimit(stateUtility.getPaginationLimit(state));
                     try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);

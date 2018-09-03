@@ -10,7 +10,6 @@ define([
     styled = styled.default;
     
     const LimitSelect = ({className, limit, changeLimit, options}) => {
-        console.log('in LimitSelect with limit: ' , limit);
         return (<select
             className={className}
             value={limit}
@@ -26,8 +25,6 @@ define([
         </select>);
     };
     const StyledLimitSelect = styled(LimitSelect)`
-        color: palevioletred;
-        font-weight: bold;
         margin-left: 1rem;
     `;
     

@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -8,14 +8,15 @@ define([
         this.id = id;
         this.sku = sku;
         this.skuThatProductsCantLinkFrom = skuThatProductsCantLinkFrom;
+        this.limit = limit;
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
-        }
+        };
 
         this.getSku = function () {
             return this.sku;
-        }
+        };
 
         this.getSearchTerm = function() {
             return this.searchTerm;
@@ -41,6 +42,17 @@ define([
         this.setPage = function(newPage)
         {
             this.page = newPage;
+            return this;
+        };
+        
+        this.getLimit = function()
+        {
+            return this.limit;
+        };
+        
+        this.setLimit = function(newLimit)
+        {
+            this.limit = newLimit;
             return this;
         };
     };
@@ -69,6 +81,11 @@ define([
         var sku = this.getSku();
         if (sku) {
             object['sku'] = sku;
+        }
+        
+        let limit = this.getLimit();
+        if(limit){
+            object["limit"] = limit;
         }
 
         if (this.getSkuThatProductsCantLinkFrom()) {
