@@ -164,12 +164,14 @@ define([
             return itemSpecifics;
         },
         renderAssignSelect: function (product) {
-            var options = this.props.variationsDataForProduct.map(function(variation) {
-                return {
+            let options = [];
+            this.props.variationsDataForProduct.forEach(function(variation) {
+                options.push({
                     name: variation.sku,
-                    value: variation.sku
-                };
-            });
+                    value: variation.sku,
+                    disabled: this.props.selectedProducts[variation.sku]
+                });
+            }.bind(this));
 
             return <span className="search-product-assign-select">
                 <span>Assign to:</span>
