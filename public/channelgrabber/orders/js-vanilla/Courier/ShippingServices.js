@@ -61,7 +61,8 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             );
 
             container.empty().append(html);
-            $(ShippingServices.SELECT_ELEMENTS).trigger("change", [$(ShippingServices.SELECT_ELEMENTS), $(ShippingServices.SELECT_ELEMENTS).find("> input:hidden").val()]);
+            var select = container.find(ShippingServices.SELECT_ELEMENTS);
+            $(select).trigger("change", [$(select), $(select).find("> input:hidden").val()]);
         });
     };
 
