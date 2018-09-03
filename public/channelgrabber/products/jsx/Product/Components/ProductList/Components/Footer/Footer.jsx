@@ -49,14 +49,14 @@ define([
             }
             return pageLinks;
         },
-        getOptionsForLimitSelect: function(){
+        getOptionsForLimitSelect: function() {
             let maximumToDisplay = this.props.pagination.total;
             
-            let potentialOptions = [50,100,250,500];
+            let potentialOptions = [50, 100, 250, 500];
             
             let optionsForLimitSelect = [];
-            for (let i=0; i<potentialOptions.length; i++){
-                if(potentialOptions[i-1] > maximumToDisplay){
+            for (let i = 0; i < potentialOptions.length; i++) {
+                if (potentialOptions[i - 1] > maximumToDisplay) {
                     break;
                 }
                 optionsForLimitSelect[i] = potentialOptions[i];

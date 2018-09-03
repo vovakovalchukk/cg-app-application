@@ -12,7 +12,7 @@ define([
     "use strict";
     
     let paginationActions = (function() {
-        let changePaginationLimitOnState = (desiredLimit)=>{
+        let changePaginationLimitOnState = (desiredLimit) => {
             return {
                 type: 'LIMIT_CHANGE',
                 payload: {
