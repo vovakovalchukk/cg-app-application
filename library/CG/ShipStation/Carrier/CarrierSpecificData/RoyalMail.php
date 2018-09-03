@@ -23,6 +23,9 @@ class RoyalMail implements CarrierSpecificDataInterface
     public function getCarrierSpecificData(array $data, Account $account): ?array
     {
         foreach ($data as &$row) {
+            if (!isset($row['parcelRow']) || $row['parcelRow'] == false) {
+                continue;
+            }
             $countryCode = $row['shippingCountryCode'];
             $packageType = $this->getPackageTypeForListRow($row, $account);
             $row['packageType'] = $packageType ? $packageType->getCode() : null;
