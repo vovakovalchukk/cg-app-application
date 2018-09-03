@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a92c89b6c97ad4ed7c8f16c9e2cf3d68",
+    "content-hash": "466bd63b16269cada08b9f1f8eed5a8f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1121,16 +1121,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-TAC-177-create-new-pbse-catalog-product",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "e92f65835412b7b8cf7333348299035a0fa2dadc"
+                "reference": "a5f89eca21b157396c4f28e8b1e697ff5b3b48be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-TAC-177-create-new-pbse-catalog-product-202ac7.zip",
-                "reference": "e92f65835412b7b8cf7333348299035a0fa2dadc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.15.0-6efced.zip",
+                "reference": "a5f89eca21b157396c4f28e8b1e697ff5b3b48be",
                 "shasum": null
             },
             "require": {
@@ -1182,7 +1182,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-21T14:46:29+00:00"
+            "time": "2018-09-03T08:22:24+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1677,16 +1677,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-TAC-177-create-new-pbse-catalog-product",
+            "version": "1.18.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "08ada53c6bd762f55f9f819d626f04cce52f1245"
+                "reference": "d3823a747461f74ec359ea677074a777bde64bc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-TAC-177-create-new-pbse-catalog-product-1bf999.zip",
-                "reference": "08ada53c6bd762f55f9f819d626f04cce52f1245",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.18.2-789a88.zip",
+                "reference": "d3823a747461f74ec359ea677074a777bde64bc5",
                 "shasum": null
             },
             "require": {
@@ -1727,7 +1727,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-21T14:48:19+00:00"
+            "time": "2018-09-03T08:22:24+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -10311,25 +10311,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-TAC-177-create-new-pbse-catalog-product",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.18.1",
-            "alias_normalized": "1.18.1.0",
-            "version": "dev-TAC-177-create-new-pbse-catalog-product",
-            "package": "channelgrabber/listing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
