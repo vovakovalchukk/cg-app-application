@@ -13,9 +13,14 @@ define([
     
     styled = styled.default;
     
-    let CellContainer = styled.div`
+    const CellContainer = styled.div`
         display:flex;
         justify-content:center;
+    `;
+    
+    const ExpandLink = styled.a`
+        user-select: none;
+        cursor: pointer;
     `;
     
     const EXPAND_STATUSES = {
@@ -69,9 +74,9 @@ define([
         render() {
             return (
                 <CellContainer {...this.props}>
-                    <a onClick={this.onExpandClick}>
+                    <ExpandLink onClick={this.onExpandClick}>
                         {this.renderExpandIcon()}
-                    </a>
+                    </ExpandLink>
                 </CellContainer>
             );
         }
