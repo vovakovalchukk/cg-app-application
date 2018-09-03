@@ -327,7 +327,7 @@ class Service implements
         $optional = [];
         $categorySpecifics = $ebayData->getCategorySpecifics();
         $recommendations = $categorySpecifics['NameRecommendation'];
-        if (isArrayAssociative($recommendations)) {
+        if (is_array($recommendations) && isArrayAssociative($recommendations)) {
             $recommendations = [$recommendations];
         }
         foreach ($recommendations as $recommendation) {

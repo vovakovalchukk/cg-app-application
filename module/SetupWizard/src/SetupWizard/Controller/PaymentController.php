@@ -6,10 +6,13 @@ use CG\Billing\Price\Service as PriceService;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
+use CG\Payment\Exception\MultipleSubscriptionsException;
 use CG_Billing\Package\Exception as SetPackageException;
 use CG_Billing\Package\ManagementService as PackageManagementService;
 use CG_Billing\Payment\Service as PaymentService;
 use CG_Billing\Payment\View\Service as PaymentViewService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
@@ -18,12 +21,16 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
 
-class PaymentController extends AbstractActionController
+class PaymentController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE_PAYMENT = 'Payment';
     const ROUTE_PACKAGE_REMEMBER = 'PackageRemember';
     const ROUTE_BILLING_DURATION_REMEMBER = 'BillingDurationRemember';
     const ROUTE_PACKAGE_SET = 'PackageSet';
+
+    const LOG_CODE = 'SetupWizardPaymentController';
 
     /** @var SetupService */
     protected $setupService;
@@ -206,6 +213,9 @@ class PaymentController extends AbstractActionController
                 . '<br/>Please check them and try again.',
                 $failure->getType()
             );
+        } catch (MultipleSubscriptionsException $multipleSubscriptions) {
+            $this->logDebugException($multipleSubscriptions, '', [], static::LOG_CODE);
+            $response['success'] = true;
         } catch (\Throwable $throwable) {
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
         }
