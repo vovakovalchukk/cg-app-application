@@ -696,6 +696,19 @@ define([
             var selectedService = input.val();
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
+
+            var showServiceWarning = true;
+            for (key in serviceOptions) {
+                console.log(serviceOptions[key]);
+                if (serviceOptions[key].selected === true) {
+                    showServiceWarning = false;
+                }
+            }
+
+            if (showServiceWarning) {
+                this.getNotifications().notice('The service you requested is unavailable, please select an alternative');
+            }
+
             $(CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId)).val(1);
             this.markOrderLabelAsReady(orderId, CourierSpecificsDataTable.LABEL_STATUS_RATES_FETCHED);
             $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).show();
