@@ -14,6 +14,7 @@ use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 use CG\ShipStation\PackageType\RoyalMail\Service as RoyalMailPackageTypeService;
 use CG\ShipStation\PackageType\Usps\Service as UspsPackageTypeService;
 use CG\ShipStation\ShippingService\RoyalMail as RoyalMailShippingService;
+use CG\ShipStation\ShippingService\Usps as UspsShippingService;
 
 return [
     'di' => [
@@ -282,6 +283,7 @@ return [
                             'allowsRates' => true,
                             'fields' => [],
                             'bookingOptions' => [
+                                'itemParcelAssignment' => 'itemParcelAssignment',
                                 'weight' => 'weight',
                                 'height' => 'height',
                                 'width' => 'width',
@@ -421,6 +423,7 @@ return [
                     ],
                     'defaultBookingOptions' => [
                         'parcels' => 'parcels',
+                        'itemParcelAssignment' => 'itemParcelAssignment',
                         'weight' => 'weight',
                         'height' => 'height',
                         'width' => 'width',
@@ -650,7 +653,7 @@ return [
                             ]
                         ],
                         'International' => [
-                            'usps_first_class_mail' => [
+                            'usps_first_class_mail_international' => [
                                 'Letter' => [
                                     'weight' => 3.5,
                                     'length' => 11.5,
@@ -682,7 +685,7 @@ return [
                                     'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
-                            'usps_parcel_select' => [
+                            'usps_parcel_select_international' => [
                                 'Letter' => [
                                     'weight' => 3.5,
                                     'length' => 11.5,
@@ -714,7 +717,7 @@ return [
                                     'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
-                            'usps_media_mail' => [
+                            'usps_media_mail_international' => [
                                 'Letter' => [
                                     'weight' => 3.5,
                                     'length' => 11.5,
@@ -746,7 +749,7 @@ return [
                                     'restrictionType' => UspsPackageTypeService::LENGTH_AND_GIRTH_RESTRICTION_TYPE,
                                 ],
                             ],
-                            'usps_priority_mail' => [
+                            'usps_priority_mail_international' => [
                                 'Letter' => [
                                     'weight' => 1120,
                                     'length' => 11.5,
@@ -820,7 +823,7 @@ return [
                                     'code' => 'large_flat_rate_box',
                                 ],
                             ],
-                            'usps_priority_mail_express' => [
+                            'usps_priority_mail_express_international' => [
                                 'Flat Rate Envelope' => [
                                     'weight' => 64,
                                     'length' => 12.5,
@@ -844,6 +847,68 @@ return [
                                 ],
                             ]
                         ]
+                    ]
+                ]
+            ],
+            UspsShippingService::class => [
+                'parameters' => [
+                    'servicesConfig' => [
+                        [
+                            'service_code' => 'usps_first_class_mail',
+                            'name' => 'USPS First Class Mail',
+                            'domestic' => true,
+                            'international' => false,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_media_mail',
+                            'name' => 'USPS Media Mail',
+                            'domestic' => true,
+                            'international' => false,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_parcel_select',
+                            'name' => 'USPS Parcel Select Ground',
+                            'domestic' => true,
+                            'international' => false,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_priority_mail',
+                            'name' => 'USPS Priority Mail',
+                            'domestic' => true,
+                            'international' => false,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_priority_mail_express',
+                            'name' => 'USPS Priority Mail Express',
+                            'domestic' => true,
+                            'international' => false,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_first_class_mail_international',
+                            'name' => 'USPS First Class Mail Intl',
+                            'domestic' => false,
+                            'international' => true,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_priority_mail_international',
+                            'name' => 'USPS Priority Mail Intl',
+                            'domestic' => false,
+                            'international' => true,
+                            'is_multi_package_supported' => false,
+                        ],
+                        [
+                            'service_code' => 'usps_priority_mail_express_international',
+                            'name' => 'USPS Priority Mail Express Intl',
+                            'domestic' => false,
+                            'international' => true,
+                            'is_multi_package_supported' => false,
+                        ],
                     ]
                 ]
             ],

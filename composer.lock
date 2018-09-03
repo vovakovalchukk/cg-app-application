@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27b0040123e7a9448bad3076da52d33e",
+    "content-hash": "e9fba603e14a694dfb09a470b59d7c1b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2923,12 +2923,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "5c3c82ae80cf9e114ba460e2584be3742b21e8a2"
+                "reference": "eb7e7a9ead97449dd4859e35786878a32c86c8d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-95f9de.zip",
-                "reference": "5c3c82ae80cf9e114ba460e2584be3742b21e8a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-ac9b01.zip",
+                "reference": "eb7e7a9ead97449dd4859e35786878a32c86c8d4",
                 "shasum": null
             },
             "require": {
@@ -2950,7 +2950,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-08-23T14:46:22+00:00"
+            "time": "2018-09-03T11:27:51+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -10386,8 +10386,8 @@
             "package": "channelgrabber/shipstation"
         },
         {
-            "alias": "1.23.14",
-            "alias_normalized": "1.23.14.0",
+            "alias": "1.24.3",
+            "alias_normalized": "1.24.3.0",
             "version": "dev-TAC-192-royal-mail-via-shipstation",
             "package": "channelgrabber/zf2-v4-ui"
         }
