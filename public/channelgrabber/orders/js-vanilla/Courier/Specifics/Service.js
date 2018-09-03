@@ -699,7 +699,6 @@ define([
 
             var showServiceWarning = true;
             for (key in serviceOptions) {
-                console.log(serviceOptions[key]);
                 if (serviceOptions[key].selected === true) {
                     showServiceWarning = false;
                 }
