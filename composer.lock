@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "466bd63b16269cada08b9f1f8eed5a8f",
+    "content-hash": "ba6872b933359dd624cca4e5a21fc5d2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -947,16 +947,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.0",
+            "version": "dev-CGIV-9836-dpd-manifest-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b"
+                "reference": "cf76edbd98d9db66f66b6b6bc3acdd4bd09b75db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.0-e403c9.zip",
-                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9836-dpd-manifest-error-dce518.zip",
+                "reference": "cf76edbd98d9db66f66b6b6bc3acdd4bd09b75db",
                 "shasum": null
             },
             "require": {
@@ -988,7 +988,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-08-30T09:22:53+00:00"
+            "time": "2018-09-03T15:29:30+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10311,10 +10311,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.1",
+            "alias_normalized": "1.1.1.0",
+            "version": "dev-CGIV-9836-dpd-manifest-error",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
