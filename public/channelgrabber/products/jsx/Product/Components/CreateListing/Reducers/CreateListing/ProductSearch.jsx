@@ -33,9 +33,24 @@ define([
             });
         },
         "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
-            let selectedProducts = Object.assign({}, state.selectedProducts, {
+            let selectedProducts = state.selectedProducts;
+            let existingSku;
+
+            Object.keys(selectedProducts).forEach(function(sku) {
+                let selectedProduct = selectedProducts[sku];
+                if (selectedProduct.epid == action.payload.searchProduct.epid) {
+                    existingSku = sku;
+                }
+            });
+
+            if (existingSku) {
+                delete selectedProducts[existingSku];
+            }
+
+            selectedProducts = Object.assign({}, state.selectedProducts, {
                 [action.payload.cgProduct]: action.payload.searchProduct
             });
+
             return Object.assign({}, state, {
                 selectedProducts: selectedProducts
             });
