@@ -32,8 +32,10 @@ use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\StdLib\Exception\Storage as StorageException;
 use CG\User\Entity as User;
 use Guzzle\Http\Client as GuzzleClient;
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\MultiTransferException;
 use Guzzle\Http\Message\Request as GuzzleRequest;
 
@@ -167,10 +169,25 @@ class Other implements CreatorInterface, LoggerAwareInterface
             if (!empty($shipment->getErrors())) {
                 continue;
             }
-            $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT, $this->isTestLabel($shippingAccount));
-            $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
+            try {
+                $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT,
+                    $this->isTestLabel($shippingAccount));
+                $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
+            } catch (StorageException $e) {
+                $labels[$shipment->getOrderId()] = $this->convertStorageExceptionToLabelResponse($e);
+            }
         }
         return $labels;
+    }
+
+    protected function convertStorageExceptionToLabelResponse(StorageException $e): LabelResponse
+    {
+        if ($e->getPrevious() instanceof BadResponseException) {
+            $json = $e->getPrevious()->getResponse()->getBody();
+        } else {
+            $json = json_encode(['errors' => ['message' => 'There was an unknown problem creating the label']]);
+        }
+        return LabelResponse::createFromJson($json);
     }
 
     protected function saveTrackingNumbersForSuccessfulLabels(
@@ -340,7 +357,9 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected function removeFailedOrderLabel(OrderLabel $orderLabel, array $errorMsgs): void
     {
         $this->logNotice('Failed to generate label for Order %s, reason(s): %s', [$orderLabel->getOrderId(), str_replace('%', '%%', implode('; ', $errorMsgs))], [static::LOG_CODE, 'Fail']);
-        $this->orderLabelService->remove($orderLabel);
+        if ($orderLabel->getId()) {
+            $this->orderLabelService->remove($orderLabel);
+        }
     }
 
     /**
