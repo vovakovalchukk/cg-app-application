@@ -60,14 +60,14 @@ define([
         }
         var details = [];
         for (var channelName in values.channel) {
-            details.push(Object.assign({}, formatProductChannelDataForChannel(values.channel[channelName]), {
+            details.push(Object.assign({}, formatProductChannelDataForChannel(values.channel[channelName], props), {
                 channel: channelName
             }));
         }
         return details;
     };
 
-    let formatProductChannelDataForChannel = function(values) {
+    let formatProductChannelDataForChannel = function(values, props) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
             var attributeImageMap = {};
@@ -76,6 +76,19 @@ define([
             });
             values.attributeImageMap = attributeImageMap;
         }
+
+        let variationToEpid = {};
+        Object.keys(props.productSearch.selectedProducts).forEach(function (sku) {
+            let variation = props.variationsDataForProduct.find(function(variation) {
+                return variation.sku == sku;
+            });
+            variationToEpid[variation.id] = props.productSearch.selectedProducts[sku].epid;
+        });
+
+        if (Object.keys(variationToEpid).length > 0) {
+            values.variationToEpid = variationToEpid;
+        }
+
         return values;
     };
 

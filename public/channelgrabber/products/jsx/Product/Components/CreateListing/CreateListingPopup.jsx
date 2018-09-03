@@ -313,15 +313,14 @@ define([
         form: "createListing",
         enableReinitialize: true,
         // This is required to make the images in the variation table show correctly
-        // keepDirtyOnReinitialize: true,
-        // updateUnregisteredFields: true,
+        keepDirtyOnReinitialize: true,
+        updateUnregisteredFields: true,
         onSubmit: function(values, dispatch, props) {
             dispatch(Actions.submitListingsForm(dispatch, values, props));
         },
     })(CreateListingPopup);
 
     const mapStateToProps = function(state) {
-        // console.log(state);
         return {
             initialValues: state.initialValues,
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},

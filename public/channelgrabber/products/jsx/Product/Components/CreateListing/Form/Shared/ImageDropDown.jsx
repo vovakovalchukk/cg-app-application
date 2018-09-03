@@ -28,7 +28,6 @@ define([
             }
         },
         componentDidMount() {
-            console.log(this.props.selected);
             this.onImageSelected(this.props.selected);
         },
         onClickOutside: function(event) {

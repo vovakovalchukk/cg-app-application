@@ -90,15 +90,12 @@ define([
             />
         },
         onImageSelected: function(field, image) {
-            console.log(field, image);
             this.onInputChange(field.input, image.target.value);
         },
         getStaticImage: function(fieldValue, fieldVariation) {
-            // console.log(fieldValue, fieldVariation);
             if (this.props.shouldRenderStaticImagesFromVariationValues && fieldVariation.images) {
                 return fieldVariation.images[0];
             }
-            // console.log(this.findSelectedImageForVariation(fieldValue));
             return this.findSelectedImageForVariation(fieldValue);
         },
         renderStaticImage: function(field) {
