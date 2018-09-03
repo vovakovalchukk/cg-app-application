@@ -365,7 +365,7 @@ define([
     {
         $(CourierSpecificsDataTable.SELECTOR_LABEL_FORM + ' input[name="order[]"]').remove();
         for (var count in orderIds) {
-            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(Service.SELECTOR_LABEL_FORM);
+            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(CourierSpecificsDataTable.SELECTOR_LABEL_FORM);
         }
         $(CourierSpecificsDataTable.SELECTOR_LABEL_FORM).submit();
     };
