@@ -49,6 +49,21 @@ define([
             }
             return pageLinks;
         },
+        getOptionsForLimitSelect: function(){
+            let maximumToDisplay = this.props.pagination.total;
+            
+            let potentialOptions = [50,100,250,500];
+            
+            let optionsForLimitSelect = [];
+            for (let i=0; i<potentialOptions.length; i++){
+                if(potentialOptions[i-1] > maximumToDisplay){
+                    break;
+                }
+                optionsForLimitSelect[i] = potentialOptions[i];
+            }
+            
+            return optionsForLimitSelect;
+        },
         render: function() {
             var firstPage = 1;
             var lastRecord = this.props.pagination.page * this.props.pagination.limit;
@@ -73,7 +88,6 @@ define([
                              alignItems: 'center'
                          }}
                     >
-                        
                         <PaginationInfoContainer>
                             Showing <span className="first-record">{firstRecord}</span> to <span
                             className="last-record">{lastRecord}</span> of
@@ -93,7 +107,7 @@ define([
                         </PageLinksContainer>
                         
                         <LimitSelect
-                            options={[50, 100, 150, 200]}
+                            options={this.getOptionsForLimitSelect()}
                             changeLimit={this.props.actions.changeLimit}
                             limit={this.props.pagination.limit}
                         />
@@ -104,30 +118,4 @@ define([
     });
     
     return FooterComponent;
-    
-    {/*<StyledLimitSelect*/
-    }
-    {/*options={[50, 100, 150, 200]}*/
-    }
-    {/*changeLimit={this.props.actions.changeLimit}*/
-    }
-    {/*limit={this.props.pagination.limit}*/
-    }
-    {/*/>*/
-    }
-    
-    {/*<StyledLimitSelect*/
-    }
-    {/*options={[50, 100, 150, 200]}*/
-    }
-    {/*changeLimit={this.props.actions.changeLimit}*/
-    }
-    {/*limit={this.props.pagination.limit}*/
-    }
-    {/*>*/
-    }
-    {/*in the link*/
-    }
-    {/*</StyledLimitSelect>*/
-    }
 });

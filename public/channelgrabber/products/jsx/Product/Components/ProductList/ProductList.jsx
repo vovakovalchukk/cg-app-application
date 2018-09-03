@@ -81,12 +81,6 @@ define([
         updateHorizontalScrollIndex: function() {
             this.props.actions.resetHorizontalScrollbarIndex();
         },
-        //todo - use this as a basis for implementing functionality for TAC-173
-        onPageChange: function(pageNumber) {
-
-            // todo - change the below request to trigger a products request within Redux in TAC-173
-            //     this.performProductsRequest(pageNumber, <searchTerm>, <skuList>);
-        },
         onProductLinkRefresh: function(event) {
             let sku = event.detail;
             this.props.actions.getLinkedProducts([sku]);

@@ -11,10 +11,7 @@ define([
 ) {
     "use strict";
     
-    // const {PRODUCT_LINKS_URL} = constants;
-    
     let paginationActions = (function() {
-        
         let changePaginationLimitOnState = (desiredLimit)=>{
             return {
                 type: 'LIMIT_CHANGE',
@@ -23,7 +20,6 @@ define([
                 }
             }
         };
-        
         return {
             changePage: desiredPageNumber => {
                 return async (dispatch, getState) => {

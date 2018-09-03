@@ -27,8 +27,6 @@ define([
             let newState = Object.assign({}, state, {
                 limit: desiredLimit
             });
-            console.log('LIMIT_CHANGE -r newState',newState);
-    
             return newState;
         }
     });
