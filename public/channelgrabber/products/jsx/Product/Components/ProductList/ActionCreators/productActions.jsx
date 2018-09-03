@@ -2,12 +2,14 @@ define([
     'Product/Storage/Ajax',
     'Product/Filter/Entity',
     'Product/Components/ProductList/Config/constants',
-    'Product/Components/ProductList/ActionCreators/productLinkActions'
+    'Product/Components/ProductList/ActionCreators/productLinkActions',
+    'Product/Components/ProductList/stateUtility'
 ], function(
     AjaxHandler,
     ProductFilter,
     constants,
-    productLinkActions
+    productLinkActions,
+    stateUtility
 ) {
     "use strict";
     
@@ -83,12 +85,15 @@ define([
                 }
             },
             getProducts: (pageNumber, searchTerm, skuList) => {
-                return async function(dispatch) {
+                return async function(dispatch, getState) {
+                    const state = getState();
                     pageNumber = pageNumber || 1;
                     searchTerm = searchTerm || '';
                     skuList = skuList || [];
                     let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
+                    filter.limit = stateUtility.getPaginationLimit(state);
+                    console.log('in getProducts with filter: ' , filter);
                     try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);

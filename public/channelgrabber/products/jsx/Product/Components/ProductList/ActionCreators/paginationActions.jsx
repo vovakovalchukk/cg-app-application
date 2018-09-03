@@ -18,20 +18,14 @@ define([
             changePage: desiredPageNumber => {
                 return async (dispatch, getState) => {
                     const state = getState();
-                    
                     let {searchTerm} = state.search;
-                    await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));
                     
-                    return {
-                        type: "PAGE_CHANGE",
-                        payload: {
-                            desiredPageNumber
-                        }
-                    }
+                    //todo need to pass limit here
+                    await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));
                 }
             },
             changeLimit: desiredLimit => {
-                console.log('in changeLimit with desiredLimit: ' , desiredLimit);
+                console.log('in changeLimit AC with desiredLimit: ' , desiredLimit);
                 return {
                     type: 'LIMIT_CHANGE',
                     payload: {

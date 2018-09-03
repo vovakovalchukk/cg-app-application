@@ -47,6 +47,9 @@ define([], function() {
                 return products.find((product)=>{
                     return product.sku === sku;
                 }).id
+            },
+            getPaginationLimit(state){
+                return state.pagination.limit;
             }
         };
     };

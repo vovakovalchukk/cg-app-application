@@ -1,79 +1,26 @@
 define([
     'react',
     'styled-components',
-    'Common/Components/Select'
+    'Product/Components/ProductList/Components/Footer/LimitSelect',
+    'Product/Components/ProductList/Components/Footer/PageLink'
 ], function(
     React,
     styled,
-    Select
+    LimitSelect,
+    PageLink
 ) {
     "use strict";
     
     styled = styled.default;
     
-    // const Link1 = ({className, children}) => (
-    //     <a>
-    //         {children}
-    //     </a>
-    //     // return (
-    //     //     <select value={props.limit} onChange={e => {
-    //     //         props.changeLimit(e.target.value);
-    //     //     }}>
-    //     //         {
-    //     //             props.options.map((option) => {
-    //     //                     return (<option value={option}>{option}</option>);
-    //     //                 }
-    //     //             )
-    //     //         }
-    //     //     </select>
-    //     // )
-    // );
-    const Link1 = ({className, children}) => (
-            <a className={className}>
-                {children}
-            </a>
-    );
-    const StyledLink1= styled(Link1)`
-        color: palevioletred;
-        font-weight: bold;
-`;
-    
-    const Link2 = ({className, children}) => (
-        <a className={className}>
-            {children}
-        </a>
-    );
-    const StyledLink2 = styled(Link2)`
-        color: palevioletred;
-        font-weight: bold;
-`;
-
-//
-//     const Link = ({ className, children }) => (
-//         <a className={className}>
-//             {children}
-//         </a>
-//     )
-//
-//     const StyledLink = styled(Link)`
-//   color: palevioletred;
-//   font-weight: bold;
-// `;
-    
-    let PageLink = styled.a.attrs({
-        title: props => {
-            return 'go to ' + props.count;
-        }
-    })`
-        color: ${props => props.isCurrentPage ? 'blue' : ''};
-        cursor:pointer;
-        margin-left:1rem;
-        margin-right:1rem;
-    `;
-    
-    let PaginationInfoContainer = styled.div`
+    const PaginationInfoContainer = styled.div`
         display:inline-block;
         min-width:170px;
+    `;
+    const PageLinksContainer = styled.div`
+        min-width:200px;
+        display:inline-block;
+        margin-left:1rem;
     `;
     
     let FooterComponent = React.createClass({
@@ -133,7 +80,7 @@ define([
                             <span className="total-records">{this.props.pagination.total}</span>
                         </PaginationInfoContainer>
                         
-                        <div className="dataTables_paginate paging_full_numbers u-inline-block u-margin-left-small">
+                        <PageLinksContainer className="dataTables_paginate paging_full_numbers">
                             <a onClick={this.props.actions.changePage.bind(this, firstPage)}
                                className={"first " + (this.props.pagination.page === firstPage ? 'paginate_active' : 'paginate_button')}>First</a>
                             
@@ -143,12 +90,13 @@ define([
                             
                             <a onClick={this.props.actions.changePage.bind(this, maxPages)}
                                className={"last " + (this.props.pagination.page === maxPages ? 'paginate_active' : 'paginate_button') + ' u-margin-left-small'}>Last</a>
-                        </div>
+                        </PageLinksContainer>
                         
-                        
-                        <StyledLink2>StyledLink2 </StyledLink2>
-                        <StyledLink1>StyledLink1</StyledLink1>
-
+                        <LimitSelect
+                            options={[50, 100, 150, 200]}
+                            changeLimit={this.props.actions.changeLimit}
+                            limit={this.props.pagination.limit}
+                        />
                     </div>
                 </div>
             );
