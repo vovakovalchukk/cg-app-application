@@ -318,7 +318,9 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected function removeFailedOrderLabel(OrderLabel $orderLabel, array $errorMsgs): void
     {
         $this->logNotice('Failed to generate label for Order %s, reason(s): %s', [$orderLabel->getOrderId(), str_replace('%', '%%', implode('; ', $errorMsgs))], [static::LOG_CODE, 'Fail']);
-        $this->orderLabelService->remove($orderLabel);
+        if ($orderLabel->getId()) {
+            $this->orderLabelService->remove($orderLabel);
+        }
     }
 
     /**
