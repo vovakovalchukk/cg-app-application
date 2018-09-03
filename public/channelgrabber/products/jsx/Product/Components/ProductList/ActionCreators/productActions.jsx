@@ -163,6 +163,18 @@ define([
                     type: "HORIZONTAL_SCROLLBAR_INDEX_RESET",
                     payload: {}
                 }
+            },
+            moveVerticalScrollbarToTop: () => {
+                return function(dispatch) {
+                    dispatch({
+                        type: "VERTICAL_SCROLLBAR_SET_TO_0",
+                        payload: {}
+                    });
+                    dispatch({
+                        type: "HORIZONTAL_SCROLLBAR_INDEX_RESET",
+                        payload: {}
+                    })
+                };
             }
         };
         

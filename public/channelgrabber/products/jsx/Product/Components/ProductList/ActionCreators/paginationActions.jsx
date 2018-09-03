@@ -26,6 +26,7 @@ define([
                     const state = getState();
                     let {searchTerm} = state.search;
                     await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));
+                    dispatch(productActions.moveVerticalScrollbarToTop());
                 }
             },
             changeLimit: desiredLimit => {

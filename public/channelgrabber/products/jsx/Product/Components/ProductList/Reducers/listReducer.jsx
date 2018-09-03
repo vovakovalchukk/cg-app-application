@@ -7,7 +7,8 @@ define([
     
     var initialState = {
         productSearchActive: false,
-        fetchingUpdatedStockLevelsForSkus: {}
+        fetchingUpdatedStockLevelsForSkus: {},
+        currentRowScrollIndex: null
     };
     
     var listReducer = reducerCreator(initialState, {
@@ -28,6 +29,18 @@ define([
             let {fetchingStockLevelsForSkus} = action.payload;
             let newState = Object.assign({}, state, {
                 fetchingStockLevelsForSkus
+            });
+            return newState;
+        },
+        "VERTICAL_SCROLLBAR_SET_TO_0": function(state) {
+            let newState = Object.assign({}, state, {
+                currentRowScrollIndex: 0
+            });
+            return newState;
+        },
+        "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state){
+            let newState = Object.assign({}, state, {
+                currentRowScrollIndex: null
             });
             return newState;
         }

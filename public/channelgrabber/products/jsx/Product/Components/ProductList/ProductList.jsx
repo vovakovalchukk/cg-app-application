@@ -174,6 +174,7 @@ define([
                     showScrollbarX={true}
                     showScrollbarY={true}
                     scrollToColumn={this.props.tabs.currentColumnScrollIndex}
+                    scrollToRow={this.props.list.currentRowScrollIndex}
                 >
                     {this.renderColumns()}
                 </Table>
