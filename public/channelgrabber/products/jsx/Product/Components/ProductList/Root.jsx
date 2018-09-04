@@ -14,7 +14,7 @@ define([
     Redux,
     ReactRedux,
     thunk,
-    actionCreators,
+    productActions,
     productLinkActions,
     paginationActions,
     searchActions,
@@ -42,7 +42,7 @@ define([
     
     function combineActionCreators() {
         return Object.assign(
-            actionCreators,
+            productActions,
             productLinkActions,
             paginationActions,
             searchActions

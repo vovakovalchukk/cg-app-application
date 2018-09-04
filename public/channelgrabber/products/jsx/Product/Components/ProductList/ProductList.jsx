@@ -25,6 +25,8 @@ define([
     
     const {Table} = FixedDataTable;
     
+    columns = columns.produceColumns()
+    
     var ProductList = React.createClass({
         getDefaultProps: function() {
             return {
@@ -137,6 +139,7 @@ define([
             return column.tab === this.props.tabs.currentTab
         },
         renderColumns: function() {
+            console.log('this.props: ', this.props);
             return columns.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
