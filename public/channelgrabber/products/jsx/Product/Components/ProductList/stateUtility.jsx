@@ -55,7 +55,6 @@ define([], function() {
                 return state.pagination.page;
             },
             getCurrentSearchTerm(state){
-                console.log('in getCurrentSearchTerm returning state.list.searchTerm : ' ,state);
                 return state.search.searchTerm;
             }
         };

@@ -9,9 +9,7 @@ define([
 ) {
     "use strict";
     
-    var actionCreators = (function() {
-        let self = {};
-        
+    var searchActions = (function() {
         const setProductSearchTerm = (searchTerm) => {
             return {
                 type:"PRODUCTS_SEARCH_TERM_SET",
@@ -20,7 +18,6 @@ define([
                 }
             };
         };
-        
         return {
             searchProducts : ( searchTerm ) => {
                 return async function(dispatch, getState) {
@@ -37,5 +34,5 @@ define([
         };
     })();
     
-    return actionCreators;
+    return searchActions;
 });
