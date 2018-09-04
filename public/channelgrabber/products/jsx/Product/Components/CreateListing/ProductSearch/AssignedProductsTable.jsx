@@ -24,9 +24,18 @@ define([
                 <td>{product ? product.title : '-'}</td>,
                 <td>{product ? this.renderImage(product) : '-'}</td>,
                 <td>
-                    {product ? <button onClick={this.props.clearSelectedProduct.bind(this, variation.sku)}>Clear</button> : ''}
+                    {product ? this.renderClearButton(variation.sku) : ''}
                 </td>
             ];
+        },
+        renderClearButton: function(sku) {
+            return <span className="remove-icon">
+                <i
+                    className='fa fa-2x fa-minus-square icon-create-listing'
+                    aria-hidden='true'
+                    onClick={this.props.clearSelectedProduct.bind(this, sku)}
+                />
+            </span>;
         },
         findProductForSku: function(sku) {
             return this.props.selectedProducts[sku] ? this.props.selectedProducts[sku] : null;
