@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbc45ec2c9b5ef3fb3aee71be72b499d",
+    "content-hash": "cfcbe431cf05f41909cf244502cd0414",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -706,16 +706,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.39.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "abd9ddf2c2b0f442c388d409c1e0ad586febdcea"
+                "reference": "b6b77c53e241600af4b4c3847685734376400f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.39.0-1d4250.zip",
-                "reference": "abd9ddf2c2b0f442c388d409c1e0ad586febdcea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9602-replace-smembers-sscan-02e90b.zip",
+                "reference": "b6b77c53e241600af4b4c3847685734376400f7c",
                 "shasum": null
             },
             "require": {
@@ -771,6 +771,11 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-TAC-125-fetch-usps-rates": "1.37.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -785,7 +790,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-09-04T09:03:37+00:00"
+            "time": "2018-08-31T15:17:09+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2029,16 +2034,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.39.8",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "eb289eff1f3d1b353e5e0f5a950d2e50e096e69f"
+                "reference": "248e48e0ff148f7d28e32e1cb0d61d3303b7b886"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.8-e2fdb4.zip",
-                "reference": "eb289eff1f3d1b353e5e0f5a950d2e50e096e69f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9602-replace-smembers-sscan-92bb69.zip",
+                "reference": "248e48e0ff148f7d28e32e1cb0d61d3303b7b886",
                 "shasum": null
             },
             "require": {
@@ -2109,7 +2114,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-09-04T09:03:37+00:00"
+            "time": "2018-08-31T14:58:54+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -5685,7 +5690,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6478,7 +6483,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8469,7 +8474,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -9083,7 +9088,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -9114,7 +9119,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9459,7 +9464,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -10301,10 +10307,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.39.1",
+            "alias_normalized": "1.39.1.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.39.9",
+            "alias_normalized": "1.39.9.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
