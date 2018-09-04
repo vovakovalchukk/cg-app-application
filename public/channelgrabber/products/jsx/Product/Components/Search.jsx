@@ -1,12 +1,20 @@
 define([
     'react',
-    'Common/Components/Button'
+    'Common/Components/Button',
+    'styled-components'
 ], function(
     React,
-    Button
+    Button,
+    styled
 ) {
     "use strict";
 
+    styled = styled.default;
+    
+    const SearchField = styled.div`
+        width: 250px;
+    `;
+    
     var SearchComponent = React.createClass({
         getDefaultProps: function () {
             return {
@@ -35,12 +43,12 @@ define([
             return (
                 <div id="search-box-wrapper">
                     <div id="searchUIContainer">
-                        <div className="med-element search-field">
+                        <SearchField className="med-element search-field">
                             <label htmlFor="filter-search-field">
                                 <div className="sprite-search-18-black"></div>
                             </label>
                             <input name="filter-search-field" value={this.state.searchTerm} type="text" className="search-field-input" onChange={this.searchTermUpdate} onKeyPress={this.onKeyPress}/>
-                        </div>
+                        </SearchField>
                     </div>
                     <div id="searchBtn">
                         <Button text='Search' onClick={this.searchButtonPressed}/>

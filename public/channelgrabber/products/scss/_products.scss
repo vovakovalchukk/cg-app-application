@@ -524,7 +524,7 @@ span.product-status-holder {
     z-index: 10;
     top: 49px;
     left: 0px;
-    width: 330px;
+    width: 370px;
     padding: 11px 0 9px 10px;
     background-color: $color-xlgrey;
     #searchUIContainer {
@@ -541,7 +541,7 @@ span.product-status-holder {
 }
 
 #main.products > #bulk-actions {
-    padding-left: 428px;
+    padding-left: 472px;
 }
 
 #searchSubmit {
@@ -780,7 +780,7 @@ $tabs-container-height:50px;
 .navbar-strip--push-up-fix {
     position: fixed;
     top: 49px;
-    left: 330px;
+    left: 370px;
     z-index: 10;
     padding: 11px 0 9px 10px;
 }
