@@ -701,6 +701,7 @@ define([
             for (key in serviceOptions) {
                 if (serviceOptions[key].selected === true) {
                     showServiceWarning = false;
+                    break;
                 }
             }
 
