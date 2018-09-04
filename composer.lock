@@ -525,12 +525,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4af0166897ebd6b9b929fdd02e2d35b0998e8a84"
+                "reference": "dce0572c327ccb445d288cfe783855132dd00aeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-QA-EPIC-USPS-f774d4.zip",
-                "reference": "4af0166897ebd6b9b929fdd02e2d35b0998e8a84",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-QA-EPIC-USPS-2eaa61.zip",
+                "reference": "dce0572c327ccb445d288cfe783855132dd00aeb",
                 "shasum": null
             },
             "require": {
@@ -600,7 +600,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-28T10:49:04+00:00"
+            "time": "2018-09-04T08:39:54+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4468,12 +4468,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7bbc37e29758c9f3ed12ffd25e78af7efa8a0a92"
+                "reference": "1593f058e7c5f3262641cc27f739860b77b01ca3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-EPIC-USPS-9ac053.zip",
-                "reference": "7bbc37e29758c9f3ed12ffd25e78af7efa8a0a92",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-EPIC-USPS-9ad3f8.zip",
+                "reference": "1593f058e7c5f3262641cc27f739860b77b01ca3",
                 "shasum": null
             },
             "require": {
@@ -4525,7 +4525,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-20T14:31:04+00:00"
+            "time": "2018-09-03T14:32:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
