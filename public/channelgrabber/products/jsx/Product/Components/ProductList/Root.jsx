@@ -7,7 +7,7 @@ define([
     'Product/Components/ProductList/ActionCreators/productLinkActions',
     'Product/Components/ProductList/ActionCreators/paginationActions',
     'Product/Components/ProductList/ActionCreators/searchActions',
-    'Product/Components/ProductList/Reducers/CombinedReducer',
+    'Product/Components/ProductList/ActionCreators/tabActions',
     'Product/Components/ProductList/ProductList'
 ], function(
     React,
@@ -18,7 +18,7 @@ define([
     productLinkActions,
     paginationActions,
     searchActions,
-    CombinedReducer,
+    tabActions,
     ProductList
 ) {
     "use strict";
@@ -45,7 +45,8 @@ define([
             productActions,
             productLinkActions,
             paginationActions,
-            searchActions
+            searchActions,
+            tabActions
         );
     }
 });

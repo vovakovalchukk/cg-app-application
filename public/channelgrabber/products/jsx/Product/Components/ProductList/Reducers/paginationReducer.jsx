@@ -5,11 +5,19 @@ define([
 ) {
     "use strict";
     
+    let getters = (function() {
+        return {
+            getPage: (state) => state.page,
+        }
+    }());
+    
     var initialState = {
         limit: 50,
         page: 1,
         total: null
     };
+    
+    initialState = Object.assign(initialState, getters);
     
     var paginationReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {

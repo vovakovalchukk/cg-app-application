@@ -206,8 +206,6 @@ define([
     
     function getVisibleFixedColumns(state) {
         console.log('in getVisibleFixedColumns with state: ' , state);
-        // /
-        
         return state.columns.filter((column) => {
             return column.fixed
         });

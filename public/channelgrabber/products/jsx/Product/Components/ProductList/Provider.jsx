@@ -12,7 +12,7 @@ define([
     ReactRedux,
     thunk,
     ActionCreators,
-    CombinedReducer,
+    combinedReducer,
     ProductListRoot
 ) {
     "use strict";
@@ -27,7 +27,7 @@ define([
         })(Redux.applyMiddleware(thunk.default));
     }
     var store = Redux.createStore(
-        CombinedReducer,
+        combinedReducer,
         enhancer
     );
     
@@ -45,7 +45,10 @@ define([
             }
         },
         componentDidMount: function() {
+            console.log('Provider this.props: ', this.props);
+            
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
+            // store.dispatch(ActionCreators.createColumn(this.props.account))
             store.dispatch(ActionCreators.getProducts());
         },
         render: function() {

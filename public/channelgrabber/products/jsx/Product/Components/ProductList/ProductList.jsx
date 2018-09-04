@@ -2,22 +2,20 @@ define([
     'react',
     'fixed-data-table',
     'styled-components',
-    'Product/Components/ProductList/CellCreator/factory',
     'Product/Components/Search',
     'Product/Components/ProductLinkEditor',
     'Product/Components/ProductList/Components/Footer/Footer',
-    'Product/Components/ProductList/ColumnCreator/columns',
-    'Product/Components/ProductList/ColumnCreator/factory',
+    'Product/Components/ProductList/Column/service',
+    'Product/Components/ProductList/Column/factory',
     'Product/Components/ProductList/Components/Tabs/Root'
 ], function(
     React,
     FixedDataTable,
     styled,
-    cellCreator,
     SearchBox,
     ProductLinkEditor,
     ProductFooter,
-    columns,
+    columnService,
     columnCreator,
     Tabs
 ) {
@@ -25,7 +23,7 @@ define([
     
     const {Table} = FixedDataTable;
     
-    columns = columns.produceColumns()
+    const columns = columnService.produceColumns();
     
     var ProductList = React.createClass({
         getDefaultProps: function() {
@@ -180,6 +178,9 @@ define([
             )
         },
         render: function() {
+            console.log('ProductList this.props' , this.props);
+            
+            
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">

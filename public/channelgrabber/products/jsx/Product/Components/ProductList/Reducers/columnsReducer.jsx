@@ -7,7 +7,7 @@ define([
 ) {
     "use strict";
     
-    var initialState = columns;
+    var initialState = columns.produceColumns();
     
     var ColumnsReducer = reducerCreator(initialState, {});
     
