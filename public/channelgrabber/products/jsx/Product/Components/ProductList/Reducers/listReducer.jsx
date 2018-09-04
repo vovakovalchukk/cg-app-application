@@ -37,7 +37,7 @@ define([
             });
             return newState;
         },
-        "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state){
+        "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state) {
             let newState = Object.assign({}, state, {
                 currentRowScrollIndex: null
             });

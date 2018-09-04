@@ -12,21 +12,21 @@ define([
     var searchActions = (function() {
         const setProductSearchTerm = (searchTerm) => {
             return {
-                type:"PRODUCTS_SEARCH_TERM_SET",
-                payload:{
+                type: "PRODUCTS_SEARCH_TERM_SET",
+                payload: {
                     searchTerm
                 }
             };
         };
         return {
-            searchProducts : ( searchTerm ) => {
+            searchProducts: (searchTerm) => {
                 return async function(dispatch, getState) {
-                    const state =  getState();
+                    const state = getState();
                     dispatch(setProductSearchTerm(searchTerm));
                     let currentPageNumber = stateUtility.getCurrentPageNumber(state);
-                    try{
+                    try {
                         await dispatch(productActions.getProducts(currentPageNumber));
-                    }catch(err){
+                    } catch (err) {
                         console.error(err);
                     }
                 }

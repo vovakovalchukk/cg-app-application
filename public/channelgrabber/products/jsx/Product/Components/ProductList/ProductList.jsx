@@ -203,8 +203,8 @@ define([
                     <ProductFooter
                         pagination={this.props.pagination}
                         actions={{
-                            changePage:this.props.actions.changePage,
-                            changeLimit:this.props.actions.changeLimit
+                            changePage: this.props.actions.changePage,
+                            changeLimit: this.props.actions.changeLimit
                         }}
                     />
                 </div>
