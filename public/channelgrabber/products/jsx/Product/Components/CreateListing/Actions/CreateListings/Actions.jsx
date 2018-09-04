@@ -390,6 +390,14 @@ define([
                     cgProduct: cgProduct
                 }
             }
+        },
+        clearSelectedProduct: function(sku) {
+            return {
+                type: "CLEAR_SELECTED_PRODUCT",
+                payload: {
+                    sku: sku
+                }
+            }
         }
     };
 });

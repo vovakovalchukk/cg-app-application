@@ -80,7 +80,6 @@ define([
             }
 
             var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
-            // console.log(selected);
             return <ImageDropDown
                 selected={selected}
                 autoSelectFirst={false}

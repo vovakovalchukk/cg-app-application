@@ -14,14 +14,18 @@ define([
         renderTableHeader: function () {
             return [
                 <th>{"Selected Product Title"}</th>,
-                <th>{"Selected Product Image"}</th>
+                <th>{"Selected Product Image"}</th>,
+                <th>{}</th>
             ];
         },
         renderTableColumns: function (variation) {
             let product = this.findProductForSku(variation.sku);
             return [
                 <td>{product ? product.title : '-'}</td>,
-                <td>{product ? this.renderImage(product) : '-'}</td>
+                <td>{product ? this.renderImage(product) : '-'}</td>,
+                <td>
+                    {product ? <button onClick={this.props.clearSelectedProduct.bind(this, variation.sku)}>Clear</button> : ''}
+                </td>
             ];
         },
         findProductForSku: function(sku) {
@@ -43,6 +47,10 @@ define([
             );
         },
         render: function() {
+            if (Object.keys(this.props.selectedProducts).length === 0) {
+                return null;
+            }
+
             return <VariationTable
                 sectionName={"assigned-products"}
                 variationsDataForProduct={this.props.variationsDataForProduct}

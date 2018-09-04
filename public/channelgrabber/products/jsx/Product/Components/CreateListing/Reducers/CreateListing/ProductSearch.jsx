@@ -56,6 +56,14 @@ define([
         },
         "REVERT_TO_INITIAL_VALUES": function() {
             return Object.assign({}, initialState);
+        },
+        "CLEAR_SELECTED_PRODUCT": function(state, action) {
+            let selectedProducts = JSON.parse(JSON.stringify(state.selectedProducts));
+            delete selectedProducts[action.payload.sku];
+
+            return Object.assign({}, state, {
+                selectedProducts: selectedProducts
+            });
         }
     });
 });

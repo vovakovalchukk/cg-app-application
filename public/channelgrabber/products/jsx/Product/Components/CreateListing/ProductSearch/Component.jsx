@@ -169,7 +169,7 @@ define([
                 options.push({
                     name: variation.sku,
                     value: variation.sku,
-                    disabled: this.props.selectedProducts[variation.sku]
+                    disabled: !!this.props.selectedProducts[variation.sku]
                 });
             }.bind(this));
 
@@ -210,6 +210,7 @@ define([
                 product={this.props.mainProduct}
                 attributeNames={this.props.mainProduct.attributeNames}
                 attributeNameMap={this.props.mainProduct.attributeNameMap}
+                clearSelectedProduct={this.props.clearSelectedProduct}
             />;
         },
         render: function() {
@@ -245,6 +246,9 @@ define([
             },
             assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
                 dispatch(CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
+            },
+            clearSelectedProduct: function(sku) {
+                dispatch(CreateListingActions.clearSelectedProduct(sku))
             }
         };
     };
