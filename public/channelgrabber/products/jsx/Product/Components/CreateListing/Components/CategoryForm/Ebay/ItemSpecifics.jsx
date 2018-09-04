@@ -274,7 +274,7 @@ define([
             if (this.isSingleTextInput(field)) {
                 return (
                     <span className={'u-display-inline'}>
-                        {this.renderRemoveButton(removeFieldClick)};
+                        {this.renderRemoveButton(removeFieldClick)}
                     </span>
                 );
             }
@@ -286,16 +286,16 @@ define([
             if (this.onlyOneTextInputExistsInArray(field)) {
                 return (
                     <span className={'u-display-inline'}>
-                        {this.renderPlusButton(() => field.fields.push(""))};
-                        {this.renderRemoveButton(removeFieldClick)};
+                        {this.renderPlusButton(() => field.fields.push(""))}
+                        {this.renderRemoveButton(removeFieldClick)}
                     </span>
                 );
             }
             
             return (
                 <span className={'u-display-inline'}>
-                    {this.renderPlusButton(() => field.fields.push(""))};
-                    {this.renderRemoveButton(() => field.fields.pop())};
+                    {this.renderPlusButton(() => field.fields.push(""))}
+                    {this.renderRemoveButton(() => field.fields.pop())}
                 </span>
             );
         },

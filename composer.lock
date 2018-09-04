@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "27b0040123e7a9448bad3076da52d33e",
+    "content-hash": "e377d3fe1399529d5ef82d44bb5e2941",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,23 +336,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.27.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "687bf35037987ea973f6a9fb4501100e8adafbd0"
+                "reference": "0f21a56ab2d3df6ed61c20ded8fe972246f6d5b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-QA-EPIC-USPS-ca0d7c.zip",
-                "reference": "687bf35037987ea973f6a9fb4501100e8adafbd0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.9-d6bc9d.zip",
+                "reference": "0f21a56ab2d3df6ed61c20ded8fe972246f6d5b9",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-QA-EPIC-USPS as 1.37.0",
+                "channelgrabber/channel": "^1.39.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-08-20T14:25:42+00:00"
+            "time": "2018-09-04T09:36:20+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.19.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "9c5847f2bfbda1d4291db06e978c80af48d31e2b"
+                "reference": "107846c2db0fbbeccbcf499bf4b44e0565a63033"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-QA-EPIC-USPS-6e290e.zip",
-                "reference": "9c5847f2bfbda1d4291db06e978c80af48d31e2b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.4-e54baa.zip",
+                "reference": "107846c2db0fbbeccbcf499bf4b44e0565a63033",
                 "shasum": null
             },
             "require": {
@@ -546,7 +546,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-20T14:28:46+00:00"
+            "time": "2018-09-04T09:03:37+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -706,16 +706,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.39.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4af0166897ebd6b9b929fdd02e2d35b0998e8a84"
+                "reference": "abd9ddf2c2b0f442c388d409c1e0ad586febdcea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-QA-EPIC-USPS-f774d4.zip",
-                "reference": "4af0166897ebd6b9b929fdd02e2d35b0998e8a84",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.39.0-1d4250.zip",
+                "reference": "abd9ddf2c2b0f442c388d409c1e0ad586febdcea",
                 "shasum": null
             },
             "require": {
@@ -785,7 +785,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-28T10:49:04+00:00"
+            "time": "2018-09-04T09:03:37+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -821,16 +821,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.11.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "d8dcd61912745dac73719358cd7383ea3a0bea31"
+                "reference": "fea213ca311c2c805f1efb94782eca5d2c5da802"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-QA-EPIC-USPS-6c3509.zip",
-                "reference": "d8dcd61912745dac73719358cd7383ea3a0bea31",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.3-e7dcc9.zip",
+                "reference": "fea213ca311c2c805f1efb94782eca5d2c5da802",
                 "shasum": null
             },
             "require": {
@@ -861,7 +861,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-22T10:55:20+00:00"
+            "time": "2018-09-04T09:03:37+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -938,16 +938,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b"
+                "reference": "d5412e63a4545460bc57a471bfa7669875867d6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.0-e403c9.zip",
-                "reference": "ff285f32ec17ddf53c5395a6b5dc5179e72ec01b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.1-6379e7.zip",
+                "reference": "d5412e63a4545460bc57a471bfa7669875867d6b",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-08-30T09:22:53+00:00"
+            "time": "2018-09-04T10:24:02+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1112,16 +1112,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a3bd8c7b6270280fcea2e131a21f48b5d823222b"
+                "reference": "a5f89eca21b157396c4f28e8b1e697ff5b3b48be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.14.0-7ac401.zip",
-                "reference": "a3bd8c7b6270280fcea2e131a21f48b5d823222b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.15.0-6efced.zip",
+                "reference": "a5f89eca21b157396c4f28e8b1e697ff5b3b48be",
                 "shasum": null
             },
             "require": {
@@ -1173,7 +1173,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-08-15T11:07:58+00:00"
+            "time": "2018-09-03T08:22:24+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.18.0",
+            "version": "1.18.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "5da44b3eeba8d8063a9c00a3504f14bf2ff92960"
+                "reference": "d3823a747461f74ec359ea677074a777bde64bc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.18.0-f46508.zip",
-                "reference": "5da44b3eeba8d8063a9c00a3504f14bf2ff92960",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.18.2-789a88.zip",
+                "reference": "d3823a747461f74ec359ea677074a777bde64bc5",
                 "shasum": null
             },
             "require": {
@@ -1718,7 +1718,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-15T10:52:45+00:00"
+            "time": "2018-09-03T08:22:24+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -1974,7 +1974,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-08-07T11:13:06+00:00"
+            "time": "2018-08-07T11:12:37+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2029,16 +2029,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.39.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d28efe2162fcc12ec03de3dcfa25ca3d3af4bc92"
+                "reference": "eb289eff1f3d1b353e5e0f5a950d2e50e096e69f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-QA-EPIC-USPS-0cef63.zip",
-                "reference": "d28efe2162fcc12ec03de3dcfa25ca3d3af4bc92",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.8-e2fdb4.zip",
+                "reference": "eb289eff1f3d1b353e5e0f5a950d2e50e096e69f",
                 "shasum": null
             },
             "require": {
@@ -2109,24 +2109,24 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-08-30T12:53:08+00:00"
+            "time": "2018-09-04T09:03:37+00:00"
         },
         {
             "name": "channelgrabber/payment",
-            "version": "dev-QA-EPIC-USPS",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "08d3534c9e203f102ea4f5344308b92225366bd0"
+                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-QA-EPIC-USPS-0356af.zip",
-                "reference": "08d3534c9e203f102ea4f5344308b92225366bd0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.4-1af78a.zip",
+                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-QA-EPIC-USPS as 1.19.4",
+                "channelgrabber/billing": "^1.19.4",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -2137,6 +2137,7 @@
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/transaction": ">=1.1.1, <2.0.0",
                 "channelgrabber/user": "^1.22.4",
+                "channelgrabber/zf2-email-template": "^1.0.25",
                 "composer/composer": "@dev",
                 "symfony/console": "~2.1",
                 "zendframework/zend-di": ">=2.2.5",
@@ -2165,7 +2166,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-08-20T14:28:12+00:00"
+            "time": "2018-09-04T09:43:41+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2923,12 +2924,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "5c3c82ae80cf9e114ba460e2584be3742b21e8a2"
+                "reference": "eb7e7a9ead97449dd4859e35786878a32c86c8d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-95f9de.zip",
-                "reference": "5c3c82ae80cf9e114ba460e2584be3742b21e8a2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-TAC-194-royal-mail-shipstation-webhook-ac9b01.zip",
+                "reference": "eb7e7a9ead97449dd4859e35786878a32c86c8d4",
                 "shasum": null
             },
             "require": {
@@ -2950,7 +2951,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-08-23T14:46:22+00:00"
+            "time": "2018-09-03T11:27:51+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -3487,16 +3488,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.2",
+            "version": "1.26.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a9970e6f01a1b89ab263de11579fe7b7e3caf0f9"
+                "reference": "eb17e925f30842b6ad04ac18b51446856e3660af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.2-39cc65.zip",
-                "reference": "a9970e6f01a1b89ab263de11579fe7b7e3caf0f9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.3-0d29ee.zip",
+                "reference": "eb17e925f30842b6ad04ac18b51446856e3660af",
                 "shasum": null
             },
             "require": {
@@ -3537,7 +3538,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-07-23T13:57:27+00:00"
+            "time": "2018-08-23T13:58:23+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3824,26 +3825,26 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "e7b1a04f4a6090112156e6005388e22b01020080"
+                "reference": "420db1eadb3d76a85187597f405f314ad8d7ac18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.2-5cacc5.zip",
-                "reference": "e7b1a04f4a6090112156e6005388e22b01020080",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.3-f9654a.zip",
+                "reference": "420db1eadb3d76a85187597f405f314ad8d7ac18",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.8.0",
+                "channelgrabber/payment": "^1.10.3",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/user": "^1.25.0",
-                "channelgrabber/zf2-email-template": "^1.0.24",
+                "channelgrabber/zf2-email-template": "^1.0.25",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-permission": "^1.2.2",
                 "channelgrabber/zf2-register": "^1.5.0",
@@ -3871,7 +3872,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-23T14:58:43+00:00"
+            "time": "2018-08-31T09:58:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -3993,16 +3994,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.24",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "8bff4df4f5fcf52562eaf3dc0777c70638ddb4ca"
+                "reference": "dc4b93cf8af3111301599b073aef013e98df0842"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.24-202830.zip",
-                "reference": "8bff4df4f5fcf52562eaf3dc0777c70638ddb4ca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.25-31d8b2.zip",
+                "reference": "dc4b93cf8af3111301599b073aef013e98df0842",
                 "shasum": null
             },
             "require": {
@@ -4026,7 +4027,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-06-07T09:09:36+00:00"
+            "time": "2018-08-31T09:32:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
@@ -4368,16 +4369,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.13",
+            "version": "1.6.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "bfeb692e872fdbef15139ea83b1dcb2912dfebe6"
+                "reference": "dd4bbc5a89def2096b57ac27a8da01d881349935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.13-43cfbf.zip",
-                "reference": "bfeb692e872fdbef15139ea83b1dcb2912dfebe6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.14-5ec9cd.zip",
+                "reference": "dd4bbc5a89def2096b57ac27a8da01d881349935",
                 "shasum": null
             },
             "require": {
@@ -4417,7 +4418,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-08-28T08:34:50+00:00"
+            "time": "2018-08-31T08:34:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4688,12 +4689,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3ce601d5136819f03676c0163c7d8e63ccdcb13d"
+                "reference": "093091f9c48ab98132f320dd4f3fc7d42e6416ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-e3f940.zip",
-                "reference": "3ce601d5136819f03676c0163c7d8e63ccdcb13d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-192-royal-mail-via-shipstation-f5a351.zip",
+                "reference": "093091f9c48ab98132f320dd4f3fc7d42e6416ff",
                 "shasum": null
             },
             "require": {
@@ -4745,7 +4746,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-23T11:22:57+00:00"
+            "time": "2018-09-04T10:46:31+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5719,7 +5720,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6512,7 +6513,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8503,7 +8504,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -9117,7 +9118,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
+                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-36bf555115da4cb03b131b4c04b681a75acd47d1-zip-70c67f.zip",
                 "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
@@ -9148,7 +9149,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9493,8 +9494,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -10338,46 +10338,10 @@
     ],
     "aliases": [
         {
-            "alias": "1.27.4",
-            "alias_normalized": "1.27.4.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.19.3",
-            "alias_normalized": "1.19.3.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.38.1",
-            "alias_normalized": "1.38.1.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.11.3",
-            "alias_normalized": "1.11.3.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/clearbooks"
-        },
-        {
             "alias": "1.2.16",
             "alias_normalized": "1.2.16.0",
             "version": "dev-TAC-192-royal-mail-via-shipstation",
             "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.39.8",
-            "alias_normalized": "1.39.8.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.10.2",
-            "alias_normalized": "1.10.2.0",
-            "version": "dev-QA-EPIC-USPS",
-            "package": "channelgrabber/payment"
         },
         {
             "alias": "1.0.0",
@@ -10386,22 +10350,16 @@
             "package": "channelgrabber/shipstation"
         },
         {
-            "alias": "1.23.14",
-            "alias_normalized": "1.23.14.0",
+            "alias": "1.24.3",
+            "alias_normalized": "1.24.3.0",
             "version": "dev-TAC-192-royal-mail-via-shipstation",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/billing": 20,
-        "channelgrabber/channel": 20,
-        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/payment": 20,
         "channelgrabber/shipstation": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,

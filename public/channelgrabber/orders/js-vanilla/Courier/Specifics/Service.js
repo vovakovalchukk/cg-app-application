@@ -269,7 +269,6 @@ define([
             // fnUpdate() doesnt automatically trigger fnRowCallback which some of our other code depends on
             this.getDataTable().trigger('fnRowCallback', [tr, record]);
         }
-        console.log('Rows refreshed');
         this.getDataTable().trigger('fnRowsUpdatedCallback');
     };
 
@@ -365,7 +364,7 @@ define([
     {
         $(CourierSpecificsDataTable.SELECTOR_LABEL_FORM + ' input[name="order[]"]').remove();
         for (var count in orderIds) {
-            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(Service.SELECTOR_LABEL_FORM);
+            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(CourierSpecificsDataTable.SELECTOR_LABEL_FORM);
         }
         $(CourierSpecificsDataTable.SELECTOR_LABEL_FORM).submit();
     };
@@ -467,7 +466,6 @@ define([
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
             if (response.Records) {
-                console.log('About to refresh rows');
                 self.refreshRowsWithData(response.Records);
             }
             self.processCreateLabelsResponse(response);
@@ -698,6 +696,19 @@ define([
             var selectedService = input.val();
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
+
+            var showServiceWarning = true;
+            for (key in serviceOptions) {
+                if (serviceOptions[key].selected === true) {
+                    showServiceWarning = false;
+                    break;
+                }
+            }
+
+            if (showServiceWarning) {
+                this.getNotifications().notice('The service you requested is unavailable, please select an alternative');
+            }
+
             $(CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId)).val(1);
             this.markOrderLabelAsReady(orderId, CourierSpecificsDataTable.LABEL_STATUS_RATES_FETCHED);
             $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).show();
