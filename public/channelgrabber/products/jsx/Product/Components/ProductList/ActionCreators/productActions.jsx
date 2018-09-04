@@ -85,19 +85,10 @@ define([
                 }
             },
             getProducts: (pageNumber, searchTerm, skuList) => {
-                console.log('in getPRoducts AC outside asyn');
                 return async function(dispatch, getState) {
-                    
-                    console.log('inside getPRoducts AC async');
-                    
-                    
                     const state = getState();
                     pageNumber = pageNumber || 1;
                     searchTerm = stateUtility.getCurrentSearchTerm(state) || '';
-                    
-                    console.log('searchTerm: ', searchTerm);
-                    
-                    
                     skuList = skuList || [];
                     let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
@@ -105,7 +96,6 @@ define([
                     try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);
-                        console.log('in getPRoducts AC data result:  ' , data);
                         dispatch(getProductsSuccess(data));
                         dispatch(productLinkActions.getLinkedProducts());
                         return data;
