@@ -6,6 +6,7 @@ define([
     'Product/Components/ProductList/ActionCreators/productActions',
     'Product/Components/ProductList/ActionCreators/productLinkActions',
     'Product/Components/ProductList/ActionCreators/paginationActions',
+    'Product/Components/ProductList/ActionCreators/searchActions',
     'Product/Components/ProductList/Reducers/CombinedReducer',
     'Product/Components/ProductList/ProductList'
 ], function(
@@ -16,6 +17,7 @@ define([
     actionCreators,
     productLinkActions,
     paginationActions,
+    searchActions,
     CombinedReducer,
     ProductList
 ) {
@@ -37,12 +39,13 @@ define([
     };
     
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);
-
-    function combineActionCreators(){
+    
+    function combineActionCreators() {
         return Object.assign(
             actionCreators,
             productLinkActions,
-            paginationActions
+            paginationActions,
+            searchActions
         );
     }
 });

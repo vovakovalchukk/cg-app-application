@@ -1,6 +1,5 @@
 define([
     'react',
-    'Product/Components/Search',
     'Product/Filter/Entity',
     'Product/Components/Footer',
     'Product/Components/ProductRow',
@@ -14,7 +13,6 @@ define([
     'Product/Components/CreateListing/ProductSearch/Root'
 ], function(
     React,
-    SearchBox,
     ProductFilter,
     ProductFooter,
     ProductRow,
@@ -155,12 +153,6 @@ define([
                 PRODUCT_LIST_VIEW: this.renderProductListView,
                 ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
                 PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
-            }
-        },
-        renderSearchBox: function() {
-            if (this.props.searchAvailable) {
-                return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
-                                  submitCallback={this.filterBySearch}/>
             }
         },
         renderAddNewProductButton: function() {

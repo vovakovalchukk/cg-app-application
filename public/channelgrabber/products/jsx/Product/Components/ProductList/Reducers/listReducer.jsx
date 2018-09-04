@@ -6,7 +6,6 @@ define([
     "use strict";
     
     var initialState = {
-        productSearchActive: false,
         fetchingUpdatedStockLevelsForSkus: {},
         currentRowScrollIndex: null
     };

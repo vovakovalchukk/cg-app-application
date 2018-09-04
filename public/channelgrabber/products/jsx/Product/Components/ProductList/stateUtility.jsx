@@ -50,6 +50,13 @@ define([], function() {
             },
             getPaginationLimit(state){
                 return state.pagination.limit;
+            },
+            getCurrentPageNumber(state){
+                return state.pagination.page;
+            },
+            getCurrentSearchTerm(state){
+                console.log('in getCurrentSearchTerm returning state.list.searchTerm : ' ,state);
+                return state.search.searchTerm;
             }
         };
     };

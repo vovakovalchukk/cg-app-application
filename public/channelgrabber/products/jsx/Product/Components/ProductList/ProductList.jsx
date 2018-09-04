@@ -3,6 +3,7 @@ define([
     'fixed-data-table',
     'styled-components',
     'Product/Components/ProductList/CellCreator/factory',
+    'Product/Components/Search',
     'Product/Components/ProductLinkEditor',
     'Product/Components/ProductList/Components/Footer/Footer',
     'Product/Components/ProductList/ColumnCreator/columns',
@@ -13,6 +14,7 @@ define([
     FixedDataTable,
     styled,
     cellCreator,
+    SearchBox,
     ProductLinkEditor,
     ProductFooter,
     columns,
@@ -84,12 +86,6 @@ define([
         onProductLinkRefresh: function(event) {
             let sku = event.detail;
             this.props.actions.getLinkedProducts([sku]);
-        },
-        renderSearchBox: function() {
-            if (this.props.searchAvailable) {
-                return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
-                                  submitCallback={this.filterBySearch}/>
-            }
         },
         onEditProductLink: function(event) {
             let {sku, productLinks} = event.detail;
@@ -184,7 +180,10 @@ define([
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">
-                        {this.renderSearchBox()}
+                        <SearchBox
+                            initialSearchTerm={this.props.initialSearchTerm}
+                            submitCallback={this.props.actions.searchProducts}
+                        />
                         {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
                     </div>
                     <Tabs/>
@@ -214,5 +213,4 @@ define([
     });
     
     return ProductList;
-})
-;
+});
