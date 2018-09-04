@@ -29,8 +29,6 @@ define([
                 account = data.accountDefaultSettings[accountId];
                 defaults.ebay = {
                     dispatchTimeMax: account.listingDispatchTime,
-                    epid: data.selectedProductDetails.epid ? data.selectedProductDetails.epid : null,
-                    epidAccountId: data.selectedProductDetails.epidAccountId ? data.selectedProductDetails.epidAccountId : null
                 };
             }
         }
@@ -69,14 +67,14 @@ define([
         return defaults;
     };
 
-    var getProductIdentifiers = function(variationData, selectedProductDetails) {
+    var getProductIdentifiers = function(variationData) {
         var identifiers = {};
         variationData.forEach(function(variation) {
             identifiers[variation.sku] = {
-                ean: variation.details.ean ? variation.details.ean : selectedProductDetails.ean,
-                upc: variation.details.upc ? variation.details.upc : selectedProductDetails.upc,
-                isbn: variation.details.isbn ? variation.details.isbn : selectedProductDetails.isbn,
-                mpn: variation.details.mpn ? variation.details.mpn : selectedProductDetails.mpn
+                ean: variation.details.ean,
+                upc: variation.details.upc,
+                isbn: variation.details.isbn,
+                mpn: variation.details.mpn
             };
         });
         return identifiers;
@@ -86,8 +84,7 @@ define([
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
                 variationData = action.payload.variationData,
-                selectedAccounts = action.payload.selectedAccounts,
-                selectedProductDetails = action.payload.selectedProductDetails;
+                selectedAccounts = action.payload.selectedAccounts;
 
             var dimensions = {};
             variationData.map(function(variation) {
@@ -112,11 +109,11 @@ define([
             var productDetails = product.detail ? product.details : {};
 
             return {
-                title: selectedProductDetails.title ? selectedProductDetails.title : product.name,
+                title: product.name,
                 description: getDetailForProduct('description', productDetails, variationData),
                 condition: getDetailForProduct('condition', productDetails, variationData),
-                brand: selectedProductDetails.brand ? selectedProductDetails.brand : getDetailForProduct('brand', productDetails, variationData),
-                identifiers: getProductIdentifiers(variationData, selectedProductDetails),
+                brand: getDetailForProduct('brand', productDetails, variationData),
+                identifiers: getProductIdentifiers(variationData, {}),
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
@@ -130,6 +127,22 @@ define([
         },
         "REVERT_TO_INITIAL_VALUES": function() {
             return {};
+        },
+        "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
+            let searchProduct = action.payload.searchProduct,
+                sku = action.payload.cgProduct,
+                identifier = state.identifiers[sku];
+
+            return Object.assign({}, state, {
+                identifiers: Object.assign({}, state.identifiers, {
+                    [sku]: {
+                        ean: identifier.ean ? identifier.ean : searchProduct.ean,
+                        upc: identifier.upc ? identifier.upc : searchProduct.upc,
+                        isbn: identifier.isbn ? identifier.isbn : searchProduct.isbn,
+                        mpn: identifier.mpn ? identifier.mpn : searchProduct.mpn
+                    }
+                })
+            });
         }
     });
 });
