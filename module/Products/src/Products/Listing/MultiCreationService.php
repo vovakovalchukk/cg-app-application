@@ -3,7 +3,6 @@ namespace Products\Listing;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as Accounts;
-use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Gearman\Generator\Listing\JobGeneratorFactory;
 use CG\Channel\Listing\CreationService\StatusService;
@@ -15,6 +14,7 @@ use CG\Product\AccountDetail\Entity as ProductAccountDetail;
 use CG\Product\AccountDetail\Mapper as ProductAccountDetailMapper;
 use CG\Product\AccountDetail\Service as ProductAccountDetailService;
 use CG\Product\Category\Collection as Categories;
+use CG\Product\Category\Collection as CategoryCollection;
 use CG\Product\Category\Entity as Category;
 use CG\Product\Category\Filter as CategoryFilter;
 use CG\Product\Category\Service as CategoryService;
@@ -38,7 +38,6 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Product\Listing\Service as ProductListingService;
-use CG\Product\Category\Collection as CategoryCollection;
 
 class MultiCreationService implements LoggerAwareInterface
 {
@@ -160,8 +159,9 @@ class MultiCreationService implements LoggerAwareInterface
         array $categoryTemplateIds,
         string $siteId,
         array $productData,
-        $guid,
-        array $accountCategoriesMap = []
+        string $guid,
+        array $accountCategoriesMap = [],
+        string $processGuid
     ): bool {
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
@@ -197,7 +197,7 @@ class MultiCreationService implements LoggerAwareInterface
 
             $this->updateProductEntity($product, $productData);
             $this->saveProductDetails($product, $productData, $variationsData);
-            $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData);
+            $this->saveProductChannelDetails($accounts->getArrayOf('channel'), $product, $productData, $processGuid);
             $this->saveProductAccountDetails($accounts, $product, $variationsData);
             $this->saveProductCategoryDetails($categories, $product, $productData);
 
@@ -209,7 +209,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $guid,
                     $categoryTemplates,
                     $accountCategoriesMap,
-                    $productData
+                    $productData,
+                    $processGuid
                 );
             } else {
                 if (!$product->isParent()) {
@@ -225,7 +226,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $guid,
                     $categoryTemplates,
                     $accountCategoriesMap,
-                    $productData
+                    $productData,
+                    $processGuid
                 );
             }
 
@@ -320,7 +322,7 @@ class MultiCreationService implements LoggerAwareInterface
                 (new CategoryFilter('all', 1))->setId($categoryIds)
             );
         } catch (NotFound $exception) {
-            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_ACCOUNTS_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_ACCOUNTS_NOT_FOUND);
+            $this->logWarningException($exception, static::LOG_MSG_REQUESTED_CATEGORIES_NOT_FOUND, [implode(',', $categoryIds)], static::LOG_CODE_REQUESTED_CATEGORIES_NOT_FOUND);
             return null;
         }
     }
@@ -439,18 +441,23 @@ class MultiCreationService implements LoggerAwareInterface
         int $productId,
         string $channel,
         int $ou,
-        array $productChannelData
+        array $productChannelData,
+        string $processGuid
     ): ProductChannelDetail {
         return $this->productChannelDetailMapper->fromArray([
             'productId' => $productId,
             'channel' => $channel,
             'organisationUnitId' => $ou,
-            'external' => $productChannelData,
+            'external' => $this->channelService->formatExternalChannelData($channel, $productChannelData, $processGuid),
         ]);
     }
 
-    protected function saveProductChannelDetails(array $channels, Product $product, array $productData)
-    {
+    protected function saveProductChannelDetails(
+        array $channels,
+        Product $product,
+        array $productData,
+        string $processGuid
+    ): void {
         foreach (($productData['productChannelDetail'] ?? []) as $productChannelData) {
             $channel = $productChannelData['channel'] ?? null;
             if (!$channel || !in_array($channel, $channels)) {
@@ -461,7 +468,8 @@ class MultiCreationService implements LoggerAwareInterface
                     $product->getId(),
                     $channel,
                     $product->getOrganisationUnitId(),
-                    $productChannelData
+                    $productChannelData,
+                    $processGuid
                 )
             );
         }
@@ -693,9 +701,10 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         CategoryTemplates $categoryTemplates,
         array $accountCategoriesMap,
-        array $productData
+        array $productData,
+        string $processGuid
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $processGuid);
     }
 
     protected function generateCreateVariationListingJobs(
@@ -706,9 +715,10 @@ class MultiCreationService implements LoggerAwareInterface
         string $guid,
         CategoryTemplates $categoryTemplates,
         array $accountCategoriesMap,
-        array $productData
+        array $productData,
+        string $processGuid
     ) {
-        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $variations);
+        $this->generateListingJobs($accounts, $categories, $product, $guid, $categoryTemplates, $accountCategoriesMap, $productData, $processGuid, $variations);
     }
 
     protected function generateListingJobs(
@@ -719,37 +729,46 @@ class MultiCreationService implements LoggerAwareInterface
         CategoryTemplates $categoryTemplates,
         array $accountCategoriesMap,
         array $productData,
+        string $processGuid,
         array $variations = []
     ) {
-        $listingData = $this->getListingDataFromProductData($productData, $product);
+        $listingData = $this->getListingDataFromProductData($productData, $product, $processGuid);
         $accountCategories = $this->getAccountAndCategoriesArray($accounts, $categories, $categoryTemplates, $accountCategoriesMap);
         $extractedVariations = [];
         if (!empty($variations)) {
             $extractedVariations = $this->extractVariationProductIds($variations);
         }
 
-        foreach ($accountCategories as $accountId => $categoriesByAccount) {
-            $this->jobGeneratorFactory->getGeneratorForChannel($categoriesByAccount['account'])->generateJob(
-                $categoriesByAccount['account'],
-                $categoriesByAccount['categories'],
+        $accountsByChannel = $this->groupAccountsByChannel($accounts);
+
+        /** @var Accounts $channelAccounts */
+        foreach ($accountsByChannel as $channel => $channelAccounts) {
+            $channelAccountCategories = $this->filterAccountCategoriesToSpecificAccounts($accountCategories, $channelAccounts);
+            $channelGenerator = $this->jobGeneratorFactory->getGeneratorForChannel($channelAccounts->getFirst());
+            $channelGenerator->generateJobs(
+                $channelAccounts,
+                $channelAccountCategories,
                 $product,
-                $this->getSiteIdForAccount($categoriesByAccount['account']),
+                $this->getSiteIdsByAccount($channelAccounts),
                 $guid,
                 $this->activeUserContainer->getLocale(),
                 $listingData,
                 $extractedVariations
             );
-            foreach ($categoriesByAccount['categories'] as $category) {
-                $this->statusService->markListingAsStarted($guid, $categoriesByAccount['account']->getId(), $category->getId());
+            foreach ($channelAccountCategories as $accountId => $categories) {
+                foreach ($categories as $category) {
+                    $this->statusService->markListingAsStarted($guid, $accountId, $category->getId());
+                }
             }
         }
     }
 
-    protected function getListingDataFromProductData(array $productData, Product $product): array
+    protected function getListingDataFromProductData(array $productData, Product $product, string $processGuid): array
     {
         // For now the only data that isn't persisted anywhere is the images
         $listingData = [
             'imageId' => $productData['imageId'] ?? null,
+            'processGuid' => $processGuid
         ];
         if (!$product->isParent()) {
             return $listingData;
@@ -777,22 +796,46 @@ class MultiCreationService implements LoggerAwareInterface
         return $ids;
     }
 
-    protected function getSiteIdForAccount(Account $account)
+    protected function getSiteIdsByAccount(Accounts $accounts): array
     {
-        $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
-        return isset($channelSpecificValues['defaultSiteId']) ? $channelSpecificValues['defaultSiteId'] : 0;
+        $siteIdsByAccount = [];
+        foreach ($accounts as $account) {
+            $channelSpecificValues = $this->channelService->getChannelSpecificFieldValues($account);
+            $siteIdsByAccount[$account->getId()] = $channelSpecificValues['defaultSiteId'] ?? 0;
+        }
+        return $siteIdsByAccount;
     }
 
-    protected function getAccountAndCategoriesArray(Accounts $accounts, CategoryCollection $categories, CategoryTemplates $categoryTemplates, array $accountCategoriesMap): array
-    {
+    protected function getAccountAndCategoriesArray(
+        Accounts $accounts,
+        CategoryCollection $categories,
+        CategoryTemplates $categoryTemplates,
+        array $accountCategoriesMap
+    ): array {
         $accountCategories = [];
         foreach ($this->getAccountCategoryIterator($accounts, $categories, $categoryTemplates, $accountCategoriesMap) as [$account, $category]) {
-            $accountCategories[$account->getId()]['account'] = $account;
-            if (!isset($accountCategories[$account->getId()]['categories']) || !$accountCategories[$account->getId()]['categories'] instanceof CategoryCollection) {
-                $accountCategories[$account->getId()]['categories'] = new CategoryCollection(Category::class, __CLASS__);
+            if (!isset($accountCategories[$account->getId()]) || !$accountCategories[$account->getId()] instanceof CategoryCollection) {
+                $accountCategories[$account->getId()] = new CategoryCollection(Category::class, __CLASS__);
             }
-            $accountCategories[$account->getId()]['categories']->attach($category);
+            $accountCategories[$account->getId()]->attach($category);
         }
         return $accountCategories;
+    }
+
+    protected function groupAccountsByChannel(Accounts $accounts): array
+    {
+        $accountsByChannel = [];
+        $channels = array_unique($accounts->getArrayOf('channel'));
+        foreach ($channels as $channel) {
+            $accountsByChannel[$channel] = $accounts->getBy('channel', $channel);
+        }
+        return $accountsByChannel;
+    }
+
+    protected function filterAccountCategoriesToSpecificAccounts(array $accountCategories, Accounts $accounts): array
+    {
+        return array_filter($accountCategories, function ($accountId) use ($accounts) {
+            return $accounts->containsId($accountId);
+        }, ARRAY_FILTER_USE_KEY);
     }
 }

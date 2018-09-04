@@ -10,6 +10,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Products\Listing\Channel\Service as ChannelService;
 use Products\Listing\Exception as ListingException;
 use Products\Product\Category\Service as CategoryService;
+use Products\Listing\SearchService;
 
 class JsonController extends AbstractJsonController
 {
@@ -21,6 +22,7 @@ class JsonController extends AbstractJsonController
     const ROUTE_CATEGORY_CHILDREN = 'CategoryChildren';
     const ROUTE_REFRESH_CATEGORIES = 'RefreshCategories';
     const ROUTE_REFRESH_ACCOUNT_POLICIES = 'RefreshAccountPolicies';
+    const ROUTE_PRODUCT_SEARCH = 'ProductSearch';
 
     /** @var AccountService */
     protected $accountService;
@@ -28,17 +30,21 @@ class JsonController extends AbstractJsonController
     protected $channelService;
     /** @var CategoryService */
     protected $categoryService;
+    /** @var SearchService */
+    protected $searchService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         AccountService $accountService,
         ChannelService $channelService,
-        CategoryService $categoryService
+        CategoryService $categoryService,
+        SearchService $searchService
     ) {
         parent::__construct($jsonModelFactory);
         $this->accountService = $accountService;
         $this->channelService = $channelService;
         $this->categoryService = $categoryService;
+        $this->searchService = $searchService;
     }
 
     public function defaultSettingsAjaxAction()
@@ -52,7 +58,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -65,7 +71,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -80,7 +86,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -93,7 +99,7 @@ class JsonController extends AbstractJsonController
                 ),
             ]);
         } catch (\Throwable $exception) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($exception);
         }
     }
 
@@ -108,7 +114,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -121,7 +127,7 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -134,7 +140,23 @@ class JsonController extends AbstractJsonController
         } catch (ListingException $e) {
             return $this->buildErrorResponse($e->getMessage());
         } catch (\Throwable $e) {
-            return $this->buildGenericErrorResponse();
+            return $this->buildGenericErrorResponse($e);
+        }
+    }
+
+    public function searchAction()
+    {
+        try {
+            $account = $this->fetchAccountFromRoute();
+            $query = trim($this->params()->fromPost('query', ''));
+            $result = $this->searchService->search($account, $query);
+            return $this->buildResponse([
+                'products' => $result
+            ]);
+        } catch (ListingException $e) {
+            return $this->buildErrorResponse($e->getMessage());
+        } catch (\Throwable $e) {
+            return $this->buildGenericErrorResponse($e);
         }
     }
 
@@ -154,8 +176,9 @@ class JsonController extends AbstractJsonController
         }
     }
 
-    protected function buildGenericErrorResponse()
+    protected function buildGenericErrorResponse(\Throwable $e)
     {
+        $this->logErrorException($e);
         return $this->buildErrorResponse('An error has occurred. Please try again');
     }
 

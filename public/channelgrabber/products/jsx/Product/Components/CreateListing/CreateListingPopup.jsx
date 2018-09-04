@@ -57,11 +57,15 @@ define([
                 submissionStatuses: {},
                 onCreateListingClose: function() {},
                 massUnit: null,
-                lengthUnit: null
+                lengthUnit: null,
+                selectedProductDetails: {}
             }
         },
         componentDidMount: function () {
             this.props.loadInitialValues();
+        },
+        componentWillUnmount: function() {
+            this.props.resetSubmissionStatuses();
         },
         renderForm: function() {
             return <form>
@@ -196,6 +200,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 fieldChange={this.props.change}
                 resetSection={this.props.resetSection}
+                selectedProductDetails={this.props.selectedProductDetails}
             />;
         },
         renderProductIdentifiers: function() {
@@ -319,9 +324,13 @@ define([
                         props.accounts,
                         props.accountDefaultSettings,
                         props.accountsData,
-                        props.categoryTemplates
+                        props.categoryTemplates,
+                        props.selectedProductDetails ? props.selectedProductDetails : {}
                     )
                 );
+            },
+            resetSubmissionStatuses: function () {
+                dispatch(Actions.resetSubmissionStatuses());
             }
         };
     };

@@ -21,7 +21,8 @@ define([
                 productChannelDetail: formatProductChannelDetail(values, props),
                 productCategoryDetail: formatProductCategoryDetail(values, props)
             },
-            accountCategories: formatAccountCategoryMap(props)
+            accountCategories: formatAccountCategoryMap(props),
+            processGuid: props.submissionStatuses.processGuid
         };
     };
 
@@ -250,7 +251,15 @@ define([
     };
 
     return {
-        loadInitialValues: function(product, variationData, accounts, accountDefaultSettings, accountsData, categoryTemplates) {
+        loadInitialValues: function(
+            product,
+            variationData,
+            accounts,
+            accountDefaultSettings,
+            accountsData,
+            categoryTemplates,
+            selectedProductDetails
+        ) {
             return {
                 type: "LOAD_INITIAL_VALUES",
                 payload: {
@@ -259,7 +268,8 @@ define([
                     selectedAccounts: accounts,
                     accountDefaultSettings: accountDefaultSettings,
                     accountsData: accountsData,
-                    categoryTemplates: categoryTemplates
+                    categoryTemplates: categoryTemplates,
+                    selectedProductDetails: selectedProductDetails
                 }
             };
         },
@@ -270,7 +280,7 @@ define([
                 data: formatFormValuesForSubmission(formValues, props),
                 success: function(response) {
                     if (response.allowed) {
-                        dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid));
+                        dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid, response.processGuid));
                         progressPolling.startListingProgressPolling(dispatch, response.guid);
                     } else {
                         dispatch(ResponseActions.listingFormSubmittedNotAllowed());
@@ -317,6 +327,12 @@ define([
                     accountId: accountId,
                     policies: policies
                 }
+            }
+        },
+        resetSubmissionStatuses: function() {
+            return {
+                type: "RESET_SUBMISSION_STATUSES",
+                payload: {}
             }
         }
     };
