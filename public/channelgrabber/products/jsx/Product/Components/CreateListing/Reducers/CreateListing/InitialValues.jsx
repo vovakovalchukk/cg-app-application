@@ -143,6 +143,24 @@ define([
                     }
                 })
             });
+        },
+        "CLEAR_SELECTED_PRODUCT": function(state, action) {
+            let sku = action.payload.sku,
+                variation = action.payload.variationData.find(function(variation) {
+                    return variation.sku == sku;
+                }),
+                identifier = variation ? variation.details : {};
+
+            return Object.assign({}, state, {
+                identifiers: Object.assign({}, state.identifiers, {
+                    [sku]: {
+                        ean: identifier.ean,
+                        upc: identifier.upc,
+                        isbn: identifier.isbn,
+                        mpn: identifier.mpn
+                    }
+                })
+            });
         }
     });
 });

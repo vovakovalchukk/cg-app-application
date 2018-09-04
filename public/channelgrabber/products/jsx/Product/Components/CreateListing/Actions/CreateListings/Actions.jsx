@@ -391,11 +391,12 @@ define([
                 }
             }
         },
-        clearSelectedProduct: function(sku) {
+        clearSelectedProduct: function(sku, variationData) {
             return {
                 type: "CLEAR_SELECTED_PRODUCT",
                 payload: {
-                    sku: sku
+                    sku: sku,
+                    variationData: variationData
                 }
             }
         }

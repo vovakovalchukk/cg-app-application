@@ -81,6 +81,7 @@ define([
                 accountId={this.props.searchAccountId}
                 mainProduct={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
+                clearSelectedProduct={this.props.clearSelectedProduct}
             />;
         },
         renderForm: function() {
@@ -353,6 +354,9 @@ define([
             },
             fetchCategoryTemplateDependentFieldValues: function() {
                 dispatch(Actions.fetchCategoryTemplateDependentFieldValues(props.categories, props.accountDefaultSettings, props.accountsData, dispatch));
+            },
+            clearSelectedProduct: function(sku) {
+                dispatch(Actions.clearSelectedProduct(sku, props.variationsDataForProduct));
             }
         };
     };

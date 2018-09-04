@@ -246,9 +246,6 @@ define([
             },
             assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
                 dispatch(CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
-            },
-            clearSelectedProduct: function(sku) {
-                dispatch(CreateListingActions.clearSelectedProduct(sku))
             }
         };
     };
