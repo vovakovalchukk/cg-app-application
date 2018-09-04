@@ -342,11 +342,11 @@ define([
                 }
             }
         },
-        resetSubmissionStatuses: function() {
+        revertToInitialValues: function() {
             return {
-                type: "RESET_SUBMISSION_STATUSES",
+                type: "REVERT_TO_INITIAL_VALUES",
                 payload: {}
-            }
+            };
         },
         fetchCategoryTemplateDependentFieldValues: function(categoryTemplateIds, accountDefaultSettings, accountsData, dispatch) {
             $.ajax({

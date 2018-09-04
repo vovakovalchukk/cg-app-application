@@ -41,7 +41,6 @@ define([
 
     const Field = ReduxForm.Field;
     const FormSection = ReduxForm.FormSection;
-    const Selector = ReduxForm.formValueSelector('productSearch');
 
     let CreateListingPopup = React.createClass({
         getDefaultProps: function() {
@@ -71,7 +70,7 @@ define([
             this.props.loadInitialValues();
         },
         componentWillUnmount: function() {
-            this.props.resetSubmissionStatuses();
+            this.props.revertToInitialValues();
         },
         renderProductSearchComponent: function() {
             if (!this.props.searchAccountId || !this.props.productSearchActive) {
@@ -260,7 +259,7 @@ define([
             </span>);
         },
         getSelectedAccountsData: function() {
-            var accounts = [];
+            let accounts = [];
             this.props.accounts.map(function(accountId) {
                 accounts.push(this.props.accountsData[accountId]);
             }.bind(this));
@@ -287,7 +286,7 @@ define([
             return this.props.submissionStatuses.inProgress;
         },
         render: function() {
-            var isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+            let isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return (
                 <Container
                     initiallyActive={true}
@@ -350,8 +349,8 @@ define([
                     )
                 );
             },
-            resetSubmissionStatuses: function () {
-                dispatch(Actions.resetSubmissionStatuses());
+            revertToInitialValues: function () {
+                dispatch(Actions.revertToInitialValues());
             },
             fetchCategoryTemplateDependentFieldValues: function() {
                 dispatch(Actions.fetchCategoryTemplateDependentFieldValues(props.categories, props.accountDefaultSettings, props.accountsData, dispatch));

@@ -5,7 +5,7 @@ define([
 ) {
     "use strict";
 
-    var initialState = {
+    let initialState = {
         guid: null,
         accounts: {},
         inProgress: false,
@@ -57,8 +57,8 @@ define([
                 inProgress: false
             });
         },
-        "RESET_SUBMISSION_STATUSES": function (state, action) {
-            return initialState;
+        "REVERT_TO_INITIAL_VALUES": function() {
+            return Object.assign({}, initialState);
         }
     });
 });

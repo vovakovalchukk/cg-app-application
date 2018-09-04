@@ -127,6 +127,9 @@ define([
             return Object.assign({}, state, {
                 category: formatCategoryDefaultValues(action.payload)
             });
+        },
+        "REVERT_TO_INITIAL_VALUES": function() {
+            return {};
         }
     });
 });

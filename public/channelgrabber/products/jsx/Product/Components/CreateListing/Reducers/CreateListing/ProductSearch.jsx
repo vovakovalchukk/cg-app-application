@@ -9,7 +9,6 @@ define([
         selectedProducts: {}
     };
 
-
     return reducerCreator(initialState, {
         "FETCH_SEARCH_RESULTS": function(state) {
             return Object.assign({}, state, {
@@ -54,6 +53,9 @@ define([
             return Object.assign({}, state, {
                 selectedProducts: selectedProducts
             });
+        },
+        "REVERT_TO_INITIAL_VALUES": function() {
+            return Object.assign({}, initialState);
         }
     });
 });
