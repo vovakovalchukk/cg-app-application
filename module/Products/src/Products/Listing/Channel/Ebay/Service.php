@@ -1,15 +1,19 @@
 <?php
 namespace Products\Listing\Channel\Ebay;
 
+use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Policy\Collection as AccountPolicyCollection;
 use CG\Account\Policy\Entity as AccountPolicy;
 use CG\Account\Policy\Filter as AccountPolicyFilter;
 use CG\Account\Policy\Service as AccountPolicyService;
 use CG\Account\Shared\Entity as Account;
+use CG\Ebay\CatalogApi\Token\InitialisationService as TokenInitialisationService;
 use CG\Ebay\Category\ExternalData\Data;
 use CG\Ebay\Category\ExternalData\FeatureHelper;
 use CG\Ebay\Credentials;
+use CG\Ebay\Listing\Epid\Storage as EpidStorage;
+use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
 use CG\Ebay\Site\CurrencyMap;
 use CG\Ebay\Site\Map as SiteMap;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodService;
@@ -19,24 +23,34 @@ use CG\Order\Shared\Shipping\Method\Filter as ShippingMethodFilter;
 use CG\Product\Category\ExternalData\Entity as CategoryExternal;
 use CG\Product\Category\ExternalData\Filter as CategoryExternalFilter;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
+use CG\Stdlib\DateTime;
+use CG\Stdlib\Exception\Runtime\InvalidCredentialsException;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use function CG\Stdlib\isArrayAssociative;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use Products\Listing\Category\Service as CategoryService;
+use Products\Listing\Channel\AccountDataInterface;
 use Products\Listing\Channel\AccountPoliciesInterface;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
+use Products\Listing\Channel\ChannelDataInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
 use Products\Listing\Channel\DefaultAccountSettingsInterface;
-use CG\Ebay\SellerPolicies\Service as EbayPoliciesService;
+use function CG\Stdlib\isArrayAssociative;
 
 class Service implements
     CategoryDependentServiceInterface,
     DefaultAccountSettingsInterface,
     ChannelSpecificValuesInterface,
     CategoryChildrenInterface,
-    AccountPoliciesInterface
+    AccountPoliciesInterface,
+    AccountDataInterface,
+    ChannelDataInterface,
+    LoggerAwareInterface
 {
+    use LogTrait;
+
     const ALLOWED_SETTINGS_KEYS = [
         'listingLocation' => 'listingLocation',
         'listingCurrency' => 'listingCurrency',
@@ -66,6 +80,14 @@ class Service implements
     protected $accountPolicyService;
     /** @var EbayPoliciesService */
     protected $ebayPoliciesService;
+    /** @var TokenInitialisationService */
+    protected $tokenInitialisationService;
+    /** @var AccountService */
+    protected $accountService;
+    /** @var EpidStorage */
+    protected $epidStorage;
+    /** @var array */
+    protected $credentials = [];
 
     protected $selectionModesToInputTypes = [
         'FreeText' => self::TYPE_TEXT,
@@ -80,6 +102,9 @@ class Service implements
         ActiveUserInterface $activeUser,
         AccountPolicyService $accountPolicyService,
         EbayPoliciesService $ebayPoliciesService,
+        TokenInitialisationService $tokenInitialisationService,
+        AccountService $accountService,
+        EpidStorage $epidStorage,
         array $postData = []
     ) {
         $this->categoryService = $categoryService;
@@ -90,6 +115,9 @@ class Service implements
         $this->postData = $postData;
         $this->accountPolicyService = $accountPolicyService;
         $this->ebayPoliciesService =  $ebayPoliciesService;
+        $this->tokenInitialisationService = $tokenInitialisationService;
+        $this->accountService = $accountService;
+        $this->epidStorage = $epidStorage;
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId): array
@@ -180,6 +208,68 @@ class Service implements
         return $this->fetchPoliciesForAccount($account);
     }
 
+    public function getAccountData(Account $account): array
+    {
+        $listingsAuthActive = $this->hasOAuthTokenActive($account);
+        $initialisationUrl = !$listingsAuthActive ? $this->tokenInitialisationService->getInitializationUrl($account) : null;
+        return array_merge(
+            $account->toArray(),
+            [
+                'listingsAuthActive' => $listingsAuthActive,
+                'authTokenInitialisationUrl' => $initialisationUrl,
+                'siteId' => $this->fetchDefaultSiteIdForAccount($account)
+            ]
+        );
+    }
+
+    public function formatExternalChannelData(array $data, string $processGuid): array
+    {
+        if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
+            try {
+                $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
+                $epid = $epidEntity->getEpid();
+                $epidAccountId = $epidEntity->getAccountId();
+            } catch (NotFound $e) {
+                return $data;
+            }
+        }
+
+        try {
+            /** @var Account $account */
+            $account = $this->accountService->fetch($epidAccountId);
+        } catch (NotFound $e) {
+            unset($data['epid'], $data['epidAccountId']);
+            return $data;
+        }
+
+        unset($data['epidAccountId']);
+
+        return array_merge($data, [
+            'marketplace' => $this->fetchDefaultSiteIdForAccount($account),
+            'epid' => $epid
+        ]);
+    }
+
+    protected function hasOAuthTokenActive(Account $account): bool
+    {
+        if (!$this->isMarketplaceSupportedByOAuth($account)) {
+            return false;
+        }
+        $tokenExpiryDate = $account->getExternalData()['oAuthExpiryDate'] ?? null;
+
+        try {
+            return $tokenExpiryDate && $tokenExpiryDate > (new DateTime())->stdFormat()
+                && (bool)$this->fetchCredentialsForAccount($account)->getOAuthToken();
+        } catch (InvalidCredentialsException $e) {
+            return false;
+        }
+    }
+
+    protected function isMarketplaceSupportedByOAuth(Account $account): bool
+    {
+        return SiteMap::isMarketplaceAllowedForCatalogApi($this->fetchDefaultSiteIdForAccount($account));
+    }
+
     protected function fetchEbayCategoryData(int $categoryId): ?Data
     {
         try {
@@ -237,7 +327,7 @@ class Service implements
         $optional = [];
         $categorySpecifics = $ebayData->getCategorySpecifics();
         $recommendations = $categorySpecifics['NameRecommendation'];
-        if (isArrayAssociative($recommendations)) {
+        if (is_array($recommendations) && isArrayAssociative($recommendations)) {
             $recommendations = [$recommendations];
         }
         foreach ($recommendations as $recommendation) {
@@ -371,9 +461,26 @@ class Service implements
 
     protected function fetchDefaultSiteIdForAccount(Account $account): int
     {
+        try {
+            $credentials = $this->fetchCredentialsForAccount($account);
+            return $credentials->getSiteId();
+        } catch (InvalidCredentialsException $e) {
+            $this->logErrorException($e);
+            // We need this to prevent various callers of the current method to break
+            return SiteMap::SITE_CODE_UK;
+        }
+    }
+
+    protected function fetchCredentialsForAccount(Account $account): Credentials
+    {
+        $credentials = $this->credentials[$account->getId()] ?? null;
+        if ($credentials instanceof Credentials) {
+            return $credentials;
+        }
         /** @var Credentials $credentials */
         $credentials = $this->cryptor->decrypt($account->getCredentials());
-        return $credentials->getSiteId();
+        $this->credentials[$account->getId()] = $credentials;
+        return $credentials;
     }
 
     protected function formatShippingMethodsArray(ShippingMethodCollection $shippingMethods): array

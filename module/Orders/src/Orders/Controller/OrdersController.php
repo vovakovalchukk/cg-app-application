@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use ArrayObject;
+use CG\Locale\Mass;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
@@ -31,8 +32,8 @@ use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\I18n\View\Helper\CurrencyFormat;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -328,13 +329,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             );
         }
 
-        // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
-        if ($filter->getPurchaseDateFrom()) {
-            $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));
-        }
-        if ($filter->getPurchaseDateTo()) {
-            $filter->setPurchaseDateTo($this->dateFormatInput($filter->getPurchaseDateTo()));
-        }
+        // Must localise the filter *after* persisting otherwise it'll happen again when its reloaded
+        $this->localiseFilterData($filter);
 
         try {
             $orders = $this->orderService->getOrders($filter);
@@ -348,6 +344,28 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         return $this->jsonModelFactory->newInstance($data);
+    }
+
+    protected function localiseFilterData(Filter $filter): void
+    {
+        if ($filter->getPurchaseDateFrom()) {
+            $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));
+        }
+        if ($filter->getPurchaseDateTo()) {
+            $filter->setPurchaseDateTo($this->dateFormatInput($filter->getPurchaseDateTo()));
+        }
+        if ($filter->getWeightMin()) {
+            $filter->setWeightMin(Mass::convert(
+                $filter->getWeightMin(),
+                Mass::getForLocale($this->activeUserContainer->getLocale())
+            ));
+        }
+        if ($filter->getWeightMax()) {
+            $filter->setWeightMax(Mass::convert(
+                $filter->getWeightMax(),
+                Mass::getForLocale($this->activeUserContainer->getLocale())
+            ));
+        }
     }
 
     public function jsonFilterIdAction()

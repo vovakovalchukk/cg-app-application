@@ -72,6 +72,11 @@ define([
         $(Company.SELECTOR_FORM).ajaxSubmit({
             "dataType": "json",
             "success": function(data) {
+                if (data.success === false && data.errors.length > 0) {
+                    self.getNotifications().error(data.errors);
+                    callback(false);
+                    return;
+                }
                 self.getNotifications().success('Your details have been saved');
                 callback(true);
             },

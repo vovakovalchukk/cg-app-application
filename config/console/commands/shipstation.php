@@ -1,7 +1,10 @@
 <?php
 use CG\Account\Client\Storage\Api as AccountService;
 use CG\Account\Shared\Entity as Account;
+use CG\Command\NullActiveUser;
 use CG\Di\Di;
+use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
+use CG\ShipStation\Carrier\AccountDeciderInterface;
 use CG\ShipStation\Client;
 use CG\ShipStation\Command\Request as ApiRequest;
 use CG\Stdlib\Exception\Storage as StorageException;
@@ -35,58 +38,20 @@ return [
             ]
         ],
         'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
-            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new class implements CG\User\ActiveUserInterface {
-                public function getActiveUser()
-                {
-                    // TODO: Implement getActiveUser() method.
-                }
-
-                public function setActiveUser(Entity $activeUser)
-                {
-                    // TODO: Implement setActiveUser() method.
-                }
-
-                public function getActiveUserRootOrganisationUnitId()
-                {
-                    // TODO: Implement getActiveUserRootOrganisationUnitId() method.
-                }
-
-                public function isAdmin()
-                {
-                    // TODO: Implement isAdmin() method.
-                }
-
-                public function getCompanyId()
-                {
-                    // TODO: Implement getCompanyId() method.
-                }
-
-                public function getLocale(): string
-                {
-                    // TODO: Implement getLocale() method.
-                }
-
-                public function setLocale(string $locale)
-                {
-                    // TODO: Implement setLocale() method.
-                }
-
-                public function getTimezone(): string
-                {
-                    // TODO: Implement getTimezone() method.
-                }
-
-                public function setTimezone(string $timezone)
-                {
-                    // TODO: Implement setTimezone() method.
-                }
-            }]);
+            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new NullActiveUser()]);
             /** @var Client $client */
             $client = $di->get(Client::class);
             /** @var AccountService $accountService */
             $accountService = $di->get(AccountService::class);
             /** @var Account $account */
             $account = $accountService->fetch($input->getArgument('accountId'));
+            // If we've been passed a courier Account convert it to the ShipStation Account
+            if ($account->getChannel() != 'shipstationAccount') {
+                $accountDeciderFactory = $di->get(AccountDeciderFactory::class);
+                /** @var AccountDeciderInterface $accountDecider */
+                $accountDecider = $accountDeciderFactory($account->getChannel());
+                $account = $accountDecider->getShipStationAccountForRequests($account);
+            }
 
             $request = new ApiRequest(
                 $input->getArgument('endpoint'),

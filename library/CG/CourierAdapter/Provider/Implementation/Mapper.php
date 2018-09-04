@@ -8,7 +8,8 @@ class Mapper
         return new Entity(
             $data['channelName'],
             $data['displayName'],
-            $data['courierFactory']
+            $data['courierFactory'],
+            $data['featureFlag'] ?? null
         );
     }
 }

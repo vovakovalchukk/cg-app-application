@@ -8,13 +8,15 @@ define([
     var initialState = {
         guid: null,
         accounts: {},
-        inProgress: false
+        inProgress: false,
+        processGuid: null
     };
 
     return reducerCreator(initialState, {
         "LISTING_FORM_SUBMITTED_SUCCESSFUL": function(state, action) {
             return Object.assign({}, state, {
-                guid: action.payload.guid
+                guid: action.payload.guid,
+                processGuid: action.payload.processGuid
             });
         },
         "LISTING_FORM_SUBMITTED_ERROR": function(state, action) {
@@ -55,5 +57,8 @@ define([
                 inProgress: false
             });
         },
+        "RESET_SUBMISSION_STATUSES": function (state, action) {
+            return initialState;
+        }
     });
 });

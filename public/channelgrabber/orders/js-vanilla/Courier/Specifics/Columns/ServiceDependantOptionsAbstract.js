@@ -44,6 +44,9 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 
     ServiceDependantOptionsAbstract.prototype.updateOptionsForOrder = function(orderId, service)
     {
+        if (this.preventUpdateOptions(orderId)) {
+            return;
+        }
         var self = this;
         var selected = this.getSelectedValue(orderId);
         var container = this.getContainer(orderId);
@@ -110,6 +113,11 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         container
     ) {
         throw 'renderNewOptions must be overridden';
+    };
+
+    ServiceDependantOptionsAbstract.prototype.preventUpdateOptions = function(orderId)
+    {
+        return false;
     };
 
     return ServiceDependantOptionsAbstract;
