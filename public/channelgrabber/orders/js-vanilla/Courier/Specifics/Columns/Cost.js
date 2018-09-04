@@ -24,7 +24,7 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
         var self = this;
         $(document).on('change', ServiceDependantOptionsAbstract.SELECTOR_SERVICE_SELECT, function(event, element, value)
         {
-            if (value === undefined) {
+            if (value === undefined || value === "") {
                 return;
             }
                 var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
@@ -57,7 +57,6 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
            totalLabelCost += Number($(this).val());
         });
         $(Cost.SELECTOR_TOTAL_ORDER_LABEL_COST).text(totalLabelCost.toFixed(2));
-    }
-
+    };
     return Cost;
 });

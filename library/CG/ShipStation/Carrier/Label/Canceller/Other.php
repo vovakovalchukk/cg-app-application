@@ -1,5 +1,5 @@
 <?php
-namespace CG\ShipStation\Carrier\Label;
+namespace CG\ShipStation\Carrier\Label\Canceller;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -9,8 +9,9 @@ use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Request\Shipping\VoidLabel as VoidLabelRequest;
 use CG\ShipStation\Response\Shipping\VoidLabel as VoidLabelResponse;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\ShipStation\Carrier\Label\CancellerInterface;
 
-class Canceller
+class Other implements CancellerInterface
 {
     /** @var ShipStationClient */
     protected $shipStationClient;
@@ -38,6 +39,8 @@ class Canceller
 
             if (!$response->isApproved()) {
                 $exceptions[] = sprintf('  %s: %s', $orderLabel->getOrderId(), $response->getMessage());
+            } else {
+                $this->handleSuccess($orderLabel, $shippingAccount);
             }
         }
 
@@ -46,5 +49,10 @@ class Canceller
         }
 
         throw new StorageException('Failed to cancel all order labels' . PHP_EOL . implode(PHP_EOL, $exceptions));
+    }
+
+    protected function handleSuccess(OrderLabel $orderLabel, Account $shippingAccount): void
+    {
+        // Not required for this implementation
     }
 }

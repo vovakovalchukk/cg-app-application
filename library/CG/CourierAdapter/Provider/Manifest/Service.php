@@ -8,9 +8,15 @@ use CG\CourierAdapter\Manifest\GeneratingInterface as ManifestGeneratingInterfac
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\StdLib\Log\LoggerAwareInterface;
+use CG\StdLib\Log\LogTrait;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    const LOG_CODE = 'CourierAdapterManifestService';
+
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var CAAccountMapper */
@@ -35,6 +41,7 @@ class Service
             $caAccount = $this->caAccountMapper->fromOHAccount($account);
             $manifest = $courierInstance->generateManifest($caAccount);
         } catch (OperationFailed $e) {
+            $this->logWarningException($e, 'Courier instance threw exception when generating manifest', [], [static::LOG_CODE, 'Exception']);
             throw new StorageException($e->getMessage(), $e->getCode(), $e);
         }
         

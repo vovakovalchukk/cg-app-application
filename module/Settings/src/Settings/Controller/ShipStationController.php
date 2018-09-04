@@ -7,19 +7,23 @@ use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use Settings\Controller\AddChannelSpecificVariablesToViewInterface;
 use Zend\View\Model\ViewModel;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG\Clearbooks\Invoice\Statement;
 
 class ShipStationController implements AddChannelSpecificVariablesToViewInterface
 {
     /** @var ShippingLedgerService */
     protected $shippingLedgerService;
     protected $viewModelFactory;
+    protected $statement;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
-        ShippingLedgerService $shippingLedgerService
+        ShippingLedgerService $shippingLedgerService,
+        Statement $statement
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->shippingLedgerService = $shippingLedgerService;
+        $this->statement = $statement;
     }
 
     public function addAccountsChannelSpecificVariablesToChannelSpecificView(Account $account, ViewModel $view)
@@ -29,7 +33,7 @@ class ShipStationController implements AddChannelSpecificVariablesToViewInterfac
         }
         $shippingLedger = $this->shippingLedgerService->fetch($account->getRootOrganisationUnitId());
         $view->setVariables([
-            'clearbooksStatementUrl' => $shippingLedger->getClearbooksStatementUrl()
+            'clearbooksStatementUrl' => $this->statement->getSecureUrlFromInsecureUrl($shippingLedger->getClearbooksStatementUrl())
         ])->addChild($this->getShippingLedgerTopUpView($shippingLedger, $account), 'shippingLedgerTopUp');
     }
 
