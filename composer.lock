@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "dbc45ec2c9b5ef3fb3aee71be72b499d",
@@ -938,17 +938,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.1",
+            "version": "dev-CGIV-9706-dpd-sftp",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d5412e63a4545460bc57a471bfa7669875867d6b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.1-6379e7.zip",
-                "reference": "d5412e63a4545460bc57a471bfa7669875867d6b",
-                "shasum": null
+                "reference": "08b0761de66f4afbf4ffea76a12029be455cbbf4"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.3.0",
@@ -10301,13 +10295,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-9706-dpd-sftp",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
