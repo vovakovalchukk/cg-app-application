@@ -3,6 +3,8 @@ use CG\Account\Client\Storage\Api as AccountService;
 use CG\Account\Shared\Entity as Account;
 use CG\Command\NullActiveUser;
 use CG\Di\Di;
+use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
+use CG\ShipStation\Carrier\AccountDeciderInterface;
 use CG\ShipStation\Client;
 use CG\ShipStation\Command\Request as ApiRequest;
 use CG\Stdlib\Exception\Storage as StorageException;
@@ -43,6 +45,13 @@ return [
             $accountService = $di->get(AccountService::class);
             /** @var Account $account */
             $account = $accountService->fetch($input->getArgument('accountId'));
+            // If we've been passed a courier Account convert it to the ShipStation Account
+            if ($account->getChannel() != 'shipstationAccount') {
+                $accountDeciderFactory = $di->get(AccountDeciderFactory::class);
+                /** @var AccountDeciderInterface $accountDecider */
+                $accountDecider = $accountDeciderFactory($account->getChannel());
+                $account = $accountDecider->getShipStationAccountForRequests($account);
+            }
 
             $request = new ApiRequest(
                 $input->getArgument('endpoint'),
