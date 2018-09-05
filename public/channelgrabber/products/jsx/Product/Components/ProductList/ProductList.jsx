@@ -30,7 +30,7 @@ define([
             return {
                 products: [],
                 features: {},
-                accounts: [],
+                accounts: {},
                 actions: {},
                 tabs: {}
             };
@@ -137,7 +137,6 @@ define([
             return column.tab === this.props.tabs.currentTab
         },
         renderColumns: function() {
-            console.log('this.props: ', this.props);
             return columns.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
@@ -178,8 +177,7 @@ define([
             )
         },
         render: function() {
-            console.log('ProductList this.props' , this.props);
-            
+            console.log('in ProductList render this.props: ', this.props);
             
             return (
                 <div id='products-app'>

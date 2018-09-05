@@ -3,6 +3,7 @@ define([
     'redux',
     'react-redux',
     'redux-thunk',
+    'Product/Components/ProductList/Accounts/accounts',
     'Product/Components/ProductList/ActionCreators/productActions',
     'Product/Components/ProductList/ActionCreators/productLinkActions',
     'Product/Components/ProductList/ActionCreators/paginationActions',
@@ -14,6 +15,7 @@ define([
     Redux,
     ReactRedux,
     thunk,
+    accounts,
     productActions,
     productLinkActions,
     paginationActions,
@@ -26,11 +28,13 @@ define([
     let combinedActionCreators = combineActionCreators();
     
     const mapStateToProps = function(state) {
+        console.log('Root MPSTP state: '  , state);
         return {
             products: state.products,
             tabs: state.tabs,
             list: state.list,
-            pagination: state.pagination
+            pagination: state.pagination,
+            accounts: accounts.getters.getAccounts(state)
         };
     };
     

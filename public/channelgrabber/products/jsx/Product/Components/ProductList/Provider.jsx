@@ -44,11 +44,11 @@ define([
                 initialProductsSaved: {}
             }
         },
+        componentWillMount:function(){
+            console.log('props passing from Provider to List- ' , this.props);
+        },
         componentDidMount: function() {
-            console.log('Provider this.props: ', this.props);
-            
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
-            // store.dispatch(ActionCreators.createColumn(this.props.account))
             store.dispatch(ActionCreators.getProducts());
         },
         render: function() {

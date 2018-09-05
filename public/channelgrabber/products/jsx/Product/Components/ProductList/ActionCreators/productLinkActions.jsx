@@ -1,11 +1,13 @@
 define([
     'Product/Storage/Ajax',
     'Product/Filter/Entity',
-    'Product/Components/ProductList/Config/constants'
+    'Product/Components/ProductList/Config/constants',
+    'Product/Components/ProductList/Accounts/accounts'
 ], function(
     AjaxHandler,
     ProductFilter,
-    constants
+    constants,
+    accounts
 ) {
     "use strict";
     
@@ -51,7 +53,7 @@ define([
             getLinkedProducts: (productSkus) => {
                 return async function(dispatch, getState) {
                     let state = getState();
-                    if (!state.account.features.linkedProducts) {
+                    if ( !accounts.getters.getFeatures(state).linkedProducts ) {
                         return;
                     }
                     

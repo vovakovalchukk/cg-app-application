@@ -269,15 +269,11 @@ define([
             />
         },
         renderProductListView: function() {
-            console.log('in renderProductlistView with this.props: ' ,  this.props , ' this.state: ' , this.state);
-            
-            
             return (
                 <div>
                     <ProductListProvider
                         features={this.props.features}
                         addNewProductButtonClick={this.addNewProductButtonClick}
-                        accounts={this.state.accounts}
                     />
                 </div>
             )
