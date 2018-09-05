@@ -203,7 +203,7 @@ define([
                 name="channel"
                 component={ChannelForms}
                 accounts={this.props.accounts}
-                categoryTemplates={this.props.categoryTemplates}
+                categoryTemplates={this.props.categoryTemplates.categories}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 currency={this.props.defaultCurrency}
@@ -214,7 +214,7 @@ define([
                 name="category"
                 component={CategoryForms}
                 accounts={this.props.accounts}
-                categoryTemplates={this.props.categoryTemplates}
+                categoryTemplates={this.props.categoryTemplates.categories}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 fieldChange={this.props.change}
@@ -276,7 +276,7 @@ define([
                 <span className="heading-large heading-table">Creation status</span>
                 <SubmissionTable
                     accounts={this.formatAccountDataForSubmissionTable()}
-                    categoryTemplates={this.props.categoryTemplates}
+                    categoryTemplates={this.props.categoryTemplates.categories}
                     statuses={this.props.submissionStatuses}
                 />
             </span>);
@@ -291,6 +291,9 @@ define([
         isSubmitButtonDisabled: function () {
             return this.props.submissionStatuses.inProgress;
         },
+        areCategoryTemplatesFetching: function() {
+            return this.props.categoryTemplates.isFetching;
+        },
         render: function() {
             let isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return (
@@ -304,7 +307,7 @@ define([
                     onYesButtonPressed={this.props.submitForm}
                     onNoButtonPressed={this.props.onCreateListingClose}
                     onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
-                    yesButtonDisabled={isSubmitButtonDisabled}
+                    yesButtonDisabled={isSubmitButtonDisabled || this.areCategoryTemplatesFetching()}
                 >
                     {this.renderProductSearchComponent()}
                     {this.renderForm()}
@@ -351,7 +354,7 @@ define([
                         props.accounts,
                         props.accountDefaultSettings,
                         props.accountsData,
-                        props.categoryTemplates
+                        props.categoryTemplates ? props.categoryTemplates.categories : {}
                     )
                 );
             },
