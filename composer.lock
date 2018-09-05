@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67ad490aff22c0b28558a0ccd1896c5e",
+    "content-hash": "2e294865a46dac83d83d25661481d86e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4654,12 +4654,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2608e92cc9fc734484687f5dd82d7b371b6de4f6"
+                "reference": "09fc59f1ffc754bf2891a6e5254bf05273c1887f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9845-UiFreezes-e86409.zip",
-                "reference": "2608e92cc9fc734484687f5dd82d7b371b6de4f6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-9845-UiFreezes-bd1eb7.zip",
+                "reference": "09fc59f1ffc754bf2891a6e5254bf05273c1887f",
                 "shasum": null
             },
             "require": {
@@ -4711,7 +4711,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-04T14:29:10+00:00"
+            "time": "2018-09-05T10:46:02+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10304,8 +10304,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.24.4",
-            "alias_normalized": "1.24.4.0",
+            "alias": "1.24.5",
+            "alias_normalized": "1.24.5.0",
             "version": "dev-CGIV-9845-UiFreezes",
             "package": "channelgrabber/zf2-v4-ui"
         }
