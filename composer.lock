@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfcbe431cf05f41909cf244502cd0414",
+    "content-hash": "1fd7e1f9469015a9971a1ba9ac408270",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,23 +336,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.27.9",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "0f21a56ab2d3df6ed61c20ded8fe972246f6d5b9"
+                "reference": "55567f89733be6113496183c180378c8ea74966a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.9-d6bc9d.zip",
-                "reference": "0f21a56ab2d3df6ed61c20ded8fe972246f6d5b9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-9602-replace-smembers-sscan-0cf20a.zip",
+                "reference": "55567f89733be6113496183c180378c8ea74966a",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.39.0",
+                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.39.1",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-09-04T09:36:20+00:00"
+            "time": "2018-09-04T12:24:15+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b6b77c53e241600af4b4c3847685734376400f7c"
+                "reference": "539cd1117887099debd7241302f16d037f29eff5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9602-replace-smembers-sscan-02e90b.zip",
-                "reference": "b6b77c53e241600af4b4c3847685734376400f7c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9602-replace-smembers-sscan-44999b.zip",
+                "reference": "539cd1117887099debd7241302f16d037f29eff5",
                 "shasum": null
             },
             "require": {
@@ -771,11 +771,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-TAC-125-fetch-usps-rates": "1.37.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -790,7 +785,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-08-31T15:17:09+00:00"
+            "time": "2018-09-05T10:32:10+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1117,22 +1112,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.15.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a5f89eca21b157396c4f28e8b1e697ff5b3b48be"
+                "reference": "106ba5896e95c02528e96b6f738db209da52e15f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.15.0-6efced.zip",
-                "reference": "a5f89eca21b157396c4f28e8b1e697ff5b3b48be",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-9602-replace-smembers-sscan-6c9981.zip",
+                "reference": "106ba5896e95c02528e96b6f738db209da52e15f",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.38.0",
+                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.39.1",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1178,26 +1173,26 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-03T08:22:24+00:00"
+            "time": "2018-09-04T12:33:22+00:00"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.9.6",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "3c5d8fa7b3776b922f35d09fccf57611a579a04f"
+                "reference": "c911a854ed980ec78c1fd5c825ca5d54eb04b005"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.9.6-2d02e8.zip",
-                "reference": "3c5d8fa7b3776b922f35d09fccf57611a579a04f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-9602-replace-smembers-sscan-6c9163.zip",
+                "reference": "c911a854ed980ec78c1fd5c825ca5d54eb04b005",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "^1.33.8",
+                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.39.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.4",
@@ -1210,19 +1205,21 @@
                 "channelgrabber/product": "^1.11.4",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
-                "channelgrabber/stdlib": "^2.13.2",
+                "channelgrabber/stdlib": "^2.15.2",
                 "channelgrabber/tax": "^1.0.0",
+                "channelgrabber/webdriver": "^1.1.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
                 "composer/composer": "@dev",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
+                "nelexa/zip": "^3.1",
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5",
                 "zendframework/zend-eventmanager": ">=2.2.5"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "~3.7.28"
+                "phpunit/phpunit": "~6.1"
             },
             "type": "library",
             "autoload": {
@@ -1236,7 +1233,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-02-15T15:42:05+00:00"
+            "time": "2018-09-04T14:15:44+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -3594,6 +3591,40 @@
             "time": "2013-11-04T13:10:03+00:00"
         },
         {
+            "name": "channelgrabber/webdriver",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-webdriver.git",
+                "reference": "2653c126515464c4135bb274caed1feffb225562"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-webdriver-1.1.0-fba832.zip",
+                "reference": "2653c126515464c4135bb274caed1feffb225562",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.15.2",
+                "facebook/webdriver": "^1.5",
+                "guzzlehttp/guzzle": "^5.3.1",
+                "zendframework/zend-di": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Webdriver\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Oliver Stephenson",
+                    "email": "oliver@channelgrabber.com"
+                }
+            ],
+            "time": "2018-07-23T09:19:36+00:00"
+        },
+        {
             "name": "channelgrabber/webhook-framework",
             "version": "1.0.0",
             "source": {
@@ -3628,20 +3659,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.6.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "36f5ecea81b25b30e53cd158e98b5932149c4108"
+                "reference": "96b4e6425f85f55704c4b3acab1aa2c89070bf53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.6.0-7e733c.zip",
-                "reference": "36f5ecea81b25b30e53cd158e98b5932149c4108",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-9602-replace-smembers-sscan-8aa2b3.zip",
+                "reference": "96b4e6425f85f55704c4b3acab1aa2c89070bf53",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.38.0",
+                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.38.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3673,7 +3704,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-08-15T12:23:17+00:00"
+            "time": "2018-09-03T09:52:56+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -5232,6 +5263,66 @@
             "time": "2014-10-09T15:52:51+00:00"
         },
         {
+            "name": "facebook/webdriver",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-webdriver.git",
+                "reference": "bd8c740097eb9f2fc3735250fc1912bc811a954e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/facebook-webdriver-bd8c740097eb9f2fc3735250fc1912bc811a954e-zip-a28170.zip",
+                "reference": "bd8c740097eb9f2fc3735250fc1912bc811a954e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-zip": "*",
+                "php": "^5.6 || ~7.0",
+                "symfony/process": "^2.8 || ^3.1 || ^4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "jakub-onderka/php-parallel-lint": "^0.9.2",
+                "php-coveralls/php-coveralls": "^2.0",
+                "php-mock/php-mock-phpunit": "^1.1",
+                "phpunit/phpunit": "^5.7",
+                "sebastian/environment": "^1.3.4 || ^2.0 || ^3.0",
+                "squizlabs/php_codesniffer": "^2.6",
+                "symfony/var-dumper": "^3.3 || ^4.0"
+            },
+            "suggest": {
+                "ext-SimpleXML": "For Firefox profile creation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-community": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\WebDriver\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "A PHP client for Selenium WebDriver",
+            "homepage": "https://github.com/facebook/php-webdriver",
+            "keywords": [
+                "facebook",
+                "php",
+                "selenium",
+                "webdriver"
+            ],
+            "time": "2018-05-16T17:37:13+00:00"
+        },
+        {
             "name": "guzzle/guzzle",
             "version": "v3.9.3",
             "source": {
@@ -6220,6 +6311,63 @@
                 "templating"
             ],
             "time": "2017-07-11T12:54:05+00:00"
+        },
+        {
+            "name": "nelexa/zip",
+            "version": "3.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ne-Lexa/php-zip.git",
+                "reference": "251ce11bdc4754962f29cd2d31014549377ea617"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/nelexa-zip-251ce11bdc4754962f29cd2d31014549377ea617-zip-ac5be2.zip",
+                "reference": "251ce11bdc4754962f29cd2d31014549377ea617",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8|~5.7",
+                "zendframework/zend-diactoros": "^1.4"
+            },
+            "suggest": {
+                "ext-bz2": "Needed to support BZIP2 compression",
+                "ext-mcrypt": "Needed to support encrypt zip entries or use ext-openssl",
+                "ext-openssl": "Needed to support encrypt zip entries or use ext-mcrypt"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpZip\\": "src/PhpZip"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ne-Lexa",
+                    "email": "alexey@nelexa.ru",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PhpZip is a php-library for extended work with ZIP-archives. Open, create, update, delete, extract and get info tool. Supports appending to existing ZIP files, WinZip AES encryption, Traditional PKWARE Encryption, ZipAlign tool, BZIP2 compression, external file attributes and ZIP64 extensions. Alternative ZipArchive. It does not require php-zip extension.",
+            "homepage": "https://github.com/Ne-Lexa/php-zip",
+            "keywords": [
+                "archive",
+                "extract",
+                "unzip",
+                "winzip",
+                "zip",
+                "zipalign",
+                "ziparchive"
+            ],
+            "time": "2018-04-25T09:44:11+00:00"
         },
         {
             "name": "nocarrier/hal",
@@ -8930,101 +9078,6 @@
             "time": "2013-06-02T19:09:45+00:00"
         },
         {
-            "name": "channelgrabber/codeception",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
-                "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-codeception-1.2.1-8a633f.zip",
-                "reference": "5b19933b54edea6fccf76c47e50afbf0e6737d78",
-                "shasum": null
-            },
-            "require": {
-                "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/http": ">=1.2.0,<2.0.0",
-                "codeception/codeception": "1.8.0",
-                "nocarrier/hal": "~0.9.3"
-            },
-            "type": "di-definition",
-            "autoload": {
-                "psr-4": {
-                    "CG\\Codeception\\": "src"
-                }
-            },
-            "time": "2015-02-17T16:11:07+00:00"
-        },
-        {
-            "name": "codeception/codeception",
-            "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
-                "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
-                "shasum": ""
-            },
-            "require": {
-                "behat/mink": "1.5.*",
-                "behat/mink-goutte-driver": "1.0.*",
-                "behat/mink-selenium2-driver": "1.1.*",
-                "facebook/webdriver": "< 0.3",
-                "monolog/monolog": "*",
-                "php": ">=5.3.3",
-                "phpunit/phpunit": "3.7.*",
-                "symfony/console": "~2.3",
-                "symfony/event-dispatcher": "~2.3",
-                "symfony/finder": "~2.3",
-                "symfony/yaml": "~2.3"
-            },
-            "require-dev": {
-                "behat/mink-selenium-driver": "1.1.*",
-                "behat/mink-zombie-driver": "1.1.*",
-                "facebook/php-sdk": "3.*",
-                "videlalvaro/php-amqplib": "*"
-            },
-            "suggest": {
-                "codeception/phpbuiltinserver": "Extension to starts and stops PHP builtin web server for your tests"
-            },
-            "bin": [
-                "codecept"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Codeception": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Bodnarchuk",
-                    "email": "davert@mail.ua",
-                    "homepage": "http://codegyre.com"
-                }
-            ],
-            "description": "BDD-style testing framework",
-            "homepage": "http://codeception.com/",
-            "keywords": [
-                "BDD",
-                "TDD",
-                "acceptance testing",
-                "functional testing",
-                "unit testing"
-            ],
-            "time": "2013-11-15T02:57:56+00:00"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.1.0",
             "source": {
@@ -9079,37 +9132,6 @@
             "time": "2017-07-22T11:58:36+00:00"
         },
         {
-            "name": "facebook/webdriver",
-            "version": "v0.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
-                "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.20"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "lib/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "A php client for WebDriver",
-            "homepage": "https://github.com/facebook/php-webdriver",
-            "time": "2013-10-15T05:25:07+00:00"
-        },
-        {
             "name": "instaclick/php-webdriver",
             "version": "1.0.17",
             "source": {
@@ -9119,7 +9141,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10309,23 +10331,51 @@
     ],
     "aliases": [
         {
+            "alias": "1.27.9",
+            "alias_normalized": "1.27.9.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "package": "channelgrabber/amazon"
+        },
+        {
             "alias": "1.39.1",
             "alias_normalized": "1.39.1.0",
             "version": "dev-CGIV-9602-replace-smembers-sscan",
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.15.1",
+            "alias_normalized": "1.15.1.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.10.14",
+            "alias_normalized": "1.10.14.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "package": "channelgrabber/ekm"
+        },
+        {
             "alias": "1.39.9",
             "alias_normalized": "1.39.9.0",
             "version": "dev-CGIV-9602-replace-smembers-sscan",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
+            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "package": "channelgrabber/woocommerce"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
