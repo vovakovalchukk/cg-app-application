@@ -4,10 +4,9 @@ define([
     'Product/Components/ProductList/Reducers/tabsReducer',
     'Product/Components/ProductList/Reducers/columnsReducer',
     'Product/Components/ProductList/Reducers/listReducer',
-    'Product/Components/ProductList/Accounts/accounts',
+    'Product/Components/ProductList/Reducers/accountsReducer',
     'Product/Components/ProductList/Reducers/paginationReducer',
     'Product/Components/ProductList/Reducers/searchReducer',
-    'Product/Components/ProductList/Accounts/accounts'
 ], function(
     Redux,
     productsReducer,
@@ -17,20 +16,15 @@ define([
     accountsReducer,
     paginationReducer,
     searchReducer,
-    accounts
 ) {
     "use strict";
-    
-    console.log('combinedReducer accounts: ', accounts.reducer);
-    console.log('combinedReducer list reducer: ', listReducer);
-    
     
     var appReducer = Redux.combineReducers({
         products: productsReducer,
         tabs: tabsReducer,
         columns: columnsReducer,
         list: listReducer,
-        accounts: accounts.reducer,
+        accounts: accountsReducer,
         pagination: paginationReducer,
         search: searchReducer
     });

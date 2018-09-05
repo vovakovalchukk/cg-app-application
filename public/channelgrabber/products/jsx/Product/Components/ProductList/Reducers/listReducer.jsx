@@ -45,8 +45,5 @@ define([
         }
     });
     
-    console.log('listReducer: ', listReducer);
-    
-    
     return listReducer
 });

@@ -41,7 +41,8 @@ define([
             width: 80,
             fixed: true,
             headerText: 'Available'
-        }];
+        }
+    ];
     
     let listingColumns = Array(7).fill(0).map((column, index) => {
         return {

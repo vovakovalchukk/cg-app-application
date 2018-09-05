@@ -53,7 +53,7 @@ define([
             getLinkedProducts: (productSkus) => {
                 return async function(dispatch, getState) {
                     let state = getState();
-                    if ( !accounts.getters.getFeatures(state).linkedProducts ) {
+                    if ( !state.accounts.getFeatures(state).linkedProducts) {
                         return;
                     }
                     

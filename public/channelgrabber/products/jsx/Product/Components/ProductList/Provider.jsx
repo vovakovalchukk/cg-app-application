@@ -4,6 +4,7 @@ define([
     'react-redux',
     'redux-thunk',
     'Product/Components/ProductList/ActionCreators/productActions',
+    'Product/Components/ProductList/Column/actions',
     'Product/Components/ProductList/Reducers/combinedReducer',
     'Product/Components/ProductList/Root',
 ], function(
@@ -12,6 +13,7 @@ define([
     ReactRedux,
     thunk,
     ActionCreators,
+    columnActions,
     combinedReducer,
     ProductListRoot
 ) {
@@ -50,6 +52,7 @@ define([
         componentDidMount: function() {
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
             store.dispatch(ActionCreators.getProducts());
+            store.dispatch(columnActions.generateColumns());
         },
         render: function() {
             return (
