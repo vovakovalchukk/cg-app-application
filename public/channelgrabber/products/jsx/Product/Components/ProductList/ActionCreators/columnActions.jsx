@@ -7,11 +7,11 @@ define([
     
     var columnActions = (function() {
         return {
-            generateColumns: (accounts) => {
+            generateColumnSettings: (accounts) => {
                 return {
-                    type: "COLUMNS_GENERATE",
+                    type: "COLUMNS_GENERATE_SETTINGS",
                     payload: {
-                        generatedColumns: columnService.generateColumns(accounts)
+                        columnSettings: columnService.generateColumnSettings(accounts)
                     }
                 };
             },

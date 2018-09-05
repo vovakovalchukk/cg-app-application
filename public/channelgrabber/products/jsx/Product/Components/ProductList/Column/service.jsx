@@ -56,13 +56,9 @@ define([
     
     let columnService = (function() {
         return {
-            generateColumns: function(accounts) {
-                
+            generateColumnSettings: function(accounts) {
                 let listingsColumns = generateListingsColumnsFromAccounts(accounts);
-                
-                
                 let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns);
-                
                 console.log('in generateColumns generatedColumns: ', generatedColumns, ' accounts: ' , accounts);
                 return generatedColumns;
             }
@@ -72,16 +68,26 @@ define([
     return columnService;
     
     function generateListingsColumnsFromAccounts(accounts){
-        let listingColumns = Array(7).fill(0).map((column, index) => {
+        if (typeof accounts === "string"){
+            return [];
+        }
+        let listingColumns = Object.keys(accounts).map((accountKey, index) => {
+            let account = accounts[accountKey];
             return {
-                key: 'dummyListingColumn' + (index + 1),
+                key: 'listingTabColumn' + (index + 1),
+                type: 'listingTabColumn',
                 width: 200,
-                headerText: 'dummy listings col ' + (index + 1),
+                headerText: capitalize(account.channel),
                 fixed: false,
                 tab: 'listings'
             }
         });
+        console.log('listingColumns generated: ', listingColumns);
+        
+        
         return listingColumns;
     }
-    
+    function capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
 });

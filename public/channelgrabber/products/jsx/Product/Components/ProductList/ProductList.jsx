@@ -23,8 +23,6 @@ define([
     
     const {Table} = FixedDataTable;
     
-    const columns = columnService.generateColumns('coming from Product List');
-    
     var ProductList = React.createClass({
         getDefaultProps: function() {
             return {
@@ -117,16 +115,6 @@ define([
         isParentProduct: function(product) {
             return product.variationCount !== undefined && product.variationCount >= 1
         },
-        renderCell: function(props) {
-            let {columnKey, rowIndex} = props;
-            
-            return cellCreator({
-                columnKey,
-                rowIndex,
-                products: props.products,
-                actions: props.actions
-            });
-        },
         getVisibleRows: function() {
             return this.props.products.visibleRows;
         },
@@ -137,7 +125,8 @@ define([
             return column.tab === this.props.tabs.currentTab
         },
         renderColumns: function() {
-            return columns.map((column) => {
+            let columnSettings = this.props.columns.columnSettings;
+            return columnSettings.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
                 if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
@@ -177,7 +166,6 @@ define([
             )
         },
         render: function() {
-            console.log('in ProductList render this.props: ', this.props);
             return (
                 <div id='products-app'>
                     <div className="top-toolbar">

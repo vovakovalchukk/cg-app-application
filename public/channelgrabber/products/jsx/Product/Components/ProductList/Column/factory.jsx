@@ -27,14 +27,8 @@ define([
         name: NameCell,
         available: TextCell,
         //todo - change these to represent actual data in TAC-165
-        dummyListingColumn1: TextCell,
-        dummyListingColumn2: TextCell,
-        dummyListingColumn3: TextCell,
-        dummyListingColumn4: TextCell,
-        dummyListingColumn5: TextCell,
-        dummyListingColumn6: TextCell,
-        dummyListingColumn7: TextCell,
-        dummyListingColumn8: TextCell,
+        listingTabColumn: TextCell,
+        addListing: TextCell,
         
         dummyDetailsColumn1: TextCell,
         dummyDetailsColumn2: TextCell,
@@ -47,7 +41,7 @@ define([
     };
     
     var columnCreator = function(column) {
-        let CreatedCell = cells[column.key];
+        let CreatedCell = getCreatedCell(column);
         return (<Column
             columnKey={column.key}
             width={column.width}
@@ -62,4 +56,8 @@ define([
     };
     
     return columnCreator;
+    
+    function getCreatedCell(column){
+        return column.type ? cells[column.type] : cells[column.key];
+    }
 });

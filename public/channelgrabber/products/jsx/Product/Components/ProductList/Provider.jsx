@@ -46,13 +46,10 @@ define([
                 initialProductsSaved: {}
             }
         },
-        componentWillMount:function(){
-            console.log('props passing from Provider to List- ' , this.props);
-        },
         componentDidMount: async function() {
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
             let getProductsResponse = await store.dispatch(ActionCreators.getProducts());
-            store.dispatch(columnActions.generateColumns(getProductsResponse.accounts))
+            store.dispatch(columnActions.generateColumnSettings(getProductsResponse.accounts))
         },
         render: function() {
             return (
