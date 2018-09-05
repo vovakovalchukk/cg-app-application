@@ -15,6 +15,7 @@ use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Exception\Storage;
+use function CG\Stdlib\mergePdfData;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Zendesk\Exception\Collection\Invalid;
@@ -46,19 +47,12 @@ class Service implements LoggerAwareInterface
         $this->guzzleClient = $guzzleClient;
     }
 
-    /**
-     * @param Account $shippingAccount
-     * @param Account $shipStationAccount
-     * @param AccountManifest $accountManifest
-     * @return ManifestResponse[]
-     */
     public function generateShipStationManifest(
         Account $shippingAccount,
         Account $shipStationAccount,
         AccountManifest $accountManifest,
         DateTime $lastManifestDate
-    )
-    {
+    ): void {
         $this->logDebug('attempting to create manifest(s) for shipstation account %s belonging to OU %s', [$shippingAccount->getId(), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
 
         // We use tomorrow to include any manifests that need generating for today
@@ -66,7 +60,7 @@ class Service implements LoggerAwareInterface
         $datesToManifest = $this->determineDatesRequiringManifests($lastManifestDate, $tomorrow);
         $totalNumberOfManifests = count($datesToManifest);
         $this->logDebug('%u manifest(s) required for OU %s dating from %s to %s', [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $tomorrow->format('d-m-y')], static::LOG_CODE);
-        $manifests = $this->requestManifestsFromShipStation($shippingAccount, $shipStationAccount, $datesToManifest, $totalNumberOfManifests, $accountManifest);
+        $this->requestManifestsFromShipStation($shippingAccount, $shipStationAccount, $datesToManifest, $totalNumberOfManifests, $accountManifest);
     }
 
     public function retrievePdfForManifest(ManifestResponse $manifest)
@@ -88,8 +82,7 @@ class Service implements LoggerAwareInterface
         \DatePeriod $datesToManifest,
         int $totalNumberOfManifests,
         AccountManifest $accountManifest
-    )
-    {
+    ): void {
         $currentManifest = 0;
         $responses = [];
         /** @var \DateTime $manifestDate */
@@ -144,9 +137,9 @@ class Service implements LoggerAwareInterface
         $accountManifest->setManifest(base64_encode($mergedPdfs));
     }
 
-    protected function mergeManifestPdfs($manifestPdfs)
+    protected function mergeManifestPdfs(array $manifestPdfs): string
     {
-        return base64_encode(\CG\Stdlib\mergePdfData($manifestPdfs));
+        return base64_encode(mergePdfData($manifestPdfs));
     }
 
     /**
