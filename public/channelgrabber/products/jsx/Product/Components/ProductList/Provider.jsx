@@ -4,7 +4,7 @@ define([
     'react-redux',
     'redux-thunk',
     'Product/Components/ProductList/ActionCreators/productActions',
-    'Product/Components/ProductList/Column/actions',
+    'Product/Components/ProductList/ActionCreators/columnActions',
     'Product/Components/ProductList/Reducers/combinedReducer',
     'Product/Components/ProductList/Root',
 ], function(
@@ -49,10 +49,10 @@ define([
         componentWillMount:function(){
             console.log('props passing from Provider to List- ' , this.props);
         },
-        componentDidMount: function() {
+        componentDidMount: async function() {
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
-            store.dispatch(ActionCreators.getProducts());
-            store.dispatch(columnActions.generateColumns());
+            let getProductsResponse = await store.dispatch(ActionCreators.getProducts());
+            store.dispatch(columnActions.generateColumns(getProductsResponse.accounts))
         },
         render: function() {
             return (

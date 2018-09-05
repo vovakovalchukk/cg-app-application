@@ -23,7 +23,7 @@ define([
     
     const {Table} = FixedDataTable;
     
-    const columns = columnService.produceColumns();
+    const columns = columnService.generateColumns('coming from Product List');
     
     var ProductList = React.createClass({
         getDefaultProps: function() {

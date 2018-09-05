@@ -44,16 +44,6 @@ define([
         }
     ];
     
-    let listingColumns = Array(7).fill(0).map((column, index) => {
-        return {
-            key: 'dummyListingColumn' + (index + 1),
-            width: 200,
-            headerText: 'dummy listings col ' + (index + 1),
-            fixed: false,
-            tab: 'listings'
-        }
-    });
-    
     let detailsColumns = Array(7).fill(0).map((column, index) => {
         return {
             key: 'dummyDetailsColumn' + (index + 1),
@@ -66,12 +56,32 @@ define([
     
     let columnService = (function() {
         return {
-            produceColumns: function() {
-                return coreColumns.concat(listingColumns, detailsColumns);
+            generateColumns: function(accounts) {
+                
+                let listingsColumns = generateListingsColumnsFromAccounts(accounts);
+                
+                
+                let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns);
+                
+                console.log('in generateColumns generatedColumns: ', generatedColumns, ' accounts: ' , accounts);
+                return generatedColumns;
             }
         }
     }());
     
     return columnService;
+    
+    function generateListingsColumnsFromAccounts(accounts){
+        let listingColumns = Array(7).fill(0).map((column, index) => {
+            return {
+                key: 'dummyListingColumn' + (index + 1),
+                width: 200,
+                headerText: 'dummy listings col ' + (index + 1),
+                fixed: false,
+                tab: 'listings'
+            }
+        });
+        return listingColumns;
+    }
     
 });

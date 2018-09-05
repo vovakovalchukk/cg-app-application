@@ -11,7 +11,7 @@ define([
                 return {
                     type: "COLUMNS_GENERATE",
                     payload: {
-                        accounts
+                        generatedColumns: columnService.generateColumns(accounts)
                     }
                 };
             },
