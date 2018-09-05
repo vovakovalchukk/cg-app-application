@@ -71,19 +71,29 @@ define([
         if (typeof accounts === "string"){
             return [];
         }
-        let listingColumns = Object.keys(accounts).map((accountKey, index) => {
+        let channelSpecificColumns = Object.keys(accounts).map((accountKey, index) => {
             let account = accounts[accountKey];
             return {
-                key: 'listingTabColumn' + (index + 1),
-                type: 'listingTabColumn',
-                width: 200,
+                key: 'ListingAccountCell-' + account.id,
+                type: 'listingAccount',
+                listingAccountId: account.id,
+                width: 150,
                 headerText: capitalize(account.channel),
                 fixed: false,
                 tab: 'listings'
             }
         });
-        console.log('listingColumns generated: ', listingColumns);
+        let miscListingColumns = [
+            {
+                key: 'addListing',
+                width: 120,
+                headerText: 'Add Listing',
+                fixed: false,
+                tab: 'listings'
+            }
+        ];
         
+        let listingColumns = channelSpecificColumns.concat(miscListingColumns);
         
         return listingColumns;
     }

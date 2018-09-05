@@ -24,11 +24,9 @@ define([], function() {
                     available: stateUtility().getStockAvailable(row)
                 };
                 let cellData = keyToCellDataMap[columnKey];
-                // todo - change this dummy data to be something more significant from TAC-165 onwards
                 if (columnKey.indexOf('dummy') > -1) {
                     cellData = `${columnKey} ${rowIndex}`;
                 }
-                
                 return cellData;
             },
             isParentProduct: (rowData) => {

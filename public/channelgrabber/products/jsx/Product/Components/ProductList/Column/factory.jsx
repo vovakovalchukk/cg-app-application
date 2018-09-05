@@ -5,7 +5,8 @@ define([
     'Product/Components/ProductList/Cells/ProductExpandCell',
     'Product/Components/ProductList/Cells/ImageCell',
     'Product/Components/ProductList/Cells/LinkCell',
-    'Product/Components/ProductList/Cells/NameCell'
+    'Product/Components/ProductList/Cells/NameCell',
+    'Product/Components/ProductList/Cells/ListingAccountCell'
 ], function(
     React,
     FixedDataTable,
@@ -13,7 +14,8 @@ define([
     ProductExpandCell,
     ImageCell,
     LinkCell,
-    NameCell
+    NameCell,
+    ListingAccountCell
 ) {
     "use strict";
     
@@ -27,9 +29,8 @@ define([
         name: NameCell,
         available: TextCell,
         //todo - change these to represent actual data in TAC-165
-        listingTabColumn: TextCell,
+        listingAccount: ListingAccountCell,
         addListing: TextCell,
-        
         dummyDetailsColumn1: TextCell,
         dummyDetailsColumn2: TextCell,
         dummyDetailsColumn3: TextCell,
@@ -42,6 +43,9 @@ define([
     
     var columnCreator = function(column) {
         let CreatedCell = getCreatedCell(column);
+        if(!CreatedCell){
+            console.error("cannot create cell in column factory for column: " , column);
+        }
         return (<Column
             columnKey={column.key}
             width={column.width}
@@ -52,7 +56,7 @@ define([
                 products={column.products}
                 actions={column.actions}
             />}
-        />)
+        />);
     };
     
     return columnCreator;
