@@ -91,7 +91,8 @@ define([
                 renderImagePicker: true,
                 shouldRenderStaticImagesFromVariationValues: false,
                 containerCssClasses: '',
-                tableCssClasses: ''
+                tableCssClasses: '',
+                renderStaticImageFromFormValues: false
             }
         },
         renderIdentifierHeaders: function() {
@@ -147,6 +148,7 @@ define([
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
                     variationImages={this.props.variationImages}
+                    renderStaticImageFromFormValues={this.props.renderStaticImageFromFormValues}
                 />
             );
         }

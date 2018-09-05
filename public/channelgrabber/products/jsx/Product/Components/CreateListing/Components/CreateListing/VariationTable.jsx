@@ -18,6 +18,7 @@ define([
                 product: {},
                 showImages: true,
                 renderImagePicker: true,
+                renderStaticImageFromFormValues: false,
                 attributeNames: [],
                 attributeNameMap: {},
                 sectionName: '',
@@ -66,7 +67,7 @@ define([
             }
 
             if (!this.props.renderImagePicker) {
-                return this.renderStaticImage2(variation.sku);
+                return this.renderStaticImage(variation);
             }
 
             return <Field
@@ -75,17 +76,28 @@ define([
                 variation={variation}
             />;
         },
-        renderStaticImage2: function(sku) {
-            const selectedImageForVariation = this.props.variationImages[sku];
+        renderStaticImage: function(variation) {
+            if (this.props.renderStaticImageFromFormValues) {
+                return <Field
+                    name={"images." + variation.sku + ".imageId"}
+                    component={this.renderStaticImageFromFormValues}
+                    variation={variation}
+                />;
+            }
+
+            const selectedImageForVariation = this.props.variationImages[variation.sku];
             if (!selectedImageForVariation) {
                 return '';
             }
 
             const image = this.findSelectedImageForVariation(selectedImageForVariation.imageId);
+            return this.renderStaticImageComponent(image.url);
+        },
+        renderStaticImageComponent: function(imageUrl) {
             return <div className="image-dropdown-target">
                 <div className="react-image-picker">
                     <span className="react-image-picker-image">
-                        <img src={image.url}/>
+                        <img src={imageUrl}/>
                     </span>
                 </div>
             </div>;
@@ -102,6 +114,24 @@ define([
         },
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);
+        },
+        getStaticImage: function(fieldValue, fieldVariation) {
+            if (this.props.shouldRenderStaticImagesFromVariationValues && fieldVariation.images) {
+                return fieldVariation.images[0];
+            }
+            return this.findSelectedImageForVariation(fieldValue);
+        },
+        renderStaticImageFromFormValues: function(field) {
+            let image = this.getStaticImage(field.input.value, field.variation);
+            return (
+                <div className="image-dropdown-target">
+                    <div className="react-image-picker">
+                        <span className="react-image-picker-image">
+                            <img src={image.url}/>
+                        </span>
+                    </div>
+                </div>
+            );
         },
         findSelectedImageForVariation: function(imageId) {
             var selectedImage = {url: ""};

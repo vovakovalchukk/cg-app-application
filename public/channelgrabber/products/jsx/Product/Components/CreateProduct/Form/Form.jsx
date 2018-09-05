@@ -240,6 +240,7 @@ define([
                         containerCssClasses={'u-margin-top-none u-max-width-80'}
                         tableCssClasses={'u-min-width-50 u-width-inherit'}
                         attributeNames={attributeNames}
+                        renderStaticImageFromFormValues={true}
                     />
                 </fieldset>
             );
