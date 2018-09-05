@@ -41,6 +41,7 @@ define([
 
     const Field = ReduxForm.Field;
     const FormSection = ReduxForm.FormSection;
+    const FormSelector = ReduxForm.formValueSelector('createListing');
 
     let CreateListingPopup = React.createClass({
         getDefaultProps: function() {
@@ -82,6 +83,7 @@ define([
                 mainProduct={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 clearSelectedProduct={this.props.clearSelectedProduct}
+                variationImages={this.props.variationImages}
             />;
         },
         renderForm: function() {
@@ -227,6 +229,7 @@ define([
                     variationsDataForProduct={this.props.variationsDataForProduct}
                     product={this.props.product}
                     attributeNames={this.props.product.attributeNames}
+                    variationImages={this.props.variationImages}
                 />
             </span>);
         },
@@ -242,6 +245,7 @@ define([
                     accounts={this.getSelectedAccountsData()}
                     massUnit={this.props.massUnit}
                     lengthUnit={this.props.lengthUnit}
+                    variationImages={this.props.variationImages}
                 />
             </span>);
         },
@@ -256,6 +260,7 @@ define([
                     accounts={this.getSelectedAccountsData()}
                     initialPrices={this.props.initialProductPrices}
                     currency={this.props.defaultCurrency}
+                    variationImages={this.props.variationImages}
                 />
             </span>);
         },
@@ -328,7 +333,8 @@ define([
             submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
             resetSection: ReduxForm.resetSection,
             categoryTemplates: state.categoryTemplates,
-            productSearch: state.productSearch
+            productSearch: state.productSearch,
+            variationImages: FormSelector(state, 'images')
         };
     };
 

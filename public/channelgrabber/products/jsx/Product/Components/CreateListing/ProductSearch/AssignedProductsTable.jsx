@@ -70,6 +70,7 @@ define([
                 attributeNameMap={this.props.attributeNameMap}
                 renderCustomTableHeaders={this.renderTableHeader}
                 renderCustomTableRows={this.renderTableColumns}
+                variationImages={this.props.variationImages}
             />;
         }
     });

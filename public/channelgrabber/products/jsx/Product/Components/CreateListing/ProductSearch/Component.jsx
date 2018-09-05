@@ -211,6 +211,7 @@ define([
                 attributeNames={this.props.mainProduct.attributeNames}
                 attributeNameMap={this.props.mainProduct.attributeNameMap}
                 clearSelectedProduct={this.props.clearSelectedProduct}
+                variationImages={this.props.variationImages}
             />;
         },
         render: function() {

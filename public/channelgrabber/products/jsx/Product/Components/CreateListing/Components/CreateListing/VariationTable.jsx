@@ -9,9 +9,9 @@ define([
 ) {
     "use strict";
 
-    var Field = ReduxForm.Field;
+    const Field = ReduxForm.Field;
 
-    var VariationTableComponent = React.createClass({
+    const VariationTableComponent = React.createClass({
         getDefaultProps: function() {
             return {
                 variationsDataForProduct: [],
@@ -26,7 +26,8 @@ define([
                 containerCssClasses:'',
                 tableCssClasses:'',
                 renderCustomTableHeaders: function() { return null; },
-                renderCustomTableRows: function() { return null; }
+                renderCustomTableRows: function() { return null; },
+                variationImages: {}
             }
         },
         renderImageHeader: function() {
@@ -49,7 +50,7 @@ define([
         renderVariationRows: function() {
             return this.props.variationsDataForProduct.map(function(variation) {
                 return <tr>
-                    {this.renderImageColumn(variation)}
+                    <td>{this.renderImageColumn(variation)}</td>
                     <td>{variation.sku}</td>
                     {this.renderAttributeColumns(variation)}
                     {this.props.renderCustomTableRows(variation)}
@@ -57,29 +58,40 @@ define([
             }.bind(this));
         },
         renderImageColumn: function(variation) {
-            let fieldName = "images." + variation.sku + ".imageId";
-
             if (!this.props.showImages) {
-                return;
+                return '';
             }
             if (this.props.product.images == 0) {
-                return <td>No images available</td>
+                return 'No images available';
             }
 
-            return (<td>
-                <Field
-                    name={fieldName}
-                    component={this.renderImageField}
-                    variation={variation}
-                />
-            </td>);
+            if (!this.props.renderImagePicker) {
+                return this.renderStaticImage2(variation.sku);
+            }
+
+            return <Field
+                name={"images." + variation.sku + ".imageId"}
+                component={this.renderImageField}
+                variation={variation}
+            />;
+        },
+        renderStaticImage2: function(sku) {
+            const selectedImageForVariation = this.props.variationImages[sku];
+            if (!selectedImageForVariation) {
+                return '';
+            }
+
+            const image = this.findSelectedImageForVariation(selectedImageForVariation.imageId);
+            return <div className="image-dropdown-target">
+                <div className="react-image-picker">
+                    <span className="react-image-picker-image">
+                        <img src={image.url}/>
+                    </span>
+                </div>
+            </div>;
         },
         renderImageField: function(field) {
-            if (!this.props.renderImagePicker) {
-                return this.renderStaticImage(field);
-            }
-
-            var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
+            const selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
             return <ImageDropDown
                 selected={selected}
                 autoSelectFirst={false}
@@ -90,24 +102,6 @@ define([
         },
         onImageSelected: function(field, image) {
             this.onInputChange(field.input, image.target.value);
-        },
-        getStaticImage: function(fieldValue, fieldVariation) {
-            if (this.props.shouldRenderStaticImagesFromVariationValues && fieldVariation.images) {
-                return fieldVariation.images[0];
-            }
-            return this.findSelectedImageForVariation(fieldValue);
-        },
-        renderStaticImage: function(field) {
-            var image = this.getStaticImage(field.input.value, field.variation);
-            return (
-                <div className="image-dropdown-target">
-                    <div className="react-image-picker">
-                        <span className="react-image-picker-image">
-                            <img src={image.url}/>
-                        </span>
-                    </div>
-                </div>
-            );
         },
         findSelectedImageForVariation: function(imageId) {
             var selectedImage = {url: ""};

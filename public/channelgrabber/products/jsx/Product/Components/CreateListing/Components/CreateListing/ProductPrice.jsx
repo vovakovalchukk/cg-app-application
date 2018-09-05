@@ -139,6 +139,7 @@ define([
                 attributeNameMap={this.props.attributeNameMap}
                 renderCustomTableHeaders={this.renderPriceHeaders}
                 renderCustomTableRows={this.renderPriceColumns}
+                variationImages={this.props.variationImages}
             />;
         }
     });

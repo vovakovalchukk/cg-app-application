@@ -167,6 +167,7 @@ define([
                 attributeNameMap={this.props.attributeNameMap}
                 renderCustomTableHeaders={this.renderDimensionHeaders}
                 renderCustomTableRows={this.renderDimensionColumns}
+                variationImages={this.props.variationImages}
             />;
         },
         getValidatorsForDimensionAndChannel: function (accounts, dimension) {

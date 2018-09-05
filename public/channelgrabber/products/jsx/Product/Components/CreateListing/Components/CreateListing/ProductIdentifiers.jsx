@@ -146,6 +146,7 @@ define([
                     tableCssClasses={this.props.tableCssClasses}
                     renderCustomTableHeaders={this.renderIdentifierHeaders}
                     renderCustomTableRows={this.renderIdentifierColumns}
+                    variationImages={this.props.variationImages}
                 />
             );
         }
