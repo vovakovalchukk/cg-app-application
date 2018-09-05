@@ -139,7 +139,7 @@ class Service implements LoggerAwareInterface
 
     protected function mergeManifestPdfs(array $manifestPdfs): string
     {
-        return base64_encode(mergePdfData($manifestPdfs));
+        return mergePdfData($manifestPdfs);
     }
 
     /**
