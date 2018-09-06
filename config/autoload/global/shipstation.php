@@ -144,7 +144,7 @@ return [
                                 ],
                                 'agree_to_eula' => [
                                     'name' => 'agree_to_eula',
-                                    'label' => 'Do you agree to FedEx\'s EULA?',
+                                    'label' => 'Do you agree to <a href="https://app.shipengine.com/content/integration/FedEx/EULA.pdf" target="_blank">FedEx\'s EULA</a>?',
                                     'required' => true,
                                     'inputType' => 'checkbox',
                                 ],
