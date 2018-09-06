@@ -24,7 +24,6 @@ return [
                 StorageInterface::class => RedisStorage::class,
                 EmailClientInterface::class => EmailClient::class,
                 SftpClientInterface::class => SftpClient::class
-
             ],
             RedisStorage::class => [
                 'parameters' => [
