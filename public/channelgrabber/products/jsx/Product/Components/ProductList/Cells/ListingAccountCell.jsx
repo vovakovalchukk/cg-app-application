@@ -24,48 +24,99 @@ define([
         getUniqueClassName: function() {
             return this.props.columnKey + '-' + this.props.rowIndex;
         },
-        getHoverText: function (listing) {
-            var hoverText = {
-                'active': 'This is an active listing with available stock',
-                'pending': 'We have recently sent a stock update to this listing, and are currently waiting for '+$.trim(listing.channel)+' to confirm they have received and processed the stock update',
-                'paused': 'Listing is paused due to no stock being available for sale',
-                'error': 'We received an error when sending a stock update for this listing and so we are not currently able to manage the stock for this listing.',
-                'inactive': 'You do not currently have this SKU listed in this location',
-                'unimported': 'This listing has not yet been imported or does not exist'
-            };
-            return hoverText[$.trim(listing.status)];
-        },
         render() {
-            let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-            // console.log('this.props: ', this.props);
-            let listingsForAccount = getListingsForAccount(row , this.props.listingAccountId);
+            // console.log('in ListingAccountCelel this.props: ', this.props ,' can you see listingAccountId ?');
             
-            // console.log('listingsForAccount: ', listingsForAccount);
-            // var status = $.trim(listing.status);
-            // var listingUrl = $.trim(listing.url);
-            // return (
-            //     <td title={this.getHoverText(listing)}>
-            //         <a target="_blank" href={listingUrl}>
-            //         <span className={"listing-status " + status}>
-            //
-            //         </span>
-            //         </a>
-            //     </td>
-            // );
-            return <div>sdfsdf</div>
+            
+            let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+            
+            console.log('ListingAccountCell with row: ', row, 'this.props.listingAccountId: ', this.props.listingAccountId);
+            
+            
+            let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
+            
+            if(!listingsForAccount){
+                return <div>sdfsdf</div>
+            }
+            let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(listingsForAccount);
+            // console.log('mostNegativeListingStateFromLIstings: ', mostNegativeListingStateFromListings);
+            let {status} = mostNegativeListingStateFromListings;
+            return (<td>
+                <a target="_blank" >
+                    <span className={"listing-status " + status}>
+                        {status}
+                    </span>
+                </a>
+            </td>);
         }
     });
     
     return ListingAccountCell;
     
-    function getListingsForAccount(rowData, listingAccountId){
+    function getListingsForAccount(rowData, listingAccountId) {
+        
+        
         let {listingsPerAccount, listings} = rowData;
         let listingsIdsForAccount = listingsPerAccount[listingAccountId];
-        if(!listingsIdsForAccount){
+        if (!listingsIdsForAccount) {
             return;
         }
-        return listingsIdsForAccount.map((listingId)=>{
+        console.log('in getListingssForACccount rowData: ' , rowData , ' listingsPerAccount[listingAccountId]: ' , listingsPerAccount[listingAccountId],  ' listingAccountId:', listingAccountId);
+    
+        return listingsIdsForAccount.map((listingId) => {
             return listings[listingId];
         });
+    }
+    
+    function getMostNegativeListingStateFromListings(listings) {
+        // console.log('in getMostNegativeListingStateFromListings listings:', listings);
+        let listingStatusesByPriority = [
+            {
+                status: 'active',
+                getHoverMessage: () => ('This is an active listing with available stock'),
+                statusPriority: 0
+            }, {
+                status: 'pending',
+                getHoverMessage: (listing) => ('We have recently sent a stock update to this listing, and are currently waiting for ' + $.trim(listing.channel) + ' to confirm they have received and processed the stock update'),
+                statusPriority: 1
+            }, {
+                status: 'paused',
+                getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale'),
+                statusPriority: 2
+            }, {
+                status: 'error',
+                getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale'),
+                statusPriority: 3
+            }, {
+                status: 'inative',
+                getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale' ),
+                statusPriority: 4
+            }, {
+                status: 'uninmported',
+                getHoverMessage: () => (  'Listing is paused due to no stock being available for sale' ),
+                statusPriority: 5
+            },
+        ];
+        
+        if (!listings) {
+            return;
+        }
+        let highestPriorityStatus = listingStatusesByPriority[0];
+        listings.forEach((listing) => {
+            let relevantListingStatus = listingStatusesByPriority.find(status => {
+                return listing.status === status.status;
+            });
+            if (relevantListingStatus.statusPriority > highestPriorityStatus.statusPriority) {
+                // console.log('relevantListingStatus.statusPriority: ', relevantListingStatus.statusPriority);
+                // console.log('highestPriorityStatus.statusPriority: ', highestPriorityStatus.statusPriority);
+                //
+                //
+                //
+                // console.log('setting a higher priorty');
+                highestPriorityStatus = relevantListingStatus;
+            }
+            // console.log('not setting a higher priortiy');
+        });
+        return highestPriorityStatus;
     }
 });

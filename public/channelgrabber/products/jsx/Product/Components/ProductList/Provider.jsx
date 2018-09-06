@@ -61,5 +61,4 @@ define([
     });
     
     return ProductListProvider;
-    
 });

@@ -46,17 +46,19 @@ define([
     
     let detailsColumns = Array(7).fill(0).map((column, index) => {
         return {
-            key: 'dummyDetailsColumn' + (index + 1),
+            key: 'dummyDetailsColumn' + (index),
             width: 200,
-            headerText: 'dummy details col ' + (index + 1),
+            headerText: 'dummy details col ' + (index),
             fixed: false,
             tab: 'details'
         }
     });
     
     let columnService = (function() {
+        //
         return {
             generateColumnSettings: function(accounts) {
+                console.log('in generateCOlumnSettings accounts: ' , accounts);
                 let listingsColumns = generateListingsColumnsFromAccounts(accounts);
                 let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns);
                 console.log('in generateColumns generatedColumns: ', generatedColumns, ' accounts: ' , accounts);

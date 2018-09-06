@@ -43,6 +43,10 @@ define([
     
     var columnCreator = function(column) {
         let CreatedCell = getCreatedCell(column);
+        // console.log('in columnCreator column: ' , column , 'CreatedCell: ' , CreatedCell);
+        
+        
+        
         if(!CreatedCell){
             console.error("cannot create cell in column factory for column: " , column);
         }

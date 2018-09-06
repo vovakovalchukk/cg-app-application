@@ -126,7 +126,7 @@ define([
         },
         renderColumns: function() {
             let columnSettings = this.props.columns.columnSettings;
-            return columnSettings.map((column) => {
+            let createdColumns = columnSettings.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
                 if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
@@ -134,7 +134,8 @@ define([
                 }
                 let createdColumn = columnCreator(column);
                 return createdColumn
-            })
+            });
+            return createdColumns;
         },
         isReadyToRenderTable: function() {
             return this.state.productsListContainer && this.state.productsListContainer.height && this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length;
