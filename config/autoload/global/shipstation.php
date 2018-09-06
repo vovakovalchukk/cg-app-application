@@ -353,67 +353,6 @@ return [
                                     'required' => true,
                                     'inputType' => 'number',
                                 ],
-                            ]
-                        ],
-                        'royal-mail' => [
-                            'channelName' => 'royal-mail-ss',
-                            'displayName' => 'Royal Mail',
-                            'allowsCancellation' => true,
-                            'allowsManifesting' => true,
-                            'fields' => [
-                                'nickname' => [
-                                    'name' => 'nickname',
-                                    'label' => 'Nickname for account',
-                                    'required' => true,
-                                ],
-                                'account_number' => [
-                                    'name' => 'account_number',
-                                    'label' => 'Account Number',
-                                    'required' => true,
-                                ],
-                                'oba_email' => [
-                                    'name' => 'oba_email',
-                                    'label' => 'OBA Email Address',
-                                    'required' => true,
-                                    'inputType' => 'email',
-                                ],
-                                'contact_name' => [
-                                    'name' => 'contact_name',
-                                    'label' => 'Contact Name',
-                                    'required' => true,
-                                ],
-                                'email' => [
-                                    'name' => 'email',
-                                    'label' => 'Conact Email Address',
-                                    'required' => true,
-                                    'inputType' => 'email',
-                                ],
-                                'street_line1' => [
-                                    'name' => 'street_line1',
-                                    'label' => 'Address Line 1',
-                                    'required' => true,
-                                ],
-                                'street_line2' => [
-                                    'name' => 'street_line2',
-                                    'label' => 'Address Line 2',
-                                    'required' => false,
-                                ],
-                                'city' => [
-                                    'name' => 'city',
-                                    'label' => 'City',
-                                    'required' => true,
-                                ],
-                                'postal_code' => [
-                                    'name' => 'postal_code',
-                                    'label' => 'Post code',
-                                    'required' => true,
-                                ],
-                                'phone' => [
-                                    'name' => 'phone',
-                                    'label' => 'Telephone',
-                                    'required' => true,
-                                    'inputType' => 'number',
-                                ],
                             ],
                             'bookingOptions' => [
                                 'weight' => 'weight',

@@ -57,7 +57,6 @@ define(['./ServiceDependantOptionsAbstract.js', '../Storage.js'], function(Servi
            totalLabelCost += Number($(this).val());
         });
         $(Cost.SELECTOR_TOTAL_ORDER_LABEL_COST).text(totalLabelCost.toFixed(2));
-    }
-
+    };
     return Cost;
 });
