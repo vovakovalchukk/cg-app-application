@@ -83,16 +83,18 @@ require(["tooltip"], function(Tooltip) {
             "dataType": 'json',
             "success": function(response) {
                 var newData = response.newData;
-                oSettings.aoData.forEach(function (record, index) {
+                oSettings.aoData.forEach(function (record, rowIndex) {
                     var orderId = record._aData['id'];
-                    var newRecord = orderIds[orderId];
                     if (newData[orderId] === undefined) {
                         return;
                     }
-                    for (var attrname in newData[orderId]) {
-                        newRecord[attrname] = newData[orderId][attrname];
+                    for (var colIndex in oSettings.aoColumns) {
+                        var attrname = oSettings.aoColumns[colIndex].mData;
+                        if (newData[orderId][attrname] === undefined) {
+                            continue;
+                        }
+                        oSettings.oInstance.fnUpdate(newData[orderId][attrname], rowIndex, colIndex, false, false);
                     }
-                    oSettings.oInstance.fnUpdate(newRecord, index, undefined, false, false);
                 });
             },
             error: function(error) {

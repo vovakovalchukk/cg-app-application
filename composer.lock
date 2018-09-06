@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75b281ecbf4b135fcfd88cd0de64dec2",
+    "content-hash": "ce0daee96e253ee982f2625ab1e89a44",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2033,12 +2033,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "de4e67f88c41bad38aa538a6b3f6cd8e2f7508d3"
+                "reference": "b365efa807f2745b444be695b06e57e50c78a0a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9507-EtsyInvoiceMappings-f01c68.zip",
-                "reference": "de4e67f88c41bad38aa538a6b3f6cd8e2f7508d3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9507-EtsyInvoiceMappings-7c246a.zip",
+                "reference": "b365efa807f2745b444be695b06e57e50c78a0a9",
                 "shasum": null
             },
             "require": {
@@ -2109,7 +2109,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-09-06T11:02:21+00:00"
+            "time": "2018-09-06T14:13:02+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4685,16 +4685,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.24.4",
+            "version": "1.24.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cdcb0ef2e07a0a4942d2360c112743cb4beaf980"
+                "reference": "aef78eba1c213c8daef0e2c1a31341dec8eb6dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.24.4-63d9fd.zip",
-                "reference": "cdcb0ef2e07a0a4942d2360c112743cb4beaf980",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.24.5-384887.zip",
+                "reference": "aef78eba1c213c8daef0e2c1a31341dec8eb6dcf",
                 "shasum": null
             },
             "require": {
@@ -4746,7 +4746,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-05T09:46:41+00:00"
+            "time": "2018-09-06T12:17:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
