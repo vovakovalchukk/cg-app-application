@@ -3,6 +3,8 @@ namespace CG\ShipStation\Request\Connect;
 
 class FedexUk extends Fedex
 {
+    const URI = '/connections/carriers/fedex_uk';
+
     public static function fromArray(array $params): ConnectInterface
     {
         // Only the state_province / state field is different for the UK compared to US
