@@ -4689,12 +4689,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "474d8ac98a7b4b0e43cebdba343c30774b6a5538"
+                "reference": "c21a6f9a78afff881815d9dd0aa480264f132979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-218-fedex-and-dhl-uk-982ac2.zip",
-                "reference": "474d8ac98a7b4b0e43cebdba343c30774b6a5538",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-218-fedex-and-dhl-uk-42705e.zip",
+                "reference": "c21a6f9a78afff881815d9dd0aa480264f132979",
                 "shasum": null
             },
             "require": {
@@ -4746,7 +4746,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-06T10:20:16+00:00"
+            "time": "2018-09-06T12:24:36+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
