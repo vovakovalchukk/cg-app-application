@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4afcd96d25052bd7d24b7311ee61b7c1",
+    "content-hash": "57dc9bbdd24d9b6b4e2c05c4ddb45649",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -942,7 +942,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "75f2b4058eca2fa4c5d60ac74e2e997766bb00c6"
+                "reference": "52f9a57051346226eef7cb697397f21c86245d06"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.3.0",
@@ -978,17 +978,11 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.3.0",
+            "version": "dev-CGIV-9706-dpd-sftp",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.3.0-14c937.zip",
-                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50",
-                "shasum": null
+                "reference": "e78a14f8c1471baa7a3a7165c4c55b1fdc1e407d"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -10303,12 +10297,19 @@
             "alias_normalized": "1.1.2.0",
             "version": "dev-CGIV-9706-dpd-sftp",
             "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-CGIV-9706-dpd-sftp",
+            "package": "channelgrabber/courieradapter"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
         "realityking/hash_equals": 20
