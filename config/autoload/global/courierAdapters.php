@@ -12,7 +12,7 @@ use Zend\Di\Di;
 // Adapter implementations
 use CG\Courier\Geopost\Dpd\Courier as DpdCourier;
 use CG\Courier\Geopost\Interlink\Courier as InterlinkCourier;
-use CG\Courier\Geopost\Manifest\Client\SftpClient;
+use CG\Courier\Geopost\Manifest\Client\Sftp as SftpClient;
 use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\MyHermes\Courier as MyHermesCourier;
 use CG\Hermes\CourierAdapter as HermesCorporateCourier;

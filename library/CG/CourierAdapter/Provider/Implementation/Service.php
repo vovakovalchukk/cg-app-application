@@ -10,6 +10,8 @@ use CG\CourierAdapter\EmailClientInterface;
 use CG\CourierAdapter\Provider\Implementation\Collection;
 use CG\CourierAdapter\Provider\Implementation\Entity;
 use CG\CourierAdapter\Provider\Implementation\Mapper;
+use CG\CourierAdapter\SftpClientAwareInterface;
+use CG\CourierAdapter\SftpClientInterface;
 use CG\CourierAdapter\StorageAwareInterface;
 use CG\CourierAdapter\StorageInterface;
 use CG\FeatureFlags\Service as FeatureFlagsService;
@@ -25,7 +27,8 @@ class Service implements
     ShippingProviderChannelOptionsInterface,
     PsrLoggerAwareInterface,
     StorageAwareInterface,
-    EmailClientAwareInterface
+    EmailClientAwareInterface,
+    SftpClientAwareInterface
 {
     /** @var Mapper */
     protected $mapper;
@@ -44,6 +47,7 @@ class Service implements
     protected $storage;
     /** @var EmailClientInterface */
     protected $emailClient;
+    protected $sftpClient;
 
     protected $adapterImplementationCourierInstances = [];
 
@@ -129,6 +133,9 @@ class Service implements
         }
         if ($courierInstance instanceof EmailClientAwareInterface) {
             $courierInstance->setEmailClient($this->emailClient);
+        }
+        if ($courierInstance instanceof SftpClientAwareInterface) {
+            $courierInstance->setSftpClient($this->sftpClient);
         }
 
         // Some couriers need to be told if we're in a non-Live environment
@@ -254,5 +261,10 @@ class Service implements
     {
         $this->emailClient = $emailClient;
         return $this;
+    }
+
+    public function setSftpClient(SftpClientInterface $sftpClient)
+    {
+        $this->sftpClient = $sftpClient;
     }
 }
