@@ -223,7 +223,7 @@ class Service
     {
         $account = $this->accountService->fetch($thread->getAccountId());
         $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
-        return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $thread->getExternalUsername());
+        return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $externalUsername);
     }
 
     protected function sortThreadCollection(ThreadCollection $threads)
