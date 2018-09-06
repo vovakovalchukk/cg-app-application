@@ -152,7 +152,7 @@ return [
                         ],
                         'ups' => [
                             'channelName' => 'ups-ss',
-                            'displayName' => 'UPS (US)',
+                            'displayName' => 'UPS (Worldwide)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'allowsRates' => false,
