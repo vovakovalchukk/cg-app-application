@@ -102,14 +102,16 @@ define([
             </span>
         },
         renderProduct: function (product) {
-            return <div className={'search-product-container'}>
-                {this.renderProductTitle(product)}
-                <span className="search-product-details-container">
-                    {this.renderProductImage(product)}
-                    {this.renderProductItemSpecifics(product)}
-                </span>
+            return <span>
+                <div className={'search-product-container'}>
+                    {this.renderProductTitle(product)}
+                    <span className="search-product-details-container">
+                        {this.renderProductImage(product)}
+                        {this.renderProductItemSpecifics(product)}
+                    </span>
+                </div>
                 {this.renderAssignSelect(product)}
-            </div>
+            </span>
         },
         renderProductTitle: function (product) {
             return <span className="search-product-title" title={product.title}>

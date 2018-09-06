@@ -1,4 +1,6 @@
 .container-wrapper.product-create-listing {
+  min-height: 0;
+
   .container-buttons {
     margin: 8px 0 0 168px;
   }
@@ -140,6 +142,7 @@
 
   .container-content {
     max-width: none;
+    width: 98%;
     &.account-form {
       width: 98%;
     }
@@ -223,14 +226,17 @@
 
   .search-product-assign-select {
     display: flex;
-    margin-top: 10px;
+    width: 270px;
+    margin: 0 auto;
+    border-bottom:  2px solid grey;
+    border-right: 2px solid grey;
+    border-left: 2px solid grey;
+    border-radius: 0 0 10px 10px;
+    padding: 5px;
 
     > span {
-      font-size: 18px;
-    }
-
-    > div {
-      margin-left: 36px;
+      font-size: 15px;
+      line-height: 31px;
     }
 
     .custom-select {
@@ -425,7 +431,7 @@
 .search-product-container {
   width: 370px;
   border: 2px solid grey;
-  margin: 10px;
+  margin: 10px 10px 0 10px;
   padding: 5px;
   border-radius: 10px;
   flex-flow: column;

@@ -16,7 +16,8 @@ define([
     './Components/CreateListing/ProductPrice',
     './Components/CreateListing/SubmissionTable',
     './Validators',
-    './ProductSearch/Component'
+    './ProductSearch/Component',
+    '../../SectionedContainer'
 ], function(
     React,
     ReactDom,
@@ -35,7 +36,8 @@ define([
     ProductPrice,
     SubmissionTable,
     Validators,
-    ProductSearch
+    ProductSearch,
+    SectionedContainer
 ) {
     "use strict";
 
@@ -296,6 +298,7 @@ define([
         },
         render: function() {
             let isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+            return this.renderStuff();
             return (
                 <Container
                     initiallyActive={true}
@@ -314,6 +317,23 @@ define([
                     {this.renderSubmissionTable()}
                 </Container>
             );
+        },
+        renderStuff: function() {
+            let isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+            return <SectionedContainer
+                headerTexts={["Search for your product", "Listing Information", "Listing creation status"]}
+                sectionClassName={"editor-popup product-create-listing"}
+                yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
+                noButtonText="Cancel"
+                onYesButtonPressed={this.props.submitForm}
+                onNoButtonPressed={this.props.onCreateListingClose}
+                onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
+                yesButtonDisabled={isSubmitButtonDisabled || this.areCategoryTemplatesFetching()}
+            >
+                {this.renderProductSearchComponent()}
+                {this.renderForm()}
+                {this.renderSubmissionTable()}
+            </SectionedContainer>;
         }
     });
 
