@@ -116,12 +116,12 @@ return [
                                 ],
                                 'state' => [
                                     'name' => 'state',
-                                    'label' => 'County / State',
+                                    'label' => 'State',
                                     'required' => true,
                                 ],
                                 'postal_code' => [
                                     'name' => 'postal_code',
-                                    'label' => 'Post / zip code',
+                                    'label' => 'Zip code',
                                     'required' => true,
                                 ],
                                 'country_code' => [
