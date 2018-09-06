@@ -24,12 +24,23 @@ define([
         getUniqueClassName: function() {
             return this.props.columnKey + '-' + this.props.rowIndex;
         },
+        getHoverText: function (listing) {
+            var hoverText = {
+                'active': 'This is an active listing with available stock',
+                'pending': 'We have recently sent a stock update to this listing, and are currently waiting for '+$.trim(listing.channel)+' to confirm they have received and processed the stock update',
+                'paused': 'Listing is paused due to no stock being available for sale',
+                'error': 'We received an error when sending a stock update for this listing and so we are not currently able to manage the stock for this listing.',
+                'inactive': 'You do not currently have this SKU listed in this location',
+                'unimported': 'This listing has not yet been imported or does not exist'
+            };
+            return hoverText[$.trim(listing.status)];
+        },
         render() {
             let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-            console.log('this.props: ', this.props);
+            // console.log('this.props: ', this.props);
             let listingsForAccount = getListingsForAccount(row , this.props.listingAccountId);
-            console.log('listingsForAccount: ', listingsForAccount);
-    
+            
+            // console.log('listingsForAccount: ', listingsForAccount);
             // var status = $.trim(listing.status);
             // var listingUrl = $.trim(listing.url);
             // return (
@@ -49,9 +60,7 @@ define([
     
     function getListingsForAccount(rowData, listingAccountId){
         let {listingsPerAccount, listings} = rowData;
-        console.log('listingsPerAccount: ', listingsPerAccount);
         let listingsIdsForAccount = listingsPerAccount[listingAccountId];
-        console.log('listingIdsFOrAccounts');
         if(!listingsIdsForAccount){
             return;
         }
