@@ -8,6 +8,13 @@ use CG\Stdlib\DateTime;
 
 class Label extends ResponseAbstract
 {
+    const STATUS_PROCESSING = 'processing';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_ERROR = 'error';
+    const STATUS_VOIDED = 'voided';
+
+    const CARRIER_ERROR_PREFIX = '/^A shipping carrier reported an error when processing your request. Carrier ID: [^,]+, Carrier: [^\.]+. ?/';
+
     /** @var string */
     protected $labelId;
     /** @var string */
@@ -62,28 +69,28 @@ class Label extends ResponseAbstract
     protected $errors;
 
     public function __construct(
-        string $labelId,
-        string $status,
-        string $shipmentId,
-        DateTime $shipDate,
-        DateTime $createdAt,
-        float $shipmentCost,
-        string $shipmentCostCurrency,
-        float $insuranceCost,
-        string $insuranceCostCurrency,
-        string $trackingNumber,
-        bool $returnLabel,
-        bool $international,
-        string $batchId,
-        Carrier $carrier,
-        string $serviceCode,
-        string $packageCode,
-        bool $voided,
+        ?string $labelId,
+        ?string $status,
+        ?string $shipmentId,
+        ?DateTime $shipDate,
+        ?DateTime $createdAt,
+        ?float $shipmentCost,
+        ?string $shipmentCostCurrency,
+        ?float $insuranceCost,
+        ?string $insuranceCostCurrency,
+        ?string $trackingNumber,
+        ?bool $returnLabel,
+        ?bool $international,
+        ?string $batchId,
+        ?Carrier $carrier,
+        ?string $serviceCode,
+        ?string $packageCode,
+        ?bool $voided,
         ?DateTime $voidedAt,
-        string $labelFormat,
-        string $labelLayout,
-        bool $trackable,
-        string $trackingStatus,
+        ?string $labelFormat,
+        ?string $labelLayout,
+        ?bool $trackable,
+        ?string $trackingStatus,
         ?Downloadable $labelDownload,
         ?Downloadable $formDownload,
         ?Downloadable $insuranceClaim,
@@ -122,38 +129,51 @@ class Label extends ResponseAbstract
         $errors = [];
         if (isset($decodedJson->errors)) {
             foreach ($decodedJson->errors as $errorJson) {
-                $errors[] = $errorJson->message;
+                $errors[] = static::sanitiseError($errorJson->message);
             }
         }
 
         return new static(
-            $decodedJson->label_id,
-            $decodedJson->status,
-            $decodedJson->shipment_id,
-            new DateTime($decodedJson->ship_date),
-            new DateTime($decodedJson->created_at),
-            $decodedJson->shipment_cost->amount,
-            $decodedJson->shipment_cost->currency,
-            $decodedJson->insurance_cost->amount,
-            $decodedJson->insurance_cost->currency,
-            $decodedJson->tracking_number,
-            $decodedJson->is_return_label,
-            $decodedJson->is_international,
-            $decodedJson->batch_id,
-            new Carrier($decodedJson->carrier_id, $decodedJson->carrier_code),
-            $decodedJson->service_code,
-            $decodedJson->package_code,
-            $decodedJson->voided,
+            $decodedJson->label_id ?? null,
+            $decodedJson->status ?? null,
+            $decodedJson->shipment_id ?? null,
+            isset($decodedJson->ship_date) ? new DateTime($decodedJson->ship_date) : null,
+            isset($decodedJson->created_at) ? new DateTime($decodedJson->created_at) : null,
+            $decodedJson->shipment_cost->amount ?? null,
+            $decodedJson->shipment_cost->currency ?? null,
+            $decodedJson->insurance_cost->amount ?? null,
+            $decodedJson->insurance_cost->currency ?? null,
+            $decodedJson->tracking_number ?? null,
+            $decodedJson->is_return_label ?? null,
+            $decodedJson->is_international ?? null,
+            $decodedJson->batch_id ?? null,
+            isset($decodedJson->carrier_id) ? new Carrier($decodedJson->carrier_id, $decodedJson->carrier_code ?? '') : null,
+            $decodedJson->service_code ?? null,
+            $decodedJson->package_code ?? null,
+            $decodedJson->voided ?? null,
             isset($decodedJson->voided_at) ? new DateTime($decodedJson->voided_at) : null,
-            $decodedJson->label_format,
-            $decodedJson->label_layout,
-            $decodedJson->trackable,
-            $decodedJson->tracking_status,
+            $decodedJson->label_format ?? null,
+            $decodedJson->label_layout ?? null,
+            $decodedJson->trackable ?? null,
+            $decodedJson->tracking_status ?? null,
             isset($decodedJson->label_download) ? Downloadable::build($decodedJson->label_download) : null,
             isset($decodedJson->form_download) ? Downloadable::build($decodedJson->form_download) : null,
             isset($decodedJson->insurance_claim) ? Downloadable::build($decodedJson->insurance_claim) : null,
             $errors
         );
+    }
+
+    public static function sanitiseError(string $error): string
+    {
+        // There's often some fluff at the start of the error that we can strip out
+        return preg_replace(static::CARRIER_ERROR_PREFIX, '', $error);
+    }
+
+    public static function getActiveStatuses()
+    {
+        return [
+            static::STATUS_PROCESSING, static::STATUS_COMPLETED
+        ];
     }
 
     public function getLabelId(): string

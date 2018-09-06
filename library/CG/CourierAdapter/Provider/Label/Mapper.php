@@ -39,16 +39,16 @@ class Mapper
         OrganisationUnit $rootOu
     ) {
         $caPackageData = [
-            'weight' => (isset($parcelData['weight']) ? $this->normaliseWeight($parcelData['weight'], $rootOu->getLocale()) : null),
-            'height' => (isset($parcelData['height']) ? $this->normaliseDimension($parcelData['height'], $rootOu->getLocale()) : null),
-            'width' => (isset($parcelData['width']) ? $this->normaliseDimension($parcelData['width'], $rootOu->getLocale()) : null),
-            'length' => (isset($parcelData['length']) ? $this->normaliseDimension($parcelData['length'], $rootOu->getLocale()) : null),
-            'number' => (isset($parcelData['number']) ? $parcelData['number'] : null),
+            'weight' => (isset($parcelData['weight']) && $parcelData['weight'] !== '' ? $this->normaliseWeight($parcelData['weight'], $rootOu->getLocale()) : null),
+            'height' => (isset($parcelData['height']) && $parcelData['height'] !== '' ? $this->normaliseDimension($parcelData['height'], $rootOu->getLocale()) : null),
+            'width' => (isset($parcelData['width']) && $parcelData['width'] !== '' ? $this->normaliseDimension($parcelData['width'], $rootOu->getLocale()) : null),
+            'length' => (isset($parcelData['length']) && $parcelData['length'] !== '' ? $this->normaliseDimension($parcelData['length'], $rootOu->getLocale()) : null),
+            'number' => (isset($parcelData['number']) && $parcelData['number'] !== '' ? $parcelData['number'] : null),
         ];
-        if (isset($parcelData['packageType']) && is_a($shipmentClass, PackageTypesInterface::class, true)) {
+        if (isset($parcelData['packageType']) && $parcelData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
             $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
         }
-        if (isset($parcelData['itemParcelAssignment']) && is_a($packageClass, PackageContentsInterface::class, true)) {
+        if (isset($parcelData['itemParcelAssignment']) && $parcelData['itemParcelAssignment'] !== '' && is_a($packageClass, PackageContentsInterface::class, true)) {
             $caPackageData['contents'] = $this->ohOrderAndDataToPackageContents($order, $parcelData, $itemsData);
         }
 

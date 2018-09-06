@@ -6,6 +6,7 @@ use CG\Account\Shipping\Service as AccountService;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
 use CG\Channel\Shipping\Provider\Service\CancelInterface as CarrierServiceProviderCancelInterface;
+use CG\Channel\Shipping\Provider\Service\CreateRestrictedInterface;
 use CG\Channel\Shipping\Provider\Service\ExportInterface as CarrierServiceProviderExportInterface;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface as CarrierServiceProviderFetchRatesInterface;
 use CG\Channel\Shipping\Provider\Service\Repository as CarrierServiceProviderRepository;
@@ -185,6 +186,11 @@ class SpecificsAjax
             && OrderStatus::allowedStatusChange($order, OrderStatus::DISPATCHING);
         $rateable = ($providerService instanceof CarrierServiceProviderFetchRatesInterface
             && $providerService->isFetchRatesAllowedForOrder($courierAccount, $order));
+
+        $creatable = true;
+        if ($providerService instanceof CreateRestrictedInterface) {
+            $creatable = $providerService->isCreateAllowedForOrder($courierAccount, $order, $orderLabel);
+        }
         $data = [
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
@@ -195,6 +201,7 @@ class SpecificsAjax
             'dispatchable' => $dispatchable,
             'rateable' => $rateable,
             'services' => $services,
+            'creatable' => $creatable
         ];
         foreach ($options as $option) {
             $data[$option] = '';
@@ -390,6 +397,7 @@ class SpecificsAjax
             $parcelData['exportable'] = $orderData['exportable'];
             $parcelData['cancellable'] = $orderData['cancellable'];
             $parcelData['rateable'] = $orderData['rateable'];
+            $parcelData['creatable'] = $orderData['creatable'];
             $parcelData['shippingCountryCode'] = $orderData['shippingCountryCode'];
             $parcelData['itemImageText'] = 'Package ' . $parcel;
             $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
