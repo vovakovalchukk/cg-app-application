@@ -441,6 +441,37 @@ return [
                                 ],
                             ]
                         ],
+                        'dhl-express-uk' => [
+                            'channelName' => 'dhl-express-uk-ss',
+                            'displayName' => 'DHL Express (UK)',
+                            'featureFlag' => Service::FEATURE_FLAG_DHL_EXPRESS_UK,
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'allowsRates' => false,
+                            'fields' => [
+                                'nickname' => [
+                                    'name' => 'nickname',
+                                    'label' => 'Nickname for account',
+                                    'required' => true,
+                                ],
+                                'account_number' => [
+                                    'name' => 'account_number',
+                                    'label' => 'Account Number',
+                                    'required' => true,
+                                ],
+                                'site_id' => [
+                                    'name' => 'site_id',
+                                    'label' => 'Site ID',
+                                    'required' => true,
+                                ],
+                                'password' => [
+                                    'name' => 'password',
+                                    'label' => 'Password',
+                                    'required' => true,
+                                    'inputType' => 'password',
+                                ],
+                            ]
+                        ],
                     ],
                     'defaultBookingOptions' => [
                         'parcels' => 'parcels',
