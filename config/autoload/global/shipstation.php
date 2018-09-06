@@ -360,6 +360,7 @@ return [
                         'fedex-uk' => [
                             'channelName' => 'fedex-uk-ss',
                             'displayName' => 'FedEx (UK)',
+                            'featureFlag' => Service::FEATURE_FLAG_FEDEX_UK,
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'allowsRates' => false,
