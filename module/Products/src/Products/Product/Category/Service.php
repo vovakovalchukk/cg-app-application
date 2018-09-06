@@ -150,7 +150,7 @@ class Service
         foreach ($categoryTemplates as $categoryTemplate) {
             $templateDependentFieldValues[$categoryTemplate->getId()] = [
                 'name' => $categoryTemplate->getName(),
-                'categories' => [],
+                'accounts' => [],
             ];
 
             /** @var AccountCategory $accountCategory */
