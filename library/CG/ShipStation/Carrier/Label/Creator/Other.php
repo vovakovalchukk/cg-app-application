@@ -61,7 +61,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
 
-    protected $testLabelBlacklist = ['fedex-ss', 'ups-ss', 'royal-mail-ss'];
+    protected $testLabelWhitelist = ['usps-ss'];
 
     public function __construct(
         ShipStationClient $shipStationClient,
@@ -232,10 +232,10 @@ class Other implements CreatorInterface, LoggerAwareInterface
         if (ENVIRONMENT == 'live') {
             return false;
         }
-        if (in_array($shippingAccount->getChannel(), $this->testLabelBlacklist)) {
-            return false;
+        if (in_array($shippingAccount->getChannel(), $this->testLabelWhitelist)) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     protected function getErrorsForUnsuccessfulLabels(array $labelResponses): array
