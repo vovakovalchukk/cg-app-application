@@ -2,12 +2,14 @@ define([
     'react',
     'Clipboard',
     'fixed-data-table',
-    'Product/Components/ProductList/stateUtility'
+    'Product/Components/ProductList/stateUtility',
+    'Product/Components/ListingStatus'
 ], function(
     React,
     Clipboard,
     FixedDataTable,
-    stateUtility
+    stateUtility,
+    ListingStatus
 ) {
     "use strict";
     
@@ -27,10 +29,9 @@ define([
         render() {
             // console.log('in ListingAccountCelel this.props: ', this.props ,' can you see listingAccountId ?');
             
-            
             let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
             
-            console.log('ListingAccountCell with row: ', row, 'this.props.listingAccountId: ', this.props.listingAccountId);
+            // console.log('ListingAccountCell with row: ', row, 'this.props.listingAccountId: ', this.props.listingAccountId);
             
             
             let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
@@ -41,13 +42,11 @@ define([
             let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(listingsForAccount);
             // console.log('mostNegativeListingStateFromLIstings: ', mostNegativeListingStateFromListings);
             let {status} = mostNegativeListingStateFromListings;
-            return (<td>
-                <a target="_blank" >
-                    <span className={"listing-status " + status}>
-                        {status}
-                    </span>
-                </a>
-            </td>);
+            
+            
+            return <ListingStatus
+                status={status}
+            />;
         }
     });
     
@@ -61,7 +60,7 @@ define([
         if (!listingsIdsForAccount) {
             return;
         }
-        console.log('in getListingssForACccount rowData: ' , rowData , ' listingsPerAccount[listingAccountId]: ' , listingsPerAccount[listingAccountId],  ' listingAccountId:', listingAccountId);
+        // console.log('in getListingssForACccount rowData: ' , rowData , ' listingsPerAccount[listingAccountId]: ' , listingsPerAccount[listingAccountId],  ' listingAccountId:', listingAccountId);
     
         return listingsIdsForAccount.map((listingId) => {
             return listings[listingId];
