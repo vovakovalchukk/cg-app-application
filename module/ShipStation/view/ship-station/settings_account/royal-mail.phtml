@@ -1,0 +1,13 @@
+<?php
+use CG\Account\Shared\Entity as Account;
+?>
+<?php if($this->isAccountPending):?>
+<div class="module clearfix">
+    <h1 style="float:none">Account Activation</h1>
+    <p>We are waiting for Royal Mail to validate your OBA Credentials.</p>
+    <p>If you have services that use tracking numbers, a request will be put in to Royal Mail to obtain tracking number ranges for your account. If a tracking range has to be requested, your account will be activated when Royal Mail sends back the valid ranges.</p>
+    <p>The credential verification process and the tracking range request process may take up to 5 business days each.</p>
+    <p>When authorisation is received, the shipping channel account status will change from <b>Pending</b> to <b>Active</b> and you will be notified that you can then use Royal Mail OBA from within ChannelGrabber.</p>
+    <p>The next time you hear from us will be when Royal Mail have authorised your connection. If you do not hear from us within 2 weeks, please get in touch.</p>
+</div>
+<?php endif; ?>

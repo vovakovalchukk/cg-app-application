@@ -18,18 +18,22 @@ class Entity
     protected $fields;
     /** @var array */
     protected $bookingOptions;
+    protected $featureFlag;
+    protected $activationDelayed;
 
     protected $requiredFields = null;
 
     public function __construct(
-        $channelName,
+        string $channelName,
         FieldCollection $fields,
-        $displayName = null,
-        $salesChannelName = null,
-        $allowsCancellation = null,
-        $allowsManifesting = null,
-        $allowsRates = null,
-        array $bookingOptions = null
+        ?string $displayName = null,
+        ?string $salesChannelName = null,
+        ?bool $allowsCancellation = null,
+        ?bool $allowsManifesting = null,
+        ?bool $allowsRates = null,
+        ?array $bookingOptions = null,
+        ?string $featureFlag = null,
+        bool $activationDelayed = false
     ) {
         $this
             ->setChannelName($channelName)
@@ -39,7 +43,9 @@ class Entity
             ->setAllowsCancellation($allowsCancellation)
             ->setAllowsManifesting($allowsManifesting)
             ->setAllowsRates($allowsRates)
-            ->setBookingOptions($bookingOptions);
+            ->setBookingOptions($bookingOptions)
+            ->setFeatureFlag($featureFlag)
+            ->setActivationDelayed($activationDelayed);
     }
 
     public function getRequiredFieldNames(): array
@@ -162,6 +168,28 @@ class Entity
     public function setBookingOptions(array $bookingOptions = null): Entity
     {
         $this->bookingOptions = $bookingOptions ?? [];
+        return $this;
+    }
+
+    public function getFeatureFlag(): ?string
+    {
+        return $this->featureFlag;
+    }
+
+    public function setFeatureFlag(?string $featureFlag): Entity
+    {
+        $this->featureFlag = $featureFlag;
+        return $this;
+    }
+
+    public function isActivationDelayed(): bool
+    {
+        return $this->activationDelayed;
+    }
+
+    public function setActivationDelayed(bool $activationDelayed): Entity
+    {
+        $this->activationDelayed = $activationDelayed;
         return $this;
     }
 

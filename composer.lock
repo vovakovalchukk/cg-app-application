@@ -1924,16 +1924,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.2.15",
+            "version": "1.2.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "1dc06594dcf36556ce8b8909a80f5aa5b003a29c"
+                "reference": "ba37b1447064b3f645d0c8f922d1ae3530ab9806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.15-9b73a9.zip",
-                "reference": "1dc06594dcf36556ce8b8909a80f5aa5b003a29c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.2.16-a0a2ab.zip",
+                "reference": "ba37b1447064b3f645d0c8f922d1ae3530ab9806",
                 "shasum": null
             },
             "require": {
@@ -1974,7 +1974,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2017-07-14T09:31:45+00:00"
+            "time": "2018-09-05T09:46:41+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2919,6 +2919,41 @@
             "time": "2018-07-26T12:59:52+00:00"
         },
         {
+            "name": "channelgrabber/shipstation",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
+                "reference": "0524c29b8b9289be49a2302055ac9b01b614ef62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-1.0.0-3b8c0a.zip",
+                "reference": "0524c29b8b9289be49a2302055ac9b01b614ef62",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/channel": "^1.36.5",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/intercom": "^1.5.4",
+                "channelgrabber/predis": "^1.0.9",
+                "channelgrabber/user": "^1.26.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\ShipStation\\": "src"
+                }
+            },
+            "authors": [
+                {
+                    "name": "ChannelGrabber",
+                    "email": "dev@channelgrabber.com"
+                }
+            ],
+            "time": "2018-09-05T09:46:41+00:00"
+        },
+        {
             "name": "channelgrabber/shopify",
             "version": "1.3.1",
             "source": {
@@ -3453,16 +3488,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.0",
+            "version": "1.26.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "2887314b8cc4b6d2b0bed2cd4772c4f8e723012d"
+                "reference": "eb17e925f30842b6ad04ac18b51446856e3660af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.0-43db47.zip",
-                "reference": "2887314b8cc4b6d2b0bed2cd4772c4f8e723012d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.3-0d29ee.zip",
+                "reference": "eb17e925f30842b6ad04ac18b51446856e3660af",
                 "shasum": null
             },
             "require": {
@@ -3479,7 +3514,7 @@
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stats": ">=1.0.1, <2.0.0",
-                "channelgrabber/stdlib": "^2.12.29",
+                "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/validation": ">=1.2.5",
                 "channelgrabber/zf2-stdlib": ">=1.1.17,<2.0.0",
                 "guzzle/guzzle": "~3.7",
@@ -3503,7 +3538,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-06-15T10:44:42+00:00"
+            "time": "2018-08-23T13:58:23+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
