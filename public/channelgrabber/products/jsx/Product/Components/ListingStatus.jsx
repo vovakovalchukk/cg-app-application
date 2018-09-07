@@ -16,42 +16,36 @@ define([
         overflow: hidden;
         margin: -5px auto;
         vertical-align: middle;
-        background-image: url('../img/listing-active.png');
+        background-image: url('${getBackgroundImage}');
     `;
-    // background-image: url('${getBackgroundImage}');
     
     var ListingStatusComponent = React.createClass({
         getDefaultProps: function() {
             return {
-                status:''
+                status: ''
             };
         },
-        render: function () {
+        render: function() {
             return (
-                    <ListingIcon className={"listing-status " + this.props.status} {...this.props}/>
+                <ListingIcon className={"listing-status " + this.props.status} {...this.props}/>
             );
         }
     });
     
     return ListingStatusComponent;
     
-    function getBackgroundImage(props){
-        console.log('in getBackgroundImage with props: ' , props);
-        
-        
+    function getBackgroundImage(props) {
+        const IMAGE_DIR = 'cg-built/products/img/';
         let statusBackgroundMap = {
-            active:'../img/listing-active.png',
-            pending:'../img/listing-pending.png',
-            paused: '../img/listing-paused.png',
-            error: '../img/listing-error.png'
+            active: IMAGE_DIR + 'listing-active.png',
+            pending: IMAGE_DIR + 'listing-pending.png',
+            paused: IMAGE_DIR + 'listing-paused.png',
+            error: IMAGE_DIR + 'listing-error.png'
         };
-        if(!statusBackgroundMap[props.status]){
+        if (!statusBackgroundMap[props.status]) {
             return '../img/listing-unknown.png';
         }
         let backgroundReturned = statusBackgroundMap[props.status];
-        
-        console.log('backgroundReturned: ', backgroundReturned);
-        
         
         return backgroundReturned;
     }

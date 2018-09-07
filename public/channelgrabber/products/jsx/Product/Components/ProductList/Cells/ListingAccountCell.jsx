@@ -32,17 +32,13 @@ define([
             let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
             
             // console.log('ListingAccountCell with row: ', row, 'this.props.listingAccountId: ', this.props.listingAccountId);
-            
-            
             let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
             
             if(!listingsForAccount){
-                return <div>sdfsdf</div>
+                return <span/>
             }
             let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(listingsForAccount);
-            // console.log('mostNegativeListingStateFromLIstings: ', mostNegativeListingStateFromListings);
             let {status} = mostNegativeListingStateFromListings;
-            
             
             return <ListingStatus
                 status={status}

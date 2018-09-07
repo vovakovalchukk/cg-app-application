@@ -55,13 +55,10 @@ define([
     });
     
     let columnService = (function() {
-        //
         return {
             generateColumnSettings: function(accounts) {
-                console.log('in generateCOlumnSettings accounts: ' , accounts);
                 let listingsColumns = generateListingsColumnsFromAccounts(accounts);
                 let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns);
-                console.log('in generateColumns generatedColumns: ', generatedColumns, ' accounts: ' , accounts);
                 return generatedColumns;
             }
         }
@@ -79,7 +76,7 @@ define([
                 key: 'ListingAccountCell-' + account.id,
                 type: 'listingAccount',
                 listingAccountId: account.id,
-                width: 150,
+                width: 115,
                 headerText: capitalize(account.channel),
                 fixed: false,
                 tab: 'listings'

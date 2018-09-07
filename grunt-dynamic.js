@@ -35,7 +35,6 @@ module.exports = function (grunt) {
                 command: "cp -r public/channelgrabber/"+ module +"/css/* public/cg-built/"+ module +"/css/ 2>/dev/null || :"
             };
         });
-        //console.log(shellTasks);
         grunt.config.set('shell', shellTasks);
     }
 
