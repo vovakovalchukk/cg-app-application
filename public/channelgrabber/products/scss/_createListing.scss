@@ -1,12 +1,18 @@
 .container-wrapper.product-create-listing {
   min-height: 0;
+  padding: 20px 0 0 0 !important;
 
   input {
     outline: none;
   }
 
   .container-buttons {
-    margin: 8px 0 0 168px;
+    padding: 8px 20px;
+    float: right;
+  }
+
+  .container-children {
+    padding: 8px 20px;
   }
 
   .currency-symbol {
@@ -153,6 +159,7 @@
   .container-content {
     max-width: none;
     width: 98%;
+    padding: 0;
     &.account-form {
       width: 98%;
     }
@@ -236,17 +243,17 @@
 
   .search-product-assign-select {
     display: flex;
-    width: 270px;
-    margin: 0 auto;
-    border-bottom:  2px solid grey;
-    border-right: 2px solid grey;
-    border-left: 2px solid grey;
-    border-radius: 0 0 10px 10px;
-    padding: 5px;
+    margin: 4px auto 0;
+    padding: 5px 16px;
+    color: white;
+    background-color: $color-lblue;
+    border-radius: 20px 20px 0 0;
+    flex-shrink:  0;
 
     > span {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 31px;
+      padding-right: 16px;
     }
 
     .custom-select {
@@ -437,7 +444,7 @@
   display: flex;
   clear: both;
   flex-wrap: wrap;
-  max-height: 640px;
+  max-height: 560px;
   overflow-y: auto;
 
   .custom-select.active .open-content {
@@ -447,13 +454,13 @@
 
 .search-product-container {
   width: 370px;
-  border: 2px solid grey;
+  border: 2px solid $color-lblue;
   margin: 10px 10px 0 10px;
-  padding: 5px;
+  padding: 5px 5px 0 5px;
   border-radius: 10px;
   flex-flow: column;
   cursor: pointer;
-  height: 250px;
+  height: 260px;
   display: flex;
   align-items: stretch;
 }

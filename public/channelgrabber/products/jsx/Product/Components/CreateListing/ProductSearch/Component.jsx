@@ -111,8 +111,8 @@ define([
                         {this.renderProductImage(product)}
                         {this.renderProductItemSpecifics(product)}
                     </span>
+                    {this.renderAssignSelect(product)}
                 </div>
-                {this.renderAssignSelect(product)}
             </span>
         },
         renderProductTitle: function (product) {
