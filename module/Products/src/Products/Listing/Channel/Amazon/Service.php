@@ -1,8 +1,10 @@
 <?php
 namespace Products\Listing\Channel\Amazon;
 
+use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Amazon\Category\ExternalData\Data as AmazonCategoryExternalData;
+use CG\Amazon\Credentials;
 use CG\Product\Category\ExternalData\Entity as CategoryExternalData;
 use CG\Product\Category\ExternalData\Service as CategoryExternalService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -10,6 +12,8 @@ use Products\Listing\Category\Service as CategoryService;
 use Products\Listing\Channel\CategoryChildrenInterface;
 use Products\Listing\Channel\CategoryDependentServiceInterface;
 use Products\Listing\Channel\ChannelSpecificValuesInterface;
+use CG\Amazon\RegionFactory;
+use CG\Amazon\RegionAbstract as Region;
 
 class Service implements
     ChannelSpecificValuesInterface,
@@ -30,20 +34,42 @@ class Service implements
     protected $categoryService;
     /** @var CategoryExternalService */
     protected $categoryExternalService;
+    /** @var Cryptor */
+    protected $cryptor;
+    /** @var RegionFactory */
+    protected $regionFactory;
 
     public function __construct(
         CategoryService $categoryService,
-        CategoryExternalService $categoryExternalService
+        CategoryExternalService $categoryExternalService,
+        Cryptor $cryptor,
+        RegionFactory $regionFactory
     ) {
         $this->categoryService = $categoryService;
         $this->categoryExternalService = $categoryExternalService;
+        $this->cryptor = $cryptor;
+        $this->regionFactory = $regionFactory;
     }
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
         return [
-            'categories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false)
+            'categories' => $this->categoryService->fetchRootCategoriesForAccount(
+                $account,
+                true,
+                $this->getMarketplaceForAccount($account),
+                false
+            )
         ];
+    }
+
+    protected function getMarketplaceForAccount(Account $account): string
+    {
+        /** @var Credentials $credentials */
+        $credentials = $this->cryptor->decrypt($account->getCredentials());
+        /** @var Region $region */
+        $region = $this->regionFactory->getByRegionCode($credentials->getRegionCode());
+        return $region->getCountryCodeForMarketplace($credentials->getDefaultMarketplaceId());
     }
 
     public function getCategoryChildrenForCategoryAndAccount(Account $account, int $categoryId)
