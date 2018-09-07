@@ -23,7 +23,9 @@ class Mapper
             $carrierConfig['allowsCancellation'] ?? null,
             $carrierConfig['allowsManifesting'] ?? null,
             $carrierConfig['allowsRates'] ?? null,
-            $carrierConfig['bookingOptions'] ?? null
+            $carrierConfig['bookingOptions'] ?? null,
+            $carrierConfig['featureFlag'] ?? null,
+            $carrierConfig['activationDelayed'] ?? false
         );
     }
 
