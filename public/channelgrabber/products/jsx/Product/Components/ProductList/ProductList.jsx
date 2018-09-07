@@ -7,6 +7,7 @@ define([
     'Product/Components/ProductList/Components/Footer/Footer',
     'Product/Components/ProductList/Column/service',
     'Product/Components/ProductList/Column/factory',
+    'Product/Components/ProductList/Column/columnKeys',
     'Product/Components/ProductList/Components/Tabs/Root'
 ], function(
     React,
@@ -17,6 +18,7 @@ define([
     ProductFooter,
     columnService,
     columnCreator,
+    columnKeys,
     Tabs
 ) {
     "use strict";
@@ -129,11 +131,14 @@ define([
             let createdColumns = columnSettings.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
+                if(column.key===columnKeys.addListing){
+                    column.onCreateNewListingIconClick = this.props.onCreateNewListingIconClick;
+                }
                 if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                     return;
                 }
-                let createdColumn = columnCreator(column);
-                return createdColumn
+                let CreatedColumn = columnCreator(column);
+                return CreatedColumn
             });
             return createdColumns;
         },

@@ -30,9 +30,9 @@ define([
         sku: TextCell,
         name: NameCell,
         available: TextCell,
-        //todo - change these to represent actual data in TAC-165
         listingAccount: ListingAccountCell,
         addListing: AddListingCell,
+        //todo to be replaced in 215
         dummyDetailsColumn1: TextCell,
         dummyDetailsColumn2: TextCell,
         dummyDetailsColumn3: TextCell,
@@ -44,6 +44,12 @@ define([
     };
     
     var columnCreator = function(column) {
+        
+        if(column.key==='addListing'){
+            // console.log('columnCretor addListing column : ' , column);
+            //
+        }
+        
         let CreatedCell = getCreatedCell(column);
         if(!CreatedCell){
             console.error("cannot create cell in column factory for column: " , column);

@@ -7,7 +7,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
+    'Product/Components/CreateListing/AccountSelectionRoot',
     'Product/Components/ProductList/Provider',
     'Product/Components/ProductList/Root',
     'Product/Components/CreateListing/ProductSearch/Root'
@@ -20,7 +20,7 @@ define([
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
-    CreateListingRoot,
+    AccountSelectionRoot,
     ProductListProvider,
     ProductListRoot,
     ProductSearchRoot
@@ -95,13 +95,16 @@ define([
         filterBySku: function(skuList) {
             this.performProductsRequest(null, null, skuList);
         },
-        onCreateListingIconClick: function(productId) {
-            var product = this.state.products.find(function(product) {
-                return product.id == productId;
-            });
+        onCreateListingIconClick: function(product) {
+            // var product = this.state.products.find(function(product) {
+            //     return product.id == productId;
+            // });
             this.showAccountsSelectionPopup(product);
         },
         showAccountsSelectionPopup: function(product) {
+            console.log('in showAccountSelectionPopup');
+            
+            
             this.setState({
                 currentView: ACCOUNT_SELECTION_VIEW,
                 createListing: {
@@ -119,6 +122,19 @@ define([
         },
         onSkuRequest: function(event) {
             this.filterBySku(event.detail.sku);
+        },
+        fetchVariations: function(filter) {
+            $('#products-loading-message').show();
+            function onSuccess(data) {
+                var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
+                this.setState({
+                    variations: variationsByParent
+                }, function() {
+                    this.fetchLinkedProducts();
+                    $('#products-loading-message').hide()
+                }.bind(this));
+            }
+            AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         onVariationsRequest: function(event) {
             var filter = new ProductFilter(null, event.detail.productId);
@@ -199,7 +215,8 @@ define([
             }.bind(this))
         },
         renderAccountSelectionPopup: function() {
-            var CreateListingRootComponent = CreateListingRoot(
+            console.log('in renderAccountSelectionPopup');
+            var AccountSelectionRoot = AccountSelectionRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
                 this.state.createListingsAllowedVariationChannels,
@@ -215,11 +232,17 @@ define([
                 this.props.salesPhoneNumber,
                 this.props.demoLink
             );
+            //todo fix this bug
+            
+            // let productWithVariation = ///
+            
             this.fetchVariationForProductListingCreation();
-            return <CreateListingRootComponent/>;
+            
+            return <AccountSelectionRoot />;
         },
         fetchVariationForProductListingCreation: function() {
-            if (this.state.variations[this.state.createListing.product.id]
+            console.log('in fetchVariationForProductListingCreation with this.state.variation: ' , this.state.variation, ' this.state: ',this.state);
+            if (this.state.listing.product[this.state.createListing.product.id]
                 && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
             ) {
                 this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
@@ -274,6 +297,7 @@ define([
                     <ProductListProvider
                         features={this.props.features}
                         addNewProductButtonClick={this.addNewProductButtonClick}
+                        onCreateNewListingIconClick={this.onCreateListingIconClick}
                     />
                 </div>
             )
