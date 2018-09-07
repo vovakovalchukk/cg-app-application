@@ -44,7 +44,8 @@ define([
                 <Field
                     name="search"
                     component={this.renderInputComponent}
-                    displayTitle={"Enter a UPC, EAN, ISBN or a product name"}
+                    displayTitle={"Search our database of products to find your product and pre-fill your listing information"}
+                    placeholder={"Enter a UPC, EAN, ISBN or a product name"}
                 />
                 {this.renderSearchButton()}
             </form>
@@ -71,6 +72,7 @@ define([
                         name={field.input.name}
                         value={field.input.value}
                         onChange={this.onInputChange.bind(this, field.input)}
+                        placeholder={field.placeholder}
                     />
                 </div>
             </label>;
@@ -97,7 +99,7 @@ define([
                 return this.renderProduct(product);
             });
 
-            return <span className="search-products-container">
+            return <span className="search-products-container scrollhint">
                 {products}
             </span>
         },
@@ -214,6 +216,7 @@ define([
                 attributeNameMap={this.props.mainProduct.attributeNameMap}
                 clearSelectedProduct={this.props.clearSelectedProduct}
                 variationImages={this.props.variationImages}
+                defaultProductImage={this.props.defaultProductImage}
             />;
         },
         render: function() {

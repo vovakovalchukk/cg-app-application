@@ -1,6 +1,10 @@
 .container-wrapper.product-create-listing {
   min-height: 0;
 
+  input {
+    outline: none;
+  }
+
   .container-buttons {
     margin: 8px 0 0 168px;
   }
@@ -50,6 +54,12 @@
     margin-right: 12px;
     font-size: 1.2em;
     max-width: 150px;
+  }
+
+  .search-product-form {
+    .inputbox-label {
+      max-width: none;
+    }
   }
 
   .amazon-category-form-container {
@@ -420,12 +430,19 @@
 
 .search-product-form {
   float: none !important;
+
 }
 
 .search-products-container {
   display: flex;
   clear: both;
   flex-wrap: wrap;
+  max-height: 640px;
+  overflow-y: auto;
+
+  .custom-select.active .open-content {
+    top: -180px;
+  }
 }
 
 .search-product-container {
@@ -436,7 +453,9 @@
   border-radius: 10px;
   flex-flow: column;
   cursor: pointer;
-  max-height: 250px;
+  height: 250px;
+  display: flex;
+  align-items: stretch;
 }
 
 .search-product-container.selected {
@@ -448,6 +467,8 @@
 
 .search-product-details-container {
   display: flex;
+  flex-grow: 0;
+  flex-shrink: 1;
 }
 
 .search-product-image-container {
@@ -464,11 +485,12 @@
 .search-product-title {
   font-weight: bold;
   font-size: 1.1em;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 table.search-product-item-specifics {
   display: block;
-  height: 150px;
   overflow-y: auto;
 
   tr {

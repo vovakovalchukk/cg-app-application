@@ -8,7 +8,8 @@ define([
     const AssignedProductsTable = React.createClass({
         getDefaultProps: function() {
             return {
-                selectedProducts: {}
+                selectedProducts: {},
+                defaultProductImage: ''
             }
         },
         renderTableHeader: function () {
@@ -41,25 +42,17 @@ define([
             return this.props.selectedProducts[sku] ? this.props.selectedProducts[sku] : null;
         },
         renderImage: function(product) {
-            if (!product.imageUrl) {
-                return null;
-            }
-
             return (
                 <div className="image-dropdown-target">
                     <div className="react-image-picker">
                         <span className="react-image-picker-image">
-                            <img src={product.imageUrl}/>
+                            <img src={product.imageUrl ? product.imageUrl : this.props.defaultProductImage}/>
                         </span>
                     </div>
                 </div>
             );
         },
         render: function() {
-            if (Object.keys(this.props.selectedProducts).length === 0) {
-                return null;
-            }
-
             return <VariationTable
                 sectionName={"assigned-products"}
                 variationsDataForProduct={this.props.variationsDataForProduct}

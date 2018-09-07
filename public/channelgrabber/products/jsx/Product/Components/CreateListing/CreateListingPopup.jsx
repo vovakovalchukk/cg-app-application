@@ -65,7 +65,8 @@ define([
                 lengthUnit: null,
                 selectedProductDetails: {},
                 productSearchActive: false,
-                productSearch: {}
+                productSearch: {},
+                defaultProductImage: ''
             }
         },
         componentDidMount: function () {
@@ -86,6 +87,7 @@ define([
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 clearSelectedProduct={this.props.clearSelectedProduct}
                 variationImages={this.props.variationImages}
+                defaultProductImage={this.props.defaultProductImage}
             />;
         },
         renderForm: function() {

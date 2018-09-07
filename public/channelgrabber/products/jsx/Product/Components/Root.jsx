@@ -8,8 +8,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
-    'Product/Components/CreateListing/ProductSearch/Root'
+    'Product/Components/CreateListing/Root'
 ], function(
     React,
     SearchBox,
@@ -20,8 +19,7 @@ define([
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
-    CreateListingRoot,
-    ProductSearchRoot
+    CreateListingRoot
 ) {
     "use strict";
     const INITIAL_VARIATION_COUNT = 2;
@@ -392,7 +390,6 @@ define([
                 NEW_LISTING_VIEW: this.renderCreateListingPopup,
                 PRODUCT_LIST_VIEW: this.renderProductListView,
                 ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
-                PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
             }
         },
         renderSearchBox: function() {
@@ -487,6 +484,7 @@ define([
                 onBackButtonPressed={this.showAccountsSelectionPopup}
                 massUnit={this.props.massUnit}
                 lengthUnit={this.props.lengthUnit}
+                defaultProductImage={this.props.utilities.image.getImageSource()}
             />;
         },
         formatConditionOptions: function() {
@@ -535,15 +533,6 @@ define([
                     </div>
                 </div>
             );
-        },
-        renderProductSearchView: function () {
-            return <ProductSearchRoot
-                createListingData={this.state.createListingData}
-                renderCreateListingPopup={this.showCreateListingPopup}
-                onCreateListingClose={this.onCreateListingClose}
-                onBackButtonPressed={this.showAccountsSelectionPopup}
-                defaultProductImage={this.props.utilities.image.getImageSource()}
-            />;
         },
         render: function() {
             var viewRenderers = this.getViewRenderers();
