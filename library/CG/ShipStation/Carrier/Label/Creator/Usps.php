@@ -22,6 +22,7 @@ use CG\ShipStation\Request\Shipping\Label\Query as QueryLabelRequest;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
 use CG\ShipStation\Response\Shipping\Label\Query as QueryLabelResponse;
 use CG\ShipStation\Request\Shipping\Shipments\Mapper as ShipmentsRequestMapper;
+use CG\ShipStation\ShippingService\Factory as ShippingServiceFactory;
 use CG\User\Entity as User;
 use DateTime;
 use Guzzle\Http\Client as GuzzleClient;
@@ -48,11 +49,18 @@ class Usps extends Other
         OrderTrackingMapper $orderTrackingMapper,
         OrderTrackingService $orderTrackingService,
         ShipmentsRequestMapper $shipmentsRequestMapper,
+        ShippingServiceFactory $shippingServiceFactory,
         ShippingLedgerService $shippingLedgerService,
         ShipmentIdStorage $shipmentIdStorage
     ) {
         parent::__construct(
-            $shipStationClient, $guzzleClient, $orderLabelService, $orderTrackingMapper, $orderTrackingService, $shipmentsRequestMapper
+            $shipStationClient,
+            $guzzleClient,
+            $orderLabelService,
+            $orderTrackingMapper,
+            $orderTrackingService,
+            $shipmentsRequestMapper,
+            $shippingServiceFactory
         );
         $this->shippingLedgerService = $shippingLedgerService;
         $this->shipmentIdStorage = $shipmentIdStorage;
