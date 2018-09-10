@@ -2,18 +2,24 @@ define([
     'react',
     'redux-form',
     'Common/Components/Input',
+    'Common/Components/Checkbox',
     'Product/Components/CreateListing/Form/Shared/ImageDropDown',
     './VariationTable'
 ], function(
     React,
     ReduxForm,
     Input,
+    Checkbox,
     ImageDropDown,
     VariationTable
 ) {
     "use strict";
 
     var Field = ReduxForm.Field;
+
+    var inputTypeComponents = {
+        "checkbox": Checkbox
+    };
 
     var identifiers = [
         {
@@ -124,7 +130,8 @@ define([
         },
         renderInputComponent: function(field) {
             var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
-            return <Input
+            var InputForType = (typeof inputTypeComponents[field.inputType] != 'undefined' ? inputTypeComponents[field.inputType] : Input);
+            return <InputForType
                 {...field.input}
                 onChange={this.onInputChange.bind(this, field.input)}
                 errors={errors}
