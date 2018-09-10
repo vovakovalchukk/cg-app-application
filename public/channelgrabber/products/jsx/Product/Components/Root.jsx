@@ -242,7 +242,7 @@ define([
         },
         fetchVariationForProductListingCreation: function() {
             console.log('in fetchVariationForProductListingCreation with this.state.variation: ' , this.state.variation, ' this.state: ',this.state);
-            if (this.state.listing.product[this.state.createListing.product.id]
+            if (this.state.createListing.product[this.state.createListing.product.id]
                 && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
             ) {
                 this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
