@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a019045e726b365434d81f99be34a3f5",
+    "content-hash": "fbd3483501bfb742ebb8ed5b71c3bb0d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4142,16 +4142,16 @@
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "380538b448084da85ebb3ddbbcc14bee459aebb3"
+                "reference": "7af478c22694b36a0cdbbe1a15adf8b869c01c90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.4.2-782235.zip",
-                "reference": "380538b448084da85ebb3ddbbcc14bee459aebb3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.4.3-18c57d.zip",
+                "reference": "7af478c22694b36a0cdbbe1a15adf8b869c01c90",
                 "shasum": null
             },
             "require": {
@@ -4181,7 +4181,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-05T13:22:12+00:00"
+            "time": "2018-09-10T09:05:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -4639,6 +4639,39 @@
                 }
             },
             "time": "2018-07-24T14:08:44+00:00"
+        },
+        {
+            "name": "channelgrabber/zf2-tideways",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/tideways-module.git",
+                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-tideways-1.0.0-1bca83.zip",
+                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stdlib": "^2.16.0",
+                "channelgrabber/zf2-logclient": "^1.4.3",
+                "channelgrabber/zf2-stdlib": "^1.3.1",
+                "zendframework/zend-eventmanager": "^2.2",
+                "zendframework/zend-modulemanager": "^2.2",
+                "zendframework/zend-mvc": "^2.2"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "Tideways"
+            },
+            "autoload": {
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "time": "2018-09-10T09:16:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -8750,7 +8783,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8805,7 +8838,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -8860,7 +8893,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -8911,7 +8944,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -8997,7 +9030,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "url": "https://composer.build.channelgrabber.com/dist/codeception-codeception-bac92379a97935c6ebc8b2f2f0ade7312b75f80c-zip-b2f68c.zip",
                 "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
