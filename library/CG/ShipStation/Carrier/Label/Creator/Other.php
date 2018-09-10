@@ -20,7 +20,7 @@ use CG\ShipStation\Carrier\Label\CreatorInterface;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Messages\Exception\InvalidStateException;
 use CG\ShipStation\Request\Shipping\Label as LabelRequest;
-use CG\ShipStation\Request\Shipping\Shipments as ShipmentsRequest;
+use CG\ShipStation\Request\Shipping\Shipments\Mapper as ShipmentsRequestMapper;
 use CG\ShipStation\Response\Shipping\Label as LabelResponse;
 use CG\ShipStation\Response\Shipping\Label;
 use CG\ShipStation\Response\Shipping\Shipment;
@@ -32,6 +32,7 @@ use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use function CG\StdLib\mergePdfData;
 use CG\StdLib\Exception\Storage as StorageException;
 use CG\User\Entity as User;
 use Guzzle\Http\Client as GuzzleClient;
@@ -58,6 +59,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected $orderTrackingMapper;
     /** @var OrderTrackingService */
     protected $orderTrackingService;
+    /** @var ShipmentsRequestMapper */
+    protected $shipmentsRequestMapper;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
 
@@ -69,6 +72,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         OrderLabelService $orderLabelService,
         OrderTrackingMapper $orderTrackingMapper,
         OrderTrackingService $orderTrackingService,
+        ShipmentsRequestMapper $shipmentsRequestMapper,
         ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->shipStationClient = $shipStationClient;
@@ -76,6 +80,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->orderLabelService = $orderLabelService;
         $this->orderTrackingMapper = $orderTrackingMapper;
         $this->orderTrackingService = $orderTrackingService;
+        $this->shipmentsRequestMapper = $shipmentsRequestMapper;
         $this->shippingServiceFactory = $shippingServiceFactory;
     }
 
@@ -133,7 +138,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     ): ShipmentsResponse {
         try {
             $this->logDebug('Creating shipments for %d orders', [count($orders)], [static::LOG_CODE, 'Shipments']);
-            $request = ShipmentsRequest::createFromOrdersAndData(
+            $request = $this->shipmentsRequestMapper->createFromOrdersAndData(
                 $orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu
             );
             return $this->shipStationClient->sendRequest($request, $shipStationAccount);
@@ -254,36 +259,45 @@ class Other implements CreatorInterface, LoggerAwareInterface
 
     protected function downloadPdfsForLabels(array $labels): array
     {
-        $this->logDebug('Downloading PDFs for labels', [], [static::LOG_CODE, 'Pdfs']);
-        $labelPdfs = [];
-        $requests = [];
+        $this->logDebug('Downloading PDFs for labels', [], [static::LOG_CODE, 'LabelPdfs']);
+        $labelRequests = [];
+        $formRequests = [];
         /** @var LabelResponse $label */
         foreach ($labels as $orderId => $label) {
             if (!empty($label->getErrors())) {
                 continue;
             }
-            $requests[$orderId] = $this->guzzleClient->get($label->getLabelDownload()->getHref());
+            $labelRequests[$orderId] = $this->guzzleClient->get($label->getLabelDownload()->getHref());
+            if ($label->getFormDownload() && $label->getFormDownload()->getHref()) {
+                $formRequests[$orderId] = $this->guzzleClient->get($label->getFormDownload()->getHref());
+            }
         }
 
-        return $this->sendLabelPdfDownloadRequests($requests);
+        $labelPdfs = $this->sendPdfDownloadRequests($labelRequests);
+        if (empty($formRequests)) {
+            return $labelPdfs;
+        }
+        $this->logDebug('Downloading PDFs for customs forms', [], [static::LOG_CODE, 'FormPdfs']);
+        $formPdfs = $this->sendPdfDownloadRequests($formRequests);
+        return $this->mergeFormPdfsWithLabelPdfs($formPdfs, $labelPdfs);
     }
 
-    protected function sendLabelPdfDownloadRequests(array $requests, $attempt = 1): array
+    protected function sendPdfDownloadRequests(array $requests, $attempt = 1): array
     {
         try {
             $this->guzzleClient->send($requests);
-            return $this->getLabelPdfsFromRequests($requests);
+            return $this->getPdfsFromRequests($requests);
         } catch (MultiTransferException $e) {
-            $labelPdfs = $this->getLabelPdfsFromRequests($requests, $e->getFailedRequests());
+            $labelPdfs = $this->getPdfsFromRequests($requests, $e->getFailedRequests());
             if ($attempt < static::PDF_DOWNLOAD_MAX_ATTEMPTS) {
-                $labelPdfsRetry = $this->sendLabelPdfDownloadRequests($e->getFailedRequests(), ++$attempt);
+                $labelPdfsRetry = $this->sendPdfDownloadRequests($e->getFailedRequests(), ++$attempt);
                 $labelPdfs = array_merge($labelPdfs, $labelPdfsRetry);
             }
             return $labelPdfs;
         }
     }
 
-    protected function getLabelPdfsFromRequests(array $requests, array $failedRequests = []): array
+    protected function getPdfsFromRequests(array $requests, array $failedRequests = []): array
     {
         $labelPdfs = [];
         /** @var GuzzleRequest $request */
@@ -309,6 +323,20 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $this->logNotice('Failed to download label PDF for Order %s', ['order' => $orderId], [static::LOG_CODE, 'DownloadPdfFail']);
         }
         return $errors;
+    }
+
+    protected function mergeFormPdfsWithLabelPdfs(array $formPdfs, array $labelPdfs): array
+    {
+        $mergedPdfs = [];
+        foreach ($labelPdfs as $orderId => $labelPdf) {
+            if (!isset($formPdfs[$orderId])) {
+                $mergedPdfs[$orderId] = $labelPdf;
+                continue;
+            }
+            $formPdf = $formPdfs[$orderId];
+            $mergedPdfs[$orderId] = mergePdfData([$labelPdf, $formPdf]);
+        }
+        return $mergedPdfs;
     }
 
     protected function updateOrderLabels(OrderLabelCollection $orderLabels, array $labels, array $labelPdfs, array $errors)
