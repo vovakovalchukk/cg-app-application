@@ -19,7 +19,7 @@ define([
             console.log('onCreateListingIcons got the func ')
         }
         return (
-            <span onClick={props.onCreateNewListingIconClick.bind(rowData)}>add listing</span>
+            <span onClick={props.onCreateNewListingIconClick.bind(this, rowData)}>add listing</span>
         )
     };
     

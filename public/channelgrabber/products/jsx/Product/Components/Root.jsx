@@ -102,7 +102,7 @@ define([
             this.showAccountsSelectionPopup(product);
         },
         showAccountsSelectionPopup: function(product) {
-            console.log('in showAccountSelectionPopup');
+            console.log('in showAccountSelectionPopup with product: ' , product);
             
             
             this.setState({
