@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbc45ec2c9b5ef3fb3aee71be72b499d",
+    "content-hash": "d797a2dec2420ee2e1f11797c72ee367",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,17 +336,11 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.27.9",
+            "version": "dev-CGIV-9800-orders-message-link-amazon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "0f21a56ab2d3df6ed61c20ded8fe972246f6d5b9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.9-d6bc9d.zip",
-                "reference": "0f21a56ab2d3df6ed61c20ded8fe972246f6d5b9",
-                "shasum": null
+                "reference": "6efd570e7e49b2cde4c6f4bcadacd5c9fe502ea6"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -400,7 +394,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-09-04T09:36:20+00:00"
+            "time": "2018-09-10T12:50:09+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -865,16 +859,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.0.10",
+            "version": "dev-CGIV-9800-orders-message-link-amazon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "9edb4cf445f05a3d0e4036b3d28ba567fc000098"
+                "reference": "7b1fb061c5a1b117229d817d008888c94181fc5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-1.0.10-e44ae7.zip",
-                "reference": "9edb4cf445f05a3d0e4036b3d28ba567fc000098",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-9800-orders-message-link-amazon-182501.zip",
+                "reference": "7b1fb061c5a1b117229d817d008888c94181fc5a",
                 "shasum": null
             },
             "require": {
@@ -904,7 +898,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2017-09-01T14:42:26+00:00"
+            "time": "2018-09-10T12:58:31+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -5685,7 +5679,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6478,7 +6472,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8469,7 +8463,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -9459,7 +9453,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -10301,9 +10296,24 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.27.10",
+            "alias_normalized": "1.27.10.0",
+            "version": "dev-CGIV-9800-orders-message-link-amazon",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-9800-orders-message-link-amazon",
+            "package": "channelgrabber/communication"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
