@@ -171,7 +171,7 @@ define([
             let options = [];
             this.props.variationsDataForProduct.forEach(function(variation) {
                 options.push({
-                    name: variation.sku,
+                    name: this.buildOptionName(variation),
                     value: variation.sku,
                     disabled: !!this.props.selectedProducts[variation.sku]
                 });
@@ -190,6 +190,13 @@ define([
                 />
             </span>;
         },
+        buildOptionName: function(variation) {
+            let name = variation.sku;
+            Object.keys(variation.attributeValues).forEach(function(attributeName) {
+                name += ' - ' + variation.attributeValues[attributeName];
+            });
+            return name;
+        },
         findSelectedOptionForProduct: function (product) {
             let selectedSku = '';
             Object.keys(this.props.selectedProducts).map(function(sku) {
@@ -199,8 +206,12 @@ define([
                 }
             }.bind(this));
 
+            const variation = this.props.variationsDataForProduct.find(function(variation) {
+                return variation.sku == selectedSku;
+            });
+
             return {
-                name: selectedSku,
+                name: variation ? this.buildOptionName(variation) : selectedSku,
                 value: selectedSku
             };
         },

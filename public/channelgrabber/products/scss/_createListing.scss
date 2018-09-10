@@ -318,6 +318,12 @@
       width: auto;
       min-width: 800px;
     }
+
+    &.assigned-products-table {
+      > table {
+        min-width: 100%;
+      }
+    }
   }
 }
 
@@ -398,6 +404,10 @@
   }
 }
 
+.assigned-products-table {
+  width: 100%;
+}
+
 .custom-select {
   .filter-box, .custom-option {
     display: flex;
@@ -448,7 +458,7 @@
   overflow-y: auto;
 
   .custom-select.active .open-content {
-    top: -180px;
+    bottom: 30px;
   }
 }
 

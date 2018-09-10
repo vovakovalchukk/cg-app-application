@@ -151,7 +151,7 @@ define([
         },
         render: function() {
             return (
-                <div className={"variation-picker "+this.props.containerCssClasses}>
+                <div className={"variation-picker " + this.props.containerCssClasses}>
                     <table className={this.props.tableCssClasses}>
                         <thead>
                         <tr>

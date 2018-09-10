@@ -64,6 +64,7 @@ define([
                 renderCustomTableHeaders={this.renderTableHeader}
                 renderCustomTableRows={this.renderTableColumns}
                 variationImages={this.props.variationImages}
+                containerCssClasses={"assigned-products-table"}
             />;
         }
     });
