@@ -12,6 +12,7 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
 {
     const FEATURE_FLAG_SHIPSTATION = 'ShipStation';
     const FEATURE_FLAG_USPS = 'USPS';
+    const FEATURE_FLAG_ROYAL_MAIL = 'ShipStation Royal Mail';
 
     /** @var Mapper */
     protected $mapper;
@@ -21,10 +22,6 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
     protected $userOuService;
     /** @var Collection */
     protected $carriers;
-
-    protected $carrierFeatureFlags = [
-        'usps-ss' => self::FEATURE_FLAG_USPS,
-    ];
 
     public function __construct(
         Mapper $mapper,
@@ -118,9 +115,7 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
 
         $options = [];
         foreach ($this->carriers as $carrier) {
-            if (isset($this->carrierFeatureFlags[$carrier->getChannelName()]) &&
-                !$this->featureFlagsService->isActive($this->carrierFeatureFlags[$carrier->getChannelName()], $rootOu)
-            ) {
+            if ($carrier->getFeatureFlag() && !$this->featureFlagsService->isActive($carrier->getFeatureFlag(), $rootOu)) {
                 continue;
             }
             $options[$carrier->getDisplayName()] = [
