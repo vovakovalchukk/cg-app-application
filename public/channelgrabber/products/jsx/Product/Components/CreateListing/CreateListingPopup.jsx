@@ -92,7 +92,6 @@ define([
         },
         renderForm: function() {
             return <form>
-                <span className="heading-large">Listing information</span>
                 <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
                 <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
                 <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
@@ -277,7 +276,6 @@ define([
         },
         renderSubmissionTable: function () {
             return (<span>
-                <span className="heading-large heading-table">Creation status</span>
                 <SubmissionTable
                     accounts={this.formatAccountDataForSubmissionTable()}
                     categoryTemplates={this.props.categoryTemplates.categories}

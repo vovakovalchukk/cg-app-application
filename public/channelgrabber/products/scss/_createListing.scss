@@ -7,7 +7,7 @@
   }
 
   .container-buttons {
-    padding: 8px 20px;
+    padding: 16px;
     float: right;
   }
 
@@ -325,6 +325,7 @@
     }
 
     &.assigned-products-table {
+      margin-bottom: 0;
       > table {
         min-width: 100%;
       }

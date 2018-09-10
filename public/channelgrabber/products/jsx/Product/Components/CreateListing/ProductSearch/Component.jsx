@@ -48,6 +48,7 @@ define([
                     placeholder={"Enter a UPC, EAN, ISBN or a product name"}
                 />
                 {this.renderSearchButton()}
+                <span style={{ color: "#444444"}}>{"Skip this section if you wish to fill in your product information manually instead."}</span>
             </form>
         },
         onFormSubmit: function (event) {
