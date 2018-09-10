@@ -340,7 +340,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "6efd570e7e49b2cde4c6f4bcadacd5c9fe502ea6"
+                "reference": "ff99f251e8e9a3f32e0eeea0bc7b338242df3c63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-9800-orders-message-link-amazon-995ecc.zip",
+                "reference": "ff99f251e8e9a3f32e0eeea0bc7b338242df3c63",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -394,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-09-10T12:50:09+00:00"
+            "time": "2018-09-10T13:17:17+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -863,12 +869,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "7b1fb061c5a1b117229d817d008888c94181fc5a"
+                "reference": "6b28cc8ad6f316fcb2342716a1cd1a7b3dd556ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-9800-orders-message-link-amazon-182501.zip",
-                "reference": "7b1fb061c5a1b117229d817d008888c94181fc5a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-9800-orders-message-link-amazon-e3b1e6.zip",
+                "reference": "6b28cc8ad6f316fcb2342716a1cd1a7b3dd556ad",
                 "shasum": null
             },
             "require": {
@@ -898,7 +904,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2018-09-10T12:58:31+00:00"
+            "time": "2018-09-10T13:26:38+00:00"
         },
         {
             "name": "channelgrabber/constants",
