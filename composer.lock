@@ -869,12 +869,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "6b28cc8ad6f316fcb2342716a1cd1a7b3dd556ad"
+                "reference": "1d369b72cbaafc1b0f2bef04e36013565901f7fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-9800-orders-message-link-amazon-e3b1e6.zip",
-                "reference": "6b28cc8ad6f316fcb2342716a1cd1a7b3dd556ad",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-9800-orders-message-link-amazon-51361f.zip",
+                "reference": "1d369b72cbaafc1b0f2bef04e36013565901f7fe",
                 "shasum": null
             },
             "require": {
@@ -904,7 +904,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2018-09-10T13:26:38+00:00"
+            "time": "2018-09-10T15:07:38+00:00"
         },
         {
             "name": "channelgrabber/constants",
