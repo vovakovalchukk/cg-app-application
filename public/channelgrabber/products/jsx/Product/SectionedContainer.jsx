@@ -12,7 +12,7 @@ define([
                 children: [],
                 sectionClassName: '',
                 yesButtonText: 'Yes',
-                noButtonText: "No",
+                noButtonText: 'No',
                 onYesButtonPressed: () => {},
                 onNoButtonPressed: () => {},
                 onBackButtonPressed: () => {},
@@ -55,13 +55,18 @@ define([
                 noButtonText={this.props.noButtonText}
                 showYesButton={true}
                 yesButtonText={isLastSection ? this.props.yesButtonText : 'Next'}
-                onYesButtonPressed={this.getYesButtonAction()}
+                onYesButtonPressed={this.getYesButtonAction(isLastSection, index)}
+                sectionName={'section' + index}
+                nextSectionName={isLastSection ? null : 'section' + (index + 1)}
             >
                 {child}
             </Section>;
         },
-        getYesButtonAction: function() {
-            return this.props.onYesButtonPressed;
+        getYesButtonAction: function(isLastSection) {
+            if (isLastSection) {
+                return this.props.onYesButtonPressed;
+            }
+            return () => {};
         }
     });
 

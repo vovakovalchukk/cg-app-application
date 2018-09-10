@@ -10,7 +10,9 @@ define([
                 showYesButton: false,
                 showNoButton: false,
                 showBackButton: false,
-                className: ''
+                className: '',
+                sectionName: '',
+                nextSectionName: null
             }
         },
         render: function() {
@@ -23,14 +25,16 @@ define([
             </div>;
         },
         renderHeader: function() {
-            return <div className="container-header">
-                <div className="container-header-text"> {this.props.headerText}</div>
-                {this.renderBackButton()}
-            </div>;
+            return <a name={this.props.sectionName}>
+                <div className="container-header">
+                    <div className="container-header-text"> {this.props.headerText}</div>
+                    {this.renderBackButton()}
+                </div>
+            </a>;
         },
         renderBackButton: function() {
             return this.props.showBackButton && <div className="container-header-back-button">
-                <i className="fa fa-arrow-circle-o-left" onClick={this.onBackButtonPressed} />
+                <i className="fa fa-arrow-circle-o-left" onClick={this.props.onBackButtonPressed} />
             </div>;
         },
         renderContent: function() {
@@ -42,19 +46,29 @@ define([
             }
 
             return <div className="container-buttons">
-                <div style={{margin: "0px auto"}}>
-                    {this.renderNoButton()}
-                    {this.renderYesButton()}
-                </div>
+                {this.renderNoButton()}
+                {this.renderYesButton()}
             </div>;
         },
         renderYesButton: function() {
-            return this.props.showYesButton && <div
-                className={"button container-btn yes"}
-                onClick={this.onYesButtonPressed}
-            >
-                {this.props.yesButtonText}
-            </div>;
+            if (!this.props.showYesButton) {
+                return null;
+            }
+
+            const yesButton = (
+                <div
+                    className={"button container-btn yes"}
+                    onClick={this.onYesButtonPressed}
+                >
+                    {this.props.yesButtonText}
+                </div>
+            );
+
+            if (this.props.nextSectionName) {
+                return <a href={"#" + this.props.nextSectionName}>{yesButton}</a>;
+            }
+
+            return yesButton;
         },
         onYesButtonPressed: function() {
             if (this.props.yesButtonDisabled) {

@@ -263,7 +263,12 @@
   }
 }
 
+.container-wrapper.product-create-listing:last-child {
+  padding-bottom: 100px !important;
+}
+
 .container-wrapper.product-create-listing.account-form {
+  min-height: 94vh;
   .custom-select {
     min-width: 0;
   }
