@@ -13,13 +13,13 @@ use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCol
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
-use CG\ShipStation\Carrier\AccountDeciderInterface;
-use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
+use CG\ShipStation\Carrier\Rates\Usps\ShipmentIdStorage;
 use CG\ShipStation\Client;
 use CG\ShipStation\Messages\Rate as ShipStationRate;
 use CG\ShipStation\Messages\Shipment;
 use CG\ShipStation\Request\Shipping\Rates as RatesRequest;
 use CG\ShipStation\Response\Shipping\Rates as RatesResponse;
+use CG\ShipStation\ShippingService\Factory as ShippingServiceFactory;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
@@ -30,19 +30,23 @@ class Service
 
     /** @var ShipStationService */
     protected $shipStationService;
-    /** @var AccountDeciderFactory */
-    protected $accountDeciderFactory;
     /** @var Client */
     protected $client;
+    /** @var ShipmentIdStorage */
+    protected $shipmentIdStorage;
+    /** @var ShippingServiceFactory */
+    protected $shippingServiceFactory;
 
     public function __construct(
         ShipStationService $shipStationService,
-        AccountDeciderFactory $accountDeciderFactory,
-        Client $client
+        Client $client,
+        ShipmentIdStorage $shipmentIdStorage,
+        ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->shipStationService = $shipStationService;
-        $this->accountDeciderFactory = $accountDeciderFactory;
         $this->client = $client;
+        $this->shipmentIdStorage = $shipmentIdStorage;
+        $this->shippingServiceFactory = $shippingServiceFactory;
     }
 
     public function fetchRatesForOrders(
@@ -51,25 +55,24 @@ class Service
         OrderParcelsDataCollection $ordersParcelsData,
         OrderItemsDataCollection $ordersItemsData,
         OrganisationUnit $rootOu,
-        Account $shippingAccount
+        Account $shippingAccount,
+        Account $shipStationAccount
     ): ShippingRateCollection {
-        /** @var AccountDeciderInterface $accountDecider */
-        $accountDecider = ($this->accountDeciderFactory)($shippingAccount->getChannel());
-        $shipStationAccountToUse = $accountDecider->getShipStationAccountForRequests($shippingAccount);
-        $shippingAccountToUse = $accountDecider->getShippingAccountForRequests($shippingAccount);
 
         $rates = new ShippingRateCollection();
         $exception = new ValidationMessagesException(StatusCode::BAD_REQUEST);
         foreach ($orders as $order) {
             try {
+                $orderData = $ordersData->getById($order->getId());
                 $shipStationRates = $this->fetchRatesForOrderFromShipStation(
                     $order,
-                    $ordersData->getById($order->getId()),
+                    $orderData,
                     $ordersParcelsData->getById($order->getId()),
-                    $shipStationAccountToUse,
-                    $shippingAccountToUse,
+                    $shipStationAccount,
+                    $shippingAccount,
                     $rootOu
                 );
+                $shipStationRates = $this->filterShipStationRatesByPackageType($shipStationRates, $orderData->getPackageType());
                 $orderRates = $this->mapShipstationRatesToOrderShippingRates($order->getId(), $shipStationRates);
                 $rates->attach($orderRates);
             } catch (ValidationException $e) {
@@ -90,10 +93,13 @@ class Service
         Account $shippingAccount,
         OrganisationUnit $rootOu
     ): array {
+        $shippingServiceService = ($this->shippingServiceFactory)($shippingAccount);
+        $carrierService = $shippingServiceService->getCarrierService($orderData->getService());
         $shipment = Shipment::createFromOrderAndData(
             $order,
             $orderData,
             $parcelsData,
+            $carrierService,
             $shipStationAccount,
             $shippingAccount,
             $rootOu
@@ -106,6 +112,7 @@ class Service
             throw new ValidationException(static::DEFAULT_RATE_ERROR, $e->getCode(), $e);
         }
         if (!empty($response->getRates())) {
+            $this->shipmentIdStorage->save($order->getId(), $response->getShipmentId());
             return $response->getRates();
         }
         return $this->handleInvalidRatesResponse($response, $order);
@@ -139,5 +146,18 @@ class Service
         }
         // No exception thrown yet, throw a generic one
         throw new ValidationException(static::DEFAULT_RATE_ERROR);
+    }
+
+    protected function filterShipStationRatesByPackageType(array $shipStationRates, string $packageType): array
+    {
+        foreach ($shipStationRates as $key => $shipStationRate) {
+            if ($shipStationRate->getPackageType() !== $packageType) {
+                 unset($shipStationRates[$key]);
+            }
+        }
+        if (count($shipStationRates) === 0) {
+            throw new ValidationException('No rates found for the selected package type. Please select another package type and try again.');
+        }
+        return $shipStationRates;
     }
 }

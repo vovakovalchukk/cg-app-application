@@ -1,0 +1,9 @@
+    <div class="module clearfix shippingLedger usps">
+        <?=$this->shippingLedgerTopUp?>
+    </div>
+<?php if (! empty($this->clearbooksStatementUrl)) : ?>
+    <div class="module clearfix">
+        <span class="heading-large heading-spacing">Full ClearBooks Statement</span>
+        <iframe src="<?= $this->clearbooksStatementUrl ?>" class="clearbooks-statement-url-frame"></iframe>
+    </div>
+<?php endif; ?>
