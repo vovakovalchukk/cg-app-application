@@ -59,7 +59,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "~1.16.4",
+        "channelgrabber/product": "dev-CGIV-9621-list-to-ebay-with-no-barcode as 1.16.5",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",

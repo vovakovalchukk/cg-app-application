@@ -77,8 +77,13 @@ define([
                     return previousValue;
                 }
                 return value;
-            }
-        }
+            },
+        },
+        {
+            "name": "barcodeNotApplicable",
+            "display": "Does not apply",
+            "type": "checkbox"
+        },
     ];
 
     var ProductIdentifiers = React.createClass({
@@ -100,7 +105,7 @@ define([
                     title={identifier.displayTitle}
                     className={"with-title"}
                 >
-                    {identifier.name.toUpperCase()}
+                    {identifier.display || identifier.name.toUpperCase()}
                 </th>;
             });
         },
