@@ -10,8 +10,10 @@ use CG\Channel\AccountInterface;
 use CG\Channel\Type as ChannelType;
 use CG\Scraper\Client as ScraperClient;
 use CG\ShipStation\Account;
+use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
 use CG\ShipStation\Credentials;
 use CG\ShipStation\Carrier\Service as CarrierService;
+use ShipStation\Webhook\Service as WebhookService;
 
 /**
  * Class CreationService
@@ -23,6 +25,10 @@ class CreationService extends CreationServiceAbstract
 {
     /** @var  CarrierService */
     protected $carrierService;
+    /** @var AccountDeciderFactory */
+    protected $accountDeciderFactory;
+    /** @var WebhookService */
+    protected $webhookService;
 
     public function __construct(
         AccountService $accountService,
@@ -30,10 +36,14 @@ class CreationService extends CreationServiceAbstract
         AccountMapper $accountMapper,
         ScraperClient $scraperClient,
         CarrierService $carrierService,
+        AccountDeciderFactory $accountDeciderFactory,
+        WebhookService $webhookService,
         AccountInterface $channelAccount = null
     ) {
         parent::__construct($accountService, $cryptor, $accountMapper, $scraperClient, $channelAccount);
         $this->carrierService = $carrierService;
+        $this->accountDeciderFactory = $accountDeciderFactory;
+        $this->webhookService = $webhookService;
     }
 
     public function configureAccount(AccountEntity $account, array $params)
@@ -43,7 +53,8 @@ class CreationService extends CreationServiceAbstract
         $account->setType([ChannelType::SHIPPING])
             ->setDisplayName($carrier->getDisplayName())
             ->setDisplayChannel($carrier->getDisplayName())
-            ->setCredentials($this->getCredentialsFromParams($params));
+            ->setCredentials($this->getCredentialsFromParams($params))
+            ->setPending($carrier->isActivationDelayed());
 
         return $this->getChannelAccount()->connect($account, $params);
     }
@@ -63,6 +74,22 @@ class CreationService extends CreationServiceAbstract
             $credentials->set($field, $value);
         }
         return $this->getCryptor()->encrypt($credentials);
+    }
+
+    protected function afterAccountSave(AccountEntity $account)
+    {
+        $carrier = $this->carrierService->getCarrierForAccount($account);
+        if ($carrier->isActivationDelayed()) {
+            $this->registerForCarrierConnectedWebhook($account);
+        }
+        return $account;
+    }
+
+    protected function registerForCarrierConnectedWebhook(AccountEntity $account): void
+    {
+        $accountDecider = ($this->accountDeciderFactory)($account->getChannel());
+        $shipStationAccount = $accountDecider->getShipStationAccountForRequests($account);
+        $this->webhookService->registerForCarrierConnectedWithActiveUser($account, $shipStationAccount);
     }
 
     /**

@@ -289,10 +289,14 @@ class Service
         CategoryFilter $categoryFilter,
         Category $category
     ): CategoryCollection {
+        $accountIds = $category->getAccountId() ? [$category->getAccountId()] : [];
+        $parentIds = $category->getParentId() !== null ? [$category->getParentId()] : [];
+        $marketplaces = $category->getMarketplace() ? [$category->getMarketplace()] : [];
+
         $categoryFilter
-            ->setAccountId([$category->getAccountId() ? $category->getAccountId() : null])
-            ->setParentId([$category->getParentId() !== null ? $category->getParentId() : null])
-            ->setMarketplace([$category->getMarketplace() ? $category->getMarketplace() : null])
+            ->setAccountId($accountIds)
+            ->setParentId($parentIds)
+            ->setMarketplace($marketplaces)
             ->setChannel([$category->getChannel()])
             ->setEnabled(true);
         return $this->categoryService->fetchCollectionByFilter($categoryFilter);

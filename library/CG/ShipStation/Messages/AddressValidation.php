@@ -7,7 +7,7 @@ class AddressValidation
     protected $status;
     /** @var ShipmentAddress */
     protected $originalAddress;
-    /** @var ShipmentAddress */
+    /** @var ShipmentAddress|null */
     protected $matchedAddress;
     /** @var array */
     protected $messages;
@@ -15,7 +15,7 @@ class AddressValidation
     public function __construct(
         $status,
         ShipmentAddress $originalAddress,
-        ShipmentAddress $matchedAddress,
+        ?ShipmentAddress $matchedAddress,
         \stdClass ...$messages
     ) {
         $this->status = $status;
@@ -27,7 +27,7 @@ class AddressValidation
     public static function build($decodedJson): AddressValidation
     {
         $originalAddress = ShipmentAddress::build($decodedJson->original_address);
-        $matchedAddress = ShipmentAddress::build($decodedJson->matched_address);
+        $matchedAddress = (isset($decodedJson->matched_address) ? ShipmentAddress::build($decodedJson->matched_address) : null);
         return new static(
             $decodedJson->status,
             $originalAddress,
@@ -67,7 +67,7 @@ class AddressValidation
         return $this;
     }
 
-    public function getMatchedAddress(): ShipmentAddress
+    public function getMatchedAddress(): ?ShipmentAddress
     {
         return $this->matchedAddress;
     }
@@ -75,7 +75,7 @@ class AddressValidation
     /**
      * @return self
      */
-    public function setMatchedAddress(ShipmentAddress $matchedAddress)
+    public function setMatchedAddress(?ShipmentAddress $matchedAddress = null)
     {
         $this->matchedAddress = $matchedAddress;
         return $this;

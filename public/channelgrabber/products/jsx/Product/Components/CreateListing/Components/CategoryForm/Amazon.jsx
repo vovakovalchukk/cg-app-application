@@ -64,7 +64,7 @@ define([
             return true;
         },
         isSimpleProduct: function() {
-            return this.props.product.variationCount > 0
+            return this.props.product.variationCount > 1
         },
         formatVariationThemesAsSelectOptions: function() {
             return this.props.variationThemes.map((variationTheme) => {
