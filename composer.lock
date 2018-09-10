@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5bbbd19be61540882d66f668a1414c4",
+    "content-hash": "b856d42a91400c8758357b1e7febf595",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4142,16 +4142,16 @@
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "dev-CGIV-9841-Zf2Tideways",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "43f2fdd51990e0419afb6449f35abc0e05b85d4c"
+                "reference": "7af478c22694b36a0cdbbe1a15adf8b869c01c90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-dev-CGIV-9841-Zf2Tideways-61fbc9.zip",
-                "reference": "43f2fdd51990e0419afb6449f35abc0e05b85d4c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.4.3-18c57d.zip",
+                "reference": "7af478c22694b36a0cdbbe1a15adf8b869c01c90",
                 "shasum": null
             },
             "require": {
@@ -4181,7 +4181,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-03T14:53:22+00:00"
+            "time": "2018-09-10T09:05:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -4642,21 +4642,21 @@
         },
         {
             "name": "channelgrabber/zf2-tideways",
-            "version": "dev-CGIV-9841-Zf2Tideways",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/tideways-module.git",
-                "reference": "ff73072b46e2e43207795324b63031beacbb36a5"
+                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-tideways-dev-CGIV-9841-Zf2Tideways-a3ce4c.zip",
-                "reference": "ff73072b46e2e43207795324b63031beacbb36a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-tideways-1.0.0-1bca83.zip",
+                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/stdlib": "^2.16.0",
-                "channelgrabber/zf2-logclient": "dev-CGIV-9841-Zf2Tideways as 1.4.3",
+                "channelgrabber/zf2-logclient": "^1.4.3",
                 "channelgrabber/zf2-stdlib": "^1.3.1",
                 "zendframework/zend-eventmanager": "^2.2",
                 "zendframework/zend-modulemanager": "^2.2",
@@ -4671,7 +4671,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-04T08:02:15+00:00"
+            "time": "2018-09-10T09:16:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -10370,25 +10370,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.3",
-            "alias_normalized": "1.4.3.0",
-            "version": "dev-CGIV-9841-Zf2Tideways",
-            "package": "channelgrabber/zf2-logclient"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-9841-Zf2Tideways",
-            "package": "channelgrabber/zf2-tideways"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-logclient": 20,
-        "channelgrabber/zf2-tideways": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
