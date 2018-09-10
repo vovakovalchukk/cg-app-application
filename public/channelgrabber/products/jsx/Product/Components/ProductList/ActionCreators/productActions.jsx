@@ -211,6 +211,7 @@ define([
         });
     }
     
+    // todo remove this reference once stateUtility has this in correctyly
     function sortVariationsByParentId(newVariations, parentProductId) {
         var variationsByParent = {};
         for (var index in newVariations) {

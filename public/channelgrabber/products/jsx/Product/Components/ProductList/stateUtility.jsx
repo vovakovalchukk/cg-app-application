@@ -41,24 +41,35 @@ define([], function() {
             getAllocatedStock: function(rowData) {
                 return (rowData.stock ? rowData.stock.locations[0].allocated : '');
             },
-            getProductIdFromSku(products,sku){
-                return products.find((product)=>{
+            getProductIdFromSku(products, sku) {
+                return products.find((product) => {
                     return product.sku === sku;
                 }).id
             },
-            getPaginationLimit(state){
+            getPaginationLimit(state) {
                 return state.pagination.limit;
             },
-            getCurrentPageNumber(state){
+            getCurrentPageNumber(state) {
                 return state.pagination.page;
             },
-            getCurrentSearchTerm(state){
+            getCurrentSearchTerm(state) {
                 return state.search.searchTerm;
             },
             getVisibleFixedColumns(state) {
                 return state.columns.columnSettings.filter((column) => {
                     return column.fixed
                 });
+            },
+            sortVariationsByParentId(newVariations, parentProductId) {
+                var variationsByParent = {};
+                for (var index in newVariations) {
+                    var variation = newVariations[index];
+                    if (!variationsByParent[variation.parentProductId]) {
+                        variationsByParent[variation.parentProductId] = [];
+                    }
+                    variationsByParent[variation.parentProductId].push(variation);
+                }
+                return variationsByParent;
             }
         };
     };

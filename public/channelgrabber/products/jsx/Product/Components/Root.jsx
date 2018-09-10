@@ -7,7 +7,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/AccountSelectionRoot',
+    'Product/Components/CreateListing/Root',
     'Product/Components/ProductList/Provider',
     'Product/Components/ProductList/Root',
     'Product/Components/CreateListing/ProductSearch/Root'
@@ -20,7 +20,7 @@ define([
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
-    AccountSelectionRoot,
+    CreateListingRoot,
     ProductListProvider,
     ProductListRoot,
     ProductSearchRoot
@@ -124,19 +124,24 @@ define([
             this.filterBySku(event.detail.sku);
         },
         fetchVariations: function(filter) {
+            console.log('in fetchVariations');
+            
+            
             $('#products-loading-message').show();
             function onSuccess(data) {
-                var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
+                console.log('ROOT fetchVariatios onSuccess data: ' , data);
+                var variationsByParent = stateUtility.sortVariationsByParentId(data.products, filter.getParentProductId());
                 this.setState({
                     variations: variationsByParent
                 }, function() {
-                    this.fetchLinkedProducts();
+                    // this.fetchLinkedProducts();
                     $('#products-loading-message').hide()
                 }.bind(this));
             }
             AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
         },
         onVariationsRequest: function(event) {
+            console.log('in onVariationsRequest');
             var filter = new ProductFilter(null, event.detail.productId);
             this.fetchVariations(filter);
         },
@@ -215,8 +220,11 @@ define([
             }.bind(this))
         },
         renderAccountSelectionPopup: function() {
-            console.log('in renderAccountSelectionPopup');
-            var AccountSelectionRoot = AccountSelectionRoot(
+            console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH...');
+    
+            this.fetchVariationForProductListingCreation();
+    
+            var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListingsAllowedChannels,
                 this.state.createListingsAllowedVariationChannels,
@@ -236,9 +244,7 @@ define([
             
             // let productWithVariation = ///
             
-            this.fetchVariationForProductListingCreation();
-            
-            return <AccountSelectionRoot />;
+            return <CreateListingRootComponent />;
         },
         fetchVariationForProductListingCreation: function() {
             console.log('in fetchVariationForProductListingCreation with this.state.variation: ' , this.state.variation, ' this.state: ',this.state);
@@ -247,6 +253,14 @@ define([
             ) {
                 this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
             }
+            console.log('variation should not fetched ');
+            console.log('this.state.createListing: ' , this.state.createListing);
+            
+            
+            console.log('(needs to be defined) this.state.createListing.product[this.state.createListing.product.id : ' , this.state.createListing.product[this.state.createListing.product.id]);
+            console.log('(needs to be true) this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length', this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length);
+            
+            
         },
         renderCreateListingPopup: function() {
             var variationData = this.state.variations[this.state.createListingData.product.id]
