@@ -17,7 +17,7 @@ define([
     './Components/CreateListing/SubmissionTable',
     './Validators',
     './ProductSearch/Component',
-    '../../SectionedContainer'
+    'Common/Components/SectionedContainer'
 ], function(
     React,
     ReactDom,

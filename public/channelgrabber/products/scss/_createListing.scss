@@ -325,11 +325,14 @@
     }
 
     &.assigned-products-table {
-      margin-bottom: 0;
       > table {
         min-width: 100%;
       }
     }
+  }
+
+  .variation-picker:last-child {
+    margin-bottom: 0;
   }
 }
 

@@ -84,7 +84,7 @@ class SearchService implements LoggerAwareInterface
                 'isbn' => $summary->getIsbn()[0] ?? null,
                 'brand' => $summary->getBrand(),
                 'mpn' => $summary->getMpn()[0] ?? null,
-                'title' => $summary->getTitle() . (mt_rand() % 2 === 0 ?  'sadasdsadasdsadasd s adasdsadasdsad asdsadasdsada sadasdsadasdsadasdsad asd    sdsada sd' : ' test'),
+                'title' => $summary->getTitle(),
                 'imageUrl' => $summary->getImage()->getUrl(),
                 'itemSpecifics' => $this->formatItemSpecificsArray($summary->getAspects())
             ];
