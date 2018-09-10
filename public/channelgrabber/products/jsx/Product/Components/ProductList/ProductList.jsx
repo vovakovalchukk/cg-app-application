@@ -131,9 +131,6 @@ define([
             let createdColumns = columnSettings.map((column) => {
                 column.actions = this.props.actions;
                 column.products = this.props.products;
-                if(column.key===columnKeys.addListing){
-                    column.onCreateNewListingIconClick = this.props.onCreateNewListingIconClick;
-                }
                 if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                     return;
                 }

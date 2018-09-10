@@ -95,14 +95,10 @@ define([
         filterBySku: function(skuList) {
             this.performProductsRequest(null, null, skuList);
         },
-        onCreateListingIconClick: function(product) {
-            // var product = this.state.products.find(function(product) {
-            //     return product.id == productId;
-            // });
-            this.showAccountsSelectionPopup(product);
-        },
-        showAccountsSelectionPopup: function(product) {
-            console.log('in showAccountSelectionPopup with product: ' , product);
+        onCreateListingIconClick: function(product, variations) {
+            console.log('onCreateListingIconClick');
+            console.log('this.props: ', this.props);
+            console.log('this.state: ' , this.state);
             
             
             this.setState({
@@ -119,6 +115,30 @@ define([
                     product: null
                 }
             });
+        },
+        renderAccountSelectionPopup: function() {
+            console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH...');
+        
+            var CreateListingRootComponent = CreateListingRoot(
+                this.state.accounts,
+                this.state.createListingsAllowedChannels,
+                this.state.createListingsAllowedVariationChannels,
+                this.state.productSearchActive,
+                this.onCreateListingClose,
+                this.props.ebaySiteOptions,
+                this.props.categoryTemplateOptions,
+                this.showCreateListingPopup,
+                this.showSearchPopup,
+                this.state.createListing.product,
+                this.props.listingCreationAllowed,
+                this.props.managePackageUrl,
+                this.props.salesPhoneNumber,
+                this.props.demoLink
+            );
+            //todo fix this bug
+        
+            // let productWithVariation = ///
+            return <CreateListingRootComponent />;
         },
         onSkuRequest: function(event) {
             this.filterBySku(event.detail.sku);
@@ -218,49 +238,6 @@ define([
                     lengthUnit={this.props.lengthUnit}
                 />;
             }.bind(this))
-        },
-        renderAccountSelectionPopup: function() {
-            console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH...');
-    
-            this.fetchVariationForProductListingCreation();
-    
-            var CreateListingRootComponent = CreateListingRoot(
-                this.state.accounts,
-                this.state.createListingsAllowedChannels,
-                this.state.createListingsAllowedVariationChannels,
-                this.state.productSearchActive,
-                this.onCreateListingClose,
-                this.props.ebaySiteOptions,
-                this.props.categoryTemplateOptions,
-                this.showCreateListingPopup,
-                this.showSearchPopup,
-                this.state.createListing.product,
-                this.props.listingCreationAllowed,
-                this.props.managePackageUrl,
-                this.props.salesPhoneNumber,
-                this.props.demoLink
-            );
-            //todo fix this bug
-            
-            // let productWithVariation = ///
-            
-            return <CreateListingRootComponent />;
-        },
-        fetchVariationForProductListingCreation: function() {
-            console.log('in fetchVariationForProductListingCreation with this.state.variation: ' , this.state.variation, ' this.state: ',this.state);
-            if (this.state.createListing.product[this.state.createListing.product.id]
-                && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
-            ) {
-                this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
-            }
-            console.log('variation should not fetched ');
-            console.log('this.state.createListing: ' , this.state.createListing);
-            
-            
-            console.log('(needs to be defined) this.state.createListing.product[this.state.createListing.product.id : ' , this.state.createListing.product[this.state.createListing.product.id]);
-            console.log('(needs to be true) this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length', this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length);
-            
-            
         },
         renderCreateListingPopup: function() {
             var variationData = this.state.variations[this.state.createListingData.product.id]

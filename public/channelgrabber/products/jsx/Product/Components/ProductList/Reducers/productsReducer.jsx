@@ -56,7 +56,7 @@ define([
             let newState = Object.assign({}, state, {
                 simpleAndParentProducts: newProducts,
                 visibleRows: newVisibleRows,
-                variations: newVariations
+                variationsByParent: newVariations
             });
             return newState;
         },

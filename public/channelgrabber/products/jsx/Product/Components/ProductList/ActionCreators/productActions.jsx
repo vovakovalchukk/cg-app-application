@@ -104,6 +104,18 @@ define([
                     }
                 }
             },
+            triggerAddListingInRoot: (passedProps)=>{
+                
+                // this will addListing in root
+                
+                return async function(dispatch, getState) {
+            
+                    // todo get from state all the stored stuff from the getProducts responspe
+                    
+                    // todo - fire the original callback passed in via props
+                    
+                }
+            },
             getUpdatedStockLevels(productSku) {
                 return async function(dispatch, getState) {
                     var fetchingStockLevelsForSkus = getState().list.fetchingUpdatedStockLevelsForSkus;
@@ -134,7 +146,7 @@ define([
                         return;
                     }
                     
-                    dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand);
+                    actionCreators.dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand);
                 }
             },
             collapseProduct: (productRowIdToCollapse) => {
@@ -143,6 +155,33 @@ define([
                     payload: {
                         productRowIdToCollapse
                     }
+                }
+            },
+            dispatchExpandVariationWithAjaxRequest: (dispatch, productRowIdToExpand) => {
+                let filter = new ProductFilter(null, productRowIdToExpand);
+                AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
+                
+                function fetchProductVariationsCallback(data) {
+                    $('#products-loading-message').hide();
+                    let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                    dispatch(getProductVariationsRequestSuccess(variationsByParent));
+                    dispatch(expandProductSuccess(productRowIdToExpand));
+                    
+                    let newVariationSkus = data.products.map((product) => {
+                        return product.sku;
+                    });
+                    
+                    dispatch(actionCreators.getLinkedProducts(newVariationSkus));
+                }
+            },
+            getVariationsByParentProductId: (parentProductId) => {
+                return async function(dispatch, getState) {
+                    let filter = new ProductFilter(null, parentProductId);
+                    let data = await AjaxHandler.fetchByFilter(filter);
+    
+                    let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                    dispatch(getProductVariationsRequestSuccess(variationsByParent));
+                    return data;
                 }
             },
             changeTab: (desiredTabKey) => {
@@ -182,30 +221,11 @@ define([
             dispatch(getProductVariationsRequestSuccess(variationsByParent));
             dispatch(expandProductSuccess(productRowIdToExpand))
         }
-        
-        function dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand) {
-            let filter = new ProductFilter(null, productRowIdToExpand);
-            AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-            
-            function fetchProductVariationsCallback(data) {
-                $('#products-loading-message').hide();
-                let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                dispatch(expandProductSuccess(productRowIdToExpand));
-                
-                let newVariationSkus = data.products.map((product) => {
-                    return product.sku;
-                });
-                
-                dispatch(actionCreators.getLinkedProducts(newVariationSkus));
-            }
-        }
     })();
     
     return actionCreators;
     
     function getVisibleFixedColumns(state) {
-        console.log('in getVisibleFixedColumns with state: ' , state);
         return state.columns.filter((column) => {
             return column.fixed
         });

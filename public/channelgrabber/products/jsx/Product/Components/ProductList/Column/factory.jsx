@@ -44,12 +44,6 @@ define([
     };
     
     var columnCreator = function(column) {
-        
-        if(column.key==='addListing'){
-            // console.log('columnCretor addListing column : ' , column);
-            //
-        }
-        
         let CreatedCell = getCreatedCell(column);
         if(!CreatedCell){
             console.error("cannot create cell in column factory for column: " , column);

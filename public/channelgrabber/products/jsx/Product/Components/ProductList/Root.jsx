@@ -23,8 +23,6 @@ define([
 ) {
     "use strict";
     
-    let combinedActionCreators = combineActionCreators();
-    
     const mapStateToProps = function(state) {
         return {
             products: state.products,
@@ -36,19 +34,53 @@ define([
         };
     };
     
-    const mapDispatchToProps = function(dispatch) {
-        return {actions: Redux.bindActionCreators(combinedActionCreators, dispatch)};
+    const mapDispatchToProps = function(dispatch,ownProps) {
+        let combinedActionCreators = combineActionCreators(ownProps);
+        return {
+            actions: Redux.bindActionCreators(
+                combinedActionCreators,
+                dispatch
+            )
+        };
     };
     
     return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductList);
     
-    function combineActionCreators() {
+    function combineActionCreators(ownProps) {
+        let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
         return Object.assign(
             productActions,
             productLinkActions,
             paginationActions,
             searchActions,
-            tabActions
+            tabActions,
+            passedInMethodsAsActions
         );
+    }
+    
+    function formatPassedInMethodsAsReduxActions(ownProps){
+        return {
+            createNewListing: ({parentProductId}) => {
+                return async function(dispatch, getState) {
+                    console.log('in createNewListing successfully');
+                    const state = getState();
+                    
+                    console.log('state: ', state);
+                    console.log('ownProps: ', ownProps);
+                    
+                    if(parentProductId){
+                        console.log('getting newVariations');
+                        await this.props.actions.getVariationsByParentProductId(parentProductId);
+                    }
+                    //todo get params set on state
+                    ownProps.onCreateNewListingIconClick({
+                        //todo all the params should go here
+                        accounts: state.accounts.getAccounts(state),
+                        productSearchActive: state.search.productSearchActive
+                        
+                    })
+                }
+            }
+        };
     }
 });
