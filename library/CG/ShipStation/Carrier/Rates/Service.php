@@ -19,6 +19,7 @@ use CG\ShipStation\Messages\Rate as ShipStationRate;
 use CG\ShipStation\Messages\Shipment;
 use CG\ShipStation\Request\Shipping\Rates as RatesRequest;
 use CG\ShipStation\Response\Shipping\Rates as RatesResponse;
+use CG\ShipStation\ShippingService\Factory as ShippingServiceFactory;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
@@ -33,15 +34,19 @@ class Service
     protected $client;
     /** @var ShipmentIdStorage */
     protected $shipmentIdStorage;
+    /** @var ShippingServiceFactory */
+    protected $shippingServiceFactory;
 
     public function __construct(
         ShipStationService $shipStationService,
         Client $client,
-        ShipmentIdStorage $shipmentIdStorage
+        ShipmentIdStorage $shipmentIdStorage,
+        ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->shipStationService = $shipStationService;
         $this->client = $client;
         $this->shipmentIdStorage = $shipmentIdStorage;
+        $this->shippingServiceFactory = $shippingServiceFactory;
     }
 
     public function fetchRatesForOrders(
@@ -88,10 +93,13 @@ class Service
         Account $shippingAccount,
         OrganisationUnit $rootOu
     ): array {
+        $shippingServiceService = ($this->shippingServiceFactory)($shippingAccount);
+        $carrierService = $shippingServiceService->getCarrierService($orderData->getService());
         $shipment = Shipment::createFromOrderAndData(
             $order,
             $orderData,
             $parcelsData,
+            $carrierService,
             $shipStationAccount,
             $shippingAccount,
             $rootOu

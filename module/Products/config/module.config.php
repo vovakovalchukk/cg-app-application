@@ -4,7 +4,6 @@ namespace Products;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
 use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Channel\Listing\Download\Service as ChannelListingDownloadService;
-use CG\Ebay\CatalogApi\Client\Factory;
 use CG\Ebay\Listing\Creator as EbayListingCreator;
 use CG\Image\Service as ImageService;
 use CG\Image\Storage\Api as ImageApiStorage;
@@ -34,6 +33,7 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Listing\Channel\Amazon\Service as ListingAmazonService;
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
 use Products\Product\Service as ModuleProductService;
 use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
@@ -1283,7 +1283,12 @@ return [
                 'parameters' => [
                     'cryptor' => 'ebay_cryptor'
                 ]
-            ]
+            ],
+            ListingAmazonService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
+                ]
+            ],
         ],
     ],
     'navigation' => array(
