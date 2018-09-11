@@ -8,9 +8,9 @@ class RoyalMail extends Other implements RequiresSignatureInterface
     /** @var array */
     protected $signatureServices;
 
-    public function __construct(Account $account, array $signatureServices = [])
+    public function __construct(Account $account, string $domesticCountryCode, array $signatureServices = [])
     {
-        parent::__construct($account);
+        parent::__construct($account, $domesticCountryCode);
         $this->signatureServices = $signatureServices;
     }
 
