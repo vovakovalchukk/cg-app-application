@@ -163,7 +163,6 @@ class MultiCreationService implements LoggerAwareInterface
         array $accountCategoriesMap = [],
         string $processGuid
     ): bool {
-        return false;
         $this->addGlobalLogEventParams(['account' => implode(',', $accountIds), 'categoryTemplate' => implode(', ', $categoryTemplateIds), 'site' => $siteId, 'guid' => $guid]);
         try {
             if (!$this->isRequiredListingDataSet($accountIds, $categoryTemplateIds, $productData)) {
