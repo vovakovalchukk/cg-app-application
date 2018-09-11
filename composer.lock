@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bf43c60e804c0df511f6347b0f360a1",
+    "content-hash": "3d9218342aaa35ff97c973d0a5d30e52",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,23 +336,23 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "version": "1.27.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "f6914db4538bbfcfbfb6228db3e98fe397bec2c1"
+                "reference": "347644f4c4f6b7d719b698c23b9673f4fa746ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-9602-replace-smembers-sscan-d79704.zip",
-                "reference": "f6914db4538bbfcfbfb6228db3e98fe397bec2c1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.10-ef81f4.zip",
+                "reference": "347644f4c4f6b7d719b698c23b9673f4fa746ead",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.39.1",
+                "channelgrabber/channel": "^1.39.1",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-09-06T07:59:34+00:00"
+            "time": "2018-09-11T11:02:37+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -706,16 +706,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "version": "1.39.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "3dcee1eb313ab077deb7c6bed7b33e3ba7f203b5"
+                "reference": "9f4dc4ddfe437195e76eda70508c1a08f41507f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9602-replace-smembers-sscan-adb6a0.zip",
-                "reference": "3dcee1eb313ab077deb7c6bed7b33e3ba7f203b5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.39.1-3f06d5.zip",
+                "reference": "9f4dc4ddfe437195e76eda70508c1a08f41507f6",
                 "shasum": null
             },
             "require": {
@@ -785,7 +785,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-09-06T08:02:39+00:00"
+            "time": "2018-09-11T10:43:27+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1112,22 +1112,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "version": "1.15.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "975c39d53179cd8ab5b908af58852ea525b99d6d"
+                "reference": "ae6599087ff0cfde860ff93a1ab325ec06cb5105"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-9602-replace-smembers-sscan-7d039a.zip",
-                "reference": "975c39d53179cd8ab5b908af58852ea525b99d6d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.15.2-d76e48.zip",
+                "reference": "ae6599087ff0cfde860ff93a1ab325ec06cb5105",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.39.1",
+                "channelgrabber/channel": "^1.39.1",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1173,26 +1173,26 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-10T14:30:08+00:00"
+            "time": "2018-09-11T11:03:21+00:00"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "version": "1.10.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "33c64a631820d282859e2a41df5271f65fbf3555"
+                "reference": "2e5695e11baf7011446edb8e58e8bceafc115dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-9602-replace-smembers-sscan-139c43.zip",
-                "reference": "33c64a631820d282859e2a41df5271f65fbf3555",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.10.14-a14f83.zip",
+                "reference": "2e5695e11baf7011446edb8e58e8bceafc115dad",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.11.0",
-                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.39.1",
+                "channelgrabber/channel": "^1.39.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.4",
@@ -1233,7 +1233,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-09-06T08:05:04+00:00"
+            "time": "2018-09-11T11:02:59+00:00"
         },
         {
             "name": "channelgrabber/email",
@@ -2031,16 +2031,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "version": "1.39.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d00bbf2a41feb49960cc8658ec6c39c7c4d9f598"
+                "reference": "eed35275804a7afd53e4fdc2823be9bb5d3559b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9602-replace-smembers-sscan-71401e.zip",
-                "reference": "d00bbf2a41feb49960cc8658ec6c39c7c4d9f598",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.10-9fec96.zip",
+                "reference": "eed35275804a7afd53e4fdc2823be9bb5d3559b7",
                 "shasum": null
             },
             "require": {
@@ -2111,7 +2111,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-09-10T14:31:56+00:00"
+            "time": "2018-09-11T10:43:47+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3694,20 +3694,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "18b0dc00914403e043eac8dac3b05f41736fd21e"
+                "reference": "b30c07253aaf7bd29d041575fb111ade8313828d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-9602-replace-smembers-sscan-6e1d6c.zip",
-                "reference": "18b0dc00914403e043eac8dac3b05f41736fd21e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.6.1-39b015.zip",
+                "reference": "b30c07253aaf7bd29d041575fb111ade8313828d",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-9602-replace-smembers-sscan as 1.38.1",
+                "channelgrabber/channel": "^1.39.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.2.0",
@@ -3739,7 +3739,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-09-06T08:07:19+00:00"
+            "time": "2018-09-11T11:03:40+00:00"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -10397,53 +10397,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.27.9",
-            "alias_normalized": "1.27.9.0",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.39.1",
-            "alias_normalized": "1.39.1.0",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.15.1",
-            "alias_normalized": "1.15.1.0",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.10.14",
-            "alias_normalized": "1.10.14.0",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
-            "package": "channelgrabber/ekm"
-        },
-        {
-            "alias": "1.39.9",
-            "alias_normalized": "1.39.9.0",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.6.1",
-            "alias_normalized": "1.6.1.0",
-            "version": "dev-CGIV-9602-replace-smembers-sscan",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/ekm": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/woocommerce": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
