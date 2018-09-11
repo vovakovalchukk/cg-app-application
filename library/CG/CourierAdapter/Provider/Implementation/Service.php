@@ -134,9 +134,6 @@ class Service implements
         if ($courierInstance instanceof EmailClientAwareInterface) {
             $courierInstance->setEmailClient($this->emailClient);
         }
-        if ($courierInstance instanceof SftpClientAwareInterface) {
-            $courierInstance->setSftpClient($this->sftpClient);
-        }
 
         // Some couriers need to be told if we're in a non-Live environment
         if (defined('ENVIRONMENT') && ENVIRONMENT != 'live' && is_callable([$courierInstance, 'setTestMode'])) {
