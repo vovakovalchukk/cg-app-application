@@ -308,6 +308,7 @@ class CourierJsonController extends AbstractActionController
             'notReadyCount' => $notReadyCount,
             'errorCount' => $errorCount,
             'partialErrorMessage' => $partialErrorMessage,
+            'balance' => $this->specificsAjaxService->getShippingLedgerForActiveUser()->getBalance()
         ]);
     }
 

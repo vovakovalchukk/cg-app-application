@@ -511,6 +511,7 @@ define([
     Service.prototype.processCreateLabelsResponse = function(response, button)
     {
         if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
+            this.updateBalance(response);
             this.getNotifications().success('Label(s) created successfully');
         } else {
             this.handleNotReadysAndErrors(response, button);
@@ -849,6 +850,13 @@ define([
         };
         this.getBalanceService().renderPopup(additionalPopupSettings);
     };
+
+    Service.prototype.updateBalance = function(data)
+    {
+        if (data.balance !== undefined) {
+            $(CourierSpecificsDataTable.SELECTOR_ACCOUNT_BALANCE_FIGURE).text(data.balance);
+        }
+    }
 
     return Service;
 });
