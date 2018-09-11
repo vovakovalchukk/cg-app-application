@@ -1,39 +1,51 @@
 <?php
 namespace CG\ShipStation\ShippingService;
 
-use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\Order\Shared\ShippableInterface as Order;
+use CG\ShipStation\Messages\CarrierService;
 
-class Usps implements ShippingServiceInterface
+class Usps extends Other
 {
+    /** @var string */
+    protected $domesticCountryCode;
+    /** @var CarrierService[] */
+    protected $services;
+
+    public function __construct(string $domesticCountryCode, array $servicesConfig = [])
+    {
+        $this->domesticCountryCode = $domesticCountryCode;
+        foreach ($servicesConfig as $serviceConfig) {
+            $service = CarrierService::fromJson((object)$serviceConfig);
+            $this->services[$service->getServiceCode()] = $service;
+        }
+    }
 
     public function getShippingServices()
     {
-        return [
-            'usps_first_class_mail' => 'USPS First Class Mail',
-            'usps_media_mail' => 'USPS Media Mail',
-            'usps_parcel_select' => 'USPS Parcel Select Ground',
-            'usps_priority_mail' => 'USPS Priority Mail',
-            'usps_priority_mail_express' => 'USPS Priority Mail Express',
-            /* We're not supporting international services for any ShipStation couriers for now
-            'usps_first_class_mail_international' => 'USPS First Class Mail Intl',
-            'usps_priority_mail_international' => 'USPS Priority Mail Intl',
-            'usps_priority_mail_express_international' => 'USPS Priority Mail Express Intl', */
-        ];
+        $serviceOptions = [];
+        foreach ($this->services as $service) {
+            $serviceOptions[$service->getServiceCode()] = $service->getName();
+        }
+        return $serviceOptions;
     }
 
     public function getShippingServicesForOrder(Order $order)
     {
-        return $this->getShippingServices();
+        $serviceOptions = [];
+        foreach ($this->services as $service) {
+            if (!$this->isServiceApplicableToOrder($service, $order)) {
+                continue;
+            }
+            $serviceOptions[$service->getServiceCode()] = $service->getName();
+        }
+        return $serviceOptions;
     }
 
-    public function doesServiceHaveOptions($service)
+    public function getCarrierService(string $serviceCode): CarrierService
     {
-        return false;
-    }
-
-    public function getOptionsForService($service, $selected = null)
-    {
-        return [];
+        if (!isset($this->services[$serviceCode])) {
+            throw new \InvalidArgumentException($serviceCode . ' not in the list of available shipping services');
+        }
+        return $this->services[$serviceCode];
     }
 }

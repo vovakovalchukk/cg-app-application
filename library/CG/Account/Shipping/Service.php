@@ -55,7 +55,7 @@ class Service
             ->setLimit('all')
             ->setPage(1)
             ->setId($accountIds)
-            ->setOrganisationUnitId($this->ouService->getAncestorOrganisationUnitIdsByActiveUser())
+            ->setRootOrganisationUnitId([$this->ouService->getActiveUser()->getRootOuId()])
             ->setType(Type::SHIPPING)
             ->setDeleted(false)
             ->setActive(true);

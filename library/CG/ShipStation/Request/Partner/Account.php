@@ -14,11 +14,14 @@ class Account extends PartnerRequestAbstract
     protected $user;
     /** @var  string */
     protected $externalAccountId;
+    /** @var string */
+    protected $originCountryCode;
 
-    public function __construct(User $user, string $externalAccountId)
+    public function __construct(User $user, string $externalAccountId, string $originCountryCode)
     {
         $this->user = $user;
         $this->externalAccountId = $this->generateExternalId($externalAccountId);
+        $this->originCountryCode = $originCountryCode;
     }
 
     protected function generateExternalId(string $externalAccountId): string
@@ -33,7 +36,8 @@ class Account extends PartnerRequestAbstract
             'first_name' => $this->user->getFirstName(),
             'last_name' => $this->user->getLastName(),
             'company_name' => $this->user->getCompanyName(),
-            'external_account_id' => $this->getExternalAccountId()
+            'external_account_id' => $this->getExternalAccountId(),
+            'origin_country_code' => $this->getOriginCountryCode(),
         ];
     }
 
@@ -56,5 +60,16 @@ class Account extends PartnerRequestAbstract
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function getOriginCountryCode(): string
+    {
+        return $this->originCountryCode;
+    }
+
+    public function setOriginCountryCode(string $originCountryCode): Account
+    {
+        $this->originCountryCode = $originCountryCode;
+        return $this;
     }
 }

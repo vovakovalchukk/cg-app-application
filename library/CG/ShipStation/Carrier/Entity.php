@@ -7,26 +7,33 @@ class Entity
 {
     const DEFAULT_ALLOWS_CANCELLATION = true;
     const DEFAULT_ALLOWS_MANIFESTING = true;
+    const DEFAULT_ALLOWS_RATES = false;
 
     protected $channelName;
     protected $displayName;
     protected $salesChannelName;
     protected $allowsCancellation;
     protected $allowsManifesting;
+    protected $allowsRates;
     protected $fields;
     /** @var array */
     protected $bookingOptions;
+    protected $featureFlag;
+    protected $activationDelayed;
 
     protected $requiredFields = null;
 
     public function __construct(
-        $channelName,
+        string $channelName,
         FieldCollection $fields,
-        $displayName = null,
-        $salesChannelName = null,
-        $allowsCancellation = null,
-        $allowsManifesting = null,
-        array $bookingOptions = null
+        ?string $displayName = null,
+        ?string $salesChannelName = null,
+        ?bool $allowsCancellation = null,
+        ?bool $allowsManifesting = null,
+        ?bool $allowsRates = null,
+        ?array $bookingOptions = null,
+        ?string $featureFlag = null,
+        bool $activationDelayed = false
     ) {
         $this
             ->setChannelName($channelName)
@@ -35,7 +42,10 @@ class Entity
             ->setSalesChannelName($salesChannelName)
             ->setAllowsCancellation($allowsCancellation)
             ->setAllowsManifesting($allowsManifesting)
-            ->setBookingOptions($bookingOptions);
+            ->setAllowsRates($allowsRates)
+            ->setBookingOptions($bookingOptions)
+            ->setFeatureFlag($featureFlag)
+            ->setActivationDelayed($activationDelayed);
     }
 
     public function getRequiredFieldNames(): array
@@ -125,6 +135,20 @@ class Entity
         return $this;
     }
 
+    public function isAllowsRates(): bool
+    {
+        return $this->allowsRates;
+    }
+
+    public function setAllowsRates(?bool $allowsRates): Entity
+    {
+        if ($allowsRates === null) {
+            $allowsRates = static::DEFAULT_ALLOWS_RATES;
+        }
+        $this->allowsRates = $allowsRates;
+        return $this;
+    }
+
     public function getFields(): FieldCollection
     {
         return $this->fields;
@@ -144,6 +168,28 @@ class Entity
     public function setBookingOptions(array $bookingOptions = null): Entity
     {
         $this->bookingOptions = $bookingOptions ?? [];
+        return $this;
+    }
+
+    public function getFeatureFlag(): ?string
+    {
+        return $this->featureFlag;
+    }
+
+    public function setFeatureFlag(?string $featureFlag): Entity
+    {
+        $this->featureFlag = $featureFlag;
+        return $this;
+    }
+
+    public function isActivationDelayed(): bool
+    {
+        return $this->activationDelayed;
+    }
+
+    public function setActivationDelayed(bool $activationDelayed): Entity
+    {
+        $this->activationDelayed = $activationDelayed;
         return $this;
     }
 
