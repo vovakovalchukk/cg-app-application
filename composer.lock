@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb72a0a91cf435359df0ca1a79483384",
+    "content-hash": "63dc4bb707f7262c5ec5d53bd27c854d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1112,16 +1112,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-STRAT-3-feature-flag-pbse-variations",
+            "version": "dev-EPIC-STRAT-2-pbse-variations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "f13090cead0204c52aa6ab0855f3caf573c3f4ef"
+                "reference": "bd71d0ff3a12d9026e07497b6f4c4219286e4cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-3-feature-flag-pbse-variations-6fcf84.zip",
-                "reference": "f13090cead0204c52aa6ab0855f3caf573c3f4ef",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-STRAT-2-pbse-variations-766f67.zip",
+                "reference": "bd71d0ff3a12d9026e07497b6f4c4219286e4cac",
                 "shasum": null
             },
             "require": {
@@ -1173,7 +1173,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-11T11:03:21+00:00"
+            "time": "2018-09-11T13:23:58+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10494,13 +10494,14 @@
         {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
-            "version": "dev-STRAT-3-feature-flag-pbse-variations",
+            "version": "dev-EPIC-STRAT-2-pbse-variations",
             "package": "channelgrabber/ebay"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
