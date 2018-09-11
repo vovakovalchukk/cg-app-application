@@ -20,7 +20,7 @@ return [
         'instance' => [
             'preferences' => [
                 StorageInterface::class => RedisStorage::class,
-                EmailClientInterface::class => EmailClient::class
+                EmailClientInterface::class => EmailClient::class,
             ],
             RedisStorage::class => [
                 'parameters' => [
