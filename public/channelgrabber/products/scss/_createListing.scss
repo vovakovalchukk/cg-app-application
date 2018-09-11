@@ -244,10 +244,9 @@
   .search-product-assign-select {
     display: flex;
     margin: 4px auto 0;
-    padding: 5px 16px;
+    padding: 5px 16px 3px;
     color: white;
     background-color: $color-lblue;
-    border-radius: 20px 20px 0 0;
     flex-shrink:  0;
 
     > span {
@@ -476,7 +475,6 @@
   border: 2px solid $color-lblue;
   margin: 5px;
   padding: 5px 5px 0 5px;
-  border-radius: 10px;
   flex-flow: column;
   height: 260px;
   display: flex;
