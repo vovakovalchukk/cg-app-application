@@ -224,21 +224,26 @@ class Service implements
 
     public function formatExternalChannelData(array $data, string $processGuid): array
     {
-        if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
-            try {
-                $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
-                $epid = $epidEntity->getEpid();
-                $epidAccountId = $epidEntity->getAccountId();
-            } catch (NotFound $e) {
-                return $data;
-            }
+        /** @TODO: Replace the 3 with the data actually given by the frontend and fall back to null */
+        $epidAccountId = $data['epidAccountId'] ?? 3;
+        if (!$epidAccountId) {
+            return $data;
+        }
+
+        $variationToEpid = $data['variationToEpid'] ?? [];
+
+        try {
+            $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
+            $variationToEpid = $variationToEpid + $epidEntity->getVariationToEpid();
+        } catch (NotFound $e) {
+            // No-op
         }
 
         try {
             /** @var Account $account */
             $account = $this->accountService->fetch($epidAccountId);
         } catch (NotFound $e) {
-            unset($data['epid'], $data['epidAccountId']);
+            unset($data['variationToEpid'], $data['epidAccountId']);
             return $data;
         }
 
@@ -246,7 +251,7 @@ class Service implements
 
         return array_merge($data, [
             'marketplace' => $this->fetchDefaultSiteIdForAccount($account),
-            'epid' => $epid
+            'variationToEpid' => $variationToEpid
         ]);
     }
 
