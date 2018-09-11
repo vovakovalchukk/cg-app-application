@@ -297,31 +297,18 @@ define([
             return this.props.categoryTemplates.isFetching;
         },
         render: function() {
-            let isSubmitButtonDisabled = this.isSubmitButtonDisabled();
-            return this.renderStuff();
-            return (
-                <Container
-                    initiallyActive={true}
-                    className="editor-popup product-create-listing"
-                    closeOnYes={false}
-                    headerText={"Create a listing"}
-                    yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
-                    noButtonText="Cancel"
-                    onYesButtonPressed={this.props.submitForm}
-                    onNoButtonPressed={this.props.onCreateListingClose}
-                    onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
-                    yesButtonDisabled={isSubmitButtonDisabled || this.areCategoryTemplatesFetching()}
-                >
-                    {this.renderProductSearchComponent()}
-                    {this.renderForm()}
-                    {this.renderSubmissionTable()}
-                </Container>
-            );
-        },
-        renderStuff: function() {
-            let isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+            const isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+            const productSearchComponent = this.renderProductSearchComponent();
+            const headerTexts = ["Listing Information", "Listing creation status"];
+            const children = [this.renderForm(), this.renderSubmissionTable()];
+
+            if (productSearchComponent) {
+                children.unshift(productSearchComponent);
+                headerTexts.unshift('Search for your product');
+            }
+
             return <SectionedContainer
-                headerTexts={["Search for your product", "Listing Information", "Listing creation status"]}
+                headerTexts={headerTexts}
                 sectionClassName={"editor-popup product-create-listing"}
                 yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
                 noButtonText="Cancel"
@@ -330,9 +317,7 @@ define([
                 onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
                 yesButtonDisabled={isSubmitButtonDisabled || this.areCategoryTemplatesFetching()}
             >
-                {this.renderProductSearchComponent()}
-                {this.renderForm()}
-                {this.renderSubmissionTable()}
+                {children}
             </SectionedContainer>;
         }
     });
