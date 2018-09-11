@@ -31,6 +31,7 @@ define(['AjaxRequester'], function(ajaxRequester)
     Settings.LEDGER_TOP_UP_BUTTON = "#topUp";
     Settings.LEDGER_TOPUP_URL = "/settings/channel/shipping/{{accountId}}/ledger/topup";
     Settings.LEDGER_SAVE_URL = "/settings/channel/shipping/{{accountId}}/ledger/save";
+    Settings.BALANCE_FIGURE = '.shipping-ledger-balance-amount';
 
     Settings.prototype.attachAutoTopUpListener = function()
     {
@@ -106,6 +107,7 @@ define(['AjaxRequester'], function(ajaxRequester)
 
     Settings.prototype.handleBalanceSuccess = function(data)
     {
+        this.updateDisplayedBalance(data.balance);
         this.continueUserActionAfterTopupSuccess($(Settings.LEDGER_TOP_UP_BUTTON));
         this.getAjaxRequester().getNotificationHandler().success('Balance topped up successfully.');
     };
@@ -131,6 +133,11 @@ define(['AjaxRequester'], function(ajaxRequester)
             return;
         }
     }
+
+    Settings.prototype.updateDisplayedBalance = function(ammount)
+    {
+        $(Settings.BALANCE_FIGURE).text(ammount.toFixed(2));
+    };
 
     return Settings;
 });
