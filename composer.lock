@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7acf90d018d9d3707829b6cca192f05",
+    "content-hash": "9219bf50e4f5a04c65be5840ca4736e1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -942,10 +942,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d68a1adbde0c85242e95aa1e3feecb49228add95"
+                "reference": "6f1cd08cbbd8a8175bebacd6d19d8911eaed8b67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9706-dpd-sftp-f19ecf.zip",
+                "reference": "6f1cd08cbbd8a8175bebacd6d19d8911eaed8b67",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "dev-CGIV-9706-dpd-sftp as 1.3.1",
+                "channelgrabber/courieradapter": "^1.3.0",
                 "channelgrabber/locale": "^1.0.17",
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
@@ -974,20 +980,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-09-07T08:45:55+00:00"
+            "time": "2018-09-11T13:35:17+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-CGIV-9706-dpd-sftp",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "59c62b8b241bd128a7510682fa65e257b56eb14b"
+                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-9706-dpd-sftp-8d116b.zip",
-                "reference": "59c62b8b241bd128a7510682fa65e257b56eb14b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.3.0-14c937.zip",
+                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50",
                 "shasum": null
             },
             "require": {
@@ -1012,7 +1018,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-09-07T08:44:03+00:00"
+            "time": "2018-08-30T09:18:15+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -10371,22 +10377,15 @@
             "alias_normalized": "1.1.2.0",
             "version": "dev-CGIV-9706-dpd-sftp",
             "package": "channelgrabber/courier"
-        },
-        {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
-            "version": "dev-CGIV-9706-dpd-sftp",
-            "package": "channelgrabber/courieradapter"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
-        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
