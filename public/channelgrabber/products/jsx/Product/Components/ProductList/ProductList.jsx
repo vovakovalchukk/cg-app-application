@@ -66,7 +66,7 @@ define([
             window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
             window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
         },
-        componentWillReceiveProps: function() {
+        componentDidUpdate: function() {
             var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
             if (horizontalScrollbar) {
                 horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);

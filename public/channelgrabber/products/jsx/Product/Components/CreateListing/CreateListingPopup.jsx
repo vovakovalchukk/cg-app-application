@@ -268,6 +268,9 @@ define([
         },
         render: function() {
             var isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+            console.log('in createListingPopupRedner with this.props.product:' , this.props.product);
+            
+            
             return (
                 <Container
                     initiallyActive={true}

@@ -7,7 +7,7 @@ define([
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
+    'Product/Components/CreateListing/AccountSelectionRoot',
     'Product/Components/ProductList/Provider',
     'Product/Components/ProductList/Root',
     'Product/Components/CreateListing/ProductSearch/Root'
@@ -20,7 +20,7 @@ define([
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
-    CreateListingRoot,
+    AccountSelectionRoot,
     ProductListProvider,
     ProductListRoot,
     ProductSearchRoot
@@ -103,10 +103,8 @@ define([
                 createListingsAllowedVariationChannels,
                 accounts,
                 productSearchActive,
-                variationData
+                variations
             } = createListingData;
-            
-            
             
             // todo set all of these on state
             
@@ -115,11 +113,11 @@ define([
                 accounts,
                 createListing: {
                     product: product,
+                    variations,
                     productSearchActive,
                     createListingsAllowedChannels,
                     createListingsAllowedVariationChannels
-                },
-                variations
+                }
             });
         },
         onCreateListingClose: function() {
@@ -130,9 +128,17 @@ define([
                 }
             });
         },
+        showAccountsSelectionPopup: function(product) {
+            this.setState({
+                currentView: ACCOUNT_SELECTION_VIEW,
+                createListing: {
+                    product: product
+                }
+            });
+        },
         renderAccountSelectionPopup: function() {
             // console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH... THIS.STATE: ' , this.state);
-            var CreateListingRootComponent = CreateListingRoot(
+            var AccountSelectionRootComponent = AccountSelectionRoot(
                 this.state.accounts,
                 this.state.createListing.createListingsAllowedChannels,
                 this.state.createListing.createListingsAllowedVariationChannels,
@@ -148,7 +154,7 @@ define([
                 this.props.salesPhoneNumber,
                 this.props.demoLink
             );
-            return <CreateListingRootComponent />;
+            return <AccountSelectionRootComponent />;
         },
         onSkuRequest: function(event) {
             this.filterBySku(event.detail.sku);
@@ -229,10 +235,8 @@ define([
         },
         renderCreateListingPopup: function() {
             console.log('renderCreateListingPopup this.state: ', this.state);
-            
-            
-            var variationData = this.state.variations[this.state.createListingData.product.id]
-                ? this.state.variations[this.state.createListingData.product.id]
+            var variationData = this.state.createListing.variations[this.state.createListingData.product.id]
+                ? this.state.createListing.variations[this.state.createListingData.product.id]
                 : [this.state.createListingData.product];
             
             return <CreateListingPopupRoot

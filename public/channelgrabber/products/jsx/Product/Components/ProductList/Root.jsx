@@ -65,19 +65,16 @@ define([
             createNewListing: ({rowData}) => {
                 return async function(dispatch, getState) {
                     const state = getState();
-                    // console.log('in createNewListing AC state: ',state);
-                    // need to check whether we are getting the listing properties from state.
                     if (rowData.parentProductId) {
                         await productActions.getVariationsByParentProductId(parentProductId);
                     }
                     
                     let idToGetProductFor = rowData.parentProductId === 0 ? rowData.id : rowData.parentProductId;
                     let product = getState.customGetters.getProductById(idToGetProductFor);
-                    //todo get params set on state
                     
                     ownProps.onCreateNewListingIconClick({
                         product,
-                        variationsByParent: state.products.variationsByParent,
+                        variations: state.products.variationsByParent,
                         accounts: state.accounts.getAccounts(state),
                         productSearchActive: state.search.productSearchActive,
                         createListingsAllowedChannels: state.createListing.createListingsAllowedChannels,

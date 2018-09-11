@@ -34,7 +34,6 @@ define([
         var Provider = ReactRedux.Provider;
 
         var getAccountOptions = function(accounts, allowedChannels, allowedVariationChannels) {
-            // console.log('in getAccountOptions with product: ' , product);
             var channels = allowedChannels;
             if (product.variationCount > 0) {
                 channels = allowedVariationChannels;
