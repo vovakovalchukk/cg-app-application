@@ -8,7 +8,8 @@ define([
     'Product/Components/ProductList/ActionCreators/paginationActions',
     'Product/Components/ProductList/ActionCreators/searchActions',
     'Product/Components/ProductList/ActionCreators/tabActions',
-    'Product/Components/ProductList/ProductList'
+    'Product/Components/ProductList/ProductList',
+    'Product/Components/ProductList/stateUtility'
 ], function(
     React,
     Redux,
@@ -19,7 +20,8 @@ define([
     paginationActions,
     searchActions,
     tabActions,
-    ProductList
+    ProductList,
+    stateUtility
 ) {
     "use strict";
     
@@ -60,24 +62,26 @@ define([
     
     function formatPassedInMethodsAsReduxActions(ownProps){
         return {
-            createNewListing: ({parentProductId}) => {
+            createNewListing: ({rowData}) => {
                 return async function(dispatch, getState) {
-                    console.log('in createNewListing successfully');
                     const state = getState();
-                    
-                    console.log('state: ', state);
-                    console.log('ownProps: ', ownProps);
-                    
-                    if(parentProductId){
-                        console.log('getting newVariations');
-                        await this.props.actions.getVariationsByParentProductId(parentProductId);
+                    console.log('in createNewListing AC state: ',state);
+                    // need to check whether we are getting the listing properties from state.
+                    if(rowData.parentProductId){
+                        await productActions.getVariationsByParentProductId(parentProductId);
                     }
+                    
+                    let idToGetProductFor = rowData.parentProductId === 0 ? rowData.id : rowData.parentProductId;
+                    let product = getState.customGetters.getProductById(idToGetProductFor);
                     //todo get params set on state
+                    console.log('hooking into onCreateNewListingIconClick product: ' , product);
+                    
                     ownProps.onCreateNewListingIconClick({
-                        //todo all the params should go here
+                        product,
                         accounts: state.accounts.getAccounts(state),
-                        productSearchActive: state.search.productSearchActive
-                        
+                        productSearchActive: state.search.productSearchActive,
+                        createListingsAllowedChannels : state.createListing.createListingsAllowedChannels,
+                        createListingsAllowedVariationChannels: state.createListing.createListingsAllowedVariationChannels,
                     })
                 }
             }

@@ -5,17 +5,19 @@ define([
 ) {
     "use strict";
     
-    var initialState = {
-        columnSettings: []
+    let initialState = {
+        createListingsAllowedChannels: [],
+        createListingsAllowedVariationChannels: []
     };
     
-    var CreateListingReducer = reducerCreator(initialState, {
+    let CreateListingReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in PRODUCTS_GET_REQUEST_SUCCESS action: ' , action);
-            
+            console.log('CreateListingReducer in PRODUCTS_GET_REQUEST_SUCCESS action: ' , action);
+            let {createListingsAllowedChannels, createListingsAllowedVariationChannels} = action.payload;
             
             let newState = Object.assign({}, state, {
-                columnSettings: action.payload.columnSettings
+                createListingsAllowedChannels,
+                createListingsAllowedVariationChannels
             });
             return newState;
         }

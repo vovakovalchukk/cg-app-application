@@ -26,34 +26,17 @@ define([
         },
         onAddListingClick: async function(parentProductId) {
             console.log('onAddListingClick parentProductId: ' , parentProductId);
-            // if(parentProductId){
-            //     console.log('getting newVariations');
-            //     await this.props.actions.getVariationsByParentProductId(parentProductId);
-            // }
             const {products, rowIndex} = this.props;
             const rowData = this.getRowData(products, rowIndex);
             console.log('products.variationsByParent after get: ' , products.variationsByParent);
-            
             this.props.actions.createNewListing({
-                parentProductId,
-                rowData,
-                variationsByParent: products.variationsByParent,
-                //TODO --- pass all the paramters through that are needed to build the AccountSeleectionRoot
+                rowData
             });
         },
         render() {
-            const {products, rowIndex} = this.props;
-            const rowData = this.getRowData(products, rowIndex);
-            
-            // console.log('rowData (checking for parent: ', rowData );
-            
-            // issue here is that if it's a parentP
-            
-            let parentProductId = this.isParentProduct(rowData) ? rowData.id : rowData.parentProductId;
-            
             return (
                 <span
-                    onClick={this.onAddListingClick.bind(this, parentProductId)}
+                    onClick={this.onAddListingClick}
                 >
                     add listing
                 </span>

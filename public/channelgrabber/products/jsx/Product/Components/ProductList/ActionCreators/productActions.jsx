@@ -47,6 +47,7 @@ define([
             });
         };
         const getProductsSuccess = function(data) {
+            console.log('PRODUCTS_GET_REQUEST_SUCCESS AC');
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
@@ -104,18 +105,6 @@ define([
                     }
                 }
             },
-            triggerAddListingInRoot: (passedProps)=>{
-                
-                // this will addListing in root
-                
-                return async function(dispatch, getState) {
-            
-                    // todo get from state all the stored stuff from the getProducts responspe
-                    
-                    // todo - fire the original callback passed in via props
-                    
-                }
-            },
             getUpdatedStockLevels(productSku) {
                 return async function(dispatch, getState) {
                     var fetchingStockLevelsForSkus = getState().list.fetchingUpdatedStockLevelsForSkus;
@@ -133,6 +122,8 @@ define([
             },
             expandProduct: (productRowIdToExpand) => {
                 return function(dispatch, getState) {
+                    console.log('in getproduct AC getState: :    ',  getState.customGetters.getProductById(1));
+    
                     dispatch({
                         type: 'PRODUCT_EXPAND_REQUEST',
                         payload: {

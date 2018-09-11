@@ -95,18 +95,32 @@ define([
         filterBySku: function(skuList) {
             this.performProductsRequest(null, null, skuList);
         },
-        onCreateListingIconClick: function(product, variations) {
-            console.log('onCreateListingIconClick');
-            console.log('this.props: ', this.props);
-            console.log('this.state: ' , this.state);
+        onCreateListingIconClick: function(createListingData) {
+            console.log('onCreateListingIconClick createListingData: '  ,createListingData);
+            let {
+                product,
+                createListingsAllowedChannels,
+                createListingsAllowedVariationChannels,
+                accounts,
+                productSearchActive
+            } = createListingData;
             
+            
+            
+            // todo set all of these on state
             
             this.setState({
                 currentView: ACCOUNT_SELECTION_VIEW,
+                accounts,
                 createListing: {
-                    product: product
+                    product: product,
+                    productSearchActive,
+                    createListingsAllowedChannels,
+                    createListingsAllowedVariationChannels
                 }
-            });
+            },console.log('just setState... (needs to come before renderAccouNTsELECTIONRoot')
+            
+            );
         },
         onCreateListingClose: function() {
             this.setState({
@@ -117,13 +131,13 @@ define([
             });
         },
         renderAccountSelectionPopup: function() {
-            console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH...');
-        
+            console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH... THIS.STATE: ' , this.state);
+            
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
-                this.state.createListingsAllowedChannels,
-                this.state.createListingsAllowedVariationChannels,
-                this.state.productSearchActive,
+                this.state.createListing.createListingsAllowedChannels,
+                this.state.createListing.createListingsAllowedVariationChannels,
+                this.state.createListing.productSearchActive,
                 this.onCreateListingClose,
                 this.props.ebaySiteOptions,
                 this.props.categoryTemplateOptions,
@@ -135,35 +149,11 @@ define([
                 this.props.salesPhoneNumber,
                 this.props.demoLink
             );
-            //todo fix this bug
-        
-            // let productWithVariation = ///
+            console.log('about to renderCreateListingRoot');
             return <CreateListingRootComponent />;
         },
         onSkuRequest: function(event) {
             this.filterBySku(event.detail.sku);
-        },
-        fetchVariations: function(filter) {
-            console.log('in fetchVariations');
-            
-            
-            $('#products-loading-message').show();
-            function onSuccess(data) {
-                console.log('ROOT fetchVariatios onSuccess data: ' , data);
-                var variationsByParent = stateUtility.sortVariationsByParentId(data.products, filter.getParentProductId());
-                this.setState({
-                    variations: variationsByParent
-                }, function() {
-                    // this.fetchLinkedProducts();
-                    $('#products-loading-message').hide()
-                }.bind(this));
-            }
-            AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
-        },
-        onVariationsRequest: function(event) {
-            console.log('in onVariationsRequest');
-            var filter = new ProductFilter(null, event.detail.productId);
-            this.fetchVariations(filter);
         },
         addNewProductButtonClick: function() {
             this.setState({

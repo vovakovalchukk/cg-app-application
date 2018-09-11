@@ -23,6 +23,7 @@ define([
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
+            console.log('in PRODUCTS_gET_REQUEST_SUCCESS');
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true
@@ -36,10 +37,9 @@ define([
             let skus = Object.keys(action.payload.formattedSkus);
             let newState = {};
             if (skus.length > 1) {
-                newState = applyNewProductLinksToState(state, action.payload.productLinks)
+                newState = applyNewProductLinksToState(state, action.payload.productLinks);
                 return newState;
             }
-            
             newState = applySingleProductLinkChangeToState(state, action.payload.productLinks, skus[0]);
             return newState;
         },

@@ -114,9 +114,6 @@ define([
                 }
             });
         },
-        isParentProduct: function(product) {
-            return product.variationCount !== undefined && product.variationCount >= 1
-        },
         getVisibleRows: function() {
             return this.props.products.visibleRows;
         },
