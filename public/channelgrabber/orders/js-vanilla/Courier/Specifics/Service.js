@@ -854,7 +854,7 @@ define([
     Service.prototype.updateBalance = function(data)
     {
         if (data.balance !== undefined) {
-            $(CourierSpecificsDataTable.SELECTOR_ACCOUNT_BALANCE_FIGURE).text(data.balance);
+            $(CourierSpecificsDataTable.SELECTOR_ACCOUNT_BALANCE_FIGURE).text(data.balance.toFixed(2));
         }
     }
 
