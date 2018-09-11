@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d9218342aaa35ff97c973d0a5d30e52",
+    "content-hash": "fb72a0a91cf435359df0ca1a79483384",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4221,16 +4221,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "0560e7b57edd72812d9adcef785e87f49176b656"
+                "reference": "8e8bf7e3555d880e97c0500aaf6a957b297e6020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.3-38f700.zip",
-                "reference": "0560e7b57edd72812d9adcef785e87f49176b656",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.6.4-462285.zip",
+                "reference": "8e8bf7e3555d880e97c0500aaf6a957b297e6020",
                 "shasum": null
             },
             "require": {
@@ -4273,7 +4273,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-08-28T08:34:31+00:00"
+            "time": "2018-09-11T11:07:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
