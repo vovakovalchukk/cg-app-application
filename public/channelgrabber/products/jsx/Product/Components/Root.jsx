@@ -96,13 +96,14 @@ define([
             this.performProductsRequest(null, null, skuList);
         },
         onCreateListingIconClick: function(createListingData) {
-            console.log('onCreateListingIconClick createListingData: '  ,createListingData);
+            // console.log('onCreateListingIconClick createListingData: '  ,createListingData);
             let {
                 product,
                 createListingsAllowedChannels,
                 createListingsAllowedVariationChannels,
                 accounts,
-                productSearchActive
+                productSearchActive,
+                variationData
             } = createListingData;
             
             
@@ -117,10 +118,9 @@ define([
                     productSearchActive,
                     createListingsAllowedChannels,
                     createListingsAllowedVariationChannels
-                }
-            },console.log('just setState... (needs to come before renderAccouNTsELECTIONRoot')
-            
-            );
+                },
+                variations
+            });
         },
         onCreateListingClose: function() {
             this.setState({
@@ -131,8 +131,7 @@ define([
             });
         },
         renderAccountSelectionPopup: function() {
-            console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH... THIS.STATE: ' , this.state);
-            
+            // console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH... THIS.STATE: ' , this.state);
             var CreateListingRootComponent = CreateListingRoot(
                 this.state.accounts,
                 this.state.createListing.createListingsAllowedChannels,
@@ -149,7 +148,6 @@ define([
                 this.props.salesPhoneNumber,
                 this.props.demoLink
             );
-            console.log('about to renderCreateListingRoot');
             return <CreateListingRootComponent />;
         },
         onSkuRequest: function(event) {
@@ -230,6 +228,9 @@ define([
             }.bind(this))
         },
         renderCreateListingPopup: function() {
+            console.log('renderCreateListingPopup this.state: ', this.state);
+            
+            
             var variationData = this.state.variations[this.state.createListingData.product.id]
                 ? this.state.variations[this.state.createListingData.product.id]
                 : [this.state.createListingData.product];

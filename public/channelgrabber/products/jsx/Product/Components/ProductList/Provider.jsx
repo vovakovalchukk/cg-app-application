@@ -54,7 +54,7 @@ define([
             }
         },
         componentDidMount: async function() {
-            console.log('store: ', store);
+            // console.log('store: ', store);
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
             let getProductsResponse = await store.dispatch(ActionCreators.getProducts());
             store.dispatch(columnActions.generateColumnSettings(getProductsResponse.accounts))

@@ -36,7 +36,7 @@ define([
         };
     };
     
-    const mapDispatchToProps = function(dispatch,ownProps) {
+    const mapDispatchToProps = function(dispatch, ownProps) {
         let combinedActionCreators = combineActionCreators(ownProps);
         return {
             actions: Redux.bindActionCreators(
@@ -60,27 +60,27 @@ define([
         );
     }
     
-    function formatPassedInMethodsAsReduxActions(ownProps){
+    function formatPassedInMethodsAsReduxActions(ownProps) {
         return {
             createNewListing: ({rowData}) => {
                 return async function(dispatch, getState) {
                     const state = getState();
-                    console.log('in createNewListing AC state: ',state);
+                    // console.log('in createNewListing AC state: ',state);
                     // need to check whether we are getting the listing properties from state.
-                    if(rowData.parentProductId){
+                    if (rowData.parentProductId) {
                         await productActions.getVariationsByParentProductId(parentProductId);
                     }
                     
                     let idToGetProductFor = rowData.parentProductId === 0 ? rowData.id : rowData.parentProductId;
                     let product = getState.customGetters.getProductById(idToGetProductFor);
                     //todo get params set on state
-                    console.log('hooking into onCreateNewListingIconClick product: ' , product);
                     
                     ownProps.onCreateNewListingIconClick({
                         product,
+                        variationsByParent: state.products.variationsByParent,
                         accounts: state.accounts.getAccounts(state),
                         productSearchActive: state.search.productSearchActive,
-                        createListingsAllowedChannels : state.createListing.createListingsAllowedChannels,
+                        createListingsAllowedChannels: state.createListing.createListingsAllowedChannels,
                         createListingsAllowedVariationChannels: state.createListing.createListingsAllowedVariationChannels,
                     })
                 }

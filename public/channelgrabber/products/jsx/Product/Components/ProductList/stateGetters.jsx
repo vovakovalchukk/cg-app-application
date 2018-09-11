@@ -9,11 +9,11 @@ define([], function() {
                     return _getState().products.visibleRows;
                 },
                 getProductById: (id) => {
-                    console.log('in getProductById with id : ' , id);
+                    // console.log('in getProductById with id : ' , id);
                     
                     
                     return self.getVisibleProducts().find(product => {
-                        console.log('product in loop: ' , product);
+                        // console.log('product in loop: ' , product);
                         
                         
                         return product.id === id;
