@@ -335,7 +335,7 @@ class OrderDetailsController extends AbstractActionController
                 ]
             )
         );
-        if ($order->getExternalUsername() !== null && $order->getBillingAddress()->getEmailAddress() !== null) {
+        if ($order->getExternalUsername() !== null || $order->getBillingAddress()->getEmailAddress() !== null) {
             $messageUrl = $this->url()->fromRoute(
                 implode('/', [Messages::ROUTE]),
                 [],
