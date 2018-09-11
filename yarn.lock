@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-9621-list-to-ebay-with-no-barcode":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1e682d0c66c2bbe21b1f98b430c6beba92cd0b2c"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#960a8b8fe0e0d4be73beea5bcbc22b87f63e531a"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
