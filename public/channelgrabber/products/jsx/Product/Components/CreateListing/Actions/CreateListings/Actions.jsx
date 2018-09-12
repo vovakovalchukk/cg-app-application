@@ -270,7 +270,8 @@ define([
             accounts,
             accountDefaultSettings,
             accountsData,
-            categoryTemplates
+            categoryTemplates,
+            searchAccountId
         ) {
             return {
                 type: "LOAD_INITIAL_VALUES",
@@ -280,7 +281,8 @@ define([
                     selectedAccounts: accounts,
                     accountDefaultSettings: accountDefaultSettings,
                     accountsData: accountsData,
-                    categoryTemplates: categoryTemplates
+                    categoryTemplates: categoryTemplates,
+                    searchAccountId: searchAccountId
                 }
             };
         },

@@ -224,8 +224,7 @@ class Service implements
 
     public function formatExternalChannelData(array $data, string $processGuid): array
     {
-        /** @TODO: Replace the 3 with the data actually given by the frontend and fall back to null */
-        $epidAccountId = $data['epidAccountId'] ?? 3;
+        $epidAccountId = $data['epidAccountId'] ?? null;
         if (!$epidAccountId) {
             return $data;
         }
