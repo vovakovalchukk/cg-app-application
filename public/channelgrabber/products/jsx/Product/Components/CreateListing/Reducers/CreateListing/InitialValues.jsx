@@ -29,7 +29,7 @@ define([
                 account = data.accountDefaultSettings[accountId];
                 defaults.ebay = {
                     dispatchTimeMax: account.listingDispatchTime,
-                    searchAccountId: data.searchAccountId
+                    epidAccountId: data.searchAccountId
                 };
             }
         }
