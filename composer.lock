@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a54ac6052c68fb5ee7e0d7201902e4e",
+    "content-hash": "69ed7f705e8b2aaba3722cbdd50acd08",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-TAC-219-PricingSchemeUK",
+            "version": "1.19.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "245afc4d533c5c2f5e80a013cc53ff58b0a3b7df"
+                "reference": "337c4e2b65b51be995c1a6072f69da205d3eeca1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-TAC-219-PricingSchemeUK-769ac2.zip",
-                "reference": "245afc4d533c5c2f5e80a013cc53ff58b0a3b7df",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.5-d53351.zip",
+                "reference": "337c4e2b65b51be995c1a6072f69da205d3eeca1",
                 "shasum": null
             },
             "require": {
@@ -546,7 +546,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-07T10:19:17+00:00"
+            "time": "2018-09-12T08:45:51+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -10397,17 +10397,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.5",
-            "alias_normalized": "1.19.5.0",
-            "version": "dev-TAC-219-PricingSchemeUK",
-            "package": "channelgrabber/billing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
