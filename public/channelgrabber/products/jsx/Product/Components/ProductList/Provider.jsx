@@ -37,7 +37,6 @@ define([
         combinedReducer,
         enhancer
     );
-
     store.getState = getStateExtender(store.getState);
     
     var ProductListProvider = React.createClass({

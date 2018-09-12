@@ -12,7 +12,6 @@ define([
     
     let CreateListingReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('CreateListingReducer in PRODUCTS_GET_REQUEST_SUCCESS action: ' , action);
             let {createListingsAllowedChannels, createListingsAllowedVariationChannels} = action.payload;
             
             let newState = Object.assign({}, state, {

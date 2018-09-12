@@ -23,7 +23,6 @@ define([
     
     var ProductsReducer = reducerCreator(initialState, {
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            console.log('in PRODUCTS_gET_REQUEST_SUCCESS');
             let newState = Object.assign({}, state, {
                 completeInitialLoads: {
                     simpleAndParentProducts: true

@@ -62,6 +62,9 @@ define([
             }
         },
         getInitialState: function() {
+            // console.log('Root GIS');
+            
+            
             return {
                 currentView: PRODUCT_LIST_VIEW,
                 maxVariationAttributes: 0,
@@ -74,6 +77,7 @@ define([
             }
         },
         componentDidMount: function() {
+            //todo remove these unusued listeners and test
             window.addEventListener('productDeleted', this.onDeleteProduct, false);
             window.addEventListener('productRefresh', this.onRefreshProduct, false);
             window.addEventListener('variationsRequest', this.onVariationsRequest, false);
@@ -81,6 +85,7 @@ define([
         },
         componentWillUnmount: function() {
             this.productsRequest.abort();
+            //todo remove these unusued listeners and test
             window.removeEventListener('productDeleted', this.onDeleteProduct, false);
             window.removeEventListener('productRefresh', this.onRefreshProduct, false);
             window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
@@ -96,6 +101,7 @@ define([
             this.performProductsRequest(null, null, skuList);
         },
         onCreateListingIconClick: function(createListingData) {
+            // console.log('on click :', createListingData);
             // console.log('onCreateListingIconClick createListingData: '  ,createListingData);
             let {
                 product,
@@ -105,9 +111,8 @@ define([
                 productSearchActive,
                 variations
             } = createListingData;
-            
             // todo set all of these on state
-            
+            // console.log('Accounts are here: ', accounts);
             this.setState({
                 currentView: ACCOUNT_SELECTION_VIEW,
                 accounts,
@@ -129,15 +134,13 @@ define([
             });
         },
         showAccountsSelectionPopup: function(product) {
+            let newCreateListing = Object.assign(this.state.createListing, {product},{});
             this.setState({
                 currentView: ACCOUNT_SELECTION_VIEW,
-                createListing: {
-                    product: product
-                }
+                createListing: newCreateListing
             });
         },
         renderAccountSelectionPopup: function() {
-            // console.log('in renderAccountSelectionPopup (THIS IS TRIGGERED BY SWITCH... THIS.STATE: ' , this.state);
             var AccountSelectionRootComponent = AccountSelectionRoot(
                 this.state.accounts,
                 this.state.createListing.createListingsAllowedChannels,
@@ -234,7 +237,6 @@ define([
             }.bind(this))
         },
         renderCreateListingPopup: function() {
-            console.log('renderCreateListingPopup this.state: ', this.state);
             var variationData = this.state.createListing.variations[this.state.createListingData.product.id]
                 ? this.state.createListing.variations[this.state.createListingData.product.id]
                 : [this.state.createListingData.product];

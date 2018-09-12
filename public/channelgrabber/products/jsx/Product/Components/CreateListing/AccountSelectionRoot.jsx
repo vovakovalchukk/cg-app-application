@@ -15,7 +15,7 @@ define([
 ) {
     "use strict";
 
-    var CreateListingRoot = function(
+    var AccountSelectionRoot = function(
         accounts,
         allowedChannels,
         allowedVariationChannels,
@@ -45,7 +45,6 @@ define([
                     data[accountId] = {name: account.displayName, id: account.id, channel: account.channel};
                 }
             }
-
             return data;
         };
 
@@ -57,7 +56,7 @@ define([
                 });
             }
             return categories;
-        }
+        };
 
         var buildInitialStateFromData = function() {
             return {
@@ -70,8 +69,8 @@ define([
             CombinedReducer,
             buildInitialStateFromData()
         );
-
-        var CreateListingRootComponent = React.createClass({
+        
+        var AccountSelectionRootComponent = React.createClass({
             render: function () {
                 return (
                     <Provider store={store}>
@@ -93,8 +92,8 @@ define([
             }
         });
 
-        return CreateListingRootComponent;
+        return AccountSelectionRootComponent;
     };
 
-    return CreateListingRoot;
+    return AccountSelectionRoot;
 });

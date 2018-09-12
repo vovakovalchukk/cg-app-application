@@ -47,7 +47,6 @@ define([
             });
         };
         const getProductsSuccess = function(data) {
-            console.log('PRODUCTS_GET_REQUEST_SUCCESS AC');
             return {
                 type: "PRODUCTS_GET_REQUEST_SUCCESS",
                 payload: data
@@ -122,8 +121,6 @@ define([
             },
             expandProduct: (productRowIdToExpand) => {
                 return function(dispatch, getState) {
-                    console.log('in getproduct AC getState: :    ',  getState.customGetters.getProductById(1));
-    
                     dispatch({
                         type: 'PRODUCT_EXPAND_REQUEST',
                         payload: {
