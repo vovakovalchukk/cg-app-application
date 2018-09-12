@@ -17,7 +17,8 @@ define([
     './Components/CreateListing/SubmissionTable',
     './Validators',
     './ProductSearch/Component',
-    'Common/Components/SectionedContainer'
+    'Common/Components/SectionedContainer',
+    'Common/ValueObjects/Section'
 ], function(
     React,
     ReactDom,
@@ -37,7 +38,8 @@ define([
     SubmissionTable,
     Validators,
     ProductSearch,
-    SectionedContainer
+    SectionedContainer,
+    Section
 ) {
     "use strict";
 
@@ -296,19 +298,25 @@ define([
         areCategoryTemplatesFetching: function() {
             return this.props.categoryTemplates.isFetching;
         },
-        render: function() {
-            const isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+        buildSections: function() {
             const productSearchComponent = this.renderProductSearchComponent();
-            const headerTexts = ["Listing Information", "Listing creation status"];
-            const children = [this.renderForm(), this.renderSubmissionTable()];
+
+            const sections = [
+                Section.build('Listing Information', this.renderForm()),
+                Section.build('Listing creation status', this.renderSubmissionTable())
+            ];
 
             if (productSearchComponent) {
-                children.unshift(productSearchComponent);
-                headerTexts.unshift('Search for your product');
+                sections.unshift(
+                    Section.build('Search for your product', productSearchComponent)
+                );
             }
 
+            return sections;
+        },
+        render: function() {
+            const isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return <SectionedContainer
-                headerTexts={headerTexts}
                 sectionClassName={"editor-popup product-create-listing"}
                 yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
                 noButtonText="Cancel"
@@ -316,9 +324,8 @@ define([
                 onNoButtonPressed={this.props.onCreateListingClose}
                 onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
                 yesButtonDisabled={(isSubmitButtonDisabled || this.areCategoryTemplatesFetching())}
-            >
-                {children}
-            </SectionedContainer>;
+                sections={this.buildSections()}
+            />;
         }
     });
 
