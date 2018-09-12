@@ -27,13 +27,8 @@ define([
             return this.props.columnKey + '-' + this.props.rowIndex;
         },
         render() {
-            // console.log('in ListingAccountCelel this.props: ', this.props ,' can you see listingAccountId ?');
-            
             let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-            
-            // console.log('ListingAccountCell with row: ', row, 'this.props.listingAccountId: ', this.props.listingAccountId);
             let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
-            
             if(!listingsForAccount){
                 return <span/>
             }
@@ -49,14 +44,11 @@ define([
     return ListingAccountCell;
     
     function getListingsForAccount(rowData, listingAccountId) {
-        
-        
         let {listingsPerAccount, listings} = rowData;
         let listingsIdsForAccount = listingsPerAccount[listingAccountId];
         if (!listingsIdsForAccount) {
             return;
         }
-        // console.log('in getListingssForACccount rowData: ' , rowData , ' listingsPerAccount[listingAccountId]: ' , listingsPerAccount[listingAccountId],  ' listingAccountId:', listingAccountId);
     
         return listingsIdsForAccount.map((listingId) => {
             return listings[listingId];
@@ -64,7 +56,6 @@ define([
     }
     
     function getMostNegativeListingStateFromListings(listings) {
-        // console.log('in getMostNegativeListingStateFromListings listings:', listings);
         let listingStatusesByPriority = [
             {
                 status: 'active',
@@ -102,15 +93,8 @@ define([
                 return listing.status === status.status;
             });
             if (relevantListingStatus.statusPriority > highestPriorityStatus.statusPriority) {
-                // console.log('relevantListingStatus.statusPriority: ', relevantListingStatus.statusPriority);
-                // console.log('highestPriorityStatus.statusPriority: ', highestPriorityStatus.statusPriority);
-                //
-                //
-                //
-                // console.log('setting a higher priorty');
                 highestPriorityStatus = relevantListingStatus;
             }
-            // console.log('not setting a higher priortiy');
         });
         return highestPriorityStatus;
     }

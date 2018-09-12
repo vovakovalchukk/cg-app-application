@@ -25,10 +25,8 @@ define([
             return stateUtility.isParentProduct(rowData)
         },
         onAddListingClick: async function(parentProductId) {
-            // console.log('onAddListingClick parentProductId: ' , parentProductId);
             const {products, rowIndex} = this.props;
             const rowData = this.getRowData(products, rowIndex);
-            // console.log('products.variationsByParent after get: ' , products.variationsByParent);
             this.props.actions.createNewListing({
                 rowData
             });

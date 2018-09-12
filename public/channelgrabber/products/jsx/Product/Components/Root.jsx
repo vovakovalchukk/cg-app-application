@@ -62,9 +62,6 @@ define([
             }
         },
         getInitialState: function() {
-            // console.log('Root GIS');
-            
-            
             return {
                 currentView: PRODUCT_LIST_VIEW,
                 maxVariationAttributes: 0,
@@ -101,8 +98,6 @@ define([
             this.performProductsRequest(null, null, skuList);
         },
         onCreateListingIconClick: function(createListingData) {
-            // console.log('on click :', createListingData);
-            // console.log('onCreateListingIconClick createListingData: '  ,createListingData);
             let {
                 product,
                 createListingsAllowedChannels,
@@ -111,8 +106,6 @@ define([
                 productSearchActive,
                 variations
             } = createListingData;
-            // todo set all of these on state
-            // console.log('Accounts are here: ', accounts);
             this.setState({
                 currentView: ACCOUNT_SELECTION_VIEW,
                 accounts,
