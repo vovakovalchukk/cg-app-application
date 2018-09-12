@@ -271,6 +271,9 @@ define([
             return field.fields.length === 1;
         },
         getActionButtonForInput: function(field, removeFieldClick) {
+            if (!removeFieldClick) {
+                return;
+            }
             if (this.isSingleTextInput(field)) {
                 return (
                     <span className={'u-display-inline'}>
@@ -343,8 +346,7 @@ define([
                 {Validators.shouldShowError(field) && (
                     <span className="input-error">{field.meta.error}</span>
                 )}
-
-                {field.optionalItemProps ? this.renderRemoveButton(() => {
+                {field.optionalItemProps.removeFieldClick ? this.renderRemoveButton(() => {
                     field.optionalItemProps.removeFieldClick();
                 }) : ''}
             </label>;
