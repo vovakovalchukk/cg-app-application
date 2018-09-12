@@ -18,7 +18,7 @@ define([
     './Validators',
     './ProductSearch/Component',
     'Common/Components/SectionedContainer',
-    'Common/ValueObjects/Section'
+    'Common/SectionData'
 ], function(
     React,
     ReactDom,
@@ -39,7 +39,7 @@ define([
     Validators,
     ProductSearch,
     SectionedContainer,
-    Section
+    SectionData
 ) {
     "use strict";
 
@@ -302,13 +302,13 @@ define([
             const productSearchComponent = this.renderProductSearchComponent();
 
             const sections = [
-                Section.build('Listing Information', this.renderForm()),
-                Section.build('Listing creation status', this.renderSubmissionTable())
+                new SectionData('Listing Information', this.renderForm()),
+                new SectionData('Listing creation status', this.renderSubmissionTable())
             ];
 
             if (productSearchComponent) {
                 sections.unshift(
-                    Section.build('Search for your product', productSearchComponent)
+                    new SectionData('Search for your product', productSearchComponent)
                 );
             }
 
