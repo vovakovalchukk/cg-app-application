@@ -3334,13 +3334,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "4c3addd60f16b2ea50c9cf79b9f24c31c50f8e07"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9672-limit-height-75ead8.zip",
-                "reference": "4c3addd60f16b2ea50c9cf79b9f24c31c50f8e07",
-                "shasum": null
+                "reference": "599eec0e2ea34499d9204e1890764f255bbe123f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -10410,8 +10404,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
