@@ -26,6 +26,14 @@ define([
         getUniqueClassName: function() {
             return this.props.columnKey + '-' + this.props.rowIndex;
         },
+        onAddListingClick: async function() {
+            console.log('onAddListingLcik this.props',this.props);
+            const {products, rowIndex} = this.props;
+            const rowData = stateUtility.getRowData(products, rowIndex);
+            this.props.actions.createNewListing({
+                rowData
+            });
+        },
         render() {
             let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
             let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
@@ -34,6 +42,7 @@ define([
             
             return <ListingStatus
                 status={status}
+                onAddListingClick={this.onAddListingClick}
             />;
         }
     });

@@ -1,37 +1,31 @@
 define([
     'react',
     'styled-components',
-    'Product/Components/ProductList/Config/constants'
+    'Product/Components/ProductList/Config/constants',
+    'Product/Components/Icon'
+    // 'Product/Components/ProductList/stateUtility'
 ], function(
     React,
     styled,
-    constants
+    constants,
+    Icon
+    
+    // stateUtility
 ) {
     "use strict";
     
     styled = styled.default;
     
-    let ListingIcon = styled.span`
-        width: 38px;
-        height: 38px;
-        display: inline-block;
-        overflow: hidden;
-        margin: -5px auto;
-        vertical-align: middle;
+    let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
-        background-size:auto;
-        background-repeat: no-repeat;
-        background-position: center;
-        cursor: pointer;
-
         ${props => {
-            if (props.status === 'inactive') {
-                return `
+        if (props.status === 'inactive') {
+            return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
                     }
                 `;
-            }
+        }
     }}`;
     
     let ListingStatusComponent = React.createClass({
@@ -40,18 +34,11 @@ define([
                 status: ''
             };
         },
-        onAddListingClick: async function() {
-            const {products, rowIndex} = this.props;
-            const rowData = this.getRowData(products, rowIndex);
-            this.props.actions.createNewListing({
-                rowData
-            });
-        },
         render: function() {
             return (
                 <ListingIcon
                     className={"listing-status " + this.props.status}
-                    onClick={this.props.status === 'inactive' ? this.onAddListingClick : () => {}}
+                    onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {}}
                     {...this.props}
                 />
             );

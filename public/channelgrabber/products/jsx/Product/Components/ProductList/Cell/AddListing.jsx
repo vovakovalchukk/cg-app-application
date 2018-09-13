@@ -1,22 +1,22 @@
 define([
     'react',
     'Product/Components/ProductList/stateUtility',
-    'styled-components'
+    'Product/Components/Icon',
+    'styled-components',
+    'Product/Components/ProductList/Config/constants'
 ], function(
     React,
     stateUtility,
-    styled
+    Icon,
+    styled,
+    constants
 ) {
     "use strict";
     
     styled = styled.default;
     
-    const ADD_ICON_UNICODE = '\u002B';
-    
-    let AddIcon = styled.span`
-      font-size:1.5rem;
-      cursor:pointer;
-      margin-left:0.5rem;
+    let AddIcon = styled(Icon)`
+      background-image: url('${constants.ADD_ICON_URL}')
     `;
     
     let AddListingCell = React.createClass({
@@ -44,7 +44,6 @@ define([
                 <AddIcon
                     onClick={this.onAddListingClick}
                 >
-                    {ADD_ICON_UNICODE}
                 </AddIcon>
             );
         }
