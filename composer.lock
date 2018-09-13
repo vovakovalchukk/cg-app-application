@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c5bbffabf0330692ebbeed383bf43df",
+    "content-hash": "c9a392924e83ea18f62298249dc5a61d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.27.10",
+            "version": "1.27.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "347644f4c4f6b7d719b698c23b9673f4fa746ead"
+                "reference": "4333c4ec896da66b304b3f75bc9873246dde4a53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.10-ef81f4.zip",
-                "reference": "347644f4c4f6b7d719b698c23b9673f4fa746ead",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.27.12-8f500e.zip",
+                "reference": "4333c4ec896da66b304b3f75bc9873246dde4a53",
                 "shasum": null
             },
             "require": {
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-09-11T11:02:37+00:00"
+            "time": "2018-09-13T09:21:08+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -865,16 +865,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "9edb4cf445f05a3d0e4036b3d28ba567fc000098"
+                "reference": "387ba19ab4daf46c7a5361639f9d205805265fba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-1.0.10-e44ae7.zip",
-                "reference": "9edb4cf445f05a3d0e4036b3d28ba567fc000098",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-1.0.11-55fc64.zip",
+                "reference": "387ba19ab4daf46c7a5361639f9d205805265fba",
                 "shasum": null
             },
             "require": {
@@ -904,7 +904,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2017-09-01T14:42:26+00:00"
+            "time": "2018-09-13T09:19:46+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -3336,6 +3336,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
                 "reference": "4c3addd60f16b2ea50c9cf79b9f24c31c50f8e07"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9672-limit-height-75ead8.zip",
+                "reference": "4c3addd60f16b2ea50c9cf79b9f24c31c50f8e07",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -3380,7 +3386,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-07-06T13:37:54+00:00"
+            "time": "2018-09-13T08:09:23+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10404,8 +10410,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
