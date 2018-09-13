@@ -1,13 +1,13 @@
 define([
     'react',
     'fixed-data-table',
-    'Product/Components/ProductList/Cells/Text',
-    'Product/Components/ProductList/Cells/ProductExpandCell',
-    'Product/Components/ProductList/Cells/ImageCell',
-    'Product/Components/ProductList/Cells/LinkCell',
-    'Product/Components/ProductList/Cells/NameCell',
-    'Product/Components/ProductList/Cells/ListingAccountCell',
-    'Product/Components/ProductList/Cells/AddListingCell'
+    'Product/Components/ProductList/Cell/Text',
+    'Product/Components/ProductList/Cell/ProductExpand',
+    'Product/Components/ProductList/Cell/Image',
+    'Product/Components/ProductList/Cell/Link',
+    'Product/Components/ProductList/Cell/Name',
+    'Product/Components/ProductList/Cell/ListingAccount',
+    'Product/Components/ProductList/Cell/AddListing'
 ], function(
     React,
     FixedDataTable,

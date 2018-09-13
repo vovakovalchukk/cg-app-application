@@ -13,7 +13,7 @@ define([
     
     styled = styled.default;
     
-    const Tabs = styled.div`
+    let Tabs = styled.div`
         position:relative;
         color:blue;
         width:500px;

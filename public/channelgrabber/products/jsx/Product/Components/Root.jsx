@@ -74,18 +74,10 @@ define([
             }
         },
         componentDidMount: function() {
-            //todo remove these unusued listeners and test
-            window.addEventListener('productDeleted', this.onDeleteProduct, false);
-            window.addEventListener('productRefresh', this.onRefreshProduct, false);
-            window.addEventListener('variationsRequest', this.onVariationsRequest, false);
             window.addEventListener('getProductsBySku', this.onSkuRequest, false);
         },
         componentWillUnmount: function() {
             this.productsRequest.abort();
-            //todo remove these unusued listeners and test
-            window.removeEventListener('productDeleted', this.onDeleteProduct, false);
-            window.removeEventListener('productRefresh', this.onRefreshProduct, false);
-            window.removeEventListener('variationsRequest', this.onVariationsRequest, false);
             window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
         },
         filterBySearch: function(searchTerm) {

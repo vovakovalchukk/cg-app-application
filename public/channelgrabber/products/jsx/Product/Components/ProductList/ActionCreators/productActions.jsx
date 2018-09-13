@@ -88,11 +88,11 @@ define([
                 return async function(dispatch, getState) {
                     const state = getState();
                     pageNumber = pageNumber || 1;
-                    searchTerm = stateUtility.getCurrentSearchTerm(state) || '';
+                    searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                     skuList = skuList || [];
                     let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
-                    filter.setLimit(stateUtility.getPaginationLimit(state));
+                    filter.setLimit(getState.customGetters.getPaginationLimit());
                     try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);

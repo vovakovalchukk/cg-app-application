@@ -12,8 +12,22 @@ define([], function() {
                     return self.getVisibleProducts().find(product => {
                         return product.id === id;
                     });
+                },
+                getPaginationLimit() {
+                    return _getState().pagination.limit;
+                },
+                getCurrentPageNumber() {
+                    return _getState().pagination.page;
+                },
+                getCurrentSearchTerm() {
+                    return _getState().search.searchTerm;
+                },
+                getVisibleFixedColumns() {
+                    return _getState.columns.columnSettings.filter((column) => {
+                        return column.fixed
+                    });
                 }
-            }
+            };
             return self;
         })()
     };

@@ -23,7 +23,7 @@ define([
                 return async function(dispatch, getState) {
                     const state = getState();
                     dispatch(setProductSearchTerm(searchTerm));
-                    let currentPageNumber = stateUtility.getCurrentPageNumber(state);
+                    let currentPageNumber = getState.customGetters.getCurrentPageNumber(state);
                     try {
                         await dispatch(productActions.getProducts(currentPageNumber));
                     } catch (err) {

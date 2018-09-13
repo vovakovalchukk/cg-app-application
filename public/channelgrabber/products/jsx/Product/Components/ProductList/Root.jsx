@@ -8,8 +8,7 @@ define([
     'Product/Components/ProductList/ActionCreators/paginationActions',
     'Product/Components/ProductList/ActionCreators/searchActions',
     'Product/Components/ProductList/ActionCreators/tabActions',
-    'Product/Components/ProductList/ProductList',
-    'Product/Components/ProductList/stateUtility'
+    'Product/Components/ProductList/ProductList'
 ], function(
     React,
     Redux,
@@ -20,8 +19,7 @@ define([
     paginationActions,
     searchActions,
     tabActions,
-    ProductList,
-    stateUtility
+    ProductList
 ) {
     "use strict";
     
@@ -66,7 +64,7 @@ define([
                 return async function(dispatch, getState) {
                     const state = getState();
                     if (rowData.parentProductId) {
-                        await productActions.getVariationsByParentProductId(parentProductId);
+                        await productActions.getVariationsByParentProductId(rowData.parentProductId);
                     }
                     
                     let idToGetProductFor = rowData.parentProductId === 0 ? rowData.id : rowData.parentProductId;

@@ -13,7 +13,7 @@ define([
             changeTab: (desiredTabKey) => {
                 return function(dispatch, getState) {
                     let state = getState();
-                    let numberOfVisibleFixedColumns = stateUtility.getVisibleFixedColumns(state).length;
+                    let numberOfVisibleFixedColumns = getState.customGetters.getVisibleFixedColumns(state).length;
                     dispatch({
                         type: "TAB_CHANGE",
                         payload: {

@@ -46,21 +46,7 @@ define([], function() {
                     return product.sku === sku;
                 }).id
             },
-            getPaginationLimit(state) {
-                return state.pagination.limit;
-            },
-            getCurrentPageNumber(state) {
-                return state.pagination.page;
-            },
-            getCurrentSearchTerm(state) {
-                return state.search.searchTerm;
-            },
-            getVisibleFixedColumns(state) {
-                return state.columns.columnSettings.filter((column) => {
-                    return column.fixed
-                });
-            },
-            sortVariationsByParentId(newVariations, parentProductId) {
+            sortVariationsByParentId(newVariations) {
                 var variationsByParent = {};
                 for (var index in newVariations) {
                     var variation = newVariations[index];
