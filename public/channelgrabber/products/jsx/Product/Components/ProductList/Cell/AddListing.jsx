@@ -26,25 +26,21 @@ define([
                 rowIndex: null
             };
         },
-        getRowData: function() {
-            return stateUtility.getRowData(this.props.products, this.props.rowIndex)
-        },
-        isParentProduct: function(rowData) {
-            return stateUtility.isParentProduct(rowData)
-        },
-        onAddListingClick: async function() {
-            const {products, rowIndex} = this.props;
-            const rowData = this.getRowData(products, rowIndex);
+        onAddListingClick: async function(rowData) {
             this.props.actions.createNewListing({
                 rowData
             });
         },
         render() {
+            const {products, rowIndex} = this.props;
+            const rowData = stateUtility.getRowData(products, rowIndex);
+            if (stateUtility.isVariation(rowData)) {
+                return <span/>
+            }
             return (
                 <AddIcon
-                    onClick={this.onAddListingClick}
-                >
-                </AddIcon>
+                    onClick={this.onAddListingClick.bind(this, rowData)}
+                />
             );
         }
     });

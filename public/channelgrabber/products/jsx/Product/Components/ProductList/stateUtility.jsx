@@ -32,6 +32,9 @@ define([], function() {
             isParentProduct: (rowData) => {
                 return rowData.variationCount !== undefined && rowData.variationCount >= 1
             },
+            isVariation: (rowData) => {
+                return !!rowData.parentProductId;
+            },
             getStockAvailable(rowData) {
                 return stateUtility().getOnHandStock(rowData) - Math.max(stateUtility().getAllocatedStock(rowData), 0);
             },
