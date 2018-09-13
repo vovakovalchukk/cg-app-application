@@ -34,7 +34,7 @@
         "channelgrabber/courieradapter": "~1.3.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.2.1",
-        "channelgrabber/ebay": "dev-STRAT-6-save-varaition-to-epid as 1.13.1",
+        "channelgrabber/ebay": "dev-STRAT-7-create-variation-listings-pbse as 1.13.1",
         "channelgrabber/ekm": "~1.10.14",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",

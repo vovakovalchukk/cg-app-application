@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6775ee0fb2f8f6e7ea30676a0f0ea27d",
+    "content-hash": "3981718b98387410f1aa76b856b888a8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1112,16 +1112,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-STRAT-6-save-varaition-to-epid",
+            "version": "dev-STRAT-7-create-variation-listings-pbse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "724d619f410f81fd50bfe3211a179e97d83d43b8"
+                "reference": "87abccad16d718d685565868d000b167e6533d24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-6-save-varaition-to-epid-b8565c.zip",
-                "reference": "724d619f410f81fd50bfe3211a179e97d83d43b8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-7-create-variation-listings-pbse-0baa1c.zip",
+                "reference": "87abccad16d718d685565868d000b167e6533d24",
                 "shasum": null
             },
             "require": {
@@ -1173,7 +1173,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-11T15:25:12+00:00"
+            "time": "2018-09-13T14:56:25+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10494,7 +10494,7 @@
         {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
-            "version": "dev-STRAT-6-save-varaition-to-epid",
+            "version": "dev-STRAT-7-create-variation-listings-pbse",
             "package": "channelgrabber/ebay"
         }
     ],
