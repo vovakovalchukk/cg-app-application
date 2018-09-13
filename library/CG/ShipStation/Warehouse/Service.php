@@ -28,10 +28,24 @@ class Service implements LoggerAwareInterface
         OrganisationUnit $ou,
         Account $shipStationAccount
     ): CreateWarehouseResponse {
-        $address = Address::fromOrganisationUnit($ou);
+        $address = $this->sanitiseAddress(Address::fromOrganisationUnit($ou));
         $request = new CreateWarehouseRequest($address);
         $response = $this->client->sendRequest($request, $shipStationAccount);
         $this->logDebug('Successfully created a new warehouse with ID %s for OU %d', [$response->getWarehouseId(), $ou->getId()], static::LOG_CODE);
         return $response;
+    }
+
+    protected function sanitiseAddress(Address $address): Address
+    {
+        // Warehouses must have a province (county) set
+        if (!$address->getProvince()) {
+            $address->setProvince($this->determineProvinceForAddress($address));
+        }
+        return $address;
+    }
+
+    protected function determineProvinceForAddress(Address $address): string
+    {
+        return $address->getCityLocality() ?: $address->getAddressLine2() ?: '';
     }
 }
