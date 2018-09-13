@@ -34,8 +34,8 @@ define([
         render() {
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            const isParentProduct = stateUtility.isParentProduct(row);
-            let name = isParentProduct ? row['name'] : this.getVariationName(row);
+            const isVariation = stateUtility.isVariation(row);
+            let name = isVariation ? this.getVariationName(row) : row['name'];
             
             return (
                 <div {...this.props} className={'js-'+this.getUniqueClassName()} data-copy={name}>
