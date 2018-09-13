@@ -29,9 +29,6 @@ define([
         render() {
             let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
             let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
-            if(!listingsForAccount){
-                return <span/>
-            }
             let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(listingsForAccount);
             let {status} = mostNegativeListingStateFromListings;
             
@@ -74,7 +71,7 @@ define([
                 getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale'),
                 statusPriority: 3
             }, {
-                status: 'inative',
+                status: 'inactive',
                 getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale' ),
                 statusPriority: 4
             }, {
@@ -83,9 +80,8 @@ define([
                 statusPriority: 5
             },
         ];
-        
         if (!listings) {
-            return;
+            return listingStatusesByPriority.find(status => (status.status === 'inactive'));
         }
         let highestPriorityStatus = listingStatusesByPriority[0];
         listings.forEach((listing) => {
