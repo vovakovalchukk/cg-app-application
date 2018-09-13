@@ -5,8 +5,10 @@ use CG\Account\Client\StorageInterface as AccountStorage;
 use CG\Account\Shared\Entity as Account;
 use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
 use CG\ShipStation\Client;
+use CG\ShipStation\Command\Api\PartnerRequest as PartnerApiRequest;
 use CG\ShipStation\Command\Api\Request as ApiRequest;
 use CG\ShipStation\Command\Api\Response as ApiResponse;
+use CG\ShipStation\RequestAbstract;
 
 class Api
 {
@@ -45,9 +47,31 @@ class Api
         return $account;
     }
 
-    protected function buildRequest(string $endpoint, ?string $payload = null, string $method = null): ApiRequest
+    protected function buildRequest(string $endpoint, ?string $payload = null, string $method = null): RequestAbstract
+    {
+        if ($this->isPartnerApiEndpoint($endpoint)) {
+            return $this->buildPartnerApiRequest($endpoint, $payload, $method);
+        }
+        return $this->buildApiRequest($endpoint, $payload, $method);
+    }
+
+    protected function isPartnerApiEndpoint(string $endpoint): bool
+    {
+        return (bool)preg_match('|^'.PartnerApiRequest::URI_VERSION_PREFIX.PartnerApiRequest::URI_PREFIX.'|', $endpoint);
+    }
+
+    protected function buildApiRequest(string $endpoint, ?string $payload = null, string $method = null): ApiRequest
     {
         return new ApiRequest(
+            $endpoint,
+            $method ?? static::DEFAULT_METHOD,
+            $payload
+        );
+    }
+
+    protected function buildPartnerApiRequest(string $endpoint, ?string $payload = null, string $method = null): PartnerApiRequest
+    {
+        return new PartnerApiRequest(
             $endpoint,
             $method ?? static::DEFAULT_METHOD,
             $payload
