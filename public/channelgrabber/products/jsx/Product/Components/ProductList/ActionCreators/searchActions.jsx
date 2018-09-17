@@ -9,7 +9,7 @@ define([
 ) {
     "use strict";
     
-    var searchActions = (function() {
+    let searchActions = (function() {
         const setProductSearchTerm = (searchTerm) => {
             return {
                 type: "PRODUCTS_SEARCH_TERM_SET",

@@ -19,7 +19,7 @@ define([
             });
             return newState;
         },
-        "PRODUCTS_GET_REQUEST_SUCCESS": function(state,action){
+        "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
             let newState = Object.assign({}, state, {
                 accounts: action.payload.accounts
             });

@@ -19,17 +19,17 @@ define([
             return {};
         },
         getVariationName: function(row) {
-            return Object.keys(row.attributeValues).map((key, index) => {
+            return Object.keys(row.attributeValues).map((key) => {
                 return (
                     <div>{key}: {row.attributeValues[key]}</div>
                 );
             });
         },
         componentDidMount: function() {
-            new Clipboard('div.js-'+this.getUniqueClassName(), [], 'data-copy');
+            new Clipboard('div.js-' + this.getUniqueClassName(), [], 'data-copy');
         },
-        getUniqueClassName:function(){
-            return this.props.columnKey+'-'+this.props.rowIndex;
+        getUniqueClassName: function() {
+            return this.props.columnKey + '-' + this.props.rowIndex;
         },
         render() {
             const {products, rowIndex} = this.props;
@@ -37,7 +37,7 @@ define([
             const isVariation = stateUtility.isVariation(row);
             let name = isVariation ? this.getVariationName(row) : row['name'];
             return (
-                <div {...this.props} className={'js-'+this.getUniqueClassName()} data-copy={name}>
+                <div {...this.props} className={'js-' + this.getUniqueClassName()} data-copy={name}>
                     {name}
                 </div>
             );

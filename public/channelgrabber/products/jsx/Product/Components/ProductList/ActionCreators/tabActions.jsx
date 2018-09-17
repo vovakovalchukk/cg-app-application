@@ -1,14 +1,7 @@
-define([
-    'Product/Components/ProductList/stateUtility'
-], function(
-    stateUtility
-) {
+define([], function() {
     "use strict";
     
-    
     let tabActions = (function() {
-        let self = {};
-        
         return {
             changeTab: (desiredTabKey) => {
                 return function(dispatch, getState) {

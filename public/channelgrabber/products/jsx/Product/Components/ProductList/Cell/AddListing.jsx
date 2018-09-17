@@ -16,7 +16,7 @@ define([
     styled = styled.default;
     
     let AddIcon = styled(Icon)`
-      background-image: url('${constants.ADD_ICON_URL}')
+        background-image: url('${constants.ADD_ICON_URL}')
     `;
     
     let AddListingCell = React.createClass({

@@ -15,19 +15,17 @@ define([
     
     let ListingAccountCell = React.createClass({
         getDefaultProps: function() {
-            return {};
+            return {
+                actions: {},
+                rowIndex: null,
+                products: {},
+                listingAccountId: null
+            };
         },
         getInitialState: function() {
             return {};
         },
-        componentDidMount: function() {
-            new Clipboard('div.js-' + this.getUniqueClassName(), [], 'data-copy');
-        },
-        getUniqueClassName: function() {
-            return this.props.columnKey + '-' + this.props.rowIndex;
-        },
         onAddListingClick: async function() {
-            console.log('onAddListingLcik this.props',this.props);
             const {products, rowIndex} = this.props;
             const rowData = stateUtility.getRowData(products, rowIndex);
             this.props.actions.createNewListing({
@@ -55,7 +53,7 @@ define([
         if (!listingsIdsForAccount) {
             return;
         }
-    
+        
         return listingsIdsForAccount.map((listingId) => {
             return listings[listingId];
         });
@@ -73,19 +71,19 @@ define([
                 statusPriority: 1
             }, {
                 status: 'paused',
-                getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale'),
+                getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
                 statusPriority: 2
             }, {
                 status: 'error',
-                getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale'),
+                getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
                 statusPriority: 3
             }, {
                 status: 'inactive',
-                getHoverMessage: () => ( 'Listing is paused due to no stock being available for sale' ),
+                getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
                 statusPriority: 4
             }, {
                 status: 'uninmported',
-                getHoverMessage: () => (  'Listing is paused due to no stock being available for sale' ),
+                getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
                 statusPriority: 5
             },
         ];

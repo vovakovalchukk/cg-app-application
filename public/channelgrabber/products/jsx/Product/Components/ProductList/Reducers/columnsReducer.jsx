@@ -1,14 +1,12 @@
 define([
-    'Common/Reducers/creator',
-    'Product/Components/ProductList/ColumnCreator/columns'
+    'Common/Reducers/creator'
 ], function(
-    reducerCreator,
-    columns
+    reducerCreator
 ) {
     "use strict";
     
     var initialState = {
-        columnSettings:[]
+        columnSettings: []
     };
     
     var ColumnsReducer = reducerCreator(initialState, {
