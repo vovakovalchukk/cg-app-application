@@ -86,7 +86,6 @@ define([
             },
             getProducts: (pageNumber, searchTerm, skuList) => {
                 return async function(dispatch, getState) {
-                    const state = getState();
                     pageNumber = pageNumber || 1;
                     searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                     skuList = skuList || [];
@@ -151,7 +150,7 @@ define([
                 
                 function fetchProductVariationsCallback(data) {
                     $('#products-loading-message').hide();
-                    let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                    let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                     dispatch(getProductVariationsRequestSuccess(variationsByParent));
                     dispatch(expandProductSuccess(productRowIdToExpand));
                     
@@ -163,11 +162,11 @@ define([
                 }
             },
             getVariationsByParentProductId: (parentProductId) => {
-                return async function(dispatch, getState) {
+                return async function(dispatch) {
                     let filter = new ProductFilter(null, parentProductId);
                     let data = await AjaxHandler.fetchByFilter(filter);
-    
-                    let variationsByParent = sortVariationsByParentId(data.products, filter.getParentProductId());
+                    
+                    let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                     dispatch(getProductVariationsRequestSuccess(variationsByParent));
                     return data;
                 }
@@ -219,22 +218,7 @@ define([
         });
     }
     
-    // todo remove this reference once stateUtility has this in correctyly
-    function sortVariationsByParentId(newVariations, parentProductId) {
-        var variationsByParent = {};
-        for (var index in newVariations) {
-            var variation = newVariations[index];
-            if (!variationsByParent[variation.parentProductId]) {
-                variationsByParent[variation.parentProductId] = [];
-            }
-            variationsByParent[variation.parentProductId].push(variation);
-        }
-        return variationsByParent;
-    }
-    
     function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
-        if (variationsByParent[productId]) {
-            return true;
-        }
+        return !!variationsByParent[productId]
     }
 });

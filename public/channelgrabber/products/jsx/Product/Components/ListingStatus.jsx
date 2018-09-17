@@ -3,14 +3,11 @@ define([
     'styled-components',
     'Product/Components/ProductList/Config/constants',
     'Product/Components/Icon'
-    // 'Product/Components/ProductList/stateUtility'
 ], function(
     React,
     styled,
     constants,
     Icon
-    
-    // stateUtility
 ) {
     "use strict";
     
@@ -19,14 +16,15 @@ define([
     let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
         ${props => {
-        if (props.status === 'inactive') {
-            return `
+            if (props.status === 'inactive') {
+                return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
                     }
                 `;
-        }
-    }}`;
+            }
+        }}
+    `;
     
     let ListingStatusComponent = React.createClass({
         getDefaultProps: function() {

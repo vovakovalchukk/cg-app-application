@@ -16,7 +16,7 @@ define([
         overflow: hidden;
         margin: -5px auto;
         vertical-align: middle;
-        background-size:auto;
+        background-size: auto;
         background-repeat: no-repeat;
         background-position: center;
         cursor: pointer;

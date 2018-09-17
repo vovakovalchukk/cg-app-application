@@ -50,9 +50,9 @@ define([], function() {
                 }).id
             },
             sortVariationsByParentId(newVariations) {
-                var variationsByParent = {};
+                let variationsByParent = {};
                 for (var index in newVariations) {
-                    var variation = newVariations[index];
+                    let variation = newVariations[index];
                     if (!variationsByParent[variation.parentProductId]) {
                         variationsByParent[variation.parentProductId] = [];
                     }

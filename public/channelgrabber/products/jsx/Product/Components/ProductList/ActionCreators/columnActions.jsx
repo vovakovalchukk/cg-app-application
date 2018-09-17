@@ -5,7 +5,7 @@ define([
 ) {
     "use strict";
     
-    var columnActions = (function() {
+    let columnActions = (function() {
         return {
             generateColumnSettings: (accounts) => {
                 return {
