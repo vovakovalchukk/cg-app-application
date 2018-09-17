@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as ShippingAccount;
 use CG\Channel\Shipping\ServicesInterface as ShippingServiceInterface;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\ShipStation\ShippingService\Factory;
+use CG\ShipStation\ShippingServiceInterface as ShipStationShippingServiceInterface;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ShippingService implements ShippingServiceInterface
@@ -14,7 +15,7 @@ class ShippingService implements ShippingServiceInterface
     /** @var Factory */
     protected $factory;
 
-    /** @var ShippingServiceInterface */
+    /** @var ShipStationShippingServiceInterface */
     protected $accountShippingService;
 
     public function __construct(ShippingAccount $account, Factory $factory)
@@ -28,7 +29,7 @@ class ShippingService implements ShippingServiceInterface
         return $this->getAccountShippingService()->getShippingServices();
     }
 
-    protected function getAccountShippingService(): ShippingServiceInterface
+    protected function getAccountShippingService(): ShipStationShippingServiceInterface
     {
         if ($this->accountShippingService) {
             return $this->accountShippingService;
