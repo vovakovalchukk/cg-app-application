@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b2d20349b267570a0d3dc66eb6fe6af",
+    "content-hash": "c34ef3fae19802a1de64de58dd555c48",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4187,24 +4187,27 @@
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "1.4.3",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "7af478c22694b36a0cdbbe1a15adf8b869c01c90"
+                "reference": "d3b7d27a05f4675bc0af8401073f9c7e8f68d758"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.4.3-18c57d.zip",
-                "reference": "7af478c22694b36a0cdbbe1a15adf8b869c01c90",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-dev-CGIV-9859-AnnualBillingLimits-16ad90.zip",
+                "reference": "d3b7d27a05f4675bc0af8401073f9c7e8f68d758",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/constants": "dev-master",
                 "channelgrabber/http": ">=1.2.29, <2.0.0",
                 "channelgrabber/log": ">=1.5.2,<3.0.0",
                 "channelgrabber/stdlib": ">=2.2.0",
+                "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.8",
                 "nocarrier/hal": "~0.9.4",
+                "php": ">=7.1",
                 "predis/predis": "~0.8.3",
                 "zendframework/zend-config": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
@@ -4226,7 +4229,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-10T09:05:43+00:00"
+            "time": "2018-09-17T14:46:43+00:00"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -10422,6 +10425,12 @@
             "package": "channelgrabber/usage-check"
         },
         {
+            "alias": "1.5.0",
+            "alias_normalized": "1.5.0.0",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
+            "package": "channelgrabber/zf2-logclient"
+        },
+        {
             "alias": "1.1.0",
             "alias_normalized": "1.1.0.0",
             "version": "dev-CGIV-9859-AnnualBillingLimits",
@@ -10432,6 +10441,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/usage-check": 20,
+        "channelgrabber/zf2-logclient": 20,
         "channelgrabber/zf2-usage": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

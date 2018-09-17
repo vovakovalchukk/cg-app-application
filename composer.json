@@ -92,7 +92,7 @@
         "channelgrabber/zf2-email-template": "~1.0.25",
         "channelgrabber/zf2-go-cardless": "~2.0.1",
         "channelgrabber/zf2-hal": "~1.0.7",
-        "channelgrabber/zf2-logclient": "~1.4.3",
+        "channelgrabber/zf2-logclient": "dev-CGIV-9859-AnnualBillingLimits as 1.5.0",
         "channelgrabber/zf2-login": "~1.6.4",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.7",
