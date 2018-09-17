@@ -2,6 +2,7 @@
 namespace Messages\Thread;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as Account;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
@@ -220,7 +221,9 @@ class Service
 
     protected function getOrderCount(Thread $thread)
     {
-        return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $thread->getExternalUsername());
+        $account = $this->accountService->fetch($thread->getAccountId());
+        $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
+        return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $externalUsername);
     }
 
     protected function sortThreadCollection(ThreadCollection $threads)
@@ -486,5 +489,18 @@ class Service
     {
         $this->url = $url;
         return $this;
+    }
+
+    protected function attemptToRemoveAdditionalDataFromExternalUsername(Thread $thread, Account $account): string
+    {
+        $externalUsername = $thread->getExternalUsername();
+
+        if ($account->getChannel() !== 'amazon') {
+            return $externalUsername;
+        }
+
+        $externalUsername = preg_replace('/(\+[A-z0-9]+)/', '', $externalUsername);
+
+        return $externalUsername;
     }
 }
