@@ -7,7 +7,6 @@ define([
     'Product/Components/ProductList/Components/Footer/Footer',
     'Product/Components/ProductList/Column/service',
     'Product/Components/ProductList/Column/factory',
-    'Product/Components/ProductList/Column/columnKeys',
     'Product/Components/ProductList/Components/Tabs/Root'
 ], function(
     React,
@@ -18,7 +17,6 @@ define([
     ProductFooter,
     columnService,
     columnCreator,
-    columnKeys,
     Tabs
 ) {
     "use strict";

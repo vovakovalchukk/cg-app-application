@@ -2,7 +2,7 @@ define([], function() {
     "use strict";
     
     let stateUtility = function() {
-        return {
+        let self =  {
             getProductIndex: (products, productId) => {
                 return products.findIndex((product) => {
                     return product.id === productId;
@@ -35,6 +35,9 @@ define([], function() {
             isVariation: (rowData) => {
                 return !!rowData.parentProductId;
             },
+            isSimpleProduct: (rowData) => {
+                return !self.isParentProduct(rowData) && !self.isVariation(rowData);
+            },
             getStockAvailable(rowData) {
                 return stateUtility().getOnHandStock(rowData) - Math.max(stateUtility().getAllocatedStock(rowData), 0);
             },
@@ -61,6 +64,8 @@ define([], function() {
                 return variationsByParent;
             }
         };
+        
+        return self;
     };
     
     return stateUtility();

@@ -23,7 +23,7 @@ define([], function() {
                     return _getState().search.searchTerm;
                 },
                 getVisibleFixedColumns() {
-                    return _getState.columns.columnSettings.filter((column) => {
+                    return _getState().columns.columnSettings.filter((column) => {
                         return column.fixed
                     });
                 }

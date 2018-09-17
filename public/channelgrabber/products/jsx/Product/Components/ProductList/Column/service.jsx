@@ -44,15 +44,15 @@ define([
         }
     ];
     
-    let detailsColumns = Array(7).fill(0).map((column, index) => {
-        return {
-            key: 'dummyDetailsColumn' + (index),
+    let detailsColumns = [
+        {
+            key: 'stockMode',
             width: 200,
-            headerText: 'dummy details col ' + (index),
+            headerText: 'Stock Mode',
             fixed: false,
             tab: 'details'
         }
-    });
+    ];
     
     let columnService = (function() {
         return {
@@ -66,11 +66,11 @@ define([
     
     return columnService;
     
-    function generateListingsColumnsFromAccounts(accounts){
-        if (typeof accounts === "string"){
+    function generateListingsColumnsFromAccounts(accounts) {
+        if (typeof accounts === "string") {
             return [];
         }
-        let channelSpecificColumns = Object.keys(accounts).map((accountKey, index) => {
+        let channelSpecificColumns = Object.keys(accounts).map((accountKey) => {
             let account = accounts[accountKey];
             return {
                 key: 'ListingAccountCell-' + account.id,

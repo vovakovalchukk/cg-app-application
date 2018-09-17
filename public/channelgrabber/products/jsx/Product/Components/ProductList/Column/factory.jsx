@@ -7,7 +7,8 @@ define([
     'Product/Components/ProductList/Cell/Link',
     'Product/Components/ProductList/Cell/Name',
     'Product/Components/ProductList/Cell/ListingAccount',
-    'Product/Components/ProductList/Cell/AddListing'
+    'Product/Components/ProductList/Cell/AddListing',
+    'Product/Components/ProductList/Cell/StockMode'
 ], function(
     React,
     FixedDataTable,
@@ -17,7 +18,8 @@ define([
     LinkCell,
     NameCell,
     ListingAccountCell,
-    AddListingCell
+    AddListingCell,
+    StockModeCell
 ) {
     "use strict";
     
@@ -33,14 +35,7 @@ define([
         listingAccount: ListingAccountCell,
         addListing: AddListingCell,
         //todo to be replaced in 215
-        dummyDetailsColumn1: TextCell,
-        dummyDetailsColumn2: TextCell,
-        dummyDetailsColumn3: TextCell,
-        dummyDetailsColumn4: TextCell,
-        dummyDetailsColumn5: TextCell,
-        dummyDetailsColumn6: TextCell,
-        dummyDetailsColumn7: TextCell,
-        dummyDetailsColumn8: TextCell,
+        stockMode: StockModeCell,
     };
     
     var columnCreator = function(column) {
