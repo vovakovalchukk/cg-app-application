@@ -185,6 +185,8 @@ class Service
         $account = $this->accountService->fetch($thread->getAccountId());
         $threadData['accountName'] = $account->getDisplayName();
 
+        $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
+
         $dateFormatter = $this->dateFormatter;
         $threadData['createdFuzzy'] = (new StdlibDateTime($threadData['created']))->fuzzyFormat();
         $threadData['created'] = $dateFormatter($threadData['created']);
@@ -195,7 +197,7 @@ class Service
             OrdersModule::ROUTE,
             [],
             [
-                'query' => ['search' => $thread->getExternalUsername()]
+                'query' => ['search' => $externalUsername]
             ]
         );
 
