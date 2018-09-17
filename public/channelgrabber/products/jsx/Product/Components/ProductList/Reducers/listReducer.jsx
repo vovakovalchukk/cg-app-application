@@ -16,9 +16,8 @@ define([
             return state;
         },
         "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-            let {pagination, productSearchActive} = action.payload;
+            let {productSearchActive} = action.payload;
             let newState = Object.assign({}, state, {
-                pagination,
                 productSearchActive
             });
             $('#products-loading-message').hide();

@@ -19,6 +19,9 @@ define([
             return {};
         },
         render() {
+            console.log('in StockModeCell with this.props:  ' , this.props);
+            
+            
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             
@@ -33,6 +36,10 @@ define([
             return (
                 <span>
                     stockmode cell {row.name}
+                    <
+                        StockModeInputs
+                    
+                    />
                 </span>
             );
         }

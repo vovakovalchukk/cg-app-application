@@ -38,7 +38,14 @@ define([
         stockMode: StockModeCell,
     };
     
-    var columnCreator = function(column) {
+    var columnCreator = function(column, parentProps) {
+    
+        column.actions = parentProps.actions;
+        column.products = parentProps.products;
+        
+        // todo - attach only certain properties to props based on the column key. i.e. - only attach stockModeOptions if the key is stockMode etc.
+        
+        
         let CreatedCell = getCreatedCell(column);
         if(!CreatedCell){
             console.error("cannot create cell in column factory for column: " , column);

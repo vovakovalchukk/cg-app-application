@@ -271,6 +271,7 @@ define([
                         features={this.props.features}
                         addNewProductButtonClick={this.addNewProductButtonClick}
                         onCreateNewListingIconClick={this.onCreateListingIconClick}
+                        stockModeOptions={this.props.stockModeOptions}
                     />
                 </div>
             )
@@ -285,6 +286,9 @@ define([
             />;
         },
         render: function() {
+            console.log('in ROOT this.props: ' , this.props);
+            
+            
             var viewRenderers = this.getViewRenderers();
             var viewRenderer = viewRenderers[this.state.currentView];
             return viewRenderer();

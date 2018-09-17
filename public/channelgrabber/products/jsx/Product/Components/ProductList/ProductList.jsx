@@ -124,12 +124,10 @@ define([
         renderColumns: function() {
             let columnSettings = this.props.columns.columnSettings;
             let createdColumns = columnSettings.map((column) => {
-                column.actions = this.props.actions;
-                column.products = this.props.products;
                 if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                     return;
                 }
-                let CreatedColumn = columnCreator(column);
+                let CreatedColumn = columnCreator(column, this.props);
                 return CreatedColumn
             });
             return createdColumns;

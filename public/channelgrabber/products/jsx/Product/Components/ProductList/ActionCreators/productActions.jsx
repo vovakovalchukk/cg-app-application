@@ -84,6 +84,14 @@ define([
                     }
                 }
             },
+            storeStockModeOptions: (stockModeOptions) => {
+                return{
+                    type: "STOCK_MODE_OPTIONS_STORE",
+                    payload:{
+                        stockModeOptions
+                    }
+                }
+            },
             getProducts: (pageNumber, searchTerm, skuList) => {
                 return async function(dispatch, getState) {
                     pageNumber = pageNumber || 1;
