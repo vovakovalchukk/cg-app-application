@@ -184,7 +184,6 @@ class Service
 
         $account = $this->accountService->fetch($thread->getAccountId());
         $threadData['accountName'] = $account->getDisplayName();
-
         $externalUsername = $this->attemptToRemoveAdditionalDataFromExternalUsername($thread, $account);
 
         $dateFormatter = $this->dateFormatter;
