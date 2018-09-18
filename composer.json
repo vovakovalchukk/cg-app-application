@@ -84,7 +84,7 @@
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.1.5",
         "channelgrabber/zf2-api": "~1.0.0",
-        "channelgrabber/zf2-billing": "~1.2.3",
+        "channelgrabber/zf2-billing": "dev-CGIV-9889-incomplete-details-redirect-payment as 1.2.4",
         "channelgrabber/zf2-channel": "~1.0.6",
         "channelgrabber/zf2-ebay": "~1.1.1",
         "channelgrabber/zf2-ekm": "~1.0.2",
