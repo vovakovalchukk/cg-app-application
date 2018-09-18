@@ -30,7 +30,7 @@ class Service implements LoggerAwareInterface
     const LOG_ACCESS_DENIED = 'Public API access denied: OU %d not in UK and not on suitable Package.';
 
     const MIN_PACKAGE_BAND = [
-        OrganisationUnit::LOCALE_UK => 'Medium',
+        OrganisationUnit::LOCALE_UK => ['Medium', 'Growth Accelerator'],
         OrganisationUnit::LOCALE_US => 'Growth Accelerator (USA)',
     ];
     const MSG_UPGRADE = '<p>Open API access allows you to connect third party software to ChannelGrabber.</p><p>API access is limited to our \'%s\' package or higher. Click below to upgrade now.</p><p>Not sure? Contact our eCommerce specialists on %s to discuss or <a href="%s" target="_blank">Click Here</a> to book a demo.</p>';
@@ -145,7 +145,7 @@ class Service implements LoggerAwareInterface
     protected function getMinimumRequiredPackageForAccess(OrganisationUnit $rootOu): Package
     {
         $packages = $this->fetchAvailablePackagesForOu($rootOu);
-        $minRequiredPackageBand = static::MIN_PACKAGE_BAND[$rootOu->getLocale()];
+        $minRequiredPackageBand = (array) static::MIN_PACKAGE_BAND[$rootOu->getLocale()];
         $minRequiredPackage = $packages->getBy('band', $minRequiredPackageBand)->getFirst();
         if ($minRequiredPackage === null) {
             $exception = new \RuntimeException(
