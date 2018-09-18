@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16aa1e0c86a07198ab83dc31c4a1ee2a",
+    "content-hash": "8e2c0a1f7bda656a222b0fc33828a1ca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3330,16 +3330,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-9672-limit-height",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "599eec0e2ea34499d9204e1890764f255bbe123f"
+                "reference": "34dc8b8d4bb1f0bf327c09a7d4afc95c869666b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-9672-limit-height-ec7495.zip",
-                "reference": "599eec0e2ea34499d9204e1890764f255bbe123f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.4-7439fb.zip",
+                "reference": "34dc8b8d4bb1f0bf327c09a7d4afc95c869666b6",
                 "shasum": null
             },
             "require": {
@@ -3386,7 +3386,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-09-13T14:52:55+00:00"
+            "time": "2018-09-18T12:35:56+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10397,18 +10397,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.4",
-            "alias_normalized": "1.6.4.0",
-            "version": "dev-CGIV-9672-limit-height",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
