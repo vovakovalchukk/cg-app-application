@@ -42,6 +42,7 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
     init.call(this);
 }
 
+CourierSpecificsDataTable.SELECTOR_ACCOUNT_BALANCE_FIGURE = '.shipping-ledger-balance-amount';
 CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
 CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '#courier-parcels-input-container';
 CourierSpecificsDataTable.SELECTOR_DATEPICKER_ELEMENT = '#courier-order-collectionDate-container';
