@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "258513327769a190a0f31f61346c6302",
+    "content-hash": "1214cacb0b0e3003e8acb50405ee9b47",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -938,16 +938,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d5412e63a4545460bc57a471bfa7669875867d6b"
+                "reference": "5227de9ec2b041597db8ff32f895a8aa9d31cd27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.1-6379e7.zip",
-                "reference": "d5412e63a4545460bc57a471bfa7669875867d6b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.2-2dc223.zip",
+                "reference": "5227de9ec2b041597db8ff32f895a8aa9d31cd27",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-09-04T10:24:02+00:00"
+            "time": "2018-09-18T08:02:12+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -8936,7 +8936,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -8991,7 +8991,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9046,7 +9046,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-goutte-driver-fa1b073b48761464feb0b05e6825da44b20118d8-zip-3f436f.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/fa1b073b48761464feb0b05e6825da44b20118d8",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8",
                 "shasum": ""
             },
@@ -9097,7 +9097,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
