@@ -20,25 +20,39 @@ define([
                         return;
                     }
                     n.notice('Updating ' + detail + ' value.');
-                    $.ajax({
-                        url: '/products/details/update',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            id: variation.details.id,
-                            detail: detail,
-                            value: value,
-                            sku: variation.sku
-                        },
-                        success: function() {
-                            n.success('Successfully updated ' + detail + '.');
-                            window.triggerEvent('dimension-' + variation.sku, {'value': value, 'dimension': detail});
-                            // resolve({savedValue: value});
-                        }.bind(this),
-                        error: function(error) {
-                            n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
-                            // reject(new Error(error));
-                        }
+    
+                    return new Promise(function(resolve, reject) {
+                        $.ajax({
+                            url: '/products/details/update',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                id: variation.details.id,
+                                detail: detail,
+                                value: value,
+                                sku: variation.sku
+                            },
+                            success: function() {
+                                n.success('Successfully updated ' + detail + '.');
+                                window.triggerEvent('dimension-' + variation.sku, {
+                                    'value': value,
+                                    'dimension': detail
+                                });
+                                dispatch({
+                                    type: "PRODUCT_DETAILS_CHANGE",
+                                    payload:{
+                                        value:value,
+                                        detail:detail,
+                                        variation
+                                    }
+                                });
+                                resolve({savedValue: value});
+                            }.bind(this),
+                            error: function(error) {
+                                n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
+                                reject(new Error(error));
+                            }
+                        });
                     });
                 };
             }

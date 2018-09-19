@@ -42,6 +42,30 @@ define([
             newState = applySingleProductLinkChangeToState(state, action.payload.productLinks, skus[0]);
             return newState;
         },
+        "PRODUCT_DETAILS_CHANGE": function(state,action){
+            console.log('in PRODUCT_DETAILS_CHANGE -R');
+            console.log('action: ', action);
+            console.log('state: ', state);
+            let {variation,value,detail} = action.payload;
+            let stateCopy = Object.assign({},state);
+            let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
+            
+            let rowIndexToChange= visibleRowsCopy.findIndex((row)=>{
+                return row.id === variation.id
+            });
+    
+            visibleRowsCopy[rowIndexToChange].details[detail] = value;
+            
+            let newVisibleRows = Object.assign({},state, {
+                visibleRows:visibleRowsCopy
+            });
+
+            let newState = Object.assign({},stateCopy,{
+                visibleRows:newVisibleRows
+            });
+            
+            return newState;
+        },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
             const {response} = action.payload;
             let productsCopy = state.simpleAndParentProducts.slice();
