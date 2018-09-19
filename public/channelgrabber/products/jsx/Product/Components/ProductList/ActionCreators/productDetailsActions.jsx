@@ -11,16 +11,16 @@ define([
     
     let actionCreators = (function() {
         return {
-            saveDetail: (variation,detail, value) => {
+            saveDetail: (variation, detail, value) => {
                 return async function(dispatch, getState) {
-                    console.log('in saveDetail AC variation: '  ,{
+                    console.log('in saveDetail AC variation: ', {
                         variation, detail, value
                     });
                     if (variation === null) {
                         return;
                     }
                     n.notice('Updating ' + detail + ' value.');
-    
+                    
                     return new Promise(function(resolve, reject) {
                         $.ajax({
                             url: '/products/details/update',
@@ -40,10 +40,10 @@ define([
                                 });
                                 dispatch({
                                     type: "PRODUCT_DETAILS_CHANGE",
-                                    payload:{
-                                        value:value,
-                                        detail:detail,
-                                        variation
+                                    payload: {
+                                        value: value,
+                                        detail: detail,
+                                        row: variation
                                     }
                                 });
                                 resolve({savedValue: value});

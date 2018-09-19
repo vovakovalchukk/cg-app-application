@@ -43,21 +43,31 @@ define([
             return newState;
         },
         "PRODUCT_DETAILS_CHANGE": function(state,action){
-            console.log('in PRODUCT_DETAILS_CHANGE -R');
+            console.log('in PRODUCT_DETAILS_CHANGE -R state: ' , state);
             console.log('action: ', action);
             console.log('state: ', state);
-            let {variation,value,detail} = action.payload;
+            let {row,value,detail} = action.payload;
             let stateCopy = Object.assign({},state);
             let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
             
-            let rowIndexToChange= visibleRowsCopy.findIndex((row)=>{
-                return row.id === variation.id
+            let rowIndexToChange= visibleRowsCopy.findIndex((visibleRow)=>{
+                return visibleRow.id === row.id
             });
     
             visibleRowsCopy[rowIndexToChange].details[detail] = value;
+     
+            let variationsByParentCopy = JSON.parse(JSON.stringify(stateCopy.variationsByParent));
+            
+            if(stateUtility.isVariation(row)){
+                let rowIndexOfVariationToChange = variationsByParentCopy[row.parentProductId].findIndex(rowOfChangedProduct=>{
+                    return rowOfChangedProduct.id === row.id;
+                });
+                variationsByParentCopy[row.parentProductId][rowIndexOfVariationToChange].details[detail] = value;
+            }
             
             let newState = Object.assign({}, stateCopy,{
-                visibleRows: visibleRowsCopy
+                visibleRows: visibleRowsCopy,
+                variationsByParent: variationsByParentCopy
             });
             
             return newState;
