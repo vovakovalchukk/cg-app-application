@@ -51,6 +51,18 @@ define([
             headerText: 'Stock Mode',
             fixed: false,
             tab: 'details'
+        },{
+            key: 'weight',
+            width: 200,
+            headerText: 'Weight',
+            fixed: false,
+            tab: 'details'
+        },{
+            key: 'dimensions',
+            width: 200,
+            headerText: 'Dimensions',
+            fixed: false,
+            tab: 'details'
         }
     ];
     

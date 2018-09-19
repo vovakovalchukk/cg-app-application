@@ -8,7 +8,10 @@ define([
     'Product/Components/ProductList/Cell/Name',
     'Product/Components/ProductList/Cell/ListingAccount',
     'Product/Components/ProductList/Cell/AddListing',
-    'Product/Components/ProductList/Cell/StockMode'
+    'Product/Components/ProductList/Cell/StockMode',
+    'Product/Components/ProductList/Cell/Weight',
+    'Product/Components/ProductList/Cell/Dimensions',
+    'Product/Components/ProductList/Column/columnKeys'
 ], function(
     React,
     FixedDataTable,
@@ -19,7 +22,10 @@ define([
     NameCell,
     ListingAccountCell,
     AddListingCell,
-    StockModeCell
+    StockModeCell,
+    WeightCell,
+    DimensionsCell,
+    columnKeys
 ) {
     "use strict";
     
@@ -36,15 +42,15 @@ define([
         addListing: AddListingCell,
         //todo to be replaced in 215
         stockMode: StockModeCell,
+        weight: WeightCell,
+        dimensions: DimensionsCell,
     };
     
     var columnCreator = function(column, parentProps) {
-    
         column.actions = parentProps.actions;
         column.products = parentProps.products;
-        
         // todo - attach only certain properties to props based on the column key. i.e. - only attach stockModeOptions if the key is stockMode etc.
-        
+        column = applyColumnSpecificProps(column, parentProps);
         
         let CreatedCell = getCreatedCell(column);
         if(!CreatedCell){
@@ -65,6 +71,17 @@ define([
     
     return columnCreator;
     
+    function applyColumnSpecificProps(column, parentProps){
+        //
+        // console.log('column.key: ', column.key , ' column');
+        
+        if(column.key===columnKeys.stockMode){
+            console.log('in applyColumnSpecificPROPS column : ' , column, ' parentProps:   ' ,parentProps );
+    
+            column.stock = parentProps.stock
+        }
+        return column;
+    }
     function getCreatedCell(column){
         return column.type ? cells[column.type] : cells[column.key];
     }

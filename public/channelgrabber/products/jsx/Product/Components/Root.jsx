@@ -287,10 +287,8 @@ define([
         },
         render: function() {
             console.log('in ROOT this.props: ' , this.props);
-            
-            
-            var viewRenderers = this.getViewRenderers();
-            var viewRenderer = viewRenderers[this.state.currentView];
+            let viewRenderers = this.getViewRenderers();
+            let viewRenderer = viewRenderers[this.state.currentView];
             return viewRenderer();
         }
     });

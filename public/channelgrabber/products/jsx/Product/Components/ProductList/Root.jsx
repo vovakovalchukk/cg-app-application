@@ -30,7 +30,8 @@ define([
             list: state.list,
             pagination: state.pagination,
             accounts: state.accounts.getAccounts(state),
-            columns: state.columns
+            columns: state.columns,
+            stock: state.stock
         };
     };
     
