@@ -56,12 +56,8 @@ define([
     
             visibleRowsCopy[rowIndexToChange].details[detail] = value;
             
-            let newVisibleRows = Object.assign({},state, {
-                visibleRows:visibleRowsCopy
-            });
-
-            let newState = Object.assign({},stateCopy,{
-                visibleRows:newVisibleRows
+            let newState = Object.assign({}, stateCopy,{
+                visibleRows: visibleRowsCopy
             });
             
             return newState;
