@@ -150,7 +150,7 @@ class Service
         foreach ($categoryTemplates as $categoryTemplate) {
             $templateDependentFieldValues[$categoryTemplate->getId()] = [
                 'name' => $categoryTemplate->getName(),
-                'categories' => [],
+                'accounts' => [],
             ];
 
             /** @var AccountCategory $accountCategory */
@@ -169,8 +169,9 @@ class Service
                     // Field values are not supported on selected category
                 }
 
-                $templateDependentFieldValues[$categoryTemplate->getId()]['categories'][$category->getId()] = [
+                $templateDependentFieldValues[$categoryTemplate->getId()]['accounts'][$accountCategory->getAccountId()] = [
                     'title' => $category->getTitle(),
+                    'categoryId' => $category->getId(),
                     'accountId' => $accountCategory->getAccountId(),
                     'channel' => $category->getChannel(),
                     'fieldValues' => $fieldValues ?? [],
