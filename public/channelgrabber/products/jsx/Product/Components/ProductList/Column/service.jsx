@@ -53,13 +53,13 @@ define([
             tab: 'details'
         },{
             key: 'weight',
-            width: 200,
+            width: 150,
             headerText: 'Weight',
             fixed: false,
             tab: 'details'
         },{
             key: 'dimensions',
-            width: 200,
+            width: 240,
             headerText: 'Dimensions',
             fixed: false,
             tab: 'details'
