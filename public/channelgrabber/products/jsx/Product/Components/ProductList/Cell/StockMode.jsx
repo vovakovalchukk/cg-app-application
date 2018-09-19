@@ -1,29 +1,79 @@
 define([
     'react',
     'fixed-data-table',
+    'styled-components',
     'Product/Components/ProductList/stateUtility',
     'Product/Components/StockModeInputs'
 ], function(
     React,
     FixedDataTable,
+    styled,
     stateUtility,
     StockModeInputs
 ) {
     "use strict";
     
+    styled = styled.default;
+    
+    const StyledStockModeInputs = styled(StockModeInputs)`
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    `;
+    
     let StockModeCell = React.createClass({
         getDefaultProps: function() {
             return {
                 products: {},
-                rowIndex: null
+                rowIndex: null,
+                stock: {}
             };
         },
         getInitialState: function() {
-            return {};
+            return {
+                editable: false,
+                stockModeOption: {
+                    name: '',
+                    value: ''
+                },
+                stockAmount: ''
+            };
         },
-        onStockModeChange: function(e) {
-            console.log('in onStockModeChange e: ', e);
+        submitInput: function() {
+            if (!this.state.editable) {
+                return;
+            }
             
+            //todo hit redux promise and set editable to be false if successful
+            
+            // var promise = this.props.submitCallback(this.props.name, this.state.newValue || 0);
+            // promise.then(function(data) {
+            //     this.setState({
+            //         editable: false,
+            //         newValue: data.savedValue
+            //     });
+            // }.bind(this));
+            // promise.catch(function(error) {
+            //     console.log(error.message);
+            // });
+        },
+        onStockModeTypeChange: function(e) {
+            this.setState({
+                stockModeOption: e
+            })
+        },
+        onStockAmountChange: function(e) {
+            this.setState({
+                stockAmount: e.target.value
+            })
+        },
+        editInput: function() {
+            console.log('in edit input');
+            
+            
+            this.setState({
+                editable: true
+            })
         },
         render() {
             const {products, rowIndex} = this.props;
@@ -39,31 +89,35 @@ define([
             
             //todo - change the input values to reflect what is coming back from the store
             return (
-                <span>
-                    <select>
-                      <option value="volvo">Volvo</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
-                    </select>
-                    
-                    
-                    <StockModeInputs
+                <div>
+                    <StyledStockModeInputs
                         onChange={this.onStockModeChange}
                         stockModeOptions={this.props.stock.stockModeOptions}
-                        // stockModeOptions
                         stockModeType={{
                             input: {
-                                value: 'all'
+                                value: this.state.stockModeOption,
+                                onChange: this.onStockModeTypeChange
                             }
                         }}
                         stockAmount={{
                             input: {
-                                value: '0'
+                                value: this.state.stockAmount,
+                                onChange: this.onStockAmountChange
                             }
                         }}
+                        onFocusMethod={this.editInput}
                     />
-                </span>
+                    <div className={"safe-input-box"}>
+                        <div className={"submit-input"}>
+                            <div className={"submit-cancel " + (this.state.editable ? "active" : "")}>
+                                <div className="button-input" onClick={this.submitInput}><span
+                                    className="submit"></span></div>
+                                <div className="button-input" onClick={this.cancelInput}><span
+                                    className="cancel"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             );
         }
     });

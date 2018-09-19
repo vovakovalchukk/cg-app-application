@@ -47,7 +47,7 @@ define([
     let detailsColumns = [
         {
             key: 'stockMode',
-            width: 200,
+            width: 240,
             headerText: 'Stock Mode',
             fixed: false,
             tab: 'details'

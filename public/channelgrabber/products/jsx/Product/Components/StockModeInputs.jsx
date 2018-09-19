@@ -9,9 +9,12 @@ define([
         getDefaultProps: function() {
             return {
                 stockModeOptions: null,
+                stockModeType: '',
                 onChange: null,
                 value: "",
-                classNames: null
+                classNames: null,
+                onFocusMethod: null,
+                className:''
             };
         },
         stockAmountShouldBeDisabled: function(stockModeTypeValue) {
@@ -46,13 +49,6 @@ define([
             }
             return shortenedOptions;
         },
-        getClassNames: function() {
-            var classNames = 'c-stock-mode-input';
-            if (!this.props.classNames) {
-                classNames += ' c-stock-mode-input--medium';
-            }
-            return classNames
-        },
         render: function() {
             var shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
             var stockModeOptions = shortenedOptions.map(function(option) {
@@ -62,7 +58,7 @@ define([
                 }
             });
             return (
-                <div className={this.getClassNames()}>
+                <div className={this.props.className}>
                     <div className={"c-stock-mode-input__type-select-container"}>
                         <Select
                             options={stockModeOptions}
@@ -74,6 +70,7 @@ define([
                             onOptionChange={function(option) {
                                 this.props.stockModeType.input.onChange(option)
                             }.bind(this)}
+                            onFocus={this.props.onFocusMethod}
                         />
                     </div>
                     <div className={"c-stock-mode-input__amount-container"}>
@@ -84,12 +81,13 @@ define([
                             type={'number'}
                             value={this.props.stockAmount.input.value}
                             onChange={this.props.stockAmount.input.onChange}
+                            onFocus={this.props.onFocusMethod}
                         />
                     </div>
                 </div>
             );
         }
     });
-
+    
     return StockModeInputsComponent;
 });

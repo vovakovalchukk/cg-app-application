@@ -43,9 +43,9 @@ define([
             return newState;
         },
         "PRODUCT_DETAILS_CHANGE": function(state,action){
-            console.log('in PRODUCT_DETAILS_CHANGE -R state: ' , state);
-            console.log('action: ', action);
-            console.log('state: ', state);
+            // console.log('in PRODUCT_DETAILS_CHANGE -R state: ' , state);
+            // console.log('action: ', action);
+            // console.log('state: ', state);
             let {row,value,detail} = action.payload;
             let stateCopy = Object.assign({},state);
             let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));

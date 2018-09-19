@@ -144,7 +144,7 @@ define([
             let width = this.state.productsListContainer.width;
             return (
                 <Table
-                    rowHeight={70}
+                    rowHeight={120}
                     rowsCount={rows.length}
                     width={width}
                     height={height}
