@@ -26,11 +26,10 @@ define([
             
         },
         render() {
-            console.log('in StockModeCell with this.props:  ', this.props);
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             
-            const isSimpleProduct = stateUtility.isSimpleProduct(row)
+            const isSimpleProduct = stateUtility.isSimpleProduct(row);
             const isVariation = stateUtility.isVariation(row);
             
             if (!isSimpleProduct && !isVariation) {

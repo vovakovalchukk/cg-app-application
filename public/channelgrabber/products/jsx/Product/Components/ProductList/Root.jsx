@@ -8,6 +8,7 @@ define([
     'Product/Components/ProductList/ActionCreators/paginationActions',
     'Product/Components/ProductList/ActionCreators/searchActions',
     'Product/Components/ProductList/ActionCreators/tabActions',
+    'Product/Components/ProductList/ActionCreators/productDetailsActions',
     'Product/Components/ProductList/ProductList'
 ], function(
     React,
@@ -19,6 +20,7 @@ define([
     paginationActions,
     searchActions,
     tabActions,
+    productDetailsActions,
     ProductList
 ) {
     "use strict";
@@ -55,6 +57,7 @@ define([
             paginationActions,
             searchActions,
             tabActions,
+            productDetailsActions,
             passedInMethodsAsActions
         );
     }

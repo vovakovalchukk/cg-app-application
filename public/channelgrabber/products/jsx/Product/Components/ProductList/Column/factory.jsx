@@ -72,12 +72,7 @@ define([
     return columnCreator;
     
     function applyColumnSpecificProps(column, parentProps){
-        //
-        // console.log('column.key: ', column.key , ' column');
-        
         if(column.key===columnKeys.stockMode){
-            console.log('in applyColumnSpecificPROPS column : ' , column, ' parentProps:   ' ,parentProps );
-    
             column.stock = parentProps.stock
         }
         return column;
