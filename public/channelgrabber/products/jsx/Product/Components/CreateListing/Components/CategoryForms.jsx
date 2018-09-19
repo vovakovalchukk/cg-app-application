@@ -49,9 +49,9 @@ define([
         },
         renderForCategoryTemplate: function(categoryTemplate) {
             var output = [];
-            for (var categoryId in categoryTemplate.categories) {
-                var category = categoryTemplate.categories[categoryId];
-                var categoryOutput = this.renderForCategory(category, categoryId);
+            for (var accountId in categoryTemplate.accounts) {
+                var category = categoryTemplate.accounts[accountId];
+                var categoryOutput = this.renderForCategory(category, category.categoryId);
                 if (categoryOutput) {
                     output.push(categoryOutput);
                 }
