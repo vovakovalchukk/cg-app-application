@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac2bab725ac2a2c7073b3c035fabb897",
+    "content-hash": "3301eeb6e5c2b026b468da4f1f175fb1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2922,16 +2922,16 @@
         },
         {
             "name": "channelgrabber/shipstation",
-            "version": "dev-CGIV-9862-royal-mail-shipstation-connect-error",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "f9b6738a2725361fbe6c4c4b4c5f9f78edb542fd"
+                "reference": "40f0af71f83c4164db5b10770839b1a0d65a2969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-9862-royal-mail-shipstation-connect-error-158ade.zip",
-                "reference": "f9b6738a2725361fbe6c4c4b4c5f9f78edb542fd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-1.0.1-d977a0.zip",
+                "reference": "40f0af71f83c4164db5b10770839b1a0d65a2969",
                 "shasum": null
             },
             "require": {
@@ -2953,7 +2953,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-09-13T09:27:07+00:00"
+            "time": "2018-09-14T13:34:19+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -10397,18 +10397,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-CGIV-9862-royal-mail-shipstation-connect-error",
-            "package": "channelgrabber/shipstation"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/shipstation": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
