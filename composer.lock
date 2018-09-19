@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88f1b62d132792e4c413cfac28dc70cd",
+    "content-hash": "8e2c0a1f7bda656a222b0fc33828a1ca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3330,16 +3330,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "88e90cb742caa0934a823709ac926f27f3022e24"
+                "reference": "34dc8b8d4bb1f0bf327c09a7d4afc95c869666b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.3-04b533.zip",
-                "reference": "88e90cb742caa0934a823709ac926f27f3022e24",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.4-7439fb.zip",
+                "reference": "34dc8b8d4bb1f0bf327c09a7d4afc95c869666b6",
                 "shasum": null
             },
             "require": {
@@ -3386,7 +3386,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-07-06T13:37:54+00:00"
+            "time": "2018-09-18T12:35:56+00:00"
         },
         {
             "name": "channelgrabber/transaction",
