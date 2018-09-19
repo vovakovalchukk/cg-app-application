@@ -323,7 +323,7 @@ return [
                                 ],
                                 'email' => [
                                     'name' => 'email',
-                                    'label' => 'Conact Email Address',
+                                    'label' => 'Contact Email Address',
                                     'required' => true,
                                     'inputType' => 'email',
                                 ],

@@ -2,11 +2,14 @@
 namespace CG\ShipStation\Request\Partner;
 
 use CG\ShipStation\Messages\Account;
+use CG\ShipStation\Request\Partner\Account\ExternalIdTrait;
 use CG\ShipStation\Request\PartnerRequestAbstract;
 use CG\ShipStation\Response\Partner\Account as Response;
 
 class GetAccountByExternalId extends PartnerRequestAbstract
 {
+    use ExternalIdTrait;
+
     const METHOD = 'GET';
     const URI = '/accounts/external_account_id';
 
@@ -18,9 +21,9 @@ class GetAccountByExternalId extends PartnerRequestAbstract
         $this->account = $account;
     }
 
-    public static function buildFromExternalAccountId(int $accountId)
+    public static function buildFromExternalAccountId(int $externalAccountId)
     {
-        return (new static(new Account($accountId)));
+        return (new static(new Account(static::generateExternalId($externalAccountId))));
     }
 
     public function toArray(): array
