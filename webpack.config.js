@@ -21,6 +21,8 @@ module.exports = {
         path: path.resolve(__dirname, 'public', 'cg-built', 'dist'),
         filename: "[name].js",
         libraryTarget: "amd",
+        // Add the below once ALL the entry points are converted to ES6 modules
+        //libraryExport: "default",
         library: "" // Don't name the AMD modules! Calling code expects anonymous modules
     },
     resolve: {
