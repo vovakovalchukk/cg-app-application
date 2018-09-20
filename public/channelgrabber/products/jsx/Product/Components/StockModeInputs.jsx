@@ -14,7 +14,7 @@ define([
                 value: "",
                 classNames: null,
                 onFocusMethod: null,
-                className:''
+                className: ''
             };
         },
         stockAmountShouldBeDisabled: function(stockModeTypeValue) {
@@ -57,6 +57,16 @@ define([
                     value: option.value
                 }
             });
+            
+            let selected = this.props.stockModeType.input.value;
+            
+            let selectedNameFromValue = '';
+            if (selected.value) {
+                selectedNameFromValue = stockModeOptions.find(option => {
+                    return option.value === selected.value;
+                }).name;
+            }
+            
             return (
                 <div className={this.props.className}>
                     <div className={"c-stock-mode-input__type-select-container"}>
@@ -64,7 +74,7 @@ define([
                             options={stockModeOptions}
                             autoSelectFirst={true}
                             selectedOption={{
-                                name: this.props.stockModeType.input.value.name,
+                                name: selectedNameFromValue,
                                 value: this.props.stockModeType.input.value.value
                             }}
                             onOptionChange={function(option) {

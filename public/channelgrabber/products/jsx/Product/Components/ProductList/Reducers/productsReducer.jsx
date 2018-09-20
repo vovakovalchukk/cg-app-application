@@ -42,34 +42,52 @@ define([
             newState = applySingleProductLinkChangeToState(state, action.payload.productLinks, skus[0]);
             return newState;
         },
-        "PRODUCT_DETAILS_CHANGE": function(state,action){
-            // console.log('in PRODUCT_DETAILS_CHANGE -R state: ' , state);
-            // console.log('action: ', action);
-            // console.log('state: ', state);
-            let {row,value,detail} = action.payload;
-            let stateCopy = Object.assign({},state);
+        "PRODUCT_DETAILS_CHANGE": function(state, action) {
+            let {row, value, detail} = action.payload;
+            let stateCopy = Object.assign({}, state);
             let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
             
-            let rowIndexToChange= visibleRowsCopy.findIndex((visibleRow)=>{
-                return visibleRow.id === row.id
-            });
-    
+            let rowIndexToChange = getVisibleRowIndexToChangeFromId(row.id, visibleRowsCopy);
+            
             visibleRowsCopy[rowIndexToChange].details[detail] = value;
-     
+            
             let variationsByParentCopy = JSON.parse(JSON.stringify(stateCopy.variationsByParent));
             
-            if(stateUtility.isVariation(row)){
-                let rowIndexOfVariationToChange = variationsByParentCopy[row.parentProductId].findIndex(rowOfChangedProduct=>{
+            if (stateUtility.isVariation(row)) {
+                let rowIndexOfVariationToChange = variationsByParentCopy[row.parentProductId].findIndex(rowOfChangedProduct => {
                     return rowOfChangedProduct.id === row.id;
                 });
                 variationsByParentCopy[row.parentProductId][rowIndexOfVariationToChange].details[detail] = value;
             }
             
-            let newState = Object.assign({}, stateCopy,{
+            let newState = Object.assign({}, stateCopy, {
                 visibleRows: visibleRowsCopy,
                 variationsByParent: variationsByParentCopy
             });
             
+            return newState;
+        },
+        "STOCK_MODE_CHANGE": function(state, action) {
+            console.log('in stockMode change -R ', {state, action});
+            let {rowData, stockModeValue, propToChange} = action.payload;
+            
+            let stateCopy = Object.assign({}, state);
+            let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
+            
+            let rowIndexToChange = getVisibleRowIndexToChangeFromId(rowData.id, visibleRowsCopy);
+            
+            visibleRowsCopy[rowIndexToChange].stock[propToChange] = stockModeValue;
+            
+            let variationsByParentCopy = JSON.parse(JSON.stringify(stateCopy.variationsByParent));
+            if (stateUtility.isVariation(rowData)) {
+                variationsByParentCopy = applyStockModeChangeToVariation(variationsByParentCopy, rowData, stockModeValue, propToChange);
+            }
+            let newState = Object.assign({}, stateCopy, {
+                visibleRows: visibleRowsCopy,
+                variationsByParent: variationsByParentCopy
+            });
+            
+            // console.log('newRow visibleRowsCopy[rowIndexToChange]: ', visibleRowsCopy[rowIndexToChange]);
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
@@ -177,6 +195,12 @@ define([
     
     return ProductsReducer;
     
+    function getVisibleRowIndexToChangeFromId(rowId, visibleRows) {
+        return visibleRows.findIndex((visibleRow) => {
+            return visibleRow.id === rowId
+        });
+    }
+    
     function applySingleProductLinkChangeToState(state, newLinks, sku) {
         const normalizedNewLinks = normalizeLinks(newLinks);
         const stateLinksCopy = Object.assign({}, state.allProductsLinks);
@@ -194,6 +218,14 @@ define([
         });
         
         return newState;
+    }
+    
+    function applyStockModeChangeToVariation(variations, row, stockModeValue, propToChange) {
+        let rowIndexOfVariationToChange = variations[row.parentProductId].findIndex(rowOfChangedProduct => {
+            return rowOfChangedProduct.id === row.id;
+        });
+        variations[row.parentProductId][rowIndexOfVariationToChange][propToChange] = stockModeValue;
+        return variations;
     }
     
     function applyNewProductLinksToState(state, newLinks) {

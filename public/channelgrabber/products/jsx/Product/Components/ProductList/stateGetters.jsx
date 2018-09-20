@@ -26,6 +26,9 @@ define([], function() {
                     return _getState().columns.columnSettings.filter((column) => {
                         return column.fixed
                     });
+                },
+                getStock(id){
+                    return self.getProductById(id).stock;
                 }
             };
             return self;

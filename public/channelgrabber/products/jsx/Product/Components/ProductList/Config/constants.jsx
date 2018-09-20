@@ -11,6 +11,9 @@ define([
             fetching: "fetching",
             finishedFetching: "finishedFetching"
         },
+        STOCK_MODE_EDITING_STATUSES:{
+            editing:'editing'
+        }
     };
     constants.ADD_ICON_URL = constants.IMAGE_DIR + 'add-icon.png';
     

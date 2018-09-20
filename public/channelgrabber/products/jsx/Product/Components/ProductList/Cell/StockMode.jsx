@@ -3,13 +3,15 @@ define([
     'fixed-data-table',
     'styled-components',
     'Product/Components/ProductList/stateUtility',
-    'Product/Components/StockModeInputs'
+    'Product/Components/StockModeInputs',
+    'Product/Components/ProductList/Config/constants'
 ], function(
     React,
     FixedDataTable,
     styled,
     stateUtility,
-    StockModeInputs
+    StockModeInputs,
+    constants
 ) {
     "use strict";
     
@@ -44,8 +46,8 @@ define([
                 return;
             }
             
-            //todo hit redux promise and set editable to be false if successful
             
+            //todo hit redux promise and set editable to be false if successful
             // var promise = this.props.submitCallback(this.props.name, this.state.newValue || 0);
             // promise.then(function(data) {
             //     this.setState({
@@ -57,18 +59,28 @@ define([
             //     console.log(error.message);
             // });
         },
-        onStockModeTypeChange: function(e) {
+        cancelInput: function() {
+            //todo set oldValue to be props
             this.setState({
-                stockModeOption: e
-            })
+                editable: false,
+            });
+        },
+        onStockModeTypeChange: function(stockMode) {
+            // console.log('onStockModeTypeChange stockMode: ' , stockMode);
+            const {products, rowIndex} = this.props;
+            const row = stateUtility.getRowData(products, rowIndex);
+            this.props.actions.changeStockMode(row, stockMode.value, 'stockMode');
         },
         onStockAmountChange: function(e) {
-            this.setState({
-                stockAmount: e.target.value
-            })
+            // console.log('onStockModeAmountChange e: ',e);
+            
+            
+            // this.setState({
+            //     stockAmount: e.target.value
+            // })
         },
         editInput: function() {
-            console.log('in edit input');
+            // console.log('in edit input');
             
             
             this.setState({
@@ -77,16 +89,21 @@ define([
         },
         render() {
             const {products, rowIndex} = this.props;
-            const row = stateUtility.getRowData(products, rowIndex);
+            // console.log('StockMode render with this.props: ', this.props);
             
+            const row = stateUtility.getRowData(products, rowIndex);
+            // console.log('row: ', row);
+            // console.log('in StockMode render this.props: ', this.props , ' row :  ' , row);
             const isSimpleProduct = stateUtility.isSimpleProduct(row);
             const isVariation = stateUtility.isVariation(row);
+            
+            let editStatus = getEditStatus(this.props.stock.stockModeEdits, row);
+            const shouldDisplaySaveCancelBox = editStatus === constants.STOCK_MODE_EDITING_STATUSES.editing;
             
             if (!isSimpleProduct && !isVariation) {
                 //todo - remove the text here before submission
                 return <span></span>
             }
-            
             //todo - change the input values to reflect what is coming back from the store
             return (
                 <div>
@@ -95,7 +112,9 @@ define([
                         stockModeOptions={this.props.stock.stockModeOptions}
                         stockModeType={{
                             input: {
-                                value: this.state.stockModeOption,
+                                value: {
+                                    value: this.state.stockMode ? this.state.stockMode.value : row.stock.stockMode
+                                },
                                 onChange: this.onStockModeTypeChange
                             }
                         }}
@@ -109,7 +128,7 @@ define([
                     />
                     <div className={"safe-input-box"}>
                         <div className={"submit-input"}>
-                            <div className={"submit-cancel " + (this.state.editable ? "active" : "")}>
+                            <div className={"submit-cancel " + (shouldDisplaySaveCancelBox ? "active" : "")}>
                                 <div className="button-input" onClick={this.submitInput}><span
                                     className="submit"></span></div>
                                 <div className="button-input" onClick={this.cancelInput}><span
@@ -123,4 +142,20 @@ define([
     });
     
     return StockModeCell;
+    
+    function getEditStatus(stockModeEdits,row){
+        let editStatus = '';
+        if (stockModeEdits.length > 0) {
+            let matchedEdit = stockModeEdits.find(edit => {
+                console.log('in find ', {
+                    edit, row
+                });
+                return edit.productId === row.id
+            });
+            if(matchedEdit){
+                editStatus = matchedEdit.status;
+            }
+        }
+        return editStatus
+    }
 });
