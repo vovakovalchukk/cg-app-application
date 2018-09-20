@@ -36,8 +36,21 @@ module.exports = {
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
-            // There's multiple copies of react-tether, specify one
-            "react-tether": path.resolve(__dirname, 'node_modules', 'react-tether', 'dist', 'react-tether.js'),
+            // React stuff exists in a few places, specify which to use
+            react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react.min.js'),
+            'react-with-addons': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react-with-addons.min.js'),
+            'react-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-dom', 'dist', 'react-dom.min.js'),
+            'react-redux': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-redux', 'dist', 'react-redux.min.js'),
+            'redux': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux', 'dist', 'redux.min.js'),
+            'redux-form': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux-form', 'dist', 'redux-form.min.js'),
+            'redux-thunk': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux-thunk', 'dist', 'redux-thunk.min.js'),
+            'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
+            'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
+            'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'react-tether.js'),
+            // For some reason react-tether names its dependencies differently for CommonJS and webpack normalises to CommonJS
+            React: 'react',
+            ReactDOM: 'react-dom',
+            Tether: 'tether'
         }
     }
 };
