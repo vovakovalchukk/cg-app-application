@@ -141,10 +141,44 @@ class Service implements
                 'shippingMethods' => $this->getShippingMethodsForAccount(
                     $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
                 ),
-                'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData)
+                'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
+                'pbse' => $this->getPbseStatusForCategory($ebayData)
             ],
             $this->fetchPoliciesForAccount($account)
         );
+    }
+
+    protected function getPbseStatusForCategory(?Data $ebayData): array
+    {
+        try {
+            if (!$ebayData) {
+                throw new \InvalidArgumentException('No ebay data provided');
+            }
+            $pbseStatus = (new FeatureHelper($ebayData))->getFeatureValue('ProductCreationEnabled');
+
+            $required = $pbseStatus == 'Required';
+            $enabled = $pbseStatus == 'Enabled' || $required;
+
+        } catch (\InvalidArgumentException $e) {
+            $enabled = false;
+            $required = false;
+            $this->logWarningException($e);
+        }
+
+        return [
+            'enabled' => $enabled,
+            'required' => $required
+        ];
+    }
+
+    protected function getPbseRequiredStatus(?Data $ebayData): bool
+    {
+        try {
+            return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('ProductRequiredEnabled') : false;
+        } catch (\InvalidArgumentException $e) {
+            $this->logWarningException($e);
+            return false;
+        }
     }
 
     protected function fetchPoliciesForAccount(Account $account): array
