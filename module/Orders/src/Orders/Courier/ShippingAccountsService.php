@@ -79,6 +79,10 @@ class ShippingAccountsService
                 'selected' => ($shippingAccount->getId() == $selectedAccountId),
             ];
         }
+        usort($courierOptions, function($a, $b)
+        {
+            return $a['title'] > $b['title'];
+        });
         return $courierOptions;
     }
 
