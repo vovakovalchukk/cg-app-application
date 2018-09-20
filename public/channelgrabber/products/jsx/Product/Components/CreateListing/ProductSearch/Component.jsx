@@ -176,7 +176,7 @@ define([
                     value: variation.sku,
                     disabled: !!this.props.selectedProducts[variation.sku]
                 });
-            }.bind(this));
+            }, this);
 
             return <span className="search-product-assign-select">
                 <span>Assign to:</span>
