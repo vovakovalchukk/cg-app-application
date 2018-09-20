@@ -383,6 +383,7 @@ class MultiCreationService implements LoggerAwareInterface
             'categoryTemplateIds' => $variationData['categoryTemplateIds'] ?? $productData['categoryTemplateIds'] ?? [],
             'upc' => $variationData['upc'] ?? $productData['upc'] ?? null,
             'isbn' => $variationData['isbn'] ?? $productData['isbn'] ?? null,
+            'barcodeNotApplicable' => $variationData['barcodeNotApplicable'] ?? $productData['barcodeNotApplicable'] ?? false,
         ]);
     }
 

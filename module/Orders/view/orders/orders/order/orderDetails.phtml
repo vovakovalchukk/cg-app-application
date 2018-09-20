@@ -11,7 +11,7 @@
         <div><?= $orderId ?></div>
         <div>
             <span><?= isset($buyerUsername) ? $buyerUsername : $buyerName ?></span>
-            <span class="links">(<a href="<?= $orderUrl ?>">Orders</a> / <a href="<?= $messageUrl ?>">Messages</a>)</span>
+            <span class="links">(<a href="<?= $orderUrl ?>">Orders</a><?= $messageUrl ? " / <a href=\"{$messageUrl} \">Messages</a>" : ''?>)</span>
         </div>
     </div>
 </div>
