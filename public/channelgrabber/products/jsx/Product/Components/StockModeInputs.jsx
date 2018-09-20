@@ -49,8 +49,8 @@ define([
             return shortenedOptions;
         },
         render: function() {
-            var shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
-            var stockModeOptions = shortenedOptions.map(function(option) {
+            let shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
+            let stockModeOptions = shortenedOptions.map(function(option) {
                 return {
                     name: option.title,
                     value: option.value

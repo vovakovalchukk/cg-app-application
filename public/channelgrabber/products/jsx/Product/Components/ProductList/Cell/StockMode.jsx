@@ -79,7 +79,7 @@ define([
         },
         render() {
             const {products, rowIndex} = this.props;
-            console.log('StockMode render with this.props: ', this.props);
+            // console.log('StockMode render with this.props: ', this.props);
             const row = stateUtility.getRowData(products, rowIndex);
             // console.log('row: ', row);
             // console.log('in StockMode render this.props: ', this.props , ' row :  ' , row);
