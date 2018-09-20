@@ -20,8 +20,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'public', 'cg-built', 'dist'),
         filename: "[name].js",
-        library: "[name]",
-        libraryTarget: "amd"
+        libraryTarget: "amd",
+        library: "" // Don't name the AMD modules! Calling code expects anonymous modules
     },
     resolve: {
         modules: [
