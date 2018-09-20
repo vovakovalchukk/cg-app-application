@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfd14be7e03b1361017bc7207fe7fc30",
+    "content-hash": "e9e8d9d4a565549b0ee03aac9450bc7b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.19.5",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "337c4e2b65b51be995c1a6072f69da205d3eeca1"
+                "reference": "d4708c4eccdf03d7873bd4270909728e08cc9ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.19.5-d53351.zip",
-                "reference": "337c4e2b65b51be995c1a6072f69da205d3eeca1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-9859-AnnualBillingLimits-901726.zip",
+                "reference": "d4708c4eccdf03d7873bd4270909728e08cc9ead",
                 "shasum": null
             },
             "require": {
@@ -519,12 +519,15 @@
                 "channelgrabber/phinx": "~0.3.2",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/slim": "^1.13.14",
-                "channelgrabber/stdlib": "^2.13.2",
+                "channelgrabber/stdlib": "^2.16.1",
                 "channelgrabber/user": "^1.22.4",
                 "channelgrabber/zf2-email-template": "^1.0.23",
                 "channelgrabber/zf2-v4-ui": "^1.23.5",
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
+            },
+            "conflict": {
+                "channelgrabber/payment": "<1.11.0"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "dev-develop",
@@ -546,7 +549,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-12T08:45:51+00:00"
+            "time": "2018-09-20T08:11:05+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -821,16 +824,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.11.3",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "fea213ca311c2c805f1efb94782eca5d2c5da802"
+                "reference": "803eecbffec397e0063b2a26af7033c7f169b8cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.3-e7dcc9.zip",
-                "reference": "fea213ca311c2c805f1efb94782eca5d2c5da802",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-CGIV-9859-AnnualBillingLimits-1415cb.zip",
+                "reference": "803eecbffec397e0063b2a26af7033c7f169b8cb",
                 "shasum": null
             },
             "require": {
@@ -839,7 +842,7 @@
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.4.0",
+                "channelgrabber/payment": "^1.10.0",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/user": "^1.25.0",
@@ -861,7 +864,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-04T09:03:37+00:00"
+            "time": "2018-09-20T08:55:39+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1848,16 +1851,16 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.2.1",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "87d110692231b088f61b85efd0bcfe2bbeacdce9"
+                "reference": "b0f2f2d41f7af3a8124c94869edb58aa59094dea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.2.1-0aa203.zip",
-                "reference": "87d110692231b088f61b85efd0bcfe2bbeacdce9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-CGIV-9859-AnnualBillingLimits-bd9088.zip",
+                "reference": "b0f2f2d41f7af3a8124c94869edb58aa59094dea",
                 "shasum": null
             },
             "require": {
@@ -1886,7 +1889,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2018-04-03T08:21:50+00:00"
+            "time": "2018-09-17T08:52:36+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -2115,27 +2118,27 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.10.4",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68"
+                "reference": "85839cbe9039bad1f16507daa93e10718d88dc60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.4-1af78a.zip",
-                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9859-AnnualBillingLimits-b2811f.zip",
+                "reference": "85839cbe9039bad1f16507daa93e10718d88dc60",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.19.4",
+                "channelgrabber/billing": "dev-CGIV-9859-AnnualBillingLimits as 1.20.0",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": ">=1.1.2",
                 "channelgrabber/intercom": "^1.0.2",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/log": "^2.0.0",
+                "channelgrabber/log": "dev-CGIV-9859-AnnualBillingLimits as 2.2.2",
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/transaction": ">=1.1.1, <2.0.0",
                 "channelgrabber/user": "^1.22.4",
@@ -2145,16 +2148,14 @@
                 "zendframework/zend-di": ">=2.2.5",
                 "zendframework/zend-view": ">=2.2,<3.0"
             },
+            "conflict": {
+                "channelgrabber/clearbooks": "<1.11.1"
+            },
             "require-dev": {
                 "channelgrabber/phpunit": "dev-develop",
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "TAC-121-usps-balance-and-topup": "1.9.2-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Payment\\": "src"
@@ -2168,7 +2169,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-09-04T09:43:41+00:00"
+            "time": "2018-09-20T08:30:55+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3133,16 +3134,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.0",
+            "version": "2.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "b6c73c22ae7611c7c07e00f3f12b9632ba85baa7"
+                "reference": "03801578360aa7a6b30d37eb5d0b1e58e60eabf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.0-d9813e.zip",
-                "reference": "b6c73c22ae7611c7c07e00f3f12b9632ba85baa7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.1-02a3f8.zip",
+                "reference": "03801578360aa7a6b30d37eb5d0b1e58e60eabf9",
                 "shasum": null
             },
             "require": {
@@ -3186,7 +3187,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-06-15T10:36:36+00:00"
+            "time": "2018-09-14T12:11:33+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -10419,6 +10420,30 @@
     ],
     "aliases": [
         {
+            "alias": "1.20.0",
+            "alias_normalized": "1.20.0.0",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
+            "package": "channelgrabber/billing"
+        },
+        {
+            "alias": "1.11.4",
+            "alias_normalized": "1.11.4.0",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
+            "package": "channelgrabber/clearbooks"
+        },
+        {
+            "alias": "2.2.2",
+            "alias_normalized": "2.2.2.0",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
+            "package": "channelgrabber/log"
+        },
+        {
+            "alias": "1.11.0",
+            "alias_normalized": "1.11.0.0",
+            "version": "dev-CGIV-9859-AnnualBillingLimits",
+            "package": "channelgrabber/payment"
+        },
+        {
             "alias": "1.2.0-dev",
             "alias_normalized": "1.2.0.0-dev",
             "version": "dev-CGIV-9859-AnnualBillingLimits",
@@ -10439,7 +10464,11 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/log": 20,
+        "channelgrabber/payment": 20,
         "channelgrabber/usage-check": 20,
         "channelgrabber/zf2-logclient": 20,
         "channelgrabber/zf2-usage": 20,
