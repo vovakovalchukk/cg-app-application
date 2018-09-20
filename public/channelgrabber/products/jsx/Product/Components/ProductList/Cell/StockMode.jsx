@@ -65,19 +65,11 @@ define([
                 editable: false,
             });
         },
-        onStockModeTypeChange: function(stockMode) {
+        onStockModeChange: function(propToChange, stockMode) {
             // console.log('onStockModeTypeChange stockMode: ' , stockMode);
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            this.props.actions.changeStockMode(row, stockMode.value, 'stockMode');
-        },
-        onStockAmountChange: function(e) {
-            // console.log('onStockModeAmountChange e: ',e);
-            
-            
-            // this.setState({
-            //     stockAmount: e.target.value
-            // })
+            this.props.actions.changeStockMode(row, stockMode.value, propToChange);
         },
         editInput: function() {
             // console.log('in edit input');
@@ -113,15 +105,15 @@ define([
                         stockModeType={{
                             input: {
                                 value: {
-                                    value: this.state.stockMode ? this.state.stockMode.value : row.stock.stockMode
+                                    value: row.stock.stockMode
                                 },
-                                onChange: this.onStockModeTypeChange
+                                onChange: this.onStockModeChange.bind(this,'stockMode')
                             }
                         }}
                         stockAmount={{
                             input: {
-                                value: this.state.stockAmount,
-                                onChange: this.onStockAmountChange
+                                value: row.stock.stockLevel,
+                                onChange: this.onStockModeChange.bind(this,'stockLevel')
                             }
                         }}
                         onFocusMethod={this.editInput}
@@ -147,9 +139,6 @@ define([
         let editStatus = '';
         if (stockModeEdits.length > 0) {
             let matchedEdit = stockModeEdits.find(edit => {
-                console.log('in find ', {
-                    edit, row
-                });
                 return edit.productId === row.id
             });
             if(matchedEdit){
