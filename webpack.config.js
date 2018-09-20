@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
     mode: "development",
     entry: {
-        Product: "./public/channelgrabber/products/jsx/Product/Product.jsx"
+        // Name the entry points after the path you want them to end up in, relative to output.path
+        "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx"
     },
     module: {
         rules:[
@@ -18,12 +19,13 @@ module.exports = {
         ]
     },
     output: {
-        path: path.resolve(__dirname, 'public', 'cg-built', 'dist'),
+        path: path.resolve(__dirname, 'public', 'cg-built'),
         filename: "[name].js",
         libraryTarget: "amd",
+        // Don't name the AMD modules! Calling code expects anonymous modules
+        library: ""
         // Add the below once ALL the entry points are converted to ES6 modules
-        //libraryExport: "default",
-        library: "" // Don't name the AMD modules! Calling code expects anonymous modules
+        //,libraryExport: "default"
     },
     resolve: {
         modules: [
