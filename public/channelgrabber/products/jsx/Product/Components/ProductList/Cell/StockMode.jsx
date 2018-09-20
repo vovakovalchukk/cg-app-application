@@ -42,9 +42,10 @@ define([
             };
         },
         submitInput: function() {
-            if (!this.state.editable) {
-                return;
-            }
+            const {products, rowIndex} = this.props;
+            const row = stateUtility.getRowData(products, rowIndex);
+            
+            this.props.actions.saveStockModeToBackend(row);
             
             
             //todo hit redux promise and set editable to be false if successful
@@ -65,24 +66,20 @@ define([
                 editable: false,
             });
         },
-        onStockModeChange: function(propToChange, stockMode) {
+        onStockModeChange: function(propToChange, event) {
             // console.log('onStockModeTypeChange stockMode: ' , stockMode);
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            this.props.actions.changeStockMode(row, stockMode.value, propToChange);
-        },
-        editInput: function() {
-            // console.log('in edit input');
+            console.log('propToChange coming from StockModeCEll: ', propToChange);
+            console.log('stockMode stockMode event', event);
+            // todo need to accomodate for stockLevel
+            let value = propToChange==='stockMode' ? event.value : event.target.value;
             
-            
-            this.setState({
-                editable: true
-            })
+            this.props.actions.changeStockMode(row, value, propToChange);
         },
         render() {
             const {products, rowIndex} = this.props;
-            // console.log('StockMode render with this.props: ', this.props);
-            
+            console.log('StockMode render with this.props: ', this.props);
             const row = stateUtility.getRowData(products, rowIndex);
             // console.log('row: ', row);
             // console.log('in StockMode render this.props: ', this.props , ' row :  ' , row);
@@ -116,7 +113,6 @@ define([
                                 onChange: this.onStockModeChange.bind(this,'stockLevel')
                             }
                         }}
-                        onFocusMethod={this.editInput}
                     />
                     <div className={"safe-input-box"}>
                         <div className={"submit-input"}>

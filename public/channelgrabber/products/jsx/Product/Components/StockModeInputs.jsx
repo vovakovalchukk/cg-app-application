@@ -13,7 +13,6 @@ define([
                 onChange: null,
                 value: "",
                 classNames: null,
-                onFocusMethod: null,
                 className: ''
             };
         },
@@ -80,7 +79,6 @@ define([
                             onOptionChange={function(option) {
                                 this.props.stockModeType.input.onChange(option)
                             }.bind(this)}
-                            onFocus={this.props.onFocusMethod}
                         />
                     </div>
                     <div className={"c-stock-mode-input__amount-container"}>
@@ -91,7 +89,6 @@ define([
                             type={'number'}
                             value={this.props.stockAmount.input.value}
                             onChange={this.props.stockAmount.input.onChange}
-                            onFocus={this.props.onFocusMethod}
                         />
                     </div>
                 </div>

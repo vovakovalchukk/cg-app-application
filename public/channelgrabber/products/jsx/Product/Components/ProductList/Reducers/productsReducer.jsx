@@ -68,7 +68,7 @@ define([
             return newState;
         },
         "STOCK_MODE_CHANGE": function(state, action) {
-            console.log('in stockMode change -R ', {state, action});
+            console.log('in stockMode change products-R ', {state, action});
             let {rowData, stockModeValue, propToChange} = action.payload;
             
             let stateCopy = Object.assign({}, state);

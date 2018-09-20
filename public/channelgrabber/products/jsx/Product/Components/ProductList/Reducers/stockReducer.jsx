@@ -28,20 +28,18 @@ define([
             let {rowData, previousValue, propToChange} = action.payload;
             
             let newStockModeEdits = state.stockModeEdits.slice();
-            if (hasEditBeenRecordedAlready(newStockModeEdits, rowData)) {
-                return state;
+            if (!hasEditBeenRecordedAlready(newStockModeEdits, rowData)) {
+                newStockModeEdits.push({
+                    productId: rowData.id,
+                    status: constants.STOCK_MODE_EDITING_STATUSES.editing
+                });
             }
             
-            newStockModeEdits.push({
-                productId: rowData.id,
-                status: constants.STOCK_MODE_EDITING_STATUSES.editing
-            });
             
-            let prevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
-            prevValuesBeforeEdits.push({
-                productId: rowData.id,
-                [propToChange]: previousValue
-            });
+            let prevValuesBeforeEdits = createPrevValuesBeforeEdits(state, rowData, propToChange, previousValue);
+            
+            console.log('new prevValuesBeforeEdits: ', prevValuesBeforeEdits);
+            
             
             let newState = Object.assign({}, state, {
                 stockModeEdits: newStockModeEdits,
@@ -57,5 +55,34 @@ define([
         return !!newStockModeEdits.find(edit => {
             return edit.productId === rowData.id;
         });
+    }
+    
+    function getExistingPreviousValueObjectIndex(previousValues, rowId) {
+        return previousValues.findIndex(value => {
+            return value.productId === rowId
+        });
+    }
+    
+    function createPrevValuesBeforeEdits(state, rowData, propToChange, previousValue) {
+        let prevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
+        console.log('in createPreValuesBeforeEdits prevValuesBeforeEdits on state: ' , prevValuesBeforeEdits);
+
+        let previousValuesObjectIndex = getExistingPreviousValueObjectIndex(prevValuesBeforeEdits, rowData.id);
+        let previousValuesForProduct = prevValuesBeforeEdits[previousValuesObjectIndex];
+    
+        if (!previousValuesForProduct) {
+            prevValuesBeforeEdits.push({
+                productId: rowData.id,
+                [propToChange]: previousValue
+            });
+            return prevValuesBeforeEdits;
+        }
+    
+        if (previousValuesForProduct.hasOwnProperty(propToChange)) {
+            return prevValuesBeforeEdits;
+        }
+    
+        previousValuesForProduct[propToChange] = previousValue;
+        return prevValuesBeforeEdits;
     }
 });
