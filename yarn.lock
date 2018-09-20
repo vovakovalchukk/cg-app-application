@@ -991,7 +991,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#STRAT-4-render-product-search-variations":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1ac33aac30f47d4947ec245dd834856ed48a8690"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#24a7c76866692a52b2d39147933be742f88c162c"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
