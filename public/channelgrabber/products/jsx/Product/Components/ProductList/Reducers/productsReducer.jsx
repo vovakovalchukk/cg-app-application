@@ -69,8 +69,6 @@ define([
         },
         "STOCK_MODE_EDIT_CANCEL":function(state,action){
             let {prevValuesForRow, rowData} = action.payload;
-    
-            console.log('in STOCK_MODE_EDIT_CANCEL -R prevValuesForRow: ', prevValuesForRow);
             
             if(!prevValuesForRow){
                 return state;
@@ -79,17 +77,11 @@ define([
             let stateCopy = Object.assign({}, state);
             let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
             
-            
             let rowIndexToChange = getVisibleRowIndexToChangeFromId(rowData.id, visibleRowsCopy);
             let rowToChange = visibleRowsCopy[rowIndexToChange];
             
             rowToChange.stock.stockMode = prevValuesForRow.stockMode;
-            console.log('setting rowToChange stockMode prevValuesForRow.stockLevel: ', prevValuesForRow.stockLevel);
-            
             rowToChange.stock.stockLevel = prevValuesForRow.stockLevel ? prevValuesForRow.stockLevel : '';
-            console.log('new row rowToChange.stock.stockLevel: ', rowToChange.stock.stockLevel);
-            
-            // visibleRowsCopy[rowIndexToChange].stock[propToChange] = stockModeValue;
     
             let newState = Object.assign({}, stateCopy, {
                 visibleRows: visibleRowsCopy
@@ -98,7 +90,6 @@ define([
             return newState;
         },
         "STOCK_MODE_CHANGE": function(state, action) {
-            console.log('in stockMode change products-R ', {state, action});
             let {rowData, stockModeValue, propToChange} = action.payload;
             
             let stateCopy = Object.assign({}, state);
@@ -116,8 +107,6 @@ define([
                 visibleRows: visibleRowsCopy,
                 variationsByParent: variationsByParentCopy
             });
-            
-            // console.log('newRow visibleRowsCopy[rowIndexToChange]: ', visibleRowsCopy[rowIndexToChange]);
             return newState;
         },
         "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {

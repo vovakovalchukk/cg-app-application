@@ -1,12 +1,4 @@
-define([
-    'Product/Storage/Ajax',
-    'Product/Filter/Entity',
-    'Product/Components/ProductList/Config/constants'
-], function(
-    AjaxHandler,
-    ProductFilter,
-    constants
-) {
+define([], function() {
     "use strict";
     
     let actionCreators = (function() {
@@ -16,9 +8,7 @@ define([
                     if (rowData === null) {
                         return;
                     }
-                    
                     let currentStock = getState.customGetters.getStock(rowData.id);
-                    
                     dispatch({
                         type: "STOCK_MODE_CHANGE",
                         payload: {
@@ -108,7 +98,6 @@ define([
     };
     
     async function updateStockLevel(id, value) {
-        console.log('in updateStockLeve with id: ', id, 'and value : ', value);
         $.ajax({
             url: 'products/stockLevel',
             type: 'POST',

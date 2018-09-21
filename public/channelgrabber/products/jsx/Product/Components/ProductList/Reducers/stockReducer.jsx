@@ -25,10 +25,6 @@ define([
             return newState;
         },
         "STOCK_MODE_CHANGE": function(state, action) {
-            // console.log('in STOCK_MODE_CHANGE stockReducer -R state: ', {
-            //     state,
-            //     action
-            // });
             let {rowData, currentStock, propToChange} = action.payload;
             
             let newStockModeEdits = state.stockModeEdits.slice();
@@ -39,11 +35,7 @@ define([
                 });
             }
             
-            
             let prevValuesBeforeEdits = createPrevValuesBeforeEdits(state, rowData, propToChange, currentStock);
-            
-            // console.log('new prevValuesBeforeEdits: ', prevValuesBeforeEdits);
-            
             
             let newState = Object.assign({}, state, {
                 stockModeEdits: newStockModeEdits,
@@ -73,8 +65,8 @@ define([
             return state
         },
         "STOCK_MODE_UPDATE_FAILURE": function(state, action) {
-            let {err} = action.payload;
-            n.showErrorNotification(err, "There was an error when attempting to update the stock mode.");
+            let {error} = action.payload;
+            n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
             return state;
         }
     });
@@ -95,13 +87,11 @@ define([
     
     function createPrevValuesBeforeEdits(state, rowData, currentStock) {
         let prevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
-        // console.log('in createPreValuesBeforeEdits prevValuesBeforeEdits on state: ' , prevValuesBeforeEdits);
         let previousValuesObjectIndex = getExistingPreviousValueObjectIndex(prevValuesBeforeEdits, rowData.id);
         let previousValuesForProduct = prevValuesBeforeEdits[previousValuesObjectIndex];
         
         let {stockMode, stockLevel} = currentStock;
         
-        // todo apply the value
         let previousValues = {
             productId: rowData.id,
             stockMode,
