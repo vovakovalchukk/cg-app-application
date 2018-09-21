@@ -6,6 +6,7 @@ module.exports = {
         // Name the entry points after the path you want them to end up in, relative to output.path
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
         "products/js/PurchaseOrders/PurchaseOrders": "./public/channelgrabber/products/jsx/PurchaseOrders/PurchaseOrders.jsx",
+        "orders/js/ManualOrder/ManualOrder": "./public/channelgrabber/orders/jsx/ManualOrder/ManualOrder.jsx",
     },
     module: {
         rules:[
@@ -41,6 +42,7 @@ module.exports = {
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
+            ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react.min.js'),
