@@ -15,13 +15,22 @@ define([
             console.log('in VAT_FROM_PRODUCTS_EXTRACT -R ');
             let {products} = action.payload;
             
-            let vatRates = getTaxOptionsFromProduct(products[0]);
-            console.log('vatRates: ', vatRates);
-            
-            let productsVat = getChosenVatFromProducts(products);
-            console.log('productsVat: ', productsVat);
+            let newVatRates = getTaxOptionsFromProduct(products[0]);
+            let newProductsVat = getChosenVatFromProducts(products);
             
             
+            
+            //todo -- don't save vatRates again if they exist already
+            let vatRates = applyNewTaxRates(state, newVatRates);
+            
+            // todo - bugfix
+            let productsVat = state.productsVat.concat(newProductsVat);
+            
+            console.log('vatRates saved: ', vatRates);
+            console.log('productsVat saved: ', productsVat);
+            //todo sort for readability
+    
+    
             let newState = Object.assign({}, state, {
                 vatRates,
                 productsVat
@@ -92,6 +101,7 @@ define([
         return options;
     }
     
+    //TODO -remove after getting to end of 216
     function addDummyTaxCountrys(product) {
         product.taxRates["FRA"] = {
             FR1: {
@@ -106,5 +116,18 @@ define([
             }
         };
         return product;
+    }
+    
+    function applyNewTaxRates(state, newVatRates) {
+        let vatRatesToAdd = [];
+        newVatRates.forEach(newVatRate=>{
+            if(!!state.vatRates.find(stateVatRate=>{
+                return newVatRate.key === stateVatRate.key;
+            })){
+                return;
+            }
+            vatRatesToAdd.push(newVatRate);
+        });
+        return state.vatRates.concat(vatRatesToAdd);
     }
 });

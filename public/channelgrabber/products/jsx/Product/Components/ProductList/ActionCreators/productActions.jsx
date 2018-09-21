@@ -1,3 +1,5 @@
+
+
 define([
     'Product/Storage/Ajax',
     'Product/Filter/Entity',
@@ -166,12 +168,8 @@ define([
                     let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                     dispatch(getProductVariationsRequestSuccess(variationsByParent));
                     dispatch(expandProductSuccess(productRowIdToExpand));
-                    
-                    let newVariationSkus = data.products.map((product) => {
-                        return product.sku;
-                    });
-                    
-                    dispatch(actionCreators.getLinkedProducts(newVariationSkus));
+                    dispatch(actionCreators.getLinkedProducts(getSkusFromData(data)));
+                    dispatch(vatActions.extractVatFromProducts(data.products));
                 }
             },
             getVariationsByParentProductId: (parentProductId) => {
@@ -228,6 +226,12 @@ define([
     function getVisibleFixedColumns(state) {
         return state.columns.filter((column) => {
             return column.fixed
+        });
+    }
+    
+    function getSkusFromData(data) {
+        return data.products.map((product) => {
+            return product.sku;
         });
     }
     
