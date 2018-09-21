@@ -12,7 +12,7 @@ define([
     
     var vatReducer = reducerCreator(initialState, {
         "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
-            console.log('in VAT_FROM_PRODUCTS_EXTRACT -R ');
+            // console.log('in VAT_FROM_PRODUCTS_EXTRACT -R ');
             let {products} = action.payload;
             
             let newVatRates = getTaxOptionsFromProduct(products[0]);
@@ -24,6 +24,8 @@ define([
             let vatRates = applyNewTaxRates(state, newVatRates);
             
             // todo - bugfix
+            // console.log('newProductsVat: ', newProductsVat);
+            
             let productsVat = state.productsVat.concat(newProductsVat);
             
             console.log('vatRates saved: ', vatRates);
@@ -45,36 +47,30 @@ define([
         let productsVat = [];
         products.forEach(product => {
             product = addDummyTaxCountrys(product);
+            let chosenVats = {
+                productId: product.id
+            };
             Object.keys(product.taxRates).forEach((countryCode) => {
                 let taxOptionsForCountry = product.taxRates[countryCode];
                 Object.keys(taxOptionsForCountry).forEach(taxOptionKey => {
                     let option = taxOptionsForCountry[taxOptionKey];
                     
-                    
                     //todo - remove this dummy code after testing 216
                     if(option.name==="french-standard"){
-                        let chosenVat = {
-                            productId: product.id,
-                            countryCode,
-                            key: taxOptionKey,
-                        };
-                        productsVat.push(chosenVat);
+                        chosenVats[countryCode]=taxOptionKey;
                         return;
                     }
+                    // ^^^
                     
                     
                     if (!option.selected) {
                         return;
                     }
-                    let chosenVat = {
-                        productId: product.id,
-                        countryCode,
-                        key: taxOptionKey,
-                    };
-                    productsVat.push(chosenVat);
-                    return;
-                })
+                    chosenVats[countryCode]=taxOptionKey;
+                });
             });
+            productsVat.push(chosenVats);
+            return;
         });
         return productsVat;
     }
