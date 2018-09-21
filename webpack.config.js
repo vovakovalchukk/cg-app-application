@@ -51,7 +51,7 @@ module.exports = {
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),
             SetupWizard: path.resolve(__dirname, 'public', 'channelgrabber', 'setup-wizard', 'jsx'),
-            Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
+            Common: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'dist', 'js', 'Common'),
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react.min.js'),
