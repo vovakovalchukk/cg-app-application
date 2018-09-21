@@ -4,7 +4,8 @@ module.exports = {
     mode: "development",
     entry: {
         // Name the entry points after the path you want them to end up in, relative to output.path
-        "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx"
+        "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
+        "products/js/PurchaseOrders/PurchaseOrders": "./public/channelgrabber/products/jsx/PurchaseOrders/PurchaseOrders.jsx",
     },
     module: {
         rules:[
@@ -39,6 +40,7 @@ module.exports = {
             // Can't have an alias for Product as it exists in both jsx and js-vanilla :(
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
+            PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react.min.js'),
