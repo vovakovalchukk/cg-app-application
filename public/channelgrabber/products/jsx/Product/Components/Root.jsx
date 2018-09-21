@@ -286,7 +286,6 @@ define([
             />;
         },
         render: function() {
-            console.log('in ROOT this.props: ' , this.props);
             let viewRenderers = this.getViewRenderers();
             let viewRenderer = viewRenderers[this.state.currentView];
             return viewRenderer();

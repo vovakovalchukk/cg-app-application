@@ -46,7 +46,7 @@ define([
                             error: function(error) {
                                 dispatch({
                                     type: "PRODUCT_DETAILS_CHANGE_FAILURE",
-                                    payload: {error}
+                                    payload: {error, detail}
                                 });
                                 reject(new Error(error));
                             }

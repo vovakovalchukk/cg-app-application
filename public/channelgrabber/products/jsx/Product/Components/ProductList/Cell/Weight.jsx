@@ -29,7 +29,6 @@ define([
             const isVariation = stateUtility.isVariation(row);
             
             if (!isSimpleProduct && !isVariation) {
-                //todo - remove the text here before submission
                 return <span></span>
             }
             

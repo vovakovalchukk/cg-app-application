@@ -49,7 +49,6 @@ define([
     var columnCreator = function(column, parentProps) {
         column.actions = parentProps.actions;
         column.products = parentProps.products;
-        // todo - attach only certain properties to props based on the column key. i.e. - only attach stockModeOptions if the key is stockMode etc.
         column = applyColumnSpecificProps(column, parentProps);
         
         let CreatedCell = getCreatedCell(column);

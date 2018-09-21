@@ -58,7 +58,7 @@ define([], function() {
                     }, error => {
                         dispatch({
                             type: "STOCK_MODE_UPDATE_FAILURE",
-                            payload: error
+                            payload: {error}
                         });
                     });
                 }
