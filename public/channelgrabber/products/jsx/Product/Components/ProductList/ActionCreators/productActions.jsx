@@ -85,9 +85,9 @@ define([
                 }
             },
             storeStockModeOptions: (stockModeOptions) => {
-                return{
+                return {
                     type: "STOCK_MODE_OPTIONS_STORE",
-                    payload:{
+                    payload: {
                         stockModeOptions
                     }
                 }

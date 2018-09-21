@@ -59,13 +59,18 @@ define([
                 });
                 variationsByParentCopy[row.parentProductId][rowIndexOfVariationToChange].details[detail] = value;
             }
-            
+            n.success('Successfully updated ' + detail + '.');
+    
             let newState = Object.assign({}, stateCopy, {
                 visibleRows: visibleRowsCopy,
                 variationsByParent: variationsByParentCopy
             });
             
             return newState;
+        },
+        "PRODUCT_DETAILS_CHANGE_FAILURE":function(state,action){
+            n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
+            return state;
         },
         "STOCK_MODE_EDIT_CANCEL":function(state,action){
             let {prevValuesForRow, rowData} = action.payload;

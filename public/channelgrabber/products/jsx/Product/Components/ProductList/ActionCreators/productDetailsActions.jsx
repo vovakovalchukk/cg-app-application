@@ -33,11 +33,6 @@ define([
                                 sku: variation.sku
                             },
                             success: function() {
-                                n.success('Successfully updated ' + detail + '.');
-                                window.triggerEvent('dimension-' + variation.sku, {
-                                    'value': value,
-                                    'dimension': detail
-                                });
                                 dispatch({
                                     type: "PRODUCT_DETAILS_CHANGE",
                                     payload: {
@@ -49,7 +44,10 @@ define([
                                 resolve({savedValue: value});
                             }.bind(this),
                             error: function(error) {
-                                n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
+                                dispatch({
+                                    type: "PRODUCT_DETAILS_CHANGE_FAILURE",
+                                    payload: {error}
+                                });
                                 reject(new Error(error));
                             }
                         });
