@@ -3,12 +3,14 @@ define([
     'Product/Filter/Entity',
     'Product/Components/ProductList/Config/constants',
     'Product/Components/ProductList/ActionCreators/productLinkActions',
+    'Product/Components/ProductList/ActionCreators/vatActions',
     'Product/Components/ProductList/stateUtility'
 ], function(
     AjaxHandler,
     ProductFilter,
     constants,
     productLinkActions,
+    vatActions,
     stateUtility
 ) {
     "use strict";
@@ -103,8 +105,11 @@ define([
                     try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);
+                        console.log('data after getting products data: ', data);
+                        
                         dispatch(getProductsSuccess(data));
                         dispatch(productLinkActions.getLinkedProducts());
+                        dispatch(vatActions.extractVatFromProducts(data.products));
                         return data;
                     } catch (err) {
                         throw 'Unable to load products... error: ' + err;

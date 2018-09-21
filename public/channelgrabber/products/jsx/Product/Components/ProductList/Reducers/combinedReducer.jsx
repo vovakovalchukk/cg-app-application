@@ -8,7 +8,8 @@ define([
     'Product/Components/ProductList/Reducers/paginationReducer',
     'Product/Components/ProductList/Reducers/searchReducer',
     'Product/Components/ProductList/Reducers/createListingReducer',
-    'Product/Components/ProductList/Reducers/stockReducer'
+    'Product/Components/ProductList/Reducers/stockReducer',
+    'Product/Components/ProductList/Reducers/vatReducer'
 ], function(
     Redux,
     productsReducer,
@@ -19,7 +20,8 @@ define([
     paginationReducer,
     searchReducer,
     createListingReducer,
-    stockReducer
+    stockReducer,
+    vatReducer
 ) {
     "use strict";
     
@@ -32,7 +34,8 @@ define([
         pagination: paginationReducer,
         search: searchReducer,
         createListing: createListingReducer,
-        stock: stockReducer
+        stock: stockReducer,
+        vat: vatReducer
     });
     
     const combinedReducer = (state, action) => {

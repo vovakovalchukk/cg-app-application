@@ -9,6 +9,7 @@ define([
     'Product/Components/ProductList/ActionCreators/searchActions',
     'Product/Components/ProductList/ActionCreators/tabActions',
     'Product/Components/ProductList/ActionCreators/productDetailsActions',
+    'Product/Components/ProductList/ActionCreators/vatActions',
     'Product/Components/ProductList/ActionCreators/stockActions',
     'Product/Components/ProductList/ProductList'
 ], function(
@@ -23,6 +24,7 @@ define([
     tabActions,
     productDetailsActions,
     stockActions,
+    vatActions,
     ProductList
 ) {
     "use strict";
@@ -35,7 +37,8 @@ define([
             pagination: state.pagination,
             accounts: state.accounts.getAccounts(state),
             columns: state.columns,
-            stock: state.stock
+            stock: state.stock,
+            vat: state.vat
         };
     };
     
@@ -61,6 +64,7 @@ define([
             tabActions,
             productDetailsActions,
             stockActions,
+            vatActions,
             passedInMethodsAsActions
         );
     }
