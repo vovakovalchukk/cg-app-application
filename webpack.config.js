@@ -9,6 +9,9 @@ module.exports = {
         "products/js/CategoryMapper/App": "./public/channelgrabber/products/jsx/CategoryMapper/App.jsx",
         "orders/js/ManualOrder/ManualOrder": "./public/channelgrabber/orders/jsx/ManualOrder/ManualOrder.jsx",
         "settings/js/InvoiceOverview/InvoiceOverview": "./public/channelgrabber/settings/js-vanilla/InvoiceOverview/InvoiceOverview.js",
+        "setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
+        "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
+        "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
     },
     module: {
         rules:[
@@ -47,6 +50,7 @@ module.exports = {
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),
+            SetupWizard: path.resolve(__dirname, 'public', 'channelgrabber', 'setup-wizard', 'jsx'),
             Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
             // React stuff exists in a few places, specify which to use
