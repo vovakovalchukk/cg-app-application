@@ -12,33 +12,27 @@ define([
     
     var vatReducer = reducerCreator(initialState, {
         "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
-            // console.log('in VAT_FROM_PRODUCTS_EXTRACT -R ');
             let {products} = action.payload;
             
             let newVatRates = getTaxOptionsFromProduct(products[0]);
             let newProductsVat = getChosenVatFromProducts(products);
             
-            
-            
             //todo -- don't save vatRates again if they exist already
             let vatRates = applyNewTaxRates(state, newVatRates);
-            
-            // todo - bugfix
-            // console.log('newProductsVat: ', newProductsVat);
-            
             let productsVat = state.productsVat.concat(newProductsVat);
+            console.log('productsVat before sort: ', productsVat);
             
+            productsVat.sort(sortById);
             console.log('vatRates saved: ', vatRates);
             console.log('productsVat saved: ', productsVat);
             //todo sort for readability
-    
-    
+            
             let newState = Object.assign({}, state, {
                 vatRates,
                 productsVat
             });
             return newState;
-        },
+        }
     });
     
     return vatReducer;
@@ -56,8 +50,8 @@ define([
                     let option = taxOptionsForCountry[taxOptionKey];
                     
                     //todo - remove this dummy code after testing 216
-                    if(option.name==="french-standard"){
-                        chosenVats[countryCode]=taxOptionKey;
+                    if (option.name === "french-standard") {
+                        chosenVats[countryCode] = taxOptionKey;
                         return;
                     }
                     // ^^^
@@ -66,7 +60,7 @@ define([
                     if (!option.selected) {
                         return;
                     }
-                    chosenVats[countryCode]=taxOptionKey;
+                    chosenVats[countryCode] = taxOptionKey;
                 });
             });
             productsVat.push(chosenVats);
@@ -79,10 +73,10 @@ define([
         let options = [];
         // todo - remove this before submission of TAC-216 - for dummy purposes only
         product = addDummyTaxCountrys(product);
-    
+        
         Object.keys(product.taxRates).forEach((countryCode) => {
             let taxOptions = product.taxRates[countryCode];
-            Object.keys(taxOptions).forEach((taxOptionKey,index) => {
+            Object.keys(taxOptions).forEach((taxOptionKey, index) => {
                 let option = taxOptions[taxOptionKey];
                 let optionToSave = {
                     key: taxOptionKey,
@@ -114,12 +108,16 @@ define([
         return product;
     }
     
+    function sortById(a, b) {
+        return a.productId - b.productId;
+    }
+    
     function applyNewTaxRates(state, newVatRates) {
         let vatRatesToAdd = [];
-        newVatRates.forEach(newVatRate=>{
-            if(!!state.vatRates.find(stateVatRate=>{
+        newVatRates.forEach(newVatRate => {
+            if (!!state.vatRates.find(stateVatRate => {
                 return newVatRate.key === stateVatRate.key;
-            })){
+            })) {
                 return;
             }
             vatRatesToAdd.push(newVatRate);
