@@ -17,7 +17,8 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
-            { test: /thenBy/, use: 'exports-loader?firstBy' }
+            { test: /thenBy/, use: 'exports-loader?firstBy' },
+            { test: /jquery/, use: 'exports-loader?$' },
         ]
     },
     output: {
@@ -44,6 +45,7 @@ module.exports = {
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
+            jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react.min.js'),
             'react-with-addons': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react-with-addons.min.js'),
