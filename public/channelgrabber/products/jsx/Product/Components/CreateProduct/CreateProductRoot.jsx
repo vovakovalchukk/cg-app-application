@@ -1,21 +1,11 @@
-define([
-    'react',
-    'redux',
-    'react-redux',
-    'redux-thunk',
-    'Product/Components/CreateProduct/CreateProductActionCreators',
-    'Product/Components/CreateProduct/Reducers/CombinedReducer',
-    'Product/Components/CreateProduct/CreateProduct'
-], function(
-    React,
-    Redux,
-    ReactRedux,
-    thunk,
-    ActionCreators,
-    CombinedReducer,
-    CreateProduct
-) {
-    "use strict";
+import React from 'react';
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import thunk from 'redux-thunk';
+import ActionCreators from 'Product/Components/CreateProduct/CreateProductActionCreators';
+import CombinedReducer from 'Product/Components/CreateProduct/Reducers/CombinedReducer';
+import CreateProduct from 'Product/Components/CreateProduct/CreateProduct';
+    
     var Provider = ReactRedux.Provider;
 
     var enhancer = Redux.applyMiddleware(thunk.default);
@@ -71,5 +61,5 @@ define([
         }
     });
 
-    return CreateProductRoot;
-});
+    export default CreateProductRoot;
+

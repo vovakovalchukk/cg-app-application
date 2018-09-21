@@ -1,23 +1,12 @@
-define([
-    'react',
-    'redux-form',
-    './Amazon/ItemSpecifics',
-    './Amazon/Subcategories',
-    'Product/Components/CreateListing/Components/CreateListing/VariationTable',
-    'Product/Components/CreateListing/Validators',
-    'Common/Components/Select',
-    'Common/Components/Input'
-], function(
-    React,
-    ReduxForm,
-    ItemSpecifics,
-    Subcategories,
-    VariationsTable,
-    Validators,
-    Select,
-    Input
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import ItemSpecifics from './Amazon/ItemSpecifics';
+import Subcategories from './Amazon/Subcategories';
+import VariationsTable from 'Product/Components/CreateListing/Components/CreateListing/VariationTable';
+import Validators from 'Product/Components/CreateListing/Validators';
+import Select from 'Common/Components/Select';
+import Input from 'Common/Components/Input';
+    
 
     const FormSection = ReduxForm.FormSection;
     const Field = ReduxForm.Field;
@@ -397,5 +386,5 @@ define([
         }
     });
 
-    return AmazonCategoryFormComponent;
-});
+    export default AmazonCategoryFormComponent;
+

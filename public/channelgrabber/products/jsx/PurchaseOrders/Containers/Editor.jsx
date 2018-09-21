@@ -1,11 +1,6 @@
-define([
-    'react',
-    'PurchaseOrders/Components/Editor'
-], function(
-    React,
-    EditorComponent
-) {
-    "use strict";
+import React from 'react';
+import EditorComponent from 'PurchaseOrders/Components/Editor';
+    
 
     var COMPLETE_STATUS = "Complete";
     var DEFAULT_PO_STATUS = "In Progress";
@@ -280,5 +275,4 @@ define([
         }
     });
 
-    return EditorContainer;
-});
+    export default EditorContainer;

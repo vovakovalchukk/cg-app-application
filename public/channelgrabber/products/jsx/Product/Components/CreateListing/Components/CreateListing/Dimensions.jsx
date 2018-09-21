@@ -1,17 +1,9 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Input',
-    './VariationTable',
-    '../../Validators'
-], function(
-    React,
-    ReduxForm,
-    Input,
-    VariationTable,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Input from 'Common/Components/Input';
+import VariationTable from './VariationTable';
+import Validators from '../../Validators';
+    
 
     var Field = ReduxForm.Field;
 
@@ -184,5 +176,5 @@ define([
         }
     });
 
-    return DimensionsComponent;
-});
+    export default DimensionsComponent;
+

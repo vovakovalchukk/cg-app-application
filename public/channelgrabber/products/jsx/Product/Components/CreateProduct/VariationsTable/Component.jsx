@@ -1,24 +1,12 @@
-define([
-    'react',
-    'redux-form',
-    'Product/Components/CreateProduct/functions/utility',
-    'Product/Components/CreateProduct/functions/stateFilters',
-    'Common/Components/ReduxForm/InputWithValidation',
-    'Common/Components/ImageDropDown',
-    'Common/Components/Select',
-    'Common/Components/RemoveIcon',
-    'Product/Components/CreateProduct/StockModeInputsRoot'
-], function(
-    React,
-    reduxForm,
-    utility,
-    stateFilters,
-    InputWithValidation,
-    ImageDropDown,
-    Select,
-    RemoveIcon,
-    StockModeInputs
-) {
+import React from 'react';
+import reduxForm from 'redux-form';
+import utility from 'Product/Components/CreateProduct/functions/utility';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+import InputWithValidation from 'Common/Components/ReduxForm/InputWithValidation';
+import ImageDropDown from 'Common/Components/ImageDropDown';
+import Select from 'Common/Components/Select';
+import RemoveIcon from 'Common/Components/RemoveIcon';
+import StockModeInputs from 'Product/Components/CreateProduct/StockModeInputsRoot';
     var Form = reduxForm.Form;
     var Field = reduxForm.Field;
     var Fields = reduxForm.Fields;
@@ -303,7 +291,7 @@ define([
         }
     });
 
-    return VariationsTableComponent;
+    export default VariationsTableComponent;
 
     function getNonDimensionalVariationFields(values, fields) {
         var fieldsToReturn = [];
@@ -324,4 +312,4 @@ define([
     function attributeColumnHasNoValue(attributeValues, fieldName) {
         return (!attributeValues || attributeValues[fieldName] == undefined);
     }
-});
+

@@ -31,9 +31,9 @@ module.exports = {
         filename: "[name].js",
         libraryTarget: "amd",
         // Don't name the AMD modules! Calling code expects anonymous modules
-        library: ""
-        // Add the below once ALL the entry points are converted to ES6 modules
-        //,libraryExport: "default"
+        library: "",
+        // Export ES6 modules 'default' value
+        libraryExport: "default"
     },
     resolve: {
         modules: [

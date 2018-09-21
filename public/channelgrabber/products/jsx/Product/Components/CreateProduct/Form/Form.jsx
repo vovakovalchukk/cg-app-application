@@ -1,32 +1,16 @@
-define([
-    'react',
-    'redux-form',
-    'react-redux',
-    'Product/Components/CreateProduct/functions/stateFilters',
-    'Common/Components/ReduxForm/InputWithValidation',
-    'Common/Components/ImageUploader/ImageUploaderRoot',
-    'Common/Components/EditableText',
-    'Common/Components/ImagePicker',
-    'Common/Components/FormRow',
-    'Product/Components/VatView',
-    'Product/Components/CreateProduct/VariationsTable/Root',
-    'Product/Components/CreateProduct/DimensionsTable/Root',
-    'Product/Components/CreateListing/Components/CreateListing/ProductIdentifiers'
-], function(
-    React,
-    reduxForm,
-    ReactRedux,
-    stateFilters,
-    InputWithValidation,
-    ImageUploader,
-    EditableText,
-    ImagePicker,
-    FormRow,
-    VatView,
-    VariationsTable,
-    DimensionsTable,
-    ProductIdentifiers
-) {
+import React from 'react';
+import reduxForm from 'redux-form';
+import ReactRedux from 'react-redux';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+import InputWithValidation from 'Common/Components/ReduxForm/InputWithValidation';
+import ImageUploader from 'Common/Components/ImageUploader/ImageUploaderRoot';
+import EditableText from 'Common/Components/EditableText';
+import ImagePicker from 'Common/Components/ImagePicker';
+import FormRow from 'Common/Components/FormRow';
+import VatView from 'Product/Components/VatView';
+import VariationsTable from 'Product/Components/CreateProduct/VariationsTable/Root';
+import DimensionsTable from 'Product/Components/CreateProduct/DimensionsTable/Root';
+import ProductIdentifiers from 'Product/Components/CreateListing/Components/CreateListing/ProductIdentifiers';
     const Field = reduxForm.Field;
     const Form = reduxForm.Form;
 
@@ -308,7 +292,7 @@ define([
         }
     });
 
-    return reduxForm.reduxForm({
+    export default reduxForm.reduxForm({
         form: 'createProductForm',
         initialValues: {
             variations: {}
@@ -337,4 +321,4 @@ define([
         }
         return errors;
     }
-});
+

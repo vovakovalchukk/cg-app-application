@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/Popup/Message'
-], function (
-    React,
-    PopupMessage
-) {
-    "use strict";
+import React from 'react';
+import PopupMessage from 'Common/Components/Popup/Message';
+    
 
     const DEFAULT_STATUS = "Not started";
     const STATUS_STARTED = "started";
@@ -150,5 +145,4 @@ define([
         }
     });
 
-    return SubmissionTableComponent;
-});
+    export default SubmissionTableComponent;

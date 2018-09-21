@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Product/Components/DimensionsRow'
-], function(
-    React,
-    DimensionsRow
-) {
-    "use strict";
+import React from 'react';
+import DimensionsRow from 'Product/Components/DimensionsRow';
+    
 
     var DimensionsViewComponent = React.createClass({
         getHeaders: function() {
@@ -62,5 +57,4 @@ define([
         }
     });
 
-    return DimensionsViewComponent;
-});
+    export default DimensionsViewComponent;

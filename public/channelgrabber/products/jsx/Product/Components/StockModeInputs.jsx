@@ -1,10 +1,5 @@
-define([
-    'react',
-    'Common/Components/Select'
-], function(
-    React,
-    Select
-) {
+import React from 'react';
+import Select from 'Common/Components/Select';
     var StockModeInputsComponent = React.createClass({
         getDefaultProps: function() {
             return {
@@ -91,5 +86,5 @@ define([
         }
     });
 
-    return StockModeInputsComponent;
-});
+    export default StockModeInputsComponent;
+

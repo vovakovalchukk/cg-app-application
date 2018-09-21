@@ -1,19 +1,11 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'Common/Components/MultiSelect',
-    'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Ebay/CustomItemSpecific'
-], function(
-    React,
-    Select,
-    MultiSelect,
-    Input,
-    CustomItemSpecific
-) {
+import React from 'react';
+import Select from 'Common/Components/Select';
+import MultiSelect from 'Common/Components/MultiSelect';
+import Input from 'Common/Components/Input';
+import CustomItemSpecific from 'Product/Components/CreateListing/Form/Ebay/CustomItemSpecific';
     var addCustomItemSpecificName = "Add Custom Item Specific";
 
-    return React.createClass({
+    export default React.createClass({
         getInitialState: function() {
             return {
                 optionalItemSpecifics: [],
@@ -369,4 +361,4 @@ define([
             </span>
         }
     });
-});
+

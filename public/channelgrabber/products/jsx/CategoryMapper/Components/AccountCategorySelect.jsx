@@ -1,17 +1,9 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/RefreshIcon',
-    'Common/Components/RemoveIcon',
-    'CategoryMapper/Components/CategorySelect',
-], function(
-    React,
-    ReduxForm,
-    RefreshIcon,
-    RemoveIcon,
-    CategorySelect
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import RefreshIcon from 'Common/Components/RefreshIcon';
+import RemoveIcon from 'Common/Components/RemoveIcon';
+import CategorySelect from 'CategoryMapper/Components/CategorySelect';
+    
 
     var Field = ReduxForm.Field;
 
@@ -112,5 +104,5 @@ define([
         }
     });
 
-    return AccountCategorySelect;
-});
+    export default AccountCategorySelect;
+

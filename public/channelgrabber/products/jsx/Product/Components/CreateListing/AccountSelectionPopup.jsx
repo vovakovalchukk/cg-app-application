@@ -1,35 +1,18 @@
-define([
-    'react',
-    'react-dom',
-    'react-redux',
-    'redux-form',
-    'Common/Components/Container',
-    'Common/Components/ChannelBadge',
-    'CategoryMapper/Components/CategoryMap',
-    'CategoryMapper/Service/SubmitCategoryMapForm',
-    'Common/Components/BlockerModal',
-    'Product/Components/CreateListing/Actions/Actions',
-    'Product/Components/CreateListing/Components/AccountSelect',
-    'Product/Components/CreateListing/Components/CategoryMapSelect',
-    'Product/Components/CreateListing/Components/SiteSelect',
-    'Product/Components/CreateListing/Service/AccountSelectionFormValidator'
-], function(
-    React,
-    ReactDom,
-    ReactRedux,
-    ReduxForm,
-    Container,
-    ChannelBadgeComponent,
-    CategoryMap,
-    submitCategoryMapForm,
-    BlockerModal,
-    Actions,
-    AccountSelectComponent,
-    CategoryMapSelectComponent,
-    SiteSelectComponent,
-    accountSelectionFormValidator
-) {
-    "use strict";
+import React from 'react';
+import ReactDom from 'react-dom';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import Container from 'Common/Components/Container';
+import ChannelBadgeComponent from 'Common/Components/ChannelBadge';
+import CategoryMap from 'CategoryMapper/Components/CategoryMap';
+import submitCategoryMapForm from 'CategoryMapper/Service/SubmitCategoryMapForm';
+import BlockerModal from 'Common/Components/BlockerModal';
+import Actions from 'Product/Components/CreateListing/Actions/Actions';
+import AccountSelectComponent from 'Product/Components/CreateListing/Components/AccountSelect';
+import CategoryMapSelectComponent from 'Product/Components/CreateListing/Components/CategoryMapSelect';
+import SiteSelectComponent from 'Product/Components/CreateListing/Components/SiteSelect';
+import accountSelectionFormValidator from 'Product/Components/CreateListing/Service/AccountSelectionFormValidator';
+    
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
@@ -342,5 +325,5 @@ define([
         }
     };
 
-    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
-});
+    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
+

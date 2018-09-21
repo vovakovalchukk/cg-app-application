@@ -1,29 +1,15 @@
-define([
-    'react',
-    'Product/Components/Search',
-    'Product/Filter/Entity',
-    'Product/Components/Footer',
-    'Product/Components/ProductRow',
-    'Product/Components/ProductLinkEditor',
-    'Product/Components/CreateListing/CreateListingRoot',
-    'Product/Components/CreateProduct/CreateProductRoot',
-    'Product/Storage/Ajax',
-    'Product/Components/CreateListing/Root',
-    'Product/Components/CreateListing/ProductSearch/Root'
-], function(
-    React,
-    SearchBox,
-    ProductFilter,
-    ProductFooter,
-    ProductRow,
-    ProductLinkEditor,
-    CreateListingPopupRoot,
-    CreateProductRoot,
-    AjaxHandler,
-    CreateListingRoot,
-    ProductSearchRoot
-) {
-    "use strict";
+import React from 'react';
+import SearchBox from 'Product/Components/Search';
+import ProductFilter from 'Product/Filter/Entity';
+import ProductFooter from 'Product/Components/Footer';
+import ProductRow from 'Product/Components/ProductRow';
+import ProductLinkEditor from 'Product/Components/ProductLinkEditor';
+import CreateListingPopupRoot from 'Product/Components/CreateListing/CreateListingRoot';
+import CreateProductRoot from 'Product/Components/CreateProduct/CreateProductRoot';
+import AjaxHandler from 'Product/Storage/Ajax';
+import CreateListingRoot from 'Product/Components/CreateListing/Root';
+import ProductSearchRoot from 'Product/Components/CreateListing/ProductSearch/Root';
+    
     const INITIAL_VARIATION_COUNT = 2;
     const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
     const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
@@ -556,5 +542,4 @@ define([
         initialVariationCount: React.PropTypes.number
     };
 
-    return RootComponent;
-});
+    export default RootComponent;

@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var LoadMoreButton = React.createClass({
         getDefaultProps: function() {
@@ -38,5 +34,4 @@ define([
         }
     });
 
-    return LoadMoreButton;
-});
+    export default LoadMoreButton;

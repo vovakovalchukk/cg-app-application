@@ -1,15 +1,8 @@
-define([
-    'react',
-    'redux-form',
-    './ChannelForm/Ebay',
-    './ChannelForm/Amazon'
-], function(
-    React,
-    ReduxForm,
-    EbayForm,
-    AmazonForm
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import EbayForm from './ChannelForm/Ebay';
+import AmazonForm from './ChannelForm/Amazon';
+    
 
     const channelToFormMap = {
         'ebay': EbayForm,
@@ -75,5 +68,4 @@ define([
             );
         }
     });
-    return ChannelFormsComponent;
-});
+    export default ChannelFormsComponent;

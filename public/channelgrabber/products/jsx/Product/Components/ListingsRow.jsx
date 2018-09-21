@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var ListingsRowComponent = React.createClass({
         getDefaultProps: function() {
@@ -44,5 +40,5 @@ define([
         }
     });
 
-    return ListingsRowComponent;
-});
+    export default ListingsRowComponent;
+

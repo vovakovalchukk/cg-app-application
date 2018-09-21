@@ -1,13 +1,7 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/ChannelBadge',
-], function(
-    React,
-    ReduxForm,
-    ChannelBadgeComponent
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import ChannelBadgeComponent from 'Common/Components/ChannelBadge';
+    
 
     var Field = ReduxForm.Field;
 
@@ -106,5 +100,4 @@ define([
         }
     });
 
-    return AccountSelectComponent;
-});
+    export default AccountSelectComponent;

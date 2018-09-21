@@ -1,39 +1,20 @@
-define([
-    'react',
-    'thenBy',
-    'Product/Components/Checkbox',
-    'Product/Components/Status',
-    'Product/Components/VariationView',
-    'Common/Components/Button',
-    'Common/Components/Select',
-    'Common/Components/SafeInput',
-    'Common/Components/EditableFieldWithSubmit',
-    'Product/Components/SimpleTabs/Tabs',
-    'Product/Components/SimpleTabs/Pane',
-    'Product/Components/DimensionsView',
-    'Product/Components/StockView',
-    'Product/Components/VatView',
-    'Product/Components/ListingsView',
-    'Product/Components/CreateListingIcon'
-], function(
-    React,
-    ThenBySort,
-    Checkbox,
-    Status,
-    VariationView,
-    Button,
-    Select,
-    Input,
-    EditableFieldWithSubmit,
-    Tabs,
-    Pane,
-    DimensionsView,
-    StockView,
-    VatView,
-    ListingsView,
-    CreateListingIcon
-) {
-    "use strict";
+import React from 'react';
+import ThenBySort from 'thenBy';
+import Checkbox from 'Product/Components/Checkbox';
+import Status from 'Product/Components/Status';
+import VariationView from 'Product/Components/VariationView';
+import Button from 'Common/Components/Button';
+import Select from 'Common/Components/Select';
+import Input from 'Common/Components/SafeInput';
+import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
+import Tabs from 'Product/Components/SimpleTabs/Tabs';
+import Pane from 'Product/Components/SimpleTabs/Pane';
+import DimensionsView from 'Product/Components/DimensionsView';
+import StockView from 'Product/Components/StockView';
+import VatView from 'Product/Components/VatView';
+import ListingsView from 'Product/Components/ListingsView';
+import CreateListingIcon from 'Product/Components/CreateListingIcon';
+    
 
     var ProductRowComponent = React.createClass({
         getDefaultProps: function () {
@@ -478,5 +459,5 @@ define([
         initialVariationCount: React.PropTypes.number
     };
 
-    return ProductRowComponent;
-});
+    export default ProductRowComponent;
+

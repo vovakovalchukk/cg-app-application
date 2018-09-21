@@ -1,11 +1,6 @@
-define([
-    'react',
-    'react-tether'
-], function(
-    React,
-    TetherComponent
-) {
-    "use strict";
+import React from 'react';
+import TetherComponent from 'react-tether';
+    
 
     var ImageComponent = React.createClass({
         getInitialState: function() {
@@ -45,5 +40,4 @@ define([
         }
     });
 
-    return ImageComponent;
-});
+    export default ImageComponent;

@@ -1,19 +1,10 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'PurchaseOrders/Components/List',
-    'PurchaseOrders/Containers/Editor',
-    'Common/Components/Button',
-    'Common/Components/Popup'
-], function(
-    React,
-    Select,
-    PurchaseOrdersList,
-    PurchaseOrdersEditor,
-    Button,
-    PopupComponent
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+import PurchaseOrdersList from 'PurchaseOrders/Components/List';
+import PurchaseOrdersEditor from 'PurchaseOrders/Containers/Editor';
+import Button from 'Common/Components/Button';
+import PopupComponent from 'Common/Components/Popup';
+    
 
     const FILTER_OPTIONS = [
         {
@@ -60,5 +51,4 @@ define([
         }
     });
 
-    return RootComponent;
-});
+    export default RootComponent;

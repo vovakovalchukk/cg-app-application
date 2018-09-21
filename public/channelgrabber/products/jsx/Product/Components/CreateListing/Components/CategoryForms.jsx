@@ -1,21 +1,11 @@
-define([
-    'react',
-    'redux-form',
-    'react-redux',
-    './CategoryForm',
-    './CategoryForm/Ebay',
-    '../Actions/CreateListings/Actions',
-    './CategoryForm/Amazon'
-], function(
-    React,
-    ReduxForm,
-    ReactRedux,
-    CategoryForm,
-    EbayForm,
-    Actions,
-    AmazonForm
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import ReactRedux from 'react-redux';
+import CategoryForm from './CategoryForm';
+import EbayForm from './CategoryForm/Ebay';
+import Actions from '../Actions/CreateListings/Actions';
+import AmazonForm from './CategoryForm/Amazon';
+    
 
     const channelToFormMap = {
         'ebay': EbayForm,
@@ -116,5 +106,4 @@ define([
         };
     };
 
-    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);
-});
+    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);

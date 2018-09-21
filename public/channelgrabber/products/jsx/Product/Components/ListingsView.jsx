@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Product/Components/ListingsRow'
-], function(
-    React,
-    ListingsRow
-) {
-    "use strict";
+import React from 'react';
+import ListingsRow from 'Product/Components/ListingsRow';
+    
 
     const listingColumnWidth = 100;// pixels
 
@@ -45,5 +40,5 @@ define([
         }
     });
 
-    return ListingsViewComponent;
-});
+    export default ListingsViewComponent;
+

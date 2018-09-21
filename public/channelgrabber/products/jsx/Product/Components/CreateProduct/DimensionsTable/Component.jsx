@@ -1,16 +1,8 @@
-define([
-    'react',
-    'redux-form',
-    'Product/Components/CreateProduct/functions/utility',
-    'Common/Components/ImageDropDown',
-    'Common/Components/Select'
-], function(
-    React,
-    reduxForm,
-    utility,
-    ImageDropDown,
-    Select
-) {
+import React from 'react';
+import reduxForm from 'redux-form';
+import utility from 'Product/Components/CreateProduct/functions/utility';
+import ImageDropDown from 'Common/Components/ImageDropDown';
+import Select from 'Common/Components/Select';
     var Field = reduxForm.Field;
     var FormSection = reduxForm.FormSection;
 
@@ -250,7 +242,7 @@ define([
         }
     });
 
-    return DimensionsTableComponent;
+    export default DimensionsTableComponent;
 
     function orderFields(fields) {
         var sortedFields = sortCustomAttributesToBeAfterSKUField(fields);
@@ -273,4 +265,4 @@ define([
         Array.prototype.splice.apply(array1, [position, 0].concat(array2));
         return array1
     }
-});
+

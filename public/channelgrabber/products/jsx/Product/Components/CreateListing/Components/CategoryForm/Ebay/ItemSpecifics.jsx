@@ -1,19 +1,10 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Select',
-    'Common/Components/MultiSelect',
-    'Common/Components/Input',
-    '../../../Validators'
-], function(
-    React,
-    ReduxForm,
-    Select,
-    MultiSelect,
-    Input,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Select from 'Common/Components/Select';
+import MultiSelect from 'Common/Components/MultiSelect';
+import Input from 'Common/Components/Input';
+import Validators from '../../../Validators';
+    
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
@@ -23,7 +14,7 @@ define([
     const TYPE_TEXT_SELECT = "textselect";
     const TYPE_CUSTOM = "custom";
 
-    return React.createClass({
+    export default React.createClass({
         getInitialState: function() {
             return {
                 selectOptions: {},
@@ -462,4 +453,4 @@ define([
             </span>
         }
     });
-});
+

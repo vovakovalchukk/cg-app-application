@@ -1,5 +1,5 @@
-define([], function() {
-    "use strict";
+
+    
     var stateFilters = {
         filterFields: function(tableIdToFilterFor, variationsTable) {
             var fieldsToAllow = variationsTable.tablesFields.filter(function(tableField) {
@@ -67,5 +67,4 @@ define([], function() {
         }
     };
 
-    return stateFilters;
-});
+    export default stateFilters;

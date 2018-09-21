@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var StatusComponent = React.createClass({
         productStatusDecider: function() {
@@ -68,5 +64,5 @@ define([
         }
     });
 
-    return StatusComponent;
-});
+    export default StatusComponent;
+

@@ -1,11 +1,6 @@
-define([
-    'react',
-    'EmailDesigner/Components/Inspectors/Base'
-], function(
-    React,
-    BaseInspector
-) {
-    "use strict";
+import React from 'react';
+import BaseInspector from 'EmailDesigner/Components/Inspectors/Base';
+    
 
     var DeleteComponent = React.createClass({
         render: function() {
@@ -22,5 +17,4 @@ define([
         }
     });
 
-    return DeleteComponent;
-});
+    export default DeleteComponent;

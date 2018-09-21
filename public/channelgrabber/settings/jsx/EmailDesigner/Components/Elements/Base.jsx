@@ -1,13 +1,7 @@
-define([
-    'react',
-    'Common/Common/Components/ClickOutside',
-    'Common/Common/Components/Resizable'
-], function(
-    React,
-    ClickOutside,
-    Resizable
-) {
-    "use strict";
+import React from 'react';
+import ClickOutside from 'Common/Common/Components/ClickOutside';
+import Resizable from 'Common/Common/Components/Resizable';
+    
 
     var BaseComponent = React.createClass({
         getDefaultProps: function () {
@@ -82,5 +76,4 @@ define([
         onElementSelected: React.PropTypes.func.isRequired
     };
 
-    return BaseComponent;
-});
+    export default BaseComponent;

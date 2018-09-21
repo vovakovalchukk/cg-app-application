@@ -1,11 +1,6 @@
-define([
-    'react',
-    'EmailDesigner/Components/Elements/Base'
-], function(
-    React,
-    BaseElement
-) {
-    "use strict";
+import React from 'react';
+import BaseElement from 'EmailDesigner/Components/Elements/Base';
+    
 
     var TextComponent = React.createClass({
         getDefaultProps: function() {
@@ -29,5 +24,4 @@ define([
         }
     });
 
-    return TextComponent;
-});
+    export default TextComponent;

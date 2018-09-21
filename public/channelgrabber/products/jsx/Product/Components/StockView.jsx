@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Product/Components/StockRow'
-], function(
-    React,
-    StockRow
-) {
-    "use strict";
+import React from 'react';
+import StockRow from 'Product/Components/StockRow';
+    
 
     var StockViewComponent = React.createClass({
         getHeaders: function() {
@@ -88,5 +83,5 @@ define([
         }
     });
 
-    return StockViewComponent;
-});
+    export default StockViewComponent;
+

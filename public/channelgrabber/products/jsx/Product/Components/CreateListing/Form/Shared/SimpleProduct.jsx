@@ -1,15 +1,8 @@
-define([
-    'react',
-    'Product/Components/Checkbox',
-    'Common/Components/CurrencyInput',
-    'Common/Components/ImagePicker'
-], function(
-    React,
-    Checkbox,
-    CurrencyInput,
-    ImagePicker
-) {
-    "use strict";
+import React from 'react';
+import Checkbox from 'Product/Components/Checkbox';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import ImagePicker from 'Common/Components/ImagePicker';
+    
 
     var SimpleProduct = React.createClass({
         getDefaultProps: function() {
@@ -108,5 +101,5 @@ define([
         }
     });
 
-    return SimpleProduct;
-});
+    export default SimpleProduct;
+

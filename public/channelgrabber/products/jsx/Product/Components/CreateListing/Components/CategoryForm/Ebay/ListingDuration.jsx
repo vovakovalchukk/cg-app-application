@@ -1,15 +1,8 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Select',
-    '../../../Validators'
-], function(
-    React,
-    ReduxForm,
-    Select,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Select from 'Common/Components/Select';
+import Validators from '../../../Validators';
+    
 
     var Field = ReduxForm.Field;
 
@@ -64,5 +57,4 @@ define([
             return <Field name="listingDuration" component={this.renderSelect} validate={Validators.required} />;
         }
     });
-    return EbayListingDuration;
-});
+    export default EbayListingDuration;

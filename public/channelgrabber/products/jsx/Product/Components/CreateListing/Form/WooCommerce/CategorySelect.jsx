@@ -1,13 +1,7 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'Common/Components/RefreshIcon'
-], function(
-    React,
-    Select,
-    RefreshIcon
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+import RefreshIcon from 'Common/Components/RefreshIcon';
+    
 
     var CategorySelectComponent = React.createClass({
         getInitialState: function() {
@@ -106,6 +100,5 @@ define([
         }
     });
 
-    return CategorySelectComponent;
+    export default CategorySelectComponent;
 
-});

@@ -1,20 +1,10 @@
-define([
-    'react',
-    'redux',
-    'react-redux',
-    'redux-form',
-    'Common/Components/Container',
-    'Common/Components/Input',
-    './Actions/Actions'
-], function(
-    React,
-    Redux,
-    ReactRedux,
-    ReduxForm,
-    Container,
-    Input,
-    Actions
-) {
+import React from 'react';
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import Container from 'Common/Components/Container';
+import Input from 'Common/Components/Input';
+import Actions from './Actions/Actions';
     const Field = ReduxForm.Field;
     const Selector = ReduxForm.formValueSelector('productSearch');
 
@@ -248,5 +238,5 @@ define([
 
     ProductSearchComponent = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductSearchComponent);
 
-    return ProductSearchComponent;
-});
+    export default ProductSearchComponent;
+

@@ -1,15 +1,8 @@
-define([
-    'react',
-    'Common/Components/ItemRow',
-    'Common/Components/SearchBox',
-    'Common/Components/CurrencyInput'
-], function(
-    React,
-    ItemRow,
-    SearchBox,
-    CurrencyInput
-) {
-    "use strict";
+import React from 'react';
+import ItemRow from 'Common/Components/ItemRow';
+import SearchBox from 'Common/Components/SearchBox';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+    
     var OrderTable = React.createClass({
         getInitialState: function () {
             return {
@@ -228,5 +221,4 @@ define([
         carrierUtils: React.PropTypes.object
     };
 
-    return OrderTable;
-});
+    export default OrderTable;

@@ -1,15 +1,8 @@
-define([
-    'react',
-    'react-tether',
-    'Product/Utils/CreateListingUtils',
-    'Product/Components/Tooltip'
-], function(
-    React,
-    TetherComponent,
-    CreateListingUtils,
-    Tooltip
-) {
-    "use strict";
+import React from 'react';
+import TetherComponent from 'react-tether';
+import CreateListingUtils from 'Product/Utils/CreateListingUtils';
+import Tooltip from 'Product/Components/Tooltip';
+    
 
     var CreateListingIconComponent = React.createClass({
         getDefaultProps: function() {
@@ -73,5 +66,4 @@ define([
         }
     });
 
-    return CreateListingIconComponent;
-});
+    export default CreateListingIconComponent;

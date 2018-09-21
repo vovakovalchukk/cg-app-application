@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var CheckboxComponent = React.createClass({
         getDefaultProps: function() {
@@ -35,5 +31,4 @@ define([
         }
     });
 
-    return CheckboxComponent;
-});
+    export default CheckboxComponent;

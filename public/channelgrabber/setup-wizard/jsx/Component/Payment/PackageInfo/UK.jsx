@@ -1,5 +1,6 @@
-define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React, BillingPeriod) {
-    "use strict";
+import React from 'react';
+import BillingPeriod from 'SetupWizard/Component/Payment/BillingPeriod';
+    
 
     var PackageInfoComponent = React.createClass({
         getDefaultProps: function() {
@@ -55,5 +56,4 @@ define(['react', 'SetupWizard/Component/Payment/BillingPeriod'], function(React,
         }
     });
 
-    return PackageInfoComponent;
-});
+    export default PackageInfoComponent;

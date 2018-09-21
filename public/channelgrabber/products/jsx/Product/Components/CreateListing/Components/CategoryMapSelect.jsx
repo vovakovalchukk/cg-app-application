@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/MultiSelect',
-], function (
-    React,
-    MultiSelect
-) {
-    "use strict";
+import React from 'react';
+import MultiSelect from 'Common/Components/MultiSelect';
+    
 
     var CategoryMapSelectComponent = React.createClass({
         getDefaultProps: function() {
@@ -75,5 +70,5 @@ define([
         }
     });
 
-    return CategoryMapSelectComponent;
-});
+    export default CategoryMapSelectComponent;
+

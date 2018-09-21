@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/SafeInput'
-], function(
-    React,
-    Input
-) {
-    "use strict";
+import React from 'react';
+import Input from 'Common/Components/SafeInput';
+    
 
     var DimensionsRowComponent = React.createClass({
         getValues: function(variation) {
@@ -68,5 +63,4 @@ define([
         }
     });
 
-    return DimensionsRowComponent;
-});
+    export default DimensionsRowComponent;

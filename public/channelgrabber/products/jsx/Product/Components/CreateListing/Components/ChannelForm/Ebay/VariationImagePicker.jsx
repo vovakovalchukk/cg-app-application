@@ -1,19 +1,10 @@
-define([
-    'react',
-    'react-redux',
-    'redux-form',
-    'Common/Components/Select',
-    'Common/Components/ImagePicker',
-    '../../../Validators'
-], function(
-    React,
-    ReactRedux,
-    ReduxForm,
-    Select,
-    ImagePicker,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import Select from 'Common/Components/Select';
+import ImagePicker from 'Common/Components/ImagePicker';
+import Validators from '../../../Validators';
+    
 
     var Field = ReduxForm.Field;
 
@@ -153,5 +144,5 @@ define([
         };
     };
 
-    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(VariationImagePicker);
-});
+    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(VariationImagePicker);
+

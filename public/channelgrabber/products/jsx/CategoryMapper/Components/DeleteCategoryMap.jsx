@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/Popup'
-], function(
-    React,
-    Popup
-) {
-    "use strict";
+import React from 'react';
+import Popup from 'Common/Components/Popup';
+    
 
     var DeleteCategoryMapComponent = React.createClass({
         getInitialState: function(){
@@ -54,5 +49,4 @@ define([
         }
     });
 
-    return DeleteCategoryMapComponent;
-});
+    export default DeleteCategoryMapComponent;

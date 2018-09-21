@@ -1,11 +1,7 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
-    return React.createClass({
+    export default React.createClass({
         filterPurchaseOrders: function (purchaseOrder) {
             if (this.props.filterStatus === 'All') {
                 return purchaseOrder;
@@ -50,4 +46,3 @@ define([
             );
         }
     });
-});

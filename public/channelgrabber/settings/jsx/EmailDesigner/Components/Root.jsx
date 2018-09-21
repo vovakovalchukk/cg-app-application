@@ -1,19 +1,10 @@
-define([
-    'react',
-    'EmailDesigner/Components/ControlBar',
-    'EmailDesigner/Components/TemplateView',
-    'EmailDesigner/Components/ElementInspector',
-    'EmailDesigner/Components/ElementList',
-    'Common/PubSub'
-], function(
-    React,
-    ControlBar,
-    TemplateView,
-    ElementInspector,
-    ElementList,
-    PubSub
-) {
-    "use strict";
+import React from 'react';
+import ControlBar from 'EmailDesigner/Components/ControlBar';
+import TemplateView from 'EmailDesigner/Components/TemplateView';
+import ElementInspector from 'EmailDesigner/Components/ElementInspector';
+import ElementList from 'EmailDesigner/Components/ElementList';
+import PubSub from 'Common/PubSub';
+    
 
     var RootComponent = React.createClass({
         getInitialState: function() {
@@ -82,5 +73,4 @@ define([
         }
     });
 
-    return RootComponent;
-});
+    export default RootComponent;

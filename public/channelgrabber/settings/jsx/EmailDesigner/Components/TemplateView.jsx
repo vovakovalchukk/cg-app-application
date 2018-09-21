@@ -1,13 +1,7 @@
-define([
-    'react',
-    'EmailDesigner/Components/ElementList',
-    'Common/PubSub'
-], function(
-    React,
-    ElementList,
-    PubSub
-) {
-    "use strict";
+import React from 'react';
+import ElementList from 'EmailDesigner/Components/ElementList';
+import PubSub from 'Common/PubSub';
+    
 
     var TemplateViewComponent = React.createClass({
         componentDidMount: function() {
@@ -38,5 +32,4 @@ define([
         }
     });
 
-    return TemplateViewComponent;
-});
+    export default TemplateViewComponent;

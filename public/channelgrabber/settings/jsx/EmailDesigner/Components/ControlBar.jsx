@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/PubSub'
-], function(
-    React,
-    PubSub
-) {
-    "use strict";
+import React from 'react';
+import PubSub from 'Common/PubSub';
+    
 
     var ControlBarComponent = React.createClass({
         getDefaultProps: function () {
@@ -48,5 +43,4 @@ define([
         }
     });
 
-    return ControlBarComponent;
-});
+    export default ControlBarComponent;

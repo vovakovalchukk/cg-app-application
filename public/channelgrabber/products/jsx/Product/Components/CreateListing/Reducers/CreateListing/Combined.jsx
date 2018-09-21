@@ -1,17 +1,9 @@
-define([
-    'redux',
-    'redux-form',
-    './InitialValues',
-    './SubmissionStatusesReducer',
-    './AccountSpecificData'
-], function(
-    Redux,
-    ReduxForm,
-    InitialValuesReducer,
-    SubmissionStatusesReducer,
-    AccountsReducer
-) {
-    "use strict";
+import Redux from 'redux';
+import ReduxForm from 'redux-form';
+import InitialValuesReducer from './InitialValues';
+import SubmissionStatusesReducer from './SubmissionStatusesReducer';
+import AccountsReducer from './AccountSpecificData';
+    
 
     var CombinedReducer = Redux.combineReducers({
         accountsData: AccountsReducer,
@@ -20,5 +12,5 @@ define([
         submissionStatuses: SubmissionStatusesReducer
     });
 
-    return CombinedReducer;
-});
+    export default CombinedReducer;
+

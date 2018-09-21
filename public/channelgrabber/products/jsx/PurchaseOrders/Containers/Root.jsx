@@ -1,11 +1,6 @@
-define([
-    'react',
-    'PurchaseOrders/Components/Root'
-], function(
-    React,
-    RootComponent
-) {
-    "use strict";
+import React from 'react';
+import RootComponent from 'PurchaseOrders/Components/Root';
+    
 
     var RootContainer = React.createClass({
         getInitialState: function () {
@@ -73,5 +68,4 @@ define([
         imageUtils: React.PropTypes.object
     };
 
-    return RootContainer;
-});
+    export default RootContainer;

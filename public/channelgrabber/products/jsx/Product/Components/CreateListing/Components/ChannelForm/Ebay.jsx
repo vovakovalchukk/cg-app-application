@@ -1,21 +1,11 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Input',
-    'Common/Components/CurrencyInput',
-    './Ebay/ShippingService',
-    './Ebay/VariationImagePicker',
-    '../../Validators'
-], function(
-    React,
-    ReduxForm,
-    Input,
-    CurrencyInput,
-    ShippingService,
-    VariationImagePicker,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Input from 'Common/Components/Input';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import ShippingService from './Ebay/ShippingService';
+import VariationImagePicker from './Ebay/VariationImagePicker';
+import Validators from '../../Validators';
+    
 
     var Field = ReduxForm.Field;
 
@@ -90,5 +80,4 @@ define([
             );
         }
     });
-    return EbayChannelFormComponent;
-});
+    export default EbayChannelFormComponent;

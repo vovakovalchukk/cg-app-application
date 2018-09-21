@@ -1,15 +1,8 @@
-define([
-    'react',
-    'react-tether',
-    'Common/Components/ClickOutside',
-    'Common/Components/ImagePicker'
-], function(
-    React,
-    TetherComponent,
-    ClickOutside,
-    ImagePicker
-) {
-    "use strict";
+import React from 'react';
+import TetherComponent from 'react-tether';
+import ClickOutside from 'Common/Components/ClickOutside';
+import ImagePicker from 'Common/Components/ImagePicker';
+    
 
     var ImageDropDownComponent = React.createClass({
         getDefaultProps: function() {
@@ -89,5 +82,5 @@ define([
         }
     });
 
-    return ImageDropDownComponent;
-});
+    export default ImageDropDownComponent;
+

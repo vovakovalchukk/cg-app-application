@@ -1,13 +1,7 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/TextArea'
-], function(
-    React,
-    ReduxForm,
-    TextArea
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import TextArea from 'Common/Components/TextArea';
+    
 
     var Field = ReduxForm.Field;
 
@@ -31,5 +25,4 @@ define([
             );
         }
     });
-    return AmazonChannelFormComponent;
-});
+    export default AmazonChannelFormComponent;

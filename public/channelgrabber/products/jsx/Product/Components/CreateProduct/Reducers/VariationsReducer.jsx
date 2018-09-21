@@ -1,11 +1,6 @@
-define([
-    'Common/Reducers/creator',
-    'Product/Components/CreateProduct/functions/stateFilters'
-], function(
-    reducerCreator,
-    stateFilters
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+    
     var initialState = {
         variations: [
             {id: 0}
@@ -222,5 +217,4 @@ define([
         }
     });
 
-    return VariationsTableReducer;
-});
+    export default VariationsTableReducer;

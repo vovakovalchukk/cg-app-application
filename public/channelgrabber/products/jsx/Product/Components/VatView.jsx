@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var VatViewComponent = React.createClass({
         getInitialState: function() {
@@ -142,5 +138,4 @@ define([
         }
     });
 
-    return VatViewComponent;
-});
+    export default VatViewComponent;

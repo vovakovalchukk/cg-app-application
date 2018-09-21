@@ -1,19 +1,10 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Input',
-    'Common/Components/Checkbox',
-    'Product/Components/CreateListing/Form/Shared/ImageDropDown',
-    './VariationTable'
-], function(
-    React,
-    ReduxForm,
-    Input,
-    Checkbox,
-    ImageDropDown,
-    VariationTable
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Input from 'Common/Components/Input';
+import Checkbox from 'Common/Components/Checkbox';
+import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
+import VariationTable from './VariationTable';
+    
 
     var Field = ReduxForm.Field;
 
@@ -163,5 +154,5 @@ define([
         }
     });
 
-    return ProductIdentifiers;
-});
+    export default ProductIdentifiers;
+

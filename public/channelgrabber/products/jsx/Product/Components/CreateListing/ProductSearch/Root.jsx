@@ -1,19 +1,10 @@
-define([
-    'react',
-    'redux',
-    'react-redux',
-    'redux-thunk',
-    './Reducers/Combined',
-    './Component'
-], function(
-    React,
-    Redux,
-    ReactRedux,
-    thunk,
-    CombinedReducer,
-    ProductSearchComponent
-) {
-    "use strict";
+import React from 'react';
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import thunk from 'redux-thunk';
+import CombinedReducer from './Reducers/Combined';
+import ProductSearchComponent from './Component';
+    
 
     const Provider = ReactRedux.Provider;
 
@@ -47,5 +38,5 @@ define([
         }
     });
 
-    return ProductSearchRoot;
-});
+    export default ProductSearchRoot;
+

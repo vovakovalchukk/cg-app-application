@@ -1,13 +1,7 @@
-define([
-    'react',
-    'CategoryMapper/Components/CategoryMaps',
-    'CategoryMapper/Service/SubmitCategoryMapForm'
-], function(
-    React,
-    CategoryMaps,
-    submitCategoryMapForm
-) {
-    "use strict";
+import React from 'react';
+import CategoryMaps from 'CategoryMapper/Components/CategoryMaps';
+import submitCategoryMapForm from 'CategoryMapper/Service/SubmitCategoryMapForm';
+    
 
     var RootComponent = React.createClass({
         render: function()
@@ -20,5 +14,4 @@ define([
         }
     });
 
-    return RootComponent;
-});
+    export default RootComponent;

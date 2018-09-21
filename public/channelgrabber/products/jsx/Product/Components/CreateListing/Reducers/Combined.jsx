@@ -1,23 +1,12 @@
-define([
-    'redux',
-    'redux-form',
-    'CategoryMapper/Reducers/CategoryMaps',
-    'CategoryMapper/Reducers/Categories',
-    'Product/Components/CreateListing/Reducers/Accounts',
-    'Product/Components/CreateListing/Reducers/AddNewCategoryVisible',
-    'Product/Components/CreateListing/Reducers/CategoryTemplateOptions',
-    'Product/Components/CreateListing/Reducers/AccountSettingsReducer',
-], function(
-    Redux,
-    ReduxForm,
-    CategoryMapsReducer,
-    CategoriesReducer,
-    AccountsReducer,
-    AddNewCategoryVisibleReducer,
-    CategoryTemplateOptionsReducer,
-    AccountSettingsReducer
-) {
-    "use strict";
+import Redux from 'redux';
+import ReduxForm from 'redux-form';
+import CategoryMapsReducer from 'CategoryMapper/Reducers/CategoryMaps';
+import CategoriesReducer from 'CategoryMapper/Reducers/Categories';
+import AccountsReducer from 'Product/Components/CreateListing/Reducers/Accounts';
+import AddNewCategoryVisibleReducer from 'Product/Components/CreateListing/Reducers/AddNewCategoryVisible';
+import CategoryTemplateOptionsReducer from 'Product/Components/CreateListing/Reducers/CategoryTemplateOptions';
+import AccountSettingsReducer from 'Product/Components/CreateListing/Reducers/AccountSettingsReducer';
+    
 
     var CombinedReducer = Redux.combineReducers({
         initialValues: function (state) {
@@ -32,5 +21,5 @@ define([
         accountSettings: AccountSettingsReducer
     });
 
-    return CombinedReducer;
-});
+    export default CombinedReducer;
+

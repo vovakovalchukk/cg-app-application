@@ -1,25 +1,13 @@
-define([
-    'react',
-    'redux',
-    'react-dom',
-    'react-redux',
-    'redux-form',
-    'redux-thunk',
-    'Common/Components/Container',
-    'Product/Components/CreateListing/Reducers/CreateListing/Combined',
-    'Product/Components/CreateListing/CreateListingPopup'
-], function(
-    React,
-    Redux,
-    ReactDom,
-    ReactRedux,
-    ReduxForm,
-    thunk,
-    Container,
-    CombinedReducer,
-    CreateListingPopup
-) {
-    "use strict";
+import React from 'react';
+import Redux from 'redux';
+import ReactDom from 'react-dom';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import thunk from 'redux-thunk';
+import Container from 'Common/Components/Container';
+import CombinedReducer from 'Product/Components/CreateListing/Reducers/CreateListing/Combined';
+import CreateListingPopup from 'Product/Components/CreateListing/CreateListingPopup';
+    
     var Provider = ReactRedux.Provider;
 
     var enhancer = Redux.applyMiddleware(thunk.default);
@@ -58,5 +46,5 @@ define([
         }
     });
 
-    return CreateListingRoot;
-});
+    export default CreateListingRoot;
+

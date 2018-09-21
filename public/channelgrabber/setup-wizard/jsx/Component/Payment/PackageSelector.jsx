@@ -1,5 +1,6 @@
-define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
-    "use strict";
+import React from 'react';
+import SelectComponent from 'Common/Components/Select';
+    
 
     var PackageSelectorComponent = React.createClass({
         getDefaultProps: function() {
@@ -114,5 +115,4 @@ define(['react', 'Common/Components/Select'], function(React, SelectComponent) {
         }
     });
 
-    return PackageSelectorComponent;
-});
+    export default PackageSelectorComponent;

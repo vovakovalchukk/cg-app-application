@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var TemplateComponent = React.createClass({
         generateLinkElements: function() {
@@ -52,5 +48,4 @@ define([
         }
     });
 
-    return TemplateComponent;
-});
+    export default TemplateComponent;

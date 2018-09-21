@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/Select',
-], function(
-    React,
-    Select
-) {
-   "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+   
 
     var SiteSelectComponent = React.createClass({
         getDefaultProps: function () {
@@ -51,5 +46,4 @@ define([
         }
     });
 
-    return SiteSelectComponent;
-});
+    export default SiteSelectComponent;

@@ -1,19 +1,11 @@
-define([
-    'react',
-    'Common/Components/EditableFieldWithSubmit',
-    'Common/Components/Button',
-    'Common/Components/ProductDropdown/Dropdown',
-    'Common/Components/ItemRow'
-], function(
-    React,
-    EditableFieldWithSubmit,
-    Button,
-    ProductDropdown,
-    ItemRow
-) {
-    "use strict";
+import React from 'react';
+import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
+import Button from 'Common/Components/Button';
+import ProductDropdown from 'Common/Components/ProductDropdown/Dropdown';
+import ItemRow from 'Common/Components/ItemRow';
+    
 
-    return React.createClass({
+    export default React.createClass({
         render: function()
         {
             return (
@@ -44,4 +36,3 @@ define([
             );
         }
     });
-});

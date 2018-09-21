@@ -1,11 +1,7 @@
-define([
-    './ResponseActions'
-], function(
-    ResponseActions
-) {
-    "use strict";
+import ResponseActions from './ResponseActions';
+    
 
-    return {
+    export default {
         fetchSearchResults: function(accountId, query, dispatch) {
             $.ajax({
                 context: this,
@@ -28,4 +24,4 @@ define([
             };
         }
     };
-});
+

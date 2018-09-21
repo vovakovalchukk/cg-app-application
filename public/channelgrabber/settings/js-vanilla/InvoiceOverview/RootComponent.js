@@ -1,11 +1,6 @@
-define([
-    'react',
-    'InvoiceOverview/SectionComponent'
-], function(
-    React,
-    SectionComponent
-) {
-    "use strict";
+import React from 'react';
+import SectionComponent from 'InvoiceOverview/SectionComponent';
+    
 
     var RootComponent = React.createClass({
         render: function render() {
@@ -31,5 +26,4 @@ define([
         }
     });
 
-    return RootComponent;
-});
+    export default RootComponent;

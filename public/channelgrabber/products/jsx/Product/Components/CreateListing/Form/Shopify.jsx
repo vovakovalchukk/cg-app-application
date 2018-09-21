@@ -1,27 +1,14 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'Common/Components/CurrencyInput',
-    'Common/Components/Input',
-    'Common/Components/Button',
-    'Common/Components/ImagePicker',
-    'Common/Components/RefreshIcon',
-    'Product/Components/CreateListing/Form/Shopify/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/VariationPicker',
-    'Product/Components/CreateListing/Form/Shared/SimpleProduct'
-], function(
-    React,
-    Select,
-    CurrencyInput,
-    Input,
-    Button,
-    ImagePicker,
-    RefreshIcon,
-    CategorySelect,
-    VariationPicker,
-    SimpleProduct
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import Input from 'Common/Components/Input';
+import Button from 'Common/Components/Button';
+import ImagePicker from 'Common/Components/ImagePicker';
+import RefreshIcon from 'Common/Components/RefreshIcon';
+import CategorySelect from 'Product/Components/CreateListing/Form/Shopify/CategorySelect';
+import VariationPicker from 'Product/Components/CreateListing/Form/Shared/VariationPicker';
+import SimpleProduct from 'Product/Components/CreateListing/Form/Shared/SimpleProduct';
+    
 
     var Shopify = React.createClass({
         getDefaultProps: function() {
@@ -167,5 +154,4 @@ define([
         }
     });
 
-    return Shopify;
-});
+    export default Shopify;

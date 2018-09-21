@@ -1,19 +1,10 @@
-define([
-    'redux',
-    'react-redux',
-    'redux-form',
-    'Product/Components/CreateProduct/functions/stateFilters',
-    './Component',
-    './ActionCreators'
-], function(
-    Redux,
-    ReactRedux,
-    ReduxForm,
-    stateFilters,
-    Component,
-    ActionCreators
-) {
-    "use strict";
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+import Component from './Component';
+import ActionCreators from './ActionCreators';
+    
     const mapStateToProps = function(state, ownProps) {
         var filteredState = stateFilters.filterFields(2, state.variationsTable);
         return {
@@ -29,5 +20,4 @@ define([
         return Redux.bindActionCreators(ActionCreators, dispatch);
     };
     var Connector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-    return Connector(Component);
-});
+    export default Connector(Component);

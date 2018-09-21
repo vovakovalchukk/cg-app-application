@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/Input'
-], function(
-    React,
-    Input
-) {
-    return React.createClass({
+import React from 'react';
+import Input from 'Common/Components/Input';
+    export default React.createClass({
         getCustomInputName: function(index) {
             return 'CustomInputName' + index;
         },
@@ -55,4 +50,4 @@ define([
             </label>;
         }
     });
-});
+

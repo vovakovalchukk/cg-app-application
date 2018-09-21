@@ -1,15 +1,8 @@
-define([
-    'react',
-    'Common/Components/ProductDropdown/Dropdown',
-    'ManualOrder/Components/OrderTable',
-    'Common/Components/Select'
-], function(
-    React,
-    ProductDropdown,
-    OrderTable,
-    Select
-) {
-    "use strict";
+import React from 'react';
+import ProductDropdown from 'Common/Components/ProductDropdown/Dropdown';
+import OrderTable from 'ManualOrder/Components/OrderTable';
+import Select from 'Common/Components/Select';
+    
 
     var RootComponent = React.createClass({
         getInitialState: function () {
@@ -60,5 +53,4 @@ define([
         imageUtils: React.PropTypes.object
     };
 
-    return RootComponent;
-});
+    export default RootComponent;

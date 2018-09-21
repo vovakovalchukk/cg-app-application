@@ -1,23 +1,12 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'Common/Components/CurrencyInput',
-    'Common/Components/Input',
-    'Product/Components/CreateListing/Form/WooCommerce/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/VariationPicker',
-    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
-    'Common/Components/ImagePicker',
-], function(
-    React,
-    Select,
-    CurrencyInput,
-    Input,
-    CategorySelect,
-    VariationPicker,
-    SimpleProduct,
-    ImagePicker
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import Input from 'Common/Components/Input';
+import CategorySelect from 'Product/Components/CreateListing/Form/WooCommerce/CategorySelect';
+import VariationPicker from 'Product/Components/CreateListing/Form/Shared/VariationPicker';
+import SimpleProduct from 'Product/Components/CreateListing/Form/Shared/SimpleProduct';
+import ImagePicker from 'Common/Components/ImagePicker';
+    
 
     var WooCommerce = React.createClass({
         getDefaultProps: function() {
@@ -175,5 +164,4 @@ define([
         }
     });
 
-    return WooCommerce;
-});
+    export default WooCommerce;

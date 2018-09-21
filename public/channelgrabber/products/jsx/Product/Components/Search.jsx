@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/Button'
-], function(
-    React,
-    Button
-) {
-    "use strict";
+import React from 'react';
+import Button from 'Common/Components/Button';
+    
 
     var SearchComponent = React.createClass({
         getDefaultProps: function () {
@@ -50,5 +45,4 @@ define([
         }
     });
 
-    return SearchComponent;
-});
+    export default SearchComponent;

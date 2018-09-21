@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var SearchComponent = React.createClass({
         getInitialState: function() {
@@ -60,5 +56,4 @@ define([
         }
     });
 
-    return SearchComponent;
-});
+    export default SearchComponent;

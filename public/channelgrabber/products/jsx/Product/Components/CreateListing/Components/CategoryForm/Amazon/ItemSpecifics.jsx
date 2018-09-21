@@ -1,21 +1,11 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Select',
-    'Common/Components/MultiSelect',
-    'Common/Components/Input',
-    '../../../Validators',
-    './OptionalItemSpecificsSelect'
-], function(
-    React,
-    ReduxForm,
-    Select,
-    MultiSelect,
-    Input,
-    Validators,
-    OptionalItemSpecificsSelect
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Select from 'Common/Components/Select';
+import MultiSelect from 'Common/Components/MultiSelect';
+import Input from 'Common/Components/Input';
+import Validators from '../../../Validators';
+import OptionalItemSpecificsSelect from './OptionalItemSpecificsSelect';
+    
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
@@ -382,5 +372,5 @@ define([
         }
     });
 
-    return AmazonItemSpecifics;
-});
+    export default AmazonItemSpecifics;
+

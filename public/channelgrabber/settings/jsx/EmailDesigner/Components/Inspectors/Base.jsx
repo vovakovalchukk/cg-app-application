@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var BaseComponent = React.createClass({
         render: function() {
@@ -18,5 +14,4 @@ define([
         }
     });
 
-    return BaseComponent;
-});
+    export default BaseComponent;

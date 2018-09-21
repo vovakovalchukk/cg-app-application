@@ -1,13 +1,7 @@
-define([
-    'react',
-    'redux-form',
-    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
-], function(
-    React,
-    ReduxForm,
-    ImageDropDown
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
+    
 
     var Field = ReduxForm.Field;
 
@@ -144,5 +138,5 @@ define([
         }
     });
 
-    return VariationTableComponent;
-});
+    export default VariationTableComponent;
+

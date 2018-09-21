@@ -1,41 +1,21 @@
-define([
-    'react',
-    'react-dom',
-    'react-redux',
-    'redux-form',
-    'Common/Components/Container',
-    'Common/Components/Input',
-    'Common/Components/TextArea',
-    'Common/Components/Select',
-    'Common/Components/ImagePicker',
-    './Actions/CreateListings/Actions',
-    './Components/ChannelForms',
-    './Components/CategoryForms',
-    './Components/CreateListing/ProductIdentifiers',
-    './Components/CreateListing/Dimensions',
-    './Components/CreateListing/ProductPrice',
-    './Components/CreateListing/SubmissionTable',
-    './Validators'
-], function(
-    React,
-    ReactDom,
-    ReactRedux,
-    ReduxForm,
-    Container,
-    Input,
-    TextArea,
-    Select,
-    ImagePicker,
-    Actions,
-    ChannelForms,
-    CategoryForms,
-    ProductIdentifiers,
-    Dimensions,
-    ProductPrice,
-    SubmissionTable,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReactDom from 'react-dom';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import Container from 'Common/Components/Container';
+import Input from 'Common/Components/Input';
+import TextArea from 'Common/Components/TextArea';
+import Select from 'Common/Components/Select';
+import ImagePicker from 'Common/Components/ImagePicker';
+import Actions from './Actions/CreateListings/Actions';
+import ChannelForms from './Components/ChannelForms';
+import CategoryForms from './Components/CategoryForms';
+import ProductIdentifiers from './Components/CreateListing/ProductIdentifiers';
+import Dimensions from './Components/CreateListing/Dimensions';
+import ProductPrice from './Components/CreateListing/ProductPrice';
+import SubmissionTable from './Components/CreateListing/SubmissionTable';
+import Validators from './Validators';
+    
 
     var Field = ReduxForm.Field;
     var FormSection = ReduxForm.FormSection;
@@ -335,5 +315,5 @@ define([
         };
     };
 
-    return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
-});
+    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
+

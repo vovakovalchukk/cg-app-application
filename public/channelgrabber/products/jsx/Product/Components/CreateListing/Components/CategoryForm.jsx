@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var CategoryFormComponent = React.createClass({
         getDefaultProps: function() {
@@ -40,5 +36,4 @@ define([
             );
         }
     });
-    return CategoryFormComponent;
-});
+    export default CategoryFormComponent;

@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Common/Components/Select'
-], function(
-    React,
-    Select
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+    
 
     var CategorySelectComponent = React.createClass({
         getInitialState: function() {
@@ -117,6 +112,5 @@ define([
         }
     });
 
-    return CategorySelectComponent;
+    export default CategorySelectComponent;
 
-});

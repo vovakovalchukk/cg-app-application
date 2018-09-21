@@ -1,13 +1,7 @@
-define([
-    'redux-form',
-    'CategoryMapper/Actions/ApiHelper',
-    'CategoryMapper/Actions/ResponseActions'
-], function(
-    ReduxForm,
-    ApiHelper,
-    Actions
-) {
-    "use strict";
+import ReduxForm from 'redux-form';
+import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
+import Actions from 'CategoryMapper/Actions/ResponseActions';
+    
 
     var SubmissionError = ReduxForm.SubmissionError;
 
@@ -144,7 +138,7 @@ define([
         },
     };
 
-    return function(values, dispatch, state) {
+    export default function(values, dispatch, state) {
         var mapId = state.mapId;
         service.validateForm(mapId, values, state);
 
@@ -162,4 +156,4 @@ define([
             dispatch(Actions.updateCategoryMap(mapId, response.etag, values));
         });
     }
-});
+

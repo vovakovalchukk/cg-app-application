@@ -1,13 +1,7 @@
-define([
-    'react',
-    'Common/Components/SafeInput',
-    'Common/Components/Select'
-], function(
-    React,
-    Input,
-    Select
-) {
-    "use strict";
+import React from 'react';
+import Input from 'Common/Components/SafeInput';
+import Select from 'Common/Components/Select';
+    
 
     var StockRowComponent = React.createClass({
         getInitialState: function() {
@@ -199,5 +193,5 @@ define([
         }
     });
 
-    return StockRowComponent;
-});
+    export default StockRowComponent;
+

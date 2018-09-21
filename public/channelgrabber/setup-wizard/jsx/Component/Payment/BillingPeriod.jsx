@@ -1,5 +1,5 @@
-define(['react'], function(React) {
-    "use strict";
+import React from 'react';
+    
 
     var BillingPeriodComponent = React.createClass({
         getDefaultProps: function() {
@@ -36,5 +36,4 @@ define(['react'], function(React) {
         }
     });
 
-    return BillingPeriodComponent;
-});
+    export default BillingPeriodComponent;

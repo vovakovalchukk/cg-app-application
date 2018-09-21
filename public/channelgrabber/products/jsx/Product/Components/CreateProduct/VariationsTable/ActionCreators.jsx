@@ -1,11 +1,6 @@
-define([
-        'redux-form',
-        'Product/Components/CreateProduct/functions/stateFilters'
-    ], function(
-    ReduxForm,
-    stateFilters
-    ) {
-        "use strict";
+import ReduxForm from 'redux-form';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+        
 
         var uniqueKey = 1;
 
@@ -65,7 +60,7 @@ define([
             }
         };
 
-        return ActionCreators;
+        export default ActionCreators;
 
         function setDimensionFieldsFromFirstRow(dispatch, state, newVariationId) {
             if (!state.form.createProductForm.values || !state.form.createProductForm.values.variations) {
@@ -99,5 +94,4 @@ define([
         function generateUniqueKey() {
             return uniqueKey++;
         }
-    }
-);
+    

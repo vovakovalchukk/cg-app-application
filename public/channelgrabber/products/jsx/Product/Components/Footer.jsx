@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-    "use strict";
+import React from 'react';
+    
 
     var FooterComponent = React.createClass({
         getPageLinksFromPaginationData: function(limit, page, total, pageLinkCount)
@@ -58,5 +54,4 @@ define([
         }
     });
 
-    return FooterComponent;
-});
+    export default FooterComponent;

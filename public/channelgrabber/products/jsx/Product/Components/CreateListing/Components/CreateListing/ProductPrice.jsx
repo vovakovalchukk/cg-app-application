@@ -1,19 +1,10 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Input',
-    'Common/Components/CurrencyInput',
-    './VariationTable',
-    '../../Validators'
-], function(
-    React,
-    ReduxForm,
-    Input,
-    CurrencyInput,
-    VariationTable,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Input from 'Common/Components/Input';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import VariationTable from './VariationTable';
+import Validators from '../../Validators';
+    
 
     var Field = ReduxForm.Field;
 
@@ -143,5 +134,5 @@ define([
         }
     });
 
-    return ProductPriceComponent;
-});
+    export default ProductPriceComponent;
+

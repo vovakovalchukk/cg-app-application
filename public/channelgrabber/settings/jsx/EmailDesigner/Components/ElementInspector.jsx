@@ -1,13 +1,7 @@
-define([
-    'react',
-    'EmailDesigner/Components/InspectorList',
-    'Common/PubSub'
-], function(
-    React,
-    InspectorList,
-    PubSub
-) {
-    "use strict";
+import React from 'react';
+import InspectorList from 'EmailDesigner/Components/InspectorList';
+import PubSub from 'Common/PubSub';
+    
 
     var ElementInspectorComponent = React.createClass({
         getDefaultProps: function () {
@@ -40,5 +34,4 @@ define([
         }
     });
 
-    return ElementInspectorComponent;
-});
+    export default ElementInspectorComponent;

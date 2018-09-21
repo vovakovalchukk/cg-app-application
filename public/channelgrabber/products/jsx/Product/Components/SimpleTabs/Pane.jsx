@@ -1,6 +1,4 @@
-define([
-    'react'
-], function (React) {
+import React from 'react';
     var Pane = React.createClass({
         render: function () {
             return (
@@ -11,5 +9,4 @@ define([
         }
     });
 
-    return Pane;
-});
+    export default Pane;

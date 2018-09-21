@@ -1,17 +1,9 @@
-define([
-    'react',
-    'Common/Components/Popup',
-    'Common/Components/ProductDropdown/Dropdown',
-    'Common/Components/Button',
-    'Common/Components/ItemRow'
-], function(
-    React,
-    Popup,
-    ProductDropdown,
-    Button,
-    ItemRow
-) {
-    "use strict";
+import React from 'react';
+import Popup from 'Common/Components/Popup';
+import ProductDropdown from 'Common/Components/ProductDropdown/Dropdown';
+import Button from 'Common/Components/Button';
+import ItemRow from 'Common/Components/ItemRow';
+    
 
     var ProductLinkEditorComponent = React.createClass({
         getDefaultProps: function () {
@@ -235,5 +227,4 @@ define([
         }
     });
 
-    return ProductLinkEditorComponent;
-});
+    export default ProductLinkEditorComponent;

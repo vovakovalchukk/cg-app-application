@@ -1,13 +1,7 @@
-define([
-    'react',
-    'Product/Components/Image',
-    'Product/Components/Link'
-], function(
-    React,
-    Image,
-    Link
-) {
-    "use strict";
+import React from 'react';
+import Image from 'Product/Components/Image';
+import Link from 'Product/Components/Link';
+    
 
     var VariationViewComponent = React.createClass({
         getDefaultProps: function() {
@@ -125,5 +119,4 @@ define([
         imageUtils: React.PropTypes.object
     };
 
-    return VariationViewComponent;
-});
+    export default VariationViewComponent;

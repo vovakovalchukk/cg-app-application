@@ -1,17 +1,9 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Select',
-    'Common/Components/RefreshIcon',
-    '../../../Validators'
-], function(
-    React,
-    ReduxForm,
-    Select,
-    RefreshIcon,
-    Validators
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Select from 'Common/Components/Select';
+import RefreshIcon from 'Common/Components/RefreshIcon';
+import Validators from '../../../Validators';
+    
 
     var Field = ReduxForm.Field;
 
@@ -101,5 +93,4 @@ define([
             </span>;
         }
     });
-    return EbayAccountPolicy;
-});
+    export default EbayAccountPolicy;

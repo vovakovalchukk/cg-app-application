@@ -1,13 +1,7 @@
-define([
-    'react',
-    'jquery',
-    'InvoiceOverview/TemplateComponent'
-], function(
-    React,
-    $,
-    TemplateComponent
-) {
-    "use strict";
+import React from 'react';
+import $ from 'jquery';
+import TemplateComponent from 'InvoiceOverview/TemplateComponent';
+    
 
     var SectionComponent = React.createClass({
         render: function render() {
@@ -28,5 +22,4 @@ define([
         }
     });
 
-    return SectionComponent;
-});
+    export default SectionComponent;

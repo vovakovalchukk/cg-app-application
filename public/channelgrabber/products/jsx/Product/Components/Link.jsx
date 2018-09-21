@@ -1,11 +1,6 @@
-define([
-    'react',
-    'Product/Components/Tooltip'
-], function(
-    React,
-    Tooltip
-) {
-    "use strict";
+import React from 'react';
+import Tooltip from 'Product/Components/Tooltip';
+    
 
     var LinkComponent = React.createClass({
         getDefaultProps: function () {
@@ -96,5 +91,4 @@ define([
         imageUtils: React.PropTypes.object
     };
 
-    return LinkComponent;
-});
+    export default LinkComponent;

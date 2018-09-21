@@ -1,4 +1,4 @@
-define([], function() {
+
     var Validators = {
         required: function(value) {
             if (value instanceof Array) {
@@ -18,5 +18,4 @@ define([], function() {
         }
     };
 
-    return Validators;
-});
+    export default Validators;

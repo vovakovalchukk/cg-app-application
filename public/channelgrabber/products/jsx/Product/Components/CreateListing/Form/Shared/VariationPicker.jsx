@@ -1,17 +1,9 @@
-define([
-    'react',
-    'Product/Components/Checkbox',
-    'Common/Components/CurrencyInput',
-    'Common/Components/EditableFieldWithSubmit',
-    'Product/Components/CreateListing/Form/Shared/ImageDropDown'
-], function(
-    React,
-    Checkbox,
-    CurrencyInput,
-    EditableFieldWithSubmit,
-    ImageDropDown
-) {
-    "use strict";
+import React from 'react';
+import Checkbox from 'Product/Components/Checkbox';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
+import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
+    
 
     var VariationPicker = React.createClass({
 
@@ -285,5 +277,5 @@ define([
         }
     });
 
-    return VariationPicker;
-});
+    export default VariationPicker;
+

@@ -1,17 +1,9 @@
-define([
-    'react',
-    'redux-form',
-    'Common/Components/Select',
-    'Common/Components/RemoveIcon',
-    'CategoryMapper/Actions/ApiHelper'
-], function(
-    React,
-    ReduxForm,
-    Select,
-    RemoveIcon,
-    ApiHelper
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import Select from 'Common/Components/Select';
+import RemoveIcon from 'Common/Components/RemoveIcon';
+import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
+    
 
     var FieldArray = ReduxForm.FieldArray;
     var Field = ReduxForm.Field;
@@ -135,5 +127,5 @@ define([
         }
     });
 
-    return SubcategoriesComponent;
-});
+    export default SubcategoriesComponent;
+

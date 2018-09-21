@@ -1,25 +1,13 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'Common/Components/CurrencyInput',
-    'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Ebay/CategorySelect',
-    'Product/Components/CreateListing/Form/Shared/VariationPicker',
-    'Product/Components/CreateListing/Form/Shared/SimpleProduct',
-    'Common/Components/ImagePicker',
-    'Product/Components/CreateListing/Form/Ebay/ItemSpecifics'
-], function(
-    React,
-    Select,
-    CurrencyInput,
-    Input,
-    CategorySelect,
-    VariationPicker,
-    SimpleProduct,
-    ImagePicker,
-    ItemSpecifics
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+import CurrencyInput from 'Common/Components/CurrencyInput';
+import Input from 'Common/Components/Input';
+import CategorySelect from 'Product/Components/CreateListing/Form/Ebay/CategorySelect';
+import VariationPicker from 'Product/Components/CreateListing/Form/Shared/VariationPicker';
+import SimpleProduct from 'Product/Components/CreateListing/Form/Shared/SimpleProduct';
+import ImagePicker from 'Common/Components/ImagePicker';
+import ItemSpecifics from 'Product/Components/CreateListing/Form/Ebay/ItemSpecifics';
+    
 
     var NO_SETTINGS = 'NO_SETTINGS';
 
@@ -537,5 +525,5 @@ define([
         }
     });
 
-    return EbayComponent;
-});
+    export default EbayComponent;
+

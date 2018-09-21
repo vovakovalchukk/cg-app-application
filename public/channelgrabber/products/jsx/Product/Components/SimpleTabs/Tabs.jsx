@@ -1,6 +1,4 @@
-define([
-    'react'
-], function (React) {
+import React from 'react';
     var Tabs = React.createClass({
         getDefaultProps: function () {
             return {
@@ -65,5 +63,4 @@ define([
         }
     });
 
-    return Tabs;
-});
+    export default Tabs;

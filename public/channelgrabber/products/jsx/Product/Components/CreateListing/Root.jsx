@@ -1,19 +1,10 @@
-define([
-    'react',
-    'redux',
-    'react-redux',
-    'Product/Components/CreateListing/Reducers/Combined',
-    'Product/Components/CreateListing/AccountSelectionPopup',
-    'Product/Utils/CreateListingUtils'
-], function (
-    React,
-    Redux,
-    ReactRedux,
-    CombinedReducer,
-    AccountSelectionPopup,
-    CreateListingUtils
-) {
-    "use strict";
+import React from 'react';
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import CombinedReducer from 'Product/Components/CreateListing/Reducers/Combined';
+import AccountSelectionPopup from 'Product/Components/CreateListing/AccountSelectionPopup';
+import CreateListingUtils from 'Product/Utils/CreateListingUtils';
+    
 
     var CreateListingRoot = function(
         accounts,
@@ -96,5 +87,5 @@ define([
         return CreateListingRootComponent;
     };
 
-    return CreateListingRoot;
-});
+    export default CreateListingRoot;
+

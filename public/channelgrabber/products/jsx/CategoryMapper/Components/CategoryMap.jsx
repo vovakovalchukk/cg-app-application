@@ -1,21 +1,11 @@
-define([
-    'react',
-    'redux-form',
-    'react-redux',
-    'Common/Components/Button',
-    'CategoryMapper/Actions/Actions',
-    'CategoryMapper/Components/AccountCategorySelect',
-    'CategoryMapper/Components/DeleteCategoryMap'
-], function(
-    React,
-    ReduxForm,
-    ReactRedux,
-    Button,
-    Actions,
-    AccountCategorySelect,
-    DeleteCategoryMap
-) {
-    "use strict";
+import React from 'react';
+import ReduxForm from 'redux-form';
+import ReactRedux from 'react-redux';
+import Button from 'Common/Components/Button';
+import Actions from 'CategoryMapper/Actions/Actions';
+import AccountCategorySelect from 'CategoryMapper/Components/AccountCategorySelect';
+import DeleteCategoryMap from 'CategoryMapper/Components/DeleteCategoryMap';
+    
 
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
@@ -229,5 +219,5 @@ define([
     };
 
     var CategoryMapConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-    return CategoryMapConnector(CategoryMapComponent);
-});
+    export default CategoryMapConnector(CategoryMapComponent);
+

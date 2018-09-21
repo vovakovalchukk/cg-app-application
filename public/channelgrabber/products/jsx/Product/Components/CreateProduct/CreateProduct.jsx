@@ -1,15 +1,8 @@
-define([
-    'react',
-    'Common/Components/Container',
-    'redux-form',
-    'Product/Components/CreateProduct/Form/FormRoot'
-], function(
-    React,
-    Container,
-    reduxForm,
-    CreateProductForm
-) {
-    "use strict";
+import React from 'react';
+import Container from 'Common/Components/Container';
+import reduxForm from 'redux-form';
+import CreateProductForm from 'Product/Components/CreateProduct/Form/FormRoot';
+    
 
     var CreateProduct = React.createClass({
         getDefaultProps: function() {
@@ -72,5 +65,5 @@ define([
         }
     });
 
-    return CreateProduct;
-});
+    export default CreateProduct;
+

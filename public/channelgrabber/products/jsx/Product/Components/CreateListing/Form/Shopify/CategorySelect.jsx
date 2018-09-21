@@ -1,13 +1,8 @@
-define([
-    'react',
-    'Common/Components/Select',
-], function(
-    React,
-    Select
-) {
-    "use strict";
+import React from 'react';
+import Select from 'Common/Components/Select';
+    
 
-    return React.createClass({
+    export default React.createClass({
         getDefaultProps: function() {
             return {
                 categories: [],
@@ -47,4 +42,4 @@ define([
             />
         }
     });
-});
+

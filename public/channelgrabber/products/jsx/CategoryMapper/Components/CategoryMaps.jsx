@@ -1,19 +1,10 @@
-define([
-    'react',
-    'react-redux',
-    'CategoryMapper/Components/CategoryMap',
-    'CategoryMapper/Actions/Actions',
-    'CategoryMapper/Components/Search',
-    'CategoryMapper/Components/LoadMoreButton',
-], function(
-    React,
-    ReactRedux,
-    CategoryMap,
-    Actions,
-    SearchComponent,
-    LoadMoreButton
-) {
-    "use strict";
+import React from 'react';
+import ReactRedux from 'react-redux';
+import CategoryMap from 'CategoryMapper/Components/CategoryMap';
+import Actions from 'CategoryMapper/Actions/Actions';
+import SearchComponent from 'CategoryMapper/Components/Search';
+import LoadMoreButton from 'CategoryMapper/Components/LoadMoreButton';
+    
 
     var CategoryMapsComponent = React.createClass({
         componentDidMount: function () {
@@ -134,5 +125,5 @@ define([
 
     var CategoryMapsConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
 
-    return CategoryMapsConnector(CategoryMapsComponent);
-});
+    export default CategoryMapsConnector(CategoryMapsComponent);
+
