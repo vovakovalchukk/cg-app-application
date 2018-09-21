@@ -7,6 +7,7 @@ module.exports = {
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
         "products/js/PurchaseOrders/PurchaseOrders": "./public/channelgrabber/products/jsx/PurchaseOrders/PurchaseOrders.jsx",
         "orders/js/ManualOrder/ManualOrder": "./public/channelgrabber/orders/jsx/ManualOrder/ManualOrder.jsx",
+        "settings/js/InvoiceOverview/InvoiceOverview": "./public/channelgrabber/settings/js-vanilla/InvoiceOverview/InvoiceOverview.js",
     },
     module: {
         rules:[
@@ -44,6 +45,7 @@ module.exports = {
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
+            InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),
             Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
             // React stuff exists in a few places, specify which to use
