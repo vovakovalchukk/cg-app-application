@@ -29,6 +29,9 @@ define([], function() {
                 },
                 getStock(id){
                     return self.getProductById(id).stock;
+                },
+                getStockPrevValuesBeforeEdits(){
+                    return _getState().stock.prevValuesBeforeEdits;
                 }
             };
             return self;

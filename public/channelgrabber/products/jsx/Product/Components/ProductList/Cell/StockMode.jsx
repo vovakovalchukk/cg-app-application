@@ -46,25 +46,13 @@ define([
             const row = stateUtility.getRowData(products, rowIndex);
             
             this.props.actions.saveStockModeToBackend(row);
-            
-            
-            //todo hit redux promise and set editable to be false if successful
-            // var promise = this.props.submitCallback(this.props.name, this.state.newValue || 0);
-            // promise.then(function(data) {
-            //     this.setState({
-            //         editable: false,
-            //         newValue: data.savedValue
-            //     });
-            // }.bind(this));
-            // promise.catch(function(error) {
-            //     console.log(error.message);
-            // });
         },
         cancelInput: function() {
             //todo set oldValue to be props
-            this.setState({
-                editable: false,
-            });
+            const {products, rowIndex} = this.props;
+            const row = stateUtility.getRowData(products, rowIndex);
+            this.props.actions.cancelStockModeEdit(row);
+    
         },
         onStockModeChange: function(propToChange, event) {
             // console.log('onStockModeTypeChange stockMode: ' , stockMode);

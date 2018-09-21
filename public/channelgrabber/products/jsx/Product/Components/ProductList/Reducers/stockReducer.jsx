@@ -21,11 +21,11 @@ define([
             return newState;
         },
         "STOCK_MODE_CHANGE": function(state, action) {
-            console.log('in STOCK_MODE_CHANGE stockReducer -R state: ', {
-                state,
-                action
-            });
-            let {rowData, previousValue, propToChange} = action.payload;
+            // console.log('in STOCK_MODE_CHANGE stockReducer -R state: ', {
+            //     state,
+            //     action
+            // });
+            let {rowData, currentStock, propToChange} = action.payload;
             
             let newStockModeEdits = state.stockModeEdits.slice();
             if (!hasEditBeenRecordedAlready(newStockModeEdits, rowData)) {
@@ -36,9 +36,9 @@ define([
             }
             
             
-            let prevValuesBeforeEdits = createPrevValuesBeforeEdits(state, rowData, propToChange, previousValue);
+            let prevValuesBeforeEdits = createPrevValuesBeforeEdits(state, rowData, propToChange, currentStock);
             
-            console.log('new prevValuesBeforeEdits: ', prevValuesBeforeEdits);
+            // console.log('new prevValuesBeforeEdits: ', prevValuesBeforeEdits);
             
             
             let newState = Object.assign({}, state, {
@@ -63,26 +63,26 @@ define([
         });
     }
     
-    function createPrevValuesBeforeEdits(state, rowData, propToChange, previousValue) {
+    function createPrevValuesBeforeEdits(state, rowData, currentStock) {
         let prevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
-        console.log('in createPreValuesBeforeEdits prevValuesBeforeEdits on state: ' , prevValuesBeforeEdits);
-
+        // console.log('in createPreValuesBeforeEdits prevValuesBeforeEdits on state: ' , prevValuesBeforeEdits);
         let previousValuesObjectIndex = getExistingPreviousValueObjectIndex(prevValuesBeforeEdits, rowData.id);
         let previousValuesForProduct = prevValuesBeforeEdits[previousValuesObjectIndex];
+        
+        let {stockMode, stockLevel} = currentStock;
+        
+        // todo apply the value
+        let previousValues = {
+            productId:rowData.id,
+            stockMode,
+            stockLevel
+        };
     
         if (!previousValuesForProduct) {
-            prevValuesBeforeEdits.push({
-                productId: rowData.id,
-                [propToChange]: previousValue
-            });
+            prevValuesBeforeEdits.push(previousValues);
             return prevValuesBeforeEdits;
         }
     
-        if (previousValuesForProduct.hasOwnProperty(propToChange)) {
-            return prevValuesBeforeEdits;
-        }
-    
-        previousValuesForProduct[propToChange] = previousValue;
         return prevValuesBeforeEdits;
     }
 });

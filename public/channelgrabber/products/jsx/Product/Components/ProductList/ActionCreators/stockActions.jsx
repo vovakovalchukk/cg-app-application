@@ -17,16 +17,16 @@ define([
                     if (rowData === null) {
                         return;
                     }
-            
-                    let previousValue = getState.customGetters.getStock(rowData.id)[propToChange];
-            
+                    
+                    let currentStock = getState.customGetters.getStock(rowData.id);
+                    
                     dispatch({
                         type: "STOCK_MODE_CHANGE",
                         payload: {
                             rowData,
                             stockModeValue,
                             propToChange,
-                            previousValue
+                            currentStock
                         }
                     });
                 };
@@ -36,12 +36,12 @@ define([
                     let state = getState();
                     let productStock = getState.customGetters.getStock(rowData.id);
                     let stock = state.stock;
-            
+                    
                     let updateStockModeWithBoundArguments = async () => {
                     };
                     let updateStockLevelWithBoundArguments = async () => {
                     }
-            
+                    
                     if (stockModeHasBeenEdited(productStock, stock, rowData)) {
                         console.log('stock mode has changed so will save stockmode');
                         updateStockModeWithBoundArguments = updateStockMode.bind(
@@ -50,7 +50,7 @@ define([
                             productStock.stockMode
                         );
                     }
-            
+                    
                     if (stockLevelHasBeenEdited(productStock, stock, rowData)) {
                         console.log('stockLevel has changed so will save stockMode');
                         //todo - save stockLevel
@@ -60,22 +60,44 @@ define([
                             productStock.stockLevel
                         );
                     }
-            
-            
-                    console.log('about to call saved promise updateStockModeWithBoundArguments: ', updateStockModeWithBoundArguments);
-            
-            
+                    
                     let saveStockModePromise = updateStockModeWithBoundArguments();
                     let saveStockLevelsPromise = updateStockLevelWithBoundArguments();
-                    // console.log('after promise call saveStockModePromise: ' , saveStockModePromise);
-            
+                    
                     Promise.all([saveStockModePromise, saveStockLevelsPromise]).then((resp) => {
-                        console.log('in .then after savingStockLevel resp: ', resp);
+                        // console.log('in .then after savingStockLevel resp: ', resp);
+                        //todo - apply this success call in a reducer
+                        
                         n.success('Stock mode updated successfully..');
                     }, err => {
+                        
+                        // todo apply this error call in a reducer
                         n.showErrorNotification(err, "There was an error when attempting to update the stock mode.");
-                        console.error("There was an error saving stock mode values");
+                        // console.error("There was an error saving stock mode values");
                     });
+                }
+            },
+            cancelStockModeEdit: (rowData) => {
+                console.log('in cancelStockMode - AQ: rowData: ', rowData);
+                return function(dispatch, getState) {
+                    let prevValues = getState.customGetters.getStockPrevValuesBeforeEdits();
+                    
+                    console.log('prevValues: ', prevValues);
+                    
+                    
+                    let prevValuesForRow = prevValues.find(values => values.productId === rowData.id);
+                    
+                    console.log('prevValuesForRow: ', prevValuesForRow);
+                    
+                    
+                    dispatch({
+                        type: "STOCK_MODE_EDIT_CANCEL",
+                        payload: {
+                            rowData,
+                            prevValuesForRow
+                        }
+                    });
+                    
                 }
             }
         }
@@ -93,9 +115,7 @@ define([
             method: 'POST',
             dataType: 'json',
             success: function(resp) {
-                // n.success('Stock mode updated successfully..');
                 console.log('Stock mode updated successfully. resp: ', resp);
-                // window.triggerEvent('mode-' + this.props.variation.sku, response);
             },
             error: function(error) {
                 console.error("There was an error when attempting to update the stock mode.");
@@ -104,13 +124,11 @@ define([
     };
     
     async function updateStockLevel(id, value) {
-        console.log('in updateStockLeve with id: ' , id, 'and value : ' , value);
-        
-        
+        console.log('in updateStockLeve with id: ', id, 'and value : ', value);
         $.ajax({
             url: 'products/stockLevel',
             type: 'POST',
-            dataType : 'json',
+            dataType: 'json',
             data: {
                 id,
                 stockLevel: value
