@@ -9,8 +9,12 @@ define([
     
     let initialState = {
         stockModeOptions: [],
-        stockModeEdits: [],
-        prevValuesBeforeEdits: []
+        stockModeEdits: [
+            // {productId, status}
+        ],
+        prevValuesBeforeEdits: [
+            // {productId, stockMode, stockLevel}
+        ]
     };
     
     let stockModeReducer = reducerCreator(initialState, {
@@ -46,6 +50,23 @@ define([
                 prevValuesBeforeEdits
             });
             return newState;
+        },
+        "STOCK_MODE_EDIT_CANCEL": function(state, action) {
+            let {rowData} = action.payload;
+            
+            let newStockModeEdits = state.stockModeEdits.slice();
+            let newPrevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
+            
+            let relevantEditIndex = newStockModeEdits.findIndex(edit => (edit.productId === rowData.id));
+            let relevantNewValuesBeforeEditsIndex = newPrevValuesBeforeEdits.findIndex(beforeVals => (beforeVals.productId === rowData.id));
+            newStockModeEdits.splice(relevantEditIndex, 1);
+            newPrevValuesBeforeEdits.splice(relevantNewValuesBeforeEditsIndex, 1);
+            
+            let newState = Object.assign({}, state, {
+                stockModeEdits: newStockModeEdits,
+                prevValuesBeforeEdits: newPrevValuesBeforeEdits
+            });
+            return newState;
         }
     });
     
@@ -73,16 +94,16 @@ define([
         
         // todo apply the value
         let previousValues = {
-            productId:rowData.id,
+            productId: rowData.id,
             stockMode,
             stockLevel
         };
-    
+        
         if (!previousValuesForProduct) {
             prevValuesBeforeEdits.push(previousValues);
             return prevValuesBeforeEdits;
         }
-    
+        
         return prevValuesBeforeEdits;
     }
 });
