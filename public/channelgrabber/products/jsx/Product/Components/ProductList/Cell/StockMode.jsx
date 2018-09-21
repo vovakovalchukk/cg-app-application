@@ -44,33 +44,22 @@ define([
         submitInput: function() {
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            
             this.props.actions.saveStockModeToBackend(row);
         },
         cancelInput: function() {
-            //todo set oldValue to be props
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             this.props.actions.cancelStockModeEdit(row);
-    
         },
         onStockModeChange: function(propToChange, event) {
-            // console.log('onStockModeTypeChange stockMode: ' , stockMode);
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            console.log('propToChange coming from StockModeCEll: ', propToChange);
-            console.log('stockMode stockMode event', event);
-            // todo need to accomodate for stockLevel
-            let value = propToChange==='stockMode' ? event.value : event.target.value;
-            
+            let value = propToChange === 'stockMode' ? event.value : event.target.value;
             this.props.actions.changeStockMode(row, value, propToChange);
         },
-        render() {
+        render: function() {
             const {products, rowIndex} = this.props;
-            // console.log('StockMode render with this.props: ', this.props);
             const row = stateUtility.getRowData(products, rowIndex);
-            // console.log('row: ', row);
-            // console.log('in StockMode render this.props: ', this.props , ' row :  ' , row);
             const isSimpleProduct = stateUtility.isSimpleProduct(row);
             const isVariation = stateUtility.isVariation(row);
             
@@ -78,10 +67,8 @@ define([
             const shouldDisplaySaveCancelBox = editStatus === constants.STOCK_MODE_EDITING_STATUSES.editing;
             
             if (!isSimpleProduct && !isVariation) {
-                //todo - remove the text here before submission
                 return <span></span>
             }
-            //todo - change the input values to reflect what is coming back from the store
             return (
                 <div>
                     <StyledStockModeInputs
@@ -92,13 +79,13 @@ define([
                                 value: {
                                     value: row.stock.stockMode
                                 },
-                                onChange: this.onStockModeChange.bind(this,'stockMode')
+                                onChange: this.onStockModeChange.bind(this, 'stockMode')
                             }
                         }}
                         stockAmount={{
                             input: {
                                 value: row.stock.stockLevel,
-                                onChange: this.onStockModeChange.bind(this,'stockLevel')
+                                onChange: this.onStockModeChange.bind(this, 'stockLevel')
                             }
                         }}
                     />
@@ -119,13 +106,13 @@ define([
     
     return StockModeCell;
     
-    function getEditStatus(stockModeEdits,row){
+    function getEditStatus(stockModeEdits, row) {
         let editStatus = '';
         if (stockModeEdits.length > 0) {
             let matchedEdit = stockModeEdits.find(edit => {
                 return edit.productId === row.id
             });
-            if(matchedEdit){
+            if (matchedEdit) {
                 editStatus = matchedEdit.status;
             }
         }

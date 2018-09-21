@@ -13,7 +13,6 @@ define([
         return {
             changeStockMode: (rowData, stockModeValue, propToChange) => {
                 return function(dispatch, getState) {
-                    // console.log('in saveStockMode AC rowData: ', {rowData, stockModeValue});
                     if (rowData === null) {
                         return;
                     }
@@ -43,7 +42,6 @@ define([
                     }
                     
                     if (stockModeHasBeenEdited(productStock, stock, rowData)) {
-                        console.log('stock mode has changed so will save stockmode');
                         updateStockModeWithBoundArguments = updateStockMode.bind(
                             this,
                             rowData.id,
@@ -52,8 +50,6 @@ define([
                     }
                     
                     if (stockLevelHasBeenEdited(productStock, stock, rowData)) {
-                        console.log('stockLevel has changed so will save stockMode');
-                        //todo - save stockLevel
                         updateStockLevelWithBoundArguments = updateStockLevel.bind(
                             this,
                             rowData.id,
@@ -64,31 +60,23 @@ define([
                     let saveStockModePromise = updateStockModeWithBoundArguments();
                     let saveStockLevelsPromise = updateStockLevelWithBoundArguments();
                     
-                    Promise.all([saveStockModePromise, saveStockLevelsPromise]).then((resp) => {
-                        // console.log('in .then after savingStockLevel resp: ', resp);
-                        //todo - apply this success call in a reducer
-                        
-                        n.success('Stock mode updated successfully..');
-                    }, err => {
-                        
-                        // todo apply this error call in a reducer
-                        n.showErrorNotification(err, "There was an error when attempting to update the stock mode.");
-                        // console.error("There was an error saving stock mode values");
+                    Promise.all([saveStockModePromise, saveStockLevelsPromise]).then((response) => {
+                        dispatch({
+                            type: "STOCK_MODE_UPDATE_SUCCESS",
+                            payload: response
+                        });
+                    }, error => {
+                        dispatch({
+                            type: "STOCK_MODE_UPDATE_FAILURE",
+                            payload: error
+                        });
                     });
                 }
             },
             cancelStockModeEdit: (rowData) => {
-                console.log('in cancelStockMode - AQ: rowData: ', rowData);
                 return function(dispatch, getState) {
                     let prevValues = getState.customGetters.getStockPrevValuesBeforeEdits();
-                    
-                    console.log('prevValues: ', prevValues);
-                    
-                    
                     let prevValuesForRow = prevValues.find(values => values.productId === rowData.id);
-                    
-                    console.log('prevValuesForRow: ', prevValuesForRow);
-                    
                     
                     dispatch({
                         type: "STOCK_MODE_EDIT_CANCEL",
@@ -114,12 +102,8 @@ define([
             },
             method: 'POST',
             dataType: 'json',
-            success: function(resp) {
-                console.log('Stock mode updated successfully. resp: ', resp);
-            },
-            error: function(error) {
-                console.error("There was an error when attempting to update the stock mode.");
-            }
+            success: response => (response),
+            error: error => (error)
         });
     };
     
@@ -133,14 +117,8 @@ define([
                 id,
                 stockLevel: value
             },
-            success: function(resp) {
-                console.log('Stock level updated successfully. resp: ', resp);
-                return resp;
-            }.bind(this),
-            error: function(error) {
-                console.error('There was an error when attempting to update the stock level.')
-                return error;
-            }
+            success: response => (response),
+            error: error => (error)
         });
     }
     

@@ -67,6 +67,15 @@ define([
                 prevValuesBeforeEdits: newPrevValuesBeforeEdits
             });
             return newState;
+        },
+        "STOCK_MODE_UPDATE_SUCCESS": function(state) {
+            n.success('Stock mode updated successfully..');
+            return state
+        },
+        "STOCK_MODE_UPDATE_FAILURE": function(state, action) {
+            let {err} = action.payload;
+            n.showErrorNotification(err, "There was an error when attempting to update the stock mode.");
+            return state;
         }
     });
     
