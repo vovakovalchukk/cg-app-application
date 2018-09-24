@@ -29,7 +29,7 @@ define([], function() {
                     let updateStockModeWithBoundArguments = async () => {
                     };
                     let updateStockLevelWithBoundArguments = async () => {
-                    }
+                    };
                     
                     if (stockModeHasBeenEdited(productStock, stock, rowData)) {
                         updateStockModeWithBoundArguments = updateStockMode.bind(

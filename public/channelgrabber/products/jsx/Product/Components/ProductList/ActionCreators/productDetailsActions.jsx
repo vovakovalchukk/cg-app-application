@@ -42,7 +42,7 @@ define([
                                     }
                                 });
                                 resolve({savedValue: value});
-                            }.bind(this),
+                            },
                             error: function(error) {
                                 dispatch({
                                     type: "PRODUCT_DETAILS_CHANGE_FAILURE",

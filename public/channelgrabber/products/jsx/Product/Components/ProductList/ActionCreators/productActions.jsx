@@ -1,5 +1,3 @@
-
-
 define([
     'Product/Storage/Ajax',
     'Product/Filter/Entity',

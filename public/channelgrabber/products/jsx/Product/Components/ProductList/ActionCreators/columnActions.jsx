@@ -8,7 +8,7 @@ define([
     let columnActions = (function() {
         return {
             generateColumnSettings: () => {
-                return function(dispatch,getState){
+                return function(dispatch, getState) {
                     let columnSettings = columnService.generateColumnSettings(
                         getState.customGetters.getAccounts().accounts,
                         getState.customGetters.getVat()

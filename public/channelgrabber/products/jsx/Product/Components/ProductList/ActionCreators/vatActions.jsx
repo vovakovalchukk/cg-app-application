@@ -14,23 +14,23 @@ define([], function() {
                 }
             },
             updateVat: (rowId, countryCode, desiredVal) => {
-                return async function(dispatch){
-                    try{
+                return async function(dispatch) {
+                    try {
                         n.notice('Updating product tax rate.');
                         let response = await updateTaxRate(rowId, desiredVal);
                         dispatch({
                             type: "VAT_UPDATE_SUCCESS",
-                            payload:{
+                            payload: {
                                 rowId,
                                 countryCode,
                                 desiredVal,
                                 response
                             }
                         });
-                    }catch(error){
+                    } catch (error) {
                         dispatch({
                             type: "VAT_UPDATE_FAILURE",
-                            payload:{
+                            payload: {
                                 error
                             },
                         })
