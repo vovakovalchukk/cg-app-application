@@ -24,31 +24,32 @@ define([
             return {};
         },
         changeVat:function(e){
-        console.log('changeVat with e: ', e);
-        
+            const {products, rowIndex, countryCode} = this.props;
+            const row = stateUtility.getRowData(products, rowIndex);
+            this.props.actions.updateVat(row.id, countryCode, e.value);
         },
         render() {
             const {products, rowIndex, countryCode} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
-            // console.log('in renderVat cell this.props: ' , this.props , ' row: '  , row);
             let productVat = this.props.vat.productsVat[row.id];
-            // console.log('vatRates: ', this.props.vat.vatRates);
-            // console.log('countryCode: ', countryCode);
             
             let vatRatesForCountry = this.props.vat.vatRates[countryCode];
-            // console.log('vatRatesForCountry : ', vatRatesForCountry );
-            
             let options = generateOptionsFromVatRates(vatRatesForCountry);
+            let selectedVatKey = productVat[countryCode];
+            
+            let selectedLabel = options.find(option=>(selectedVatKey===option.value)).name;
+            
             let selected = {
-                name:productVat[countryCode],
-                value:productVat[countryCode]
-            }
+                name: selectedLabel,
+                value:selectedVatKey
+            };
             
             return (
                 <Select
                     options={options}
                     selectedOption={selected}
                     onOptionChange={this.changeVat}
+                    fullWidth={true}
                 />
             );
         }
@@ -59,7 +60,7 @@ define([
     function generateOptionsFromVatRates(vatRates){
         return vatRates.map(rate=>{
             return {
-                name:rate.key,
+                name:rate.label,
                 value:rate.key
             }
         });

@@ -13,6 +13,19 @@ define([], function() {
                     });
                 }
             },
+            updateVat: (rowId, countryCode, desiredVal) => {
+                return function(dispatch){
+                    console.log('in updateVat AQ');
+                    dispatch({
+                        type: "VAT_UPDATE",
+                        payload:{
+                            rowId,
+                            countryCode,
+                            desiredVal
+                        }
+                    });
+                }
+            }
         };
     })();
     

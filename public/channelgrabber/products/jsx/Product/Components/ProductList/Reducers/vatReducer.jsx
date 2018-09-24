@@ -26,6 +26,21 @@ define([
                 productsVat
             });
             return newState;
+        },
+        "VAT_UPDATE" : function(state,action){
+            console.log('in VAT_UPDATE -R action: '  , action);
+            let {rowId, countryCode, desiredVal} = action.payload;
+            let newProductsVat =  Object.assign({}, state.productsVat);
+            
+            console.log('beforeChange ', JSON.stringify(newProductsVat[rowId][countryCode], null, 1 ));
+            
+            newProductsVat[rowId][countryCode]= desiredVal;
+    
+            console.log('afterChange ', JSON.stringify(newProductsVat[rowId][countryCode], null, 1 ));
+            let newState = Object.assign({}, state, {
+                productsVat : newProductsVat
+            });
+            return newState;
         }
     });
     
@@ -88,6 +103,7 @@ define([
                     countryCode,
                     name: option.name,
                     rate: option.rate,
+                    label: generateLabel(option)
                 };
                 options[countryCode].push(optionToSave);
             })
@@ -110,5 +126,9 @@ define([
             }
         };
         return product;
+    }
+    
+    function generateLabel(option){
+        return option.rate + "%" + ' (' +option.name+')';
     }
 });

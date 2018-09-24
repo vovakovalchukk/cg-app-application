@@ -98,7 +98,7 @@ define([
                     type: 'vat',
                     countryCode: option.countryCode,
                     vat,
-                    width: 100,
+                    width: 140,
                     headerText: option.countryCode,
                     fixed: false,
                     tab: 'vat'
