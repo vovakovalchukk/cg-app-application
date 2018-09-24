@@ -1,5 +1,3 @@
-
-
 define([], function() {
     "use strict";
     
@@ -17,7 +15,6 @@ define([], function() {
             },
             updateVat: (rowId, countryCode, desiredVal) => {
                 return async function(dispatch){
-                    console.log('in updateVat AQ');
                     try{
                         n.notice('Updating product tax rate.');
                         let response = await updateTaxRate(rowId, desiredVal);

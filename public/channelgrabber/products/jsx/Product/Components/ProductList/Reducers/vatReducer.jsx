@@ -13,14 +13,9 @@ define([
     var vatReducer = reducerCreator(initialState, {
         "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
             let {products} = action.payload;
-            
             let vatRates = getTaxOptionsFromProduct(products[0]);
-            console.log('vatRates initially stored : ', vatRates);
-            
             let newProductsVat = getChosenVatFromProducts(products);
-            
             let productsVat = Object.assign(state.productsVat, newProductsVat);
-            
             productsVat = sortByKey(productsVat);
             
             let newState = Object.assign({}, state, {
@@ -30,13 +25,9 @@ define([
             return newState;
         },
         "VAT_UPDATE_SUCCESS" : function(state,action){
-            console.log('in VAT_UPDATED -R action: '  , action);
             let {rowId, countryCode, desiredVal, response} = action.payload;
             let newProductsVat =  Object.assign({}, state.productsVat);
             n.success('Product tax rate updated successfully.');
-    console.log('response: ' , response);
-    
-    
             newProductsVat[rowId][countryCode]= desiredVal;
             let newState = Object.assign({}, state, {
                 productsVat : newProductsVat
@@ -55,7 +46,6 @@ define([
     function getChosenVatFromProducts(products) {
         let productsVat = {};
         products.forEach(product => {
-            product = addDummyTaxCountrys(product);
             let chosenVats = {
                 productId: product.id
             };

@@ -80,9 +80,6 @@ define([
     return columnService;
     
     function generateVatColumns(vat){
-        console.log('in generateVatColumns with vat: ' , vat);
-        
-        
         let vatColumns=[];
         return Object.keys(vat.vatRates).map(countryCode=>{
             let options = vat.vatRates[countryCode];
