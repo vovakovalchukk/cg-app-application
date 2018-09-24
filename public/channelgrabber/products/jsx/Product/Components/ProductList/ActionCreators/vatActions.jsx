@@ -1,3 +1,5 @@
+
+
 define([], function() {
     "use strict";
     
@@ -14,20 +16,48 @@ define([], function() {
                 }
             },
             updateVat: (rowId, countryCode, desiredVal) => {
-                return function(dispatch){
+                return async function(dispatch){
                     console.log('in updateVat AQ');
-                    dispatch({
-                        type: "VAT_UPDATE",
-                        payload:{
-                            rowId,
-                            countryCode,
-                            desiredVal
-                        }
-                    });
+                    try{
+                        n.notice('Updating product tax rate.');
+                        let response = await updateTaxRate(rowId, desiredVal);
+                        dispatch({
+                            type: "VAT_UPDATE_SUCCESS",
+                            payload:{
+                                rowId,
+                                countryCode,
+                                desiredVal,
+                                response
+                            }
+                        });
+                    }catch(error){
+                        dispatch({
+                            type: "VAT_UPDATE_FAILURE",
+                            payload:{
+                                error
+                            },
+                        })
+                    }
                 }
             }
         };
     })();
     
     return vatActions;
+    
+    
+    async function updateTaxRate(rowId, taxRateId) {
+        return $.ajax({
+            url: '/products/taxRate',
+            data: {productId: rowId, taxRateId: taxRateId, memberState: taxRateId.substring(0, 2)},
+            method: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                return response;
+            },
+            error: function(error) {
+                return error;
+            }
+        });
+    }
 });

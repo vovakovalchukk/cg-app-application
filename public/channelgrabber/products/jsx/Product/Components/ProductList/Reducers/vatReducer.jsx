@@ -15,6 +15,8 @@ define([
             let {products} = action.payload;
             
             let vatRates = getTaxOptionsFromProduct(products[0]);
+            console.log('vatRates initially stored : ', vatRates);
+            
             let newProductsVat = getChosenVatFromProducts(products);
             
             let productsVat = Object.assign(state.productsVat, newProductsVat);
@@ -27,20 +29,24 @@ define([
             });
             return newState;
         },
-        "VAT_UPDATE" : function(state,action){
-            console.log('in VAT_UPDATE -R action: '  , action);
-            let {rowId, countryCode, desiredVal} = action.payload;
+        "VAT_UPDATE_SUCCESS" : function(state,action){
+            console.log('in VAT_UPDATED -R action: '  , action);
+            let {rowId, countryCode, desiredVal, response} = action.payload;
             let newProductsVat =  Object.assign({}, state.productsVat);
-            
-            console.log('beforeChange ', JSON.stringify(newProductsVat[rowId][countryCode], null, 1 ));
-            
-            newProductsVat[rowId][countryCode]= desiredVal;
+            n.success('Product tax rate updated successfully.');
+    console.log('response: ' , response);
     
-            console.log('afterChange ', JSON.stringify(newProductsVat[rowId][countryCode], null, 1 ));
+    
+            newProductsVat[rowId][countryCode]= desiredVal;
             let newState = Object.assign({}, state, {
                 productsVat : newProductsVat
             });
             return newState;
+        },
+        "VAT_UPDATE_ERROR": function(state,action ) {
+            let error = action.payload;
+            n.showErrorNotification(error, "There was an error when attempting to update the product tax rate.");
+            return state;
         }
     });
     
@@ -57,14 +63,6 @@ define([
                 let taxOptionsForCountry = product.taxRates[countryCode];
                 Object.keys(taxOptionsForCountry).forEach(taxOptionKey => {
                     let option = taxOptionsForCountry[taxOptionKey];
-                    
-                    //todo - remove this dummy code after testing 216
-                    if (option.name === "french-standard") {
-                        chosenVats[countryCode] = taxOptionKey;
-                        return;
-                    }
-                    // ^^^
-                    
                     
                     if (!option.selected) {
                         return;
@@ -89,10 +87,6 @@ define([
     function getTaxOptionsFromProduct(product) {
         let options = {};
         
-        // todo - remove this before submission of TAC-216 - for dummy purposes only
-        product = addDummyTaxCountrys(product);
-        //^^^^
-        
         Object.keys(product.taxRates).forEach((countryCode) => {
             options[countryCode] = [];
             let taxOptions = product.taxRates[countryCode];
@@ -109,23 +103,6 @@ define([
             })
         });
         return options;
-    }
-    
-    //TODO -remove after getting to end of 216
-    function addDummyTaxCountrys(product) {
-        product.taxRates["FRA"] = {
-            FR1: {
-                name: "french-standard",
-                rate: "20"
-            }, FR2: {
-                name: "great",
-                rate: "25"
-            }, FR3: {
-                name: "excellent",
-                rate: "10"
-            }
-        };
-        return product;
     }
     
     function generateLabel(option){
