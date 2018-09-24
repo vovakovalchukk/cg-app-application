@@ -6,7 +6,8 @@ define([
     let initialState = {
         isFetching: false,
         products: {},
-        selectedProducts: {}
+        selectedProducts: {},
+        error: false
     };
 
     return reducerCreator(initialState, {
@@ -63,6 +64,20 @@ define([
 
             return Object.assign({}, state, {
                 selectedProducts: selectedProducts
+            });
+        },
+        "ADD_ERROR_PRODUCT_SEARCH": function(state, action) {
+            return Object.assign({}, state, {
+                error: action.payload.error
+            });
+        },
+        "CLEAR_ERROR_PRODUCT_SEARCH": function(state) {
+            if (state.error === false) {
+                return state;
+            }
+
+            return Object.assign({}, state, {
+                error: false
             });
         }
     });

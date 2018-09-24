@@ -78,6 +78,11 @@ define([
         componentWillUnmount: function() {
             this.props.revertToInitialValues();
         },
+        componentDidUpdate: function(prevProps, prevState) {
+            if (this.isPbseRequired() && this.areAllVariationsAssigned()) {
+                this.props.clearErrorFromProductSearch();
+            }
+        },
         findSearchAccountId: function() {
             let accountId = this.props.accounts.find(function(accountId) {
                 let accountData = this.props.accountsData[accountId];
@@ -306,6 +311,37 @@ define([
         areCategoryTemplatesFetching: function() {
             return this.props.categoryTemplates.isFetching;
         },
+        validateProductAssignation: function(event) {
+            if (this.isPbseRequired() && !this.areAllVariationsAssigned()) {
+                event.preventDefault();
+                this.props.addErrorOnProductSearch('You must assign a product to all your variations. This must be done because one of your selected eBay categories requires all the variations of your product to be mapped to existing products.');
+                return;
+            }
+
+            if (this.props.productSearch.error) {
+                this.props.clearErrorFromProductSearch();
+            }
+        },
+        areAllVariationsAssigned: function() {
+            return this.props.variationsDataForProduct.every(variation => {
+                return !!(this.props.productSearch.selectedProducts[variation.sku]);
+            });
+        },
+        isPbseRequired: function() {
+            if (this.props.variationsDataForProduct.length === 1) {
+                return false;
+            }
+
+            if (!this.props.categoryTemplates.categories) {
+                return false;
+            }
+
+            return Object.values(this.props.categoryTemplates.categories).some(categoryTemplate => {
+                return Object.values(categoryTemplate.accounts).some(category => {
+                    return category.channel == 'ebay' && category.fieldValues && category.fieldValues.pbse && category.fieldValues.pbse.required;
+                });
+            });
+        },
         buildSections: function() {
             const productSearchComponent = this.renderProductSearchComponent();
 
@@ -315,12 +351,21 @@ define([
             ];
 
             if (productSearchComponent) {
-                sections.unshift(
-                    new SectionData('Search for your product', productSearchComponent)
-                );
+                sections.unshift(this.buildProductSearchSectionData(productSearchComponent));
             }
 
             return sections;
+        },
+        buildProductSearchSectionData: function(productSearchComponent) {
+            return new SectionData(
+                'Search for your product',
+                productSearchComponent,
+                this.validateProductAssignation,
+                this.isYesButtonDisabledForProductSearch()
+            );
+        },
+        isYesButtonDisabledForProductSearch: function() {
+            return this.props.categoryTemplates.isFetching;
         },
         render: function() {
             const isSubmitButtonDisabled = this.isSubmitButtonDisabled();
@@ -387,6 +432,12 @@ define([
             },
             clearSelectedProduct: function(sku) {
                 dispatch(Actions.clearSelectedProduct(sku, props.variationsDataForProduct));
+            },
+            addErrorOnProductSearch: function(errorMessage) {
+                dispatch(Actions.addErrorOnProductSearch(errorMessage));
+            },
+            clearErrorFromProductSearch: function() {
+                dispatch(Actions.clearErrorFromProductSearch());
             }
         };
     };

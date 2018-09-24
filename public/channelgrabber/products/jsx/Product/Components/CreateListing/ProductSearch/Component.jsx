@@ -31,12 +31,8 @@ define([
                 variationsDataForProduct: {},
                 selectedProducts: {},
                 attributeNames: {},
-                attributeNameMap: {}
-            }
-        },
-        getInitialState: function() {
-            return {
-                selectedProduct: {}
+                attributeNameMap: {},
+                errorMessage: false
             }
         },
         renderForm: function() {
@@ -85,9 +81,6 @@ define([
             if (this.props.isFetching) {
                 return null;
             }
-            this.setState({
-                selectedProduct: {}
-            });
             this.props.fetchSearchResults(this.props.accountId, this.props.searchQuery);
         },
         renderSearchResults: function() {
@@ -231,11 +224,19 @@ define([
                 defaultProductImage={this.props.defaultProductImage}
             />;
         },
+        renderErrorMessage: function() {
+            if (!this.props.errorMessage) {
+                return null;
+            }
+
+            return <span className={'product-search-error-container'}>{this.props.errorMessage}</span>;
+        },
         render: function() {
             return <span>
                 {this.renderForm()}
                 {this.renderSearchResults()}
                 {this.renderAssignedProductsTable()}
+                {this.renderErrorMessage()}
             </span>;
         }
     });
@@ -253,7 +254,8 @@ define([
             searchQuery: Selector(state, 'search'),
             products: productSearch.products,
             isFetching: productSearch.isFetching,
-            selectedProducts: productSearch.selectedProducts
+            selectedProducts: productSearch.selectedProducts,
+            errorMessage: productSearch.error
         };
     };
 

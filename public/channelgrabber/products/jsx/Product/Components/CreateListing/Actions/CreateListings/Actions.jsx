@@ -401,6 +401,20 @@ define([
                     variationData: variationData
                 }
             }
+        },
+        addErrorOnProductSearch: function(errorMessage) {
+            return {
+                type: "ADD_ERROR_PRODUCT_SEARCH",
+                payload: {
+                    error: errorMessage
+                }
+            }
+        },
+        clearErrorFromProductSearch: function() {
+            return {
+                type: "CLEAR_ERROR_PRODUCT_SEARCH",
+                payload: {}
+            }
         }
     };
 });
