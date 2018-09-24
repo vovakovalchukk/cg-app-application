@@ -14,7 +14,10 @@
                     console.log(data);
                     if (data.redirect) {
                         n.error(data.error);
-                        window.location.href = data.redirect;
+                        setTimeout(function() {
+                            window.location.href = data.redirect;
+                        }, 3000);
+
                     }
                 }
             );
