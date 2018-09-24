@@ -21,46 +21,40 @@ define([], function() {
                 };
             },
             saveStockModeToBackend: (rowData) => {
-                return function(dispatch, getState) {
+                return async function(dispatch, getState) {
                     let state = getState();
                     let productStock = getState.customGetters.getStock(rowData.id);
                     let stock = state.stock;
                     
-                    let updateStockModeWithBoundArguments = async () => {
-                    };
-                    let updateStockLevelWithBoundArguments = async () => {
-                    }
+                    let saveStockModePromise = Promise.resolve();
+                    let saveStockLevelsPromise = Promise.resolve();
                     
                     if (stockModeHasBeenEdited(productStock, stock, rowData)) {
-                        updateStockModeWithBoundArguments = updateStockMode.bind(
-                            this,
+                        saveStockModePromise = updateStockMode(
                             rowData.id,
                             productStock.stockMode
                         );
                     }
                     
                     if (stockLevelHasBeenEdited(productStock, stock, rowData)) {
-                        updateStockLevelWithBoundArguments = updateStockLevel.bind(
-                            this,
+                        saveStockLevelsPromise = updateStockLevel(
                             rowData.id,
                             productStock.stockLevel
                         );
                     }
                     
-                    let saveStockModePromise = updateStockModeWithBoundArguments();
-                    let saveStockLevelsPromise = updateStockLevelWithBoundArguments();
-                    
-                    Promise.all([saveStockModePromise, saveStockLevelsPromise]).then((response) => {
+                    try {
+                        let response = await Promise.all([saveStockModePromise, saveStockLevelsPromise]);
                         dispatch({
                             type: "STOCK_MODE_UPDATE_SUCCESS",
                             payload: response
                         });
-                    }, error => {
+                    } catch (error) {
                         dispatch({
                             type: "STOCK_MODE_UPDATE_FAILURE",
                             payload: {error}
                         });
-                    });
+                    }
                 }
             },
             cancelStockModeEdit: (rowData) => {
@@ -98,7 +92,7 @@ define([], function() {
     };
     
     async function updateStockLevel(id, value) {
-        $.ajax({
+        return $.ajax({
             url: 'products/stockLevel',
             type: 'POST',
             dataType: 'json',

@@ -13,9 +13,6 @@ define([
         return {
             saveDetail: (variation, detail, value) => {
                 return async function(dispatch, getState) {
-                    console.log('in saveDetail AC variation: ', {
-                        variation, detail, value
-                    });
                     if (variation === null) {
                         return;
                     }
@@ -42,7 +39,7 @@ define([
                                     }
                                 });
                                 resolve({savedValue: value});
-                            }.bind(this),
+                            },
                             error: function(error) {
                                 dispatch({
                                     type: "PRODUCT_DETAILS_CHANGE_FAILURE",

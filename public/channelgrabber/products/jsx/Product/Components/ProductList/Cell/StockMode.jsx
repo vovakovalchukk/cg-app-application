@@ -108,13 +108,14 @@ define([
     
     function getEditStatus(stockModeEdits, row) {
         let editStatus = '';
-        if (stockModeEdits.length > 0) {
-            let matchedEdit = stockModeEdits.find(edit => {
-                return edit.productId === row.id
-            });
-            if (matchedEdit) {
-                editStatus = matchedEdit.status;
-            }
+        if (stockModeEdits <= 0) {
+            return editStatus
+        }
+        let matchedEdit = stockModeEdits.find(edit => {
+            return edit.productId === row.id
+        });
+        if (matchedEdit) {
+            editStatus = matchedEdit.status;
         }
         return editStatus
     }

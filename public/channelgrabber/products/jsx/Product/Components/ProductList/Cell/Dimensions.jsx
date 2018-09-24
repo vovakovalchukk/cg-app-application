@@ -45,7 +45,7 @@ define([
                 />
             )
         },
-        render() {
+        render: function() {
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             
