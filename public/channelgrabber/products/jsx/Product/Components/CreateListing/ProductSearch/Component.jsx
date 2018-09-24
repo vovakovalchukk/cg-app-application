@@ -93,7 +93,7 @@ define([
                 return this.renderProduct(product);
             });
 
-            return <span className="search-products-container scrollhint">
+            return <span className="search-products-container">
                 {products}
             </span>
         },

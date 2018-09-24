@@ -78,7 +78,7 @@ define([
         componentWillUnmount: function() {
             this.props.revertToInitialValues();
         },
-        componentDidUpdate: function(prevProps, prevState) {
+        componentDidUpdate: function() {
             if (this.isPbseRequired() && this.areAllVariationsAssigned()) {
                 this.props.clearErrorFromProductSearch();
             }
@@ -314,7 +314,7 @@ define([
         validateProductAssignation: function(event) {
             if (this.isPbseRequired() && !this.areAllVariationsAssigned()) {
                 event.preventDefault();
-                this.props.addErrorOnProductSearch('You must assign a product to all your variations. This must be done because one of your selected eBay categories requires all the variations of your product to be mapped to existing products.');
+                this.addVariationErrorOnProductSearch();
                 return;
             }
 
@@ -342,6 +342,9 @@ define([
                 });
             });
         },
+        addVariationErrorOnProductSearch: function() {
+            this.props.addErrorOnProductSearch('You must assign a product to all your variations. This must be done because one of your selected eBay categories requires all the variations of your product to be mapped to existing products.');
+        },
         buildSections: function() {
             const productSearchComponent = this.renderProductSearchComponent();
 
@@ -367,13 +370,24 @@ define([
         isYesButtonDisabledForProductSearch: function() {
             return this.props.categoryTemplates.isFetching;
         },
+        submitForm: function() {
+            if (this.isPbseRequired() && !this.areAllVariationsAssigned()) {
+                this.addVariationErrorOnProductSearch();
+                $('html, body').animate({
+                    scrollTop: ($("a[name=section0]").offset().top)
+                }, 200);
+                return;
+            }
+
+            this.props.submitForm();
+        },
         render: function() {
             const isSubmitButtonDisabled = this.isSubmitButtonDisabled();
             return <SectionedContainer
                 sectionClassName={"editor-popup product-create-listing"}
                 yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
                 noButtonText="Cancel"
-                onYesButtonPressed={this.props.submitForm}
+                onYesButtonPressed={this.submitForm}
                 onNoButtonPressed={this.props.onCreateListingClose}
                 onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
                 yesButtonDisabled={(isSubmitButtonDisabled || this.areCategoryTemplatesFetching())}
