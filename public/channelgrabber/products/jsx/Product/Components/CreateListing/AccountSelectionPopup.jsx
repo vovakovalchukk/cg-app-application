@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
+import {connect} from 'react-redux';
+import {Field, FieldArray, SubmissionError, reduxForm, submit as reduxFormSubmit} from 'redux-form';
 import Container from 'Common/Components/Container';
 import ChannelBadgeComponent from 'Common/Components/ChannelBadge';
 import CategoryMap from 'CategoryMapper/Components/CategoryMap';
@@ -12,10 +12,6 @@ import AccountSelectComponent from 'Product/Components/CreateListing/Components/
 import CategoryMapSelectComponent from 'Product/Components/CreateListing/Components/CategoryMapSelect';
 import SiteSelectComponent from 'Product/Components/CreateListing/Components/SiteSelect';
 import accountSelectionFormValidator from 'Product/Components/CreateListing/Service/AccountSelectionFormValidator';
-    
-
-    var Field = ReduxForm.Field;
-    var FieldArray = ReduxForm.FieldArray;
 
     var AccountSelectionPopup = React.createClass({
         getDefaultProps: function() {
@@ -213,7 +209,7 @@ import accountSelectionFormValidator from 'Product/Components/CreateListing/Serv
         return false;
     };
 
-    AccountSelectionPopup = ReduxForm.reduxForm({
+    AccountSelectionPopup = reduxForm({
         form: "accountSelection",
         initialValues: {
             accounts: [],
@@ -222,7 +218,7 @@ import accountSelectionFormValidator from 'Product/Components/CreateListing/Serv
         onSubmit: function(values, dispatch, props) {
             var errors = accountSelectionFormValidator(values, props);
             if (errors && Object.keys(errors).length > 0) {
-                throw new ReduxForm.SubmissionError(errors);
+                throw new SubmissionError(errors);
             }
 
             var accounts = [];
@@ -317,7 +313,7 @@ import accountSelectionFormValidator from 'Product/Components/CreateListing/Serv
                 dispatch(Actions.categoryMapSelectedByName(name));
             },
             submitForm: function() {
-                dispatch(ReduxForm.submit("accountSelection"));
+                dispatch(reduxFormSubmit("accountSelection"));
             },
             fetchSettingsForAccount: function(accountId) {
                 dispatch(Actions.fetchSettingsForAccount(accountId, dispatch));
@@ -325,5 +321,5 @@ import accountSelectionFormValidator from 'Product/Components/CreateListing/Serv
         }
     };
 
-    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
+    export default connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
 

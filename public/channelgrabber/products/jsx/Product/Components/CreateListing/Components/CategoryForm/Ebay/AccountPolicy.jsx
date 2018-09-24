@@ -1,11 +1,8 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import Select from 'Common/Components/Select';
 import RefreshIcon from 'Common/Components/RefreshIcon';
 import Validators from '../../../Validators';
-    
-
-    var Field = ReduxForm.Field;
 
     var EbayAccountPolicy = React.createClass({
         getDefaultProps: function() {

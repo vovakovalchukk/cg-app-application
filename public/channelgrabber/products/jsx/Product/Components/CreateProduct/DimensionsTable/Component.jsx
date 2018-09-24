@@ -1,10 +1,8 @@
 import React from 'react';
-import reduxForm from 'redux-form';
+import {Field, FormSection} from 'redux-form';
 import utility from 'Product/Components/CreateProduct/functions/utility';
 import ImageDropDown from 'Common/Components/ImageDropDown';
 import Select from 'Common/Components/Select';
-    var Field = reduxForm.Field;
-    var FormSection = reduxForm.FormSection;
 
     var DimensionsTableComponent = React.createClass({
         getDefaultProps: function() {

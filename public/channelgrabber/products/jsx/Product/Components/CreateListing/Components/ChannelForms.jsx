@@ -1,15 +1,12 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {FormSection} from 'redux-form';
 import EbayForm from './ChannelForm/Ebay';
 import AmazonForm from './ChannelForm/Amazon';
-    
 
     const channelToFormMap = {
         'ebay': EbayForm,
         'amazon': AmazonForm
     };
-
-    var FormSection = ReduxForm.FormSection;
 
     var ChannelFormsComponent = React.createClass({
         getDefaultProps: function() {

@@ -1,16 +1,11 @@
 import React from 'react';
-import reduxForm from 'redux-form';
+import {Form, Field, Fields, FormSection} from 'redux-form';
 import utility from 'Product/Components/CreateProduct/functions/utility';
 import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
 import InputWithValidation from 'Common/Components/ReduxForm/InputWithValidation';
 import ImageDropDown from 'Common/Components/ImageDropDown';
 import Select from 'Common/Components/Select';
-import RemoveIcon from 'Common/Components/RemoveIcon';
 import StockModeInputs from 'Product/Components/CreateProduct/StockModeInputsRoot';
-    var Form = reduxForm.Form;
-    var Field = reduxForm.Field;
-    var Fields = reduxForm.Fields;
-    var FormSection = reduxForm.FormSection;
 
     var firstColumnCellStyle = {
         width: '2rem',

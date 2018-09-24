@@ -1,18 +1,15 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
-import ReactRedux from 'react-redux';
+import {FormSection} from 'redux-form';
+import {connect} from 'react-redux';
 import CategoryForm from './CategoryForm';
 import EbayForm from './CategoryForm/Ebay';
 import Actions from '../Actions/CreateListings/Actions';
 import AmazonForm from './CategoryForm/Amazon';
-    
 
     const channelToFormMap = {
         'ebay': EbayForm,
         'amazon': AmazonForm
     };
-
-    var FormSection = ReduxForm.FormSection;
 
     var CategoryFormsComponent = React.createClass({
         getDefaultProps: function() {
@@ -106,4 +103,4 @@ import AmazonForm from './CategoryForm/Amazon';
         };
     };
 
-    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);
+    export default connect(mapStateToProps, mapDispatchToProps)(CategoryFormsComponent);

@@ -1,14 +1,10 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
-import ReactRedux from 'react-redux';
+import {Field, FieldArray, reduxForm, clearSubmitErrors} from 'redux-form';
+import {connect} from 'react-redux';
 import Button from 'Common/Components/Button';
 import Actions from 'CategoryMapper/Actions/Actions';
 import AccountCategorySelect from 'CategoryMapper/Components/AccountCategorySelect';
 import DeleteCategoryMap from 'CategoryMapper/Components/DeleteCategoryMap';
-    
-
-    var Field = ReduxForm.Field;
-    var FieldArray = ReduxForm.FieldArray;
 
     var CategoryMapComponent = React.createClass({
         getDefaultProps: function() {
@@ -161,11 +157,11 @@ import DeleteCategoryMap from 'CategoryMapper/Components/DeleteCategoryMap';
         }
     });
 
-    var categoryMapFormCreator = ReduxForm.reduxForm({
+    var categoryMapFormCreator = reduxForm({
         enableReinitialize: true,
         onChange: (values, dispatch, props) => {
             if (props.error) {
-                dispatch(ReduxForm.clearSubmitErrors(props.form));
+                dispatch(clearSubmitErrors(props.form));
             }
         }
     });
@@ -218,6 +214,6 @@ import DeleteCategoryMap from 'CategoryMapper/Components/DeleteCategoryMap';
         };
     };
 
-    var CategoryMapConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+    var CategoryMapConnector = connect(mapStateToProps, mapDispatchToProps);
     export default CategoryMapConnector(CategoryMapComponent);
 

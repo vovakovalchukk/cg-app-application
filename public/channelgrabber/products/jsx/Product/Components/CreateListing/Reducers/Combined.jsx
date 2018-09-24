@@ -1,5 +1,5 @@
-import Redux from 'redux';
-import ReduxForm from 'redux-form';
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
 import CategoryMapsReducer from 'CategoryMapper/Reducers/CategoryMaps';
 import CategoriesReducer from 'CategoryMapper/Reducers/Categories';
 import AccountsReducer from 'Product/Components/CreateListing/Reducers/Accounts';
@@ -8,12 +8,12 @@ import CategoryTemplateOptionsReducer from 'Product/Components/CreateListing/Red
 import AccountSettingsReducer from 'Product/Components/CreateListing/Reducers/AccountSettingsReducer';
     
 
-    var CombinedReducer = Redux.combineReducers({
+    var CombinedReducer = combineReducers({
         initialValues: function (state) {
             return state ? state : {};
         },
         categoryTemplateOptions: CategoryTemplateOptionsReducer,
-        form: ReduxForm.reducer,
+        form: reduxFormReducer,
         accounts: AccountsReducer,
         categories: CategoriesReducer,
         categoryMaps: CategoryMapsReducer,

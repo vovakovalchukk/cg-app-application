@@ -1,6 +1,5 @@
 import React from 'react';
 import Container from 'Common/Components/Container';
-import reduxForm from 'redux-form';
 import CreateProductForm from 'Product/Components/CreateProduct/Form/FormRoot';
     
 

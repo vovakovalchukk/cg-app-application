@@ -1,12 +1,9 @@
 import React from 'react';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
+import {connect} from 'react-redux';
+import {Field, change as reduxFormChange} from 'redux-form';
 import Select from 'Common/Components/Select';
 import ImagePicker from 'Common/Components/ImagePicker';
 import Validators from '../../../Validators';
-    
-
-    var Field = ReduxForm.Field;
 
     var VariationImagePicker =  React.createClass({
         getInitialState: function() {
@@ -139,10 +136,10 @@ import Validators from '../../../Validators';
     const mapDispatchToProps = function(dispatch) {
         return {
             changeField: function(fieldName, value) {
-                dispatch(ReduxForm.change('createListing', fieldName, value));
+                dispatch(reduxFormChange('createListing', fieldName, value));
             }
         };
     };
 
-    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(VariationImagePicker);
+    export default connect(mapStateToProps, mapDispatchToProps)(VariationImagePicker);
 

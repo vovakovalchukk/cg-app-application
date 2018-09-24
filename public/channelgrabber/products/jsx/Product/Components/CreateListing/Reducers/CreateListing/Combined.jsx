@@ -1,13 +1,13 @@
-import Redux from 'redux';
-import ReduxForm from 'redux-form';
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
 import InitialValuesReducer from './InitialValues';
 import SubmissionStatusesReducer from './SubmissionStatusesReducer';
 import AccountsReducer from './AccountSpecificData';
     
 
-    var CombinedReducer = Redux.combineReducers({
+    var CombinedReducer = combineReducers({
         accountsData: AccountsReducer,
-        form: ReduxForm.reducer,
+        form: reduxFormReducer,
         initialValues: InitialValuesReducer,
         submissionStatuses: SubmissionStatusesReducer
     });

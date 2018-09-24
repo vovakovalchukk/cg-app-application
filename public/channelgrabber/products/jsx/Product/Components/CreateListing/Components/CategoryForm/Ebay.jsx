@@ -1,11 +1,8 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {FormSection} from 'redux-form';
 import AccountPolicy from './Ebay/AccountPolicy';
 import ListingDuration from './Ebay/ListingDuration';
 import ItemSpecifics from './Ebay/ItemSpecifics';
-    
-
-    let FormSection = ReduxForm.FormSection;
 
     let EbayCategoryFormComponent = React.createClass({
         getDefaultProps: function() {

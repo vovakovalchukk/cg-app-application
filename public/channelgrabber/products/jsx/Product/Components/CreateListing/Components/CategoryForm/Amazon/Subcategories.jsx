@@ -1,12 +1,8 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field, FieldArray} from 'redux-form';
 import Select from 'Common/Components/Select';
 import RemoveIcon from 'Common/Components/RemoveIcon';
 import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
-    
-
-    var FieldArray = ReduxForm.FieldArray;
-    var Field = ReduxForm.Field;
 
     var SubcategoriesComponent = React.createClass({
         getDefaultProps: function () {

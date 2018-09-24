@@ -1,6 +1,4 @@
-import ReduxForm from 'redux-form';
-    
-    var submitForm = ReduxForm.submit('createProductForm');
+import {submit as submitForm} from 'redux-form';
 
     var actionCreators = {
         initialAccountDataLoaded: function(taxRates, stockModeOptions) {

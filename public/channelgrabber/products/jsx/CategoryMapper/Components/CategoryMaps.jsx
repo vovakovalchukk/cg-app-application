@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactRedux from 'react-redux';
+import {connect} from 'react-redux';
 import CategoryMap from 'CategoryMapper/Components/CategoryMap';
 import Actions from 'CategoryMapper/Actions/Actions';
 import SearchComponent from 'CategoryMapper/Components/Search';
@@ -123,7 +123,7 @@ import LoadMoreButton from 'CategoryMapper/Components/LoadMoreButton';
         };
     };
 
-    var CategoryMapsConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+    var CategoryMapsConnector = connect(mapStateToProps, mapDispatchToProps);
 
     export default CategoryMapsConnector(CategoryMapsComponent);
 

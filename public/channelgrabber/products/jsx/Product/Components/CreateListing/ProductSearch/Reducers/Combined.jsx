@@ -1,10 +1,10 @@
-import Redux from 'redux';
-import ReduxForm from 'redux-form';
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
 import ProductsSearchReducer from './Products';
     
 
-    const CombinedReducer = Redux.combineReducers({
-        form: ReduxForm.reducer,
+    const CombinedReducer = combineReducers({
+        form: reduxFormReducer,
         products: ProductsSearchReducer
     });
 

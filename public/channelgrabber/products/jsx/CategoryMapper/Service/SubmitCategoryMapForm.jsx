@@ -1,9 +1,6 @@
-import ReduxForm from 'redux-form';
+import {SubmissionError, reset as reduxFormReset} from 'redux-form';
 import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
 import Actions from 'CategoryMapper/Actions/ResponseActions';
-    
-
-    var SubmissionError = ReduxForm.SubmissionError;
 
     var service = {
         validateName: function(name) {
@@ -148,7 +145,7 @@ import Actions from 'CategoryMapper/Actions/ResponseActions';
             if (mapId == 0) {
                 n.success('The new category map <b>' + values.name + '</b> has been saved successfully');
                 dispatch(Actions.addCategoryMap(response.id, response.etag, values));
-                dispatch(ReduxForm.reset(state.form));
+                dispatch(reduxFormReset(state.form));
                 return;
             }
 

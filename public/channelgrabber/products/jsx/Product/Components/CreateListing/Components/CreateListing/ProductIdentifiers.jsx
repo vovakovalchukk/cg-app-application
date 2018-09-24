@@ -1,12 +1,9 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import Checkbox from 'Common/Components/Checkbox';
 import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
 import VariationTable from './VariationTable';
-    
-
-    var Field = ReduxForm.Field;
 
     var inputTypeComponents = {
         "checkbox": Checkbox

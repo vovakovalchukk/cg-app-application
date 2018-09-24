@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
+import {connect} from 'react-redux';
+import {Field, FieldArray, FormSection, reduxForm, resetSection, submit as reduxFormSubmit} from 'redux-form';
 import Container from 'Common/Components/Container';
 import Input from 'Common/Components/Input';
 import TextArea from 'Common/Components/TextArea';
@@ -15,10 +15,6 @@ import Dimensions from './Components/CreateListing/Dimensions';
 import ProductPrice from './Components/CreateListing/ProductPrice';
 import SubmissionTable from './Components/CreateListing/SubmissionTable';
 import Validators from './Validators';
-    
-
-    var Field = ReduxForm.Field;
-    var FormSection = ReduxForm.FormSection;
 
     var CreateListingPopup = React.createClass({
         getDefaultProps: function() {
@@ -271,7 +267,7 @@ import Validators from './Validators';
         }
     });
 
-    CreateListingPopup = ReduxForm.reduxForm({
+    CreateListingPopup = reduxForm({
         form: "createListing",
         enableReinitialize: true,
         // This is required to make the images in the variation table show correctly
@@ -287,14 +283,14 @@ import Validators from './Validators';
             initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
             initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
             submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
-            resetSection: ReduxForm.resetSection
+            resetSection: resetSection
         };
     };
 
     var mapDispatchToProps = function(dispatch, props) {
         return {
             submitForm: function() {
-                dispatch(ReduxForm.submit("createListing"));
+                dispatch(reduxFormSubmit("createListing"));
             },
             loadInitialValues: function() {
                 dispatch(
@@ -315,5 +311,5 @@ import Validators from './Validators';
         };
     };
 
-    export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
+    export default connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
 

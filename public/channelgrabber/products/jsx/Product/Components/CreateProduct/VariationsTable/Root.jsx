@@ -1,10 +1,8 @@
-import Redux from 'redux';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
 import Component from './Component';
 import ActionCreators from './ActionCreators';
-    
 
     const formName = 'createProductForm';
 
@@ -24,9 +22,9 @@ import ActionCreators from './ActionCreators';
     };
 
     const mapDispatchToProps = function(dispatch) {
-        return Redux.bindActionCreators(ActionCreators, dispatch);
+        return bindActionCreators(ActionCreators, dispatch);
     };
 
-    var Connector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
+    var Connector = connect(mapStateToProps, mapDispatchToProps);
     export default Connector(Component);
 

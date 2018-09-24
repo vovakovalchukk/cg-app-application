@@ -1,4 +1,4 @@
-import ReduxForm from 'redux-form';
+import {change as reduxFormChange} from 'redux-form';
 import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
         
 
@@ -70,7 +70,7 @@ import stateFilters from 'Product/Components/CreateProduct/functions/stateFilter
             var firstRowDimensionOnlyValues = stateFilters.getDimensionOnlyFieldsFromVariationRow(firstRowVariationValues, state.variationsTable.fields);
             for (var variationProperty in firstRowDimensionOnlyValues) {
                 dispatch(
-                    ReduxForm.change(
+                    reduxFormChange(
                         'createProductForm',
                         'variations.variation-' + newVariationId.toString() + "." + variationProperty,
                         firstRowDimensionOnlyValues[variationProperty]
@@ -80,7 +80,7 @@ import stateFilters from 'Product/Components/CreateProduct/functions/stateFilter
         }
         function setDefaultStockModeValues(dispatch, variationId) {
             dispatch(
-                ReduxForm.change(
+                reduxFormChange(
                     'createProductForm',
                     'variations.variation-' + variationId.toString() + "." + 'stockModeType',
                     'all'

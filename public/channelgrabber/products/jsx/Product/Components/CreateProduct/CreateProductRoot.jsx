@@ -1,20 +1,18 @@
 import React from 'react';
-import Redux from 'redux';
-import ReactRedux from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
+import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import ActionCreators from 'Product/Components/CreateProduct/CreateProductActionCreators';
 import CombinedReducer from 'Product/Components/CreateProduct/Reducers/CombinedReducer';
 import CreateProduct from 'Product/Components/CreateProduct/CreateProduct';
-    
-    var Provider = ReactRedux.Provider;
 
-    var enhancer = Redux.applyMiddleware(thunk.default);
+    var enhancer = applyMiddleware(thunk);
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
         enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
             latency: 0
-        })(Redux.applyMiddleware(thunk.default));
+        })(applyMiddleware(thunk));
     }
-    var store = Redux.createStore(
+    var store = createStore(
         CombinedReducer,
         enhancer
     );

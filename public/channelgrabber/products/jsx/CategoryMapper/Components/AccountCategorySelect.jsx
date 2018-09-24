@@ -1,11 +1,8 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import RefreshIcon from 'Common/Components/RefreshIcon';
 import RemoveIcon from 'Common/Components/RemoveIcon';
 import CategorySelect from 'CategoryMapper/Components/CategorySelect';
-    
-
-    var Field = ReduxForm.Field;
 
     var AccountCategorySelect = React.createClass({
         getDefaultProps: function() {

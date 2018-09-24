@@ -1,9 +1,6 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
-    
-
-    var Field = ReduxForm.Field;
 
     var VariationTableComponent = React.createClass({
         getDefaultProps: function() {

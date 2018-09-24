@@ -1,15 +1,11 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {FormSection, Field} from 'redux-form';
 import ItemSpecifics from './Amazon/ItemSpecifics';
 import Subcategories from './Amazon/Subcategories';
 import VariationsTable from 'Product/Components/CreateListing/Components/CreateListing/VariationTable';
 import Validators from 'Product/Components/CreateListing/Validators';
 import Select from 'Common/Components/Select';
 import Input from 'Common/Components/Input';
-    
-
-    const FormSection = ReduxForm.FormSection;
-    const Field = ReduxForm.Field;
 
     var AmazonCategoryFormComponent = React.createClass({
         getDefaultProps: function() {
