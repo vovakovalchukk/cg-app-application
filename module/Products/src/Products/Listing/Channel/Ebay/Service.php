@@ -154,19 +154,12 @@ class Service implements
             if (!$ebayData) {
                 throw new \InvalidArgumentException('No ebay data provided');
             }
-            $pbseStatus = (new FeatureHelper($ebayData))->getFeatureValue('ProductCreationEnabled');
-
-            $required = $pbseStatus == 'Required';
-            $enabled = $pbseStatus == 'Enabled' || $required;
-
+            $required = (new FeatureHelper($ebayData))->isFeatureEnabled('ProductRequiredEnabled');
         } catch (\InvalidArgumentException $e) {
-            $enabled = false;
             $required = false;
-            $this->logWarningException($e);
         }
 
         return [
-            'enabled' => $enabled,
             'required' => $required
         ];
     }
