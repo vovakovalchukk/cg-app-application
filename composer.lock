@@ -3865,12 +3865,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "ed6f53b57c6d885e359850b14d88766c334ee283"
+                "reference": "143b6a2c8a70214bbd4a7a7943eb2591d02bdbad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9889-incomplete-details-redirect-payment-344dd0.zip",
-                "reference": "ed6f53b57c6d885e359850b14d88766c334ee283",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9889-incomplete-details-redirect-payment-e05625.zip",
+                "reference": "143b6a2c8a70214bbd4a7a7943eb2591d02bdbad",
                 "shasum": null
             },
             "require": {
@@ -3908,7 +3908,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-09-24T08:31:30+00:00"
+            "time": "2018-09-24T08:57:32+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
