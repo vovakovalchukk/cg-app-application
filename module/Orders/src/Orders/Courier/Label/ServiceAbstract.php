@@ -383,7 +383,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function getEmptyParcelDataForOrder(Order $order): OrderParcelsData
     {
-        return new OrderParcelsData($order->getId(), new OrderParcelsData\ParcelData\Collection());
+        return $this->getEmptyParcelDataForOrderId($order->getId());
+    }
+
+    protected function getEmptyParcelDataForOrderId(string $orderId): OrderParcelsData
+    {
+        return new OrderParcelsData($orderId, new OrderParcelsData\ParcelData\Collection());
     }
 
     protected function getOrCreateOrderLabelsForOrders(
@@ -404,11 +409,15 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         }
 
         foreach ($missingOrders as $missingOrderId) {
+            $missingOrderParcelsData = ($orderParcelsData->containsId($missingOrderId)
+                ? $orderParcelsData->getById($missingOrderId)
+                : $this->getEmptyParcelDataForOrderId($missingOrderId)
+            );
             $orderLabels->attach(
                 $this->createOrderLabelForOrder(
                     $orders->getById($missingOrderId),
                     $ordersData->getById($missingOrderId),
-                    ($orderParcelsData->containsId($missingOrderId) ? $orderParcelsData->getById($missingOrderId) : null),
+                    $missingOrderParcelsData,
                     $shippingAccount
                 )
             );
