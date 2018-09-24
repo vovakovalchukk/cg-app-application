@@ -8,16 +8,16 @@ use CG\Stdlib\Log\LogTrait;
 try {
     require_once __DIR__ . '/../application/bootstrap.php';
 
+    if (!defined('ENVIRONMENT') || ENVIRONMENT !== 'dev') {
+        ob_start(function() { /* Ignore all output */ });
+    }
+
     if (extension_loaded('newrelic')) {
         newrelic_name_transaction('status');
     }
 
     $statusCode = 200;
     $cachedStatus = StatusCache::getCachedStatus($factory = new Zf2Factory());
-
-    if (!defined('ENVIRONMENT') || ENVIRONMENT !== 'dev') {
-        ob_start(function() { /* Ignore all output */ });
-    }
 
     if (!$cachedStatus->getStatus()) {
         $statusCode = 500;
