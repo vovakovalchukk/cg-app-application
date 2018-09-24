@@ -7,25 +7,19 @@ define([
     
     var initialState = {
         vatRates: [],
-        productsVat: []
+        productsVat: {}
     };
     
     var vatReducer = reducerCreator(initialState, {
         "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
             let {products} = action.payload;
             
-            let newVatRates = getTaxOptionsFromProduct(products[0]);
+            let vatRates = getTaxOptionsFromProduct(products[0]);
             let newProductsVat = getChosenVatFromProducts(products);
             
-            //todo -- don't save vatRates again if they exist already
-            let vatRates = applyNewTaxRates(state, newVatRates);
-            let productsVat = state.productsVat.concat(newProductsVat);
-            console.log('productsVat before sort: ', productsVat);
+            let productsVat = Object.assign(state.productsVat, newProductsVat);
             
-            productsVat.sort(sortById);
-            console.log('vatRates saved: ', vatRates);
-            console.log('productsVat saved: ', productsVat);
-            //todo sort for readability
+            productsVat = sortByKey(productsVat);
             
             let newState = Object.assign({}, state, {
                 vatRates,
@@ -38,7 +32,7 @@ define([
     return vatReducer;
     
     function getChosenVatFromProducts(products) {
-        let productsVat = [];
+        let productsVat = {};
         products.forEach(product => {
             product = addDummyTaxCountrys(product);
             let chosenVats = {
@@ -63,18 +57,29 @@ define([
                     chosenVats[countryCode] = taxOptionKey;
                 });
             });
-            productsVat.push(chosenVats);
+            productsVat[product.id]=chosenVats;
             return;
         });
         return productsVat;
     }
     
+    function sortByKey(unordered){
+        const ordered = {};
+        Object.keys(unordered).sort().forEach(function(key) {
+            ordered[key] = unordered[key];
+        });
+        return ordered;
+    }
+    
     function getTaxOptionsFromProduct(product) {
-        let options = [];
+        let options = {};
+        
         // todo - remove this before submission of TAC-216 - for dummy purposes only
         product = addDummyTaxCountrys(product);
+        //^^^^
         
         Object.keys(product.taxRates).forEach((countryCode) => {
+            options[countryCode] = [];
             let taxOptions = product.taxRates[countryCode];
             Object.keys(taxOptions).forEach((taxOptionKey, index) => {
                 let option = taxOptions[taxOptionKey];
@@ -84,9 +89,8 @@ define([
                     name: option.name,
                     rate: option.rate,
                 };
-                options.push(optionToSave);
+                options[countryCode].push(optionToSave);
             })
-            
         });
         return options;
     }
@@ -106,22 +110,5 @@ define([
             }
         };
         return product;
-    }
-    
-    function sortById(a, b) {
-        return a.productId - b.productId;
-    }
-    
-    function applyNewTaxRates(state, newVatRates) {
-        let vatRatesToAdd = [];
-        newVatRates.forEach(newVatRate => {
-            if (!!state.vatRates.find(stateVatRate => {
-                return newVatRate.key === stateVatRate.key;
-            })) {
-                return;
-            }
-            vatRatesToAdd.push(newVatRate);
-        });
-        return state.vatRates.concat(vatRatesToAdd);
     }
 });

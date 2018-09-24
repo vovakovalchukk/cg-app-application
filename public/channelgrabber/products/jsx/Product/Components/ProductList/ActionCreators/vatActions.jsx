@@ -4,11 +4,7 @@ define([], function() {
     let vatActions = (function() {
         return {
             extractVatFromProducts: (products) => {
-                return function(dispatch, getState) {
-                    let state = getState();
-                    console.log('in extractVatFromProducts');
-                    
-                    
+                return function(dispatch) {
                     dispatch({
                         type: "VAT_FROM_PRODUCTS_EXTRACT",
                         payload: {

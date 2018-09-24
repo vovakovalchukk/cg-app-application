@@ -27,6 +27,12 @@ define([], function() {
                         return column.fixed
                     });
                 },
+                getAccounts() {
+                    return _getState().accounts;
+                },
+                getVat(){
+                  return _getState().vat;
+                },
                 getStock(id){
                     return self.getProductById(id).stock;
                 },

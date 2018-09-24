@@ -68,15 +68,44 @@ define([
     
     let columnService = (function() {
         return {
-            generateColumnSettings: function(accounts) {
+            generateColumnSettings: function(accounts, vat) {
                 let listingsColumns = generateListingsColumnsFromAccounts(accounts);
-                let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns);
+                let vatColumns = generateVatColumns(vat);
+                let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns);
                 return generatedColumns;
             }
         }
     }());
     
     return columnService;
+    
+    function generateVatColumns(vat){
+        let vatColumns=[];
+        return Object.keys(vat.vatRates).map(countryCode=>{
+            let options = vat.vatRates[countryCode];
+            
+            for(let key in options){
+                let option = options[key];
+                let columnForCountryExists = !!vatColumns.find(column=>{
+                    return column.countryCode === option.countryCode;
+                });
+    
+                if(columnForCountryExists){
+                    return;
+                }
+                return {
+                    key: option.countryCode,
+                    type: 'vat',
+                    countryCode: option.countryCode,
+                    vat,
+                    width: 100,
+                    headerText: option.countryCode,
+                    fixed: false,
+                    tab: 'vat'
+                }
+            }
+        });
+    }
     
     function generateListingsColumnsFromAccounts(accounts) {
         if (typeof accounts === "string") {
@@ -94,6 +123,7 @@ define([
                 tab: 'listings'
             }
         });
+        
         let miscListingColumns = [
             {
                 key: 'addListing',

@@ -11,6 +11,7 @@ define([
     'Product/Components/ProductList/Cell/StockMode',
     'Product/Components/ProductList/Cell/Weight',
     'Product/Components/ProductList/Cell/Dimensions',
+    'Product/Components/ProductList/Cell/Vat',
     'Product/Components/ProductList/Column/columnKeys'
 ], function(
     React,
@@ -25,6 +26,7 @@ define([
     StockModeCell,
     WeightCell,
     DimensionsCell,
+    VatCell,
     columnKeys
 ) {
     "use strict";
@@ -44,6 +46,7 @@ define([
         stockMode: StockModeCell,
         weight: WeightCell,
         dimensions: DimensionsCell,
+        vat: VatCell
     };
     
     var columnCreator = function(column, parentProps) {

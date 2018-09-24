@@ -107,8 +107,6 @@ define([
                     try {
                         dispatch(getProductsRequestStart());
                         let data = await fetchProducts(filter);
-                        console.log('data after getting products data: ', data);
-                        
                         dispatch(getProductsSuccess(data));
                         dispatch(productLinkActions.getLinkedProducts());
                         dispatch(vatActions.extractVatFromProducts(data.products));

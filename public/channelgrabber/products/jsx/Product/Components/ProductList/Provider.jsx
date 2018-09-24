@@ -55,8 +55,8 @@ define([
         componentDidMount: async function() {
             store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
             store.dispatch(ActionCreators.storeStockModeOptions(this.props.stockModeOptions));
-            let getProductsResponse = await store.dispatch(ActionCreators.getProducts());
-            store.dispatch(columnActions.generateColumnSettings(getProductsResponse.accounts))
+            await store.dispatch(ActionCreators.getProducts());
+            store.dispatch(columnActions.generateColumnSettings());
         },
         render: function() {
             return (

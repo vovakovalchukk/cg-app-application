@@ -123,6 +123,7 @@ define([
         },
         renderColumns: function() {
             let columnSettings = this.props.columns.columnSettings;
+            
             let createdColumns = columnSettings.map((column) => {
                 if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                     return;
