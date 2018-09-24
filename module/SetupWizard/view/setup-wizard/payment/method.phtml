@@ -11,6 +11,11 @@
                 },
                 function(data) {
                     $('.payment-setup').html(data['html'] || '');
+                    console.log(data);
+                    if (data.redirect) {
+                        n.error(data.error);
+                        window.location.href = data.redirect;
+                    }
                 }
             );
         }
