@@ -20,7 +20,7 @@ define([
         },
         {
             key: 'link',
-            width: 50,
+            width: 40,
             fixed: true,
             headerText: 'Link'
         },
@@ -47,7 +47,7 @@ define([
     let detailsColumns = [
         {
             key: 'stockMode',
-            width: 240,
+            width: 200,
             headerText: 'Stock Mode',
             fixed: false,
             tab: 'details'

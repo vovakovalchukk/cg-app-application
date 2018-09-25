@@ -45,12 +45,14 @@ define([
             };
             
             return (
-                <Select
-                    options={options}
-                    selectedOption={selected}
-                    onOptionChange={this.changeVat}
-                    fullWidth={true}
-                />
+                <div className={this.props.className}>
+                    <Select
+                        options={options}
+                        selectedOption={selected}
+                        onOptionChange={this.changeVat}
+                        fullWidth={true}
+                    />
+                </div>
             );
         }
     });

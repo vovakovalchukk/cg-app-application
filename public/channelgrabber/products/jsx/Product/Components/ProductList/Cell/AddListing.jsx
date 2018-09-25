@@ -40,6 +40,7 @@ define([
             return (
                 <AddIcon
                     onClick={this.onAddListingClick.bind(this, rowData)}
+                    className={this.props.className}
                 />
             );
         }

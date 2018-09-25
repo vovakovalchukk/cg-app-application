@@ -26,10 +26,13 @@ define([
             });
         },
         componentDidMount: function() {
-            new Clipboard('div.js-' + this.getUniqueClassName(), [], 'data-copy');
+            new Clipboard('div.'+ this.getUniqueClassName(), [], 'data-copy');
         },
-        getUniqueClassName: function() {
-            return this.props.columnKey + '-' + this.props.rowIndex;
+        getUniqueClassName:function(){
+          return  'js-'+this.props.columnKey+'-'+this.props.rowIndex;
+        },
+        getClassNames:function(){
+          return this.props.className + ' ' + this.getUniqueClassName();
         },
         render() {
             const {products, rowIndex} = this.props;
@@ -37,7 +40,7 @@ define([
             const isVariation = stateUtility.isVariation(row);
             let name = isVariation ? this.getVariationName(row) : row['name'];
             return (
-                <div {...this.props} className={'js-' + this.getUniqueClassName()} data-copy={name}>
+                <div {...this.props} className={this.getClassNames()} data-copy={name}>
                     {name}
                 </div>
             );

@@ -41,6 +41,7 @@ define([
             return <ListingStatus
                 status={status}
                 onAddListingClick={this.onAddListingClick}
+                className={this.props.className}
             />;
         }
     });

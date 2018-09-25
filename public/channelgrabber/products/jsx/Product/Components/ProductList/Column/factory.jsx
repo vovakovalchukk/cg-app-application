@@ -1,6 +1,7 @@
 define([
     'react',
     'fixed-data-table',
+    'styled-components',
     'Product/Components/ProductList/Cell/Text',
     'Product/Components/ProductList/Cell/ProductExpand',
     'Product/Components/ProductList/Cell/Image',
@@ -16,6 +17,7 @@ define([
 ], function(
     React,
     FixedDataTable,
+    styled,
     TextCell,
     ProductExpandCell,
     ImageCell,
@@ -32,6 +34,7 @@ define([
     "use strict";
     
     const Column = FixedDataTable.Column;
+    styled = styled.default;
     
     let cells = {
         productExpand: ProductExpandCell,
@@ -55,6 +58,14 @@ define([
         column = applyColumnSpecificProps(column, parentProps);
         
         let CreatedCell = getCreatedCell(column);
+        let StyledCell = styled(CreatedCell)`
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-left:1rem;
+            padding-right:1rem;
+        `;
+        
         if (!CreatedCell) {
             console.error("cannot create cell in column factory for column: ", column);
         }
@@ -63,7 +74,7 @@ define([
             width={column.width}
             fixed={column.fixed}
             header={column.headerText}
-            cell={<CreatedCell
+            cell={<StyledCell
                 {...column}
                 products={column.products}
                 actions={column.actions}
@@ -82,5 +93,12 @@ define([
     
     function getCreatedCell(column) {
         return column.type ? cells[column.type] : cells[column.key];
+    }
+    
+    function getCellPadding(column){
+        if(column.key=='image'){
+            return '0rem'
+        }
+        return '1rem';
     }
 });

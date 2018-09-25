@@ -33,7 +33,7 @@ define([
             }
             
             return (
-                <span>
+                <span className={this.props.className}>
                     <Input
                         name='weight'
                         initialValue={(row.details && row.details.weight) ? parseFloat(row.details.weight).toFixed(3): ''}

@@ -13,7 +13,7 @@ define([
     
     styled = styled.default;
     
-    let Image = styled.img`
+    const Image = styled.img`
         max-width: ${props => props.width}px;
         max-height: ${props => props.height}px;
         object-fit:contain;

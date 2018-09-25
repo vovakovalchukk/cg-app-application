@@ -57,7 +57,7 @@ define([
             }
             
             return (
-                <InputsContainer>
+                <InputsContainer className={this.props.className}>
                     {this.renderInput(row, 'height')} x
                     {this.renderInput(row, 'width')} x
                     {this.renderInput(row, 'length')}

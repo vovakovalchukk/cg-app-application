@@ -76,7 +76,7 @@ define([
                 return <span></span>
             }
             return (
-                <div>
+                <div className={this.props.className}>
                     <StyledStockModeInputs
                         onChange={this.onStockModeChange}
                         stockModeOptions={this.props.stock.stockModeOptions}
