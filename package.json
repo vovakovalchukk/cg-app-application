@@ -27,7 +27,7 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.13",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-227-upgrade-react",
     "chart.js": "^2.7.0",
     "css-toggle-switch": "^4.1.0",
     "react": "^15.4.2",
