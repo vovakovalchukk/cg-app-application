@@ -64,6 +64,7 @@ define([
             height: 100%;
             padding-left:1rem;
             padding-right:1rem;
+            justify-content:${getJustifyContentProp(column)}
         `;
         
         if (!CreatedCell) {
@@ -95,10 +96,10 @@ define([
         return column.type ? cells[column.type] : cells[column.key];
     }
     
-    function getCellPadding(column){
-        if(column.key=='image'){
-            return '0rem'
+    function getJustifyContentProp(column){
+        if(column.key==='available'){
+            return 'flex-end';
         }
-        return '1rem';
+        return 'inherit';
     }
 });
