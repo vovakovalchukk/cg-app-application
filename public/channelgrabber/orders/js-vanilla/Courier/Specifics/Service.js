@@ -16,7 +16,7 @@ define([
     storage
 ) {
     // Also requires global CourierSpecificsDataTable class to be present
-    function Service(dataTable, courierAccountId, ipaManager)
+    function Service(dataTable, courierAccountId, ipaManager, balanceService)
     {
         var eventHandler;
         var delayedLabelsOrderIds;
@@ -27,6 +27,11 @@ define([
         this.getDataTable = function()
         {
             return dataTable;
+        };
+
+        this.getBalanceService = function()
+        {
+          return balanceService;
         };
 
         this.getCourierAccountId = function()
@@ -127,7 +132,7 @@ define([
         this.store = function(key, value)
         {
             this.getStorage().set(key, value);
-        }
+        };
 
         var init = function()
         {
@@ -138,16 +143,6 @@ define([
         init.call(this);
     }
 
-    Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
-    Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
-    Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
-    Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
-    Service.SELECTOR_ORDER_EXPORTABLE_TPL = '#datatable input[name="orderInfo[_orderId_][exportable]"]';
-    Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
-    Service.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
-    Service.SELECTOR_ORDER_RATEABLE_TPL = '#datatable input[name="orderInfo[_orderId_][rateable]"]';
-    Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
-    Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_EXPORT = '/orders/courier/label/export';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
@@ -156,6 +151,7 @@ define([
     Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
     Service.URI_FETCH_RATES = '/orders/courier/label/fetchRates';
     Service.URI_SERVICE_REQ_OPTIONS = '/orders/courier/specifics/{accountId}/options';
+
     Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
 
     Service.prototype.listenForTableLoad = function()
@@ -197,7 +193,7 @@ define([
 
     Service.prototype.courierLinkChosen = function(courierUrl)
     {
-        $(Service.SELECTOR_NAV_FORM).attr('action', courierUrl).submit();
+        $(CourierSpecificsDataTable.SELECTOR_NAV_FORM).attr('action', courierUrl).submit();
     };
 
     Service.prototype.serviceChanged = function(orderId, service)
@@ -206,7 +202,7 @@ define([
         var data = {"order": orderId, "service": service};
         this.getAjaxRequester().sendRequest(uri, data, function(response)
         {
-            var table = $(Service.SELECTOR_SERVICE_PREFIX + orderId).closest('table');
+            var table = $(CourierSpecificsDataTable.SELECTOR_SERVICE_PREFIX + orderId).closest('table');
             for (var name in response.requiredFields) {
                 var selector = 'input[name="orderData['+orderId+']['+name+']"]'
                     + ', input[name^="parcelData['+orderId+']"][name$="['+name+']"]'
@@ -343,7 +339,7 @@ define([
         var data = this.getInputDataService().convertInputDataToAjaxData(inputData);
         data.account = this.getCourierAccountId();
         data.order = [orderId];
-        this.sendCreateLabelsRequest(data);
+        this.sendCreateLabelsRequest(data, button);
     };
 
     Service.prototype.exportOrder = function(orderId, button)
@@ -371,11 +367,11 @@ define([
 
     Service.prototype.printLabelsForOrders = function(orderIds)
     {
-        $(Service.SELECTOR_LABEL_FORM + ' input[name="order[]"]').remove();
+        $(CourierSpecificsDataTable.SELECTOR_LABEL_FORM + ' input[name="order[]"]').remove();
         for (var count in orderIds) {
-            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(Service.SELECTOR_LABEL_FORM);
+            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(CourierSpecificsDataTable.SELECTOR_LABEL_FORM);
         }
-        $(Service.SELECTOR_LABEL_FORM).submit();
+        $(CourierSpecificsDataTable.SELECTOR_LABEL_FORM).submit();
     };
 
     Service.prototype.cancelForOrder = function(orderId, button)
@@ -444,14 +440,14 @@ define([
         if ($(button).hasClass('disabled')) {
             return;
         }
-        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled', 'rates fetched']);
         if (!data) {
             return;
         }
         $(button).addClass('disabled');
         $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).addClass('disabled');
         this.getNotifications().notice('Creating all labels');
-        this.sendCreateLabelsRequest(data);
+        this.sendCreateLabelsRequest(data, button);
     };
 
     Service.prototype.exportAll = function(button)
@@ -469,7 +465,7 @@ define([
         this.sendExportRequest(data);
     };
 
-    Service.prototype.sendCreateLabelsRequest = function(data)
+    Service.prototype.sendCreateLabelsRequest = function(data, button)
     {
         var self = this;
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
@@ -477,7 +473,7 @@ define([
             if (response.Records) {
                 self.refreshRowsWithData(response.Records);
             }
-            self.processCreateLabelsResponse(response);
+            self.processCreateLabelsResponse(response, button);
         }, function(response)
         {
             $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
@@ -512,19 +508,25 @@ define([
         $(formHtml).appendTo('body').submit().remove();
     };
 
-    Service.prototype.processCreateLabelsResponse = function(response)
+    Service.prototype.processCreateLabelsResponse = function(response, button)
     {
         if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
+            this.updateBalance(response);
             this.getNotifications().success('Label(s) created successfully');
         } else {
-            this.handleNotReadysAndErrors(response);
+            this.handleNotReadysAndErrors(response, button);
         }
         $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
     };
 
-    Service.prototype.handleNotReadysAndErrors = function(response)
+    Service.prototype.handleNotReadysAndErrors = function(response, button)
     {
+        if (response.topupRequired) {
+            this.showBalanceTopUpPopUp(button);
+            return;
+        }
+
         var message = '';
         message += this.getLabelsNotReadyMessageForResponse(response);
         message += this.getLabelsErroredMessageForResponse(response, message);
@@ -634,7 +636,7 @@ define([
 
     Service.prototype.updateOrderServices = function(orderId, services)
     {
-        var select = $(Service.SELECTOR_SERVICE_PREFIX + orderId);
+        var select = $(CourierSpecificsDataTable.SELECTOR_SERVICE_PREFIX + orderId);
         select.find('ul li').each(function()
         {
             var serviceOption = this;
@@ -648,24 +650,17 @@ define([
         select.find('.selected-content').text('');
     };
 
-    Service.prototype.markOrderLabelAsReady = function(orderId)
+    Service.prototype.markOrderLabelAsReady = function(orderId, labelStatus)
     {
-        var labelStatus = 'not printed';
-        var labelStatusSelector = Service.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
-        $(labelStatusSelector).val(labelStatus);
-        var exportableSelector = Service.SELECTOR_ORDER_EXPORTABLE_TPL.replace('_orderId_', orderId);
-        var exportable = $(exportableSelector).val();
-        var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
-        var cancellable = $(cancellableSelector).val();
-        var dispatchableSelector = Service.SELECTOR_ORDER_DISPATCHABLE_TPL.replace('_orderId_', orderId);
-        var dispatchable = $(dispatchableSelector).val();
-        var rateableSelector = Service.SELECTOR_ORDER_RATEABLE_TPL.replace('_orderId_', orderId);
-        var rateable = $(rateableSelector).val();
+        labelStatus = labelStatus || CourierSpecificsDataTable.LABEL_STATUS_DEFAULT;
+
+        var actionAvailability = CourierSpecificsDataTable.getActionsAvailabilityFromLabelStatus(orderId, labelStatus);
+
         var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(
-            labelStatus, exportable, cancellable, dispatchable, rateable
+            labelStatus, actionAvailability.exportable, actionAvailability.cancellable, actionAvailability.dispatchable, actionAvailability.rateable, actionAvailability.creatable
         );
         var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
-        $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
+        $(CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
     };
 
     Service.prototype.fetchAllRates = function(button)
@@ -707,11 +702,28 @@ define([
         }
         for (var orderId in response.rates) {
             var orderRates = response.rates[orderId];
-            var select = $(Service.SELECTOR_SERVICE_PREFIX + orderId);
+            var select = $(CourierSpecificsDataTable.SELECTOR_SERVICE_PREFIX + orderId);
             var input = select.find('input[type=hidden]');
             var selectedService = input.val();
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
+
+            var showServiceWarning = true;
+            for (key in serviceOptions) {
+                if (serviceOptions[key].selected === true) {
+                    showServiceWarning = false;
+                    break;
+                }
+            }
+
+            if (showServiceWarning) {
+                this.getNotifications().notice('The service you requested is unavailable, please select an alternative');
+            }
+
+            $(CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL.replace('_orderId_', orderId)).val(1);
+            this.markOrderLabelAsReady(orderId, CourierSpecificsDataTable.LABEL_STATUS_RATES_FETCHED);
+            $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).show();
+            $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).hide();
         }
         this.recordLabelCostsFromRatesResponse(response.rates);
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
@@ -828,6 +840,23 @@ define([
             self.refresh();
         });
     };
+
+    Service.prototype.showBalanceTopUpPopUp = function(button)
+    {
+        this.getNotifications().clearNotifications();
+        var additionalPopupSettings = {
+            "title": "Insufficient Funds",
+            "labelCreateButtonClicked": $(button).attr('id')
+        };
+        this.getBalanceService().renderPopup(additionalPopupSettings);
+    };
+
+    Service.prototype.updateBalance = function(data)
+    {
+        if (data.balance !== undefined) {
+            $(CourierSpecificsDataTable.SELECTOR_ACCOUNT_BALANCE_FIGURE).text(data.balance.toFixed(2));
+        }
+    }
 
     return Service;
 });

@@ -51,14 +51,10 @@ define([
             return statusRows;
         },
         findCategoryForAccountInTemplate: function(template, accountId) {
-            for (var categoryId in template.categories) {
-                var category = template.categories[categoryId];
-                if (category.accountId == accountId) {
-                    return Object.assign(category, {
-                        id: categoryId
-                    });
-                }
-            }
+            var category = template.accounts[accountId];
+            return Object.assign(category, {
+                id: category.categoryId
+            });
         },
         getStatusForAccountAndCategory: function (accountId, categoryId) {
             if (!this.props.statuses.accounts || Object.keys(this.props.statuses.accounts).length === 0) {

@@ -10,10 +10,14 @@ class Rates extends ResponseAbstract
     protected $rates = [];
     /** @var Rate[] */
     protected $invalidRates = [];
+    /** @var string */
+    protected $shipmentId;
 
     protected static function build($decodedJson)
     {
         $rates = new static();
+        $rates->shipmentId = $decodedJson->rate_response->shipment_id;
+
         foreach ($decodedJson->rate_response->rates as $rateJson) {
             $rates->addRate(Rate::build($rateJson));
         }
@@ -52,5 +56,13 @@ class Rates extends ResponseAbstract
     public function getInvalidRates(): array
     {
         return $this->invalidRates;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipmentId(): string
+    {
+        return $this->shipmentId;
     }
 }

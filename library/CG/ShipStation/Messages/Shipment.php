@@ -7,6 +7,8 @@ use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\Entity as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Messages\CarrierService;
+use CG\ShipStation\Messages\Customs;
 
 class Shipment
 {
@@ -22,6 +24,10 @@ class Shipment
     protected $warehouseId;
     /** @var string */
     protected $externalShipmentId;
+    /** @var string|null */
+    protected $confirmation;
+    /** @var Customs|null */
+    protected $customs;
     /** @var Package[] */
     protected $packages;
 
@@ -31,6 +37,8 @@ class Shipment
         ShipmentAddress $shipTo,
         string $warehouseId,
         string $externalShipmentId,
+        ?string $confirmation,
+        ?Customs $customs,
         Package ...$packages
     ) {
         $this->carrierId = $carrierId;
@@ -38,6 +46,8 @@ class Shipment
         $this->shipTo = $shipTo;
         $this->warehouseId = $warehouseId;
         $this->externalShipmentId = $externalShipmentId;
+        $this->confirmation = $confirmation;
+        $this->customs = $customs;
         $this->packages = $packages;
     }
 
@@ -45,15 +55,21 @@ class Shipment
         Order $order,
         OrderData $orderData,
         OrderParcelsData $parcelsData,
+        CarrierService $carrierService,
         Account $shipStationAccount,
         Account $shippingAccount,
         OrganisationUnit $rootOu
     ): Shipment {
         $shipTo = ShipmentAddress::createFromOrder($order);
+        $confirmation = $orderData->getSignature() ? 'signature' : null;
         $packages = [];
         /** @var ParcelData $parcelData */
         foreach ($parcelsData->getParcels() as $parcelData) {
             $packages[] = Package::createFromOrderAndData($order, $orderData, $parcelData, $rootOu);
+        }
+        $customs = null;
+        if ($carrierService->isInternational()) {
+            $customs = Customs::createFromOrder($order, $rootOu);
         }
 
         return new static(
@@ -62,6 +78,8 @@ class Shipment
             $shipTo,
             $shipStationAccount->getExternalDataByKey('warehouseId'),
             static::getUniqueIdForOrder($order),
+            $confirmation,
+            $customs,
             ...$packages
         );
     }
@@ -83,8 +101,15 @@ class Shipment
             'external_shipment_id' => $this->getExternalShipmentId(),
             'packages' => [],
         ];
+        // ShipEngine doesnt handle nulls
+        if ($this->getConfirmation()) {
+            $array['confirmation'] = $this->getConfirmation();
+        }
         foreach ($this->packages as $package) {
             $array['packages'][] = $package->toArray();
+        }
+        if ($this->getCustoms()) {
+            $array['customs'] = $this->getCustoms()->toArray();
         }
         return $array;
     }
@@ -150,6 +175,28 @@ class Shipment
     public function setExternalShipmentId(string $externalShipmentId): Shipment
     {
         $this->externalShipmentId = $externalShipmentId;
+        return $this;
+    }
+
+    public function getConfirmation(): ?string
+    {
+        return $this->confirmation;
+    }
+
+    public function setConfirmation(?string $confirmation): Shipment
+    {
+        $this->confirmation = $confirmation;
+        return $this;
+    }
+
+    public function getCustoms(): ?Customs
+    {
+        return $this->customs;
+    }
+
+    public function setCustoms(?Customs $customs): Shipment
+    {
+        $this->customs = $customs;
         return $this;
     }
 

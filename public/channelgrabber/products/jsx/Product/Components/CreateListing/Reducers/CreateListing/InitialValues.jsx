@@ -76,7 +76,8 @@ define([
                 ean: variation.details.ean ? variation.details.ean : selectedProductDetails.ean,
                 upc: variation.details.upc ? variation.details.upc : selectedProductDetails.upc,
                 isbn: variation.details.isbn ? variation.details.isbn : selectedProductDetails.isbn,
-                mpn: variation.details.mpn ? variation.details.mpn : selectedProductDetails.mpn
+                mpn: variation.details.mpn ? variation.details.mpn : selectedProductDetails.mpn,
+                barcodeNotApplicable: variation.details.barcodeNotApplicable !== null ? variation.details.barcodeNotApplicable : selectedProductDetails.barcodeNotApplicable
             };
         });
         return identifiers;

@@ -16,6 +16,8 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\User\Entity as User;
+use CG\Stdlib\DateTime;
+
 
 class Service implements
     CarrierProviderServiceInterface,
@@ -97,7 +99,7 @@ class Service implements
     /**
      * @return null
      */
-    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest)
+    public function createManifestForAccount(Account $shippingAccount, AccountManifest $accountManifest, ?DateTime $lastManifestDate)
     {
         $this->manifestService->createManifestForAccount($shippingAccount, $accountManifest);
     }

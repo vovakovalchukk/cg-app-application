@@ -2,37 +2,48 @@
 namespace Orders\Courier\Label;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shipping\Service as ShippingAccountService;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Billing\Shipping\Charge\Collection as ShippingChargeCollection;
-use CG\Billing\Shipping\Charge\Entity as ShippingCharge;
 use CG\Billing\Shipping\Charge\DefaultCharge as DefaultShippingCharge;
+use CG\Billing\Shipping\Charge\Entity as ShippingCharge;
 use CG\Billing\Shipping\Charge\Filter as ShippingChargeFilter;
 use CG\Billing\Shipping\Charge\Service as ShippingChargeService;
 use CG\Channel\Shipping\Provider\Service\FetchRatesInterface;
-use CG\Channel\Shipping\Provider\Service\ShippingRateInterface;
+use CG\Channel\Shipping\Provider\Service\Repository as CarrierProviderServiceRepository;
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates as OrderShippingRates;
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as ShippingRateCollection;
+use CG\Channel\Shipping\Provider\Service\ShippingRateInterface;
+use CG\Channel\Shipping\Services\Factory as ShippingServiceFactory;
 use CG\Locale\Mass as LocaleMass;
+use CG\Locking\Service as LockingService;
+use CG\Order\Client\Label\Service as OrderLabelService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
+use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Collection as Orders;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
+use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Detail\Mapper as ProductDetailMapper;
+use CG\Product\Detail\Service as ProductDetailService;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOuService;
+use GearmanClient;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
-class RatesService implements LoggerAwareInterface
+class RatesService extends ServiceAbstract
 {
     use LogTrait;
 
     const LOG_CODE = 'OrderCourierLabelRatesService';
+    const LOG_UPDATE = 'Updating OrderLabel to rates fetched for Order %s';
 
     /** @var AccountService */
     protected $accountService;
@@ -47,11 +58,34 @@ class RatesService implements LoggerAwareInterface
 
     public function __construct(
         AccountService $accountService,
-        UserOuService $userOuService,
+        UserOUService $userOuService,
         OrderService $orderService,
+        ShippingAccountService $shippingAccountService,
+        OrderLabelMapper $orderLabelMapper,
+        OrderLabelService $orderLabelService,
+        OrderTrackingService $orderTrackingService,
+        ProductDetailMapper $productDetailMapper,
+        ProductDetailService $productDetailService,
+        GearmanClient $gearmanClient,
         CarrierProviderServiceRepository $carrierProviderServiceRepo,
+        ShippingServiceFactory $shippingServiceFactory,
+        LockingService $lockingService,
         ShippingChargeService $shippingChargeService
     ) {
+        parent::__construct(
+            $userOuService,
+            $orderService,
+            $shippingAccountService,
+            $orderLabelMapper,
+            $orderLabelService,
+            $orderTrackingService,
+            $productDetailMapper,
+            $productDetailService,
+            $gearmanClient,
+            $carrierProviderServiceRepo,
+            $shippingServiceFactory,
+            $lockingService
+        );
         $this->accountService = $accountService;
         $this->userOuService = $userOuService;
         $this->orderService = $orderService;
@@ -108,7 +142,7 @@ class RatesService implements LoggerAwareInterface
         $carrier = $this->carrierProviderServiceRepo->getProviderForAccount($shippingAccount);
 
         $this->logDebug('Fetching shipping rates for orders %s with shipping account %d', [implode(',', $orders->getIds()), $shippingAccount->getId()], [static::LOG_CODE, 'FetchRates']);
-        return $carrier->fetchRatesForOrders(
+        $shippingRates = $carrier->fetchRatesForOrders(
             $orders,
             $ordersData,
             $ordersParcelsData,
@@ -116,6 +150,18 @@ class RatesService implements LoggerAwareInterface
             $rootOu,
             $shippingAccount
         );
+        try {
+            $orderLabels = $this->getOrCreateOrderLabelsForOrders(
+                $orders,
+                $ordersData,
+                $ordersParcelsData,
+                $shippingAccount
+            );
+            $this->updateOrderLabelStatus($orderLabels, OrderLabelStatus::RATES_FETCHED);
+            return $shippingRates;
+        } finally {
+            $this->unlockOrderLabels();
+        }
     }
 
     protected function addShippingChargeToRates(
