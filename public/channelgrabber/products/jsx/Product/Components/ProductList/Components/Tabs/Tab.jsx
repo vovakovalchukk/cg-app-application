@@ -11,8 +11,8 @@ define([
     
     const Tab = styled.div`
         border:solid;
-        background: ${props => props.isCurrentTab ? 'white' : 'grey'};
-        color: ${props => props.isCurrentTab ? 'black' : 'white'};
+        background: ${props => props.isCurrentTab ? 'white' : '#ebebeb'};
+        color: ${props => props.isCurrentTab ? 'black' : '#3a3a3a'};
         flex: 1 1 60px;
         text-align:center;
         align-items: center;

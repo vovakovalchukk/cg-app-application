@@ -146,6 +146,7 @@ define([
             return (
                 <Table
                     rowHeight={60}
+                    className={'c-products-data-table'}
                     rowsCount={rows.length}
                     width={width}
                     height={height}
