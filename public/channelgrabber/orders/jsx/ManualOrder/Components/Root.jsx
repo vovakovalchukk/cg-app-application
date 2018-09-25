@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductDropdown from 'Common/Components/ProductDropdown/Dropdown';
+import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
 import OrderTable from 'ManualOrder/Components/OrderTable';
 import Select from 'Common/Components/Select';
     

@@ -1,6 +1,6 @@
 import React from 'react';
 import Popup from 'Common/Components/Popup';
-import ProductDropdown from 'Common/Components/ProductDropdown/Dropdown';
+import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
 import Button from 'Common/Components/Button';
 import ItemRow from 'Common/Components/ItemRow';
     

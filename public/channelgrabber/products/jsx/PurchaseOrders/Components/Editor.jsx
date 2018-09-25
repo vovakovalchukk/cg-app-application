@@ -1,7 +1,7 @@
 import React from 'react';
 import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
 import Button from 'Common/Components/Button';
-import ProductDropdown from 'Common/Components/ProductDropdown/Dropdown';
+import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
 import ItemRow from 'Common/Components/ItemRow';
     
 
