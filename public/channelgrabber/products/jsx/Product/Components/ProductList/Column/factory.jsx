@@ -55,8 +55,8 @@ define([
         column = applyColumnSpecificProps(column, parentProps);
         
         let CreatedCell = getCreatedCell(column);
-        if(!CreatedCell){
-            console.error("cannot create cell in column factory for column: " , column);
+        if (!CreatedCell) {
+            console.error("cannot create cell in column factory for column: ", column);
         }
         return (<Column
             columnKey={column.key}
@@ -73,13 +73,14 @@ define([
     
     return columnCreator;
     
-    function applyColumnSpecificProps(column, parentProps){
-        if(column.key===columnKeys.stockMode){
+    function applyColumnSpecificProps(column, parentProps) {
+        if (column.key === columnKeys.stockMode) {
             column.stock = parentProps.stock
         }
         return column;
     }
-    function getCreatedCell(column){
+    
+    function getCreatedCell(column) {
         return column.type ? cells[column.type] : cells[column.key];
     }
 });

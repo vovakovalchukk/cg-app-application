@@ -51,13 +51,13 @@ define([
             headerText: 'Stock Mode',
             fixed: false,
             tab: 'details'
-        },{
+        }, {
             key: 'weight',
             width: 150,
             headerText: 'Weight',
             fixed: false,
             tab: 'details'
-        },{
+        }, {
             key: 'dimensions',
             width: 240,
             headerText: 'Dimensions',
@@ -79,18 +79,18 @@ define([
     
     return columnService;
     
-    function generateVatColumns(vat){
-        let vatColumns=[];
-        return Object.keys(vat.vatRates).map(countryCode=>{
+    function generateVatColumns(vat) {
+        let vatColumns = [];
+        return Object.keys(vat.vatRates).map(countryCode => {
             let options = vat.vatRates[countryCode];
             
-            for(let key in options){
+            for (let key in options) {
                 let option = options[key];
-                let columnForCountryExists = !!vatColumns.find(column=>{
+                let columnForCountryExists = !!vatColumns.find(column => {
                     return column.countryCode === option.countryCode;
                 });
-    
-                if(columnForCountryExists){
+                
+                if (columnForCountryExists) {
                     return;
                 }
                 return {

@@ -25,11 +25,11 @@ define([], function() {
                     let state = getState();
                     let productStock = getState.customGetters.getStock(rowData.id);
                     let stock = state.stock;
-
+                    
                     let saveStockModePromise = Promise.resolve();
                     let saveStockLevelsPromise = Promise.resolve();
                     
-		    if (stockModeHasBeenEdited(productStock, stock, rowData)) {
+                    if (stockModeHasBeenEdited(productStock, stock, rowData)) {
                         saveStockModePromise = updateStockMode(
                             rowData.id,
                             productStock.stockMode

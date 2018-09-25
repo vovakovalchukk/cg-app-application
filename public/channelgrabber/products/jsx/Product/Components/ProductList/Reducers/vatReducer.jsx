@@ -24,17 +24,17 @@ define([
             });
             return newState;
         },
-        "VAT_UPDATE_SUCCESS" : function(state,action){
+        "VAT_UPDATE_SUCCESS": function(state, action) {
             let {rowId, countryCode, desiredVal, response} = action.payload;
-            let newProductsVat =  Object.assign({}, state.productsVat);
+            let newProductsVat = Object.assign({}, state.productsVat);
             n.success('Product tax rate updated successfully.');
-            newProductsVat[rowId][countryCode]= desiredVal;
+            newProductsVat[rowId][countryCode] = desiredVal;
             let newState = Object.assign({}, state, {
-                productsVat : newProductsVat
+                productsVat: newProductsVat
             });
             return newState;
         },
-        "VAT_UPDATE_ERROR": function(state,action ) {
+        "VAT_UPDATE_ERROR": function(state, action) {
             let error = action.payload;
             n.showErrorNotification(error, "There was an error when attempting to update the product tax rate.");
             return state;
@@ -60,13 +60,13 @@ define([
                     chosenVats[countryCode] = taxOptionKey;
                 });
             });
-            productsVat[product.id]=chosenVats;
+            productsVat[product.id] = chosenVats;
             return;
         });
         return productsVat;
     }
     
-    function sortByKey(unordered){
+    function sortByKey(unordered) {
         const ordered = {};
         Object.keys(unordered).sort().forEach(function(key) {
             ordered[key] = unordered[key];
@@ -95,7 +95,7 @@ define([
         return options;
     }
     
-    function generateLabel(option){
-        return option.rate + "%" + ' (' +option.name+')';
+    function generateLabel(option) {
+        return option.rate + "%" + ' (' + option.name + ')';
     }
 });
