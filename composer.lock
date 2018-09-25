@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9754ce87951c206cd7949e643cf9a4b7",
+    "content-hash": "8676443d5d8baf18c41b0691dc5e3a37",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -646,16 +646,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.5",
+            "version": "1.16.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "3f868a5ff531fbcafc74961c45802e1f6d839a1e"
+                "reference": "165441ad45f31f049f690b68c061a19fe39489c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.5-d1a9de.zip",
-                "reference": "3f868a5ff531fbcafc74961c45802e1f6d839a1e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6-e20431.zip",
+                "reference": "165441ad45f31f049f690b68c061a19fe39489c4",
                 "shasum": null
             },
             "require": {
@@ -705,7 +705,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-25T11:01:25+00:00"
+            "time": "2018-09-25T13:21:13+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1081,20 +1081,19 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.2.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "1fa9d38600a0d93bc9553ba7cc48dde73962663b"
+                "reference": "6534a91b75913710ae10008e2bbb0583c69a19a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.2.1-af7430.zip",
-                "reference": "1fa9d38600a0d93bc9553ba7cc48dde73962663b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.0-4e782b.zip",
+                "reference": "6534a91b75913710ae10008e2bbb0583c69a19a5",
                 "shasum": null
             },
             "require": {
-                "zendframework/zend-cache": "^2.2",
                 "zendframework/zend-code": "^2.2",
                 "zendframework/zend-di": "^2.2"
             },
@@ -1111,7 +1110,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2017-08-31T08:01:55+00:00"
+            "time": "2018-09-25T13:21:13+00:00"
         },
         {
             "name": "channelgrabber/ebay",
@@ -2169,7 +2168,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-09-20T08:22:37+00:00"
+            "time": "2018-09-20T08:30:55+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4192,12 +4191,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "d3b7d27a05f4675bc0af8401073f9c7e8f68d758"
+                "reference": "8919eed3862330773e6da88e7b577c059d00ee0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-dev-CGIV-9859-AnnualBillingLimits-16ad90.zip",
-                "reference": "d3b7d27a05f4675bc0af8401073f9c7e8f68d758",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-dev-CGIV-9859-AnnualBillingLimits-ff426f.zip",
+                "reference": "8919eed3862330773e6da88e7b577c059d00ee0d",
                 "shasum": null
             },
             "require": {
@@ -4230,7 +4229,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-17T14:46:43+00:00"
+            "time": "2018-09-25T08:48:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -8950,7 +8949,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9005,7 +9004,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9060,7 +9059,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
