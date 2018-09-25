@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f551fcf1b7c6279b778444a98217fd8c",
+    "content-hash": "19c9d6f59f34d69262acd42b726d8b04",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1078,20 +1078,19 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.2.1",
+            "version": "dev-CGIV-9908-CachedStatus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "1fa9d38600a0d93bc9553ba7cc48dde73962663b"
+                "reference": "686ac36f96a53d459aff0e5deabc3889b2a62af8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.2.1-af7430.zip",
-                "reference": "1fa9d38600a0d93bc9553ba7cc48dde73962663b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-dev-CGIV-9908-CachedStatus-08a087.zip",
+                "reference": "686ac36f96a53d459aff0e5deabc3889b2a62af8",
                 "shasum": null
             },
             "require": {
-                "zendframework/zend-cache": "^2.2",
                 "zendframework/zend-code": "^2.2",
                 "zendframework/zend-di": "^2.2"
             },
@@ -1108,7 +1107,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2017-08-31T08:01:55+00:00"
+            "time": "2018-09-25T11:20:01+00:00"
         },
         {
             "name": "channelgrabber/ebay",
@@ -2115,16 +2114,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.10.4",
+            "version": "1.10.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68"
+                "reference": "c887feabb36787c5d8ee10fdb2f77b23c7b5a80e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.4-1af78a.zip",
-                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.5-81f31e.zip",
+                "reference": "c887feabb36787c5d8ee10fdb2f77b23c7b5a80e",
                 "shasum": null
             },
             "require": {
@@ -2168,7 +2167,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-09-04T09:43:41+00:00"
+            "time": "2018-09-04T10:20:32+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -10345,12 +10344,19 @@
             "alias_normalized": "1.16.6.0",
             "version": "dev-CGIV-9908-CachedStatus",
             "package": "channelgrabber/cglib"
+        },
+        {
+            "alias": "2.3.0",
+            "alias_normalized": "2.3.0.0",
+            "version": "dev-CGIV-9908-CachedStatus",
+            "package": "channelgrabber/di"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/di": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
