@@ -643,16 +643,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.6",
+            "version": "1.16.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "165441ad45f31f049f690b68c061a19fe39489c4"
+                "reference": "50951b047b2010350c4ab77449072458e906fa5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6-e20431.zip",
-                "reference": "165441ad45f31f049f690b68c061a19fe39489c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6.1-e0aab7.zip",
+                "reference": "50951b047b2010350c4ab77449072458e906fa5e",
                 "shasum": null
             },
             "require": {
@@ -702,7 +702,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-25T13:21:13+00:00"
+            "time": "2018-09-25T14:59:16+00:00"
         },
         {
             "name": "channelgrabber/channel",
