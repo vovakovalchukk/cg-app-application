@@ -1,7 +1,6 @@
 define([
     'react',
     'Product/Filter/Entity',
-    'Product/Components/Footer',
     'Product/Components/ProductRow',
     'Product/Components/ProductLinkEditor',
     'Product/Components/CreateListing/CreateListingRoot',
@@ -14,7 +13,6 @@ define([
 ], function(
     React,
     ProductFilter,
-    ProductFooter,
     ProductRow,
     ProductLinkEditor,
     CreateListingPopupRoot,
@@ -25,6 +23,7 @@ define([
     ProductListRoot,
     ProductSearchRoot
 ) {
+    
     "use strict";
     const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
     const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';

@@ -1,13 +1,11 @@
 define([
     'Product/Storage/Ajax',
     'Product/Filter/Entity',
-    'Product/Components/ProductList/Config/constants',
-    'Product/Components/ProductList/Accounts/accounts'
+    'Product/Components/ProductList/Config/constants'
 ], function(
     AjaxHandler,
     ProductFilter,
-    constants,
-    accounts
+    constants
 ) {
     "use strict";
     
