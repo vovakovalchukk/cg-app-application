@@ -51,7 +51,13 @@ define([
             const row = stateUtility.getRowData(products, rowIndex);
             this.props.actions.cancelStockModeEdit(row);
         },
-        onStockModeChange: function(propToChange, event) {
+        onStockLevelChange: function(event){
+            this.onStockPropChange('stockLevel',event);
+        },
+        onStockModeChange: function(event) {
+            this.onStockPropChange('stockMode',event);
+        },
+        onStockPropChange:function(propToChange, event){
             const {products, rowIndex} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             let value = propToChange === 'stockMode' ? event.value : event.target.value;
@@ -79,13 +85,13 @@ define([
                                 value: {
                                     value: row.stock.stockMode
                                 },
-                                onChange: this.onStockModeChange.bind(this, 'stockMode')
+                                onChange: this.onStockModeChange
                             }
                         }}
                         stockAmount={{
                             input: {
                                 value: row.stock.stockLevel,
-                                onChange: this.onStockModeChange.bind(this, 'stockLevel')
+                                onChange: this.onStockLevelChange
                             }
                         }}
                     />
@@ -108,13 +114,14 @@ define([
     
     function getEditStatus(stockModeEdits, row) {
         let editStatus = '';
-        if (stockModeEdits.length > 0) {
-            let matchedEdit = stockModeEdits.find(edit => {
-                return edit.productId === row.id
-            });
-            if (matchedEdit) {
-                editStatus = matchedEdit.status;
-            }
+        if (stockModeEdits <= 0) {
+            return editStatus
+        }
+        let matchedEdit = stockModeEdits.find(edit => {
+            return edit.productId === row.id
+        });
+        if (matchedEdit) {
+            editStatus = matchedEdit.status;
         }
         return editStatus
     }
