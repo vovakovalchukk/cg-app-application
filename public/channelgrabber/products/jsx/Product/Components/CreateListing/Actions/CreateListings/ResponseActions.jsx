@@ -2,11 +2,12 @@ define([], function() {
     "use strict";
 
     return {
-        listingFormSubmittedSuccessfully: function(guid) {
+        listingFormSubmittedSuccessfully: function(guid, processGuid) {
             return {
                 type: "LISTING_FORM_SUBMITTED_SUCCESSFUL",
                 payload: {
-                    guid: guid
+                    guid: guid,
+                    processGuid: processGuid
                 }
             };
         },

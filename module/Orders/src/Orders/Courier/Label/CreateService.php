@@ -40,14 +40,13 @@ class CreateService extends ServiceAbstract
         OrderDataCollection $ordersData,
         OrderParcelsDataCollection $orderParcelsData,
         OrderItemsDataCollection $ordersItemsData,
-        int $shippingAccountId
+        Account $shippingAccount
     ) {
         $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $user = $this->userOUService->getActiveUser();
-        $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
-        $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $shippingAccount = $this->accountService->fetchShippingAccount((int) $shippingAccountId);
+        $this->addGlobalLogEventParam('account', $shippingAccount->getId())->addGlobalLogEventParam('ou', $rootOu->getId());
+        $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
         $orders = $this->getOrdersByIds($orderIds);
         $this->removeZeroQuantityItemsFromOrders($orders);
 
@@ -65,7 +64,7 @@ class CreateService extends ServiceAbstract
         $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
 
         try {
-            $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
             $labelReadyStatuses = $this->getCarrierProviderService($shippingAccount)->createLabelsForOrders(
                 $orders,
                 $orderLabels,
@@ -78,7 +77,7 @@ class CreateService extends ServiceAbstract
                 $user
             );
             $this->unlockOrderLabels();
-            $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
 
             if (!empty($orderLabelsData['errors'])) {
@@ -98,68 +97,22 @@ class CreateService extends ServiceAbstract
         OrderParcelsDataCollection $orderParcelsData,
         Account $shippingAccount
     ) {
+        $orderLabels = $this->getOrCreateOrderLabelsForOrders($orders, $ordersData, $orderParcelsData, $shippingAccount);
         $orderLabelsData = [
-            'orderLabels' => new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]),
+            'orderLabels' => $orderLabels,
             'errors' => [],
         ];
 
         foreach ($orders as $order) {
-            $orderData = $ordersData->getById($order->getId());
-            $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
-            try {
-                $orderLabelsData['orderLabels']->attach(
-                    $this->createOrderLabelForOrder($order, $orderData, $parcelsData, $shippingAccount)
-                );
-            } catch (ValidationMessagesException $exception) {
+            $orderLabel = $orderLabels->getBy('orderId', $order->getId())->getFirst();
+            // Check this label doesn't already exist
+            if ($orderLabel->getId() && !$orderLabel->isPreCreation()) {
+                $exception = (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
                 $orderLabelsData['errors'][$order->getId()] = $exception;
+                $orderLabels->detach($orderLabel);
             }
         }
         return $orderLabelsData;
-    }
-
-    protected function createOrderLabelForOrder(
-        Order $order,
-        OrderData $orderData,
-        OrderParcelsData $orderParcelsData,
-        Account $shippingAccount
-    ) {
-        $orderLabel = parent::createOrderLabelForOrder(
-            $order,
-            $orderData,
-            $orderParcelsData,
-            $shippingAccount
-        );
-
-        // Check this label doesnt already exist before we try to create it
-        // This needs to happen inside the lock to prevent duplication
-        if ($this->doesOrderLabelExistForOrder($order)) {
-            $this->unlockOrderLabel($orderLabel);
-            throw (new ValidationMessagesException(0))->addErrorWithField($order->getId().':Duplicate', 'There is already a label for this order');
-        }
-
-        return $orderLabel;
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function doesOrderLabelExistForOrder(Order $order)
-    {
-        $notCancelled = OrderLabelStatus::getAllStatuses();
-        unset($notCancelled[OrderLabelStatus::CANCELLED]);
-
-        try {
-            $filter = (new OrderLabelFilter())
-                ->setLimit('all')
-                ->setPage(1)
-                ->setOrderId([$order->getId()])
-                ->setStatus(array_values($notCancelled));
-
-            $this->orderLabelService->fetchCollectionByFilter($filter);
-            return true;
-        } catch (NotFound $ex) {
-            return false;
-        }
     }
 
     protected function removeOrdersWithNoOrderLabel(OrderCollection $orders, array $labelErrors)

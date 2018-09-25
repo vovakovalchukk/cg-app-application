@@ -99,7 +99,7 @@ class JsonController extends AbstractJsonController
                 ),
             ]);
         } catch (\Throwable $exception) {
-            return $this->buildGenericErrorResponse($e);
+            return $this->buildGenericErrorResponse($exception);
         }
     }
 

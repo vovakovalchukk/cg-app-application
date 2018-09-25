@@ -34,7 +34,10 @@
     require(['/cg-built/shipstation/js/Account/Settings.js'], function(Settings)
     {
         $(document).ready(function() {
-            new Settings({"accountId": {{accountId}}});
+            var settings = new Settings({"accountId": {{accountId}}});
+            {{#labelCreateButtonClicked}}
+                settings.setCreateLabelButtonToClick('{{labelCreateButtonClicked}}');
+            {{/labelCreateButtonClicked}}
         });
     });
 </script>

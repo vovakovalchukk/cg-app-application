@@ -43,6 +43,9 @@ use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use GearmanClient;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
+use CG\Order\Shared\Collection as Orders;
+use CG\Order\Shared\Label\Collection as OrderLabels;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 abstract class ServiceAbstract implements LoggerAwareInterface
 {
@@ -380,6 +383,56 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function getEmptyParcelDataForOrder(Order $order): OrderParcelsData
     {
-        return new OrderParcelsData($order->getId(), new OrderParcelsData\ParcelData\Collection());
+        return $this->getEmptyParcelDataForOrderId($order->getId());
+    }
+
+    protected function getEmptyParcelDataForOrderId(string $orderId): OrderParcelsData
+    {
+        return new OrderParcelsData($orderId, new OrderParcelsData\ParcelData\Collection());
+    }
+
+    protected function getOrCreateOrderLabelsForOrders(
+        Orders $orders,
+        OrderDataCollection $ordersData,
+        OrderParcelsDataCollection $orderParcelsData,
+        Account $shippingAccount
+    ): OrderLabels {
+        try {
+            $orderLabels = $this->getOrderLabelsForOrders($orders);
+        } catch (NotFound $exception) {
+            $orderLabels = new OrderLabels(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
+        }
+
+        $missingOrders = array_diff($orders->getIds(), $orderLabels->getArrayOf('orderId'));
+        if (empty($missingOrders)) {
+            return $orderLabels;
+        }
+
+        foreach ($missingOrders as $missingOrderId) {
+            $missingOrderParcelsData = ($orderParcelsData->containsId($missingOrderId)
+                ? $orderParcelsData->getById($missingOrderId)
+                : $this->getEmptyParcelDataForOrderId($missingOrderId)
+            );
+            $orderLabels->attach(
+                $this->createOrderLabelForOrder(
+                    $orders->getById($missingOrderId),
+                    $ordersData->getById($missingOrderId),
+                    $missingOrderParcelsData,
+                    $shippingAccount
+                )
+            );
+        }
+
+        return $orderLabels;
+    }
+
+    protected function updateOrderLabelStatus(OrderLabels $orderLabels, string $status)
+    {
+        /** @var OrderLabel $orderLabel */
+        foreach ($orderLabels as $orderLabel) {
+            $this->logDebug(static::LOG_UPDATE, [$orderLabel->getOrderId()], static::LOG_CODE, ['order' => $orderLabel->getOrderId()]);
+            $orderLabel->setStatus($status);
+            $this->orderLabelService->save($orderLabel);
+        }
     }
 }

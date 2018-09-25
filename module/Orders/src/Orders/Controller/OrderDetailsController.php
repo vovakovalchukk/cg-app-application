@@ -335,16 +335,18 @@ class OrderDetailsController extends AbstractActionController
                 ]
             )
         );
-        $view->setVariable(
-            'messageUrl',
-            $this->url()->fromRoute(
+        if ($order->getExternalUsername() !== null || $order->getBillingAddress()->getEmailAddress() !== null) {
+            $messageUrl = $this->url()->fromRoute(
                 implode('/', [Messages::ROUTE]),
                 [],
                 [
                     'query' => ['f' => 'eu', 'fv' => $order->getExternalUsername() ?: $order->getBillingAddress()->getEmailAddress()]
                 ]
-            )
-        );
+            );
+        } else {
+            $messageUrl = null;
+        }
+        $view->setVariable('messageUrl', $messageUrl);
         return $view;
     }
 

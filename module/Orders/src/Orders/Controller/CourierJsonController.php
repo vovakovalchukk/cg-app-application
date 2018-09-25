@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Billing\Shipping\Ledger\Exception\InsufficientBalanceException;
 use CG\CourierAdapter\Exception\UserError;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
@@ -17,8 +18,11 @@ use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Label\RatesService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\ReviewAjax as ReviewAjaxService;
+use Orders\Courier\ShippingAccountsService;
 use Orders\Courier\SpecificsAjax as SpecificsAjaxService;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Client\Entity as Account;
 
 class CourierJsonController extends AbstractActionController
 {
@@ -70,6 +74,8 @@ class CourierJsonController extends AbstractActionController
     protected $manifestService;
     /** @var RatesService */
     protected $ratesService;
+    /** @var AccountService */
+    protected $accountService;
 
     protected $errorMessageMap = [
     ];
@@ -84,7 +90,8 @@ class CourierJsonController extends AbstractActionController
         LabelReadyService $labelReadyService,
         LabelDispatchService $labelDispatchService,
         ManifestService $manifestService,
-        RatesService $ratesService
+        RatesService $ratesService,
+        AccountService $accountService
     ) {
         $this->jsonModelFactory = $jsonModelFactory;
         $this->viewModelFactory = $viewModelFactory;
@@ -96,6 +103,7 @@ class CourierJsonController extends AbstractActionController
         $this->labelReadyService = $labelReadyService;
         $this->manifestService = $manifestService;
         $this->ratesService = $ratesService;
+        $this->accountService = $accountService;
     }
 
     public function servicesOptionsAction()
@@ -204,6 +212,7 @@ class CourierJsonController extends AbstractActionController
     public function createLabelAction()
     {
         $accountId = $this->params()->fromPost('account');
+        $shippingAccount = $this->accountService->fetch($accountId);
         $orderIds = $this->params()->fromPost('order', []);
         $rawOrdersData = $this->sanitiseInputArray($this->params()->fromPost('orderData', []));
         $rawOrdersParcelsData = $this->sanitiseInputArray($this->params()->fromPost('parcelData', []));
@@ -218,7 +227,7 @@ class CourierJsonController extends AbstractActionController
 
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
-                $orderIds, $ordersData, $ordersParcelsData, $orderItemsData, $accountId
+                $orderIds, $ordersData, $ordersParcelsData, $orderItemsData, $shippingAccount
             );
             $jsonView = $this->handleFullOrPartialCreationSuccess($labelReadyStatuses);
             $jsonView->setVariable('Records', $this->specificsAjaxService->getSpecificsListData($orderIds, $accountId, $ordersData, $ordersParcelsData));
@@ -231,6 +240,8 @@ class CourierJsonController extends AbstractActionController
             return $this->handleLabelCreationFailure($e);
         } catch (UserError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+        } catch (InsufficientBalanceException $e) {
+            return $this->handleLabelCreationInsufficientBalance($e, $ordersData);
         }
     }
 
@@ -297,6 +308,7 @@ class CourierJsonController extends AbstractActionController
             'notReadyCount' => $notReadyCount,
             'errorCount' => $errorCount,
             'partialErrorMessage' => $partialErrorMessage,
+            'balance' => $this->specificsAjaxService->getShippingLedgerForActiveUser()->getBalance()
         ]);
     }
 
@@ -384,6 +396,20 @@ class CourierJsonController extends AbstractActionController
             ->setTemplate('courier/messages/label-creation/orderErrorList.mustache');
         $viewRender = $this->getServiceLocator()->get(MustacheViewHelper::class);
         return $viewRender($orderErrorsView);
+    }
+
+    protected function handleLabelCreationInsufficientBalance(InsufficientBalanceException $e, OrderDataCollection $ordersData)
+    {
+        $viewData = [
+            'readyStatuses' => [],
+            'readyCount' => 0,
+            'notReadyCount' => 0,
+            'errorCount' => count($ordersData),
+            'topupRequired' => true,
+            'partialErrorMessage' => 'You have insufficient funds to create these labels.<br />Please top up your balance or enable automatic top up.',
+        ];
+
+        return $this->jsonModelFactory->newInstance($viewData);
     }
 
     public function optionsAction()

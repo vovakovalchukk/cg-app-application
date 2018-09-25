@@ -64,6 +64,9 @@ define([
         componentDidMount: function () {
             this.props.loadInitialValues();
         },
+        componentWillUnmount: function() {
+            this.props.resetSubmissionStatuses();
+        },
         renderForm: function() {
             return <form>
                 <span className="heading-large">Listing information</span>
@@ -325,6 +328,9 @@ define([
                         props.selectedProductDetails ? props.selectedProductDetails : {}
                     )
                 );
+            },
+            resetSubmissionStatuses: function () {
+                dispatch(Actions.resetSubmissionStatuses());
             }
         };
     };

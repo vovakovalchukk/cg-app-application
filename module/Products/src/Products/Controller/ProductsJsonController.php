@@ -294,7 +294,8 @@ class ProductsJsonController extends AbstractActionController
                 'mpn' => $detailsEntity->getMpn(),
                 'ean' => $detailsEntity->getEan(),
                 'upc' => $detailsEntity->getUpc(),
-                'isbn' => $detailsEntity->getIsbn()
+                'isbn' => $detailsEntity->getIsbn(),
+                'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
             ];
         } else {
             $product['details'] = ['sku' => $productEntity->getSku()];
