@@ -1078,16 +1078,16 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.3.0",
+            "version": "2.3.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "6534a91b75913710ae10008e2bbb0583c69a19a5"
+                "reference": "0cb64f3731b55c2b0aeba5d8732fe1ad8b234e91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.0-4e782b.zip",
-                "reference": "6534a91b75913710ae10008e2bbb0583c69a19a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.0.1-745eeb.zip",
+                "reference": "0cb64f3731b55c2b0aeba5d8732fe1ad8b234e91",
                 "shasum": null
             },
             "require": {
@@ -1107,7 +1107,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2018-09-25T13:21:13+00:00"
+            "time": "2018-09-25T14:40:31+00:00"
         },
         {
             "name": "channelgrabber/ebay",

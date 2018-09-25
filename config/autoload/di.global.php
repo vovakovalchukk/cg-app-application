@@ -23,7 +23,7 @@ return [
                 $runtimeDefinition = new CacheDefinition(
                     $introspectionStrategy = null,
                     $explicitClasses = (require dirname(dirname(__DIR__)) . '/bin/complete_classmap.php'),
-                    $useCached = (ENVIRONMENT !== 'dev')
+                    $cachePrefix = (ENVIRONMENT !== 'dev' ? $configuration['application_name'] ?? null : null)
                 );
 
                 $definitionList = new DefinitionList([$runtimeDefinition]);
