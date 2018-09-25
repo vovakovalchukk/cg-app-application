@@ -1473,7 +1473,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-215-implement-details-tab-for-new-products-page":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#135e573c648b841b62c6a364a2c9b3f51d761ee8"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#f704e196e554c28a0248cfddc4583f1874c3b96c"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"

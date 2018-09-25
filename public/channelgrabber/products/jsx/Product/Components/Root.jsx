@@ -1,8 +1,6 @@
 define([
     'react',
     'Product/Filter/Entity',
-    'Product/Components/ProductRow',
-    'Product/Components/ProductLinkEditor',
     'Product/Components/CreateListing/CreateListingRoot',
     'Product/Components/CreateProduct/CreateProductRoot',
     'Product/Storage/Ajax',
@@ -13,8 +11,6 @@ define([
 ], function(
     React,
     ProductFilter,
-    ProductRow,
-    ProductLinkEditor,
     CreateListingPopupRoot,
     CreateProductRoot,
     AjaxHandler,
