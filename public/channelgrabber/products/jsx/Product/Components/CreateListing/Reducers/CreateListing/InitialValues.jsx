@@ -52,17 +52,18 @@ define([
 
         for (var templateId in data.categoryTemplates) {
             var template = data.categoryTemplates[templateId];
-            for (var categoryId in template.categories) {
-                var category = template.categories[categoryId];
 
-                if (category.channel !== 'ebay') {
+            for (var categoryTemplateAccountId in template.accounts) {
+                var accountCategory = template.accounts[categoryTemplateAccountId];
+
+                if (accountCategory.channel !== 'ebay') {
                     continue;
                 }
                 let defaultsForCategory = {};
                 if (account.listingDuration) {
                     defaultsForCategory.listingDuration = account.listingDuration;
                 }
-                defaults[categoryId] = defaultsForCategory;
+                defaults[categoryTemplateAccountId] = defaultsForCategory;
             }
         }
 
