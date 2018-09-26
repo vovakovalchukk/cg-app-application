@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7e1bc5858308dfa0324b8d6910bc1bf",
+    "content-hash": "a330b002a07fdd7fcef48656d972363b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2448,16 +2448,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.5",
+            "version": "dev-CGIV-9922-optional-exclude-embedded-data-whitelist",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "4d9cd3619b287bd5754f013e3a64776f1cad6cf1"
+                "reference": "f2b8bfe2c24f76e81aaaaa37050667dc054f6947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.16.5-97edaa.zip",
-                "reference": "4d9cd3619b287bd5754f013e3a64776f1cad6cf1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-9922-optional-exclude-embedded-data-whitelist-3f441a.zip",
+                "reference": "f2b8bfe2c24f76e81aaaaa37050667dc054f6947",
                 "shasum": null
             },
             "require": {
@@ -2509,7 +2509,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-09-18T08:32:21+00:00"
+            "time": "2018-09-26T09:11:33+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9151,7 +9151,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10339,10 +10339,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.6",
+            "alias_normalized": "1.16.6.0",
+            "version": "dev-CGIV-9922-optional-exclude-embedded-data-whitelist",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
