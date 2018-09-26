@@ -1116,7 +1116,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "6eb8439253dadbe8e6e00d81b40cff9fcbcf2345"
+                "reference": "ffb932dc9837205153aef465763082fac418e851"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-7-create-variation-listings-pbse-48befb.zip",
+                "reference": "ffb932dc9837205153aef465763082fac418e851",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1167,7 +1173,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-13T14:56:25+00:00"
+            "time": "2018-09-26T11:43:41+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10497,8 +10503,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
