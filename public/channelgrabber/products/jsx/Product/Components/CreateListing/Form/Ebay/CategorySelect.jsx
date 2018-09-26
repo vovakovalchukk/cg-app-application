@@ -27,8 +27,9 @@ import Select from 'Common/Components/Select';
             if (!rootCategories) {
                 return;
             }
-            var newState = this.getInitialState();
-            newState.categoryMaps = [rootCategories];
+            var newState = {
+                categoryMaps: [rootCategories]
+            };
 
             this.setState(newState);
         },

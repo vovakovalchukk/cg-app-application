@@ -29,8 +29,9 @@ import RefreshIcon from 'Common/Components/RefreshIcon';
             if (!rootCategories) {
                 return;
             }
-            var newState = this.getInitialState();
-            newState.categoryMaps = [rootCategories];
+            var newState = {
+                categoryMaps: [rootCategories]
+            };
 
             this.setState(newState);
         },
