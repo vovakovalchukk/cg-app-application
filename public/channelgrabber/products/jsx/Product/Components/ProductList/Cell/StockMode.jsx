@@ -23,6 +23,11 @@ define([
         align-items:center;
     `;
     
+    const ButtonsContainer = styled.div`
+        position:absolute;
+        top:40px;
+    `;
+    
     let StockModeCell = React.createClass({
         getDefaultProps: function() {
             return {
@@ -95,7 +100,7 @@ define([
                             }
                         }}
                     />
-                    <div className={"safe-input-box"}>
+                    <ButtonsContainer className={"safe-input-box"}>
                         <div className={"submit-input"}>
                             <div className={"submit-cancel " + (shouldDisplaySaveCancelBox ? "active" : "")}>
                                 <div className="button-input" onClick={this.submitInput}><span
@@ -104,7 +109,7 @@ define([
                                     className="cancel"></span></div>
                             </div>
                         </div>
-                    </div>
+                    </ButtonsContainer>
                 </div>
             );
         }
