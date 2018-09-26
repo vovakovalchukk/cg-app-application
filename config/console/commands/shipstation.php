@@ -1,12 +1,8 @@
 <?php
-use CG\Account\Client\Storage\Api as AccountService;
-use CG\Account\Shared\Entity as Account;
+
 use CG\Command\NullActiveUser;
 use CG\Di\Di;
-use CG\ShipStation\Carrier\AccountDecider\Factory as AccountDeciderFactory;
-use CG\ShipStation\Carrier\AccountDeciderInterface;
-use CG\ShipStation\Client;
-use CG\ShipStation\Command\Request as ApiRequest;
+use CG\ShipStation\Command\Api as ApiCommand;
 use CG\ShipStation\Command\UpdateShippingServices;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\ActiveUserInterface;
@@ -31,7 +27,7 @@ return [
             ],
         ],
         'options' => [
-            'request' => [
+            'method' => [
                 'description' => 'Specifies the request method to use e.g. GET, POST',
                 'value' => true,
                 'required' => true,
@@ -40,28 +36,16 @@ return [
         ],
         'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
             $di->instanceManager()->setTypePreference(ActiveUserInterface::class, [new NullActiveUser()]);
-            /** @var Client $client */
-            $client = $di->get(Client::class);
-            /** @var AccountService $accountService */
-            $accountService = $di->get(AccountService::class);
-            /** @var Account $account */
-            $account = $accountService->fetch($input->getArgument('accountId'));
-            // If we've been passed a courier Account convert it to the ShipStation Account
-            if ($account->getChannel() != 'shipstationAccount') {
-                $accountDeciderFactory = $di->get(AccountDeciderFactory::class);
-                /** @var AccountDeciderInterface $accountDecider */
-                $accountDecider = $accountDeciderFactory($account->getChannel());
-                $account = $accountDecider->getShipStationAccountForRequests($account);
-            }
-
-            $request = new ApiRequest(
-                $input->getArgument('endpoint'),
-                $input->getOption('request'),
-                $input->getArgument('payload')
-            );
+            /** @var ApiCommand $command */
+            $command = $di->get(ApiCommand::class);
 
             try {
-                $response = $client->sendRequest($request, $account);
+                $response = $command(
+                    $input->getArgument('accountId'),
+                    $input->getArgument('endpoint'),
+                    $input->getArgument('payload'),
+                    $input->getOption('method')
+                );
                 $output->writeln($response->getJsonResponse());
             } catch (StorageException $e) {
                 echo (string) $e->getPrevious()->getResponse();

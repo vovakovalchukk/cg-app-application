@@ -1,5 +1,5 @@
 <?php
-namespace CG\ShipStation\Command;
+namespace CG\ShipStation\Command\Api;
 
 use CG\ShipStation\RequestAbstract;
 
@@ -9,7 +9,7 @@ class Request extends RequestAbstract
     protected $method;
     protected $payload;
 
-    public function __construct(string $uri, string $method, $payload)
+    public function __construct(string $uri, string $method, ?string $payload = null)
     {
         $this->uri = $uri;
         $this->payload = $payload;

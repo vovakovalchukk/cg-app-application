@@ -1,12 +1,11 @@
 <?php
 use CG\Di\Definition\CacheDefinition;
 use CG\Di\DefinitionList;
-use Zend\Cache\Storage\StorageInterface;
+use CG\Di\Di;
 use Zend\Config\Config as ZendConfig;
 use Zend\Db\Adapter\Adapter;
 use Zend\Di\Config;
 use Zend\Di\Di as ZendDi;
-use CG\Di\Di;
 use Zend\Di\InstanceManager;
 use Zend\Di\LocatorInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -18,25 +17,18 @@ return [
     'service_manager' => [
         'factories' => [
             Di::class => function(ServiceLocatorInterface $serviceManager) {
-                /**
-                 * @var $configuration array
-                 */
+                /** @var $configuration array */
                 $configuration = $serviceManager->get('config');
 
-                /**
-                 * @var $cache StorageInterface
-                 */
-                $cache = $serviceManager->get('DiCacheStorage');
-
                 $runtimeDefinition = new CacheDefinition(
-                    null,
-                    require dirname(dirname(__DIR__)) . '/bin/complete_classmap.php',
-                    $cache
+                    $introspectionStrategy = null,
+                    $explicitClasses = (require dirname(dirname(__DIR__)) . '/bin/complete_classmap.php'),
+                    $cachePrefix = (ENVIRONMENT !== 'dev' ? $configuration['application_name'] ?? null : null)
                 );
 
-                $definitionList = new DefinitionList([$runtimeDefinition->toArrayDefinition(), $runtimeDefinition]);
+                $definitionList = new DefinitionList([$runtimeDefinition]);
                 $im = new InstanceManager();
-                $config = new Config(isset($configuration['di']) ? $configuration['di'] : []);
+                $config = new Config($configuration['di'] ?? []);
 
                 $di = new Di($definitionList, $im, $config);
 

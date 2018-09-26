@@ -1,5 +1,5 @@
 <?php
-namespace CG\ShipStation\Command;
+namespace CG\ShipStation\Command\Api;
 
 use CG\ShipStation\ResponseAbstract;
 
