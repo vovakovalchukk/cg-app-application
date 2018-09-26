@@ -98,7 +98,7 @@ define([
                 var accounts = this.props.accounts;
                 return (<td>
                     <Field
-                        name={"dimensions." + variation.sku + "." + dimension.name}
+                        name={"dimensions." + variation.id + "." + dimension.name}
                         component={this.renderInputComponent}
                         validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
                         dimensionName={dimension.name}
@@ -142,7 +142,7 @@ define([
                     && this.state.touchedDimensions[dimension][variation.sku]) {
                     return;
                 }
-                this.props.change("dimensions." + variation.sku + "." + dimension, value);
+                this.props.change("dimensions." + variation.id + "." + dimension, value);
             }.bind(this));
         },
         markDimensionAsTouchedForSku: function(sku, dimension) {

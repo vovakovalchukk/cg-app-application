@@ -72,7 +72,7 @@ define([
     var getProductIdentifiers = function(variationData, selectedProductDetails) {
         var identifiers = {};
         variationData.forEach(function(variation) {
-            identifiers[variation.sku] = {
+            identifiers[variation.id] = {
                 ean: variation.details.ean ? variation.details.ean : selectedProductDetails.ean,
                 upc: variation.details.upc ? variation.details.upc : selectedProductDetails.upc,
                 isbn: variation.details.isbn ? variation.details.isbn : selectedProductDetails.isbn,
@@ -92,7 +92,7 @@ define([
 
             var dimensions = {};
             variationData.map(function(variation) {
-                dimensions[variation.sku] = {
+                dimensions[variation.id] = {
                     length: variation.details.length,
                     width: variation.details.width,
                     height: variation.details.height,
@@ -107,7 +107,12 @@ define([
                     var price = parseFloat(variation.details.price).toFixed(2);
                     pricesForVariation[accountId] = isNaN(price) ? null : price;
                 });
-                prices[variation.sku] = pricesForVariation;
+                prices[variation.id] = pricesForVariation;
+            });
+
+            var skus = {};
+            variationData.map(function(variation) {
+                skus[variation.id] = variation.sku;
             });
 
             var productDetails = product.detail ? product.details : {};
@@ -121,7 +126,8 @@ define([
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
-                category: formatCategoryDefaultValues(action.payload)
+                category: formatCategoryDefaultValues(action.payload),
+                skus: skus
             };
         }
     });
