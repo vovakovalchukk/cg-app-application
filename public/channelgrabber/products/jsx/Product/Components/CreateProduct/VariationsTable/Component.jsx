@@ -144,68 +144,71 @@ import StockModeInputs from 'Product/Components/CreateProduct/StockModeInputsRoo
                 }.bind(this)}
             />
         },
-        variationRowFieldInputRenderMethods: {
-            text: function(variationId, field) {
-                return (
-                    <Field
-                        type="text"
+        variationRowFieldInputRenderMethod: function(type) {
+            let methods = {
+                text: function (variationId, field) {
+                    return (
+                        <Field
+                            type="text"
+                            name={field.name}
+                            className={'c-table-with-inputs__text-input'}
+                            onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
+                            component={InputWithValidation}
+                        />
+                    )
+                },
+                number: function (variationId, field) {
+                    return (
+                        <Field
+                            type="number"
+                            name={field.name}
+                            className={'c-table-with-inputs__text-input'}
+                            component="input"
+                            onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
+                        />
+                    )
+                },
+                image: function (variationId, field) {
+                    var uploadedImages = this.props.uploadedImages.images;
+                    return (
+                        <Field
+                            type="text"
+                            name={field.name}
+                            component={function (props) {
+                                return this.renderImageDropdown.call(this,
+                                    props,
+                                    variationId,
+                                    uploadedImages)
+                            }.bind(this)}
+                            onChange={this.variationRowFieldOnChange.bind(this, variationId)}
+                        />
+                    )
+                },
+                stockModeOptions: function (variationId) {
+                    return (
+                        <Fields
+                            type="text"
+                            names={[
+                                'stockModeType',
+                                'stockAmount'
+                            ]}
+                            component={StockModeInputs}
+                            onChange={this.variationRowFieldOnChange.bind(this, variationId)}
+                        />
+                    );
+                },
+                customOptionsSelect: function (variationId, field) {
+                    return <Field
                         name={field.name}
-                        className={'c-table-with-inputs__text-input'}
-                        onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
-                        component={InputWithValidation}
-                    />
-                )
-            },
-            number: function(variationId, field) {
-                return (
-                    <Field
-                        type="number"
-                        name={field.name}
-                        className={'c-table-with-inputs__text-input'}
-                        component="input"
-                        onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
-                    />
-                )
-            },
-            image: function(variationId, field) {
-                var uploadedImages = this.props.uploadedImages.images;
-                return (
-                    <Field
-                        type="text"
-                        name={field.name}
-                        component={function(props) {
-                            return this.renderImageDropdown.call(this,
-                                props,
-                                variationId,
-                                uploadedImages)
-                        }.bind(this)}
+                        component={this.renderCustomSelect.bind(this, field)}
                         onChange={this.variationRowFieldOnChange.bind(this, variationId)}
-                    />
-                )
-            },
-            stockModeOptions: function(variationId) {
-                return (
-                    <Fields
-                        type="text"
-                        names={[
-                            'stockModeType',
-                            'stockAmount'
-                        ]}
-                        component={StockModeInputs}
-                        onChange={this.variationRowFieldOnChange.bind(this, variationId)}
-                    />
-                );
-            },
-            customOptionsSelect: function(variationId, field) {
-                return <Field
-                    name={field.name}
-                    component={this.renderCustomSelect.bind(this, field)}
-                    onChange={this.variationRowFieldOnChange.bind(this, variationId)}
-                />;
-            }
+                    />;
+                }
+            };
+            return methods[type];
         },
         renderVariationRowField: function(variationId, field) {
-            var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
+            var renderFieldMethod = this.variationRowFieldInputRenderMethod(field.type).bind(this, variationId, field);
             return (
                 <td className={'c-table-with-inputs__cell'}>
                     {renderFieldMethod()}

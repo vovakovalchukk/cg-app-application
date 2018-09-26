@@ -86,81 +86,87 @@ import Select from 'Common/Components/Select';
                 this.changeAllOtherUnchangedValuesToMatchField(field, value);
             }
         },
-        fieldNoInputRenderMethods: {
-            text: function(variationId, field, value) {
-                return (
-                    <span>{value}</span>
-                )
-            },
-            image: function(variationId, field, imageId) {
-                var uploadedImages = this.props.uploadedImages.images;
-                var imageUrl = '';
-                for (var i = 0; i < uploadedImages.length; i++) {
-                    if (uploadedImages[i].id == imageId) {
-                        imageUrl = uploadedImages[i].url;
-                        break;
+        fieldNoInputRenderMethod: function(type) {
+            let methods = {
+                text: function (variationId, field, value) {
+                    return (
+                        <span>{value}</span>
+                    )
+                },
+                image: function (variationId, field, imageId) {
+                    var uploadedImages = this.props.uploadedImages.images;
+                    var imageUrl = '';
+                    for (var i = 0; i < uploadedImages.length; i++) {
+                        if (uploadedImages[i].id == imageId) {
+                            imageUrl = uploadedImages[i].url;
+                            break;
+                        }
                     }
-                }
-                return (
-                    <div className="image-dropdown-target">
-                        <div className="react-image-picker">
+                    return (
+                        <div className="image-dropdown-target">
+                            <div className="react-image-picker">
                         <span className="react-image-picker-image">
                             <img src={imageUrl}/>
                         </span>
+                            </div>
                         </div>
-                    </div>
 
-                );
-            },
-            customOptionsSelect: function(variationId, field, value) {
-                return <span>{value}</span>;
-            }
+                    );
+                },
+                customOptionsSelect: function (variationId, field, value) {
+                    return <span>{value}</span>;
+                }
+            };
+            return methods[type];
         },
-        fieldInputRenderMethods: {
-            text: function(variationId, field) {
-                return (
-                    <Field
-                        type="text"
+        fieldInputRenderMethod: function(type) {
+            let methods = {
+                text: function (variationId, field) {
+                    return (
+                        <Field
+                            type="text"
+                            name={field.name}
+                            className={'c-table-with-inputs__text-input'}
+                            component="input"
+                            onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
+                        />
+                    )
+                },
+                number: function (variationId, field) {
+                    return (
+                        <Field
+                            type="number"
+                            name={field.name}
+                            className={'c-table-with-inputs__text-input'}
+                            component="input"
+                            onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
+                        />
+                    )
+                },
+                image: function (variationId, field) {
+                    var uploadedImages = this.props.uploadedImages.images;
+                    return (
+                        <Field
+                            type="text"
+                            name={field.name}
+                            className={'form-row__input'}
+                            component={function (props) {
+                                return this.renderImageDropdown.call(this,
+                                    props,
+                                    variationId,
+                                    uploadedImages)
+                            }.bind(this)}
+                        />
+                    )
+                },
+                customOptionsSelect: function (variationId, field) {
+                    return <Field
                         name={field.name}
-                        className={'c-table-with-inputs__text-input'}
-                        component="input"
-                        onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
-                    />
-                )
-            },
-            number: function(variationId, field) {
-                return (
-                    <Field
-                        type="number"
-                        name={field.name}
-                        className={'c-table-with-inputs__text-input'}
-                        component="input"
-                        onChange={this.fieldOnChangeHandler.bind(this, variationId, field)}
-                    />
-                )
-            },
-            image: function(variationId, field) {
-                var uploadedImages = this.props.uploadedImages.images;
-                return (
-                    <Field
-                        type="text"
-                        name={field.name}
-                        className={'form-row__input'}
-                        component={function(props) {
-                            return this.renderImageDropdown.call(this,
-                                props,
-                                variationId,
-                                uploadedImages)
-                        }.bind(this)}
-                    />
-                )
-            },
-            customOptionsSelect: function(variationId, field) {
-                return <Field
-                    name={field.name}
-                    component={this.renderCustomSelect.bind(this, field)}
-                />;
-            }
+                        component={this.renderCustomSelect.bind(this, field)}
+                    />;
+                }
+            };
+            return methods[type];
         },
         getFieldValueFromState: function(variationId, field) {
             var variations = this.props.values.variations;
@@ -188,10 +194,10 @@ import Select from 'Common/Components/Select';
             var renderFieldMethod = null;
             var fieldValue = ''
             if (field.isDimensionsField) {
-                renderFieldMethod = this.fieldInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
+                renderFieldMethod = this.fieldInputRenderMethod(field.type).bind(this, variationId, field, fieldValue);
             } else {
                 fieldValue = this.getFieldValueFromState(variationId, field);
-                renderFieldMethod = this.fieldNoInputRenderMethods[field.type].bind(this, variationId, field, fieldValue);
+                renderFieldMethod = this.fieldNoInputRenderMethod(field.type).bind(this, variationId, field, fieldValue);
             }
             return (
                 <td className={'create-variations-table__td'}>
