@@ -1,27 +1,33 @@
 import React from 'react';
 import Input from 'Common/Components/Input';
-    export default React.createClass({
-        getCustomInputName: function(index) {
+    export default class extends React.Component {
+        getCustomInputName = (index) => {
             return 'CustomInputName' + index;
-        },
-        getCustomInputValueName: function(index) {
+        };
+
+        getCustomInputValueName = (index) => {
             return 'CustomInputValueName' + index;
-        },
-        onRemoveButtonClick: function(index) {
+        };
+
+        onRemoveButtonClick = (index) => {
             this.props.onRemoveButtonClick(index);
-        },
-        onNameChange: function(index, event) {
+        };
+
+        onNameChange = (index, event) => {
             var value = event.target.value;
             this.onInputChange(index, 'name', value);
-        },
-        onValueChange: function(index, event) {
+        };
+
+        onValueChange = (index, event) => {
             var value = event.target.value;
             this.onInputChange(index, 'value', value);
-        },
-        onInputChange: function(index, type, value) {
+        };
+
+        onInputChange = (index, type, value) => {
             this.props.onChange(index, type, value);
-        },
-        renderRemoveButton: function (index) {
+        };
+
+        renderRemoveButton = (index) => {
             return <span className="remove-icon">
                 <i
                     className='fa fa-2x fa-minus-square icon-create-listing'
@@ -29,8 +35,9 @@ import Input from 'Common/Components/Input';
                     onClick={this.onRemoveButtonClick.bind(this, index)}
                 />
             </span>;
-        },
-        render: function () {
+        };
+
+        render() {
             return <label>
                 <span className={"inputbox-label container-extra-item-specific"}>
                     <Input
@@ -49,5 +56,5 @@ import Input from 'Common/Components/Input';
                 {this.renderRemoveButton(this.props.index)}
             </label>;
         }
-    });
+    }
 

@@ -3,28 +3,30 @@ import PropTypes from 'prop-types';
 import RootComponent from 'PurchaseOrders/Components/Root';
 
 
-var RootContainer = React.createClass({
-    getInitialState: function () {
-        return {
-            filterStatus: 'All',
-            sortAsc: true,
-            purchaseOrders: []
-        }
-    },
-    getChildContext: function() {
+class RootContainer extends React.Component {
+    state = {
+        filterStatus: 'All',
+        sortAsc: true,
+        purchaseOrders: []
+    };
+
+    getChildContext() {
         return {
             imageUtils: this.props.utilities.image
         };
-    },
-    componentDidMount: function () {
+    }
+
+    componentDidMount() {
         this.purchaseOrderRequest = this.doPurchaseOrderRequest();
         window.addEventListener('purchaseOrderListRefresh', this.doPurchaseOrderRequest);
-    },
-    componentWillUnmount: function () {
+    }
+
+    componentWillUnmount() {
         this.purchaseOrderRequest.abort();
         window.removeEventListener('purchaseOrderListRefresh', this.doPurchaseOrderRequest);
-    },
-    doPurchaseOrderRequest: function () {
+    }
+
+    doPurchaseOrderRequest = () => {
         $.ajax({
             method: 'POST',
             url: '/products/purchaseOrders/list',
@@ -37,20 +39,23 @@ var RootContainer = React.createClass({
                 });
             }.bind(this)
         });
-    },
-    onCreateNewPurchaseOrderButtonPressed: function () {
+    };
+
+    onCreateNewPurchaseOrderButtonPressed = () => {
         window.triggerEvent('triggerPopup');
-    },
-    onCreateNewPurchaseOrder: function () {
+    };
+
+    onCreateNewPurchaseOrder = () => {
         window.triggerEvent('createNewPurchaseOrder');
-    },
-    onDateColumnClicked: function () {
+    };
+
+    onDateColumnClicked = () => {
         this.setState({
             sortAsc: !this.state.sortAsc
         });
-    },
-    render: function()
-    {
+    };
+
+    render() {
         return (
             <RootComponent
                 filterStatus={this.state.filterStatus}
@@ -63,7 +68,7 @@ var RootContainer = React.createClass({
             />
         );
     }
-});
+}
 
 RootContainer.childContextTypes = {
     imageUtils: PropTypes.object

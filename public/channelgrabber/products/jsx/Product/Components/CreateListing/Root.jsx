@@ -60,8 +60,8 @@ import CreateListingUtils from 'Product/Utils/CreateListingUtils';
             buildInitialStateFromData()
         );
 
-        var CreateListingRootComponent = React.createClass({
-            render: function () {
+        class CreateListingRootComponent extends React.Component {
+            render() {
                 return (
                     <Provider store={store}>
                         <AccountSelectionPopup
@@ -80,7 +80,7 @@ import CreateListingUtils from 'Product/Utils/CreateListingUtils';
                     </Provider>
                 );
             }
-        });
+        }
 
         return CreateListingRootComponent;
     };

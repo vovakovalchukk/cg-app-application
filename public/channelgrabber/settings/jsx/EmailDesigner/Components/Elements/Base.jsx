@@ -4,50 +4,52 @@ import ClickOutside from 'Common/Common/Components/ClickOutside';
 import Resizable from 'Common/Common/Components/Resizable';
 
 
-var BaseComponent = React.createClass({
-    getDefaultProps: function () {
-        return {
-            id: 0,
-            initialPosition: {
-                x: 0,
-                y: 0
-            },
-            size: {
-                width: 100,
-                height: 100
-            }
+class BaseComponent extends React.Component {
+    static defaultProps = {
+        id: 0,
+        initialPosition: {
+            x: 0,
+            y: 0
+        },
+        size: {
+            width: 100,
+            height: 100
         }
-    },
-    getInitialState: function() {
-        return {
-            position: this.props.initialPosition
-        };
-    },
-    onMouseDown: function (e) {
+    };
+
+    state = {
+        position: this.props.initialPosition
+    };
+
+    onMouseDown = (e) => {
         this.props.onElementSelected(this.props.id);
         this.setState({
             active: true
         });
-    },
-    onClickOutside: function (e) {
+    };
+
+    onClickOutside = (e) => {
         this.setState({
             active: false
         });
-    },
-    onMove: function (x, y) {
+    };
+
+    onMove = (x, y) => {
         this.setState({
             position: {
                 x: x,
                 y: y
             }
         });
-    },
-    onMoveStart: function () {
+    };
+
+    onMoveStart = () => {
         this.setState({
             active: true
         });
-    },
-    render: function() {
+    };
+
+    render() {
         var position = {
             left: this.state.position.x + 'px',
             top: this.state.position.y + 'px'
@@ -70,7 +72,7 @@ var BaseComponent = React.createClass({
             </ClickOutside>
         );
     }
-});
+}
 
 BaseComponent.propTypes = {
     id: PropTypes.number.isRequired,

@@ -1,37 +1,38 @@
 import React from 'react';
-    
 
-    var LoadMoreButton = React.createClass({
-        getDefaultProps: function() {
-            return {
-                onClick: function () {},
-                disabled: false,
-                active: false
-            }
-        },
-        onClick: function() {
-            if (this.props.disabled) {
-                return;
-            }
-            this.props.onClick();
-        },
-        getClassName: function() {
-            return "button container-btn yes" + (this.props.disabled ? " disabled" : "");
-        },
-        render: function() {
-            if (!this.props.active) {
-                return null;
-            }
-            return (
-                <span className="button-container">
-                    <div className="load-more-button">
-                        <div className={this.getClassName()} onClick={this.onClick}>
-                            <span>Load more</span>
-                        </div>
-                    </div>
-                </span>
-            );
+
+class LoadMoreButton extends React.Component {
+    static defaultProps = {
+        onClick: function () {},
+        disabled: false,
+        active: false
+    };
+
+    onClick = () => {
+        if (this.props.disabled) {
+            return;
         }
-    });
+        this.props.onClick();
+    };
 
-    export default LoadMoreButton;
+    getClassName = () => {
+        return "button container-btn yes" + (this.props.disabled ? " disabled" : "");
+    };
+
+    render() {
+        if (!this.props.active) {
+            return null;
+        }
+        return (
+            <span className="button-container">
+                <div className="load-more-button">
+                    <div className={this.getClassName()} onClick={this.onClick}>
+                        <span>Load more</span>
+                    </div>
+                </div>
+            </span>
+        );
+    }
+}
+
+export default LoadMoreButton;

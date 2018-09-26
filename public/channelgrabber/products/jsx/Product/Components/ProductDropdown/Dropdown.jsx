@@ -4,23 +4,21 @@ import ProductFilter from 'Product/Filter/Entity';
 import DetailRow from 'Common/Components/ProductDropdown/DetailRow';
 import AjaxHandler from 'Product/Storage/Ajax';
 
-var ProductDropdown = React.createClass({
-    getInitialState: function () {
-        return {
-            hasFocus: false,
-            fetchingData: false,
-            searchTerm: '',
-            products: [],
-            variations: [],
-            showResults: false
-        }
-    },
-    getDefaultProps: function() {
-        return {
-            skuThatProductsCantLinkFrom: null
-        }
-    },
-    performProductsRequest: function(filter) {
+class ProductDropdown extends React.Component {
+    static defaultProps = {
+        skuThatProductsCantLinkFrom: null
+    };
+
+    state = {
+        hasFocus: false,
+        fetchingData: false,
+        searchTerm: '',
+        products: [],
+        variations: [],
+        showResults: false
+    };
+
+    performProductsRequest = (filter) => {
         function products(data) {
             var allVariationIds = [];
             data.products.forEach(function(product) {
@@ -45,8 +43,9 @@ var ProductDropdown = React.createClass({
             this.performVariationsRequest(variationFilter);
         }
         AjaxHandler.fetchByFilter(filter, products.bind(this));
-    },
-    performVariationsRequest: function(filter) {
+    };
+
+    performVariationsRequest = (filter) => {
         function variations(data) {
             var variationsByParent = {};
             for (var index in data.products) {
@@ -70,8 +69,9 @@ var ProductDropdown = React.createClass({
             });
         }
         AjaxHandler.fetchByFilter(filter, variations.bind(this));
-    },
-    submitInput: function () {
+    };
+
+    submitInput = () => {
         if (this.props.disabled || this.state.fetchingData) {
             return;
         }
@@ -87,13 +87,15 @@ var ProductDropdown = React.createClass({
         );
 
         this.performProductsRequest(filter);
-    },
-    onClickOutside: function (e) {
+    };
+
+    onClickOutside = (e) => {
         this.setState({
             hasFocus: false
         });
-    },
-    onClick: function (e) {
+    };
+
+    onClick = (e) => {
         var newState = {
             hasFocus: !this.state.hasFocus
         };
@@ -101,22 +103,26 @@ var ProductDropdown = React.createClass({
             newState['searchTerm'] = '';
         }
         this.setState(newState);
-    },
-    onChange: function (e) {
+    };
+
+    onChange = (e) => {
         this.setState({
             searchTerm: e.target.value
         });
-    },
-    onKeyPress: function (e) {
+    };
+
+    onKeyPress = (e) => {
         if (e.key === 'Enter') {
             this.submitInput();
         }
-    },
-    onOptionSelected: function (product, sku, quantity) {
+    };
+
+    onOptionSelected = (product, sku, quantity) => {
         var data = {'quantity': quantity, 'sku': sku, 'product': product};
         window.triggerEvent('productSelection', data);
-    },
-    getDropdown: function () {
+    };
+
+    getDropdown = () => {
         var productsList = null;
 
         if (this.state.products.length) {
@@ -134,8 +140,9 @@ var ProductDropdown = React.createClass({
                 {productsList}
             </div>
         );
-    },
-    render: function () {
+    };
+
+    render() {
         return (
             <ClickOutside onClickOutside={this.onClickOutside}>
                 <div className={"detail-dropdown-wrapper "+ (this.state.hasFocus && this.state.showResults && (! this.state.fetchingData) ? 'active' : '')}>
@@ -149,6 +156,6 @@ var ProductDropdown = React.createClass({
             </ClickOutside>
         );
     }
-});
+}
 
 export default ProductDropdown;

@@ -4,18 +4,17 @@ import Image from 'Product/Components/Image';
 import Link from 'Product/Components/Link';
 
 
-var VariationViewComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            variations: [],
-            productLinks: {},
-            attributeNames: [],
-            parentProduct: {},
-            fullView: false,
-            linkedProductsEnabled: false,
-        };
-    },
-    getAttributeHeaders: function() {
+class VariationViewComponent extends React.Component {
+    static defaultProps = {
+        variations: [],
+        productLinks: {},
+        attributeNames: [],
+        parentProduct: {},
+        fullView: false,
+        linkedProductsEnabled: false,
+    };
+
+    getAttributeHeaders = () => {
         var columnWidth = 100 / this.props.maxVariationAttributes + '%';
         var headers = [];
         this.props.attributeNames.forEach(function(attributeName) {
@@ -33,8 +32,9 @@ var VariationViewComponent = React.createClass({
         }
 
         return headers;
-    },
-    getAttributeValues: function(variation) {
+    };
+
+    getAttributeValues = (variation) => {
         var values = [];
         this.props.attributeNames.forEach(function (attributeName) {
             values.push(<td key={attributeName} title={variation.attributeValues[attributeName]} className="variation-attribute-col ellipsis">{variation.attributeValues[attributeName]}</td>);
@@ -43,15 +43,17 @@ var VariationViewComponent = React.createClass({
             values.push(<td className="variation-attribute-col"></td>);
         }
         return values;
-    },
-    getImageUrl: function(variation) {
+    };
+
+    getImageUrl = (variation) => {
         if (variation.images.length > 0) {
             return variation.images[0]['url'];
         }
 
         return this.context.imageUtils.getImageSource(this.props.parentProduct);
-    },
-    renderLinkCell: function(variation) {
+    };
+
+    renderLinkCell = (variation) => {
         if (this.props.linkedProductsEnabled) {
             return <td key="link" className="link-cell">
                 <Link
@@ -60,8 +62,9 @@ var VariationViewComponent = React.createClass({
                 />
             </td>;
         }
-    },
-    render: function () {
+    };
+
+    render() {
         var imageRow = 0;
         var variationRow = 0;
         var noVariations = this.props.variations.length == 1;
@@ -114,7 +117,7 @@ var VariationViewComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 VariationViewComponent.contextTypes = {
     imageUtils: PropTypes.object

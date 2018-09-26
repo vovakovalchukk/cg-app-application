@@ -1,25 +1,27 @@
 import React from 'react';
     
 
-    export default React.createClass({
-        filterPurchaseOrders: function (purchaseOrder) {
+    export default class extends React.Component {
+        filterPurchaseOrders = (purchaseOrder) => {
             if (this.props.filterStatus === 'All') {
                 return purchaseOrder;
             }
             if (purchaseOrder.status === this.props.filterStatus) {
                 return purchaseOrder;
             }
-        },
-        sortPurchaseOrders: function (purchaseOrderA, purchaseOrderB) {
+        };
+
+        sortPurchaseOrders = (purchaseOrderA, purchaseOrderB) => {
             const dateA = Date.parse(purchaseOrderA.date);
             const dateB = Date.parse(purchaseOrderB.date);
             return (this.props.sortAsc ? (dateA < dateB) : (dateA > dateB));
-        },
-        onRowClick: function (purchaseOrder) {
+        };
+
+        onRowClick = (purchaseOrder) => {
             window.triggerEvent('purchaseOrderSelected', purchaseOrder);
-        },
-        render: function()
-        {
+        };
+
+        render() {
             return (
                 <div className="purchase-orders-list">
                     <div className="head">
@@ -45,4 +47,4 @@ import React from 'react';
                 </div>
             );
         }
-    });
+    }

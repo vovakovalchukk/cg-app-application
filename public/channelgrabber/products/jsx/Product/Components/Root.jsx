@@ -19,62 +19,61 @@ const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
 const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
 
-var RootComponent = React.createClass({
-    getChildContext: function() {
+class RootComponent extends React.Component {
+    static defaultProps = {
+        searchAvailable: true,
+        isAdmin: false,
+        initialSearchTerm: '',
+        adminCompanyUrl: null,
+        managePackageUrl: null,
+        features: {},
+        taxRates: {},
+        stockModeOptions: {},
+        ebaySiteOptions: {},
+        categoryTemplateOptions: {},
+        createListingData: {},
+        conditionOptions: {},
+        defaultCurrency: null,
+        salesPhoneNumber: null,
+        demoLink: null,
+        showVAT: true,
+        massUnit: null,
+        lengthUnit: null
+    };
+
+    state = {
+        currentView: PRODUCT_LIST_VIEW,
+        products: [],
+        variations: [],
+        allProductLinks: [],
+        editingProductLink: {
+            sku: "",
+            links: []
+        },
+        maxVariationAttributes: 0,
+        maxListingsPerAccount: [],
+        initialLoadOccurred: false,
+        pagination: {
+            total: 0,
+            limit: 0,
+            page: 0
+        },
+        fetchingUpdatedStockLevelsForSkus: {},
+        accounts: {},
+        createListing: {
+            productId: null
+        }
+    };
+
+    getChildContext() {
         return {
             imageUtils: this.props.utilities.image,
             isAdmin: this.props.isAdmin,
             initialVariationCount: INITIAL_VARIATION_COUNT
         };
-    },
-    getDefaultProps: function() {
-        return {
-            searchAvailable: true,
-            isAdmin: false,
-            initialSearchTerm: '',
-            adminCompanyUrl: null,
-            managePackageUrl: null,
-            features: {},
-            taxRates: {},
-            stockModeOptions: {},
-            ebaySiteOptions: {},
-            categoryTemplateOptions: {},
-            createListingData: {},
-            conditionOptions: {},
-            defaultCurrency: null,
-            salesPhoneNumber: null,
-            demoLink: null,
-            showVAT: true,
-            massUnit: null,
-            lengthUnit: null
-        }
-    },
-    getInitialState: function() {
-        return {
-            currentView: PRODUCT_LIST_VIEW,
-            products: [],
-            variations: [],
-            allProductLinks: [],
-            editingProductLink: {
-                sku: "",
-                links: []
-            },
-            maxVariationAttributes: 0,
-            maxListingsPerAccount: [],
-            initialLoadOccurred: false,
-            pagination: {
-                total: 0,
-                limit: 0,
-                page: 0
-            },
-            fetchingUpdatedStockLevelsForSkus: {},
-            accounts: {},
-            createListing: {
-                productId: null
-            }
-        }
-    },
-    componentDidMount: function() {
+    }
+
+    componentDidMount() {
         this.performProductsRequest();
         window.addEventListener('productDeleted', this.onDeleteProduct, false);
         window.addEventListener('productRefresh', this.onRefreshProduct, false);
@@ -82,8 +81,9 @@ var RootComponent = React.createClass({
         window.addEventListener('getProductsBySku', this.onSkuRequest, false);
         window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    },
-    componentWillUnmount: function() {
+    }
+
+    componentWillUnmount() {
         this.productsRequest.abort();
         window.removeEventListener('productDeleted', this.onDeleteProduct, false);
         window.removeEventListener('productRefresh', this.onRefreshProduct, false);
@@ -91,17 +91,20 @@ var RootComponent = React.createClass({
         window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
         window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    },
-    filterBySearch: function(searchTerm) {
+    }
+
+    filterBySearch = (searchTerm) => {
         this.performProductsRequest(null, searchTerm);
-    },
+    };
+
     /**
      * @param skuList array
      */
-    filterBySku: function(skuList) {
+    filterBySku = (skuList) => {
         this.performProductsRequest(null, null, skuList);
-    },
-    performProductsRequest: function(pageNumber, searchTerm, skuList) {
+    };
+
+    performProductsRequest = (pageNumber, searchTerm, skuList) => {
         pageNumber = pageNumber || 1;
         searchTerm = searchTerm || '';
         skuList = skuList || [];
@@ -130,8 +133,9 @@ var RootComponent = React.createClass({
             throw 'Unable to load products';
         }
         this.fetchProducts(filter, successCallback, errorCallback);
-    },
-    fetchProducts: function(filter, successCallback, errorCallback) {
+    };
+
+    fetchProducts = (filter, successCallback, errorCallback) => {
         this.productsRequest = $.ajax({
             'url': this.props.productsUrl,
             'data': {'filter': filter.toObject()},
@@ -140,8 +144,9 @@ var RootComponent = React.createClass({
             'success': successCallback.bind(this),
             'error': errorCallback.bind(this)
         });
-    },
-    fetchVariations: function(filter) {
+    };
+
+    fetchVariations = (filter) => {
         $('#products-loading-message').show();
         function onSuccess(data) {
             var variationsByParent = this.sortVariationsByParentId(data.products, filter.getParentProductId());
@@ -153,8 +158,9 @@ var RootComponent = React.createClass({
             }.bind(this));
         }
         AjaxHandler.fetchByFilter(filter, onSuccess.bind(this));
-    },
-    fetchLinkedProducts: function() {
+    };
+
+    fetchLinkedProducts = () => {
         if (!this.props.features.linkedProducts) {
             return;
         }
@@ -191,8 +197,9 @@ var RootComponent = React.createClass({
                 console.warn(error);
             }
         });
-    },
-    fetchUpdatedStockLevels(productSku) {
+    };
+
+    fetchUpdatedStockLevels = (productSku) => {
         var fetchingStockLevelsForSkuState = this.state.fetchingUpdatedStockLevelsForSkus;
         fetchingStockLevelsForSkuState[productSku] = true;
         var updateStockLevelsRequest = function() {
@@ -229,8 +236,9 @@ var RootComponent = React.createClass({
             fetchingStockLevelsForSkuState,
             updateStockLevelsRequest
         );
-    },
-    sortVariationsByParentId: function(newVariations, parentProductId) {
+    };
+
+    sortVariationsByParentId = (newVariations, parentProductId) => {
         var variationsByParent = {};
         if (parentProductId) {
             variationsByParent = this.state.variations;
@@ -245,11 +253,13 @@ var RootComponent = React.createClass({
             variationsByParent[variation.parentProductId].push(variation);
         }
         return variationsByParent;
-    },
-    onProductLinkRefresh: function() {
+    };
+
+    onProductLinkRefresh = () => {
         this.fetchLinkedProducts();
-    },
-    onEditProductLink: function(event) {
+    };
+
+    onEditProductLink = (event) => {
         var productSku = event.detail.sku;
         var productLinks = event.detail.productLinks;
         this.setState({
@@ -258,37 +268,43 @@ var RootComponent = React.createClass({
                 links: productLinks
             }
         });
-    },
-    onCreateListingIconClick: function(productId) {
+    };
+
+    onCreateListingIconClick = (productId) => {
         var product = this.state.products.find(function(product) {
             return product.id == productId;
         });
         this.showAccountsSelectionPopup(product);
-    },
-    showAccountsSelectionPopup: function(product) {
+    };
+
+    showAccountsSelectionPopup = (product) => {
         this.setState({
             currentView: ACCOUNT_SELECTION_VIEW,
             createListing: {
                 product: product
             }
         });
-    },
-    onCreateListingClose: function() {
+    };
+
+    onCreateListingClose = () => {
         this.setState({
             currentView: PRODUCT_LIST_VIEW,
             createListing: {
                 product: null
             }
         });
-    },
-    onSkuRequest: function(event) {
+    };
+
+    onSkuRequest = (event) => {
         this.filterBySku(event.detail.sku);
-    },
-    onVariationsRequest: function(event) {
+    };
+
+    onVariationsRequest = (event) => {
         var filter = new ProductFilter(null, event.detail.productId);
         this.fetchVariations(filter);
-    },
-    onDeleteProduct: function(event) {
+    };
+
+    onDeleteProduct = (event) => {
         var deletedProductIds = event.detail.productIds;
         var products = this.state.products;
         var productsAfterDelete = [];
@@ -300,8 +316,9 @@ var RootComponent = React.createClass({
         this.setState({
             products: productsAfterDelete
         });
-    },
-    onRefreshProduct: function(event) {
+    };
+
+    onRefreshProduct = (event) => {
         var refreshedProduct = event.detail.product;
         var refreshedProductId = (refreshedProduct.parentProductId === 0 ? refreshedProduct.id : refreshedProduct.parentProductId);
         var products = this.state.products.map(function(product) {
@@ -317,8 +334,9 @@ var RootComponent = React.createClass({
         this.setState({
             products: products
         });
-    },
-    onNewProductsReceived: function() {
+    };
+
+    onNewProductsReceived = () => {
         var maxVariationAttributes = 1;
         var allDefaultVariationIds = [];
         this.state.products.forEach(function(product) {
@@ -338,41 +356,48 @@ var RootComponent = React.createClass({
         }
         var productFilter = new ProductFilter(null, null, allDefaultVariationIds);
         this.fetchVariations(productFilter);
-    },
-    onPageChange: function(pageNumber) {
+    };
+
+    onPageChange = (pageNumber) => {
         this.performProductsRequest(pageNumber, this.state.searchTerm, this.state.skuList);
-    },
-    onProductLinksEditorClose: function() {
+    };
+
+    onProductLinksEditorClose = () => {
         this.setState({
             editingProductLink: {
                 sku: "",
                 links: []
             }
         });
-    },
-    addNewProductButtonClick: function() {
+    };
+
+    addNewProductButtonClick = () => {
         this.setState({
             currentView: NEW_PRODUCT_VIEW
         });
-    },
-    onCreateProductClose: function() {
+    };
+
+    onCreateProductClose = () => {
         this.setState({
             currentView: PRODUCT_LIST_VIEW
         });
-    },
-    showCreateListingPopup: function(data) {
+    };
+
+    showCreateListingPopup = (data) => {
         this.setState({
             currentView: NEW_LISTING_VIEW,
             createListingData: data
         });
-    },
-    showSearchPopup: function(data) {
+    };
+
+    showSearchPopup = (data) => {
         this.setState({
             currentView: PRODUCT_SEARCH_VIEW,
             createListingData: data
         });
-    },
-    getViewRenderers: function() {
+    };
+
+    getViewRenderers = () => {
         return {
             NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
             NEW_LISTING_VIEW: this.renderCreateListingPopup,
@@ -380,14 +405,16 @@ var RootComponent = React.createClass({
             ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
             PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
         }
-    },
-    renderSearchBox: function() {
+    };
+
+    renderSearchBox = () => {
         if (this.props.searchAvailable) {
             return <SearchBox initialSearchTerm={this.props.initialSearchTerm}
                               submitCallback={this.filterBySearch}/>
         }
-    },
-    renderAddNewProductButton: function() {
+    };
+
+    renderAddNewProductButton = () => {
         return (
             <div className=" navbar-strip--push-up-fix ">
                     <span className="navbar-strip__button " onClick={this.addNewProductButtonClick}>
@@ -396,8 +423,9 @@ var RootComponent = React.createClass({
                     </span>
             </div>
         )
-    },
-    renderProducts: function() {
+    };
+
+    renderProducts = () => {
         if (this.state.products.length === 0 && this.state.initialLoadOccurred) {
             return (
                 <div className="no-products-message-holder">
@@ -429,8 +457,9 @@ var RootComponent = React.createClass({
                 lengthUnit={this.props.lengthUnit}
             />;
         }.bind(this))
-    },
-    renderAccountSelectionPopup: function() {
+    };
+
+    renderAccountSelectionPopup = () => {
         var CreateListingRootComponent = CreateListingRoot(
             this.state.accounts,
             this.state.createListingsAllowedChannels,
@@ -449,15 +478,17 @@ var RootComponent = React.createClass({
         );
         this.fetchVariationForProductListingCreation();
         return <CreateListingRootComponent/>;
-    },
-    fetchVariationForProductListingCreation: function() {
+    };
+
+    fetchVariationForProductListingCreation = () => {
         if (this.state.variations[this.state.createListing.product.id]
             && this.state.createListing.product.variationCount > this.state.variations[this.state.createListing.product.id].length
         ) {
             this.onVariationsRequest({detail: {productId: this.state.createListing.product.id}}, false);
         }
-    },
-    renderCreateListingPopup: function() {
+    };
+
+    renderCreateListingPopup = () => {
         var variationData = this.state.variations[this.state.createListingData.product.id]
             ? this.state.variations[this.state.createListingData.product.id]
             : [this.state.createListingData.product];
@@ -473,8 +504,9 @@ var RootComponent = React.createClass({
             massUnit={this.props.massUnit}
             lengthUnit={this.props.lengthUnit}
         />;
-    },
-    formatConditionOptions: function() {
+    };
+
+    formatConditionOptions = () => {
         var options = [];
         for (var value in this.props.conditionOptions) {
             options.push({
@@ -483,12 +515,14 @@ var RootComponent = React.createClass({
             });
         }
         return options;
-    },
-    redirectToProducts: function() {
+    };
+
+    redirectToProducts = () => {
         this.state.currentView = PRODUCT_LIST_VIEW;
         this.forceUpdate();
-    },
-    renderCreateNewProduct: function() {
+    };
+
+    renderCreateNewProduct = () => {
         return <CreateProductRoot
             onCreateProductClose={this.onCreateProductClose}
             taxRates={this.props.taxRates}
@@ -499,8 +533,9 @@ var RootComponent = React.createClass({
             massUnit={this.props.massUnit}
             lengthUnit={this.props.lengthUnit}
         />
-    },
-    renderProductListView: function() {
+    };
+
+    renderProductListView = () => {
         return (
             <div id='products-app'>
                 {this.renderSearchBox()}
@@ -520,8 +555,9 @@ var RootComponent = React.createClass({
                 </div>
             </div>
         );
-    },
-    renderProductSearchView: function () {
+    };
+
+    renderProductSearchView = () => {
         return <ProductSearchRoot
             createListingData={this.state.createListingData}
             renderCreateListingPopup={this.showCreateListingPopup}
@@ -529,13 +565,14 @@ var RootComponent = React.createClass({
             onBackButtonPressed={this.showAccountsSelectionPopup}
             defaultProductImage={this.props.utilities.image.getImageSource()}
         />;
-    },
-    render: function() {
+    };
+
+    render() {
         var viewRenderers = this.getViewRenderers();
         var viewRenderer = viewRenderers[this.state.currentView];
         return viewRenderer();
     }
-});
+}
 
 RootComponent.childContextTypes = {
     imageUtils: PropTypes.object,

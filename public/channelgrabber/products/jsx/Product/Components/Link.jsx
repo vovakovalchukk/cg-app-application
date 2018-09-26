@@ -3,41 +3,43 @@ import React from 'react';
 import Tooltip from 'Product/Components/Tooltip';
 
 
-var LinkComponent = React.createClass({
-    getDefaultProps: function () {
-        return {
-            sku: "",
-            productLinks: []
-        }
-    },
-    getInitialState: function() {
-        return {
-            fetchingLinks: false,
-        }
-    },
-    componentDidMount: function()
-    {
+class LinkComponent extends React.Component {
+    static defaultProps = {
+        sku: "",
+        productLinks: []
+    };
+
+    state = {
+        fetchingLinks: false,
+    };
+
+    componentDidMount() {
         window.addEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
         window.addEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-    },
-    componentWillUnmount: function()
-    {
+    }
+
+    componentWillUnmount() {
         window.removeEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
         window.removeEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-    },
-    onStartFetchingLinks: function () {
+    }
+
+    onStartFetchingLinks = () => {
         this.setState({ fetchingLinks: true });
-    },
-    onStopFetchingLinks: function () {
+    };
+
+    onStopFetchingLinks = () => {
         this.setState({ fetchingLinks: false });
-    },
-    onClick: function () {
+    };
+
+    onClick = () => {
         window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
-    },
-    onLinkRowClick: function (sku) {
+    };
+
+    onLinkRowClick = (sku) => {
         window.triggerEvent('getProductsBySku', {sku: [sku]});
-    },
-    getHoverContent: function () {
+    };
+
+    getHoverContent = () => {
         if (this.props.productLinks.length === 0) {
             return (
                 <div className="hover-link-none-msg">
@@ -61,8 +63,9 @@ var LinkComponent = React.createClass({
                 </div>
             );
         }.bind(this));
-    },
-    getLinkIcon: function () {
+    };
+
+    getLinkIcon = () => {
         if (this.state.fetchingLinks) {
             return (
                 <span>
@@ -80,13 +83,14 @@ var LinkComponent = React.createClass({
                   onClick={this.onClick}
             ></span>
         );
-    },
-    render: function() {
+    };
+
+    render() {
         return <Tooltip hoverContent={this.getHoverContent()}>
             {this.getLinkIcon()}
         </Tooltip>;
     }
-});
+}
 
 LinkComponent.contextTypes = {
     imageUtils: PropTypes.object

@@ -4,36 +4,39 @@ import ItemRow from 'Common/Components/ItemRow';
 import SearchBox from 'Common/Components/SearchBox';
 import CurrencyInput from 'Common/Components/CurrencyInput';
 
-var OrderTable = React.createClass({
-    getInitialState: function () {
-        return {
-            shippingMethod: {
-                name: "N/A",
-                cost: 0
-            },
-            discount: {
-                active: false,
-                value: 0
-            },
-            orderRows: []
-        }
-    },
-    componentDidMount: function () {
+class OrderTable extends React.Component {
+    state = {
+        shippingMethod: {
+            name: "N/A",
+            cost: 0
+        },
+        discount: {
+            active: false,
+            value: 0
+        },
+        orderRows: []
+    };
+
+    componentDidMount() {
         window.addEventListener('productSelection', this.onProductSelected);
         window.addEventListener('orderSubmit', this.onOrderSubmit);
-    },
-    componentWillUnmount: function () {
+    }
+
+    componentWillUnmount() {
         window.removeEventListener('productSelection', this.onProductSelected);
         window.removeEventListener('orderSubmit', this.onOrderSubmit);
-    },
-    onProductSelected: function (e) {
+    }
+
+    onProductSelected = (e) => {
         var data = e.detail;
         this.addItemRow(data.product, data.sku, data.quantity);
-    },
-    onOrderSubmit: function (e) {
+    };
+
+    onOrderSubmit = (e) => {
         this.props.getOrderData(this.state);
-    },
-    addItemRow: function (product, sku, quantity) {
+    };
+
+    addItemRow = (product, sku, quantity) => {
         var orderRows = this.state.orderRows.slice();
 
         var alreadyAddedToForm = orderRows.find(function (row) {
@@ -49,16 +52,18 @@ var OrderTable = React.createClass({
         this.setState({
             orderRows: orderRows
         });
-    },
-    onRowRemove: function (sku) {
+    };
+
+    onRowRemove = (sku) => {
         var orderRows = this.state.orderRows.filter(function (row) {
             return row.sku !== sku;
         });
         this.setState({
             orderRows: orderRows
         });
-    },
-    onSkuChanged: function (oldSku, selection) {
+    };
+
+    onSkuChanged = (oldSku, selection) => {
         var newSku = selection.value;
         if (selection === undefined || oldSku === newSku) {
             return;
@@ -83,43 +88,50 @@ var OrderTable = React.createClass({
             return;
         }
         this.updateItemRow(oldSku, 'sku', selection.value);
-    },
-    onPriceChanged: function (sku, price) {
+    };
+
+    onPriceChanged = (sku, price) => {
         this.updateItemRow(sku, 'price', price);
-    },
-    onStockQuantityUpdated: function (sku, quantity) {
+    };
+
+    onStockQuantityUpdated = (sku, quantity) => {
         this.updateItemRow(sku, 'quantity', quantity);
-    },
-    onShippingMethodSelected: function (methodName) {
+    };
+
+    onShippingMethodSelected = (methodName) => {
         var shippingMethod = this.state.shippingMethod;
         shippingMethod.name = methodName;
         this.setState({
             shippingMethod: shippingMethod
         });
-    },
-    onManualShippingCost: function (e) {
+    };
+
+    onManualShippingCost = (e) => {
         var manualShippingCost = e.target.value;
         var shippingMethod = this.state.shippingMethod;
         shippingMethod.cost = manualShippingCost;
         this.setState({
             shippingMethod: shippingMethod
         });
-    },
-    onToggleDiscountBox: function (e) {
+    };
+
+    onToggleDiscountBox = (e) => {
         var discount = this.state.discount;
         discount.active = (! discount.active);
         this.setState({
             discount: discount
         });
-    },
-    onDiscountValueUpdate: function (e) {
+    };
+
+    onDiscountValueUpdate = (e) => {
         var discount = this.state.discount;
         discount.value = e.target.value;
         this.setState({
             discount: discount
         });
-    },
-    updateItemRow: function (sku, key, value) {
+    };
+
+    updateItemRow = (sku, key, value) => {
         var orderRows = this.state.orderRows.slice();
         orderRows.forEach(function (row) {
             if (row.sku === sku) {
@@ -129,8 +141,9 @@ var OrderTable = React.createClass({
         this.setState({
             orderRows: orderRows
         });
-    },
-    getItemRowsMarkup: function () {
+    };
+
+    getItemRowsMarkup = () => {
         return (
             this.state.orderRows.map(function (row) {
                 return (
@@ -144,8 +157,9 @@ var OrderTable = React.createClass({
                 )
             }.bind(this))
         );
-    },
-    getDiscountMarkup: function () {
+    };
+
+    getDiscountMarkup = () => {
         if (this.state.discount.active) {
             return (
                 <div className="discount-box">
@@ -161,8 +175,9 @@ var OrderTable = React.createClass({
         }
 
         return <a className="add-discount-action" onClick={this.onToggleDiscountBox}>Add Discount</a>
-    },
-    getSubtotalMarkup: function () {
+    };
+
+    getSubtotalMarkup = () => {
         var subTotal = 0;
         if (this.state.discount.active) {
             subTotal -= this.getFloat(this.state.discount.value);
@@ -176,16 +191,18 @@ var OrderTable = React.createClass({
                 <span className="subtotal-value">{this.props.currency.value + " " + subTotal.toFixed(2)}</span>
             </div>
         );
-    },
-    getShippingMarkup: function () {
+    };
+
+    getShippingMarkup = () => {
         return (
             <div className="detail-shipping">
                 <span className="detail-label"><SearchBox placeholder="Shipping method..." results={this.context.carrierUtils.getCarriers()} onResultSelected={this.onShippingMethodSelected} />Shipping</span>
                 <CurrencyInput value={this.state.shippingMethod.cost} currency={this.props.currency.value} onChange={this.onManualShippingCost}/>
             </div>
         );
-    },
-    getOrderTotalMarkup: function () {
+    };
+
+    getOrderTotalMarkup = () => {
         var orderTotal = this.getFloat(this.state.shippingMethod.cost);
 
         if (this.state.discount.active) {
@@ -200,12 +217,14 @@ var OrderTable = React.createClass({
                 <span className="detail-value">{this.props.currency.value + " " + orderTotal.toFixed(2)}</span>
             </div>
         );
-    },
-    getFloat: function (stringNumber) {
+    };
+
+    getFloat = (stringNumber) => {
         var floatNumber = parseFloat(stringNumber);
         return isNaN(floatNumber) ? 0 : floatNumber;
-    },
-    render: function () {
+    };
+
+    render() {
         return (
             <div className="order-table-wrapper">
                 <div className="order-rows-wrapper">{this.getItemRowsMarkup()}</div>
@@ -216,7 +235,7 @@ var OrderTable = React.createClass({
             </div>
         );
     }
-});
+}
 
 OrderTable.contextTypes = {
     carrierUtils: PropTypes.object

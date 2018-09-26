@@ -5,9 +5,8 @@ import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
 import ItemRow from 'Common/Components/ItemRow';
     
 
-    export default React.createClass({
-        render: function()
-        {
+    export default class extends React.Component {
+        render() {
             return (
                 <div className="purchase-orders-editor">
                     <div className="editor-row">
@@ -35,4 +34,4 @@ import ItemRow from 'Common/Components/ItemRow';
                 </div>
             );
         }
-    });
+    }

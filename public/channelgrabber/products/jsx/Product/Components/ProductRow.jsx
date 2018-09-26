@@ -17,49 +17,48 @@ import ListingsView from 'Product/Components/ListingsView';
 import CreateListingIcon from 'Product/Components/CreateListingIcon';
 
 
-var ProductRowComponent = React.createClass({
-    getDefaultProps: function () {
-        return {
-            product: [],
-            variations: [],
-            productLinks: {},
-            maxVariationAttributes: 0,
-            fetchingUpdatedStockLevelsForSkus: {},
-            accounts: {},
-            showVAT: true,
-            massUnit: null,
-            lengthUnit: null
-        }
-    },
-    getInitialState: function () {
-        return {
-            expanded: false,
-            bulkStockMode: {
-                name: '',
-                value: ''
-            },
-            variations: this.props.variations,
-            variationsSort: [
-                {
-                    attribute: this.props.product.attributeNames[0],
-                    ascending: true
-                }
-            ]
-        };
-    },
-    componentWillReceiveProps: function (newProps) {
+class ProductRowComponent extends React.Component {
+    static defaultProps = {
+        product: [],
+        variations: [],
+        productLinks: {},
+        maxVariationAttributes: 0,
+        fetchingUpdatedStockLevelsForSkus: {},
+        accounts: {},
+        showVAT: true,
+        massUnit: null,
+        lengthUnit: null
+    };
+
+    state = {
+        expanded: false,
+        bulkStockMode: {
+            name: '',
+            value: ''
+        },
+        variations: this.props.variations,
+        variationsSort: [
+            {
+                attribute: this.props.product.attributeNames[0],
+                ascending: true
+            }
+        ]
+    };
+
+    componentWillReceiveProps(newProps) {
         if (newProps.variations.length === this.context.initialVariationCount) {
             this.setState({
                 expanded: false// Reset expanded
             });
         }
         this.sortVariations(this.state.variationsSort, newProps.variations);
-    },
-    isParentProduct: function() {
+    }
+
+    isParentProduct = () => {
         return this.props.product.variationCount !== undefined && this.props.product.variationCount >= 1
-    },
-    getProductVariationsView: function()
-    {
+    };
+
+    getProductVariationsView = () => {
         if (this.isParentProduct()) {
             return <VariationView
                 parentProduct={this.props.product}
@@ -80,9 +79,9 @@ var ProductRowComponent = React.createClass({
                 productLinks={this.props.productLinks}
             />;
         }
-    },
-    getProductDetailsView: function ()
-    {
+    };
+
+    getProductDetailsView = () => {
         var products = [this.props.product];
         if (this.isParentProduct()) {
             products = this.state.variations;
@@ -103,9 +102,9 @@ var ProductRowComponent = React.createClass({
                 </Tabs>
             </div>
         );
-    },
-    getStockPane: function(products)
-    {
+    };
+
+    getStockPane = (products) => {
         return (
             <Pane label="Stock">
                 <StockView
@@ -116,9 +115,9 @@ var ProductRowComponent = React.createClass({
                 />
             </Pane>
         );
-    },
-    getDimensionsPane: function(products)
-    {
+    };
+
+    getDimensionsPane = (products) => {
         return (
             <Pane label="Dimensions">
                 <DimensionsView
@@ -129,9 +128,9 @@ var ProductRowComponent = React.createClass({
                 />
             </Pane>
         );
-    },
-    getVatPane: function(products)
-    {
+    };
+
+    getVatPane = (products) => {
         return (
             <Pane label="VAT">
                 <VatView
@@ -143,29 +142,30 @@ var ProductRowComponent = React.createClass({
                 />
             </Pane>
         );
-    },
-    getListingsPane: function(products)
-    {
+    };
+
+    getListingsPane = (products) => {
         return (
             <Pane label="Listings">
                 <ListingsView accounts={this.props.product.accounts} listingsPerAccount={this.props.product.listingsPerAccount} variations={products} fullView={this.state.expanded} />
             </Pane>
         );
-    },
-    getExpandVariationsButton: function()
-    {
+    };
+
+    getExpandVariationsButton = () => {
         if (this.props.product.variationCount !== undefined && this.props.product.variationCount > this.context.initialVariationCount) {
             return <Button text={(this.state.expanded ? 'Contract' : 'Expand') + " Variations"} onClick={this.expandButtonClicked}/>
         }
-    },
-    getFooterActions: function () {
+    };
+
+    getFooterActions = () => {
         if (this.isParentProduct()) {
             return this.getVariationsBulkActions();
         }
         return this.getStandaloneBulkActions();
-    },
-    getVariationsBulkActions: function()
-    {
+    };
+
+    getVariationsBulkActions = () => {
         return (
         <div className="footer-row">
             <div className="variations-layout-column">
@@ -192,9 +192,9 @@ var ProductRowComponent = React.createClass({
 
         </div>
         );
-    },
-    getStandaloneBulkActions: function()
-    {
+    };
+
+    getStandaloneBulkActions = () => {
         return (
         <div className="footer-row">
             <div className="variations-layout-column">
@@ -204,25 +204,29 @@ var ProductRowComponent = React.createClass({
             </div>
         </div>
         );
-    },
-    getBulkStockModeDropdown: function () {
+    };
+
+    getBulkStockModeDropdown = () => {
         if (this.state.variations.length > 0) {
             return <Select prefix="Set All" options={this.getStockModeOptions()} selectedOption={this.state.bulkStockMode} onOptionChange={this.bulkUpdateStockMode}/>
         }
-    },
-    getBulkStockLevelInput: function () {
+    };
+
+    getBulkStockLevelInput = () => {
         if (this.state.variations.length > 0) {
             return <Input name='bulk-level' submitCallback={this.bulkUpdateStockLevel} disabled={this.shouldBulkLevelBeDisabled()} />
         }
-    },
-    shouldBulkLevelBeDisabled: function () {
+    };
+
+    shouldBulkLevelBeDisabled = () => {
         var disabledStockMode = 'all';
         return (
             (this.state.bulkStockMode.value === "" || this.state.bulkStockMode.value === "null" || this.state.bulkStockMode.value === disabledStockMode) &&
             (this.props.product.stockModeDefault === disabledStockMode || this.props.product.stockModeDefault === null)
         );
-    },
-    vatUpdated: function (taxRateId) {
+    };
+
+    vatUpdated = (taxRateId) => {
         n.notice('Updating product tax rate.');
         $.ajax({
             url : '/products/taxRate',
@@ -236,8 +240,9 @@ var ProductRowComponent = React.createClass({
                 n.showErrorNotification(response, "There was an error when attempting to update the product tax rate.");
             }
         });
-    },
-    expandButtonClicked: function (e) {
+    };
+
+    expandButtonClicked = (e) => {
         this.setState({
             expanded: !this.state.expanded
         });
@@ -245,8 +250,9 @@ var ProductRowComponent = React.createClass({
         if (this.state.variations.length <= this.context.initialVariationCount)  {
             window.triggerEvent('variationsRequest', {productId: this.props.product.id});
         }
-    },
-    onColumnSortClick: function(attributeName) {
+    };
+
+    onColumnSortClick = (attributeName) => {
         var newVariationSort = this.state.variationsSort.slice();
 
         if (newVariationSort.length < 1) {
@@ -272,8 +278,9 @@ var ProductRowComponent = React.createClass({
             variationsSort: newVariationSort
         });
         this.sortVariations(newVariationSort);
-    },
-    sortVariations: function (newVariationSort, variations) {
+    };
+
+    sortVariations = (newVariationSort, variations) => {
         if (newVariationSort.length < 1) {
             return;
         }
@@ -292,8 +299,9 @@ var ProductRowComponent = React.createClass({
         this.setState({
             variations: newVariations.sort(sortFunction)
         });
-    },
-    getStockModeOptions: function() {
+    };
+
+    getStockModeOptions = () => {
         if (this.state.variations.length < 1) {
             return [];
         }
@@ -302,14 +310,16 @@ var ProductRowComponent = React.createClass({
             options.push({value: option.value, name: option.title});
         });
         return options;
-    },
-    getStockModeLevel: function () {
+    };
+
+    getStockModeLevel = () => {
         if (this.state.variations.length < 1) {
             return;
         }
         return this.state.variations[0].stock.stockLevel;
-    },
-    bulkUpdateStockLevel: function(name, value) {
+    };
+
+    bulkUpdateStockLevel = (name, value) => {
         if (this.state.variations.length < 1) {
             return;
         }
@@ -334,8 +344,9 @@ var ProductRowComponent = React.createClass({
                 }
             });
         }.bind(this));
-    },
-    bulkUpdateStockMode: function(stockMode) {
+    };
+
+    bulkUpdateStockMode = (stockMode) => {
         n.notice('Bulk updating stock mode for all variations.');
         $.ajax({
             url : '/products/stockMode',
@@ -353,8 +364,9 @@ var ProductRowComponent = React.createClass({
                 n.showErrorNotification(response, "There was an error when attempting to bulk update the stock mode.");
             }
         });
-    },
-    updateVariationsStockMode: function(stockModes) {
+    };
+
+    updateVariationsStockMode = (stockModes) => {
         var updatedVariations = this.state.variations.slice();
         updatedVariations.forEach(function(variation) {
             var stockMode = stockModes[variation.sku];
@@ -373,8 +385,9 @@ var ProductRowComponent = React.createClass({
         this.setState({
             variations: updatedVariations
         });
-    },
-    updateProductName: function(newName) {
+    };
+
+    updateProductName = (newName) => {
         n.notice('Updating the product name.');
         return new Promise(function(resolve, reject) {
             $.ajax({
@@ -392,8 +405,9 @@ var ProductRowComponent = React.createClass({
                 }
             });
         }.bind(this));
-    },
-    onVariationDetailChanged: function(updatedVariation) {
+    };
+
+    onVariationDetailChanged = (updatedVariation) => {
         this.triggerProductRefresh(updatedVariation);
         if (this.props.product.variationCount <= 1) {
             this.setState({
@@ -412,12 +426,13 @@ var ProductRowComponent = React.createClass({
         this.setState({
             variations: updatedVariations
         });
-    },
-    triggerProductRefresh: function (updatedVariation) {
+    };
+
+    triggerProductRefresh = (updatedVariation) => {
         window.triggerEvent('productRefresh', {product: updatedVariation});
-    },
-    render: function()
-    {
+    };
+
+    render() {
         return (
             <div className="product-container" id={"product-container-" + this.props.product.id}>
                 <input type="hidden" value={this.props.product.id} name="id" />
@@ -452,7 +467,7 @@ var ProductRowComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 ProductRowComponent.contextTypes = {
     imageUtils: PropTypes.object,

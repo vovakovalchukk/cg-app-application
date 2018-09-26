@@ -5,33 +5,36 @@ import OrderTable from 'ManualOrder/Components/OrderTable';
 import Select from 'Common/Components/Select';
 
 
-var RootComponent = React.createClass({
-    getInitialState: function () {
-        return {
-            selectedCurrency: this.props.utilities.currency.getCurrencies()[0]
-        }
-    },
-    getCurrencyOptions: function () {
+class RootComponent extends React.Component {
+    state = {
+        selectedCurrency: this.props.utilities.currency.getCurrencies()[0]
+    };
+
+    getCurrencyOptions = () => {
         return this.props.utilities.currency.getCurrencies();
-    },
-    onCurrencyChanged: function (newCurrency) {
+    };
+
+    onCurrencyChanged = (newCurrency) => {
         this.setState({
             selectedCurrency: newCurrency
         })
-    },
-    getChildContext: function() {
+    };
+
+    getChildContext() {
         return {
             carrierUtils: this.props.utilities.carrier,
             currencyUtils: this.props.utilities.currency,
             imageUtils: this.props.utilities.image
         };
-    },
-    getOrderData: function (orderData) {
+    }
+
+    getOrderData = (orderData) => {
         this.setState({
             order: orderData
         }, function(){this.props.onCreateOrder()});
-    },
-    render: function () {
+    };
+
+    render() {
         return (
             <div className="order-form-wrapper">
                 <h2>Search for Products to Add</h2>
@@ -46,7 +49,7 @@ var RootComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 RootComponent.childContextTypes = {
     carrierUtils: PropTypes.object,
