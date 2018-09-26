@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69ed7f705e8b2aaba3722cbdd50acd08",
+    "content-hash": "6775ee0fb2f8f6e7ea30676a0f0ea27d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1111,16 +1111,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-EPIC-STRAT-2-pbse-variations",
+            "version": "dev-STRAT-6-save-varaition-to-epid",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "bd71d0ff3a12d9026e07497b6f4c4219286e4cac"
+                "reference": "724d619f410f81fd50bfe3211a179e97d83d43b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-STRAT-2-pbse-variations-766f67.zip",
-                "reference": "bd71d0ff3a12d9026e07497b6f4c4219286e4cac",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-6-save-varaition-to-epid-b8565c.zip",
+                "reference": "724d619f410f81fd50bfe3211a179e97d83d43b8",
                 "shasum": null
             },
             "require": {
@@ -1172,7 +1172,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-11T13:23:58+00:00"
+            "time": "2018-09-11T15:25:12+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10435,7 +10435,7 @@
         {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
-            "version": "dev-EPIC-STRAT-2-pbse-variations",
+            "version": "dev-STRAT-6-save-varaition-to-epid",
             "package": "channelgrabber/ebay"
         }
     ],

@@ -73,10 +73,18 @@ define([
         },
         componentDidMount: function () {
             this.props.fetchCategoryTemplateDependentFieldValues();
-            this.props.loadInitialValues();
+            this.props.loadInitialValues(this.findSearchAccountId());
         },
         componentWillUnmount: function() {
             this.props.revertToInitialValues();
+        },
+        findSearchAccountId: function() {
+            let accountId = this.props.accounts.find(function(accountId) {
+                let accountData = this.props.accountsData[accountId];
+                return accountData.channel == 'ebay' && accountData.listingsAuthActive;
+            }, this);
+
+            return accountId > 0 ? accountId : null;
         },
         renderProductSearchComponent: function() {
             if (!this.props.searchAccountId || !this.props.productSearchActive) {
@@ -358,7 +366,7 @@ define([
             submitForm: function() {
                 dispatch(ReduxForm.submit("createListing"));
             },
-            loadInitialValues: function() {
+            loadInitialValues: function(searchAccountId) {
                 dispatch(
                     Actions.loadInitialValues(
                         props.product,
@@ -366,7 +374,8 @@ define([
                         props.accounts,
                         props.accountDefaultSettings,
                         props.accountsData,
-                        props.categoryTemplates ? props.categoryTemplates.categories : {}
+                        props.categoryTemplates ? props.categoryTemplates.categories : {},
+                        searchAccountId
                     )
                 );
             },
