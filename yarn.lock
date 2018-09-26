@@ -989,7 +989,7 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#STRAT-4-render-product-search-variations":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#EPIC-STRAT-2-pbse-variations":
   version "1.0.0"
   resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#24a7c76866692a52b2d39147933be742f88c162c"
   dependencies:
