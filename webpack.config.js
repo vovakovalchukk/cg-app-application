@@ -1,4 +1,5 @@
 const path = require('path');
+const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
     mode: "development",
@@ -12,7 +13,8 @@ module.exports = {
                 test: /\.jsx$/,
                 loader: 'babel-loader',
                 options: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react'],
+                    plugins: babelPluginStyledComponents
                 }
             },
             { test: /thenBy/, use: 'exports-loader?firstBy' }

@@ -68,13 +68,13 @@ $combined-height-of-non-list-ui-elements : $header-height+$pagination-height+50p
     .c-products-data-table{
         border:none;
     }
-    .public_fixedDataTableRow_main{
-        background:white;
-    }
     .public_fixedDataTable_header, .public_fixedDataTable_scrollbarSpacer, .public_fixedDataTable_header    .public_fixedDataTableCell_main{
         border-left:none;
         border-right:none;
-        background:white;
+        //background:white;
+    }
+    .fixedDataTableCellLayout_main{
+        border-right-style: none;
     }
 }
 

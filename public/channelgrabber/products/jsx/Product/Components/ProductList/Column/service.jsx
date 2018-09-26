@@ -14,13 +14,13 @@ define([
         },
         {
             key: 'productExpand',
-            width: 30,
+            width: 40,
             fixed: true,
             headerText: ''
         },
         {
             key: 'link',
-            width: 40,
+            width: 50,
             fixed: true,
             headerText: 'Link'
         },
