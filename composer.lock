@@ -706,16 +706,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.39.1",
+            "version": "1.39.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9f4dc4ddfe437195e76eda70508c1a08f41507f6"
+                "reference": "debdb11c20a04c0ee7a015f0858e0bb99f07c31e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.39.1-3f06d5.zip",
-                "reference": "9f4dc4ddfe437195e76eda70508c1a08f41507f6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.39.2-9a1ca7.zip",
+                "reference": "debdb11c20a04c0ee7a015f0858e0bb99f07c31e",
                 "shasum": null
             },
             "require": {
@@ -785,7 +785,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-09-11T10:43:27+00:00"
+            "time": "2018-09-18T08:32:21+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1126,13 +1126,13 @@
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.39.1",
+                "channelgrabber/channel": "^1.39.2",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.18.0",
+                "channelgrabber/listing": "^1.18.3",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.28.7",
@@ -1172,7 +1172,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-26T11:43:41+00:00"
+            "time": "2018-09-26T14:52:25+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1669,16 +1669,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.18.2",
+            "version": "1.18.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "d3823a747461f74ec359ea677074a777bde64bc5"
+                "reference": "b0360a9272995573a7652a27cc491e856ffacdc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.18.2-789a88.zip",
-                "reference": "d3823a747461f74ec359ea677074a777bde64bc5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.18.3-66081d.zip",
+                "reference": "b0360a9272995573a7652a27cc491e856ffacdc9",
                 "shasum": null
             },
             "require": {
@@ -1719,7 +1719,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-03T08:22:24+00:00"
+            "time": "2018-09-18T08:32:21+00:00"
         },
         {
             "name": "channelgrabber/locale",
