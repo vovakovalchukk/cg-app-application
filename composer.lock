@@ -646,16 +646,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.6",
+            "version": "1.16.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "165441ad45f31f049f690b68c061a19fe39489c4"
+                "reference": "50951b047b2010350c4ab77449072458e906fa5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6-e20431.zip",
-                "reference": "165441ad45f31f049f690b68c061a19fe39489c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6.1-e0aab7.zip",
+                "reference": "50951b047b2010350c4ab77449072458e906fa5e",
                 "shasum": null
             },
             "require": {
@@ -705,7 +705,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-25T13:21:13+00:00"
+            "time": "2018-09-25T14:59:16+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1081,16 +1081,16 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.3.0",
+            "version": "2.3.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "6534a91b75913710ae10008e2bbb0583c69a19a5"
+                "reference": "0cb64f3731b55c2b0aeba5d8732fe1ad8b234e91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.0-4e782b.zip",
-                "reference": "6534a91b75913710ae10008e2bbb0583c69a19a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.0.1-745eeb.zip",
+                "reference": "0cb64f3731b55c2b0aeba5d8732fe1ad8b234e91",
                 "shasum": null
             },
             "require": {
@@ -1110,7 +1110,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2018-09-25T13:21:13+00:00"
+            "time": "2018-09-25T14:40:31+00:00"
         },
         {
             "name": "channelgrabber/ebay",

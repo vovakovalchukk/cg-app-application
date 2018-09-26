@@ -17,7 +17,10 @@ try {
     }
 
     $statusCode = 200;
-    $cachedStatus = StatusCache::getCachedStatus($factory = new Zf2Factory());
+    $cachedStatus = StatusCache::getCachedStatus(
+        $factory = new Zf2Factory(),
+        defined('APPLICATION') ? APPLICATION : null
+    );
 
     if (!$cachedStatus->getStatus()) {
         $statusCode = 500;
