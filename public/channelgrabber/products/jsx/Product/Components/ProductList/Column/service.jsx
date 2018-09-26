@@ -10,37 +10,43 @@ define([
             key: 'image',
             width: 100,
             fixed: true,
-            headerText: 'Image'
+            headerText: 'Image',
+            align: 'center'
         },
         {
             key: 'productExpand',
             width: 40,
             fixed: true,
-            headerText: ''
+            headerText: '',
+            align: 'center'
         },
         {
             key: 'link',
             width: 50,
             fixed: true,
-            headerText: 'Link'
+            headerText: 'Link',
+            align: 'center'
         },
         {
             key: 'sku',
             width: 160,
             fixed: true,
-            headerText: 'Sku'
+            headerText: 'Sku',
+            align: 'left'
         },
         {
             key: 'name',
             width: 160,
             fixed: true,
-            headerText: 'Name'
+            headerText: 'Name',
+            align: 'left'
         },
         {
             key: 'available',
             width: 80,
             fixed: true,
-            headerText: 'Available'
+            headerText: 'Available',
+            align: 'right'
         }
     ];
     
@@ -50,19 +56,22 @@ define([
             width: 200,
             headerText: 'Stock Mode',
             fixed: false,
-            tab: 'details'
+            tab: 'details',
+            align: 'center'
         }, {
             key: 'weight',
             width: 150,
             headerText: 'Weight',
             fixed: false,
-            tab: 'details'
+            tab: 'details',
+            align: 'center'
         }, {
             key: 'dimensions',
             width: 240,
             headerText: 'Dimensions',
             fixed: false,
-            tab: 'details'
+            tab: 'details',
+            align: 'center'
         }
     ];
     
@@ -101,7 +110,8 @@ define([
                     width: 140,
                     headerText: option.countryCode,
                     fixed: false,
-                    tab: 'vat'
+                    tab: 'vat',
+                    align: 'center'
                 }
             }
         });
@@ -120,7 +130,8 @@ define([
                 width: 115,
                 headerText: capitalize(account.channel),
                 fixed: false,
-                tab: 'listings'
+                tab: 'listings',
+                align: 'center'
             }
         });
         
@@ -130,7 +141,8 @@ define([
                 width: 120,
                 headerText: 'Add Listing',
                 fixed: false,
-                tab: 'listings'
+                tab: 'listings',
+                align: 'center'
             }
         ];
         

@@ -35,7 +35,6 @@ define([
         render: function() {
             return (
                 <ListingIcon
-                    className={"listing-status " + this.props.status}
                     onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {}}
                     {...this.props}
                 />

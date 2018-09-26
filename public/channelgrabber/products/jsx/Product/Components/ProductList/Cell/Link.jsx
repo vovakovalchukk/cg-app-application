@@ -29,9 +29,6 @@ define([
             return {};
         },
         render() {
-            console.log('in cellLink this.propsp: ' , this.props);
-            
-            
             const {products, rowIndex} = this.props;
             const rowData = stateUtility.getRowData(products, rowIndex);
             const isParentProduct = stateUtility.isParentProduct(rowData);

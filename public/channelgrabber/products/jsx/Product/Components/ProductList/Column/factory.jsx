@@ -75,6 +75,7 @@ define([
             width={column.width}
             fixed={column.fixed}
             header={column.headerText}
+            align = {getHeaderCellAlignment(column)}
             cell={<StyledCell
                 {...column}
                 products={column.products}
@@ -97,9 +98,15 @@ define([
     }
     
     function getJustifyContentProp(column){
-        if(column.key==='available'){
-            return 'flex-end';
-        }
-        return 'inherit';
+        const alignFlexMap = {
+            'center': 'center',
+            'left' : 'flex-start',
+            'right' : 'flex-end'
+        };
+        return alignFlexMap[column.align];
+    }
+    
+    function getHeaderCellAlignment(column){
+        return column.align;
     }
 });
