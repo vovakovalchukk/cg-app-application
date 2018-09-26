@@ -74,7 +74,8 @@ define([
                 ean: variation.details.ean,
                 upc: variation.details.upc,
                 isbn: variation.details.isbn,
-                mpn: variation.details.mpn
+                mpn: variation.details.mpn,
+                barcodeNotApplicable: !!(variation.details.barcodeNotApplicable)
             };
         });
         return identifiers;
