@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "76d0bfe971582c6a114a8831756d09b7",
+    "content-hash": "6f6e7b66a4e44fcffba14b9ef89c5814",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3860,16 +3860,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "dev-CGIV-9889-incomplete-details-redirect-payment",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "143b6a2c8a70214bbd4a7a7943eb2591d02bdbad"
+                "reference": "2ffbadd80c85b8639f20dc00f53aaa9793ca0719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-dev-CGIV-9889-incomplete-details-redirect-payment-e05625.zip",
-                "reference": "143b6a2c8a70214bbd4a7a7943eb2591d02bdbad",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.4-45f0b5.zip",
+                "reference": "2ffbadd80c85b8639f20dc00f53aaa9793ca0719",
                 "shasum": null
             },
             "require": {
@@ -3907,7 +3907,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-09-24T08:57:27+00:00"
+            "time": "2018-09-26T14:01:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -4404,16 +4404,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-9889-incomplete-details-redirect-payment",
+            "version": "1.6.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "c316b5e0de55e07f04269d4846e0c2aa1b43d229"
+                "reference": "dccc3d49dd368527a456b740f3ee8f568a835720"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-9889-incomplete-details-redirect-payment-420c72.zip",
-                "reference": "c316b5e0de55e07f04269d4846e0c2aa1b43d229",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.15-a76c44.zip",
+                "reference": "dccc3d49dd368527a456b740f3ee8f568a835720",
                 "shasum": null
             },
             "require": {
@@ -4453,7 +4453,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-09-25T11:37:41+00:00"
+            "time": "2018-09-26T14:00:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -10338,25 +10338,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.4",
-            "alias_normalized": "1.2.4.0",
-            "version": "dev-CGIV-9889-incomplete-details-redirect-payment",
-            "package": "channelgrabber/zf2-billing"
-        },
-        {
-            "alias": "1.6.15",
-            "alias_normalized": "1.6.15.0",
-            "version": "dev-CGIV-9889-incomplete-details-redirect-payment",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-billing": 20,
-        "channelgrabber/zf2-register": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
