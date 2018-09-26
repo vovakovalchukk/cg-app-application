@@ -39,8 +39,8 @@ module.exports = {
         modules: [
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx'),
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'js-vanilla'),
+            "node_modules",
             path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js'),
-            "node_modules"
         ],
         extensions: ['.js', '.jsx'],
         alias: {
