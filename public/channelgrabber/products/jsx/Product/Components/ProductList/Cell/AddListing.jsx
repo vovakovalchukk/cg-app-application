@@ -17,8 +17,7 @@ define([
     
     let AddIcon = styled(Icon)`
         background-image: url('${constants.ADD_ICON_URL}');
-                        background-size:50%;
-
+        background-size:50%;
     `;
     
     AddIcon.sizer = styled.div`

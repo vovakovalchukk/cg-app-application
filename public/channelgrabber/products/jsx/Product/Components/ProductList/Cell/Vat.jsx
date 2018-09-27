@@ -37,13 +37,16 @@ define([
             let options = generateOptionsFromVatRates(vatRatesForCountry);
             let selectedVatKey = productVat[countryCode];
             
-            let selectedLabel = options.find(option => (selectedVatKey === option.value)).name;
+            let selectedVat  = options.find(option => (selectedVatKey === option.value));
+            if(!selectedVat){
+                return <span></span>
+            }
             
+            let selectedLabel = selectedVat.name;
             let selected = {
                 name: selectedLabel,
                 value: selectedVatKey
             };
-            
             return (
                 <div className={this.props.className}>
                     <Select
