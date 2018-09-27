@@ -20,12 +20,20 @@ define([
     `;
     
     
-    let TextCell = React.createClass({
+    let ImageCell = React.createClass({
         getDefaultProps: function() {
             return {};
         },
         getInitialState: function() {
-            return {};
+            return {
+                error:false
+            };
+        },
+        onError:function(e){
+            console.log('in onError');
+            this.setState({
+                error:true
+            });
         },
         renderImage: function() {
             let cellData = stateUtility.getCellData(
@@ -33,13 +41,14 @@ define([
                 this.props.columnKey,
                 this.props.rowIndex
             );
-            if (!cellData || !cellData.id) {
+            if (!cellData || !cellData.id || this.state.error) {
                 return '';
             }
             return (
                 <Image
                     title={'image-' + cellData.id}
                     src={cellData.url}
+                    onError={this.onError}
                     width={this.props.width}
                     height={this.props.height}
                 />
@@ -54,5 +63,5 @@ define([
         }
     });
     
-    return TextCell;
+    return ImageCell;
 });
