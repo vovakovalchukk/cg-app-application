@@ -1,7 +1,9 @@
+import Skeleton from 'react-skeleton-loader';
+
 define([
     'react',
     'Product/Components/Tooltip',
-    'Product/Components/ProductList/Config/constants'
+    'Product/Components/ProductList/Config/constants',
 ], function(
     React,
     Tooltip,
@@ -10,6 +12,12 @@ define([
     "use strict";
 
     const {LINK_STATUSES} = constants;
+    
+    const LINK_ICON_DIMENSIONS = {
+        width: 22,
+        height: 22
+    };
+    
     
     var LinkComponent = React.createClass({
         getDefaultProps: function () {
@@ -58,13 +66,11 @@ define([
         getLinkIcon: function () {
             if (this.props.linkStatus == LINK_STATUSES.fetching) {
                 return (
-                    <span>
-                        <img
-                            title="Loading Product Links..."
-                            src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif"
-                            className="b-loader"
-                        />
-                    </span>
+                    <Skeleton
+                        width={LINK_ICON_DIMENSIONS.height + 'px'}
+                        height={LINK_ICON_DIMENSIONS.height + 'px'}
+                        borderRadius={(LINK_ICON_DIMENSIONS.height / 2) + 'px'}
+                    />
                 );
             }
             var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');

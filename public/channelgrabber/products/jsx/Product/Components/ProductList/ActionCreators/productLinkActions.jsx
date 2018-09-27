@@ -61,18 +61,14 @@ define([
                     } else {
                         skusToFindLinkedProductsFor = productSkus;
                     }
-                    console.log('about to dispatch fetchingLinks');
                     
                     
                     dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
-                    console.log('dispatchedFetcingLinks');
                     
                     
                     let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                     try {
                         let response = await getProductLinksRequest(formattedSkus);
-                        console.log('response in getLinkedProducts: ', response);
-                        
                         dispatch(getProductLinksSuccess(response.productLinks, formattedSkus));
                         dispatch(fetchingProductLinksFinish(skusToFindLinkedProductsFor));
                     } catch (error) {
