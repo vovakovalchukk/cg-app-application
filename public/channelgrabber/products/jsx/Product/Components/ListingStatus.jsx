@@ -15,15 +15,23 @@ define([
     
     let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
+        background-size:100%;
         ${props => {
-            if (props.status === 'inactive') {
-                return `
+        if (props.status === 'inactive') {
+            return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
+                        background-size:50%;
                     }
                 `;
-            }
-        }}
+        }
+    }}
+    `;
+    
+    ListingIcon.sizer = styled.div`
+        display:flex;
+        width:${constants.LISTING_ICON_SIZE+'px'};
+        height:${constants.LISTING_ICON_SIZE+'px'};
     `;
     
     let ListingStatusComponent = React.createClass({
@@ -34,10 +42,15 @@ define([
         },
         render: function() {
             return (
-                <ListingIcon
-                    onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {}}
-                    {...this.props}
-                />
+                <div className={this.props.className}>
+                    <ListingIcon.sizer>
+                        <ListingIcon
+                            onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {
+                            }}
+                            {...this.props}
+                        />
+                    </ListingIcon.sizer>
+                </div>
             );
         }
     });

@@ -16,7 +16,15 @@ define([
     styled = styled.default;
     
     let AddIcon = styled(Icon)`
-        background-image: url('${constants.ADD_ICON_URL}')
+        background-image: url('${constants.ADD_ICON_URL}');
+                        background-size:50%;
+
+    `;
+    
+    AddIcon.sizer = styled.div`
+        display:flex;
+        width:${constants.LISTING_ICON_SIZE + 'px'};
+        height:${constants.LISTING_ICON_SIZE + 'px'};
     `;
     
     let AddListingCell = React.createClass({
@@ -38,10 +46,14 @@ define([
                 return <span/>
             }
             return (
-                <AddIcon
-                    onClick={this.onAddListingClick.bind(this, rowData)}
-                    className={this.props.className}
-                />
+                <div className={this.props.className}>
+                    <AddIcon.sizer>
+                        <AddIcon
+                            onClick={this.onAddListingClick.bind(this, rowData)}
+                            className={this.props.className}
+                        />
+                    </AddIcon.sizer>
+                </div>
             );
         }
     });

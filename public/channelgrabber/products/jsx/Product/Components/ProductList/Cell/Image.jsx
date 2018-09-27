@@ -30,7 +30,6 @@ define([
             };
         },
         onError:function(e){
-            console.log('in onError');
             this.setState({
                 error:true
             });

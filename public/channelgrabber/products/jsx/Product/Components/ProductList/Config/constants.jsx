@@ -13,7 +13,9 @@ define([
         },
         STOCK_MODE_EDITING_STATUSES:{
             editing:'editing'
-        }
+        },
+        LISTING_ICON_SIZE:40,
+        
     };
     constants.ADD_ICON_URL = constants.IMAGE_DIR + 'add-icon.png';
     

@@ -43,7 +43,6 @@ define([
                 name: selectedLabel,
                 value: selectedVatKey
             };
-            console.log('above return');
             
             return (
                 <div className={this.props.className}>
