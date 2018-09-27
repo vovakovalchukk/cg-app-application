@@ -19,6 +19,10 @@ define([
                     n.notice('Updating ' + detail + ' value.');
                     
                     return new Promise(function(resolve, reject) {
+                        console.log('saving... saving detail: ',detail);
+                        console.log('saving... for variation: ', variation);
+                        console.log('saving... for value: ', value);
+                        
                         $.ajax({
                             url: '/products/details/update',
                             type: 'POST',

@@ -39,6 +39,7 @@ define([
                         initialValue={(row.details && row.details.weight) ? parseFloat(row.details.weight).toFixed(3): ''}
                         step="0.1"
                         submitCallback={this.props.actions.saveDetail.bind(this,row)}
+                        classNames={'u-width-120px'}
                     />
                 </span>
             );

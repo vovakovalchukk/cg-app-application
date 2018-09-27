@@ -1,11 +1,12 @@
+import styled from 'styled-components';
+import LinkCell from 'Product/Components/ProductList/Cell/Link';
+
 define([
     'react',
     'fixed-data-table',
-    'styled-components',
     'Product/Components/ProductList/Cell/Text',
     'Product/Components/ProductList/Cell/ProductExpand',
     'Product/Components/ProductList/Cell/Image',
-    'Product/Components/ProductList/Cell/Link',
     'Product/Components/ProductList/Cell/Name',
     'Product/Components/ProductList/Cell/ListingAccount',
     'Product/Components/ProductList/Cell/AddListing',
@@ -17,11 +18,9 @@ define([
 ], function(
     React,
     FixedDataTable,
-    styled,
     TextCell,
     ProductExpandCell,
     ImageCell,
-    LinkCell,
     NameCell,
     ListingAccountCell,
     AddListingCell,
@@ -34,7 +33,6 @@ define([
     "use strict";
     
     const Column = FixedDataTable.Column;
-    styled = styled.default;
     
     let cells = {
         productExpand: ProductExpandCell,

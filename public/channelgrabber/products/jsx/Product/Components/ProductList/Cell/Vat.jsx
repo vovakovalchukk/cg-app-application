@@ -23,7 +23,7 @@ define([
         getInitialState: function() {
             return {};
         },
-        changeVat:function(e){
+        changeVat: function(e) {
             const {products, rowIndex, countryCode} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
             this.props.actions.updateVat(row.id, countryCode, e.value);
@@ -37,12 +37,13 @@ define([
             let options = generateOptionsFromVatRates(vatRatesForCountry);
             let selectedVatKey = productVat[countryCode];
             
-            let selectedLabel = options.find(option=>(selectedVatKey===option.value)).name;
+            let selectedLabel = options.find(option => (selectedVatKey === option.value)).name;
             
             let selected = {
                 name: selectedLabel,
-                value:selectedVatKey
+                value: selectedVatKey
             };
+            console.log('above return');
             
             return (
                 <div className={this.props.className}>
@@ -50,7 +51,7 @@ define([
                         options={options}
                         selectedOption={selected}
                         onOptionChange={this.changeVat}
-                        fullWidth={true}
+                        classNames={'u-width-140px'}
                     />
                 </div>
             );
@@ -59,11 +60,11 @@ define([
     
     return VatCell;
     
-    function generateOptionsFromVatRates(vatRates){
-        return vatRates.map(rate=>{
+    function generateOptionsFromVatRates(vatRates) {
+        return vatRates.map(rate => {
             return {
-                name:rate.label,
-                value:rate.key
+                name: rate.label,
+                value: rate.key
             }
         });
     }

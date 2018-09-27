@@ -53,7 +53,7 @@ define([
     let detailsColumns = [
         {
             key: 'stockMode',
-            width: 200,
+            width: 240,
             headerText: 'Stock Mode',
             fixed: false,
             tab: 'details',
@@ -107,7 +107,7 @@ define([
                     type: 'vat',
                     countryCode: option.countryCode,
                     vat,
-                    width: 140,
+                    width: 160,
                     headerText: option.countryCode,
                     fixed: false,
                     tab: 'vat',
