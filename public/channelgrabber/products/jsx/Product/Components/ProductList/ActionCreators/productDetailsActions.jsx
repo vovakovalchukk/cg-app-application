@@ -1,14 +1,6 @@
-define([
-    'Product/Storage/Ajax',
-    'Product/Filter/Entity',
-    'Product/Components/ProductList/Config/constants'
-], function(
-    AjaxHandler,
-    ProductFilter,
-    constants
-) {
-    "use strict";
-    
+"use strict";
+
+define([], function() {
     let actionCreators = (function() {
         return {
             saveDetail: (variation, detail, value) => {
@@ -19,10 +11,6 @@ define([
                     n.notice('Updating ' + detail + ' value.');
                     
                     return new Promise(function(resolve, reject) {
-                        console.log('saving... saving detail: ',detail);
-                        console.log('saving... for variation: ', variation);
-                        console.log('saving... for value: ', value);
-                        
                         $.ajax({
                             url: '/products/details/update',
                             type: 'POST',
