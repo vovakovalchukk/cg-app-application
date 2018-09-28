@@ -172,7 +172,7 @@ define([
                             initialSearchTerm={this.props.initialSearchTerm}
                             submitCallback={this.props.actions.searchProducts}
                         />
-                        {this.props.features.createProducts ? this.renderAddNewProductButton() : 'cannot create'}
+                        {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
                     </div>
                     <Tabs/>
                     <div
