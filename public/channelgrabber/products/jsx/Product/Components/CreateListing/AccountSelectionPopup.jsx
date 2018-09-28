@@ -196,23 +196,22 @@ define([
 
     const getSearchAccountId = function(props) {
         let accounts = props.product.accounts;
-        let selectedAccountIds = props.accounts;
 
-        let accountIndex = selectedAccountIds.findIndex(selectedAccountId => {
-            let accountData =  accounts[selectedAccountId];
+        let accountIndex = Object.keys(accounts).findIndex(accountId=> {
+            let accountData =  accounts[accountId];
 
             if (!accountData) {
                 return false;
             }
 
-            if (accountData.channel !== 'ebay' || !accountData.listingsAuthActive) {
+            if (accountData.channel !== 'ebay' || !accountData.listingsAuthActive || accountData.active == false) {
                 return false;
             }
 
             return true;
         });
 
-        return accountIndex > -1 ? selectedAccountIds[accountIndex] : null;
+        return accountIndex > -1 ? Object.keys(accounts)[accountIndex] : null;
     };
 
     const isProductSearchActive = function(props) {
