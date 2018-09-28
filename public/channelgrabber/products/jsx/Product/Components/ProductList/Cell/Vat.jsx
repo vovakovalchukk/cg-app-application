@@ -31,6 +31,11 @@ define([
         render() {
             const {products, rowIndex, countryCode} = this.props;
             const row = stateUtility.getRowData(products, rowIndex);
+            
+            if(stateUtility.isVariation(row)){
+                return <span></span>
+            }
+            
             let productVat = this.props.vat.productsVat[row.id];
             
             let vatRatesForCountry = this.props.vat.vatRates[countryCode];
