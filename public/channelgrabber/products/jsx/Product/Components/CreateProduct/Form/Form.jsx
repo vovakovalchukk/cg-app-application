@@ -195,8 +195,10 @@ define([
         },
         formatReduxFormValuesForProductIdentifiersComponent: function() {
             let formVariations = this.props.formValues.variations;
-            formVariations = Object.keys(formVariations).map(variation => {
-                return formVariations[variation];
+            formVariations = Object.keys(formVariations).map((variation, index) => {
+                return Object.assign(formVariations[variation], {
+                    id: 'variation-' + index
+                });
             });
             formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
             formVariations = this.addAttributeValuesToVariationsData(formVariations);

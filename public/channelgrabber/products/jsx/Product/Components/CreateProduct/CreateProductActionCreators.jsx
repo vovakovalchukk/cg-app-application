@@ -120,7 +120,7 @@ define([
             productIdentifiers = {};
         }
         let skuMatch = Object.keys(productIdentifiers).find((key) => {
-            return key === formattedVariation.sku
+            return key === formattedVariation.id
         });
 
         if (!skuMatch) {
@@ -128,8 +128,10 @@ define([
         }
 
         let variationIdentifiers = productIdentifiers[skuMatch];
+        delete variationIdentifiers.id;
 
         let mergedVariation = Object.assign(formattedVariation, variationIdentifiers);
+        delete mergedVariation.id;
         return mergedVariation;
     }
 
