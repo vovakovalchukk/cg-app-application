@@ -13,9 +13,6 @@ define([
     var vatReducer = reducerCreator(initialState, {
         "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
             let {products} = action.payload;
-            
-            // todo need to stop this from selecting
-            
             let vatRates = getTaxOptionsFromProduct(products[0]);
             let newProductsVat = getChosenVatFromProducts(products);
             let productsVat = Object.assign(state.productsVat, newProductsVat);
