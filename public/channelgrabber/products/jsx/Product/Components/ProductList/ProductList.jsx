@@ -23,6 +23,15 @@ define([
     
     const {Table} = FixedDataTable;
     
+    const NavbarButton = (props) => {
+        return (
+            <span className="navbar-strip__button u-margin-left-small" onClick={props.onClick}>
+                <span className={props.iconClass + " left icon icon--medium navbar-strip__button__icon"}>&nbsp;</span>
+                <span className="navbar-strip__button__text">{props.buttonLabel}</span>
+            </span>
+        );
+    };
+    
     var ProductList = React.createClass({
         getDefaultProps: function() {
             return {
@@ -94,15 +103,21 @@ define([
                 }
             });
         },
-        renderAddNewProductButton: function() {
+        renderAdditionalNavbarButtons: function() {
             return (
                 <div className=" navbar-strip--push-up-fix ">
-                        <span className="navbar-strip__button " onClick={this.props.addNewProductButtonClick}>
-                            <span className="fa-plus left icon icon--medium navbar-strip__button__icon">&nbsp;</span>
-                            <span className="navbar-strip__button__text">Add</span>
-                        </span>
+                    <NavbarButton
+                        buttonLabel={'Add'}
+                        onClick={this.props.addNewProductButtonClick}
+                        iconClass={'fa-plus'}
+                    />
+                    <NavbarButton
+                        buttonLabel={'Delete'}
+                        onClick={this.props.actions.deleteProducts}
+                        iconClass={'sprite-sprite sprite-cancel-22-black'}
+                    />
                 </div>
-            )
+            );
         },
         onProductLinksEditorClose: function() {
             this.setState({
@@ -136,7 +151,7 @@ define([
         isReadyToRenderTable: function() {
             return this.state.productsListContainer && this.state.productsListContainer.height;
         },
-        hasProducts: function(){
+        hasProducts: function() {
             return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
         },
         renderProducts: function() {
@@ -144,13 +159,13 @@ define([
             if (!this.isReadyToRenderTable() && !this.hasProducts()) {
                 return;
             }
-    
+            
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
             
             let rowCount = rows.length;
             
-            if(!this.hasProducts() && this.props.products.haveFetched){
+            if (!this.hasProducts() && this.props.products.haveFetched) {
                 rowCount = 50;
             }
             
@@ -182,7 +197,7 @@ define([
                             initialSearchTerm={this.props.initialSearchTerm}
                             submitCallback={this.props.actions.searchProducts}
                         />
-                        {this.props.features.createProducts ? this.renderAddNewProductButton() : ''}
+                        {this.renderAdditionalNavbarButtons()}
                     </div>
                     <Tabs/>
                     <div

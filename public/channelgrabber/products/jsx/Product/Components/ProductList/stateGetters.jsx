@@ -38,7 +38,10 @@ define([], function() {
                 },
                 getStockPrevValuesBeforeEdits(){
                     return _getState().stock.prevValuesBeforeEdits;
-                }
+                },
+                getSelectedProducts(){
+                    return _getState().bulkSelect.selectedProducts;
+                },
             };
             return self;
         })()

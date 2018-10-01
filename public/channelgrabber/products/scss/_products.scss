@@ -554,7 +554,7 @@ span.product-status-holder {
 }
 
 #main.products > #bulk-actions {
-    padding-left: 472px;
+    padding-left: 600px;
 }
 
 #searchSubmit {
@@ -755,7 +755,7 @@ $tabs-container-height:50px;
 
 .navbar-strip {
     &__button {
-        display: block;
+        display: inline-block;
         border: 1px solid #c2c2c2;
         position: relative;
         height: $button-height;
