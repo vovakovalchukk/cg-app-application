@@ -35,7 +35,7 @@ define([
             console.log('selected: ', selected);
             console.log('selected.indexOf(row.id) > -1: ', selected.indexOf(row.id) > -1);
             // return true;
-            return !!selected.indexOf(row.id) > -1;
+            return selected.indexOf(row.id) > -1;
         },
         render() {
             console.log('in render');
@@ -46,7 +46,7 @@ define([
                     <input
                         type="checkbox"
                         onChange={this.onSelectChange}
-                        value={this.isSelected() ? 'on' : 'off'}
+                        checked={this.isSelected()}
                     />
                 </div>
             );

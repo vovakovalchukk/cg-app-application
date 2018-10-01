@@ -154,10 +154,6 @@ define([
                 rowCount = 50;
             }
             
-            //todo remove this dummy
-            rowCount = 1;
-            
-            
             return (
                 <Table
                     rowHeight={60}
