@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa99b422489ae88a10d21471d83c41c3",
+    "content-hash": "af6e368fe3e25a1af2eb5ba7666a8e4a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -643,16 +643,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-9934-StatusCheckAPCuDeadlocks",
+            "version": "1.16.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "154270d76d41c73bbbabf17d3388627f5edf9637"
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-9934-StatusCheckAPCuDeadlocks-9cf0e2.zip",
-                "reference": "154270d76d41c73bbbabf17d3388627f5edf9637",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.7-939901.zip",
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08",
                 "shasum": null
             },
             "require": {
@@ -702,7 +702,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-01T09:15:41+00:00"
+            "time": "2018-10-01T11:14:08+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -10337,17 +10337,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.7",
-            "alias_normalized": "1.16.7.0",
-            "version": "dev-CGIV-9934-StatusCheckAPCuDeadlocks",
-            "package": "channelgrabber/cglib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
