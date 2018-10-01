@@ -14,15 +14,15 @@ define([
     Validators
 ) {
     "use strict";
-    
+
     var Field = ReduxForm.Field;
     var FieldArray = ReduxForm.FieldArray;
-    
+
     const TYPE_TEXT = "text";
     const TYPE_SELECT = "select";
     const TYPE_TEXT_SELECT = "textselect";
     const TYPE_CUSTOM = "custom";
-    
+
     return React.createClass({
         getInitialState: function() {
             return {
@@ -50,16 +50,16 @@ define([
             if (!requiredItems || Object.keys(requiredItems).length == 0) {
                 return null;
             }
-            
+
             requiredItems = this.filterItemSpecifics(requiredItems);
-            
+
             return this.renderItemSpecificsInputsFromOptions(requiredItems, true);
         },
         filterItemSpecifics: function(itemSpecifics) {
             if (!this.props.product.attributeNames || !(this.props.product.attributeNames instanceof Array)) {
                 return itemSpecifics;
             }
-            
+
             var attributeNames = this.props.product.attributeNames;
             var result = {};
             Object.keys(itemSpecifics).forEach(name => {
@@ -71,7 +71,7 @@ define([
                 }
                 result[name] = itemSpecifics[name];
             });
-            
+
             return result;
         },
         renderItemSpecificsInputsFromOptions: function(items, required) {
@@ -79,7 +79,7 @@ define([
                 options;
             for (var name in items) {
                 options = items[name];
-                inputs.push(this.renderItemSpecificFromOptions(name, options, required));
+                inputs.push(this.renderItemSpecificFromOptions(name, options, required, {}));
             }
             return <span>{inputs}</span>;
         },
@@ -106,7 +106,7 @@ define([
                 return null;
             }
             optionalItems = this.filterItemSpecifics(optionalItems);
-            
+
             return <FieldArray
                 component={this.renderOptionsItemSpecificComponents}
                 name={"optionalItemSpecifics"}
@@ -127,17 +127,17 @@ define([
                     />
                 </div>
             </label>];
-            
+
             var optionalItemSpecifics = input.fields.map((name, index, fields) => {
                 let optionalItemProps = {};
                 let fieldKey = fields.get(index).name;
                 let correspondingOptionInItemSpecificsDropdown = input.itemSpecifics[fieldKey];
-                
+
                 optionalItemProps.removeFieldClick = () => {
                     fields.remove(index);
                     this.addRemovedItemSpecificToOptions(fieldKey, correspondingOptionInItemSpecificsDropdown);
                 };
-                
+
                 return <Field
                     name={name}
                     component={this.renderOptionalItemSpecific}
@@ -271,6 +271,9 @@ define([
             return field.fields.length === 1;
         },
         getActionButtonForInput: function(field, removeFieldClick) {
+            if (!removeFieldClick) {
+                return;
+            }
             if (this.isSingleTextInput(field)) {
                 return (
                     <span className={'u-display-inline'}>
@@ -278,11 +281,11 @@ define([
                     </span>
                 );
             }
-            
+
             if (!this.isLastInputOfTextInputArray(field)) {
                 return this.renderRemoveButton(() => field.fields.remove(field.index));
             }
-            
+
             if (this.onlyOneTextInputExistsInArray(field)) {
                 return (
                     <span className={'u-display-inline'}>
@@ -291,7 +294,7 @@ define([
                     </span>
                 );
             }
-            
+
             return (
                 <span className={'u-display-inline'}>
                     {this.renderPlusButton(() => field.fields.push(""))}
@@ -343,8 +346,7 @@ define([
                 {Validators.shouldShowError(field) && (
                     <span className="input-error">{field.meta.error}</span>
                 )}
-                
-                {field.optionalItemProps ? this.renderRemoveButton(() => {
+                {field.optionalItemProps.removeFieldClick ? this.renderRemoveButton(() => {
                     field.optionalItemProps.removeFieldClick();
                 }) : ''}
             </label>;
@@ -406,7 +408,7 @@ define([
             if (this.state[title]) {
                 return this.state[title];
             }
-            
+
             return Object.keys(options).map(value => {
                 return {
                     name: options[value],
