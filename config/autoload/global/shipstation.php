@@ -117,12 +117,12 @@ return [
                                 ],
                                 'state' => [
                                     'name' => 'state',
-                                    'label' => 'County / State',
+                                    'label' => 'State',
                                     'required' => true,
                                 ],
                                 'postal_code' => [
                                     'name' => 'postal_code',
-                                    'label' => 'Post / zip code',
+                                    'label' => 'Zip code',
                                     'required' => true,
                                 ],
                                 'country_code' => [
@@ -145,7 +145,7 @@ return [
                                 ],
                                 'agree_to_eula' => [
                                     'name' => 'agree_to_eula',
-                                    'label' => 'Do you agree to FedEx\'s EULA?',
+                                    'label' => 'Do you agree to <a href="https://app.shipengine.com/content/integration/FedEx/EULA.pdf" target="_blank">FedEx\'s EULA</a>?',
                                     'required' => true,
                                     'inputType' => 'checkbox',
                                 ],
@@ -153,7 +153,7 @@ return [
                         ],
                         'ups' => [
                             'channelName' => 'ups-ss',
-                            'displayName' => 'UPS (US)',
+                            'displayName' => 'UPS (Worldwide)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'allowsRates' => false,
@@ -323,7 +323,7 @@ return [
                                 ],
                                 'email' => [
                                     'name' => 'email',
-                                    'label' => 'Conact Email Address',
+                                    'label' => 'Contact Email Address',
                                     'required' => true,
                                     'inputType' => 'email',
                                 ],
@@ -358,6 +358,121 @@ return [
                                 'weight' => 'weight',
                                 'packageType' => 'packageType',
                             ],
+                        ],
+                        'fedex-uk' => [
+                            'channelName' => 'fedex-uk-ss',
+                            'displayName' => 'FedEx (UK)',
+                            'featureFlag' => Service::FEATURE_FLAG_FEDEX_UK,
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'allowsRates' => false,
+                            'fields' => [
+                                'nickname' => [
+                                    'name' => 'nickname',
+                                    'label' => 'Nickname for account',
+                                    'required' => true,
+                                ],
+                                'account_number' => [
+                                    'name' => 'account_number',
+                                    'label' => 'Account Number',
+                                    'required' => true,
+                                ],
+                                'first_name' => [
+                                    'name' => 'first_name',
+                                    'label' => 'First Name',
+                                    'required' => true,
+                                ],
+                                'last_name' => [
+                                    'name' => 'last_name',
+                                    'label' => 'Last Name',
+                                    'required' => true,
+                                ],
+                                'company' => [
+                                    'name' => 'company',
+                                    'label' => 'Company',
+                                    'required' => false,
+                                ],
+                                'address1' => [
+                                    'name' => 'address1',
+                                    'label' => 'Address Line 1',
+                                    'required' => true,
+                                ],
+                                'address2' => [
+                                    'name' => 'address2',
+                                    'label' => 'Address Line 2',
+                                    'required' => false,
+                                ],
+                                'city' => [
+                                    'name' => 'city',
+                                    'label' => 'City',
+                                    'required' => true,
+                                ],
+                                'state_province' => [
+                                    'name' => 'state_province',
+                                    'label' => 'County',
+                                    'required' => true,
+                                ],
+                                'postal_code' => [
+                                    'name' => 'postal_code',
+                                    'label' => 'Post code',
+                                    'required' => true,
+                                ],
+                                'country_code' => [
+                                    'name' => 'country_code',
+                                    'label' => 'Country',
+                                    'required' => true,
+                                    'inputType' => 'country',
+                                ],
+                                'email' => [
+                                    'name' => 'email',
+                                    'label' => 'Email',
+                                    'required' => true,
+                                    'inputType' => 'email',
+                                ],
+                                'phone' => [
+                                    'name' => 'phone',
+                                    'label' => 'Telephone',
+                                    'required' => true,
+                                    'inputType' => 'number',
+                                ],
+                                'agree_to_eula' => [
+                                    'name' => 'agree_to_eula',
+                                    'label' => 'Do you agree to <a href="https://app.shipengine.com/content/integration/FedEx/EULA.pdf" target="_blank">FedEx\'s EULA</a>?',
+                                    'required' => true,
+                                    'inputType' => 'checkbox',
+                                ],
+                            ]
+                        ],
+                        'dhl-express-uk' => [
+                            'channelName' => 'dhl-express-uk-ss',
+                            'displayName' => 'DHL Express (UK)',
+                            'featureFlag' => Service::FEATURE_FLAG_DHL_EXPRESS_UK,
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'allowsRates' => false,
+                            'fields' => [
+                                'nickname' => [
+                                    'name' => 'nickname',
+                                    'label' => 'Nickname for account',
+                                    'required' => true,
+                                ],
+                                'account_number' => [
+                                    'name' => 'account_number',
+                                    'label' => 'Account Number',
+                                    'required' => true,
+                                ],
+                                'site_id' => [
+                                    'name' => 'site_id',
+                                    'label' => 'Site ID',
+                                    'required' => true,
+                                ],
+                                'password' => [
+                                    'name' => 'password',
+                                    'label' => 'Password',
+                                    'required' => true,
+                                    'inputType' => 'password',
+                                ],
+                            ]
                         ],
                     ],
                     'defaultBookingOptions' => [

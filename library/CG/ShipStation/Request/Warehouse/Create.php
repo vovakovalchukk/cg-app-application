@@ -37,7 +37,7 @@ class Create extends RequestAbstract
         return [
             'name' => $this->address->getName(),
             'phone' => $this->address->getPhone(),
-            'company_name' => $this->address->getName(),
+            'company_name' => $this->address->getCompany(),
             'address_line1' => $this->address->getAddressLine1(),
             'address_line2' => $this->address->getAddressLine2(),
             'city_locality' => $this->address->getCityLocality(),
