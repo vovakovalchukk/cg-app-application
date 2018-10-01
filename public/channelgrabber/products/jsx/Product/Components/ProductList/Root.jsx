@@ -11,6 +11,7 @@ define([
     'Product/Components/ProductList/ActionCreators/productDetailsActions',
     'Product/Components/ProductList/ActionCreators/vatActions',
     'Product/Components/ProductList/ActionCreators/stockActions',
+    'Product/Components/ProductList/ActionCreators/bulkSelectActions',
     'Product/Components/ProductList/ProductList'
 ], function(
     React,
@@ -25,6 +26,7 @@ define([
     productDetailsActions,
     stockActions,
     vatActions,
+    bulkSelectActions,
     ProductList
 ) {
     "use strict";
@@ -38,7 +40,8 @@ define([
             accounts: state.accounts.getAccounts(state),
             columns: state.columns,
             stock: state.stock,
-            vat: state.vat
+            vat: state.vat,
+            bulkSelect: state.bulkSelect
         };
     };
     
@@ -65,6 +68,7 @@ define([
             productDetailsActions,
             stockActions,
             vatActions,
+            bulkSelectActions,
             passedInMethodsAsActions
         );
     }

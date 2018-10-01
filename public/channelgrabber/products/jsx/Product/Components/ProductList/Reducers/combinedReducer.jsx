@@ -9,7 +9,8 @@ define([
     'Product/Components/ProductList/Reducers/searchReducer',
     'Product/Components/ProductList/Reducers/createListingReducer',
     'Product/Components/ProductList/Reducers/stockReducer',
-    'Product/Components/ProductList/Reducers/vatReducer'
+    'Product/Components/ProductList/Reducers/vatReducer',
+    'Product/Components/ProductList/Reducers/bulkSelectReducer'
 ], function(
     Redux,
     productsReducer,
@@ -21,7 +22,8 @@ define([
     searchReducer,
     createListingReducer,
     stockReducer,
-    vatReducer
+    vatReducer,
+    bulkSelectReducer
 ) {
     "use strict";
     
@@ -35,7 +37,8 @@ define([
         search: searchReducer,
         createListing: createListingReducer,
         stock: stockReducer,
-        vat: vatReducer
+        vat: vatReducer,
+        bulkSelect: bulkSelectReducer
     });
     
     const combinedReducer = (state, action) => {

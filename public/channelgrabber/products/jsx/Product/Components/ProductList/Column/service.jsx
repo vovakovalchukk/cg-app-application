@@ -7,6 +7,13 @@ define([
     
     let coreColumns = [
         {
+            key: 'bulkSelect',
+            width: 40,
+            fixed: true,
+            headerText: '',
+            align: 'center'
+        },
+        {
             key: 'image',
             width: 100,
             fixed: true,

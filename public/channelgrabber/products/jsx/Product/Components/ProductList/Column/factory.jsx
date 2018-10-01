@@ -14,6 +14,7 @@ define([
     'Product/Components/ProductList/Cell/Weight',
     'Product/Components/ProductList/Cell/Dimensions',
     'Product/Components/ProductList/Cell/Vat',
+    'Product/Components/ProductList/Cell/BulkSelect',
     'Product/Components/ProductList/Column/columnKeys'
 ], function(
     React,
@@ -28,6 +29,7 @@ define([
     WeightCell,
     DimensionsCell,
     VatCell,
+    BulkSelectCell,
     columnKeys
 ) {
     "use strict";
@@ -38,6 +40,7 @@ define([
     let cells = {
         productExpand: ProductExpandCell,
         image: ImageCell,
+        bulkSelect: BulkSelectCell,
         link: LinkCell,
         sku: TextCell,
         name: NameCell,
@@ -89,9 +92,15 @@ define([
     return columnCreator;
     
     function applyColumnSpecificProps(column, parentProps) {
-        if (column.key === columnKeys.stockMode) {
-            column.stock = parentProps.stock
+        const columnSpecificPropsMap = {
+            stockMode: 'stock',
+            bulkSelect: 'bulkSelect'
+        };
+        let keyToAssign = columnSpecificPropsMap[column.key]
+        if (!keyToAssign){
+            return column;
         }
+        column[keyToAssign] = parentProps[keyToAssign]
         return column;
     }
     
