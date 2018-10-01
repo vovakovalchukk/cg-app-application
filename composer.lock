@@ -942,13 +942,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "95afb8efbac4581e7bf142ce16575c4b5c7cf73b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9706-dpd-sftp-1ce999.zip",
-                "reference": "95afb8efbac4581e7bf142ce16575c4b5c7cf73b",
-                "shasum": null
+                "reference": "7413bf5eded8e9ee0243ed52bc533bda24a87140"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.3.0",
@@ -10352,8 +10346,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
