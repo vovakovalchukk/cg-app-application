@@ -12,12 +12,10 @@ define([
     "use strict";
 
     const {LINK_STATUSES} = constants;
-    
     const LINK_ICON_DIMENSIONS = {
         width: 22,
         height: 22
     };
-    
     
     var LinkComponent = React.createClass({
         getDefaultProps: function () {
