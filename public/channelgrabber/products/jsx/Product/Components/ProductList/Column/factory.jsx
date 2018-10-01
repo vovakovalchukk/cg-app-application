@@ -33,6 +33,7 @@ define([
     "use strict";
     
     const Column = FixedDataTable.Column;
+    const Cell = FixedDataTable.Cell;
     
     let cells = {
         productExpand: ProductExpandCell,
@@ -70,12 +71,13 @@ define([
         if (!CreatedCell) {
             console.error("cannot create cell in column factory for column: ", column);
         }
+        
         return (<Column
             columnKey={column.key}
             width={column.width}
             fixed={column.fixed}
             header={column.headerText}
-            align = {getHeaderCellAlignment(column)}
+            align={getHeaderCellAlignment(column)}
             cell={<StyledCell
                 {...column}
                 products={column.products}
@@ -94,19 +96,22 @@ define([
     }
     
     function getCreatedCell(column) {
+        if (!column.products.visibleRows.length) {
+            return () => (<Cell></Cell>)
+        }
         return column.type ? cells[column.type] : cells[column.key];
     }
     
-    function getJustifyContentProp(column){
+    function getJustifyContentProp(column) {
         const alignFlexMap = {
             'center': 'center',
-            'left' : 'flex-start',
-            'right' : 'flex-end'
+            'left': 'flex-start',
+            'right': 'flex-end'
         };
         return alignFlexMap[column.align];
     }
     
-    function getHeaderCellAlignment(column){
+    function getHeaderCellAlignment(column) {
         return column.align;
     }
 });

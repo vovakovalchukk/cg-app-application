@@ -134,21 +134,31 @@ define([
             return createdColumns;
         },
         isReadyToRenderTable: function() {
-            return this.state.productsListContainer && this.state.productsListContainer.height && this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length;
+            return this.state.productsListContainer && this.state.productsListContainer.height;
+        },
+        hasProducts: function(){
+            return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
         },
         renderProducts: function() {
             let rows = this.getVisibleRows();
-            if (!this.isReadyToRenderTable()) {
+            if (!this.isReadyToRenderTable() && !this.hasProducts()) {
                 return;
             }
+    
             let height = this.state.productsListContainer.height;
             let width = this.state.productsListContainer.width;
+            
+            let rowCount = rows.length;
+            
+            if(!this.hasProducts() && this.props.products.haveFetched){
+                rowCount = 50;
+            }
+            
             return (
                 <Table
                     rowHeight={60}
-                    // rowHeight={60}
                     className={'c-products-data-table'}
-                    rowsCount={rows.length}
+                    rowsCount={rowCount}
                     width={width}
                     height={height}
                     headerHeight={50}

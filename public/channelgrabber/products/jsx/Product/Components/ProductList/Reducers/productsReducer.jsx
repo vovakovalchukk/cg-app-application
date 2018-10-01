@@ -28,7 +28,8 @@ define([
                     simpleAndParentProducts: true
                 },
                 simpleAndParentProducts: action.payload.products,
-                visibleRows: action.payload.products
+                visibleRows: action.payload.products,
+                haveFetched: true
             });
             return newState;
         },
