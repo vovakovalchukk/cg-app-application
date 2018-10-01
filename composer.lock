@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20c6b4e992d4d24f54f53c55259db275",
+    "content-hash": "01f0a9703a0cfeb57f5cf1c53a746197",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -643,16 +643,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.6.1",
+            "version": "1.16.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "50951b047b2010350c4ab77449072458e906fa5e"
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6.1-e0aab7.zip",
-                "reference": "50951b047b2010350c4ab77449072458e906fa5e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.7-939901.zip",
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08",
                 "shasum": null
             },
             "require": {
@@ -702,7 +702,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-25T14:59:16+00:00"
+            "time": "2018-10-01T11:14:08+00:00"
         },
         {
             "name": "channelgrabber/channel",
