@@ -36,6 +36,7 @@ define([
         },
         "PRODUCTS_DELETE_SUCCESS": function(state, action){
             let {deletedProducts} = action.payload;
+            n.success('Successfully deleted products.');
             let newSelectedProducts = state.selectedProducts.slice();
             let nonDeletedIds = utility.findDifferenceOfTwoArrays(newSelectedProducts,deletedProducts);
             let newState = Object.assign(

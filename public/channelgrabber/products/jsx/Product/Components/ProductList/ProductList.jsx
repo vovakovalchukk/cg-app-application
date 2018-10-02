@@ -1,7 +1,8 @@
+import styled from 'styled-components';
+
 define([
     'react',
     'fixed-data-table',
-    'styled-components',
     'Product/Components/Search',
     'Product/Components/ProductLinkEditor',
     'Product/Components/ProductList/Components/Footer/Footer',
@@ -11,7 +12,6 @@ define([
 ], function(
     React,
     FixedDataTable,
-    styled,
     SearchBox,
     ProductLinkEditor,
     ProductFooter,
@@ -25,7 +25,7 @@ define([
     
     const NavbarButton = (props) => {
         return (
-            <span className="navbar-strip__button u-margin-left-small" onClick={props.onClick}>
+            <span className={"navbar-strip__button u-margin-left-small"} onClick={props.onClick}>
                 <span className={props.iconClass + " left icon icon--medium navbar-strip__button__icon"}>&nbsp;</span>
                 <span className="navbar-strip__button__text">{props.buttonLabel}</span>
             </span>
@@ -109,7 +109,7 @@ define([
                     <NavbarButton
                         buttonLabel={'Add'}
                         onClick={this.props.addNewProductButtonClick}
-                        iconClass={'fa-plus'}
+                        iconClass={'fa-plus navbar-strip__button__icon--center-add'}
                     />
                     <NavbarButton
                         buttonLabel={'Delete'}
@@ -165,13 +165,6 @@ define([
             let width = this.state.productsListContainer.width;
             
             let rowCount = rows.length;
-            
-            
-            console.log('in render :',{
-                rows, rowCount
-            });
-            
-            
             
             if (!this.hasProducts() && this.props.products.haveFetched) {
                 rowCount = 50;

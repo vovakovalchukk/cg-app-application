@@ -4568,17 +4568,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality",
+            "version": "dev-TAC-235-product-page-redesign-snagging-add-bulk-actions-column-and-add-edit-functionality-to-available-column",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d9846628c7d2a929f1b9f11dd21cda4750979454"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality-066a8e.zip",
-                "reference": "d9846628c7d2a929f1b9f11dd21cda4750979454",
-                "shasum": null
+                "reference": "0a43b112c0a1b36700f8a2d9205f25386466d66b"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -10344,6 +10338,12 @@
             "alias_normalized": "1.24.6.0",
             "version": "dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality",
             "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.24.6",
+            "alias_normalized": "1.24.6.0",
+            "version": "dev-TAC-235-product-page-redesign-snagging-add-bulk-actions-column-and-add-edit-functionality-to-available-column",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -10351,8 +10351,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

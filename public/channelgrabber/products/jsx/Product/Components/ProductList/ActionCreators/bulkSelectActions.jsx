@@ -16,6 +16,7 @@ let bulkSelectActions = (function() {
             return async function(dispatch, getState) {
                 let selectedProducts = getState.customGetters.getSelectedProducts();
                 try {
+                    n.notice('Deleting products.');
                     let data = await deleteProducts(selectedProducts);
                     dispatch({
                         type: "PRODUCTS_DELETE_SUCCESS",
@@ -24,6 +25,7 @@ let bulkSelectActions = (function() {
                     return data;
                 } catch (err) {
                     console.error(err);
+                    n.error('There was an error deleting products.');
                     dispatch({
                         type: "PRODUCTS_DELETE_ERROR",
                         payload: {}
