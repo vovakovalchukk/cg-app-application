@@ -1,3 +1,5 @@
+import utility from "Product/Components/ProductList/utility";
+
 define([
     'Common/Reducers/creator',
     'Product/Components/ProductList/stateUtility',
@@ -215,6 +217,23 @@ define([
                 LINK_STATUSES.finishedFetching
             );
             return newState;
+        },
+        "PRODUCTS_DELETE_SUCCESS": function(state, action) {
+            let {deletedProducts} = action.payload;
+            let visibleRowIds = state.visibleRows.map(row => (row.id));
+            let idsOfRowsToKeep = utility.findDifferenceOfTwoArrays(visibleRowIds, deletedProducts);
+            
+            let newVisibleRows = state.visibleRows.slice();
+            
+            let leftoverRows = newVisibleRows.map(row => {
+                if (idsOfRowsToKeep.includes(row.id)) {
+                    return row;
+                }
+            });
+            
+            return Object.assign({},state,{
+                visibleRows:leftoverRows
+            });
         }
     });
     

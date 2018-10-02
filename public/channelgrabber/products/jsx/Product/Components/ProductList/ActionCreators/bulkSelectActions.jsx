@@ -1,5 +1,5 @@
 "use strict";
-// todo make this es6
+
 let bulkSelectActions = (function() {
     return {
         changeProductBulkSelectStatus: (productId, checked) => {
@@ -19,7 +19,7 @@ let bulkSelectActions = (function() {
                     let data = await deleteProducts(selectedProducts);
                     dispatch({
                         type: "PRODUCTS_DELETE_SUCCESS",
-                        payload: {}
+                        payload: {deletedProducts: selectedProducts}
                     });
                     return data;
                 } catch (err) {
@@ -32,23 +32,23 @@ let bulkSelectActions = (function() {
             }
         }
     };
+    
+    async function deleteProducts(productsIds) {
+        return $.ajax({
+            'url': '/products/delete',
+            'data': {
+                'productIds': productsIds
+            },
+            'method': 'POST',
+            'dataType': 'json',
+            'success': function(data) {
+                return data;
+            },
+            'error': function(err) {
+                return err;
+            }
+        });
+    }
 })();
 
 export default bulkSelectActions;
-
-async function deleteProducts(productsIds) {
-    return $.ajax({
-        'url': '/products/delete',
-        'data': {
-            'productIds': productsIds
-        },
-        'method': 'POST',
-        'dataType': 'json',
-        'success': function(data) {
-            return data;
-        },
-        'error': function(err) {
-            return err;
-        }
-    });
-}

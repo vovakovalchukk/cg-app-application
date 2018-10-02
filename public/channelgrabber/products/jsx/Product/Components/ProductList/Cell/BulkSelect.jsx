@@ -30,6 +30,9 @@ define([
         isSelected: function(){
             let selected = this.props.bulkSelect.selectedProducts;
             const row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+            if(!row) {
+                return false;
+            }
             return selected.indexOf(row.id) > -1;
         },
         render() {
