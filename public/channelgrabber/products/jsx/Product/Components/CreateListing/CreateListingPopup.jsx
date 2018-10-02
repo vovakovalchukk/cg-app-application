@@ -92,7 +92,7 @@ define([
             return accountId > 0 ? accountId : null;
         },
         renderProductSearchComponent: function() {
-            if (!this.props.searchAccountId || !this.props.productSearchActive) {
+            if (!this.shouldRenderProductSearchComponent()) {
                 return null;
             }
 
@@ -104,6 +104,17 @@ define([
                 variationImages={this.props.variationImages}
                 defaultProductImage={this.props.defaultProductImage}
             />;
+        },
+        shouldRenderProductSearchComponent: function() {
+            if (!this.props.productSearchActive) {
+                return false;
+            }
+
+            if (this.props.product.variationCount > 1) {
+                return false;
+            }
+
+            return !!this.props.searchAccountId;
         },
         renderForm: function() {
             return <form>
