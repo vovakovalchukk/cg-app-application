@@ -1445,7 +1445,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#STRAT-7-create-variation-listings-pbse":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#cd4f312af6f4bb6b1a967df557134f7dc77cfbfe"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#6ccd3be61aa8d829f320e31552ead93d29858ffb"
   dependencies:
     react "^15.4.2"
     react-dom "^15.4.2"
