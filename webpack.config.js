@@ -39,7 +39,7 @@ module.exports = {
             // Can't have an alias for Product as it exists in both jsx and js-vanilla :(
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
-            Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'src', 'jsx', 'Common'),
+            Common: path.resolve(__dirname, 'node_modules', 'cg-common', 'dist', 'js', 'Common'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react.min.js'),
             'react-with-addons': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react-with-addons.min.js'),
