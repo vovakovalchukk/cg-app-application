@@ -150,17 +150,8 @@ class Service implements
 
     protected function getPbseStatusForCategory(?Data $ebayData): array
     {
-        $required = false;
-        if ($ebayData) {
-            try {
-                $required = (new FeatureHelper($ebayData))->isFeatureEnabled('ProductRequiredEnabled');
-            } catch (\InvalidArgumentException $e) {
-                // No-op
-            }
-        }
-
         return [
-            'required' => $required
+            'required' => $this->getPbseRequiredStatus($ebayData)
         ];
     }
 
