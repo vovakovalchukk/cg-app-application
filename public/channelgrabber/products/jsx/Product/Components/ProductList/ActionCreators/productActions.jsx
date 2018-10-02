@@ -102,19 +102,20 @@ define([
                     let filter = new ProductFilter(searchTerm, null, null, skuList);
                     filter.setPage(pageNumber);
                     filter.setLimit(getState.customGetters.getPaginationLimit());
+                    let data = {};
                     try {
                         dispatch(getProductsRequestStart());
-                        let data = await fetchProducts(filter);
-                        dispatch(getProductsSuccess(data));
-                        if(!data.products.length){
-                            return data;
-                        }
-                        dispatch(productLinkActions.getLinkedProducts());
-                        dispatch(vatActions.extractVatFromProducts(data.products));
-                        return data;
+                        data = await fetchProducts(filter);
                     } catch (err) {
                         throw 'Unable to load products... error: ' + err;
                     }
+                    dispatch(getProductsSuccess(data));
+                    if(!data.products.length){
+                        return data;
+                    }
+                    dispatch(productLinkActions.getLinkedProducts());
+                    dispatch(vatActions.extractVatFromProducts(data.products));
+                    return data;
                 }
             },
             getUpdatedStockLevels(productSku) {

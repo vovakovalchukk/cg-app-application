@@ -71,25 +71,40 @@ define([], function() {
                     });
                     
                 }
+            },
+            updateAvailable: (productId,field,desiredValue) => {
+                return async function(dispatch, getState) {
+                    console.log('in updateAvailable AQ with productId: ' , {productId, field,desiredValue});
+                    let dataToSend = {
+                        stockLocationId: getStockLocationId(rowData),
+                        totalQuantity: desiredValue,
+                        eTag: getStockEtag(rowData)
+                    };
+                    try{
+                        await updateAvailable(dataToSend);
+                    }catch(err){
+                        console.error(err);
+                        dispatch({
+                            type:"AVAILABLE_UPDATE_FAIL"
+                        });
+                    }
+                    dispatch({
+                        type:"AVAILABLE_UPDATE_SUCCESS"
+                    });
+                }
             }
         }
     }());
     
     return actionCreators;
     
-    async function updateStockMode(id, value) {
-        return $.ajax({
-            url: '/products/stockMode',
-            data: {
-                id,
-                stockMode: value
-            },
-            method: 'POST',
-            dataType: 'json',
-            success: response => (response),
-            error: error => (error)
-        });
-    };
+    function getStockLocationId(rowData) {
+        return (rowData.stock ? rowData.stock.locations[0].id : '');
+    }
+    
+    function getStockEtag(rowData){
+        return (rowData.stock ? rowData.stock.locations[0].eTag : '');
+    }
     
     async function updateStockLevel(id, value) {
         return $.ajax({
@@ -100,6 +115,17 @@ define([], function() {
                 id,
                 stockLevel: value
             },
+            success: response => (response),
+            error: error => (error)
+        });
+    }
+    
+    function updateAvailable(data){
+        return $.ajax({
+            "url": "products/stock/update",
+            type: 'POST',
+            dataType: 'json',
+            data,
             success: response => (response),
             error: error => (error)
         });

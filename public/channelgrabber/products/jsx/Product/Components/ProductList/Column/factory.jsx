@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import LinkCell from 'Product/Components/ProductList/Cell/Link';
+import AvailableCell from 'Product/Components/ProductList/Cell/Available'
 
 define([
     'react',
@@ -44,7 +45,7 @@ define([
         link: LinkCell,
         sku: TextCell,
         name: NameCell,
-        available: TextCell,
+        available: AvailableCell,
         listingAccount: ListingAccountCell,
         addListing: AddListingCell,
         //todo to be replaced in 215
