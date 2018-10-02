@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c763ed46fbce66a8954022e55387b28",
+    "content-hash": "a4ab116088e4f3df23aa82616cc2036b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1111,16 +1111,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-STRAT-7-create-variation-listings-pbse",
+            "version": "dev-STRAT-8-remove-invlid-refresh-token",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "ffb932dc9837205153aef465763082fac418e851"
+                "reference": "2e229a049bb98142e952432c6d49c6578f2d526e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-7-create-variation-listings-pbse-48befb.zip",
-                "reference": "ffb932dc9837205153aef465763082fac418e851",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-8-remove-invlid-refresh-token-22a07f.zip",
+                "reference": "2e229a049bb98142e952432c6d49c6578f2d526e",
                 "shasum": null
             },
             "require": {
@@ -1172,7 +1172,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-26T14:52:25+00:00"
+            "time": "2018-09-27T15:23:25+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -10435,7 +10435,7 @@
         {
             "alias": "1.13.1",
             "alias_normalized": "1.13.1.0",
-            "version": "dev-STRAT-7-create-variation-listings-pbse",
+            "version": "dev-STRAT-8-remove-invlid-refresh-token",
             "package": "channelgrabber/ebay"
         }
     ],
