@@ -156,6 +156,7 @@ define([
         },
         renderProducts: function() {
             let rows = this.getVisibleRows();
+            
             if (!this.isReadyToRenderTable() && !this.hasProducts()) {
                 return;
             }
@@ -164,6 +165,13 @@ define([
             let width = this.state.productsListContainer.width;
             
             let rowCount = rows.length;
+            
+            
+            console.log('in render :',{
+                rows, rowCount
+            });
+            
+            
             
             if (!this.hasProducts() && this.props.products.haveFetched) {
                 rowCount = 50;

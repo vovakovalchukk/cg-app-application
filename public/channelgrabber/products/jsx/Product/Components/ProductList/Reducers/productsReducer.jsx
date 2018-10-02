@@ -225,9 +225,10 @@ define([
             
             let newVisibleRows = state.visibleRows.slice();
             
-            let leftoverRows = newVisibleRows.map(row => {
+            let leftoverRows = [];
+            newVisibleRows.forEach(row => {
                 if (idsOfRowsToKeep.includes(row.id)) {
-                    return row;
+                    return leftoverRows.push(row);
                 }
             });
             
