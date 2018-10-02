@@ -168,7 +168,7 @@ define([
             formattedVariation = addStockToFormattedVariation(formattedVariation)
             formattedVariation = addProductIdentifiersToFormattedVariation(formattedVariation, productIdentifiers);
             formattedVariation = addAttributeValuesToFormattedVariation(formattedVariation, attributeNames);
-
+            delete formattedVariation.id;
             return formattedVariation;
         });
     };
