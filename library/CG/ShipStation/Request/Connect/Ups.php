@@ -34,7 +34,7 @@ class Ups extends RequestAbstract implements ConnectInterface
         string $accountNumber,
         string $accountCountryCode,
         string $accountPostalCode,
-        Invoice $invoice
+        ?Invoice $invoice
     ) {
         $this->address = $address;
         $this->user = $user;
@@ -49,7 +49,10 @@ class Ups extends RequestAbstract implements ConnectInterface
     {
         $address = Address::fromArray($params);
         $user = User::fromArray($params);
-        $invoice = Invoice::fromArray($params);
+
+        if (strlen($params['invoice number']) > 0) {
+            $invoice = Invoice::fromArray($params);
+        }
 
         return new static(
             $address,
@@ -58,7 +61,7 @@ class Ups extends RequestAbstract implements ConnectInterface
             $params['account number'] ?? $params['account_number'],
             $params['account country code'] ?? $params['account_country_code'],
             $params['account postal code'] ?? $params['account_postal_code'],
-            $invoice
+            $invoice ?? null
         );
     }
 
@@ -69,9 +72,11 @@ class Ups extends RequestAbstract implements ConnectInterface
             'account_number' => $this->getAccountNumber(),
             'account_country_code' => $this->getAccountCountryCode(),
             'account_postal_code' => $this->getAccountPostalCode(),
-            'invoice' => $this->invoice->toArray(),
             'agree_to_technology_agreement' => true
         ];
+        if (isset($this->invoice)) {
+            $array['invoice'] = $this->invoice->toArray();
+        }
         return array_merge($array, $this->user->toArray(), $this->address->toArray());
     }
 
