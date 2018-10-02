@@ -8,13 +8,19 @@ use CG\Account\Shared\Entity as Account;
 use CG\Channel\Integration\Type as ChannelIntegrationType;
 use CG\Channel\Service as ChannelService;
 use CG\Channel\Type as ChannelType;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Module;
 use Zend\View\Model\ViewModel;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
     /** @var AccountService */
@@ -47,6 +53,13 @@ class Service
     public function fetchAccountsForActiveUser()
     {
         $activeUser = $this->activeUserContainer->getActiveUser();
+
+        $this->logDebugDump($activeUser, 'MY TEST', [], 'MY TEST');
+
+        if (!($activeUser instanceof User)) {
+            throw new NotFound();
+        }
+
         $ouList = $activeUser->getOuList();
         return $this->fetchAccountsForOUList($ouList);
     }
