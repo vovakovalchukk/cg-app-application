@@ -1,3 +1,5 @@
+import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
+
 define([
     'react',
     'redux',
@@ -11,7 +13,6 @@ define([
     'Product/Components/ProductList/ActionCreators/productDetailsActions',
     'Product/Components/ProductList/ActionCreators/vatActions',
     'Product/Components/ProductList/ActionCreators/stockActions',
-    'Product/Components/ProductList/ActionCreators/bulkSelectActions',
     'Product/Components/ProductList/ProductList'
 ], function(
     React,
@@ -26,7 +27,6 @@ define([
     productDetailsActions,
     stockActions,
     vatActions,
-    bulkSelectActions,
     ProductList
 ) {
     "use strict";
