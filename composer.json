@@ -24,7 +24,7 @@
         "channelgrabber/bigcommerce": "~1.3.0",
         "channelgrabber/billing": "~1.19.5",
         "channelgrabber/cache": "~2.5.2",
-        "channelgrabber/cglib": "~1.16.6",
+        "channelgrabber/cglib": "~1.16.7",
         "channelgrabber/channel": "~1.39.1",
         "channelgrabber/cilex": "~1.2.0",
         "channelgrabber/clearbooks": "~1.11.3",
