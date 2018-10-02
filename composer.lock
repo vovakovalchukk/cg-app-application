@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4ab116088e4f3df23aa82616cc2036b",
+    "content-hash": "c143b408f23bd2f5111b028264b4edf7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -643,16 +643,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.6.1",
+            "version": "1.16.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "50951b047b2010350c4ab77449072458e906fa5e"
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6.1-e0aab7.zip",
-                "reference": "50951b047b2010350c4ab77449072458e906fa5e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.7-939901.zip",
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08",
                 "shasum": null
             },
             "require": {
@@ -702,7 +702,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-25T14:59:16+00:00"
+            "time": "2018-10-01T11:14:08+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1111,16 +1111,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-STRAT-8-remove-invlid-refresh-token",
+            "version": "dev-EPIC-STRAT-2-pbse-variations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2e229a049bb98142e952432c6d49c6578f2d526e"
+                "reference": "e521b25f7c672b4f80f30996d4d13afe47a26ce7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-STRAT-8-remove-invlid-refresh-token-22a07f.zip",
-                "reference": "2e229a049bb98142e952432c6d49c6578f2d526e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-STRAT-2-pbse-variations-dd988a.zip",
+                "reference": "e521b25f7c672b4f80f30996d4d13afe47a26ce7",
                 "shasum": null
             },
             "require": {
@@ -1172,7 +1172,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-09-27T15:23:25+00:00"
+            "time": "2018-10-02T09:25:07+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3861,16 +3861,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "420db1eadb3d76a85187597f405f314ad8d7ac18"
+                "reference": "2ffbadd80c85b8639f20dc00f53aaa9793ca0719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.3-f9654a.zip",
-                "reference": "420db1eadb3d76a85187597f405f314ad8d7ac18",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.4-45f0b5.zip",
+                "reference": "2ffbadd80c85b8639f20dc00f53aaa9793ca0719",
                 "shasum": null
             },
             "require": {
@@ -3908,7 +3908,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2018-08-31T09:58:19+00:00"
+            "time": "2018-09-26T14:01:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -4405,16 +4405,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.14",
+            "version": "1.6.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "dd4bbc5a89def2096b57ac27a8da01d881349935"
+                "reference": "dccc3d49dd368527a456b740f3ee8f568a835720"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.14-5ec9cd.zip",
-                "reference": "dd4bbc5a89def2096b57ac27a8da01d881349935",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.6.15-a76c44.zip",
+                "reference": "dccc3d49dd368527a456b740f3ee8f568a835720",
                 "shasum": null
             },
             "require": {
@@ -4454,7 +4454,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-08-31T08:34:54+00:00"
+            "time": "2018-09-26T14:00:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -10433,9 +10433,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-STRAT-8-remove-invlid-refresh-token",
+            "alias": "1.15.10",
+            "alias_normalized": "1.15.10.0",
+            "version": "dev-EPIC-STRAT-2-pbse-variations",
             "package": "channelgrabber/ebay"
         }
     ],
