@@ -3,13 +3,9 @@
 namespace CG\ShipStation\PackageType\Usps;
 
 use CG\Product\Detail\Entity as ProductDetailEntity;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 
-class Service implements LoggerAwareInterface
+class Service
 {
-    use LogTrait;
-
     /** @var Collection */
     protected $packageTypes;
     /** @var Mapper */
@@ -78,11 +74,6 @@ class Service implements LoggerAwareInterface
         if ($packageTypes === null) {
             $packageTypes = $this->packageTypes;
         }
-
-        $this->logDebugDump($service, 'packageTypes service', 'MY TEST');
-        $this->logDebugDump($packageTypes, 'packageTypes', 'MY TEST');
-        $this->logDebugDump($packageTypes->getBy('service', $service), 'packageTypes by', 'MY TEST');
-
         return $packageTypes->getBy('service', $service);
     }
 
