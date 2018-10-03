@@ -1,4 +1,8 @@
-define([], function() {
+define([
+    'Product/Components/ProductList/stateUtility',
+], function(
+    stateUtility
+) {
     "use strict";
     
     let actionCreators = (function() {
@@ -72,18 +76,21 @@ define([], function() {
                     
                 }
             },
-            updateAvailable: (rowData,field,desiredValue) => {
+            updateAvailable: (productData,field,desiredValue) => {
                 return async function(dispatch) {
-                    console.log('in updateAvailable AQ with args ' , {rowData, field,desiredValue});
+                    console.log('in updateAvailable AQ with args ' , {productData, field,desiredValue});
                     let response;
+                    
+                    let totalQuantity = getTotalQuantityFromDesiredAvailable(productData, desiredValue);
+                    
                     let dataToSend = {
-                        stockLocationId: getStockLocationId(rowData),
-                        totalQuantity: desiredValue,
-                        eTag: getStockEtag(rowData)
+                        stockLocationId: getStockLocationId(productData),
+                        totalQuantity,
+                        eTag: getStockEtag(productData)
                     };
                     n.notice('Updating stock level.');
                     try{
-                        response = await updateAvailable(dataToSend);
+                        response = await updateStock(dataToSend);
                         n.success('Stock total updated successfully.');
                     }catch(err){
                         n.showErrorNotification("There was an error when attempting to update the stock total.");
@@ -113,6 +120,10 @@ define([], function() {
         return (rowData.stock ? rowData.stock.locations[0].eTag : '');
     }
     
+    function getTotalQuantityFromDesiredAvailable(rowData, desiredAvailable){
+        return parseInt(desiredAvailable) + parseInt(stateUtility.getAllocatedStock(rowData));
+    }
+    
     async function updateStockLevel(id, value) {
         return $.ajax({
             url: 'products/stockLevel',
@@ -127,7 +138,7 @@ define([], function() {
         });
     }
     
-    function updateAvailable(data){
+    function updateStock(data){
         return $.ajax({
             "url": "products/stock/update",
             type: 'POST',
