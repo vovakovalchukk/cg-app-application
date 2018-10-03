@@ -232,8 +232,31 @@ define([
                 }
             });
             
-            return Object.assign({},state,{
-                visibleRows:leftoverRows
+            return Object.assign({}, state, {
+                visibleRows: leftoverRows
+            });
+        },
+        "AVAILABLE_UPDATE_SUCCESS": function(state, action) {
+            console.log('in AVAILABLE_UPDATE_SUCCESS');
+            
+            
+            let {productId, desiredStock} = action.payload;
+            let newState = Object.assign({},state)
+            let rowToChangeIndex = newState.visibleRows.findIndex(row => (row.id === productId));
+            
+            let visibleRowsCopy = newState.visibleRows.slice();
+            
+            console.log('visibleRowsCopy: ', visibleRowsCopy);
+            
+            console.log('rowToChangeIndex: ', rowToChangeIndex);
+            
+            visibleRowsCopy[rowToChangeIndex].stock.locations[0].onHand = desiredStock;
+            
+            console.log('in AVAILABLE_UPDATE_SUCCESS -R returning visibleRowsCopy:', visibleRowsCopy);
+            
+            
+            return Object.assign({}, state, {
+                visibleRows: visibleRowsCopy
             });
         }
     });

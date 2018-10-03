@@ -27,10 +27,13 @@ define([], function() {
                 if (columnKey.indexOf('dummy') > -1) {
                     cellData = `${columnKey} ${rowIndex}`;
                 }
-                if(row['sku']==='Joetest123'){
-                    console.log('got the sku');
-                    console.log('stateUtility().getStockAvailable(row): ', stateUtility().getStockAvailable(row));
-                }
+                // if(row['sku']==='Joetest123'){
+                //     console.log('for row[\'sku\']: ' , row['sku']);
+                //     console.log('row[stocl]',row['stock']);
+                //
+                //
+                //     console.log('stateUtility().getStockAvailable(row): ', stateUtility().getStockAvailable(row));
+                // }
                 return cellData;
             },
             isParentProduct: (rowData) => {
@@ -46,10 +49,10 @@ define([], function() {
                 let onHandStock = stateUtility().getOnHandStock(rowData);
                 let allocatedStock = stateUtility().getAllocatedStock(rowData);
     
-                if(rowData['sku']==='Joetest123') {
-                    console.log('onHandStock: ', onHandStock);
-                    console.log('allocatedStock: ', allocatedStock);
-                }
+                // if(rowData['sku']==='Joetest123') {
+                //     console.log('onHandStock: ', onHandStock);
+                //     console.log('allocatedStock: ', allocatedStock);
+                // }
                 
                 return stateUtility().getOnHandStock(rowData) - Math.max(stateUtility().getAllocatedStock(rowData), 0);
             },

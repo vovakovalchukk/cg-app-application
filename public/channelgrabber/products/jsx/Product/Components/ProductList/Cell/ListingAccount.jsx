@@ -50,6 +50,9 @@ define([
     
     function getListingsForAccount(rowData, listingAccountId) {
         let {listingsPerAccount, listings} = rowData;
+        if(!listingsPerAccount){
+            return;
+        }
         let listingsIdsForAccount = listingsPerAccount[listingAccountId];
         if (!listingsIdsForAccount) {
             return;

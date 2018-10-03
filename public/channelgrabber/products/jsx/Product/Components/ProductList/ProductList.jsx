@@ -156,7 +156,8 @@ define([
         },
         renderProducts: function() {
             let rows = this.getVisibleRows();
-            
+            // console.log('in renderPRoducts render visibleRows rows: ', rows);
+    
             if (!this.isReadyToRenderTable() && !this.hasProducts()) {
                 return;
             }

@@ -50,7 +50,7 @@ define([
         },
         {
             key: 'available',
-            width: 80,
+            width: 120,
             fixed: true,
             headerText: 'Available',
             align: 'right'

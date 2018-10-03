@@ -46,6 +46,10 @@ define([
     function getChosenVatFromProducts(products) {
         let productsVat = {};
         products.forEach(product => {
+            if(!product.taxRates){
+                console.error('no tax rates set for product:',product);
+                return;
+            }
             let chosenVats = {
                 productId: product.id
             };

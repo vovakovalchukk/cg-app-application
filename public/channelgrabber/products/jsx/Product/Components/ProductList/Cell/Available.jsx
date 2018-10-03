@@ -3,30 +3,39 @@ import stateUtility from 'Product/Components/ProductList/stateUtility.jsx';
 import Input from 'Common/Components/SafeInput';
 
 class AvailableCell extends React.Component {
-    constructor(props) {
-        super(props);
+    onChange(e){
         const {products, rowIndex} = this.props;
-        this.rowData = stateUtility.getRowData(products, rowIndex);
-        this.availableValue = stateUtility.getCellData(
-            props.products,
-            props.columnKey,
-            props.rowIndex
-        );
+        let rowData = stateUtility.getRowData(products, rowIndex);
+        this.props.actions.updateAvailable(rowData,'available',e.target.value);
     };
     render() {
-        console.log('in available render... available value:', {
-            availableValue: this.availableValue,
-            sku:this.rowData.sku,
-            stock:this.rowData.stock
-        });
+        const {products, rowIndex} = this.props;
+    
+        let rowData = stateUtility.getRowData(products, rowIndex);
+        let availableValue = stateUtility.getCellData(
+            this.props.products,
+            this.props.columnKey,
+            this.props.rowIndex
+        );
+        
+        if(rowData.sku==="Joetest123"){
+            console.log('in  available render... available value:', {
+                availableValue: availableValue,
+                sku:rowData.sku,
+                stock:rowData.stock,
+                rowData:rowData
+            });
+        }
+        
         return (
             <span className={this.props.className}>
                 <Input
                     name='available'
-                    initialValue={this.availableValue}
+                    initialValue={parseFloat(availableValue)}
                     step="0.1"
-                    submitCallback={this.props.actions.updateAvailable.bind(this, this.rowData)}
+                    submitCallback={this.props.actions.updateAvailable.bind(this, rowData)}
                     classNames={'u-width-120px'}
+                    sku={rowData.sku}
                 />
             </span>
         );

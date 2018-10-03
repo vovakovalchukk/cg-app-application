@@ -78,10 +78,20 @@ define([
             },
             updateAvailable: (productData,field,desiredValue) => {
                 return async function(dispatch) {
-                    console.log('in updateAvailable AQ with args ' , {productData, field,desiredValue});
-                    let response;
+                    console.log('in updateAvailabe');
                     
+                    
+                    
+                    
+                    console.log('in updateAvailable AQ with args ' , {
+                        productData,
+                        field,
+                        desiredValue,
+                        'this of caller(the available cell)': this
+                    });
+                    let response;
                     let totalQuantity = getTotalQuantityFromDesiredAvailable(productData, desiredValue);
+                    console.log('totalQuantity calc: ', totalQuantity);
                     
                     let dataToSend = {
                         stockLocationId: getStockLocationId(productData),
@@ -90,10 +100,16 @@ define([
                     };
                     n.notice('Updating stock level.');
                     try{
+                        console.log('updating stock:', dataToSend);
+                        
+                        
                         response = await updateStock(dataToSend);
                         n.success('Stock total updated successfully.');
+                        console.log('in success try');
+                        
+                        
                     }catch(err){
-                        n.showErrorNotification("There was an error when attempting to update the stock total.");
+                        n.error("There was an error when attempting to update the stock total.");
                         console.error(err);
                         dispatch({
                             type:"AVAILABLE_UPDATE_FAIL"
@@ -101,7 +117,11 @@ define([
                         return err;
                     }
                     dispatch({
-                        type:"AVAILABLE_UPDATE_SUCCESS"
+                        type:"AVAILABLE_UPDATE_SUCCESS",
+                        payload:{
+                            productId: productData.id,
+                            desiredStock:totalQuantity
+                        }
                     });
                     console.log('after try catch');
                     return response;
