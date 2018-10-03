@@ -16,9 +16,9 @@ class AvailableCell extends React.Component {
     render() {
         console.log('in available render... available value:', {
             availableValue: this.availableValue,
-            sku:this.rowData.sku
+            sku:this.rowData.sku,
+            stock:this.rowData.stock
         });
-        
         return (
             <span className={this.props.className}>
                 <Input

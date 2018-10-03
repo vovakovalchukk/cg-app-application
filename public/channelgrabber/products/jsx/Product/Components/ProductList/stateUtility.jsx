@@ -27,6 +27,10 @@ define([], function() {
                 if (columnKey.indexOf('dummy') > -1) {
                     cellData = `${columnKey} ${rowIndex}`;
                 }
+                if(row['sku']==='Joetest123'){
+                    console.log('got the sku');
+                    console.log('stateUtility().getStockAvailable(row): ', stateUtility().getStockAvailable(row));
+                }
                 return cellData;
             },
             isParentProduct: (rowData) => {
@@ -39,6 +43,14 @@ define([], function() {
                 return !self.isParentProduct(rowData) && !self.isVariation(rowData);
             },
             getStockAvailable(rowData) {
+                let onHandStock = stateUtility().getOnHandStock(rowData);
+                let allocatedStock = stateUtility().getAllocatedStock(rowData);
+    
+                if(rowData['sku']==='Joetest123') {
+                    console.log('onHandStock: ', onHandStock);
+                    console.log('allocatedStock: ', allocatedStock);
+                }
+                
                 return stateUtility().getOnHandStock(rowData) - Math.max(stateUtility().getAllocatedStock(rowData), 0);
             },
             getOnHandStock: function(rowData) {
