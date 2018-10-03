@@ -12,6 +12,12 @@ class AvailableCell extends React.Component {
         const {products, rowIndex} = this.props;
     
         let rowData = stateUtility.getRowData(products, rowIndex);
+        const isParentProduct = stateUtility.isParentProduct(rowData);
+        
+        if(isParentProduct){
+            return <span></span>
+        }
+        
         let availableValue = stateUtility.getCellData(
             this.props.products,
             this.props.columnKey,
