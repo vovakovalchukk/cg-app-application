@@ -72,25 +72,32 @@ define([], function() {
                     
                 }
             },
-            updateAvailable: (productId,field,desiredValue) => {
-                return async function(dispatch, getState) {
-                    console.log('in updateAvailable AQ with productId: ' , {productId, field,desiredValue});
+            updateAvailable: (rowData,field,desiredValue) => {
+                return async function(dispatch) {
+                    console.log('in updateAvailable AQ with args ' , {rowData, field,desiredValue});
+                    let response;
                     let dataToSend = {
                         stockLocationId: getStockLocationId(rowData),
                         totalQuantity: desiredValue,
                         eTag: getStockEtag(rowData)
                     };
+                    n.notice('Updating stock level.');
                     try{
-                        await updateAvailable(dataToSend);
+                        response = await updateAvailable(dataToSend);
+                        n.success('Stock total updated successfully.');
                     }catch(err){
+                        n.showErrorNotification("There was an error when attempting to update the stock total.");
                         console.error(err);
                         dispatch({
                             type:"AVAILABLE_UPDATE_FAIL"
                         });
+                        return err;
                     }
                     dispatch({
                         type:"AVAILABLE_UPDATE_SUCCESS"
                     });
+                    console.log('after try catch');
+                    return response;
                 }
             }
         }
