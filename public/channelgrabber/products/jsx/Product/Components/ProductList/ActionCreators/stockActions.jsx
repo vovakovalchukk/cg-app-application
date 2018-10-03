@@ -73,26 +73,12 @@ define([
                             prevValuesForRow
                         }
                     });
-                    
                 }
             },
             updateAvailable: (productData,field,desiredValue) => {
                 return async function(dispatch) {
-                    console.log('in updateAvailabe');
-                    
-                    
-                    
-                    
-                    console.log('in updateAvailable AQ with args ' , {
-                        productData,
-                        field,
-                        desiredValue,
-                        'this of caller(the available cell)': this
-                    });
                     let response;
                     let totalQuantity = getTotalQuantityFromDesiredAvailable(productData, desiredValue);
-                    console.log('totalQuantity calc: ', totalQuantity);
-                    
                     let dataToSend = {
                         stockLocationId: getStockLocationId(productData),
                         totalQuantity,
@@ -100,14 +86,8 @@ define([
                     };
                     n.notice('Updating stock level.');
                     try{
-                        console.log('updating stock:', dataToSend);
-                        
-                        
                         response = await updateStock(dataToSend);
                         n.success('Stock total updated successfully.');
-                        console.log('in success try');
-                        
-                        
                     }catch(err){
                         n.error("There was an error when attempting to update the stock total.");
                         console.error(err);
@@ -123,7 +103,6 @@ define([
                             desiredStock:totalQuantity
                         }
                     });
-                    console.log('after try catch');
                     return response;
                 }
             }

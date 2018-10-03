@@ -18,15 +18,6 @@ class AvailableCell extends React.Component {
             this.props.rowIndex
         );
         
-        if(rowData.sku==="Joetest123"){
-            console.log('in  available render... available value:', {
-                availableValue: availableValue,
-                sku:rowData.sku,
-                stock:rowData.stock,
-                rowData:rowData
-            });
-        }
-        
         return (
             <span className={this.props.className}>
                 <Input
