@@ -53,7 +53,7 @@ define([
             width: 120,
             fixed: true,
             headerText: 'Available',
-            align: 'right'
+            align: 'center'
         }
     ];
     
