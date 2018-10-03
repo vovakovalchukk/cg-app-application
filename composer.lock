@@ -4359,7 +4359,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "2b511fba770f0d75cb82dfcf83b6938341dbb415"
+                "reference": "2d5da51bdd3a9a66859c12fd39e800ab04a8e4d9"
             },
             "require": {
                 "channelgrabber/billing": "^1.10.0",
