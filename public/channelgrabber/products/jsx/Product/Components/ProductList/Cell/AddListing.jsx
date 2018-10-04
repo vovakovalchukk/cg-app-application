@@ -17,18 +17,18 @@ AddIcon.sizer = styled.div`
         height:${constants.LISTING_ICON_SIZE + 'px'};
     `;
 
-let AddListingCell = React.createClass({
-    getDefaultProps: function() {
-        return {
-            rowData: {},
-            rowIndex: null
-        };
-    },
-    onAddListingClick: async function(rowData) {
+class AddListingCell extends React.Component {
+    static defaultProps = {
+        rowData: {},
+        rowIndex: null
+    };
+
+    onAddListingClick = async (rowData) => {
         this.props.actions.createNewListing({
             rowData
         });
-    },
+    };
+
     render() {
         const {products, rowIndex} = this.props;
         const rowData = stateUtility.getRowData(products, rowIndex);
@@ -46,6 +46,6 @@ let AddListingCell = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default AddListingCell;

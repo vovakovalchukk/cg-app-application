@@ -1,14 +1,13 @@
 import React from 'react';
 "use strict";
 
-var ListingsRowComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            accounts: {},
-            listings: {}
-        };
-    },
-    getHoverText: function(listing) {
+class ListingsRowComponent extends React.Component {
+    static defaultProps = {
+        accounts: {},
+        listings: {}
+    };
+
+    getHoverText = (listing) => {
         var hoverText = {
             'active': 'This is an active listing with available stock',
             'pending': 'We have recently sent a stock update to this listing, and are currently waiting for ' + $.trim(listing.channel) + ' to confirm they have received and processed the stock update',
@@ -18,8 +17,9 @@ var ListingsRowComponent = React.createClass({
             'unimported': 'This listing has not yet been imported or does not exist'
         };
         return hoverText[$.trim(listing.status)];
-    },
-    getValues: function() {
+    };
+
+    getValues = () => {
         var values = [];
         for (var accountId in this.props.listingsPerAccount) {
             this.props.listingsPerAccount[accountId].map(function(listingId) {
@@ -36,10 +36,11 @@ var ListingsRowComponent = React.createClass({
             }.bind(this));
         }
         return values;
-    },
-    render: function() {
+    };
+
+    render() {
         return <tr>{this.getValues()}</tr>;
     }
-});
+}
 
 export default ListingsRowComponent;

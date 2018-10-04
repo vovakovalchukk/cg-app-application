@@ -4,25 +4,24 @@ import ListingStatus from 'Product/Components/ListingStatus';
 
 "use strict";
 
-let ListingAccountCell = React.createClass({
-    getDefaultProps: function() {
-        return {
-            actions: {},
-            rowIndex: null,
-            products: {},
-            listingAccountId: null
-        };
-    },
-    getInitialState: function() {
-        return {};
-    },
-    onAddListingClick: async function() {
+class ListingAccountCell extends React.Component {
+    static defaultProps = {
+        actions: {},
+        rowIndex: null,
+        products: {},
+        listingAccountId: null
+    };
+
+    state = {};
+
+    onAddListingClick = async () => {
         const {products, rowIndex} = this.props;
         const rowData = stateUtility.getRowData(products, rowIndex);
         this.props.actions.createNewListing({
             rowData
         });
-    },
+    };
+
     render() {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
@@ -35,7 +34,7 @@ let ListingAccountCell = React.createClass({
             className={this.props.className}
         />;
     }
-});
+}
 
 export default ListingAccountCell;
 

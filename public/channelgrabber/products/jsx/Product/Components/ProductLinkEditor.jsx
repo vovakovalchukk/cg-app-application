@@ -5,32 +5,32 @@ import Button from 'Common/Components/Button';
 import ItemRow from 'Common/Components/ItemRow'
 "use strict";
 
-let ProductLinkEditorComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            productLink: {
-                links: [],
-                sku: ""
-            }
+class ProductLinkEditorComponent extends React.Component {
+    static defaultProps = {
+        productLink: {
+            links: [],
+            sku: ""
         }
-    },
-    getInitialState: function() {
-        return {
-            sku: this.props.productLink.sku,
-            links: this.props.productLink.links,
-            unlinkConfirmPopup: false
-        };
-    },
-    componentWillReceiveProps: function(newProps) {
+    };
+
+    state = {
+        sku: this.props.productLink.sku,
+        links: this.props.productLink.links,
+        unlinkConfirmPopup: false
+    };
+
+    componentWillReceiveProps(newProps) {
         this.setState({
             sku: newProps.productLink.sku,
             links: newProps.productLink.links
         });
-    },
-    componentDidMount: function() {
+    }
+
+    componentDidMount() {
         window.addEventListener('productSelection', this.onProductSelected);
-    },
-    componentWillUnmount: function() {
+    }
+
+    componentWillUnmount() {
         window.removeEventListener('productSelection', this.onProductSelected);
         if (this.saveProductLinksRequest) {
             this.saveProductLinksRequest.abort();
@@ -38,8 +38,9 @@ let ProductLinkEditorComponent = React.createClass({
         if (this.unlinkProductLinksRequest) {
             this.unlinkProductLinksRequest.abort();
         }
-    },
-    addProductLink: function(product, sku, quantity) {
+    }
+
+    addProductLink = (product, sku, quantity) => {
         var links = this.state.links.slice();
         
         var alreadyAddedToForm = links.find(function(row) {
@@ -55,8 +56,9 @@ let ProductLinkEditorComponent = React.createClass({
         this.setState({
             links: links
         });
-    },
-    updateItemRow: function(sku, key, value) {
+    };
+
+    updateItemRow = (sku, key, value) => {
         var links = this.state.links.slice();
         links.forEach(function(row) {
             if (row.sku === sku) {
@@ -66,12 +68,14 @@ let ProductLinkEditorComponent = React.createClass({
         this.setState({
             links: links
         });
-    },
-    onProductSelected: function(event) {
+    };
+
+    onProductSelected = (event) => {
         var data = event.detail;
         this.addProductLink(data.product, data.sku, data.quantity);
-    },
-    onSkuChanged: function(oldSku, selection) {
+    };
+
+    onSkuChanged = (oldSku, selection) => {
         var newSku = selection.value;
         if (selection === undefined || oldSku === newSku) {
             return;
@@ -96,11 +100,13 @@ let ProductLinkEditorComponent = React.createClass({
             return;
         }
         this.updateItemRow(oldSku, 'sku', selection.value);
-    },
-    onStockQuantityUpdated: function(sku, quantity) {
+    };
+
+    onStockQuantityUpdated = (sku, quantity) => {
         this.updateItemRow(sku, 'quantity', parseInt(quantity));
-    },
-    onRowRemove: function(sku) {
+    };
+
+    onRowRemove = (sku) => {
         var links = this.state.links.filter(function(row) {
             return row.sku !== sku;
         });
@@ -108,8 +114,9 @@ let ProductLinkEditorComponent = React.createClass({
         this.setState({
             links: links
         });
-    },
-    onSaveProductLinks: function() {
+    };
+
+    onSaveProductLinks = () => {
         n.notice('Saving product links.');
         this.saveProductLinksRequest = $.ajax({
             'url': "/products/links/save",
@@ -135,13 +142,15 @@ let ProductLinkEditorComponent = React.createClass({
                 n.error(error.message);
             }.bind(this)
         });
-    },
-    onUnlinkProductsClicked: function() {
+    };
+
+    onUnlinkProductsClicked = () => {
         this.setState({
             unlinkConfirmPopup: true
         });
-    },
-    unlinkProducts: function() {
+    };
+
+    unlinkProducts = () => {
         n.notice('Removing product links.');
         this.unlinkProductLinksRequest = $.ajax({
             'url': "/products/links/remove",
@@ -166,16 +175,18 @@ let ProductLinkEditorComponent = React.createClass({
                 n.error(error.message);
             }.bind(this)
         });
-    },
-    onEditorReset: function() {
+    };
+
+    onEditorReset = () => {
         this.setState({
             sku: "",
             links: [],
             unlinkConfirmPopup: false
         });
         this.props.onEditorClose();
-    },
-    renderUnlinkButton: function() {
+    };
+
+    renderUnlinkButton = () => {
         if (this.props.productLink.links === undefined || this.props.productLink.links.length === 0) {
             return;
         }
@@ -193,8 +204,9 @@ let ProductLinkEditorComponent = React.createClass({
                 <Button text="Unlink Products" onClick={this.onUnlinkProductsClicked} sprite="sprite-linked-22-black"/>
             </div>
         );
-    },
-    render: function() {
+    };
+
+    render() {
         return (
             <Popup
                 initiallyActive={!!this.state.sku}
@@ -226,6 +238,6 @@ let ProductLinkEditorComponent = React.createClass({
             </Popup>
         );
     }
-});
+}
 
 export default ProductLinkEditorComponent;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Tooltip from 'Product/Components/Tooltip';
 import constants from 'Product/Components/ProductList/Config/constants';
@@ -11,26 +12,26 @@ const LINK_ICON_DIMENSIONS = {
     height: 22
 };
 
-var LinkComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            sku: "",
-            productLinks: [],
-            linkStatus: ''
-        }
-    },
-    getInitialState: function() {
-        return {
-            fetchingLinks: false,
-        }
-    },
-    onClick: function() {
+class LinkComponent extends React.Component {
+    static defaultProps = {
+        sku: "",
+        productLinks: [],
+        linkStatus: ''
+    };
+
+    state = {
+        fetchingLinks: false,
+    };
+
+    onClick = () => {
         window.triggerEvent('productLinkEditClicked', {sku: this.props.sku, productLinks: this.props.productLinks});
-    },
-    onLinkRowClick: function(sku) {
+    };
+
+    onLinkRowClick = (sku) => {
         window.triggerEvent('getProductsBySku', {sku: [sku]});
-    },
-    getHoverContent: function() {
+    };
+
+    getHoverContent = () => {
         if (this.props.productLinks.length === 0) {
             return (
                 <div className="hover-link-none-msg">
@@ -55,8 +56,9 @@ var LinkComponent = React.createClass({
                 </div>
             );
         }.bind(this));
-    },
-    getLinkIcon: function() {
+    };
+
+    getLinkIcon = () => {
         if (this.props.linkStatus == LINK_STATUSES.fetching) {
             return (
                 <Skeleton
@@ -72,16 +74,17 @@ var LinkComponent = React.createClass({
                   onClick={this.onClick}
             ></span>
         );
-    },
-    render: function() {
+    };
+
+    render() {
         return <Tooltip hoverContent={this.getHoverContent()}>
             {this.getLinkIcon()}
         </Tooltip>;
     }
-});
+}
 
 LinkComponent.contextTypes = {
-    imageUtils: React.PropTypes.object
+    imageUtils: PropTypes.object
 };
 
 export default LinkComponent;

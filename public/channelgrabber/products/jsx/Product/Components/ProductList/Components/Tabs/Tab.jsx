@@ -20,18 +20,16 @@ const Tab = styled.div`
         cursor:pointer;
     `;
 
-let TabComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            tab: {},
-            actions: {},
-            isCurrentTab: false
-        };
-    },
-    getInitialState: function() {
-        return {}
-    },
-    render: function() {
+class TabComponent extends React.Component {
+    static defaultProps = {
+        tab: {},
+        actions: {},
+        isCurrentTab: false
+    };
+
+    state = {};
+
+    render() {
         const {isCurrentTab, tab} = this.props;
         return (
             <Tab isCurrentTab={isCurrentTab} onClick={this.props.actions.changeTab.bind(this, tab.key)}>
@@ -39,6 +37,6 @@ let TabComponent = React.createClass({
             </Tab>
         );
     }
-});
+}
 
 export default TabComponent;

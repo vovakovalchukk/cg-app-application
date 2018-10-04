@@ -10,69 +10,73 @@ import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Butto
 
 const {Table} = FixedDataTable;
 
-var ProductList = React.createClass({
-    getDefaultProps: function() {
-        return {
-            products: [],
-            features: {},
-            accounts: {},
-            actions: {},
-            tabs: {}
-        };
-    },
-    getInitialState: function() {
-        return {
-            pagination: {
-                total: 0,
-                limit: 0,
-                page: 0
-            },
-            editingProductLink: {
-                sku: "",
-                links: []
-            },
-            productsListContainer: {
-                height: null,
-                width: null
-            },
-            fetchingUpdatedStockLevelsForSkus: {}
-        }
-    },
+class ProductList extends React.Component {
+    static defaultProps = {
+        products: [],
+        features: {},
+        accounts: {},
+        actions: {},
+        tabs: {}
+    };
+
+    state = {
+        pagination: {
+            total: 0,
+            limit: 0,
+            page: 0
+        },
+        editingProductLink: {
+            sku: "",
+            links: []
+        },
+        productsListContainer: {
+            height: null,
+            width: null
+        },
+        fetchingUpdatedStockLevelsForSkus: {}
+    };
+
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions);
         document.addEventListener("fullscreenchange", this.updateDimensions);
         window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    },
-    componentWillUnmount: function() {
+    }
+
+    componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
         document.removeEventListener("fullscreenchange", this.updateDimensions);
         window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    },
-    componentDidUpdate: function() {
+    }
+
+    componentDidUpdate() {
         var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
         if (horizontalScrollbar) {
             horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
         }
-    },
-    updateDimensions: function() {
+    }
+
+    updateDimensions = () => {
         this.setState({
             productsListContainer: {
                 height: this.productsListContainer.clientHeight,
                 width: this.productsListContainer.clientWidth
             }
         })
-    },
-    updateHorizontalScrollIndex: function() {
+    };
+
+    updateHorizontalScrollIndex = () => {
         this.props.actions.resetHorizontalScrollbarIndex();
-    },
-    onProductLinkRefresh: function(event) {
+    };
+
+    onProductLinkRefresh = (event) => {
         let sku = event.detail;
         this.props.actions.getLinkedProducts([sku]);
-    },
-    onEditProductLink: function(event) {
+    };
+
+    onEditProductLink = (event) => {
         let {sku, productLinks} = event.detail;
         this.setState({
             editingProductLink: {
@@ -80,8 +84,9 @@ var ProductList = React.createClass({
                 links: productLinks
             }
         });
-    },
-    renderAdditionalNavbarButtons: function() {
+    };
+
+    renderAdditionalNavbarButtons = () => {
         return (
             <div className=" navbar-strip--push-up-fix ">
                 <NavbarButton
@@ -96,25 +101,30 @@ var ProductList = React.createClass({
                 />
             </div>
         );
-    },
-    onProductLinksEditorClose: function() {
+    };
+
+    onProductLinksEditorClose = () => {
         this.setState({
             editingProductLink: {
                 sku: "",
                 links: []
             }
         });
-    },
-    getVisibleRows: function() {
+    };
+
+    getVisibleRows = () => {
         return this.props.products.visibleRows;
-    },
-    isTabSpecificColumn: function(column) {
+    };
+
+    isTabSpecificColumn = (column) => {
         return !!column.tab;
-    },
-    isColumnSpecificToCurrentTab: function(column) {
+    };
+
+    isColumnSpecificToCurrentTab = (column) => {
         return column.tab === this.props.tabs.currentTab
-    },
-    renderColumns: function() {
+    };
+
+    renderColumns = () => {
         let columnSettings = this.props.columns.columnSettings;
         
         let createdColumns = columnSettings.map((column) => {
@@ -125,14 +135,17 @@ var ProductList = React.createClass({
             return CreatedColumn
         });
         return createdColumns;
-    },
-    isReadyToRenderTable: function() {
+    };
+
+    isReadyToRenderTable = () => {
         return this.state.productsListContainer && this.state.productsListContainer.height;
-    },
-    hasProducts: function() {
+    };
+
+    hasProducts = () => {
         return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
-    },
-    renderProducts: function() {
+    };
+
+    renderProducts = () => {
         let rows = this.getVisibleRows();
         
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
@@ -167,8 +180,9 @@ var ProductList = React.createClass({
                 {this.renderColumns()}
             </Table>
         )
-    },
-    render: function() {
+    };
+
+    render() {
         return (
             <div id='products-app'>
                 <div className="top-toolbar">
@@ -202,6 +216,6 @@ var ProductList = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default ProductList;

@@ -3,16 +3,14 @@ import FixedDataTable from 'fixed-data-table';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Input from 'Common/Components/SafeInput';
 
-let WeightCell = React.createClass({
-    getDefaultProps: function() {
-        return {
-            products: {},
-            rowIndex: null
-        };
-    },
-    getInitialState: function() {
-        return {};
-    },
+class WeightCell extends React.Component {
+    static defaultProps = {
+        products: {},
+        rowIndex: null
+    };
+
+    state = {};
+
     render() {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
@@ -36,6 +34,6 @@ let WeightCell = React.createClass({
                 </span>
         );
     }
-});
+}
 
 export default WeightCell;

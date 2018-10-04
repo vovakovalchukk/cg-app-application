@@ -3,19 +3,18 @@ import Clipboard from 'Clipboard';
 import FixedDataTable from 'fixed-data-table';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
-let TextCell = React.createClass({
-    getDefaultProps: function() {
-        return {};
-    },
-    getInitialState: function() {
-        return {};
-    },
-    componentDidMount: function() {
+class TextCell extends React.Component {
+    static defaultProps = {};
+    state = {};
+
+    componentDidMount() {
         new Clipboard('div.js-' + this.getUniqueClassName(), [], 'data-copy');
-    },
-    getUniqueClassName: function() {
+    }
+
+    getUniqueClassName = () => {
         return this.props.columnKey + '-' + this.props.rowIndex;
-    },
+    };
+
     render() {
         let cellData = stateUtility.getCellData(
             this.props.products,
@@ -28,6 +27,6 @@ let TextCell = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default TextCell;

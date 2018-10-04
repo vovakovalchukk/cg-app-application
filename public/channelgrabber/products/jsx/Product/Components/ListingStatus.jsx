@@ -25,13 +25,12 @@ ListingIcon.sizer = styled.div`
         height:${constants.LISTING_ICON_SIZE + 'px'};
     `;
 
-let ListingStatusComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            status: ''
-        };
-    },
-    render: function() {
+class ListingStatusComponent extends React.Component {
+    static defaultProps = {
+        status: ''
+    };
+
+    render() {
         return (
             <div className={this.props.className}>
                 <ListingIcon.sizer>
@@ -44,7 +43,7 @@ let ListingStatusComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default ListingStatusComponent;
 

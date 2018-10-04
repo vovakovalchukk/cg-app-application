@@ -2,24 +2,22 @@ import React from 'react';
 
 "use strict";
 
-let VatViewComponent = React.createClass({
-    getInitialState: function() {
-        return {
-            selectedVatRates: {}
-        }
-    },
-    getDefaultProps: function() {
-        return {
-            variationCount: 0,
-            fullView: false,
-            autoSelectFirst: false,
-            onChange: null,
-            onVatChanged: null,
-            onVatChangeWithFullSelection: null,
-            tableCssClassNames: ''
-        };
-    },
-    getHeaders: function() {
+class VatViewComponent extends React.Component {
+    static defaultProps = {
+        variationCount: 0,
+        fullView: false,
+        autoSelectFirst: false,
+        onChange: null,
+        onVatChanged: null,
+        onVatChangeWithFullSelection: null,
+        tableCssClassNames: ''
+    };
+
+    state = {
+        selectedVatRates: {}
+    };
+
+    getHeaders = () => {
         this.headers = [
             'Member State',
             'Standard',
@@ -30,8 +28,9 @@ let VatViewComponent = React.createClass({
         return this.headers.map(function(header) {
             return <th className={'c-table-with-inputs__cell'}>{header}</th>;
         });
-    },
-    getVatRows: function() {
+    };
+
+    getVatRows = () => {
         var product = this.props.parentProduct;
         if (!product.taxRates) {
             return <tr>
@@ -89,8 +88,9 @@ let VatViewComponent = React.createClass({
             vatRows.push(<tr>{row}</tr>);
         }
         return vatRows;
-    },
-    onVatChanged: function(taxRateId) {
+    };
+
+    onVatChanged = (taxRateId) => {
         var product = this.props.parentProduct;
         var memberState = taxRateId.substring(0, 2);
         for (var taxRate in product.taxRates[memberState]) {
@@ -111,8 +111,9 @@ let VatViewComponent = React.createClass({
         if (this.props.onVatChanged) {
             this.props.onVatChanged(taxRateId);
         }
-    },
-    render: function() {
+    };
+
+    render() {
         var rowheight = 45;
         var numberRows = this.props.variationCount !== 0 ? (this.props.fullView ? this.props.variationCount : 2) : 1;
         var style = {
@@ -137,6 +138,6 @@ let VatViewComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default VatViewComponent;

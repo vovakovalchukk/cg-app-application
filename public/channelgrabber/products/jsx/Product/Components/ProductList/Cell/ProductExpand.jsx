@@ -20,20 +20,21 @@ const EXPAND_STATUSES = {
 const RIGHT_ARROW = '\u25BA';
 const DOWN_ARROW = '\u25BC';
 
-let ProductExpandCell = React.createClass({
-    getDefaultProps: function() {
-        return {
-            rowData: {},
-            rowIndex: null
-        };
-    },
-    getRowData: function() {
+class ProductExpandCell extends React.Component {
+    static defaultProps = {
+        rowData: {},
+        rowIndex: null
+    };
+
+    getRowData = () => {
         return stateUtility.getRowData(this.props.products, this.props.rowIndex)
-    },
-    isParentProduct: function(rowData) {
+    };
+
+    isParentProduct = (rowData) => {
         return stateUtility.isParentProduct(rowData)
-    },
-    renderExpandIcon: function() {
+    };
+
+    renderExpandIcon = () => {
         let rowData = this.getRowData();
         let isParentProduct = this.isParentProduct(rowData);
         if (!isParentProduct) {
@@ -47,8 +48,9 @@ let ProductExpandCell = React.createClass({
             />
         }
         return (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed ? RIGHT_ARROW : DOWN_ARROW)
-    },
-    onExpandClick: function() {
+    };
+
+    onExpandClick = () => {
         let rowData = this.getRowData();
         if (rowData.expandStatus === EXPAND_STATUSES.loading) {
             return;
@@ -58,7 +60,8 @@ let ProductExpandCell = React.createClass({
             return;
         }
         this.props.actions.collapseProduct(rowData.id);
-    },
+    };
+
     render() {
         return (
             <CellContainer {...this.props}>
@@ -68,6 +71,6 @@ let ProductExpandCell = React.createClass({
             </CellContainer>
         );
     }
-});
+}
 
 export default ProductExpandCell;

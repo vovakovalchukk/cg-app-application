@@ -3,29 +3,30 @@ import Clipboard from 'Clipboard';
 import FixedDataTable from 'fixed-data-table';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
-let NameCell = React.createClass({
-    getDefaultProps: function() {
-        return {};
-    },
-    getInitialState: function() {
-        return {};
-    },
-    getVariationName: function(row) {
+class NameCell extends React.Component {
+    static defaultProps = {};
+    state = {};
+
+    getVariationName = (row) => {
         return Object.keys(row.attributeValues).map((key) => {
             return (
                 <div>{key}: {row.attributeValues[key]}</div>
             );
         });
-    },
-    componentDidMount: function() {
+    };
+
+    componentDidMount() {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
-    },
-    getUniqueClassName: function() {
+    }
+
+    getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
-    },
-    getClassNames: function() {
+    };
+
+    getClassNames = () => {
         return this.props.className + ' ' + this.getUniqueClassName();
-    },
+    };
+
     render() {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
@@ -37,6 +38,6 @@ let NameCell = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default NameCell;

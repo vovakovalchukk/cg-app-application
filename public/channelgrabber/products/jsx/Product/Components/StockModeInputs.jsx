@@ -1,25 +1,25 @@
 import React from 'react';
 import Select from 'Common/Components/Select';
 
-let StockModeInputsComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            stockModeOptions: null,
-            stockModeType: '',
-            onChange: null,
-            value: "",
-            classNames: null,
-            className: ''
-        };
-    },
-    stockAmountShouldBeDisabled: function(stockModeTypeValue) {
+class StockModeInputsComponent extends React.Component {
+    static defaultProps = {
+        stockModeOptions: null,
+        stockModeType: '',
+        onChange: null,
+        value: "",
+        classNames: null,
+        className: ''
+    };
+
+    stockAmountShouldBeDisabled = (stockModeTypeValue) => {
         return (
             stockModeTypeValue == 'all' ||
             stockModeTypeValue == 'null' ||
             !stockModeTypeValue
         );
-    },
-    shortenOptions: function(options) {
+    };
+
+    shortenOptions = (options) => {
         var shortenedOptions = [];
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
@@ -43,8 +43,9 @@ let StockModeInputsComponent = React.createClass({
             }
         }
         return shortenedOptions;
-    },
-    render: function() {
+    };
+
+    render() {
         let shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
         let stockModeOptions = shortenedOptions.map(function(option) {
             return {
@@ -90,6 +91,6 @@ let StockModeInputsComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default StockModeInputsComponent;

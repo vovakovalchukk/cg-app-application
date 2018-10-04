@@ -1,14 +1,13 @@
 import React from 'react';
 "use strict";
 
-var CheckboxComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            onClick: null,
-            isChecked: null
-        }
-    },
-    render: function() {
+class CheckboxComponent extends React.Component {
+    static defaultProps = {
+        onClick: null,
+        isChecked: null
+    };
+
+    render() {
         return (
             <div className="checkbox-container">
                 <div className="checkbox-holder bulk-action-checkbox">
@@ -28,6 +27,6 @@ var CheckboxComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default CheckboxComponent;

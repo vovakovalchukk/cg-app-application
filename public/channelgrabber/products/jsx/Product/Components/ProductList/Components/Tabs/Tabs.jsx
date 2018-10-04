@@ -20,20 +20,19 @@ Tabs.wrapper = styled.div`
         top: ${styleVars.heights.navbar}px;
     `;
 
-var TabsComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            actions: {},
-            tabs: {}
-        };
-    },
-    getInitialState: function() {
-        return {}
-    },
-    isCurrentTab: function(tab) {
+class TabsComponent extends React.Component {
+    static defaultProps = {
+        actions: {},
+        tabs: {}
+    };
+
+    state = {};
+
+    isCurrentTab = (tab) => {
         return this.props.tabs.currentTab === tab.key;
-    },
-    renderTabs: function() {
+    };
+
+    renderTabs = () => {
         const {tabs} = this.props.tabs;
         return tabs.map((tab) => {
             return (
@@ -44,8 +43,9 @@ var TabsComponent = React.createClass({
                 />
             )
         })
-    },
-    render: function() {
+    };
+
+    render() {
         return (
             <Tabs.wrapper>
                 <Tabs>
@@ -54,6 +54,6 @@ var TabsComponent = React.createClass({
             </Tabs.wrapper>
         );
     }
-});
+}
 
 export default TabsComponent;

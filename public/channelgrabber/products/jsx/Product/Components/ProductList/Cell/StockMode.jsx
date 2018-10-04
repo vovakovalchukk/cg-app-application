@@ -15,47 +15,50 @@ const ButtonsContainer = styled.div`
         top:40px;
     `;
 
-let StockModeCell = React.createClass({
-    getDefaultProps: function() {
-        return {
-            products: {},
-            rowIndex: null,
-            stock: {}
-        };
-    },
-    getInitialState: function() {
-        return {
-            editable: false,
-            stockModeOption: {
-                name: '',
-                value: ''
-            },
-            stockAmount: ''
-        };
-    },
-    submitInput: function() {
+class StockModeCell extends React.Component {
+    static defaultProps = {
+        products: {},
+        rowIndex: null,
+        stock: {}
+    };
+
+    state = {
+        editable: false,
+        stockModeOption: {
+            name: '',
+            value: ''
+        },
+        stockAmount: ''
+    };
+
+    submitInput = () => {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.saveStockModeToBackend(row);
-    },
-    cancelInput: function() {
+    };
+
+    cancelInput = () => {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.cancelStockModeEdit(row);
-    },
-    onStockLevelChange: function(event) {
+    };
+
+    onStockLevelChange = (event) => {
         this.onStockPropChange('stockLevel', event);
-    },
-    onStockModeChange: function(event) {
+    };
+
+    onStockModeChange = (event) => {
         this.onStockPropChange('stockMode', event);
-    },
-    onStockPropChange: function(propToChange, event) {
+    };
+
+    onStockPropChange = (propToChange, event) => {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         let value = propToChange === 'stockMode' ? event.value : event.target.value;
         this.props.actions.changeStockMode(row, value, propToChange);
-    },
-    render: function() {
+    };
+
+    render() {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isSimpleProduct = stateUtility.isSimpleProduct(row);
@@ -100,7 +103,7 @@ let StockModeCell = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default StockModeCell;
 

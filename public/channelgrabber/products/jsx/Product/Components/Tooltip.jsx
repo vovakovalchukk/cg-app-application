@@ -3,18 +3,16 @@ import TetherComponents from 'react-tether';
 
 "use strict";
 
-let TooltipComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            hoverContent: null
-        }
-    },
-    getInitialState: function() {
-        return {
-            isOpen: false
-        }
-    },
-    render: function() {
+class TooltipComponent extends React.Component {
+    static defaultProps = {
+        hoverContent: null
+    };
+
+    state = {
+        isOpen: false
+    };
+
+    render() {
         return (
             <TetherComponent
                 attachment="top left"
@@ -38,6 +36,6 @@ let TooltipComponent = React.createClass({
             </TetherComponent>
         );
     }
-});
+}
 
 export default TooltipComponent;

@@ -24,32 +24,31 @@ var store = Redux.createStore(
 );
 store.getState = getStateExtender(store.getState);
 
-var ProductListProvider = React.createClass({
-    getDefaultProps: function() {
-        return {
-            products: [],
-            features: {},
-            allProductsLinks: {}
-        };
-    },
-    getInitialState: function() {
-        return {
-            initialProductsSaved: {}
-        }
-    },
-    componentDidMount: async function() {
+class ProductListProvider extends React.Component {
+    static defaultProps = {
+        products: [],
+        features: {},
+        allProductsLinks: {}
+    };
+
+    state = {
+        initialProductsSaved: {}
+    };
+
+    async componentDidMount() {
         store.dispatch(ActionCreators.storeAccountFeatures(this.props.features));
         store.dispatch(ActionCreators.storeStockModeOptions(this.props.stockModeOptions));
         await store.dispatch(ActionCreators.getProducts());
         store.dispatch(columnActions.generateColumnSettings());
-    },
-    render: function() {
+    }
+
+    render() {
         return (
             <Provider store={store}>
                 <ProductListRoot {...this.props} />
             </Provider>
         );
     }
-});
+}
 
 export default ProductListProvider;

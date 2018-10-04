@@ -13,8 +13,8 @@ const PageLinksContainer = styled.div`
         margin-left:1rem;
     `;
 
-let FooterComponent = React.createClass({
-    getPageLinksFromPaginationData: function(limit, page, total, pageLinkCount) {
+class FooterComponent extends React.Component {
+    getPageLinksFromPaginationData = (limit, page, total, pageLinkCount) => {
         var maxPages = Math.ceil(total / limit);
         var pageLinks = [];
         var firstPageLink = page - Math.floor(pageLinkCount / 2);
@@ -38,8 +38,9 @@ let FooterComponent = React.createClass({
             );
         }
         return pageLinks;
-    },
-    getOptionsForLimitSelect: function() {
+    };
+
+    getOptionsForLimitSelect = () => {
         let maximumToDisplay = this.props.pagination.total;
         
         let potentialOptions = [50, 100, 250, 500];
@@ -53,8 +54,9 @@ let FooterComponent = React.createClass({
         }
         
         return optionsForLimitSelect;
-    },
-    render: function() {
+    };
+
+    render() {
         var firstPage = 1;
         var lastRecord = this.props.pagination.page * this.props.pagination.limit;
         var firstRecord = lastRecord - this.props.pagination.limit + 1;
@@ -105,6 +107,6 @@ let FooterComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default FooterComponent;

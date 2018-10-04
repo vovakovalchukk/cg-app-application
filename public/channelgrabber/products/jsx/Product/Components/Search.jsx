@@ -8,31 +8,32 @@ const SearchField = styled.div`
         width: 250px;
     `;
 
-var SearchComponent = React.createClass({
-    getDefaultProps: function() {
-        return {
-            initialSearchTerm: ''
-        }
-    },
-    getInitialState: function() {
-        return {
-            searchTerm: this.props.initialSearchTerm
-        }
-    },
-    searchTermUpdate: function(e) {
+class SearchComponent extends React.Component {
+    static defaultProps = {
+        initialSearchTerm: ''
+    };
+
+    state = {
+        searchTerm: this.props.initialSearchTerm
+    };
+
+    searchTermUpdate = (e) => {
         this.setState({
             searchTerm: e.target.value
         });
-    },
-    searchButtonPressed: function() {
+    };
+
+    searchButtonPressed = () => {
         this.props.submitCallback(this.state.searchTerm);
-    },
-    onKeyPress: function(e) {
+    };
+
+    onKeyPress = (e) => {
         if (e.key === 'Enter') {
             this.searchButtonPressed();
         }
-    },
-    render: function() {
+    };
+
+    render() {
         return (
             <div id="search-box-wrapper">
                 <div id="searchUIContainer">
@@ -51,6 +52,6 @@ var SearchComponent = React.createClass({
             </div>
         );
     }
-});
+}
 
 export default SearchComponent;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import CreateListingPopupRoot from 'Product/Components/CreateListing/CreateListingRoot'
 import CreateProductRoot from 'Product/Components/CreateProduct/CreateProductRoot'
@@ -12,64 +13,67 @@ const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
 const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
 
-let RootComponent = React.createClass({
-    getChildContext: function() {
+class RootComponent extends React.Component {
+    static defaultProps = {
+        searchAvailable: true,
+        isAdmin: false,
+        initialSearchTerm: '',
+        adminCompanyUrl: null,
+        managePackageUrl: null,
+        features: {},
+        taxRates: {},
+        stockModeOptions: {},
+        ebaySiteOptions: {},
+        categoryTemplateOptions: {},
+        createListingData: {},
+        conditionOptions: {},
+        defaultCurrency: null,
+        salesPhoneNumber: null,
+        demoLink: null,
+        showVAT: true,
+        massUnit: null,
+        lengthUnit: null
+    };
+
+    state = {
+        currentView: PRODUCT_LIST_VIEW,
+        maxVariationAttributes: 0,
+        maxListingsPerAccount: [],
+        initialLoadOccurred: false,
+        accounts: {},
+        createListing: {
+            productId: null
+        }
+    };
+
+    getChildContext() {
         return {
             imageUtils: this.props.utilities.image,
             isAdmin: this.props.isAdmin
         };
-    },
-    getDefaultProps: function() {
-        return {
-            searchAvailable: true,
-            isAdmin: false,
-            initialSearchTerm: '',
-            adminCompanyUrl: null,
-            managePackageUrl: null,
-            features: {},
-            taxRates: {},
-            stockModeOptions: {},
-            ebaySiteOptions: {},
-            categoryTemplateOptions: {},
-            createListingData: {},
-            conditionOptions: {},
-            defaultCurrency: null,
-            salesPhoneNumber: null,
-            demoLink: null,
-            showVAT: true,
-            massUnit: null,
-            lengthUnit: null
-        }
-    },
-    getInitialState: function() {
-        return {
-            currentView: PRODUCT_LIST_VIEW,
-            maxVariationAttributes: 0,
-            maxListingsPerAccount: [],
-            initialLoadOccurred: false,
-            accounts: {},
-            createListing: {
-                productId: null
-            }
-        }
-    },
-    componentDidMount: function() {
+    }
+
+    componentDidMount() {
         window.addEventListener('getProductsBySku', this.onSkuRequest, false);
-    },
-    componentWillUnmount: function() {
+    }
+
+    componentWillUnmount() {
         this.productsRequest.abort();
         window.removeEventListener('getProductsBySku', this.onSkuRequest, false);
-    },
-    filterBySearch: function(searchTerm) {
+    }
+
+    filterBySearch = (searchTerm) => {
         this.performProductsRequest(null, searchTerm);
-    },
+    };
+
     /**
      * @param skuList array
      */
-    filterBySku: function(skuList) {
+    filterBySku = (skuList) => {
         this.performProductsRequest(null, null, skuList);
-    },
-    onCreateListingIconClick: function(createListingData) {
+    };
+
+    onCreateListingIconClick = (createListingData) => {
         let {
             product,
             createListingsAllowedChannels,
@@ -89,23 +93,26 @@ let RootComponent = React.createClass({
                 createListingsAllowedVariationChannels
             }
         });
-    },
-    onCreateListingClose: function() {
+    };
+
+    onCreateListingClose = () => {
         this.setState({
             currentView: PRODUCT_LIST_VIEW,
             createListing: {
                 product: null
             }
         });
-    },
-    showAccountsSelectionPopup: function(product) {
+    };
+
+    showAccountsSelectionPopup = (product) => {
         let newCreateListing = Object.assign(this.state.createListing, {product}, {});
         this.setState({
             currentView: ACCOUNT_SELECTION_VIEW,
             createListing: newCreateListing
         });
-    },
-    renderAccountSelectionPopup: function() {
+    };
+
+    renderAccountSelectionPopup = () => {
         var AccountSelectionRootComponent = AccountSelectionRoot(
             this.state.accounts,
             this.state.createListing.createListingsAllowedChannels,
@@ -123,33 +130,39 @@ let RootComponent = React.createClass({
             this.props.demoLink
         );
         return <AccountSelectionRootComponent/>;
-    },
-    onSkuRequest: function(event) {
+    };
+
+    onSkuRequest = (event) => {
         this.filterBySku(event.detail.sku);
-    },
-    addNewProductButtonClick: function() {
+    };
+
+    addNewProductButtonClick = () => {
         this.setState({
             currentView: NEW_PRODUCT_VIEW
         });
-    },
-    onCreateProductClose: function() {
+    };
+
+    onCreateProductClose = () => {
         this.setState({
             currentView: PRODUCT_LIST_VIEW
         });
-    },
-    showCreateListingPopup: function(data) {
+    };
+
+    showCreateListingPopup = (data) => {
         this.setState({
             currentView: NEW_LISTING_VIEW,
             createListingData: data
         });
-    },
-    showSearchPopup: function(data) {
+    };
+
+    showSearchPopup = (data) => {
         this.setState({
             currentView: PRODUCT_SEARCH_VIEW,
             createListingData: data
         });
-    },
-    getViewRenderers: function() {
+    };
+
+    getViewRenderers = () => {
         return {
             NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
             NEW_LISTING_VIEW: this.renderCreateListingPopup,
@@ -157,8 +170,9 @@ let RootComponent = React.createClass({
             ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
             PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
         }
-    },
-    renderCreateListingPopup: function() {
+    };
+
+    renderCreateListingPopup = () => {
         var variationData = this.state.createListing.variations[this.state.createListingData.product.id]
             ? this.state.createListing.variations[this.state.createListingData.product.id]
             : [this.state.createListingData.product];
@@ -174,8 +188,9 @@ let RootComponent = React.createClass({
             massUnit={this.props.massUnit}
             lengthUnit={this.props.lengthUnit}
         />;
-    },
-    formatConditionOptions: function() {
+    };
+
+    formatConditionOptions = () => {
         var options = [];
         for (var value in this.props.conditionOptions) {
             options.push({
@@ -184,12 +199,14 @@ let RootComponent = React.createClass({
             });
         }
         return options;
-    },
-    redirectToProducts: function() {
+    };
+
+    redirectToProducts = () => {
         this.state.currentView = PRODUCT_LIST_VIEW;
         this.forceUpdate();
-    },
-    renderCreateNewProduct: function() {
+    };
+
+    renderCreateNewProduct = () => {
         return <CreateProductRoot
             onCreateProductClose={this.onCreateProductClose}
             taxRates={this.props.taxRates}
@@ -200,8 +217,9 @@ let RootComponent = React.createClass({
             massUnit={this.props.massUnit}
             lengthUnit={this.props.lengthUnit}
         />
-    },
-    renderProductListView: function() {
+    };
+
+    renderProductListView = () => {
         return (
             <div>
                 <ProductListProvider
@@ -212,8 +230,9 @@ let RootComponent = React.createClass({
                 />
             </div>
         )
-    },
-    renderProductSearchView: function() {
+    };
+
+    renderProductSearchView = () => {
         return <ProductSearchRoot
             createListingData={this.state.createListingData}
             renderCreateListingPopup={this.showCreateListingPopup}
@@ -221,18 +240,19 @@ let RootComponent = React.createClass({
             onBackButtonPressed={this.showAccountsSelectionPopup}
             defaultProductImage={this.props.utilities.image.getImageSource()}
         />;
-    },
-    render: function() {
+    };
+
+    render() {
         let viewRenderers = this.getViewRenderers();
         let viewRenderer = viewRenderers[this.state.currentView];
         return viewRenderer();
     }
-});
+}
 
 RootComponent.childContextTypes = {
-    imageUtils: React.PropTypes.object,
-    isAdmin: React.PropTypes.bool,
-    initialVariationCount: React.PropTypes.number
+    imageUtils: PropTypes.object,
+    isAdmin: PropTypes.bool,
+    initialVariationCount: PropTypes.number
 };
 
 export default RootComponent;
