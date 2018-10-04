@@ -1,5 +1,5 @@
 import React from 'react';
-import FixedDataTable from 'fixed-data-table';
+import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Input from 'Common/Components/SafeInput';
 

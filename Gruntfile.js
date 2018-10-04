@@ -7,8 +7,7 @@ module.exports = function(grunt) {
         babel: {
             es6: {
                 options: {
-                    presets: ['es2015'],
-                    plugins: ["babel-plugin-styled-components"]
+                    presets: ['es2015']
                 },
                 files: [
                     {
@@ -25,8 +24,7 @@ module.exports = function(grunt) {
             },
             react: {
                 options: {
-                    presets: ['react'],
-                    plugins: ["babel-plugin-styled-components"]
+                    presets: ['react']
                 },
                 files: [
                     {
@@ -71,8 +69,7 @@ module.exports = function(grunt) {
                         src: [
                             '**/dist/**/*.min.js',
                             '**/umd/**/*.min.js',
-                            'cg-*/dist/**/*.js',
-                            'styled-components/dist/styled-components.min.js'
+                            'cg-*/dist/**/*.js'
                         ],
                         dest: 'public/cg-built/vendor'
                     }
@@ -201,13 +198,10 @@ module.exports = function(grunt) {
     grunt.registerTask('syncWatch', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
-    grunt.registerTask('compileJsx', ['babel:react']);
-
-    grunt.registerTask('compileEs6', ['babel:es6']);
 
     grunt.registerTask('install:css', ['compileCss-gen']);
-    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'compileJsx', 'compileEs6', 'copyVanillaJs', 'requirejs:compile', 'webpack']);
+    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'copyVanillaJs', 'requirejs:compile']);
     grunt.registerTask('install:vendor', ['copy:vendorCssToCgBuilt', 'copy:vendorJsToCgBuilt']);
 
-    grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor']);
+    grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor', 'webpack']);
 };

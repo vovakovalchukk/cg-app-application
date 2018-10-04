@@ -1,5 +1,5 @@
 import React from 'react';
-import FixedDataTable from 'fixed-data-table';
+import FixedDataTable from 'fixed-data-table-2';
 import SearchBox from 'Product/Components/Search';
 import ProductLinkEditor from 'Product/Components/ProductLinkEditor';
 import ProductFooter from 'Product/Components/ProductList/Components/Footer/Container';

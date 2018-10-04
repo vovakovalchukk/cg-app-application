@@ -1,6 +1,6 @@
 import React from 'react';
 import Clipboard from 'Clipboard';
-import FixedDataTable from 'fixed-data-table';
+import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 class NameCell extends React.Component {

@@ -1,6 +1,6 @@
 import react from 'react';
 import styled from 'styled-components';
-import FixedDataTable from 'fixed-data-table';
+import FixedDataTable from 'fixed-data-table-2';
 import TextCell from 'Product/Components/ProductList/Cell/Text';
 import ProductExpandCell from 'Product/Components/ProductList/Cell/ProductExpand';
 import ImageCell from 'Product/Components/ProductList/Cell/Image';

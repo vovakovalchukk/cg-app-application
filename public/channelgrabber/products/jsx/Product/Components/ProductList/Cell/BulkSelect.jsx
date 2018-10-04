@@ -1,6 +1,4 @@
 import React from 'react';
-import Clipboard from 'Clipboard';
-import FixedDataTable from 'fixed-data-table';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 class BulkSelectCell extends React.Component {
