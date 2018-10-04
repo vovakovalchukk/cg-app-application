@@ -38,7 +38,7 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     };
 };
 
-return connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
 
 function combineActionCreators(ownProps) {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
