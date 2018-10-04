@@ -3,6 +3,7 @@ namespace CG\CourierAdapter\Provider\Implementation\Storage;
 
 use CG\CourierAdapter\StorageInterface;
 use Predis\Client as PredisClient;
+use CG\Predis\Command\Setnxex;
 
 class Redis implements StorageInterface
 {
@@ -14,6 +15,7 @@ class Redis implements StorageInterface
     public function __construct(PredisClient $predisClient)
     {
         $this->setPredisClient($predisClient);
+        $this->predisClient->getProfile()->defineCommand('setnxex', Setnxex::class);
     }
 
     /**
@@ -47,5 +49,10 @@ class Redis implements StorageInterface
     {
         $this->predisClient = $predisClient;
         return $this;
+    }
+
+    public function setnxex($key, $time, $expiry)
+    {
+        return $this->predisClient->setnxex(static::KEY_PREFIX . $key, $time, $expiry);
     }
 }
