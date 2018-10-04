@@ -1,19 +1,7 @@
-define([
-    'react',
-    'styled-components',
-    'fixed-data-table',
-    'Product/Components/ProductList/stateUtility',
-    'Common/Components/SafeInput'
-], function(
-    React,
-    styled,
-    FixedDataTable,
-    stateUtility,
-    Input
-) {
-    "use strict";
-    
-    styled = styled.default;
+import React from 'react';
+import styled from 'styled-components';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
+import Input from 'Common/Components/SafeInput';
     
     const InputsContainer = styled.div`
         display:flex;
@@ -66,5 +54,5 @@ define([
         }
     });
     
-    return DimensionsCell;
-});
+    export default DimensionsCell;
+

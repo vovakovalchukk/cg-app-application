@@ -1,15 +1,7 @@
-define([
-    'react',
-    'Clipboard',
-    'fixed-data-table',
-    'Product/Components/ProductList/stateUtility'
-], function(
-    React,
-    Clipboard,
-    FixedDataTable,
-    stateUtility
-) {
-    "use strict";
+import React from 'react';
+import Clipboard from 'Clipboard';
+import FixedDataTable from 'fixed-data-table';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
     
     let BulkSelectCell = React.createClass({
         getDefaultProps: function() {
@@ -46,5 +38,5 @@ define([
         }
     });
     
-    return BulkSelectCell;
-});
+    export default BulkSelectCell;
+

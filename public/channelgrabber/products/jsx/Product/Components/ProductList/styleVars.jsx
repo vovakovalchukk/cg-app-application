@@ -1,6 +1,3 @@
-define([], function() {
-    "use strict";
-    
     let styleVars = {
         colours: {
             bluegrey: '#d2dce1',
@@ -12,5 +9,4 @@ define([], function() {
         }
     };
     
-    return styleVars;
-});
+    export default styleVars;

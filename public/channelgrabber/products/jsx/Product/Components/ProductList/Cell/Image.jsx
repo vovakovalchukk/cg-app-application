@@ -1,24 +1,12 @@
-define([
-    'react',
-    'fixed-data-table',
-    'Product/Components/ProductList/stateUtility',
-    'styled-components'
-], function(
-    React,
-    FixedDataTable,
-    stateUtility,
-    styled
-) {
-    "use strict";
-    
-    styled = styled.default;
+import React from 'react';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
+import styled from 'styled-components';
     
     const Image = styled.img`
         max-width: ${props => props.width}px;
         max-height: ${props => props.height}px;
         object-fit:contain;
     `;
-    
     
     let ImageCell = React.createClass({
         getDefaultProps: function() {
@@ -62,5 +50,5 @@ define([
         }
     });
     
-    return ImageCell;
-});
+    export default ImageCell;
+

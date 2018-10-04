@@ -1,9 +1,5 @@
-define([
-    'Product/Components/ProductList/Column/service'
-], function(
-    columnService
-) {
-    "use strict";
+import columnService from 'Product/Components/ProductList/Column/service';
+    
     
     let columnActions = (function() {
         return {
@@ -24,5 +20,4 @@ define([
         };
     })();
     
-    return columnActions;
-});
+    export default columnActions;

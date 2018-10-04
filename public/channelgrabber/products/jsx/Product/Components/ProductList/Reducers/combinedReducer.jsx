@@ -1,49 +1,32 @@
-define([
-    'redux',
-    'Product/Components/ProductList/Reducers/productsReducer',
-    'Product/Components/ProductList/Reducers/tabsReducer',
-    'Product/Components/ProductList/Reducers/columnsReducer',
-    'Product/Components/ProductList/Reducers/listReducer',
-    'Product/Components/ProductList/Reducers/accountsReducer',
-    'Product/Components/ProductList/Reducers/paginationReducer',
-    'Product/Components/ProductList/Reducers/searchReducer',
-    'Product/Components/ProductList/Reducers/createListingReducer',
-    'Product/Components/ProductList/Reducers/stockReducer',
-    'Product/Components/ProductList/Reducers/vatReducer',
-    'Product/Components/ProductList/Reducers/bulkSelectReducer'
-], function(
-    Redux,
-    productsReducer,
-    tabsReducer,
-    columnsReducer,
-    listReducer,
-    accountsReducer,
-    paginationReducer,
-    searchReducer,
-    createListingReducer,
-    stockReducer,
-    vatReducer,
-    bulkSelectReducer
-) {
-    "use strict";
-    
-    var appReducer = Redux.combineReducers({
-        products: productsReducer,
-        tabs: tabsReducer,
-        columns: columnsReducer,
-        list: listReducer,
-        accounts: accountsReducer,
-        pagination: paginationReducer,
-        search: searchReducer,
-        createListing: createListingReducer,
-        stock: stockReducer,
-        vat: vatReducer,
-        bulkSelect: bulkSelectReducer
-    });
-    
-    const combinedReducer = (state, action) => {
-        return appReducer(state, action);
-    };
-    
-    return combinedReducer;
+import {conbineReducers} from 'redux';
+import productsReducer from 'Product/Components/ProductList/Reducers/productsReducer';
+import tabsReducer from 'Product/Components/ProductList/Reducers/tabsReducer';
+import columnsReducer from 'Product/Components/ProductList/Reducers/columnsReducer';
+import listReducer from 'Product/Components/ProductList/Reducers/listReducer';
+import accountsReducer from 'Product/Components/ProductList/Reducers/accountsReducer';
+import paginationReducer from 'Product/Components/ProductList/Reducers/paginationReducer';
+import searchReducer from 'Product/Components/ProductList/Reducers/searchReducer';
+import createListingReducer from 'Product/Components/ProductList/Reducers/createListingReducer';
+import stockReducer from 'Product/Components/ProductList/Reducers/stockReducer';
+import vatReducer from 'Product/Components/ProductList/Reducers/vatReducer';
+import bulkSelectReducer from 'Product/Components/ProductList/Reducers/bulkSelectReducer';
+
+var appReducer = combineReducers({
+    products: productsReducer,
+    tabs: tabsReducer,
+    columns: columnsReducer,
+    list: listReducer,
+    accounts: accountsReducer,
+    pagination: paginationReducer,
+    search: searchReducer,
+    createListing: createListingReducer,
+    stock: stockReducer,
+    vat: vatReducer,
+    bulkSelect: bulkSelectReducer
 });
+
+const combinedReducer = (state, action) => {
+    return appReducer(state, action);
+};
+
+export default combinedReducer;

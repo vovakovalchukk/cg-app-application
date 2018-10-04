@@ -1,13 +1,5 @@
-define([
-    'react',
-    'styled-components'
-], function(
-    React,
-    styled
-) {
-    "use strict";
-    
-    styled = styled.default;
+import React from 'react';
+import styled from 'styled-components';
     
     let PageLink = styled.a.attrs({
         title: props => {
@@ -20,5 +12,4 @@ define([
         margin-right:1rem;
     `;
     
-    return PageLink;
-});
+    export default PageLink;

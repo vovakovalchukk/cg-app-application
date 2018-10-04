@@ -1,6 +1,3 @@
-define([], function() {
-    "use strict";
-    
     let stateGetters = function(getState) {
         return (function() {
             let _getState = getState;
@@ -46,6 +43,5 @@ define([], function() {
             return self;
         })()
     };
-    
-    return stateGetters;
-});
+  
+    export default stateGetters;

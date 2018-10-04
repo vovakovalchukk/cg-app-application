@@ -1,6 +1,5 @@
 "use strict";
 
-define([], function() {
     let actionCreators = (function() {
         return {
             saveDetail: (variation, detail, value) => {
@@ -46,5 +45,4 @@ define([], function() {
         };
     })();
     
-    return actionCreators;
-});
+  export default actionCreators;

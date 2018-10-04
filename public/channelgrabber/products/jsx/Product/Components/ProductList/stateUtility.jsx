@@ -1,6 +1,3 @@
-define([], function() {
-    "use strict";
-    
     let stateUtility = function() {
         let self =  {
             getProductIndex: (products, productId) => {
@@ -68,7 +65,7 @@ define([], function() {
         return self;
     };
     
-    return stateUtility();
+    export default stateUtility();
     
     function getImageData(row) {
         if (!row.images || !row.images.length) {
@@ -80,4 +77,3 @@ define([], function() {
             url: primaryImage.url
         };
     }
-});

@@ -1,3 +1,5 @@
+
+
 define([
     'react',
     'redux',
@@ -7,7 +9,7 @@ define([
     'Product/Components/ProductList/ActionCreators/productActions',
     'Product/Components/ProductList/ActionCreators/columnActions',
     'Product/Components/ProductList/Reducers/combinedReducer',
-    'Product/Components/ProductList/Root',
+    'Product/Components/ProductList/Root'
 ], function(
     React,
     Redux,

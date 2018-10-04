@@ -1,17 +1,8 @@
-define([
-    'react',
-    'Clipboard',
-    'fixed-data-table',
-    'Product/Components/ProductList/stateUtility',
-    'Common/Components/Select'
-], function(
-    React,
-    Clipboard,
-    FixedDataTable,
-    stateUtility,
-    Select
-) {
-    "use strict";
+import React from 'react';
+import Clipboard from 'Clipboard';
+import FixedDataTable from 'fixed-data-table';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
+import Select from 'Common/Components/Select';
     
     let VatCell = React.createClass({
         getDefaultProps: function() {
@@ -65,7 +56,7 @@ define([
         }
     });
     
-    return VatCell;
+    export default VatCell;
     
     function generateOptionsFromVatRates(vatRates) {
         return vatRates.map(rate => {
@@ -75,4 +66,3 @@ define([
             }
         });
     }
-});

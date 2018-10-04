@@ -1,15 +1,7 @@
-define([
-    'react',
-    'styled-components'
-], function(
-    React,
-    styled
-) {
-    "use strict";
-    
-    styled = styled.default;
-    
-    const Tab = styled.div`
+import React from 'react';
+import styled from 'styled-components';
+
+const Tab = styled.div`
         border:solid;
         background: ${props => props.isCurrentTab ? 'white' : '#ebebeb'};
         color: ${props => props.isCurrentTab ? 'black' : '#3a3a3a'};
@@ -27,27 +19,26 @@ define([
         border-color:transparent;
         cursor:pointer;
     `;
-    
-    var TabComponent = React.createClass({
-        getDefaultProps: function() {
-            return {
-                tab:{},
-                actions:{},
-                isCurrentTab:false
-            };
-        },
-        getInitialState: function() {
-            return {}
-        },
-        render: function() {
-            const {isCurrentTab, tab} = this.props;
-            return (
-                <Tab isCurrentTab={isCurrentTab} onClick={this.props.actions.changeTab.bind(this, tab.key)}>
-                    {tab.label}
-                </Tab>
-            );
-        }
-    });
-    
-    return TabComponent;
+
+let TabComponent = React.createClass({
+    getDefaultProps: function() {
+        return {
+            tab: {},
+            actions: {},
+            isCurrentTab: false
+        };
+    },
+    getInitialState: function() {
+        return {}
+    },
+    render: function() {
+        const {isCurrentTab, tab} = this.props;
+        return (
+            <Tab isCurrentTab={isCurrentTab} onClick={this.props.actions.changeTab.bind(this, tab.key)}>
+                {tab.label}
+            </Tab>
+        );
+    }
 });
+
+export default TabComponent;
