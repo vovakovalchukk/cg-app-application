@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import LinkCell from 'Product/Components/ProductList/Cell/Link';
-import AvailableCell from 'Product/Components/ProductList/Cell/Available'
+import AvailableCell from 'Product/Components/ProductList/Cell/Available';
+import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
 
 define([
     'react',
@@ -15,7 +16,6 @@ define([
     'Product/Components/ProductList/Cell/Weight',
     'Product/Components/ProductList/Cell/Dimensions',
     'Product/Components/ProductList/Cell/Vat',
-    'Product/Components/ProductList/Cell/BulkSelect',
     'Product/Components/ProductList/Column/columnKeys'
 ], function(
     React,
@@ -30,7 +30,6 @@ define([
     WeightCell,
     DimensionsCell,
     VatCell,
-    BulkSelectCell,
     columnKeys
 ) {
     "use strict";

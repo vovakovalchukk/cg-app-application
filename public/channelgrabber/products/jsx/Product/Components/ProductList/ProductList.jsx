@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
 
 define([
     'react',
     'fixed-data-table',
     'Product/Components/Search',
     'Product/Components/ProductLinkEditor',
-    'Product/Components/ProductList/Components/Footer/Footer',
+    'Product/Components/ProductList/Components/Footer/Container',
     'Product/Components/ProductList/Column/service',
     'Product/Components/ProductList/Column/factory',
     'Product/Components/ProductList/Components/Tabs/Root'
@@ -22,15 +22,6 @@ define([
     "use strict";
     
     const {Table} = FixedDataTable;
-    
-    const NavbarButton = (props) => {
-        return (
-            <span className={"navbar-strip__button u-margin-left-small"} onClick={props.onClick}>
-                <span className={props.iconClass + " left icon icon--medium navbar-strip__button__icon"}>&nbsp;</span>
-                <span className="navbar-strip__button__text">{props.buttonLabel}</span>
-            </span>
-        );
-    };
     
     var ProductList = React.createClass({
         getDefaultProps: function() {

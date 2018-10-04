@@ -11,8 +11,6 @@ define([
 ) {
     "use strict";
     
-    //todo make this a react class
-    
     let BulkSelectCell = React.createClass({
         getDefaultProps: function() {
             return {};
