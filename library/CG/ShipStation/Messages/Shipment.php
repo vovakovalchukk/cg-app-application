@@ -28,6 +28,8 @@ class Shipment
     protected $confirmation;
     /** @var Customs|null */
     protected $customs;
+    /** @var bool */
+    protected $validateAddress;
     /** @var Package[] */
     protected $packages;
 
@@ -39,6 +41,7 @@ class Shipment
         string $externalShipmentId,
         ?string $confirmation,
         ?Customs $customs,
+        ?bool $validateAddress,
         Package ...$packages
     ) {
         $this->carrierId = $carrierId;
@@ -48,6 +51,7 @@ class Shipment
         $this->externalShipmentId = $externalShipmentId;
         $this->confirmation = $confirmation;
         $this->customs = $customs;
+        $this->validateAddress = (bool)$validateAddress;
         $this->packages = $packages;
     }
 
@@ -80,6 +84,7 @@ class Shipment
             static::getUniqueIdForOrder($order),
             $confirmation,
             $customs,
+            false,
             ...$packages
         );
     }
@@ -110,6 +115,9 @@ class Shipment
         }
         if ($this->getCustoms()) {
             $array['customs'] = $this->getCustoms()->toArray();
+        }
+        if (!$this->isValidateAddress()) {
+            $array['validate_address'] = 'no_validation';
         }
         return $array;
     }
@@ -197,6 +205,17 @@ class Shipment
     public function setCustoms(?Customs $customs): Shipment
     {
         $this->customs = $customs;
+        return $this;
+    }
+
+    public function isValidateAddress(): bool
+    {
+        return $this->validateAddress;
+    }
+
+    public function setValidateAddress(bool $validateAddress): Shipment
+    {
+        $this->validateAddress = $validateAddress;
         return $this;
     }
 

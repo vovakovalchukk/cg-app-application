@@ -1,41 +1,33 @@
 <?php
 use CG\CGLib\Status;
+use CG\CGLib\Status\Cache as StatusCache;
+use CG\CGLib\Status\Zf2Factory;
 use CG\Log\Logger;
 use CG\Stdlib\Log\LogTrait;
-use Zend\Mvc\Router\Http\TreeRouteStack as Router;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
 
 try {
+    set_time_limit(2);
+    require_once __DIR__ . '/../application/bootstrap.php';
+
+    if (!defined('ENVIRONMENT') || ENVIRONMENT !== 'dev') {
+        ob_start(function() { /* Ignore all output */ });
+    }
+
     if (extension_loaded('newrelic')) {
         newrelic_name_transaction('status');
     }
 
     $statusCode = 200;
+    $cachedStatus = StatusCache::getCachedStatus(
+        $factory = new Zf2Factory(),
+        defined('APPLICATION') ? APPLICATION : null
+    );
 
-    require_once __DIR__.'/../application/bootstrap.php';
-    require 'init_autoloader.php';
-    $appConfig = require 'config/application.config.php';
-
-    $serviceManager = new ServiceManager(new ServiceManagerConfig($appConfig['service_manager'] ?? []));
-    $serviceManager->setService('ApplicationConfig', $appConfig);
-    $serviceManager->addDelegator('Router', function() { return new Router(); });
-    $serviceManager->get('ModuleManager')->setModules(['CG_Log'])->loadModules();
-    $serviceManager->get('Application')->bootstrap();
-
-    if (ENVIRONMENT !== 'dev') {
-        ob_start(function() { /* Ignore all output */ });
-    }
-
-    /** @var Status $statusChecker */
-    $statusChecker = $serviceManager->get(Status::class);
-    $detailStatus = $statusChecker->getStatus($status);
-
-    if (!$status) {
+    if (!$cachedStatus->getStatus()) {
         $statusCode = 500;
     }
 
-    foreach ($detailStatus as $service => $serviceStatus) {
+    foreach ($cachedStatus->getDetails() as $service => $serviceStatus) {
         echo $service . PHP_EOL;
         foreach ($serviceStatus as $check => $checkStatus) {
             echo sprintf('>>> %s: %s', $check, $checkStatus) . PHP_EOL;
@@ -45,11 +37,11 @@ try {
 } catch (\Throwable $throwable) {
     $statusCode = 500;
     echo get_class($throwable) . PHP_EOL . $throwable->getMessage() . PHP_EOL . $throwable->getTraceAsString();
-    if (!isset($serviceManager)) {
+    if (!isset($factory)) {
         return;
     }
     try {
-        $logger = new class($serviceManager->get(Logger::class))
+        $logger = new class($factory->getServiceManager()->get(Logger::class))
         {
             use LogTrait;
 
@@ -63,5 +55,5 @@ try {
         // Ignore log failures
     }
 } finally {
-    header('Content-type: text/plain', true, $statusCode);
+    header('Content-type: text/plain', true, $statusCode ?? 500);
 }
