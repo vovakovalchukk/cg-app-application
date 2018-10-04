@@ -417,7 +417,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         return $response;
     }
 
-    protected function createJobToConvertLabelPdfToPng(OrderLabel $orderLabel)
+    protected function createJobToConvertLabelPdfToPng(OrderLabel $orderLabel): Other
     {
         $workload = new OrderLabelPdfToPngWorkload($orderLabel->getId());
         $unique = OrderLabelPdfToPngGF::FUNCTION_NAME . '-OrderLabel' . $orderLabel->getId();
