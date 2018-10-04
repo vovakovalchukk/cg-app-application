@@ -3,6 +3,9 @@ namespace CG\ShipStation\Carrier\Label\Creator;
 
 use CG\Account\Shared\Entity as Account;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Client\Gearman\Proxy\OrderLabelPdfToPng as OrderLabelPdfToPngProxy;
+use CG\Order\Client\Gearman\WorkerFunction\OrderLabelPdfToPng as OrderLabelPdfToPngGF;
+use CG\Order\Client\Gearman\Workload\OrderLabelPdfToPng as OrderLabelPdfToPngWorkload;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData;
@@ -63,6 +66,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected $shipmentsRequestMapper;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
+    /** @var OrderLabelPdfToPngProxy */
+    protected $orderLabelPdfToPng;
 
     protected $testLabelWhitelist = ['usps-ss'];
 
@@ -73,7 +78,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
         OrderTrackingMapper $orderTrackingMapper,
         OrderTrackingService $orderTrackingService,
         ShipmentsRequestMapper $shipmentsRequestMapper,
-        ShippingServiceFactory $shippingServiceFactory
+        ShippingServiceFactory $shippingServiceFactory,
+        OrderLabelPdfToPngProxy $orderLabelPdfToPng
     ) {
         $this->shipStationClient = $shipStationClient;
         $this->guzzleClient = $guzzleClient;
@@ -82,6 +88,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->orderTrackingService = $orderTrackingService;
         $this->shipmentsRequestMapper = $shipmentsRequestMapper;
         $this->shippingServiceFactory = $shippingServiceFactory;
+        $this->orderLabelPdfToPng = $orderLabelPdfToPng;
     }
 
     public function createLabelsForOrders(
@@ -352,6 +359,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $labelResponse = $labels[$orderLabel->getOrderId()];
             $labelPdf = $labelPdfs[$orderLabel->getOrderId()];
             $this->updateAndSaveOrderLabel($orderLabel, $labelResponse, $labelPdf);
+            $this->createJobToConvertLabelPdfToPng($orderLabel);
         }
     }
 
@@ -407,5 +415,13 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $response[$order->getId()] = $validationException;
         }
         return $response;
+    }
+
+    protected function createJobToConvertLabelPdfToPng(OrderLabel $orderLabel)
+    {
+        $workload = new OrderLabelPdfToPngWorkload($orderLabel->getId());
+        $unique = OrderLabelPdfToPngGF::FUNCTION_NAME . '-OrderLabel' . $orderLabel->getId();
+        $this->orderLabelPdfToPng->proxyBackground(OrderLabelPdfToPngGF::FUNCTION_NAME, serialize($workload), $unique);
+        return $this;
     }
 }
