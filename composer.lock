@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4baadc51e31143de39e25978a35ff0f7",
+    "content-hash": "0fb37e1a3e762077b48e49d139137916",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -942,13 +942,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "37b82d382b168cc86a86521d5bef64349056fab4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9606-duplicate-tracking-number-fdafa2.zip",
-                "reference": "37b82d382b168cc86a86521d5bef64349056fab4",
-                "shasum": null
+                "reference": "3f34d5756f9da5251c9c930004434888558e0de3"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.3.0",
@@ -983,17 +977,11 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.3.0",
+            "version": "dev-CGIV-9606-duplicate-tracking-number",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.3.0-14c937.zip",
-                "reference": "e1268313ab0eaa9e5e3ae477f4325a9106062c50",
-                "shasum": null
+                "reference": "6479fc930d07bfcc537f68cf43d451cecff99a6c"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -10344,15 +10332,22 @@
             "alias_normalized": "1.1.4.0",
             "version": "dev-CGIV-9606-duplicate-tracking-number",
             "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-CGIV-9606-duplicate-tracking-number",
+            "package": "channelgrabber/courieradapter"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
