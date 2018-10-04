@@ -1,74 +1,64 @@
-define([
-    'react',
-    'styled-components',
-    'Product/Components/ProductList/Config/constants',
-    'Product/Components/Icon'
-], function(
-    React,
-    styled,
-    constants,
-    Icon
-) {
-    "use strict";
-    
-    styled = styled.default;
-    
-    let ListingIcon = styled(Icon)`
+import React from 'react';
+import styled from 'styled-components';
+import constants from 'Product/Components/ProductList/Config/constants';
+import Icon from 'Product/Components/Icon';
+"use strict";
+
+let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
         background-size:100%;
         ${props => {
-        if (props.status === 'inactive') {
-            return `
+    if (props.status === 'inactive') {
+        return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
                         background-size:50%;
                     }
                 `;
-        }
-    }}
+    }
+}}
     `;
-    
-    ListingIcon.sizer = styled.div`
+
+ListingIcon.sizer = styled.div`
         display:flex;
-        width:${constants.LISTING_ICON_SIZE+'px'};
-        height:${constants.LISTING_ICON_SIZE+'px'};
+        width:${constants.LISTING_ICON_SIZE + 'px'};
+        height:${constants.LISTING_ICON_SIZE + 'px'};
     `;
-    
-    let ListingStatusComponent = React.createClass({
-        getDefaultProps: function() {
-            return {
-                status: ''
-            };
-        },
-        render: function() {
-            return (
-                <div className={this.props.className}>
-                    <ListingIcon.sizer>
-                        <ListingIcon
-                            onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {
-                            }}
-                            {...this.props}
-                        />
-                    </ListingIcon.sizer>
-                </div>
-            );
-        }
-    });
-    
-    return ListingStatusComponent;
-    
-    function getBackgroundImage(props) {
-        const IMAGE_DIR = constants.IMAGE_DIR;
-        let statusBackgroundMap = {
-            active: IMAGE_DIR + 'listing-active.png',
-            pending: IMAGE_DIR + 'listing-pending.png',
-            paused: IMAGE_DIR + 'listing-paused.png',
-            error: IMAGE_DIR + 'listing-error.png',
-            inactive: IMAGE_DIR + 'listing-unknown.png',
+
+let ListingStatusComponent = React.createClass({
+    getDefaultProps: function() {
+        return {
+            status: ''
         };
-        if (!statusBackgroundMap[props.status]) {
-            return '../img/listing-unknown.png';
-        }
-        return statusBackgroundMap[props.status];
+    },
+    render: function() {
+        return (
+            <div className={this.props.className}>
+                <ListingIcon.sizer>
+                    <ListingIcon
+                        onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {
+                        }}
+                        {...this.props}
+                    />
+                </ListingIcon.sizer>
+            </div>
+        );
     }
 });
+
+export default ListingStatusComponent;
+
+function getBackgroundImage(props) {
+    const IMAGE_DIR = constants.IMAGE_DIR;
+    let statusBackgroundMap = {
+        active: IMAGE_DIR + 'listing-active.png',
+        pending: IMAGE_DIR + 'listing-pending.png',
+        paused: IMAGE_DIR + 'listing-paused.png',
+        error: IMAGE_DIR + 'listing-error.png',
+        inactive: IMAGE_DIR + 'listing-unknown.png',
+    };
+    if (!statusBackgroundMap[props.status]) {
+        return '../img/listing-unknown.png';
+    }
+    return statusBackgroundMap[props.status];
+}

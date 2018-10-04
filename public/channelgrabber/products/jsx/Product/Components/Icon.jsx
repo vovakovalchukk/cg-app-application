@@ -1,15 +1,8 @@
-define([
-    'react',
-    'styled-components'
-], function(
-    React,
-    styled
-) {
-    "use strict";
-    
-    styled = styled.default;
-    
-    let IconComponent = styled.span`
+import React from 'react';
+import styled from 'styled-components';
+"use strict";
+
+let IconComponent = styled.span`
         width: 38px;
         height: 38px;
         display: inline-block;
@@ -20,7 +13,6 @@ define([
         background-repeat: no-repeat;
         background-position: center;
         cursor: pointer;
-    }}`;
-    
-    return IconComponent;
-});
+  `;
+
+export default IconComponent;
