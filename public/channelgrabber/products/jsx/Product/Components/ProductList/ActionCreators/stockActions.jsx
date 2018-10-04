@@ -46,7 +46,7 @@ define([
                             productStock.stockLevel
                         );
                     }
-                    n.notice('Updating stock mode value.');
+                    n.notice('Updating stock mode.');
                     try {
                         let response = await Promise.all([saveStockModePromise, saveStockLevelsPromise]);
                         dispatch({
