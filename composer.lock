@@ -944,6 +944,12 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "3f34d5756f9da5251c9c930004434888558e0de3"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9606-duplicate-tracking-number-138416.zip",
+                "reference": "3f34d5756f9da5251c9c930004434888558e0de3",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.3.0",
                 "channelgrabber/locale": "^1.0.17",
@@ -973,7 +979,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-10-04T12:35:08+00:00"
+            "time": "2018-10-04T15:22:21+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -981,7 +987,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "6479fc930d07bfcc537f68cf43d451cecff99a6c"
+                "reference": "39ad81bc51142a19d3076e6b03b18b83a9f65aea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-9606-duplicate-tracking-number-c00ac7.zip",
+                "reference": "39ad81bc51142a19d3076e6b03b18b83a9f65aea",
+                "shasum": null
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1005,7 +1017,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-08-30T09:18:15+00:00"
+            "time": "2018-10-04T14:20:56+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -10346,8 +10358,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
