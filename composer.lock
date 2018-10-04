@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "cf7396d104e8520377ab4ee7076f5f42",
@@ -3468,12 +3468,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "0eab03b00fd00c69467477228e1960cf3bbae81c"
+                "reference": "528d120aa63d2cbb6bd6d2158144564a0996f35c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-check-dev-CGIV-9859-AnnualBillingLimits-b0b929.zip",
-                "reference": "0eab03b00fd00c69467477228e1960cf3bbae81c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-check-dev-CGIV-9859-AnnualBillingLimits-98fac3.zip",
+                "reference": "528d120aa63d2cbb6bd6d2158144564a0996f35c",
                 "shasum": null
             },
             "require": {
@@ -3500,7 +3500,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2018-09-14T10:32:26+00:00"
+            "time": "2018-10-04T14:50:00+00:00"
         },
         {
             "name": "channelgrabber/user",
@@ -8954,7 +8954,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9009,7 +9009,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9064,7 +9064,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
