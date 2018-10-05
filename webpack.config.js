@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     entry: {
         // Name the entry points after the path you want them to end up in, relative to output.path
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
@@ -64,6 +64,8 @@ module.exports = {
             'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
             'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-tether', 'dist', 'react-tether.js'),
+            'styled-components': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'styled-components', 'dist', 'styled-components.js'),
+            'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js')
         }
     }
 };

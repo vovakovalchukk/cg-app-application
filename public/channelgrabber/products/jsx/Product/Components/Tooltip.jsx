@@ -1,5 +1,5 @@
 import React from 'react';
-import TetherComponents from 'react-tether';
+import TetherComponent from 'react-tether';
 
 "use strict";
 

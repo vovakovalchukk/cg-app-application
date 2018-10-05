@@ -1,6 +1,6 @@
 import React from 'react';
-import Redux from 'redux';
-import ReactRedux from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions';
 import Tabs from 'Product/Components/ProductList/Components/Tabs/Tabs';
 
@@ -12,8 +12,8 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch) {
     return {
-        actions: Redux.bindActionCreators(tabActions, dispatch)
+        actions: bindActionCreators(tabActions, dispatch)
     };
 };
 
-export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Tabs);
+export default connect(mapStateToProps, mapDispatchToProps)(Tabs);

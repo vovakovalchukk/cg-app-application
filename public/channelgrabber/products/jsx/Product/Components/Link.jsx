@@ -57,7 +57,7 @@ class LinkComponent extends React.Component {
             );
         }.bind(this));
     };
-
+  
     getLinkIcon = () => {
         if (this.props.linkStatus == LINK_STATUSES.fetching) {
             return (

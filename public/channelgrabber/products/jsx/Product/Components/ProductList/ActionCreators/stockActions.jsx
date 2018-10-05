@@ -1,4 +1,5 @@
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+
 "use strict";
 
 let actionCreators = (function() {
@@ -132,6 +133,20 @@ async function updateStockLevel(id, value) {
         error: error => (error)
     });
 }
+
+function updateStockMode(id, value) {
+    return $.ajax({
+        url: '/products/stockMode',
+        data: {
+            id,
+            stockMode: value
+        },
+        method: 'POST',
+        dataType: 'json',
+        success: response => (response),
+        error: error => (error)
+    });
+};
 
 function updateStock(data) {
     return $.ajax({

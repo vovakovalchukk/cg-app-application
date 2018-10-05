@@ -1,5 +1,5 @@
 import React from 'react';
-import {applyMiddleware} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import getStateExtender from 'Product/Components/ProductList/getStateExtender';
@@ -8,17 +8,17 @@ import columnActions from 'Product/Components/ProductList/ActionCreators/columnA
 import combinedReducer from 'Product/Components/ProductList/Reducers/combinedReducer';
 import ProductListRoot from 'Product/Components/ProductList/Root';
 
-var enhancer = applyMiddleware(thunk.default);
+var enhancer = applyMiddleware(thunk);
 
 if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         latency: 0,
         name: 'ProductsList'
-    })(Redux.applyMiddleware(
-        thunk.default
+    })(applyMiddleware(
+        thunk
     ));
 }
-var store = Redux.createStore(
+var store = createStore(
     combinedReducer,
     enhancer
 );

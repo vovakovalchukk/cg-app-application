@@ -1,4 +1,4 @@
-import {conbineReducers} from 'redux';
+import {combineReducers} from 'redux';
 import productsReducer from 'Product/Components/ProductList/Reducers/productsReducer';
 import tabsReducer from 'Product/Components/ProductList/Reducers/tabsReducer';
 import columnsReducer from 'Product/Components/ProductList/Reducers/columnsReducer';

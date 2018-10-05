@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import FixedDataTable from 'fixed-data-table-2';
 import TextCell from 'Product/Components/ProductList/Cell/Text';
