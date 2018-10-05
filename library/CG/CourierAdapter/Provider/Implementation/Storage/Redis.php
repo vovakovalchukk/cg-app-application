@@ -77,7 +77,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
         $count = 0;
         while (!$result) {
-            if ($count >= static::LOCK_MAX_RETRIES) {
+            if ($this->isTriesExceeded($count)) {
                 $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], static::LOG_CODE);
                 throw new UserError('Unable to generate new parcel number, please try again.');
             }
@@ -107,5 +107,10 @@ class Redis implements StorageInterface, LoggerAwareInterface
     {
         $this->logger = $logger;
         return $this;
+    }
+
+    protected function isTriesExceeded(int $count): bool
+    {
+        return $count >= static::LOCK_MAX_RETRIES;
     }
 }
