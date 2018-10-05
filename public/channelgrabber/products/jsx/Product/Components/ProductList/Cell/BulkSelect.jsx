@@ -24,9 +24,6 @@ class BulkSelectCell extends React.Component {
     };
 
     render() {
-        console.log('in bulkselect');
-        
-        
         return (
             <div className={this.props.className}>
                 <input
