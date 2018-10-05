@@ -124,6 +124,6 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
     protected function logSuccessfulLock(Shipment $shipment, int $count): void
     {
-        $this->logDebug('Locked parcelNumber for shipping account %s after %d attempt(s)', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'LockAcquired']);
+        $this->logDebug('Locked parcelNumber for shipping account %s after %d attempt(s)', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'LockAcquired'], ['parcelNumberLockAttempts' => $count]);
     }
 }
