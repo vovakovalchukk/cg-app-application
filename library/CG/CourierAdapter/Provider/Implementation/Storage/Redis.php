@@ -19,8 +19,8 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
     const CACHE_PARCEL_NUMBER_LOCK_KEY_PREFIX = 'ParcelNumberLock';
 
-    const LOCK_EXPIRY_SECONDS = 60;
-    const LOCK_RETRY_WAIT_SECONDS = 2;
+    const LOCK_EXPIRY_SECONDS = 1;
+    const LOCK_RETRY_WAIT_MICROSECONDS = 200000;
     const LOCK_MAX_RETRIES = 5;
 
     /** @var PredisClient */
@@ -84,8 +84,8 @@ class Redis implements StorageInterface, LoggerAwareInterface
             }
 
             $count++;
-            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d seconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], static::LOG_CODE);
-            sleep(static::LOCK_RETRY_WAIT_SECONDS);
+            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], static::LOG_CODE);
+            usleep(static::LOCK_RETRY_WAIT_MICROSECONDS);
             $result = $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
         }
 
