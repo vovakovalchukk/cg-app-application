@@ -68,15 +68,14 @@ class Redis implements StorageInterface, LoggerAwareInterface
     public function lockParcelNumber(Shipment $shipment, string $parcelNumberKey): void
     {
         $key = $this->getParcelNumberLockKey($parcelNumberKey);
-        $result = $this->acquireLock($key);
 
-        if ($result) {
+        if ($this->acquireLock($key)) {
             $this->logSuccessfulLock($shipment, 1);
             return;
         }
 
         $count = 0;
-        while (!$result) {
+        while (!$this->acquireLockWithSleep($key)) {
             if ($this->isTriesExceeded($count)) {
                 $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'lockFailed']);
                 throw new UserError('Unable to generate new parcel number, please try again.');
@@ -84,7 +83,6 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
             $count++;
             $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], [static::LOG_CODE, 'lockFailed']);
-            $result = $this->acquireLockWithSleep($key);
         }
 
         $this->logSuccessfulLock($shipment, $count);
