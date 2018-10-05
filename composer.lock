@@ -942,12 +942,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "3f34d5756f9da5251c9c930004434888558e0de3"
+                "reference": "6ff0d4c700f3a4045bcd3d1e1da61a912694f052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9606-duplicate-tracking-number-138416.zip",
-                "reference": "3f34d5756f9da5251c9c930004434888558e0de3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9606-duplicate-tracking-number-fc21b3.zip",
+                "reference": "6ff0d4c700f3a4045bcd3d1e1da61a912694f052",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-10-04T15:22:21+00:00"
+            "time": "2018-10-05T08:46:23+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -987,12 +987,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "39ad81bc51142a19d3076e6b03b18b83a9f65aea"
+                "reference": "0b8a133651dac7429939455512fa6725c7a8ff4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-9606-duplicate-tracking-number-c00ac7.zip",
-                "reference": "39ad81bc51142a19d3076e6b03b18b83a9f65aea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-9606-duplicate-tracking-number-fd2928.zip",
+                "reference": "0b8a133651dac7429939455512fa6725c7a8ff4e",
                 "shasum": null
             },
             "require": {
@@ -1017,7 +1017,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-10-04T14:20:56+00:00"
+            "time": "2018-10-05T07:40:13+00:00"
         },
         {
             "name": "channelgrabber/currency",
