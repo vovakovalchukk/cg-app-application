@@ -69,20 +69,20 @@ class Redis implements StorageInterface, LoggerAwareInterface
     {
         $key = $this->getParcelNumberLockKey($parcelNumberKey);
 
-        if ($this->acquireLock($key)) {
+        if ($this->acquireLock($key) === 1) {
             $this->logSuccessfulLock($shipment, 1);
             return;
         }
 
         $count = 0;
-        while (!$this->acquireLockWithSleep($key)) {
+        while ($this->acquireLockWithSleep($key) === 0) {
             if ($this->isTriesExceeded($count)) {
                 $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'lockFailed']);
                 throw new UserError('Unable to generate new parcel number, please try again.');
             }
 
             $count++;
-            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], [static::LOG_CODE, 'lockFailed']);
+            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_MICROSECONDS, $count, static::LOCK_MAX_RETRIES], [static::LOG_CODE, 'lockFailed']);
         }
 
         $this->logSuccessfulLock($shipment, $count);
@@ -91,7 +91,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
     public function unlockParcelNumber(Shipment $shipment, string $parcelNumberKey): void
     {
-        $this->remove($parcelNumberKey);
+        $this->remove($this->getParcelNumberLockKey($parcelNumberKey));
         $this->logDebug('Unlocked parcelNumber for shipping account %d', [$shipment->getAccount()->getId()], [static::LOG_CODE, 'lockReleased']);
     }
 
@@ -113,7 +113,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
     protected function acquireLock(string $key): int
     {
-        return $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
+        return $this->predisClient->setnxex(static::KEY_PREFIX . $key, static::LOCK_EXPIRY_SECONDS, time());
     }
 
     protected function acquireLockWithSleep(string $key, int $microseconds = null)
