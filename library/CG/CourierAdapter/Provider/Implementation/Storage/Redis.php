@@ -71,7 +71,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
         $result = $this->acquireLock($key);
 
         if ($result) {
-            $this->logDebug('Locked parcelNumber for shipping account %s', [$shipment->getAccount()->getId()], static::LOG_CODE);
+            $this->logSuccessfulLock($shipment, 1);
             return;
         }
 
@@ -87,7 +87,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
             $result = $this->acquireLockWithSleep($key);
         }
 
-        $this->logDebug('Locked parcelNumber for shipping account %s after %d attempts', [$shipment->getAccount()->getId(), $count], static::LOG_CODE);
+        $this->logSuccessfulLock($shipment, $count);
         return;
     }
 
@@ -122,5 +122,10 @@ class Redis implements StorageInterface, LoggerAwareInterface
     {
         usleep($microseconds ?? static::LOCK_RETRY_WAIT_MICROSECONDS);
         return $this->acquireLock($key);
+    }
+
+    protected function logSuccessfulLock(Shipment $shipment, int $count): void
+    {
+        $this->logDebug('Locked parcelNumber for shipping account %s after %d attempt(s)', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'LockAcquired']);
     }
 }
