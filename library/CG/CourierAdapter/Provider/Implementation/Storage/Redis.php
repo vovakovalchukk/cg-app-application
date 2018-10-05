@@ -76,13 +76,8 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
         $count = 0;
         while ($this->acquireLockWithSleep($key) === 0) {
-            if ($this->isTriesExceeded($count)) {
-                $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'lockFailed']);
-                throw new UserError('Unable to generate new parcel number, please try again.');
-            }
-
-            $count++;
-            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_MICROSECONDS, $count, static::LOCK_MAX_RETRIES], [static::LOG_CODE, 'lockFailed']);
+            $this->isTriesExceeded($shipment, $count);
+            $this->incrementCount($shipment, $count);
         }
 
         $this->logSuccessfulLock($shipment, $count);
@@ -106,9 +101,12 @@ class Redis implements StorageInterface, LoggerAwareInterface
         return $this;
     }
 
-    protected function isTriesExceeded(int $count): bool
+    protected function isTriesExceeded(Shipment $shipment, int $count)
     {
-        return $count >= static::LOCK_MAX_RETRIES;
+        if ($count >= static::LOCK_MAX_RETRIES) {
+            $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'lockFailed']);
+            throw new UserError('Unable to generate new parcel number, please try again.');
+        }
     }
 
     protected function acquireLock(string $key): int
@@ -125,5 +123,11 @@ class Redis implements StorageInterface, LoggerAwareInterface
     protected function logSuccessfulLock(Shipment $shipment, int $count): void
     {
         $this->logDebug('Locked parcelNumber for shipping account %s after %d attempt(s)', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'LockAcquired'], ['parcelNumberLockAttempts' => $count]);
+    }
+
+    protected function incrementCount(Shipment $shipment, int &$count)
+    {
+        $count++;
+        $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_MICROSECONDS, $count, static::LOCK_MAX_RETRIES], [static::LOG_CODE, 'lockFailed']);
     }
 }
