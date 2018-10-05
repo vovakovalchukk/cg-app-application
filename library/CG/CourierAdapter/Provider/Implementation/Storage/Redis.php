@@ -65,15 +65,10 @@ class Redis implements StorageInterface, LoggerAwareInterface
         return $this;
     }
 
-    public function setnxex($key, $time, $expiry)
-    {
-        return $this->predisClient->setnxex(static::KEY_PREFIX . $key, $time, $expiry);
-    }
-
     public function lockParcelNumber(Shipment $shipment, string $parcelNumberKey): void
     {
         $key = $this->getParcelNumberLockKey($parcelNumberKey);
-        $result = $this->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
+        $result = $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
 
         if ($result) {
             $this->logDebug('Locked parcelNumber for shipping account %s', [$shipment->getAccount()->getId()], static::LOG_CODE);
@@ -91,7 +86,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
             $count++;
             $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d seconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], static::LOG_CODE);
             sleep(static::LOCK_RETRY_WAIT_SECONDS);
-            $result = $this->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
+            $result = $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
         }
 
         $this->logDebug('Locked parcelNumber for shipping account %s after %d attempts', [$shipment->getAccount()->getId(), $count], static::LOG_CODE);
