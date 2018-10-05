@@ -68,7 +68,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
     public function lockParcelNumber(Shipment $shipment, string $parcelNumberKey): void
     {
         $key = $this->getParcelNumberLockKey($parcelNumberKey);
-        $result = $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
+        $result = $this->acquireLock($key);
 
         if ($result) {
             $this->logDebug('Locked parcelNumber for shipping account %s', [$shipment->getAccount()->getId()], static::LOG_CODE);
@@ -84,8 +84,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
 
             $count++;
             $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], static::LOG_CODE);
-            usleep(static::LOCK_RETRY_WAIT_MICROSECONDS);
-            $result = $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
+            $result = $this->acquireLockWithSleep($key);
         }
 
         $this->logDebug('Locked parcelNumber for shipping account %s after %d attempts', [$shipment->getAccount()->getId(), $count], static::LOG_CODE);
@@ -112,5 +111,16 @@ class Redis implements StorageInterface, LoggerAwareInterface
     protected function isTriesExceeded(int $count): bool
     {
         return $count >= static::LOCK_MAX_RETRIES;
+    }
+
+    protected function acquireLock(string $key): int
+    {
+        return $this->predisClient->setnxex($key, static::LOCK_EXPIRY_SECONDS, time());
+    }
+
+    protected function acquireLockWithSleep(string $key, int $microseconds = null)
+    {
+        usleep($microseconds ?? static::LOCK_RETRY_WAIT_MICROSECONDS);
+        return $this->acquireLock($key);
     }
 }
