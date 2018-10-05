@@ -78,12 +78,12 @@ class Redis implements StorageInterface, LoggerAwareInterface
         $count = 0;
         while (!$result) {
             if ($this->isTriesExceeded($count)) {
-                $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], static::LOG_CODE);
+                $this->logDebug('Unable to lock parcelNumber for shipping account %s after %d tries. Throwing UserError', [$shipment->getAccount()->getId(), $count], [static::LOG_CODE, 'lockFailed']);
                 throw new UserError('Unable to generate new parcel number, please try again.');
             }
 
             $count++;
-            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], static::LOG_CODE);
+            $this->logWarning('Unable to lock parcelNumber for shipping account %s, sleeping for %d microseconds, attempt %d of %d', [$shipment->getAccount()->getId(), static::LOCK_RETRY_WAIT_SECONDS, $count, static::LOCK_MAX_RETRIES], [static::LOG_CODE, 'lockFailed']);
             $result = $this->acquireLockWithSleep($key);
         }
 
@@ -94,7 +94,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
     public function unlockParcelNumber(Shipment $shipment, string $parcelNumberKey): void
     {
         $this->remove($parcelNumberKey);
-        $this->logDebug('Unlocked parcelNumber for shipping account %d', [$shipment->getAccount()->getId()], static::LOG_CODE);
+        $this->logDebug('Unlocked parcelNumber for shipping account %d', [$shipment->getAccount()->getId()], [static::LOG_CODE, 'lockReleased']);
     }
 
     protected function getParcelNumberLockKey(string $parcelNumberKey): string
