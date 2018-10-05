@@ -1,4 +1,5 @@
 const path = require('path');
+const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
     mode: "development",
@@ -14,17 +15,21 @@ module.exports = {
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
     },
     module: {
-        rules:[
+        rules: [
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
+                    plugins: babelPluginStyledComponents,
                     presets: [
                         ["env",
                             {
                                 "targets": {
-                                    "browsers": ["last 2 Chrome versions"]
+                                    "browsers": [
+                                        "last 2 Chrome versions",
+                                        "last 2 ff versions"
+                                    ]
                                 }
                             }
                         ],
@@ -33,7 +38,10 @@ module.exports = {
                     ]
                 }
             },
-            { test: /jquery/, use: 'exports-loader?$' },
+            {
+                test: /thenBy/,
+                use: 'exports-loader?firstBy'
+            }
         ]
     },
     output: {
