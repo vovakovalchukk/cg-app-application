@@ -1,12 +1,6 @@
-define([
-    'react',
-    'react-dom',
-    'Product/Components/Root'
-], function(
-    React,
-    ReactDOM,
-    RootComponent
-) {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import RootComponent from 'Product/Components/Root';
     var Product = function(
         mountingNode,
         utils,
@@ -55,5 +49,4 @@ define([
         );
     };
 
-    return Product;
-});
+    export default Product;

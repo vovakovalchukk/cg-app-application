@@ -13,7 +13,6 @@ class CheckboxComponent extends React.Component {
                 <div className="checkbox-holder bulk-action-checkbox">
                     <a className="std-checkbox">
                         <input
-                            type="checkbox"
                             id={"product-checkbox-input-" + this.props.id}
                             name=""
                             onClick={this.props.onClick}

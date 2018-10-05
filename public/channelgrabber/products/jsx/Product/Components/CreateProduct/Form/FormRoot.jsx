@@ -1,29 +1,15 @@
-define([
-    'redux',
-    'react-redux',
-    'redux-form',
-    'Product/Components/CreateProduct/Form/Form',
-    'Product/Components/CreateProduct/Form/FormActionCreators'
-], function(
-    Redux,
-    ReactRedux,
-    ReduxForm,
-    CreateProductForm,
-    formActionCreators
-) {
-    "use strict";
-    var resetSection = ReduxForm.resetSection;
-    var untouch = ReduxForm.untouch;
-    var change = ReduxForm.change;
-    var unregister = ReduxForm.unregisterField;
-    var initialize = ReduxForm.initialize;
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {resetSection, untouch, change, unregister, initialize, getFormValues} from 'redux-form';
+import CreateProductForm from 'Product/Components/CreateProduct/Form/Form';
+import formActionCreators from 'Product/Components/CreateProduct/Form/FormActionCreators';
 
     const mapStateToProps = function(state) {
         return {
             uploadedImages: state.uploadedImages,
             taxRates: state.account.taxRates,
             variationRowProperties: state.variationRowProperties,
-            formValues: ReduxForm.getFormValues('createProductForm')(state)
+            formValues: getFormValues('createProductForm')(state)
         }
     };
     const mapDispatchToProps = function(dispatch) {
@@ -34,9 +20,8 @@ define([
             unregister: unregister,
             initialize: initialize
         });
-        return Redux.bindActionCreators(combinedActionCreators, dispatch);
+        return bindActionCreators(combinedActionCreators, dispatch);
     };
 
-    var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-    return FormConnector(CreateProductForm);
-});
+    var FormConnector = connect(mapStateToProps, mapDispatchToProps);
+    export default FormConnector(CreateProductForm);

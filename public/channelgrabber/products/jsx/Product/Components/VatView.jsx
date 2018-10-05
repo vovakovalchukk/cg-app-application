@@ -1,5 +1,4 @@
 import React from 'react';
-
 "use strict";
 
 class VatViewComponent extends React.Component {

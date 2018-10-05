@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "68fe4491a490135d98efb2420847335b",
+    "content-hash": "aa17e1a1bf5a08f0653a27ccaedfae19",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -458,16 +458,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.6.1",
+            "version": "1.16.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "50951b047b2010350c4ab77449072458e906fa5e"
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.6.1-e0aab7.zip",
-                "reference": "50951b047b2010350c4ab77449072458e906fa5e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.7-939901.zip",
+                "reference": "f3c253f7f4f5e5760172e982d3ed3f36409eca08",
                 "shasum": null
             },
             "require": {
@@ -517,7 +517,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-09-25T14:59:16+00:00"
+            "time": "2018-10-01T11:14:08+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1929,16 +1929,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.10.5",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "c887feabb36787c5d8ee10fdb2f77b23c7b5a80e"
+                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.5-81f31e.zip",
-                "reference": "c887feabb36787c5d8ee10fdb2f77b23c7b5a80e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.10.4-1af78a.zip",
+                "reference": "16058ec1e02e0c2ab1e61458b53c738f7223fe68",
                 "shasum": null
             },
             "require": {
@@ -1982,7 +1982,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-09-04T10:20:32+00:00"
+            "time": "2018-09-04T09:43:41+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4574,6 +4574,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "0a43b112c0a1b36700f8a2d9205f25386466d66b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-235-product-page-redesign-snagging-add-bulk-actions-column-and-add-edit-functionality-to-available-column-037e4b.zip",
+                "reference": "0a43b112c0a1b36700f8a2d9205f25386466d66b",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
@@ -4623,7 +4629,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-08-14T13:08:47+00:00"
+            "time": "2018-10-02T10:54:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10336,12 +10342,6 @@
         {
             "alias": "1.24.6",
             "alias_normalized": "1.24.6.0",
-            "version": "dev-TAC-164-implement-data-for-fixed-columns-and-create-tab-functionality",
-            "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
-            "alias": "1.24.6",
-            "alias_normalized": "1.24.6.0",
             "version": "dev-TAC-235-product-page-redesign-snagging-add-bulk-actions-column-and-add-edit-functionality-to-available-column",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -10351,8 +10351,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

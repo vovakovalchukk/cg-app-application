@@ -1,5 +1,5 @@
-define([], function() {
-    "use strict";
+
+    
     var utility = {
         optionExistsAlready: function(optionToLookFor, options) {
             return options.find(option => {
@@ -25,5 +25,4 @@ define([], function() {
         }
     };
 
-    return utility;
-});
+    export default utility;

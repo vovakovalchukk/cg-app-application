@@ -88,7 +88,6 @@ class ProductLinkEditorComponent extends React.Component {
                 oldSkuQuantity = parseInt(row.quantity);
             }
         });
-        
         var alreadyAddedToForm = links.find(function(row) {
             if (row.sku === newSku) {
                 row.quantity += parseInt(oldSkuQuantity);
@@ -110,7 +109,6 @@ class ProductLinkEditorComponent extends React.Component {
         var links = this.state.links.filter(function(row) {
             return row.sku !== sku;
         });
-        
         this.setState({
             links: links
         });
