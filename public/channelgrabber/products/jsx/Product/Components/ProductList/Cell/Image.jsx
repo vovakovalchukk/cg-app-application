@@ -6,6 +6,7 @@ const Image = styled.img`
     max-width: ${props => props.width}px;
     max-height: ${props => props.height}px;
     object-fit:contain;
+    background-color: #ebebeb;
 `;
 
 class ImageCell extends React.Component {

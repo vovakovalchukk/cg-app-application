@@ -2,6 +2,13 @@ import React from 'react';
 
 let coreColumns = [
     {
+        key: 'productExpand',
+        width: 40,
+        fixed: true,
+        headerText: '',
+        align: 'center'
+    },
+    {
         key: 'bulkSelect',
         width: 40,
         fixed: true,
@@ -13,13 +20,6 @@ let coreColumns = [
         width: 100,
         fixed: true,
         headerText: 'Image',
-        align: 'center'
-    },
-    {
-        key: 'productExpand',
-        width: 40,
-        fixed: true,
-        headerText: '',
         align: 'center'
     },
     {
