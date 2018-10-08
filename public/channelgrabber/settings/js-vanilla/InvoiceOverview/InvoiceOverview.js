@@ -9,7 +9,7 @@ define([
 ) {
     var InvoiceOverview = function(mountingNode, invoiceData)
     {
-        ReactDOM.render(React.createElement(RootComponent, JSON.parse(invoiceData)), mountingNode);
+        ReactDOM.render(React.createElement(RootComponent, invoiceData), mountingNode);
     };
 
     return InvoiceOverview;
