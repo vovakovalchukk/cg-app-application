@@ -38,7 +38,10 @@ module.exports = {
                     ]
                 }
             },
-            { test: /jquery/, use: 'exports-loader?$' },
+            {
+                test: /jquery/,
+                use: 'exports-loader?$'
+            },
             {
                 test: /thenBy/,
                 use: 'exports-loader?firstBy'
