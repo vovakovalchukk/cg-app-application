@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4af53c8aaa2b80936ed21099aa56658",
+    "content-hash": "8798139108e81bbaab9916557cf4fec1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3505,17 +3505,11 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.4",
+            "version": "dev-CGIV-9867-apc-for-ou",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "7aca77dd960a49f31e2761feafa1ed629c99a90c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.4-646f2a.zip",
-                "reference": "7aca77dd960a49f31e2761feafa1ed629c99a90c",
-                "shasum": null
+                "reference": "8599caa20c2d2915efe4b784498c572750ee89c6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -10365,13 +10359,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.26.1",
+            "alias_normalized": "1.26.1.0",
+            "version": "dev-CGIV-9867-apc-for-ou",
+            "package": "channelgrabber/user"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
