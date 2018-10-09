@@ -13,7 +13,6 @@ let Tabs = styled.div`
         margin-left:auto;
         top:5px;
     `;
-
 Tabs.wrapper = styled.div`
         position:relative;
         background: ${styleVars.colours.greybg};

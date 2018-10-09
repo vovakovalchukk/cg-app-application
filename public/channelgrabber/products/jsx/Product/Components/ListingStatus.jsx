@@ -8,16 +8,16 @@ let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
         background-size:80%;
         ${props => {
-    if (props.status === 'inactive') {
-        return `
+            if (props.status === 'inactive') {
+                return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
                         background-size:40%;
                     }
                 `;
-    }
-}}
-    `;
+            }
+        }}
+`;
 
 ListingIcon.sizer = styled.div`
         display:flex;
