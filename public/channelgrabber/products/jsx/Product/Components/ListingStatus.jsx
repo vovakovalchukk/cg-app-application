@@ -6,13 +6,13 @@ import Icon from 'Product/Components/Icon';
 
 let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
-        background-size:100%;
+        background-size:80%;
         ${props => {
     if (props.status === 'inactive') {
         return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
-                        background-size:50%;
+                        background-size:40%;
                     }
                 `;
     }

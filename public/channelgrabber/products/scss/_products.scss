@@ -65,20 +65,24 @@ $screen-padding: 20px;
 
 $combined-height-of-non-list-ui-elements: $header-height+$pagination-height+50px;
 
+#products-app{
+    font-size:12px;
+}
 #products-list {
     .c-products-data-table {
         border: none;
     }
+    // header cells
     .public_fixedDataTable_header, .public_fixedDataTable_scrollbarSpacer, .public_fixedDataTable_header .public_fixedDataTableCell_main {
         border-left: none;
         border-right: none;
+        background: #5fafda;
+        color:white;
+        border-bottom: #1b75a436 solid 2px;
     }
     .public_fixedDataTableRow_highlighted, .public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
         background: #edf7fc;
     }
-    //.public_fixedDataTable_header, .public_fixedDataTable_scrollbarSpacer, .public_fixedDataTable_header .public_fixedDataTableCell_main{
-    //    background-color: red;
-    //}
     .fixedDataTableCellLayout_main {
         border-right-style: none;
     }

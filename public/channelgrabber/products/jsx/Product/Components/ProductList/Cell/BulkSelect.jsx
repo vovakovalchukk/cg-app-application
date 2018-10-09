@@ -30,6 +30,7 @@ class BulkSelectCell extends React.Component {
                     type="checkbox"
                     onChange={this.onSelectChange}
                     checked={this.isSelected()}
+                    className={"std-checkbox"}
                 />
             </div>
         );

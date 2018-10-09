@@ -8,8 +8,8 @@ import Skeleton from 'react-skeleton-loader';
 
 const {LINK_STATUSES} = constants;
 const LINK_ICON_DIMENSIONS = {
-    width: 22,
-    height: 22
+    width: 18,
+    height: 18
 };
 
 class LinkComponent extends React.Component {

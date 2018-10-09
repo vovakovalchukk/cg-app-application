@@ -163,12 +163,12 @@ class ProductList extends React.Component {
         
         return (
             <Table
-                rowHeight={60}
+                rowHeight={36}
                 className={'c-products-data-table'}
                 rowsCount={rowCount}
                 width={width}
                 height={height}
-                headerHeight={50}
+                headerHeight={36}
                 data={rows}
                 footerHeight={0}
                 groupHeaderHeight={0}

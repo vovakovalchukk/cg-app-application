@@ -3,14 +3,14 @@ import React from 'react';
 let coreColumns = [
     {
         key: 'productExpand',
-        width: 40,
+        width: 30,
         fixed: true,
         headerText: '',
         align: 'center'
     },
     {
         key: 'bulkSelect',
-        width: 40,
+        width: 30,
         fixed: true,
         headerText: '',
         align: 'center'
@@ -31,14 +31,14 @@ let coreColumns = [
     },
     {
         key: 'sku',
-        width: 160,
+        width: 150,
         fixed: true,
         headerText: 'Sku',
         align: 'left'
     },
     {
         key: 'name',
-        width: 210,
+        width: 240,
         fixed: true,
         headerText: 'Name',
         align: 'left'

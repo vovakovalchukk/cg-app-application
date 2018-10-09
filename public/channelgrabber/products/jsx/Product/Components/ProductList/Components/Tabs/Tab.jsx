@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import styleVars from 'Product/Components/ProductList/styleVars';
 
 const Tab = styled.div`
         border:solid;
-        background: ${props => props.isCurrentTab ? 'white' : '#ebebeb'};
-        color: ${props => props.isCurrentTab ? 'black' : '#3a3a3a'};
+        background: ${props => props.isCurrentTab ? styleVars.colours['blue-medium'] : '#ebebeb'};
+        color: ${props => props.isCurrentTab ? 'white' : '#3a3a3a'};
         flex: 1 1 60px;
         text-align:center;
         align-items: center;
@@ -18,6 +19,7 @@ const Tab = styled.div`
         z-index:10;
         border-color:transparent;
         cursor:pointer;
+        font-style: italic;
     `;
 
 class TabComponent extends React.Component {
