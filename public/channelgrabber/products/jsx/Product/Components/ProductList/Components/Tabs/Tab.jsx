@@ -4,9 +4,9 @@ import styleVars from 'Product/Components/ProductList/styleVars';
 
 const Tab = styled.div`
         border:solid;
-        background: ${props => props.isCurrentTab ? styleVars.colours['blue-medium'] : '#ebebeb'};
-        color: ${props => props.isCurrentTab ? 'white' : '#3a3a3a'};
-        flex: 1 1 60px;
+        background: ${props => props.isCurrentTab ? styleVars.colours['blue-medium'] : '#5096bc'};
+        color: ${props => props.isCurrentTab ? 'white' : '#f7f7f7'};
+        flex: 1 1 40px;
         text-align:center;
         align-items: center;
         display: flex;

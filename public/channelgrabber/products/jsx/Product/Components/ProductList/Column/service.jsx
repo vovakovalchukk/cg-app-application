@@ -10,7 +10,7 @@ let coreColumns = [
     },
     {
         key: 'bulkSelect',
-        width: 30,
+        width: 60,
         fixed: true,
         headerText: '',
         align: 'center'

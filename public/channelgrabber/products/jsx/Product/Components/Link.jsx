@@ -68,7 +68,7 @@ class LinkComponent extends React.Component {
                 />
             );
         }
-        var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
+        var spriteClass = (this.props.productLinks.length ? 'sprite-linked-18-blue' : 'sprite-linked-18-white');
         return (
             <span className={"sprite " + spriteClass + " click"}
                   onClick={this.onClick}

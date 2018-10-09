@@ -6,7 +6,7 @@ import Tab from 'Product/Components/ProductList/Components/Tabs/Tab';
 let Tabs = styled.div`
         position:relative;
         color:blue;
-        width:500px;
+        width:400px;
         display: flex;
         flex-wrap: wrap;
         height:${styleVars.heights.productTabsContainer}px;

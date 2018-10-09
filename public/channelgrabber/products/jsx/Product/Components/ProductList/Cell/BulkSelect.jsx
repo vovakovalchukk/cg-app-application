@@ -1,5 +1,17 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import styled from 'styled-components';
+
+const Checkbox = styled.div`
+    width:1rem;
+    height:1rem;
+    border: ${props => (props.isSelected ? 'green solid 1px' : 'grey 1px solid')};
+    line-height:16px;
+    background:white;
+    color:green;
+    border-radius:50%;
+    cursor:pointer;
+`;
 
 class BulkSelectCell extends React.Component {
     static defaultProps = {};
@@ -11,7 +23,7 @@ class BulkSelectCell extends React.Component {
 
     onSelectChange = (e) => {
       let row = this.getRowData();
-      this.props.actions.changeProductBulkSelectStatus(row.id, e.target.checked);
+      this.props.actions.changeProductBulkSelectStatus(row.id, !this.isSelected());
     };
 
     isSelected = () => {
@@ -20,19 +32,21 @@ class BulkSelectCell extends React.Component {
         if(!row) {
             return false;
         }
-        return selected.indexOf(row.id) > -1;
+        let isSelected = selected.indexOf(row.id) > -1;
+        console.log('isSelected: ', isSelected);
+        return isSelected;
     };
 
     render() {
         return (
-            <div className={this.props.className}>
-                <input
-                    type="checkbox"
-                    onChange={this.onSelectChange}
-                    checked={this.isSelected()}
-                    className={"std-checkbox"}
-                />
-            </div>
+            <a
+                className={" " + this.props.className}
+                onClick={this.onSelectChange}
+            >
+                <Checkbox isSelected={this.isSelected()}>
+                    {this.isSelected() ? '✔' : ''}
+                </Checkbox>
+            </a>
         );
     }
 }
