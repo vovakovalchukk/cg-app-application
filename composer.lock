@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8798139108e81bbaab9916557cf4fec1",
+    "content-hash": "3b7c9bfd927359a88c2c6bc030bcc9b1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3511,6 +3511,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
                 "reference": "8599caa20c2d2915efe4b784498c572750ee89c6"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-6a3bb9.zip",
+                "reference": "8599caa20c2d2915efe4b784498c572750ee89c6",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cg-predis": "^0.8.7",
@@ -3549,7 +3555,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-10-03T13:20:24+00:00"
+            "time": "2018-10-08T15:59:51+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -8949,7 +8955,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9004,7 +9010,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9059,7 +9065,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10361,8 +10367,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.26.1",
-            "alias_normalized": "1.26.1.0",
+            "alias": "1.26.5",
+            "alias_normalized": "1.26.5.0",
             "version": "dev-CGIV-9867-apc-for-ou",
             "package": "channelgrabber/user"
         }
@@ -10372,8 +10378,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/user": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
