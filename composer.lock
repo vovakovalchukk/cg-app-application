@@ -3509,7 +3509,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "3801a5a39a49450a24c75da96480c7674c363dbf"
+                "reference": "8b00d0b0c78dc4fe459a04a81a2363afb2640a5e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
