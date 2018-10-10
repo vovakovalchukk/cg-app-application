@@ -12,6 +12,7 @@ module.exports = {
         "setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
+        "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
     },
     module: {
         rules:[
