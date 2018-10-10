@@ -61,7 +61,7 @@ var identifiers = [
             if (!value) {
                 return undefined;
             }
-            if (value.length !== 13 || value.length !== 10) {
+            if (value.length !== 13 && value.length !== 10) {
                 return 'Must be exactly 10 or 13 digits long';
             }
             return undefined;
