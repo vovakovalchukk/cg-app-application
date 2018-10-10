@@ -714,12 +714,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0ec85feefd9a3c91857004cfcca4789b99075d0d"
+                "reference": "92025458d29bc9124288782fe86cb20453b23701"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9968-channel-jobs-to-channel-gearman-instances-afdfcc.zip",
-                "reference": "0ec85feefd9a3c91857004cfcca4789b99075d0d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9968-channel-jobs-to-channel-gearman-instances-40d29a.zip",
+                "reference": "92025458d29bc9124288782fe86cb20453b23701",
                 "shasum": null
             },
             "require": {
@@ -777,7 +777,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-9693-clean-gearman-dynamic-queues-for-inactive-users": "1.38.x-dev"
+                    "dev-CGIV-9968-channel-jobs-to-channel-gearman-instances": "1.39.x-dev"
                 }
             },
             "autoload": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-10-09T14:23:01+00:00"
+            "time": "2018-10-10T09:11:03+00:00"
         },
         {
             "name": "channelgrabber/cilex",
