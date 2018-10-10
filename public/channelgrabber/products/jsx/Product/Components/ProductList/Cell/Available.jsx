@@ -17,13 +17,11 @@ class AvailableCell extends React.Component {
         if(isParentProduct){
             return <span></span>
         }
-        
         let availableValue = stateUtility.getCellData(
             this.props.products,
             this.props.columnKey,
             this.props.rowIndex
         );
-        
         return (
             <span className={this.props.className}>
                 <Input
@@ -31,7 +29,7 @@ class AvailableCell extends React.Component {
                     initialValue={parseFloat(availableValue)}
                     step="0.1"
                     submitCallback={this.props.actions.updateAvailable.bind(this, rowData)}
-                    classNames={'u-width-120px'}
+                    inputClassNames={'u-width-120px u-text-align-right'}
                     sku={rowData.sku}
                 />
             </span>

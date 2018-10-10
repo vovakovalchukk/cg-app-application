@@ -48,7 +48,7 @@ let coreColumns = [
         width: 120,
         fixed: true,
         headerText: 'Available',
-        align: 'center'
+        align: 'right'
     }
 ];
 

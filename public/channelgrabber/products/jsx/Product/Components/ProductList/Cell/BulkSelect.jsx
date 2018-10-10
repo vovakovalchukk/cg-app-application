@@ -33,7 +33,6 @@ class BulkSelectCell extends React.Component {
             return false;
         }
         let isSelected = selected.indexOf(row.id) > -1;
-        console.log('isSelected: ', isSelected);
         return isSelected;
     };
 

@@ -162,7 +162,7 @@ module.exports = function(grunt) {
         watch: {
             babelReact: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
-                tasks: ['newer:babel:react']
+                tasks: ['newer:babel:react', 'webpack']
             },
             babelEs6: {
                 files: 'public/channelgrabber/**/es6/**/*.es6',

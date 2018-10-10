@@ -10,7 +10,6 @@ const Image = styled.img`
     background-color: #ebebeb;
     visibility: ${props=>props.imageLoaded ? 'visible' : 'hidden'};
 `;
-
 class ImageCell extends React.Component {
     static defaultProps = {};
 
