@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00d6e1fb37b25fa12a8e5d23118632ad",
+    "content-hash": "3827620b54267be1b63f428f39e38c38",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -938,16 +938,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-9784-geopost-handle-great-britain",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "b946338406b2bb5e9b185671e5fe1599b40a0da3"
+                "reference": "4663f56899238e0305ca5e8531c3991bf1825a4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-dev-CGIV-9784-geopost-handle-great-britain-eda71a.zip",
-                "reference": "b946338406b2bb5e9b185671e5fe1599b40a0da3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.4-fdb101.zip",
+                "reference": "4663f56899238e0305ca5e8531c3991bf1825a4f",
                 "shasum": null
             },
             "require": {
@@ -979,7 +979,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-10-03T10:39:31+00:00"
+            "time": "2018-10-10T10:22:50+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -9150,7 +9150,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10338,18 +10338,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.4",
-            "alias_normalized": "1.1.4.0",
-            "version": "dev-CGIV-9784-geopost-handle-great-britain",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
