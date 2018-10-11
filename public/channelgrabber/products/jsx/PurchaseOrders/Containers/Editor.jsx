@@ -48,6 +48,9 @@ class EditorContainer extends React.Component {
     };
 
     resetEditor = (afterResetCallback) => {
+        if (typeof afterResetCallback !== 'function') {
+            afterResetCallback = null;
+        }
         this.setState({
             purchaseOrderNumber: DEFAULT_PO_NUMBER,
             purchaseOrderStatus: DEFAULT_PO_STATUS,
