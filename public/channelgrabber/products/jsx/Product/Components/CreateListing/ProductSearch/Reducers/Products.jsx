@@ -1,14 +1,10 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     let initialState = {
         isFetching: false,
         products: {}
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "FETCH_SEARCH_RESULTS": function() {
             return {
                 isFetching: true,
@@ -31,4 +27,4 @@ define([
             };
         }
     });
-});
+

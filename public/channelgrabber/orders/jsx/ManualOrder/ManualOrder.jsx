@@ -1,18 +1,9 @@
-define([
-    'react',
-    'react-dom',
-    'ManualOrder/Components/Root',
-    'Common/Components/Notes/Root',
-    'Common/Components/Select',
-    'Common/Components/Popup'
-], function(
-    React,
-    ReactDOM,
-    RootComponent,
-    NoteComponent,
-    Select,
-    PopupComponent
-) {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import RootComponent from 'ManualOrder/Components/Root';
+import NoteComponent from 'Common/Components/Notes/Root';
+import Select from 'Common/Components/Select';
+import PopupComponent from 'Common/Components/Popup';
     var ManualOrder = function(mountingNodes, utilities, currentUser)
     {
         document.body.addEventListener('keydown', function (event) {
@@ -172,5 +163,4 @@ define([
         });
     };
 
-    return ManualOrder;
-});
+    export default ManualOrder;
