@@ -1,15 +1,11 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+    
 
     var initialState = {
         isVisible: false
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "ADD_NEW_CATEGORY_MAP": function() {
             return {
                 isVisible: false
@@ -26,4 +22,4 @@ define([
             };
         }
     });
-});
+

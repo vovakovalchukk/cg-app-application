@@ -1,32 +1,24 @@
-define([
-    'react',
-    'Common/Components/Select',
-    'Common/Components/MultiSelect',
-    'Common/Components/Input',
-    'Product/Components/CreateListing/Form/Ebay/CustomItemSpecific'
-], function(
-    React,
-    Select,
-    MultiSelect,
-    Input,
-    CustomItemSpecific
-) {
+import React from 'react';
+import Select from 'Common/Components/Select';
+import MultiSelect from 'Common/Components/MultiSelect';
+import Input from 'Common/Components/Input';
+import CustomItemSpecific from 'Product/Components/CreateListing/Form/Ebay/CustomItemSpecific';
     var addCustomItemSpecificName = "Add Custom Item Specific";
 
-    return React.createClass({
-        getInitialState: function() {
-            return {
-                optionalItemSpecifics: [],
-                optionalItemSpecificsSelectOptions: [],
-                selectedItemSpecifics: {},
-                customItemSpecifics: [],
-                itemSpecificsCounts: {}
-            }
-        },
-        componentWillReceiveProps: function (newProps) {
+    export default class extends React.Component {
+        state = {
+            optionalItemSpecifics: [],
+            optionalItemSpecificsSelectOptions: [],
+            selectedItemSpecifics: {},
+            customItemSpecifics: [],
+            itemSpecificsCounts: {}
+        };
+
+        componentWillReceiveProps(newProps) {
             this.removeInvalidSelectedItemSpecifics(newProps);
-        },
-        removeInvalidSelectedItemSpecifics: function(newProps) {
+        }
+
+        removeInvalidSelectedItemSpecifics = (newProps) => {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var changes = false;
             for (var title in this.state.selectedItemSpecifics) {
@@ -45,8 +37,9 @@ define([
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
-        },
-        buildItemSpecificsInputs: function() {
+        };
+
+        buildItemSpecificsInputs = () => {
             var itemSpecifics = [];
             var requiredItems = this.props.itemSpecifics.required;
             var optionalItems = this.props.itemSpecifics.optional;
@@ -86,8 +79,9 @@ define([
                 );
             }
             return <span>{itemSpecifics}</span>;
-        },
-        buildItemSpecificsInputByType: function(name, properties) {
+        };
+
+        buildItemSpecificsInputByType = (name, properties) => {
             if (properties.type == 'text') {
                 return this.buildTextItemSpecific(name, properties);
             }
@@ -97,8 +91,9 @@ define([
             if (properties.type == 'textselect') {
                 return this.buildTextSelectItemSpecific(name, properties);
             }
-        },
-        buildTextItemSpecific: function(name, options) {
+        };
+
+        buildTextItemSpecific = (name, options) => {
             var inputs = [];
             var counts = this.state.itemSpecificsCounts;
             var count = (counts[name]) ? counts[name] : 1;
@@ -124,8 +119,9 @@ define([
             }
 
             return <span>{inputs}</span>;
-        },
-        renderPlusButton: function (name) {
+        };
+
+        renderPlusButton = (name) => {
             return <span className="refresh-icon">
                 <i
                     className='fa fa-2x fa-plus-square icon-create-listing'
@@ -134,8 +130,9 @@ define([
                     data-name={name}
                 />
             </span>;
-        },
-        onPlusButtonClick: function (event) {
+        };
+
+        onPlusButtonClick = (event) => {
             var name = event.target.dataset.name;
             var counts = JSON.parse(JSON.stringify(this.state.itemSpecificsCounts));
 
@@ -143,8 +140,9 @@ define([
             this.setState({
                 itemSpecificsCounts: counts
             });
-        },
-        buildCustomItemSpecific: function (item) {
+        };
+
+        buildCustomItemSpecific = (item) => {
             return <CustomItemSpecific
                 index={item.index}
                 name={item.name}
@@ -152,8 +150,9 @@ define([
                 onRemoveButtonClick={this.onRemoveCustomSpecificButtonClick}
                 onChange={this.onCustomInputChange}
             />;
-        },
-        onCustomInputChange: function (index, type, value) {
+        };
+
+        onCustomInputChange = (index, type, value) => {
             var customItemSpecifics = this.state.customItemSpecifics.slice();
             var foundItem = customItemSpecifics.findIndex(function(customItemSpecific) {
                 return customItemSpecific.index == index;
@@ -177,16 +176,19 @@ define([
             this.setState({
                 customItemSpecifics: customItemSpecifics
             });
-        },
-        isLastCustomItemSpecific: function(index) {
+        };
+
+        isLastCustomItemSpecific = (index) => {
             return (index == this.getMaxCustomItemSpecificIndex());
-        },
-        getMaxCustomItemSpecificIndex: function() {
+        };
+
+        getMaxCustomItemSpecificIndex = () => {
             return this.state.customItemSpecifics.reduce(function (max, item) {
                 return max < item.index ? item.index : max;
             }, -1);
-        },
-        onRemoveCustomSpecificButtonClick: function (index) {
+        };
+
+        onRemoveCustomSpecificButtonClick = (index) => {
             var optionalItemSpecifics = this.state.optionalItemSpecifics.slice();
             if (this.state.customItemSpecifics.length === 1) {
                 var foundCustomItemSpecific = optionalItemSpecifics.findIndex(function(optionalItemSpecific) {
@@ -213,14 +215,16 @@ define([
                     optionalItemSpecifics: optionalItemSpecifics
                 });
             }
-        },
-        getItemSpecificTextInputValue: function(name) {
+        };
+
+        getItemSpecificTextInputValue = (name) => {
             if (this.props.itemSpecifics && this.props.itemSpecifics[name]) {
                 return this.props.itemSpecifics[name];
             }
             return null;
-        },
-        buildOptionalItemSpecificsSelectOptions: function(itemSpecifics) {
+        };
+
+        buildOptionalItemSpecificsSelectOptions = (itemSpecifics) => {
             var options = [];
             for (var name in itemSpecifics) {
                 options.push({
@@ -233,8 +237,9 @@ define([
                 "value": {type: 'custom'}
             });
             return options;
-        },
-        buildSelectItemSpecific: function(name, options) {
+        };
+
+        buildSelectItemSpecific = (name, options) => {
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
@@ -247,11 +252,13 @@ define([
                     />
                 </div>
             </label>
-        },
-        isMultiOption: function (options) {
+        };
+
+        isMultiOption = (options) => {
             return (options.maxValues && options.maxValues > 1);
-        },
-        getSelectOptionsForItemSpecific(selectName, options) {
+        };
+
+        getSelectOptionsForItemSpecific = (selectName, options) => {
             var selectOptions = [];
             for (var optionValue in options) {
                 selectOptions.push({
@@ -260,8 +267,9 @@ define([
                 });
             }
             return selectOptions;
-        },
-        buildTextSelectItemSpecific: function(name, options) {
+        };
+
+        buildTextSelectItemSpecific = (name, options) => {
             var SelectComponent = this.isMultiOption(options) ? MultiSelect : Select;
             return <label>
                 <span className={"inputbox-label"}>{name}</span>
@@ -275,8 +283,9 @@ define([
                     />
                 </div>
             </label>
-        },
-        onOptionalItemSpecificSelect: function (field) {
+        };
+
+        onOptionalItemSpecificSelect = (field) => {
             // Do no render the same field twice
             for (var index = 0; index < this.state.optionalItemSpecifics.length; index++) {
                 if (this.state.optionalItemSpecifics[index].name == field.name) {
@@ -293,20 +302,23 @@ define([
             this.setState({
                 optionalItemSpecifics: optionalItemSpecifics
             });
-        },
-        addCustomItemSpecific: function() {
+        };
+
+        addCustomItemSpecific = () => {
             var customItemSpecifics = this.state.customItemSpecifics.slice();
             customItemSpecifics.push(this.getNewCustomItemSpecific());
             this.setState({customItemSpecifics: customItemSpecifics});
-        },
-        getNewCustomItemSpecific: function() {
+        };
+
+        getNewCustomItemSpecific = () => {
             return {
                 index: this.getMaxCustomItemSpecificIndex() + 1,
                 name: '',
                 value: ''
             }
-        },
-        buildOptionalItemSpecificsInputs: function() {
+        };
+
+        buildOptionalItemSpecificsInputs = () => {
             var itemSpecifics = [];
             var field;
             var optionalItemSpecificsLength = this.state.optionalItemSpecifics.length;
@@ -330,8 +342,9 @@ define([
             }
 
             return <span>{itemSpecifics}</span>;
-        },
-        onItemSpecificSelected: function(fields, title) {
+        };
+
+        onItemSpecificSelected = (fields, title) => {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
             var values = [];
 
@@ -347,8 +360,9 @@ define([
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
-        },
-        onItemSpecificInputChange: function(index, event) {
+        };
+
+        onItemSpecificInputChange = (index, event) => {
             var selectedItemSpecifics = JSON.parse(JSON.stringify(this.state.selectedItemSpecifics));
 
             if (!selectedItemSpecifics[event.target.name]) {
@@ -361,12 +375,13 @@ define([
             this.setState({
                 selectedItemSpecifics: selectedItemSpecifics
             });
-        },
-        render: function () {
+        };
+
+        render() {
             return <span>
                 {this.buildItemSpecificsInputs()}
                 {this.buildOptionalItemSpecificsInputs()}
             </span>
         }
-    });
-});
+    }
+

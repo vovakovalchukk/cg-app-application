@@ -1,8 +1,4 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 
     var categoryHasChildren = function(category) {
@@ -56,7 +52,7 @@ define([
         });
     }
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "CATEGORY_CHILDREN_FETCHED": function (state, action) {
             var newState = Object.assign({}, state),
                 accountId = action.payload.accountId,
@@ -110,4 +106,4 @@ define([
             return categories;
         }
     });
-});
+

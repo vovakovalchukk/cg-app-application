@@ -1,15 +1,6 @@
-define([
-    'redux-form',
-    'CategoryMapper/Actions/ApiHelper',
-    'CategoryMapper/Actions/ResponseActions'
-], function(
-    ReduxForm,
-    ApiHelper,
-    Actions
-) {
-    "use strict";
-
-    var SubmissionError = ReduxForm.SubmissionError;
+import {SubmissionError, reset as reduxFormReset} from 'redux-form';
+import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
+import Actions from 'CategoryMapper/Actions/ResponseActions';
 
     var service = {
         validateName: function(name) {
@@ -144,7 +135,7 @@ define([
         },
     };
 
-    return function(values, dispatch, state) {
+    export default function(values, dispatch, state) {
         var mapId = state.mapId;
         service.validateForm(mapId, values, state);
 
@@ -154,7 +145,7 @@ define([
             if (mapId == 0) {
                 n.success('The new category map <b>' + values.name + '</b> has been saved successfully');
                 dispatch(Actions.addCategoryMap(response.id, response.etag, values));
-                dispatch(ReduxForm.reset(state.form));
+                dispatch(reduxFormReset(state.form));
                 return;
             }
 
@@ -162,4 +153,4 @@ define([
             dispatch(Actions.updateCategoryMap(mapId, response.etag, values));
         });
     }
-});
+
