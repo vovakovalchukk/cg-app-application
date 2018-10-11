@@ -8,8 +8,12 @@ const StyledStockModeInputs = styled(StockModeInputs)`
         display:flex;
         justify-content:center;
         align-items:center;
-    `;
-
+        .selected{
+            .custom-select{
+                padding:0px;
+            }
+        }
+`;
 const ButtonsContainer = styled.div`
         position:absolute;
         top:40px;

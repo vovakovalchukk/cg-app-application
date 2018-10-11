@@ -6,6 +6,7 @@ import ProductFooter from 'Product/Components/ProductList/Components/Footer/Cont
 import columnCreator from 'Product/Components/ProductList/Column/factory';
 import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
+
 "use strict";
 
 const {Table} = FixedDataTable;
@@ -18,7 +19,7 @@ class ProductList extends React.Component {
         actions: {},
         tabs: {}
     };
-
+    
     state = {
         pagination: {
             total: 0,
@@ -35,29 +36,6 @@ class ProductList extends React.Component {
         },
         fetchingUpdatedStockLevelsForSkus: {}
     };
-
-    componentDidMount() {
-        this.updateDimensions();
-        window.addEventListener("resize", this.updateDimensions);
-        document.addEventListener("fullscreenchange", this.updateDimensions);
-        window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
-        window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
-        document.removeEventListener("fullscreenchange", this.updateDimensions);
-        window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
-        window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
-    }
-
-    componentDidUpdate() {
-        var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
-        if (horizontalScrollbar) {
-            horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
-        }
-    }
-
     updateDimensions = () => {
         this.setState({
             productsListContainer: {
@@ -66,16 +44,13 @@ class ProductList extends React.Component {
             }
         })
     };
-
     updateHorizontalScrollIndex = () => {
         this.props.actions.resetHorizontalScrollbarIndex();
     };
-
     onProductLinkRefresh = (event) => {
         let sku = event.detail;
         this.props.actions.getLinkedProducts([sku]);
     };
-
     onEditProductLink = (event) => {
         let {sku, productLinks} = event.detail;
         this.setState({
@@ -85,7 +60,6 @@ class ProductList extends React.Component {
             }
         });
     };
-
     renderAdditionalNavbarButtons = () => {
         return (
             <div className=" navbar-strip--push-up-fix ">
@@ -102,7 +76,6 @@ class ProductList extends React.Component {
             </div>
         );
     };
-
     onProductLinksEditorClose = () => {
         this.setState({
             editingProductLink: {
@@ -111,40 +84,35 @@ class ProductList extends React.Component {
             }
         });
     };
-
     getVisibleRows = () => {
         return this.props.products.visibleRows;
     };
-
     isTabSpecificColumn = (column) => {
         return !!column.tab;
     };
-
     isColumnSpecificToCurrentTab = (column) => {
         return column.tab === this.props.tabs.currentTab
     };
-
     renderColumns = () => {
         let columnSettings = this.props.columns.columnSettings;
-        
+        let distanceFromLeft = 0;
         let createdColumns = columnSettings.map((column) => {
+            column.distanceFromLeft = distanceFromLeft;
             if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                 return;
             }
             let CreatedColumn = columnCreator(column, this.props);
+            distanceFromLeft += column.width;
             return CreatedColumn
         });
         return createdColumns;
     };
-
     isReadyToRenderTable = () => {
         return this.state.productsListContainer && this.state.productsListContainer.height;
     };
-
     hasProducts = () => {
         return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
     };
-
     renderProducts = () => {
         let rows = this.getVisibleRows();
         
@@ -181,7 +149,29 @@ class ProductList extends React.Component {
             </Table>
         )
     };
-
+    
+    componentDidMount() {
+        this.updateDimensions();
+        window.addEventListener("resize", this.updateDimensions);
+        document.addEventListener("fullscreenchange", this.updateDimensions);
+        window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
+        window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+        document.removeEventListener("fullscreenchange", this.updateDimensions);
+        window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
+        window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+    }
+    
+    componentDidUpdate() {
+        var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
+        if (horizontalScrollbar) {
+            horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
+        }
+    }
+    
     render() {
         return (
             <div id='products-app'>
