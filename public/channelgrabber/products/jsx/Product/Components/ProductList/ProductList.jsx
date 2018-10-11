@@ -113,6 +113,9 @@ class ProductList extends React.Component {
     hasProducts = () => {
         return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
     };
+    rowClassNameGetter = (index) => {
+        return 'js-rowssdfsdf-' + index;
+    };
     renderProducts = () => {
         let rows = this.getVisibleRows();
         
@@ -144,6 +147,7 @@ class ProductList extends React.Component {
                 showScrollbarY={true}
                 scrollToColumn={this.props.tabs.currentColumnScrollIndex}
                 scrollToRow={this.props.list.currentRowScrollIndex}
+                rowClassNameGetter={this.rowClassNameGetter}
             >
                 {this.renderColumns()}
             </Table>
