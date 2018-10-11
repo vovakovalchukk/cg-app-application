@@ -714,12 +714,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "428ff157764bf9971163de71bc924e05c1e248f4"
+                "reference": "1a49aa4da27bb31b0708ae4a347f7e38c7678553"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9968-channel-jobs-to-channel-gearman-instances-85800d.zip",
-                "reference": "428ff157764bf9971163de71bc924e05c1e248f4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9968-channel-jobs-to-channel-gearman-instances-e56103.zip",
+                "reference": "1a49aa4da27bb31b0708ae4a347f7e38c7678553",
                 "shasum": null
             },
             "require": {
@@ -789,7 +789,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-10-10T10:44:22+00:00"
+            "time": "2018-10-11T10:31:14+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -5273,7 +5273,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-f8527ee6580c8f154362dcedfe5e63f4969203bf-zip-a1780b.zip",
+                "url": "https://api.github.com/repos/contextio/PHP-ContextIO/zipball/f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "reference": "f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "shasum": ""
             },
@@ -5784,7 +5784,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/iio-libmergepdf-2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc-zip-9552fd.zip",
+                "url": "https://api.github.com/repos/hanneskod/libmergepdf/zipball/2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "reference": "2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "shasum": ""
             },
@@ -6196,7 +6196,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -6409,7 +6409,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/nelexa-zip-251ce11bdc4754962f29cd2d31014549377ea617-zip-ac5be2.zip",
+                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/251ce11bdc4754962f29cd2d31014549377ea617",
                 "reference": "251ce11bdc4754962f29cd2d31014549377ea617",
                 "shasum": ""
             },
@@ -7208,7 +7208,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/react-event-loop-13e03b17e54ea864c6653a2cf6d146dad8464e91-zip-eb345b.zip",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "reference": "13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "shasum": ""
             },
@@ -7296,7 +7296,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/realityking-hash_equals-c94c380358f0649d4efe09c59fa94d16a65607bf-zip-1306d9.zip",
+                "url": "https://api.github.com/repos/realityking/hash_equals/zipball/c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "reference": "c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "shasum": ""
             },
@@ -7521,7 +7521,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdf-2c68c9e6c034ac3187d25968790139a73184cdb1-zip-a22a64.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "shasum": ""
             },
@@ -7560,7 +7560,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-879dd95cd6b258ba5b062624723ef16c954f2b17-zip-01d960.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "shasum": ""
             },
@@ -7619,7 +7619,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-fpdf-39d8fe065ef27816e78ceebf87719bebe6abdd73-zip-1b4a74.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "reference": "39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "shasum": ""
             },
