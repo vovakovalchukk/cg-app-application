@@ -1747,9 +1747,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-227-upgrade-react":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.14":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#18e12a8a0458642630bba73d134d289b9ec3fde6"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#4b66fc3761e82b6c842f194e5f3aecb7035ff7c0"
   dependencies:
     react "^16.5.2"
     react-dom "^16.5.2"
