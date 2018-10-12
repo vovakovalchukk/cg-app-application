@@ -1,11 +1,7 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "CATEGORY_ROOTS_FETCHED": function(state, action) {
             var newState = Object.assign({}, state),
                 accountCategories = action.payload.accountCategories;
@@ -42,4 +38,4 @@ define([
             });
         }
     });
-});
+

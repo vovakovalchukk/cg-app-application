@@ -1,10 +1,6 @@
-define([
-    'redux-form'
-], function(
-    ReduxForm
-) {
-    "use strict";
-    var submitForm = ReduxForm.submit('createProductForm');
+import {submit as reduxFormSubmit} from 'redux-form';
+
+var submitForm = reduxFormSubmit('createProductForm');
 
     var actionCreators = {
         initialAccountDataLoaded: function(taxRates, stockModeOptions) {
@@ -50,7 +46,7 @@ define([
         }
     };
 
-    return actionCreators;
+    export default actionCreators;
 
     function isFormValid(values) {
         if (!values.variations || !values.title) {
@@ -201,4 +197,4 @@ define([
             }
         })
     }
-});
+

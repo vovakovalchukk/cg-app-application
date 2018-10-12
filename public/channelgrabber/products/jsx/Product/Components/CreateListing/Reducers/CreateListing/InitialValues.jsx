@@ -1,8 +1,4 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 
     var getDetailForProduct = function(detailName, productDetails, variationData) {
@@ -84,7 +80,7 @@ define([
         return identifiers;
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
                 variationData = action.payload.variationData,
@@ -132,4 +128,4 @@ define([
             };
         }
     });
-});
+

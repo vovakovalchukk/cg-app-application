@@ -1,15 +1,10 @@
-define([
-    'Common/Reducers/creator',
-    'CategoryMapper/Reducers/Helper'
-], function(
-    reducerCreator,
-    Helper
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+import Helper from 'CategoryMapper/Reducers/Helper';
+    
 
     var initialState = {};
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "CATEGORY_MAPS_FETCHED": function (state, action) {
             var categoryMaps = action.payload.categoryMaps,
                 newCategoryMaps = {},
@@ -46,4 +41,4 @@ define([
             return newState;
         }
     });
-});
+
