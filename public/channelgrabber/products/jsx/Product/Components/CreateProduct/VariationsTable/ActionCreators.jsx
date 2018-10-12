@@ -1,11 +1,6 @@
-define([
-        'redux-form',
-        'Product/Components/CreateProduct/functions/stateFilters'
-    ], function(
-    ReduxForm,
-    stateFilters
-    ) {
-        "use strict";
+import {change as reduxFormChange} from 'redux-form';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+        
 
         var uniqueKey = 1;
 
@@ -65,7 +60,7 @@ define([
             }
         };
 
-        return ActionCreators;
+        export default ActionCreators;
 
         function setDimensionFieldsFromFirstRow(dispatch, state, newVariationId) {
             if (!state.form.createProductForm.values || !state.form.createProductForm.values.variations) {
@@ -75,7 +70,7 @@ define([
             var firstRowDimensionOnlyValues = stateFilters.getDimensionOnlyFieldsFromVariationRow(firstRowVariationValues, state.variationsTable.fields);
             for (var variationProperty in firstRowDimensionOnlyValues) {
                 dispatch(
-                    ReduxForm.change(
+                    reduxFormChange(
                         'createProductForm',
                         'variations.variation-' + newVariationId.toString() + "." + variationProperty,
                         firstRowDimensionOnlyValues[variationProperty]
@@ -85,7 +80,7 @@ define([
         }
         function setDefaultStockModeValues(dispatch, variationId) {
             dispatch(
-                ReduxForm.change(
+                reduxFormChange(
                     'createProductForm',
                     'variations.variation-' + variationId.toString() + "." + 'stockModeType',
                     'all'
@@ -99,5 +94,4 @@ define([
         function generateUniqueKey() {
             return uniqueKey++;
         }
-    }
-);
+    

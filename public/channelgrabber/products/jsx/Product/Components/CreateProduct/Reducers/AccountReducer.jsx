@@ -1,9 +1,5 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+    
     var initialState = {
         taxRates: {}
     };
@@ -16,5 +12,4 @@ define([
         }
     });
 
-    return AccountReducer;
-});
+    export default AccountReducer;

@@ -1,11 +1,6 @@
-define([
-    'CategoryMapper/Actions/ApiHelper',
-    'CategoryMapper/Actions/ResponseActions'
-], function(
-    ApiHelper,
-    ResponseActions
-) {
-    return {
+import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
+import ResponseActions from 'CategoryMapper/Actions/ResponseActions';
+    export default {
         categorySelected: function (dispatch, categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories) {
 
             $.get(
@@ -102,4 +97,4 @@ define([
             };
         }
     };
-});
+

@@ -1,21 +1,12 @@
-define([
-    'react',
-    'Common/Components/EditableFieldWithSubmit',
-    'Common/Components/Button',
-    'Common/Components/ProductDropdown/Dropdown',
-    'Common/Components/ItemRow'
-], function(
-    React,
-    EditableFieldWithSubmit,
-    Button,
-    ProductDropdown,
-    ItemRow
-) {
-    "use strict";
+import React from 'react';
+import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
+import Button from 'Common/Components/Button';
+import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
+import ItemRow from 'Common/Components/ItemRow';
+    
 
-    return React.createClass({
-        render: function()
-        {
+    export default class extends React.Component {
+        render() {
             return (
                 <div className="purchase-orders-editor">
                     <div className="editor-row">
@@ -43,5 +34,4 @@ define([
                 </div>
             );
         }
-    });
-});
+    }
