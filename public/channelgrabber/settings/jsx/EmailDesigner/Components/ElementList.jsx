@@ -1,13 +1,7 @@
-define([
-    'react',
-    'Common/IdGenerator',
-    'EmailDesigner/Components/Elements/Text'
-], function(
-    React,
-    IdGenerator,
-    Text
-) {
-    "use strict";
+import React from 'react';
+import IdGenerator from 'Common/IdGenerator';
+import Text from 'EmailDesigner/Components/Elements/Text';
+    
 
     var ElementList = function() {
         this.elements = {
@@ -55,5 +49,4 @@ define([
         return this.defaults[elementType]();
     };
 
-    return new ElementList;
-});
+    export default new ElementList;

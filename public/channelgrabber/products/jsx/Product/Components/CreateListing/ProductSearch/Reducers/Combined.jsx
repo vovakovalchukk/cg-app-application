@@ -1,18 +1,12 @@
-define([
-    'redux',
-    'redux-form',
-    './Products'
-], function(
-    Redux,
-    ReduxForm,
-    ProductsSearchReducer
-) {
-    "use strict";
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
+import ProductsSearchReducer from './Products';
+    
 
-    const CombinedReducer = Redux.combineReducers({
-        form: ReduxForm.reducer,
+    const CombinedReducer = combineReducers({
+        form: reduxFormReducer,
         products: ProductsSearchReducer
     });
 
-    return CombinedReducer;
-});
+    export default CombinedReducer;
+

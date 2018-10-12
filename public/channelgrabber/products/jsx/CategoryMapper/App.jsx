@@ -1,19 +1,10 @@
-define([
-    'react',
-    'react-dom',
-    'redux',
-    'react-redux',
-    'CategoryMapper/Components/Root',
-    'CategoryMapper/Reducers/Combined'
-], function(
-    React,
-    ReactDOM,
-    Redux,
-    ReactRedux,
-    RootContainer,
-    CombinedReducer
-) {
-    "use strict"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import RootContainer from 'CategoryMapper/Components/Root';
+import CombinedReducer from 'CategoryMapper/Reducers/Combined';
+    
 
     var extractAccountsFromRawData = function (data) {
         var accounts = {},
@@ -35,8 +26,7 @@ define([
     }
 
     var App = function(mountingNode, data) {
-        var Provider = ReactRedux.Provider;
-        var store = Redux.createStore(
+        var store = createStore(
             CombinedReducer,
             {
                 accounts: extractAccountsFromRawData(data),
@@ -51,5 +41,5 @@ define([
         );
     };
 
-    return App;
-});
+    export default App;
+
