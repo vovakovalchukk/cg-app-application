@@ -1,9 +1,5 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+    
 
     var initialState = {
         guid: null,
@@ -12,7 +8,7 @@ define([
         processGuid: null
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "LISTING_FORM_SUBMITTED_SUCCESSFUL": function(state, action) {
             return Object.assign({}, state, {
                 guid: action.payload.guid,
@@ -61,4 +57,4 @@ define([
             return initialState;
         }
     });
-});
+

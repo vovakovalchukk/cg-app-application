@@ -1,13 +1,8 @@
-define([
-    'CategoryMapper/Actions/ApiHelper',
-    'Product/Components/CreateListing/Actions/ResponseActions'
-], function(
-    ApiHelper,
-    ResponseActions
-) {
-    "use strict";
+import ApiHelper from 'CategoryMapper/Actions/ApiHelper';
+import ResponseActions from 'Product/Components/CreateListing/Actions/ResponseActions';
+    
 
-    return {
+    export default {
         fetchCategoryRoots: function(dispatch) {
             $.get(
                 ApiHelper.buildFetchCategoryRootsUrl(),
@@ -72,4 +67,4 @@ define([
             };
         }
     };
-});
+

@@ -1,7 +1,7 @@
-define([], function() {
-    "use strict";
 
-    return {
+    
+
+    export default {
         categoryRootsFetched: function(response) {
             return {
                 type: "CATEGORY_ROOTS_FETCHED",
@@ -32,4 +32,4 @@ define([], function() {
             };
         }
     };
-});
+

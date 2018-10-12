@@ -1,11 +1,7 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "CATEGORY_MAP_SELECTED": function(state, action) {
             var newState = Object.assign({}, state);
 
@@ -58,4 +54,4 @@ define([
             return newState;
         },
     });
-});
+

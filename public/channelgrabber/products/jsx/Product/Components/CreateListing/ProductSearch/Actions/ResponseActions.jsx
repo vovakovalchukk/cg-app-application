@@ -1,7 +1,7 @@
-define([], function() {
-    "use strict";
 
-    return {
+    
+
+    export default {
         searchResultsFetched: function (response) {
             const products = response.products ? response.products : {};
             return {
@@ -12,4 +12,4 @@ define([], function() {
             };
         }
     };
-});
+

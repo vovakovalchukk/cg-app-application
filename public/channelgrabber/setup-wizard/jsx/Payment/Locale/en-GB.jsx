@@ -1,4 +1,5 @@
-define(['react', 'SetupWizard/Component/Payment/PackageInfo/UK'], function(React, PackageInfo) {
+import React from 'react';
+import PackageInfo from 'SetupWizard/Component/Payment/PackageInfo/UK';
     function Locale()
     {
 
@@ -20,5 +21,4 @@ define(['react', 'SetupWizard/Component/Payment/PackageInfo/UK'], function(React
         );
     };
 
-    return Locale;
-});
+    export default Locale;
