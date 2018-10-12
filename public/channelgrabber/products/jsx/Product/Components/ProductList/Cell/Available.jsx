@@ -1,6 +1,7 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility.jsx';
 import Input from 'Common/Components/SafeInput';
+import constants from 'Product/Components/ProductList/Config/constants';
 
 class AvailableCell extends React.Component {
     render() {
@@ -17,7 +18,6 @@ class AvailableCell extends React.Component {
             this.props.columnKey,
             this.props.rowIndex
         );
-        // console.log('in available this.props: ', this.props);
         
         return (
             <span className={this.props.className + " available-cell"}>
@@ -50,7 +50,7 @@ class AvailableCell extends React.Component {
     };
     
     getAllVisibleNonHeaderRows() {
-        let rows = document.getElementsByClassName('fixedDataTableRowLayout_rowWrapper');
+        let rows = document.getElementsByClassName(constants.ROW_CLASS_PREFIX);
         let nonHeaderRows = [];
         for (var i = 0; i < rows.length; i++) {
             if (i === 0 || i===rows.length-1) {
@@ -62,18 +62,38 @@ class AvailableCell extends React.Component {
     };
     
     getDomNodeForAddingSubmitsTo() {
-        let rows = this.getAllVisibleNonHeaderRows();
-        
-        //todo remove this debug
-        const {products, rowIndex} = this.props;
-        let rowData = stateUtility.getRowData(products, rowIndex);
-        if(rowData.sku==='5055614000002'){
-            console.log('targetting rowIndex this.props.rowIndex: ', this.props.rowIndex+1);
+        if(this.isLastVisibleRow()){
+            return;
         }
+        let targetClass = this.getClassOfNextRow();
+        let targetRow = document.querySelector(targetClass);
+        console.log('in this.props.rowIndex: ', this.props.rowIndex);
+        
+        let targetNode = targetRow.parentNode;
+        return targetNode;
+    };
+    
+    isLastVisibleRow() {
+        let allVisibleNonHeaderRows = this.getAllVisibleNonHeaderRows();
+        let lastVisibleRow = allVisibleNonHeaderRows[allVisibleNonHeaderRows.length-1];
+        let lastVisibleRowClasses = lastVisibleRow.className;
+        let classArray = lastVisibleRowClasses.split(' ');
+        
+        let rowClass = classArray.find(classStr => classStr.indexOf('js-row-')>-1);
+        let rowClassSplitByHyphens = rowClass.split('-');
+        let lastRowIndex = rowClassSplitByHyphens[rowClassSplitByHyphens.length-1];
         
         
-        let targetDomNodeForSubmits = rows[this.props.rowIndex + 1];
-        return targetDomNodeForSubmits;
+        
+        console.log('rowClass: ', rowClass);
+        
+        
+        
+        return this.props.rowIndex === lastRowIndex;
+    }
+    
+    getClassOfNextRow() {
+        return '.' + constants.ROW_CLASS_PREFIX +'-'+ (this.props.rowIndex + 1);
     };
     
     getWrapperForSubmits() {

@@ -136,7 +136,6 @@ function generateListingsColumnsFromAccounts(accounts) {
             align: 'center'
         }
     });
-    
     let miscListingColumns = [
         {
             key: 'addListing',

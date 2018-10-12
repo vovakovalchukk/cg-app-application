@@ -6,6 +6,7 @@ import ProductFooter from 'Product/Components/ProductList/Components/Footer/Cont
 import columnCreator from 'Product/Components/ProductList/Column/factory';
 import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
+import constants from 'Product/Components/ProductList/Config/constants';
 
 "use strict";
 
@@ -114,7 +115,7 @@ class ProductList extends React.Component {
         return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
     };
     rowClassNameGetter = (index) => {
-        return 'js-rowssdfsdf-' + index;
+        return constants.ROW_CLASS_PREFIX+'-'+index + ' ' + constants.ROW_CLASS_PREFIX;
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();
