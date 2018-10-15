@@ -1,18 +1,11 @@
-define([
-    'redux',
-    'redux-form',
-    'Common/Components/ImageUploader/ImageUploaderReducer',
-    'Product/Components/CreateProduct/Reducers/AccountReducer',
-    'Product/Components/CreateProduct/Reducers/VariationsReducer'
-], function(
-    Redux,
-    ReduxForm,
-    imageUploaderReducer,
-    AccountReducer,
-    VariationsTableReducer
-) {
-    var AppReducer = Redux.combineReducers({
-        form: ReduxForm.reducer,
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
+import imageUploaderReducer from 'Common/Components/ImageUploader/ImageUploaderReducer';
+import AccountReducer from 'Product/Components/CreateProduct/Reducers/AccountReducer';
+import VariationsTableReducer from 'Product/Components/CreateProduct/Reducers/VariationsReducer';
+
+    var AppReducer = combineReducers({
+        form: reduxFormReducer,
         account: AccountReducer,
         variationsTable: VariationsTableReducer,
         uploadedImages: imageUploaderReducer
@@ -26,5 +19,4 @@ define([
         return AppReducer(state, action)
     };
 
-    return CombinedReducer;
-});
+    export default CombinedReducer;

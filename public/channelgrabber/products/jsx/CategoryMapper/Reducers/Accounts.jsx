@@ -1,13 +1,9 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+    
 
     var initialState = {};
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "REFRESH_CATEGORIES": function(state, action) {
             var newState = Object.assign({}, state),
                 account = newState[action.payload.accountId];
@@ -31,4 +27,4 @@ define([
             return newState;
         },
     });
-});
+

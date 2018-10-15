@@ -7,6 +7,8 @@ class Address
 {
     /** @var  string */
     protected $name;
+    /** @var string */
+    protected $company;
     /** @var  string */
     protected $phone;
     /** @var  string */
@@ -33,7 +35,8 @@ class Address
         string $postalCode,
         string $countryCode,
         string $addressLine2 = '',
-        string $email = ''
+        string $email = '',
+        string $company = ''
     ) {
         $this->name = $name;
         $this->phone = $phone;
@@ -44,12 +47,13 @@ class Address
         $this->countryCode = $countryCode;
         $this->addressLine2 = $addressLine2;
         $this->email = $email;
+        $this->company = $company;
     }
 
     public static function fromArray(array $array): Address
     {
         return new static(
-            $array['company'],
+            $array['name'] ?? '',
             $array['phone'],
             $array['address1'],
             $array['city'],
@@ -57,14 +61,15 @@ class Address
             $array['postal_code'] ?? $array['postal code'],
             $array['country_code'] ?? $array['country code'],
             $array['address2'],
-            $array['email']
+            $array['email'],
+            $array['company'] ?? $array['company_name'] ?? $array['company name'] ?? ''
         );
     }
 
     public static function fromOrganisationUnit(OrganisationUnit $ou): Address
     {
         return static::fromArray([
-            'company' => $ou->getAddressFullName(),
+            'name' => $ou->getAddressFullName(),
             'phone' => $ou->getPhoneNumber(),
             'address1' => $ou->getAddress1(),
             'city' => $ou->getAddressCity(),
@@ -73,6 +78,7 @@ class Address
             'country_code' => $ou->getAddressCountryCode(),
             'address2' => $ou->getAddress2(),
             'email' => $ou->getEmailAddress(),
+            'company' => $ou->getAddressCompanyName(),
         ]);
     }
 
@@ -88,6 +94,7 @@ class Address
             'postal_code' => $this->getPostalCode(),
             'country_code' => $this->getCountryCode(),
             'email' => $this->getEmail(),
+            'company' => $this->getCompany(),
         ];
     }
 
@@ -99,6 +106,17 @@ class Address
     public function setName(string $name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): Address
+    {
+        $this->company = $company;
         return $this;
     }
 

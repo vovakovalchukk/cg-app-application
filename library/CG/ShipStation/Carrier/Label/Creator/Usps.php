@@ -6,6 +6,7 @@ use CG\Billing\Shipping\Charge\Entity as ShippingCharge;
 use CG\Billing\Shipping\Ledger\Entity as ShippingLedger;
 use CG\Billing\Shipping\Ledger\Exception\InsufficientBalanceException;
 use CG\Billing\Shipping\Ledger\Service as ShippingLedgerService;
+use CG\Order\Client\Gearman\Proxy\OrderLabelPdfToPng as OrderLabelPdfToPngProxy;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData as OrderData;
@@ -50,6 +51,7 @@ class Usps extends Other
         OrderTrackingService $orderTrackingService,
         ShipmentsRequestMapper $shipmentsRequestMapper,
         ShippingServiceFactory $shippingServiceFactory,
+        OrderLabelPdfToPngProxy $orderLabelPdfToPng,
         ShippingLedgerService $shippingLedgerService,
         ShipmentIdStorage $shipmentIdStorage
     ) {
@@ -60,7 +62,8 @@ class Usps extends Other
             $orderTrackingMapper,
             $orderTrackingService,
             $shipmentsRequestMapper,
-            $shippingServiceFactory
+            $shippingServiceFactory,
+            $orderLabelPdfToPng
         );
         $this->shippingLedgerService = $shippingLedgerService;
         $this->shipmentIdStorage = $shipmentIdStorage;

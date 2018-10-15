@@ -1,3 +1,5 @@
+const webpackConfig = require('./webpack.config.js');
+
 module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
@@ -150,6 +152,13 @@ module.exports = function(grunt) {
                 command: "rm .sync; touch .sync"
             }
         },
+        webpack: {
+            options: {
+                stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+            },
+            prod: webpackConfig,
+            dev: webpackConfig
+        },
         watch: {
             babelReact: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
@@ -183,17 +192,16 @@ module.exports = function(grunt) {
     });
     require('./grunt-dynamic.js')(grunt);
 
+    grunt.loadNpmTasks('grunt-webpack');
+
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('syncWatch', ['browserSync', 'watch']);
 
     grunt.registerTask('copyVanillaJs', ['copy:vanillaJsToGeneratedJs']);
-    grunt.registerTask('compileJsx', ['babel:react']);
-
-    grunt.registerTask('compileEs6', ['babel:es6']);
 
     grunt.registerTask('install:css', ['compileCss-gen']);
-    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'compileJsx', 'compileEs6', 'copyVanillaJs', 'requirejs:compile']);
+    grunt.registerTask('install:js', ['symLinkVendorJs-gen', 'copyVanillaJs', 'requirejs:compile']);
     grunt.registerTask('install:vendor', ['copy:vendorCssToCgBuilt', 'copy:vendorJsToCgBuilt']);
 
-    grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor']);
+    grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor', 'webpack']);
 };

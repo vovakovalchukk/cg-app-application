@@ -12,7 +12,7 @@ use CG\Stdlib\DateTime;
 
 class Shipment
 {
-    /** @var AddressValidation */
+    /** @var AddressValidation|null */
     protected $addressValidation;
     /** @var string */
     protected $shipmentId;
@@ -54,7 +54,7 @@ class Shipment
     protected $errors;
 
     public function __construct(
-        AddressValidation $addressValidation,
+        ?AddressValidation $addressValidation,
         string $shipmentId,
         Carrier $carrier,
         string $serviceCode,
@@ -99,7 +99,7 @@ class Shipment
 
     public static function build($decodedJson): Shipment
     {
-        $addressValidation = AddressValidation::build($decodedJson->address_validation);
+        $addressValidation = ($decodedJson->address_validation ? AddressValidation::build($decodedJson->address_validation) : null);
         $shipDate = new DateTime($decodedJson->ship_date);
         $createdAt = new DateTime($decodedJson->created_at);
         $modifiedAt = new DateTime($decodedJson->modified_at);
@@ -147,7 +147,7 @@ class Shipment
         return $externalIdParts[0];
     }
 
-    public function getAddressValidation(): AddressValidation
+    public function getAddressValidation(): ?AddressValidation
     {
         return $this->addressValidation;
     }
