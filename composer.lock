@@ -3509,13 +3509,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "8b00d0b0c78dc4fe459a04a81a2363afb2640a5e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-3eb2cb.zip",
-                "reference": "8b00d0b0c78dc4fe459a04a81a2363afb2640a5e",
-                "shasum": null
+                "reference": "498fe4b1aa9a8e859ea6bf9c4ba009c8efb9d4be"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -10378,8 +10372,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/user": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
