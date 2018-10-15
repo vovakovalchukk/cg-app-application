@@ -1,62 +1,44 @@
-define([
-    'react',
-    'redux',
-    'react-dom',
-    'react-redux',
-    'redux-form',
-    'redux-thunk',
-    'Common/Components/Container',
-    'Product/Components/CreateListing/Reducers/CreateListing/Combined',
-    'Product/Components/CreateListing/CreateListingPopup'
-], function(
-    React,
-    Redux,
-    ReactDom,
-    ReactRedux,
-    ReduxForm,
-    thunk,
-    Container,
+import React from 'react';
+import {applyMiddleware, createStore} from 'redux';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import CombinedReducer from 'Product/Components/CreateListing/Reducers/CreateListing/Combined';
+import CreateListingPopup from 'Product/Components/CreateListing/CreateListingPopup';
+
+var enhancer = applyMiddleware(thunk);
+if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+    enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        latency: 0
+    })(applyMiddleware(thunk));
+}
+var store = createStore(
     CombinedReducer,
-    CreateListingPopup
-) {
-    "use strict";
-    var Provider = ReactRedux.Provider;
+    enhancer
+);
 
-    var enhancer = Redux.applyMiddleware(thunk.default);
-    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-        enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            latency: 0
-        })(Redux.applyMiddleware(thunk.default));
+class CreateListingRoot extends React.Component {
+    static defaultProps = {
+        product: {},
+        accounts: [],
+        categories: [],
+        conditionOptions: [],
+        variationsDataForProduct: {},
+        accountsData: {},
+        defaultCurrency: null,
+        massUnit: null,
+        lengthUnit: null
+    };
+
+    render() {
+        return (
+            <Provider store={store}>
+                <CreateListingPopup
+                    {...this.props}
+                />
+            </Provider>
+        );
     }
-    var store = Redux.createStore(
-        CombinedReducer,
-        enhancer
-    );
+}
 
-    var CreateListingRoot = React.createClass({
-        getDefaultProps: function() {
-            return {
-                product: {},
-                accounts: [],
-                categories: [],
-                conditionOptions: [],
-                variationsDataForProduct: {},
-                accountsData: {},
-                defaultCurrency: null,
-                massUnit: null,
-                lengthUnit: null
-            }
-        },
-        render: function() {
-            return (
-                <Provider store={store}>
-                    <CreateListingPopup
-                        {...this.props}
-                    />
-                </Provider>
-            );
-        }
-    });
+export default CreateListingRoot;
 
-    return CreateListingRoot;
-});

@@ -1,12 +1,6 @@
-define([
-    'react',
-    'react-dom',
-    'PurchaseOrders/Containers/Root'
-], function(
-    React,
-    ReactDOM,
-    RootContainer
-) {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import RootContainer from 'PurchaseOrders/Containers/Root';
     var PurchaseOrders = function(mountingNode, utilities)
     {
 
@@ -19,5 +13,4 @@ define([
         );
     };
 
-    return PurchaseOrders;
-});
+    export default PurchaseOrders;
