@@ -3509,7 +3509,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "498fe4b1aa9a8e859ea6bf9c4ba009c8efb9d4be"
+                "reference": "f5cea1cace8dc79eee3695e7b8792267189d2f8e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-e1b5ed.zip",
+                "reference": "f5cea1cace8dc79eee3695e7b8792267189d2f8e",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3549,7 +3555,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-10-10T15:53:32+00:00"
+            "time": "2018-10-15T10:34:03+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -10372,8 +10378,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/user": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
