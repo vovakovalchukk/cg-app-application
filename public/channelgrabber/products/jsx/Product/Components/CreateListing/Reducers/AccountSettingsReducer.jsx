@@ -1,13 +1,7 @@
-define([
-    'redux-form',
-    'Common/Reducers/creator'
-], function(
-    ReduxForm,
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "ACCOUNT_SETTINGS_FETCHED": function(state, action) {
             return Object.assign({}, state, {
                 [action.payload.accountId]: {
@@ -23,4 +17,4 @@ define([
             });
         }
     });
-});
+

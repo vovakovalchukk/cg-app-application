@@ -69,7 +69,7 @@ class Service
         return $packageTypes->getBy('locality', 'International');
     }
 
-    public function getPackageTypesForService(string $service, Collection $packageTypes = null): Collection
+    public function getPackageTypesForService(?string $service, Collection $packageTypes = null): Collection
     {
         if ($packageTypes === null) {
             $packageTypes = $this->packageTypes;

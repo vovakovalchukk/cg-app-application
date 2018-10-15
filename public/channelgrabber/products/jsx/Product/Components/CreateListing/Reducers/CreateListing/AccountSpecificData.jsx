@@ -1,9 +1,5 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
-    "use strict";
+import reducerCreator from 'Common/Reducers/creator';
+    
 
     let initialState = {};
 
@@ -20,7 +16,7 @@ define([
         });
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "FETCH_ACCOUNT_POLICIES": function(state, action) {
             return setPoliciesOnStateForAccount(state, action.payload.accountId, {
                 isFetching: true,
@@ -40,4 +36,4 @@ define([
             }));
         }
     });
-});
+

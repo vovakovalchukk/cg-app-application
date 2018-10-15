@@ -1,19 +1,10 @@
-define([
-    'react',
-    'redux',
-    'react-redux',
-    'Product/Components/CreateListing/Reducers/Combined',
-    'Product/Components/CreateListing/AccountSelectionPopup',
-    'Product/Utils/CreateListingUtils'
-], function (
-    React,
-    Redux,
-    ReactRedux,
-    CombinedReducer,
-    AccountSelectionPopup,
-    CreateListingUtils
-) {
-    "use strict";
+import React from 'react';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import CombinedReducer from 'Product/Components/CreateListing/Reducers/Combined';
+import AccountSelectionPopup from 'Product/Components/CreateListing/AccountSelectionPopup';
+import CreateListingUtils from 'Product/Utils/CreateListingUtils';
+    
 
     var CreateListingRoot = function(
         accounts,
@@ -31,8 +22,6 @@ define([
         salesPhoneNumber,
         demoLink
     ) {
-        var Provider = ReactRedux.Provider;
-
         var getAccountOptions = function(accounts, allowedChannels, allowedVariationChannels) {
             var channels = allowedChannels;
             if (product.variationCount > 0) {
@@ -66,13 +55,13 @@ define([
             };
         };
 
-        var store = Redux.createStore(
+        var store = createStore(
             CombinedReducer,
             buildInitialStateFromData()
         );
 
-        var CreateListingRootComponent = React.createClass({
-            render: function () {
+        class CreateListingRootComponent extends React.Component {
+            render() {
                 return (
                     <Provider store={store}>
                         <AccountSelectionPopup
@@ -91,10 +80,10 @@ define([
                     </Provider>
                 );
             }
-        });
+        }
 
         return CreateListingRootComponent;
     };
 
-    return CreateListingRoot;
-});
+    export default CreateListingRoot;
+

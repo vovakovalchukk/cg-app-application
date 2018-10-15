@@ -1,19 +1,8 @@
-define([
-    'redux',
-    'react-redux',
-    'redux-form',
-    'Product/Components/CreateProduct/functions/stateFilters',
-    './Component',
-    './ActionCreators'
-], function(
-    Redux,
-    ReactRedux,
-    ReduxForm,
-    stateFilters,
-    Component,
-    ActionCreators
-) {
-    "use strict";
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
+import Component from './Component';
+import ActionCreators from './ActionCreators';
 
     const formName = 'createProductForm';
 
@@ -33,10 +22,9 @@ define([
     };
 
     const mapDispatchToProps = function(dispatch) {
-        return Redux.bindActionCreators(ActionCreators, dispatch);
+        return bindActionCreators(ActionCreators, dispatch);
     };
 
-    var Connector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-    return Connector(Component);
+    var Connector = connect(mapStateToProps, mapDispatchToProps);
+    export default Connector(Component);
 
-});
