@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da2e9d0c0a59fa5509925eecd4cf530e",
+    "content-hash": "090b2dbc0510169ffa5c15255bb3384b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -825,16 +825,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.11.5",
+            "version": "dev-CGIV-9997-CleanupInvoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "4fb7a82ccc79d6eab09596df9fb906af50b6cb73"
+                "reference": "760d37dcda13a09b3d40ea9277329f51e34b0c9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.5-1e05f4.zip",
-                "reference": "4fb7a82ccc79d6eab09596df9fb906af50b6cb73",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-CGIV-9997-CleanupInvoices-101a06.zip",
+                "reference": "760d37dcda13a09b3d40ea9277329f51e34b0c9e",
                 "shasum": null
             },
             "require": {
@@ -843,7 +843,7 @@
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.10.0",
+                "channelgrabber/payment": "dev-CGIV-9997-CleanupInvoices as 1.12.0",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/user": "^1.25.0",
@@ -865,7 +865,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-05T13:53:07+00:00"
+            "time": "2018-10-15T13:35:04+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2123,16 +2123,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.11.0",
+            "version": "dev-CGIV-9997-CleanupInvoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "97f38fcdad68dbbca213c57b7a92ce879a7c9d40"
+                "reference": "3a559a4552bf9cd20a0f936a03248fd13e5d622d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.11.0-29a14d.zip",
-                "reference": "97f38fcdad68dbbca213c57b7a92ce879a7c9d40",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9997-CleanupInvoices-3506ca.zip",
+                "reference": "3a559a4552bf9cd20a0f936a03248fd13e5d622d",
                 "shasum": null
             },
             "require": {
@@ -2174,7 +2174,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-10-05T11:21:39+00:00"
+            "time": "2018-10-15T14:53:23+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -8955,7 +8955,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9010,7 +9010,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9065,7 +9065,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10365,10 +10365,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.11.6",
+            "alias_normalized": "1.11.6.0",
+            "version": "dev-CGIV-9997-CleanupInvoices",
+            "package": "channelgrabber/clearbooks"
+        },
+        {
+            "alias": "1.12.0",
+            "alias_normalized": "1.12.0.0",
+            "version": "dev-CGIV-9997-CleanupInvoices",
+            "package": "channelgrabber/payment"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/payment": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
