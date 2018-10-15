@@ -67,29 +67,30 @@ class AvailableCell extends React.Component {
         }
         let targetClass = this.getClassOfNextRow();
         let targetRow = document.querySelector(targetClass);
-        console.log('in this.props.rowIndex: ', this.props.rowIndex);
-        
+
         let targetNode = targetRow.parentNode;
         return targetNode;
     };
     
     isLastVisibleRow() {
         let allVisibleNonHeaderRows = this.getAllVisibleNonHeaderRows();
+
         let lastVisibleRow = allVisibleNonHeaderRows[allVisibleNonHeaderRows.length-1];
         let lastVisibleRowClasses = lastVisibleRow.className;
         let classArray = lastVisibleRowClasses.split(' ');
         
         let rowClass = classArray.find(classStr => classStr.indexOf('js-row-')>-1);
         let rowClassSplitByHyphens = rowClass.split('-');
-        let lastRowIndex = rowClassSplitByHyphens[rowClassSplitByHyphens.length-1];
-        
-        
-        
-        console.log('rowClass: ', rowClass);
-        
-        
-        
-        return this.props.rowIndex === lastRowIndex;
+        let rowClassIndex = parseInt(rowClassSplitByHyphens[rowClassSplitByHyphens.length-1]);
+
+
+
+        if(this.props.rowIndex === rowClassIndex ){
+            console.log('is last row....');
+            console.log('rowClassIndex: ', rowClassIndex);
+            console.log('this.props.rowIndex: ', this.props.rowIndex);
+        }
+        return this.props.rowIndex === rowClassIndex;
     }
     
     getClassOfNextRow() {
