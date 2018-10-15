@@ -18,7 +18,10 @@ class AvailableCell extends React.Component {
             this.props.columnKey,
             this.props.rowIndex
         );
-        
+
+        let allRenderedRows = this.getArrayOfAllRenderedRows()
+        console.log('allRenderedRows: ', allRenderedRows);
+
         return (
             <span className={this.props.className + " available-cell"}>
                 <Input
@@ -28,17 +31,42 @@ class AvailableCell extends React.Component {
                     submitCallback={this.props.actions.updateAvailable.bind(this, rowData)}
                     inputClassNames={'u-width-100pc u-text-align-right'}
                     sku={rowData.sku}
-                    portalSettings={this.createPortalSettings()}
+                    submitsPortalSettings={this.createPortalSettings()}
                 />
+
             </span>
         );
+
     }
-    
+
+    getDistanceFromTop(){
+        let rowNode = this.getCurrentRowNode();
+        console.log('rowNode: ', rowNode);
+        console.log('style of node rowNode.style: ', rowNode.style);
+        let translateValue =  rowNode.style.transform;
+        let heightValue = translateValue.split(',')[1].trim();
+        console.log('heightValue: ', heightValue);
+        return heightValue;
+    }
+
+    getArrayOfAllRenderedRows(){
+        let allVisibleNonHeaderRows = this.getAllVisibleNonHeaderRows();
+        let allRows = allVisibleNonHeaderRows.map(row=>{
+            let rowIndex = this.getRowIndexFromRenderedRowClasses(row.className);
+            return rowIndex
+        });
+        return allRows;
+    }
+
     createPortalSettings() {
+        if(this.isLastVisibleRow() || !this.getArrayOfAllRenderedRows().includes(this.props.rowIndex+1)){
+            console.log('not creating portal settings since there is not domNode');
+            return;
+        }
         return {
+            id:this.props.rowIndex,
             usePortal:true,
             domNodeForSubmits: this.getDomNodeForAddingSubmitsTo(),
-            distanceFromLeft: this.props.distanceFromLeft + (this.props.width / 2),
             SubmitWrapper: this.getWrapperForSubmits()
         };
     }
@@ -60,16 +88,19 @@ class AvailableCell extends React.Component {
         }
         return nonHeaderRows;
     };
-    
-    getDomNodeForAddingSubmitsTo() {
-        if(this.isLastVisibleRow()){
-            return;
-        }
-        let targetClass = this.getClassOfNextRow();
+
+    getCurrentRowNode(){
+        let targetClass = this.getClassOfCurrentRow();
+        console.log('targetClass: ', targetClass);
         let targetRow = document.querySelector(targetClass);
 
         let targetNode = targetRow.parentNode;
         return targetNode;
+    }
+
+    getDomNodeForAddingSubmitsTo() {
+        let targetNode = document.querySelector('.fixedDataTableLayout_rowsContainer');
+        return targetNode
     };
     
     isLastVisibleRow() {
@@ -77,13 +108,7 @@ class AvailableCell extends React.Component {
 
         let lastVisibleRow = allVisibleNonHeaderRows[allVisibleNonHeaderRows.length-1];
         let lastVisibleRowClasses = lastVisibleRow.className;
-        let classArray = lastVisibleRowClasses.split(' ');
-        
-        let rowClass = classArray.find(classStr => classStr.indexOf('js-row-')>-1);
-        let rowClassSplitByHyphens = rowClass.split('-');
-        let rowClassIndex = parseInt(rowClassSplitByHyphens[rowClassSplitByHyphens.length-1]);
-
-
+        let rowClassIndex = this.getRowIndexFromRenderedRowClasses(lastVisibleRowClasses);
 
         if(this.props.rowIndex === rowClassIndex ){
             console.log('is last row....');
@@ -92,9 +117,18 @@ class AvailableCell extends React.Component {
         }
         return this.props.rowIndex === rowClassIndex;
     }
-    
-    getClassOfNextRow() {
-        return '.' + constants.ROW_CLASS_PREFIX +'-'+ (this.props.rowIndex + 1);
+
+    getRowIndexFromRenderedRowClasses(lastVisibleRowClasses) {
+        let classArray = lastVisibleRowClasses.split(' ');
+
+        let rowClass = classArray.find(classStr => classStr.indexOf('js-row-') > -1);
+        let rowClassSplitByHyphens = rowClass.split('-');
+        let rowClassIndex = parseInt(rowClassSplitByHyphens[rowClassSplitByHyphens.length - 1]);
+        return rowClassIndex;
+    }
+
+    getClassOfCurrentRow() {
+        return '.' + constants.ROW_CLASS_PREFIX +'-'+ (this.props.rowIndex);
     };
     
     getWrapperForSubmits() {
@@ -105,7 +139,7 @@ class AvailableCell extends React.Component {
             border: 'solid blue 3px',
             'z-index': '100',
             position: 'absolute',
-            top: '-10px',
+            top: this.getDistanceFromTop(),
             left: this.props.distanceFromLeft + (this.props.width / 2) + 'px',
             transform: 'translateX(-50%)'
         };
