@@ -1,6 +1,4 @@
 <?php
-
-use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
 use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
@@ -21,39 +19,21 @@ return [
                     'repository' => OrganisationUnitStorageApi::class,
                 ]
             ],
-
             OrganisationUnitStorageApi::class => [
                 'parameters' => [
                     'client' => 'directory_guzzle',
                 ]
             ],
-
             'organisationUnitServiceApc' => [
                 'parameters' => [
                     'repository' => 'organisationUnitApcReadStorage',
                 ]
             ],
-
             'organisationUnitApcReadStorage' => [
                 'parameters' => [
                     'storage' => OrganisationUnitStorageApi::class,
                 ]
             ],
-
-
-
-
-
-
-
-
-//            OrganisationUnitClient::class => [
-//                'parameter' => [
-//                    'client' => 'directory_guzzle'
-//                ]
-//            ],
-
-
         ]
     ]
 ];
