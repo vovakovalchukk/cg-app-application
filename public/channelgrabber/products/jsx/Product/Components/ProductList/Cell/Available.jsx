@@ -6,6 +6,7 @@ import constants from 'Product/Components/ProductList/Config/constants';
 class AvailableCell extends React.Component {
     render() {
         console.log('in render about to reorder');
+        //todo change where this logic is fired
         this.reOrderRows();
 //
         const {products, rowIndex} = this.props;

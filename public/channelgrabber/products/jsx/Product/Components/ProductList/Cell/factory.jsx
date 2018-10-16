@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import FixedDataTable from 'fixed-data-table-2';
 import TextCell from 'Product/Components/ProductList/Cell/Text';
 import ProductExpandCell from 'Product/Components/ProductList/Cell/ProductExpand';
@@ -35,11 +34,29 @@ let cells = {
     vat: VatCell
 };
 
-let cellCreator = (function(){
-    return{
-        createCell:function(column){
+class CellWrapper extends React.Component {
+    render() {
+        console.log('in CellWrapper with this.props', this.props);
+//        let {CellContent} = this.props;
+        console.log('CellContent in CellWrapper this.props.CellContent: ', this.props.CellContent);
+
+        let CellContent = this.props.CellContent;
+        return (
+            <span>
+                <CellContent {...this.props}/>
+            </span>
+        )
+    };
+}
+
+export default (function() {
+    return {
+        createCellContent: function(column) {
             console.log('in createCell');
             return getCreatedCell(column)
+        },
+        createCellWrapper: function() {
+            return CellWrapper
         }
     };
     function getCreatedCell(column) {
@@ -48,9 +65,7 @@ let cellCreator = (function(){
             return () => (<Cell></Cell>)
         }
         // todo - have an intermediary cell wrapper before hitting these cells to handle the blanks
-        return column.type ? cells[column.type] : cells[column.key];
+        let CellContentComponent = column.type ? cells[column.type] : cells[column.key];
+        return CellContentComponent;
     }
 }());
-
-
-export default cellCreator;

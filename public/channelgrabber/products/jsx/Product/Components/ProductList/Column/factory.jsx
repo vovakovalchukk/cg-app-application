@@ -10,9 +10,15 @@ let columnCreator = function(column, parentProps) {
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
-    let CreatedCell = CellFactory.createCell(column);
+    let CellContent = CellFactory.createCellContent(column);
+    let CellWrapper = CellFactory.createCellWrapper()
+//    console.log('CreateCell about to be styled: ', CreatedCell);
 
-    let StyledCell = styled(CreatedCell)`
+    console.log('CellContent: ', CellContent);
+    
+    
+    
+    let StyledCell = styled(CellWrapper)`
             display: flex;
             align-items: center;
             height: 100%;
@@ -23,7 +29,7 @@ let columnCreator = function(column, parentProps) {
             justify-content:${getJustifyContentProp(column)}
         `;
 
-    if (!CreatedCell) {
+    if (!CellContent) {
         console.error("cannot create cell in column factory for column: ", column);
     }
     
@@ -37,6 +43,7 @@ let columnCreator = function(column, parentProps) {
             {...column}
             products={column.products}
             actions={column.actions}
+            CellContent={CellContent}
         />}
     />);
 };
