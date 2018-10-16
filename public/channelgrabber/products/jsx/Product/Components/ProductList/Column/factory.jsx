@@ -1,47 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import FixedDataTable from 'fixed-data-table-2';
-import TextCell from 'Product/Components/ProductList/Cell/Text';
-import ProductExpandCell from 'Product/Components/ProductList/Cell/ProductExpand';
-import ImageCell from 'Product/Components/ProductList/Cell/Image';
-import NameCell from 'Product/Components/ProductList/Cell/Name';
-import ListingAccountCell from 'Product/Components/ProductList/Cell/ListingAccount';
-import AddListingCell from 'Product/Components/ProductList/Cell/AddListing';
-import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
-import WeightCell from 'Product/Components/ProductList/Cell/Weight';
-import DimensionsCell from 'Product/Components/ProductList/Cell/Dimensions'
-import VatCell from 'Product/Components/ProductList/Cell/Vat'
-import LinkCell from 'Product/Components/ProductList/Cell/Link';
-import AvailableCell from 'Product/Components/ProductList/Cell/Available';
-import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
+import CellFactory from 'Product/Components/ProductList/Cell/factory';
 
 "use strict";
-
 const Column = FixedDataTable.Column;
-const Cell = FixedDataTable.Cell;
-
-let cells = {
-    productExpand: ProductExpandCell,
-    image: ImageCell,
-    bulkSelect: BulkSelectCell,
-    link: LinkCell,
-    sku: TextCell,
-    name: NameCell,
-    available: AvailableCell,
-    listingAccount: ListingAccountCell,
-    addListing: AddListingCell,
-    stockMode: StockModeCell,
-    weight: WeightCell,
-    dimensions: DimensionsCell,
-    vat: VatCell
-};
 
 let columnCreator = function(column, parentProps) {
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
-    
-    let CreatedCell = getCreatedCell(column);
+    let CreatedCell = CellFactory.createCell(column);
+
     let StyledCell = styled(CreatedCell)`
             display: flex;
             align-items: center;
@@ -52,7 +22,7 @@ let columnCreator = function(column, parentProps) {
             padding-right:1rem;
             justify-content:${getJustifyContentProp(column)}
         `;
-    
+
     if (!CreatedCell) {
         console.error("cannot create cell in column factory for column: ", column);
     }
@@ -84,13 +54,6 @@ function applyColumnSpecificProps(column, parentProps) {
     }
     column[keyToAssign] = parentProps[keyToAssign]
     return column;
-}
-
-function getCreatedCell(column) {
-    if (!column.products.visibleRows.length) {
-        return () => (<Cell></Cell>)
-    }
-    return column.type ? cells[column.type] : cells[column.key];
 }
 
 function getJustifyContentProp(column) {
