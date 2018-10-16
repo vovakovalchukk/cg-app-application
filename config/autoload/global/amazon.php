@@ -1,4 +1,5 @@
 <?php
+use CG\Amazon\ListingImport as AmazonListingImport;
 use CG\Amazon\Region\Service as AmazonRegionService;
 
 return [
@@ -9,6 +10,11 @@ return [
                     'cryptor' => 'amazon_cryptor',
                 ],
             ],
+            AmazonListingImport::class => [
+                'parameters' => [
+                    'gearmanClient' => 'amazonGearmanClient'
+                ]
+            ]
         ],
     ],
 ];
