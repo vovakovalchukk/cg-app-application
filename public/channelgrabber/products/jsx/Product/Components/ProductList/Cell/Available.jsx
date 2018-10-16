@@ -5,6 +5,9 @@ import constants from 'Product/Components/ProductList/Config/constants';
 
 class AvailableCell extends React.Component {
     render() {
+        console.log('in render about to reorder');
+        this.reOrderRows();
+//
         const {products, rowIndex} = this.props;
         
         let rowData = stateUtility.getRowData(products, rowIndex);
@@ -18,9 +21,7 @@ class AvailableCell extends React.Component {
             this.props.columnKey,
             this.props.rowIndex
         );
-        console.log('in render ov available cell ',this.props);
-
-
+//      console.log('in render ov available cell ',this.props);
         return (
             <span className={this.props.className + " available-cell"}>
                 <Input
@@ -38,22 +39,19 @@ class AvailableCell extends React.Component {
 
     getArrayOfAllRenderedRows(){
         let allVisibleNonHeaderRows = this.getAllVisibleRowNodes();
-
         let allRows = allVisibleNonHeaderRows.map(row=>{
-            let rowIndex = this.getRowIndexFromRenderedRowClasses(row.className);
-            console.log('rowIndex taken from renderedRowClasses: ', {rowIndex,
-                'classNames':row.className});
-
+            let rowIndex = this.getRowIndexFromRow(row);
+//            console.log('rowIndex taken from renderedRowClasses: ', {rowIndex,
+//                'classNames':row.className});
             return rowIndex
         });
         return allRows;
     }
     createPortalSettings() {
         if(this.isLastVisibleRow() || !this.hasRowBeenRendered()){
-            console.log('not creating portal settings since there is no domNode for this.props.rowIndex',this.props.rowIndex);
+//          console.log('not creating portal settings since there is no domNode for this.props.rowIndex',this.props.rowIndex);
             return;
         }
-//        console.log('creating settings');
         return {
             id:this.props.rowIndex,
             usePortal:true,
@@ -65,11 +63,11 @@ class AvailableCell extends React.Component {
     hasRowBeenRendered() {
         let allRows = this.getArrayOfAllRenderedRows()
         let hasBeenRendered = allRows.includes(this.props.rowIndex);
-        console.log('hasBeenRendered: ', {
-            hasBeenRendered,
-            allRows,
-            rowIndex: this.props.rowIndex
-        });
+//        console.log('hasBeenRendered: ', {
+//            hasBeenRendered,
+//            allRows,
+//            rowIndex: this.props.rowIndex
+//        });
         return hasBeenRendered;
     }
     onChange(e) {
@@ -89,20 +87,44 @@ class AvailableCell extends React.Component {
         return rowNodes;
     };
     getDomNodeForAddingSubmitsTo() {
-        let targetClass = this.getClassOfCurrentRow();
+        if(this.isLastVisibleRow()){
+            return '';
+        }
+        let targetClass = this.getClassOfNextRow();
         let targetRow = document.querySelector(targetClass);
+//        console.log('targets ',{
+//            targetRow, targetClass
+//        });
+
         let targetNode = targetRow.parentNode;
         return targetNode;
+    };
+    // todo - move this logic out of the Available cell
+    reOrderRows(){
+        let allRows = document.querySelectorAll('.js-row');
+        var rowArr = [].slice.call(allRows).sort( (a, b) => {
+            //todo - change this to check the classNames
+            let aRowIndex = this.getRowIndexFromRow(a);
+            let bRowIndex = this.getRowIndexFromRow(b);
+            return aRowIndex > bRowIndex ? 1 : -1;
+        });
+        let parentRows = rowArr.map(row=>{
+            return row.parentNode;
+        });
+        let rowsContainer = parentRows[0].parentNode;
+        parentRows.forEach(function (row) {
+            rowsContainer.appendChild(row);
+        });
     };
     isLastVisibleRow() {
         let allVisibleNonHeaderRows = this.getAllVisibleRowNodes();
 
         let lastVisibleRow = allVisibleNonHeaderRows[allVisibleNonHeaderRows.length-1];
-        let lastVisibleRowClasses = lastVisibleRow.className;
-        let rowClassIndex = this.getRowIndexFromRenderedRowClasses(lastVisibleRowClasses);
+        let rowClassIndex = this.getRowIndexFromRow(lastVisibleRow);
         return this.props.rowIndex === rowClassIndex;
     };
-    getRowIndexFromRenderedRowClasses(lastVisibleRowClasses) {
+    getRowIndexFromRow(visibleRow) {
+        let lastVisibleRowClasses = visibleRow.className;
         let classArray = lastVisibleRowClasses.split(' ');
 
         let rowClass = classArray.find(classStr => classStr.indexOf('js-row-') > -1);
@@ -110,8 +132,8 @@ class AvailableCell extends React.Component {
         let rowClassIndex = parseInt(rowClassSplitByHyphens[rowClassSplitByHyphens.length - 1]);
         return rowClassIndex;
     };
-    getClassOfCurrentRow() {
-        return '.' + constants.ROW_CLASS_PREFIX +'-'+ this.props.rowIndex ;
+    getClassOfNextRow() {
+        return '.' + constants.ROW_CLASS_PREFIX +'-'+ (parseInt(this.props.rowIndex)+1);
     };
     getWrapperForSubmits() {
         let wrapperStyle = {
@@ -121,7 +143,7 @@ class AvailableCell extends React.Component {
             border: 'solid blue 3px',
             'z-index': '100',
             position: 'absolute',
-            top: '20px',
+            top: '-15px',
             left: this.props.distanceFromLeft + (this.props.width / 2) + 'px',
             transform: 'translateX(-50%)'
         };
@@ -130,7 +152,7 @@ class AvailableCell extends React.Component {
                 {children}
             </div>
         );
-    }
+    };
 }
 
 export default AvailableCell;

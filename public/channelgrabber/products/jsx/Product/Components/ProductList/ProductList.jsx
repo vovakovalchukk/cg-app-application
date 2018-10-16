@@ -119,25 +119,21 @@ class ProductList extends React.Component {
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();
-        
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
             return;
         }
-        
         let height = this.state.productsListContainer.height;
         let width = this.state.productsListContainer.width;
-        
         let rowCount = rows.length;
-        
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
-        
         return (
             <Table
                 rowHeight={36}
                 className={'c-products-data-table'}
-                rowsCount={rowCount}
+                // add one extra to provide room for the portalled elements in previous row
+                rowsCount={rowCount+1}
                 width={width}
                 height={height}
                 headerHeight={36}
@@ -171,7 +167,7 @@ class ProductList extends React.Component {
     }
     
     componentDidUpdate() {
-        var horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
+        let horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
         if (horizontalScrollbar) {
             horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
         }
