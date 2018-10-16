@@ -12,6 +12,8 @@ var rowsReducer = reducerCreator(initialState, {
             //todo - change this to check the classNames
             let aRowIndex = utility.getRowIndexFromRow(a);
             let bRowIndex = utility.getRowIndexFromRow(b);
+            // sorting from bottom to top so that we can get the submits to overlap rows via their
+            // parent element's z-index
             return aRowIndex < bRowIndex ? 1 : -1;
         });
         let parentRows = rowArr.map(row => {
