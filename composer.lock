@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a6baf343eb6e7116d3a2fa7c768bd8d",
+    "content-hash": "fc805f80d0b10b65051f6b14c2e6c67d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -710,16 +710,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-9968-channel-jobs-to-channel-gearman-instances",
+            "version": "1.40.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1a49aa4da27bb31b0708ae4a347f7e38c7678553"
+                "reference": "b759b39fdd8933bd11bca361ac5ab5a231463de4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-9968-channel-jobs-to-channel-gearman-instances-e56103.zip",
-                "reference": "1a49aa4da27bb31b0708ae4a347f7e38c7678553",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.40.0-1d5a96.zip",
+                "reference": "b759b39fdd8933bd11bca361ac5ab5a231463de4",
                 "shasum": null
             },
             "require": {
@@ -789,7 +789,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-10-11T10:31:14+00:00"
+            "time": "2018-10-16T07:52:43+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2123,16 +2123,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.11.0",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "97f38fcdad68dbbca213c57b7a92ce879a7c9d40"
+                "reference": "afe43894467eef9d6d303c6cb99e941459e7a111"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.11.0-29a14d.zip",
-                "reference": "97f38fcdad68dbbca213c57b7a92ce879a7c9d40",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.11.1-c9bfcb.zip",
+                "reference": "afe43894467eef9d6d303c6cb99e941459e7a111",
                 "shasum": null
             },
             "require": {
@@ -2174,7 +2174,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-10-05T11:21:39+00:00"
+            "time": "2018-10-08T11:45:12+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4780,16 +4780,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.25.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "78600928b5dd02ac0075c864b337b68f83101bce"
+                "reference": "73ab6bd6b4c38e1ac93564f9647dc4a3eaf8ea78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.0-f37b6e.zip",
-                "reference": "78600928b5dd02ac0075c864b337b68f83101bce",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.1-f0f440.zip",
+                "reference": "73ab6bd6b4c38e1ac93564f9647dc4a3eaf8ea78",
                 "shasum": null
             },
             "require": {
@@ -4841,7 +4841,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-10-11T10:37:16+00:00"
+            "time": "2018-10-16T07:30:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -8955,7 +8955,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9010,7 +9010,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9065,7 +9065,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10365,17 +10365,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.40.0",
-            "alias_normalized": "1.40.0.0",
-            "version": "dev-CGIV-9968-channel-jobs-to-channel-gearman-instances",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
