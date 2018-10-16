@@ -7,6 +7,7 @@ import columnCreator from 'Product/Components/ProductList/Column/factory';
 import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
 import constants from 'Product/Components/ProductList/Config/constants';
+import utility from 'Product/Components/ProductList/utility';
 
 "use strict";
 
@@ -117,6 +118,28 @@ class ProductList extends React.Component {
     rowClassNameGetter = (index) => {
         return constants.ROW_CLASS_PREFIX+'-'+index + ' ' + constants.ROW_CLASS_PREFIX;
     };
+    reOrderRows(){
+        let allRows = document.querySelectorAll('.js-row');
+        if(!allRows.length){
+            console.log('returning out');
+            return;
+        }
+        console.log('-------- reordering');
+
+        var rowArr = [].slice.call(allRows).sort( (a, b) => {
+            //todo - change this to check the classNames
+            let aRowIndex = utility.getRowIndexFromRow(a);
+            let bRowIndex = utility.getRowIndexFromRow(b);
+            return aRowIndex > bRowIndex ? 1 : -1;
+        });
+        let parentRows = rowArr.map(row=>{
+            return row.parentNode;
+        });
+        let rowsContainer = parentRows[0].parentNode;
+        parentRows.forEach(function (row) {
+            rowsContainer.appendChild(row);
+        });
+    };
     renderProducts = () => {
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
@@ -158,22 +181,21 @@ class ProductList extends React.Component {
         window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
     }
-    
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
         document.removeEventListener("fullscreenchange", this.updateDimensions);
         window.removeEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.removeEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
     }
-    
     componentDidUpdate() {
         let horizontalScrollbar = document.getElementsByClassName("ScrollbarLayout_face ScrollbarLayout_faceHorizontal public_Scrollbar_face")[0];
         if (horizontalScrollbar) {
             horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
         }
     }
-    
     render() {
+        console.log('in ProductList render');
+//        this.reOrderRows();
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

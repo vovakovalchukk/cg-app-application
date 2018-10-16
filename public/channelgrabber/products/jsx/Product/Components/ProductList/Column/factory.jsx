@@ -10,15 +10,10 @@ let columnCreator = function(column, parentProps) {
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
+
     let CellContent = CellFactory.createCellContent(column);
     let CellWrapper = CellFactory.createCellWrapper()
-//    console.log('CreateCell about to be styled: ', CreatedCell);
-
-    console.log('CellContent: ', CellContent);
-    
-    
-    
-    let StyledCell = styled(CellWrapper)`
+    let StyledCellWrapper = styled(CellWrapper)`
             display: flex;
             align-items: center;
             height: 100%;
@@ -39,7 +34,7 @@ let columnCreator = function(column, parentProps) {
         fixed={column.fixed}
         header={column.headerText}
         align={getHeaderCellAlignment(column)}
-        cell={<StyledCell
+        cell={<StyledCellWrapper
             {...column}
             products={column.products}
             actions={column.actions}

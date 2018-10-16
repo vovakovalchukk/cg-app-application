@@ -11,6 +11,7 @@ import productDetailsActions from 'Product/Components/ProductList/ActionCreators
 import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import ProductList from 'Product/Components/ProductList/ProductList'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
+import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 
 "use strict";
 
@@ -52,7 +53,8 @@ function combineActionCreators(ownProps) {
         stockActions,
         vatActions,
         bulkSelectActions,
-        passedInMethodsAsActions
+        passedInMethodsAsActions,
+        rowActions
     );
 }
 

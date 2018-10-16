@@ -2,18 +2,16 @@ import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility.jsx';
 import Input from 'Common/Components/SafeInput';
 import constants from 'Product/Components/ProductList/Config/constants';
+import utility from 'Product/Components/ProductList/utility';
 
 class AvailableCell extends React.Component {
     render() {
-        console.log('in render about to reorder');
         //todo change where this logic is fired
-        this.reOrderRows();
-//
         const {products, rowIndex} = this.props;
         
         let rowData = stateUtility.getRowData(products, rowIndex);
         const isParentProduct = stateUtility.isParentProduct(rowData);
-        
+
         if (isParentProduct) {
             return <span></span>
         }
@@ -22,7 +20,7 @@ class AvailableCell extends React.Component {
             this.props.columnKey,
             this.props.rowIndex
         );
-//      console.log('in render ov available cell ',this.props);
+
         return (
             <span className={this.props.className + " available-cell"}>
                 <Input
@@ -41,7 +39,7 @@ class AvailableCell extends React.Component {
     getArrayOfAllRenderedRows(){
         let allVisibleNonHeaderRows = this.getAllVisibleRowNodes();
         let allRows = allVisibleNonHeaderRows.map(row=>{
-            let rowIndex = this.getRowIndexFromRow(row);
+            let rowIndex = utility.getRowIndexFromRow(row);
 //            console.log('rowIndex taken from renderedRowClasses: ', {rowIndex,
 //                'classNames':row.className});
             return rowIndex
@@ -49,17 +47,18 @@ class AvailableCell extends React.Component {
         return allRows;
     }
     createPortalSettings() {
-        if(this.isLastVisibleRow() || !this.hasRowBeenRendered()){
-//          console.log('not creating portal settings since there is no domNode for this.props.rowIndex',this.props.rowIndex);
+        if( !this.hasRowBeenRendered()){
+          console.log('not creating portal settings since there is no domNode for this.props.rowIndex',this.props.rowIndex);
             return;
         }
-        return {
+        let portalSettings = {
             id:this.props.rowIndex,
             usePortal:true,
             domNodeForSubmits: this.getDomNodeForAddingSubmitsTo(),
             distanceFromLeft: this.props.distanceFromLeft + (this.props.width / 2),
             SubmitWrapper: this.getWrapperForSubmits()
         };
+        return portalSettings;
     }
     hasRowBeenRendered() {
         let allRows = this.getArrayOfAllRenderedRows()
@@ -80,7 +79,7 @@ class AvailableCell extends React.Component {
         let rows = document.getElementsByClassName(constants.ROW_CLASS_PREFIX);
         let rowNodes = [];
         for (var i = 0; i < rows.length; i++) {
-            if ( i===rows.length-1) {
+            if ( i===rows.length) {
                 continue;
             }
             rowNodes.push(rows[i]);
@@ -88,53 +87,25 @@ class AvailableCell extends React.Component {
         return rowNodes;
     };
     getDomNodeForAddingSubmitsTo() {
-        if(this.isLastVisibleRow()){
-            return '';
-        }
-        let targetClass = this.getClassOfNextRow();
+        let targetClass = this.getClassOfCurrentRow();
         let targetRow = document.querySelector(targetClass);
-//        console.log('targets ',{
-//            targetRow, targetClass
-//        });
-
+//        if(!targetRow){
+//            console.log('CANTT GET TARGET ROW!', {
+//                targetRow, targetClass
+//            });
+//        }
         let targetNode = targetRow.parentNode;
         return targetNode;
     };
-    // todo - move this logic out of the Available cell
-    reOrderRows(){
-        let allRows = document.querySelectorAll('.js-row');
-        var rowArr = [].slice.call(allRows).sort( (a, b) => {
-            //todo - change this to check the classNames
-            let aRowIndex = this.getRowIndexFromRow(a);
-            let bRowIndex = this.getRowIndexFromRow(b);
-            return aRowIndex > bRowIndex ? 1 : -1;
-        });
-        let parentRows = rowArr.map(row=>{
-            return row.parentNode;
-        });
-        let rowsContainer = parentRows[0].parentNode;
-        parentRows.forEach(function (row) {
-            rowsContainer.appendChild(row);
-        });
-    };
-    isLastVisibleRow() {
-        let allVisibleNonHeaderRows = this.getAllVisibleRowNodes();
-
-        let lastVisibleRow = allVisibleNonHeaderRows[allVisibleNonHeaderRows.length-1];
-        let rowClassIndex = this.getRowIndexFromRow(lastVisibleRow);
-        return this.props.rowIndex === rowClassIndex;
-    };
-    getRowIndexFromRow(visibleRow) {
-        let lastVisibleRowClasses = visibleRow.className;
-        let classArray = lastVisibleRowClasses.split(' ');
-
-        let rowClass = classArray.find(classStr => classStr.indexOf('js-row-') > -1);
-        let rowClassSplitByHyphens = rowClass.split('-');
-        let rowClassIndex = parseInt(rowClassSplitByHyphens[rowClassSplitByHyphens.length - 1]);
-        return rowClassIndex;
-    };
-    getClassOfNextRow() {
-        return '.' + constants.ROW_CLASS_PREFIX +'-'+ (parseInt(this.props.rowIndex)+1);
+//    isLastVisibleRow() {
+//        let allVisibleNonHeaderRows = this.getAllVisibleRowNodes();
+//
+//        let lastVisibleRow = allVisibleNonHeaderRows[allVisibleNonHeaderRows.length-1];
+//        let rowClassIndex = utility.getRowIndexFromRow(lastVisibleRow);
+//        return this.props.rowIndex === rowClassIndex;
+//    };
+    getClassOfCurrentRow() {
+        return '.' + constants.ROW_CLASS_PREFIX +'-'+ this.props.rowIndex;
     };
     getWrapperForSubmits() {
         let wrapperStyle = {
@@ -144,7 +115,7 @@ class AvailableCell extends React.Component {
             border: 'solid blue 3px',
             'z-index': '100',
             position: 'absolute',
-            top: '-15px',
+            top: '15px',
             left: this.props.distanceFromLeft + (this.props.width / 2) + 'px',
             transform: 'translateX(-50%)'
         };
