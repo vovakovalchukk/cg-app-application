@@ -664,7 +664,7 @@ $config = array(
             ],
             PermissionService::class => [
                 'parameters' => [
-                    'ouService' => 'organisationUnitServiceApc'
+                    'ouService' => 'organisationUnitApcReadService'
                 ]
             ],
         ),

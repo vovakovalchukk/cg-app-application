@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86ccdf1e4b950d429027eec3b661d8fd",
+    "content-hash": "31fdf56b9179e601f8053622890ba676",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -554,16 +554,16 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.5.2.1",
+            "version": "2.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "89581ddad9e5825d18714f2223af884b617d4dc4"
+                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.5.2.1-309cae.zip",
-                "reference": "89581ddad9e5825d18714f2223af884b617d4dc4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.5.4-ff1414.zip",
+                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a",
                 "shasum": null
             },
             "require": {
@@ -591,7 +591,7 @@
                     "CG\\Cache\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-11-29T12:27:08+00:00"
+            "time": "2018-06-21T11:43:26+00:00"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -3139,16 +3139,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.2",
+            "version": "dev-CGIV-9984-apcu-locking-kills-frontend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c5736bcf6d610488e288fc33128bf4f5759ca131"
+                "reference": "08b39b477918c5442f10bf7f621d6c5994537a1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.2-f1dec2.zip",
-                "reference": "c5736bcf6d610488e288fc33128bf4f5759ca131",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-9984-apcu-locking-kills-frontend-87a21e.zip",
+                "reference": "08b39b477918c5442f10bf7f621d6c5994537a1a",
                 "shasum": null
             },
             "require": {
@@ -3192,7 +3192,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-09-26T13:42:09+00:00"
+            "time": "2018-10-15T12:56:10+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -3509,7 +3509,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "d9a94efa599ecf02d2d2f22238ff0b3178431e43"
+                "reference": "be0d660f001fca7843e823472737d0823822be6d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-76bdee.zip",
+                "reference": "be0d660f001fca7843e823472737d0823822be6d",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3523,9 +3529,9 @@
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
-                "channelgrabber/slim": "^1.13.14",
+                "channelgrabber/slim": "^1.14.0",
                 "channelgrabber/stats": ">=1.0.1, <2.0.0",
-                "channelgrabber/stdlib": "^2.12.47",
+                "channelgrabber/stdlib": "dev-CGIV-9984-apcu-locking-kills-frontend as 2.16.3",
                 "channelgrabber/validation": ">=1.2.5",
                 "channelgrabber/zf2-stdlib": ">=1.1.17,<2.0.0",
                 "guzzle/guzzle": "~3.7",
@@ -3544,12 +3550,17 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-9867-apc-for-ou": "1.26.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\": "src"
                 }
             },
-            "time": "2018-10-15T10:34:03+00:00"
+            "time": "2018-10-16T09:20:31+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -10361,6 +10372,12 @@
     ],
     "aliases": [
         {
+            "alias": "2.16.3",
+            "alias_normalized": "2.16.3.0",
+            "version": "dev-CGIV-9984-apcu-locking-kills-frontend",
+            "package": "channelgrabber/stdlib"
+        },
+        {
             "alias": "1.26.5",
             "alias_normalized": "1.26.5.0",
             "version": "dev-CGIV-9867-apc-for-ou",
@@ -10370,10 +10387,11 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/user": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

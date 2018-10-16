@@ -1,22 +1,28 @@
 <?php
-use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
+use CG\OrganisationUnit\Repository as OrganisationUnitRepository;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
 use CG\OrganisationUnit\Storage\ApcRead as OrganisationUnitStorageApcRead;
+use CG\OrganisationUnit\Storage\ApcWrite as OrganisationUnitStorageApcWrite;
+use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
+use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 
 return [
     'di' => [
         'instance' => [
             'preferences' => [
-                OrganisationUnitStorage::class => OrganisationUnitStorageApi::class,
+                OrganisationUnitStorage::class => OrganisationUnitStorageApcWrite::class,
             ],
             'aliases' => [
-                'organisationUnitServiceApc' => OrganisationUnitService::class,
-                'organisationUnitApcReadStorage' => OrganisationUnitStorageApcRead::class,
+                'organisationUnitApcReadService' => OrganisationUnitService::class,
+                'organisationUnitApcReadRepository' => OrganisationUnitRepository::class
+            ],
+            OrganisationUnitRepository::class => [
+                'storage' => OrganisationUnitStorageApcWrite::class,
+                'repository' => OrganisationUnitStorageApi::class
             ],
             OrganisationUnitService::class => [
                 'parameters' => [
-                    'repository' => OrganisationUnitStorageApi::class,
+                    'repository' => OrganisationUnitRepository::class,
                 ]
             ],
             OrganisationUnitStorageApi::class => [
@@ -24,14 +30,15 @@ return [
                     'client' => 'directory_guzzle',
                 ]
             ],
-            'organisationUnitServiceApc' => [
+            'organisationUnitApcReadService' => [
                 'parameters' => [
-                    'repository' => 'organisationUnitApcReadStorage',
+                    'repository' => 'organisationUnitApcReadRepository',
                 ]
             ],
-            'organisationUnitApcReadStorage' => [
+            'organisationUnitApcReadRepository' => [
                 'parameters' => [
-                    'storage' => OrganisationUnitStorageApi::class,
+                    'storage' => OrganisationUnitStorageApcRead::class,
+                    'repository' => OrganisationUnitStorageApi::class
                 ]
             ],
         ]
