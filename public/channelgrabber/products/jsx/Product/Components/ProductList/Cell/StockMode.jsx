@@ -83,6 +83,13 @@ class StockModeCell extends React.Component {
         }
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        });
+
+        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,

@@ -12,27 +12,55 @@ let portalSettingsFactory = (function() {
                 width,
                 distanceFromLeftSideOfTableToStartOfCell
             } = paramObj;
+
             if (!hasRowBeenRendered(rowIndex)) {
                 return;
             }
+
             let WrapperForSubmits = getWrapperForSubmits({
                 elemType,
-                distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell,
-                width,
-                rowIndex
+                distanceFromLeftSideOfTableToStartOfPortal: getDistanceFromLeftSideOfTableToStartOfPortal({
+                    distanceFromLeftSideOfTableToStartOfCell,
+                    width,
+                    elemType
+                }),
+                translateProp: getTranslateProp(elemType)
             });
+
             let portalSettings = {
                 id: rowIndex,
                 usePortal: true,
                 domNodeForSubmits: getDomNodeForAddingSubmitsTo(rowIndex),
-                distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + (width / 2),
                 PortalWrapper: WrapperForSubmits
             };
             return portalSettings;
         }
     };
 
-    function getWrapperForSubmits({elemType, distanceFromLeftSideOfTableToStartOfCell, width, rowIndex}) {
+    function getTranslateProp(elemType){
+        let translateElementMap = {}
+        translateElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = 'translateX(-50%)';
+        translateElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = '';
+
+        return translateElementMap[elemType];
+    }
+
+    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType}) {
+        let distanceElementMap = {}
+        distanceElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
+        // hard coding the distance until a better solution is found
+        distanceElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell + 27;
+
+        console.log('{elemType, distanceFromLeftSideOfTableToStartOfCell}: ', {elemType,
+            distanceFromLeftSideOfTableToStartOfCell,
+            mappedResult: distanceElementMap[elemType]
+        });
+
+
+        return distanceElementMap[elemType];
+    }
+
+    function getWrapperForSubmits({elemType, distanceFromLeftSideOfTableToStartOfPortal, width, rowIndex, translateProp}) {
         let createWrapper = wrapperStyle => {
             return ({children}) => (
                 // todo change classNames to have the column in there as well for debug purposes
@@ -41,22 +69,20 @@ let portalSettingsFactory = (function() {
                 </div>
             );
         };
-        if (elemType !== elementTypes.INPUT_SAFE_SUBMITS) {
-            return createWrapper({});
-        }
         let wrapperStyle = {
             background: 'white',
-            width: '60px',
             border: 'solid blue 3px',
-            'box-sizing':'border-box',
+            'box-sizing': 'border-box',
             'z-index': '100',
             position: 'absolute',
             top: '20px',
-            left: distanceFromLeftSideOfTableToStartOfCell + (width / 2) + 'px',
-            transform: 'translateX(-50%)'
+            left: distanceFromLeftSideOfTableToStartOfPortal + 'px',
+            transform: translateProp
         };
+
         return createWrapper(wrapperStyle);
     }
+
     function getAllVisibleRowNodes() {
         let rows = document.getElementsByClassName(constants.ROW_CLASS_PREFIX);
         let rowNodes = [];
@@ -76,6 +102,7 @@ let portalSettingsFactory = (function() {
         });
         return allRows;
     }
+
     function hasRowBeenRendered(rowIndex) {
         let allRows = getArrayOfAllRenderedRows();
         let hasBeenRendered = allRows.includes(rowIndex);
@@ -86,6 +113,7 @@ let portalSettingsFactory = (function() {
 //        });
         return hasBeenRendered;
     }
+
     function getDomNodeForAddingSubmitsTo(rowIndex) {
         let targetClass = getClassOfCurrentRow(rowIndex);
         let targetRow = document.querySelector(targetClass);
@@ -93,6 +121,7 @@ let portalSettingsFactory = (function() {
         let targetNode = targetRow.parentNode;
         return targetNode;
     }
+
     function getClassOfCurrentRow(rowIndex) {
         return '.' + constants.ROW_CLASS_PREFIX + '-' + rowIndex;
     }
