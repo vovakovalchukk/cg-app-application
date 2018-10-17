@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Input from 'Common/Components/SafeInput';
+import elementTypes from "../PortalSettings/elementTypes";
+import portalSettingsFactory from "../PortalSettings/factory";
 
 const InputsContainer = styled.div`
     display:flex;
@@ -22,12 +24,22 @@ class DimensionsCell extends React.Component {
     state = {};
 
     renderInput = (row, detail) => {
+        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
+
+        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        });
+
         return (
             <StyledInput
                 name={detail}
                 initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0,1)}
                 step="0.1"
                 submitCallback={this.props.actions.saveDetail.bind(this, row)}
+                submitsPortalSettings={portalSettingsForSubmits}
             />
         )
     };

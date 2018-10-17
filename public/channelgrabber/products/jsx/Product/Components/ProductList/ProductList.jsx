@@ -172,8 +172,6 @@ class ProductList extends React.Component {
         }
     }
     render() {
-        console.log('in ProductList render');
-//        this.reOrderRows();
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

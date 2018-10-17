@@ -89,12 +89,14 @@ class StockModeCell extends React.Component {
             width
         });
 
+        // todo --- apply this to the ButtonsContainer
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width
         });
+
 
         return (
             <div className={this.props.className}>
