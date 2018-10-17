@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "257020cd6428cbc4feea780513ae4893",
+    "content-hash": "846a77c8fed12801822442a80d5ec672",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -651,12 +651,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "8b3237da4126b79dca3099eb13331db73ad5bb9f"
+                "reference": "5c209dcd49585f542be66b4eb18d9a1d6934dc94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-9984-apcu-locking-kills-frontend-7ee672.zip",
-                "reference": "8b3237da4126b79dca3099eb13331db73ad5bb9f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-9984-apcu-locking-kills-frontend-27a510.zip",
+                "reference": "5c209dcd49585f542be66b4eb18d9a1d6934dc94",
                 "shasum": null
             },
             "require": {
@@ -706,7 +706,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-15T13:25:13+00:00"
+            "time": "2018-10-17T11:51:01+00:00"
         },
         {
             "name": "channelgrabber/channel",
