@@ -3,6 +3,8 @@ import Clipboard from 'Clipboard';
 import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Select from 'Common/Components/Select';
+import elementTypes from "../PortalSettings/elementTypes";
+import portalSettingsFactory from "../PortalSettings/factory";
 
 class VatCell extends React.Component {
     static defaultProps = {
@@ -19,7 +21,13 @@ class VatCell extends React.Component {
     };
 
     render() {
-        const {products, rowIndex, countryCode} = this.props;
+        const {
+            products,
+            rowIndex,
+            countryCode,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         
         if(stateUtility.isVariation(row)){
@@ -42,6 +50,14 @@ class VatCell extends React.Component {
             name: selectedLabel,
             value: selectedVatKey
         };
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.SELECT_DROPDOWN,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        });
+
         return (
             <div className={this.props.className}>
                 <Select
@@ -49,6 +65,7 @@ class VatCell extends React.Component {
                     selectedOption={selected}
                     onOptionChange={this.changeVat}
                     classNames={'u-width-140px'}
+                    portalSettingsForDropdown={portalSettingsForDropdown}
                 />
             </div>
         );

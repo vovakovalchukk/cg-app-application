@@ -50,11 +50,12 @@ let portalSettingsFactory = (function() {
         distanceElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
         // hard coding the distance until a better solution is found
         distanceElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell + 27;
+        distanceElementMap[ elementTypes['SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell;
 
-        console.log('{elemType, distanceFromLeftSideOfTableToStartOfCell}: ', {elemType,
-            distanceFromLeftSideOfTableToStartOfCell,
-            mappedResult: distanceElementMap[elemType]
-        });
+//        console.log('{elemType, distanceFromLeftSideOfTableToStartOfCell}: ', {elemType,
+//            distanceFromLeftSideOfTableToStartOfCell,
+//            mappedResult: distanceElementMap[elemType]
+//        });
 
 
         return distanceElementMap[elemType];
@@ -71,11 +72,10 @@ let portalSettingsFactory = (function() {
         };
         let wrapperStyle = {
             background: 'white',
-            border: 'solid blue 3px',
             'box-sizing': 'border-box',
             'z-index': '100',
             position: 'absolute',
-            top: '20px',
+            top: '2.25rem',
             left: distanceFromLeftSideOfTableToStartOfPortal + 'px',
             transform: translateProp
         };
