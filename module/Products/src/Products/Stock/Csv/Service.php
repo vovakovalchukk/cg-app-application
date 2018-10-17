@@ -137,6 +137,7 @@ class Service
                             ->setReplaceVariationWithParent(true)
                             ->setOrganisationUnitId([$organisationUnitId])
                             ->setSku(array_values($stock->getArrayOf('sku')))
+                            ->setEmbeddedDataToReturn([Product::EMBEDDED_DATA_TYPE_VARIATION])
                     );
 
                     /** @var Product $product */
