@@ -63,7 +63,6 @@ class StockModeInputsComponent extends React.Component {
                 return option.value === selected.value;
             }).name;
         }
-//        console.log('in StockModeInputs this.props.portalSettingsForSelect: ', this.props.portalSettingsForSelect);
 
         return (
             <div className={this.props.className}>

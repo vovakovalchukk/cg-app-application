@@ -7,19 +7,19 @@ import elementTypes from "../PortalSettings/elementTypes";
 import portalSettingsFactory from "../PortalSettings/factory";
 
 const StyledStockModeInputs = styled(StockModeInputs)`
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        .selected{
-            .custom-select{
-                padding:0px;
-            }
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    .selected{
+        .custom-select{
+            padding:0px;
         }
+    }
 `;
 const ButtonsContainer = styled.div`
-        position:absolute;
-        top:40px;
-    `;
+    position:absolute;
+    top:40px;
+`;
 
 class StockModeCell extends React.Component {
     static defaultProps = {

@@ -15,7 +15,7 @@ let portalSettingsFactory = (function() {
             if (!hasRowBeenRendered(rowIndex)) {
                 return;
             }
-            let wrapperForSubmits = getWrapperForSubmits({
+            let WrapperForSubmits = getWrapperForSubmits({
                 elemType,
                 distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell,
                 width,
@@ -26,7 +26,7 @@ let portalSettingsFactory = (function() {
                 usePortal: true,
                 domNodeForSubmits: getDomNodeForAddingSubmitsTo(rowIndex),
                 distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + (width / 2),
-                SubmitWrapper: wrapperForSubmits
+                PortalWrapper: WrapperForSubmits
             };
             return portalSettings;
         }
