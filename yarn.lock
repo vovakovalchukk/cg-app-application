@@ -1532,9 +1532,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-234-merge-upgraded-react-changes-into-products-page-redesign-epic":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-238-product-page-redesign-snaggin-styling-imporvements-and-dropdown-fix":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#ceb33a72f38a3e282836aab23486c735b9d3ae1f"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#6dc9ca50d4a35fab57aad84e9a170e88063178d5"
   dependencies:
     react "^16.5.2"
     react-dom "^16.5.2"
