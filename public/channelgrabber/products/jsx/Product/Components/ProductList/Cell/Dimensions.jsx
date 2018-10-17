@@ -26,11 +26,13 @@ class DimensionsCell extends React.Component {
     renderInput = (row, detail) => {
         const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
 
+        let dimension = detail;
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+            elemType: elementTypes.DIMENSIONS_INPUT_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            dimension
         });
 
         return (

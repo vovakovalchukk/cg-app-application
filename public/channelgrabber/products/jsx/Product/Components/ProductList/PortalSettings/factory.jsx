@@ -10,7 +10,8 @@ let portalSettingsFactory = (function() {
                 elemType,
                 rowIndex,
                 width,
-                distanceFromLeftSideOfTableToStartOfCell
+                distanceFromLeftSideOfTableToStartOfCell,
+                dimension
             } = paramObj;
 
             if (!hasRowBeenRendered(rowIndex)) {
@@ -22,9 +23,10 @@ let portalSettingsFactory = (function() {
                 distanceFromLeftSideOfTableToStartOfPortal: getDistanceFromLeftSideOfTableToStartOfPortal({
                     distanceFromLeftSideOfTableToStartOfCell,
                     width,
-                    elemType
+                    elemType,
+                    dimension
                 }),
-                translateProp: getTranslateProp(elemType)
+                translateProp: getTranslateProp({elemType})
             });
 
             let portalSettings = {
@@ -37,26 +39,29 @@ let portalSettingsFactory = (function() {
         }
     };
 
-    function getTranslateProp(elemType){
+    function getTranslateProp({elemType}){
         let translateElementMap = {}
         translateElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = 'translateX(-50%)';
         translateElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = '';
-
         return translateElementMap[elemType];
     }
 
-    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType}) {
+    function getAddedDistanceForDimensionInput(dimension){
+        let distanceDimensionMap = {};
+        distanceDimensionMap[ "height" ] = 10;
+        distanceDimensionMap[ "width" ] = 85;
+        distanceDimensionMap[ "length" ] = 160;
+        return distanceDimensionMap[dimension];
+    }
+
+    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
         let distanceElementMap = {}
         distanceElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
-        // hard coding the distance until a better solution is found
+        // Somewhat hard coding the distance here due to a lack of simple alternatives.
+        // These will need to be changed if you change the width of the containing cells.
         distanceElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell + 27;
         distanceElementMap[ elementTypes['SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell;
-
-//        console.log('{elemType, distanceFromLeftSideOfTableToStartOfCell}: ', {elemType,
-//            distanceFromLeftSideOfTableToStartOfCell,
-//            mappedResult: distanceElementMap[elemType]
-//        });
-
+        distanceElementMap[ elementTypes['DIMENSIONS_INPUT_SUBMITS']] = distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension);
 
         return distanceElementMap[elemType];
     }
