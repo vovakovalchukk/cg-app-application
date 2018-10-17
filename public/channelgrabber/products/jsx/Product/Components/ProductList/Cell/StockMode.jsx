@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import StockModeInputs from 'Product/Components/StockModeInputs';
 import constants from 'Product/Components/ProductList/Config/constants';
+import elementTypes from "../PortalSettings/elementTypes";
+import portalSettingsFactory from "../PortalSettings/factory";
 
 const StyledStockModeInputs = styled(StockModeInputs)`
         display:flex;
@@ -63,7 +65,12 @@ class StockModeCell extends React.Component {
     };
 
     render() {
-        const {products, rowIndex} = this.props;
+        const {
+            products,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isSimpleProduct = stateUtility.isSimpleProduct(row);
         const isVariation = stateUtility.isVariation(row);
@@ -74,6 +81,14 @@ class StockModeCell extends React.Component {
         if (!isSimpleProduct && !isVariation) {
             return <span></span>
         }
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        });
+
         return (
             <div className={this.props.className}>
                 <StyledStockModeInputs
@@ -93,6 +108,7 @@ class StockModeCell extends React.Component {
                             onChange: this.onStockLevelChange
                         }
                     }}
+                    portalSettingsForDropdown={portalSettingsForDropdown}
                 />
                 <ButtonsContainer className={"safe-input-box"}>
                     <div className={"submit-input"}>

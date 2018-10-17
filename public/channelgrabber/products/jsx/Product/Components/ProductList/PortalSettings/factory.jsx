@@ -10,27 +10,32 @@ let portalSettingsFactory = (function() {
                 elemType,
                 rowIndex,
                 width,
-                distanceFromLeft
+                distanceFromLeftSideOfTableToStartOfCell
             } = paramObj;
             if (!hasRowBeenRendered(rowIndex)) {
-                console.log('not creating portal settings since there is no domNode for this.props.rowIndex', rowIndex);
                 return;
             }
-            let wrapperForSubmits = getWrapperForSubmits({elemType, distanceFromLeft, width, rowIndex});
+            let wrapperForSubmits = getWrapperForSubmits({
+                elemType,
+                distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell,
+                width,
+                rowIndex
+            });
             let portalSettings = {
                 id: rowIndex,
                 usePortal: true,
                 domNodeForSubmits: getDomNodeForAddingSubmitsTo(rowIndex),
-                distanceFromLeft: distanceFromLeft + (width / 2),
+                distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + (width / 2),
                 SubmitWrapper: wrapperForSubmits
             };
             return portalSettings;
         }
     };
 
-    function getWrapperForSubmits({elemType, distanceFromLeft, width, rowIndex}) {
+    function getWrapperForSubmits({elemType, distanceFromLeftSideOfTableToStartOfCell, width, rowIndex}) {
         let createWrapper = wrapperStyle => {
             return ({children}) => (
+                // todo change classNames to have the column in there as well for debug purposes
                 <div style={wrapperStyle} className={'submits-container submits-for-row-' + rowIndex}>
                     {children}
                 </div>
@@ -42,12 +47,12 @@ let portalSettingsFactory = (function() {
         let wrapperStyle = {
             background: 'white',
             width: '60px',
-            height: '30px',
             border: 'solid blue 3px',
+            'box-sizing':'border-box',
             'z-index': '100',
             position: 'absolute',
-            top: '15px',
-            left: distanceFromLeft + (width / 2) + 'px',
+            top: '20px',
+            left: distanceFromLeftSideOfTableToStartOfCell + (width / 2) + 'px',
             transform: 'translateX(-50%)'
         };
         return createWrapper(wrapperStyle);
@@ -84,7 +89,7 @@ let portalSettingsFactory = (function() {
     function getDomNodeForAddingSubmitsTo(rowIndex) {
         let targetClass = getClassOfCurrentRow(rowIndex);
         let targetRow = document.querySelector(targetClass);
-        console.log('{targetRow,targetClass}: ', {targetRow,targetClass});
+//        console.log('{targetRow,targetClass}: ', {targetRow,targetClass});
         let targetNode = targetRow.parentNode;
         return targetNode;
     }

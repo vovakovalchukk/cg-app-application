@@ -8,7 +8,8 @@ class StockModeInputsComponent extends React.Component {
         onChange: null,
         value: "",
         classNames: null,
-        className: ''
+        className: '',
+        portalSettingsForSelect:{}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
@@ -62,7 +63,8 @@ class StockModeInputsComponent extends React.Component {
                 return option.value === selected.value;
             }).name;
         }
-        
+//        console.log('in StockModeInputs this.props.portalSettingsForSelect: ', this.props.portalSettingsForSelect);
+
         return (
             <div className={this.props.className}>
                 <div className={"c-stock-mode-input__type-select-container"}>
@@ -76,6 +78,7 @@ class StockModeInputsComponent extends React.Component {
                         onOptionChange={function(option) {
                             this.props.stockModeType.input.onChange(option)
                         }.bind(this)}
+                        portalSettingsForDropdown={this.props.portalSettingsForDropdown}
                     />
                 </div>
                 <div className={"c-stock-mode-input__amount-container"}>

@@ -7,7 +7,7 @@ class CellWrapper extends React.Component {
         let {CellContent, products, rowIndex} = this.props;
         const rowData = stateUtility.getRowData(products, rowIndex);
 
-        if(this.isFirstRenderedCell()){
+        if(this.shouldReorderRows()){
             // have to do this because fixed-data-tables re-renders rows in a non sequential order
             this.props.actions.reOrderRowsByRowIndex();
         }
@@ -23,8 +23,9 @@ class CellWrapper extends React.Component {
             />
         )
     };
-    isFirstRenderedCell() {
-        return this.props.rowIndex === 0 && this.props.columnKey === Object.keys(columnKeys)[0];
+    shouldReorderRows() {
+        // modulus 10 so that we will generally see a re-order for any visible set of rows
+        return ((this.props.rowIndex % 10) === 0) && this.props.columnKey === Object.keys(columnKeys)[0];
     }
     isLastRow() {
         return this.props.products.visibleRows.length === this.props.rowIndex;

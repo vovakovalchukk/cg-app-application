@@ -97,14 +97,14 @@ class ProductList extends React.Component {
     };
     renderColumns = () => {
         let columnSettings = this.props.columns.columnSettings;
-        let distanceFromLeft = 0;
+        let distanceFromLeftSideOfTableToStartOfCell = 0;
         let createdColumns = columnSettings.map((column) => {
-            column.distanceFromLeft = distanceFromLeft;
+            column.distanceFromLeftSideOfTableToStartOfCell = distanceFromLeftSideOfTableToStartOfCell;
             if (this.isTabSpecificColumn(column) && !this.isColumnSpecificToCurrentTab(column)) {
                 return;
             }
             let CreatedColumn = columnCreator(column, this.props);
-            distanceFromLeft += column.width;
+            distanceFromLeftSideOfTableToStartOfCell += column.width;
             return CreatedColumn
         });
         return createdColumns;
@@ -117,28 +117,6 @@ class ProductList extends React.Component {
     };
     rowClassNameGetter = (index) => {
         return constants.ROW_CLASS_PREFIX+'-'+index + ' ' + constants.ROW_CLASS_PREFIX;
-    };
-    reOrderRows(){
-        let allRows = document.querySelectorAll('.js-row');
-        if(!allRows.length){
-            console.log('returning out');
-            return;
-        }
-        console.log('-------- reordering');
-
-        var rowArr = [].slice.call(allRows).sort( (a, b) => {
-            //todo - change this to check the classNames
-            let aRowIndex = utility.getRowIndexFromRow(a);
-            let bRowIndex = utility.getRowIndexFromRow(b);
-            return aRowIndex > bRowIndex ? 1 : -1;
-        });
-        let parentRows = rowArr.map(row=>{
-            return row.parentNode;
-        });
-        let rowsContainer = parentRows[0].parentNode;
-        parentRows.forEach(function (row) {
-            rowsContainer.appendChild(row);
-        });
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();

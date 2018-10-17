@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-234-merge-upgraded-react-changes-into-products-page-redesign-epic",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-238-product-page-redesign-snaggin-styling-imporvements-and-dropdown-fix",
     "chart.js": "^2.7.0",
     "css-toggle-switch": "^4.1.0",
     "fixed-data-table-2": "^0.8.13",
