@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89f7c3557ba39cad597bdec6cfd93684",
+    "content-hash": "249df97e465d6e39cde5c9b0ac4793e7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -647,16 +647,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.10.1",
+            "version": "1.16.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "b47fa042dec66f38f8a026dd9f7c45af878d0688"
+                "reference": "477d82af8316c038af645bac4089b7ea2bfc03d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.10.1-2ffd11.zip",
-                "reference": "b47fa042dec66f38f8a026dd9f7c45af878d0688",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.11-809e24.zip",
+                "reference": "477d82af8316c038af645bac4089b7ea2bfc03d6",
                 "shasum": null
             },
             "require": {
@@ -676,7 +676,7 @@
                 "channelgrabber/product": "^1.16.7",
                 "channelgrabber/settings": "^1.5.3",
                 "channelgrabber/slim": "^1.13.0",
-                "channelgrabber/stdlib": "^2.13.1",
+                "channelgrabber/stdlib": "^2.16.3",
                 "channelgrabber/stock": "^1.10.1",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.25.0",
@@ -706,7 +706,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-16T10:07:03+00:00"
+            "time": "2018-10-17T14:05:14+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -825,16 +825,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "dev-CGIV-9997-CleanupInvoices",
+            "version": "1.11.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "760d37dcda13a09b3d40ea9277329f51e34b0c9e"
+                "reference": "4fb7a82ccc79d6eab09596df9fb906af50b6cb73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-dev-CGIV-9997-CleanupInvoices-101a06.zip",
-                "reference": "760d37dcda13a09b3d40ea9277329f51e34b0c9e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-clearbooks-1.11.5-1e05f4.zip",
+                "reference": "4fb7a82ccc79d6eab09596df9fb906af50b6cb73",
                 "shasum": null
             },
             "require": {
@@ -843,7 +843,7 @@
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "dev-CGIV-9997-CleanupInvoices as 1.12.0",
+                "channelgrabber/payment": "^1.10.0",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/user": "^1.25.0",
@@ -865,7 +865,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-15T13:35:04+00:00"
+            "time": "2018-10-05T13:53:07+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -1082,19 +1082,20 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.3.0.1",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "0cb64f3731b55c2b0aeba5d8732fe1ad8b234e91"
+                "reference": "349c825111a1eb23e46bbf50ac6bf07ca32ba786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.0.1-745eeb.zip",
-                "reference": "0cb64f3731b55c2b0aeba5d8732fe1ad8b234e91",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.3.1-cb57a6.zip",
+                "reference": "349c825111a1eb23e46bbf50ac6bf07ca32ba786",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/stdlib": "^2.16.3",
                 "zendframework/zend-code": "^2.2",
                 "zendframework/zend-di": "^2.2"
             },
@@ -1111,7 +1112,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2018-09-25T14:40:31+00:00"
+            "time": "2018-10-17T14:05:32+00:00"
         },
         {
             "name": "channelgrabber/ebay",
@@ -2123,16 +2124,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "dev-CGIV-9997-CleanupInvoices",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "d63ca524acd262c26b6d685330d88df6363d7df0"
+                "reference": "afe43894467eef9d6d303c6cb99e941459e7a111"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-dev-CGIV-9997-CleanupInvoices-650467.zip",
-                "reference": "d63ca524acd262c26b6d685330d88df6363d7df0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.11.1-c9bfcb.zip",
+                "reference": "afe43894467eef9d6d303c6cb99e941459e7a111",
                 "shasum": null
             },
             "require": {
@@ -2174,7 +2175,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-10-15T15:23:11+00:00"
+            "time": "2018-10-08T11:45:12+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3139,16 +3140,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.2",
+            "version": "2.16.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c5736bcf6d610488e288fc33128bf4f5759ca131"
+                "reference": "bddbdfdd6a7260e406c898a1fa2172312e5dfabf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.2-f1dec2.zip",
-                "reference": "c5736bcf6d610488e288fc33128bf4f5759ca131",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.3-0e0591.zip",
+                "reference": "bddbdfdd6a7260e406c898a1fa2172312e5dfabf",
                 "shasum": null
             },
             "require": {
@@ -3192,7 +3193,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-09-26T13:42:09+00:00"
+            "time": "2018-10-17T13:56:02+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -10365,25 +10366,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11.6",
-            "alias_normalized": "1.11.6.0",
-            "version": "dev-CGIV-9997-CleanupInvoices",
-            "package": "channelgrabber/clearbooks"
-        },
-        {
-            "alias": "1.12.0",
-            "alias_normalized": "1.12.0.0",
-            "version": "dev-CGIV-9997-CleanupInvoices",
-            "package": "channelgrabber/payment"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/payment": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
