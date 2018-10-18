@@ -122,7 +122,8 @@ import reducerCreator from 'Common/Reducers/creator';
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
-                category: formatCategoryDefaultValues(action.payload)
+                category: formatCategoryDefaultValues(action.payload),
+                skus: skus
             };
         }
     });
