@@ -127,7 +127,7 @@ var submitForm = reduxFormSubmit('createProductForm');
         delete variationIdentifiers.id;
 
         let mergedVariation = Object.assign(formattedVariation, variationIdentifiers);
-        delete mergedVariation.id;
+        delete mergedVariation.id
         return mergedVariation;
     }
 

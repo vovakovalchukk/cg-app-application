@@ -1,5 +1,5 @@
 import ResponseActions from './ResponseActions';
-    
+
 
     var formatFormValuesForSubmission = function(values, props) {
         return {

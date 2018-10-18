@@ -33,10 +33,10 @@ class ProductPriceComponent extends React.Component {
             var touchedPricesForAccount = {};
             props.variationsDataForProduct.map(function(variation) {
                 var isTouched = false;
-                if (props.initialPrices[variation.sku] && props.initialPrices[variation.sku][account.id]) {
+                if (props.initialPrices[variation.id] && props.initialPrices[variation.id][account.id]) {
                     isTouched = true;
                 }
-                touchedPricesForAccount[variation.sku] = isTouched;
+                touchedPricesForAccount[variation.id] = isTouched;
             });
             touchedPrices[account.id] = touchedPricesForAccount
         });
@@ -61,7 +61,7 @@ class ProductPriceComponent extends React.Component {
         return this.props.accounts.map(function (account) {
             return (<td>
                 <Field
-                    name={"prices." + variation.sku + "." + account.id}
+                    name={"prices." + variation.id + "." + account.id}
                     component={this.renderInputComponent}
                     sku={variation.sku}
                     accountId={account.id}
@@ -101,7 +101,7 @@ class ProductPriceComponent extends React.Component {
                 && this.state.touchedPrices[accountId][variation.sku]) {
                 return;
             }
-            this.props.change("prices." + variation.sku + "." + accountId, value);
+            this.props.change("prices." + variation.id + "." + accountId, value);
         }.bind(this));
     };
 

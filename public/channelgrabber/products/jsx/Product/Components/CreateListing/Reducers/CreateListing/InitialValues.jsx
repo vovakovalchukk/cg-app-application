@@ -48,7 +48,6 @@ import reducerCreator from 'Common/Reducers/creator';
 
         for (var templateId in data.categoryTemplates) {
             var template = data.categoryTemplates[templateId];
-
             for (var categoryTemplateAccountId in template.accounts) {
                 var accountCategory = template.accounts[categoryTemplateAccountId];
 
@@ -107,12 +106,12 @@ import reducerCreator from 'Common/Reducers/creator';
                 prices[variation.id] = pricesForVariation;
             });
 
+            var productDetails = product.detail ? product.details : {};
+
             var skus = {};
             variationData.map(function(variation) {
                 skus[variation.id] = variation.sku;
             });
-
-            var productDetails = product.detail ? product.details : {};
 
             return {
                 title: selectedProductDetails.title ? selectedProductDetails.title : product.name,
@@ -123,8 +122,7 @@ import reducerCreator from 'Common/Reducers/creator';
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
-                category: formatCategoryDefaultValues(action.payload),
-                skus: skus
+                category: formatCategoryDefaultValues(action.payload)
             };
         }
     });
