@@ -1,5 +1,4 @@
 import React from 'react';
-import TetherComponent from 'react-tether';
 import CreateListingUtils from 'Product/Utils/CreateListingUtils';
 import Tooltip from 'Product/Components/Tooltip';
 

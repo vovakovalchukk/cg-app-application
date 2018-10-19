@@ -1,9 +1,6 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import ChannelBadgeComponent from 'Common/Components/ChannelBadge';
-
-
-var Field = ReduxForm.Field;
 
 var channelsWithDefaultSettings = {
     'ebay': true

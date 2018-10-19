@@ -1,4 +1,3 @@
-import ReduxForm from 'redux-form';
 import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 

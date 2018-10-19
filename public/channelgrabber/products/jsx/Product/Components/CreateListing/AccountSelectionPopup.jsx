@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
+import {connect} from 'react-redux';
+import {Field, FieldArray, reduxForm, SubmissionError, submit as reduxFormSubmit} from 'redux-form';
 import Container from 'Common/Components/Container';
-import ChannelBadgeComponent from 'Common/Components/ChannelBadge';
 import CategoryMap from 'CategoryMapper/Components/CategoryMap';
 import submitCategoryMapForm from 'CategoryMapper/Service/SubmitCategoryMapForm';
 import BlockerModal from 'Common/Components/BlockerModal';
@@ -12,10 +10,6 @@ import AccountSelectComponent from 'Product/Components/CreateListing/Components/
 import CategoryMapSelectComponent from 'Product/Components/CreateListing/Components/CategoryMapSelect';
 import SiteSelectComponent from 'Product/Components/CreateListing/Components/SiteSelect';
 import accountSelectionFormValidator from 'Product/Components/CreateListing/Service/AccountSelectionFormValidator';
-
-
-var Field = ReduxForm.Field;
-var FieldArray = ReduxForm.FieldArray;
 
 class AccountSelectionPopup extends React.Component {
     static defaultProps = {
@@ -219,7 +213,7 @@ AccountSelectionPopup = ReduxForm.reduxForm({
     onSubmit: function(values, dispatch, props) {
         var errors = accountSelectionFormValidator(values, props);
         if (errors && Object.keys(errors).length > 0) {
-            throw new ReduxForm.SubmissionError(errors);
+            throw new SubmissionError(errors);
         }
 
         var accounts = [];
@@ -308,7 +302,7 @@ var mapDispatchToProps = function(dispatch) {
             dispatch(Actions.categoryMapSelectedByName(name));
         },
         submitForm: function() {
-            dispatch(ReduxForm.submit("accountSelection"));
+            dispatch(reduxFormSubmit("accountSelection"));
         },
         fetchSettingsForAccount: function(accountId) {
             dispatch(Actions.fetchSettingsForAccount(accountId, dispatch));
@@ -316,5 +310,5 @@ var mapDispatchToProps = function(dispatch) {
     }
 };
 
-export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountSelectionPopup);
 

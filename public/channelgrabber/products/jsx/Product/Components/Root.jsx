@@ -16,7 +16,6 @@ const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
 const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
 const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
 const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
 
 class RootComponent extends React.Component {
     static defaultProps = {
@@ -390,19 +389,12 @@ class RootComponent extends React.Component {
         });
     };
 
-    showSearchPopup = (data) => {
-        this.setState({
-            currentView: PRODUCT_SEARCH_VIEW,
-            createListingData: data
-        });
-    };
-
     getViewRenderers = () => {
         return {
             NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
             NEW_LISTING_VIEW: this.renderCreateListingPopup,
             PRODUCT_LIST_VIEW: this.renderProductListView,
-            ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
+            ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
         }
     };
 
@@ -469,7 +461,7 @@ class RootComponent extends React.Component {
             this.props.ebaySiteOptions,
             this.props.categoryTemplateOptions,
             this.showCreateListingPopup,
-            this.showSearchPopup,
+            () => {},
             this.state.createListing.product,
             this.props.listingCreationAllowed,
             this.props.managePackageUrl,
@@ -517,7 +509,6 @@ class RootComponent extends React.Component {
         }
         return options;
     };
-
     redirectToProducts = () => {
         this.state.currentView = PRODUCT_LIST_VIEW;
         this.forceUpdate();

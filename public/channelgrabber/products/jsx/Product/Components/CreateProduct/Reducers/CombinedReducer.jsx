@@ -1,10 +1,11 @@
-import Redux from 'redux';
-import ReduxForm from 'redux-form';
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
 import imageUploaderReducer from 'Common/Components/ImageUploader/ImageUploaderReducer';
 import AccountReducer from 'Product/Components/CreateProduct/Reducers/AccountReducer';
 import VariationsTableReducer from 'Product/Components/CreateProduct/Reducers/VariationsReducer';
-    var AppReducer = Redux.combineReducers({
-        form: ReduxForm.reducer,
+
+    var AppReducer = combineReducers({
+        form: reduxFormReducer,
         account: AccountReducer,
         variationsTable: VariationsTableReducer,
         uploadedImages: imageUploaderReducer

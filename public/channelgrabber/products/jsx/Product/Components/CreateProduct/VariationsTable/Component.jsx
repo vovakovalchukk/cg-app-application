@@ -1,17 +1,11 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
-import reduxForm from 'redux-form';
+import {Form, Field, Fields, FormSection} from 'redux-form';
 import utility from 'Product/Components/CreateProduct/functions/utility';
 import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
 import InputWithValidation from 'Common/Components/ReduxForm/InputWithValidation';
 import ImageDropDown from 'Common/Components/ImageDropDown';
 import Select from 'Common/Components/Select';
-import RemoveIcon from 'Common/Components/RemoveIcon';
 import StockModeInputs from 'Product/Components/CreateProduct/StockModeInputsRoot';
-var Form = reduxForm.Form;
-var Field = reduxForm.Field;
-var Fields = reduxForm.Fields;
-var FormSection = reduxForm.FormSection;
 
 var firstColumnCellStyle = {
     width: '2rem',
@@ -19,18 +13,14 @@ var firstColumnCellStyle = {
     textAlign: 'center'
 };
 
-var VariationsTableComponent = createReactClass({
-    displayName: 'VariationsTableComponent',
+class VariationsTableComponent extends React.Component {
+    static defaultProps = {
+        newVariationRowRequest: null,
+        variationValues: null,
+        variationsTable: {}
+    };
 
-    getDefaultProps: function() {
-        return {
-            newVariationRowRequest: null,
-            variationValues: null,
-            variationsTable: {}
-        };
-    },
-
-    shouldCreateNewVariationRow: function(variationId) {
+    shouldCreateNewVariationRow = (variationId) => {
         var variations = this.props.variationValues;
         if (!variations) {
             return true;
@@ -45,32 +35,32 @@ var VariationsTableComponent = createReactClass({
             }
         }
         return false;
-    },
+    };
 
-    getNewVariationId: function() {
+    getNewVariationId = () => {
         return (this.props.variationsTable.variations[this.props.variationsTable.variations.length - 1].id)
-    },
+    };
 
-    variationRowFieldOnChange: function(variationId) {
+    variationRowFieldOnChange = (variationId) => {
         if (this.shouldCreateNewVariationRow(variationId)) {
             this.props.newVariationRowCreate();
             this.props.setDefaultValuesForNewVariations(this.getNewVariationId());
         }
-    },
+    };
 
-    attributeColumnNameChange: function(fieldName, value) {
+    attributeColumnNameChange = (fieldName, value) => {
         this.props.attributeColumnNameChange(fieldName, value);
         if (attributeColumnHasNoValue(this.props.attributeValues, fieldName)) {
             this.props.newAttributeColumnRequest();
         }
-    },
+    };
 
-    variationRowRemove: function(variationId) {
+    variationRowRemove = (variationId) => {
         this.props.resetSection('variations.' + 'variation-' + variationId.toString());
         this.props.variationRowRemove(variationId);
-    },
+    };
 
-    renderVariationTableHeading: function(field) {
+    renderVariationTableHeading = (field) => {
         if (field.isCustomAttribute) {
             var isLastAttributeFieldColumn = stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
             let fieldName = 'attributes.' + field.name;
@@ -112,24 +102,24 @@ var VariationsTableComponent = createReactClass({
                 </th>
             );
         }
-    },
+    };
 
-    renderVariationHeadings: function() {
+    renderVariationHeadings = () => {
         return this.props.variationsTable.fields.map(function(field) {
             return this.renderVariationTableHeading(field);
         }.bind(this));
-    },
+    };
 
-    renderVariationsTableHeaderRow: function() {
+    renderVariationsTableHeaderRow = () => {
         return (
             <tr className={"c-table-with-inputs__header-row"}>
                 <th style={firstColumnCellStyle}></th>
                 {this.renderVariationHeadings()}
             </tr>
         );
-    },
+    };
 
-    renderImageDropdown: function(reduxFieldProps, variationId, uploadedImages) {
+    renderImageDropdown = (reduxFieldProps, variationId, uploadedImages) => {
         return <ImageDropDown
             selected={utility.getUploadedImageById(reduxFieldProps.input.value, uploadedImages)}
             onChange={function(event) {
@@ -138,9 +128,9 @@ var VariationsTableComponent = createReactClass({
             autoSelectFirst={false}
             images={uploadedImages}
         />
-    },
+    };
 
-    renderCustomSelect: function(field, reduxFormFieldProps) {
+    renderCustomSelect = (field, reduxFormFieldProps) => {
         var isLastAttributeFieldColumn = field.isCustomAttribute && stateFilters.isLastAttributeFieldColumn(field, this.props.variationsTable);
         return <Select
             disabled={isLastAttributeFieldColumn}
@@ -161,85 +151,88 @@ var VariationsTableComponent = createReactClass({
                 return reduxFormFieldProps.input.onChange(option.value);
             }.bind(this)}
         />
-    },
+    };
 
-    variationRowFieldInputRenderMethods: {
-        text: function(variationId, field) {
-            return (
-                <Field
-                    type="text"
+    variationRowFieldInputRenderMethod = (type) => {
+        let methods = {
+            text: function (variationId, field) {
+                return (
+                    <Field
+                        type="text"
+                        name={field.name}
+                        className={'c-table-with-inputs__text-input'}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
+                        component={InputWithValidation}
+                    />
+                )
+            },
+            number: function (variationId, field) {
+                return (
+                    <Field
+                        type="number"
+                        name={field.name}
+                        className={'c-table-with-inputs__text-input'}
+                        component="input"
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
+                    />
+                )
+            },
+            image: function (variationId, field) {
+                var uploadedImages = this.props.uploadedImages.images;
+                return (
+                    <Field
+                        type="text"
+                        name={field.name}
+                        component={function (props) {
+                            return this.renderImageDropdown.call(this,
+                                props,
+                                variationId,
+                                uploadedImages)
+                        }.bind(this)}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId)}
+                    />
+                )
+            },
+            stockModeOptions: function (variationId) {
+                return (
+                    <Fields
+                        type="text"
+                        names={[
+                            'stockModeType',
+                            'stockAmount'
+                        ]}
+                        component={StockModeInputs}
+                        onChange={this.variationRowFieldOnChange.bind(this, variationId)}
+                    />
+                );
+            },
+            customOptionsSelect: function (variationId, field) {
+                return <Field
                     name={field.name}
-                    className={'c-table-with-inputs__text-input'}
-                    onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
-                    component={InputWithValidation}
-                />
-            )
-        },
-        number: function(variationId, field) {
-            return (
-                <Field
-                    type="number"
-                    name={field.name}
-                    className={'c-table-with-inputs__text-input'}
-                    component="input"
-                    onChange={this.variationRowFieldOnChange.bind(this, variationId, field.id)}
-                />
-            )
-        },
-        image: function(variationId, field) {
-            var uploadedImages = this.props.uploadedImages.images;
-            return (
-                <Field
-                    type="text"
-                    name={field.name}
-                    component={function(props) {
-                        return this.renderImageDropdown.call(this,
-                            props,
-                            variationId,
-                            uploadedImages)
-                    }.bind(this)}
+                    component={this.renderCustomSelect.bind(this, field)}
                     onChange={this.variationRowFieldOnChange.bind(this, variationId)}
-                />
-            )
-        },
-        stockModeOptions: function(variationId) {
-            return (
-                <Fields
-                    type="text"
-                    names={[
-                        'stockModeType',
-                        'stockAmount'
-                    ]}
-                    component={StockModeInputs}
-                    onChange={this.variationRowFieldOnChange.bind(this, variationId)}
-                />
-            );
-        },
-        customOptionsSelect: function(variationId, field) {
-            return <Field
-                name={field.name}
-                component={this.renderCustomSelect.bind(this, field)}
-                onChange={this.variationRowFieldOnChange.bind(this, variationId)}
-            />;
-        }
-    },
+                />;
+            }
+        };
+        return methods[type];
+    };
 
-    renderVariationRowField: function(variationId, field) {
-        var renderFieldMethod = this.variationRowFieldInputRenderMethods[field.type].bind(this, variationId, field);
+    renderVariationRowField = (variationId, field) => {
+        var renderFieldMethod = this.variationRowFieldInputRenderMethod(field.type).bind(this, variationId, field);
         return (
             <td className={'c-table-with-inputs__cell'}>
                 {renderFieldMethod()}
             </td>
         )
-    },
+    };
 
-    renderVariationRowFields: function(variationId) {
+    renderVariationRowFields = (variationId) => {
         return this.props.variationsTable.fields.map(function(field) {
             return this.renderVariationRowField(variationId, field);
         }.bind(this))
-    },
+    };
 
-    renderVariations: function() {
+    renderVariations = () => {
         var variations = this.props.variationsTable.variations;
         return (
             variations.map(function(variation, index) {
@@ -254,9 +247,9 @@ var VariationsTableComponent = createReactClass({
                 return this.renderVariationRow.call(this, variation, isLastVariation, isFirstVariation);
             }, this)
         );
-    },
+    };
 
-    renderVariationRow: function(variation, isLastVariation, isFirstVariation) {
+    renderVariationRow = (variation, isLastVariation, isFirstVariation) => {
         var variationId = variation.id;
         var removeButtonStyle = {};
         var removeButtonStyles = [];
@@ -292,9 +285,9 @@ var VariationsTableComponent = createReactClass({
                 </tr>
             </FormSection>
         );
-    },
+    };
 
-    renderVariationsTable: function() {
+    renderVariationsTable = () => {
         return (
             <Form>
                 <table className={'c-table-with-inputs c-table-with-inputs--extendable'}>
@@ -303,12 +296,12 @@ var VariationsTableComponent = createReactClass({
                 </table>
             </Form>
         );
-    },
+    };
 
-    render: function() {
+    render() {
         return this.renderVariationsTable();
-    },
-});
+    }
+}
 
 export default VariationsTableComponent;
 

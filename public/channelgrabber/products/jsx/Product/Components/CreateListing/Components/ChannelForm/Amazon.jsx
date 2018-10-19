@@ -1,9 +1,6 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import TextArea from 'Common/Components/TextArea';
-
-
-var Field = ReduxForm.Field;
 
 class AmazonChannelFormComponent extends React.Component {
     renderConditionNote = (field) => {

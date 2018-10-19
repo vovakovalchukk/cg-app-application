@@ -1,12 +1,8 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import Checkbox from 'Common/Components/Checkbox';
-import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
 import VariationTable from './VariationTable';
-
-
-var Field = ReduxForm.Field;
 
 var inputTypeComponents = {
     "checkbox": Checkbox
@@ -64,7 +60,7 @@ var identifiers = [
             if (!value) {
                 return undefined;
             }
-            if (value.length !== 13 || value.length !== 10) {
+            if (value.length !== 13 && value.length !== 10) {
                 return 'Must be exactly 10 or 13 digits long';
             }
             return undefined;
@@ -92,8 +88,7 @@ class ProductIdentifiers extends React.Component {
         renderImagePicker: true,
         shouldRenderStaticImagesFromVariationValues: false,
         containerCssClasses: '',
-        tableCssClasses: '',
-        renderStaticImageFromFormValues: false
+        tableCssClasses: ''
     };
 
     renderIdentifierHeaders = () => {
@@ -153,8 +148,6 @@ class ProductIdentifiers extends React.Component {
                 tableCssClasses={this.props.tableCssClasses}
                 renderCustomTableHeaders={this.renderIdentifierHeaders}
                 renderCustomTableRows={this.renderIdentifierColumns}
-                variationImages={this.props.variationImages}
-                renderStaticImageFromFormValues={this.props.renderStaticImageFromFormValues}
             />
         );
     }

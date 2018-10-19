@@ -1,8 +1,6 @@
 import React from 'react';
-import reduxForm from 'redux-form';
-import ReactRedux from 'react-redux';
+import {Field, Form, reduxForm} from 'redux-form';
 import stateFilters from 'Product/Components/CreateProduct/functions/stateFilters';
-import InputWithValidation from 'Common/Components/ReduxForm/InputWithValidation';
 import ImageUploader from 'Common/Components/ImageUploader/ImageUploaderRoot';
 import EditableText from 'Common/Components/EditableText';
 import ImagePicker from 'Common/Components/ImagePicker';
@@ -11,8 +9,6 @@ import VatView from 'Product/Components/VatView';
 import VariationsTable from 'Product/Components/CreateProduct/VariationsTable/Root';
 import DimensionsTable from 'Product/Components/CreateProduct/DimensionsTable/Root';
 import ProductIdentifiers from 'Product/Components/CreateListing/Components/CreateListing/ProductIdentifiers';
-const Field = reduxForm.Field;
-const Form = reduxForm.Form;
 
 var inputColumnRenderMethods = {
     renderMainImagePickerComponent: function(props) {
@@ -304,7 +300,7 @@ class createFormComponent extends React.Component {
     }
 }
 
-export default reduxForm.reduxForm({
+export default reduxForm({
     form: 'createProductForm',
     initialValues: {
         variations: {}

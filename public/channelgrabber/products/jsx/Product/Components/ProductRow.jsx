@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ThenBySort from 'thenBy';
+import {firstBy, thenBy} from 'thenby';
 import Checkbox from 'Product/Components/Checkbox';
 import Status from 'Product/Components/Status';
 import VariationView from 'Product/Components/VariationView';

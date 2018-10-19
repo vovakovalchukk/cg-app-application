@@ -1,51 +1,45 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import Select from 'Common/Components/Select';
 
 
-var CategorySelectComponent = createReactClass({
-    displayName: 'CategorySelectComponent',
+class CategorySelectComponent extends React.Component {
+    static defaultProps = {
+        title: null,
+        variations: false
+    };
 
-    getInitialState: function() {
-        return {
-            categoryMaps: [],
-            selectedCategories: []
-        }
-    },
-
-    getDefaultProps: function() {
-        return {
-            title: null,
-            variations: false
-        }
-    },
+    state = {
+        categoryMaps: [],
+        selectedCategories: []
+    };
 
     componentDidMount() {
         this.saveNewRootCategoriesToState(this.props.rootCategories);
-    },
+    }
 
     componentWillReceiveProps(newProps) {
         if (newProps.rootCategories != this.props.rootCategories) {
             this.saveNewRootCategoriesToState(newProps.rootCategories);
         }
-    },
+    }
 
-    saveNewRootCategoriesToState: function (rootCategories) {
+    saveNewRootCategoriesToState = (rootCategories) => {
         if (!rootCategories) {
             return;
         }
-        var newState = this.getInitialState();
-        newState.categoryMaps = [rootCategories];
+        var newState = {
+            categoryMaps: [rootCategories]
+        };
 
         this.setState(newState);
-    },
+    };
 
-    removeChildElementsAndSelections: function(object, currentIndex) {
+    removeChildElementsAndSelections = (object, currentIndex) => {
         object.splice(currentIndex);
         return object;
-    },
+    };
 
-    getOnCategorySelect: function(categoryIndex) {
+    getOnCategorySelect = (categoryIndex) => {
         return function (selectOption) {
             var newState = JSON.parse(JSON.stringify(this.state));
 
@@ -67,9 +61,9 @@ var CategorySelectComponent = createReactClass({
             this.props.onLeafCategorySelected(null);
             this.fetchAndSetChildCategories(selectOption.value, categoryIndex, newState);
         }.bind(this);
-    },
+    };
 
-    fetchAndSetChildCategories: function (selectedCategoryId, categoryIndex, previouslySetState) {
+    fetchAndSetChildCategories = (selectedCategoryId, categoryIndex, previouslySetState) => {
         $.ajax({
             context: this,
             url: '/products/create-listings/' + this.props.accountId + '/category-children/' + selectedCategoryId,
@@ -84,9 +78,9 @@ var CategorySelectComponent = createReactClass({
                 this.setState(previouslySetState);
             }
         });
-    },
+    };
 
-    getCategoryOptionsFromCategoryMap(categoryMap) {
+    getCategoryOptionsFromCategoryMap = (categoryMap) => {
         var categoryOptions = [], disabled, category;
         for (var externalId in categoryMap) {
             category = categoryMap[externalId];
@@ -101,9 +95,9 @@ var CategorySelectComponent = createReactClass({
             });
         }
         return categoryOptions;
-    },
+    };
 
-    render: function () {
+    render() {
         return <div>
             {this.state.categoryMaps.map(function(categoryMap, index) {
 
@@ -121,8 +115,8 @@ var CategorySelectComponent = createReactClass({
                 </label>
             }.bind(this))}
         </div>
-    },
-});
+    }
+}
 
 export default CategorySelectComponent;
 

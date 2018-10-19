@@ -1,10 +1,7 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import Select from 'Common/Components/Select';
 import Validators from '../../../Validators';
-
-
-var Field = ReduxForm.Field;
 
 class EbayShippingService extends React.Component {
     static defaultProps = {

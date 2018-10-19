@@ -1,9 +1,6 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
-
-
-const Field = ReduxForm.Field;
 
 class VariationTableComponent extends React.Component {
     static defaultProps = {
@@ -11,7 +8,6 @@ class VariationTableComponent extends React.Component {
         product: {},
         showImages: true,
         renderImagePicker: true,
-        renderStaticImageFromFormValues: false,
         attributeNames: [],
         attributeNameMap: {},
         sectionName: '',

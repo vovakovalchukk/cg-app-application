@@ -1,13 +1,12 @@
 import React from 'react';
-import Redux from 'redux';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {connect} from 'react-redux';
 import Input from 'Common/Components/Input';
 import Select from 'Common/Components/Select';
 import CreateListingActions from '../Actions/CreateListings/Actions';
 import AssignedProductsTable from './AssignedProductsTable';
-const Field = ReduxForm.Field;
-const Selector = ReduxForm.formValueSelector('productSearch');
+
+const Selector = formValueSelector('productSearch');
 
 class ProductSearchComponent extends React.Component {
     static defaultProps = {
@@ -254,7 +253,7 @@ class ProductSearchComponent extends React.Component {
     }
 }
 
-ProductSearchComponent = ReduxForm.reduxForm({
+ProductSearchComponent = reduxForm({
     form: "productSearch",
     onSubmit: function(values, dispatch, props) {
         props.renderCreateListingPopup(props.createListingData)
@@ -283,7 +282,7 @@ const mapDispatchToProps = function(dispatch) {
     };
 };
 
-ProductSearchComponent = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ProductSearchComponent);
+ProductSearchComponent = connect(mapStateToProps, mapDispatchToProps)(ProductSearchComponent);
 
 export default ProductSearchComponent;
 

@@ -1,13 +1,9 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field, FieldArray} from 'redux-form';
 import Select from 'Common/Components/Select';
 import MultiSelect from 'Common/Components/MultiSelect';
 import Input from 'Common/Components/Input';
 import Validators from '../../../Validators';
-    
-
-    var Field = ReduxForm.Field;
-    var FieldArray = ReduxForm.FieldArray;
 
     const TYPE_TEXT = "text";
     const TYPE_SELECT = "select";

@@ -1,6 +1,6 @@
 import React from 'react';
-import Redux from 'redux';
-import ReactRedux from 'react-redux';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import CombinedReducer from 'Product/Components/CreateListing/Reducers/Combined';
 import AccountSelectionPopup from 'Product/Components/CreateListing/AccountSelectionPopup';
 import CreateListingUtils from 'Product/Utils/CreateListingUtils';
@@ -23,8 +23,6 @@ import CreateListingUtils from 'Product/Utils/CreateListingUtils';
         salesPhoneNumber,
         demoLink
     ) {
-        var Provider = ReactRedux.Provider;
-
         var getAccountOptions = function(accounts, allowedChannels, allowedVariationChannels) {
             var channels = allowedChannels;
             if (product.variationCount > 0) {
@@ -58,7 +56,7 @@ import CreateListingUtils from 'Product/Utils/CreateListingUtils';
             };
         };
 
-        var store = Redux.createStore(
+        var store = createStore(
             CombinedReducer,
             buildInitialStateFromData()
         );

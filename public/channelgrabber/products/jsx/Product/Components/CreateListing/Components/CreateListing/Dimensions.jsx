@@ -1,11 +1,8 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import VariationTable from './VariationTable';
 import Validators from '../../Validators';
-
-
-var Field = ReduxForm.Field;
 
 var dimensions = [
     {
@@ -43,7 +40,8 @@ class DimensionsComponent extends React.Component {
         initialDimensions: {},
         accounts: {},
         massUnit: null,
-        lengthUnit: null
+        lengthUnit: null,
+        variationImages: {}
     };
 
     state = {

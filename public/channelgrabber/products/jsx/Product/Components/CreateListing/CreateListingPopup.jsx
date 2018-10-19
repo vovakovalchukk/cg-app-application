@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import ReactRedux from 'react-redux';
-import ReduxForm from 'redux-form';
-import Container from 'Common/Components/Container';
+import {connect} from 'react-redux';
+import {Field, FieldArray, FormSection, reduxForm, resetSection, submit} from 'redux-form';
 import Input from 'Common/Components/Input';
 import TextArea from 'Common/Components/TextArea';
 import Select from 'Common/Components/Select';
@@ -19,10 +17,7 @@ import ProductSearch from './ProductSearch/Component';
 import SectionedContainer from 'Common/Components/SectionedContainer';
 import SectionData from 'Common/SectionData';
 
-
-const Field = ReduxForm.Field;
-const FormSection = ReduxForm.FormSection;
-const FormSelector = ReduxForm.formValueSelector('createListing');
+const FormSelector = formValueSelector('createListing');
 
 class CreateListingPopup extends React.Component {
     static defaultProps = {
@@ -54,6 +49,7 @@ class CreateListingPopup extends React.Component {
 
     componentWillUnmount() {
         this.props.revertToInitialValues();
+        this.props.resetSubmissionStatuses();
     }
 
     componentDidUpdate() {
@@ -477,5 +473,4 @@ const mapDispatchToProps = function(dispatch, props) {
     };
 };
 
-export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);
-
+export default connect(mapStateToProps, mapDispatchToProps)(CreateListingPopup);

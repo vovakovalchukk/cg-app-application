@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Redux from 'redux';
-import ReactRedux from 'react-redux';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import RootContainer from 'CategoryMapper/Components/Root';
 import CombinedReducer from 'CategoryMapper/Reducers/Combined';
     
@@ -26,8 +26,7 @@ import CombinedReducer from 'CategoryMapper/Reducers/Combined';
     }
 
     var App = function(mountingNode, data) {
-        var Provider = ReactRedux.Provider;
-        var store = Redux.createStore(
+        var store = createStore(
             CombinedReducer,
             {
                 accounts: extractAccountsFromRawData(data),

@@ -1,18 +1,18 @@
-import Redux from 'redux';
-import ReduxForm from 'redux-form';
+import {combineReducers} from 'redux';
+import {reducer as reduxFormReducer} from 'redux-form';
 import InitialValuesReducer from './InitialValues';
 import SubmissionStatusesReducer from './SubmissionStatusesReducer';
 import AccountsReducer from './AccountSpecificData';
 import CategoryTemplatesReducer from './CategoryTemplates';
 import ProductSearchReducer from './ProductSearch';
     
-
-    export default Redux.combineReducers({
+    var CombinedReducer = combineReducers({
         accountsData: AccountsReducer,
-        form: ReduxForm.reducer,
+        form: reduxFormReducer,
         initialValues: InitialValuesReducer,
         submissionStatuses: SubmissionStatusesReducer,
         categoryTemplates: CategoryTemplatesReducer,
         productSearch: ProductSearchReducer
     });
 
+    export default CombinedReducer;

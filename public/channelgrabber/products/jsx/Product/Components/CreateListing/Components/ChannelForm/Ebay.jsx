@@ -1,13 +1,10 @@
 import React from 'react';
-import ReduxForm from 'redux-form';
+import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import CurrencyInput from 'Common/Components/CurrencyInput';
 import ShippingService from './Ebay/ShippingService';
 import VariationImagePicker from './Ebay/VariationImagePicker';
 import Validators from '../../Validators';
-
-
-var Field = ReduxForm.Field;
 
 class EbayChannelFormComponent extends React.Component {
     static defaultProps = {
