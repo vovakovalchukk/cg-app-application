@@ -6,7 +6,6 @@ use CG\Log\Logger;
 use CG\Stdlib\Log\LogTrait;
 
 try {
-    set_time_limit(2);
     require_once __DIR__ . '/../application/bootstrap.php';
 
     if (!defined('ENVIRONMENT') || ENVIRONMENT !== 'dev') {

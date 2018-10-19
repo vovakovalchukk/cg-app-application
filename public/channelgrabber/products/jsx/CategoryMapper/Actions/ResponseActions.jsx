@@ -1,7 +1,7 @@
-define([], function() {
-    "use strict";
 
-    return {
+    
+
+    export default {
         categoryChildrenFetched: function (categoryMapIndex, accountId, categoryId, categoryLevel, selectedCategories, data) {
             return {
                 type: 'CATEGORY_CHILDREN_FETCHED',
@@ -65,4 +65,4 @@ define([], function() {
             }
         }
     }
-});
+

@@ -1,8 +1,4 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {
         searchText: '',
         page: 1,
@@ -11,7 +7,7 @@ define([
         loadMoreVisible: false
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "SEARCH_CHANGED": function (state, action) {
             return Object.assign({}, state, {
                 searchText: action.payload.searchText
@@ -38,4 +34,4 @@ define([
             }
         }
     });
-});
+

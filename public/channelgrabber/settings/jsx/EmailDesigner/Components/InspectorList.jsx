@@ -1,13 +1,7 @@
-define([
-    'react',
-    'EmailDesigner/Components/Inspectors/Delete',
-    'Common/PubSub'
-], function(
-    React,
-    Delete,
-    PubSub
-) {
-    "use strict";
+import React from 'react';
+import Delete from 'EmailDesigner/Components/Inspectors/Delete';
+import PubSub from 'Common/PubSub';
+    
 
     var InspectorList = function() {
         this.inspectors = {
@@ -42,5 +36,4 @@ define([
         return this.inspectors[inspectorData.type](defaults);
     };
 
-    return new InspectorList;
-});
+    export default new InspectorList;
