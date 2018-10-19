@@ -1,9 +1,5 @@
-define([
-    'react'
-], function(
-    React
-) {
-   "use strict";
+import React from 'react';
+   
 
     var service = {
         findAccountIndexForAccountId: function(accountId, props) {
@@ -98,7 +94,7 @@ define([
         },
     };
 
-    return function (formValues, props) {
+    export default function (formValues, props) {
         var errors = {},
             accountsErrors = service.validateAccounts(formValues, props),
             categoryErrors = service.validateCategories(formValues);
@@ -112,4 +108,4 @@ define([
 
         return errors;
     };
-});
+

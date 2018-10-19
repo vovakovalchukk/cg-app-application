@@ -1,13 +1,7 @@
-define([
-    'redux',
-    'react-redux',
-    'Product/Components/StockModeInputs'
-], function(
-    Redux,
-    ReactRedux,
-    Component
-) {
-    "use strict";
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import Component from 'Product/Components/StockModeInputs';
+    
     const mapStateToProps = function(state) {
         return {
             stockModeOptions: state.account.stockModeOptions
@@ -15,5 +9,4 @@ define([
     };
 
     var Connector = ReactRedux.connect(mapStateToProps);
-    return Connector(Component);
-})
+    export default Connector(Component);

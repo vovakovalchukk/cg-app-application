@@ -1,7 +1,7 @@
-define([], function() {
-    "use strict";
 
-    return {
+    
+
+    export default {
         buildCategoryChildrenUrl: function (accountId, categoryId) {
             return '/settings/category/templates/' + accountId + '/category-children/' + categoryId;
         },
@@ -21,4 +21,4 @@ define([], function() {
             return '/settings/category/templates/category-roots';
         }
     };
-});
+

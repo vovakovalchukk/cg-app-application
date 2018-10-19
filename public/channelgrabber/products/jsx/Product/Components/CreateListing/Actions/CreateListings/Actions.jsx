@@ -1,9 +1,5 @@
-define([
-    './ResponseActions'
-], function(
-    ResponseActions
-) {
-    "use strict";
+import ResponseActions from './ResponseActions';
+    
 
     var formatFormValuesForSubmission = function(values, props) {
         return {
@@ -263,7 +259,7 @@ define([
         }
     };
 
-    return {
+    export default {
         loadInitialValues: function(
             product,
             variationData,
@@ -417,4 +413,4 @@ define([
             }
         }
     };
-});
+

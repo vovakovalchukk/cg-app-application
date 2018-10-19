@@ -1,23 +1,13 @@
-define([
-    'redux',
-    'redux-form',
-    './InitialValues',
-    './SubmissionStatusesReducer',
-    './AccountSpecificData',
-    './CategoryTemplates',
-    './ProductSearch',
-], function(
-    Redux,
-    ReduxForm,
-    InitialValuesReducer,
-    SubmissionStatusesReducer,
-    AccountsReducer,
-    CategoryTemplatesReducer,
-    ProductSearchReducer
-) {
-    "use strict";
+import Redux from 'redux';
+import ReduxForm from 'redux-form';
+import InitialValuesReducer from './InitialValues';
+import SubmissionStatusesReducer from './SubmissionStatusesReducer';
+import AccountsReducer from './AccountSpecificData';
+import CategoryTemplatesReducer from './CategoryTemplates';
+import ProductSearchReducer from './ProductSearch';
+    
 
-    return Redux.combineReducers({
+    export default Redux.combineReducers({
         accountsData: AccountsReducer,
         form: ReduxForm.reducer,
         initialValues: InitialValuesReducer,
@@ -25,4 +15,4 @@ define([
         categoryTemplates: CategoryTemplatesReducer,
         productSearch: ProductSearchReducer
     });
-});
+

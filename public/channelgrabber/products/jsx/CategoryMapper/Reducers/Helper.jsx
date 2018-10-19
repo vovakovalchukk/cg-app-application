@@ -1,9 +1,7 @@
-define([
-], function(
-) {
-    "use strict";
 
-    return {
+    
+
+    export default {
         invalidateSelectedCategoriesForAccount: function (categoryMap, accountId) {
             categoryMap = Object.assign({}, categoryMap);
             categoryMap.selectedCategories = Object.assign({}, categoryMap.selectedCategories);
@@ -36,4 +34,4 @@ define([
             return newCategoryMap;
         }
     }
-});
+

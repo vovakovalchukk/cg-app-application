@@ -1,17 +1,9 @@
-define([
-    'redux',
-    'react-redux',
-    'redux-form',
-    'Product/Components/CreateProduct/Form/Form',
-    'Product/Components/CreateProduct/Form/FormActionCreators'
-], function(
-    Redux,
-    ReactRedux,
-    ReduxForm,
-    CreateProductForm,
-    formActionCreators
-) {
-    "use strict";
+import Redux from 'redux';
+import ReactRedux from 'react-redux';
+import ReduxForm from 'redux-form';
+import CreateProductForm from 'Product/Components/CreateProduct/Form/Form';
+import formActionCreators from 'Product/Components/CreateProduct/Form/FormActionCreators';
+    
     var resetSection = ReduxForm.resetSection;
     var untouch = ReduxForm.untouch;
     var change = ReduxForm.change;
@@ -38,5 +30,4 @@ define([
     };
 
     var FormConnector = ReactRedux.connect(mapStateToProps, mapDispatchToProps);
-    return FormConnector(CreateProductForm);
-});
+    export default FormConnector(CreateProductForm);

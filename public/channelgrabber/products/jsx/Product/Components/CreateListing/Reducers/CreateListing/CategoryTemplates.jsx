@@ -1,14 +1,10 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     const initialState = {
         isFetching: true,
         categories: {}
     };
 
-    return reducerCreator({}, {
+    export default reducerCreator({}, {
         "FETCH_CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES": function() {
             return initialState;
         },
@@ -19,4 +15,4 @@ define([
             };
         }
     });
-});
+

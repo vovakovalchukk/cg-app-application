@@ -1,7 +1,7 @@
-define([], function() {
-    "use strict";
 
-    return {
+    
+
+    export default {
         listingFormSubmittedSuccessfully: function(guid, processGuid) {
             return {
                 type: "LISTING_FORM_SUBMITTED_SUCCESSFUL",
@@ -78,4 +78,4 @@ define([], function() {
             };
         }
     };
-});
+

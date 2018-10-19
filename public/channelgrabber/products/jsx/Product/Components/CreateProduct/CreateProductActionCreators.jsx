@@ -1,9 +1,5 @@
-define([
-    'redux-form'
-], function(
-    ReduxForm
-) {
-    "use strict";
+import ReduxForm from 'redux-form';
+    
     var submitForm = ReduxForm.submit('createProductForm');
 
     var actionCreators = {
@@ -50,7 +46,7 @@ define([
         }
     };
 
-    return actionCreators;
+    export default actionCreators;
 
     function isFormValid(values) {
         if (!values.variations || !values.title) {
@@ -199,4 +195,4 @@ define([
             }
         })
     }
-});
+
