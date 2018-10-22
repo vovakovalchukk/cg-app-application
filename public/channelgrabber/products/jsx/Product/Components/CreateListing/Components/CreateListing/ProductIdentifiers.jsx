@@ -88,7 +88,8 @@ class ProductIdentifiers extends React.Component {
         renderImagePicker: true,
         shouldRenderStaticImagesFromVariationValues: false,
         containerCssClasses: '',
-        tableCssClasses: ''
+        tableCssClasses: '',
+        renderStaticImageFromFormValues: false
     };
 
     renderIdentifierHeaders = () => {
@@ -148,6 +149,7 @@ class ProductIdentifiers extends React.Component {
                 tableCssClasses={this.props.tableCssClasses}
                 renderCustomTableHeaders={this.renderIdentifierHeaders}
                 renderCustomTableRows={this.renderIdentifierColumns}
+                renderStaticImageFromFormValues={this.props.renderStaticImageFromFormValues}
             />
         );
     }
