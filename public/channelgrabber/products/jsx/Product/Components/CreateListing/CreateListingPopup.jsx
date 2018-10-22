@@ -49,7 +49,6 @@ class CreateListingPopup extends React.Component {
 
     componentWillUnmount() {
         this.props.revertToInitialValues();
-        this.props.resetSubmissionStatuses();
     }
 
     componentDidUpdate() {
