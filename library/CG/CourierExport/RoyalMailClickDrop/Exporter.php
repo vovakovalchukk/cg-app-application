@@ -21,14 +21,8 @@ class Exporter implements ExporterInterface
             'BPR2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'BPL2' => [],
         ],
-        ShippingService::TWENTY_FOUR => [
-            'CRL24' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'CRL24' => [],
-        ],
-        ShippingService::FORTY_EIGHT => [
-            'CRL48' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'CRL48' => [],
-        ],
+        ShippingService::TWENTY_FOUR => 'CRL24',
+        ShippingService::FORTY_EIGHT => 'CRL48',
         ShippingService::SPECIAL_DELIVERY => [
             'SD6' => ['9am', '£2500', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'SD5' => ['9am', '£1000', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
@@ -36,28 +30,12 @@ class Exporter implements ExporterInterface
             'SD3' => ['£2500', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'SD2' => ['£1000', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'SD1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'SD1' => [],
         ],
-        ShippingService::FIRST_CLASS_ACCOUNT => [
-            'STL1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'STL1' => [],
-        ],
-        ShippingService::SECOND_CLASS_ACCOUNT => [
-            'STL2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'STL2' => [],
-        ],
-        ShippingService::TRACKED_TWENTY_FOUR => [
-            'TPN24' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'TPN24' => [],
-        ],
-        ShippingService::TRACKED_FORTY_EIGHT => [
-            'TPS48' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'TPS48' => [],
-        ],
-        ShippingService::TRACKED_RETURNS_FORTY_EIGHT => [
-            'TSS' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'TSS' => [],
-        ],
+        ShippingService::FIRST_CLASS_ACCOUNT => 'STL1',
+        ShippingService::SECOND_CLASS_ACCOUNT => 'STL2',
+        ShippingService::TRACKED_TWENTY_FOUR => 'TPN24',
+        ShippingService::TRACKED_FORTY_EIGHT => 'TPS48',
+        ShippingService::TRACKED_RETURNS_FORTY_EIGHT => 'TSS',
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_TRACKED => [
@@ -76,7 +54,6 @@ class Exporter implements ExporterInterface
         ShippingService::INTERNATIONAL_SIGNED_ON => [
             'OSB' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
             'OSA' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'OSA' => [],
         ],
     ];
 
