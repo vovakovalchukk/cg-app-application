@@ -66,6 +66,11 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             ],
         ],
+        ShippingService::TRACKED_RETURNS_FORTY_EIGHT => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            ],
+        ],
         ShippingService::INTERNATIONAL_TRACKED => [
             'addOns' => [
                 ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],

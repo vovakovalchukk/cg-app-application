@@ -15,6 +15,7 @@ class ShippingService implements ServicesInterface
     const SECOND_CLASS_ACCOUNT = '2nd Class Account Mail';
     const TRACKED_TWENTY_FOUR = 'Tracked 24';
     const TRACKED_FORTY_EIGHT = 'Tracked 48';
+    const TRACKED_RETURNS_FORTY_EIGHT = 'Tracked Returns 48';
     const INTERNATIONAL_STANDARD = 'International Standard On Account';
     const INTERNATIONAL_ECONOMY = 'International Economy On Account';
     const INTERNATIONAL_TRACKED = 'International Tracked On Account';
@@ -33,6 +34,7 @@ class ShippingService implements ServicesInterface
         self::SECOND_CLASS_ACCOUNT => self::SECOND_CLASS_ACCOUNT,
         self::TRACKED_TWENTY_FOUR => self::TRACKED_TWENTY_FOUR,
         self::TRACKED_FORTY_EIGHT => self::TRACKED_FORTY_EIGHT,
+        self::TRACKED_RETURNS_FORTY_EIGHT => self::TRACKED_RETURNS_FORTY_EIGHT,
         self::INTERNATIONAL_STANDARD => self::INTERNATIONAL_STANDARD,
         self::INTERNATIONAL_ECONOMY => self::INTERNATIONAL_ECONOMY,
         self::INTERNATIONAL_TRACKED => self::INTERNATIONAL_TRACKED,

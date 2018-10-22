@@ -54,6 +54,10 @@ class Exporter implements ExporterInterface
             'TPS48' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'TPS48' => [],
         ],
+        ShippingService::TRACKED_RETURNS_FORTY_EIGHT => [
+            'TSS' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'TSS' => [],
+        ],
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_TRACKED => [
@@ -72,6 +76,7 @@ class Exporter implements ExporterInterface
         ShippingService::INTERNATIONAL_SIGNED_ON => [
             'OSB' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
             'OSA' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'OSA' => [],
         ],
     ];
 
