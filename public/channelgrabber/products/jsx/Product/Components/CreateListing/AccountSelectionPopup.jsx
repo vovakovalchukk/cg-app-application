@@ -204,7 +204,7 @@ const isProductSearchActive = function(props) {
     return props.productSearchActive && (props.product.variationCount > 1 ? props.productSearchActiveForVariations : true);
 };
 
-AccountSelectionPopup = ReduxForm.reduxForm({
+AccountSelectionPopup = reduxForm({
     form: "accountSelection",
     initialValues: {
         accounts: [],

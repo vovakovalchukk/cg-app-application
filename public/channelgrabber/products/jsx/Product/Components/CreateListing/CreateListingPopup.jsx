@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Field, FieldArray, FormSection, reduxForm, resetSection, submit} from 'redux-form';
+import {Field, FieldArray, FormSection, reduxForm, resetSection, submit, formValueSelector} from 'redux-form';
 import Input from 'Common/Components/Input';
 import TextArea from 'Common/Components/TextArea';
 import Select from 'Common/Components/Select';
@@ -413,7 +413,7 @@ class CreateListingPopup extends React.Component {
     }
 }
 
-CreateListingPopup = ReduxForm.reduxForm({
+CreateListingPopup = reduxForm({
     form: "createListing",
     enableReinitialize: true,
     // This is required to make the images in the variation table show correctly
@@ -430,7 +430,7 @@ const mapStateToProps = function(state) {
         initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
         initialProductPrices: state.initialValues.prices ? Object.assign(state.initialValues.prices) : {},
         submissionStatuses: JSON.parse(JSON.stringify(state.submissionStatuses)),
-        resetSection: ReduxForm.resetSection,
+        resetSection: resetSection,
         categoryTemplates: state.categoryTemplates,
         productSearch: state.productSearch,
         variationImages: FormSelector(state, 'images')
@@ -440,7 +440,7 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch, props) {
     return {
         submitForm: function() {
-            dispatch(ReduxForm.submit("createListing"));
+            dispatch(submit("createListing"));
         },
         loadInitialValues: function(searchAccountId) {
             dispatch(
