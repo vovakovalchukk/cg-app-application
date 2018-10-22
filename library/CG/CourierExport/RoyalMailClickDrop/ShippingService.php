@@ -13,10 +13,12 @@ class ShippingService implements ServicesInterface
     const SPECIAL_DELIVERY = 'Special Delivery';
     const FIRST_CLASS_ACCOUNT = '1st Class Account Mail';
     const SECOND_CLASS_ACCOUNT = '2nd Class Account Mail';
+    const TRACKED_TWENTY_FOUR = 'Tracked 24';
     const TRACKED_FORTY_EIGHT = 'Tracked 48';
     const INTERNATIONAL_STANDARD = 'International Standard On Account';
     const INTERNATIONAL_ECONOMY = 'International Economy On Account';
     const INTERNATIONAL_TRACKED = 'International Tracked On Account';
+//    const  = 'International Business Parcel Zone Sort Priority'
 
     const ADD_ON_SIGNED_FOR_VALUE = 'signedFor';
 
@@ -28,10 +30,12 @@ class ShippingService implements ServicesInterface
         self::SPECIAL_DELIVERY => self::SPECIAL_DELIVERY,
         self::FIRST_CLASS_ACCOUNT => self::FIRST_CLASS_ACCOUNT,
         self::SECOND_CLASS_ACCOUNT => self::SECOND_CLASS_ACCOUNT,
+        self::TRACKED_TWENTY_FOUR => self::TRACKED_TWENTY_FOUR,
         self::TRACKED_FORTY_EIGHT => self::TRACKED_FORTY_EIGHT,
         self::INTERNATIONAL_STANDARD => self::INTERNATIONAL_STANDARD,
         self::INTERNATIONAL_ECONOMY => self::INTERNATIONAL_ECONOMY,
         self::INTERNATIONAL_TRACKED => self::INTERNATIONAL_TRACKED,
+
     ];
 
     public function getShippingServices()

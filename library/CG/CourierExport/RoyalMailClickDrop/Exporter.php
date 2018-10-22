@@ -46,6 +46,10 @@ class Exporter implements ExporterInterface
             'STL2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'STL2' => [],
         ],
+        ShippingService::TRACKED_TWENTY_FOUR => [
+            'TPN24' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            'TPN24' => [],
+        ],
         ShippingService::TRACKED_FORTY_EIGHT => [
             'TPS48' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'TPS48' => [],
