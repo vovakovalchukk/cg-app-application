@@ -708,11 +708,14 @@ define([
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
 
-            var showServiceWarning = true;
-            for (key in serviceOptions) {
-                if (serviceOptions[key].selected === true) {
-                    showServiceWarning = false;
-                    break;
+            var showServiceWarning = false;
+            if (serviceOptions.length > 1) {
+                showServiceWarning = true;
+                for (key in serviceOptions) {
+                    if (serviceOptions[key].selected === true) {
+                        showServiceWarning = false;
+                        break;
+                    }
                 }
             }
 
