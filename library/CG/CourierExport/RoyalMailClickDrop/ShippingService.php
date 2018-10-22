@@ -19,6 +19,7 @@ class ShippingService implements ServicesInterface
     const INTERNATIONAL_ECONOMY = 'International Economy On Account';
     const INTERNATIONAL_TRACKED = 'International Tracked On Account';
     const INTERNATIONAL_BUSINESS = 'International Business';
+    const INTERNATIONAL_SIGNED_ON = 'International Signed On Account';
 
     const ADD_ON_SIGNED_FOR_VALUE = 'signedFor';
 
@@ -35,7 +36,8 @@ class ShippingService implements ServicesInterface
         self::INTERNATIONAL_STANDARD => self::INTERNATIONAL_STANDARD,
         self::INTERNATIONAL_ECONOMY => self::INTERNATIONAL_ECONOMY,
         self::INTERNATIONAL_TRACKED => self::INTERNATIONAL_TRACKED,
-        self::INTERNATIONAL_BUSINESS => self::INTERNATIONAL_BUSINESS
+        self::INTERNATIONAL_BUSINESS => self::INTERNATIONAL_BUSINESS,
+        self::INTERNATIONAL_SIGNED_ON => self::INTERNATIONAL_SIGNED_ON,
     ];
 
     public function getShippingServices()

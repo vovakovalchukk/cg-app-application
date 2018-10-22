@@ -82,6 +82,12 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Tracked', 'value' => 'tracked'],
             ],
         ],
+        ShippingService::INTERNATIONAL_SIGNED_ON => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Extra Compensation', 'value' => 'extraCompensation'],
+            ],
+        ],
     ];
 
     public function getDefaultExportOptions($serviceCode = null): array

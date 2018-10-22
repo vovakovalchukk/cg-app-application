@@ -56,7 +56,6 @@ class Exporter implements ExporterInterface
         ],
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
-        ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_TRACKED => [
             'OTD' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
             'OTC' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
@@ -69,7 +68,11 @@ class Exporter implements ExporterInterface
             'MP7' => ['tracked', 'packageTypes' => ['Parcel']],
             'IE1' => ['packageTypes' => ['Parcel']],
             'IG1' => ['packageTypes' => ['Large letter']],
-        ]
+        ],
+        ShippingService::INTERNATIONAL_SIGNED_ON => [
+            'OSB' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
+            'OSA' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+        ],
     ];
 
     public function exportOrders(
