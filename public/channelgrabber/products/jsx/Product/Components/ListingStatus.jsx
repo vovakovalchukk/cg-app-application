@@ -30,6 +30,10 @@ class ListingStatusComponent extends React.Component {
         status: ''
     };
 
+    getCursor() {
+        return this.props.status === 'inactive' ? 'pointer' : 'initial';
+    };
+
     render() {
         return (
             <div className={this.props.className}>
@@ -38,6 +42,7 @@ class ListingStatusComponent extends React.Component {
                         onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {
                         }}
                         {...this.props}
+                        cursor={this.getCursor()}
                     />
                 </ListingIcon.sizer>
             </div>

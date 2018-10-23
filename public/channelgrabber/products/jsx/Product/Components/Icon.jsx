@@ -11,7 +11,7 @@ let IconComponent = styled.span`
         background-size: auto;
         background-repeat: no-repeat;
         background-position: center;
-        cursor: pointer;
+        cursor: ${props => (props.cursor ? props.cursor : 'pointer')};
   `;
 
 export default IconComponent;
