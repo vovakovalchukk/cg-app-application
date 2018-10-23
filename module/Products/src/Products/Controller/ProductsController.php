@@ -127,7 +127,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
-        $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
+        $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuWithDefaultsSelected($rootOu));
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
         $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
