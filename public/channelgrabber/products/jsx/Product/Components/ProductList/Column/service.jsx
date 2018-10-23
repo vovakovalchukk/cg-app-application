@@ -17,7 +17,7 @@ let coreColumns = [
     },
     {
         key: 'image',
-        width: 100,
+        width: 36,
         fixed: true,
         headerText: 'Image',
         align: 'center'

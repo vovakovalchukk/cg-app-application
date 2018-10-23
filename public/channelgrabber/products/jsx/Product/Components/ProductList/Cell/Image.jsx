@@ -1,11 +1,10 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
-import styleVars from "../styleVars";
 
 const Image = styled.img`
-    max-width: ${props => props.width}px;
-    max-height: ${props => props.height}px;
+    max-width: ${props => props.maxWidth}px;
+    max-height: ${props => props.maxHeight}px;
     object-fit: contain;
     background-color: #ebebeb;
     visibility: ${props=>props.imageLoaded ? 'visible' : 'hidden'};
@@ -46,8 +45,8 @@ class ImageCell extends React.Component {
                 src={cellData.url}
                 onError={this.onError}
                 onLoad={this.onLoad}
-                width={this.props.width}
-                height={this.props.height}
+                maxWidth={this.props.width}
+                maxHeight={this.props.height}
                 imageLoaded={this.state.imageLoaded}
             />
         );
