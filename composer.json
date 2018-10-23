@@ -65,7 +65,7 @@
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/reporting": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.8",
-        "channelgrabber/sagepay": "~1.1.23",
+        "channelgrabber/sagepay": "dev-CGIV-10022-AllowUSDPayments as 1.1.24",
         "channelgrabber/sequential-numbering": "~1.0.0",
         "channelgrabber/settings": "~1.6.1",
         "channelgrabber/shipstation": "1.0.1",
