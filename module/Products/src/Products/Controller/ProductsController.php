@@ -12,6 +12,7 @@ use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -93,6 +94,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
     public function indexAction()
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $rootOu = $this->organisationUnitService->fetch($rootOuId);
         $view = $this->viewModelFactory->newInstance();
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
@@ -115,11 +117,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('featureFlagJson', json_encode([
             'linkedProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
-                $rootOuId
+                $rootOuId,
+                $rootOu
             ),
             'createProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
-                $rootOuId
+                $rootOuId,
+                $rootOu
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
@@ -184,10 +188,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
     }
 
-    protected function getDefaultCurrencyForActiveUser(): ?string
+    protected function getDefaultCurrencyForRootOu(OrganisationUnit $rootOu): ?string
     {
         $currencyCode = CurrencyCode::getCurrencyCodeForLocale($this->activeUserContainer->getLocale());
-        $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
         return (new CurrencyFormatter($rootOu))->getSymbol($currencyCode);
     }
 
