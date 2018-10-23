@@ -78,8 +78,8 @@ class StockModeCell extends React.Component {
         let editStatus = getEditStatus(this.props.stock.stockModeEdits, row);
         const shouldDisplaySaveCancelBox = editStatus === constants.STOCK_MODE_EDITING_STATUSES.editing;
         
-        if (!isSimpleProduct && !isVariation) {
-            return <span></span>
+        if (!row.stock || (!isSimpleProduct && !isVariation)) {
+            return <span/>
         }
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
@@ -96,7 +96,6 @@ class StockModeCell extends React.Component {
             distanceFromLeftSideOfTableToStartOfCell,
             width
         });
-
 
         return (
             <div className={this.props.className}>
