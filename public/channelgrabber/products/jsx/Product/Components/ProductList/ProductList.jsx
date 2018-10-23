@@ -8,6 +8,7 @@ import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
 import constants from 'Product/Components/ProductList/Config/constants';
 import utility from 'Product/Components/ProductList/utility';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 "use strict";
 
@@ -115,8 +116,20 @@ class ProductList extends React.Component {
     hasProducts = () => {
         return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
     };
-    rowClassNameGetter = (index) => {
-        return constants.ROW_CLASS_PREFIX+'-'+index + ' ' + constants.ROW_CLASS_PREFIX;
+    rowClassNameGetter = (rows, index) => {
+        return constants.ROW_CLASS_PREFIX + '-' + index + ' ' + constants.ROW_CLASS_PREFIX + ' ' + this.getExtraRowClass(rows, index);
+    };
+    getExtraRowClass = (rows, index) => {
+        if (rows.length === 0) {
+            return '';
+        }
+
+        let currentProduct = rows[index];
+        if (!currentProduct || !stateUtility.isVariation(currentProduct)) {
+            return '';
+        }
+
+        return 'public_fixedDataTableRow_highlighted public_fixedDataTableRow_odd';
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();
@@ -145,7 +158,7 @@ class ProductList extends React.Component {
                 showScrollbarY={true}
                 scrollToColumn={this.props.tabs.currentColumnScrollIndex}
                 scrollToRow={this.props.list.currentRowScrollIndex}
-                rowClassNameGetter={this.rowClassNameGetter}
+                rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
             >
                 {this.renderColumns()}
             </Table>
