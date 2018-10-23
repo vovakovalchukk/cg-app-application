@@ -73,6 +73,7 @@ CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON = '#fetchrates-all-lab
 CourierSpecificsDataTable.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button-shadow';
 CourierSpecificsDataTable.SELECTOR_TOTAL_ORDER_LABEL_COST = '.order-total-label-cost';
 CourierSpecificsDataTable.SELECTOR_CURRENCY_SYMBOL_DISPLAY = '.total-cost .currency';
+CourierSpecificsDataTable.SELECTOR_COST_COLUMN_INPUT = '.courier-label-cost';
 
 CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true, 'export': true, 'fetchrates': true},
