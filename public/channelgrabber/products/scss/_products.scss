@@ -83,6 +83,12 @@ $combined-height-of-non-list-ui-elements: $header-height+$pagination-height+50px
     .public_fixedDataTableRow_highlighted, .public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
         background: #edf7fc;
     }
+    .public_fixedDataTable_bodyRow {
+        border-top: 1px solid darkgrey;
+        &.child-row {
+            border-top: none;
+        }
+    }
     .fixedDataTableCellLayout_main {
         border-right-style: none;
     }
