@@ -129,7 +129,7 @@ class ProductList extends React.Component {
             return '';
         }
 
-        return 'public_fixedDataTableRow_highlighted public_fixedDataTableRow_odd';
+        return 'public_fixedDataTableRow_highlighted';
     };
     renderProducts = () => {
         let rows = this.getVisibleRows();
