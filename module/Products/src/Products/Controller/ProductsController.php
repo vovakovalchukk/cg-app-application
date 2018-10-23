@@ -131,7 +131,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
         $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
-        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
+        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForRootOu($rootOu));
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
         $locale = $this->activeUserContainer->getLocale();
