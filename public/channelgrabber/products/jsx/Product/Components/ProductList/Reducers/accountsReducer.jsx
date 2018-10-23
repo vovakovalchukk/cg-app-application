@@ -10,16 +10,23 @@ let initialState = {
 
 let accountsReducer = reducerCreator(initialState, {
     "ACCOUNT_FEATURES_STORE": function(state, action) {
-        let newState = Object.assign({}, state, {
+        return Object.assign({}, state, {
             features: action.payload.features
         });
-        return newState;
     },
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-        let newState = Object.assign({}, state, {
-            accounts: action.payload.accounts
+        let accounts = {};
+        Object.keys(action.payload.accounts).forEach(accountId => {
+            let account = action.payload.accounts[accountId];
+            if (!account.active || account.deleted) {
+                return;
+            }
+            accounts[account.id] = account;
         });
-        return newState;
+
+        return Object.assign({}, state, {
+            accounts: accounts
+        });
     }
 });
 
