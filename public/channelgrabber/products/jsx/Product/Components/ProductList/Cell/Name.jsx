@@ -10,7 +10,7 @@ class NameCell extends React.Component {
     getVariationName = (row) => {
         return Object.keys(row.attributeValues).map((key) => {
             return (
-                <div>{key}: {row.attributeValues[key]}</div>
+                <div>{key}: {row.attributeValues[key]}&nbsp;</div>
             );
         });
     };
