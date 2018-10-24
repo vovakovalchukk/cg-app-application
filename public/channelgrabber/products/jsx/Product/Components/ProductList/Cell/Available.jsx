@@ -28,7 +28,8 @@ class AvailableCell extends React.Component {
         let portalSettings = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
             rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
+            // We had to this horrible hardcode to show the safe input buttons in the right place
+            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + 13,
             width
         });
 

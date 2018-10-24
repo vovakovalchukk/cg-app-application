@@ -38,7 +38,7 @@ let coreColumns = [
     },
     {
         key: 'name',
-        width: 240,
+        width: 300,
         fixed: true,
         headerText: 'Name',
         align: 'left'
