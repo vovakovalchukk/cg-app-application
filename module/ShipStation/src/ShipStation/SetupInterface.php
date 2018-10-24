@@ -2,7 +2,7 @@
 namespace ShipStation;
 
 use CG\Account\Shared\Entity as Account;
-use CG\ShipStation\Carrier\Entity as Carrier;
+use CG\Channel\Shipping\Provider\Carrier\Entity as Carrier;
 use CG\ShipStation\Credentials;
 use Zend\View\Model\ViewModel;
 
