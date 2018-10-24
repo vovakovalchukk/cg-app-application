@@ -10,7 +10,7 @@ return [
         'instance' => [
             NetDespatchShippingOptionsProvider::class => [
                 'parameters' => [
-                    'carrierBookingOptions' => [
+                    'defaultBookingOptions' => [
                         'parcels' => false,
                         'collectionDate' => false,
                         'weight' => true,

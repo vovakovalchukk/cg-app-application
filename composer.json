@@ -52,7 +52,7 @@
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.2.2",
         "channelgrabber/manual-order": "~1.0.1",
-        "channelgrabber/netdespatch": "~1.2.16",
+        "channelgrabber/netdespatch": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.2.17",
         "channelgrabber/order": "1.39.10",
         "channelgrabber/payment": "~1.12.0",
         "channelgrabber/permission": "~1.0.2",
