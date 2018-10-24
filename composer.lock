@@ -714,13 +714,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "880009e38ac01808532a5383a254e3adfde9c348"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-251-netdespatch-allow-for-other-carriers-1fbd2a.zip",
-                "reference": "880009e38ac01808532a5383a254e3adfde9c348",
-                "shasum": null
+                "reference": "08e022f263c9d032ec74f6067540a9a5c0845356"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -793,7 +787,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-10-24T14:53:34+00:00"
+            "time": "2018-10-25T14:21:01+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1944,10 +1938,10 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "462335e2cccdbe1dc5e65f334edef1c1887859f1"
+                "reference": "8bb10525fde1d7731dd134b2dc3c24da077d71fe"
             },
             "require": {
-                "channelgrabber/channel": "^1.28.0",
+                "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.41.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
@@ -1984,7 +1978,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-10-24T12:52:55+00:00"
+            "time": "2018-10-26T15:41:21+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -10413,8 +10407,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
