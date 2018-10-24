@@ -181,6 +181,14 @@ class Create implements LoggerAwareInterface
             $caPackagedata = $this->mapper->ohParcelDataToCAPackageData(
                 $order, $parcelData, $itemsData, $shipmentClass, $packageClass, $rootOu
             );
+
+            if (!isset($caPackagedata['contents']) || !is_array($caPackagedata['contents'])) {
+                throw new UserError('Packages are not assigned properly');
+            }
+
+            $this->logDebugDump($shipmentClass, 'PACKAGE CLASS', [], 'MYTEST');
+            $this->logDebugDump($caPackagedata, 'PACKAGE DATA', [], 'MYTEST');
+
             $package = call_user_func([$shipmentClass, 'createPackage'], $caPackagedata);
             $packages[] = $package;
         }
@@ -191,7 +199,6 @@ class Create implements LoggerAwareInterface
     {
         try {
             return $deliveryService->createShipment($caShipmentData);
-
         } catch (UserError $e) {
             $this->logException($e, 'debug', __NAMESPACE__);
             $this->logNotice(static::LOG_SHIPMENT_INVALID, [$orderId, $e->getMessage()], [static::LOG_CODE, 'ShipmentInvalid']);
