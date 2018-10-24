@@ -186,9 +186,6 @@ class Create implements LoggerAwareInterface
                 throw new UserError('Packages are not assigned properly');
             }
 
-            $this->logDebugDump($shipmentClass, 'PACKAGE CLASS', [], 'MYTEST');
-            $this->logDebugDump($caPackagedata, 'PACKAGE DATA', [], 'MYTEST');
-
             $package = call_user_func([$shipmentClass, 'createPackage'], $caPackagedata);
             $packages[] = $package;
         }
