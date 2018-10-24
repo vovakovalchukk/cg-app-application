@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f6b52e785586336a9ec83db0886a636",
+    "content-hash": "e6ef4196a386a6e46231d7b6f42e1ab1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1857,16 +1857,16 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.2.2",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "31adbd1f72536197cc21d935d231e6a449c24b2a"
+                "reference": "558fc1a6bd1ff74270db779fe50f0b07ac059b24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.2.2-cda8b7.zip",
-                "reference": "31adbd1f72536197cc21d935d231e6a449c24b2a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.3.0-673d9e.zip",
+                "reference": "558fc1a6bd1ff74270db779fe50f0b07ac059b24",
                 "shasum": null
             },
             "require": {
@@ -1875,6 +1875,7 @@
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.15.0",
                 "channelgrabber/validation": ">=1.1.0",
+                "clue/socket-raw": "^1.3",
                 "nocarrier/hal": "~0.9.4",
                 "php": ">=7.1",
                 "psr/log": "^1.0",
@@ -1895,7 +1896,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2018-10-05T11:07:38+00:00"
+            "time": "2018-10-08T08:33:20+00:00"
         },
         {
             "name": "channelgrabber/manual-order",
@@ -4697,19 +4698,20 @@
         },
         {
             "name": "channelgrabber/zf2-tideways",
-            "version": "1.0.0",
+            "version": "dev-CGIV-9870-tideways-itid",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/tideways-module.git",
-                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e"
+                "reference": "4c4bf2759f006df66875fbb95a77a6e38b7bddd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-tideways-1.0.0-1bca83.zip",
-                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-tideways-dev-CGIV-9870-tideways-itid-6c87fe.zip",
+                "reference": "4c4bf2759f006df66875fbb95a77a6e38b7bddd9",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/log": "^2.3",
                 "channelgrabber/stdlib": "^2.16.0",
                 "channelgrabber/zf2-logclient": "^1.4.3",
                 "channelgrabber/zf2-stdlib": "^1.3.1",
@@ -4726,7 +4728,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-10T09:16:48+00:00"
+            "time": "2018-10-24T12:53:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -5004,6 +5006,61 @@
                 "silex"
             ],
             "time": "2012-12-19T10:50:58+00:00"
+        },
+        {
+            "name": "clue/socket-raw",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clue/php-socket-raw.git",
+                "reference": "1f9060a973e2bc50389a89d9d2bdb64750fcc8f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/clue-socket-raw-1f9060a973e2bc50389a89d9d2bdb64750fcc8f1-zip-cb24f4.zip",
+                "reference": "1f9060a973e2bc50389a89d9d2bdb64750fcc8f1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-sockets": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Socket\\Raw\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@lueck.tv"
+                }
+            ],
+            "description": "Simple and lightweight OOP wrapper for PHP's low level sockets extension (ext-sockets)",
+            "homepage": "https://github.com/clue/php-socket-raw",
+            "keywords": [
+                "Socket",
+                "client",
+                "datagram",
+                "dgram",
+                "icmp",
+                "ipv6",
+                "server",
+                "stream",
+                "tcp",
+                "udg",
+                "udp",
+                "unix"
+            ],
+            "time": "2018-06-10T19:13:19+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -9178,7 +9235,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10366,10 +10423,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.0",
+            "alias_normalized": "1.1.0.0",
+            "version": "dev-CGIV-9870-tideways-itid",
+            "package": "channelgrabber/zf2-tideways"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-tideways": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
