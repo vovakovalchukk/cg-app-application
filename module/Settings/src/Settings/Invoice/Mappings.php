@@ -278,6 +278,8 @@ class Mappings
             'assignedInvoice' => $this->getInvoiceOptions($invoiceMapping, $invoices),
             'sendViaEmail' => $this->getSendOptions($invoiceMapping->getSendViaEmail()),
             'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getSendToFba()) : '',
+            'emailSubject' => $invoiceMapping->getEmailSubject(),
+            'emailTemplate' => $invoiceMapping->getEmailTemplate()
         ];
     }
 
