@@ -3,8 +3,6 @@ namespace Orders\Controller;
 
 use CG\Order\Shared\Barcode as BarcodeDecoder;
 use CG\Order\Shared\Entity as Order;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Module;
