@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f6b52e785586336a9ec83db0886a636",
+    "content-hash": "043cf6e6032f681a47196697209f16d7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2044,7 +2044,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c107aa7e991ad871b679e40777f291712876d83a"
+                "reference": "9775189b244ebdecb050f1e872040d5fa450804b"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -10362,8 +10362,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.39.11",
-            "alias_normalized": "1.39.11.0",
+            "alias": "1.40.1",
+            "alias_normalized": "1.40.1.0",
             "version": "dev-CGIV-10037-barcode-controller",
             "package": "channelgrabber/order"
         }
