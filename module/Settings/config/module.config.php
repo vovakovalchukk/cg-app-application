@@ -1289,7 +1289,7 @@ return [
                     'viewModel' => 'InvoiceTradingCompanyColumnView',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
+                    'width' => '300px',
                 ],
             ],
             'InvoiceAssignedInvoiceColumn' => [
@@ -1307,7 +1307,7 @@ return [
                     'viewModel' => 'InvoiceSendFromAddressColumnView',
                     'sortable' => false,
                     'hideable' => true,
-                    'width' => '200px',
+                    'width' => '350px',
                 ],
             ],
             'InvoiceTradingCompanyColumnView' => [
