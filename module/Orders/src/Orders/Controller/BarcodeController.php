@@ -3,6 +3,8 @@ namespace Orders\Controller;
 
 use CG\Order\Shared\Barcode as BarcodeDecoder;
 use CG\Order\Shared\Entity as Order;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Module;
@@ -11,8 +13,11 @@ use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-class BarcodeController extends AbstractActionController
+class BarcodeController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
+
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
     /** @var BarcodeDecoder */
@@ -45,11 +50,22 @@ class BarcodeController extends AbstractActionController
 
     public function submitAction()
     {
+        $this->logDebug('SUBMITACTION', [], 'MYTEST');
         $postData = $this->params()->fromPost();
         $view = $this->jsonModelFactory->newInstance();
 
+        $this->logDebugDump($postData, 'POST DATA', [], 'MYTEST');
+
         $orderAndAction = $this->barcodeDecoder->decodeBarcodeToOrderAndAction($postData['barcode']);
         $method = $this->actionMap[$orderAndAction['action']];
+
+        $this->logDebugDump($method, 'METHOD', [], 'MYTEST');
+
+        if (!method_exists($this, $method)) {
+            $msg = sprintf(BarcodeDecoder::EXC_INVALID_BARCODE, __METHOD__, $postData['barcode']);
+            throw new \InvalidArgumentException($msg);
+        }
+
         $this->$method($orderAndAction['order'], $view);
 
         // This action can be called from App or Admin

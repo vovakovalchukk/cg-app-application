@@ -2040,17 +2040,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.39.10",
+            "version": "dev-CGIV-10037-barcode-controller",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "eed35275804a7afd53e4fdc2823be9bb5d3559b7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.39.10-9fec96.zip",
-                "reference": "eed35275804a7afd53e4fdc2823be9bb5d3559b7",
-                "shasum": null
+                "reference": "c107aa7e991ad871b679e40777f291712876d83a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -10366,13 +10360,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.39.11",
+            "alias_normalized": "1.39.11.0",
+            "version": "dev-CGIV-10037-barcode-controller",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
