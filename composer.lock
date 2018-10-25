@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f281ad2a119ecf029a9604eaf5f4d86b",
+    "content-hash": "a4f4fb63119c46fe5881acde4eee66b8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -647,16 +647,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.11",
+            "version": "1.16.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "477d82af8316c038af645bac4089b7ea2bfc03d6"
+                "reference": "ae9725bf82d267c6865ac489a9a91a67acf73ac1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.11-809e24.zip",
-                "reference": "477d82af8316c038af645bac4089b7ea2bfc03d6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.12-1903e3.zip",
+                "reference": "ae9725bf82d267c6865ac489a9a91a67acf73ac1",
                 "shasum": null
             },
             "require": {
@@ -667,6 +667,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/feature-flags": "^2.0.1",
+                "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.25",
                 "channelgrabber/listing": "^1.11.11",
                 "channelgrabber/locale": "^1.2.1",
@@ -706,7 +707,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-17T14:05:14+00:00"
+            "time": "2018-10-24T10:17:19+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1304,21 +1305,23 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.0.1",
+            "version": "dev-TAC-257-EtsyListings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "485c3e5027a18a736bab8fc1bf2033c817800d45"
+                "reference": "ea637a84a2803d76c8185674582976a7fd5eb1ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-1.0.1-91d884.zip",
-                "reference": "485c3e5027a18a736bab8fc1bf2033c817800d45",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-dev-TAC-257-EtsyListings-122210.zip",
+                "reference": "ea637a84a2803d76c8185674582976a7fd5eb1ad",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.34.0",
+                "channelgrabber/cglib": "~1.16.12",
+                "channelgrabber/channel": "^1.36.8",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/http": "^1.3.0",
                 "channelgrabber/stdlib": "^2.14.1",
                 "ext-oauth": "*",
@@ -1339,7 +1342,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-05-04T14:58:43+00:00"
+            "time": "2018-10-24T10:14:44+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -10394,10 +10397,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "dev-TAC-257-EtsyListings",
+            "package": "channelgrabber/etsy"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/etsy": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
