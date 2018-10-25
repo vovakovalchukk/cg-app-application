@@ -13,11 +13,8 @@ use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-class BarcodeController extends AbstractActionController implements LoggerAwareInterface
+class BarcodeController extends AbstractActionController
 {
-    use LogTrait;
-
-
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
     /** @var BarcodeDecoder */
@@ -50,16 +47,11 @@ class BarcodeController extends AbstractActionController implements LoggerAwareI
 
     public function submitAction()
     {
-        $this->logDebug('SUBMITACTION', [], 'MYTEST');
         $postData = $this->params()->fromPost();
         $view = $this->jsonModelFactory->newInstance();
 
-        $this->logDebugDump($postData, 'POST DATA', [], 'MYTEST');
-
         $orderAndAction = $this->barcodeDecoder->decodeBarcodeToOrderAndAction($postData['barcode']);
         $method = $this->actionMap[$orderAndAction['action']];
-
-        $this->logDebugDump($method, 'METHOD', [], 'MYTEST');
 
         if (!method_exists($this, $method)) {
             $msg = sprintf(BarcodeDecoder::EXC_INVALID_BARCODE, __METHOD__, $postData['barcode']);
