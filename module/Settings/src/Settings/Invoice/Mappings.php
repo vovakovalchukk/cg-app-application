@@ -276,8 +276,8 @@ class Mappings
             'siteName' => $this->marketplaceService->mapMarketplaceIdToName($account, $invoiceMapping->getSite()),
             'tradingCompany' => $mainAccountRow ? $this->getTradingCompanyOptions($account, $tradingCompanies) : '',
             'assignedInvoice' => $this->getInvoiceOptions($invoiceMapping, $invoices),
-            'sendViaEmail' => $this->getSendOptions($invoiceMapping->getSendViaEmail()),
-            'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getSendToFba()) : '',
+            'sendViaEmail' => $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendViaEmail()),
+            'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendToFba()) : '',
             'emailSubject' => $invoiceMapping->getEmailSubject(),
             'emailTemplate' => $invoiceMapping->getEmailTemplate()
         ];
@@ -326,26 +326,11 @@ class Mappings
         return $tradingCompanyOptions;
     }
 
-    protected function getSendOptions($option)
+    protected function getSendOptions(string $id, bool $isChecked): array
     {
         return [
-            'options' => [
-                [
-                    'title' => 'Default',
-                    'value' => static::DEFAULT_VALUE_SEND_TO,
-                    'selected' => $option === null
-                ],
-                [
-                    'title' => 'On',
-                    'value' => 'on',
-                    'selected' => ($option !== null && $option !== false)
-                ],
-                [
-                    'title' => 'Off',
-                    'value' => 'off',
-                    'selected' => $option === false
-                ],
-            ],
+            'id' => $id,
+            'enabled' => $isChecked
         ];
     }
 

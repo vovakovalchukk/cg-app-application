@@ -1424,13 +1424,13 @@ return [
             ],
             'InvoiceMappingSendViaEmailColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'SendViaEmail'],
+                    'variables' => ['value' => 'Email Invoice'],
                     'template' => 'value.phtml',
                 ],
             ],
             'InvoiceMappingSendToFbaColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'SendToFba'],
+                    'variables' => ['value' => 'Send To FBA'],
                     'template' => 'value.phtml',
                 ],
             ],
