@@ -86,10 +86,6 @@ class CreateListingPopup extends React.Component {
             return false;
         }
 
-        if (this.props.product.variationCount > 1) {
-            return false;
-        }
-
         return !!this.props.searchAccountId;
     };
 
