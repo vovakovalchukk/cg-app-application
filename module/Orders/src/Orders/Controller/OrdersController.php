@@ -7,7 +7,6 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
-use CG\Slim\Rpc\Exception;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -461,7 +460,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $orderIds = $this->params()->fromPost('orders');
         if (!is_array($orderIds)) {
-            throw new Exception('Order Ids must be an array');
+            throw new \Exception('Order Ids must be an array');
         }
         $imagesForOrders = $this->orderService->getImagesForOrders($orderIds);
         return $this->jsonModelFactory->newInstance($imagesForOrders);
