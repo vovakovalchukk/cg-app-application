@@ -1546,17 +1546,11 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.32",
+            "version": "dev-CGIV-9869-api-cache-collections",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "6869a923e43e5b5d90a9d017f3e0d4ecbbe6597d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.32-d807fc.zip",
-                "reference": "6869a923e43e5b5d90a9d017f3e0d4ecbbe6597d",
-                "shasum": null
+                "reference": "a7f3c39ba75f5b9a6c0c0f6accf2ba492fe817eb"
             },
             "require": {
                 "channelgrabber/di": "^2.2.0",
@@ -10366,13 +10360,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.33",
+            "alias_normalized": "1.3.33.0",
+            "version": "dev-CGIV-9869-api-cache-collections",
+            "package": "channelgrabber/http"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/http": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
