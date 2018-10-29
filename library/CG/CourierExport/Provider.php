@@ -34,9 +34,9 @@ class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOp
         $this->activeUser = $activeUser;
     }
 
-    public function isOrderSupported($channelName, Order $order)
+    public function isOrderSupported(Account $account, Order $order)
     {
-        return $this->isProvidedChannel($channelName);
+        return $this->isProvidedChannel($account->getChannel());
     }
 
     public function getProviderChannelNameForChannel($channelName)
