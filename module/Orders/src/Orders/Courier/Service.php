@@ -420,7 +420,7 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function isOrderEligibleForAccount(Account $account, Order $order)
+    protected function isOrderEligibleForAccount(Account $account, Order $order): bool
     {
         if (!in_array($account->getChannel(), static::ACCOUNT_RESTRICTED_CHANNELS)) {
             return true;
