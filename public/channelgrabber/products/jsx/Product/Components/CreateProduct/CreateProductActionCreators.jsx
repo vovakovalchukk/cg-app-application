@@ -116,7 +116,7 @@ var submitForm = reduxFormSubmit('createProductForm');
             productIdentifiers = {};
         }
         let skuMatch = Object.keys(productIdentifiers).find((key) => {
-            return key === formattedVariation.sku
+            return key === formattedVariation.id
         });
 
         if (!skuMatch) {
@@ -124,8 +124,10 @@ var submitForm = reduxFormSubmit('createProductForm');
         }
 
         let variationIdentifiers = productIdentifiers[skuMatch];
+        delete variationIdentifiers.id;
 
         let mergedVariation = Object.assign(formattedVariation, variationIdentifiers);
+        delete mergedVariation.id
         return mergedVariation;
     }
 
@@ -162,7 +164,7 @@ var submitForm = reduxFormSubmit('createProductForm');
             formattedVariation = addStockToFormattedVariation(formattedVariation)
             formattedVariation = addProductIdentifiersToFormattedVariation(formattedVariation, productIdentifiers);
             formattedVariation = addAttributeValuesToFormattedVariation(formattedVariation, attributeNames);
-
+            delete formattedVariation.id;
             return formattedVariation;
         });
     };
