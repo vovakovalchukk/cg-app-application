@@ -29,6 +29,10 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
+    protected const ACCOUNT_RESTRICTED_CHANNELS = [
+        'amazon'
+    ];
+
     /** @var OrderService */
     protected $orderService;
     /** @var ShippingConversionService */
@@ -102,9 +106,11 @@ class Service implements LoggerAwareInterface
         {
             // Only show accounts that support the requested order
             $provider = $this->getShippingChannelsProvider($account);
-            if ($order && !$provider->isOrderSupported($account->getChannel(), $order)) {
+            if ($order && !$provider->isOrderSupported($account->getChannel(), $order) || $this->isOrderEligibleForAccount($account, $order)) {
                 continue;
             }
+
+
 
             $carrierAccounts->attach($account);
         }
@@ -414,5 +420,16 @@ class Service implements LoggerAwareInterface
             }
             $order->setItems($nonZeroItems);
         }
+    }
+
+    protected function isOrderEligibleForAccount(Account $account, Order $order)
+    {
+        if (!in_array($account->getChannel(), static::ACCOUNT_RESTRICTED_CHANNELS)) {
+            return true;
+        }
+        if ($account->getId() === $order->getAccountId()) {
+            return true;
+        }
+        return false;
     }
 }
