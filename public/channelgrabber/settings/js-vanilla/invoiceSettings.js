@@ -41,6 +41,7 @@ define([
             var emailVerifyButtonSelector = '.email-verify-button';
             var emailVerifyStatusSelector = '.email-verify-status';
             var emailVerifyHolderSelector = '.email-send-as-holder';
+            var emailEditTemplateButtonSelector = '.edit-content-button';
             var isPendingConfirmationMessageRequired = false;
 
             var emailInvoiceFieldsSelector = container + ' .emailInvoiceFields';
@@ -110,6 +111,17 @@ define([
                     } else {
                         ajaxVerify(self);
                     }
+                });
+
+                $(document).on('click', emailEditTemplateButtonSelector, function () {
+                    console.log('clicked');
+                    new Confirm('Test', function (response) {
+                        if (response != 'Save') {
+                            return;
+                        }
+
+                        // to AJAX call in here
+                    }, ["Cancel", "Save"]);
                 });
 
                 $(document).on('change', copyRequiredSelector, function () {

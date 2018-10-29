@@ -367,7 +367,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'sendViaEmail' => '/channelgrabber/settings/template/columns/sendViaEmail.mustache',
             'sendToFba' => '/channelgrabber/settings/template/columns/sendToFba.mustache',
             'customSelect' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
-            'enable' => '/channelgrabber/settings/template/columns/enable.mustache'
+            'enable' => '/channelgrabber/settings/template/columns/enable.mustache',
+            'emailContent' => '/channelgrabber/settings/template/columns/emailContent.mustache'
         ]);
         return $datatables;
     }

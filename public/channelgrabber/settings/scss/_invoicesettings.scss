@@ -1,5 +1,5 @@
 .invoiceSettings, .invoiceMapping {
-    width: 100%;
+    @include calc(width, "100% - 100px");
     float: left;
     clear:both;
 
@@ -58,6 +58,15 @@
         }
     }
 }
+
+#invoiceMapping {
+    width: auto !important;
+}
+
+.invoice-settings-field {
+    height: 20px;
+}
+
 .invoiceMapping {
     .med-element {
         width: 120px;

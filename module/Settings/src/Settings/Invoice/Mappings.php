@@ -22,6 +22,8 @@ use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
+use CG\Order\Client\Invoice\Email\Service as InvoiceEmailService;
+use CG\Settings\Invoice\Shared\Mapper as InvoiceMapper;
 
 class Mappings
 {
@@ -278,8 +280,7 @@ class Mappings
             'assignedInvoice' => $this->getInvoiceOptions($invoiceMapping, $invoices),
             'sendViaEmail' => $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendViaEmail()),
             'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendToFba()) : '',
-            'emailSubject' => $invoiceMapping->getEmailSubject(),
-            'emailTemplate' => $invoiceMapping->getEmailTemplate()
+            'emailTemplate' => $this->getEmailTemplateOptions($invoiceMapping)
         ];
     }
 
@@ -330,7 +331,17 @@ class Mappings
     {
         return [
             'id' => $id,
+            'rowId' => $id,
             'enabled' => $isChecked
+        ];
+    }
+
+    protected function getEmailTemplateOptions(InvoiceMapping $invoiceMapping)
+    {
+        return [
+            'subject' => $invoiceMapping->getEmailSubject() ?? InvoiceEmailService::EMAIL_SUBJECT,
+            'template' => $invoiceMapping->getEmailTemplate() ?? InvoiceMapper::DEFAULT_EMAIL_TEMPLATE,
+            'id' => $invoiceMapping->getId()
         ];
     }
 
