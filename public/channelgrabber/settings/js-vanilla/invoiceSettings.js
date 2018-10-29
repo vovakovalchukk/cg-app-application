@@ -113,15 +113,8 @@ define([
                     }
                 });
 
-                $(document).on('click', emailEditTemplateButtonSelector, function () {
-                    console.log('clicked');
-                    new Confirm('Test', function (response) {
-                        if (response != 'Save') {
-                            return;
-                        }
-
-                        // to AJAX call in here
-                    }, ["Cancel", "Save"]);
+                $(document).on('click', emailEditTemplateButtonSelector, function (event) {
+                    renderEmailTemplatePopup(event.target);
                 });
 
                 $(document).on('change', copyRequiredSelector, function () {
@@ -173,6 +166,37 @@ define([
                     ajaxSave(self);
                 });
             };
+
+            function renderEmailTemplatePopup(element) {
+                var emailData = $(element).data();
+                console.log(emailData);
+
+                var templateUrlMap = {
+                    invoiceEmail: '/cg-built/settings/template/Messages/invoiceEmailEditForm.mustache'
+                };
+
+                CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
+                    var messageHTML = cgmustache.renderTemplate(templates, emailData, "invoiceEmail");
+                    new Confirm(messageHTML, function (response) {
+                        if (!response) {
+                            setupEmailEditor();
+                            return;
+                        }
+
+                        tinyMCE.remove();
+
+                        if (response == 'Save') {
+                            // to AJAX call in here
+                            return;
+                        }
+
+                    }, ["Cancel", "Save"], () => {}, buildEmailTemplatePopupName());
+                });
+            }
+
+            function buildEmailTemplatePopupName() {
+                return 'Email Subject and Content for account';
+            }
 
             function validateEmailFields()
             {
