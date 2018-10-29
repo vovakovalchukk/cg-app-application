@@ -110,8 +110,6 @@ class Service implements LoggerAwareInterface
                 continue;
             }
 
-
-
             $carrierAccounts->attach($account);
         }
 
