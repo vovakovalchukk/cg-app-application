@@ -4,7 +4,6 @@ use CG\NetDespatch\Account\CreationService as NetDespatchAccountCreationService;
 use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
 use CG\NetDespatch\Order\Mapper\Factory as NetDespatchOrderMapperFactory;
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
-use CG\NetDespatch\ShippingService as NetDespatchShippingService;
 
 return [
     'di' => [
@@ -24,8 +23,8 @@ return [
                             'providerCode' => 'ROYALMAIL',
                             'allowsCancellation' => true,
                             'allowsManifesting' => true,
-                            'fields' => [], // TODO
-                            'existingFields' => [], // TODO
+                            // For Royal Mail we use a bespoke form. See: CG_NetDespatch\Setup\RoyalMail
+                            'fields' => [],
                             'shippingServices' => [
                                 // These codes are prefixes, more characters will be added based on chosen options
                                 '24' => [

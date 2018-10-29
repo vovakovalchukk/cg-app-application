@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "889715f2de7f54206a0a0ca05baa4c29",
+    "content-hash": "c0b548d1a97e6621f2c3b19a98c72df0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -716,6 +716,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "08e022f263c9d032ec74f6067540a9a5c0845356"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-251-netdespatch-allow-for-other-carriers-80ae7f.zip",
+                "reference": "08e022f263c9d032ec74f6067540a9a5c0845356",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
                 "channelgrabber/cache": "^2.1.0",
@@ -787,7 +793,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-10-25T14:21:01+00:00"
+            "time": "2018-10-29T11:37:36+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1938,7 +1944,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8bb10525fde1d7731dd134b2dc3c24da077d71fe"
+                "reference": "1d78212619dda892b30d3c2c1889d20e6afeab95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-70bd13.zip",
+                "reference": "1d78212619dda892b30d3c2c1889d20e6afeab95",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.41.2",
@@ -1978,7 +1990,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-10-26T15:41:21+00:00"
+            "time": "2018-10-29T16:04:52+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4353,16 +4365,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.7.1",
+            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "726d6d239237a2426388587af065ea81bfa833d4"
+                "reference": "1f7fee7fc67ec4f82a80ad9f37b597a58a2dc9a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.7.1-3b59d1.zip",
-                "reference": "726d6d239237a2426388587af065ea81bfa833d4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-5d3426.zip",
+                "reference": "1f7fee7fc67ec4f82a80ad9f37b597a58a2dc9a0",
                 "shasum": null
             },
             "require": {
@@ -4392,7 +4404,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2017-09-12T15:37:34+00:00"
+            "time": "2018-10-29T16:06:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -10399,6 +10411,12 @@
             "alias_normalized": "1.2.17.0",
             "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
             "package": "channelgrabber/netdespatch"
+        },
+        {
+            "alias": "1.0.8",
+            "alias_normalized": "1.0.8.0",
+            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "package": "channelgrabber/zf2-netdespatch"
         }
     ],
     "minimum-stability": "stable",
@@ -10406,9 +10424,10 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
+        "channelgrabber/zf2-netdespatch": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
