@@ -359,6 +359,7 @@ define([
                     forced_root_block: false,
                     paste_as_text: true,
                     toolbar: 'tagSelect',
+                    inline: true,
                     setup: function(editor) {
                         function addToEditor(e){
                             tinymce.activeEditor.insertContent(e.target.textContent);
