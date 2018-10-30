@@ -49,7 +49,10 @@ define([
 
             var emailBccField = $(emailBccSelector);
 
-            var emailEditorSelector = '#invoice-email-editor';
+            var emailEditorContentId = 'invoice-email-editor';
+            var emailSubjectEditorId = 'invoice-email-subject-editor';
+            var emailEditorSelector = '#' + emailEditorContentId;
+            var emailSubjectEditorSelector = '#' + emailSubjectEditorId;
             var existingEmailTemplate = $(emailEditorSelector).html();
             EventCollator.setTimeout(3000);
 
@@ -60,9 +63,6 @@ define([
 
                 // Set field states
                 setCopyRequired();
-
-                // Setup emailEditor
-                setupEmailEditor();
 
                 // Set event listeners
                 $(document).on('change', selector, function() {
@@ -114,7 +114,9 @@ define([
                 });
 
                 $(document).on('click', emailEditTemplateButtonSelector, function (event) {
-                    renderEmailTemplatePopup(event.target);
+                    renderEmailTemplatePopup(event.target, function(saveData) {
+                        self.saveMapping(saveData, handleSaveMappingResponse);
+                    });
                 });
 
                 $(document).on('change', copyRequiredSelector, function () {
@@ -167,31 +169,42 @@ define([
                 });
             };
 
-            function renderEmailTemplatePopup(element) {
+            function renderEmailTemplatePopup(element, saveMappingCallback) {
                 var emailData = $(element).data();
-                console.log(emailData);
 
                 var templateUrlMap = {
                     invoiceEmail: '/cg-built/settings/template/Messages/invoiceEmailEditForm.mustache'
                 };
 
-                CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                    var messageHTML = cgmustache.renderTemplate(templates, emailData, "invoiceEmail");
-                    new Confirm(messageHTML, function (response) {
-                        if (!response) {
-                            setupEmailEditor();
-                            return;
-                        }
+                CGMustache.get().fetchTemplates(
+                    templateUrlMap,
+                    function (templates, cgmustache) {
+                        var messageHTML = cgmustache.renderTemplate(templates, emailData, "invoiceEmail");
+                        new Confirm(
+                            messageHTML,
+                            function (response) {
+                                if (!response) {
+                                    setupEmailEditor();
+                                    setupEmailSubjectEditor();
+                                    return;
+                                }
 
-                        tinyMCE.remove();
+                                if (response == 'Save') {
+                                    let saveData = Object.assign(buildSaveMappingBaseData($(element)), {
+                                        emailSubject: tinyMCE.get(emailSubjectEditorId).getContent(),
+                                        emailTemplate: tinyMCE.get(emailEditorContentId).getContent()
+                                    });
+                                    saveMappingCallback(saveData);
+                                }
 
-                        if (response == 'Save') {
-                            // to AJAX call in here
-                            return;
-                        }
-
-                    }, ["Cancel", "Save"], () => {}, buildEmailTemplatePopupName());
-                });
+                                tinyMCE.remove();
+                            },
+                            ["Cancel", "Save"],
+                            () => {},
+                            buildEmailTemplatePopupName()
+                        );
+                    }
+                );
             }
 
             function buildEmailTemplatePopupName() {
@@ -292,11 +305,6 @@ define([
                     menubar : false,
                     forced_root_block: false,
                     paste_as_text: true,
-                    init_instance_callback: function (editor) {
-                        editor.on('keyup change paste SetContent', function (e) {
-                            $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailTemplate', editor.getContent(), false]);
-                        });
-                    },
                     toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagSelect | resetDefault',
                     setup: function(editor) {
                         function addToEditor(e){
@@ -317,6 +325,50 @@ define([
                             })
                         });
 
+                    }
+                });
+            }
+
+            function setupEmailSubjectEditor() {
+                var tags = JSON.parse(tagOptions);
+
+                tinyMCE.init({
+                    selector: emailSubjectEditorSelector,
+                    theme_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/theme.js',
+                    skin_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/orderhub',
+                    plugins: ['save', 'textcolor'],
+                    height: 10,
+                    statusbar : false,
+                    menubar : false,
+                    forced_root_block: false,
+                    paste_as_text: true,
+                    toolbar: 'tagSelect',
+                    setup: function(editor) {
+                        function addToEditor(e){
+                            tinymce.activeEditor.insertContent(e.target.textContent);
+                        }
+                        editor.addButton('resetDefault', {
+                            text: 'Reset to Default',
+                            onclick: function () {
+                                tinymce.execCommand('mceCancel');
+                            }
+                        });
+                        editor.addButton('tagSelect', {
+                            type: 'menubutton',
+                            text: 'Insert Tag',
+                            icon: false,
+                            menu: tags.map(function (tag) {
+                                return {text: tag, onclick: addToEditor};
+                            })
+                        });
+                        editor.on('keydown', function (event) {
+                            console.log(event);
+                            if (event.keyCode == 13)  {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                return false;
+                            }
+                        })
                     }
                 });
             }
@@ -360,6 +412,7 @@ define([
 
             function handleSaveMappingResponse(data)
             {
+                console.log(data);
                 if (n) {
                     n.success(InvoiceSettings.SUCCESS_MESSAGE);
                 }
@@ -417,15 +470,19 @@ define([
             };
 
             this.getMappingSaveData = function (element, property) {
+                var saveData = buildSaveMappingBaseData(element);
+                saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
+                return saveData;
+            };
+
+            function buildSaveMappingBaseData(element) {
                 var row = element.closest('tr');
-                var saveData = {
+                return {
                     id: $(row).attr('data-element-row-id'),
                     site: $.trim($(row.find('.site-column input')).val()),
                     accountId: $(row.find('.account-column input')).val(),
                 };
-                saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
-                return saveData;
-            };
+            }
 
             this.initialiseInvoiceMappingEntity = function (entity) {
                 $('#invoiceMapping tbody tr').each(function (index, row) {
