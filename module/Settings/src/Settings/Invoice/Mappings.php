@@ -279,7 +279,7 @@ class Mappings
             'tradingCompany' => $mainAccountRow ? $this->getTradingCompanyOptions($account, $tradingCompanies) : '',
             'assignedInvoice' => $this->getInvoiceOptions($invoiceMapping, $invoices),
             'sendViaEmail' => $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendViaEmail()),
-            'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendToFba()) : '',
+            'sendToFba' => $account->getChannel() === 'amazon' ? $this->getSendOptions($invoiceMapping->getId(), (bool) $invoiceMapping->getSendToFba(), 'fba-') : '',
             'emailTemplate' => $this->getEmailTemplateOptions($invoiceMapping)
         ];
     }
@@ -327,10 +327,10 @@ class Mappings
         return $tradingCompanyOptions;
     }
 
-    protected function getSendOptions(string $id, bool $isChecked): array
+    protected function getSendOptions(string $id, bool $isChecked, string $idPrefix = ''): array
     {
         return [
-            'id' => $id,
+            'id' => $idPrefix . $id,
             'rowId' => $id,
             'enabled' => $isChecked
         ];
