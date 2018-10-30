@@ -244,10 +244,6 @@
     font-weight: bold;
 }
 
-.popup .menu {
-    text-align: right;
-}
-
 .popup .button.yes-button {
     background: #3498db;
     color: #ffffff;
@@ -275,4 +271,19 @@
         border-radius: 5px;
         padding: 5px;
     }
+}
+
+.popup {
+    .last-paragraph {
+        text-align: center;
+        margin: 15px 0 -7px;
+    }
+}
+
+.input-holder.mce-edit-focus {
+    outline: none;
+}
+
+.mce-floatpanel {
+    margin-left: 548px !important;
 }
