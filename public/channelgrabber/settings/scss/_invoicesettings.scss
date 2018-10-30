@@ -236,3 +236,40 @@
 .popup .content {
     width: 600px;
 }
+
+.popup .header-large {
+    background-color: $color-linkblue;
+    color: $color-white;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.popup .menu {
+    text-align: right;
+}
+
+.popup .button.yes-button {
+    background: #3498db;
+    color: #ffffff;
+}
+
+.email-edit-popup {
+    font-size: 16px;
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .input-holder {
+        margin-top: 10px;
+    }
+
+    #invoice-email-subject-editor {
+        border: 1px solid $color-lgrey;
+        border-radius: 5px;
+        padding: 5px;
+    }
+}

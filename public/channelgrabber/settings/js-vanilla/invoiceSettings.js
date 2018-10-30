@@ -185,8 +185,8 @@ define([
                 });
             }
 
-            function renderEmailTemplatePopup(element, saveMappingCallback) {
-                var emailData = $(element).data();
+            function renderEmailTemplatePopup(editButton, saveMappingCallback) {
+                var emailData = $(editButton).data();
 
                 var templateUrlMap = {
                     invoiceEmail: '/cg-built/settings/template/Messages/invoiceEmailEditForm.mustache'
@@ -196,31 +196,49 @@ define([
                     templateUrlMap,
                     function (templates, cgmustache) {
                         var messageHTML = cgmustache.renderTemplate(templates, emailData, "invoiceEmail");
-                        new Confirm(
-                            messageHTML,
-                            function (response) {
-                                if (!response) {
-                                    setupEmailEditor();
-                                    setupEmailSubjectEditor();
-                                    return;
-                                }
-
-                                if (response == 'Save') {
-                                    let saveData = Object.assign(buildSaveMappingBaseData($(element)), {
-                                        emailSubject: tinyMCE.get(emailSubjectEditorId).getContent(),
-                                        emailTemplate: tinyMCE.get(emailEditorContentId).getContent()
-                                    });
-                                    saveMappingCallback(saveData);
-                                }
-
-                                tinyMCE.remove();
-                            },
-                            ["Cancel", "Save"],
-                            () => {},
-                            buildEmailTemplatePopupName()
-                        );
+                        renderEmailTemplatePopupContent(editButton, messageHTML, saveMappingCallback);
                     }
                 );
+            }
+
+            function renderEmailTemplatePopupContent(editButton, messageHTML, saveMappingCallback) {
+                new Confirm(
+                    messageHTML,
+                    (response) => { handleEmailTemplatePopupAction(editButton, response, saveMappingCallback) },
+                    buildEmailTemplatePopupButtons(),
+                    () => {},
+                    buildEmailTemplatePopupName()
+                );
+            }
+
+            function handleEmailTemplatePopupAction(editButton, response, saveMappingCallback) {
+                if (!response) {
+                    setupEmailEditor();
+                    setupEmailSubjectEditor();
+                    return;
+                }
+
+                if (response == 'Save') {
+                    let saveData = Object.assign(buildSaveMappingBaseData($(editButton)), {
+                        emailSubject: tinyMCE.get(emailSubjectEditorId).getContent(),
+                        emailTemplate: tinyMCE.get(emailEditorContentId).getContent()
+                    });
+                    saveMappingCallback(saveData);
+                }
+
+                tinyMCE.remove();
+            }
+
+            function buildEmailTemplatePopupButtons() {
+                return [
+                    {
+                        value: 'Cancel'
+                    },
+                    {
+                        value: 'Save',
+                        class: 'yes-button'
+                    }
+                ];
             }
 
             function buildEmailTemplatePopupName() {
@@ -261,7 +279,10 @@ define([
                             setEmailVerifyButtonVerifying(emailVerifyButton);
                             ajaxVerify(self, {'confirmationAmazon': true});
                         }
-                    }, ["Cancel", InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON]);
+                    }, ["Cancel", {
+                        value: InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON,
+                        class: 'yes-button'
+                    }]);
                 });
             }
 
