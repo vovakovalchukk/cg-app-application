@@ -1,5 +1,5 @@
 .invoiceSettings, .invoiceMapping {
-    @include calc(width, "100% - 100px");
+    width: 100%;
     float: left;
     clear:both;
 
