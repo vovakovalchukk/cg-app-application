@@ -83,13 +83,19 @@ define([
                     self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
-                $(document).on('change', mappingSendViaEmailSelector, function(event, element) {
-                    var saveData = self.getMappingSaveData(element, 'sendViaEmail');
+                $(document).on('change', mappingSendViaEmailSelector, function(event) {
+                    let element = event.target;
+                    let saveData = Object.assign(buildSaveMappingBaseData($(element)), {
+                        sendViaEmail: $(element).is(':checked')
+                    });
                     self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
-                $(document).on('change', mappingSendToFbaSelector, function(event, element) {
-                    var saveData = self.getMappingSaveData(element, 'sendToFba');
+                $(document).on('change', mappingSendToFbaSelector, function(event) {
+                    let element = event.target;
+                    let saveData = Object.assign(buildSaveMappingBaseData($(element)), {
+                        sendToFba: $(element).is(':checked')
+                    });
                     self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
@@ -362,7 +368,6 @@ define([
                             })
                         });
                         editor.on('keydown', function (event) {
-                            console.log(event);
                             if (event.keyCode == 13)  {
                                 event.preventDefault();
                                 event.stopPropagation();
@@ -412,7 +417,6 @@ define([
 
             function handleSaveMappingResponse(data)
             {
-                console.log(data);
                 if (n) {
                     n.success(InvoiceSettings.SUCCESS_MESSAGE);
                 }
