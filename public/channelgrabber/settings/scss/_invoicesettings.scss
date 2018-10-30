@@ -254,7 +254,10 @@
 }
 
 .email-edit-popup {
-    font-size: 16px;
+    label {
+        font-size: 16px;
+    }
+
     .input-group {
         margin-bottom: 20px;
     }
