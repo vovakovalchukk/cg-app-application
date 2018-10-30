@@ -121,7 +121,9 @@ define([
 
                 $(document).on('click', emailEditTemplateButtonSelector, function (event) {
                     renderEmailTemplatePopup(event.target, function(saveData) {
-                        self.saveMapping(saveData, handleSaveMappingResponse);
+                        self.saveMapping(saveData, function(data) {
+                            handleInvoiceMappingSuccessSave(data, saveData, $(event.target));
+                        });
                     });
                 });
 
@@ -174,6 +176,14 @@ define([
                     ajaxSave(self);
                 });
             };
+
+            function handleInvoiceMappingSuccessSave(responseData, savedData, element) {
+                handleSaveMappingResponse(responseData);
+                element.data({
+                    subject: savedData.emailSubject,
+                    content: savedData.emailTemplate
+                });
+            }
 
             function renderEmailTemplatePopup(element, saveMappingCallback) {
                 var emailData = $(element).data();
