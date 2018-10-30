@@ -207,7 +207,7 @@ define([
                     (response) => { handleEmailTemplatePopupAction(editButton, response, saveMappingCallback) },
                     buildEmailTemplatePopupButtons(),
                     () => {},
-                    buildEmailTemplatePopupName()
+                    buildEmailTemplatePopupName(editButton)
                 );
             }
 
@@ -241,8 +241,11 @@ define([
                 ];
             }
 
-            function buildEmailTemplatePopupName() {
-                return 'Email Subject and Content for account';
+            function buildEmailTemplatePopupName(editButton) {
+                let row = $(editButton).closest('tr');
+                let accountName = $.trim($(row.find('.account-column')).text());
+                let site = $.trim($(row.find('.site-column input')).val());
+                return 'Email Subject and Content for ' + accountName + ' ' + site;
             }
 
             function validateEmailFields()
@@ -602,7 +605,7 @@ define([
         InvoiceSettings.EMAIL_STATUS_VERIFIED = 'success';
         InvoiceSettings.EMAIL_STATUS_PENDING = 'pending';
         InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';
-        InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Email address approved for all Amazon accounts';
+        InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Confirm';
 
         InvoiceSettings.prototype.save = function(callback, additionalData)
         {
