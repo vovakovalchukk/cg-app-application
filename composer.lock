@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "93fa0300eba7215ac491e80019d73367",
+    "content-hash": "5ab9d9105b80e262140d2926353459c5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2045,16 +2045,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-224-use-email-subject-and-template",
+            "version": "dev-EPIC-TAC-222-invoice-email-settings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1fa16636ae15411e5cdd9aea24e5d0a8ecfc54e7"
+                "reference": "7f94a663ab7fff7f5534a101808ac79ba0850519"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-224-use-email-subject-and-template-8c6576.zip",
-                "reference": "1fa16636ae15411e5cdd9aea24e5d0a8ecfc54e7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-TAC-222-invoice-email-settings-d6096a.zip",
+                "reference": "7f94a663ab7fff7f5534a101808ac79ba0850519",
                 "shasum": null
             },
             "require": {
@@ -2125,7 +2125,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-10-24T14:21:49+00:00"
+            "time": "2018-10-25T08:00:19+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2925,7 +2925,7 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-TAC-223-add-invoice-mapping-fields",
+            "version": "dev-EPIC-TAC-222-invoice-email-settings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
@@ -2933,7 +2933,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-TAC-223-add-invoice-mapping-fields-5381e4.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-EPIC-TAC-222-invoice-email-settings-5381e4.zip",
                 "reference": "6a643017b653efde45ecc13868972a59dd697947",
                 "shasum": null
             },
@@ -4814,16 +4814,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-226-invoice-mapping-email-subject-template-ui",
+            "version": "dev-EPIC-TAC-222-invoice-email-settings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9c264b49c7ddffec7282dbfcc2fc22fb75f4344f"
+                "reference": "959f0429a21a3d3e7493a146e0b825c2399a1b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-226-invoice-mapping-email-subject-template-ui-a0a876.zip",
-                "reference": "9c264b49c7ddffec7282dbfcc2fc22fb75f4344f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-TAC-222-invoice-email-settings-cdfd43.zip",
+                "reference": "959f0429a21a3d3e7493a146e0b825c2399a1b29",
                 "shasum": null
             },
             "require": {
@@ -4875,7 +4875,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-10-29T15:51:47+00:00"
+            "time": "2018-10-31T08:58:50+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10403,19 +10403,19 @@
         {
             "alias": "1.40.1",
             "alias_normalized": "1.40.1.0",
-            "version": "dev-TAC-224-use-email-subject-and-template",
+            "version": "dev-EPIC-TAC-222-invoice-email-settings",
             "package": "channelgrabber/order"
         },
         {
             "alias": "1.6.4",
             "alias_normalized": "1.6.4.0",
-            "version": "dev-TAC-223-add-invoice-mapping-fields",
+            "version": "dev-EPIC-TAC-222-invoice-email-settings",
             "package": "channelgrabber/settings"
         },
         {
             "alias": "1.25.2",
             "alias_normalized": "1.25.2.0",
-            "version": "dev-TAC-226-invoice-mapping-email-subject-template-ui",
+            "version": "dev-EPIC-TAC-222-invoice-email-settings",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
