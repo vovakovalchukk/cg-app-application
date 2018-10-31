@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d337cd427c65432dbf05d5848bf01d7",
+    "content-hash": "93fa0300eba7215ac491e80019d73367",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2812,16 +2812,16 @@
         },
         {
             "name": "channelgrabber/sagepay",
-            "version": "1.1.23",
+            "version": "1.1.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "630198b60c101084b08f1bab90a38469fe780195"
+                "reference": "9014eda97b482aae189c96abd314afaf4437d52f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-1.1.23-31f15d.zip",
-                "reference": "630198b60c101084b08f1bab90a38469fe780195",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sagepay-1.1.24-9f3906.zip",
+                "reference": "9014eda97b482aae189c96abd314afaf4437d52f",
                 "shasum": null
             },
             "require": {
@@ -2855,7 +2855,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-10-05T13:53:07+00:00"
+            "time": "2018-10-29T14:07:16+00:00"
         },
         {
             "name": "channelgrabber/scraper",
