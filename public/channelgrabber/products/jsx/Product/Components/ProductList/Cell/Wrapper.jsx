@@ -12,6 +12,7 @@ class CellWrapper extends React.Component {
             // if performance issues are hit later move this out into a higher component
             this.props.actions.reOrderRowsByRowIndex();
         }
+
         if(this.isLastRow()){
             return (
                 <span></span>
@@ -25,9 +26,13 @@ class CellWrapper extends React.Component {
         )
     };
     shouldReorderRows() {
-        let rowsExist = !!document.querySelectorAll('.js-row').length;
-        // modulus 10 so that we will generally see a re-order for any visible set of rows
-        return ((this.props.rowIndex % 10) === 0) && this.props.columnKey === Object.keys(columnKeys)[0] && rowsExist;
+        // modulus 12 so that we will generally see a re-order for any visible set of rows
+        if((this.props.rowIndex % 12) === 0 && this.props.columnKey === Object.keys(columnKeys)[0]){
+            let rowsExist = !!document.querySelectorAll('.js-row').length;
+            if(rowsExist){
+                return true;
+            }
+        }
     }
     isLastRow() {
         return this.props.products.visibleRows.length === this.props.rowIndex;

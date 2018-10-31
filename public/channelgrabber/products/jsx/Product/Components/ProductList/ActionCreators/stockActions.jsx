@@ -4,6 +4,20 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 let actionCreators = (function() {
     return {
+        collapseStockModeSelects: () => {
+            return {
+                type: "STOCK_MODE_SELECTS_COLLAPSE",
+                payload:{}
+            }
+        },
+        toggleStockModeSelect: (productId) => {
+          return{
+              type:'STOCK_MODE_SELECT_TOGGLE',
+              payload: {
+                  productId
+              }
+          }
+        },
         changeStockMode: (rowData, stockModeValue, propToChange) => {
             return function(dispatch, getState) {
                 if (rowData === null) {

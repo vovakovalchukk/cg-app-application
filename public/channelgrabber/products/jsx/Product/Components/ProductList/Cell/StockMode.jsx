@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import StockModeInputs from 'Product/Components/StockModeInputs';
+import DataTablesStockModeInputs from 'Product/Components/ProductList/Components/StockModeInputs';
 import constants from 'Product/Components/ProductList/Config/constants';
 import elementTypes from "../PortalSettings/elementTypes";
 import portalSettingsFactory from "../PortalSettings/factory";
 
-const StyledStockModeInputs = styled(StockModeInputs)`
+const StyledDataTablesStockModeInputs = styled(DataTablesStockModeInputs)`
     display:flex;
     justify-content:center;
     align-items:center;
@@ -64,7 +64,25 @@ class StockModeCell extends React.Component {
         this.props.actions.changeStockMode(row, value, propToChange);
     };
 
+    getStockModeSelectActive(row) {
+        return !!this.props.stock.selectStatuses.find(selectStatus => {
+            if (selectStatus.productId === row.id) {
+                return selectStatus.active;
+            }
+        });
+    };
+
+    selectToggle(productId){
+
+
+        this.props.actions.collapseStockModeSelects();
+        this.props.actions.toggleStockModeSelect(productId);
+    };
+
     render() {
+        console.log('in stockMode with this.props: ' , this.props);
+
+
         const {
             products,
             rowIndex,
@@ -97,10 +115,16 @@ class StockModeCell extends React.Component {
             width
         });
 
+        let {
+            toggleStockModeSelect
+        } = this.props.actions;
+
+
         return (
             <div className={this.props.className}>
-                <StyledStockModeInputs
-                    onChange={this.onStockModeChange}
+                <StyledDataTablesStockModeInputs
+                    inputId={row.id}
+                    selectActive = {this.getStockModeSelectActive(row)}
                     stockModeOptions={this.props.stock.stockModeOptions}
                     stockModeType={{
                         input: {
@@ -117,7 +141,12 @@ class StockModeCell extends React.Component {
                         }
                     }}
                     portalSettingsForDropdown={portalSettingsForDropdown}
+                    actions={{
+                        toggleStockModeSelect
+                    }}
+                    stockModeSelectToggle={this.selectToggle.bind(this)}
                 />
+
                 <ButtonsContainer className={"safe-input-box"}>
                     <div className={"submit-input"}>
                         <div className={"submit-cancel " + (shouldDisplaySaveCancelBox ? "active" : "")}>

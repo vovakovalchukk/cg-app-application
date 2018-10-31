@@ -7,36 +7,34 @@ const Image = styled.img`
     max-height: ${props => props.maxLength}px;
     object-fit: contain;
     background-color: #ebebeb;
-    visibility: ${props=>props.imageLoaded ? 'visible' : 'hidden'};
+    visibility: ${props => props.imageLoaded ? 'visible' : 'hidden'};
 `;
+
 class ImageCell extends React.Component {
     static defaultProps = {};
 
     state = {
-        error:false,
-        imageLoaded:false
+        error: false,
+        imageLoaded: false
     };
-
     onError = () => {
         this.setState({
-            error:true
+            error: true
         });
     };
-    
     onLoad = () => {
         this.setState({
-            imageLoaded:true
+            imageLoaded: true
         });
     };
- 
     renderImage = () => {
         let cellData = stateUtility.getCellData(
             this.props.products,
             this.props.columnKey,
             this.props.rowIndex
         );
-       
-        if (!cellData || !cellData.id || this.state.error ) {
+
+        if (!cellData || !cellData.id || this.state.error) {
             return '';
         }
         return (
@@ -50,7 +48,6 @@ class ImageCell extends React.Component {
             />
         );
     };
-    
     render() {
         return (
             <div {...this.props}>

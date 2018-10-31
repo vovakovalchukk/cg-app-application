@@ -12,7 +12,7 @@ let columnCreator = function(column, parentProps) {
     column = applyColumnSpecificProps(column, parentProps);
 
     let CellContent = CellFactory.createCellContent(column);
-    let CellWrapper = CellFactory.createCellWrapper()
+    let CellWrapper = CellFactory.createCellWrapper();
     let StyledCellWrapper = styled(CellWrapper)`
             display: flex;
             align-items: center;
@@ -27,7 +27,7 @@ let columnCreator = function(column, parentProps) {
     if (!CellContent) {
         console.error("cannot create cell in column factory for column: ", column);
     }
-    
+
     return (<Column
         columnKey={column.key}
         width={column.width}

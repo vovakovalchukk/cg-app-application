@@ -3,7 +3,9 @@ import reducerCreator from 'Common/Reducers/creator';
 
 "use strict";
 
-var initialState = {};
+var initialState = {
+    firstCellHasBeenRendered:false
+};
 
 var rowsReducer = reducerCreator(initialState, {
     "ROWS_REORDER_BY_ROW_INDEX": function(state, action) {

@@ -3,6 +3,13 @@ import constants from 'Product/Components/ProductList/Config/constants';
 
 let initialState = {
     stockModeOptions: [],
+    selectStatuses: [
+        // {productId, active}
+    ],
+    //todo - sort this out
+    editedValues:[
+        //{productId, stockMode, stockLevel}
+    ],
     stockModeEdits: [
         // {productId, status}
     ],
@@ -12,6 +19,35 @@ let initialState = {
 };
 
 let stockModeReducer = reducerCreator(initialState, {
+    "STOCK_MODE_SELECTS_COLLAPSE": function(state,action){
+        let stateCopy = Object.assign({}, state);
+        let selectStatuses = state.selectStatuses.slice();
+
+        let newSelectStatuses = selectStatuses.map(selectStatus=>{
+            selectStatus.active = false;
+            return selectStatus;
+        });
+        return Object.assign({}, stateCopy, {
+            selectStatuses: newSelectStatuses
+        });
+    } ,
+    "STOCK_MODE_SELECT_TOGGLE": function(state, action) {
+        let {productId} = action.payload;
+
+        let stateCopy = Object.assign({}, state);
+
+        let selectStatuses = state.selectStatuses.slice();
+        
+        let selectStatusIndex = selectStatuses.findIndex(status => {
+            return status.productId === productId
+        });
+
+        if (selectStatusIndex > -1) {
+            return getNewStateWithToggledStatus(selectStatuses, selectStatusIndex, stateCopy);
+        }
+
+        return addNewSelectStatus(selectStatuses, productId, stateCopy);
+    },
     "STOCK_MODE_OPTIONS_STORE": function(state, action) {
         let newState = Object.assign({}, state, {
             stockModeOptions: action.payload.stockModeOptions
@@ -20,7 +56,7 @@ let stockModeReducer = reducerCreator(initialState, {
     },
     "STOCK_MODE_CHANGE": function(state, action) {
         let {rowData, currentStock, propToChange} = action.payload;
-        
+
         let newStockModeEdits = state.stockModeEdits.slice();
         if (!hasEditBeenRecordedAlready(newStockModeEdits, rowData)) {
             newStockModeEdits.push({
@@ -28,9 +64,9 @@ let stockModeReducer = reducerCreator(initialState, {
                 status: constants.STOCK_MODE_EDITING_STATUSES.editing
             });
         }
-        
+
         let prevValuesBeforeEdits = createPrevValuesBeforeEdits(state, rowData, propToChange, currentStock);
-        
+
         let newState = Object.assign({}, state, {
             stockModeEdits: newStockModeEdits,
             prevValuesBeforeEdits
@@ -39,15 +75,15 @@ let stockModeReducer = reducerCreator(initialState, {
     },
     "STOCK_MODE_EDIT_CANCEL": function(state, action) {
         let {rowData} = action.payload;
-        
+
         let newStockModeEdits = state.stockModeEdits.slice();
         let newPrevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
-        
+
         let relevantEditIndex = newStockModeEdits.findIndex(edit => (edit.productId === rowData.id));
         let relevantNewValuesBeforeEditsIndex = newPrevValuesBeforeEdits.findIndex(beforeVals => (beforeVals.productId === rowData.id));
         newStockModeEdits.splice(relevantEditIndex, 1);
         newPrevValuesBeforeEdits.splice(relevantNewValuesBeforeEditsIndex, 1);
-        
+
         let newState = Object.assign({}, state, {
             stockModeEdits: newStockModeEdits,
             prevValuesBeforeEdits: newPrevValuesBeforeEdits
@@ -67,6 +103,25 @@ let stockModeReducer = reducerCreator(initialState, {
 
 export default stockModeReducer;
 
+function applySelectStatusesToState(stateCopy, selectStatuses) {
+    return Object.assign({}, stateCopy, {
+        selectStatuses
+    });
+}
+
+function addNewSelectStatus(selectStatuses, productId, stateCopy) {
+    selectStatuses.push({
+        productId,
+        active: true
+    });
+    return applySelectStatusesToState(stateCopy, selectStatuses)
+}
+
+function getNewStateWithToggledStatus(selectStatuses, selectStatusIndex, stateCopy) {
+    selectStatuses[selectStatusIndex].active = !selectStatuses[selectStatusIndex].active;
+    return applySelectStatusesToState(stateCopy, selectStatuses);
+}
+
 function hasEditBeenRecordedAlready(newStockModeEdits, rowData) {
     return !!newStockModeEdits.find(edit => {
         return edit.productId === rowData.id;
@@ -83,19 +138,19 @@ function createPrevValuesBeforeEdits(state, rowData, currentStock) {
     let prevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
     let previousValuesObjectIndex = getExistingPreviousValueObjectIndex(prevValuesBeforeEdits, rowData.id);
     let previousValuesForProduct = prevValuesBeforeEdits[previousValuesObjectIndex];
-    
+
     let {stockMode, stockLevel} = currentStock;
-    
+
     let previousValues = {
         productId: rowData.id,
         stockMode,
         stockLevel
     };
-    
+
     if (!previousValuesForProduct) {
         prevValuesBeforeEdits.push(previousValues);
         return prevValuesBeforeEdits;
     }
-    
+
     return prevValuesBeforeEdits;
 }
