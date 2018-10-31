@@ -8,7 +8,8 @@ class CellWrapper extends React.Component {
         const rowData = stateUtility.getRowData(products, rowIndex);
 
         if(this.shouldReorderRows()){
-            // have to do this because fixed-data-tables re-renders rows in a non sequential order
+            // have to do this because fixed-data-tables re-renders rows in a non sequential order.
+            // if performance issues are hit later move this out into a higher component
             this.props.actions.reOrderRowsByRowIndex();
         }
         if(this.isLastRow()){

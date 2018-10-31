@@ -1,6 +1,5 @@
 import React from 'react';
 import Clipboard from 'Clipboard';
-import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 class NameCell extends React.Component {
@@ -17,7 +16,7 @@ class NameCell extends React.Component {
 
     componentDidMount() {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
-    }
+    };
 
     getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
