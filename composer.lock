@@ -2049,12 +2049,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7f94a663ab7fff7f5534a101808ac79ba0850519"
+                "reference": "92183ca73236f11457121b3c1da80d43fc440650"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-TAC-222-invoice-email-settings-d6096a.zip",
-                "reference": "7f94a663ab7fff7f5534a101808ac79ba0850519",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-TAC-222-invoice-email-settings-90be91.zip",
+                "reference": "92183ca73236f11457121b3c1da80d43fc440650",
                 "shasum": null
             },
             "require": {
@@ -2082,7 +2082,7 @@
                 "channelgrabber/product": "^1.16.7",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.5.3",
+                "channelgrabber/settings": "dev-EPIC-TAC-222-invoice-email-settings as 1.6.4",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -2125,7 +2125,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-10-25T08:00:19+00:00"
+            "time": "2018-10-31T10:53:10+00:00"
         },
         {
             "name": "channelgrabber/payment",
