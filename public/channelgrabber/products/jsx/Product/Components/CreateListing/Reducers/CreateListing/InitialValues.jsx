@@ -47,17 +47,17 @@ import reducerCreator from 'Common/Reducers/creator';
 
         for (var templateId in data.categoryTemplates) {
             var template = data.categoryTemplates[templateId];
-            for (var categoryId in template.categories) {
-                var category = template.categories[categoryId];
+            for (var categoryTemplateAccountId in template.accounts) {
+                var accountCategory = template.accounts[categoryTemplateAccountId];
 
-                if (category.channel !== 'ebay') {
+                if (accountCategory.channel !== 'ebay') {
                     continue;
                 }
                 let defaultsForCategory = {};
                 if (account.listingDuration) {
                     defaultsForCategory.listingDuration = account.listingDuration;
                 }
-                defaults[categoryId] = defaultsForCategory;
+                defaults[categoryTemplateAccountId] = defaultsForCategory;
             }
         }
 
@@ -86,7 +86,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
             var dimensions = {};
             variationData.map(function(variation) {
-                dimensions[variation.sku] = {
+                dimensions[variation.id] = {
                     length: variation.details.length,
                     width: variation.details.width,
                     height: variation.details.height,
@@ -101,10 +101,15 @@ import reducerCreator from 'Common/Reducers/creator';
                     var price = parseFloat(variation.details.price).toFixed(2);
                     pricesForVariation[accountId] = isNaN(price) ? null : price;
                 });
-                prices[variation.sku] = pricesForVariation;
+                prices[variation.id] = pricesForVariation;
             });
 
             var productDetails = product.detail ? product.details : {};
+
+            var skus = {};
+            variationData.map(function(variation) {
+                skus[variation.id] = variation.sku;
+            });
 
             return {
                 title: product.name,
@@ -115,7 +120,8 @@ import reducerCreator from 'Common/Reducers/creator';
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
-                category: formatCategoryDefaultValues(action.payload)
+                category: formatCategoryDefaultValues(action.payload),
+                skus: skus
             };
         },
         "CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES_FETCHED": function(state, action) {

@@ -107,7 +107,7 @@ class ProductIdentifiers extends React.Component {
         return identifiers.map(function(identifier) {
             return (<td>
                 <Field
-                    name={"identifiers." + variation.sku + "." + identifier.name}
+                    name={"identifiers." + variation.id + "." + identifier.name}
                     component={this.renderInputComponent}
                     validate={identifier.validate ? [identifier.validate] : undefined}
                     normalize={identifier.normalize ? identifier.normalize : value => value}
