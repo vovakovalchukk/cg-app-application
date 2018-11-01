@@ -64,7 +64,6 @@ class StockModeInputsComponent extends React.Component {
                 return option.value === selected.value;
             }).name;
         }
-        // todo - get the active property from Redux into
 
         return (
             <div className={this.props.className}>
@@ -89,10 +88,10 @@ class StockModeInputsComponent extends React.Component {
                 <div className={"c-stock-mode-input__amount-container"}>
                     <input
                         className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
-                        name={'stockAmount'}
-                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
+//                        name={'stockAmount'}
+//                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
                         type={'number'}
-                        value={this.props.stockAmount.input.value}
+//                        value={this.props.stockAmount.input.value}
                         onChange={this.props.stockAmount.input.onChange}
                     />
                 </div>

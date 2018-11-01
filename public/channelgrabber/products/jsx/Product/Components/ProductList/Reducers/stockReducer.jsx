@@ -12,13 +12,15 @@ let initialState = {
 //            }
         }
     },
-
-    stockModeEdits: [
-        // {productId, status}
-    ],
-    prevValuesBeforeEdits: [
-        // {productId, stockMode, stockLevel}
-    ]
+    stockLevels: {
+        byProductId: {
+//            1 : {
+//                value: "43"
+//                valueEdited: "10009"
+//                active:true,
+//            }
+        }
+    },
 };
 
 let stockModeReducer = reducerCreator(initialState, {

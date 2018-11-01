@@ -1,7 +1,7 @@
 import React from 'react';
 import constants from "../Config/constants";
 import utility from "../utility";
-import elementTypes from 'Product/Components/ProductList/PortalSettings/elementTypes'
+import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
 let portalSettingsFactory = (function() {
     return {
@@ -13,19 +13,21 @@ let portalSettingsFactory = (function() {
                 distanceFromLeftSideOfTableToStartOfCell,
                 dimension
             } = paramObj;
+//            console.log('in createPortalSettings with paramObj', paramObj);
 
             if (!hasRowBeenRendered(rowIndex)) {
+                console.log('about to break out');
+                
+                
                 return;
             }
 
-            let WrapperForSubmits = getWrapperForSubmits({
+            let WrapperForPortal = getWrapperForPortal({
                 elemType,
-                distanceFromLeftSideOfTableToStartOfPortal: getDistanceFromLeftSideOfTableToStartOfPortal({
                     distanceFromLeftSideOfTableToStartOfCell,
                     width,
                     elemType,
-                    dimension
-                }),
+                    dimension,
                 translateProp: getTranslateProp({elemType})
             });
 
@@ -33,7 +35,7 @@ let portalSettingsFactory = (function() {
                 id: rowIndex,
                 usePortal: true,
                 domNodeForSubmits: getDomNodeForAddingSubmitsTo(rowIndex),
-                PortalWrapper: WrapperForSubmits
+                PortalWrapper: WrapperForPortal
             };
             return portalSettings;
         }
@@ -41,46 +43,68 @@ let portalSettingsFactory = (function() {
 
     function getTranslateProp({elemType}){
         let translateElementMap = {}
-        translateElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = 'translateX(-50%)';
-        translateElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = '';
+        translateElementMap[ elementTypes.INPUT_SAFE_SUBMITS] = 'translateX(-50%)';
+        translateElementMap[ elementTypes.STOCK_MODE_SELECT_DROPDOWN] = '';
         return translateElementMap[elemType];
     }
 
     function getAddedDistanceForDimensionInput(dimension){
-        let distanceDimensionMap = {};
-        distanceDimensionMap[ "height" ] = 10;
-        distanceDimensionMap[ "width" ] = 85;
-        distanceDimensionMap[ "length" ] = 160;
+        let distanceDimensionMap = {
+            height: 10,
+            width: 85,
+            length: 160
+        };
         return distanceDimensionMap[dimension];
     }
 
     function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
-        let distanceElementMap = {}
-        distanceElementMap[ elementTypes['INPUT_SAFE_SUBMITS'] ] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
+        let distanceElementMap = {};
+        distanceElementMap[ elementTypes.INPUT_SAFE_SUBMITS ] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
         // Somewhat hard coding the distance here due to a lack of simple alternatives.
         // These will need to be changed if you change the width of the containing cells.
-        distanceElementMap[ elementTypes['STOCK_MODE_SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell + 27;
-        distanceElementMap[ elementTypes['SELECT_DROPDOWN']] = distanceFromLeftSideOfTableToStartOfCell;
-        distanceElementMap[ elementTypes['DIMENSIONS_INPUT_SUBMITS']] = distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension);
+        distanceElementMap[ elementTypes.STOCK_MODE_SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell + 27;
+        distanceElementMap[ elementTypes.SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell;
+        distanceElementMap[ elementTypes.DIMENSIONS_INPUT_SUBMITS] = distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension);
 
         return distanceElementMap[elemType];
     }
 
-    function getWrapperForSubmits({elemType, distanceFromLeftSideOfTableToStartOfPortal, width, rowIndex, translateProp}) {
+    function getZIndexForWrapper(elemType){
+        let elemTypeZIndexMap = {
+            [elementTypes.SELECT_DROPDOWN] : 150,
+            [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : 150
+        };
+        if(!elemTypeZIndexMap[elemType]){
+            return 100;
+        }
+        return elemTypeZIndexMap[elemType];
+    }
+
+    function getWrapperForPortal({elemType, distanceFromLeftSideOfTableToStartOfCell, width, dimension, rowIndex, translateProp}) {
         let createWrapper = wrapperStyle => {
             return ({children}) => (
                 // todo change classNames to have the column in there as well for debug purposes
-                <div style={wrapperStyle} className={'submits-container submits-for-row-' + rowIndex}>
+                <div style={wrapperStyle}>
                     {children}
                 </div>
             );
         };
+
+        let distanceFromLeftSideOfTableToStartOfPortal =  getDistanceFromLeftSideOfTableToStartOfPortal({
+            distanceFromLeftSideOfTableToStartOfCell,
+            width,
+            elemType,
+            dimension
+        });
+
+        let zIndexForWrapper = getZIndexForWrapper(elemType);
+
         let wrapperStyle = {
             background: 'white',
             'box-sizing': 'border-box',
-            'z-index': '100',
+            'z-index': zIndexForWrapper,
             position: 'absolute',
-            top: '2.25rem',
+            top: '2.5rem',
             left: distanceFromLeftSideOfTableToStartOfPortal + 'px',
             transform: translateProp
         };
@@ -122,7 +146,6 @@ let portalSettingsFactory = (function() {
     function getDomNodeForAddingSubmitsTo(rowIndex) {
         let targetClass = getClassOfCurrentRow(rowIndex);
         let targetRow = document.querySelector(targetClass);
-//        console.log('{targetRow,targetClass}: ', {targetRow,targetClass});
         let targetNode = targetRow.parentNode;
         return targetNode;
     }

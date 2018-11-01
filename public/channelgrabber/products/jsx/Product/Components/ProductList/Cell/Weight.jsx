@@ -2,8 +2,8 @@ import React from 'react';
 import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Input from 'Common/Components/SafeInput';
-import elementTypes from "../PortalSettings/elementTypes";
-import portalSettingsFactory from "../PortalSettings/factory";
+import elementTypes from "../Portal/elementTypes";
+import portalSettingsFactory from "../Portal/settingsFactory";
 
 class WeightCell extends React.Component {
     static defaultProps = {

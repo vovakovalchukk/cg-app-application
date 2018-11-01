@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Input from 'Common/Components/SafeInput';
-import elementTypes from "../PortalSettings/elementTypes";
-import portalSettingsFactory from "../PortalSettings/factory";
+import elementTypes from "../Portal/elementTypes";
+import portalSettingsFactory from "../Portal/settingsFactory";
 
 const InputsContainer = styled.div`
     display:flex;

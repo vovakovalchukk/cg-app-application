@@ -142,9 +142,10 @@ class ProductList extends React.Component {
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
+
         return (
             <Table
-                rowHeight={36}
+                rowHeight={40}
                 className={'c-products-data-table'}
                 // add one extra to provide room for the portalled elements in previous row
                 rowsCount={rowCount+1}

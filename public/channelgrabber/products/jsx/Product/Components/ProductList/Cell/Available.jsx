@@ -1,8 +1,8 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility.jsx';
 import Input from 'Common/Components/SafeInput';
-import elementTypes from 'Product/Components/ProductList/PortalSettings/elementTypes';
-import portalSettingsFactory from 'Product/Components/ProductList/PortalSettings/factory'
+import elementTypes from 'Product/Components/ProductList/Portal/elementTypes';
+import portalSettingsFactory from 'Product/Components/ProductList/Portal/settingsFactory'
 
 class AvailableCell extends React.Component {
     render() {

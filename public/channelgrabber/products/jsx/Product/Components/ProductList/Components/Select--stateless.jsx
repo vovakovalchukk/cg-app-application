@@ -78,7 +78,6 @@ class StatelessSelectComponent extends React.Component {
         );
         if (this.props.portalSettingsForDropdown.usePortal && this.props.portalSettingsForDropdown.domNodeForSubmits) {
             return this.renderDropdownInPortal(Dropdown);
-
         }
         return <Dropdown/>
     };

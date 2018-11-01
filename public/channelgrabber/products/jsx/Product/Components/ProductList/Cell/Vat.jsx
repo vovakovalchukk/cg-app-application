@@ -3,8 +3,8 @@ import Clipboard from 'Clipboard';
 import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Select from 'Common/Components/Select';
-import elementTypes from "../PortalSettings/elementTypes";
-import portalSettingsFactory from "../PortalSettings/factory";
+import elementTypes from "../Portal/elementTypes";
+import portalSettingsFactory from "../Portal/settingsFactory";
 
 class VatCell extends React.Component {
     static defaultProps = {
