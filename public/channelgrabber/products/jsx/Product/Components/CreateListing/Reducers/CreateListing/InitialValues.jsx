@@ -47,8 +47,8 @@ import reducerCreator from 'Common/Reducers/creator';
 
         for (var templateId in data.categoryTemplates) {
             var template = data.categoryTemplates[templateId];
-            for (var categoryTemplateAccountId in template.accounts) {
-                var accountCategory = template.accounts[categoryTemplateAccountId];
+            for (var accountId in template.accounts) {
+                var accountCategory = template.accounts[accountId];
 
                 if (accountCategory.channel !== 'ebay') {
                     continue;
@@ -57,7 +57,7 @@ import reducerCreator from 'Common/Reducers/creator';
                 if (account.listingDuration) {
                     defaultsForCategory.listingDuration = account.listingDuration;
                 }
-                defaults[categoryTemplateAccountId] = defaultsForCategory;
+                defaults[accountCategory.categoryId] = defaultsForCategory;
             }
         }
 
