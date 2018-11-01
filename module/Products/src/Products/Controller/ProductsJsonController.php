@@ -176,23 +176,23 @@ class ProductsJsonController extends AbstractActionController
             $total = $products->getTotal();
 
             $productSearchActive = $this->listingChannelService->isProductSearchActive($rootOrganisationUnit);
+
+            $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
+            if ($skuThatProductsCantLinkFrom) {
+                $view->setVariable(
+                    'nonLinkableSkus',
+                    $this->productLinkService->getSkusProductCantLinkTo(
+                        $products->getFirst()->getOrganisationUnitId(),
+                        $skuThatProductsCantLinkFrom
+                    )
+                );
+            }
         } catch(NotFound $e) {
             $allowedCreateListingChannels = [];
             $allowedCreateListingVariationsChannels = [];
             $accountsArray = [];
             $productSearchActive = false;
             //noop
-        }
-
-        $skuThatProductsCantLinkFrom = $filterParams['skuThatProductsCantLinkFrom'] ?? null;
-        if ($skuThatProductsCantLinkFrom) {
-            $view->setVariable(
-                'nonLinkableSkus',
-                $this->productLinkService->getSkusProductCantLinkTo(
-                    $products->getFirst()->getOrganisationUnitId(),
-                    $skuThatProductsCantLinkFrom
-                )
-            );
         }
 
         $view
