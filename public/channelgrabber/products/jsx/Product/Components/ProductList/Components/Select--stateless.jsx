@@ -14,7 +14,11 @@ class StatelessSelectComponent extends React.Component {
         this.props.selectToggle(this.props.inputId);
     };
     getSelectedOptionName = () => {
-
+        var selectedOptionName = '';
+        if (this.props.selectedOption && this.props.selectedOption.name) {
+            selectedOptionName = this.props.selectedOption.name
+        }
+        return selectedOptionName;
     };
     getClassNames = () => {
         var classNames = "custom-select ";
@@ -22,10 +26,17 @@ class StatelessSelectComponent extends React.Component {
         classNames += (this.props.active ? ' active ' : '');
         return classNames;
     };
+    onOptionSelected = (value) => {
+        var selectedOption = this.props.options.find(function(option) {
+            return option.value === value;
+        });
+        this.props.onOptionChange(selectedOption);
+    };
     renderOption = (opt, index) => {
         return <li
             className={"custom-select-item "}
             value={opt.value} key={index}
+            onClick={this.onOptionSelected.bind(this, opt.value)}
         >
             <a value={opt.value} data-trigger-select-click="false">{opt.name}</a>
         </li>

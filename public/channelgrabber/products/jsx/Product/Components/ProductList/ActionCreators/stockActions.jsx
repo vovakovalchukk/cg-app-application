@@ -5,11 +5,8 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 let actionCreators = (function() {
     return {
         toggleStockModeSelect: (productId) => {
-
             return function(dispatch, getState){
-                console.log('in toggletStcokModeSelect AQ');
                 let currentStock = getState.customGetters.getStock(productId);
-
                 dispatch({
                     type: 'STOCK_MODE_SELECT_TOGGLE',
                     payload: {
@@ -18,19 +15,23 @@ let actionCreators = (function() {
                     }
                 });
             }
-
         },
-        changeStockMode: (rowData, stockModeValue, propToChange) => {
+        changeStockMode: (row, value, propToChange) => {
+//            console.log('in changeStockMode AQ', {
+//                row,
+//                value,
+//                propToChange
+//            });
             return function(dispatch, getState) {
-                if (rowData === null) {
+                if (row === null) {
                     return;
                 }
-                let currentStock = getState.customGetters.getStock(rowData.id);
+                let currentStock = getState.customGetters.getStock(row.id);
                 dispatch({
                     type: "STOCK_MODE_CHANGE",
                     payload: {
-                        rowData,
-                        stockModeValue,
+                        row,
+                        value,
                         propToChange,
                         currentStock
                     }

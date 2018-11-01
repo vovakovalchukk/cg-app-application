@@ -50,22 +50,30 @@ let stockModeReducer = reducerCreator(initialState, {
         return newState;
     },
     "STOCK_MODE_CHANGE": function(state, action) {
-        let {rowData, currentStock, propToChange} = action.payload;
+        let { row,
+            value,
+            propToChange,
+            currentStock
+        } = action.payload;
 
-        let newStockModeEdits = state.stockModeEdits.slice();
-        if (!hasEditBeenRecordedAlready(newStockModeEdits, rowData)) {
-            newStockModeEdits.push({
-                productId: rowData.id,
-                status: constants.STOCK_MODE_EDITING_STATUSES.editing
-            });
+        console.log('in STOCK_MODE_CHANGE -R ', {
+            row, value, propToChange
+        });
+
+        let stockModes = Object.assign({}, state.stockModes);
+        let stockLevels = Object.assign({}, state.stockLevels);
+
+        if(propToChange==="stockMode"){
+            stockModes.byProductId[row.id].value = currentStock.stockMode;
+            stockModes.byProductId[row.id].valueEdited = value;
         }
 
-        let prevValuesBeforeEdits = createPrevValuesBeforeEdits(state, rowData, propToChange, currentStock);
-
         let newState = Object.assign({}, state, {
-            stockModeEdits: newStockModeEdits,
-            prevValuesBeforeEdits
+            stockModes,
+            stockLevels
         });
+
+
         return newState;
     },
     "STOCK_MODE_EDIT_CANCEL": function(state, action) {

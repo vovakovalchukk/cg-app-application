@@ -73,14 +73,22 @@ class StockModeCell extends React.Component {
     };
 
     selectToggle(productId){
-        console.log('in selectToggle', productId);
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.toggleStockModeSelect(productId, row);
     };
 
+    getValueForStockMode(row) {
+        let stockModes = this.props.stock.stockModes;
+        let  stockModeForId = stockModes.byProductId[row.id];
+        if(!stockModeForId){
+            return row.stock.stockMode;
+        }
+        return stockModeForId.valueEdited ? stockModeForId.valueEdited : stockModeForId.value;
+    };
+
     render() {
-//        console.log('in stockMode with this.props: ' , this.props);
+        console.log('in stockMode with this.props: ' , this.props);
         const {
             products,
             rowIndex,
@@ -105,18 +113,17 @@ class StockModeCell extends React.Component {
             width
         });
 
-        // todo --- apply this to the ButtonsContainer
-        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.INPUT_SAFE_SUBMITS,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
-            width
-        });
+//        // todo --- apply this to the ButtonsContainer
+//        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
+//            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+//            rowIndex,
+//            distanceFromLeftSideOfTableToStartOfCell,
+//            width
+//        });
 
         let {
             toggleStockModeSelect
         } = this.props.actions;
-
 
         return (
             <div className={this.props.className}>
@@ -127,7 +134,8 @@ class StockModeCell extends React.Component {
                     stockModeType={{
                         input: {
                             value: {
-                                value: row.stock.stockMode
+                                //todo - prioritise valueEdited from stock
+                                value: this.getValueForStockMode(row)
                             },
                             onChange: this.onStockModeChange
                         }
