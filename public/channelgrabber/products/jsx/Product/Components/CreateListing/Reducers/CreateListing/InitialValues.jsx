@@ -134,12 +134,12 @@ import reducerCreator from 'Common/Reducers/creator';
         },
         "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
             let searchProduct = action.payload.searchProduct,
-                sku = action.payload.cgProduct,
-                identifier = state.identifiers[sku];
+                productId = action.payload.cgProduct,
+                identifier = state.identifiers[productId];
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [sku]: {
+                    [productId]: {
                         ean: identifier.ean ? identifier.ean : searchProduct.ean,
                         upc: identifier.upc ? identifier.upc : searchProduct.upc,
                         isbn: identifier.isbn ? identifier.isbn : searchProduct.isbn,

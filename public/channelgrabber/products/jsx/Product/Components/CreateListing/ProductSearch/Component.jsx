@@ -172,8 +172,8 @@ class ProductSearchComponent extends React.Component {
         this.props.variationsDataForProduct.forEach(function(variation) {
             options.push({
                 name: this.buildOptionName(variation),
-                value: variation.sku,
-                disabled: !!this.props.selectedProducts[variation.sku]
+                value: variation.id,
+                disabled: !!this.props.selectedProducts[variation.id]
             });
         }, this);
 
@@ -200,26 +200,26 @@ class ProductSearchComponent extends React.Component {
     };
 
     findSelectedOptionForProduct = (product) => {
-        let selectedSku = '';
-        Object.keys(this.props.selectedProducts).map(function(sku) {
-            let searchProduct = this.props.selectedProducts[sku];
+        let selectedProductId = '';
+        Object.keys(this.props.selectedProducts).map(function(id) {
+            let searchProduct = this.props.selectedProducts[id];
             if (searchProduct.epid === product.epid) {
-                selectedSku = sku;
+                selectedProductId = id;
             }
         }.bind(this));
 
         const variation = this.props.variationsDataForProduct.find(function(variation) {
-            return variation.sku == selectedSku;
+            return variation.id == selectedProductId;
         });
 
         return {
-            name: variation ? this.buildOptionName(variation) : selectedSku,
-            value: selectedSku
+            name: variation ? this.buildOptionName(variation) : selectedProductId,
+            value: selectedProductId
         };
     };
 
-    onProductAssign = (searchProduct, selectedSku) => {
-        this.props.assignSearchProductToCgProduct(searchProduct, selectedSku.value);
+    onProductAssign = (searchProduct, selectedProduct) => {
+        this.props.assignSearchProductToCgProduct(searchProduct, selectedProduct.value);
     };
 
     renderAssignedProductsTable = () => {
