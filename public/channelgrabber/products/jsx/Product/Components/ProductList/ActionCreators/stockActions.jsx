@@ -4,19 +4,21 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 let actionCreators = (function() {
     return {
-        collapseStockModeSelects: () => {
-            return {
-                type: "STOCK_MODE_SELECTS_COLLAPSE",
-                payload:{}
-            }
-        },
         toggleStockModeSelect: (productId) => {
-          return{
-              type:'STOCK_MODE_SELECT_TOGGLE',
-              payload: {
-                  productId
-              }
-          }
+
+            return function(dispatch, getState){
+                console.log('in toggletStcokModeSelect AQ');
+                let currentStock = getState.customGetters.getStock(productId);
+
+                dispatch({
+                    type: 'STOCK_MODE_SELECT_TOGGLE',
+                    payload: {
+                        productId,
+                        currentStock
+                    }
+                });
+            }
+
         },
         changeStockMode: (rowData, stockModeValue, propToChange) => {
             return function(dispatch, getState) {
@@ -40,17 +42,17 @@ let actionCreators = (function() {
                 let state = getState();
                 let productStock = getState.customGetters.getStock(rowData.id);
                 let stock = state.stock;
-                
+
                 let saveStockModePromise = Promise.resolve();
                 let saveStockLevelsPromise = Promise.resolve();
-                
+
                 if (stockModeHasBeenEdited(productStock, stock, rowData)) {
                     saveStockModePromise = updateStockMode(
                         rowData.id,
                         productStock.stockMode
                     );
                 }
-                
+
                 if (stockLevelHasBeenEdited(productStock, stock, rowData)) {
                     saveStockLevelsPromise = updateStockLevel(
                         rowData.id,
@@ -76,7 +78,7 @@ let actionCreators = (function() {
             return function(dispatch, getState) {
                 let prevValues = getState.customGetters.getStockPrevValuesBeforeEdits();
                 let prevValuesForRow = prevValues.find(values => values.productId === rowData.id);
-                
+
                 dispatch({
                     type: "STOCK_MODE_EDIT_CANCEL",
                     payload: {

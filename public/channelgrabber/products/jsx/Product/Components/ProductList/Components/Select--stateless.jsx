@@ -72,7 +72,9 @@ class StatelessSelectComponent extends React.Component {
         return <Dropdown/>
     };
     render() {
-//        console.log('in Select--stateless with this.props: ', this.props);
+        if(this.props.inputId===1){
+            console.log('in Select--stateless with this.props: ', this.props);
+        }
         return (
                 <div className={this.getClassNames()}
                      onClick={this.onComponentClick}

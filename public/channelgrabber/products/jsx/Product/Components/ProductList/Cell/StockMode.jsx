@@ -65,24 +65,22 @@ class StockModeCell extends React.Component {
     };
 
     getStockModeSelectActive(row) {
-        return !!this.props.stock.selectStatuses.find(selectStatus => {
-            if (selectStatus.productId === row.id) {
-                return selectStatus.active;
-            }
-        });
+        //todo - refactor this to fit in with the new state
+        if(!this.props.stock.stockModes.byProductId[row.id]){
+            return false;
+        }
+        return this.props.stock.stockModes.byProductId[row.id].active;
     };
 
     selectToggle(productId){
-
-
-        this.props.actions.collapseStockModeSelects();
-        this.props.actions.toggleStockModeSelect(productId);
+        console.log('in selectToggle', productId);
+        const {products, rowIndex} = this.props;
+        const row = stateUtility.getRowData(products, rowIndex);
+        this.props.actions.toggleStockModeSelect(productId, row);
     };
 
     render() {
-        console.log('in stockMode with this.props: ' , this.props);
-
-
+//        console.log('in stockMode with this.props: ' , this.props);
         const {
             products,
             rowIndex,

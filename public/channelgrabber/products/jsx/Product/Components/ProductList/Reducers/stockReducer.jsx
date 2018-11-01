@@ -3,13 +3,16 @@ import constants from 'Product/Components/ProductList/Config/constants';
 
 let initialState = {
     stockModeOptions: [],
-    selectStatuses: [
-        // {productId, active}
-    ],
-    //todo - sort this out
-    editedValues:[
-        //{productId, stockMode, stockLevel}
-    ],
+    stockModes: {
+        byProductId: {
+//            1 : {
+//                value: "List up to"
+//                valueEdited: "Fixed At"
+//                active:true,
+//            }
+        }
+    },
+
     stockModeEdits: [
         // {productId, status}
     ],
@@ -19,34 +22,26 @@ let initialState = {
 };
 
 let stockModeReducer = reducerCreator(initialState, {
-    "STOCK_MODE_SELECTS_COLLAPSE": function(state,action){
-        let stateCopy = Object.assign({}, state);
-        let selectStatuses = state.selectStatuses.slice();
-
-        let newSelectStatuses = selectStatuses.map(selectStatus=>{
-            selectStatus.active = false;
-            return selectStatus;
-        });
-        return Object.assign({}, stateCopy, {
-            selectStatuses: newSelectStatuses
-        });
-    } ,
     "STOCK_MODE_SELECT_TOGGLE": function(state, action) {
-        let {productId} = action.payload;
-
+        let {productId, currentStock} = action.payload;
         let stateCopy = Object.assign({}, state);
+        let stockModes = Object.assign({}, state.stockModes);
 
-        let selectStatuses = state.selectStatuses.slice();
-        
-        let selectStatusIndex = selectStatuses.findIndex(status => {
-            return status.productId === productId
-        });
+        let stockModeExists = !!state.stockModes.byProductId[productId];
+        stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
 
-        if (selectStatusIndex > -1) {
-            return getNewStateWithToggledStatus(selectStatuses, selectStatusIndex, stateCopy);
+        if (stockModeExists) {
+            stockModes.byProductId[productId].value = currentStock.stockMode;
+            stockModes.byProductId[productId].active = !stockModes.byProductId[productId].active;
+            return applyStockModesToState(stateCopy, stockModes)
         }
 
-        return addNewSelectStatus(selectStatuses, productId, stateCopy);
+        stockModes.byProductId[productId] = {
+            value: currentStock.stockMode,
+            valueEdited: '',
+            active: true
+        };
+        return applyStockModesToState(stateCopy, stockModes)
     },
     "STOCK_MODE_OPTIONS_STORE": function(state, action) {
         let newState = Object.assign({}, state, {
@@ -103,23 +98,10 @@ let stockModeReducer = reducerCreator(initialState, {
 
 export default stockModeReducer;
 
-function applySelectStatusesToState(stateCopy, selectStatuses) {
+function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {
-        selectStatuses
+        stockModes
     });
-}
-
-function addNewSelectStatus(selectStatuses, productId, stateCopy) {
-    selectStatuses.push({
-        productId,
-        active: true
-    });
-    return applySelectStatusesToState(stateCopy, selectStatuses)
-}
-
-function getNewStateWithToggledStatus(selectStatuses, selectStatusIndex, stateCopy) {
-    selectStatuses[selectStatusIndex].active = !selectStatuses[selectStatusIndex].active;
-    return applySelectStatusesToState(stateCopy, selectStatuses);
 }
 
 function hasEditBeenRecordedAlready(newStockModeEdits, rowData) {
@@ -153,4 +135,14 @@ function createPrevValuesBeforeEdits(state, rowData, currentStock) {
     }
 
     return prevValuesBeforeEdits;
+}
+
+function makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId) {
+    Object.keys(stockModes.byProductId).forEach(key => {
+        if (key=== productId.toString() ) {
+            return;
+        }
+        stockModes.byProductId[key].active = false;
+    });
+    return stockModes;
 }
