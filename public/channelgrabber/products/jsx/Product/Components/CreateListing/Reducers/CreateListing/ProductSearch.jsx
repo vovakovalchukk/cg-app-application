@@ -30,17 +30,17 @@ import reducerCreator from 'Common/Reducers/creator';
         },
         "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
             let selectedProducts = state.selectedProducts;
-            let existingSku;
+            let existingId;
 
-            Object.keys(selectedProducts).forEach(function(sku) {
-                let selectedProduct = selectedProducts[sku];
+            Object.keys(selectedProducts).forEach(function(id) {
+                let selectedProduct = selectedProducts[id];
                 if (selectedProduct.epid == action.payload.searchProduct.epid) {
-                    existingSku = sku;
+                    existingId = id;
                 }
             });
 
-            if (existingSku) {
-                delete selectedProducts[existingSku];
+            if (existingId) {
+                delete selectedProducts[existingId];
             }
 
             selectedProducts = Object.assign({}, state.selectedProducts, {
@@ -56,7 +56,7 @@ import reducerCreator from 'Common/Reducers/creator';
         },
         "CLEAR_SELECTED_PRODUCT": function(state, action) {
             let selectedProducts = JSON.parse(JSON.stringify(state.selectedProducts));
-            delete selectedProducts[action.payload.sku];
+            delete selectedProducts[action.payload.productId];
 
             return Object.assign({}, state, {
                 selectedProducts: selectedProducts

@@ -149,15 +149,15 @@ import reducerCreator from 'Common/Reducers/creator';
             });
         },
         "CLEAR_SELECTED_PRODUCT": function(state, action) {
-            let sku = action.payload.sku,
+            let productId = action.payload.productId,
                 variation = action.payload.variationData.find(function(variation) {
-                    return variation.sku == sku;
+                    return variation.id == productId;
                 }),
                 identifier = variation ? variation.details : {};
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [sku]: {
+                    [productId]: {
                         ean: identifier.ean,
                         upc: identifier.upc,
                         isbn: identifier.isbn,

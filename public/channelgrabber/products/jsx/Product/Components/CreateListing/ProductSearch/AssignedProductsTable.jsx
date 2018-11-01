@@ -16,28 +16,28 @@ class AssignedProductsTable extends React.Component {
     };
 
     renderTableColumns = (variation) => {
-        let product = this.findProductForSku(variation.sku);
+        let product = this.findProductForId(variation.id);
         return [
             <td>{product ? product.title : '-'}</td>,
             <td>{product ? this.renderImage(product) : '-'}</td>,
             <td>
-                {product ? this.renderClearButton(variation.sku) : ''}
+                {product ? this.renderClearButton(variation.id) : ''}
             </td>
         ];
     };
 
-    renderClearButton = (sku) => {
+    renderClearButton = (id) => {
         return <span className="remove-icon">
             <i
                 className='fa fa-2x fa-minus-square icon-create-listing'
                 aria-hidden='true'
-                onClick={this.props.clearSelectedProduct.bind(this, sku)}
+                onClick={this.props.clearSelectedProduct.bind(this, id)}
             />
         </span>;
     };
 
-    findProductForSku = (sku) => {
-        return this.props.selectedProducts[sku] ? this.props.selectedProducts[sku] : null;
+    findProductForId = (id) => {
+        return this.props.selectedProducts[id] ? this.props.selectedProducts[id] : null;
     };
 
     renderImage = (product) => {

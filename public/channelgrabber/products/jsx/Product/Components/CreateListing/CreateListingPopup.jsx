@@ -456,8 +456,8 @@ const mapDispatchToProps = function(dispatch, props) {
         fetchCategoryTemplateDependentFieldValues: function() {
             dispatch(Actions.fetchCategoryTemplateDependentFieldValues(props.categories, props.accountDefaultSettings, props.accountsData, dispatch));
         },
-        clearSelectedProduct: function(sku) {
-            dispatch(Actions.clearSelectedProduct(sku, props.variationsDataForProduct));
+        clearSelectedProduct: function(productId) {
+            dispatch(Actions.clearSelectedProduct(productId, props.variationsDataForProduct));
         },
         addErrorOnProductSearch: function(errorMessage) {
             dispatch(Actions.addErrorOnProductSearch(errorMessage));

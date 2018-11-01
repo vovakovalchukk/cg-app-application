@@ -389,11 +389,11 @@ import ResponseActions from './ResponseActions';
                 }
             }
         },
-        clearSelectedProduct: function(sku, variationData) {
+        clearSelectedProduct: function(productId, variationData) {
             return {
                 type: "CLEAR_SELECTED_PRODUCT",
                 payload: {
-                    sku: sku,
+                    productId: productId,
                     variationData: variationData
                 }
             }
