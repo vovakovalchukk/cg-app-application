@@ -133,7 +133,7 @@ class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOp
 
     public function isExportAllowedForOrder(Account $account, Order $order): bool
     {
-        return $this->isOrderSupported($account->getChannel(), $order);
+        return $this->isOrderSupported($account, $order);
     }
 
     public function exportOrders(
