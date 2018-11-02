@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ab9d9105b80e262140d2926353459c5",
+    "content-hash": "fec02b973129fb7388b0d6100d318869",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -774,11 +774,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-9970-orders-jobs-to-orders-gearman-instances": "1.39.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -2045,16 +2040,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-TAC-222-invoice-email-settings",
+            "version": "1.41.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "92183ca73236f11457121b3c1da80d43fc440650"
+                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-TAC-222-invoice-email-settings-90be91.zip",
-                "reference": "92183ca73236f11457121b3c1da80d43fc440650",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.41.0-5c3e6c.zip",
+                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04",
                 "shasum": null
             },
             "require": {
@@ -2082,7 +2077,7 @@
                 "channelgrabber/product": "^1.16.7",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "dev-EPIC-TAC-222-invoice-email-settings as 1.6.4",
+                "channelgrabber/settings": "^1.6.4",
                 "channelgrabber/slim": "^1.13.22",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -2125,7 +2120,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-10-31T10:53:10+00:00"
+            "time": "2018-11-02T14:53:43+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2925,16 +2920,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-EPIC-TAC-222-invoice-email-settings",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "6a643017b653efde45ecc13868972a59dd697947"
+                "reference": "edc02ba46915359c66bebd0cb23a5dede29c6564"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-EPIC-TAC-222-invoice-email-settings-5381e4.zip",
-                "reference": "6a643017b653efde45ecc13868972a59dd697947",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.6.4-5c5b6e.zip",
+                "reference": "edc02ba46915359c66bebd0cb23a5dede29c6564",
                 "shasum": null
             },
             "require": {
@@ -2958,7 +2953,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2018-10-16T15:13:49+00:00"
+            "time": "2018-11-02T14:46:33+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -4814,16 +4809,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-TAC-222-invoice-email-settings",
+            "version": "1.25.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "959f0429a21a3d3e7493a146e0b825c2399a1b29"
+                "reference": "38ad55a363e60829abc29485112a4e92d0edd964"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-TAC-222-invoice-email-settings-cdfd43.zip",
-                "reference": "959f0429a21a3d3e7493a146e0b825c2399a1b29",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.3-4697d4.zip",
+                "reference": "38ad55a363e60829abc29485112a4e92d0edd964",
                 "shasum": null
             },
             "require": {
@@ -4875,7 +4870,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-10-31T08:58:50+00:00"
+            "time": "2018-11-02T14:46:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5307,7 +5302,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-f8527ee6580c8f154362dcedfe5e63f4969203bf-zip-a1780b.zip",
+                "url": "https://api.github.com/repos/contextio/PHP-ContextIO/zipball/f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "reference": "f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "shasum": ""
             },
@@ -5818,7 +5813,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/iio-libmergepdf-2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc-zip-9552fd.zip",
+                "url": "https://api.github.com/repos/hanneskod/libmergepdf/zipball/2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "reference": "2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "shasum": ""
             },
@@ -6230,7 +6225,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -6443,7 +6438,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/nelexa-zip-251ce11bdc4754962f29cd2d31014549377ea617-zip-ac5be2.zip",
+                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/251ce11bdc4754962f29cd2d31014549377ea617",
                 "reference": "251ce11bdc4754962f29cd2d31014549377ea617",
                 "shasum": ""
             },
@@ -7242,7 +7237,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/react-event-loop-13e03b17e54ea864c6653a2cf6d146dad8464e91-zip-eb345b.zip",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "reference": "13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "shasum": ""
             },
@@ -7330,7 +7325,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/realityking-hash_equals-c94c380358f0649d4efe09c59fa94d16a65607bf-zip-1306d9.zip",
+                "url": "https://api.github.com/repos/realityking/hash_equals/zipball/c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "reference": "c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "shasum": ""
             },
@@ -7555,7 +7550,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdf-2c68c9e6c034ac3187d25968790139a73184cdb1-zip-a22a64.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "shasum": ""
             },
@@ -7594,7 +7589,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-879dd95cd6b258ba5b062624723ef16c954f2b17-zip-01d960.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "shasum": ""
             },
@@ -7653,7 +7648,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-fpdf-39d8fe065ef27816e78ceebf87719bebe6abdd73-zip-1b4a74.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "reference": "39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "shasum": ""
             },
@@ -8989,7 +8984,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9044,7 +9039,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9099,7 +9094,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10399,32 +10394,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.40.1",
-            "alias_normalized": "1.40.1.0",
-            "version": "dev-EPIC-TAC-222-invoice-email-settings",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.6.4",
-            "alias_normalized": "1.6.4.0",
-            "version": "dev-EPIC-TAC-222-invoice-email-settings",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.25.2",
-            "alias_normalized": "1.25.2.0",
-            "version": "dev-EPIC-TAC-222-invoice-email-settings",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
