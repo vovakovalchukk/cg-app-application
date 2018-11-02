@@ -23,6 +23,7 @@ const StyledSafeSubmits = styled(SafeSubmits)`
     transform: translateX(-50%);
 `;
 
+
 class StockModeCell extends React.Component {
     static defaultProps = {
         products: {},
@@ -79,19 +80,24 @@ class StockModeCell extends React.Component {
         this.props.actions.toggleStockModeSelect(productId, row);
     };
 
-    getValueForStockMode(row) {
-        let stockModes = this.props.stock.stockModes;
-        let stockModeForId = stockModes.byProductId[row.id];
-        if (!stockModeForId) {
-            return row.stock.stockMode;
+    getValueForStockProp(row, stockProp) {
+        let stateForStockProp = this.props.stock[stockProp];
+        let stockForId = stateForStockProp.byProductId[row.id];
+        if (!stockForId) {
+            if(stockProp==="stockModes"){
+                return row.stock.stockMode;
+            }
+            if(stockProp ==="stockLevels"){
+                return row.stock.stockLevel;
+            }
         }
-        if(stockModeForId.valueEdited){
-            return stockModeForId.valueEdited;
+        if(stockForId.valueEdited){
+            return stockForId.valueEdited;
         }
-        if(stockModeForId.value){
-            return stockModeForId.value
+        if(stockForId.value){
+            return stockForId.value
         }
-        return row.stock.stockMode;
+        return row.stock[stockProp];
     };
 
     render() {
@@ -142,6 +148,20 @@ class StockModeCell extends React.Component {
             toggleStockModeSelect
         } = this.props.actions;
 
+
+        let valueForStockModes = this.getValueForStockProp(row, "stockModes");
+        let valueForStockLevels = this.getValueForStockProp(row, "stockLevels");
+
+
+        if(this.props.rowIndex===0) {
+            console.log('in render for StockMode 0 -  ', {
+                props: this.props,
+                valueForStockModes,
+                valueForStockLevels
+            });
+        }
+
+
         return (
             <div className={this.props.className}>
                 <StyledDataTablesStockModeInputs
@@ -152,14 +172,14 @@ class StockModeCell extends React.Component {
                         input: {
                             value: {
                                 //todo - prioritise valueEdited from stock
-                                value: this.getValueForStockMode(row)
+                                value: valueForStockModes
                             },
                             onChange: this.onStockModeChange
                         }
                     }}
                     stockAmount={{
                         input: {
-                            value: row.stock.stockLevel,
+                            value: valueForStockLevels,
                             onChange: this.onStockLevelChange
                         }
                     }}

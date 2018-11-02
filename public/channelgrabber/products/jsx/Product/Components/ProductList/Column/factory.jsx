@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import FixedDataTable from 'fixed-data-table-2';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
 
+import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
+import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
+
+
+import ImageCell from 'Product/Components/ProductList/Cell/Image';
+
+
 "use strict";
 const Column = FixedDataTable.Column;
 
@@ -28,13 +35,25 @@ let columnCreator = function(column, parentProps) {
         console.error("cannot create cell in column factory for column: ", column);
     }
 
+    let CellToRender = StyledCellWrapper;
+    
+    //todo - better handle this
+    if(column.key === columnKeys.stockMode ){
+        CellToRender = StockModeCell;
+    }
+    if(column.key===columnKeys.image){
+        CellToRender = ImageCell
+    }
+    
     return (<Column
+        pureRendering={true}
         columnKey={column.key}
         width={column.width}
         fixed={column.fixed}
         header={column.headerText}
         align={getHeaderCellAlignment(column)}
-        cell={<StyledCellWrapper
+        pureRendering={true}
+        cell={<CellToRender
             {...column}
             products={column.products}
             actions={column.actions}

@@ -70,12 +70,22 @@ let stockModeReducer = reducerCreator(initialState, {
             stockModes.byProductId[row.id].value = currentStock.stockMode;
             stockModes.byProductId[row.id].valueEdited = value;
         }
-
+        if (propToChange === "stockLevel") {
+            console.log('in stockLevel change... currentStock : ' ,  currentStock);
+            if (!stockLevels.byProductId[row.id]) {
+                stockLevels.byProductId[row.id] = {}
+            }
+            stockLevels.byProductId[row.id].value = currentStock.stockLevel;
+            stockLevels.byProductId[row.id].valueEdited = value;
+//            console.log('changed stock level: ' , {
+//                'stockLevels.byProductId[row.id]':stockLevels.byProductId[row.id],
+//                 stockLevels
+//            });
+        }
         let newState = Object.assign({}, state, {
             stockModes,
             stockLevels
         });
-
         return newState;
     },
     "STOCK_MODE_EDIT_CANCEL": function(state, action) {

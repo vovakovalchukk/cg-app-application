@@ -90,7 +90,7 @@ class StockModeInputsComponent extends React.Component {
                         name={'stockAmount'}
 //                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
                         type={'number'}
-//                        value={this.props.stockAmount.input.value}
+                        value={this.props.stockAmount.input.value}
                         onChange={this.props.stockAmount.input.onChange}
                     />
                 </div>

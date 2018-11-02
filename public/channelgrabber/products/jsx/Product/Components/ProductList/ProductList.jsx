@@ -7,7 +7,6 @@ import columnCreator from 'Product/Components/ProductList/Column/factory';
 import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
 import constants from 'Product/Components/ProductList/Config/constants';
-import utility from 'Product/Components/ProductList/utility';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 "use strict";
@@ -165,7 +164,6 @@ class ProductList extends React.Component {
             </Table>
         )
     };
-    
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions);
@@ -186,7 +184,6 @@ class ProductList extends React.Component {
         }
     }
     render() {
-
         return (
             <div id='products-app'>
                 <div className="top-toolbar">
