@@ -27,10 +27,12 @@ const InputSafeSubmitsContainer = styled.div`
 class InputSafeSubmits extends React.Component {
     static defaultProps = {
         isEditing: {},
-        submitInput: ()=>{},
-        cancelInput: ()=>{}
+        submitInput: () => {
+        },
+        cancelInput: () => {
+        }
     };
-    render(){
+    render() {
         return (
             <InputSafeSubmitsContainer className={"safe-input-box"}>
                 <div className={"submit-input"}>
@@ -45,7 +47,6 @@ class InputSafeSubmits extends React.Component {
         );
     }
 }
-
 
 class StockModeCell extends React.Component {
     static defaultProps = {
@@ -64,12 +65,14 @@ class StockModeCell extends React.Component {
     };
 
     submitInput = () => {
+        console.log('in submitInput in StockMode');
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.saveStockModeToBackend(row);
     };
 
     cancelInput = () => {
+        console.log('in cancelInput in stockMode');
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.cancelStockModeEdit(row);
@@ -92,13 +95,13 @@ class StockModeCell extends React.Component {
 
     getStockModeSelectActive(row) {
         //todo - refactor this to fit in with the new state
-        if(!this.props.stock.stockModes.byProductId[row.id]){
+        if (!this.props.stock.stockModes.byProductId[row.id]) {
             return false;
         }
         return this.props.stock.stockModes.byProductId[row.id].active;
     };
 
-    selectToggle(productId){
+    selectToggle(productId) {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.toggleStockModeSelect(productId, row);
@@ -106,11 +109,17 @@ class StockModeCell extends React.Component {
 
     getValueForStockMode(row) {
         let stockModes = this.props.stock.stockModes;
-        let  stockModeForId = stockModes.byProductId[row.id];
-        if(!stockModeForId){
+        let stockModeForId = stockModes.byProductId[row.id];
+        if (!stockModeForId) {
             return row.stock.stockMode;
         }
-        return stockModeForId.valueEdited ? stockModeForId.valueEdited : stockModeForId.value;
+        if(stockModeForId.valueEdited){
+            return stockModeForId.valueEdited;
+        }
+        if(stockModeForId.value){
+            return stockModeForId.value
+        }
+        return row.stock.stockMode;
     };
 
     render() {
@@ -123,7 +132,7 @@ class StockModeCell extends React.Component {
         const row = stateUtility.getRowData(products, rowIndex);
         const isSimpleProduct = stateUtility.isSimpleProduct(row);
         const isVariation = stateUtility.isVariation(row);
-        
+
         let isEditing = isStockModeBeingEdited(this.props.stock, row.id);
 
         if (!row.stock || (!isSimpleProduct && !isVariation)) {
@@ -143,9 +152,9 @@ class StockModeCell extends React.Component {
             distanceFromLeftSideOfTableToStartOfCell,
             width
         });
-        
+
         let PortalledSubmits = <span></span>;
-        if(portalSettingsForSubmits){
+        if (portalSettingsForSubmits) {
             PortalledSubmits = portalFactory.createPortal({
                 portalSettings: portalSettingsForSubmits,
                 Component: InputSafeSubmits,
@@ -165,7 +174,7 @@ class StockModeCell extends React.Component {
             <div className={this.props.className}>
                 <StyledDataTablesStockModeInputs
                     inputId={row.id}
-                    selectActive = {this.getStockModeSelectActive(row)}
+                    selectActive={this.getStockModeSelectActive(row)}
                     stockModeOptions={this.props.stock.stockModeOptions}
                     stockModeType={{
                         input: {
@@ -199,13 +208,13 @@ export default StockModeCell;
 function isStockModeBeingEdited(stock, rowId) {
     let stockModeForId = stock.stockModes.byProductId[rowId];
     let stockLevelForId = stock.stockLevels.byProductId[rowId];
-    if(!stockModeForId && !stockLevelForId){
+    if (!stockModeForId && !stockLevelForId) {
         return false;
     }
-    if(stockModeForId && !stockModeForId.valueEdited){
+    if (stockModeForId && !stockModeForId.valueEdited) {
         return false;
     }
-    if(stockLevelForId && !stockLevelForId.valueEdited){
+    if (stockLevelForId && !stockLevelForId.valueEdited) {
         return false;
     }
     return true;

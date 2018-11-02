@@ -23,7 +23,7 @@ let portalFactory = (function() {
                 );
             };
 
-            console.log('in createPortal with portalSettings: ', portalSettings);
+//            console.log('in createPortal with portalSettings: ', portalSettings);
             return ReactDOM.createPortal(
                 <ComponentInWrapper/>,
                 portalSettings.domNodeForSubmits

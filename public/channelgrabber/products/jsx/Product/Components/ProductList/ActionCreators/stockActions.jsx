@@ -39,6 +39,9 @@ let actionCreators = (function() {
             };
         },
         saveStockModeToBackend: (rowData) => {
+            console.log('in saveStockModeToBackend rowData: '  , rowData);
+            
+            
             return async function(dispatch, getState) {
                 let state = getState();
                 let productStock = getState.customGetters.getStock(rowData.id);
@@ -76,15 +79,14 @@ let actionCreators = (function() {
             }
         },
         cancelStockModeEdit: (rowData) => {
+            console.log('in cancel stockModeEdit AQ');
             return function(dispatch, getState) {
-                let prevValues = getState.customGetters.getStockPrevValuesBeforeEdits();
-                let prevValuesForRow = prevValues.find(values => values.productId === rowData.id);
-
+//                let prevValues = getState.customGetters.getStockPrevValuesBeforeEdits();
+//                let prevValuesForRow = prevValues.find(values => values.productId === rowData.id);
                 dispatch({
                     type: "STOCK_MODE_EDIT_CANCEL",
                     payload: {
-                        rowData,
-                        prevValuesForRow
+                        rowData
                     }
                 });
             }

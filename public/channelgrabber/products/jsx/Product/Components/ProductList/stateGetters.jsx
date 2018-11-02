@@ -33,9 +33,9 @@
                 getStock(id){
                     return self.getProductById(id).stock;
                 },
-                getStockPrevValuesBeforeEdits(){
-                    return _getState().stock.prevValuesBeforeEdits;
-                },
+//                getStockPrevValuesBeforeEdits(){
+//                    return _getState().stock.prevValuesBeforeEdits;
+//                },
                 getSelectedProducts(){
                     return _getState().bulkSelect.selectedProducts;
                 },

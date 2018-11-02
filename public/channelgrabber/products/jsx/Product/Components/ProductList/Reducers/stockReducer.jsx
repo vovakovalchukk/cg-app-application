@@ -1,5 +1,4 @@
 import reducerCreator from 'Common/Reducers/creator';
-import constants from 'Product/Components/ProductList/Config/constants';
 
 let initialState = {
     stockModeOptions: [],
@@ -20,7 +19,7 @@ let initialState = {
 //                active:true,
 //            }
         }
-    },
+    }
 };
 
 let stockModeReducer = reducerCreator(initialState, {
@@ -52,7 +51,8 @@ let stockModeReducer = reducerCreator(initialState, {
         return newState;
     },
     "STOCK_MODE_CHANGE": function(state, action) {
-        let { row,
+        let {
+            row,
             value,
             propToChange,
             currentStock
@@ -65,7 +65,7 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockModes = Object.assign({}, state.stockModes);
         let stockLevels = Object.assign({}, state.stockLevels);
 
-        if(propToChange==="stockMode"){
+        if (propToChange === "stockMode") {
             stockModes.byProductId[row.id].value = currentStock.stockMode;
             stockModes.byProductId[row.id].valueEdited = value;
         }
@@ -75,23 +75,19 @@ let stockModeReducer = reducerCreator(initialState, {
             stockLevels
         });
 
-
         return newState;
     },
     "STOCK_MODE_EDIT_CANCEL": function(state, action) {
         let {rowData} = action.payload;
+        let stockLevels = Object.assign({}, state.stockLevels);
+        let stockModes = Object.assign({}, state.stockModes);
 
-        let newStockModeEdits = state.stockModeEdits.slice();
-        let newPrevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
-
-        let relevantEditIndex = newStockModeEdits.findIndex(edit => (edit.productId === rowData.id));
-        let relevantNewValuesBeforeEditsIndex = newPrevValuesBeforeEdits.findIndex(beforeVals => (beforeVals.productId === rowData.id));
-        newStockModeEdits.splice(relevantEditIndex, 1);
-        newPrevValuesBeforeEdits.splice(relevantNewValuesBeforeEditsIndex, 1);
+        stockModes.byProductId = resetEditsForRow(stockModes, rowData);
+        stockLevels.byProductId = resetEditsForRow(stockLevels, rowData);
 
         let newState = Object.assign({}, state, {
-            stockModeEdits: newStockModeEdits,
-            prevValuesBeforeEdits: newPrevValuesBeforeEdits
+            stockLevels,
+            stockModes
         });
         return newState;
     },
@@ -114,45 +110,29 @@ function applyStockModesToState(stateCopy, stockModes) {
     });
 }
 
-function hasEditBeenRecordedAlready(newStockModeEdits, rowData) {
-    return !!newStockModeEdits.find(edit => {
-        return edit.productId === rowData.id;
-    });
-}
-
-function getExistingPreviousValueObjectIndex(previousValues, rowId) {
-    return previousValues.findIndex(value => {
-        return value.productId === rowId
-    });
-}
-
-function createPrevValuesBeforeEdits(state, rowData, currentStock) {
-    let prevValuesBeforeEdits = state.prevValuesBeforeEdits.slice();
-    let previousValuesObjectIndex = getExistingPreviousValueObjectIndex(prevValuesBeforeEdits, rowData.id);
-    let previousValuesForProduct = prevValuesBeforeEdits[previousValuesObjectIndex];
-
-    let {stockMode, stockLevel} = currentStock;
-
-    let previousValues = {
-        productId: rowData.id,
-        stockMode,
-        stockLevel
-    };
-
-    if (!previousValuesForProduct) {
-        prevValuesBeforeEdits.push(previousValues);
-        return prevValuesBeforeEdits;
-    }
-
-    return prevValuesBeforeEdits;
-}
-
 function makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId) {
     Object.keys(stockModes.byProductId).forEach(key => {
-        if (key=== productId.toString() ) {
+        if (key === productId.toString()) {
             return;
         }
         stockModes.byProductId[key].active = false;
     });
     return stockModes;
+}
+
+function isNotTheStockAssociatedWithRow(id, rowData) {
+    return id.toString() !== rowData.id.toString();
+}
+
+function resetEditsForRow(values, rowData) {
+    let value;
+    return Object.keys(values.byProductId).map(id => {
+        value = values.byProductId[id];
+        if (isNotTheStockAssociatedWithRow(id, rowData)) {
+            return value;
+        }
+
+        value.valueEdited = '';
+        return value;
+    });
 }

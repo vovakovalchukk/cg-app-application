@@ -14,6 +14,9 @@ module.exports = {
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
     },
+    watchOptions: {
+        aggregateTimeout: 2000 // The default
+    },
     module: {
         rules: [
             {

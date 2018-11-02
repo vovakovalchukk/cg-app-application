@@ -13,12 +13,8 @@ let portalSettingsFactory = (function() {
                 distanceFromLeftSideOfTableToStartOfCell,
                 dimension
             } = paramObj;
-//            console.log('in createPortalSettings with paramObj', paramObj);
 
             if (!hasRowBeenRendered(rowIndex)) {
-                console.log('about to break out');
-                
-                
                 return;
             }
 
@@ -123,6 +119,7 @@ let portalSettingsFactory = (function() {
         }
         return rowNodes;
     }
+
     function getArrayOfAllRenderedRows() {
         let allVisibleNonHeaderRows = getAllVisibleRowNodes();
         let allRows = allVisibleNonHeaderRows.map(row => {

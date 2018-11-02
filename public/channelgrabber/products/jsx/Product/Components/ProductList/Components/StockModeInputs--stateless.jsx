@@ -46,7 +46,6 @@ class StockModeInputsComponent extends React.Component {
         return shortenedOptions;
     };
 
-
     render() {
         let shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
         let stockModeOptions = shortenedOptions.map(function(option) {
