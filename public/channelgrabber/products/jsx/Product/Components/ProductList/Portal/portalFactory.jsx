@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import constants from "../Config/constants";
-import utility from "../utility";
-import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
 let portalFactory = (function() {
     return {

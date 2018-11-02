@@ -40,8 +40,6 @@ let actionCreators = (function() {
         },
         saveStockModeToBackend: (rowData) => {
             console.log('in saveStockModeToBackend rowData: '  , rowData);
-            
-            
             return async function(dispatch, getState) {
                 let state = getState();
                 let productStock = getState.customGetters.getStock(rowData.id);

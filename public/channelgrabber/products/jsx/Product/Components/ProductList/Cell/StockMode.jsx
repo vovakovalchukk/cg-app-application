@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import DataTablesStockModeInputs from 'Product/Components/ProductList/Components/StockModeInputs--stateless';
-import constants from 'Product/Components/ProductList/Config/constants';
 import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 import portalFactory from "../Portal/portalFactory";
+import SafeSubmits from 'Common/Components/SafeSubmits';
 
 const StyledDataTablesStockModeInputs = styled(DataTablesStockModeInputs)`
     display:flex;
@@ -19,34 +18,10 @@ const StyledDataTablesStockModeInputs = styled(DataTablesStockModeInputs)`
     }
 `;
 
-const InputSafeSubmitsContainer = styled.div`
+const StyledSafeSubmits = styled(SafeSubmits)`
     position:absolute;
     transform: translateX(-50%);
 `;
-
-class InputSafeSubmits extends React.Component {
-    static defaultProps = {
-        isEditing: {},
-        submitInput: () => {
-        },
-        cancelInput: () => {
-        }
-    };
-    render() {
-        return (
-            <InputSafeSubmitsContainer className={"safe-input-box"}>
-                <div className={"submit-input"}>
-                    <div className={"submit-cancel " + (this.props.isEditing ? "active" : "")}>
-                        <div className="button-input" onClick={this.props.submitInput}><span
-                            className="submit"></span></div>
-                        <div className="button-input" onClick={this.props.cancelInput}><span
-                            className="cancel"></span></div>
-                    </div>
-                </div>
-            </InputSafeSubmitsContainer>
-        );
-    }
-}
 
 class StockModeCell extends React.Component {
     static defaultProps = {
@@ -65,14 +40,12 @@ class StockModeCell extends React.Component {
     };
 
     submitInput = () => {
-        console.log('in submitInput in StockMode');
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.saveStockModeToBackend(row);
     };
 
     cancelInput = () => {
-        console.log('in cancelInput in stockMode');
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         this.props.actions.cancelStockModeEdit(row);
@@ -94,7 +67,6 @@ class StockModeCell extends React.Component {
     };
 
     getStockModeSelectActive(row) {
-        //todo - refactor this to fit in with the new state
         if (!this.props.stock.stockModes.byProductId[row.id]) {
             return false;
         }
@@ -157,7 +129,7 @@ class StockModeCell extends React.Component {
         if (portalSettingsForSubmits) {
             PortalledSubmits = portalFactory.createPortal({
                 portalSettings: portalSettingsForSubmits,
-                Component: InputSafeSubmits,
+                Component: StyledSafeSubmits,
                 componentProps: {
                     isEditing,
                     submitInput: this.submitInput,
