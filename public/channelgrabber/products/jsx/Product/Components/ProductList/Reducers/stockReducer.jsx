@@ -66,6 +66,7 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockLevels = Object.assign({}, state.stockLevels);
 
         if (propToChange === "stockMode") {
+            console.log('changing stockMode to currentStock.stockMode: ', currentStock.stockMode);
             stockModes.byProductId[row.id].value = currentStock.stockMode;
             stockModes.byProductId[row.id].valueEdited = value;
         }
@@ -82,8 +83,10 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockLevels = Object.assign({}, state.stockLevels);
         let stockModes = Object.assign({}, state.stockModes);
 
-        stockModes.byProductId = resetEditsForRow(stockModes, rowData);
-        stockLevels.byProductId = resetEditsForRow(stockLevels, rowData);
+        stockModes = resetEditsForRow(stockModes, rowData);
+        stockLevels = resetEditsForRow(stockLevels, rowData);
+
+        console.log('{stockModes,stockLevels} after reset: ', {stockModes, stockLevels});
 
         let newState = Object.assign({}, state, {
             stockLevels,
@@ -126,13 +129,12 @@ function isNotTheStockAssociatedWithRow(id, rowData) {
 
 function resetEditsForRow(values, rowData) {
     let value;
-    return Object.keys(values.byProductId).map(id => {
+    Object.keys(values.byProductId).forEach(id => {
         value = values.byProductId[id];
         if (isNotTheStockAssociatedWithRow(id, rowData)) {
-            return value;
+            return;
         }
-
         value.valueEdited = '';
-        return value;
     });
+    return values;
 }
