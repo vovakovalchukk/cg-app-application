@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24171b92ec6e0278e303015ab1c18d6f",
+    "content-hash": "02ef2cb7ceb894904320b1a2524b7dd7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4074,16 +4074,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "dev-CGIV-9624-broken-reconnect-link-email",
+            "version": "1.0.26",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "57de23a8949bc9a481141dd595f0ef4a402be6d9"
+                "reference": "48dafa5fda0726124e3aec3259a345cd7c6c8869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-9624-broken-reconnect-link-email-346208.zip",
-                "reference": "57de23a8949bc9a481141dd595f0ef4a402be6d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.26-3c1dda.zip",
+                "reference": "48dafa5fda0726124e3aec3259a345cd7c6c8869",
                 "shasum": null
             },
             "require": {
@@ -4107,7 +4107,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2018-10-31T13:14:16+00:00"
+            "time": "2018-11-02T15:56:11+00:00"
         },
         {
             "name": "channelgrabber/zf2-go-cardless",
@@ -9206,7 +9206,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10394,18 +10394,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.26",
-            "alias_normalized": "1.0.26.0",
-            "version": "dev-CGIV-9624-broken-reconnect-link-email",
-            "package": "channelgrabber/zf2-email-template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-email-template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
