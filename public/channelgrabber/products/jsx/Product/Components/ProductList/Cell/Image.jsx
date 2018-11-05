@@ -2,6 +2,10 @@ import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
 
+const ImageContainer = styled.div`
+    height:100%;
+`;
+
 const Image = styled.img`
     max-width: ${props => props.maxLength}px;
     max-height: ${props => props.maxLength}px;
@@ -28,6 +32,9 @@ class ImageCell extends React.Component {
         });
     };
     renderImage = () => {
+        if(!this.props.products.visibleRows[this.props.rowIndex]){
+            return ;
+        }
         let cellData = stateUtility.getCellData(
             this.props.products,
             this.props.columnKey,
@@ -50,9 +57,9 @@ class ImageCell extends React.Component {
     };
     render() {
         return (
-            <div {...this.props}>
+            <ImageContainer {...this.props}>
                 {this.renderImage()}
-            </div>
+            </ImageContainer>
         );
     }
 }

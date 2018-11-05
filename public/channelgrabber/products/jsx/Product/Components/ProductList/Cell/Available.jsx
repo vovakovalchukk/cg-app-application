@@ -33,9 +33,6 @@ class AvailableCell extends React.Component {
             width
         });
 
-        console.log('portalSettings that to be complete: ', portalSettings);
-
-
         return (
             <span className={this.props.className + " available-cell"}>
                 <Input

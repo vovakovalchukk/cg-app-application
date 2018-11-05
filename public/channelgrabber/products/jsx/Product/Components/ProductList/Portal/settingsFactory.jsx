@@ -94,10 +94,7 @@ let portalSettingsFactory = (function() {
         });
 
         let zIndexForWrapper = getZIndexForWrapper(elemType);
-        console.log('zIndexForWrapper: ', zIndexForWrapper);
-        
-        
-        
+
         let wrapperStyle = {
             background: 'white',
             'box-sizing': 'border-box',

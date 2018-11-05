@@ -108,6 +108,11 @@ class StockModeCell extends React.Component {
             width
         } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
+
+        if(!row){
+            return <span></span>
+        }
+
         const isSimpleProduct = stateUtility.isSimpleProduct(row);
         const isVariation = stateUtility.isVariation(row);
 
@@ -157,7 +162,8 @@ class StockModeCell extends React.Component {
                 valueForStockModes,
                 valueForStockLevels,
                 isEditing,
-                row
+                row,
+                stock:this.props.stock
             });
         }
 
@@ -205,8 +211,8 @@ function isStockModeBeingEdited(stock, row) {
         return false;
     }
 
-    let isEditingStockMode = stockModeForId && stockModeForId.valueEdited;
-    let isEditingStockLevel = stockLevelForId && stockLevelForId.valueEdited;
+    let isEditingStockMode = stockModeForId && stockModeForId.valueEdited && (stockModeForId.valueEdited !== stockModeForId.value);
+    let isEditingStockLevel = stockLevelForId && stockLevelForId.valueEdited && (stockLevelForId.valueEdited !== stockLevelForId.value);
 
     if (!isEditingStockLevel && !isEditingStockMode) {
         return false;
