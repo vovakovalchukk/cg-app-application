@@ -297,7 +297,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
         } catch (MultiTransferException $e) {
             $labelPdfs = $this->getPdfsFromRequests($requests, $e->getFailedRequests());
             if ($attempt < static::PDF_DOWNLOAD_MAX_ATTEMPTS) {
-                $labelPdfsRetry = $this->sendPdfDownloadRequests($e->getFailedRequests(), ++$attempt);
+                $requestsRetry = $this->getPdfDownloadRequestsToRetry($requests, $e->getFailedRequests());
+                $labelPdfsRetry = $this->sendPdfDownloadRequests($requestsRetry, ++$attempt);
                 $labelPdfs = array_merge($labelPdfs, $labelPdfsRetry);
             }
             return $labelPdfs;
@@ -317,6 +318,19 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $labelPdfs[$orderId] = $response->getBody(true);
         }
         return $labelPdfs;
+    }
+
+    protected function getPdfDownloadRequestsToRetry(array $requests, array $failedRequests): array
+    {
+        $requestsToRetry = [];
+        /** @var GuzzleRequest $request */
+        foreach ($requests as $orderId => $request) {
+            if (in_array($request, $failedRequests, true)) {
+                // We can't use the $failedRequests directly as they're not keyed by $orderId
+                $requestsToRetry[$orderId] = $request;
+            }
+        }
+        return $requestsToRetry;
     }
 
     protected function getErrorsForFailedPdfs(array $labelPdfs): array
