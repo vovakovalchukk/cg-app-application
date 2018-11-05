@@ -7,8 +7,13 @@ import portalSettingsFactory from "../Portal/settingsFactory";
 import portalFactory from "../Portal/portalFactory";
 import SafeSubmits from 'Common/Components/SafeSubmits';
 
-const StyledDataTablesStockModeInputs = styled(DataTablesStockModeInputs)`
-    display:flex;
+const StyledSafeSubmits = styled(SafeSubmits)`
+    position:absolute;
+    transform: translateX(-50%);
+`;
+
+const StockModeCellContainer = styled.div`
+  display:flex;
     justify-content:center;
     align-items:center;
     .selected{
@@ -16,12 +21,8 @@ const StyledDataTablesStockModeInputs = styled(DataTablesStockModeInputs)`
             padding:0px;
         }
     }
-`;
-
-const StyledSafeSubmits = styled(SafeSubmits)`
-    position:absolute;
-    transform: translateX(-50%);
-`;
+    height:100%;
+`
 
 class StockModeCell extends React.Component {
     static defaultProps = {
@@ -161,8 +162,8 @@ class StockModeCell extends React.Component {
         }
 
         return (
-            <div className={this.props.className}>
-                <StyledDataTablesStockModeInputs
+            <StockModeCellContainer className={this.props.className}>
+                <DataTablesStockModeInputs
                     key={'stockMode-' + row.id}
                     inputId={row.id}
                     selectActive={this.getStockModeSelectActive(row)}
@@ -189,7 +190,7 @@ class StockModeCell extends React.Component {
                     stockModeSelectToggle={this.selectToggle.bind(this)}
                 />
                 {PortalledSubmits}
-            </div>
+            </StockModeCellContainer>
         );
     }
 }

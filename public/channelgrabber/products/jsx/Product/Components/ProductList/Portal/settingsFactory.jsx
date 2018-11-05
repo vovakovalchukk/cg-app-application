@@ -20,10 +20,10 @@ let portalSettingsFactory = (function() {
 
             let WrapperForPortal = getWrapperForPortal({
                 elemType,
-                    distanceFromLeftSideOfTableToStartOfCell,
-                    width,
-                    elemType,
-                    dimension,
+                distanceFromLeftSideOfTableToStartOfCell,
+                width,
+                elemType,
+                dimension,
                 translateProp: getTranslateProp({elemType})
             });
 
@@ -37,14 +37,14 @@ let portalSettingsFactory = (function() {
         }
     };
 
-    function getTranslateProp({elemType}){
+    function getTranslateProp({elemType}) {
         let translateElementMap = {}
-        translateElementMap[ elementTypes.INPUT_SAFE_SUBMITS] = 'translateX(-50%)';
-        translateElementMap[ elementTypes.STOCK_MODE_SELECT_DROPDOWN] = '';
+        translateElementMap[elementTypes.INPUT_SAFE_SUBMITS] = 'translateX(-50%)';
+        translateElementMap[elementTypes.STOCK_MODE_SELECT_DROPDOWN] = '';
         return translateElementMap[elemType];
     }
 
-    function getAddedDistanceForDimensionInput(dimension){
+    function getAddedDistanceForDimensionInput(dimension) {
         let distanceDimensionMap = {
             height: 10,
             width: 85,
@@ -55,22 +55,22 @@ let portalSettingsFactory = (function() {
 
     function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
         let distanceElementMap = {};
-        distanceElementMap[ elementTypes.INPUT_SAFE_SUBMITS ] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
+        distanceElementMap[elementTypes.INPUT_SAFE_SUBMITS] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
         // Somewhat hard coding the distance here due to a lack of simple alternatives.
         // These will need to be changed if you change the width of the containing cells.
-        distanceElementMap[ elementTypes.STOCK_MODE_SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell + 27;
-        distanceElementMap[ elementTypes.SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell;
-        distanceElementMap[ elementTypes.DIMENSIONS_INPUT_SUBMITS] = distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension);
+        distanceElementMap[elementTypes.STOCK_MODE_SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell + 27;
+        distanceElementMap[elementTypes.SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell;
+        distanceElementMap[elementTypes.DIMENSIONS_INPUT_SUBMITS] = distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension);
 
         return distanceElementMap[elemType];
     }
 
-    function getZIndexForWrapper(elemType){
+    function getZIndexForWrapper(elemType) {
         let elemTypeZIndexMap = {
-            [elementTypes.SELECT_DROPDOWN] : 150,
-            [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : 150
+            [elementTypes.SELECT_DROPDOWN]: 150,
+            [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: 150
         };
-        if(!elemTypeZIndexMap[elemType]){
+        if (!elemTypeZIndexMap[elemType]) {
             return 100;
         }
         return elemTypeZIndexMap[elemType];
@@ -86,7 +86,7 @@ let portalSettingsFactory = (function() {
             );
         };
 
-        let distanceFromLeftSideOfTableToStartOfPortal =  getDistanceFromLeftSideOfTableToStartOfPortal({
+        let distanceFromLeftSideOfTableToStartOfPortal = getDistanceFromLeftSideOfTableToStartOfPortal({
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             elemType,
@@ -94,11 +94,14 @@ let portalSettingsFactory = (function() {
         });
 
         let zIndexForWrapper = getZIndexForWrapper(elemType);
-
+        console.log('zIndexForWrapper: ', zIndexForWrapper);
+        
+        
+        
         let wrapperStyle = {
             background: 'white',
             'box-sizing': 'border-box',
-            'z-index': zIndexForWrapper,
+            zIndex: zIndexForWrapper,
             position: 'absolute',
             top: '2.5rem',
             left: distanceFromLeftSideOfTableToStartOfPortal + 'px',

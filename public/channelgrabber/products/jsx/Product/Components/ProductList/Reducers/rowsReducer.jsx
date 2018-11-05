@@ -17,7 +17,6 @@ var rowsReducer = reducerCreator(initialState, {
 
 export default rowsReducer
 
-
 function modifyZIndexOfScrollableRows() {
     let allRows = document.querySelectorAll('.js-row');
     let rowsContainer, parentRow;
@@ -33,5 +32,5 @@ function modifyZIndexOfScrollableRows() {
 }
 function modifyZIndexOfHeader() {
     let headerParent = document.querySelector('.public_fixedDataTable_header').parentNode;
-    headerParent.style.zIndex = 50;
+    headerParent.style.zIndex = 110;
 }
