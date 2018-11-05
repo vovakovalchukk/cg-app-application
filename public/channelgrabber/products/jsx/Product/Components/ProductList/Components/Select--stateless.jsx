@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import ClickOutside from 'Common/Components/ClickOutside';
+
 class StatelessSelectComponent extends React.Component {
     static defaultProps = {
         inputId: '',

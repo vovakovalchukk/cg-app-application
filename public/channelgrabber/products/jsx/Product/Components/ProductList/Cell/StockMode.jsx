@@ -165,6 +165,7 @@ class StockModeCell extends React.Component {
         return (
             <div className={this.props.className}>
                 <StyledDataTablesStockModeInputs
+                    key={'stockMode-'+row.id}
                     inputId={row.id}
                     selectActive={this.getStockModeSelectActive(row)}
                     stockModeOptions={this.props.stock.stockModeOptions}

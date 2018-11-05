@@ -2,9 +2,9 @@ import React from "react";
 
 let rowActions = (function() {
     return {
-        reOrderRowsByRowIndex: () => {
+        modifyZIndexOfRows: () => {
             return {
-                type: "ROWS_REORDER_BY_ROW_INDEX",
+                type: "MODIFY_ZINDEX_OF_ROWS",
                 payload: {}
             };
         }

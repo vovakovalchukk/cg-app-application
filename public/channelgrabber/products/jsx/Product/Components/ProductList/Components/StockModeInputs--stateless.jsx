@@ -84,8 +84,9 @@ class StockModeInputsComponent extends React.Component {
                         actions={this.props.actions}
                     />
                 </div>
-                <div className={"c-stock-mode-input__amount-container"}>
+                <div className={"c-stock-mode-input__amount-container"} key={'stockModeContainerDiv-'+this.props.inputId}>
                     <input
+                        key={'stockModeContainerInput-'+this.props.inputId}
                         className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
                         name={'stockAmount'}
 //                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}

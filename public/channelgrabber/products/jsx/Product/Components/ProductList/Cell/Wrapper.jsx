@@ -11,7 +11,7 @@ class CellWrapper extends React.Component {
             // have to do this because fixed-data-tables re-renders rows in a non sequential order.
             // if performance issues are hit later move this out into a higher component
             // todo - reinstate this after finding out the cause of the UI jank when entering stockMode levels
-//            this.props.actions.reOrderRowsByRowIndex();
+            this.props.actions.modifyZIndexOfRows();
         }
 
         if(this.isLastRow()){

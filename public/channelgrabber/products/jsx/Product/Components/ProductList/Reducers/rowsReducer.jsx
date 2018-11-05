@@ -4,27 +4,87 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 var initialState = {
-    firstCellHasBeenRendered:false
+    firstCellHasBeenRendered: false
 };
 
 var rowsReducer = reducerCreator(initialState, {
-    "ROWS_REORDER_BY_ROW_INDEX": function(state, action) {
+    "MODIFY_ZINDEX_OF_ROWS": function(state, action) {
         let allRows = document.querySelectorAll('.js-row');
-        var rowArr = [].slice.call(allRows).sort((a, b) => {
-            //todo - change this to check the classNames
-            let aRowIndex = utility.getRowIndexFromRow(a);
-            let bRowIndex = utility.getRowIndexFromRow(b);
-            // sorting from bottom to top so that we can get the submits to overlap rows via their
-            // parent element's z-index
-            return aRowIndex < bRowIndex ? 1 : -1;
-        });
-        let parentRows = rowArr.map(row => {
-            return row.parentNode;
-        });
-        let rowsContainer = parentRows[0].parentNode;
-        parentRows.forEach(function(row) {
-            rowsContainer.appendChild(row);
-        });
+
+        let orderArray = [];
+
+        for (let i = 0; i < allRows.length; i++) {
+            orderArray[i] = allRows.length-i-1;
+        }
+
+        let rowsContainer, parentRow;
+
+
+        for(let j=0; j<allRows.length; j++){
+            let rowIndex = utility.getRowIndexFromRow(allRows[j]);
+            parentRow = allRows[j].parentNode;
+            if (j === 0) {
+                rowsContainer = parentRow.parentNode;
+            }
+             console.log('in loop',{
+                j, rowIndex
+            });
+
+             parentRow.style.zIndex = (allRows.length*2)-rowIndex;
+        }
+
+
+//        for (let i = 0; i < allRows.length; i++) {
+//
+//            let rowIndex = utility.getRowIndexFromRow(allRows[i]);
+//            parentRow = allRows[i].parentNode;
+//
+//            if (i === 0) {
+//                rowsContainer = parentRow.parentNode;
+//            }
+//
+//            console.log('in loop',{
+//                i, rowIndex, parentRow,
+//                'allRows[i]': allRows[i]
+//            });
+//
+//            //todo invert this so it stacks from bottom to top
+//            if(rowIndex===i){
+//                console.log('appending child');
+//
+//
+//                rowsContainer.appendChild(parentRow)
+//            }
+//            break;
+////            parentRows.push(allRows[i].parentNode);
+//        }
+
+        console.log('rowsContainer after order', rowsContainer);
+
+
+
+//
+//
+//        for (let i = 0; i < newOrder.length; i++) {
+//
+//            for (let j = 0; j < newOrder.length; j++) {
+//
+//                if (i === newOrders[j]) {
+//
+//                }
+//
+//            }
+//        }
+//
+//        console.log('parentRows: ', parentRows);
+//
+//        let rowsContainer = parentRows[0].parentNode;
+//
+//        console.log('rowsContainer: ', rowsContainer);
+//
+//        parentRows.forEach(function(row) {
+//            rowsContainer.appendChild(row);
+//        });
         return state;
     }
 });
