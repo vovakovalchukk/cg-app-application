@@ -71,10 +71,6 @@ let stockModeReducer = reducerCreator(initialState, {
             }
             stockLevels.byProductId[row.id].value = currentStock.stockLevel;
             stockLevels.byProductId[row.id].valueEdited = value;
-//            console.log('changed stock level: ' , {
-//                'stockLevels.byProductId[row.id]':stockLevels.byProductId[row.id],
-//                 stockLevels
-//            });
         }
         let newState = Object.assign({}, state, {
             stockModes,
@@ -96,18 +92,50 @@ let stockModeReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    "STOCK_MODE_UPDATE_SUCCESS": function(state) {
+    "STOCK_MODE_UPDATE_SUCCESS": function(state, action) {
         n.success('Stock mode updated successfully..');
-        return state
+        let {rowData, stockModeDesired, stockLevelDesired} = action.payload;
+        console.log('in STOCK_MODE_UPDATE_SUCCESS with action ', action);
+
+        let stock = Object.assign({}, state);
+
+        let stockModes = applyStockValue(rowData.id, stock, stockModeDesired, 'stockModes').stockModes;
+        let stockLevels = applyStockValue(rowData.id, stock, stockLevelDesired, 'stockLevels').stockLevels;
+
+        console.log('stockModes after applyingStockValue: ', stockModes);
+        console.log('stockLevels after applyStock' , stockLevels );
+
+
+        stockModes = resetEditsForRow(stockModes, rowData);
+        stockLevels = resetEditsForRow(stockLevels, rowData);
+
+        let newState = Object.assign({}, state, {
+            stockLevels,
+            stockModes
+        });
+        return newState;
     },
     "STOCK_MODE_UPDATE_FAILURE": function(state, action) {
         let {error} = action.payload;
+        console.error(error);
         n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
         return state;
     }
 });
 
 export default stockModeReducer;
+
+function applyStockValue(productId, stock, stockModeDesired, stockProp){
+    console.log('{productId,stock,stockModeDesired,stockProp}: ', {productId,stock,stockModeDesired,stockProp});
+    
+    if(!stock[stockProp]){
+        console.log('stock[stockProp] does not exist ', stock[stockProp]);
+
+        return stock;
+    }
+    stock[stockProp].byProductId[productId].value = stockModeDesired;
+    return stock
+}
 
 function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {
@@ -130,9 +158,6 @@ function isNotTheStockAssociatedWithRow(id, rowData) {
 }
 
 function resetEditsForRow(values, rowData) {
-    console.log('in resetEditsForRow ' ,  {
-        values, rowData
-    });
     Object.keys(values.byProductId).forEach(id => {
         if (isNotTheStockAssociatedWithRow(id, rowData)) {
             return;

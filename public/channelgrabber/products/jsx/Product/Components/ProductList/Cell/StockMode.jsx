@@ -156,7 +156,6 @@ class StockModeCell extends React.Component {
                 valueForStockModes,
                 valueForStockLevels,
                 isEditing,
-
                 row
             });
         }

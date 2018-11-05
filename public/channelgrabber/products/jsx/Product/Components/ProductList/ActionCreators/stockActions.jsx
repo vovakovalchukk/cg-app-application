@@ -39,48 +39,55 @@ let actionCreators = (function() {
             };
         },
         saveStockModeToBackend: (rowData) => {
-            console.log('in saveStockModeToBackend rowData: '  , rowData);
             return async function(dispatch, getState) {
                 let state = getState();
                 let productStock = getState.customGetters.getStock(rowData.id);
                 let stock = state.stock;
 
-                let saveStockModePromise = Promise.resolve();
-                let saveStockLevelsPromise = Promise.resolve();
+                let stockModeDesired, stockLevelDesired;
 
-                if (stockModeHasBeenEdited(productStock, stock, rowData)) {
-                    saveStockModePromise = updateStockMode(
-                        rowData.id,
-                        productStock.stockMode
-                    );
-                }
-
-                if (stockLevelHasBeenEdited(productStock, stock, rowData)) {
-                    saveStockLevelsPromise = updateStockLevel(
-                        rowData.id,
-                        productStock.stockLevel
-                    );
-                }
                 n.notice('Updating stock mode.');
                 try {
-                    let response = await Promise.all([saveStockModePromise, saveStockLevelsPromise]);
+                    let response = {};
+
+                    if (stockModeHasBeenEdited(productStock, stock, rowData)) {
+                        stockModeDesired = stock.stockModes.byProductId[rowData.id].valueEdited;
+                        response.updateStockMode = await updateStockMode(
+                            rowData.id,
+                            stockModeDesired
+                        );
+                    }
+
+                    if (stockLevelHasBeenEdited(productStock, stock, rowData)) {
+                        stockLevelDesired = stock.stockLevels.byProductId[rowData.id].valueEdited;
+                        response.updateStockLevel = await updateStockLevel(
+                            rowData.id,
+                            stockLevelDesired
+                        );
+                    }
+
                     dispatch({
                         type: "STOCK_MODE_UPDATE_SUCCESS",
-                        payload: response
+                        payload: {
+                            response,
+                            rowData,
+                            stockLevelDesired,
+                            stockModeDesired
+                        }
                     });
                 } catch (error) {
                     dispatch({
                         type: "STOCK_MODE_UPDATE_FAILURE",
-                        payload: {error}
+                        payload: {
+                            error,
+                            rowData
+                        }
                     });
                 }
             }
         },
         cancelStockModeEdit: (rowData) => {
-            console.log('in cancel stockModeEdit AQ');
-            return function(dispatch, getState) {
-//                let prevValues = getState.customGetters.getStockPrevValuesBeforeEdits();
-//                let prevValuesForRow = prevValues.find(values => values.productId === rowData.id);
+            return function(dispatch,) {
                 dispatch({
                     type: "STOCK_MODE_EDIT_CANCEL",
                     payload: {
@@ -176,32 +183,12 @@ function updateStock(data) {
     });
 }
 
-function getPreviousProductStock(prevValuesBeforeEdits, productId) {
-    return prevValuesBeforeEdits.find(prevStockValues => {
-        return prevStockValues.id === productId
-    });
-}
-
-function getPreviousStockMode(previousValuesBeforeEdits, productId) {
-    let previousProductStock = getPreviousProductStock(previousValuesBeforeEdits, productId);
-    if (!!previousProductStock) {
-        return previousProductStock.stockMode
-    }
-    return null;
-}
-
-function getPreviousStockLevel(previousValuesBeforeEdits, productId) {
-    let previousProductStock = getPreviousProductStock(previousValuesBeforeEdits, productId);
-    if (!!previousProductStock) {
-        return previousProductStock.stockLevel
-    }
-    return null;
-}
-
 function stockModeHasBeenEdited(productStock, stock, rowData) {
-    return productStock.stockMode !== getPreviousStockMode(stock.prevValuesBeforeEdits, rowData.id);
+    console.log(' in stockModeHasBeenEdited {productStock,stock,rowData}: ',   {productStock,stock,rowData});
+    return stock.stockModes.byProductId[rowData.id] && stock.stockModes.byProductId[rowData.id].valueEdited;
 }
 
 function stockLevelHasBeenEdited(productStock, stock, rowData) {
-    return productStock.stockLevel !== getPreviousStockLevel(stock.prevValuesBeforeEdits, rowData.id);
+    console.log(' in stockLevelHasBeenEdited {productStock,stock,rowData}: ',   {productStock,stock,rowData});
+    return stock.stockLevels.byProductId[rowData.id] && stock.stockLevels.byProductId[rowData.id].valueEdited;
 }
