@@ -96,8 +96,6 @@ let stockModeReducer = reducerCreator(initialState, {
         stockModes = resetEditsForRow(stockModes, rowData);
         stockLevels = resetEditsForRow(stockLevels, rowData);
 
-        console.log('{stockModes,stockLevels} after reset: ', {stockModes, stockLevels});
-
         let newState = Object.assign({}, state, {
             stockLevels,
             stockModes
@@ -138,13 +136,15 @@ function isNotTheStockAssociatedWithRow(id, rowData) {
 }
 
 function resetEditsForRow(values, rowData) {
-    let value;
+    console.log('in resetEditsForRow ' ,  {
+        values, rowData
+    });
     Object.keys(values.byProductId).forEach(id => {
-        value = values.byProductId[id];
         if (isNotTheStockAssociatedWithRow(id, rowData)) {
+            console.log('returning out');
             return;
         }
-        value.valueEdited = '';
+        values.byProductId[id].valueEdited = '';
     });
     return values;
 }

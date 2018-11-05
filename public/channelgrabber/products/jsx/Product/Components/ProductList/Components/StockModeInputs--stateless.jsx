@@ -64,6 +64,15 @@ class StockModeInputsComponent extends React.Component {
             }).name;
         }
 
+        if(this.props.inputId===1){
+            console.log('in render stateless', {
+                inputId: this.props.inputId,
+                value: this.props.stockAmount.input.value
+            });
+        }
+
+        let valueForInput = this.props.stockAmount.input.value ? this.props.stockAmount.input.value : '';
+
         return (
             <div className={this.props.className}>
                 <div className={"c-stock-mode-input__type-select-container"}>
@@ -91,7 +100,7 @@ class StockModeInputsComponent extends React.Component {
                         name={'stockAmount'}
 //                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
                         type={'number'}
-                        value={this.props.stockAmount.input.value}
+                        value={valueForInput}
                         onChange={this.props.stockAmount.input.onChange}
                     />
                 </div>

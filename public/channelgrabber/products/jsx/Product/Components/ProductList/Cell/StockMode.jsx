@@ -152,12 +152,12 @@ class StockModeCell extends React.Component {
         let valueForStockModes = this.getValueForStockProp(row, "stockModes");
         let valueForStockLevels = this.getValueForStockProp(row, "stockLevels");
 
-
         if(this.props.rowIndex===0) {
             console.log('in render for StockMode 0 -  ', {
                 props: this.props,
                 valueForStockModes,
-                valueForStockLevels
+                valueForStockLevels,
+                isEditing
             });
         }
 
