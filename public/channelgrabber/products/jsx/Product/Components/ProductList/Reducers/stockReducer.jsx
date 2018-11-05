@@ -58,20 +58,14 @@ let stockModeReducer = reducerCreator(initialState, {
             currentStock
         } = action.payload;
 
-        console.log('in STOCK_MODE_CHANGE -R ', {
-            row, value, propToChange
-        });
-
         let stockModes = Object.assign({}, state.stockModes);
         let stockLevels = Object.assign({}, state.stockLevels);
 
         if (propToChange === "stockMode") {
-            console.log('changing stockMode to currentStock.stockMode: ', currentStock.stockMode);
             stockModes.byProductId[row.id].value = currentStock.stockMode;
             stockModes.byProductId[row.id].valueEdited = value;
         }
         if (propToChange === "stockLevel") {
-            console.log('in stockLevel change... currentStock : ' ,  currentStock);
             if (!stockLevels.byProductId[row.id]) {
                 stockLevels.byProductId[row.id] = {}
             }
@@ -141,7 +135,6 @@ function resetEditsForRow(values, rowData) {
     });
     Object.keys(values.byProductId).forEach(id => {
         if (isNotTheStockAssociatedWithRow(id, rowData)) {
-            console.log('returning out');
             return;
         }
         values.byProductId[id].valueEdited = '';

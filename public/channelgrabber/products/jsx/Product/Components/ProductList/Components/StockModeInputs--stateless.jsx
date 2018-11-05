@@ -64,12 +64,12 @@ class StockModeInputsComponent extends React.Component {
             }).name;
         }
 
-        if(this.props.inputId===1){
-            console.log('in render stateless', {
-                inputId: this.props.inputId,
-                value: this.props.stockAmount.input.value
-            });
-        }
+//        if(this.props.inputId===1){
+//            console.log('in render stateless', {
+//                inputId: this.props.inputId,
+//                value: this.props.stockAmount.input.value
+//            });
+//        }
 
         let valueForInput = this.props.stockAmount.input.value ? this.props.stockAmount.input.value : '';
 

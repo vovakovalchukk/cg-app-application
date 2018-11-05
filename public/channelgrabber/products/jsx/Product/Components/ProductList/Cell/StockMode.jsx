@@ -23,7 +23,6 @@ const StyledSafeSubmits = styled(SafeSubmits)`
     transform: translateX(-50%);
 `;
 
-
 class StockModeCell extends React.Component {
     static defaultProps = {
         products: {},
@@ -84,17 +83,17 @@ class StockModeCell extends React.Component {
         let stateForStockProp = this.props.stock[stockProp];
         let stockForId = stateForStockProp.byProductId[row.id];
         if (!stockForId) {
-            if(stockProp==="stockModes"){
+            if (stockProp === "stockModes") {
                 return row.stock.stockMode;
             }
-            if(stockProp ==="stockLevels"){
+            if (stockProp === "stockLevels") {
                 return row.stock.stockLevel;
             }
         }
-        if(stockForId.valueEdited){
+        if (stockForId.valueEdited) {
             return stockForId.valueEdited;
         }
-        if(stockForId.value){
+        if (stockForId.value) {
             return stockForId.value
         }
         return row.stock[stockProp];
@@ -111,7 +110,7 @@ class StockModeCell extends React.Component {
         const isSimpleProduct = stateUtility.isSimpleProduct(row);
         const isVariation = stateUtility.isVariation(row);
 
-        let isEditing = isStockModeBeingEdited(this.props.stock, row.id);
+        let isEditing = isStockModeBeingEdited(this.props.stock, row);
 
         if (!row.stock || (!isSimpleProduct && !isVariation)) {
             return <span/>
@@ -148,24 +147,24 @@ class StockModeCell extends React.Component {
             toggleStockModeSelect
         } = this.props.actions;
 
-
         let valueForStockModes = this.getValueForStockProp(row, "stockModes");
         let valueForStockLevels = this.getValueForStockProp(row, "stockLevels");
 
-        if(this.props.rowIndex===0) {
+        if (this.props.rowIndex === 0) {
             console.log('in render for StockMode 0 -  ', {
                 props: this.props,
                 valueForStockModes,
                 valueForStockLevels,
-                isEditing
+                isEditing,
+
+                row
             });
         }
-
 
         return (
             <div className={this.props.className}>
                 <StyledDataTablesStockModeInputs
-                    key={'stockMode-'+row.id}
+                    key={'stockMode-' + row.id}
                     inputId={row.id}
                     selectActive={this.getStockModeSelectActive(row)}
                     stockModeOptions={this.props.stock.stockModeOptions}
@@ -198,17 +197,20 @@ class StockModeCell extends React.Component {
 
 export default StockModeCell;
 
-function isStockModeBeingEdited(stock, rowId) {
+function isStockModeBeingEdited(stock, row) {
+    let rowId = row.id;
     let stockModeForId = stock.stockModes.byProductId[rowId];
     let stockLevelForId = stock.stockLevels.byProductId[rowId];
     if (!stockModeForId && !stockLevelForId) {
         return false;
     }
-    if (stockModeForId && !stockModeForId.valueEdited) {
+
+    let isEditingStockMode = stockModeForId && stockModeForId.valueEdited;
+    let isEditingStockLevel = stockLevelForId && stockLevelForId.valueEdited;
+
+    if (!isEditingStockLevel && !isEditingStockMode) {
         return false;
     }
-    if (stockLevelForId && !stockLevelForId.valueEdited) {
-        return false;
-    }
+
     return true;
 }
