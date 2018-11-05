@@ -295,6 +295,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $this->guzzleClient->send($requests);
             return $this->getPdfsFromRequests($requests);
         } catch (MultiTransferException $e) {
+            $this->logWarningException($e, 'Failed to download one or more labels from ShipStation at attempt %d', [$attempt], [static::LOG_CODE, 'LabelPdfs', 'Error']);
             $labelPdfs = $this->getPdfsFromRequests($requests, $e->getFailedRequests());
             if ($attempt < static::PDF_DOWNLOAD_MAX_ATTEMPTS) {
                 $requestsRetry = $this->getPdfDownloadRequestsToRetry($requests, $e->getFailedRequests());
