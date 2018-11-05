@@ -411,7 +411,9 @@ class Other implements CreatorInterface, LoggerAwareInterface
                 continue;
             }
             $validationException = new ValidationMessagesException('Validation error');
-            $validationException->addErrors($errors[$order->getId()]);
+            foreach ($errors[$order->getId()] as $error) {
+                $validationException->addErrorWithField($order->getId().':Error', $error);
+            }
             $response[$order->getId()] = $validationException;
         }
         return $response;
