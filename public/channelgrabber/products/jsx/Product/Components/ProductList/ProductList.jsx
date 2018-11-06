@@ -193,8 +193,8 @@ class ProductList extends React.Component {
             this.props.actions.recordVisibleRows();
             let rowsExist = !!document.querySelectorAll('.js-row').length;
             if(rowsExist){
-                this.props.actions.modifyZIndexOfRows();
                 this.props.actions.recordVisibleRows();
+                this.props.actions.modifyZIndexOfRows();
             }
         }
         return (

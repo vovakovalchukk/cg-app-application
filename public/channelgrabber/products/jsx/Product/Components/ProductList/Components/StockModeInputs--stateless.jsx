@@ -60,6 +60,9 @@ class StockModeInputsComponent extends React.Component {
         let selectedNameFromValue = '';
         if (selected.value) {
             selectedNameFromValue = stockModeOptions.find(option => {
+                console.log('option/selected: ', { option, selected});
+                
+                
                 return option.value === selected.value;
             }).name;
         }

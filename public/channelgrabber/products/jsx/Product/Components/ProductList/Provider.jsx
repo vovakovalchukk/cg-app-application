@@ -10,7 +10,8 @@ import ProductListRoot from 'Product/Components/ProductList/Root';
 
 var enhancer = applyMiddleware(thunk);
 
-if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+if (typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         latency: 0,
         name: 'ProductsList'

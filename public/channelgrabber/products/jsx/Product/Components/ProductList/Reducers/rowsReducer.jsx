@@ -10,10 +10,10 @@ var initialState = {
 
 var rowsReducer = reducerCreator(initialState, {
     "MODIFY_ZINDEX_OF_ROWS": function(state, action) {
-//        console.log('in MODIFY_ZINDEX_OF_ROWS');
+        console.log('in MODIFY_ZINDEX_OF_ROWS');
         modifyZIndexOfScrollableRows();
         modifyZIndexOfHeader();
-        return Object.assign(state, {}, {
+        return Object.assign({}, state, {
             firstRenderOccurred: true
         });
     },
