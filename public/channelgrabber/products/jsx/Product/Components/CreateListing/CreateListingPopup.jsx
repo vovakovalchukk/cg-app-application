@@ -311,6 +311,27 @@ class CreateListingPopup extends React.Component {
         return this.props.submissionStatuses.inProgress;
     };
 
+    areAllListingsSuccessful = () => {
+        let accounts = this.props.submissionStatuses.accounts;
+        if (Object.keys(accounts).length === 0) {
+            return false;
+        }
+
+        let hasStatusForAccountsAndCategories = false;
+        for (let accountId in accounts) {
+            let account = accounts[accountId];
+            for (let categoryId in account) {
+                let category = account[categoryId];
+                if (category.status !== "completed") {
+                    return false;
+                }
+                hasStatusForAccountsAndCategories = true;
+            }
+        }
+
+        return hasStatusForAccountsAndCategories;
+    };
+
     areCategoryTemplatesFetching = () => {
         return this.props.categoryTemplates.isFetching;
     };
@@ -393,16 +414,28 @@ class CreateListingPopup extends React.Component {
         this.props.submitForm();
     };
 
+    getYesButtonText = () => {
+        if (this.isSubmitButtonDisabled() || this.areCategoryTemplatesFetching()) {
+            return 'Submitting...';
+        }
+
+        if (this.areAllListingsSuccessful()) {
+            return 'All done';
+        }
+
+        return 'Submit';
+    };
+
     render() {
-        const isSubmitButtonDisabled = this.isSubmitButtonDisabled();
+
         return <SectionedContainer
             sectionClassName={"editor-popup product-create-listing"}
-            yesButtonText={isSubmitButtonDisabled ? "Submitting..." : "Submit"}
+            yesButtonText={this.getYesButtonText()}
             noButtonText="Cancel"
             onYesButtonPressed={this.submitForm}
             onNoButtonPressed={this.props.onCreateListingClose}
             onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.product)}
-            yesButtonDisabled={(isSubmitButtonDisabled || this.areCategoryTemplatesFetching())}
+            yesButtonDisabled={(this.isSubmitButtonDisabled() || this.areAllListingsSuccessful() || this.areCategoryTemplatesFetching())}
             sections={this.buildSections()}
         />;
     }
