@@ -5,7 +5,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Messages\CarrierService;
 use CG\ShipStation\Messages\Customs;
