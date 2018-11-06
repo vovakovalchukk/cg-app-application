@@ -38,7 +38,7 @@
         "channelgrabber/ekm": "~1.10.14",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
-        "channelgrabber/etsy": "dev-TAC-257-EtsyListings as 1.0.3",
+        "channelgrabber/etsy": "~1.1.0",
         "channelgrabber/exchangerate": "~1.2.5",
         "channelgrabber/feature-flags": "~2.1.1",
         "channelgrabber/file-storage": "~1.0.0",
