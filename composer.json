@@ -25,7 +25,7 @@
         "channelgrabber/billing": "~1.20.1",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.11",
-        "channelgrabber/channel": "~1.40.0",
+        "channelgrabber/channel": "dev-EPIC-STRAT-2-pbse-variations as 1.40.1",
         "channelgrabber/cilex": "~1.2.0",
         "channelgrabber/clearbooks": "~1.12.0",
         "channelgrabber/communication": "~1.0.11",
