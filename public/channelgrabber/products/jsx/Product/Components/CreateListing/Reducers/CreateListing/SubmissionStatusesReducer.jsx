@@ -1,5 +1,4 @@
 import reducerCreator from 'Common/Reducers/creator';
-    
 
     let initialState = {
         guid: null,

@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     entry: {
         // Name the entry points after the path you want them to end up in, relative to output.path
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",

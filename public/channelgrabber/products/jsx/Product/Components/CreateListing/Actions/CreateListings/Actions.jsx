@@ -74,11 +74,11 @@ import ResponseActions from './ResponseActions';
         }
 
         let variationToEpid = {};
-        Object.keys(props.productSearch.selectedProducts).forEach(function (sku) {
+        Object.keys(props.productSearch.selectedProducts).forEach(function (id) {
             let variation = props.variationsDataForProduct.find(function(variation) {
-                return variation.sku == sku;
+                return variation.id == id;
             });
-            variationToEpid[variation.id] = props.productSearch.selectedProducts[sku].epid;
+            variationToEpid[variation.id] = props.productSearch.selectedProducts[id].epid;
         });
 
         if (Object.keys(variationToEpid).length > 0) {

@@ -157,7 +157,7 @@ module.exports = function(grunt) {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
             prod: webpackConfig,
-            dev: webpackConfig
+            dev: Object.assign({ watch: true, mode: "development"}, webpackConfig)
         },
         watch: {
             babelReact: {
