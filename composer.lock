@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02ef2cb7ceb894904320b1a2524b7dd7",
+    "content-hash": "4a05cf84103fe7e6d0e21a4cac65050d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -647,16 +647,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.16.11",
+            "version": "1.16.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "477d82af8316c038af645bac4089b7ea2bfc03d6"
+                "reference": "ae9725bf82d267c6865ac489a9a91a67acf73ac1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.11-809e24.zip",
-                "reference": "477d82af8316c038af645bac4089b7ea2bfc03d6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.12-1903e3.zip",
+                "reference": "ae9725bf82d267c6865ac489a9a91a67acf73ac1",
                 "shasum": null
             },
             "require": {
@@ -667,6 +667,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/feature-flags": "^2.0.1",
+                "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.25",
                 "channelgrabber/listing": "^1.11.11",
                 "channelgrabber/locale": "^1.2.1",
@@ -706,7 +707,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-17T14:05:14+00:00"
+            "time": "2018-10-24T10:17:19+00:00"
         },
         {
             "name": "channelgrabber/channel",
@@ -1304,21 +1305,23 @@
         },
         {
             "name": "channelgrabber/etsy",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-etsy.git",
-                "reference": "485c3e5027a18a736bab8fc1bf2033c817800d45"
+                "reference": "6881bf30b9edbe9426e54fd7beaf29333f6861ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-1.0.1-91d884.zip",
-                "reference": "485c3e5027a18a736bab8fc1bf2033c817800d45",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etsy-1.1.0-3cd734.zip",
+                "reference": "6881bf30b9edbe9426e54fd7beaf29333f6861ac",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.34.0",
+                "channelgrabber/cglib": "~1.16.12",
+                "channelgrabber/channel": "^1.36.8",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/feature-flags": "^2.1.0",
                 "channelgrabber/http": "^1.3.0",
                 "channelgrabber/stdlib": "^2.14.1",
                 "ext-oauth": "*",
@@ -1339,7 +1342,7 @@
                     "CG\\Etsy\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-05-04T14:58:43+00:00"
+            "time": "2018-11-06T11:18:57+00:00"
         },
         {
             "name": "channelgrabber/exchangerate",
@@ -5302,7 +5305,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/contextio/PHP-ContextIO/zipball/f8527ee6580c8f154362dcedfe5e63f4969203bf",
+                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-f8527ee6580c8f154362dcedfe5e63f4969203bf-zip-a1780b.zip",
                 "reference": "f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "shasum": ""
             },
@@ -5813,7 +5816,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hanneskod/libmergepdf/zipball/2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
+                "url": "https://composer.build.channelgrabber.com/dist/iio-libmergepdf-2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc-zip-9552fd.zip",
                 "reference": "2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "shasum": ""
             },
@@ -6225,7 +6228,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -6438,7 +6441,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/251ce11bdc4754962f29cd2d31014549377ea617",
+                "url": "https://composer.build.channelgrabber.com/dist/nelexa-zip-251ce11bdc4754962f29cd2d31014549377ea617-zip-ac5be2.zip",
                 "reference": "251ce11bdc4754962f29cd2d31014549377ea617",
                 "shasum": ""
             },
@@ -7237,7 +7240,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/13e03b17e54ea864c6653a2cf6d146dad8464e91",
+                "url": "https://composer.build.channelgrabber.com/dist/react-event-loop-13e03b17e54ea864c6653a2cf6d146dad8464e91-zip-eb345b.zip",
                 "reference": "13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "shasum": ""
             },
@@ -7325,7 +7328,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realityking/hash_equals/zipball/c94c380358f0649d4efe09c59fa94d16a65607bf",
+                "url": "https://composer.build.channelgrabber.com/dist/realityking-hash_equals-c94c380358f0649d4efe09c59fa94d16a65607bf-zip-1306d9.zip",
                 "reference": "c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "shasum": ""
             },
@@ -7550,7 +7553,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdf-2c68c9e6c034ac3187d25968790139a73184cdb1-zip-a22a64.zip",
                 "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "shasum": ""
             },
@@ -7589,7 +7592,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/879dd95cd6b258ba5b062624723ef16c954f2b17",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-879dd95cd6b258ba5b062624723ef16c954f2b17-zip-01d960.zip",
                 "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "shasum": ""
             },
@@ -7648,7 +7651,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/39d8fe065ef27816e78ceebf87719bebe6abdd73",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-fpdf-39d8fe065ef27816e78ceebf87719bebe6abdd73-zip-1b4a74.zip",
                 "reference": "39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "shasum": ""
             },
