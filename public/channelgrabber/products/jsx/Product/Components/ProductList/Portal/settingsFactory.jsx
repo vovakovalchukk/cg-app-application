@@ -1,6 +1,5 @@
 import React from 'react';
 import constants from "../Config/constants";
-import utility from "../utility";
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
 let portalSettingsFactory = (function() {
@@ -11,10 +10,17 @@ let portalSettingsFactory = (function() {
                 rowIndex,
                 width,
                 distanceFromLeftSideOfTableToStartOfCell,
-                dimension
+                dimension,
+                allRows
             } = paramObj;
+//            console.log('in portalSettingsFactory with paramObj' , paramObj);
 
-            if (!hasRowBeenRendered(rowIndex)) {
+            if(allRows && allRows.indexOf(rowIndex)<0){
+                return;
+            }
+
+            let domNodeForSubmits = getDomNodeForAddingSubmitsTo(rowIndex);
+            if(!domNodeForSubmits){
                 return;
             }
 
@@ -30,7 +36,7 @@ let portalSettingsFactory = (function() {
             let portalSettings = {
                 id: rowIndex,
                 usePortal: true,
-                domNodeForSubmits: getDomNodeForAddingSubmitsTo(rowIndex),
+                domNodeForSubmits,
                 PortalWrapper: WrapperForPortal
             };
             return portalSettings;
@@ -108,41 +114,16 @@ let portalSettingsFactory = (function() {
         return createWrapper(wrapperStyle);
     }
 
-    function getAllVisibleRowNodes() {
-        let rows = document.getElementsByClassName(constants.ROW_CLASS_PREFIX);
-        let rowNodes = [];
-        for (var i = 0; i < rows.length; i++) {
-            if (i === rows.length) {
-                continue;
-            }
-            rowNodes.push(rows[i]);
-        }
-        return rowNodes;
-    }
-
-    function getArrayOfAllRenderedRows() {
-        let allVisibleNonHeaderRows = getAllVisibleRowNodes();
-        let allRows = allVisibleNonHeaderRows.map(row => {
-            let rowIndex = utility.getRowIndexFromRow(row);
-            return rowIndex
-        });
-        return allRows;
-    }
-
-    function hasRowBeenRendered(rowIndex) {
-        let allRows = getArrayOfAllRenderedRows();
-        let hasBeenRendered = allRows.includes(rowIndex);
-//        console.log('hasBeenRendered: ', {
-//            hasBeenRendered,
-//            allRows,
-//            rowIndex: this.props.rowIndex
-//        });
-        return hasBeenRendered;
-    }
-
     function getDomNodeForAddingSubmitsTo(rowIndex) {
         let targetClass = getClassOfCurrentRow(rowIndex);
+//        console.log('targetClass: ', targetClass);
+        
         let targetRow = document.querySelector(targetClass);
+//        console.log('targetRow: ', targetRow);
+        if(!targetRow){
+            return;
+        }
+        
         let targetNode = targetRow.parentNode;
         return targetNode;
     }

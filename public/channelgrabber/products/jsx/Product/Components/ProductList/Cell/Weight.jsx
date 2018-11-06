@@ -1,5 +1,4 @@
 import React from 'react';
-import FixedDataTable from 'fixed-data-table-2';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import Input from 'Common/Components/SafeInput';
 import elementTypes from "../Portal/elementTypes";
@@ -8,10 +7,9 @@ import portalSettingsFactory from "../Portal/settingsFactory";
 class WeightCell extends React.Component {
     static defaultProps = {
         products: {},
-        rowIndex: null
+        rowIndex: null,
+        rows: {}
     };
-
-    state = {};
 
     render() {
         const {
@@ -32,11 +30,12 @@ class WeightCell extends React.Component {
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            allRows : this.props.rows.allIds
         });
 
         return (
-            <span className={this.props.className}>
+                <span className={this.props.className}>
                     <Input
                         name='weight'
                         initialValue={(rowData.details && rowData.details.weight) ? parseFloat(rowData.details.weight).toFixed(3) : ''}

@@ -91,35 +91,6 @@ var ProductsReducer = reducerCreator(initialState, {
         
         return newState;
     },
-    "STOCK_MODE_CHANGE": function(state, action) {
-        let { row,
-              value,
-              propToChange
-        } = action.payload;
-
-        console.log('in stock_mode_change -R in productsReducer');
-        
-        
-//        let stateCopy = Object.assign({}, state);
-//        let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
-//
-//        let rowIndexToChange = getVisibleRowIndexToChangeFromId(rowData.id, visibleRowsCopy);
-//
-//        visibleRowsCopy[rowIndexToChange].stock[propToChange] = stockModeValue;
-//
-//        let variationsByParentCopy = JSON.parse(JSON.stringify(stateCopy.variationsByParent));
-//        if (stateUtility.isVariation(rowData)) {
-//            variationsByParentCopy = applyStockModeChangeToVariation(variationsByParentCopy, rowData, stockModeValue, propToChange);
-//        }
-//        let newState = Object.assign({}, stateCopy, {
-//            visibleRows: visibleRowsCopy,
-//            variationsByParent: variationsByParentCopy
-//        });
-//        return newState;
-
-        return state;
-
-    },
     "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
         const {response} = action.payload;
         let productsCopy = state.simpleAndParentProducts.slice();

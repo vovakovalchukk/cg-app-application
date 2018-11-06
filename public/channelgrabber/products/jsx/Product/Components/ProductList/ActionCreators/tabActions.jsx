@@ -1,3 +1,6 @@
+import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions'
+
+
 let tabActions = (function() {
     return {
         changeTab: (desiredTabKey) => {
@@ -11,6 +14,7 @@ let tabActions = (function() {
                         numberOfVisibleFixedColumns
                     }
                 });
+                dispatch(rowActions.modifyZIndexOfRows);
             }
         },
     };

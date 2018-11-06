@@ -6,9 +6,7 @@ import CellFactory from 'Product/Components/ProductList/Cell/factory';
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
 
-
 import ImageCell from 'Product/Components/ProductList/Cell/Image';
-
 
 "use strict";
 const Column = FixedDataTable.Column;
@@ -36,15 +34,15 @@ let columnCreator = function(column, parentProps) {
     }
 
     let CellToRender = StyledCellWrapper;
-    
+
     //todo - better handle this
-    if(column.key === columnKeys.stockMode ){
+    if (column.key === columnKeys.stockMode) {
         CellToRender = StockModeCell;
     }
-    if(column.key===columnKeys.image){
+    if (column.key === columnKeys.image) {
         CellToRender = ImageCell
     }
-    
+
     return (<Column
         pureRendering={true}
         columnKey={column.key}
@@ -58,6 +56,7 @@ let columnCreator = function(column, parentProps) {
             products={column.products}
             actions={column.actions}
             CellContent={CellContent}
+            rows={parentProps.rows}
         />}
     />);
 };
@@ -66,14 +65,16 @@ export default columnCreator;
 
 function applyColumnSpecificProps(column, parentProps) {
     const columnSpecificPropsMap = {
-        stockMode: 'stock',
-        bulkSelect: 'bulkSelect'
+        stockMode: ['stock'],
+        bulkSelect: ['bulkSelect']
     };
-    let keyToAssign = columnSpecificPropsMap[column.key]
-    if (!keyToAssign) {
+    let keysToAssign = columnSpecificPropsMap[column.key]
+    if (!keysToAssign) {
         return column;
     }
-    column[keyToAssign] = parentProps[keyToAssign]
+    keysToAssign.forEach(keyToAssign => {
+        column[keyToAssign] = parentProps[keyToAssign]
+    });
     return column;
 }
 

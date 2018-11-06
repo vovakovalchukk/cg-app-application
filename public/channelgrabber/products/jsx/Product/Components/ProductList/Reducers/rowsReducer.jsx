@@ -4,16 +4,23 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 var initialState = {
-    firstRenderOccurred: false
+    firstRenderOccurred: false,
+    allIds: []
 };
 
 var rowsReducer = reducerCreator(initialState, {
     "MODIFY_ZINDEX_OF_ROWS": function(state, action) {
-        console.log('MODIFY_ZINDEX_OF_ROWS');
+//        console.log('in MODIFY_ZINDEX_OF_ROWS');
         modifyZIndexOfScrollableRows();
         modifyZIndexOfHeader();
         return Object.assign(state, {}, {
             firstRenderOccurred: true
+        });
+    },
+    "VISIBLE_ROWS_RECORD": function(state) {
+        let allVisibleRowsIds = utility.getArrayOfAllRenderedRows().sort();
+        return Object.assign({}, state, {
+            allIds: allVisibleRowsIds
         });
     }
 });
@@ -37,3 +44,5 @@ function modifyZIndexOfHeader() {
     let headerParent = document.querySelector('.public_fixedDataTable_header').parentNode;
     headerParent.style.zIndex = 110;
 }
+
+

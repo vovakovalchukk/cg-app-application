@@ -55,7 +55,8 @@ class VatCell extends React.Component {
             elemType: elementTypes.SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            allRows : this.props.rows.allIds
         });
 
         return (

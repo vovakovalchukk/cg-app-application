@@ -122,17 +122,17 @@ class ProductList extends React.Component {
         if (rows.length === 0) {
             return '';
         }
-
         let currentProduct = rows[index];
         if (!currentProduct || !stateUtility.isVariation(currentProduct)) {
             return '';
         }
-
         return 'child-row';
     };
     onVerticalScroll = ()=>{
-//      console.log('on vertical scroll this.props.actions  ; ' , this.props.actions);
-        this.props.actions.modifyZIndexOfRows();
+        setTimeout(() => {
+            this.props.actions.recordVisibleRows();
+            this.props.actions.modifyZIndexOfRows();
+        }, 100);
         return true;
     };
     renderProducts = () => {
@@ -146,7 +146,6 @@ class ProductList extends React.Component {
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
-
         return (
             <Table
                 rowHeight={50}
@@ -191,9 +190,11 @@ class ProductList extends React.Component {
     }
     render() {
         if(!this.props.rows.firstRenderOccurred){
+            this.props.actions.recordVisibleRows();
             let rowsExist = !!document.querySelectorAll('.js-row').length;
             if(rowsExist){
                 this.props.actions.modifyZIndexOfRows();
+                this.props.actions.recordVisibleRows();
             }
         }
         return (

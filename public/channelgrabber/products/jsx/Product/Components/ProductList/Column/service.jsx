@@ -60,14 +60,16 @@ let detailsColumns = [
         fixed: false,
         tab: 'details',
         align: 'center'
-    }, {
+    },
+    {
         key: 'weight',
         width: 150,
         headerText: 'Weight',
         fixed: false,
         tab: 'details',
         align: 'center'
-    }, {
+    },
+    {
         key: 'dimensions',
         width: 240,
         headerText: 'Dimensions',

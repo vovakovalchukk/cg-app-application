@@ -7,6 +7,11 @@ let rowActions = (function() {
                 type: "MODIFY_ZINDEX_OF_ROWS",
                 payload: {}
             };
+        },
+        recordVisibleRows: () => {
+            return {
+                type: "VISIBLE_ROWS_RECORD"
+            }
         }
     };
 }());
