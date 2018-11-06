@@ -4,14 +4,17 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 var initialState = {
-    firstCellHasBeenRendered: false
+    firstRenderOccurred: false
 };
 
 var rowsReducer = reducerCreator(initialState, {
     "MODIFY_ZINDEX_OF_ROWS": function(state, action) {
+        console.log('MODIFY_ZINDEX_OF_ROWS');
         modifyZIndexOfScrollableRows();
         modifyZIndexOfHeader();
-        return state;
+        return Object.assign(state, {}, {
+            firstRenderOccurred: true
+        });
     }
 });
 

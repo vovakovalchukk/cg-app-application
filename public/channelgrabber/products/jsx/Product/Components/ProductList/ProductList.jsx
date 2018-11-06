@@ -130,6 +130,11 @@ class ProductList extends React.Component {
 
         return 'child-row';
     };
+    onVerticalScroll = ()=>{
+//      console.log('on vertical scroll this.props.actions  ; ' , this.props.actions);
+        this.props.actions.modifyZIndexOfRows();
+        return true;
+    };
     renderProducts = () => {
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
@@ -159,6 +164,7 @@ class ProductList extends React.Component {
                 scrollToColumn={this.props.tabs.currentColumnScrollIndex}
                 scrollToRow={this.props.list.currentRowScrollIndex}
                 rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
+                onVerticalScroll={this.onVerticalScroll}
             >
                 {this.renderColumns()}
             </Table>
@@ -184,6 +190,12 @@ class ProductList extends React.Component {
         }
     }
     render() {
+        if(!this.props.rows.firstRenderOccurred){
+            let rowsExist = !!document.querySelectorAll('.js-row').length;
+            if(rowsExist){
+                this.props.actions.modifyZIndexOfRows();
+            }
+        }
         return (
             <div id='products-app'>
                 <div className="top-toolbar">
