@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a05cf84103fe7e6d0e21a4cac65050d",
+    "content-hash": "86f52f88d3368d397bb036b5b340b5cd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -717,6 +717,12 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "8e1c4a2b9319c99c59ca8a0f225871b6adfaa821"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-STRAT-2-pbse-variations-b460dc.zip",
+                "reference": "8e1c4a2b9319c99c59ca8a0f225871b6adfaa821",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
                 "channelgrabber/cache": "^2.1.0",
@@ -783,7 +789,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-01T10:29:56+00:00"
+            "time": "2018-11-06T10:48:16+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -10486,8 +10492,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.40.1",
-            "alias_normalized": "1.40.1.0",
+            "alias": "1.42.1",
+            "alias_normalized": "1.42.1.0",
             "version": "dev-EPIC-STRAT-2-pbse-variations",
             "package": "channelgrabber/channel"
         },
