@@ -19,6 +19,8 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Tracking\Entity as OrderTracking;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\Label\Canceller\Factory as LabelCancellerFactory;
+use CG\ShipStation\Carrier\Label\CancellerInterface;
 use CG\ShipStation\Carrier\Label\CreatorInterface;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Messages\Exception\InvalidStateException;
@@ -68,7 +70,11 @@ class Other implements CreatorInterface, LoggerAwareInterface
     protected $shippingServiceFactory;
     /** @var OrderLabelPdfToPngProxy */
     protected $orderLabelPdfToPng;
+    /** @var LabelCancellerFactory */
+    protected $labelCancellerFactory;
 
+    /** @var CancellerInterface[] */
+    protected $accountLabelCancellers = [];
     protected $testLabelWhitelist = ['usps-ss'];
 
     public function __construct(
@@ -79,7 +85,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
         OrderTrackingService $orderTrackingService,
         ShipmentsRequestMapper $shipmentsRequestMapper,
         ShippingServiceFactory $shippingServiceFactory,
-        OrderLabelPdfToPngProxy $orderLabelPdfToPng
+        OrderLabelPdfToPngProxy $orderLabelPdfToPng,
+        LabelCancellerFactory $labelCancellerFactory
     ) {
         $this->shipStationClient = $shipStationClient;
         $this->guzzleClient = $guzzleClient;
@@ -89,6 +96,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->shipmentsRequestMapper = $shipmentsRequestMapper;
         $this->shippingServiceFactory = $shippingServiceFactory;
         $this->orderLabelPdfToPng = $orderLabelPdfToPng;
+        $this->labelCancellerFactory = $labelCancellerFactory;
     }
 
     public function createLabelsForOrders(
@@ -112,6 +120,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
+        $this->cancelLabelsForFailedPdfs($labelPdfs, $labels, $orderLabels, $orders, $shipStationAccount, $shippingAccount);
         $errors = array_merge($shipmentErrors, $labelErrors, $pdfErrors);
         $this->updateOrderLabels($orderLabels, $labels, $labelPdfs, $errors);
 
@@ -295,9 +304,11 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $this->guzzleClient->send($requests);
             return $this->getPdfsFromRequests($requests);
         } catch (MultiTransferException $e) {
+            $this->logWarningException($e, 'Failed to download one or more labels from ShipStation at attempt %d', [$attempt], [static::LOG_CODE, 'LabelPdfs', 'Error']);
             $labelPdfs = $this->getPdfsFromRequests($requests, $e->getFailedRequests());
             if ($attempt < static::PDF_DOWNLOAD_MAX_ATTEMPTS) {
-                $labelPdfsRetry = $this->sendPdfDownloadRequests($e->getFailedRequests(), ++$attempt);
+                $requestsRetry = $this->getPdfDownloadRequestsToRetry($requests, $e->getFailedRequests());
+                $labelPdfsRetry = $this->sendPdfDownloadRequests($requestsRetry, ++$attempt);
                 $labelPdfs = array_merge($labelPdfs, $labelPdfsRetry);
             }
             return $labelPdfs;
@@ -317,6 +328,19 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $labelPdfs[$orderId] = $response->getBody(true);
         }
         return $labelPdfs;
+    }
+
+    protected function getPdfDownloadRequestsToRetry(array $requests, array $failedRequests): array
+    {
+        $requestsToRetry = [];
+        /** @var GuzzleRequest $request */
+        foreach ($requests as $orderId => $request) {
+            if (in_array($request, $failedRequests, true)) {
+                // We can't use the $failedRequests directly as they're not keyed by $orderId
+                $requestsToRetry[$orderId] = $request;
+            }
+        }
+        return $requestsToRetry;
     }
 
     protected function getErrorsForFailedPdfs(array $labelPdfs): array
@@ -344,6 +368,57 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $mergedPdfs[$orderId] = mergePdfData([$labelPdf, $formPdf]);
         }
         return $mergedPdfs;
+    }
+
+    protected function cancelLabelsForFailedPdfs(
+        array $labelPdfs,
+        array $labels,
+        OrderLabelCollection $orderLabels,
+        OrderCollection $orders,
+        Account $shipStationAccount,
+        Account $shippingAccount
+    ): void {
+        $orderLabelsToCancel = $this->getOrderLabelsForFailedPdfs($labelPdfs, $labels, $orderLabels);
+        if ($orderLabelsToCancel->count() == 0) {
+            return;
+        }
+        $labelCanceller = $this->getLabelCanceller($shippingAccount);
+        try {
+            $labelCanceller->cancelOrderLabels($orderLabelsToCancel, $orders, $shippingAccount, $shipStationAccount);
+        } catch (StorageException $e) {
+            $this->logWarningException($e, 'Failed to cancel one or more labels wth ShipStation that we couldnt download the PDF for, ignoring', [], [static::LOG_CODE, 'LabelPdfs', 'Cancel', 'Error']);
+            // If we can't cancel the labels just carry on anyway as we don't want to stop the user retrying
+        }
+    }
+
+    protected function getOrderLabelsForFailedPdfs(
+        array $labelPdfs,
+        array $labels,
+        OrderLabelCollection $orderLabels
+    ): OrderLabelCollection {
+        $orderLabelsToCancel = new OrderLabelCollection(OrderLabel::class, __FUNCTION__);
+        foreach ($labelPdfs as $orderId => $labelPdf) {
+            if ($labelPdf !== null) {
+                continue;
+            }
+            /** @var LabelResponse $labelResponse */
+            $labelResponse = $labels[$orderId];
+            /** @var OrderLabel $orderLabel */
+            $orderLabel = $orderLabels->getBy('orderId', $orderId)->getFirst();
+            // Need to ensure the externalId is set as its required for cancelling
+            $orderLabel->setExternalId($labelResponse->getLabelId());
+            $orderLabelsToCancel->attach($orderLabel);
+        }
+        return $orderLabelsToCancel;
+    }
+
+    protected function getLabelCanceller(Account $shippingAccount): CancellerInterface
+    {
+        if (isset($this->accountLabelCancellers[$shippingAccount->getChannel()])) {
+            return $this->accountLabelCancellers[$shippingAccount->getChannel()];
+        }
+        $this->accountLabelCancellers[$shippingAccount->getChannel()] = ($this->labelCancellerFactory)($shippingAccount->getChannel());
+        return $this->accountLabelCancellers[$shippingAccount->getChannel()];
     }
 
     protected function updateOrderLabels(OrderLabelCollection $orderLabels, array $labels, array $labelPdfs, array $errors)
@@ -411,7 +486,9 @@ class Other implements CreatorInterface, LoggerAwareInterface
                 continue;
             }
             $validationException = new ValidationMessagesException('Validation error');
-            $validationException->addErrors($errors[$order->getId()]);
+            foreach ($errors[$order->getId()] as $error) {
+                $validationException->addErrorWithField($order->getId().':Error', $error);
+            }
             $response[$order->getId()] = $validationException;
         }
         return $response;
