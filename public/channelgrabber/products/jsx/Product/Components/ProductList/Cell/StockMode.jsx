@@ -101,11 +101,6 @@ class StockModeCell extends React.Component {
     };
 
     render() {
-        if(!this.state.rendered){
-            this.setState({
-                rendered:true
-            });
-        }
         const {
             products,
             rowIndex,
@@ -114,7 +109,7 @@ class StockModeCell extends React.Component {
         } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
 
-        if(!row){
+        if (!row) {
             return <span></span>
         }
 
@@ -132,7 +127,7 @@ class StockModeCell extends React.Component {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows : this.props.rows.allIds
+            allRows: this.props.rows.allIds
         });
 
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
@@ -140,7 +135,7 @@ class StockModeCell extends React.Component {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows : this.props.rows.allIds
+            allRows: this.props.rows.allIds
         });
 
         let PortalledSubmits = <span></span>;

@@ -7,7 +7,11 @@ class CellWrapper extends React.Component {
         let {CellContent, products, rowIndex} = this.props;
         const rowData = stateUtility.getRowData(products, rowIndex);
 
-        if(this.isLastRow()){
+        if (this.isFirstCell()) {
+            this.props.actions.signalFirstCellAsRendered();
+        }
+
+        if (this.isLastRow()) {
             return (
                 <span></span>
             )
@@ -19,6 +23,9 @@ class CellWrapper extends React.Component {
             />
         )
     };
+    isFirstCell() {
+        return this.props.rowIndex === 10 && (this.props.columnKey === columnKeys.productExpand);
+    }
     isLastRow() {
         return this.props.products.visibleRows.length === this.props.rowIndex;
     }

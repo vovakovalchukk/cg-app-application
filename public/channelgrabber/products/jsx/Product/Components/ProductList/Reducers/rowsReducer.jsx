@@ -4,16 +4,23 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 var initialState = {
-    firstRenderOccurred: false,
-    allIds: []
+    firstRowHasBeenRendered: false,
+    initialModifyHasOccurred: false,
+    allIds: [],
+    scrollTimeout: () => {}
 };
 
 var rowsReducer = reducerCreator(initialState, {
+    "MARK_FIRST_ROW_AS_RENDERED": function(state){
+        return Object.assign({}, state, {
+            firstRowHasBeenRendered: true
+        });
+    },
     "MODIFY_ZINDEX_OF_ROWS": function(state) {
         modifyZIndexOfScrollableRows();
         modifyZIndexOfHeader();
         return Object.assign({}, state, {
-            firstRenderOccurred: true
+            initialModifyHasOccurred: true
         });
     },
     "VISIBLE_ROWS_RECORD": function(state) {

@@ -56,7 +56,6 @@ let columnCreator = function(column, parentProps) {
             products={column.products}
             actions={column.actions}
             CellContent={CellContent}
-            rows={parentProps.rows}
         />}
     />);
 };
@@ -65,10 +64,14 @@ export default columnCreator;
 
 function applyColumnSpecificProps(column, parentProps) {
     const columnSpecificPropsMap = {
-        stockMode: ['stock'],
+        stockMode: ['stock', 'rows'],
+        available: ['rows'],
+        dimensions: ['rows'],
+        weight: ['rows'],
+        vat: ['rows'],
         bulkSelect: ['bulkSelect']
     };
-    let keysToAssign = columnSpecificPropsMap[column.key]
+    let keysToAssign = columnSpecificPropsMap[column.key] ? columnSpecificPropsMap[column.key] : columnSpecificPropsMap[column.type];
     if (!keysToAssign) {
         return column;
     }

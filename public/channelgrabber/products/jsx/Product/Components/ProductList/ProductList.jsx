@@ -8,6 +8,7 @@ import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
 import constants from 'Product/Components/ProductList/Config/constants';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import rowActions from "./ActionCreators/rowActions";
 
 "use strict";
 
@@ -129,10 +130,12 @@ class ProductList extends React.Component {
         return 'child-row';
     };
     onVerticalScroll = ()=>{
-        setTimeout(() => {
-            this.props.actions.recordVisibleRows();
-            this.props.actions.modifyZIndexOfRows();
-        }, 100);
+        let scrollTimeout;
+        window.clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            dispatch(rowActions.modifyZIndexOfRows());
+            dispatch(rowActions.recordVisibleRows());
+        }, 500);
         return true;
     };
     renderProducts = () => {
@@ -189,14 +192,6 @@ class ProductList extends React.Component {
         }
     }
     render() {
-        if(!this.props.rows.firstRenderOccurred){
-            this.props.actions.recordVisibleRows();
-            let rowsExist = !!document.querySelectorAll('.js-row').length;
-            if(rowsExist){
-                this.props.actions.recordVisibleRows();
-                this.props.actions.modifyZIndexOfRows();
-            }
-        }
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

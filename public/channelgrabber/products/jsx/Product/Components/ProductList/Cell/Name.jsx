@@ -13,20 +13,20 @@ class NameCell extends React.Component {
             );
         });
     };
-
-    componentDidMount() {
-        new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
-    };
-
     getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
     };
-
     getClassNames = () => {
         return this.props.className + ' ' + this.getUniqueClassName();
     };
-
+    componentDidMount() {
+        new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
+    };
     render() {
+//        if (this.props.rowIndex === 1) {
+//            console.log('re-rendering 5th Name Cell');
+//        }
+
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);

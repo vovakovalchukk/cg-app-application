@@ -29,7 +29,7 @@ class VatCell extends React.Component {
             width
         } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
-        
+
         if(stateUtility.isVariation(row)){
             return <span></span>
         }
