@@ -45,7 +45,7 @@ class Usps implements BookingOptionInterface
         return $this->preparePackageTypesForView($packageTypes, $selectedPackage ?? null);
     }
 
-    public function getPossiblePackageTypesForService(string $service): PackageTypeCollection
+    public function getPossiblePackageTypesForService(?string $service): PackageTypeCollection
     {
         return $this->packageTypeService->getPackageTypesForService($service);
     }

@@ -1,4 +1,4 @@
-define([], function() {
+
     var formActionCreators = {
         imageUploadStart: function(image) {
             return {
@@ -39,9 +39,8 @@ define([], function() {
         }
     };
 
-    return formActionCreators;
+    export default formActionCreators;
 
     function variationIsEmpty(currState, variationId) {
         return currState.form.createProductForm.values && currState.form.createProductForm.values.variations["variation-" + variationId];
     }
-});

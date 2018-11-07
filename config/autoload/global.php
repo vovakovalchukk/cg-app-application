@@ -14,6 +14,7 @@
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use CG\Zend\Stdlib\Db\Sql\Sql as CGSql;
+use CG\Order\Client\Gearman\Generator\SetPrintedDate;
 use CG\Order\Shared\StorageInterface as OrderStorage;
 use CG\Order\Client\StorageInterface as OrderClientStorage;
 use CG\Order\Shared\Item\StorageInterface as ItemStorage;
@@ -681,6 +682,11 @@ $config = array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            SetPrintedDate::class => [
+                'parameters' => [
+                    'gearmanClient' => 'orderGearmanClient'
+                ]
+            ]
         ),
     ),
     'view_manager' => [

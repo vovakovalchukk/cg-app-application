@@ -1,15 +1,13 @@
-define([
-    'react'
-], function (React) {
-    var Pane = React.createClass({
-        render: function () {
-            return (
-                <div className="pane">
-                    {this.props.children}
-                </div>
-            );
-        }
-    });
+import React from 'react';
 
-    return Pane;
-});
+class Pane extends React.Component {
+    render() {
+        return (
+            <div className="pane">
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
+export default Pane;

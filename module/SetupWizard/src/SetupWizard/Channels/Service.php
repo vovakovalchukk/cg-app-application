@@ -8,10 +8,11 @@ use CG\Account\Shared\Entity as Account;
 use CG\Channel\Integration\Type as ChannelIntegrationType;
 use CG\Channel\Service as ChannelService;
 use CG\Channel\Type as ChannelType;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Module;
-use Zend\View\Model\ViewModel;
 
 class Service
 {
@@ -47,6 +48,10 @@ class Service
     public function fetchAccountsForActiveUser()
     {
         $activeUser = $this->activeUserContainer->getActiveUser();
+        if (!($activeUser instanceof User)) {
+            throw new NotFound('Active User is not set');
+        }
+
         $ouList = $activeUser->getOuList();
         return $this->fetchAccountsForOUList($ouList);
     }

@@ -1,9 +1,5 @@
-define([
-    './ResponseActions'
-], function(
-    ResponseActions
-) {
-    "use strict";
+import ResponseActions from './ResponseActions';
+
 
     var formatFormValuesForSubmission = function(values, props) {
         return {
@@ -28,14 +24,14 @@ define([
 
     var formatVariationData = function(values, props) {
         var variations = [];
-        for (var sku in values.identifiers) {
+        for (var id in values.identifiers) {
             variations.push(
                 Object.assign(
-                    values.identifiers[sku],
-                    values.dimensions[sku],
+                    values.identifiers[id],
+                    values.dimensions[id],
                     {
-                        sku: sku,
-                        productAccountDetail: formatProductAccountDetailsPrices(values.prices[sku])
+                        sku: values.skus[id],
+                        productAccountDetail: formatProductAccountDetailsPrices(values.prices[id])
                     }
                 )
             );
@@ -250,7 +246,7 @@ define([
         }
     };
 
-    return {
+    export default {
         loadInitialValues: function(
             product,
             variationData,
@@ -336,4 +332,4 @@ define([
             }
         }
     };
-});
+

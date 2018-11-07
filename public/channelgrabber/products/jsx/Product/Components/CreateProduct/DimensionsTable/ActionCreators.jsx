@@ -1,4 +1,4 @@
-define([], function() {
+
     var ActionCreators = {
         cellChangeRecord: function(variationId, fieldId) {
             return {
@@ -11,5 +11,4 @@ define([], function() {
         }
     };
 
-    return ActionCreators;
-});
+    export default ActionCreators;

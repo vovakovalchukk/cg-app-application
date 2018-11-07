@@ -1,10 +1,6 @@
-define([
-    'redux-form'
-], function(
-    ReduxForm
-) {
-    "use strict";
-    var submitForm = ReduxForm.submit('createProductForm');
+import {submit as reduxFormSubmit} from 'redux-form';
+
+var submitForm = reduxFormSubmit('createProductForm');
 
     var actionCreators = {
         initialAccountDataLoaded: function(taxRates, stockModeOptions) {
@@ -50,7 +46,7 @@ define([
         }
     };
 
-    return actionCreators;
+    export default actionCreators;
 
     function isFormValid(values) {
         if (!values.variations || !values.title) {
@@ -120,7 +116,7 @@ define([
             productIdentifiers = {};
         }
         let skuMatch = Object.keys(productIdentifiers).find((key) => {
-            return key === formattedVariation.sku
+            return key === formattedVariation.id
         });
 
         if (!skuMatch) {
@@ -128,8 +124,10 @@ define([
         }
 
         let variationIdentifiers = productIdentifiers[skuMatch];
+        delete variationIdentifiers.id;
 
         let mergedVariation = Object.assign(formattedVariation, variationIdentifiers);
+        delete mergedVariation.id
         return mergedVariation;
     }
 
@@ -166,7 +164,7 @@ define([
             formattedVariation = addStockToFormattedVariation(formattedVariation)
             formattedVariation = addProductIdentifiersToFormattedVariation(formattedVariation, productIdentifiers);
             formattedVariation = addAttributeValuesToFormattedVariation(formattedVariation, attributeNames);
-
+            delete formattedVariation.id;
             return formattedVariation;
         });
     };
@@ -199,4 +197,4 @@ define([
             }
         })
     }
-});
+

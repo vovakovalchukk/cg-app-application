@@ -2,6 +2,7 @@
 
 use CG\Ebay\Listing\CreateData\StorageInterface as ListingDataStorage;
 use CG\Ebay\Listing\CreateData\Storage\Redis as ListingDataStorageRedis;
+use CG\Ebay\ListingImport;
 
 return [
     'di' => [
@@ -13,7 +14,12 @@ return [
                 'parameters' => [
                     'predisClient' => 'reliable_redis',
                 ]
-            ]
+            ],
+            ListingImport::class => [
+                'parameters' => [
+                    'gearmanClient' => 'ebayGearmanClient'
+                ]
+            ],
         ]
     ]
 ];

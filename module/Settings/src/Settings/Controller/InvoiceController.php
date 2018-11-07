@@ -217,16 +217,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->setVariable('amazonSite', $this->getUserAmazonAccountSite())
-            ->setVariable('autoEmail', $invoiceSettings->getAutoEmail())
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true)
             ->setVariable('emailVerified', $invoiceSettings->isEmailVerified())
             ->setVariable('emailSendAs', $invoiceSettings->getEmailSendAs())
             ->setVariable('emailTemplate', $invoiceSettings->getEmailTemplate())
             ->setVariable('tagOptions', $this->orderTagManager->getAvailableTags())
-            ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
-            ->addChild($this->getInvoiceSettingsSendToFbaToggleView($invoiceSettings), 'sendToFbaToggle')
-            ->addChild($this->getInvoiceSettingsAutoEmailToggleView($invoiceSettings), 'autoEmailToggle')
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
@@ -371,6 +367,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             'sendViaEmail' => '/channelgrabber/settings/template/columns/sendViaEmail.mustache',
             'sendToFba' => '/channelgrabber/settings/template/columns/sendToFba.mustache',
             'customSelect' => \CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+            'enable' => '/channelgrabber/settings/template/columns/enable.mustache',
+            'emailContent' => '/channelgrabber/settings/template/columns/emailContent.mustache'
         ]);
         return $datatables;
     }

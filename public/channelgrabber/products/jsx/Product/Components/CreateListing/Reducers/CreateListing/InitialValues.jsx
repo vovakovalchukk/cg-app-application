@@ -1,8 +1,4 @@
-define([
-    'Common/Reducers/creator'
-], function(
-    reducerCreator
-) {
+import reducerCreator from 'Common/Reducers/creator';
     var initialState = {};
 
     var getDetailForProduct = function(detailName, productDetails, variationData) {
@@ -52,17 +48,17 @@ define([
 
         for (var templateId in data.categoryTemplates) {
             var template = data.categoryTemplates[templateId];
-            for (var categoryId in template.categories) {
-                var category = template.categories[categoryId];
+            for (var categoryTemplateAccountId in template.accounts) {
+                var accountCategory = template.accounts[categoryTemplateAccountId];
 
-                if (category.channel !== 'ebay') {
+                if (accountCategory.channel !== 'ebay') {
                     continue;
                 }
                 let defaultsForCategory = {};
                 if (account.listingDuration) {
                     defaultsForCategory.listingDuration = account.listingDuration;
                 }
-                defaults[categoryId] = defaultsForCategory;
+                defaults[categoryTemplateAccountId] = defaultsForCategory;
             }
         }
 
@@ -72,7 +68,7 @@ define([
     var getProductIdentifiers = function(variationData, selectedProductDetails) {
         var identifiers = {};
         variationData.forEach(function(variation) {
-            identifiers[variation.sku] = {
+            identifiers[variation.id] = {
                 ean: variation.details.ean ? variation.details.ean : selectedProductDetails.ean,
                 upc: variation.details.upc ? variation.details.upc : selectedProductDetails.upc,
                 isbn: variation.details.isbn ? variation.details.isbn : selectedProductDetails.isbn,
@@ -83,7 +79,7 @@ define([
         return identifiers;
     };
 
-    return reducerCreator(initialState, {
+    export default reducerCreator(initialState, {
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
                 variationData = action.payload.variationData,
@@ -92,7 +88,7 @@ define([
 
             var dimensions = {};
             variationData.map(function(variation) {
-                dimensions[variation.sku] = {
+                dimensions[variation.id] = {
                     length: variation.details.length,
                     width: variation.details.width,
                     height: variation.details.height,
@@ -107,10 +103,15 @@ define([
                     var price = parseFloat(variation.details.price).toFixed(2);
                     pricesForVariation[accountId] = isNaN(price) ? null : price;
                 });
-                prices[variation.sku] = pricesForVariation;
+                prices[variation.id] = pricesForVariation;
             });
 
             var productDetails = product.detail ? product.details : {};
+
+            var skus = {};
+            variationData.map(function(variation) {
+                skus[variation.id] = variation.sku;
+            });
 
             return {
                 title: selectedProductDetails.title ? selectedProductDetails.title : product.name,
@@ -121,8 +122,9 @@ define([
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
-                category: formatCategoryDefaultValues(action.payload)
+                category: formatCategoryDefaultValues(action.payload),
+                skus: skus
             };
         }
     });
-});
+
