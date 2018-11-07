@@ -715,12 +715,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8e1c4a2b9319c99c59ca8a0f225871b6adfaa821"
+                "reference": "432343be0778b75279a88f80aae8b1b2ef54169b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-STRAT-2-pbse-variations-b460dc.zip",
-                "reference": "8e1c4a2b9319c99c59ca8a0f225871b6adfaa821",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-STRAT-2-pbse-variations-7ebf9f.zip",
+                "reference": "432343be0778b75279a88f80aae8b1b2ef54169b",
                 "shasum": null
             },
             "require": {
@@ -789,7 +789,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-06T10:48:16+00:00"
+            "time": "2018-11-07T10:55:30+00:00"
         },
         {
             "name": "channelgrabber/cilex",

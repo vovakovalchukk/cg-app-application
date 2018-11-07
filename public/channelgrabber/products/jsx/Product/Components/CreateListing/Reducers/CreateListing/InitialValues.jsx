@@ -139,12 +139,13 @@ import reducerCreator from 'Common/Reducers/creator';
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: {
+                    [productId]: Object.assign({}, state.identifiers[productId], {
                         ean: identifier.ean ? identifier.ean : searchProduct.ean,
                         upc: identifier.upc ? identifier.upc : searchProduct.upc,
                         isbn: identifier.isbn ? identifier.isbn : searchProduct.isbn,
-                        mpn: identifier.mpn ? identifier.mpn : searchProduct.mpn
-                    }
+                        mpn: identifier.mpn ? identifier.mpn : searchProduct.mpn,
+                        barcodeNotApplicable: identifier.barcodeNotApplicable
+                    })
                 })
             });
         },
@@ -157,12 +158,12 @@ import reducerCreator from 'Common/Reducers/creator';
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: {
+                    [productId]: Object.assign({}, state.identifiers[productId], {
                         ean: identifier.ean,
                         upc: identifier.upc,
                         isbn: identifier.isbn,
                         mpn: identifier.mpn
-                    }
+                    })
                 })
             });
         }

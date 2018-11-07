@@ -427,7 +427,6 @@ class CreateListingPopup extends React.Component {
     };
 
     render() {
-
         return <SectionedContainer
             sectionClassName={"editor-popup product-create-listing"}
             yesButtonText={this.getYesButtonText()}
@@ -446,7 +445,6 @@ CreateListingPopup = reduxForm({
     enableReinitialize: true,
     // This is required to make the images in the variation table show correctly
     keepDirtyOnReinitialize: true,
-    updateUnregisteredFields: true,
     onSubmit: function(values, dispatch, props) {
         dispatch(Actions.submitListingsForm(dispatch, values, props));
     },
