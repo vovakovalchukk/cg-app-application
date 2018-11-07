@@ -9,8 +9,7 @@ var initialState = {
 };
 
 var rowsReducer = reducerCreator(initialState, {
-    "MODIFY_ZINDEX_OF_ROWS": function(state, action) {
-        console.log('in MODIFY_ZINDEX_OF_ROWS');
+    "MODIFY_ZINDEX_OF_ROWS": function(state) {
         modifyZIndexOfScrollableRows();
         modifyZIndexOfHeader();
         return Object.assign({}, state, {
@@ -40,9 +39,8 @@ function modifyZIndexOfScrollableRows() {
         parentRow.style.zIndex = (allRows.length * 2) - rowIndex;
     }
 }
+
 function modifyZIndexOfHeader() {
     let headerParent = document.querySelector('.public_fixedDataTable_header').parentNode;
     headerParent.style.zIndex = 110;
 }
-
-

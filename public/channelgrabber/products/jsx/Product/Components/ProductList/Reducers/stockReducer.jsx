@@ -22,21 +22,8 @@ let initialState = {
     }
 };
 
-function shouldUpdateStockMode(stock, rowData, stockModeDesired) {
-    return stock.stockModes &&
-        stockModeDesired &&
-        stock.stockModes.byProductId[rowData.id] &&
-        (stock.stockModes.byProductId[rowData.id].value !== stock.stockModes.byProductId[rowData.id].valueEdited);
-}
-function shouldUpdateStockLevel(stock, rowData, stockLevelDesired) {
-    return stock.stockLevels &&
-        stockLevelDesired &&
-        stock.stockLevels.byProductId[rowData.id] &&
-        (stock.stockLevels.byProductId[rowData.id].value !== stock.stockLevels.byProductId[rowData.id].valueEdited);
-}
 let stockModeReducer = reducerCreator(initialState, {
     "STOCK_MODE_SELECT_TOGGLE": function(state, action) {
-        console.log('in STOCK_MODE_SELECT_TOGGLE -R');
         let {productId, currentStock} = action.payload;
         let stateCopy = Object.assign({}, state);
         let stockModes = Object.assign({}, state.stockModes);
@@ -109,7 +96,6 @@ let stockModeReducer = reducerCreator(initialState, {
     "STOCK_MODE_UPDATE_SUCCESS": function(state, action) {
         n.success('Stock mode updated successfully..');
         let {rowData, response, stockModeDesired, stockLevelDesired} = action.payload;
-//        console.log('in STOCK_MODE_UPDATE_SUCCESS with action ', {rowData, response, stockModeDesired, stockLevelDesired});
         let stock = Object.assign({}, state);
 
         if(stockModeDesired){
@@ -133,24 +119,6 @@ let stockModeReducer = reducerCreator(initialState, {
 });
 
 export default stockModeReducer;
-
-function applyStockValue(productId, stock, stockModeDesired, stockProp){
-    console.log('in applyStockValue {productId,stock,stockModeDesired,stockProp}: ', {productId,stock,stockModeDesired,stockProp});
-
-
-    if(!stock[stockProp] || !stock[stockProp].byProductId[productId]){
-        console.log('stock[stockProp] does not exist ', stock[stockProp]);
-        return stock;
-    }
-    stock[stockProp].byProductId[productId].value = stockModeDesired;
-
-    console.log('new prop   stock[stockProp].byProductId[productId].value: ', stock[stockProp].byProductId[productId].value);
-
-    console.log('stock to be returned: ', stock);
-
-
-    return stock
-}
 
 function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {

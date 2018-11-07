@@ -13,14 +13,13 @@ let portalSettingsFactory = (function() {
                 dimension,
                 allRows
             } = paramObj;
-//            console.log('in portalSettingsFactory with paramObj' , paramObj);
 
-            if(allRows && allRows.indexOf(rowIndex)<0){
+            if (allRows && allRows.indexOf(rowIndex) < 0) {
                 return;
             }
 
             let domNodeForSubmits = getDomNodeForAddingSubmitsTo(rowIndex);
-            if(!domNodeForSubmits){
+            if (!domNodeForSubmits) {
                 return;
             }
 
@@ -116,14 +115,11 @@ let portalSettingsFactory = (function() {
 
     function getDomNodeForAddingSubmitsTo(rowIndex) {
         let targetClass = getClassOfCurrentRow(rowIndex);
-//        console.log('targetClass: ', targetClass);
-        
         let targetRow = document.querySelector(targetClass);
-//        console.log('targetRow: ', targetRow);
-        if(!targetRow){
+        if (!targetRow) {
             return;
         }
-        
+
         let targetNode = targetRow.parentNode;
         return targetNode;
     }

@@ -69,50 +69,6 @@ var ProductsReducer = reducerCreator(initialState, {
         n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
         return state;
     },
-    "STOCK_MODE_EDIT_CANCEL": function(state, action) {
-        let {prevValuesForRow, rowData} = action.payload;
-        
-        if (!prevValuesForRow) {
-            return state;
-        }
-        
-        let stateCopy = Object.assign({}, state);
-        let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
-        
-        let rowIndexToChange = getVisibleRowIndexToChangeFromId(rowData.id, visibleRowsCopy);
-        let rowToChange = visibleRowsCopy[rowIndexToChange];
-        
-        rowToChange.stock.stockMode = prevValuesForRow.stockMode;
-        rowToChange.stock.stockLevel = prevValuesForRow.stockLevel ? prevValuesForRow.stockLevel : '';
-        
-        let newState = Object.assign({}, stateCopy, {
-            visibleRows: visibleRowsCopy
-        });
-        
-        return newState;
-    },
-    "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
-        
-        console.log('in STOCK_LEVELS_UPDATE_REQUEST_SUCCESS -R');
-        
-        
-        
-        const {response} = action.payload;
-        let productsCopy = state.simpleAndParentProducts.slice();
-        let visibleRowsCopy = state.visibleRows.slice();
-        let variationsCopy = Object.assign({}, state.variationsByParent);
-        
-        let newProducts = applyStockResponseToProducts(productsCopy, response);
-        let newVisibleRows = applyStockResponseToProducts(visibleRowsCopy, response);
-        let newVariations = applyStockResponseToVariations(visibleRowsCopy, variationsCopy, response);
-        
-        let newState = Object.assign({}, state, {
-            simpleAndParentProducts: newProducts,
-            visibleRows: newVisibleRows,
-            variationsByParent: newVariations
-        });
-        return newState;
-    },
     "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
         let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
         let newState = Object.assign({}, state, {
@@ -256,14 +212,6 @@ function applySingleProductLinkChangeToState(state, newLinks, sku) {
     return newState;
 }
 
-function applyStockModeChangeToVariation(variations, row, stockModeValue, propToChange) {
-    let rowIndexOfVariationToChange = variations[row.parentProductId].findIndex(rowOfChangedProduct => {
-        return rowOfChangedProduct.id === row.id;
-    });
-    variations[row.parentProductId][rowIndexOfVariationToChange][propToChange] = stockModeValue;
-    return variations;
-}
-
 function applyNewProductLinksToState(state, newLinks) {
     const normalizedNewLinks = normalizeLinks(newLinks);
     const stateLinksCopy = Object.assign({}, state.allProductsLinks);
@@ -323,35 +271,6 @@ function changeExpandStatus(products, productId, desiredStatus) {
     });
     products[productRowIndex].expandStatus = desiredStatus;
     return products;
-}
-
-function applyStockResponseToProducts(products, response) {
-    products.forEach((product) => {
-        if (product.variationCount !== 0) {
-            return;
-        }
-        if (!response.stock[product.sku]) {
-            return;
-        }
-        product.stock = response.stock[product.sku];
-    });
-    return products;
-}
-
-function applyStockResponseToVariations(products, variations, response) {
-    products.forEach((product) => {
-        if (product.variationCount == 0 || !variations[product.id]) {
-            return;
-        }
-        variations[product.id].forEach(function(product) {
-            if (!response.stock[product.sku]) {
-                return;
-            }
-            product.stock = response.stock[product.sku];
-            return;
-        });
-    });
-    return variations;
 }
 
 function applyFetchingStatusToVariations(variationsByParent, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS) {

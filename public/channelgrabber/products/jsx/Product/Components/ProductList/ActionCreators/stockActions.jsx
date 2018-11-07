@@ -17,11 +17,6 @@ let actionCreators = (function() {
             }
         },
         changeStockMode: (row, value, propToChange) => {
-//            console.log('in changeStockMode AQ', {
-//                row,
-//                value,
-//                propToChange
-//            });
             return function(dispatch, getState) {
                 if (row === null) {
                     return;
@@ -184,11 +179,9 @@ function updateStock(data) {
 }
 
 function stockModeHasBeenEdited(productStock, stock, rowData) {
-    console.log(' in stockModeHasBeenEdited {productStock,stock,rowData}: ',   {productStock,stock,rowData});
     return stock.stockModes.byProductId[rowData.id] && stock.stockModes.byProductId[rowData.id].valueEdited;
 }
 
 function stockLevelHasBeenEdited(productStock, stock, rowData) {
-    console.log(' in stockLevelHasBeenEdited {productStock,stock,rowData}: ',   {productStock,stock,rowData});
     return stock.stockLevels.byProductId[rowData.id] && stock.stockLevels.byProductId[rowData.id].valueEdited;
 }

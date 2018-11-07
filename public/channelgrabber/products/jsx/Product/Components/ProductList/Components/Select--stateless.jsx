@@ -82,26 +82,22 @@ class StatelessSelectComponent extends React.Component {
         return <Dropdown/>
     };
     render() {
-//        if(this.props.inputId===1){
-//            console.log('in Select--stateless with this.props: ', this.props);
-//        }
         return (
-                <div className={this.getClassNames()}
-                     onClick={this.onComponentClick}
-                     title={this.props.title}
-                >
-                    <div className="selected">
+            <div className={this.getClassNames()}
+                 onClick={this.onComponentClick}
+                 title={this.props.title}
+            >
+                <div className="selected">
                         <span className="selected-content">
                             <b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>
                             {this.getSelectedOptionName()}
                         </span>
-                        <span className="sprite-arrow-down-10-black">&nbsp;</span>
-                    </div>
-                    {this.renderDropdown()}
+                    <span className="sprite-arrow-down-10-black">&nbsp;</span>
                 </div>
+                {this.renderDropdown()}
+            </div>
         );
     }
 }
 
 export default StatelessSelectComponent;
-

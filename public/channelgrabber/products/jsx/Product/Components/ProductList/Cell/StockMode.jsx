@@ -99,10 +99,7 @@ class StockModeCell extends React.Component {
         }
         return row.stock[stockProp];
     };
-//    componentWillReceiveProps() {
-//         force a re-render due to there being an issue where the component's final render finishes before scrolling finishes
-//        setTimeout(() => this.forceUpdate(), 500)
-//    }
+
     render() {
         if(!this.state.rendered){
             this.setState({
@@ -130,20 +127,6 @@ class StockModeCell extends React.Component {
             return <span/>
         }
 
-        //todo - remove the allRows thing if not using it
-
-
-        if (this.props.rowIndex === 0) {
-            console.log('in render for StockMode 0 -  ', {
-                props: this.props,
-//                valueForStockModes,
-//                valueForStockLevels,
-//                isEditing,
-//                PortalledSubmits,
-//                row,/
-            });
-        }
-
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
             rowIndex,
@@ -162,10 +145,6 @@ class StockModeCell extends React.Component {
 
         let PortalledSubmits = <span></span>;
         if (portalSettingsForSubmits) {
-            if (this.props.rowIndex === 0) {
-//                console.log('doing a portal portalSettingsForSubmits: ', portalSettingsForSubmits);
-            }
-            
             PortalledSubmits = portalFactory.createPortal({
                 portalSettings: portalSettingsForSubmits,
                 Component: StyledSafeSubmits,
@@ -175,10 +154,6 @@ class StockModeCell extends React.Component {
                     cancelInput: this.cancelInput
                 }
             });
-        }else{
-            if (this.props.rowIndex === 0) {
-//                console.log('not doing a portal... portalSettingsForSubmits:', portalSettingsForSubmits);
-            }
         }
 
         let {
