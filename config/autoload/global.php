@@ -662,6 +662,11 @@ $config = array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            SetPrintedDate::class => [
+                'parameters' => [
+                    'gearmanClient' => 'orderGearmanClient'
+                ]
+            ],
             PermissionService::class => [
                 'parameters' => [
                     'ouService' => 'organisationUnitApcReadService'
