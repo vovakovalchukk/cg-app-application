@@ -60,9 +60,6 @@ class StockModeInputsComponent extends React.Component {
         let selectedNameFromValue = '';
         if (selected.value) {
             selectedNameFromValue = stockModeOptions.find(option => {
-                console.log('option/selected: ', { option, selected});
-                
-                
                 return option.value === selected.value;
             }).name;
         }
@@ -101,7 +98,6 @@ class StockModeInputsComponent extends React.Component {
                         key={'stockModeContainerInput-'+this.props.inputId}
                         className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
                         name={'stockAmount'}
-//                        disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
                         type={'number'}
                         value={valueForInput}
                         onChange={this.props.stockAmount.input.onChange}

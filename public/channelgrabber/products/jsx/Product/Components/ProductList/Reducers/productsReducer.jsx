@@ -92,6 +92,11 @@ var ProductsReducer = reducerCreator(initialState, {
         return newState;
     },
     "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
+        
+        console.log('in STOCK_LEVELS_UPDATE_REQUEST_SUCCESS -R');
+        
+        
+        
         const {response} = action.payload;
         let productsCopy = state.simpleAndParentProducts.slice();
         let visibleRowsCopy = state.visibleRows.slice();
