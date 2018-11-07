@@ -58,6 +58,15 @@
         }
     }
 }
+
+#invoiceMapping {
+    width: auto !important;
+}
+
+.invoice-settings-field {
+    height: 20px;
+}
+
 .invoiceMapping {
     .med-element {
         width: 120px;
@@ -128,7 +137,7 @@
     }
 }
 .invoiceTradingCompanySettings #accounts_wrapper {
-    width: 65% !important;
+    width: 650px !important;
 }
 .invoiceTradingCompanySettings, .invoiceMappingTable {
     @include calc(width, "100% - 60px");
@@ -165,7 +174,7 @@
     left: 10px;
 
     .inputbox {
-        max-width: 230px;
+        width: 230px;
         box-sizing: border-box;
         margin-right: 10px;
     }
@@ -192,7 +201,7 @@
     min-height: 28px;
 
     .inputbox {
-        max-width: 200px;
+        max-width: 230px;
         box-sizing: border-box;
     }
 }
@@ -225,5 +234,56 @@
 }
 
 .popup .content {
-    width: 600px;
+    width: 660px;
+}
+
+.popup .header-large {
+    background-color: $color-linkblue;
+    color: $color-white;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.popup .button.yes-button {
+    background: #3498db;
+    color: #ffffff;
+}
+
+.email-edit-popup {
+    label {
+        font-size: 16px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .input-holder {
+        margin-top: 10px;
+    }
+
+    #invoice-email-subject-editor {
+        border: 1px solid $color-lgrey;
+        border-radius: 5px;
+        padding: 5px;
+    }
+}
+
+.popup {
+    .last-paragraph {
+        text-align: center;
+        margin: 15px 0 -13px;
+    }
+}
+
+.input-holder.mce-edit-focus {
+    outline: none;
+}
+
+div.mce-tinymce-inline {
+    margin-left: 548px !important;
 }
