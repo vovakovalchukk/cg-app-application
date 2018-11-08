@@ -1,6 +1,7 @@
 const webpackConfig = require('./webpack.config.js');
 
 module.exports = function(grunt) {
+
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
         babel: {
@@ -156,12 +157,12 @@ module.exports = function(grunt) {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
             prod: webpackConfig,
-            dev: Object.assign(webpackConfig,{watch:true})
+            dev: webpackConfig
         },
         watch: {
             babelReact: {
                 files: 'public/channelgrabber/**/jsx/**/*.jsx',
-                tasks: ['newer:babel:react', 'webpack']
+                tasks: ['newer:babel:react']
             },
             babelEs6: {
                 files: 'public/channelgrabber/**/es6/**/*.es6',
