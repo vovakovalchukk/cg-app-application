@@ -2,13 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import FixedDataTable from 'fixed-data-table-2';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
-
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
-
 import ImageCell from 'Product/Components/ProductList/Cell/Image';
 
 "use strict";
+
 const Column = FixedDataTable.Column;
 
 let columnCreator = function(column, parentProps) {

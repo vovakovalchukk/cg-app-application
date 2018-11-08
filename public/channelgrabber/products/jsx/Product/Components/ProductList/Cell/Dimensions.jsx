@@ -6,12 +6,12 @@ import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 
 const InputsContainer = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
-const StyledInput= styled(Input)`
+const StyledInput = styled(Input)`
     display:inline-block
 `;
 
@@ -33,13 +33,13 @@ class DimensionsCell extends React.Component {
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             dimension,
-            allRows : this.props.rows.allIds
+            allRows: this.props.rows.allIds
         });
 
         return (
             <StyledInput
                 name={detail}
-                initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0,1)}
+                initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0, 1)}
                 step="0.1"
                 submitCallback={this.props.actions.saveDetail.bind(this, row)}
                 submitsPortalSettings={portalSettingsForSubmits}
@@ -50,14 +50,14 @@ class DimensionsCell extends React.Component {
     render() {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
-        
+
         const isSimpleProduct = stateUtility.isSimpleProduct(row)
         const isVariation = stateUtility.isVariation(row);
-        
+
         if (!isSimpleProduct && !isVariation) {
             return <span></span>
         }
-        
+
         return (
             <InputsContainer className={this.props.className}>
                 {this.renderInput(row, 'height')} x

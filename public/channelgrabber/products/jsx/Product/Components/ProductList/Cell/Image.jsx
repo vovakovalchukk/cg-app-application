@@ -22,6 +22,7 @@ class ImageCell extends React.Component {
         error: false,
         imageLoaded: false
     };
+
     onError = () => {
         this.setState({
             error: true
@@ -33,9 +34,10 @@ class ImageCell extends React.Component {
         });
     };
     renderImage = () => {
-        if(!this.props.products.visibleRows[this.props.rowIndex]){
-            return ;
+        if (!this.props.products.visibleRows[this.props.rowIndex]) {
+            return;
         }
+
         let cellData = stateUtility.getCellData(
             this.props.products,
             this.props.columnKey,
@@ -57,9 +59,6 @@ class ImageCell extends React.Component {
         );
     };
     render() {
-        if (this.props.rowIndex === 1) {
-//            console.log('re-rendering 5th Image Cell');
-        }
         return (
             <ImageContainer {...this.props}>
                 {this.renderImage()}
@@ -69,4 +68,3 @@ class ImageCell extends React.Component {
 }
 
 export default ImageCell;
-

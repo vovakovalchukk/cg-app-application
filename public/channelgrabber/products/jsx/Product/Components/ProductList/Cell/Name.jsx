@@ -23,10 +23,6 @@ class NameCell extends React.Component {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
     render() {
-//        if (this.props.rowIndex === 1) {
-//            console.log('re-rendering 5th Name Cell');
-//        }
-
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);

@@ -8,13 +8,13 @@ import constants from 'Product/Components/ProductList/Config/constants';
 
 let AddIcon = styled(Icon)`
         background-image: url('${constants.ADD_ICON_URL}');
-        background-size:40%;
+        background-size: 40%;
     `;
 
 AddIcon.sizer = styled.div`
         display:flex;
-        width:${constants.LISTING_ICON_SIZE + 'px'};
-        height:${constants.LISTING_ICON_SIZE + 'px'};
+        width: ${constants.LISTING_ICON_SIZE + 'px'};
+        height: ${constants.LISTING_ICON_SIZE + 'px'};
     `;
 
 class AddListingCell extends React.Component {

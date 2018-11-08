@@ -1,6 +1,5 @@
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions'
 
-
 let tabActions = (function() {
     return {
         changeTab: (desiredTabKey) => {

@@ -4,17 +4,17 @@ import styleVars from 'Product/Components/ProductList/styleVars';
 import Tab from 'Product/Components/ProductList/Components/Tabs/Tab';
 
 let Tabs = styled.div`
-        position:relative;
-        color:blue;
-        width:400px;
+        position: relative;
+        color: blue;
+        width: 400px;
         display: flex;
         flex-wrap: wrap;
-        height:${styleVars.heights.productTabsContainer}px;
-        margin-left:auto;
-        top:5px;
+        height: ${styleVars.heights.productTabsContainer}px;
+        margin-left: auto;
+        top: 5px;
     `;
 Tabs.wrapper = styled.div`
-        position:relative;
+        position: relative;
         background: ${styleVars.colours.greybg};
         top: ${styleVars.heights.navbar}px;
     `;

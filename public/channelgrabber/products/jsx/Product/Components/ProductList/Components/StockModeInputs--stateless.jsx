@@ -9,7 +9,7 @@ class StockModeInputsComponent extends React.Component {
         value: "",
         classNames: null,
         className: '',
-        portalSettingsForSelect:{}
+        portalSettingsForSelect: {}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
@@ -64,13 +64,6 @@ class StockModeInputsComponent extends React.Component {
             }).name;
         }
 
-//        if(this.props.inputId===1){
-//            console.log('in render stateless', {
-//                inputId: this.props.inputId,
-//                value: this.props.stockAmount.input.value
-//            });
-//        }
-
         let valueForInput = this.props.stockAmount.input.value ? this.props.stockAmount.input.value : '';
 
         return (
@@ -93,9 +86,11 @@ class StockModeInputsComponent extends React.Component {
                         actions={this.props.actions}
                     />
                 </div>
-                <div className={"c-stock-mode-input__amount-container"} key={'stockModeContainerDiv-'+this.props.inputId}>
+                <div className={"c-stock-mode-input__amount-container"}
+                     key={'stockModeContainerDiv-' + this.props.inputId}
+                >
                     <input
-                        key={'stockModeContainerInput-'+this.props.inputId}
+                        key={'stockModeContainerInput-' + this.props.inputId}
                         className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
                         name={'stockAmount'}
                         type={'number'}

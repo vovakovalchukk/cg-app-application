@@ -1,5 +1,4 @@
 const path = require('path');
-const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
     mode: "production",
@@ -16,41 +15,17 @@ module.exports = {
         "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
         "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
     },
-    watchOptions: {
-        aggregateTimeout: 2000 // The default
-    },
     module: {
-        rules: [
+        rules:[
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    plugins: babelPluginStyledComponents,
-                    presets: [
-                        ["env",
-                            {
-                                "targets": {
-                                    "browsers": [
-                                        "last 2 Chrome versions",
-                                        "last 2 ff versions"
-                                    ]
-                                }
-                            }
-                        ],
-                        'react',
-                        'stage-2',
-                    ]
+                    presets: ['es2015', 'react', 'stage-2']
                 }
             },
-            {
-                test: /jquery/,
-                use: 'exports-loader?$'
-            },
-            {
-                test: /thenBy/,
-                use: 'exports-loader?firstBy'
-            }
+            { test: /jquery/, use: 'exports-loader?$' },
         ]
     },
     output: {
@@ -93,8 +68,6 @@ module.exports = {
             'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
             'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-tether', 'dist', 'react-tether.js'),
-            'styled-components': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'styled-components', 'dist', 'styled-components.js'),
-            'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js'),
             'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js')
         }
     }

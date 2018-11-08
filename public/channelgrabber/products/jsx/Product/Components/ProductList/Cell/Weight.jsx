@@ -16,8 +16,7 @@ class WeightCell extends React.Component {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            rowData,
-            visibleRows
+            rowData
         } = this.props;
 
         const isSimpleProduct = stateUtility.isSimpleProduct(rowData)
@@ -32,20 +31,20 @@ class WeightCell extends React.Component {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows : this.props.rows.allIds
+            allRows: this.props.rows.allIds
         });
 
         return (
-                <span className={this.props.className}>
-                    <Input
-                        name='weight'
-                        initialValue={(rowData.details && rowData.details.weight) ? parseFloat(rowData.details.weight).toFixed(3) : ''}
-                        step="0.1"
-                        submitCallback={this.props.actions.saveDetail.bind(this, rowData)}
-                        classNames={'u-width-120px'}
-                        submitsPortalSettings={portalSettings}
-                    />
-                </span>
+            <span className={this.props.className}>
+                <Input
+                    name='weight'
+                    initialValue={(rowData.details && rowData.details.weight) ? parseFloat(rowData.details.weight).toFixed(3) : ''}
+                    step="0.1"
+                    submitCallback={this.props.actions.saveDetail.bind(this, rowData)}
+                    classNames={'u-width-120px'}
+                    submitsPortalSettings={portalSettings}
+                />
+            </span>
         );
     }
 }

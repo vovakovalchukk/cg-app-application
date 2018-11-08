@@ -22,7 +22,7 @@ class ProductList extends React.Component {
         actions: {},
         tabs: {}
     };
-    
+
     state = {
         pagination: {
             total: 0,
@@ -39,6 +39,7 @@ class ProductList extends React.Component {
         },
         fetchingUpdatedStockLevelsForSkus: {}
     };
+
     updateDimensions = () => {
         this.setState({
             productsListContainer: {
@@ -129,7 +130,7 @@ class ProductList extends React.Component {
         }
         return 'child-row';
     };
-    onVerticalScroll = ()=>{
+    onVerticalScroll = () => {
         let scrollTimeout;
         clearTimeout(this.scrollTimeout);
         this.scrollTimeout = setTimeout(() => {
@@ -152,8 +153,8 @@ class ProductList extends React.Component {
             <Table
                 rowHeight={44}
                 className={'c-products-data-table'}
-                // add one extra to provide room for the portalled elements in previous row
-                rowsCount={rowCount+1}
+                // add one extra row to provide room for the portalled elements in previous row
+                rowsCount={rowCount + 1}
                 width={width}
                 height={height}
                 headerHeight={36}

@@ -98,11 +98,11 @@ let stockModeReducer = reducerCreator(initialState, {
         let {rowData, response, stockModeDesired, stockLevelDesired} = action.payload;
         let stock = Object.assign({}, state);
 
-        if(stockModeDesired){
+        if (stockModeDesired) {
             stock.stockModes.byProductId[rowData.id].value = stockModeDesired;
             delete stock.stockModes.byProductId[rowData.id].valueEdited;
         }
-        if(stockLevelDesired){
+        if (stockLevelDesired) {
             stock.stockLevels.byProductId[rowData.id].value = stockLevelDesired;
             delete stock.stockLevels.byProductId[rowData.id].valueEdited;
         }

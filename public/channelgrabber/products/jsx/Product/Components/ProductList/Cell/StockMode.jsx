@@ -8,20 +8,20 @@ import portalFactory from "../Portal/portalFactory";
 import SafeSubmits from 'Common/Components/SafeSubmits';
 
 const StyledSafeSubmits = styled(SafeSubmits)`
-    position:absolute;
+    position: absolute;
     transform: translateX(-50%);
 `;
 
 const StockModeCellContainer = styled.div`
-  display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .selected{
         .custom-select{
-            padding:0px;
+            padding: 0px;
         }
     }
-    height:100%;
+    height: 100%;
 `;
 
 class StockModeCell extends React.Component {
@@ -105,12 +105,8 @@ class StockModeCell extends React.Component {
             products,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width,
-            visibleRows
+            width
         } = this.props;
-
-
-
 
         const row = stateUtility.getRowData(products, rowIndex);
 

@@ -6,18 +6,15 @@ class TextCell extends React.Component {
     static defaultProps = {};
     state = {};
 
-    componentDidMount() {
-        new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
-    }
-
     getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
     };
-
     getClasses = () => {
         return this.getUniqueClassName() + ' ' + this.props.className;
     };
-
+    componentDidMount() {
+        new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
+    }
     render() {
         let cellData = stateUtility.getCellData(
             this.props.products,

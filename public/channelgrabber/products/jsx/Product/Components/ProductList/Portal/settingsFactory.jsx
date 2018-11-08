@@ -61,7 +61,7 @@ let portalSettingsFactory = (function() {
     function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
         let distanceElementMap = {};
         distanceElementMap[elementTypes.INPUT_SAFE_SUBMITS] = distanceFromLeftSideOfTableToStartOfCell + (width / 2);
-        // Somewhat hard coding the distance here due to a lack of simple alternatives.
+        // Hard coding the distance here due to a lack of simple alternatives.
         // These will need to be changed if you change the width of the containing cells.
         distanceElementMap[elementTypes.STOCK_MODE_SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell + 27;
         distanceElementMap[elementTypes.SELECT_DROPDOWN] = distanceFromLeftSideOfTableToStartOfCell;

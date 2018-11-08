@@ -2,7 +2,7 @@ import utility from "../utility";
 
 let visibleRowService = (function() {
 
-    function modifyZIndexOfHeader(){
+    function modifyZIndexOfHeader() {
         let headerParent = document.querySelector('.public_fixedDataTable_header').parentNode;
         headerParent.style.zIndex = 110;
     }
@@ -20,10 +20,9 @@ let visibleRowService = (function() {
                     rowsContainer = parentRow.parentNode;
                 }
                 let desiredZIndex = (allRows.length * 2) - rowIndex;
-                //todo - put flag in here to stop uneccessary z-index
                 parentRow.style.zIndex = desiredZIndex;
             }
-        },
+        }
     };
 
     return service;
