@@ -156,7 +156,7 @@ class Service
         $filter = (new AccountFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setOrganisationUnitId([$ou->getId()])
+            ->setRootOrganisationUnitId([$ou->getId()])
             ->setActive(true)
             ->setDeleted(false);
 

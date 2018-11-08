@@ -127,7 +127,7 @@ import PopupComponent from 'Common/Components/Popup';
             "billingEmailAddress": $("input[name='billingEmailAddress']").val(),
             "billingPhoneNumber": $("input[name='billingPhoneNumber']").val(),
             "billingAddressCountryCode": "",
-            "shippingAddressSameAsBilling": $("input[name='shippingAddressUseBilling']").val(),
+            "shippingAddressSameAsBilling": $("input[name='shippingAddressUseBilling']").is(":checked"),
             "shippingAddressCompanyName": $("input[name='shippingAddressCompanyName']").val(),
             "shippingAddressFullName": $("input[name='shippingAddressFullName']").val(),
             "shippingAddress1": $("input[name='shippingAddress1']").val(),
