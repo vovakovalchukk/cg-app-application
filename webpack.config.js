@@ -91,7 +91,7 @@ module.exports = {
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
             'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-tether', 'dist', 'react-tether.js'),
             'styled-components': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'styled-components', 'dist', 'styled-components.js'),
-            'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js')
+            'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js'),
             'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js')
         }
     }
