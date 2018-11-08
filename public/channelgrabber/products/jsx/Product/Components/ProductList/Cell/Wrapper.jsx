@@ -8,7 +8,7 @@ class CellWrapper extends React.Component {
         const rowData = stateUtility.getRowData(products, rowIndex);
 
         if (this.isFirstCell()) {
-            this.props.actions.signalFirstCellAsRendered();
+            this.props.actions.runIntialUpdateForRowsIfApplicable();
         }
 
         if (this.isLastRow()) {

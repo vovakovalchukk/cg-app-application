@@ -35,7 +35,7 @@ let columnCreator = function(column, parentProps) {
 
     let CellToRender = StyledCellWrapper;
 
-    //todo - better handle this
+    // bypassing the CellWrapper for certain cells for performance reasons
     if (column.key === columnKeys.stockMode) {
         CellToRender = StockModeCell;
     }

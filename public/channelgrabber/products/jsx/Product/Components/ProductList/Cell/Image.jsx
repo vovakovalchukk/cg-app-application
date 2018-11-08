@@ -57,7 +57,7 @@ class ImageCell extends React.Component {
     };
     render() {
         if (this.props.rowIndex === 1) {
-            console.log('re-rendering 5th Image Cell');
+//            console.log('re-rendering 5th Image Cell');
         }
         return (
             <ImageContainer {...this.props}>

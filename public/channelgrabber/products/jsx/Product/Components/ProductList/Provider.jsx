@@ -45,8 +45,12 @@ class ProductListProvider extends React.Component {
 
     render() {
         return (
-            <Provider store={store}>
-                <ProductListRoot {...this.props} />
+            <Provider
+                store={store}
+            >
+                <ProductListRoot
+                    {...this.props}
+                />
             </Provider>
         );
     }

@@ -24,7 +24,7 @@ class DimensionsCell extends React.Component {
     state = {};
 
     renderInput = (row, detail) => {
-        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
+        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, visibleRows} = this.props;
 
         let dimension = detail;
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
@@ -32,7 +32,8 @@ class DimensionsCell extends React.Component {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            dimension
+            dimension,
+            allRows : this.props.rows.allIds
         });
 
         return (

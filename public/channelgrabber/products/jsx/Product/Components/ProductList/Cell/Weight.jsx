@@ -16,7 +16,8 @@ class WeightCell extends React.Component {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            rowData
+            rowData,
+            visibleRows
         } = this.props;
 
         const isSimpleProduct = stateUtility.isSimpleProduct(rowData)

@@ -8,7 +8,7 @@ import Tabs from 'Product/Components/ProductList/Components/Tabs/Root';
 import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Button';
 import constants from 'Product/Components/ProductList/Config/constants';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import rowActions from "./ActionCreators/rowActions";
+import visibleRowService from 'Product/Components/ProductList/VisibleRow/service';
 
 "use strict";
 
@@ -131,10 +131,12 @@ class ProductList extends React.Component {
     };
     onVerticalScroll = ()=>{
         let scrollTimeout;
-        window.clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function() {
-            dispatch(rowActions.modifyZIndexOfRows());
-            dispatch(rowActions.recordVisibleRows());
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = setTimeout(() => {
+//            visibleRowService.updateRowsForPortals();
+
+            this.props.actions.updateRowsForPortals();
+            console.log('updated PL');
         }, 500);
         return true;
     };
@@ -178,6 +180,10 @@ class ProductList extends React.Component {
         document.addEventListener("fullscreenchange", this.updateDimensions);
         window.addEventListener('productLinkEditClicked', this.onEditProductLink, false);
         window.addEventListener('productLinkRefresh', this.onProductLinkRefresh, false);
+
+        visibleRowService.updateProductList = () => {
+            this.forceUpdate();
+        };
     }
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);

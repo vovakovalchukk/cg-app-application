@@ -85,8 +85,6 @@ let columnService = (function() {
             let listingsColumns = generateListingsColumnsFromAccounts(accounts);
             let vatColumns = generateVatColumns(vat);
             let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns);
-            console.log('generatedColumns: ', generatedColumns);
-            
             return generatedColumns;
         }
     }

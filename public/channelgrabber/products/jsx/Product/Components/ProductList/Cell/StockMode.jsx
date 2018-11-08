@@ -105,8 +105,13 @@ class StockModeCell extends React.Component {
             products,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            visibleRows
         } = this.props;
+
+
+
+
         const row = stateUtility.getRowData(products, rowIndex);
 
         if (!row) {

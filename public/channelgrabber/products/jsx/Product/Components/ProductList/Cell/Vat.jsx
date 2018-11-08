@@ -26,7 +26,8 @@ class VatCell extends React.Component {
             rowIndex,
             countryCode,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            visibleRows
         } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
 
