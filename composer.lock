@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f5616e15430af9683c69af674529a76",
+    "content-hash": "9f5d8f96506597179aa28f9905f4c9f4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1379,16 +1379,16 @@
         },
         {
             "name": "channelgrabber/feature-flags",
-            "version": "dev-CGIV-9868-products-page-performance-improvments",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feature-flags.git",
-                "reference": "e882ca93dff92b7d84aef1536c537ba760ac1ace"
+                "reference": "e549f05185365d7e80849ed5d9a0b0737df67868"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-dev-CGIV-9868-products-page-performance-improvments-a99fdc.zip",
-                "reference": "e882ca93dff92b7d84aef1536c537ba760ac1ace",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-feature-flags-2.1.2-1f2c8a.zip",
+                "reference": "e549f05185365d7e80849ed5d9a0b0737df67868",
                 "shasum": null
             },
             "require": {
@@ -1412,7 +1412,7 @@
                     "CG\\FeatureFlags\\": "src"
                 }
             },
-            "time": "2018-10-23T11:35:28+00:00"
+            "time": "2018-11-08T16:11:36+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -5956,7 +5956,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6806,7 +6806,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8797,7 +8797,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -9265,7 +9265,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9610,8 +9610,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -10453,18 +10452,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.1.2",
-            "alias_normalized": "2.1.2.0",
-            "version": "dev-CGIV-9868-products-page-performance-improvments",
-            "package": "channelgrabber/feature-flags"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/feature-flags": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
