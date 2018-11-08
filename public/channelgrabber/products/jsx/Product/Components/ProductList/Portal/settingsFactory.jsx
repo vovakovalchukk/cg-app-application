@@ -105,7 +105,7 @@ let portalSettingsFactory = (function() {
             'box-sizing': 'border-box',
             zIndex: zIndexForWrapper,
             position: 'absolute',
-            top: '3rem',
+            top: '2.7rem',
             left: distanceFromLeftSideOfTableToStartOfPortal + 'px',
             transform: translateProp
         };

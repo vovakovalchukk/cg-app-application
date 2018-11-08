@@ -11,14 +11,12 @@ var initialState = {
 
 var rowsReducer = reducerCreator(initialState, {
     "MODIFY_ZINDEX_OF_ROWS": function(state) {
-        console.log('MODIFY_ZINDEX_OF_ROWS -R');
         visibleRowService.modifyZIndexOfRows();
         return Object.assign({}, state, {
             initialModifyHasOccurred: true
         });
     },
     "VISIBLE_ROWS_RECORD": function(state) {
-        console.log('VISIBLE_ROWS_RECORD -R');
         let allVisibleRowsIds = utility.getArrayOfAllRenderedRows().sort();
         state.allIds = allVisibleRowsIds;
         return Object.assign({}, state, {

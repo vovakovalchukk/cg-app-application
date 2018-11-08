@@ -133,10 +133,7 @@ class ProductList extends React.Component {
         let scrollTimeout;
         clearTimeout(this.scrollTimeout);
         this.scrollTimeout = setTimeout(() => {
-//            visibleRowService.updateRowsForPortals();
-
             this.props.actions.updateRowsForPortals();
-            console.log('updated PL');
         }, 500);
         return true;
     };
@@ -153,7 +150,7 @@ class ProductList extends React.Component {
         }
         return (
             <Table
-                rowHeight={50}
+                rowHeight={44}
                 className={'c-products-data-table'}
                 // add one extra to provide room for the portalled elements in previous row
                 rowsCount={rowCount+1}
