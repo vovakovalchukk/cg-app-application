@@ -157,8 +157,6 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: webpackConfig,
-            dev: webpackConfig
             prod: () => {
                 let env = grunt.option('env');
                 if(env==="dev"){
