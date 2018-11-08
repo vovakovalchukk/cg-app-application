@@ -5,7 +5,7 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 let actionCreators = (function() {
     return {
         toggleStockModeSelect: (productId) => {
-            return function(dispatch, getState){
+            return function(dispatch, getState) {
                 let currentStock = getState.customGetters.getStock(productId);
                 dispatch({
                     type: 'STOCK_MODE_SELECT_TOGGLE',
@@ -82,7 +82,7 @@ let actionCreators = (function() {
             }
         },
         cancelStockModeEdit: (rowData) => {
-            return function(dispatch,) {
+            return function(dispatch) {
                 dispatch({
                     type: "STOCK_MODE_EDIT_CANCEL",
                     payload: {

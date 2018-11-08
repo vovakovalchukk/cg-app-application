@@ -2,15 +2,15 @@ import React from "react";
 
 let rowActions = (function() {
     return {
-        runIntialUpdateForRowsIfApplicable:() => {
-            return function(dispatch, getState){
-                if(!getState().rows.initialModifyHasOccurred){
+        runIntialUpdateForRowsIfApplicable: () => {
+            return function(dispatch, getState) {
+                if (!getState().rows.initialModifyHasOccurred) {
                     dispatch(rowActions.updateRowsForPortals());
                 }
             }
         },
-        updateRowsForPortals: () =>{
-            return function(dispatch){
+        updateRowsForPortals: () => {
+            return function(dispatch) {
                 dispatch(rowActions.modifyZIndexOfRows());
                 dispatch(rowActions.recordVisibleRows());
             }
