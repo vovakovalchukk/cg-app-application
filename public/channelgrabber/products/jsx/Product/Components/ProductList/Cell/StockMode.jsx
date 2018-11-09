@@ -99,7 +99,29 @@ class StockModeCell extends React.Component {
         }
         return row.stock[stockProp];
     };
+    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
+        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width,
+            allRows: this.props.rows.allIds
+        });
 
+        let Submits = <span></span>;
+        if (portalSettingsForSubmits) {
+            Submits = portalFactory.createPortal({
+                portalSettings: portalSettingsForSubmits,
+                Component: StyledSafeSubmits,
+                componentProps: {
+                    isEditing,
+                    submitInput: this.submitInput,
+                    cancelInput: this.cancelInput
+                }
+            });
+        }
+        return Submits;
+    };
     render() {
         const {
             products,
@@ -111,7 +133,7 @@ class StockModeCell extends React.Component {
         const row = stateUtility.getRowData(products, rowIndex);
 
         if (!row) {
-            return <span></span>
+            return <span />
         }
 
         const isSimpleProduct = stateUtility.isSimpleProduct(row);
@@ -130,27 +152,8 @@ class StockModeCell extends React.Component {
             width,
             allRows: this.props.rows.allIds
         });
-
-        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.INPUT_SAFE_SUBMITS,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
-            width,
-            allRows: this.props.rows.allIds
-        });
-
-        let PortalledSubmits = <span></span>;
-        if (portalSettingsForSubmits) {
-            PortalledSubmits = portalFactory.createPortal({
-                portalSettings: portalSettingsForSubmits,
-                Component: StyledSafeSubmits,
-                componentProps: {
-                    isEditing,
-                    submitInput: this.submitInput,
-                    cancelInput: this.cancelInput
-                }
-            });
-        }
+        
+        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing});
 
         let {
             toggleStockModeSelect
@@ -187,7 +190,7 @@ class StockModeCell extends React.Component {
                     }}
                     stockModeSelectToggle={this.selectToggle.bind(this)}
                 />
-                {PortalledSubmits}
+                {Submits}
             </StockModeCellContainer>
         );
     }

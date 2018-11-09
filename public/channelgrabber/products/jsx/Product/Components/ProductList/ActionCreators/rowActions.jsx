@@ -4,9 +4,10 @@ let rowActions = (function() {
     return {
         runIntialUpdateForRowsIfApplicable: () => {
             return function(dispatch, getState) {
-                if (!getState().rows.initialModifyHasOccurred) {
-                    dispatch(rowActions.updateRowsForPortals());
+                if(getState().rows.initialModifyHasOccurred){
+                    return;
                 }
+                dispatch(rowActions.updateRowsForPortals());
             }
         },
         updateRowsForPortals: () => {

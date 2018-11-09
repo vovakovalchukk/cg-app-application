@@ -156,7 +156,9 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: webpackConfig,
+            prod: Object.assign({}, webpackConfig, {
+                watch:true
+            }),
             dev: webpackConfig
         },
         watch: {
