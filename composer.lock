@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6c8f09fdec63e5b0a5aaf7f5664f877",
+    "content-hash": "5c7ffd92c41c9eac2bb073d591b0eccc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-10090-amazon-bad-europe-pipeline-url",
+            "version": "1.28.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "bf88eb9376fa2fa1b0fffc4614927999a020816d"
+                "reference": "384d6bc5732c1fc744832621a9bdf129c4d05605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-10090-amazon-bad-europe-pipeline-url-da5ccc.zip",
-                "reference": "bf88eb9376fa2fa1b0fffc4614927999a020816d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.28.1-c724f4.zip",
+                "reference": "384d6bc5732c1fc744832621a9bdf129c4d05605",
                 "shasum": null
             },
             "require": {
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-11-09T13:00:14+00:00"
+            "time": "2018-11-09T13:19:33+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -10453,17 +10453,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.28.1",
-            "alias_normalized": "1.28.1.0",
-            "version": "dev-CGIV-10090-amazon-bad-europe-pipeline-url",
-            "package": "channelgrabber/amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
