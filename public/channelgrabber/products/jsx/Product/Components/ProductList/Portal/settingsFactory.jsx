@@ -2,6 +2,20 @@ import React from 'react';
 import constants from "../Config/constants";
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
+const distanceDimensionMap = {
+    height: 10,
+    width: 85,
+    length: 160
+};
+const elemTypeZIndexMap = {
+    [elementTypes.SELECT_DROPDOWN]: 150,
+    [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: 150
+};
+const translateElementMap = {
+    [elementTypes.INPUT_SAFE_SUBMITS] : 'translateX(-50%)',
+    [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : ''
+}
+
 let portalSettingsFactory = (function() {
     return {
         createPortalSettings: function(paramObj) {
@@ -43,18 +57,10 @@ let portalSettingsFactory = (function() {
     };
 
     function getTranslateProp({elemType}) {
-        let translateElementMap = {}
-        translateElementMap[elementTypes.INPUT_SAFE_SUBMITS] = 'translateX(-50%)';
-        translateElementMap[elementTypes.STOCK_MODE_SELECT_DROPDOWN] = '';
         return translateElementMap[elemType];
     }
 
     function getAddedDistanceForDimensionInput(dimension) {
-        let distanceDimensionMap = {
-            height: 10,
-            width: 85,
-            length: 160
-        };
         return distanceDimensionMap[dimension];
     }
 
@@ -71,10 +77,6 @@ let portalSettingsFactory = (function() {
     }
 
     function getZIndexForWrapper(elemType) {
-        let elemTypeZIndexMap = {
-            [elementTypes.SELECT_DROPDOWN]: 150,
-            [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: 150
-        };
         if (!elemTypeZIndexMap[elemType]) {
             return 100;
         }
@@ -120,8 +122,7 @@ let portalSettingsFactory = (function() {
             return;
         }
 
-        let targetNode = targetRow.parentNode;
-        return targetNode;
+        return targetRow.parentNode;
     }
 
     function getClassOfCurrentRow(rowIndex) {

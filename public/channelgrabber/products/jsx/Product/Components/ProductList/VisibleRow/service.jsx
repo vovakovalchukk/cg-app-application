@@ -13,10 +13,10 @@ let visibleRowService = (function() {
             let allRows = document.querySelectorAll('.js-row');
             let rowsContainer, parentRow;
 
-            for (let j = 0; j < allRows.length; j++) {
-                let rowIndex = utility.getRowIndexFromRow(allRows[j]);
-                parentRow = allRows[j].parentNode;
-                if (j === 0) {
+            for (let index = 0; index < allRows.length; index++) {
+                let rowIndex = utility.getRowIndexFromRow(allRows[index]);
+                parentRow = allRows[index].parentNode;
+                if (index === 0) {
                     rowsContainer = parentRow.parentNode;
                 }
                 let desiredZIndex = (allRows.length * 2) - rowIndex;

@@ -1,24 +1,36 @@
 import reducerCreator from 'Common/Reducers/creator';
 
+/*
+* the state shape with example entries,
+*
+*  stockModeOptions: [],
+*    stockModes: {
+*        byProductId: {
+*            1 : {
+*                value: "List up to"
+*                valueEdited: "Fixed At"
+*                active:true
+*            }
+*        }
+*    },
+*    stockLevels: {
+*        byProductId: {
+*            1 : {
+*                value: "43"
+*                valueEdited: "10009"
+*                active:true
+*            }
+*        }
+*    }
+*/
+
 let initialState = {
     stockModeOptions: [],
     stockModes: {
-        byProductId: {
-//            1 : {
-//                value: "List up to"
-//                valueEdited: "Fixed At"
-//                active:true,
-//            }
-        }
+        byProductId: {}
     },
     stockLevels: {
-        byProductId: {
-//            1 : {
-//                value: "43"
-//                valueEdited: "10009"
-//                active:true,
-//            }
-        }
+        byProductId: {}
     }
 };
 

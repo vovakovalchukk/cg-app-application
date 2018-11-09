@@ -5,6 +5,7 @@ import CellFactory from 'Product/Components/ProductList/Cell/factory';
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
 import ImageCell from 'Product/Components/ProductList/Cell/Image';
+import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
 
 "use strict";
 
@@ -16,7 +17,7 @@ let columnCreator = function(column, parentProps) {
     column = applyColumnSpecificProps(column, parentProps);
 
     let CellContent = CellFactory.createCellContent(column);
-    let CellWrapper = CellFactory.createCellWrapper();
+
     let StyledCellWrapper = styled(CellWrapper)`
             display: flex;
             align-items: center;

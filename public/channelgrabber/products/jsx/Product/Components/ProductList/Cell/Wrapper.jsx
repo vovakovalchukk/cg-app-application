@@ -13,7 +13,7 @@ class CellWrapper extends React.Component {
 
         if (this.isLastRow()) {
             return (
-                <span></span>
+                <span/>
             )
         }
         return (
@@ -24,7 +24,7 @@ class CellWrapper extends React.Component {
         )
     };
     isFirstCell() {
-        return this.props.rowIndex === 10 && (this.props.columnKey === columnKeys.productExpand);
+        return this.props.rowIndex === 0 && (this.props.columnKey === columnKeys.productExpand);
     }
     isLastRow() {
         return this.props.products.visibleRows.length === this.props.rowIndex;

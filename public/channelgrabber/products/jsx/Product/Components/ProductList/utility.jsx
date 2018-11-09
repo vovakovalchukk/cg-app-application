@@ -31,12 +31,11 @@ export default utility;
 function getAllVisibleRowNodes() {
     let rows = document.getElementsByClassName(constants.ROW_CLASS_PREFIX);
     let rowNodes = [];
-    for (var i = 0; i < rows.length; i++) {
-        //todo --- keep an eye on this bit and see if it's necessary before submitting
-        if (i === rows.length) {
+    for (var index = 0; index < rows.length; index++) {
+        if (index === rows.length) {
             continue;
         }
-        rowNodes.push(rows[i]);
+        rowNodes.push(rows[index]);
     }
 
     return rowNodes;

@@ -12,7 +12,6 @@ import VatCell from 'Product/Components/ProductList/Cell/Vat'
 import LinkCell from 'Product/Components/ProductList/Cell/Link';
 import AvailableCell from 'Product/Components/ProductList/Cell/Available';
 import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
-import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
 
 "use strict";
 
@@ -36,16 +35,12 @@ export default (function() {
     return {
         createCellContent: function(column) {
             return getCreatedCell(column)
-        },
-        createCellWrapper: function() {
-            return CellWrapper
         }
     };
     function getCreatedCell(column) {
         if (!column.products.visibleRows.length) {
             return () => (<Cell></Cell>)
         }
-        let CellContentComponent = column.type ? cells[column.type] : cells[column.key];
-        return CellContentComponent;
+        return column.type ? cells[column.type] : cells[column.key];
     }
 }());
