@@ -9,7 +9,6 @@ use SetupWizard\Controller\Service as SetupService;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\Session\ManagerInterface as SessionManager;
 
 class CompanyController extends AbstractActionController
 {
@@ -22,19 +21,19 @@ class CompanyController extends AbstractActionController
     protected $viewModelFactory;
     /** @var RegisterCompanyService */
     protected $registerCompanyService;
-    /** @var SessionManager */
-    protected $sessionManager;
+    /** @var UserLocale */
+    protected $activeUserContainer;
 
     public function __construct(
         Service $setupService,
         ViewModelFactory $viewModelFactory,
         RegisterCompanyService $registerCompanyService,
-        SessionManager $sessionManager
+        UserLocale $activeUserContainer
     ) {
         $this->setupService = $setupService;
         $this->viewModelFactory = $viewModelFactory;
         $this->registerCompanyService = $registerCompanyService;
-        $this->sessionManager = $sessionManager;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function indexAction()
@@ -64,8 +63,7 @@ class CompanyController extends AbstractActionController
 
     protected function getCountryForLocale(): string
     {
-        $sessionStorage = $this->sessionManager->getStorage();
-        $locale = $sessionStorage['locale'];
+        $locale = $this->activeUserContainer->getLocale();
         if ($locale === UserLocale::LOCALE_UK) {
             return CountryNameByCode::getCountryNameFromCode('GB');
         }
