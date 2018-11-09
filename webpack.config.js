@@ -22,7 +22,8 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['es2015', 'react', 'stage-2']
+                    presets: ['es2015', 'react', 'stage-2'],
+                    cacheDirectory: true
                 }
             },
             { test: /jquery/, use: 'exports-loader?$' },
