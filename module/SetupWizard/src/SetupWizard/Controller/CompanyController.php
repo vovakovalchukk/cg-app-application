@@ -3,12 +3,14 @@ namespace SetupWizard\Controller;
 
 use CG\Locale\CountryNameByCode;
 use CG\Locale\UserLocaleInterface as UserLocale;
+use CG_Login\SessionActiveUser;
 use CG_Register\Company\Service as RegisterCompanyService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\ManagerInterface as SessionManager;
 
 class CompanyController extends AbstractActionController
 {
@@ -21,15 +23,19 @@ class CompanyController extends AbstractActionController
     protected $viewModelFactory;
     /** @var RegisterCompanyService */
     protected $registerCompanyService;
+    /** @var SessionManager */
+    protected $sessionManager;
 
     public function __construct(
         Service $setupService,
         ViewModelFactory $viewModelFactory,
-        RegisterCompanyService $registerCompanyService
+        RegisterCompanyService $registerCompanyService,
+        SessionManager $sessionManager
     ) {
         $this->setupService = $setupService;
         $this->viewModelFactory = $viewModelFactory;
         $this->registerCompanyService = $registerCompanyService;
+        $this->sessionManager = $sessionManager;
     }
 
     public function indexAction()
@@ -38,7 +44,7 @@ class CompanyController extends AbstractActionController
 
         /** @var Form $detailsForm */
         $detailsForm = $detailsFormView->getChildrenByCaptureTo('form')[0]->getVariable('form');
-        $detailsForm->get('address')->get('country')->setValue(CountryNameByCode::getCountryNameFromCode('US'));
+        $detailsForm->get('address')->get('country')->setValue($this->getCountryForLocale());
         if ($detailsForm->has('locale')) {
             $detailsForm->get('locale')->setValue(UserLocale::LOCALE_US);
         }
@@ -55,5 +61,15 @@ class CompanyController extends AbstractActionController
         return $this->viewModelFactory->newInstance([
             'buttons' => $this->setupService->getNextButtonViewConfig(),
         ])->setTemplate('elements/buttons.mustache');
+    }
+
+    protected function getCountryForLocale(): string
+    {
+        $sessionStorage = $this->sessionManager->getStorage();
+        $locale = $sessionStorage['locale'];
+        if ($locale === UserLocale::LOCALE_UK) {
+            return CountryNameByCode::getCountryNameFromCode('GB');
+        }
+        return CountryNameByCode::getCountryNameFromCode('US');
     }
 }
