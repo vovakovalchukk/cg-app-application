@@ -13,6 +13,8 @@ module.exports = {
         "setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
+        "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
+        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js"
     },
     module: {
         rules: [
@@ -34,7 +36,7 @@ module.exports = {
                             }
                         ],
                         'react',
-                        'stage-2',
+                        'stage-2'
                     ]
                 }
             },
@@ -61,8 +63,9 @@ module.exports = {
         modules: [
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx'),
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'js-vanilla'),
+            path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6'),
             "node_modules",
-            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js'),
+            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js')
         ],
         extensions: ['.js', '.jsx'],
         alias: {
@@ -71,6 +74,7 @@ module.exports = {
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
+            Reports: path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6', 'Reports'),
             InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),
             SetupWizard: path.resolve(__dirname, 'public', 'channelgrabber', 'setup-wizard', 'jsx'),
             Common: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'dist', 'js', 'Common'),
@@ -86,6 +90,7 @@ module.exports = {
             'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
             'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-tether', 'dist', 'react-tether.js'),
+            'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js')
             'styled-components': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'styled-components', 'dist', 'styled-components.js'),
             'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js')
         }
