@@ -511,6 +511,12 @@ class Other implements CreatorInterface, LoggerAwareInterface
 
     protected function getTrackingNumberOrCarrierReferenceNumber(LabelResponse $labelResponse): ?string
     {
-        return $labelResponse->getTrackingNumber() ?? $labelResponse->getCarrierReferenceNumber() ?? null;
+        if ($labelResponse->getTrackingNumber() !== "") {
+            return $labelResponse->getTrackingNumber();
+        }
+        if ($labelResponse->getCarrierReferenceNumber() !== "") {
+            return $labelResponse->getCarrierReferenceNumber();
+        }
+        return null;
     }
 }
