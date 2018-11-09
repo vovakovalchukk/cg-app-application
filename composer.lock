@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.28.0",
+            "version": "1.28.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d4806947237988ec8aa312e5b37304b4cd920ae4"
+                "reference": "384d6bc5732c1fc744832621a9bdf129c4d05605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.28.0-c8601a.zip",
-                "reference": "d4806947237988ec8aa312e5b37304b4cd920ae4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.28.1-c724f4.zip",
+                "reference": "384d6bc5732c1fc744832621a9bdf129c4d05605",
                 "shasum": null
             },
             "require": {
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-11-01T10:40:14+00:00"
+            "time": "2018-11-09T13:19:33+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
