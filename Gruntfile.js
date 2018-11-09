@@ -69,7 +69,7 @@ module.exports = function(grunt) {
                         src: [
                             '**/dist/**/*.min.js',
                             '**/umd/**/*.min.js',
-                            'cg-*/dist/**/*.js',
+                            'cg-*/dist/**/*.js'
                         ],
                         dest: 'public/cg-built/vendor'
                     }
@@ -156,9 +156,7 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: Object.assign({}, webpackConfig, {
-                watch:true
-            }),
+            prod: webpackConfig,
             dev: webpackConfig
         },
         watch: {
