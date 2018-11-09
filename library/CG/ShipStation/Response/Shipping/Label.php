@@ -233,7 +233,7 @@ class Label extends ResponseAbstract
 
     public function getCarrierReferenceNumber(): string
     {
-        return $this->trackingNumber;
+        return $this->carrierReferenceNumber;
     }
 
     public function isReturnLabel(): bool
