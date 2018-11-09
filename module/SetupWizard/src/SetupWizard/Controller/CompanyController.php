@@ -3,7 +3,6 @@ namespace SetupWizard\Controller;
 
 use CG\Locale\CountryNameByCode;
 use CG\Locale\UserLocaleInterface as UserLocale;
-use CG_Login\SessionActiveUser;
 use CG_Register\Company\Service as RegisterCompanyService;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
