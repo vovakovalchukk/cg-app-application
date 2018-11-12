@@ -17,6 +17,7 @@ use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\ShipStation\Carrier\Label\Canceller\Factory as LabelCancellerFactory;
 use CG\ShipStation\Client as ShipStationClient;
 use CG\ShipStation\Request\Shipping\Label\Rate as RateLabelRequest;
 use CG\ShipStation\Request\Shipping\Label\Query as QueryLabelRequest;
@@ -52,6 +53,7 @@ class Usps extends Other
         ShipmentsRequestMapper $shipmentsRequestMapper,
         ShippingServiceFactory $shippingServiceFactory,
         OrderLabelPdfToPngProxy $orderLabelPdfToPng,
+        LabelCancellerFactory $labelCancellerFactory,
         ShippingLedgerService $shippingLedgerService,
         ShipmentIdStorage $shipmentIdStorage
     ) {
@@ -63,7 +65,8 @@ class Usps extends Other
             $orderTrackingService,
             $shipmentsRequestMapper,
             $shippingServiceFactory,
-            $orderLabelPdfToPng
+            $orderLabelPdfToPng,
+            $labelCancellerFactory
         );
         $this->shippingLedgerService = $shippingLedgerService;
         $this->shipmentIdStorage = $shipmentIdStorage;
