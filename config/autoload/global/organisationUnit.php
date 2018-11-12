@@ -4,27 +4,31 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\ApcRead as OrganisationUnitStorageApcRead;
 use CG\OrganisationUnit\Storage\ApcWrite as OrganisationUnitStorageApcWrite;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
-
+use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorageInterface;
 return [
     'di' => [
         'instance' => [
-            'preferences' => [],
+            'preferences' => [
+//                OrganisationUnitStorageInterface::class => OrganisationUnitService::class
+            ],
             'aliases' => [
                 'organisationUnitApcReadService' => OrganisationUnitService::class,
                 'organisationUnitApcReadRepository' => OrganisationUnitRepository::class
             ],
+            OrganisationUnitStorageApi::class => [
+                'parameters' => [
+                    'client' => 'directory_guzzle',
+                ]
+            ],
             OrganisationUnitRepository::class => [
-                'storage' => OrganisationUnitStorageApcWrite::class,
-                'repository' => OrganisationUnitStorageApi::class
+                'parameters' => [
+                    'storage' => OrganisationUnitStorageApcWrite::class,
+                    'repository' => OrganisationUnitStorageApi::class
+                ]
             ],
             OrganisationUnitService::class => [
                 'parameters' => [
                     'repository' => OrganisationUnitRepository::class,
-                ]
-            ],
-            OrganisationUnitStorageApi::class => [
-                'parameters' => [
-                    'client' => 'directory_guzzle',
                 ]
             ],
             'organisationUnitApcReadService' => [

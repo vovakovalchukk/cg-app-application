@@ -247,7 +247,13 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     {
         /** @var OrganisationUnitEntity $ou */
         $ou = $this->organisationUnitService->fetch($user->getOrganisationUnitId());
+
+        $this->logDebugDump($ou, 'SAVE ', [], 'MYTEST');
+
         $ou->getMetaData()->setSetupCompleteDate((new DateTime())->format(DateTime::FORMAT));
+
+        $this->logDebugDump($ou, 'SAVE AFTER ', [], 'MYTEST');
+
         $this->organisationUnitService->save($ou);
     }
 }
