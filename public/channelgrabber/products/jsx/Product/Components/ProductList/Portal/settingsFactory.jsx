@@ -9,10 +9,10 @@ const distanceDimensionMap = {
 };
 const distanceElementMap = {
     // hard coding the distances here due to a lack of better alternatives
-    [elementTypes.INPUT_SAFE_SUBMITS] : (distanceFromLeftSideOfTableToStartOfCell) => (distanceFromLeftSideOfTableToStartOfCell + (width / 2)),
-    [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : (distanceFromLeftSideOfTableToStartOfCell =>  (distanceFromLeftSideOfTableToStartOfCell + 27)),
-    [elementTypes.SELECT_DROPDOWN]: () => (distanceFromLeftSideOfTableToStartOfCell),
-    [elementTypes.DIMENSIONS_INPUT_SUBMITS]: (distanceFromLeftSideOfTableToStartOfCell) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension))
+    [elementTypes.INPUT_SAFE_SUBMITS] : ({distanceFromLeftSideOfTableToStartOfCell, width}) => (distanceFromLeftSideOfTableToStartOfCell + (width / 2)),
+    [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : ({distanceFromLeftSideOfTableToStartOfCell}) =>  (distanceFromLeftSideOfTableToStartOfCell + 27),
+    [elementTypes.SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {return distanceFromLeftSideOfTableToStartOfCell},
+    [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell,dimension}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension))
 };
 const elemTypeZIndexMap = {
     [elementTypes.SELECT_DROPDOWN]: 150,
@@ -68,7 +68,7 @@ let portalSettingsFactory = (function() {
     }
 
     function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
-        return distanceElementMap[elemType](distanceFromLeftSideOfTableToStartOfCell,width,dimension);
+        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell,width,dimension});
     }
 
     function getZIndexForWrapper(elemType) {
