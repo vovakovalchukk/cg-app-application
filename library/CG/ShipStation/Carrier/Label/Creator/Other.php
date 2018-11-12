@@ -219,13 +219,19 @@ class Other implements CreatorInterface, LoggerAwareInterface
     ): void {
         /** @var LabelResponse $labelResponse */
         foreach ($labelResponses as $orderId => $labelResponse) {
-            if (!empty($labelResponse->getErrors()) || $labelResponse->getTrackingNumber() == '') {
+            if (!empty($labelResponse->getErrors())) {
                 continue;
             }
+
+            $trackingNumber = $this->getTrackingNumberOrCarrierReferenceNumber($labelResponse);
+            if (!isset($trackingNumber)) {
+                continue;
+            }
+
             /** @var Order $order */
             $order = $orders->getById($orderId);
             foreach ($order->getChannelUpdatableOrders() as $updatableOrder) {
-                $tracking = $this->mapOrderTrackingFromLabelResponse($labelResponse, $updatableOrder, $user, $shippingAccount);
+                $tracking = $this->mapOrderTrackingFromLabelResponse($labelResponse, $updatableOrder, $user, $shippingAccount, $trackingNumber);
                 $this->orderTrackingService->save($tracking);
                 $this->orderTrackingService->createGearmanJob($updatableOrder);
             }
@@ -236,7 +242,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
         LabelResponse $labelResponse,
         Order $order,
         User $user,
-        Account $shippingAccount
+        Account $shippingAccount,
+        string $trackingNumber
     ): OrderTracking {
         return $this->orderTrackingMapper->fromArray([
             'organisationUnitId' => $order->getOrganisationUnitId(),
@@ -244,7 +251,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
             'userId' => $user->getId(),
             'timestamp' => (new StdlibDateTime())->stdFormat(),
             'carrier' => $shippingAccount->getDisplayableChannel(),
-            'number' => $labelResponse->getTrackingNumber(),
+            'number' => $trackingNumber,
         ]);
     }
 
@@ -500,5 +507,16 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $unique = OrderLabelPdfToPngGF::FUNCTION_NAME . '-OrderLabel' . $orderLabel->getId();
         $this->orderLabelPdfToPng->proxyBackground(OrderLabelPdfToPngGF::FUNCTION_NAME, serialize($workload), $unique);
         return $this;
+    }
+
+    protected function getTrackingNumberOrCarrierReferenceNumber(LabelResponse $labelResponse): ?string
+    {
+        if ($labelResponse->getTrackingNumber() !== "") {
+            return $labelResponse->getTrackingNumber();
+        }
+        if ($labelResponse->getCarrierReferenceNumber() !== "") {
+            return $labelResponse->getCarrierReferenceNumber();
+        }
+        return null;
     }
 }
