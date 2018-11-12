@@ -8,6 +8,7 @@ const distanceDimensionMap = {
     length: 160
 };
 const distanceElementMap = {
+    // hard coding the distances here due to a lack of better alternatives
     [elementTypes.INPUT_SAFE_SUBMITS] : (distanceFromLeftSideOfTableToStartOfCell) => (distanceFromLeftSideOfTableToStartOfCell + (width / 2)),
     [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : (distanceFromLeftSideOfTableToStartOfCell =>  (distanceFromLeftSideOfTableToStartOfCell + 27)),
     [elementTypes.SELECT_DROPDOWN]: () => (distanceFromLeftSideOfTableToStartOfCell),
