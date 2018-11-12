@@ -11,7 +11,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
