@@ -204,7 +204,10 @@ class Other implements CreatorInterface, LoggerAwareInterface
                 try {
                     $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT,
                         $this->isTestLabel($shippingAccount));
-                    $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
+                    $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest(
+                        $request,
+                        $shipStationAccount
+                    );
                 } catch (StorageException $e) {
                     $labels[$shipment->getOrderId()] = $this->convertStorageExceptionToLabelResponse($e);
                 }
