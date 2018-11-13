@@ -8,9 +8,6 @@ let initialState = {
 
 var userSettingsReducer = reducerCreator(initialState, {
     "METRICS_STORE": function(state, action) {
-        console.log('in METRICS_STORE -R ');
-        
-        
         let {massUnit, lengthUnit} = action.payload;
         let newState = Object.assign({}, state, {
             massUnit,
