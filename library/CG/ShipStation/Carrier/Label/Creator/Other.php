@@ -202,8 +202,11 @@ class Other implements CreatorInterface, LoggerAwareInterface
                     continue;
                 }
                 try {
-                    $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT,
-                        $this->isTestLabel($shippingAccount));
+                    $request = new LabelRequest(
+                        $shipment->getShipmentId(),
+                        static::LABEL_FORMAT,
+                        $this->isTestLabel($shippingAccount)
+                    );
                     $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest(
                         $request,
                         $shipStationAccount
