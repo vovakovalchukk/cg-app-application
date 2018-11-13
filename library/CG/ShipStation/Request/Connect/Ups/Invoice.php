@@ -12,7 +12,7 @@ class Invoice
     /** @var string */
     protected $invoiceDate;
 
-    public function __construct(string $controlId, string $invoiceNumber, float $invoiceAmount, string $invoiceDate)
+    public function __construct(string $invoiceNumber, float $invoiceAmount, string $invoiceDate, ?string $controlId)
     {
         $this->controlId = $controlId;
         $this->invoiceNumber = $invoiceNumber;
@@ -23,29 +23,33 @@ class Invoice
     public static function fromArray(array $array): Invoice
     {
         return new static(
-            $array['control id'] ?? $array['control_id'],
             $array['invoice number'] ?? $array['invoice_number'],
             $array['invoice amount'] ?? $array['invoice_amount'],
-            $array['invoice date'] ?? $array['invoice_date']
+            $array['invoice date'] ?? $array['invoice_date'],
+            $array['control id'] ?? null
+
         );
     }
 
     public function toArray(): array
     {
-        return [
-            'control_id' => $this->getControlId(),
+        $returnData = [
             'invoice_number' => $this->getInvoiceNumber(),
             'invoice_amount' => $this->getInvoiceAmount(),
             'invoice_date' => $this->getInvoiceDate(),
         ];
+        if (isset($this->controlId)) {
+            $returnData['control_id'] = $this->getControlId();
+        }
+        return $returnData;
     }
 
-    public function getControlId(): string
+    public function getControlId(): ?string
     {
         return $this->controlId;
     }
 
-    public function setControlId(string $controlId): Invoice
+    public function setControlId(?string $controlId): Invoice
     {
         $this->controlId = $controlId;
         return $this;
