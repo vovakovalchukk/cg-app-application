@@ -117,14 +117,13 @@ class Other implements CreatorInterface, LoggerAwareInterface
 
         $orderBatches = $this->splitOrdersIntoBatches($orders);
         $shipmentBatches = [];
-        $shipmentErrors = [];
 
         foreach ($orderBatches as $orderBatch) {
             $shipments = $this->createShipmentsForOrders($orderBatch, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
             $shipmentBatches[] = $shipments;
-            $this->getErrorsForFailedShipments($shipments, $shipmentErrors);
         }
 
+        $this->getErrorsForFailedShipments($shipmentBatches, $shipmentErrors);
         $labels = $this->createLabelsForSuccessfulShipments($shipmentBatches, $shipStationAccount, $shippingAccount);
         $this->saveTrackingNumbersForSuccessfulLabels($labels, $orders, $user, $shippingAccount);
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
@@ -174,15 +173,17 @@ class Other implements CreatorInterface, LoggerAwareInterface
         }
     }
 
-    protected function getErrorsForFailedShipments(ShipmentsResponse $shipments, array &$errors = []): array
+    protected function getErrorsForFailedShipments(array $shipmentBatches, array &$errors = []): array
     {
-        /** @var Shipment $shipment */
-        foreach ($shipments as $shipment) {
-            if (empty($shipment->getErrors())) {
-                continue;
+        foreach ($shipmentBatches as $shipmentBatch) {
+            /** @var Shipment $shipment */
+            foreach ($shipmentBatch as $shipment) {
+                if (empty($shipment->getErrors())) {
+                    continue;
+                }
+                $errors[$shipment->getOrderId()] = $shipment->getErrors();
+                $this->logNotice('Failed to create shipment for Order %s', ['order' => $shipment->getOrderId()], [static::LOG_CODE, 'ShipmentFail']);
             }
-            $errors[$shipment->getOrderId()] = $shipment->getErrors();
-            $this->logNotice('Failed to create shipment for Order %s', ['order' => $shipment->getOrderId()], [static::LOG_CODE, 'ShipmentFail']);
         }
         return $errors;
     }
