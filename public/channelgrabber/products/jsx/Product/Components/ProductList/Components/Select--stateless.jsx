@@ -1,5 +1,20 @@
 import React from 'react';
 import ReactDOM from "react-dom";
+import styled from 'styled-components';
+
+const Dropdown = props => (
+    <div className={"animated fadeInDown open-content " + props.className}>
+        <ul>
+            {props.renderOptions()}
+        </ul>
+    </div>
+);
+const StyledDropdown = styled(Dropdown)`
+    && { 
+        width: ${props => props.width ? props.width + 'px' : 'auto'};
+        min-width: ${props => props.width ? 'auto' : 'inherit'};
+    }
+`;
 
 class StatelessSelectComponent extends React.Component {
     static defaultProps = {
@@ -46,7 +61,10 @@ class StatelessSelectComponent extends React.Component {
             return (
                 <PortalWrapper style={{'display': 'green'}}>
                     <div className={'custom-select active'}>
-                        <Dropdown/>
+                        <StyledDropdown
+                            renderOptions={this.renderOptions}
+                            width={this.props.width}
+                        />
                     </div>
                 </PortalWrapper>
             );
@@ -63,17 +81,13 @@ class StatelessSelectComponent extends React.Component {
         return <span/>
     };
     renderDropdown = () => {
-        let Dropdown = () => (
-            <div className="animated fadeInDown open-content">
-                <ul>
-                    {this.renderOptions()}
-                </ul>
-            </div>
-        );
         if (this.props.portalSettingsForDropdown.usePortal && this.props.portalSettingsForDropdown.domNodeForSubmits) {
             return this.renderDropdownInPortal(Dropdown);
         }
-        return <Dropdown/>
+        return <StyledDropdown
+            renderOptions={this.renderOptions}
+            width={this.props.width}
+        />
     };
     render() {
         return (

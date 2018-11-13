@@ -84,6 +84,7 @@ class StockModeInputsComponent extends React.Component {
                         portalSettingsForDropdown={this.props.portalSettingsForDropdown}
                         selectToggle={this.props.stockModeSelectToggle}
                         actions={this.props.actions}
+                        width={100}
                     />
                 </div>
                 <div className={"c-stock-mode-input__amount-container"}
