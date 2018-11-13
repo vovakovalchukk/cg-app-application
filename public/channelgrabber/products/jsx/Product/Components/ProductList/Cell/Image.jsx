@@ -5,18 +5,19 @@ import styled from 'styled-components';
 const ImageContainer = styled.div`
     height:100%;
     display:flex;
+    justify-content: center;
 `;
 
 const Image = styled.img`
-    max-width: ${props => props.maxLength}px;
-    max-height: ${props => props.maxLength}px;
     object-fit: contain;
     background-color: #ebebeb;
     visibility: ${props => props.imageLoaded ? 'visible' : 'hidden'};
 `;
 
 class ImageCell extends React.Component {
-    static defaultProps = {};
+    static defaultProps = {
+        height: 0
+    };
 
     state = {
         error: false,
