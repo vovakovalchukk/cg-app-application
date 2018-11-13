@@ -125,21 +125,19 @@ class Other implements CreatorInterface, LoggerAwareInterface
             $this->getErrorsForFailedShipments($shipments, $shipmentErrors);
         }
 
-        $orderCollection = $this->mergeOrderBatches($orderBatches);
-
         $labels = $this->createLabelsForSuccessfulShipments($shipmentBatches, $shipStationAccount, $shippingAccount);
-        $this->saveTrackingNumbersForSuccessfulLabels($labels, $orderCollection, $user, $shippingAccount);
+        $this->saveTrackingNumbersForSuccessfulLabels($labels, $orders, $user, $shippingAccount);
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
-        $this->cancelLabelsForFailedPdfs($labelPdfs, $labels, $orderLabels, $orderCollection, $shipStationAccount, $shippingAccount);
+        $this->cancelLabelsForFailedPdfs($labelPdfs, $labels, $orderLabels, $orders, $shipStationAccount, $shippingAccount);
         $errors = array_merge($shipmentErrors, $labelErrors, $pdfErrors);
         $this->updateOrderLabels($orderLabels, $labels, $labelPdfs, $errors);
 
         $this->logInfo('Labels created for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'End']);
         $this->removeGlobalLogEventParams(['ou', 'rootOu', 'account']);
 
-        return $this->buildResponseArray($orderCollection, $errors);
+        return $this->buildResponseArray($orders, $errors);
     }
 
     protected function injectSignatureRequiredData(OrderDataCollection $ordersData, Account $shippingAccount): void
@@ -561,18 +559,5 @@ class Other implements CreatorInterface, LoggerAwareInterface
         }
         $this->logDebug('Finished creating %s batches', [$batchCount], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
         return $orderBatches;
-    }
-
-    protected function mergeOrderBatches(array $orderBatches): OrderCollection
-    {
-        $this->logDebug('Merging %s batches into single collection', [count($orderBatches)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MergeBatches']);
-        $collection = new OrderCollection(Order::class, 'LabelCreator');
-        foreach ($orderBatches as $orderBatch) {
-            /** @var Order $order */
-            foreach ($orderBatch as $order) {
-                $collection->attach($order);
-            }
-        }
-        return $collection;
     }
 }
