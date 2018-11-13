@@ -41,9 +41,10 @@ class AvailableCell extends React.Component {
                     initialValue={parseFloat(availableValue)}
                     step="0.1"
                     submitCallback={this.props.actions.updateAvailable.bind(this, rowData)}
-                    inputClassNames={'u-width-100pc u-text-align-right'}
+                    inputClassNames={'u-width-100pc'}
                     sku={rowData.sku}
                     submitsPortalSettings={portalSettings}
+                    width={60}
                 />
             </span>
         );

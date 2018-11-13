@@ -38,17 +38,17 @@ let coreColumns = [
     },
     {
         key: 'name',
-        width: 300,
+        width: 230,
         fixed: true,
         headerText: 'Name',
         align: 'left'
     },
     {
         key: 'available',
-        width: 120,
+        width: 80,
         fixed: true,
         headerText: 'Available',
-        align: 'right'
+        align: 'center'
     }
 ];
 

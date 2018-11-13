@@ -6,6 +6,7 @@ import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
 import ImageCell from 'Product/Components/ProductList/Cell/Image';
 import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
+import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
 
 "use strict";
 
@@ -24,8 +25,8 @@ let columnCreator = function(column, parentProps) {
             height: 100%;
             width:100%;
             box-sizing: border-box;
-            padding-left:1rem;
-            padding-right:1rem;
+            padding-left: ${layoutSettings.columnPadding};
+            padding-right: ${layoutSettings.columnPadding};
             justify-content:${getJustifyContentProp(column)}
         `;
 
