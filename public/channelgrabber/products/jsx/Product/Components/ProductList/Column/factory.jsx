@@ -12,6 +12,24 @@ import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings
 
 const Column = FixedDataTable.Column;
 
+const columnKeysMetricPropertyMap = {
+    [columnKeys.weight] : 'massUnit',
+    [columnKeys.dimensions] : 'lengthUnit'
+};
+const columnSpecificPropsMap = {
+    stockMode: ['stock', 'rows'],
+    available: ['rows'],
+    dimensions: ['rows'],
+    weight: ['rows'],
+    vat: ['rows'],
+    bulkSelect: ['bulkSelect']
+};
+const alignFlexMap = {
+    'center': 'center',
+    'left': 'flex-start',
+    'right': 'flex-end'
+};
+
 let columnCreator = function(column, parentProps) {
     column.actions = parentProps.actions;
     column.products = parentProps.products;
@@ -49,7 +67,7 @@ let columnCreator = function(column, parentProps) {
         columnKey={column.key}
         width={column.width}
         fixed={column.fixed}
-        header={column.headerText}
+        header={getHeaderText(column, parentProps.userSettings)}
         align={getHeaderCellAlignment(column)}
         pureRendering={true}
         cell={<CellToRender
@@ -64,14 +82,6 @@ let columnCreator = function(column, parentProps) {
 export default columnCreator;
 
 function applyColumnSpecificProps(column, parentProps) {
-    const columnSpecificPropsMap = {
-        stockMode: ['stock', 'rows'],
-        available: ['rows'],
-        dimensions: ['rows'],
-        weight: ['rows'],
-        vat: ['rows'],
-        bulkSelect: ['bulkSelect']
-    };
     let keysToAssign = columnSpecificPropsMap[column.key] ? columnSpecificPropsMap[column.key] : columnSpecificPropsMap[column.type];
     if (!keysToAssign) {
         return column;
@@ -83,14 +93,18 @@ function applyColumnSpecificProps(column, parentProps) {
 }
 
 function getJustifyContentProp(column) {
-    const alignFlexMap = {
-        'center': 'center',
-        'left': 'flex-start',
-        'right': 'flex-end'
-    };
     return alignFlexMap[column.align];
 }
 
 function getHeaderCellAlignment(column) {
     return column.align;
+}
+
+function getHeaderText(column, userSettings) {
+    if(!columnKeysMetricPropertyMap[column.key]){
+        return column.headerText;
+    }
+    let metricProp = columnKeysMetricPropertyMap[column.key];
+    let metricString = '('+userSettings[metricProp]+')';
+    return column.headerText + ' ' + metricString;
 }
