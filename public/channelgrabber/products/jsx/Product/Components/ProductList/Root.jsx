@@ -12,6 +12,7 @@ import stockActions from 'Product/Components/ProductList/ActionCreators/stockAct
 import ProductList from 'Product/Components/ProductList/ProductList'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
+import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 
 "use strict";
 
@@ -26,7 +27,8 @@ const mapStateToProps = function(state) {
         stock: state.stock,
         vat: state.vat,
         bulkSelect: state.bulkSelect,
-        rows: state.rows
+        rows: state.rows,
+        userSettings: state.userSettings
     };
 };
 
@@ -55,7 +57,8 @@ function combineActionCreators(ownProps) {
         vatActions,
         bulkSelectActions,
         passedInMethodsAsActions,
-        rowActions
+        rowActions,
+        userSettingsActions
     );
 }
 

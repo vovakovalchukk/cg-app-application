@@ -227,6 +227,8 @@ class RootComponent extends React.Component {
                     addNewProductButtonClick={this.addNewProductButtonClick}
                     onCreateNewListingIconClick={this.onCreateListingIconClick}
                     stockModeOptions={this.props.stockModeOptions}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
                 />
             </div>
         )
