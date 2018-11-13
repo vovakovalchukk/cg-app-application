@@ -196,8 +196,6 @@ class ProductList extends React.Component {
         }
     }
     render() {
-        console.log('this.props: ', this.props);
-
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

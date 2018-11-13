@@ -1,5 +1,11 @@
 import React from 'react';
 import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import styled from 'styled-components';
+
+const StockModesContainer = styled.div`
+    display: flex;
+    align-items: center;  
+`;
 
 class StockModeInputsComponent extends React.Component {
     static defaultProps = {
@@ -67,7 +73,7 @@ class StockModeInputsComponent extends React.Component {
         let valueForInput = this.props.stockAmount.input.value ? this.props.stockAmount.input.value : '';
 
         return (
-            <div className={this.props.className}>
+            <StockModesContainer className={this.props.className}>
                 <div className={"c-stock-mode-input__type-select-container"}>
                     <StatelessSelect
                         inputId={this.props.inputId}
@@ -90,16 +96,20 @@ class StockModeInputsComponent extends React.Component {
                 <div className={"c-stock-mode-input__amount-container"}
                      key={'stockModeContainerDiv-' + this.props.inputId}
                 >
-                    <input
-                        key={'stockModeContainerInput-' + this.props.inputId}
-                        className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
-                        name={'stockAmount'}
-                        type={'number'}
-                        value={valueForInput}
-                        onChange={this.props.stockAmount.input.onChange}
-                    />
+                    <div className={'safe-input-box'}>
+                        <div className={'submit-input'}>
+                            <input
+                                key={'stockModeContainerInput-' + this.props.inputId}
+                                className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
+                                name={'stockAmount'}
+                                type={'number'}
+                                value={valueForInput}
+                                onChange={this.props.stockAmount.input.onChange}
+                            />
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </StockModesContainer>
         );
     }
 }
