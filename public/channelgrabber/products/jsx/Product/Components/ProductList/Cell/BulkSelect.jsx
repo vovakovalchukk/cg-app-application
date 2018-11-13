@@ -1,17 +1,8 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import styled from 'styled-components';
 
-const Checkbox = styled.div`
-    width: 1rem;
-    height: 1rem;
-    border: ${props => (props.isSelected ? 'green solid 1px' : 'grey 1px solid')};
-    line-height: 16px;
-    background: white;
-    color: green;
-    border-radius: 50%;
-    cursor: pointer;
-`;
+import CheckboxStateless from  'Common/Components/Checkbox--stateless';
+
 
 class BulkSelectCell extends React.Component {
     static defaultProps = {};
@@ -42,14 +33,11 @@ class BulkSelectCell extends React.Component {
             return <span/>
         }
         return (
-            <a
+            <CheckboxStateless
                 className={this.props.className}
-                onClick={this.onSelectChange}
-            >
-                <Checkbox isSelected={this.isSelected()}>
-                    {this.isSelected() ? '✔' : ''}
-                </Checkbox>
-            </a>
+                onSelect={this.onSelectChange}
+                isSelected={this.isSelected()}
+            />
         );
     }
 }
