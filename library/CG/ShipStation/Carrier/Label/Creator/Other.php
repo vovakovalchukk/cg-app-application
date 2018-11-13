@@ -52,7 +52,9 @@ class Other implements CreatorInterface, LoggerAwareInterface
     const LABEL_FORMAT = 'pdf';
     const LABEL_SAVE_MAX_ATTEMPTS = 2;
     const PDF_DOWNLOAD_MAX_ATTEMPTS = 2;
+    const ORDER_BATCH_SIZE = 100;
     const LOG_CODE = 'ShipStationLabelCreator';
+    const BATCH_LOG_CODE = 'OrderBatch';
 
     /** @var ShipStationClient */
     protected $shipStationClient;
@@ -111,23 +113,33 @@ class Other implements CreatorInterface, LoggerAwareInterface
     ): array {
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
-
         $this->injectSignatureRequiredData($ordersData, $shippingAccount);
-        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
-        $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
-        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
-        $this->saveTrackingNumbersForSuccessfulLabels($labels, $orders, $user, $shippingAccount);
+
+        $orderBatches = $this->splitOrdersIntoBatches($orders);
+        $shipmentBatches = [];
+        $shipmentErrors = [];
+
+        foreach ($orderBatches as $orderBatch) {
+            $shipments = $this->createShipmentsForOrders($orderBatch, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
+            $shipmentBatches[] = $shipments;
+            $this->getErrorsForFailedShipments($shipments, $shipmentErrors);
+        }
+
+        $orderCollection = $this->mergeOrderBatches($orderBatches);
+
+        $labels = $this->createLabelsForSuccessfulShipments($shipmentBatches, $shipStationAccount, $shippingAccount);
+        $this->saveTrackingNumbersForSuccessfulLabels($labels, $orderCollection, $user, $shippingAccount);
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
         $pdfErrors = $this->getErrorsForFailedPdfs($labelPdfs);
-        $this->cancelLabelsForFailedPdfs($labelPdfs, $labels, $orderLabels, $orders, $shipStationAccount, $shippingAccount);
+        $this->cancelLabelsForFailedPdfs($labelPdfs, $labels, $orderLabels, $orderCollection, $shipStationAccount, $shippingAccount);
         $errors = array_merge($shipmentErrors, $labelErrors, $pdfErrors);
         $this->updateOrderLabels($orderLabels, $labels, $labelPdfs, $errors);
 
         $this->logInfo('Labels created for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'End']);
         $this->removeGlobalLogEventParams(['ou', 'rootOu', 'account']);
 
-        return $this->buildResponseArray($orders, $errors);
+        return $this->buildResponseArray($orderCollection, $errors);
     }
 
     protected function injectSignatureRequiredData(OrderDataCollection $ordersData, Account $shippingAccount): void
@@ -164,9 +176,8 @@ class Other implements CreatorInterface, LoggerAwareInterface
         }
     }
 
-    protected function getErrorsForFailedShipments(ShipmentsResponse $shipments): array
+    protected function getErrorsForFailedShipments(ShipmentsResponse $shipments, array &$errors = []): array
     {
-        $errors = [];
         /** @var Shipment $shipment */
         foreach ($shipments as $shipment) {
             if (empty($shipment->getErrors())) {
@@ -179,23 +190,25 @@ class Other implements CreatorInterface, LoggerAwareInterface
     }
 
     protected function createLabelsForSuccessfulShipments(
-        ShipmentsResponse $shipments,
+        array $shipmentBatches,
         Account $shipStationAccount,
         Account $shippingAccount
     ): array {
         $this->logDebug('Requesting labels for shipments', [], [static::LOG_CODE, 'Labels']);
         $labels = [];
         /** @var Shipment $shipment */
-        foreach ($shipments as $shipment) {
-            if (!empty($shipment->getErrors())) {
-                continue;
-            }
-            try {
-                $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT,
-                    $this->isTestLabel($shippingAccount));
-                $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
-            } catch (StorageException $e) {
-                $labels[$shipment->getOrderId()] = $this->convertStorageExceptionToLabelResponse($e);
+        foreach ($shipmentBatches as $shipmentBatch) {
+            foreach ($shipmentBatch as $shipment) {
+                if (!empty($shipment->getErrors())) {
+                    continue;
+                }
+                try {
+                    $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT,
+                        $this->isTestLabel($shippingAccount));
+                    $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
+                } catch (StorageException $e) {
+                    $labels[$shipment->getOrderId()] = $this->convertStorageExceptionToLabelResponse($e);
+                }
             }
         }
         return $labels;
@@ -518,5 +531,48 @@ class Other implements CreatorInterface, LoggerAwareInterface
             return $labelResponse->getCarrierReferenceNumber();
         }
         return null;
+    }
+
+    protected function splitOrdersIntoBatches(OrderCollection $orders): array
+    {
+        if (!(count($orders) > static::ORDER_BATCH_SIZE)) {
+            $this->logDebug('%s orders to ship. Creating single batch', [count($orders)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'SingleBatch']);
+            return [$orders];
+        }
+
+
+        $totalBatchesRequired = ceil(count($orders)/static::ORDER_BATCH_SIZE);
+        $orderBatches = [];
+        $count = 0;
+        $batchCount = 0;
+        $this->logDebug('%s orders to ship. Beginning creation of %s batches', [count($orders), $totalBatchesRequired], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
+        foreach ($orders as $order) {
+            if (!isset($orderBatches[$batchCount])) {
+                $collection = new OrderCollection(Order::class, 'LabelCreator');
+                $orderBatches[$batchCount] = $collection;
+                $this->logDebug('Creating batch %s of %s', [($batchCount + 1), $totalBatchesRequired], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
+            }
+            $orderBatches[$batchCount]->attach($order);
+            $count++;
+            if ($count >= static::ORDER_BATCH_SIZE) {
+                $count = 0;
+                $batchCount++;
+            }
+        }
+        $this->logDebug('Finished creating %s batches', [$batchCount], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
+        return $orderBatches;
+    }
+
+    protected function mergeOrderBatches(array $orderBatches): OrderCollection
+    {
+        $this->logDebug('Merging %s batches into single collection', [count($orderBatches)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MergeBatches']);
+        $collection = new OrderCollection(Order::class, 'LabelCreator');
+        foreach ($orderBatches as $orderBatch) {
+            /** @var Order $order */
+            foreach ($orderBatch as $order) {
+                $collection->attach($order);
+            }
+        }
+        return $collection;
     }
 }
