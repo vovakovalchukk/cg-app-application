@@ -29,7 +29,7 @@ class AvailableCell extends React.Component {
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
             rowIndex,
             // Had to hardcode to show the safe input buttons in the right place
-            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + 13,
+            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell,
             width,
             allRows: this.props.rows.allIds
         });

@@ -43,6 +43,7 @@ class WeightCell extends React.Component {
                     submitCallback={this.props.actions.saveDetail.bind(this, rowData)}
                     classNames={'u-width-120px'}
                     submitsPortalSettings={portalSettings}
+                    width={60}
                 />
             </span>
         );

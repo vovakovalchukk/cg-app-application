@@ -63,7 +63,7 @@ let detailsColumns = [
     },
     {
         key: 'weight',
-        width: 150,
+        width: 90,
         headerText: 'Weight',
         fixed: false,
         tab: 'details',
