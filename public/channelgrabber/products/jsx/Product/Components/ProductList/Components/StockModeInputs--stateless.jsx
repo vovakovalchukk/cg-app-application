@@ -6,6 +6,9 @@ const StockModesContainer = styled.div`
     display: flex;
     align-items: center;  
 `;
+const StockModeValue = styled.input`
+    width: 45px;
+`;
 
 class StockModeInputsComponent extends React.Component {
     static defaultProps = {
@@ -98,13 +101,14 @@ class StockModeInputsComponent extends React.Component {
                 >
                     <div className={'safe-input-box'}>
                         <div className={'submit-input'}>
-                            <input
+                            <StockModeValue
                                 key={'stockModeContainerInput-' + this.props.inputId}
-                                className={'c-input-field c-stock-mode-input__amount_input u-margin-left-xsmall'}
+                                className={'c-input-field'}
                                 name={'stockAmount'}
                                 type={'number'}
                                 value={valueForInput}
                                 onChange={this.props.stockAmount.input.onChange}
+                                width={45}
                             />
                         </div>
                     </div>

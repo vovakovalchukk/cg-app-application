@@ -55,7 +55,7 @@ let coreColumns = [
 let detailsColumns = [
     {
         key: 'stockMode',
-        width: 240,
+        width: 200,
         headerText: 'Stock Mode',
         fixed: false,
         tab: 'details',
@@ -63,7 +63,7 @@ let detailsColumns = [
     },
     {
         key: 'weight',
-        width: 90,
+        width: 80,
         headerText: 'Weight',
         fixed: false,
         tab: 'details',
@@ -71,7 +71,7 @@ let detailsColumns = [
     },
     {
         key: 'dimensions',
-        width: 240,
+        width: 200,
         headerText: 'Dimensions',
         fixed: false,
         tab: 'details',

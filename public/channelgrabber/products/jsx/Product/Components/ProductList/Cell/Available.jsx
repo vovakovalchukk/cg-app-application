@@ -44,7 +44,7 @@ class AvailableCell extends React.Component {
                     inputClassNames={'u-width-100pc'}
                     sku={rowData.sku}
                     submitsPortalSettings={portalSettings}
-                    width={60}
+                    width={45}
                 />
             </span>
         );

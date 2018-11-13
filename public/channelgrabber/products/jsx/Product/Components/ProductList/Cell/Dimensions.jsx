@@ -10,9 +10,12 @@ const InputsContainer = styled.div`
     justify-content: center;
     align-items: center;
 `;
-
 const StyledInput = styled(Input)`
-    display:inline-block
+    display:inline-block,
+`;
+const Cross = styled.span`
+    margin-left:3px;
+    margin-right:3px;
 `;
 
 class DimensionsCell extends React.Component {
@@ -43,6 +46,7 @@ class DimensionsCell extends React.Component {
                 step="0.1"
                 submitCallback={this.props.actions.saveDetail.bind(this, row)}
                 submitsPortalSettings={portalSettingsForSubmits}
+                width={45}
             />
         )
     };
@@ -60,8 +64,10 @@ class DimensionsCell extends React.Component {
 
         return (
             <InputsContainer className={this.props.className}>
-                {this.renderInput(row, 'height')} x
-                {this.renderInput(row, 'width')} x
+                {this.renderInput(row, 'height')}
+                <Cross>✕</Cross>
+                {this.renderInput(row, 'width')}
+                <Cross>✕</Cross>
                 {this.renderInput(row, 'length')}
             </InputsContainer>
         );
