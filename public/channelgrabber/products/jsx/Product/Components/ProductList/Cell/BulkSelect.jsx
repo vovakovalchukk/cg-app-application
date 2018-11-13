@@ -37,6 +37,10 @@ class BulkSelectCell extends React.Component {
     };
 
     render() {
+        const row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        if(stateUtility.isVariation(row)){
+            return <span/>
+        }
         return (
             <a
                 className={this.props.className}
