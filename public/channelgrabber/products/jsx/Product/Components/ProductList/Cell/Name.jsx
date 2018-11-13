@@ -39,8 +39,6 @@ class NameCell extends React.Component {
         const isVariation = stateUtility.isVariation(row);
         let name = isVariation ? this.getVariationName(row) : row['name'];
 
-        name = "sdfsoidjfsodijgdofgjdofgijd fdjfgoidjgod odifjgdofijg iojsoijfsoij nwe kjn kosidjfosidjfos oiawjoijwof nsk jdfskbiuq oqiwo qenqwkejnqkwe qiw oijs ois ofjsodi osif jo"
-
         return (
             <NameContainer>
                 <LinesEllipsis
@@ -53,12 +51,6 @@ class NameCell extends React.Component {
                 />
             </NameContainer>
         );
-
-        //        return (
-//            <div {...this.props} className={this.getClassNames()} data-copy={name} title={name}>
-//                <NameText id ="in the name">{name}</NameText>
-//            </div>
-//        );
     }
 }
 

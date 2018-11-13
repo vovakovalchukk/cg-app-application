@@ -3,6 +3,7 @@ import React from 'react';
 import Tooltip from 'Product/Components/Tooltip';
 import constants from 'Product/Components/ProductList/Config/constants';
 import Skeleton from 'react-skeleton-loader';
+import styled from 'styled-components';
 
 "use strict";
 
@@ -11,6 +12,10 @@ const LINK_ICON_DIMENSIONS = {
     width: 18,
     height: 18
 };
+
+const LinkIcon = styled.div`
+    cursor: pointer;
+`;
 
 class LinkComponent extends React.Component {
     static defaultProps = {
@@ -70,9 +75,7 @@ class LinkComponent extends React.Component {
         }
         var spriteClass = (this.props.productLinks.length ? 'sprite-linked-18-blue' : 'sprite-linked-18-white');
         return (
-            <span className={"sprite " + spriteClass + " click"}
-                  onClick={this.onClick}
-            ></span>
+            <LinkIcon className={"sprite " + spriteClass + " click"} onClick={this.onClick} />
         );
     };
 
