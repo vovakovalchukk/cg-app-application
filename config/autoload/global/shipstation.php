@@ -275,7 +275,7 @@ return [
                             ]
                         ],
                         'ups-uk' => [
-                            'channelName' => 'ups-ss',
+                            'channelName' => 'ups-ss-uk',
                             'displayName' => 'UPS (UK)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
@@ -364,12 +364,6 @@ return [
                                     'label' => 'Telephone',
                                     'required' => true,
                                     'inputType' => 'number',
-                                ],
-                                'control_id' => [
-                                    'name' => 'control_id',
-                                    'label' => 'Control ID',
-                                    'required' => true,
-                                    'inputType' => 'text',
                                 ],
                                 'invoice_number' => [
                                     'name' => 'invoice_number',
