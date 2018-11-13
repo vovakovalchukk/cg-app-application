@@ -32,6 +32,7 @@ use CG\ShipStation\Response\Shipping\Shipment;
 use CG\ShipStation\Response\Shipping\Shipments as ShipmentsResponse;
 use CG\ShipStation\ShippingService\Factory as ShippingServiceFactory;
 use CG\ShipStation\ShippingService\RequiresSignatureInterface;
+use CG\Stdlib\CollectionInterface;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
@@ -115,15 +116,13 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->logInfo('Create labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
         $this->injectSignatureRequiredData($ordersData, $shippingAccount);
 
-        $orderBatches = $this->splitOrdersIntoBatches($orders);
         $shipmentBatches = [];
-
-        foreach ($orderBatches as $orderBatch) {
+        foreach ($this->splitOrdersIntoBatches($orders) as $orderBatch) {
             $shipments = $this->createShipmentsForOrders($orderBatch, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
             $shipmentBatches[] = $shipments;
         }
 
-        $this->getErrorsForFailedShipments($shipmentBatches, $shipmentErrors);
+        $shipmentErrors = $this->getErrorsForFailedShipments($shipmentBatches);
         $labels = $this->createLabelsForSuccessfulShipments($shipmentBatches, $shipStationAccount, $shippingAccount);
         $this->saveTrackingNumbersForSuccessfulLabels($labels, $orders, $user, $shippingAccount);
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
@@ -173,8 +172,9 @@ class Other implements CreatorInterface, LoggerAwareInterface
         }
     }
 
-    protected function getErrorsForFailedShipments(array $shipmentBatches, array &$errors = []): array
+    protected function getErrorsForFailedShipments(array $shipmentBatches): array
     {
+        $errors = [];
         foreach ($shipmentBatches as $shipmentBatch) {
             /** @var Shipment $shipment */
             foreach ($shipmentBatch as $shipment) {
@@ -535,33 +535,38 @@ class Other implements CreatorInterface, LoggerAwareInterface
         return null;
     }
 
-    protected function splitOrdersIntoBatches(OrderCollection $orders): array
+    protected function splitOrdersIntoBatches(OrderCollection $orders): iterable
     {
         if (!(count($orders) > static::ORDER_BATCH_SIZE)) {
             $this->logDebug('%s orders to ship. Creating single batch', [count($orders)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'SingleBatch']);
-            return [$orders];
+            yield $orders;
         }
+        $this->logDebug('%s orders to ship. Beginning creation of %s batches', [count($orders), ceil(count($orders)/static::ORDER_BATCH_SIZE)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
 
+        $orderBatchArrays = array_chunk($this->getArrayFromCollection($orders), static::ORDER_BATCH_SIZE);
+        $currentBatch = 0;
+        foreach ($orderBatchArrays as $orderBatchArray) {
+            $currentBatch++;
+            $this->logDebug('Created batch %s of %s', [$currentBatch, ceil(count($orders)/static::ORDER_BATCH_SIZE)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
+            yield $this->arrayToOrderCollection($orderBatchArray);
+        }
+    }
 
-        $totalBatchesRequired = ceil(count($orders)/static::ORDER_BATCH_SIZE);
-        $orderBatches = [];
-        $count = 0;
-        $batchCount = 0;
-        $this->logDebug('%s orders to ship. Beginning creation of %s batches', [count($orders), $totalBatchesRequired], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
+    protected function getArrayFromCollection(CollectionInterface $collection): array
+    {
+        $entities = [];
+        foreach ($collection as $entity) {
+            $entities[] = $entity;
+        }
+        return $entities;
+    }
+
+    protected function arrayToOrderCollection(array $orders): OrderCollection
+    {
+        $collection = new OrderCollection(Order::class, 'LabelCreator');
         foreach ($orders as $order) {
-            if (!isset($orderBatches[$batchCount])) {
-                $collection = new OrderCollection(Order::class, 'LabelCreator');
-                $orderBatches[$batchCount] = $collection;
-                $this->logDebug('Creating batch %s of %s', [($batchCount + 1), $totalBatchesRequired], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
-            }
-            $orderBatches[$batchCount]->attach($order);
-            $count++;
-            if ($count >= static::ORDER_BATCH_SIZE) {
-                $count = 0;
-                $batchCount++;
-            }
+            $collection->attach($order);
         }
-        $this->logDebug('Finished creating %s batches', [$batchCount], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
-        return $orderBatches;
+        return $collection;
     }
 }
