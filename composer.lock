@@ -3176,12 +3176,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c7e90ee58f3336163983b9287e6bcb8369024aa3"
+                "reference": "cb1e9273c0a384672ec9328057d6cf1d0af2e882"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-10096-batch-shipstation-label-creation-f1468c.zip",
-                "reference": "c7e90ee58f3336163983b9287e6bcb8369024aa3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-10096-batch-shipstation-label-creation-a4466f.zip",
+                "reference": "cb1e9273c0a384672ec9328057d6cf1d0af2e882",
                 "shasum": null
             },
             "require": {
@@ -3225,7 +3225,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-11-14T10:38:22+00:00"
+            "time": "2018-11-14T11:30:28+00:00"
         },
         {
             "name": "channelgrabber/stock",
