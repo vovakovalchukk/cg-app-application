@@ -54,7 +54,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     const LABEL_FORMAT = 'pdf';
     const LABEL_SAVE_MAX_ATTEMPTS = 2;
     const PDF_DOWNLOAD_MAX_ATTEMPTS = 2;
-    const ORDER_BATCH_SIZE = 2;
+    const ORDER_BATCH_SIZE = 100;
     const LOG_CODE = 'ShipStationLabelCreator';
     const BATCH_LOG_CODE = 'OrderBatch';
 
