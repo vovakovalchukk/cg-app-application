@@ -39,6 +39,7 @@ use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use function CG\StdLib\mergePdfData;
+use function CG\StdLib\collection_chunk;
 use CG\StdLib\Exception\Storage as StorageException;
 use CG\User\Entity as User;
 use Guzzle\Http\Client as GuzzleClient;
@@ -53,7 +54,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     const LABEL_FORMAT = 'pdf';
     const LABEL_SAVE_MAX_ATTEMPTS = 2;
     const PDF_DOWNLOAD_MAX_ATTEMPTS = 2;
-    const ORDER_BATCH_SIZE = 100;
+    const ORDER_BATCH_SIZE = 2;
     const LOG_CODE = 'ShipStationLabelCreator';
     const BATCH_LOG_CODE = 'OrderBatch';
 
@@ -117,7 +118,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
         $this->injectSignatureRequiredData($ordersData, $shippingAccount);
 
         $shipmentBatches = [];
-        foreach ($this->splitOrdersIntoBatches($orders) as $orderBatch) {
+        foreach (collection_chunk($orders, static::ORDER_BATCH_SIZE) as $orderBatch) {
             $shipments = $this->createShipmentsForOrders($orderBatch, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
             $shipmentBatches[] = $shipments;
         }
@@ -536,40 +537,5 @@ class Other implements CreatorInterface, LoggerAwareInterface
             return $labelResponse->getCarrierReferenceNumber();
         }
         return null;
-    }
-
-    protected function splitOrdersIntoBatches(OrderCollection $orders): iterable
-    {
-        if (!(count($orders) > static::ORDER_BATCH_SIZE)) {
-            $this->logDebug('%s orders to ship. Creating single batch', [count($orders)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'SingleBatch']);
-            yield $orders;
-        }
-        $this->logDebug('%s orders to ship. Beginning creation of %s batches', [count($orders), ceil(count($orders)/static::ORDER_BATCH_SIZE)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
-
-        $orderBatchArrays = array_chunk($this->getArrayFromCollection($orders), static::ORDER_BATCH_SIZE);
-        $currentBatch = 0;
-        foreach ($orderBatchArrays as $orderBatchArray) {
-            $currentBatch++;
-            $this->logDebug('Created batch %s of %s', [$currentBatch, ceil(count($orders)/static::ORDER_BATCH_SIZE)], [static::LOG_CODE, static::BATCH_LOG_CODE, 'MultipleBatches']);
-            yield $this->arrayToOrderCollection($orderBatchArray);
-        }
-    }
-
-    protected function getArrayFromCollection(CollectionInterface $collection): array
-    {
-        $entities = [];
-        foreach ($collection as $entity) {
-            $entities[] = $entity;
-        }
-        return $entities;
-    }
-
-    protected function arrayToOrderCollection(array $orders): OrderCollection
-    {
-        $collection = new OrderCollection(Order::class, 'LabelCreator');
-        foreach ($orders as $order) {
-            $collection->attach($order);
-        }
-        return $collection;
     }
 }
