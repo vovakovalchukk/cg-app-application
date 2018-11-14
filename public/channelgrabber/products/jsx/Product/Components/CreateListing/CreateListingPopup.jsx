@@ -350,7 +350,7 @@ class CreateListingPopup extends React.Component {
 
     areAllVariationsAssigned = () => {
         return this.props.variationsDataForProduct.every(variation => {
-            return !!(this.props.productSearch.selectedProducts[variation.sku]);
+            return !!(this.props.productSearch.selectedProducts[variation.id]);
         });
     };
 
