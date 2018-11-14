@@ -33,9 +33,6 @@ class StockModeInputsComponent extends React.Component {
         var shortenedOptions = [];
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
-            if (option.value == 'null') {
-                continue;
-            }
             if (option.title.indexOf('List all') > -1) {
                 shortenedOptions.push(option);
             }
