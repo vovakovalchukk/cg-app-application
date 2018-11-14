@@ -4607,8 +4607,8 @@ react-tether@^0.6.1:
     tether "^1.4.3"
 
 react-tether@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-1.0.2.tgz#3851d76049a12475204b913469e9fb8377234cf4"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-1.0.3.tgz#5883c8c914d59a3b0753fe4380a949de220b95bf"
   dependencies:
     prop-types "^15.5.8"
     tether "^1.4.3"
@@ -5412,8 +5412,8 @@ tar@^4:
     yallist "^3.0.2"
 
 tether@^1.4.3:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.5.tgz#8efd7b35572767ba502259ba9b1cc167fcf6f2c1"
 
 tfunk@^3.0.1:
   version "3.1.0"
