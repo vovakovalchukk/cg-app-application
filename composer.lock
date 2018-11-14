@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fa976712bbfaf4b0c6d447adc4d5550",
+    "content-hash": "e04e37bb92962f9f26f4614d582e562e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2044,16 +2044,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.41.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04"
+                "reference": "095ac946e9a8f48cf24e95debe12ac44c2a1242e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.41.0-5c3e6c.zip",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-123-bigcommerce-abandoned-orders-266152.zip",
+                "reference": "095ac946e9a8f48cf24e95debe12ac44c2a1242e",
                 "shasum": null
             },
             "require": {
@@ -2124,7 +2124,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-02T14:53:43+00:00"
+            "time": "2018-11-14T11:55:21+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3229,16 +3229,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.13.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41"
+                "reference": "6a69e82ee19d3ecd9271e2a13b5f76cb5a0432b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.13.0-8f817b.zip",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-TAC-123-bigcommerce-abandoned-orders-6b1bff.zip",
+                "reference": "6a69e82ee19d3ecd9271e2a13b5f76cb5a0432b5",
                 "shasum": null
             },
             "require": {
@@ -3254,7 +3254,7 @@
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
-                "channelgrabber/order": "^1.18.2",
+                "channelgrabber/order": "dev-TAC-123-bigcommerce-abandoned-orders as 1.41.1",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
@@ -3284,10 +3284,12 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "CG\\Stock\\Test\\": "tests"
+                    "CG\\Stock\\Test\\": "tests",
+                    "CG\\Channel\\Test\\": "vendor/channelgrabber/channel/tests/Channel/Test",
+                    "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2018-04-26T09:05:13+00:00"
+            "time": "2018-11-14T16:09:03+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4813,16 +4815,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.25.3",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "38ad55a363e60829abc29485112a4e92d0edd964"
+                "reference": "7ba3f676e5b579126976451615f00c97032c0b91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.3-4697d4.zip",
-                "reference": "38ad55a363e60829abc29485112a4e92d0edd964",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-d3591a.zip",
+                "reference": "7ba3f676e5b579126976451615f00c97032c0b91",
                 "shasum": null
             },
             "require": {
@@ -4874,7 +4876,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-02T14:46:54+00:00"
+            "time": "2018-11-14T13:49:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10453,10 +10455,32 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.41.1",
+            "alias_normalized": "1.41.1.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.25.4",
+            "alias_normalized": "1.25.4.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/stock": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
