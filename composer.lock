@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fa976712bbfaf4b0c6d447adc4d5550",
+    "content-hash": "a719fca1e018af92025c4d273aca9529",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.0",
+            "version": "1.42.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f1f3b2d4630ee774064df337338af181bc7ff2af"
+                "reference": "9a00c24777f7522aae4289b6ee02cfa0a63bf7f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.42.0-7fd32b.zip",
-                "reference": "f1f3b2d4630ee774064df337338af181bc7ff2af",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.42.1-5de8ee.zip",
+                "reference": "9a00c24777f7522aae4289b6ee02cfa0a63bf7f3",
                 "shasum": null
             },
             "require": {
@@ -789,7 +789,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-01T10:29:56+00:00"
+            "time": "2018-11-01T14:36:48+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2044,16 +2044,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.41.0",
+            "version": "dev-CGIV-9273-ebay-invoice-mapping",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04"
+                "reference": "2bb30ab369bc9c0682ae15205a9afe67df839df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.41.0-5c3e6c.zip",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9273-ebay-invoice-mapping-c9b4a2.zip",
+                "reference": "2bb30ab369bc9c0682ae15205a9afe67df839df7",
                 "shasum": null
             },
             "require": {
@@ -2124,7 +2124,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-02T14:53:43+00:00"
+            "time": "2018-11-14T10:43:26+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9043,7 +9043,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9098,7 +9098,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9153,7 +9153,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -9265,7 +9265,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10453,10 +10453,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.41.1",
+            "alias_normalized": "1.41.1.0",
+            "version": "dev-CGIV-9273-ebay-invoice-mapping",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
