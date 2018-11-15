@@ -2049,17 +2049,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.41.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.41.0-5c3e6c.zip",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04",
-                "shasum": null
+                "reference": "8e7f14296170a157bf3e6bcb04f0bf8511bb4ea2"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -10458,13 +10452,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.41.1",
+            "alias_normalized": "1.41.1.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
