@@ -22,7 +22,7 @@ return [
                             'displayName' => 'Royal Mail (OBA)',
                             'providerCode' => 'ROYALMAIL',
                             'allowsCancellation' => true,
-                            'allowsManifesting' => true,
+                            'allowsManifesting' => false,
                             // For Royal Mail we use a bespoke form. See: CG_NetDespatch\Setup\RoyalMail
                             'fields' => [],
                             'shippingServices' => [
