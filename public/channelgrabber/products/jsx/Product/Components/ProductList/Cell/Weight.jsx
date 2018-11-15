@@ -38,7 +38,7 @@ class WeightCell extends React.Component {
             <span className={this.props.className}>
                 <Input
                     name='weight'
-                    initialValue={(rowData.details && rowData.details.weight) ? parseFloat(rowData.details.weight).toFixed(3) : ''}
+                    initialValue={(rowData.details && rowData.details.weight) ? parseFloat(rowData.details.weight) : ''}
                     step="0.1"
                     submitCallback={this.props.actions.saveDetail.bind(this, rowData)}
                     classNames={'u-width-120px'}
