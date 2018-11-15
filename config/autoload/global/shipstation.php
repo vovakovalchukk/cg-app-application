@@ -152,7 +152,7 @@ return [
                             ]
                         ],
                         'ups-us' => [
-                            'channelName' => 'ups-ss-us',
+                            'channelName' => 'ups-us-ss',
                             'displayName' => 'UPS (US)',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
