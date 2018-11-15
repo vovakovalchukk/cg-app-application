@@ -1,5 +1,4 @@
 const webpackConfig = require('./webpack.config.js');
-const chalk = require('chalk');
 
 module.exports = function(grunt) {
 
@@ -157,22 +156,8 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: () => {
-                let env = grunt.option('env');
-                if(env==="dev"){
-                    console.log(chalk.cyan('running webpack in development mode...'))
-                    return Object.assign(webpackConfig,{
-                        watch:true,
-                        watchOptions: {
-                            aggregateTimeout: 1500,
-                        }
-                    })
-                    return;
-                }
-                console.log(chalk.cyan('running webpack in production mode...'))
-                console.log(chalk.italic.blue('To use webpack in development mode run `grunt webpack --env=dev`'));
-                return webpackConfig
-            }
+            prod: webpackConfig,
+            dev: webpackConfig
         },
         watch: {
             babelReact: {

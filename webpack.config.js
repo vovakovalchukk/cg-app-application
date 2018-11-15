@@ -2,7 +2,7 @@ const path = require('path');
 const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry: {
         // Name the entry points after the path you want them to end up in, relative to output.path
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
@@ -37,8 +37,7 @@ module.exports = {
                         ],
                         'react',
                         'stage-2'
-                    ],
-                    cacheDirectory: true
+                    ]
                 }
             },
             {
