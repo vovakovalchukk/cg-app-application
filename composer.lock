@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2eaf433152ddafa4363a820b858c901",
+    "content-hash": "9a1b6aa91a04db2ee95826db047456ec",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3177,16 +3177,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-10096-batch-shipstation-label-creation",
+            "version": "2.16.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "cb1e9273c0a384672ec9328057d6cf1d0af2e882"
+                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-10096-batch-shipstation-label-creation-a4466f.zip",
-                "reference": "cb1e9273c0a384672ec9328057d6cf1d0af2e882",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.5-509b13.zip",
+                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea",
                 "shasum": null
             },
             "require": {
@@ -3230,7 +3230,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-11-14T11:30:28+00:00"
+            "time": "2018-11-15T10:31:57+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -10458,18 +10458,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.16.5",
-            "alias_normalized": "2.16.5.0",
-            "version": "dev-CGIV-10096-batch-shipstation-label-creation",
-            "package": "channelgrabber/stdlib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stdlib": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
