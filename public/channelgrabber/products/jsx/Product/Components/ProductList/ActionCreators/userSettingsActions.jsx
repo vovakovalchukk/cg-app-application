@@ -9,6 +9,15 @@ let userSettingsActions = (function() {
                 }
             }
         },
+        storeStockDefaults: (stockModeDefault, stockLevelDefault) => {
+            return {
+                type: "STOCK_DEFAULTS_STORE",
+                payload: {
+                    stockModeDefault,
+                    stockLevelDefault
+                }
+            }
+        }
     };
 })();
 

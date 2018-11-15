@@ -161,6 +161,7 @@ class StockModeCell extends React.Component {
 
         let valueForStockModes = this.getValueForStockProp(row, "stockModes");
         let valueForStockLevels = this.getValueForStockProp(row, "stockLevels");
+        let stockLevelPlaceholder = this.props.userSettings.stockLevelDefault;
 
         return (
             <StockModeCellContainer className={this.props.className}>
@@ -189,6 +190,7 @@ class StockModeCell extends React.Component {
                         toggleStockModeSelect
                     }}
                     stockModeSelectToggle={this.selectToggle.bind(this)}
+                    stockLevelPlaceholder={stockLevelPlaceholder}
                 />
                 {Submits}
             </StockModeCellContainer>

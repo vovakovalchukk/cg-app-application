@@ -8,6 +8,7 @@ import columnActions from 'Product/Components/ProductList/ActionCreators/columnA
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 import combinedReducer from 'Product/Components/ProductList/Reducers/combinedReducer';
 import ProductListRoot from 'Product/Components/ProductList/Root';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 var enhancer = applyMiddleware(thunk);
 
@@ -42,8 +43,12 @@ class ProductListProvider extends React.Component {
         store.dispatch(productActions.storeAccountFeatures(this.props.features));
         store.dispatch(productActions.storeStockModeOptions(this.props.stockModeOptions));
         store.dispatch(userSettingsActions.storeMetrics({massUnit,lengthUnit}));
-        await store.dispatch(productActions.getProducts());
+        let productsResp = await store.dispatch(productActions.getProducts());
         store.dispatch(columnActions.generateColumnSettings());
+        store.dispatch(userSettingsActions.storeStockDefaults(
+            stateUtility.getDefaultStockModeFromProducts(productsResp.products),
+            stateUtility.getDefaultStockLevelFromProducts(productsResp.products),
+        ));
     }
 
     render() {

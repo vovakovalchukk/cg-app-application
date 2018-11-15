@@ -29,6 +29,12 @@ class StockModeInputsComponent extends React.Component {
         );
     };
 
+    getDefaultOption(stockModeOptions) {
+        return stockModeOptions.find(option => {
+            return option.value === "null";
+        });
+    };
+
     shortenOptions = (options) => {
         var shortenedOptions = [];
         for (var i = 0; i < options.length; i++) {
@@ -72,9 +78,9 @@ class StockModeInputsComponent extends React.Component {
 
         let selected = this.props.stockModeType.input.value;
         let selectedOptionFromValue = {};
-        
+
         if(!selected.value){
-            selectedOptionFromValue = stockModeOptions[0];
+            selectedOptionFromValue = this.getDefaultOption(stockModeOptions);
         }else{
             selectedOptionFromValue = stockModeOptions.find(option => {
                 return option.value === selected.value;
@@ -121,6 +127,7 @@ class StockModeInputsComponent extends React.Component {
                                 value={valueForInput}
                                 onChange={this.props.stockAmount.input.onChange}
                                 width={45}
+                                placeholder={this.props.stockLevelPlaceholder}
                             />
                         </div>
                     </div>

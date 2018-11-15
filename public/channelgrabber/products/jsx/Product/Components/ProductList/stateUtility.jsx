@@ -59,6 +59,12 @@ let stateUtility = function() {
                 variationsByParent[variation.parentProductId].push(variation);
             }
             return variationsByParent;
+        },
+        getDefaultStockModeFromProducts(products) {
+            return products[0].stockModeDefault;
+        },
+        getDefaultStockLevelFromProducts(products) {
+            return products[0].stockLevelDefault;
         }
     };
     
