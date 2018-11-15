@@ -21,14 +21,8 @@ class Exporter implements ExporterInterface
             'BPR2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'BPL2' => [],
         ],
-        ShippingService::TWENTY_FOUR => [
-            'CRL24' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'CRL24' => [],
-        ],
-        ShippingService::FORTY_EIGHT => [
-            'CRL48' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'CRL48' => [],
-        ],
+        ShippingService::TWENTY_FOUR => 'CRL24',
+        ShippingService::FORTY_EIGHT => 'CRL48',
         ShippingService::SPECIAL_DELIVERY => [
             'SD6' => ['9am', '£2500', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'SD5' => ['9am', '£1000', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
@@ -36,24 +30,30 @@ class Exporter implements ExporterInterface
             'SD3' => ['£2500', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'SD2' => ['£1000', ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'SD1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'SD1' => [],
         ],
-        ShippingService::FIRST_CLASS_ACCOUNT => [
-            'STL1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'STL1' => [],
-        ],
-        ShippingService::SECOND_CLASS_ACCOUNT => [
-            'STL2' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
-            'STL2' => [],
-        ],
+        ShippingService::FIRST_CLASS_ACCOUNT => 'STL1',
+        ShippingService::SECOND_CLASS_ACCOUNT => 'STL2',
+        ShippingService::TRACKED_TWENTY_FOUR => 'TPN24',
+        ShippingService::TRACKED_FORTY_EIGHT => 'TPS48',
+        ShippingService::TRACKED_RETURNS_FORTY_EIGHT => 'TSS',
         ShippingService::INTERNATIONAL_STANDARD => 'OLA',
-        ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_ECONOMY => 'OLS',
         ShippingService::INTERNATIONAL_TRACKED => [
             'OTD' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
             'OTC' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             'OTB' => ['extraCompensation'],
             'OTA' => [],
+        ],
+        ShippingService::INTERNATIONAL_BUSINESS => [
+            'MTE' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'tracked', 'packageTypes' => ['Parcel']],
+            'MP9' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'packageTypes' => ['Parcel']],
+            'MP7' => ['tracked', 'packageTypes' => ['Parcel']],
+            'IE1' => ['packageTypes' => ['Parcel']],
+            'IG1' => ['packageTypes' => ['Large letter']],
+        ],
+        ShippingService::INTERNATIONAL_SIGNED_ON => [
+            'OSB' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE, 'extraCompensation'],
+            'OSA' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
         ],
     ];
 
@@ -97,6 +97,7 @@ class Exporter implements ExporterInterface
         foreach ($orderParcelsData as $orderParcelData) {
 
             $addOn = $orderData['addOn'] ?? [];
+            $packageType = $orderData['packageType'] ?? '';
 
             $export->addRowData(
                 [
@@ -104,12 +105,12 @@ class Exporter implements ExporterInterface
                     'specialInstructions' => $orderData['deliveryInstructions'] ?? '',
                     'date' => $orderData['collectionDate'] ?? '',
                     'weight' => $orderParcelData['weight'] ?? '',
-                    'packageSize' => $orderData['packageType'] ?? '',
+                    'packageSize' => $packageType,
                     'subTotal' => $order->getTotal() - $order->getShippingPrice(),
                     'shippingCost' => $order->getShippingPrice(),
                     'total' => $order->getTotal(),
                     'currencyCode' => $order->getCurrencyCode(),
-                    'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $addOn),
+                    'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $packageType, $addOn),
                     'signature' => $this->getSignatureSelection($addOn),
                     'customerTitle' => $title,
                     'firstName' => $firstName,
@@ -143,14 +144,23 @@ class Exporter implements ExporterInterface
         return [$match['title'] ?? '', $match['firstName'] ?? '', $match['lastName'] ?? ''];
     }
 
-    protected function getServiceCode(string $service, array $addOns = []): string
+    protected function getServiceCode(string $service, string $packageType, array $addOns = []): string
     {
         $serviceMap = $this->serviceMap[$service] ?? '';
         if (!is_array($serviceMap)) {
             return $serviceMap;
         }
         foreach ($serviceMap as $serviceCode => $requiredAddOns) {
+            $availablePackages = [];
+            if (isset($requiredAddOns['packageTypes'])) {
+                $availablePackages = $requiredAddOns['packageTypes'];
+                unset($requiredAddOns['packageTypes']);
+            }
+
             if (count(array_intersect($requiredAddOns, $addOns)) == count($requiredAddOns)) {
+                if (!empty($availablePackages) && !in_array($packageType, $availablePackages)) {
+                    continue;
+                }
                 return $serviceCode;
             }
         }

@@ -101,6 +101,13 @@ class SubmissionTableComponent extends React.Component {
         if (!this.state.showErrors) {
             return null;
         }
+        let errors = this.findDataForAccountAndCategory(this.state.showErrors.accountId, this.state.showErrors.categoryId, 'errors');
+        let warnings = this.findDataForAccountAndCategory(this.state.showErrors.accountId, this.state.showErrors.categoryId, 'warnings');
+
+        if (errors.length === 0 && warnings.length === 0) {
+            return null;
+        }
+
         return (
             <PopupMessage
                 initiallyActive={true}
@@ -108,29 +115,37 @@ class SubmissionTableComponent extends React.Component {
                 className="error"
                 onCloseButtonPressed={this.onErrorMessageClosed}
             >
-                <h4>Errors</h4>
-                <ul>
-                    {this.findErrorsForAccountAndCategory(this.state.showErrors.accountId, this.state.showErrors.categoryId).map(function (error) {
-                        return (<li>{error}</li>);
-                    })}
-                </ul>
-                <h4>Warnings</h4>
-                <ul>
-                    {this.findWarningForAccountAndCategory(this.state.showErrors.accountId, this.state.showErrors.categoryId).map(function (warning) {
-                        return (<li>{warning}</li>);
-                    })}
-                </ul>
+                {this.renderSection(errors, 'Errors')}
+                {this.renderSection(warnings, 'Warnings')}
                 <p>Please address these errors then try again.</p>
             </PopupMessage>
         );
     };
 
-    findErrorsForAccountAndCategory = (accountId, categoryId) => {
-        return this.props.statuses.accounts[accountId][categoryId].errors;
+    renderSection = (data, title)  => {
+        if (data.length === 0) {
+            return null;
+        }
+
+        return <span>
+            <h4>{title}</h4>
+            <ul>
+                {data.map(function (error) {
+                    return (<li>{error}</li>);
+                })}
+            </ul>
+        </span>;
     };
 
-    findWarningForAccountAndCategory = (accountId, categoryId) => {
-        return this.props.statuses.accounts[accountId][categoryId].warnings;
+    findDataForAccountAndCategory = (accountId, categoryId, type) => {
+        let accounts = this.props.statuses.accounts;
+
+        if (!accounts[accountId] || !accounts[accountId][categoryId]) {
+            return [];
+        }
+
+        let dataForAccountAndCategory = accounts[accountId][categoryId];
+        return dataForAccountAndCategory[type] ? dataForAccountAndCategory[type] : [];
     };
 
     onErrorMessageClosed = () => {

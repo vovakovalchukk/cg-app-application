@@ -58,7 +58,7 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
     /**
      * @return bool Does this provider support the provided order for the selected channel?
      */
-    public function isOrderSupported($channelName, Order $order)
+    public function isOrderSupported(Account $account, Order $order)
     {
         return true;
     }

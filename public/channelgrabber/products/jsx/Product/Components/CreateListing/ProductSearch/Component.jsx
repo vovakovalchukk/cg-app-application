@@ -1,25 +1,25 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {Field, reduxForm, formValueSelector} from 'redux-form';
-import Container from 'Common/Components/Container';
+import {connect} from 'react-redux';
 import Input from 'Common/Components/Input';
-import Actions from './Actions/Actions';
+import Select from 'Common/Components/Select';
+import CreateListingActions from '../Actions/CreateListings/Actions';
+import AssignedProductsTable from './AssignedProductsTable';
 
 const Selector = formValueSelector('productSearch');
 
 class ProductSearchComponent extends React.Component {
     static defaultProps = {
-        accountId: 0,
-        createListingData: {},
-        renderCreateListingPopup: () => {},
-        onCreateListingClose: () => {},
+        accountId: null,
         products: {},
         isFetching: false,
-        defaultProductImage: ''
-    };
-
-    state = {
-        selectedProduct: {}
+        defaultProductImage: '',
+        mainProduct: {},
+        variationsDataForProduct: {},
+        selectedProducts: {},
+        attributeNames: {},
+        attributeNameMap: {},
+        errorMessage: false
     };
 
     renderForm = () => {
@@ -27,15 +27,22 @@ class ProductSearchComponent extends React.Component {
             <Field
                 name="search"
                 component={this.renderInputComponent}
-                displayTitle={"Enter a UPC, EAN, ISBN or a product name"}
+                displayTitle={"Search our database of products to find your product and pre-fill your listing information"}
+                placeholder={"Enter a UPC, EAN, ISBN or a product name"}
             />
             {this.renderSearchButton()}
-            {this.renderEnterDetailsManuallyButton()}
+            {this.renderSkipSectionMessage()}
         </form>
     };
 
     onFormSubmit = (event) => {
         event.preventDefault();
+    };
+
+    renderSkipSectionMessage = () => {
+        return <span style={{ color: "#444444"}}>
+            {"Skip this section if you wish to fill in your product information manually instead."}
+        </span>;
     };
 
     renderSearchButton = () => {
@@ -51,15 +58,6 @@ class ProductSearchComponent extends React.Component {
         return "button container-btn yes search-button" + (this.props.isFetching ? ' disabled' : '');
     };
 
-    renderEnterDetailsManuallyButton = () => {
-        return <div
-            className="button container-btn no"
-            onClick={this.props.renderCreateListingPopup.bind(this, this.props.createListingData)}
-        >
-            Enter details manually
-        </div>;
-    };
-
     renderInputComponent = (field) => {
         return <label className="input-container">
             <span className={"inputbox-label search-label-container"}>{field.displayTitle}</span>
@@ -68,6 +66,7 @@ class ProductSearchComponent extends React.Component {
                     name={field.input.name}
                     value={field.input.value}
                     onChange={this.onInputChange.bind(this, field.input)}
+                    placeholder={field.placeholder}
                 />
             </div>
         </label>;
@@ -81,9 +80,6 @@ class ProductSearchComponent extends React.Component {
         if (this.props.isFetching) {
             return null;
         }
-        this.setState({
-            selectedProduct: {}
-        });
         this.props.fetchSearchResults(this.props.accountId, this.props.searchQuery);
     };
 
@@ -103,39 +99,16 @@ class ProductSearchComponent extends React.Component {
     };
 
     renderProduct = (product) => {
-        return <div
-            className={this.getProductContainerClassName(product)}
-            onClick={this.toggleProductSelection.bind(this, product)}
-        >
-            {this.renderProductTitle(product)}
-            <span className="search-product-details-container">
-                {this.renderProductImage(product)}
-                {this.renderProductItemSpecifics(product)}
-            </span>
-        </div>
-    };
-
-    getProductContainerClassName = (product) => {
-        let className = "search-product-container";
-        if (product.epid === this.state.selectedProduct.epid) {
-            return className + ' selected';
-        }
-        return className;
-    };
-
-    toggleProductSelection = (product) => {
-        if (product.epid === this.state.selectedProduct.epid) {
-            this.setState({
-                selectedProduct: {}
-            });
-            return;
-        }
-
-        this.setState({
-            selectedProduct: Object.assign(product, {
-                epidAccountId: this.props.accountId
-            })
-        });
+        return <span>
+            <div className={'search-product-container'}>
+                {this.renderProductTitle(product)}
+                <span className="search-product-details-container">
+                    {this.renderProductImage(product)}
+                    {this.renderProductItemSpecifics(product)}
+                </span>
+                {this.renderAssignSelect(product)}
+            </div>
+        </span>
     };
 
     renderProductTitle = (product) => {
@@ -194,36 +167,89 @@ class ProductSearchComponent extends React.Component {
         return itemSpecifics;
     };
 
-    proceedWithSelectedProduct = () => {
-        let product = this.state.selectedProduct;
+    renderAssignSelect = (product) => {
+        let options = [];
+        this.props.variationsDataForProduct.forEach(function(variation) {
+            options.push({
+                name: this.buildOptionName(variation),
+                value: variation.id,
+                disabled: !!this.props.selectedProducts[variation.id]
+            });
+        }, this);
 
-        if (Object.keys(product).length === 0) {
+        return <span className="search-product-assign-select">
+            <span>Assign to:</span>
+            <Select
+                name="product-assign"
+                options={options}
+                autoSelectFirst={false}
+                title="Assign Product"
+                onOptionChange={this.onProductAssign.bind(this, product)}
+                filterable={true}
+                selectedOption={this.findSelectedOptionForProduct(product)}
+            />
+        </span>;
+    };
+
+    buildOptionName = (variation) => {
+        let name = variation.sku;
+        Object.keys(variation.attributeValues).forEach(function(attributeName) {
+            name += ' - ' + variation.attributeValues[attributeName];
+        });
+        return name;
+    };
+
+    findSelectedOptionForProduct = (product) => {
+        let selectedProductId = '';
+        Object.keys(this.props.selectedProducts).map(function(id) {
+            let searchProduct = this.props.selectedProducts[id];
+            if (searchProduct.epid === product.epid) {
+                selectedProductId = id;
+            }
+        }.bind(this));
+
+        const variation = this.props.variationsDataForProduct.find(function(variation) {
+            return variation.id == selectedProductId;
+        });
+
+        return {
+            name: variation ? this.buildOptionName(variation) : selectedProductId,
+            value: selectedProductId
+        };
+    };
+
+    onProductAssign = (searchProduct, selectedProduct) => {
+        this.props.assignSearchProductToCgProduct(searchProduct, selectedProduct.value);
+    };
+
+    renderAssignedProductsTable = () => {
+        return <AssignedProductsTable
+            selectedProducts={this.props.selectedProducts}
+            variationsDataForProduct={this.props.variationsDataForProduct}
+            product={this.props.mainProduct}
+            attributeNames={this.props.mainProduct.attributeNames}
+            attributeNameMap={this.props.mainProduct.attributeNameMap}
+            clearSelectedProduct={this.props.clearSelectedProduct}
+            variationImages={this.props.variationImages}
+            defaultProductImage={this.props.defaultProductImage}
+        />;
+    };
+
+    renderErrorMessage = () => {
+        if (!this.props.errorMessage) {
             return null;
         }
 
-        this.props.renderCreateListingPopup(Object.assign(this.props.createListingData, {
-            selectedProductDetails: product
-        }));
+        return <span className={'product-search-error-container'}>{this.props.errorMessage}</span>;
     };
 
     render() {
-        return (
-            <Container
-                initiallyActive={true}
-                className="product-search-container"
-                closeOnYes={false}
-                headerText={"Create a listing"}
-                yesButtonText={"Select"}
-                noButtonText={"Cancel"}
-                onYesButtonPressed={this.proceedWithSelectedProduct}
-                onBackButtonPressed={this.props.onBackButtonPressed.bind(this, this.props.createListingData.product)}
-                onNoButtonPressed={this.props.onCreateListingClose}
-                yesButtonDisabled={Object.keys(this.state.selectedProduct).length === 0}
-            >
-                {this.renderForm()}
-                {this.renderSearchResults()}
-            </Container>
-        );
+        return <span>
+            {this.renderForm()}
+            {this.renderSearchResults()}
+            {this.renderAssignedProductsTable()}
+            {this.renderErrorMessage()}
+        </span>;
     }
 }
 
@@ -235,17 +261,23 @@ ProductSearchComponent = reduxForm({
 })(ProductSearchComponent);
 
 const mapStateToProps = function(state) {
+    let productSearch = state.productSearch;
     return {
         searchQuery: Selector(state, 'search'),
-        products: state.products.products,
-        isFetching: state.products.isFetching
+        products: productSearch.products,
+        isFetching: productSearch.isFetching,
+        selectedProducts: productSearch.selectedProducts,
+        errorMessage: productSearch.error
     };
 };
 
 const mapDispatchToProps = function(dispatch) {
     return {
         fetchSearchResults: function(accountId, searchQuery) {
-            dispatch(Actions.fetchSearchResults(accountId, searchQuery, dispatch));
+            dispatch(CreateListingActions.fetchSearchResults(accountId, searchQuery, dispatch));
+        },
+        assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
+            dispatch(CreateListingActions.assignSearchProductToCgProduct(searchProduct, cgProduct));
         }
     };
 };

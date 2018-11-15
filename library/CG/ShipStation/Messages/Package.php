@@ -5,7 +5,7 @@ use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 

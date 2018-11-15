@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import {connect} from 'react-redux';
-import {Field, FieldArray, SubmissionError, reduxForm, submit as reduxFormSubmit} from 'redux-form';
+import {Field, FieldArray, reduxForm, SubmissionError, submit as reduxFormSubmit} from 'redux-form';
 import Container from 'Common/Components/Container';
-import ChannelBadgeComponent from 'Common/Components/ChannelBadge';
 import CategoryMap from 'CategoryMapper/Components/CategoryMap';
 import submitCategoryMapForm from 'CategoryMapper/Service/SubmitCategoryMapForm';
 import BlockerModal from 'Common/Components/BlockerModal';
@@ -22,6 +20,7 @@ class AccountSelectionPopup extends React.Component {
         salesPhoneNumber: null,
         demoLink: null,
         productSearchActive: false,
+        productSearchActiveForVariations: false,
         renderCreateListingPopup: () => {},
         renderSearchPopup: () => {}
     };
@@ -171,14 +170,6 @@ class AccountSelectionPopup extends React.Component {
     }
 }
 
-var fetchCategoryTemplateDependentFieldValues = function(categoryTemplateIds) {
-    return $.ajax({
-        url: '/products/create-listings/category-template-dependent-field-values',
-        data: {categoryTemplateIds: categoryTemplateIds},
-        method: 'POST'
-    });
-};
-
 var filterOutEmptyAccountSettingsData = function(accountSettings) {
     var accountDefaultSettings = {};
     for (var accountId in accountSettings) {
@@ -191,31 +182,26 @@ var filterOutEmptyAccountSettingsData = function(accountSettings) {
 
 const getSearchAccountId = function(props) {
     let accounts = props.product.accounts;
-    let selectedAccountIds = props.accounts;
 
-    if (props.product.variationCount > 1) {
-        return false;
-    }
-
-    let accountIndex = selectedAccountIds.findIndex(selectedAccountId => {
-        let accountData =  accounts[selectedAccountId];
+    let accountIndex = Object.keys(accounts).findIndex(accountId=> {
+        let accountData =  accounts[accountId];
 
         if (!accountData) {
             return false;
         }
 
-        if (accountData.channel !== 'ebay' || !accountData.listingsAuthActive) {
+        if (accountData.channel !== 'ebay' || !accountData.listingsAuthActive || accountData.active == false) {
             return false;
         }
 
         return true;
     });
 
-    if (accountIndex > -1) {
-        return selectedAccountIds[accountIndex];
-    }
-    
-    return false;
+    return accountIndex > -1 ? Object.keys(accounts)[accountIndex] : null;
+};
+
+const isProductSearchActive = function(props) {
+    return props.productSearchActive && (props.product.variationCount > 1 ? props.productSearchActiveForVariations : true);
 };
 
 AccountSelectionPopup = reduxForm({
@@ -240,19 +226,13 @@ AccountSelectionPopup = reduxForm({
         values = Object.assign(values, {
             product: props.product,
             accounts: values.accounts.filter(accountId => accountId),
-            accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings)
+            accountDefaultSettings: filterOutEmptyAccountSettingsData(props.accountSettings),
+            productSearchActive: isProductSearchActive(props)
         });
 
-        fetchCategoryTemplateDependentFieldValues(values.categories).then(function(result) {
-            values.categoryTemplates = result.categoryTemplates;
-            let searchAccountId = getSearchAccountId(values);
-            if (searchAccountId) {
-                values.searchAccountId = searchAccountId;
-                props.renderSearchPopup(values);
-                return;
-            }
-            props.renderCreateListingPopup(values);
-        });
+        values.searchAccountId = getSearchAccountId(values);
+
+        props.renderCreateListingPopup(values);
     },
     validate: accountSelectionFormValidator
 })(AccountSelectionPopup);
