@@ -238,6 +238,7 @@ class ProductsJsonController extends AbstractActionController
             'activeSalesAccounts' => $activeSalesAccounts,
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
+            'stockLevelDefault' => $this->stockSettingsService->getStockLevelDefault(),
         ]);
 
         $images = array_column($productEntity->getImageIds(), 'id', 'order');

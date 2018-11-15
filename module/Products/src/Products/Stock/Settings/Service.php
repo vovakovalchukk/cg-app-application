@@ -141,6 +141,12 @@ class Service
         return $productSettings->getDefaultStockMode();
     }
 
+    public function getStockLevelDefault()
+    {
+        $productSettings = $this->getProductSettings();
+        return $productSettings->getDefaultStockLevel();
+    }
+
     /**
      * @return int|null Null returned if stockLevel is not applicable to this Product
      */
