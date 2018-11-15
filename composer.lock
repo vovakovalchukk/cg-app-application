@@ -788,7 +788,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-10-29T11:37:36+00:00"
+            "time": "2018-11-15T12:29:51+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1942,20 +1942,26 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "aa9aca9f21165d86760cd2efbb3d3e7f4e7f742b"
+                "reference": "4d0a29283e21b94a0368dd0e19e18a58e2bfe61f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-4cb12e.zip",
+                "reference": "4d0a29283e21b94a0368dd0e19e18a58e2bfe61f",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.41.2",
+                "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": "^2.2.0",
-                "channelgrabber/email": "^1.0.9",
-                "channelgrabber/exchangerate": "^1.1.1",
-                "channelgrabber/locale": "^1.0.9",
-                "channelgrabber/order": "^1.28.9",
+                "channelgrabber/di": "^2.3.1",
+                "channelgrabber/email": "^1.1.1",
+                "channelgrabber/exchangerate": "^1.2.6",
+                "channelgrabber/locale": "^1.2.1",
+                "channelgrabber/order": "^1.40.0",
                 "channelgrabber/stats": "^1.0.0",
-                "channelgrabber/stdlib": "^2.12.6",
-                "channelgrabber/user": "^1.20.3",
-                "channelgrabber/zf2-stdlib": "^1.2.1",
+                "channelgrabber/stdlib": "^2.16.4",
+                "channelgrabber/user": "^1.26.4",
+                "channelgrabber/zf2-stdlib": "^1.2.2",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "conflict": {
@@ -1982,7 +1988,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-10-29T16:04:52+00:00"
+            "time": "2018-11-16T10:19:10+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4361,7 +4367,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "afe3ba2fc4c25a5f0b9f2a18a64d533bccf1f62f"
+                "reference": "a1ae81d8f83274eb14fb5afd949ac4bf416526d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-d29a64.zip",
+                "reference": "a1ae81d8f83274eb14fb5afd949ac4bf416526d1",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.24.2",
@@ -4390,7 +4402,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2018-10-29T16:06:37+00:00"
+            "time": "2018-11-16T10:21:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -10467,8 +10479,8 @@
         "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,6 +1,8 @@
 <?php
 
 use CG\NetDespatch\Account\CreationService as NetDespatchAccountCreationService;
+use CG_NetDespatch\Account\CreationService\RoyalMail as NDRMAccountCreationService;
+use CG_NetDespatch\Controller\AccountController as NetDespatchAccountController;
 use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
 use CG\NetDespatch\Order\Mapper\Factory as NetDespatchOrderMapperFactory;
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
@@ -239,11 +241,21 @@ return [
                     'cryptor' => 'netdespatch_cryptor',
                 ]
             ],
+            NDRMAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'netdespatch_cryptor',
+                ]
+            ],
             NetDespatchOrderMapperFactory::class => [
                 'parameters' => [
                     'cryptor' => 'netdespatch_cryptor',
                 ]
             ],
+            NetDespatchAccountController::class => [
+                'parameters' => [
+                    'cryptor' => 'netdespatch_cryptor',
+                ]
+            ]
         ]
     ]
 ];
