@@ -15,6 +15,17 @@ const StyledDropdown = styled(Dropdown)`
         min-width: ${props => props.width ? 'auto' : 'inherit'};
     }
 `;
+const CustomSelectLink = styled.a`
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden; 
+    box-sizing: initial;
+`;
+const SelectArea = styled.div`
+    && {
+        width: ${props => props.width ? props.width + 'px' : 'auto'};
+    }
+`
 
 class StatelessSelectComponent extends React.Component {
     static defaultProps = {
@@ -46,8 +57,9 @@ class StatelessSelectComponent extends React.Component {
             value={opt.value}
             key={index}
             onClick={this.onOptionSelected.bind(this, opt.value)}
+            title={opt.name}
         >
-            <a value={opt.value} data-trigger-select-click="false">{opt.name}</a>
+            <CustomSelectLink value={opt.value} data-trigger-select-click="false">{opt.name}</CustomSelectLink>
         </li>
     };
     renderOptions = () => {
@@ -63,7 +75,7 @@ class StatelessSelectComponent extends React.Component {
                     <div className={'custom-select active'}>
                         <StyledDropdown
                             renderOptions={this.renderOptions}
-                            width={this.props.width}
+                            width={this.props.styleVars.widthOfDropdown}
                         />
                     </div>
                 </PortalWrapper>
@@ -86,7 +98,7 @@ class StatelessSelectComponent extends React.Component {
         }
         return <StyledDropdown
             renderOptions={this.renderOptions}
-            width={this.props.width}
+            width={this.props.styleVars.widthOfDropdown}
         />
     };
     render() {
@@ -95,13 +107,13 @@ class StatelessSelectComponent extends React.Component {
                  onClick={this.onComponentClick}
                  title={this.props.title}
             >
-                <div className="selected">
+                <SelectArea className="selected" width={this.props.styleVars.widthOfInput}>
                         <span className="selected-content">
                             <b>{this.props.prefix ? (this.props.prefix + ": ") : ""}</b>
                             {this.getSelectedOptionName()}
                         </span>
                     <span className="sprite-arrow-down-10-black">&nbsp;</span>
-                </div>
+                </SelectArea>
                 {this.renderDropdown()}
             </div>
         );

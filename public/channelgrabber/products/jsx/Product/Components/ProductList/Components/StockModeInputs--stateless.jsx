@@ -33,21 +33,30 @@ class StockModeInputsComponent extends React.Component {
         var shortenedOptions = [];
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
+
+            let formattedOption;
+
+
             if (option.title.indexOf('List all') > -1) {
-                shortenedOptions.push(option);
+                formattedOption = option;
             }
             if (option.title.indexOf('List up to a') > -1) {
-                shortenedOptions.push({
+                formattedOption = {
                     title: 'List up to',
                     value: option.value
-                })
+                }
             }
             if (option.title.indexOf('Fix') > -1) {
-                shortenedOptions.push({
+                formattedOption = {
                     title: 'Fixed at',
                     value: option.value
-                });
+                }
             }
+            if (option.value == 'null') {
+                formattedOption.value == option.value;
+                formattedOption.title = 'Default ('+ formattedOption.title+')';
+            }
+            shortenedOptions.push(formattedOption)
         }
         return shortenedOptions;
     };
@@ -62,14 +71,19 @@ class StockModeInputsComponent extends React.Component {
         });
 
         let selected = this.props.stockModeType.input.value;
+        let selectedOptionFromValue = {};
 
-        let selectedNameFromValue = '';
-        if (selected.value) {
-            selectedNameFromValue = stockModeOptions.find(option => {
+        if(!selected){
+            console.log('no selected.... lets asses options ' , {shortenedOptions, stockModeOptions});
+            selectedOptionFromValue === stockModeOptions[0];
+        }else{
+            selectedOptionFromValue = stockModeOptions.find(option => {
                 return option.value === selected.value;
-            }).name;
+            });
+            console.log('selectedOptionFromValue: ', selectedOptionFromValue);
         }
 
+        let selectedNameFromValue = selectedOptionFromValue.name;
         let valueForInput = this.props.stockAmount.input.value ? this.props.stockAmount.input.value : '';
 
         return (
@@ -90,7 +104,10 @@ class StockModeInputsComponent extends React.Component {
                         portalSettingsForDropdown={this.props.portalSettingsForDropdown}
                         selectToggle={this.props.stockModeSelectToggle}
                         actions={this.props.actions}
-                        width={100}
+                        styleVars={{
+                           widthOfDropdown: 100,
+                            widthOfInput: 80
+                        }}
                     />
                 </div>
                 <div className={"c-stock-mode-input__amount-container"}

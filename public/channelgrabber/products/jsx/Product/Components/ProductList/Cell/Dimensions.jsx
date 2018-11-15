@@ -47,6 +47,7 @@ class DimensionsCell extends React.Component {
                 submitCallback={this.props.actions.saveDetail.bind(this, row)}
                 submitsPortalSettings={portalSettingsForSubmits}
                 width={45}
+                placeholder={detail.substring(0,1)}
             />
         )
     };
