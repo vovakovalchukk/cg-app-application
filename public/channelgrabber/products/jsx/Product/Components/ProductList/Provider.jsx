@@ -42,12 +42,12 @@ class ProductListProvider extends React.Component {
         const {massUnit, lengthUnit} = this.props;
         store.dispatch(productActions.storeAccountFeatures(this.props.features));
         store.dispatch(productActions.storeStockModeOptions(this.props.stockModeOptions));
-        store.dispatch(userSettingsActions.storeMetrics({massUnit,lengthUnit}));
-        let productsResp = await store.dispatch(productActions.getProducts());
+        store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
+        let productsResponse = await store.dispatch(productActions.getProducts());
         store.dispatch(columnActions.generateColumnSettings());
         store.dispatch(userSettingsActions.storeStockDefaults(
-            stateUtility.getDefaultStockModeFromProducts(productsResp.products),
-            stateUtility.getDefaultStockLevelFromProducts(productsResp.products),
+            stateUtility.getDefaultStockModeFromProducts(productsResponse.products),
+            stateUtility.getDefaultStockLevelFromProducts(productsResponse.products)
         ));
     }
 
