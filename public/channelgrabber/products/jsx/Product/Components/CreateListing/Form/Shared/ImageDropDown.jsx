@@ -32,7 +32,7 @@ class ImageDropDownComponent extends React.Component {
     };
 
     onClick = () => {
-        if (!this.props.dropdownDisabled) {
+        if (this.props.dropdownDisabled) {
             return;
         }
         this.setState({
@@ -41,11 +41,11 @@ class ImageDropDownComponent extends React.Component {
     };
 
     onImageSelected = (image) => {
+        this.props.onChange({target: {value: image.id}});
         this.setState({
             active: false,
             image: image
         });
-        this.props.onChange({target: {value: image.id}});
     };
 
     render() {

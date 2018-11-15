@@ -1,6 +1,5 @@
 import React from 'react';
 import {Field} from 'redux-form';
-import Input from 'Common/Components/Input';
 import CurrencyInput from 'Common/Components/CurrencyInput';
 import VariationTable from './VariationTable';
 import Validators from '../../Validators';
@@ -135,6 +134,7 @@ class ProductPriceComponent extends React.Component {
             attributeNameMap={this.props.attributeNameMap}
             renderCustomTableHeaders={this.renderPriceHeaders}
             renderCustomTableRows={this.renderPriceColumns}
+            variationImages={this.props.variationImages}
         />;
     }
 }
