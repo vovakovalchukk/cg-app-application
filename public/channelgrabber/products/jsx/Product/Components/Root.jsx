@@ -9,7 +9,6 @@ import CreateListingPopupRoot from 'Product/Components/CreateListing/CreateListi
 import CreateProductRoot from 'Product/Components/CreateProduct/CreateProductRoot';
 import AjaxHandler from 'Product/Storage/Ajax';
 import CreateListingRoot from 'Product/Components/CreateListing/Root';
-import ProductSearchRoot from 'Product/Components/CreateListing/ProductSearch/Root';
 
 const INITIAL_VARIATION_COUNT = 2;
 const MAX_VARIATION_ATTRIBUTE_COLUMNS = 3;
@@ -17,7 +16,6 @@ const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
 const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
 const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
 const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
-const PRODUCT_SEARCH_VIEW = 'PRODUCT_SEARCH_VIEW';
 
 class RootComponent extends React.Component {
     static defaultProps = {
@@ -123,7 +121,8 @@ class RootComponent extends React.Component {
                 accounts: result.accounts,
                 createListingsAllowedChannels: result.createListingsAllowedChannels,
                 createListingsAllowedVariationChannels: result.createListingsAllowedVariationChannels,
-                productSearchActive: result.productSearchActive
+                productSearchActive: result.productSearchActive,
+                productSearchActiveForVariations: result.productSearchActiveForVariations
             }, function() {
                 $('#products-loading-message').hide();
                 self.onNewProductsReceived();
@@ -390,20 +389,12 @@ class RootComponent extends React.Component {
         });
     };
 
-    showSearchPopup = (data) => {
-        this.setState({
-            currentView: PRODUCT_SEARCH_VIEW,
-            createListingData: data
-        });
-    };
-
     getViewRenderers = () => {
         return {
             NEW_PRODUCT_VIEW: this.renderCreateNewProduct,
             NEW_LISTING_VIEW: this.renderCreateListingPopup,
             PRODUCT_LIST_VIEW: this.renderProductListView,
-            ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup,
-            PRODUCT_SEARCH_VIEW: this.renderProductSearchView,
+            ACCOUNT_SELECTION_VIEW: this.renderAccountSelectionPopup
         }
     };
 
@@ -465,11 +456,12 @@ class RootComponent extends React.Component {
             this.state.createListingsAllowedChannels,
             this.state.createListingsAllowedVariationChannels,
             this.state.productSearchActive,
+            this.state.productSearchActiveForVariations,
             this.onCreateListingClose,
             this.props.ebaySiteOptions,
             this.props.categoryTemplateOptions,
             this.showCreateListingPopup,
-            this.showSearchPopup,
+            () => {},
             this.state.createListing.product,
             this.props.listingCreationAllowed,
             this.props.managePackageUrl,
@@ -503,6 +495,7 @@ class RootComponent extends React.Component {
             onBackButtonPressed={this.showAccountsSelectionPopup}
             massUnit={this.props.massUnit}
             lengthUnit={this.props.lengthUnit}
+            defaultProductImage={this.props.utilities.image.getImageSource()}
         />;
     };
 
@@ -516,7 +509,6 @@ class RootComponent extends React.Component {
         }
         return options;
     };
-
     redirectToProducts = () => {
         this.state.currentView = PRODUCT_LIST_VIEW;
         this.forceUpdate();
@@ -555,16 +547,6 @@ class RootComponent extends React.Component {
                 </div>
             </div>
         );
-    };
-
-    renderProductSearchView = () => {
-        return <ProductSearchRoot
-            createListingData={this.state.createListingData}
-            renderCreateListingPopup={this.showCreateListingPopup}
-            onCreateListingClose={this.onCreateListingClose}
-            onBackButtonPressed={this.showAccountsSelectionPopup}
-            defaultProductImage={this.props.utilities.image.getImageSource()}
-        />;
     };
 
     render() {

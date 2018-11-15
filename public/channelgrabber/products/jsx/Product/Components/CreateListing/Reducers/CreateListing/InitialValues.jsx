@@ -25,8 +25,7 @@ import reducerCreator from 'Common/Reducers/creator';
                 account = data.accountDefaultSettings[accountId];
                 defaults.ebay = {
                     dispatchTimeMax: account.listingDispatchTime,
-                    epid: data.selectedProductDetails.epid ? data.selectedProductDetails.epid : null,
-                    epidAccountId: data.selectedProductDetails.epidAccountId ? data.selectedProductDetails.epidAccountId : null
+                    epidAccountId: data.searchAccountId
                 };
             }
         }
@@ -48,8 +47,8 @@ import reducerCreator from 'Common/Reducers/creator';
 
         for (var templateId in data.categoryTemplates) {
             var template = data.categoryTemplates[templateId];
-            for (var categoryTemplateAccountId in template.accounts) {
-                var accountCategory = template.accounts[categoryTemplateAccountId];
+            for (var accountId in template.accounts) {
+                var accountCategory = template.accounts[accountId];
 
                 if (accountCategory.channel !== 'ebay') {
                     continue;
@@ -58,22 +57,22 @@ import reducerCreator from 'Common/Reducers/creator';
                 if (account.listingDuration) {
                     defaultsForCategory.listingDuration = account.listingDuration;
                 }
-                defaults[categoryTemplateAccountId] = defaultsForCategory;
+                defaults[accountCategory.categoryId] = defaultsForCategory;
             }
         }
 
         return defaults;
     };
 
-    var getProductIdentifiers = function(variationData, selectedProductDetails) {
+    var getProductIdentifiers = function(variationData) {
         var identifiers = {};
         variationData.forEach(function(variation) {
             identifiers[variation.id] = {
-                ean: variation.details.ean ? variation.details.ean : selectedProductDetails.ean,
-                upc: variation.details.upc ? variation.details.upc : selectedProductDetails.upc,
-                isbn: variation.details.isbn ? variation.details.isbn : selectedProductDetails.isbn,
-                mpn: variation.details.mpn ? variation.details.mpn : selectedProductDetails.mpn,
-                barcodeNotApplicable: variation.details.barcodeNotApplicable !== null ? variation.details.barcodeNotApplicable : selectedProductDetails.barcodeNotApplicable
+                ean: variation.details.ean,
+                upc: variation.details.upc,
+                isbn: variation.details.isbn,
+                mpn: variation.details.mpn,
+                barcodeNotApplicable: !!(variation.details.barcodeNotApplicable)
             };
         });
         return identifiers;
@@ -83,8 +82,7 @@ import reducerCreator from 'Common/Reducers/creator';
         "LOAD_INITIAL_VALUES": function(state, action) {
             var product = action.payload.product,
                 variationData = action.payload.variationData,
-                selectedAccounts = action.payload.selectedAccounts,
-                selectedProductDetails = action.payload.selectedProductDetails;
+                selectedAccounts = action.payload.selectedAccounts;
 
             var dimensions = {};
             variationData.map(function(variation) {
@@ -114,17 +112,60 @@ import reducerCreator from 'Common/Reducers/creator';
             });
 
             return {
-                title: selectedProductDetails.title ? selectedProductDetails.title : product.name,
+                title: product.name,
                 description: getDetailForProduct('description', productDetails, variationData),
                 condition: getDetailForProduct('condition', productDetails, variationData),
-                brand: selectedProductDetails.brand ? selectedProductDetails.brand : getDetailForProduct('brand', productDetails, variationData),
-                identifiers: getProductIdentifiers(variationData, selectedProductDetails),
+                brand: getDetailForProduct('brand', productDetails, variationData),
+                identifiers: getProductIdentifiers(variationData, {}),
                 dimensions: dimensions,
                 prices: prices,
                 channel: formatChannelDefaultValues(action.payload),
                 category: formatCategoryDefaultValues(action.payload),
                 skus: skus
             };
+        },
+        "CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES_FETCHED": function(state, action) {
+            return Object.assign({}, state, {
+                category: formatCategoryDefaultValues(action.payload)
+            });
+        },
+        "REVERT_TO_INITIAL_VALUES": function() {
+            return {};
+        },
+        "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
+            let searchProduct = action.payload.searchProduct,
+                productId = action.payload.cgProduct,
+                identifier = state.identifiers[productId];
+
+            return Object.assign({}, state, {
+                identifiers: Object.assign({}, state.identifiers, {
+                    [productId]: Object.assign({}, state.identifiers[productId], {
+                        ean: identifier.ean ? identifier.ean : searchProduct.ean,
+                        upc: identifier.upc ? identifier.upc : searchProduct.upc,
+                        isbn: identifier.isbn ? identifier.isbn : searchProduct.isbn,
+                        mpn: identifier.mpn ? identifier.mpn : searchProduct.mpn,
+                        barcodeNotApplicable: identifier.barcodeNotApplicable
+                    })
+                })
+            });
+        },
+        "CLEAR_SELECTED_PRODUCT": function(state, action) {
+            let productId = action.payload.productId,
+                variation = action.payload.variationData.find(function(variation) {
+                    return variation.id == productId;
+                }),
+                identifier = variation ? variation.details : {};
+
+            return Object.assign({}, state, {
+                identifiers: Object.assign({}, state.identifiers, {
+                    [productId]: Object.assign({}, state.identifiers[productId], {
+                        ean: identifier.ean,
+                        upc: identifier.upc,
+                        isbn: identifier.isbn,
+                        mpn: identifier.mpn
+                    })
+                })
+            });
         }
     });
 

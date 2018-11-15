@@ -21,15 +21,19 @@ class CompanyController extends AbstractActionController
     protected $viewModelFactory;
     /** @var RegisterCompanyService */
     protected $registerCompanyService;
+    /** @var UserLocale */
+    protected $activeUserContainer;
 
     public function __construct(
         Service $setupService,
         ViewModelFactory $viewModelFactory,
-        RegisterCompanyService $registerCompanyService
+        RegisterCompanyService $registerCompanyService,
+        UserLocale $activeUserContainer
     ) {
         $this->setupService = $setupService;
         $this->viewModelFactory = $viewModelFactory;
         $this->registerCompanyService = $registerCompanyService;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function indexAction()
@@ -38,7 +42,7 @@ class CompanyController extends AbstractActionController
 
         /** @var Form $detailsForm */
         $detailsForm = $detailsFormView->getChildrenByCaptureTo('form')[0]->getVariable('form');
-        $detailsForm->get('address')->get('country')->setValue(CountryNameByCode::getCountryNameFromCode('US'));
+        $detailsForm->get('address')->get('country')->setValue($this->getCountryForLocale());
         if ($detailsForm->has('locale')) {
             $detailsForm->get('locale')->setValue(UserLocale::LOCALE_US);
         }
@@ -55,5 +59,14 @@ class CompanyController extends AbstractActionController
         return $this->viewModelFactory->newInstance([
             'buttons' => $this->setupService->getNextButtonViewConfig(),
         ])->setTemplate('elements/buttons.mustache');
+    }
+
+    protected function getCountryForLocale(): string
+    {
+        $locale = $this->activeUserContainer->getLocale();
+        if ($locale === UserLocale::LOCALE_UK) {
+            return CountryNameByCode::getCountryNameFromCode('GB');
+        }
+        return CountryNameByCode::getCountryNameFromCode('US');
     }
 }
