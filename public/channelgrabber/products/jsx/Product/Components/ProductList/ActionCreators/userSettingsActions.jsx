@@ -1,6 +1,6 @@
 let userSettingsActions = (function() {
     return {
-        storeMetrics: ({lengthUnit,massUnit}) => {
+        storeMetrics: ({lengthUnit, massUnit}) => {
             return {
                 type: "METRICS_STORE",
                 payload: {

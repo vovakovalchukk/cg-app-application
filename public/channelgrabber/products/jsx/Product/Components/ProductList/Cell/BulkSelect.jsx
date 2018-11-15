@@ -3,7 +3,6 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 import CheckboxStateless from  'Common/Components/Checkbox--stateless';
 
-
 class BulkSelectCell extends React.Component {
     static defaultProps = {};
     state = {};

@@ -13,8 +13,8 @@ import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings
 const Column = FixedDataTable.Column;
 
 const columnKeysMetricPropertyMap = {
-    [columnKeys.weight] : 'massUnit',
-    [columnKeys.dimensions] : 'lengthUnit'
+    [columnKeys.weight]: 'massUnit',
+    [columnKeys.dimensions]: 'lengthUnit'
 };
 const columnSpecificPropsMap = {
     stockMode: ['stock', 'rows', 'userSettings'],
@@ -101,10 +101,10 @@ function getHeaderCellAlignment(column) {
 }
 
 function getHeaderText(column, userSettings) {
-    if(!columnKeysMetricPropertyMap[column.key]){
+    if (!columnKeysMetricPropertyMap[column.key]) {
         return column.headerText;
     }
     let metricProp = columnKeysMetricPropertyMap[column.key];
-    let metricString = '('+userSettings[metricProp]+')';
+    let metricString = '(' + userSettings[metricProp] + ')';
     return column.headerText + ' ' + metricString;
 }

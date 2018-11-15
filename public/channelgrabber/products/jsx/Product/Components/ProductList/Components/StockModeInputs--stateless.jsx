@@ -128,6 +128,7 @@ class StockModeInputsComponent extends React.Component {
                                 onChange={this.props.stockAmount.input.onChange}
                                 width={45}
                                 placeholder={this.props.stockLevelPlaceholder}
+                                disabled={this.stockAmountShouldBeDisabled(this.props.stockModeType.input.value.value)}
                             />
                         </div>
                     </div>

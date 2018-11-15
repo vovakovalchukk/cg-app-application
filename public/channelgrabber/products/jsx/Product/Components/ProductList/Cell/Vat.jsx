@@ -33,7 +33,7 @@ class VatCell extends React.Component {
         }
 
         let productVat = this.props.vat.productsVat[row.id];
-        
+
         let vatRatesForCountry = this.props.vat.vatRates[countryCode];
         let options = generateOptionsFromVatRates(vatRatesForCountry);
 

@@ -18,20 +18,20 @@ AddIcon.iconSizer = styled.div`
         width: ${constants.LISTING_ICON_SIZE + 'px'};
         height: ${constants.LISTING_ICON_SIZE + 'px'};
         z-index: 5;
-    `;
+`;
 AddIcon.iconBackground = styled.div`
         position: absolute;
         box-sizing: border-box;
         border: 2px solid rgb(211, 211, 211);
         background: aliceblue;
         border-radius: 50%;
-        width: ${constants.LISTING_ICON_SIZE/1.5 + 'px'};
-        height: ${constants.LISTING_ICON_SIZE/1.5 + 'px'};
+        width: ${constants.LISTING_ICON_SIZE / 1.5 + 'px'};
+        height: ${constants.LISTING_ICON_SIZE / 1.5 + 'px'};
         top: 2px;
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%);
-`
+`;
 
 class AddListingCell extends React.Component {
     static defaultProps = {

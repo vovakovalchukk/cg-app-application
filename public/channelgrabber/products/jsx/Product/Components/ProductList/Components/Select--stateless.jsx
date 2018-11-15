@@ -25,7 +25,7 @@ const SelectArea = styled.div`
     && {
         width: ${props => props.width ? props.width + 'px' : 'auto'};
     }
-`
+`;
 
 class StatelessSelectComponent extends React.Component {
     static defaultProps = {
