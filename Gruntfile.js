@@ -157,22 +157,7 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: () => {
-                let env = grunt.option('env');
-                if(env==="dev"){
-                    console.log(chalk.cyan('running webpack in development mode...'))
-                    return Object.assign(webpackConfig,{
-                        watch:true,
-                        watchOptions: {
-                            aggregateTimeout: 1500,
-                        }
-                    })
-                    return;
-                }
-                console.log(chalk.cyan('running webpack in production mode...'))
-                console.log(chalk.italic.blue('To use webpack in development mode run `grunt webpack --env=dev`'));
-                return webpackConfig
-            }
+            prod: getWebpackConfig()
         },
         watch: {
             babelReact: {
@@ -220,3 +205,24 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor', 'webpack']);
 };
+
+function getDevelopmentAdjustedWebpackConfig() {
+    return Object.assign(webpackConfig, {
+        mode: 'development',
+        watch: true,
+        watchOptions: {
+            aggregateTimeout: 1500
+        }
+    })
+}
+
+function getWebpackConfig() {
+    let env = grunt.option('env');
+    if(env==="dev"){
+        console.log(chalk.cyan('running webpack in development mode...'))
+        return getDevelopmentAdjustedWebpackConfig();
+    }
+    console.log(chalk.cyan('running webpack in production mode...'))
+    console.log(chalk.italic.blue('To use webpack in development mode run `grunt webpack --env=dev`'));
+    return webpackConfig
+}
