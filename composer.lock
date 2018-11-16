@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d47f8bbc728dfe315e36ec00b43c9d8c",
+    "content-hash": "651366e789a05090a0a7dfffbb0ad38b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2049,11 +2049,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-develop",
+            "version": "dev-CGIV-10103-linked-order-missing-get-account-id",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8e7f14296170a157bf3e6bcb04f0bf8511bb4ea2"
+                "reference": "766afefa8012cd3a209786a2d2750f969237127b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-10103-linked-order-missing-get-account-id-1a9254.zip",
+                "reference": "766afefa8012cd3a209786a2d2750f969237127b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2123,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-02T14:53:43+00:00"
+            "time": "2018-11-15T09:59:56+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -10456,7 +10462,7 @@
         {
             "alias": "1.41.1",
             "alias_normalized": "1.41.1.0",
-            "version": "dev-develop",
+            "version": "dev-CGIV-10103-linked-order-missing-get-account-id",
             "package": "channelgrabber/order"
         }
     ],
@@ -10465,8 +10471,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
