@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "19ff32eb3d8e7eb67ba4a5dae3fb91c6",
+    "content-hash": "d47f8bbc728dfe315e36ec00b43c9d8c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4818,16 +4818,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-10112-add-oribi-to-app-and-admin",
+            "version": "1.25.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "907391bef69f897f54fc33904b0cc846b222063a"
+                "reference": "cb40916952952ccb7c438248863d4b5348f52d7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-10112-add-oribi-to-app-and-admin-e81c0e.zip",
-                "reference": "907391bef69f897f54fc33904b0cc846b222063a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.4-9c027a.zip",
+                "reference": "cb40916952952ccb7c438248863d4b5348f52d7f",
                 "shasum": null
             },
             "require": {
@@ -4879,7 +4879,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-15T10:58:21+00:00"
+            "time": "2018-11-16T09:12:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10458,18 +10458,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.25.4",
-            "alias_normalized": "1.25.4.0",
-            "version": "dev-CGIV-10112-add-oribi-to-app-and-admin",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
