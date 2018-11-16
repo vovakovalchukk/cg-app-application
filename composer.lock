@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "31bb4bcc707654cfb241dc775ba14f5b",
+    "content-hash": "d47f8bbc728dfe315e36ec00b43c9d8c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3171,16 +3171,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.4",
+            "version": "2.16.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "06fdda6c4f6b832454d9fcb2e723dd6e65890335"
+                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.4-aea18d.zip",
-                "reference": "06fdda6c4f6b832454d9fcb2e723dd6e65890335",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.16.5-509b13.zip",
+                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea",
                 "shasum": null
             },
             "require": {
@@ -3224,7 +3224,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-10-18T12:01:27+00:00"
+            "time": "2018-11-15T10:31:57+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -4812,16 +4812,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.25.3",
+            "version": "1.25.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "38ad55a363e60829abc29485112a4e92d0edd964"
+                "reference": "cb40916952952ccb7c438248863d4b5348f52d7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.3-4697d4.zip",
-                "reference": "38ad55a363e60829abc29485112a4e92d0edd964",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.4-9c027a.zip",
+                "reference": "cb40916952952ccb7c438248863d4b5348f52d7f",
                 "shasum": null
             },
             "require": {
@@ -4873,7 +4873,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-02T14:46:54+00:00"
+            "time": "2018-11-16T09:12:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9264,7 +9264,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
