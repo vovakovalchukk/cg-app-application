@@ -157,7 +157,7 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: getWebpackConfig()
+            prod: getWebpackConfig
         },
         watch: {
             babelReact: {
@@ -217,11 +217,13 @@ function getDevelopmentAdjustedWebpackConfig() {
 }
 
 function getWebpackConfig() {
-    let env = grunt.option('env');
-    if(env==="dev"){
-        console.log(chalk.cyan('running webpack in development mode...'))
-        return getDevelopmentAdjustedWebpackConfig();
-    }
+    console.log(chalk.cyan('in getWebpack config'))
+//
+//    let env = grunt.option('env');
+//    if(env==="dev"){
+//        console.log(chalk.cyan('running webpack in development mode...'))
+//        return getDevelopmentAdjustedWebpackConfig();
+//    }
     console.log(chalk.cyan('running webpack in production mode...'))
     console.log(chalk.italic.blue('To use webpack in development mode run `grunt webpack --env=dev`'));
     return webpackConfig
