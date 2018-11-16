@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fa12a69630d5983a7dbddedb4b2115c",
+    "content-hash": "4d727a629ac14f48daebd014e554a49f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1938,17 +1938,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "version": "dev-TAC-252-uk-mail-via-netdespatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "4d0a29283e21b94a0368dd0e19e18a58e2bfe61f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-4cb12e.zip",
-                "reference": "4d0a29283e21b94a0368dd0e19e18a58e2bfe61f",
-                "shasum": null
+                "reference": "4a59ef4070fb2a8214e20fea0e82a93285fded65"
             },
             "require": {
                 "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
@@ -10466,6 +10460,12 @@
             "package": "channelgrabber/netdespatch"
         },
         {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-TAC-252-uk-mail-via-netdespatch",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "1.0.8",
             "alias_normalized": "1.0.8.0",
             "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
@@ -10479,8 +10479,8 @@
         "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

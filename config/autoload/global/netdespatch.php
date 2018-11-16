@@ -2,10 +2,35 @@
 
 use CG\NetDespatch\Account\CreationService as NetDespatchAccountCreationService;
 use CG_NetDespatch\Account\CreationService\RoyalMail as NDRMAccountCreationService;
+use CG\NetDespatch\Carrier\CarrierSpecificData\UkMail\PackageType as UKMailPackageType;
+use CG\NetDespatch\Carrier\CarrierSpecificData\UkMail\Signature as UKMailSignature;
 use CG_NetDespatch\Controller\AccountController as NetDespatchAccountController;
 use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
 use CG\NetDespatch\Order\Mapper\Factory as NetDespatchOrderMapperFactory;
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
+
+$ukMailBagitAndParcel = [
+    UKMailPackageType::BAGIT_SMALL,
+    UKMailPackageType::BAGIT_MEDIUM,
+    UKMailPackageType::BAGIT_LARGE,
+    UKMailPackageType::BAGIT_XL,
+    UKMailPackageType::PARCEL
+];
+$ukMailAllSigAddOns = [
+    [
+        'title' => UKMailSignature::ADDRESS_OR_NEIGHBOUR,
+        'excludes' => implode(',', [UKMailSignature::ADDRESS_ONLY, UKMailSignature::LEAVE_SAFE]),
+        'default' => true
+    ],
+    [
+        'title' => UKMailSignature::ADDRESS_ONLY,
+        'excludes' => implode(',', [UKMailSignature::ADDRESS_OR_NEIGHBOUR, UKMailSignature::LEAVE_SAFE])
+    ],
+    [
+        'title' => UKMailSignature::LEAVE_SAFE,
+        'excludes' => implode(',', [UKMailSignature::ADDRESS_OR_NEIGHBOUR, UKMailSignature::ADDRESS_ONLY])
+    ],
+];
 
 return [
     'di' => [
@@ -226,7 +251,154 @@ return [
                                     ]
                                 ],
                             ]
-                        ]
+                        ],
+
+                        'uk-mail' => [
+                            'channelName' => 'uk-mail-nd',
+                            'displayName' => 'UK Mail',
+                            'providerCode' => 'Amtrak',
+                            'featureFlag' => 'UK Mail',
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'fields' => [],
+                            'shippingServices' => [
+                                // These codes vary based on chosen options
+                                '1' => [
+                                    'name' => 'Next Day',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                '2' => [
+                                    'name' => 'Next Day 12:00',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                '9' => [
+                                    'name' => 'Next Day 10:30',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                '3' => [
+                                    'name' => 'Next Day 09:00',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ]
+                                    ]
+                                ],
+                                '4' => [
+                                    'name' => 'Saturday',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                '7' => [
+                                    'name' => 'Saturday 10:30',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                '5' => [
+                                    'name' => 'Saturday 09:00',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ]
+                                    ]
+                                ],
+                                '48' => [
+                                    'name' => '48 Hr',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_OR_NEIGHBOUR,
+                                            'excludes' => implode(',', [UKMailSignature::ADDRESS_ONLY, UKMailSignature::LEAVE_SAFE]),
+                                            'default' => true
+                                        ],
+                                        [
+                                            'title' => UKMailSignature::LEAVE_SAFE,
+                                            'excludes' => implode(',', [UKMailSignature::ADDRESS_OR_NEIGHBOUR, UKMailSignature::ADDRESS_ONLY])
+                                        ],
+                                    ]
+                                ],
+                                '72' => [
+                                    'name' => '48 Hr +',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::LEAVE_SAFE,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                '545' => [
+                                    'name' => 'Packet+',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PACKET],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::LEAVE_SAFE,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                '97' => [
+                                    'name' => 'Pallet 24hrs',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PALLET],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                '98' => [
+                                    'name' => 'Pallet 48hrs',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PALLET],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                '101' => [
+                                    'name' => 'International: Air',
+                                    'domestic' => false,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                '204' => [
+                                    'name' => 'International: Road',
+                                    'domestic' => false,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                            ]
+                        ],
                     ]
                 ]
             ],
