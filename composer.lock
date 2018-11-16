@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "2fa12a69630d5983a7dbddedb4b2115c",
@@ -4812,16 +4812,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.25.3",
+            "version": "1.25.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "38ad55a363e60829abc29485112a4e92d0edd964"
+                "reference": "cb40916952952ccb7c438248863d4b5348f52d7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.3-4697d4.zip",
-                "reference": "38ad55a363e60829abc29485112a4e92d0edd964",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.4-9c027a.zip",
+                "reference": "cb40916952952ccb7c438248863d4b5348f52d7f",
                 "shasum": null
             },
             "require": {
@@ -4873,7 +4873,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-02T14:46:54+00:00"
+            "time": "2018-11-16T09:12:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
