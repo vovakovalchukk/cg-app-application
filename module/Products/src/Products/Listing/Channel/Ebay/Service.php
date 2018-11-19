@@ -141,10 +141,28 @@ class Service implements
                 'shippingMethods' => $this->getShippingMethodsForAccount(
                     $account ? $account->getRootOrganisationUnitId() : $this->activeUser->getActiveUserRootOrganisationUnitId()
                 ),
-                'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData)
+                'itemSpecifics' => $this->getItemSpecificsFromEbayCategoryData($ebayData),
+                'pbse' => $this->getPbseStatusForCategory($ebayData)
             ],
             $this->fetchPoliciesForAccount($account)
         );
+    }
+
+    protected function getPbseStatusForCategory(?Data $ebayData): array
+    {
+        return [
+            'required' => $this->getPbseRequiredStatus($ebayData)
+        ];
+    }
+
+    protected function getPbseRequiredStatus(?Data $ebayData): bool
+    {
+        try {
+            return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('ProductRequiredEnabled') : false;
+        } catch (\InvalidArgumentException $e) {
+            $this->logWarningException($e);
+            return false;
+        }
     }
 
     protected function fetchPoliciesForAccount(Account $account): array
@@ -224,21 +242,25 @@ class Service implements
 
     public function formatExternalChannelData(array $data, string $processGuid): array
     {
-        if (!($epidAccountId = $data['epidAccountId'] ?? null) || !($epid = $data['epid'])) {
-            try {
-                $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
-                $epid = $epidEntity->getEpid();
-                $epidAccountId = $epidEntity->getAccountId();
-            } catch (NotFound $e) {
-                return $data;
-            }
+        $epidAccountId = $data['epidAccountId'] ?? null;
+        if (!$epidAccountId) {
+            return $data;
+        }
+
+        $variationToEpid = $data['variationToEpid'] ?? [];
+
+        try {
+            $epidEntity = $this->epidStorage->fetchByGuid($processGuid);
+            $variationToEpid = $variationToEpid + $epidEntity->getVariationToEpid();
+        } catch (NotFound $e) {
+            // No-op
         }
 
         try {
             /** @var Account $account */
             $account = $this->accountService->fetch($epidAccountId);
         } catch (NotFound $e) {
-            unset($data['epid'], $data['epidAccountId']);
+            unset($data['variationToEpid'], $data['epidAccountId']);
             return $data;
         }
 
@@ -246,7 +268,7 @@ class Service implements
 
         return array_merge($data, [
             'marketplace' => $this->fetchDefaultSiteIdForAccount($account),
-            'epid' => $epid
+            'variationToEpid' => $variationToEpid
         ]);
     }
 
