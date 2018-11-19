@@ -4825,12 +4825,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7ba3f676e5b579126976451615f00c97032c0b91"
+                "reference": "d67f191d2929cc934c5234d3a440b9ea5b7cbda9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-d3591a.zip",
-                "reference": "7ba3f676e5b579126976451615f00c97032c0b91",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-2f78ec.zip",
+                "reference": "d67f191d2929cc934c5234d3a440b9ea5b7cbda9",
                 "shasum": null
             },
             "require": {
@@ -4882,7 +4882,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-14T13:49:07+00:00"
+            "time": "2018-11-19T11:05:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
