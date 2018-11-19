@@ -2048,12 +2048,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "889ff9b8b281804ce948cc8b0c46864b18115de6"
+                "reference": "4b4d0aafbae3dd2405e9718052c1647bbe58d69f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9273-ebay-invoice-mapping-1cb8d4.zip",
-                "reference": "889ff9b8b281804ce948cc8b0c46864b18115de6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-9273-ebay-invoice-mapping-a99441.zip",
+                "reference": "4b4d0aafbae3dd2405e9718052c1647bbe58d69f",
                 "shasum": null
             },
             "require": {
@@ -2124,7 +2124,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-14T15:00:45+00:00"
+            "time": "2018-11-14T15:21:03+00:00"
         },
         {
             "name": "channelgrabber/payment",
