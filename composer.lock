@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d47f8bbc728dfe315e36ec00b43c9d8c",
+    "content-hash": "6e4ce7ab28a5e86e60b0458abf7d74bf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -795,7 +795,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-14T13:33:07+00:00"
+            "time": "2018-11-19T09:46:52+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -4825,12 +4825,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d67f191d2929cc934c5234d3a440b9ea5b7cbda9"
+                "reference": "9bf28813a1e5fe85b58ad4dceb846ce1b56f4965"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-2f78ec.zip",
-                "reference": "d67f191d2929cc934c5234d3a440b9ea5b7cbda9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-329ec5.zip",
+                "reference": "9bf28813a1e5fe85b58ad4dceb846ce1b56f4965",
                 "shasum": null
             },
             "require": {
@@ -4882,7 +4882,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-16T09:12:57+00:00"
+            "time": "2018-11-19T11:56:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9051,7 +9051,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9106,7 +9106,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9161,7 +9161,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
