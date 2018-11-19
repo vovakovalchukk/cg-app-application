@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ce5aa3087b8c159de936d3f917767cd",
+    "content-hash": "6e4ce7ab28a5e86e60b0458abf7d74bf",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2054,12 +2054,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "04098297885493f1c8e8097bf7d46c14a206cd97"
+                "reference": "63e720608440892598157019af3e4d75264d1e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-123-bigcommerce-abandoned-orders-7c86ae.zip",
-                "reference": "04098297885493f1c8e8097bf7d46c14a206cd97",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-123-bigcommerce-abandoned-orders-afc808.zip",
+                "reference": "63e720608440892598157019af3e4d75264d1e34",
                 "shasum": null
             },
             "require": {
@@ -2130,7 +2130,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-19T09:49:30+00:00"
+            "time": "2018-11-19T15:46:22+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4825,12 +4825,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9bf28813a1e5fe85b58ad4dceb846ce1b56f4965"
+                "reference": "e27b35479bb8b1d3c667d31415d6573effce068a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-329ec5.zip",
-                "reference": "9bf28813a1e5fe85b58ad4dceb846ce1b56f4965",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-032fe6.zip",
+                "reference": "e27b35479bb8b1d3c667d31415d6573effce068a",
                 "shasum": null
             },
             "require": {
@@ -4882,7 +4882,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-19T14:43:57+00:00"
+            "time": "2018-11-19T15:43:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
