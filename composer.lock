@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e4ce7ab28a5e86e60b0458abf7d74bf",
+    "content-hash": "8ce5aa3087b8c159de936d3f917767cd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4882,7 +4882,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-19T11:56:13+00:00"
+            "time": "2018-11-19T14:43:57+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
