@@ -1942,12 +1942,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "b5149654132b7dfa8bc72321af0b8832895c2464"
+                "reference": "84d74b0b415397f3c00343792f5e2c5ece9428d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-252-uk-mail-via-netdespatch-928c69.zip",
-                "reference": "b5149654132b7dfa8bc72321af0b8832895c2464",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-252-uk-mail-via-netdespatch-d63884.zip",
+                "reference": "84d74b0b415397f3c00343792f5e2c5ece9428d9",
                 "shasum": null
             },
             "require": {
@@ -1988,7 +1988,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-11-20T12:33:05+00:00"
+            "time": "2018-11-21T10:03:35+00:00"
         },
         {
             "name": "channelgrabber/notification",
