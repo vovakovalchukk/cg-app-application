@@ -59,7 +59,7 @@ $(document).ready(function() {
     <form>
         <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
         <div class="invoiceDefaultSettings module half">
-            <div class="heading-large">Invoice Settings</div>
+            <div class="heading-large">Global Settings</div>
             <label>
                 <span class="inputbox-label">Show Item Barcodes:</span>
                 <div class="checkbox-holder">
@@ -87,15 +87,6 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
-
-                <label class="email-send-as-label">
-                    <span class="inputbox-label">Invoice Email Template:</span>
-                </label>
-                <div class="invoice-email-editor-section">
-                    <div id="invoice-email-editor">
-                        <?= $emailTemplate ?? '' ?>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="invoiceTradingCompanySettings module section-separator">
@@ -111,27 +102,7 @@ $(document).ready(function() {
 <div class="invoiceMapping">
     <form>
         <div class="invoiceMappingTable module section-separator">
-            <div class="heading-large">Invoice Mapping Table</div>
-            <div class="invoiceMappingSettings half">
-                <label>
-                    <span class="inputbox-label">Default Invoice:</span>
-                    <div class="invoice-settings-field order-inputbox-holder half-input">
-                        <?= $defaultCustomSelect; ?>
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label">Default Send To FBA on Dispatch:</span>
-                    <div class="invoice-settings-field checkbox-holder">
-                        <?= $sendToFbaToggle ?>
-                    </div>
-                </label>
-                <label>
-                    <span class="inputbox-label">Default Email Invoice on Dispatch:</span>
-                    <div class="invoice-settings-field checkbox-holder">
-                        <?= $autoEmailToggle ?>
-                    </div>
-                </label>
-            </div>
+            <div class="heading-large">Invoice Settings</div>
             <div class="invoiceMappingSettings half">
                 <label class="email-send-as-label">
                     <span class="inputbox-label">Send From Email:</span>

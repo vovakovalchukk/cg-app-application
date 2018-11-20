@@ -2,7 +2,7 @@
 namespace CG\ShipStation\Messages;
 
 use CG\Locale\USAStates;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\ShipStation\Messages\Exception\InvalidStateException;
 
 class ShipmentAddress extends Address
