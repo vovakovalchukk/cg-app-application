@@ -279,26 +279,26 @@ return [
                                 'deliveryInstructions' => 'deliveryInstructions',
                             ],
                             'shippingServices' => [
-                                // These codes vary based on chosen options
-                                '1' => [
+                                // These aren't the final codes, see UKMailTariffCodeMapper
+                                'Next Day' => [
                                     'name' => 'Next Day',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
                                     'addOns' => $ukMailAllSigAddOns
                                 ],
-                                '2' => [
+                                'Next Day 12:00' => [
                                     'name' => 'Next Day 12:00',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
                                     'addOns' => $ukMailAllSigAddOns
                                 ],
-                                '9' => [
+                                'Next Day 10:30' => [
                                     'name' => 'Next Day 10:30',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
                                     'addOns' => $ukMailAllSigAddOns
                                 ],
-                                '3' => [
+                                'Next Day 09:00' => [
                                     'name' => 'Next Day 09:00',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
@@ -309,19 +309,19 @@ return [
                                         ]
                                     ]
                                 ],
-                                '4' => [
+                                'Saturday' => [
                                     'name' => 'Saturday',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
                                     'addOns' => $ukMailAllSigAddOns
                                 ],
-                                '7' => [
+                                'Saturday 10:30' => [
                                     'name' => 'Saturday 10:30',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
                                     'addOns' => $ukMailAllSigAddOns
                                 ],
-                                '5' => [
+                                'Saturday 09:00' => [
                                     'name' => 'Saturday 09:00',
                                     'domestic' => true,
                                     'packageTypes' => $ukMailBagitAndParcel,
@@ -332,8 +332,8 @@ return [
                                         ]
                                     ]
                                 ],
-                                // Deliberately omitting 'Timed Delivery' (6)
-                                '48' => [
+                                // Deliberately omitting 'Timed Delivery'
+                                '48 Hr' => [
                                     'name' => '48 Hr',
                                     'domestic' => true,
                                     'packageTypes' => [UKMailPackageType::PARCEL],
@@ -349,7 +349,7 @@ return [
                                         ],
                                     ]
                                 ],
-                                '72' => [
+                                '48 Hr +' => [
                                     'name' => '48 Hr +',
                                     'domestic' => true,
                                     'packageTypes' => [UKMailPackageType::PARCEL],
@@ -360,7 +360,7 @@ return [
                                         ],
                                     ]
                                 ],
-                                '545' => [
+                                'Packet+' => [
                                     'name' => 'Packet+',
                                     'domestic' => true,
                                     'packageTypes' => [UKMailPackageType::PACKET],
@@ -371,7 +371,7 @@ return [
                                         ],
                                     ]
                                 ],
-                                '97' => [
+                                'Pallet 24hrs' => [
                                     'name' => 'Pallet 24hrs',
                                     'domestic' => true,
                                     'packageTypes' => [UKMailPackageType::PALLET],
@@ -382,7 +382,7 @@ return [
                                         ],
                                     ]
                                 ],
-                                '98' => [
+                                'Pallet 48hrs' => [
                                     'name' => 'Pallet 48hrs',
                                     'domestic' => true,
                                     'packageTypes' => [UKMailPackageType::PALLET],
@@ -393,7 +393,7 @@ return [
                                         ],
                                     ]
                                 ],
-                                '101' => [
+                                'International: Air' => [
                                     'name' => 'International: Air',
                                     'domestic' => false,
                                     'packageTypes' => [UKMailPackageType::PARCEL],
@@ -404,7 +404,7 @@ return [
                                         ],
                                     ]
                                 ],
-                                '204' => [
+                                'International: Road' => [
                                     'name' => 'International: Road',
                                     'domestic' => false,
                                     'packageTypes' => [UKMailPackageType::PARCEL],
@@ -423,7 +423,7 @@ return [
             UKMailTariffCodeMapper::class => [
                 'parameters' => [
                     'map' => [
-                        '1' => [
+                        'Next Day' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_OR_NEIGHBOUR => '1',
                                 UKMailSignature::ADDRESS_ONLY         => '220',
@@ -447,7 +447,7 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '270',
                             ],
                         ],
-                        '2' => [
+                        'Next Day 12:00' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_OR_NEIGHBOUR => '2',
                                 UKMailSignature::ADDRESS_ONLY         => '221',
@@ -471,7 +471,7 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '271',
                             ],
                         ],
-                        '9' => [
+                        'Next Day 10:30' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_OR_NEIGHBOUR => '9',
                                 UKMailSignature::ADDRESS_ONLY         => '222',
@@ -495,7 +495,7 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '272',
                             ],
                         ],
-                        '3' => [
+                        'Next Day 09:00' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_ONLY         => '3',
                             ],
@@ -512,7 +512,7 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '12',
                             ],
                         ],
-                        '4' => [
+                        'Saturday' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_OR_NEIGHBOUR => '4',
                                 UKMailSignature::ADDRESS_ONLY         => '225',
@@ -536,7 +536,7 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '275',
                             ],
                         ],
-                        '7' => [
+                        'Saturday 10:30' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_OR_NEIGHBOUR => '7',
                                 UKMailSignature::ADDRESS_ONLY         => '226',
@@ -560,7 +560,7 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '276',
                             ],
                         ],
-                        '5' => [
+                        'Saturday 09:00' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_ONLY         => '5',
                             ],
@@ -577,39 +577,39 @@ return [
                                 UKMailSignature::ADDRESS_ONLY         => '14',
                             ],
                         ],
-                        '48' => [
+                        '48 Hr' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_OR_NEIGHBOUR => '48',
                                 // This has the same code as the 48 Hr + (72) service below
                                 UKMailSignature::LEAVE_SAFE           => '72',
                             ],
                         ],
-                        '72' => [
+                        '48 Hr +' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::LEAVE_SAFE           => '72',
                             ],
                         ],
-                        '545' => [
+                        'Packet+' => [
                             UKMailPackageType::PACKET => [
                                 UKMailSignature::LEAVE_SAFE           => '545',
                             ]
                         ],
-                        '97' => [
+                        'Pallet 24hrs' => [
                             UKMailPackageType::PALLET => [
                                 UKMailSignature::ADDRESS_ONLY         => '97',
                             ]
                         ],
-                        '98' => [
+                        'Pallet 48hrs' => [
                             UKMailPackageType::PALLET => [
                                 UKMailSignature::ADDRESS_ONLY         => '98',
                             ]
                         ],
-                        '101' => [
+                        'International: Air' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_ONLY         => '101',
                             ]
                         ],
-                        '204' => [
+                        'International: Road' => [
                             UKMailPackageType::PARCEL => [
                                 UKMailSignature::ADDRESS_ONLY         => '204',
                             ]
