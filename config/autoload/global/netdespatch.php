@@ -7,6 +7,7 @@ use CG\NetDespatch\Carrier\CarrierSpecificData\UkMail\Signature as UKMailSignatu
 use CG_NetDespatch\Controller\AccountController as NetDespatchAccountController;
 use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
 use CG\NetDespatch\Order\Mapper\Factory as NetDespatchOrderMapperFactory;
+use CG\NetDespatch\Order\Mapper\UkMail\TariffCode as UKMailTariffCodeMapper;
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
 
 $ukMailBagitAndParcel = [
@@ -331,6 +332,7 @@ return [
                                         ]
                                     ]
                                 ],
+                                // Deliberately omitting 'Timed Delivery' (6)
                                 '48' => [
                                     'name' => '48 Hr',
                                     'domestic' => true,
@@ -413,6 +415,203 @@ return [
                                         ],
                                     ]
                                 ],
+                            ]
+                        ],
+                    ]
+                ]
+            ],
+            UKMailTariffCodeMapper::class => [
+                'parameters' => [
+                    'map' => [
+                        '1' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '1',
+                                UKMailSignature::ADDRESS_ONLY         => '220',
+                                UKMailSignature::LEAVE_SAFE           => '210',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '40',
+                                UKMailSignature::ADDRESS_ONLY         => '240',
+                                UKMailSignature::LEAVE_SAFE           => '230',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '30',
+                                UKMailSignature::ADDRESS_ONLY         => '250',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '20',
+                                UKMailSignature::ADDRESS_ONLY         => '260',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '10',
+                                UKMailSignature::ADDRESS_ONLY         => '270',
+                            ],
+                        ],
+                        '2' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '2',
+                                UKMailSignature::ADDRESS_ONLY         => '221',
+                                UKMailSignature::LEAVE_SAFE           => '211',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '41',
+                                UKMailSignature::ADDRESS_ONLY         => '241',
+                                UKMailSignature::LEAVE_SAFE           => '231',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '31',
+                                UKMailSignature::ADDRESS_ONLY         => '251',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '21',
+                                UKMailSignature::ADDRESS_ONLY         => '261',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '11',
+                                UKMailSignature::ADDRESS_ONLY         => '271',
+                            ],
+                        ],
+                        '9' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '9',
+                                UKMailSignature::ADDRESS_ONLY         => '222',
+                                UKMailSignature::LEAVE_SAFE           => '212',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '49',
+                                UKMailSignature::ADDRESS_ONLY         => '242',
+                                UKMailSignature::LEAVE_SAFE           => '232',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '39',
+                                UKMailSignature::ADDRESS_ONLY         => '252',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '29',
+                                UKMailSignature::ADDRESS_ONLY         => '262',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '19',
+                                UKMailSignature::ADDRESS_ONLY         => '272',
+                            ],
+                        ],
+                        '3' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_ONLY         => '3',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_ONLY         => '42',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_ONLY         => '32',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_ONLY         => '22',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_ONLY         => '12',
+                            ],
+                        ],
+                        '4' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '4',
+                                UKMailSignature::ADDRESS_ONLY         => '225',
+                                UKMailSignature::LEAVE_SAFE           => '215',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '43',
+                                UKMailSignature::ADDRESS_ONLY         => '245',
+                                UKMailSignature::LEAVE_SAFE           => '235',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '33',
+                                UKMailSignature::ADDRESS_ONLY         => '255',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '23',
+                                UKMailSignature::ADDRESS_ONLY         => '265',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '13',
+                                UKMailSignature::ADDRESS_ONLY         => '275',
+                            ],
+                        ],
+                        '7' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '7',
+                                UKMailSignature::ADDRESS_ONLY         => '226',
+                                UKMailSignature::LEAVE_SAFE           => '216',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '46',
+                                UKMailSignature::ADDRESS_ONLY         => '246',
+                                UKMailSignature::LEAVE_SAFE           => '236',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '36',
+                                UKMailSignature::ADDRESS_ONLY         => '256',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '26',
+                                UKMailSignature::ADDRESS_ONLY         => '266',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '16',
+                                UKMailSignature::ADDRESS_ONLY         => '276',
+                            ],
+                        ],
+                        '5' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_ONLY         => '5',
+                            ],
+                            UKMailPackageType::BAGIT_SMALL => [
+                                UKMailSignature::ADDRESS_ONLY         => '44',
+                            ],
+                            UKMailPackageType::BAGIT_MEDIUM => [
+                                UKMailSignature::ADDRESS_ONLY         => '34',
+                            ],
+                            UKMailPackageType::BAGIT_LARGE => [
+                                UKMailSignature::ADDRESS_ONLY         => '24',
+                            ],
+                            UKMailPackageType::BAGIT_XL => [
+                                UKMailSignature::ADDRESS_ONLY         => '14',
+                            ],
+                        ],
+                        '48' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_OR_NEIGHBOUR => '48',
+                                // This has the same code as the 48 Hr + (72) service below
+                                UKMailSignature::LEAVE_SAFE           => '72',
+                            ],
+                        ],
+                        '72' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::LEAVE_SAFE           => '72',
+                            ],
+                        ],
+                        '545' => [
+                            UKMailPackageType::PACKET => [
+                                UKMailSignature::LEAVE_SAFE           => '545',
+                            ]
+                        ],
+                        '97' => [
+                            UKMailPackageType::PALLET => [
+                                UKMailSignature::ADDRESS_ONLY         => '97',
+                            ]
+                        ],
+                        '98' => [
+                            UKMailPackageType::PALLET => [
+                                UKMailSignature::ADDRESS_ONLY         => '98',
+                            ]
+                        ],
+                        '101' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_ONLY         => '101',
+                            ]
+                        ],
+                        '204' => [
+                            UKMailPackageType::PARCEL => [
+                                UKMailSignature::ADDRESS_ONLY         => '204',
                             ]
                         ],
                     ]
