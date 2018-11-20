@@ -39,8 +39,9 @@ return [
                 'parameters' => [
                     'defaultBookingOptions' => [
                         'weight' => 'weight',
-                        'packageType' => 'packageType',
-                        'addOns' => 'addOns',
+                        'height' => 'height',
+                        'width'  => 'width',
+                        'length' => 'length',
                         'deliveryInstructions' => 'deliveryInstructions',
                     ],
                     'carriersConfig' => [
@@ -52,6 +53,12 @@ return [
                             'allowsManifesting' => false,
                             // For Royal Mail we use a bespoke form. See: CG_NetDespatch\Setup\RoyalMail
                             'fields' => [],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'packageType' => 'packageType',
+                                'addOns' => 'addOns',
+                                'deliveryInstructions' => 'deliveryInstructions',
+                            ],
                             'shippingServices' => [
                                 // These codes are prefixes, more characters will be added based on chosen options
                                 '24' => [
@@ -261,6 +268,15 @@ return [
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
                             'fields' => [],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'height' => 'height',
+                                'width'  => 'width',
+                                'length' => 'length',
+                                'packageType' => 'packageType',
+                                'addOns' => 'addOns',
+                                'deliveryInstructions' => 'deliveryInstructions',
+                            ],
                             'shippingServices' => [
                                 // These codes vary based on chosen options
                                 '1' => [
