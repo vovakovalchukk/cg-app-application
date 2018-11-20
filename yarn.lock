@@ -1546,9 +1546,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-278-product-page-redesign-snagging-round-3":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-162-products-page-redesign":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#e7e57ac5f15dfd1e8edb66586a854f43000e1b99"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#cb287a97a9cc3bb20d24535935df90b5e10a6f7a"
   dependencies:
     react "^16.5.2"
     react-dom "^16.5.2"
