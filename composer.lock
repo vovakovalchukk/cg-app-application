@@ -2970,12 +2970,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "b0c4e9280b88f9fc69b086aac7e6b7a71312f12c"
+                "reference": "9953cbb41c139b30662a409fe0bd0b682339760c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10107-shipstation-handle-rate-limit-232b02.zip",
-                "reference": "b0c4e9280b88f9fc69b086aac7e6b7a71312f12c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10107-shipstation-handle-rate-limit-11bbc0.zip",
+                "reference": "9953cbb41c139b30662a409fe0bd0b682339760c",
                 "shasum": null
             },
             "require": {
@@ -2997,7 +2997,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-11-21T10:02:54+00:00"
+            "time": "2018-11-21T10:20:55+00:00"
         },
         {
             "name": "channelgrabber/shopify",
