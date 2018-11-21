@@ -1,0 +1,37 @@
+<form class="account-form-holder" style="height:auto" id="carrier-account-form" action="<?=$this->saveUrl;?>" method="POST">
+    <div class="account-logo">
+        <span class="logo-large walmart"></span>
+    </div>
+    <input type="hidden" id="accountId" name="account" value="<?= $this->accountId; ?>" />
+    <p>Please enter your Walmart API credentials. These must have <strong>full access</strong> permissions.</p>
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('Client ID'); ?>:
+            <abbr class="required">*</abbr>
+        </div>
+        <div class="text-field">
+            <?=$this->clientId;?>
+        </div>
+    </div>
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('Client Secret'); ?>:
+            <abbr class="required">*</abbr>
+        </div>
+        <div class="text-field">
+            <?=$this->clientSecret;?>
+        </div>
+    </div>
+    <div class="account-form-buttons-holder">
+        <?= $this->linkAccount ?>
+        <a href='<?= $this->goBackUrl; ?>'><?= $this->goBack ?></a>
+    </div>
+</form>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function()
+{
+    require(["<?= $this->basePath() . \Walmart\Module::PUBLIC_FOLDER; ?>/js/Setup/Service.js"], function(Service) {
+        var service = new Service();
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
