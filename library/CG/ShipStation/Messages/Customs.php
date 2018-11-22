@@ -3,7 +3,7 @@ namespace CG\ShipStation\Messages;
 
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsData;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Messages\Customs\Item;
 

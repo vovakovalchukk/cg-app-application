@@ -2049,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.41.0",
+            "version": "1.42.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04"
+                "reference": "48f6bddacf0ce9dde4845d5497f3b5a15f136f5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.41.0-5c3e6c.zip",
-                "reference": "a090bc40a054e295b6a2d41ef58f2a809e5e3f04",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.0-24a5d3.zip",
+                "reference": "48f6bddacf0ce9dde4845d5497f3b5a15f136f5c",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-02T14:53:43+00:00"
+            "time": "2018-11-21T14:17:15+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4822,16 +4822,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.25.5.1",
+            "version": "1.25.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "88ee5b0b9655c0e5bdc88cc791002a7a769af35a"
+                "reference": "bce432c9a7eb1a4bbc65cc029e1233e4e1c05c80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.5.1-caf1d6.zip",
-                "reference": "88ee5b0b9655c0e5bdc88cc791002a7a769af35a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.6-b10ead.zip",
+                "reference": "bce432c9a7eb1a4bbc65cc029e1233e4e1c05c80",
                 "shasum": null
             },
             "require": {
@@ -4883,7 +4883,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-19T14:43:57+00:00"
+            "time": "2018-11-20T14:23:58+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
