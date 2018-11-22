@@ -1745,12 +1745,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "9778ccca687f2b5b544bce8b890831f6ac9a87f3"
+                "reference": "7afec557f637809ac0068abbd9d658270c48294d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-10116-royal-mail-armed-forces-label-69a267.zip",
-                "reference": "9778ccca687f2b5b544bce8b890831f6ac9a87f3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-10116-royal-mail-armed-forces-label-d1519e.zip",
+                "reference": "7afec557f637809ac0068abbd9d658270c48294d",
                 "shasum": null
             },
             "require": {
@@ -1774,7 +1774,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-11-19T13:08:25+00:00"
+            "time": "2018-11-22T14:25:08+00:00"
         },
         {
             "name": "channelgrabber/location",
