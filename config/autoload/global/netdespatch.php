@@ -417,6 +417,179 @@ return [
                                 ],
                             ]
                         ],
+
+
+
+
+                        'yodel' => [
+                            'channelName' => 'yodel-nd',
+                            'displayName' => 'Yodel',
+                            'providerCode' => 'Amtrak',
+                            'featureFlag' => 'Yodel',
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'fields' => [],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'height' => 'height',
+                                'width'  => 'width',
+                                'length' => 'length',
+                                'packageType' => 'packageType',
+                                'addOns' => 'addOns',
+                                'deliveryInstructions' => 'deliveryInstructions',
+                            ],
+                            'shippingServices' => [
+                                // These aren't the final codes, see UKMailTariffCodeMapper
+
+                                'Priority 12:00' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                'Express' => [
+                                    'name' => 'Express',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                'Yodel World' => [
+                                    'name' => 'Yodel World',
+                                    'domestic' => false,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                'Yodel ROI' => [
+                                    'name' => 'Yodel ROI',
+                                    'domestic' => false,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ]
+                                    ]
+                                ],
+                                'Yodel CI' => [
+                                    'name' => 'Yodel CI',
+                                    'domestic' => false,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                'Saturday 10:30' => [
+                                    'name' => 'Saturday 10:30',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => $ukMailAllSigAddOns
+                                ],
+                                'Saturday 09:00' => [
+                                    'name' => 'Saturday 09:00',
+                                    'domestic' => true,
+                                    'packageTypes' => $ukMailBagitAndParcel,
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ]
+                                    ]
+                                ],
+                                // Deliberately omitting 'Timed Delivery'
+                                '48 Hr' => [
+                                    'name' => '48 Hr',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_OR_NEIGHBOUR,
+                                            'excludes' => implode(',', [UKMailSignature::ADDRESS_ONLY, UKMailSignature::LEAVE_SAFE]),
+                                            'default' => true
+                                        ],
+                                        [
+                                            'title' => UKMailSignature::LEAVE_SAFE,
+                                            'excludes' => implode(',', [UKMailSignature::ADDRESS_OR_NEIGHBOUR, UKMailSignature::ADDRESS_ONLY])
+                                        ],
+                                    ]
+                                ],
+                                '48 Hr +' => [
+                                    'name' => '48 Hr +',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::LEAVE_SAFE,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                'Packet+' => [
+                                    'name' => 'Packet+',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PACKET],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::LEAVE_SAFE,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                'Pallet 24hrs' => [
+                                    'name' => 'Pallet 24hrs',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PALLET],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                'Pallet 48hrs' => [
+                                    'name' => 'Pallet 48hrs',
+                                    'domestic' => true,
+                                    'packageTypes' => [UKMailPackageType::PALLET],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                'International: Air' => [
+                                    'name' => 'International: Air',
+                                    'domestic' => false,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                                'International: Road' => [
+                                    'name' => 'International: Road',
+                                    'domestic' => false,
+                                    'packageTypes' => [UKMailPackageType::PARCEL],
+                                    'addOns' => [
+                                        [
+                                            'title' => UKMailSignature::ADDRESS_ONLY,
+                                            'default' => true
+                                        ],
+                                    ]
+                                ],
+                            ]
+                        ],
+
+
+
+
+
+
+
+
+
+
+
+
                     ]
                 ]
             ],
