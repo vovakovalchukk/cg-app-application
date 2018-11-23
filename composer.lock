@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "360ce155f84d7e508d771b560eb96e80",
+    "content-hash": "ec239a93490b44cfec7b417b8b2d24c7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1741,16 +1741,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "d7c1ac9ef3d43406007e751fccc5a4071850ce55"
+                "reference": "dd356013f21dc5e590ead8234ccf00ded2f58452"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.2.1-fb7f25.zip",
-                "reference": "d7c1ac9ef3d43406007e751fccc5a4071850ce55",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.2.2-906082.zip",
+                "reference": "dd356013f21dc5e590ead8234ccf00ded2f58452",
                 "shasum": null
             },
             "require": {
@@ -1774,7 +1774,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-29T08:47:40+00:00"
+            "time": "2018-11-22T14:37:04+00:00"
         },
         {
             "name": "channelgrabber/location",
@@ -9051,7 +9051,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9106,7 +9106,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9161,7 +9161,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
