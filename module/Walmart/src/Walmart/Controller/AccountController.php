@@ -4,7 +4,10 @@ namespace Walmart\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Channel\Type as ChannelType;
+use CG\Walmart\Account\CreationService as AccountCreationService;
 use CG\Walmart\Credentials;
+use CG\User\ActiveUserInterface;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -23,12 +26,27 @@ class AccountController extends AbstractActionController
     protected $cryptor;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var JsonModelFactory */
+    protected $jsonModelFactory;
+    /** @var AccountCreationService */
+    protected $accountCreationService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
 
-    public function __construct(AccountService $accountService, Cryptor $cryptor, ViewModelFactory $viewModelFactory)
-    {
+    public function __construct(
+        AccountService $accountService,
+        Cryptor $cryptor,
+        ViewModelFactory $viewModelFactory,
+        JsonModelFactory $jsonModelFactory,
+        AccountCreationService $accountCreationService,
+        ActiveUserInterface $activeUserContainer
+    ) {
         $this->accountService = $accountService;
         $this->cryptor = $cryptor;
         $this->viewModelFactory = $viewModelFactory;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->accountCreationService = $accountCreationService;
+        $this->activeUserContainer = $activeUserContainer;
     }
 
     public function indexAction()
@@ -117,6 +135,16 @@ class AccountController extends AbstractActionController
 
     public function saveAction()
     {
-        // TODO
+        $params = $this->params()->fromPost();
+        $view = $this->jsonModelFactory->newInstance();
+        $accountEntity = $this->accountCreationService->connectAccount(
+            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId(),
+            $params['account'],
+            $params
+        );
+        $url = $this->url()->fromRoute($this->getAccountRoute(), ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
+        $url .= '/' . $accountEntity->getId();
+        $view->setVariable('redirectUrl', $url);
+        return $view;
     }
 }
