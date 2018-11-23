@@ -441,12 +441,232 @@ return [
                             'shippingServices' => [
                                 // These aren't the final codes, see UKMailTariffCodeMapper
 
-                                'Priority 12:00' => [
+                                '10' => [
                                     'name' => 'Priority 12:00',
                                     'domestic' => true,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => $ukMailAllSigAddOns
                                 ],
+                                '20' => [
+                                    'name' => 'Express 24',
+                                    'domestic' => true,
+                                ],
+                                '30' => [
+                                    'name' => 'Express 48',
+                                    'domestic' => true,
+                                ],
+                                '40' => [
+                                    'name' => 'Saturday Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '60' => [
+                                    'name' => 'Express Isle',
+                                    'domestic' => true,
+                                ],
+                                '70' => [
+                                    'name' => 'Express 24 Return',
+                                    'domestic' => true,
+                                ],
+                                '100' => [
+                                    'name' => 'Express 24 Pallet',
+                                    'domestic' => true,
+                                ],
+                                '120' => [
+                                    'name' => 'Express 24 (BT)',
+                                    'domestic' => true,
+                                ],
+                                '140' => [
+                                    'name' => 'Express 48 (UK)',
+                                    'domestic' => true,
+                                ],
+                                '150' => [
+                                    'name' => 'Yodel World',
+                                    'domestic' => false,
+                                ],
+                                '151' => [
+                                    'name' => 'Yodel ROI 48 POD',
+                                    'domestic' => false,
+                                ],
+                                '153' => [
+                                    'name' => 'Yodel ROI 48 NON POD',
+                                    'domestic' => false,
+                                ],
+                                '154' => [
+                                    'name' => 'Yodel ROI 72 POD',
+                                    'domestic' => false,
+                                ],
+                                '151' => [
+                                    'name' => 'Yodel ROI 72 NON POD',
+                                    'domestic' => false,
+                                ],
+                                '155' => [
+                                    'name' => 'Yodel CI 48 POD',
+                                    'domestic' => false,
+                                ],
+                                '156' => [
+                                    'name' => 'Yodel CI 48 NON POD',
+                                    'domestic' => false,
+                                ],
+                                '157' => [
+                                    'name' => 'Yodel CI 72 POD',
+                                    'domestic' => false,
+                                ],
+                                '158' => [
+                                    'name' => 'Yodel CI 72 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '155' => [
+                                    'name' => 'Yodel CI 48 POD',
+                                    'domestic' => true,
+                                ],
+                                '180' => [
+                                    'name' => 'Express 48 (NI)',
+                                    'domestic' => true,
+                                ],
+                                '190' => [
+                                    'name' => 'Express 24',
+                                    'domestic' => true,
+                                ],
+                                '200' => [
+                                    'name' => 'Saturday Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '220' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '260' => [
+                                    'name' => 'Express Isle Exchange',
+                                    'domestic' => true,
+                                ],
+                                '290' => [
+                                    'name' => 'Express 24 Exchange',
+                                    'domestic' => true,
+                                ],
+                                '310' => [
+                                    'name' => '@HOME 24',
+                                    'domestic' => true,
+                                ],
+                                '340' => [
+                                    'name' => '@HOME 48',
+                                    'domestic' => true,
+                                ],
+                                '350' => [
+                                    'name' => '@HOME Return',
+                                    'domestic' => true,
+                                ],
+                                '370' => [
+                                    'name' => '@HOME Catalogue',
+                                    'domestic' => true,
+                                ],
+                                '380' => [
+                                    'name' => '@HOME 72',
+                                    'domestic' => true,
+                                ],
+                                '390' => [
+                                    'name' => '@HOME 72 (NI)',
+                                    'domestic' => true,
+                                ],
+                                '510' => [
+                                    'name' => 'Express 48 (NI) Exchange',
+                                    'domestic' => true,
+                                ],
+                                '530' => [
+                                    'name' => 'Express 24 (BT) Exchange',
+                                    'domestic' => true,
+                                ],
+                                '540' => [
+                                    'name' => 'Express 48 (UK) Exchange',
+                                    'domestic' => true,
+                                ],
+                                '560' => [
+                                    'name' => 'Exchange Return',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '10' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+
+
+
+
+//    730	@HOME 48 (NI)
+//740	@HOME 24 (BT)
+//750	@HOME 48 (BT)
+//840	@HOME MINI
+//850	EXPRESS SATURDAY
+//860	XPRESS 24 POD
+//861	XPRESS 24 NON POD
+//862	XPRESS 48 POD
+//863	XPRESS 48 NON POD
+//864	XPRESS XS 48 NON POD
+//870	XPECT 24 POD
+//871	XPECT 24 NON POD
+//872	XPECT 48 POD
+//873	XPECT 48 NON POD
+//874	XPECT 48 XL POD
+//875	XPECT 48 XL NON POD
+//876	XPECT SATURDAY POD
+//877	XPECT SATURDAY NON POD
+//878	XPECT 48 RETURN POD
+//879	XPECT PRE 12 POD
+//880	XPERT 24 POD DESK
+//881	XPERT 24 ADDRESS ONLY
+//882	XPERT 24 HVT POD
+//883	XPERT 24 BFPO POD
+//884	XPERT SATURDAY ADDRESS ONLY
+//885	XPERT SATURDAY HVT POD
+//886	XPERT SATURDAY POD EXCHANGE
+//887	XPERT 24 POD EXCHANGE
+//889	XPERT PRE 12 NON POD
+//890	XPERT PRE 12 HVT ADDRESS ONLY
+//891	XPERT PRE 12 ADDRESS ONLY
+//892	XPECT PRE 12 SATURDAY POD
+//893	XPERT PRE 12 SATURDAY NON POD
+//894	XPERT PRE 12 SATURDAY ADDRESS ONLY
+//895	XPERT PRE 12 SATURDAY HVT ADD ONLY
+//896	XPERT CATALOGUE NON POD
+//897	XPERT 24 RETURN POD
+//898	XPRESS MINI 48 NON POD
+
+
+
+
                                 'Express' => [
                                     'name' => 'Express',
                                     'domestic' => true,
