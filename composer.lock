@@ -1944,17 +1944,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-TAC-252-uk-mail-via-netdespatch",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "84d74b0b415397f3c00343792f5e2c5ece9428d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-252-uk-mail-via-netdespatch-d63884.zip",
-                "reference": "84d74b0b415397f3c00343792f5e2c5ece9428d9",
-                "shasum": null
+                "reference": "5574ecfabf8bb784cf0e8e4b44d1d5d8e8b3691d"
             },
             "require": {
                 "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
@@ -10479,6 +10473,12 @@
             "package": "channelgrabber/netdespatch"
         },
         {
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "1.0.8",
             "alias_normalized": "1.0.8.0",
             "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
@@ -10499,8 +10499,8 @@
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
