@@ -4859,7 +4859,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0be808b24f9af56304d70b4d143eb9823a3490df"
+                "reference": "b1f0cd4b1b30113e6fd5bdb3b657cb41424d8303"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-260-walmart-account-creation-b4f344.zip",
+                "reference": "b1f0cd4b1b30113e6fd5bdb3b657cb41424d8303",
+                "shasum": null
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -4910,7 +4916,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-23T09:33:35+00:00"
+            "time": "2018-11-27T13:43:16+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
