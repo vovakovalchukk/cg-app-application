@@ -19,6 +19,10 @@ class Account implements AccountInterface
 
     public function getInitialisationUrl(AccountEntity $account, $route, array $routeVariables = [])
     {
-        return $this->urlHelper->fromRoute(Module::ROUTE . '/' . AccountController::ROUTE_SETUP);
+        return $this->urlHelper->fromRoute(
+            Module::ROUTE . '/' . AccountController::ROUTE_SETUP,
+            [],
+            ['force_canonical' => true]
+        );
     }
 }

@@ -3682,7 +3682,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "b9baf3c57ad342432d04b6001295149af0bd3bb6"
+                "reference": "88e94ebe136a937ed57759e54efa3e0e3b4d030f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-260-walmart-account-creation-a5f7c9.zip",
+                "reference": "88e94ebe136a937ed57759e54efa3e0e3b4d030f",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.42.3",
@@ -3704,7 +3710,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-11-23T16:45:15+00:00"
+            "time": "2018-11-27T11:37:37+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -10510,8 +10516,8 @@
         "channelgrabber/walmart": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
