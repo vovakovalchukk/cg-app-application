@@ -33,6 +33,7 @@
 /public/channelgrabber/settings/js/
 /public/channelgrabber/setup-wizard/js/
 /public/channelgrabber/shipstation/js/
+/public/channelgrabber/walmart/js/
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml
