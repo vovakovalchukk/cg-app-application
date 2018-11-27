@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f8ca401f49d9256c1f8fac454b0d4d8",
+    "content-hash": "9e21f03fae06bdf656d8c6e8cba58fe5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2966,16 +2966,16 @@
         },
         {
             "name": "channelgrabber/shipstation",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "40f0af71f83c4164db5b10770839b1a0d65a2969"
+                "reference": "ce81c13505941e822fd8c327191b9dc60cae8dca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-1.0.1-d977a0.zip",
-                "reference": "40f0af71f83c4164db5b10770839b1a0d65a2969",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-1.1.0-a18842.zip",
+                "reference": "ce81c13505941e822fd8c327191b9dc60cae8dca",
                 "shasum": null
             },
             "require": {
@@ -2984,6 +2984,10 @@
                 "channelgrabber/intercom": "^1.5.4",
                 "channelgrabber/predis": "^1.0.9",
                 "channelgrabber/user": "^1.26.1"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "~1.0.1",
+                "phpunit/phpunit": "~6.3"
             },
             "type": "library",
             "autoload": {
@@ -2997,7 +3001,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-09-14T13:34:19+00:00"
+            "time": "2018-11-26T15:54:50+00:00"
         },
         {
             "name": "channelgrabber/shopify",
@@ -9051,7 +9055,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9106,7 +9110,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9161,7 +9165,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
