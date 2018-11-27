@@ -434,9 +434,9 @@ return [
                                 'height' => 'height',
                                 'width'  => 'width',
                                 'length' => 'length',
-                                'packageType' => 'packageType',
-                                'addOns' => 'addOns',
-                                'deliveryInstructions' => 'deliveryInstructions',
+//                                'packageType' => 'packageType',
+//                                'addOns' => 'addOns',
+//                                'deliveryInstructions' => 'deliveryInstructions',
                             ],
                             'shippingServices' => [
                                 // These aren't the final codes, see UKMailTariffCodeMapper
@@ -581,235 +581,160 @@ return [
                                     'name' => 'Exchange Return',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '730' => [
+                                    'name' => '@HOME 48 (NI)',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '740' => [
+                                    'name' => '@HOME 24 (BT)',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '750' => [
+                                    'name' => '@HOME 48 (BT)',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '840' => [
+                                    'name' => '@HOME MINI',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '850' => [
+                                    'name' => 'Express Saturday',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '860' => [
+                                    'name' => 'Xpress 24 POD',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '861' => [
+                                    'name' => 'Xpress 24 NON POD',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '862' => [
+                                    'name' => 'Xpress 48 POD',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '863' => [
+                                    'name' => 'Xpress 48 NON POD',
                                     'domestic' => true,
                                 ],
-                                '10' => [
-                                    'name' => 'Priority 12:00',
+                                '864' => [
+                                    'name' => 'Xpress XS 48 NON POD',
                                     'domestic' => true,
                                 ],
-
-
-
-
-//    730	@HOME 48 (NI)
-//740	@HOME 24 (BT)
-//750	@HOME 48 (BT)
-//840	@HOME MINI
-//850	EXPRESS SATURDAY
-//860	XPRESS 24 POD
-//861	XPRESS 24 NON POD
-//862	XPRESS 48 POD
-//863	XPRESS 48 NON POD
-//864	XPRESS XS 48 NON POD
-//870	XPECT 24 POD
-//871	XPECT 24 NON POD
-//872	XPECT 48 POD
-//873	XPECT 48 NON POD
-//874	XPECT 48 XL POD
-//875	XPECT 48 XL NON POD
-//876	XPECT SATURDAY POD
-//877	XPECT SATURDAY NON POD
-//878	XPECT 48 RETURN POD
-//879	XPECT PRE 12 POD
-//880	XPERT 24 POD DESK
-//881	XPERT 24 ADDRESS ONLY
-//882	XPERT 24 HVT POD
-//883	XPERT 24 BFPO POD
-//884	XPERT SATURDAY ADDRESS ONLY
-//885	XPERT SATURDAY HVT POD
-//886	XPERT SATURDAY POD EXCHANGE
-//887	XPERT 24 POD EXCHANGE
-//889	XPERT PRE 12 NON POD
-//890	XPERT PRE 12 HVT ADDRESS ONLY
-//891	XPERT PRE 12 ADDRESS ONLY
-//892	XPECT PRE 12 SATURDAY POD
-//893	XPERT PRE 12 SATURDAY NON POD
-//894	XPERT PRE 12 SATURDAY ADDRESS ONLY
-//895	XPERT PRE 12 SATURDAY HVT ADD ONLY
-//896	XPERT CATALOGUE NON POD
-//897	XPERT 24 RETURN POD
-//898	XPRESS MINI 48 NON POD
-
-
-
-
-                                'Express' => [
-                                    'name' => 'Express',
+                                '870' => [
+                                    'name' => 'Xpect 24 POD',
                                     'domestic' => true,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => $ukMailAllSigAddOns
                                 ],
-                                'Yodel World' => [
-                                    'name' => 'Yodel World',
-                                    'domestic' => false,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => $ukMailAllSigAddOns
-                                ],
-                                'Yodel ROI' => [
-                                    'name' => 'Yodel ROI',
-                                    'domestic' => false,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_ONLY,
-                                            'default' => true
-                                        ]
-                                    ]
-                                ],
-                                'Yodel CI' => [
-                                    'name' => 'Yodel CI',
-                                    'domestic' => false,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => $ukMailAllSigAddOns
-                                ],
-                                'Saturday 10:30' => [
-                                    'name' => 'Saturday 10:30',
+                                '871' => [
+                                    'name' => 'Xpect 24 NON POD',
                                     'domestic' => true,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => $ukMailAllSigAddOns
                                 ],
-                                'Saturday 09:00' => [
-                                    'name' => 'Saturday 09:00',
+                                '872' => [
+                                    'name' => 'Xpect 48 POD',
                                     'domestic' => true,
-                                    'packageTypes' => $ukMailBagitAndParcel,
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_ONLY,
-                                            'default' => true
-                                        ]
-                                    ]
                                 ],
-                                // Deliberately omitting 'Timed Delivery'
-                                '48 Hr' => [
-                                    'name' => '48 Hr',
+                                '873' => [
+                                    'name' => 'Xpect 48 NON POD',
                                     'domestic' => true,
-                                    'packageTypes' => [UKMailPackageType::PARCEL],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_OR_NEIGHBOUR,
-                                            'excludes' => implode(',', [UKMailSignature::ADDRESS_ONLY, UKMailSignature::LEAVE_SAFE]),
-                                            'default' => true
-                                        ],
-                                        [
-                                            'title' => UKMailSignature::LEAVE_SAFE,
-                                            'excludes' => implode(',', [UKMailSignature::ADDRESS_OR_NEIGHBOUR, UKMailSignature::ADDRESS_ONLY])
-                                        ],
-                                    ]
                                 ],
-                                '48 Hr +' => [
-                                    'name' => '48 Hr +',
+                                '874' => [
+                                    'name' => 'Xpect 48 XL POD',
                                     'domestic' => true,
-                                    'packageTypes' => [UKMailPackageType::PARCEL],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::LEAVE_SAFE,
-                                            'default' => true
-                                        ],
-                                    ]
                                 ],
-                                'Packet+' => [
-                                    'name' => 'Packet+',
+                                '875' => [
+                                    'name' => 'Xpect 48 XL NON POD',
                                     'domestic' => true,
-                                    'packageTypes' => [UKMailPackageType::PACKET],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::LEAVE_SAFE,
-                                            'default' => true
-                                        ],
-                                    ]
                                 ],
-                                'Pallet 24hrs' => [
-                                    'name' => 'Pallet 24hrs',
+                                '876' => [
+                                    'name' => 'Xpect Saturday POD',
                                     'domestic' => true,
-                                    'packageTypes' => [UKMailPackageType::PALLET],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_ONLY,
-                                            'default' => true
-                                        ],
-                                    ]
                                 ],
-                                'Pallet 48hrs' => [
-                                    'name' => 'Pallet 48hrs',
+                                '877' => [
+                                    'name' => 'Xpect Saturday NON POD',
                                     'domestic' => true,
-                                    'packageTypes' => [UKMailPackageType::PALLET],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_ONLY,
-                                            'default' => true
-                                        ],
-                                    ]
                                 ],
-                                'International: Air' => [
-                                    'name' => 'International: Air',
-                                    'domestic' => false,
-                                    'packageTypes' => [UKMailPackageType::PARCEL],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_ONLY,
-                                            'default' => true
-                                        ],
-                                    ]
+                                '878' => [
+                                    'name' => 'Xpect 48 Return POD',
+                                    'domestic' => true,
                                 ],
-                                'International: Road' => [
-                                    'name' => 'International: Road',
-                                    'domestic' => false,
-                                    'packageTypes' => [UKMailPackageType::PARCEL],
-                                    'addOns' => [
-                                        [
-                                            'title' => UKMailSignature::ADDRESS_ONLY,
-                                            'default' => true
-                                        ],
-                                    ]
+                                '879' => [
+                                    'name' => 'Xpect Pre 12 POD',
+                                    'domestic' => true,
+                                ],
+                                '880' => [
+                                    'name' => 'Xpert 24 POD Desk',
+                                    'domestic' => true,
+                                ],
+                                '881' => [
+                                    'name' => 'Xpert 24 Address Only',
+                                    'domestic' => true,
+                                ],
+                                '882' => [
+                                    'name' => 'Xpert 24 HVT POD',
+                                    'domestic' => true,
+                                ],
+                                '883' => [
+                                    'name' => 'Xpert 24 BFPO POD',
+                                    'domestic' => true,
+                                ],
+                                '884' => [
+                                    'name' => 'Xpert Saturday Address Only',
+                                    'domestic' => true,
+                                ],
+                                '885' => [
+                                    'name' => 'Xpert Saturday HVT POD',
+                                    'domestic' => true,
+                                ],
+                                '886' => [
+                                    'name' => 'Xpert Saturday POD Exchange',
+                                    'domestic' => true,
+                                ],
+                                '887' => [
+                                    'name' => 'Xpert 24 POD Exchange',
+                                    'domestic' => true,
+                                ],
+                                '889' => [
+                                    'name' => 'Xpert Pre 12 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '890' => [
+                                    'name' => 'Xpert Pre 12 HVT Address Only',
+                                    'domestic' => true,
+                                ],
+                                '891' => [
+                                    'name' => 'Xpert Pre 12 Address Only',
+                                    'domestic' => true,
+                                ],
+                                '892' => [
+                                    'name' => 'Xpert Pre 12 Saturday POD',
+                                    'domestic' => true,
+                                ],
+                                '893' => [
+                                    'name' => 'Xpert Pre 12 Saturday NON POD',
+                                    'domestic' => true,
+                                ],
+                                '894' => [
+                                    'name' => 'Xpert Pre 12 Saturday Address Only',
+                                    'domestic' => true,
+                                ],
+                                '895' => [
+                                    'name' => 'Xpert Pre 12 Saturday HVT Address Only',
+                                    'domestic' => true,
+                                ],
+                                '896' => [
+                                    'name' => 'Xpert Catalogue NON POD',
+                                    'domestic' => true,
+                                ],
+                                '897' => [
+                                    'name' => 'Xpert 24 Return POD',
+                                    'domestic' => true,
+                                ],
+                                '898' => [
+                                    'name' => 'Xpress Mini 48 NON POD',
+                                    'domestic' => true,
                                 ],
                             ]
-                        ],
-
-
-
-
-
-
-
-
-
-
-
-
+                        ]
                     ]
                 ]
             ],
