@@ -105,7 +105,7 @@
         "channelgrabber/zf2-stdlib": "~1.3.1",
         "channelgrabber/zf2-tideways": "~1.0.0",
         "channelgrabber/zf2-usage": "~1.1.0",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-10141-duplicate-accounts as 1.25.7",
+        "channelgrabber/zf2-v4-ui": "~1.25.8",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "guzzle/guzzle": "~3.7",
