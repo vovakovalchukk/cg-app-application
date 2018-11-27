@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72bd5211dd586043fb7559c2ab1de567",
+    "content-hash": "5c6d2cf8224ee75610537997d7928d38",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -788,7 +788,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-14T13:33:07+00:00"
+            "time": "2018-11-22T11:57:10+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3682,7 +3682,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "52d7558bc664ab98f5223d4067c30cd81f66ff56"
+                "reference": "b9baf3c57ad342432d04b6001295149af0bd3bb6"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.3",
@@ -3704,7 +3704,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-11-21T14:44:30+00:00"
+            "time": "2018-11-23T16:45:15+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4904,7 +4904,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-20T14:23:58+00:00"
+            "time": "2018-11-23T09:33:35+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
