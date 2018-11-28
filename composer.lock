@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcaae06fb34ed6fdefa4f6d001e48d43",
+    "content-hash": "b5b8e6d70c1836a25349505d0719721e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4825,17 +4825,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-10140-remove-oribi",
+            "version": "1.25.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "22aba4ea48f9d375235082deca6ba40e775cc1bb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-10140-remove-oribi-789ec7.zip",
-                "reference": "22aba4ea48f9d375235082deca6ba40e775cc1bb",
-                "shasum": null
+                "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -4886,7 +4880,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-27T15:43:53+00:00"
+            "time": "2018-11-28T15:21:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10465,18 +10459,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.25.9",
-            "alias_normalized": "1.25.9.0",
-            "version": "dev-CGIV-10140-remove-oribi",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
