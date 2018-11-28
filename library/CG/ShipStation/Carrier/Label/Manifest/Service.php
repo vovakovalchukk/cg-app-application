@@ -97,7 +97,7 @@ class Service implements LoggerAwareInterface
                 $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
                 $responses[] = $response;
             } catch (StorageException $e) {
-                if (count($responses) > 0) {
+                if (count($responses) == 0) {
                     throw $e;
                 }
                 $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
