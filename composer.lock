@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b79596e59bb0aa7774501b9eb3d0e097",
+    "content-hash": "a92da91f56b8c6191e367709e4721266",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1948,7 +1948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "5574ecfabf8bb784cf0e8e4b44d1d5d8e8b3691d"
+                "reference": "028d7a24d4bb8b00977b2052c26db4ebf9f6a4c1"
             },
             "require": {
                 "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
