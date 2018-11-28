@@ -10,6 +10,8 @@ use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 
 class OrderNotes
 {
+    const DELETED_USER = 'Deleted user';
+
     /** @var UserService $userService */
     protected $userService;
     /** @var DateFormatHelper $dateFormatHelper */
@@ -47,14 +49,20 @@ class OrderNotes
         try {
             $users = $this->userService->fetchCollection("all", null, null, null, $userIds);
             foreach ($itemNotes as &$note) {
-                /** @var User $user */
-                $user = $users->getById($note["userId"]);
-                $note["author"] = $user->getFirstName() . " " . $user->getLastName();
+                $note["author"] = $this->getNameForUser($users->getById($note["userId"]));
             }
         } catch (NotFound $exception) {
             // no users found for notes, don't return any authors
         }
 
         return $itemNotes;
+    }
+
+    protected function getNameForUser(?User $user)
+    {
+        if ($user == null) {
+            return static::DELETED_USER;
+        }
+        return $user->getFirstName() . " " . $user->getLastName();
     }
 }

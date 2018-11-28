@@ -128,6 +128,11 @@ class Service implements LoggerAwareInterface
         return $this->featureFlagService->isActive(EbayListingCreator::FEATURE_FLAG_PBSE, $ou);
     }
 
+    public function isProductSearchActiveForVariations(OrganisationUnit $ou): bool
+    {
+        return $this->featureFlagService->isActive(EbayListingCreator::FEATURE_FLAG_PBSE_VARIATIONS, $ou);
+    }
+
     public function formatExternalChannelData(string $channel, array $data, string $processGuid): array
     {
         try {

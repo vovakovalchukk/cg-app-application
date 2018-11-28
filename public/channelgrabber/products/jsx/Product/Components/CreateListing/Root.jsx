@@ -11,6 +11,7 @@ import CreateListingUtils from 'Product/Utils/CreateListingUtils';
         allowedChannels,
         allowedVariationChannels,
         productSearchActive,
+        productSearchActiveForVariations,
         onCreateListingClose,
         ebaySiteOptions,
         categoryTemplateOptions,
@@ -76,6 +77,7 @@ import CreateListingUtils from 'Product/Utils/CreateListingUtils';
                             salesPhoneNumber={salesPhoneNumber}
                             demoLink={demoLink}
                             productSearchActive={productSearchActive}
+                            productSearchActiveForVariations={productSearchActiveForVariations}
                         />
                     </Provider>
                 );

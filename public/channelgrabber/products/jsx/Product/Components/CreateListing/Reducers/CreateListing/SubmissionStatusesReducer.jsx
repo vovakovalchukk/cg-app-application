@@ -1,7 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
-    
 
-    var initialState = {
+    let initialState = {
         guid: null,
         accounts: {},
         inProgress: false,
@@ -53,8 +52,8 @@ import reducerCreator from 'Common/Reducers/creator';
                 inProgress: false
             });
         },
-        "RESET_SUBMISSION_STATUSES": function (state, action) {
-            return initialState;
+        "REVERT_TO_INITIAL_VALUES": function() {
+            return Object.assign({}, initialState);
         }
     });
 
