@@ -4819,17 +4819,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-252-uk-mail-via-netdespatch",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3ac1198b05e176260782d3aa6cded741bacba78c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-252-uk-mail-via-netdespatch-7ea27f.zip",
-                "reference": "3ac1198b05e176260782d3aa6cded741bacba78c",
-                "shasum": null
+                "reference": "5721dd308c80059f64f036505337989d5fadfa82"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -10488,6 +10482,12 @@
             "alias": "1.25.8",
             "alias_normalized": "1.25.8.0",
             "version": "dev-TAC-252-uk-mail-via-netdespatch",
+            "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.25.8",
+            "alias_normalized": "1.25.8.0",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
