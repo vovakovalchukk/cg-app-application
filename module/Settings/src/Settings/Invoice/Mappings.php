@@ -304,7 +304,7 @@ class Mappings
             $invoiceOptions['options'][] = [
                 'title' => $invoice->getName(),
                 'value' => $invoice->getId(),
-                'selected' => $invoice->getId() === $invoiceId,
+                'selected' => $invoice->getId() == $invoiceId,
             ];
         }
 
