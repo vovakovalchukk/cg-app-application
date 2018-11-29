@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5b8e6d70c1836a25349505d0719721e",
+    "content-hash": "3bb2fbafea9ca2d167c3b985dadbc8e7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -948,17 +948,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.5",
+            "version": "dev-CGIV-10149-set-parcel-number-range-dpd",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "6cdaa3d7caf7a0e648efb70b742febbf1b09e8c8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.5-cd9a0c.zip",
-                "reference": "6cdaa3d7caf7a0e648efb70b742febbf1b09e8c8",
-                "shasum": null
+                "reference": "9e6a84888befdca63a560267650d0e08f7b5d67e"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -993,17 +987,11 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.0",
+            "version": "dev-CGIV-10149-set-parcel-number-range-dpd",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "e7f36191738f82fbb75922d31f4ddaed2e4dae8b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.4.0-d6faa3.zip",
-                "reference": "e7f36191738f82fbb75922d31f4ddaed2e4dae8b",
-                "shasum": null
+                "reference": "895de223b5e5ebf84d7aa37533b6dc5c7759c9e0"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -10459,13 +10447,28 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.6",
+            "alias_normalized": "1.1.6.0",
+            "version": "dev-CGIV-10149-set-parcel-number-range-dpd",
+            "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-CGIV-10149-set-parcel-number-range-dpd",
+            "package": "channelgrabber/courieradapter"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

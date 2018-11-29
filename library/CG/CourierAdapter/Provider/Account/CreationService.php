@@ -7,6 +7,7 @@ use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
+use CG\CourierAdapter\Account\LocalAuth\CredentialsChangedInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
@@ -74,6 +75,7 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setActive(true)
             ->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
+        $existingCredentials = clone $credentials;
         $credentialsForm = $courierInstance->getCredentialsForm();
         $this->prepareAdapterImplementationFormForSubmission($credentialsForm, $params);
         if (!$credentialsForm->isValid()) {
@@ -84,6 +86,10 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setCredentials($this->cryptor->encrypt($credentials));
 
         $this->addConfigFieldsToAccountExternalData($account, $courierInstance);
+
+        if ($courierInstance instanceof CredentialsChangedInterface) {
+            $courierInstance->credentialsChanged($account->toArray(), $existingCredentials->toArray(), $credentials->toArray());
+        }
     }
 
     protected function configureAccountFromThirdPartyAuth(
