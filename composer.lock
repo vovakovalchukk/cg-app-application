@@ -2043,16 +2043,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.42.0",
+            "version": "1.42.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "48f6bddacf0ce9dde4845d5497f3b5a15f136f5c"
+                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.0-24a5d3.zip",
-                "reference": "48f6bddacf0ce9dde4845d5497f3b5a15f136f5c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.1-408004.zip",
+                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f",
                 "shasum": null
             },
             "require": {
@@ -2123,7 +2123,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-21T14:17:15+00:00"
+            "time": "2018-11-27T11:08:46+00:00"
         },
         {
             "name": "channelgrabber/payment",
