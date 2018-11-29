@@ -424,7 +424,7 @@ return [
                         'yodel' => [
                             'channelName' => 'yodel-nd',
                             'displayName' => 'Yodel',
-                            'providerCode' => 'Amtrak',
+                            'providerCode' => '11',
                             'featureFlag' => 'Yodel',
                             'allowsCancellation' => true,
                             'allowsManifesting' => false,
