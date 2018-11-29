@@ -952,7 +952,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "9e6a84888befdca63a560267650d0e08f7b5d67e"
+                "reference": "852245472cef3ee738105fdcf63faf916854cfcc"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -983,7 +983,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-10-12T09:14:58+00:00"
+            "time": "2018-11-29T16:19:10+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -991,7 +991,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "895de223b5e5ebf84d7aa37533b6dc5c7759c9e0"
+                "reference": "1c3fb02fe5e161dd72da6f04bd2a2aec1f98d834"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-10149-set-parcel-number-range-dpd-adec49.zip",
+                "reference": "1c3fb02fe5e161dd72da6f04bd2a2aec1f98d834",
+                "shasum": null
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1015,7 +1021,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-10-12T09:00:58+00:00"
+            "time": "2018-11-29T16:19:27+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -4818,6 +4824,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.9-1b9425.zip",
+                "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7",
+                "shasum": null
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -9259,7 +9271,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10467,8 +10479,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
