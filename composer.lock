@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c6d2cf8224ee75610537997d7928d38",
+    "content-hash": "d522225b5fe7b85ec36c391c15695cb7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -711,11 +711,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-260-walmart-account-creation",
+            "version": "dev-EPIC-TAC-258-walmart-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
                 "reference": "7b7216d98521134afba2cb514986e4d3c9361485"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-EPIC-TAC-258-walmart-orders-84187d.zip",
+                "reference": "7b7216d98521134afba2cb514986e4d3c9361485",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -3678,7 +3684,7 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "dev-TAC-260-walmart-account-creation",
+            "version": "dev-EPIC-TAC-258-walmart-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
@@ -3686,7 +3692,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-260-walmart-account-creation-a5f7c9.zip",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/walmart/channelgrabber-walmart-dev-EPIC-TAC-258-walmart-orders-a5f7c9.zip",
                 "reference": "88e94ebe136a937ed57759e54efa3e0e3b4d030f",
                 "shasum": null
             },
@@ -4855,16 +4861,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-260-walmart-account-creation",
+            "version": "dev-EPIC-TAC-258-walmart-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b1f0cd4b1b30113e6fd5bdb3b657cb41424d8303"
+                "reference": "046121889c317b58b3d4a6429465d3cb7ab15682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-260-walmart-account-creation-b4f344.zip",
-                "reference": "b1f0cd4b1b30113e6fd5bdb3b657cb41424d8303",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-TAC-258-walmart-orders-daef88.zip",
+                "reference": "046121889c317b58b3d4a6429465d3cb7ab15682",
                 "shasum": null
             },
             "require": {
@@ -4916,7 +4922,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-27T13:43:16+00:00"
+            "time": "2018-11-29T14:23:16+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10499,19 +10505,19 @@
         {
             "alias": "1.42.4",
             "alias_normalized": "1.42.4.0",
-            "version": "dev-TAC-260-walmart-account-creation",
+            "version": "dev-EPIC-TAC-258-walmart-orders",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-TAC-260-walmart-account-creation",
+            "version": "dev-EPIC-TAC-258-walmart-orders",
             "package": "channelgrabber/walmart"
         },
         {
-            "alias": "1.25.7",
-            "alias_normalized": "1.25.7.0",
-            "version": "dev-TAC-260-walmart-account-creation",
+            "alias": "1.25.10",
+            "alias_normalized": "1.25.10.0",
+            "version": "dev-EPIC-TAC-258-walmart-orders",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
