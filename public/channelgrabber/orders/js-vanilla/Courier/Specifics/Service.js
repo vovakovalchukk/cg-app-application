@@ -874,7 +874,7 @@ define([
         $(orderRow).val(labelCost);
         $(CourierSpecificsDataTable.SELECTOR_CURRENCY_SYMBOL_DISPLAY).removeClass('hidden');
         $(CourierSpecificsDataTable.SELECTOR_TOTAL_ORDER_LABEL_COST).text(labelCost.toFixed(2));
-        orderRow.find($(CourierSpecificsDataTable.SELECTOR_COST_COLUMN_INPUT)).val(labelCost)
+        $(orderRow).find($(CourierSpecificsDataTable.SELECTOR_COST_COLUMN_INPUT)).val(labelCost);
     }
 
     return Service;
