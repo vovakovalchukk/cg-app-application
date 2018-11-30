@@ -1948,13 +1948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "e1079df7c06ad8d0ddb9c43bfe462ebde3dbfb30"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-253-yodel-via-netdespatch-374168.zip",
-                "reference": "e1079df7c06ad8d0ddb9c43bfe462ebde3dbfb30",
-                "shasum": null
+                "reference": "b6652d93f4bc8caecd5dc7f6d6a97c27911995d5"
             },
             "require": {
                 "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
@@ -10499,8 +10493,8 @@
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
