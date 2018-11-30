@@ -1948,7 +1948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "d5f453764bc91d35774703e8bc772d7a44d7add9"
+                "reference": "e1079df7c06ad8d0ddb9c43bfe462ebde3dbfb30"
             },
             "require": {
                 "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
