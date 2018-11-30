@@ -417,10 +417,6 @@ return [
                                 ],
                             ]
                         ],
-
-
-
-
                         'yodel' => [
                             'channelName' => 'yodel-nd',
                             'displayName' => 'Yodel',
@@ -434,13 +430,8 @@ return [
                                 'height' => 'height',
                                 'width'  => 'width',
                                 'length' => 'length',
-//                                'packageType' => 'packageType',
-//                                'addOns' => 'addOns',
-//                                'deliveryInstructions' => 'deliveryInstructions',
                             ],
                             'shippingServices' => [
-                                // These aren't the final codes, see UKMailTariffCodeMapper
-
                                 'DIA' => [
                                     'name' => 'Priority 10:00',
                                     'domestic' => true,
