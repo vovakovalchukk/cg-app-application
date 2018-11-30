@@ -708,11 +708,14 @@ define([
             var serviceOptions = this.mapShippingRatesToShippingOptions(orderRates, selectedService);
             this.getShippingServices().loadServicesSelectForOrderAndServices(orderId, serviceOptions, input.attr('name'));
 
-            var showServiceWarning = true;
-            for (key in serviceOptions) {
-                if (serviceOptions[key].selected === true) {
-                    showServiceWarning = false;
-                    break;
+            var showServiceWarning = false;
+            if (serviceOptions.length > 1) {
+                showServiceWarning = true;
+                for (key in serviceOptions) {
+                    if (serviceOptions[key].selected === true) {
+                        showServiceWarning = false;
+                        break;
+                    }
                 }
             }
 
@@ -728,6 +731,10 @@ define([
         this.recordLabelCostsFromRatesResponse(response.rates);
         $(EventHandler.SELECTOR_FETCH_ALL_RATES_BUTTON).removeClass('disabled');
         $(EventHandler.SELECTOR_FETCH_RATES_BUTTON).removeClass('disabled');
+
+        if (serviceOptions.length === 1) {
+            this.handleSingleRateResponse(orderId, serviceOptions);
+        }
     };
 
     Service.prototype.mapShippingRatesToShippingOptions = function(orderRates, selectedService)
@@ -856,6 +863,18 @@ define([
         if (data.balance !== undefined) {
             $(CourierSpecificsDataTable.SELECTOR_ACCOUNT_BALANCE_FIGURE).text(data.balance.toFixed(2));
         }
+    }
+
+    Service.prototype.handleSingleRateResponse = function(orderId, serviceOptions)
+    {
+        var orderRow = CourierSpecificsDataTable.SELECTOR_ORDER_ROW_TPL.replace('{orderId}', orderId);
+        var labelCosts = this.getStorage().get("labelCosts");
+        var selectedService = serviceOptions[0].value;
+        var labelCost = labelCosts[orderId][selectedService].cost;
+        $(orderRow).val(labelCost);
+        $(CourierSpecificsDataTable.SELECTOR_CURRENCY_SYMBOL_DISPLAY).removeClass('hidden');
+        $(CourierSpecificsDataTable.SELECTOR_TOTAL_ORDER_LABEL_COST).text(labelCost.toFixed(2));
+        $(orderRow).find($(CourierSpecificsDataTable.SELECTOR_COST_COLUMN_INPUT)).val(labelCost);
     }
 
     return Service;
