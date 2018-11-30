@@ -737,7 +737,7 @@ return [
                                     'packageTypes' => [],
                                     'addOns' => [],
                                     'countries' => [
-                                        'GG', 'IE', 'IM', 'JE'
+                                        'GG', 'IE', 'JE'
                                     ]
                                 ],
                                 '48NPOD' => [
@@ -746,7 +746,7 @@ return [
                                     'packageTypes' => [],
                                     'addOns' => [],
                                     'countries' => [
-                                        'GG', 'IE', 'IM' /*not sure*/, 'JE'
+                                        'GG', 'IE', 'JE'
                                     ]
                                 ],
                                 '72POD' => [
@@ -755,7 +755,7 @@ return [
                                     'packageTypes' => [],
                                     'addOns' => [],
                                     'countries' => [
-                                        'GG', 'IE', 'IM', 'JE'
+                                        'GG', 'IE', 'JE'
                                     ]
                                 ],
                                 '72NPOD' => [
@@ -764,7 +764,7 @@ return [
                                     'packageTypes' => [],
                                     'addOns' => [],
                                     'countries' => [
-                                        'GG', 'IE', 'IM', 'JE'
+                                        'GG', 'IE', 'JE'
                                     ]
                                 ],
                             ]
