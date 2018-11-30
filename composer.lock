@@ -952,7 +952,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "852245472cef3ee738105fdcf63faf916854cfcc"
+                "reference": "f82d08b6e03bf9c481bd352c8e50cc1cfb7ef170"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -983,7 +983,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-11-29T16:19:10+00:00"
+            "time": "2018-11-30T09:33:12+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -991,12 +991,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "1c3fb02fe5e161dd72da6f04bd2a2aec1f98d834"
+                "reference": "d68608768378b9b1e4bd7f3485b6df3f76a5d55b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-10149-set-parcel-number-range-dpd-adec49.zip",
-                "reference": "1c3fb02fe5e161dd72da6f04bd2a2aec1f98d834",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-dev-CGIV-10149-set-parcel-number-range-dpd-d6be1f.zip",
+                "reference": "d68608768378b9b1e4bd7f3485b6df3f76a5d55b",
                 "shasum": null
             },
             "require": {
@@ -1021,7 +1021,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-11-29T16:19:27+00:00"
+            "time": "2018-11-30T09:36:47+00:00"
         },
         {
             "name": "channelgrabber/currency",
