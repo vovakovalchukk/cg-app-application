@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b79596e59bb0aa7774501b9eb3d0e097",
+    "content-hash": "460d399888acc91e7c88880fbec90877",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2049,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.42.0",
+            "version": "1.42.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "48f6bddacf0ce9dde4845d5497f3b5a15f136f5c"
+                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.0-24a5d3.zip",
-                "reference": "48f6bddacf0ce9dde4845d5497f3b5a15f136f5c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.1-408004.zip",
+                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-21T14:17:15+00:00"
+            "time": "2018-11-27T11:08:46+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4829,12 +4829,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3ac1198b05e176260782d3aa6cded741bacba78c"
+                "reference": "a098f598fb0c07e11fd85eda4c49d1ba3ea5d691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-252-uk-mail-via-netdespatch-7ea27f.zip",
-                "reference": "3ac1198b05e176260782d3aa6cded741bacba78c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-252-uk-mail-via-netdespatch-019d51.zip",
+                "reference": "a098f598fb0c07e11fd85eda4c49d1ba3ea5d691",
                 "shasum": null
             },
             "require": {
@@ -4886,7 +4886,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-27T14:16:53+00:00"
+            "time": "2018-11-30T15:31:19+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10485,8 +10485,8 @@
             "package": "channelgrabber/zf2-netdespatch"
         },
         {
-            "alias": "1.25.8",
-            "alias_normalized": "1.25.8.0",
+            "alias": "1.25.10",
+            "alias_normalized": "1.25.10.0",
             "version": "dev-TAC-252-uk-mail-via-netdespatch",
             "package": "channelgrabber/zf2-v4-ui"
         }
