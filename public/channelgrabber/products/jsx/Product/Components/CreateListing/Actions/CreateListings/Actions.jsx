@@ -56,14 +56,14 @@ import ResponseActions from './ResponseActions';
         }
         var details = [];
         for (var channelName in values.channel) {
-            details.push(Object.assign({}, formatProductChannelDataForChannel(values.channel[channelName]), {
+            details.push(Object.assign({}, formatProductChannelDataForChannel(values.channel[channelName], props), {
                 channel: channelName
             }));
         }
         return details;
     };
 
-    let formatProductChannelDataForChannel = function(values) {
+    let formatProductChannelDataForChannel = function(values, props) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
             var attributeImageMap = {};
@@ -72,6 +72,19 @@ import ResponseActions from './ResponseActions';
             });
             values.attributeImageMap = attributeImageMap;
         }
+
+        let variationToEpid = {};
+        Object.keys(props.productSearch.selectedProducts).forEach(function (id) {
+            let variation = props.variationsDataForProduct.find(function(variation) {
+                return variation.id == id;
+            });
+            variationToEpid[variation.id] = props.productSearch.selectedProducts[id].epid;
+        });
+
+        if (Object.keys(variationToEpid).length > 0) {
+            values.variationToEpid = variationToEpid;
+        }
+
         return values;
     };
 
@@ -254,7 +267,7 @@ import ResponseActions from './ResponseActions';
             accountDefaultSettings,
             accountsData,
             categoryTemplates,
-            selectedProductDetails
+            searchAccountId
         ) {
             return {
                 type: "LOAD_INITIAL_VALUES",
@@ -265,7 +278,7 @@ import ResponseActions from './ResponseActions';
                     accountDefaultSettings: accountDefaultSettings,
                     accountsData: accountsData,
                     categoryTemplates: categoryTemplates,
-                    selectedProductDetails: selectedProductDetails
+                    searchAccountId: searchAccountId
                 }
             };
         },
@@ -325,9 +338,77 @@ import ResponseActions from './ResponseActions';
                 }
             }
         },
-        resetSubmissionStatuses: function() {
+        revertToInitialValues: function() {
             return {
-                type: "RESET_SUBMISSION_STATUSES",
+                type: "REVERT_TO_INITIAL_VALUES",
+                payload: {}
+            };
+        },
+        fetchCategoryTemplateDependentFieldValues: function(categoryTemplateIds, accountDefaultSettings, accountsData, dispatch) {
+            $.ajax({
+                url: '/products/create-listings/category-template-dependent-field-values',
+                data: {categoryTemplateIds: categoryTemplateIds},
+                method: 'POST',
+                success: function(response) {
+                    dispatch(ResponseActions.categoryTemplateDependentFieldValuesFetched(response.categoryTemplates, accountDefaultSettings, accountsData))
+                }
+            });
+
+            return {
+                type: "FETCH_CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES",
+                payload: {}
+            }
+        },
+        fetchSearchResults: function(accountId, query, dispatch) {
+            $.ajax({
+                context: this,
+                url: '/products/create-listings/' + accountId + '/search',
+                type: 'POST',
+                data: {
+                    'query': query
+                },
+                success: function(response) {
+                    dispatch(ResponseActions.searchResultsFetched(response));
+                },
+                error: function() {
+                    n.error("An unknown error has occurred. Please try again or contact support if the problem persists");
+                }
+            });
+
+            return {
+                type: "FETCH_SEARCH_RESULTS",
+                payload: {}
+            };
+        },
+        assignSearchProductToCgProduct: function(searchProduct, cgProduct) {
+            return {
+                type: "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT",
+                payload: {
+                    searchProduct: searchProduct,
+                    cgProduct: cgProduct
+                }
+            }
+        },
+        clearSelectedProduct: function(productId, variationData) {
+            return {
+                type: "CLEAR_SELECTED_PRODUCT",
+                payload: {
+                    productId: productId,
+                    variationData: variationData
+                }
+            }
+        },
+        addErrorOnProductSearch: function(errorMessage) {
+            return {
+                type: "ADD_ERROR_PRODUCT_SEARCH",
+                payload: {
+                    error: errorMessage
+                }
+            }
+        },
+        clearErrorFromProductSearch: function() {
+            return {
+                type: "CLEAR_ERROR_PRODUCT_SEARCH",
                 payload: {}
             }
         }

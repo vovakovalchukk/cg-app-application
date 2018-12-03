@@ -226,12 +226,12 @@ class Label extends ResponseAbstract
         return $this->insuranceCostCurrency;
     }
 
-    public function getTrackingNumber(): string
+    public function getTrackingNumber(): ?string
     {
         return $this->trackingNumber;
     }
 
-    public function getCarrierReferenceNumber(): string
+    public function getCarrierReferenceNumber(): ?string
     {
         return $this->carrierReferenceNumber;
     }

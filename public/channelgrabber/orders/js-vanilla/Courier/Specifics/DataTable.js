@@ -66,10 +66,14 @@ CourierSpecificsDataTable.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[nam
 CourierSpecificsDataTable.SELECTOR_ORDER_DISPATCHABLE_TPL = '#datatable input[name="orderInfo[_orderId_][dispatchable]"]';
 CourierSpecificsDataTable.SELECTOR_ORDER_RATEABLE_TPL = '#datatable input[name="orderInfo[_orderId_][rateable]"]';
 CourierSpecificsDataTable.SELECTOR_ORDER_CREATABLE_TPL = '#datatable input[name="orderInfo[_orderId_][creatable]"]';
+CourierSpecificsDataTable.SELECTOR_ORDER_ROW_TPL = '#courier-order-row_{orderId}';
 CourierSpecificsDataTable.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
 CourierSpecificsDataTable.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
 CourierSpecificsDataTable.SELECTOR_FETCH_ALL_RATES_BUTTON = '#fetchrates-all-labels-button-shadow';
 CourierSpecificsDataTable.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button-shadow';
+CourierSpecificsDataTable.SELECTOR_TOTAL_ORDER_LABEL_COST = '.order-total-label-cost';
+CourierSpecificsDataTable.SELECTOR_CURRENCY_SYMBOL_DISPLAY = '.total-cost .currency';
+CourierSpecificsDataTable.SELECTOR_COST_COLUMN_INPUT = '.courier-label-cost';
 
 CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true, 'export': true, 'fetchrates': true},

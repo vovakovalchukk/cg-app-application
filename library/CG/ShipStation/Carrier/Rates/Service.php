@@ -6,7 +6,7 @@ use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates\Collection as S
 use CG\Channel\Shipping\Provider\Service\ShippingRate\OrderRates as OrderShippingRates;
 use CG\Http\StatusCode;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderItemsData\Collection as OrderItemsDataCollection;

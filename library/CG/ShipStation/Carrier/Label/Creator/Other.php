@@ -11,7 +11,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderData\Collection as OrderDataCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\Collection as OrderParcelsDataCollection;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Service as OrderLabelService;
@@ -32,12 +32,14 @@ use CG\ShipStation\Response\Shipping\Shipment;
 use CG\ShipStation\Response\Shipping\Shipments as ShipmentsResponse;
 use CG\ShipStation\ShippingService\Factory as ShippingServiceFactory;
 use CG\ShipStation\ShippingService\RequiresSignatureInterface;
+use CG\Stdlib\CollectionInterface;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use function CG\StdLib\mergePdfData;
+use function CG\StdLib\collection_chunk;
 use CG\StdLib\Exception\Storage as StorageException;
 use CG\User\Entity as User;
 use Guzzle\Http\Client as GuzzleClient;
@@ -52,6 +54,7 @@ class Other implements CreatorInterface, LoggerAwareInterface
     const LABEL_FORMAT = 'pdf';
     const LABEL_SAVE_MAX_ATTEMPTS = 2;
     const PDF_DOWNLOAD_MAX_ATTEMPTS = 2;
+    const ORDER_BATCH_SIZE = 100;
     const LOG_CODE = 'ShipStationLabelCreator';
 
     /** @var ShipStationClient */
@@ -111,11 +114,16 @@ class Other implements CreatorInterface, LoggerAwareInterface
     ): array {
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
-
         $this->injectSignatureRequiredData($ordersData, $shippingAccount);
-        $shipments = $this->createShipmentsForOrders($orders, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
-        $shipmentErrors = $this->getErrorsForFailedShipments($shipments);
-        $labels = $this->createLabelsForSuccessfulShipments($shipments, $shipStationAccount, $shippingAccount);
+
+        $shipmentBatches = [];
+        foreach (collection_chunk($orders, static::ORDER_BATCH_SIZE) as $orderBatch) {
+            $shipments = $this->createShipmentsForOrders($orderBatch, $ordersData, $orderParcelsData, $shipStationAccount, $shippingAccount, $rootOu);
+            $shipmentBatches[] = $shipments;
+        }
+
+        $shipmentErrors = $this->getErrorsForFailedShipments($shipmentBatches);
+        $labels = $this->createLabelsForSuccessfulShipments($shipmentBatches, $shipStationAccount, $shippingAccount);
         $this->saveTrackingNumbersForSuccessfulLabels($labels, $orders, $user, $shippingAccount);
         $labelErrors = $this->getErrorsForUnsuccessfulLabels($labels);
         $labelPdfs = $this->downloadPdfsForLabels($labels);
@@ -164,38 +172,48 @@ class Other implements CreatorInterface, LoggerAwareInterface
         }
     }
 
-    protected function getErrorsForFailedShipments(ShipmentsResponse $shipments): array
+    protected function getErrorsForFailedShipments(array $shipmentBatches): array
     {
         $errors = [];
-        /** @var Shipment $shipment */
-        foreach ($shipments as $shipment) {
-            if (empty($shipment->getErrors())) {
-                continue;
+        foreach ($shipmentBatches as $shipmentBatch) {
+            /** @var Shipment $shipment */
+            foreach ($shipmentBatch as $shipment) {
+                if (empty($shipment->getErrors())) {
+                    continue;
+                }
+                $errors[$shipment->getOrderId()] = $shipment->getErrors();
+                $this->logNotice('Failed to create shipment for Order %s', ['order' => $shipment->getOrderId()], [static::LOG_CODE, 'ShipmentFail']);
             }
-            $errors[$shipment->getOrderId()] = $shipment->getErrors();
-            $this->logNotice('Failed to create shipment for Order %s', ['order' => $shipment->getOrderId()], [static::LOG_CODE, 'ShipmentFail']);
         }
         return $errors;
     }
 
     protected function createLabelsForSuccessfulShipments(
-        ShipmentsResponse $shipments,
+        array $shipmentBatches,
         Account $shipStationAccount,
         Account $shippingAccount
     ): array {
         $this->logDebug('Requesting labels for shipments', [], [static::LOG_CODE, 'Labels']);
         $labels = [];
         /** @var Shipment $shipment */
-        foreach ($shipments as $shipment) {
-            if (!empty($shipment->getErrors())) {
-                continue;
-            }
-            try {
-                $request = new LabelRequest($shipment->getShipmentId(), static::LABEL_FORMAT,
-                    $this->isTestLabel($shippingAccount));
-                $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest($request, $shipStationAccount);
-            } catch (StorageException $e) {
-                $labels[$shipment->getOrderId()] = $this->convertStorageExceptionToLabelResponse($e);
+        foreach ($shipmentBatches as $shipmentBatch) {
+            foreach ($shipmentBatch as $shipment) {
+                if (!empty($shipment->getErrors())) {
+                    continue;
+                }
+                try {
+                    $request = new LabelRequest(
+                        $shipment->getShipmentId(),
+                        static::LABEL_FORMAT,
+                        $this->isTestLabel($shippingAccount)
+                    );
+                    $labels[$shipment->getOrderId()] = $this->shipStationClient->sendRequest(
+                        $request,
+                        $shipStationAccount
+                    );
+                } catch (StorageException $e) {
+                    $labels[$shipment->getOrderId()] = $this->convertStorageExceptionToLabelResponse($e);
+                }
             }
         }
         return $labels;

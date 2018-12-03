@@ -5,14 +5,16 @@ use CG\Account\Shared\Entity as Account;
 use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
-use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\ShipStation\Messages\CarrierService;
 use CG\ShipStation\Messages\Customs;
+use DateTime;
 
 class Shipment
 {
     const EXTERNAL_ID_SEP = '|';
+    const SHIP_DATE_FORMAT = 'Y-m-d';
 
     /** @var string */
     protected $carrierId;
@@ -30,6 +32,8 @@ class Shipment
     protected $customs;
     /** @var bool */
     protected $validateAddress;
+    /** @var DateTime */
+    protected $shipDate;
     /** @var Package[] */
     protected $packages;
 
@@ -42,6 +46,7 @@ class Shipment
         ?string $confirmation,
         ?Customs $customs,
         ?bool $validateAddress,
+        ?DateTime $shipDate,
         Package ...$packages
     ) {
         $this->carrierId = $carrierId;
@@ -52,6 +57,7 @@ class Shipment
         $this->confirmation = $confirmation;
         $this->customs = $customs;
         $this->validateAddress = (bool)$validateAddress;
+        $this->shipDate = $shipDate;
         $this->packages = $packages;
     }
 
@@ -75,6 +81,7 @@ class Shipment
         if ($carrierService->isInternational()) {
             $customs = Customs::createFromOrder($order, $rootOu);
         }
+        $shipDate = new DateTime();
 
         return new static(
             $shippingAccount->getExternalId(),
@@ -85,6 +92,7 @@ class Shipment
             $confirmation,
             $customs,
             false,
+            $shipDate,
             ...$packages
         );
     }
@@ -118,6 +126,9 @@ class Shipment
         }
         if (!$this->isValidateAddress()) {
             $array['validate_address'] = 'no_validation';
+        }
+        if ($this->getShipDate()) {
+            $array['ship_date'] = $this->getShipDate()->format(static::SHIP_DATE_FORMAT);
         }
         return $array;
     }
@@ -216,6 +227,17 @@ class Shipment
     public function setValidateAddress(bool $validateAddress): Shipment
     {
         $this->validateAddress = $validateAddress;
+        return $this;
+    }
+
+    public function getShipDate(): ?DateTime
+    {
+        return $this->shipDate;
+    }
+
+    public function setShipDate(DateTime $shipDate): Shipment
+    {
+        $this->shipDate = $shipDate;
         return $this;
     }
 
