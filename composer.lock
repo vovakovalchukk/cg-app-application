@@ -3551,12 +3551,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "18c4a342de0172e432cc33f0fdc251d66ac624de"
+                "reference": "343681191a02ff9fb2fed511c40126bb030ab027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-e37029.zip",
-                "reference": "18c4a342de0172e432cc33f0fdc251d66ac624de",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-465abe.zip",
+                "reference": "343681191a02ff9fb2fed511c40126bb030ab027",
                 "shasum": null
             },
             "require": {
@@ -3602,7 +3602,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-11-07T13:57:27+00:00"
+            "time": "2018-12-03T12:20:36+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
