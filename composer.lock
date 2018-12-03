@@ -711,17 +711,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c09743c7b3ab05346e368b5d1eabb0e726a8ca5d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-251-netdespatch-allow-for-other-carriers-f3b515.zip",
-                "reference": "c09743c7b3ab05346e368b5d1eabb0e726a8ca5d",
-                "shasum": null
+                "reference": "6c6277c22a8322fab95f242ae562143f1d6fff31"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -10464,6 +10458,12 @@
             "alias": "1.42.4",
             "alias_normalized": "1.42.4.0",
             "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.42.4",
+            "alias_normalized": "1.42.4.0",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
             "package": "channelgrabber/channel"
         },
         {
