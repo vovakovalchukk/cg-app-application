@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9108a46d7d48e56dfeca75ad0a63ec53",
+    "content-hash": "4a37a8ea4a44714d4f8c2b8dd8d0587a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3547,16 +3547,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-9867-apc-for-ou",
+            "version": "1.26.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "343681191a02ff9fb2fed511c40126bb030ab027"
+                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-9867-apc-for-ou-465abe.zip",
-                "reference": "343681191a02ff9fb2fed511c40126bb030ab027",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.5-25e866.zip",
+                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
                 "shasum": null
             },
             "require": {
@@ -3602,7 +3602,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-12-03T12:20:36+00:00"
+            "time": "2018-12-03T14:55:22+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -9060,7 +9060,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9115,7 +9115,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9170,7 +9170,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10470,18 +10470,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.5",
-            "alias_normalized": "1.26.5.0",
-            "version": "dev-CGIV-9867-apc-for-ou",
-            "package": "channelgrabber/user"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/user": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
