@@ -12,8 +12,11 @@ import VatCell from 'Product/Components/ProductList/Cell/Vat'
 import LinkCell from 'Product/Components/ProductList/Cell/Link';
 import AvailableCell from 'Product/Components/ProductList/Cell/Available';
 import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
+import FixedDataTable from 'fixed-data-table-2';
 
 "use strict";
+
+const Cell = FixedDataTable.Cell;
 
 let cells = {
     productExpand: ProductExpandCell,
@@ -38,6 +41,9 @@ export default (function() {
         }
     };
     function getCreatedCell(column) {
+        console.log('in getCreatedCell with column: ' , column);
+
+
         if (!column.products.visibleRows.length) {
             return () => (<Cell></Cell>)
         }
