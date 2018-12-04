@@ -18,8 +18,6 @@ use CG\Log\Logger;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
-use CG\OrganisationUnit\Storage\Api as OUApiStorage;
-use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
 use CG\Product\Client\Service as ProductService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
@@ -1040,7 +1038,6 @@ return [
         'instance' => [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
-                OUStorageInterface::class => OUApiStorage::class,
                 LoggerInterface::class => Logger::class,
                 ListingsCsvStorage::class => ListingsCsvStorageS3::class,
             ],
