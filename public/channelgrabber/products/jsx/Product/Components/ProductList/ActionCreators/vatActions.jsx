@@ -3,11 +3,24 @@
 let vatActions = (function() {
     return {
         extractVatFromProducts: (products) => {
+            console.log('in extractVatFromProducts AQ');
             return function(dispatch) {
+//                console.log('in extractVatFromProducts AQ');
                 dispatch({
                     type: "VAT_FROM_PRODUCTS_EXTRACT",
                     payload: {
                         products
+                    }
+                });
+            }
+        },
+        storeVatRates: (vatRates) => {
+            console.log('in storeVatRates AQ');
+            return function(dispatch) {
+                dispatch({
+                    type: "VAT_RATES_STORE",
+                    payload: {
+                        vatRates
                     }
                 });
             }

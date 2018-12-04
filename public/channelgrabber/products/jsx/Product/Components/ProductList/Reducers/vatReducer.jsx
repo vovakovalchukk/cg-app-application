@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+
 "use strict";
 
 let initialState = {
@@ -9,15 +10,26 @@ let initialState = {
 let vatReducer = reducerCreator(initialState, {
     "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
         let {products} = action.payload;
-        let vatRates = getTaxOptionsFromProduct(products[0]);
         let newProductsVat = getChosenVatFromProducts(products);
+
         let productsVat = Object.assign(state.productsVat, newProductsVat);
         productsVat = sortByKey(productsVat);
-        
+
         let newState = Object.assign({}, state, {
-            vatRates,
             productsVat
         });
+        return newState;
+    },
+    "VAT_RATES_STORE": function(state,action){
+        console.log('in VAT_RATES_STORE -R');
+        let {vatRates} = action.payload;
+
+        vatRates = formatTaxOptions(vatRates);
+        let newState = Object.assign({}, state, {
+            vatRates
+        });
+        console.log('newState: ', newState);
+        
         return newState;
     },
     "VAT_UPDATE_SUCCESS": function(state, action) {
@@ -53,7 +65,7 @@ function getChosenVatFromProducts(products) {
             let taxOptionsForCountry = product.taxRates[countryCode];
             Object.keys(taxOptionsForCountry).forEach(taxOptionKey => {
                 let option = taxOptionsForCountry[taxOptionKey];
-                
+
                 if (!option.selected) {
                     return;
                 }
@@ -74,24 +86,26 @@ function sortByKey(unordered) {
     return ordered;
 }
 
-function getTaxOptionsFromProduct(product) {
+function formatTaxOptions(taxRates){
+    console.log('in formatTaxOptions taxRates: ' , taxRates);
     let options = {};
-    
-    Object.keys(product.taxRates).forEach((countryCode) => {
-        options[countryCode] = [];
-        let taxOptions = product.taxRates[countryCode];
-        Object.keys(taxOptions).forEach((taxOptionKey, index) => {
-            let option = taxOptions[taxOptionKey];
-            let optionToSave = {
-                key: taxOptionKey,
+//    return taxRates
+    Object.keys(taxRates).forEach((countryCode) => {
+        options[countryCode] = {};
+        Object.keys(taxRates[countryCode]).forEach(taxRateId=>{
+            let option = taxRates[countryCode][taxRateId];
+            options[countryCode][taxRateId] = {
+                key: taxRateId,
                 countryCode,
                 name: option.name,
                 rate: option.rate,
                 label: generateLabel(option)
-            };
-            options[countryCode].push(optionToSave);
+            }
         })
-    });
+    })
+
+    console.log('in formatTaxOptions ... options to be returned', options);
+
     return options;
 }
 

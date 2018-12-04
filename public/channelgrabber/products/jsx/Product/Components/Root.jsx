@@ -219,12 +219,16 @@ class RootComponent extends React.Component {
                     stockModeOptions={this.props.stockModeOptions}
                     massUnit={this.props.massUnit}
                     lengthUnit={this.props.lengthUnit}
+                    vatRates={this.props.taxRates}
                 />
             </div>
         )
     };
 
     render() {
+        console.log('in Root with taxRates: ', this.props.taxRates);
+
+
         let viewRenderers = this.getViewRenderers();
         let viewRenderer = viewRenderers[this.state.currentView];
         return viewRenderer();

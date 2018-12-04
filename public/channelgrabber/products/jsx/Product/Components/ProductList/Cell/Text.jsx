@@ -3,6 +3,8 @@ import Clipboard from 'Clipboard';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 class TextCell extends React.Component {
+
+    
     static defaultProps = {};
     state = {};
 

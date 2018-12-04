@@ -85,6 +85,8 @@ let columnService = (function() {
             let listingsColumns = generateListingsColumnsFromAccounts(accounts);
             let vatColumns = generateVatColumns(vat);
             let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns);
+//            console.log('generatedColumns: ', generatedColumns);
+            
             return generatedColumns;
         }
     }
@@ -93,10 +95,10 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
+//    console.log('in generateVatColumn.... (trying to identify why no countryCode is sending)');
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {
         let options = vat.vatRates[countryCode];
-        
         for (let key in options) {
             let option = options[key];
             let columnForCountryExists = !!vatColumns.find(column => {
@@ -107,12 +109,12 @@ function generateVatColumns(vat) {
                 return;
             }
             return {
-                key: option.countryCode,
+                key: countryCode,
                 type: 'vat',
-                countryCode: option.countryCode,
+                countryCode: countryCode,
                 vat,
                 width: 160,
-                headerText: option.countryCode,
+                headerText: countryCode,
                 fixed: false,
                 tab: 'vat',
                 align: 'center'

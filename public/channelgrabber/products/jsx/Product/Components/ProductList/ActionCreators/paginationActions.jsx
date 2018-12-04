@@ -1,4 +1,5 @@
 import productActions from 'Product/Components/ProductList/ActionCreators/productActions';
+import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
 
 "use strict";
 
@@ -14,6 +15,7 @@ let paginationActions = (function() {
     return {
         changePage: desiredPageNumber => {
             return async (dispatch, getState) => {
+                console.log('in changePage AQ');
                 const state = getState();
                 let {searchTerm} = state.search;
                 await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));

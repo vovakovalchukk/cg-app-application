@@ -21,7 +21,7 @@ const columnSpecificPropsMap = {
     available: ['rows'],
     dimensions: ['rows'],
     weight: ['rows'],
-    vat: ['rows'],
+    vat: ['rows', 'vat'],
     bulkSelect: ['bulkSelect']
 };
 const alignFlexMap = {
@@ -31,12 +31,26 @@ const alignFlexMap = {
 };
 
 let columnCreator = function(column, parentProps) {
+//    if(column.type==='vat') {
+//
+//        console.log('in columnCreator first ', {column, parentProps});
+//    }
+
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
 
     let CellContent = CellFactory.createCellContent(column);
 
+    if(column.type==='vat'){
+        console.log('in columnCreator second VAT column with parentProps: '  , {
+            parentProps,
+            'this.props.vat.productsVat' : parentProps.vat.productsVat,
+            column,
+            CellContent
+        });
+    }
+    
     let StyledCellWrapper = styled(CellWrapper)`
             display: flex;
             align-items: center;
@@ -87,7 +101,14 @@ function applyColumnSpecificProps(column, parentProps) {
         return column;
     }
     keysToAssign.forEach(keyToAssign => {
+//        console.log('assigning ', keyToAssign);
+
+
         column[keyToAssign] = parentProps[keyToAssign]
+
+//        console.log('column[keyToAssign]', column[keyToAssign]);
+
+
     });
     return column;
 }

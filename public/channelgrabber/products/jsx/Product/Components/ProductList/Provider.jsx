@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import getStateExtender from 'Product/Components/ProductList/getStateExtender';
 import productActions from 'Product/Components/ProductList/ActionCreators/productActions';
 import columnActions from 'Product/Components/ProductList/ActionCreators/columnActions';
+import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 import combinedReducer from 'Product/Components/ProductList/Reducers/combinedReducer';
 import ProductListRoot from 'Product/Components/ProductList/Root';
@@ -39,10 +40,11 @@ class ProductListProvider extends React.Component {
     };
 
     async componentDidMount() {
-        const {massUnit, lengthUnit} = this.props;
+        const {massUnit, lengthUnit, vatRates} = this.props;
         store.dispatch(productActions.storeAccountFeatures(this.props.features));
         store.dispatch(productActions.storeStockModeOptions(this.props.stockModeOptions));
         store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
+        store.dispatch(vatActions.storeVatRates(vatRates));
         let productsResponse = await store.dispatch(productActions.getProducts());
         store.dispatch(columnActions.generateColumnSettings());
         store.dispatch(userSettingsActions.storeStockDefaults(

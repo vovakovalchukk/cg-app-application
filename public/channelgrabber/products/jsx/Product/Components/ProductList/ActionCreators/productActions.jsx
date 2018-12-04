@@ -101,12 +101,13 @@ var actionCreators = (function() {
                 } catch (err) {
                     throw 'Unable to load products... error: ' + err;
                 }
+                dispatch(vatActions.extractVatFromProducts(data.products));
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
-                dispatch(vatActions.extractVatFromProducts(data.products));
+//                console.log('in getProducts and about to extractVatFromPRoducts......');
                 return data;
             }
         },
