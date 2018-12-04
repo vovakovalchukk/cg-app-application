@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a37a8ea4a44714d4f8c2b8dd8d0587a",
+    "content-hash": "79643e5f754e1c4a6f8ec46bd168d5ab",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -715,12 +715,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c09743c7b3ab05346e368b5d1eabb0e726a8ca5d"
+                "reference": "63890e32da6688b57204ddb5dab2a195596c568d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-251-netdespatch-allow-for-other-carriers-f3b515.zip",
-                "reference": "c09743c7b3ab05346e368b5d1eabb0e726a8ca5d",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-251-netdespatch-allow-for-other-carriers-0669f3.zip",
+                "reference": "63890e32da6688b57204ddb5dab2a195596c568d",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-15T12:29:51+00:00"
+            "time": "2018-12-04T10:08:38+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1948,12 +1948,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "84d74b0b415397f3c00343792f5e2c5ece9428d9"
+                "reference": "9142e58383f471e05a4b45df07b9cef9aac87eb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-252-uk-mail-via-netdespatch-d63884.zip",
-                "reference": "84d74b0b415397f3c00343792f5e2c5ece9428d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-252-uk-mail-via-netdespatch-785728.zip",
+                "reference": "9142e58383f471e05a4b45df07b9cef9aac87eb7",
                 "shasum": null
             },
             "require": {
@@ -1994,7 +1994,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-11-21T10:03:35+00:00"
+            "time": "2018-12-04T10:11:19+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4420,7 +4420,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2018-11-16T10:21:46+00:00"
+            "time": "2018-11-15T16:41:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -4840,12 +4840,6 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-252-uk-mail-via-netdespatch-019d51.zip",
                 "reference": "a098f598fb0c07e11fd85eda4c49d1ba3ea5d691",
-                "shasum": null
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.9-1b9425.zip",
-                "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7",
                 "shasum": null
             },
             "require": {
