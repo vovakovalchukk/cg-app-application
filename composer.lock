@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "460d399888acc91e7c88880fbec90877",
+    "content-hash": "4a37a8ea4a44714d4f8c2b8dd8d0587a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -948,16 +948,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "6cdaa3d7caf7a0e648efb70b742febbf1b09e8c8"
+                "reference": "646535831c01716e00b19d035b9d32d21ba7b06d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.5-cd9a0c.zip",
-                "reference": "6cdaa3d7caf7a0e648efb70b742febbf1b09e8c8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.6-8a4b1a.zip",
+                "reference": "646535831c01716e00b19d035b9d32d21ba7b06d",
                 "shasum": null
             },
             "require": {
@@ -989,20 +989,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-10-12T09:14:58+00:00"
+            "time": "2018-12-03T11:32:22+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "e7f36191738f82fbb75922d31f4ddaed2e4dae8b"
+                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.4.0-d6faa3.zip",
-                "reference": "e7f36191738f82fbb75922d31f4ddaed2e4dae8b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.4.1-53db0d.zip",
+                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398",
                 "shasum": null
             },
             "require": {
@@ -1027,7 +1027,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-10-12T09:00:58+00:00"
+            "time": "2018-12-03T11:32:22+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2049,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.42.1",
+            "version": "1.43.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f"
+                "reference": "7436954c7d1369d02799883f431cf172ef715185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.1-408004.zip",
-                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.43.1-5c4eb7.zip",
+                "reference": "7436954c7d1369d02799883f431cf172ef715185",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-27T11:08:46+00:00"
+            "time": "2018-11-30T15:55:50+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3547,16 +3547,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.4",
+            "version": "1.26.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "7aca77dd960a49f31e2761feafa1ed629c99a90c"
+                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.4-646f2a.zip",
-                "reference": "7aca77dd960a49f31e2761feafa1ed629c99a90c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.5-25e866.zip",
+                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
                 "shasum": null
             },
             "require": {
@@ -3571,9 +3571,9 @@
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
-                "channelgrabber/slim": "^1.13.14",
+                "channelgrabber/slim": "^1.14.0",
                 "channelgrabber/stats": ">=1.0.1, <2.0.0",
-                "channelgrabber/stdlib": "^2.12.47",
+                "channelgrabber/stdlib": "^2.16.3",
                 "channelgrabber/validation": ">=1.2.5",
                 "channelgrabber/zf2-stdlib": ">=1.1.17,<2.0.0",
                 "guzzle/guzzle": "~3.7",
@@ -3592,12 +3592,17 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-9867-apc-for-ou": "1.26.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\": "src"
                 }
             },
-            "time": "2018-10-03T13:20:24+00:00"
+            "time": "2018-12-03T14:55:22+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4835,6 +4840,12 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-252-uk-mail-via-netdespatch-019d51.zip",
                 "reference": "a098f598fb0c07e11fd85eda4c49d1ba3ea5d691",
+                "shasum": null
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.9-1b9425.zip",
+                "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7",
                 "shasum": null
             },
             "require": {
@@ -9055,7 +9066,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9110,7 +9121,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9165,7 +9176,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
