@@ -15,6 +15,9 @@ class LinkCell extends React.Component {
         const rowData = stateUtility.getRowData(products, rowIndex);
         const isParentProduct = stateUtility.isParentProduct(rowData);
         let productLinks = getProductLinks(products, rowData);
+        console.log('productLinks: ' , productLinks);
+
+
         return (
             <StyledLink.container className={this.props.className} {...this.props}>
                 {!isParentProduct ?
