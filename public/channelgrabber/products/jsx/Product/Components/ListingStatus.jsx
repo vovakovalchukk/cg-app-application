@@ -8,6 +8,7 @@ import Icon from 'Product/Components/Icon';
 let ListingIcon = styled(Icon)`
         background-image: url('${getBackgroundImage}');
         background-size: 80%;
+        cursor: ${props => (props.status === 'active' ? 'pointer' : 'inherit')};
         ${props => {
     if (props.status === 'inactive') {
         return `
@@ -34,14 +35,23 @@ class ListingStatusComponent extends React.Component {
     getCursor() {
         return this.props.status === 'inactive' ? 'pointer' : 'initial';
     };
-
+    getListingIconOnClick(){
+        if(this.props.status === 'inactive'){
+            return this.props.onAddListingClick;
+        }
+        if(this.props.status === 'active'){
+            return () => {
+                window.location = this.props.listingUrl
+            }
+        }
+        return () => {}
+    }
     render() {
         return (
             <div className={this.props.className}>
                 <ListingIcon.sizer>
                     <ListingIcon
-                        onClick={this.props.status === 'inactive' ? this.props.onAddListingClick : () => {
-                        }}
+                        onClick={this.getListingIconOnClick()}
                         {...this.props}
                         cursor={this.getCursor()}
                     />

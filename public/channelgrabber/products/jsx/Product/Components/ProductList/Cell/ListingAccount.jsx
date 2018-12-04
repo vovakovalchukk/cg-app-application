@@ -4,6 +4,34 @@ import ListingStatus from 'Product/Components/ListingStatus';
 
 "use strict";
 
+const LISTING_STATUSES_BY_PRIORITY = [
+    {
+        status: 'active',
+        getHoverMessage: () => ('This is an active listing with available stock'),
+        statusPriority: 0
+    }, {
+        status: 'pending',
+        getHoverMessage: (listing) => ('We have recently sent a stock update to this listing, and are currently waiting for ' + $.trim(listing.channel) + ' to confirm they have received and processed the stock update'),
+        statusPriority: 1
+    }, {
+        status: 'paused',
+        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        statusPriority: 2
+    }, {
+        status: 'error',
+        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        statusPriority: 3
+    }, {
+        status: 'inactive',
+        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        statusPriority: 4
+    }, {
+        status: 'uninmported',
+        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        statusPriority: 5
+    },
+];
+
 class ListingAccountCell extends React.Component {
     static defaultProps = {
         actions: {},
@@ -23,15 +51,29 @@ class ListingAccountCell extends React.Component {
     };
 
     render() {
+
+
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
-        let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(listingsForAccount);
+
+
+        let mostNegativeListing = getMostNegativeListing(listingsForAccount);
+
+        console.log('mostNegativeListing: ', mostNegativeListing);
+
+
+        let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(mostNegativeListing);
+        console.log('mostNegativeListingStateFromListings: ', mostNegativeListingStateFromListings);
+
+        let listingUrl = getListingUrl(mostNegativeListing);
+
         let {status} = mostNegativeListingStateFromListings;
         
         return <ListingStatus
             status={status}
             onAddListingClick={this.onAddListingClick}
             className={this.props.className}
+            listingUrl={listingUrl}
         />;
     }
 }
@@ -53,45 +95,51 @@ function getListingsForAccount(rowData, listingAccountId) {
     });
 }
 
-function getMostNegativeListingStateFromListings(listings) {
-    let listingStatusesByPriority = [
-        {
-            status: 'active',
-            getHoverMessage: () => ('This is an active listing with available stock'),
-            statusPriority: 0
-        }, {
-            status: 'pending',
-            getHoverMessage: (listing) => ('We have recently sent a stock update to this listing, and are currently waiting for ' + $.trim(listing.channel) + ' to confirm they have received and processed the stock update'),
-            statusPriority: 1
-        }, {
-            status: 'paused',
-            getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
-            statusPriority: 2
-        }, {
-            status: 'error',
-            getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
-            statusPriority: 3
-        }, {
-            status: 'inactive',
-            getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
-            statusPriority: 4
-        }, {
-            status: 'uninmported',
-            getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
-            statusPriority: 5
-        },
-    ];
-    if (!listings) {
-        return listingStatusesByPriority.find(status => (status.status === 'inactive'));
+function getListingUrl(listing){
+    if(!listing){
+        return '';
     }
-    let highestPriorityStatus = listingStatusesByPriority[0];
+    return listing.status==='active' ? listing.url : '';
+}
+
+function getMostNegativeListing(listings){
+//    console.log('in getMostNegativeisting');
+
+
+    if(!listings){
+        return null;
+    }
+    let mostNegativeListing = listings[0];
     listings.forEach((listing) => {
-        let relevantListingStatus = listingStatusesByPriority.find(status => {
+//        console.log('loopsing through listing ', listing);
+
+
+        let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
             return listing.status === status.status;
         });
-        if (relevantListingStatus.statusPriority > highestPriorityStatus.statusPriority) {
-            highestPriorityStatus = relevantListingStatus;
+//        console.log('in getMostNegativeListing relevantListingStatus: ', {relevantListingStatus, mostNegativeListing});
+
+        if (relevantListingStatus.statusPriority > mostNegativeListing.status.statusPriority) {
+//            console.log('setting new mostRevelant.... ',{
+//                relevantListingStatus
+//            });
+
+
+            mostNegativeListing = relevantListingStatus;
         }
     });
-    return highestPriorityStatus;
+    return mostNegativeListing;
+}
+
+function getMostNegativeListingStateFromListings(mostNegativeListing) {
+    if (!mostNegativeListing) {
+        return LISTING_STATUSES_BY_PRIORITY.find(status => (status.status === 'inactive'));
+    }
+//    console.log('about to find status for mostNegativeListing: ' , mostNegativeListing);
+
+
+    return LISTING_STATUSES_BY_PRIORITY.find(LISTING_STATUS => {
+//        console.log('in find: ',{status, mostNegativeListing});
+        return LISTING_STATUS.status === mostNegativeListing.status;
+    });
 }
