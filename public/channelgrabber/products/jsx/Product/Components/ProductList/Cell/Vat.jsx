@@ -37,35 +37,20 @@ class VatCell extends React.Component {
         } = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
 
-        console.log('VAT: ', this.props.vat);
-
         if (stateUtility.isVariation(row)) {
             return <span></span>
         }
 
         let productVat = this.props.vat.productsVat[row.id];
 
-        console.log('before failign.. ', {
-            'this.props.vat.productsVat[row.id]':this.props.vat.productsVat[row.id],
-            'row.id': row.id,
-            'this.props.vat.productsVat': this.props.vat.productsVat,
-            'this.props.vat.vatRates':this.props.vat.vatRates,
-            countryCode
-        });
-
-
-
-
         let vatRatesForCountry = this.props.vat.vatRates[countryCode];
-
         let options = this.generateOptionsFromVatRates(vatRatesForCountry);
-        console.log('got options: ', options);
 
         let selectedVatKey = productVat[countryCode];
 
         let selectedVat = options.find(option => (selectedVatKey === option.value));
         if (!selectedVat) {
-            return <span>no selected vat...</span>
+            return <span></span>
         }
 
         let selectedLabel = selectedVat.name;
@@ -73,16 +58,6 @@ class VatCell extends React.Component {
             name: selectedLabel,
             value: selectedVatKey
         };
-
-        console.log('VAT : ', {
-            'row.id': row.id,
-            row,
-            'this.props.vat.vatRates[countryCode]': this.props.vat.vatRates[countryCode],
-            countryCode,
-            'this.props': this.props,
-            rowIndex,
-            selected
-        });
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.SELECT_DROPDOWN,

@@ -71,7 +71,7 @@ let detailsColumns = [
     },
     {
         key: 'dimensions',
-        width: 200,
+        width: 280,
         headerText: 'Dimensions',
         fixed: false,
         tab: 'details',
