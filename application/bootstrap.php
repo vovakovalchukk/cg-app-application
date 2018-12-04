@@ -14,7 +14,7 @@ require 'config/env.local.php';
 require 'init_autoloader.php';
 
 ProfilingService::startProfiling(
-    'app',
+    APPLICATION,
     [],
     [
         ProfilingService::MODE_BASIC => 70,
