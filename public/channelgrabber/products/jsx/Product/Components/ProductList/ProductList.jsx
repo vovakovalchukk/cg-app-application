@@ -116,7 +116,7 @@ class ProductList extends React.Component {
         return createdColumns;
     };
     isReadyToRenderTable = () => {
-        return this.state.productsListContainer && this.state.productsListContainer.height;
+        return !!(this.state.productsListContainer && this.state.productsListContainer.height);
     };
     hasProducts = () => {
         return this.props.products.simpleAndParentProducts && this.getVisibleRows() && this.getVisibleRows().length
@@ -143,10 +143,6 @@ class ProductList extends React.Component {
         return true;
     };
     renderProducts = () => {
-        console.log('PL this.props: ',  this.props);
-        
-        
-        
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
             return;
@@ -157,8 +153,6 @@ class ProductList extends React.Component {
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
-
-        //todo reinstate commented out version after dummy finished
         return (
             <Table
                 rowHeight={44}
@@ -180,7 +174,7 @@ class ProductList extends React.Component {
             >
                 {this.renderColumns()}
             </Table>
-        )//
+        )
     };
     componentDidMount() {
         this.updateDimensions();
@@ -205,6 +199,21 @@ class ProductList extends React.Component {
             horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
         }
     }
+    shouldRenderModal() {
+        console.log('in shouldRender ',{
+            'this.isReadyToRenderTable()':this.isReadyToRenderTable(),
+            '!this.props.products.visibleRows.length' : !this.props.products.visibleRows.length,
+            '!this.props.search.productSearchActive' : !this.props.search.productSearchActive,
+            'this.props.products.completeInitialLoads.simpleAndParentProducts': this.props.products.completeInitialLoads.simpleAndParentProducts,
+            'this.props.search':this.props.search
+        });
+        return (
+            this.isReadyToRenderTable() &&
+            !this.props.products.visibleRows.length &&
+            !this.props.search.productSearchActive &&
+            this.props.products.completeInitialLoads.simpleAndParentProducts
+        );
+    }
     renderBlockerModal() {
         return (
             <BlockerModal
@@ -219,6 +228,7 @@ class ProductList extends React.Component {
         );
     }
     render() {
+        console.log('in PL this.props (see if search is attached to this alongside the initialProductLoad thing', this.props);
         return (
             <div id='products-app'>
                 <div className="top-toolbar">
@@ -229,9 +239,7 @@ class ProductList extends React.Component {
                     {this.renderAdditionalNavbarButtons()}
                 </div>
                 <Tabs/>
-
-                {!this.props.products.visibleRows.length ? this.renderBlockerModal() : ' '}
-
+                {this.shouldRenderModal() ? this.renderBlockerModal() : ''}
                 <div
                     className='products-list__container'
                     ref={(productsListContainer) => this.productsListContainer = productsListContainer}

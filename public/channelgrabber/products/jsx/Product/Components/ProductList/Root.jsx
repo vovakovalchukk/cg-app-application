@@ -28,7 +28,8 @@ const mapStateToProps = function(state) {
         vat: state.vat,
         bulkSelect: state.bulkSelect,
         rows: state.rows,
-        userSettings: state.userSettings
+        userSettings: state.userSettings,
+        search: state.search
     };
 };
 

@@ -19,9 +19,8 @@ const {LINK_STATUSES} = constants;
 
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-//
-//        //todo remove this dummy
-//        action.payload.products = [];
+        //todo - remove this dummy
+        action.payload.products = [];
 
         let newState = Object.assign({}, state, {
             completeInitialLoads: {

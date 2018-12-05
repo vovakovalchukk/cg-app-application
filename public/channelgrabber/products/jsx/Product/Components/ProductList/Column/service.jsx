@@ -127,9 +127,14 @@ function generateListingsColumnsFromAccounts(accounts) {
     if (typeof accounts === "string") {
         return [];
     }
-    let channelSpecificColumns = Object.keys(accounts).map((accountKey) => {
+
+    let channelSpecificColumns = [];
+    Object.keys(accounts).forEach((accountKey) => {
         let account = accounts[accountKey];
-        return {
+        if(!account.type.includes('sales')){
+            return;
+        }
+        channelSpecificColumns.push({
             key: 'ListingAccountCell-' + account.id,
             type: 'listingAccount',
             listingAccountId: account.id,
@@ -138,7 +143,7 @@ function generateListingsColumnsFromAccounts(accounts) {
             fixed: false,
             tab: 'listings',
             align: 'center'
-        }
+        });
     });
     let miscListingColumns = [
         {

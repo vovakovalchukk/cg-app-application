@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+
 "use strict";
 
 var initialState = {
@@ -12,12 +13,8 @@ var listReducer = reducerCreator(initialState, {
         return state;
     },
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-        let {productSearchActive} = action.payload;
-        let newState = Object.assign({}, state, {
-            productSearchActive
-        });
         $('#products-loading-message').hide();
-        return newState;
+        return state;
     },
     "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS": function(state, action) {
         let {fetchingStockLevelsForSkus} = action.payload;
