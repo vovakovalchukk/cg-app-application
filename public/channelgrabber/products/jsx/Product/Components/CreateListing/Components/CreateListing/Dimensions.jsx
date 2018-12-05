@@ -40,7 +40,8 @@ class DimensionsComponent extends React.Component {
         initialDimensions: {},
         accounts: {},
         massUnit: null,
-        lengthUnit: null
+        lengthUnit: null,
+        variationImages: {}
     };
 
     state = {
@@ -163,6 +164,7 @@ class DimensionsComponent extends React.Component {
             attributeNameMap={this.props.attributeNameMap}
             renderCustomTableHeaders={this.renderDimensionHeaders}
             renderCustomTableRows={this.renderDimensionColumns}
+            variationImages={this.props.variationImages}
         />;
     }
 

@@ -57,6 +57,25 @@
                 type: "ACCOUNT_POLICIES_FETCH_ERROR",
                 payload: {}
             }
+        },
+        categoryTemplateDependentFieldValuesFetched: function(categoryTemplates, accountDefaultSettings, accountsData) {
+            return {
+                type: "CATEGORY_TEMPLATE_DEPENDANT_FIELD_VALUES_FETCHED",
+                payload: {
+                    categoryTemplates: categoryTemplates,
+                    accountDefaultSettings: accountDefaultSettings,
+                    accountsData: accountsData
+                }
+            };
+        },
+        searchResultsFetched: function (response) {
+            const products = response.products ? response.products : {};
+            return {
+                type: "SEARCH_RESULTS_FETCHED",
+                payload: {
+                    products: products
+                }
+            };
         }
     };
 
