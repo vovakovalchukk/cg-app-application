@@ -46,6 +46,13 @@ class ProductListProvider extends React.Component {
         store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
         store.dispatch(vatActions.storeVatRates(vatRates));
         let productsResponse = await store.dispatch(productActions.getProducts());
+
+//        //todo - remove this dummy
+//
+//        console.log('dummying products');
+//        let productsResponse = {};
+//        productsResponse.products = [];
+
         store.dispatch(columnActions.generateColumnSettings());
         store.dispatch(userSettingsActions.storeStockDefaults(
             stateUtility.getDefaultStockModeFromProducts(productsResponse.products),

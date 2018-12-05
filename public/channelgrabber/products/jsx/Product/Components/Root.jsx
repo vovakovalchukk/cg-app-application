@@ -226,9 +226,6 @@ class RootComponent extends React.Component {
     };
 
     render() {
-        console.log('in Root with taxRates: ', this.props.taxRates);
-
-
         let viewRenderers = this.getViewRenderers();
         let viewRenderer = viewRenderers[this.state.currentView];
         return viewRenderer();

@@ -9,6 +9,7 @@ import NavbarButton from 'Product/Components/ProductList/Components/Navbar/Butto
 import constants from 'Product/Components/ProductList/Config/constants';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import visibleRowService from 'Product/Components/ProductList/VisibleRow/service';
+import BlockerModal from 'Common/Components/BlockerModal';
 
 "use strict";
 
@@ -89,6 +90,9 @@ class ProductList extends React.Component {
         });
     };
     getVisibleRows = () => {
+        // todo - remove this dummy
+//        return [];
+//
         return this.props.products.visibleRows;
     };
     isTabSpecificColumn = (column) => {
@@ -139,6 +143,10 @@ class ProductList extends React.Component {
         return true;
     };
     renderProducts = () => {
+        console.log('PL this.props: ',  this.props);
+        
+        
+        
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
             return;
@@ -149,6 +157,8 @@ class ProductList extends React.Component {
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
+
+        //todo reinstate commented out version after dummy finished
         return (
             <Table
                 rowHeight={44}
@@ -170,7 +180,7 @@ class ProductList extends React.Component {
             >
                 {this.renderColumns()}
             </Table>
-        )
+        )//
     };
     componentDidMount() {
         this.updateDimensions();
@@ -195,8 +205,20 @@ class ProductList extends React.Component {
             horizontalScrollbar.addEventListener('mousedown', this.updateHorizontalScrollIndex);
         }
     }
+    renderBlockerModal() {
+        return (
+            <BlockerModal
+                contentJsx={
+                    <div>
+                        <div>You have no products... yet!</div>
+                        <div><a href={'products/listing/import'} >Click here</a> to import your active listings </div>
+                        <div>or <a href={'#'} onClick={this.props.addNewProductButtonClick} >here</a> to add a new product manually. </div>
+                    </div>
+                }
+            />
+        );
+    }
     render() {
-//        console.log('PL render this.props: ' , this.props);
         return (
             <div id='products-app'>
                 <div className="top-toolbar">
@@ -207,6 +229,9 @@ class ProductList extends React.Component {
                     {this.renderAdditionalNavbarButtons()}
                 </div>
                 <Tabs/>
+
+                {!this.props.products.visibleRows.length ? this.renderBlockerModal() : ' '}
+
                 <div
                     className='products-list__container'
                     ref={(productsListContainer) => this.productsListContainer = productsListContainer}

@@ -61,9 +61,15 @@ let stateUtility = function() {
             return variationsByParent;
         },
         getDefaultStockModeFromProducts(products) {
+            if(!products.length){
+                return;
+            }
             return products[0].stockModeDefault;
         },
         getDefaultStockLevelFromProducts(products) {
+            if(!products.length){
+                return;
+            }
             return products[0].stockLevelDefault;
         }
     };

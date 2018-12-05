@@ -51,19 +51,12 @@ class ListingAccountCell extends React.Component {
     };
 
     render() {
-
-
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
 
-
         let mostNegativeListing = getMostNegativeListing(listingsForAccount);
 
-        console.log('mostNegativeListing: ', mostNegativeListing);
-
-
         let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(mostNegativeListing);
-        console.log('mostNegativeListingStateFromListings: ', mostNegativeListingStateFromListings);
 
         let listingUrl = getListingUrl(mostNegativeListing);
 
@@ -103,28 +96,15 @@ function getListingUrl(listing){
 }
 
 function getMostNegativeListing(listings){
-//    console.log('in getMostNegativeisting');
-
-
     if(!listings){
         return null;
     }
     let mostNegativeListing = listings[0];
     listings.forEach((listing) => {
-//        console.log('loopsing through listing ', listing);
-
-
         let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
             return listing.status === status.status;
         });
-//        console.log('in getMostNegativeListing relevantListingStatus: ', {relevantListingStatus, mostNegativeListing});
-
         if (relevantListingStatus.statusPriority > mostNegativeListing.status.statusPriority) {
-//            console.log('setting new mostRevelant.... ',{
-//                relevantListingStatus
-//            });
-
-
             mostNegativeListing = relevantListingStatus;
         }
     });
@@ -135,11 +115,7 @@ function getMostNegativeListingStateFromListings(mostNegativeListing) {
     if (!mostNegativeListing) {
         return LISTING_STATUSES_BY_PRIORITY.find(status => (status.status === 'inactive'));
     }
-//    console.log('about to find status for mostNegativeListing: ' , mostNegativeListing);
-
-
     return LISTING_STATUSES_BY_PRIORITY.find(LISTING_STATUS => {
-//        console.log('in find: ',{status, mostNegativeListing});
         return LISTING_STATUS.status === mostNegativeListing.status;
     });
 }

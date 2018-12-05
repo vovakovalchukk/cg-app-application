@@ -6,25 +6,25 @@ import Icon from 'Product/Components/Icon';
 "use strict";
 
 let ListingIcon = styled(Icon)`
-        background-image: url('${getBackgroundImage}');
-        background-size: 80%;
-        cursor: ${props => (props.status === 'active' ? 'pointer' : 'inherit')};
-        ${props => {
-    if (props.status === 'inactive') {
-        return `
+    background-image: url('${getBackgroundImage}');
+    background-size: 80%;
+    cursor: ${props => (props.status === 'active' ? 'pointer' : 'inherit')};
+    ${props => {
+        if (props.status === 'inactive') {
+            return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
                         background-size: 40%;
                     }
                 `;
-    }
-}}
+        }
+    }}
 `;
 
 ListingIcon.sizer = styled.div`
-        display: flex;
-        width: ${constants.LISTING_ICON_SIZE + 'px'};
-        height: ${constants.LISTING_ICON_SIZE + 'px'};
+    display: flex;
+    width: ${constants.LISTING_ICON_SIZE + 'px'};
+    height: ${constants.LISTING_ICON_SIZE + 'px'};
 `;
 
 class ListingStatusComponent extends React.Component {

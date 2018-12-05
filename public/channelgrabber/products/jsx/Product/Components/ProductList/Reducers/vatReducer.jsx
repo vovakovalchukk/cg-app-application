@@ -87,7 +87,6 @@ function sortByKey(unordered) {
 }
 
 function formatTaxOptions(taxRates){
-    console.log('in formatTaxOptions taxRates: ' , taxRates);
     let options = {};
 //    return taxRates
     Object.keys(taxRates).forEach((countryCode) => {
