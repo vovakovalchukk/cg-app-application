@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "79643e5f754e1c4a6f8ec46bd168d5ab",
+    "content-hash": "cf9324b5156d0abc4c2a568e166f9a80",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "version": "1.42.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "63890e32da6688b57204ddb5dab2a195596c568d"
+                "reference": "bb53468b3caef818f5bf3f6d5a1012575669f241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-251-netdespatch-allow-for-other-carriers-0669f3.zip",
-                "reference": "63890e32da6688b57204ddb5dab2a195596c568d",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-1.42.4.1-c3097c.zip",
+                "reference": "bb53468b3caef818f5bf3f6d5a1012575669f241",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-12-04T10:08:38+00:00"
+            "time": "2018-12-05T12:17:44+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1944,20 +1944,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-TAC-252-uk-mail-via-netdespatch",
+            "version": "1.4.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "9142e58383f471e05a4b45df07b9cef9aac87eb7"
+                "reference": "1aaf385364526dd1771274ca29edb2879da6c7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-252-uk-mail-via-netdespatch-785728.zip",
-                "reference": "9142e58383f471e05a4b45df07b9cef9aac87eb7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.4.0.1-cf00d3.zip",
+                "reference": "1aaf385364526dd1771274ca29edb2879da6c7c4",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
+                "channelgrabber/channel": "^1.42.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
@@ -1994,7 +1994,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-12-04T10:11:19+00:00"
+            "time": "2018-12-05T13:12:09+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4381,16 +4381,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "a1ae81d8f83274eb14fb5afd949ac4bf416526d1"
+                "reference": "99b5243ba12ede268ad38f7618fb9908cba74417"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-d29a64.zip",
-                "reference": "a1ae81d8f83274eb14fb5afd949ac4bf416526d1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.1.0-65e9ca.zip",
+                "reference": "99b5243ba12ede268ad38f7618fb9908cba74417",
                 "shasum": null
             },
             "require": {
@@ -4420,7 +4420,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2018-11-15T16:41:49+00:00"
+            "time": "2018-12-05T09:41:53+00:00"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -4830,16 +4830,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-252-uk-mail-via-netdespatch",
+            "version": "1.25.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a098f598fb0c07e11fd85eda4c49d1ba3ea5d691"
+                "reference": "297621464058b7b8f978798f7e5be69c8f552f05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-252-uk-mail-via-netdespatch-019d51.zip",
-                "reference": "a098f598fb0c07e11fd85eda4c49d1ba3ea5d691",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.10-0fe5e2.zip",
+                "reference": "297621464058b7b8f978798f7e5be69c8f552f05",
                 "shasum": null
             },
             "require": {
@@ -4891,7 +4891,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-30T15:31:19+00:00"
+            "time": "2018-12-05T11:34:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10470,39 +10470,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.42.4",
-            "alias_normalized": "1.42.4.0",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
-            "version": "dev-TAC-252-uk-mail-via-netdespatch",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.0.8",
-            "alias_normalized": "1.0.8.0",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
-            "package": "channelgrabber/zf2-netdespatch"
-        },
-        {
-            "alias": "1.25.10",
-            "alias_normalized": "1.25.10.0",
-            "version": "dev-TAC-252-uk-mail-via-netdespatch",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/zf2-netdespatch": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
