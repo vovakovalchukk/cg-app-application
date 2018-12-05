@@ -72,9 +72,6 @@ let columnCreator = function(column, parentProps) {
     if (column.key === columnKeys.stockMode) {
         CellToRender = StockModeCell;
     }
-    if (column.key === columnKeys.image) {
-        CellToRender = ImageCell
-    }
 
     return (<Column
         pureRendering={true}

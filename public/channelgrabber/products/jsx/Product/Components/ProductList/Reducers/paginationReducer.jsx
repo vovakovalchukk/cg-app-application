@@ -24,6 +24,8 @@ var paginationReducer = reducerCreator(initialState, {
             page,
             total
         });
+        console.log('newState: ', newState);
+        
         return newState;
     },
     "LIMIT_CHANGE": function(state, action) {

@@ -200,13 +200,6 @@ class ProductList extends React.Component {
         }
     }
     shouldRenderModal() {
-        console.log('in shouldRender ',{
-            'this.isReadyToRenderTable()':this.isReadyToRenderTable(),
-            '!this.props.products.visibleRows.length' : !this.props.products.visibleRows.length,
-            '!this.props.search.productSearchActive' : !this.props.search.productSearchActive,
-            'this.props.products.completeInitialLoads.simpleAndParentProducts': this.props.products.completeInitialLoads.simpleAndParentProducts,
-            'this.props.search':this.props.search
-        });
         return (
             this.isReadyToRenderTable() &&
             !this.props.products.visibleRows.length &&
@@ -228,7 +221,7 @@ class ProductList extends React.Component {
         );
     }
     render() {
-        console.log('in PL this.props (see if search is attached to this alongside the initialProductLoad thing', this.props);
+//        console.log('in PL this.props (see if search is attached to this alongside the initialProductLoad thing', this.props);
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

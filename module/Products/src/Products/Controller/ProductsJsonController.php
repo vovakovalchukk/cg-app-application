@@ -152,8 +152,12 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
+
         try {
+            //todo - remove this hack
+//            $products = $this->productService->fetchProducts($requestFilter, $limit, $page > 1 ? 1 : $page);
             $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
+
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->fetchAccounts($organisationUnitIds);
             $accountsArray = $this->getAccountsIndexedById($accounts);
@@ -173,6 +177,9 @@ class ProductsJsonController extends AbstractActionController
                     $merchantLocationIds
                 );
             }
+
+            //todo - remove this hack
+//            $total = $products->getTotal() * 3;
             $total = $products->getTotal();
 
             $productSearchActive = $this->listingChannelService->isProductSearchActive($rootOrganisationUnit);
