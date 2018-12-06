@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "f191a2373933bfd5f4353d2bd7f5cafa",
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.3",
+            "version": "1.42.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "56db1b4ca65235d19f59c38c6215b22a81647eb3"
+                "reference": "bb53468b3caef818f5bf3f6d5a1012575669f241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.42.3-d09d24.zip",
-                "reference": "56db1b4ca65235d19f59c38c6215b22a81647eb3",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-1.42.4.1-c3097c.zip",
+                "reference": "bb53468b3caef818f5bf3f6d5a1012575669f241",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-14T13:33:07+00:00"
+            "time": "2018-12-05T12:17:44+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1944,20 +1944,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.3.0",
+            "version": "1.4.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "32fd8a2c7cdb070e39856f3c75deefb4ae4fc6cc"
+                "reference": "1aaf385364526dd1771274ca29edb2879da6c7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.3.0-465c5a.zip",
-                "reference": "32fd8a2c7cdb070e39856f3c75deefb4ae4fc6cc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.4.0.1-cf00d3.zip",
+                "reference": "1aaf385364526dd1771274ca29edb2879da6c7c4",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.42.0",
+                "channelgrabber/channel": "^1.42.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
@@ -1994,7 +1994,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-11-01T10:40:14+00:00"
+            "time": "2018-12-05T13:12:09+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -4381,16 +4381,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.7.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "726d6d239237a2426388587af065ea81bfa833d4"
+                "reference": "99b5243ba12ede268ad38f7618fb9908cba74417"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.7.1-3b59d1.zip",
-                "reference": "726d6d239237a2426388587af065ea81bfa833d4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.1.0-65e9ca.zip",
+                "reference": "99b5243ba12ede268ad38f7618fb9908cba74417",
                 "shasum": null
             },
             "require": {
@@ -4420,7 +4420,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2017-09-12T15:37:34+00:00"
+            "time": "2018-12-05T09:41:53+00:00"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -4830,16 +4830,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.25.9",
+            "version": "1.25.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7"
+                "reference": "297621464058b7b8f978798f7e5be69c8f552f05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.9-1b9425.zip",
-                "reference": "a58957f3e2bcdc1e6787c03b3a3fe5739ebc5aa7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.10-0fe5e2.zip",
+                "reference": "297621464058b7b8f978798f7e5be69c8f552f05",
                 "shasum": null
             },
             "require": {
@@ -4891,7 +4891,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-28T15:21:59+00:00"
+            "time": "2018-12-05T11:34:38+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

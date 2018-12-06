@@ -2499,7 +2499,7 @@ return [
                     'viewModel' => 'CourierSpecificsPackageTypeColumnView',
                     'class' => 'package-type-col',
                     'sortable' => false,
-                    'order' => 85,
+                    'order' => 115,
                 ],
             ],
             'CourierSpecificsAddOnsColumnView' => [
@@ -2515,7 +2515,7 @@ return [
                     'viewModel' => 'CourierSpecificsAddOnsColumnView',
                     'class' => 'add-ons-col',
                     'sortable' => false,
-                    'order' => 95,
+                    'order' => 118,
                 ],
             ],
             'CourierSpecificsDeliveryExperienceColumnView' => [
