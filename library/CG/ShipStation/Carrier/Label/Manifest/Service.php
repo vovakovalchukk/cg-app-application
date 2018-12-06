@@ -188,6 +188,8 @@ class Service implements LoggerAwareInterface
         $manifestQuery = new ManifestQuery(
             $shipStationAccount->getExternalDataByKey('warehouseId'),
             null,
+            null,
+            null,
             $earliestDate
         );
         try {
