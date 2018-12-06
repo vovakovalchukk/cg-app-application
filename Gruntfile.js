@@ -1,6 +1,5 @@
 const webpackConfig = require('./webpack.config.js');
 const chalk = require('chalk');
-const webpackConfigService = require('./public/cg-built/vendor/cg-common/dist/js/webpackConfig/service.js');
 
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
@@ -214,5 +213,16 @@ function getWebpackConfig(env) {
         return webpackConfig
     }
     console.log(chalk.cyan('running webpack in development mode...'))
-    return webpackConfigService.getDevAdjustedWebpackConfig(webpackConfig)
+    return getDevAdjustedWebpackConfig(webpackConfig)
+}
+
+function getDevAdjustedWebpackConfig(webpackConfig){
+    return Object.assign(webpackConfig, {
+        mode: 'development',
+        watch: true,
+        watchOptions: {
+            // delay applied so that webpack runs after cg-common's grunt tasks are executed
+            aggregateTimeout: 1500
+        }
+    })
 }
