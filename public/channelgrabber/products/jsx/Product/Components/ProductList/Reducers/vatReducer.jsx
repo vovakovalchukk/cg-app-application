@@ -27,7 +27,6 @@ let vatReducer = reducerCreator(initialState, {
         let newState = Object.assign({}, state, {
             vatRates
         });
-        console.log('newState: ', newState);
 
         return newState;
     },
