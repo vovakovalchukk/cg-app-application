@@ -25,12 +25,12 @@ class Query extends ResponseAbstract
 
     protected static function build($decodedJson)
     {
-        $labels = [];
+        $manifests = [];
         foreach ($decodedJson->manifests as $manifestJson) {
-            $labels[] = Manifest::build($manifestJson);
+            $manifests[] = Manifest::build($manifestJson);
         }
         return new static(
-            $labels,
+            $manifests,
             $decodedJson->total,
             $decodedJson->page,
             $decodedJson->pages

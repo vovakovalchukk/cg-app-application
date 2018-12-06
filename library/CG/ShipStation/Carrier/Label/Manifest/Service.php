@@ -11,7 +11,7 @@ use CG\ShipStation\Client;
 use CG\ShipStation\Exception\GatewayTimeout;
 use CG\ShipStation\Request\Shipping\Manifest\Create as ManifestRequest;
 use CG\ShipStation\Request\Shipping\Manifest\Query as ManifestQuery;
-use CG\ShipStation\Response\Shipping\Create as ManifestResponse;
+use CG\ShipStation\Response\Shipping\Manifest\Create as ManifestResponse;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
 use CG\Stdlib\Date;
 use CG\Stdlib\DateTime;
@@ -113,7 +113,7 @@ class Service implements LoggerAwareInterface
             }
         }
 
-        if (count($failedRequests['timeout']) > 0) {
+        if (isset($failedRequests['timeout']) && count($failedRequests['timeout']) > 0) {
             $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount);
         }
         $this->mergeManifests($responses, $accountManifest);
@@ -177,10 +177,10 @@ class Service implements LoggerAwareInterface
 
     protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount)
     {
-        sleep(60);
+        //sleep(60);
         $creationFromTime = new DateTime();
         $creationFromTime->setTimestamp($beginCreationTimestamp);
-        return $this->fetchShipsStationManifestsSinceDate($beginCreationTimestamp, $shipStationAccount);
+        return $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount);
     }
 
     protected function fetchShipsStationManifestsSinceDate($earliestDate, Account $shipStationAccount)
@@ -191,7 +191,12 @@ class Service implements LoggerAwareInterface
             $earliestDate
         );
         try {
-            return $this->client->sendRequest($manifestQuery, $shipStationAccount);
+            $responses = [];
+            $manifestResponses = $this->client->sendRequest($manifestQuery, $shipStationAccount);
+            foreach ($manifestResponses->getManifests() as $manifest) {
+                $responses[] = $manifest;
+            }
+            return $responses;
         } catch (StorageException $e) {
             $this->logCriticalException($e, 'Some manifests have been created but we have been unable to retrieve them from shipstation.');
             throw $e;

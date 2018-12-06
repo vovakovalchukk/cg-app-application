@@ -2,8 +2,7 @@
 namespace CG\ShipStation\Request\Shipping\Manifest;
 
 use CG\ShipStation\RequestAbstract;
-use CG\ShipStation\Response\Shipping\Create as Response;
-use CG\Stdlib\Date;
+use CG\ShipStation\Response\Shipping\Manifest\Query as Response;
 use CG\Stdlib\DateTime;
 
 class Query extends RequestAbstract
@@ -47,6 +46,11 @@ class Query extends RequestAbstract
         $this->createdAtEnd = $createdAtEnd;
         $this->page = $page;
         $this->pageSize = $pageSize;
+    }
+
+    public function getUri(): string
+    {
+        return parent::getUri() . '?' . http_build_query($this->getQueryParams());
     }
 
     public function toArray(): array
@@ -100,7 +104,7 @@ class Query extends RequestAbstract
 
     public function getCreatedAtEnd(): ?DateTime
     {
-        return $this->getCreatedAtEnd;
+        return $this->createdAtEnd;
     }
 
     public function getPage(): ?int
