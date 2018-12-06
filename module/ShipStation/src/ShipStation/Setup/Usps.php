@@ -8,7 +8,7 @@ use CG\Clearbooks\Customer\Service as ClearBooksService;
 use CG\Http\Exception\Exception4xx\NotFound;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\ShipStation\Account\CreationService as AccountCreationService;
-use CG\ShipStation\Carrier\Entity as Carrier;
+use CG\Channel\Shipping\Provider\Carrier\Entity as Carrier;
 use CG\ShipStation\Credentials;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Controller\ChannelController;
