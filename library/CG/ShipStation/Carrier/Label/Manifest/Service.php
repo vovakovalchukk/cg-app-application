@@ -94,7 +94,7 @@ class Service implements LoggerAwareInterface
         /** @var \DateTime $manifestDate */
         foreach ($datesToManifest as $manifestDate) {
             $currentManifest++;
-            $this->logDebug('Attempting to create manifest %u of %u for OU %s, dated %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')]);
+            $this->logDebug('Attempting to create manifest %u of %u for OU %s, dated %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')], static::LOG_CODE);
             $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
             $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $manifestDate);
             $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
@@ -109,7 +109,7 @@ class Service implements LoggerAwareInterface
                 $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
                 throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
             } catch (GatewayTimeout $e) {
-                $this->logNotice('Received timeout response from shipstation for manifest %u of %u, dated %s. Will attempt to retrieve this at the end', [$currentManifest, $totalNumberOfManifests, $manifestDate->format('d-m-y')]);
+                $this->logNotice('Received timeout response from shipstation for manifest %u of %u, dated %s. Will attempt to retrieve this at the end', [$currentManifest, $totalNumberOfManifests, $manifestDate->format('d-m-y')], static::LOG_CODE);
                 $failedRequests['timeout'][] = $manifestRequest;
             }
         }
