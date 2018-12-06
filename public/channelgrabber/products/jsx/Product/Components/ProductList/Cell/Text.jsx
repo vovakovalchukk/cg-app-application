@@ -5,13 +5,11 @@ import layoutSettings from "../Config/layoutSettings";
 import styled from 'styled-components';
 
 const TextContainer = styled.div`
- padding-left: ${layoutSettings.columnPadding};
+    padding-left: ${layoutSettings.columnPadding};
     padding-right: ${layoutSettings.columnPadding};
 `;
 
 class TextCell extends React.Component {
-
-    
     static defaultProps = {};
     state = {};
 

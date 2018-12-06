@@ -218,7 +218,6 @@ class ProductList extends React.Component {
         );
     }
     render() {
-//        console.log('in PL this.props (see if search is attached to this alongside the initialProductLoad thing', this.props);
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

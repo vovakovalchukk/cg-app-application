@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+
 "use strict";
 
 let initialState = {
@@ -10,7 +11,6 @@ let initialState = {
 
 let accountsReducer = reducerCreator(initialState, {
     "ACCOUNT_FEATURES_STORE": function(state, action) {
-        console.log('in ACCOUNT_FEATURES_sTORE -R with action :  ' , action);
         return Object.assign({}, state, {
             features: action.payload.features
         });

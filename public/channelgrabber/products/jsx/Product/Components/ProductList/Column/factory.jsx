@@ -80,14 +80,7 @@ function applyColumnSpecificProps(column, parentProps) {
         return column;
     }
     keysToAssign.forEach(keyToAssign => {
-//        console.log('assigning ', keyToAssign);
-
-
         column[keyToAssign] = parentProps[keyToAssign]
-
-//        console.log('column[keyToAssign]', column[keyToAssign]);
-
-
     });
     return column;
 }

@@ -20,8 +20,7 @@ let vatReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    "VAT_RATES_STORE": function(state,action){
-        console.log('in VAT_RATES_STORE -R');
+    "VAT_RATES_STORE": function(state, action) {
         let {vatRates} = action.payload;
 
         vatRates = formatTaxOptions(vatRates);
@@ -29,7 +28,7 @@ let vatReducer = reducerCreator(initialState, {
             vatRates
         });
         console.log('newState: ', newState);
-        
+
         return newState;
     },
     "VAT_UPDATE_SUCCESS": function(state, action) {
@@ -86,12 +85,11 @@ function sortByKey(unordered) {
     return ordered;
 }
 
-function formatTaxOptions(taxRates){
+function formatTaxOptions(taxRates) {
     let options = {};
-//    return taxRates
     Object.keys(taxRates).forEach((countryCode) => {
         options[countryCode] = {};
-        Object.keys(taxRates[countryCode]).forEach(taxRateId=>{
+        Object.keys(taxRates[countryCode]).forEach(taxRateId => {
             let option = taxRates[countryCode][taxRateId];
             options[countryCode][taxRateId] = {
                 key: taxRateId,
@@ -102,8 +100,6 @@ function formatTaxOptions(taxRates){
             }
         })
     })
-
-    console.log('in formatTaxOptions ... options to be returned', options);
 
     return options;
 }

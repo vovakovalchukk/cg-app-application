@@ -5,15 +5,15 @@ import styled from 'styled-components';
 const ImageContainer = styled.div`
     height:100%;
     width:100%;
-    display:flex;
+    display: flex;
     justify-content: center;
     padding-left: 0;
     padding-right: 0;
 `;
 
 const Image = styled.img`
-    max-height:100%;
-    max-width:100%;
+    max-height: 100%;
+    max-width: 100%;
     background-color: #ebebeb;
     visibility: ${props => props.imageLoaded ? 'visible' : 'hidden'};
 `;

@@ -29,7 +29,7 @@ const LISTING_STATUSES_BY_PRIORITY = [
         status: 'uninmported',
         getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
         statusPriority: 5
-    },
+    }
 ];
 
 class ListingAccountCell extends React.Component {
@@ -53,15 +53,11 @@ class ListingAccountCell extends React.Component {
     render() {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
-
         let mostNegativeListing = getMostNegativeListing(listingsForAccount);
-
         let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(mostNegativeListing);
-
         let listingUrl = getListingUrl(mostNegativeListing);
-
         let {status} = mostNegativeListingStateFromListings;
-        
+
         return <ListingStatus
             status={status}
             onAddListingClick={this.onAddListingClick}
@@ -82,21 +78,21 @@ function getListingsForAccount(rowData, listingAccountId) {
     if (!listingsIdsForAccount) {
         return;
     }
-    
+
     return listingsIdsForAccount.map((listingId) => {
         return listings[listingId];
     });
 }
 
-function getListingUrl(listing){
-    if(!listing){
+function getListingUrl(listing) {
+    if (!listing) {
         return '';
     }
-    return listing.status==='active' ? listing.url : '';
+    return listing.status === 'active' ? listing.url : '';
 }
 
-function getMostNegativeListing(listings){
-    if(!listings){
+function getMostNegativeListing(listings) {
+    if (!listings) {
         return null;
     }
     let mostNegativeListing = listings[0];

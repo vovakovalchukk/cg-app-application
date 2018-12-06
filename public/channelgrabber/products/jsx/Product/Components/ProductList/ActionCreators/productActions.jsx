@@ -102,15 +102,12 @@ var actionCreators = (function() {
                     throw 'Unable to load products... error: ' + err;
                 }
                 dispatch(vatActions.extractVatFromProducts(data.products));
-                console.log('about to dispatch getProductsSuccess');
-                
-                
+
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
-//                console.log('in getProducts and about to extractVatFromPRoducts......');
                 return data;
             }
         },

@@ -85,8 +85,6 @@ let columnService = (function() {
             let listingsColumns = generateListingsColumnsFromAccounts(accounts);
             let vatColumns = generateVatColumns(vat);
             let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns);
-//            console.log('generatedColumns: ', generatedColumns);
-            
             return generatedColumns;
         }
     }
@@ -95,7 +93,6 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
-//    console.log('in generateVatColumn.... (trying to identify why no countryCode is sending)');
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {
         let options = vat.vatRates[countryCode];
@@ -104,7 +101,7 @@ function generateVatColumns(vat) {
             let columnForCountryExists = !!vatColumns.find(column => {
                 return column.countryCode === option.countryCode;
             });
-            
+
             if (columnForCountryExists) {
                 return;
             }
@@ -131,7 +128,7 @@ function generateListingsColumnsFromAccounts(accounts) {
     let channelSpecificColumns = [];
     Object.keys(accounts).forEach((accountKey) => {
         let account = accounts[accountKey];
-        if(!account.type.includes('sales')){
+        if (!account.type.includes('sales')) {
             return;
         }
         channelSpecificColumns.push({
@@ -155,7 +152,7 @@ function generateListingsColumnsFromAccounts(accounts) {
             align: 'center'
         }
     ];
-    
+
     let listingColumns = channelSpecificColumns.concat(miscListingColumns);
     return listingColumns;
 }
@@ -163,4 +160,3 @@ function generateListingsColumnsFromAccounts(accounts) {
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
-
