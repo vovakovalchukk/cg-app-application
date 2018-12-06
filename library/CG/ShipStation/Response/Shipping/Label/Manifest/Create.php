@@ -1,10 +1,10 @@
 <?php
-namespace CG\ShipStation\Response\Shipping;
+namespace CG\ShipStation\Response\Shipping\Manifest;
 
 use CG\ShipStation\Messages\Downloadable;
 use CG\ShipStation\ResponseAbstract;
 
-class Manifest extends ResponseAbstract
+class Create extends ResponseAbstract
 {
 
     /** @var string */

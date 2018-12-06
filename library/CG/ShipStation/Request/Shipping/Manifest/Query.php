@@ -2,41 +2,69 @@
 namespace CG\ShipStation\Request\Shipping\Manifest;
 
 use CG\ShipStation\RequestAbstract;
-use CG\ShipStation\Response\Shipping\Manifest as Response;
+use CG\ShipStation\Response\Shipping\Create as Response;
 use CG\Stdlib\Date;
 use CG\Stdlib\DateTime;
 
-class Create extends RequestAbstract
+class Query extends RequestAbstract
 {
-    const METHOD = 'POST';
     const URI = '/manifests';
 
-    const FORMAT_PDF = 'pdf';
+    const MAX_PAGE_SIZE = 500;
 
-    /** @var string */
-    protected $carrierId;
     /** @var string */
     protected $warehouseId;
+    /** @var string */
+    protected $carrierId;
     /** @var DateTime */
-    protected $shipDate;
-    /** @var array */
-    protected $excludedLabelIds;
+    protected $shipDateStart;
+    /** @var DateTime */
+    protected $shipDateEnd;
+    /** @var Datetime */
+    protected $createdAtStart;
+    /** @var DateTime */
+    protected $createdAtEnd;
+    /** @var integer */
+    protected $page;
+    /** @var integer */
+    protected $pageSize;
 
-    public function __construct(string $carrierId, $warehouseId, $shipDate, $excludedLabelIds = [])
-    {
+    public function __construct(
+        string $warehouseId,
+        ?string $carrierId = null,
+        ?DateTime $shipDateStart = null,
+        ?DateTime $shipDateEnd = null,
+        ?DateTime $createdAtStart = null,
+        ?DateTime $createdAtEnd = null,
+        ?int $page = null,
+        ?int $pageSize = null
+    ) {
         $this->carrierId = $carrierId;
         $this->warehouseId = $warehouseId;
-        $this->shipDate = $shipDate;
-        $this->excludedLabelIds = $excludedLabelIds;
+        $this->shipDateStart = $shipDateStart;
+        $this->shipDateEnd = $shipDateEnd;
+        $this->createdAtStart = $createdAtStart;
+        $this->createdAtEnd = $createdAtEnd;
+        $this->page = $page;
+        $this->pageSize = $pageSize;
     }
 
     public function toArray(): array
     {
+        return [];
+    }
+
+    public function getQueryParams(): array
+    {
         return [
-            'carrier_id' => $this->getCarrierId(),
             'warehouse_id' => $this->getWarehouseId(),
-            'ship_date' => $this->getShipDate()->format(DateTime::ISO8601),
-            'excluded_label_ids' => $this->getExcludedLabelIds(),
+            'carrier_id' => $this->getCarrierId(),
+            'ship_date_start' => $this->getShipDateStart() ? $this->getShipDateStart()->format('c') : null,
+            'ship_date_end' => $this->getShipDateEnd() ? $this->getShipDateEnd()->format('c') : null,
+            'created_at_start' => $this->getCreatedAtStart() ? $this->getCreatedAtStart()->format('c') : null,
+            'created_at_end' => $this->getCreatedAtEnd() ? $this->getCreatedAtEnd()->format('c') : null,
+            'page' => $this->getPage(),
+            'page_size' => $this->getPageSize()
         ];
     }
 
@@ -45,23 +73,43 @@ class Create extends RequestAbstract
         return Response::class;
     }
 
-    public function getCarrierId(): string
-    {
-        return $this->carrierId;
-    }
-
     public function getWarehouseId(): string
     {
         return $this->warehouseId;
     }
 
-    public function getShipDate(): DateTime
+    public function getCarrierId(): ?string
     {
-        return $this->shipDate;
+        return $this->carrierId;
     }
 
-    public function getExcludedLabelIds(): array
+    public function getShipDateStart(): ?DateTime
     {
-        return $this->excludedLabelIds;
+        return $this->shipDateStart;
+    }
+
+    public function getShipDateEnd(): ?DateTime
+    {
+        return $this->shipDateEnd;
+    }
+
+    public function getCreatedAtStart(): ?DateTime
+    {
+        return $this->createdAtStart;
+    }
+
+    public function getCreatedAtEnd(): ?DateTime
+    {
+        return $this->getCreatedAtEnd;
+    }
+
+    public function getPage(): ?int
+    {
+        return $this->page;
+    }
+
+    public function getPageSize(): ?int
+    {
+        return $this->pageSize;
     }
 }

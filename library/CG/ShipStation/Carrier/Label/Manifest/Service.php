@@ -8,9 +8,12 @@ use CG\ShipStation\Carrier\Label\Exception\InvalidResponse;
 use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
 use CG\ShipStation\Carrier\Label\Manifest\Exception\IncompleteManifestException;
 use CG\ShipStation\Client;
-use CG\ShipStation\Request\Shipping\Manifest as ManifestRequest;
-use CG\ShipStation\Response\Shipping\Manifest as ManifestResponse;
+use CG\ShipStation\Exception\GatewayTimeout;
+use CG\ShipStation\Request\Shipping\Manifest\Create as ManifestRequest;
+use CG\ShipStation\Request\Shipping\Manifest\Query as ManifestQuery;
+use CG\ShipStation\Response\Shipping\Create as ManifestResponse;
 use CG\ShipStation\ShipStation\Service as ShipStationService;
+use CG\Stdlib\Date;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
@@ -85,6 +88,8 @@ class Service implements LoggerAwareInterface
     ): void {
         $currentManifest = 0;
         $responses = [];
+        $failedRequests = [];
+        $beginCreationTime = strtotime('now');
         /** @var \DateTime $manifestDate */
         foreach ($datesToManifest as $manifestDate) {
             $currentManifest++;
@@ -102,9 +107,15 @@ class Service implements LoggerAwareInterface
                 }
                 $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
                 throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
+            } catch (GatewayTimeout $e) {
+                $this->logNotice('Received timeout response from shipstation for manifest %u of %u, dated %s. Will attempt to retrieve this at the end', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')]);
+                $failedRequests['timeout'][] = $manifestRequest;
             }
         }
 
+        if (count($failedRequests['timeout']) > 0) {
+            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount);
+        }
         $this->mergeManifests($responses, $accountManifest);
     }
 
@@ -162,5 +173,28 @@ class Service implements LoggerAwareInterface
     {
         $interval = new \DateInterval('P1D');
         return new \DatePeriod($lastManifestDate, $interval, $tomorrow);
+    }
+
+    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount)
+    {
+        sleep(60);
+        $creationFromTime = new DateTime();
+        $creationFromTime->setTimestamp($beginCreationTimestamp);
+        return $this->fetchShipsStationManifestsSinceDate($beginCreationTimestamp, $shipStationAccount);
+    }
+
+    protected function fetchShipsStationManifestsSinceDate($earliestDate, Account $shipStationAccount)
+    {
+        $manifestQuery = new ManifestQuery(
+            $shipStationAccount->getExternalDataByKey('warehouseId'),
+            null,
+            $earliestDate
+        );
+        try {
+            return $this->client->sendRequest($manifestQuery, $shipStationAccount);
+        } catch (StorageException $e) {
+            $this->logCriticalException($e, 'Some manifests have been created but we have been unable to retrieve them from shipstation.');
+            throw $e;
+        }
     }
 }

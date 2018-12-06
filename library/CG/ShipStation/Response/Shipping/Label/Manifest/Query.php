@@ -1,13 +1,13 @@
 <?php
-namespace CG\ShipStation\Response\Shipping\Label;
+namespace CG\ShipStation\Response\Shipping\Manifest;
 
 use CG\ShipStation\ResponseAbstract;
-use CG\ShipStation\Response\Shipping\Label;
+use CG\ShipStation\Response\Shipping\Manifest\Create as Manifest;
 
 class Query extends ResponseAbstract
 {
-    /** @var Label[] */
-    protected $labels;
+    /** @var Manifest[] */
+    protected $manifests;
     /** @var int */
     protected $total;
     /** @var int */
@@ -15,9 +15,9 @@ class Query extends ResponseAbstract
     /** @var int */
     protected $pages;
 
-    public function __construct(array $labels, int $total, int $page, int $pages)
+    public function __construct(array $manifests, int $total, int $page, int $pages)
     {
-        $this->labels = $labels;
+        $this->manifests = $manifests;
         $this->total = $total;
         $this->page = $page;
         $this->pages = $pages;
@@ -26,8 +26,8 @@ class Query extends ResponseAbstract
     protected static function build($decodedJson)
     {
         $labels = [];
-        foreach ($decodedJson->labels as $labelJson) {
-            $labels[] = Label::build($labelJson);
+        foreach ($decodedJson->manifests as $manifestJson) {
+            $labels[] = Manifest::build($manifestJson);
         }
         return new static(
             $labels,
@@ -38,11 +38,11 @@ class Query extends ResponseAbstract
     }
 
     /**
-     * @return Label[]
+     * @return Manifest[]
      */
-    public function getLabels(): array
+    public function getManifests(): array
     {
-        return $this->labels;
+        return $this->manifests;
     }
 
     public function getTotal(): int
