@@ -695,6 +695,9 @@ div.tether-element div.tooltip-hover {
     }
     .sku {
         width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     .stock {
         width: 20px;

@@ -9,7 +9,7 @@ class TooltipComponent extends React.Component {
     };
 
     state = {
-        isOpen: false
+        isOpen: true
     };
 
     render() {

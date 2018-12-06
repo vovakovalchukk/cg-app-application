@@ -4,9 +4,7 @@ import FixedDataTable from 'fixed-data-table-2';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
-import ImageCell from 'Product/Components/ProductList/Cell/Image';
 import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
-import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
 
 "use strict";
 
@@ -31,11 +29,6 @@ const alignFlexMap = {
 };
 
 let columnCreator = function(column, parentProps) {
-//    if(column.type==='vat') {
-//
-//        console.log('in columnCreator first ', {column, parentProps});
-//    }
-
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
@@ -57,8 +50,6 @@ let columnCreator = function(column, parentProps) {
             height: 100%;
             width:100%;
             box-sizing: border-box;
-            padding-left: ${layoutSettings.columnPadding};
-            padding-right: ${layoutSettings.columnPadding};
             justify-content:${getJustifyContentProp(column)}
         `;
 
