@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f191a2373933bfd5f4353d2bd7f5cafa",
+    "content-hash": "7c05132394a528f4dd252a41d05d14c3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2970,12 +2970,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "3e90dd28f54f49a4f84ba77d562c3b3064443225"
+                "reference": "0e0f16f605321915927ee778c9cf3a3eec618bba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10164-handle-shipstation-timeout-manifest-39e8ca.zip",
-                "reference": "3e90dd28f54f49a4f84ba77d562c3b3064443225",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10164-handle-shipstation-timeout-manifest-fb80d0.zip",
+                "reference": "0e0f16f605321915927ee778c9cf3a3eec618bba",
                 "shasum": null
             },
             "require": {
@@ -3001,7 +3001,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-12-05T11:07:19+00:00"
+            "time": "2018-12-06T14:51:16+00:00"
         },
         {
             "name": "channelgrabber/shopify",
