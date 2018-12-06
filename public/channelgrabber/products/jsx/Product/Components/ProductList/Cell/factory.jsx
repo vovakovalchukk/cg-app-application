@@ -41,18 +41,9 @@ export default (function() {
         }
     };
     function getCreatedCell(column) {
-//        console.log('in getCreatedCell with column: ' , column);
-
-
         if (!column.products.visibleRows.length) {
-//            console.log('bailing out for column ', column);
-
-
             return () => (<Cell></Cell>)
         }
-//        console.log('about to return the vat cell ');
-        
-        
         return column.type ? cells[column.type] : cells[column.key];
     }
 }());

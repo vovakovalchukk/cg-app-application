@@ -35,15 +35,6 @@ let columnCreator = function(column, parentProps) {
 
     let CellContent = CellFactory.createCellContent(column);
 
-    if(column.type==='vat'){
-        console.log('in columnCreator second VAT column with parentProps: '  , {
-            parentProps,
-            'this.props.vat.productsVat' : parentProps.vat.productsVat,
-            column,
-            CellContent
-        });
-    }
-    
     let StyledCellWrapper = styled(CellWrapper)`
             display: flex;
             align-items: center;

@@ -90,9 +90,6 @@ class ProductList extends React.Component {
         });
     };
     getVisibleRows = () => {
-        // todo - remove this dummy
-//        return [];
-//
         return this.props.products.visibleRows;
     };
     isTabSpecificColumn = (column) => {
