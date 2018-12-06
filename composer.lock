@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf9324b5156d0abc4c2a568e166f9a80",
+    "content-hash": "094191b57c4b267e85d4ea54d3ba463c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1944,17 +1944,11 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.4.0.1",
+            "version": "dev-CGIV-10173-netdespatch-royal-mail-international-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "1aaf385364526dd1771274ca29edb2879da6c7c4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.4.0.1-cf00d3.zip",
-                "reference": "1aaf385364526dd1771274ca29edb2879da6c7c4",
-                "shasum": null
+                "reference": "1afa70e649e4aaa53299767b78d63c5cada69b87"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.4",
@@ -10470,13 +10464,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-CGIV-10173-netdespatch-royal-mail-international-error",
+            "package": "channelgrabber/netdespatch"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
