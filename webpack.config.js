@@ -1,12 +1,7 @@
 const path = require('path');
-const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
-    mode: "development",
-    watch:true,
-    watchOptions: {
-      aggregateTimeout:500 
-    },	
+    mode: "production",
     entry: {
         // Name the entry points after the path you want them to end up in, relative to output.path
         "products/js/Product/Product": "./public/channelgrabber/products/jsx/Product/Product.jsx",
@@ -18,40 +13,19 @@ module.exports = {
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
         "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
-        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js"
+        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
     },
     module: {
-        rules: [
+        rules:[
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    plugins: babelPluginStyledComponents,
-                    presets: [
-                        ["env",
-                            {
-                                "targets": {
-                                    "browsers": [
-                                        "last 2 Chrome versions",
-                                        "last 2 ff versions"
-                                    ]
-                                }
-                            }
-                        ],
-                        'react',
-                        'stage-2'
-                    ]
+                    presets: ['es2015', 'react', 'stage-2']
                 }
             },
-            {
-                test: /jquery/,
-                use: 'exports-loader?$'
-            },
-            {
-                test: /thenBy/,
-                use: 'exports-loader?firstBy'
-            }
+            { test: /jquery/, use: 'exports-loader?$' },
         ]
     },
     output: {
@@ -69,7 +43,7 @@ module.exports = {
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'js-vanilla'),
             path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6'),
             "node_modules",
-            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js')
+            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js'),
         ],
         extensions: ['.js', '.jsx'],
         alias: {
@@ -94,9 +68,7 @@ module.exports = {
             'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
             'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-tether', 'dist', 'react-tether.js'),
-            'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js'),
-            'styled-components': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'styled-components', 'dist', 'styled-components.js'),
-            'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js')
+            'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js')
         }
     }
 };
