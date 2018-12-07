@@ -1948,7 +1948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "6b30f97cebf603362abc6fd43f8de7c35cbb5cfd"
+                "reference": "8b8ddea4187f92250af9181664d3a7aab68fc6ad"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.4",
