@@ -1948,16 +1948,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8b8ddea4187f92250af9181664d3a7aab68fc6ad"
+                "reference": "f1db2f7e0a1f40548e5ccf7b6d4ad91762296626"
             },
             "require": {
-                "channelgrabber/channel": "^1.42.4",
+                "channelgrabber/channel": "dev-TAC-253-yodel-via-netdespatch as 1.42.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/exchangerate": "^1.2.6",
                 "channelgrabber/locale": "^1.2.1",
-                "channelgrabber/order": "^1.40.0",
+                "channelgrabber/order": "dev-TAC-253-yodel-via-netdespatch as 1.43.2",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.16.4",
                 "channelgrabber/user": "^1.26.4",
@@ -1988,7 +1988,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-12-07T12:44:52+00:00"
+            "time": "2018-12-07T15:10:19+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2117,7 +2117,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-30T15:55:50+00:00"
+            "time": "2018-12-07T14:55:00+00:00"
         },
         {
             "name": "channelgrabber/payment",
