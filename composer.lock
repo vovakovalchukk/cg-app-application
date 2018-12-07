@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "21ad6cce4412c7ff7a7f91eb44116264",
+    "content-hash": "c2797968d1cffe1a9d9f384db5bffd9b",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4830,16 +4830,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-10174-add-a-scroll-bar-to-long-filter-dropdowns",
+            "version": "1.25.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "71c510a6694579c09a07a60b6a60ac30d60f25dc"
+                "reference": "ac700ca7a5ee4173cb8dfa79bf99014b52e3eca9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-10174-add-a-scroll-bar-to-long-filter-dropdowns-fc85d0.zip",
-                "reference": "71c510a6694579c09a07a60b6a60ac30d60f25dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.25.11-c202b6.zip",
+                "reference": "ac700ca7a5ee4173cb8dfa79bf99014b52e3eca9",
                 "shasum": null
             },
             "require": {
@@ -4891,7 +4891,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-12-07T12:41:20+00:00"
+            "time": "2018-12-07T13:06:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10470,18 +10470,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.25.11",
-            "alias_normalized": "1.25.11.0",
-            "version": "dev-CGIV-10174-add-a-scroll-bar-to-long-filter-dropdowns",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
