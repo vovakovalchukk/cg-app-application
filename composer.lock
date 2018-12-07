@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06123df315f3d96b92b9abf0a1049946",
+    "content-hash": "e01dbedb759f86ec285f1117aa42ee37",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1948,13 +1948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "b6bd18b0550036f5ea5b0395203f1f2b05fbd5d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-253-yodel-via-netdespatch-374e9c.zip",
-                "reference": "b6bd18b0550036f5ea5b0395203f1f2b05fbd5d1",
-                "shasum": null
+                "reference": "6b30f97cebf603362abc6fd43f8de7c35cbb5cfd"
             },
             "require": {
                 "channelgrabber/channel": "^1.42.4",
@@ -2049,17 +2043,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.1",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7436954c7d1369d02799883f431cf172ef715185"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.43.1-5c4eb7.zip",
-                "reference": "7436954c7d1369d02799883f431cf172ef715185",
-                "shasum": null
+                "reference": "e363d1e4f9be736f14ba31de3472e2869b484f1d"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -10484,6 +10472,12 @@
             "package": "channelgrabber/netdespatch"
         },
         {
+            "alias": "1.43.2",
+            "alias_normalized": "1.43.2.0",
+            "version": "dev-TAC-253-yodel-via-netdespatch",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.25.11",
             "alias_normalized": "1.25.11.0",
             "version": "dev-TAC-253-yodel-via-netdespatch",
@@ -10495,10 +10489,11 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
