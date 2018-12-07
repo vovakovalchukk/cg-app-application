@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b3966a3ab6ea16014553d3bd27a5a2a",
+    "content-hash": "06123df315f3d96b92b9abf0a1049946",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -715,7 +715,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6c6277c22a8322fab95f242ae562143f1d6fff31"
+                "reference": "ba4c1bbe41b9c9fe5c20090ba498dfde1fa94f10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-253-yodel-via-netdespatch-1435f0.zip",
+                "reference": "ba4c1bbe41b9c9fe5c20090ba498dfde1fa94f10",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -788,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-11-15T12:29:51+00:00"
+            "time": "2018-12-07T12:49:56+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -942,16 +948,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "6cdaa3d7caf7a0e648efb70b742febbf1b09e8c8"
+                "reference": "646535831c01716e00b19d035b9d32d21ba7b06d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.5-cd9a0c.zip",
-                "reference": "6cdaa3d7caf7a0e648efb70b742febbf1b09e8c8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.6-8a4b1a.zip",
+                "reference": "646535831c01716e00b19d035b9d32d21ba7b06d",
                 "shasum": null
             },
             "require": {
@@ -983,20 +989,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2018-10-12T09:14:58+00:00"
+            "time": "2018-12-03T11:32:22+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "e7f36191738f82fbb75922d31f4ddaed2e4dae8b"
+                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.4.0-d6faa3.zip",
-                "reference": "e7f36191738f82fbb75922d31f4ddaed2e4dae8b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courieradapter-1.4.1-53db0d.zip",
+                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398",
                 "shasum": null
             },
             "require": {
@@ -1021,7 +1027,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-10-12T09:00:58+00:00"
+            "time": "2018-12-03T11:32:22+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -1942,10 +1948,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "b6652d93f4bc8caecd5dc7f6d6a97c27911995d5"
+                "reference": "b6bd18b0550036f5ea5b0395203f1f2b05fbd5d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-253-yodel-via-netdespatch-374e9c.zip",
+                "reference": "b6bd18b0550036f5ea5b0395203f1f2b05fbd5d1",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-251-netdespatch-allow-for-other-carriers as 1.42.1",
+                "channelgrabber/channel": "^1.42.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
@@ -1982,7 +1994,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-11-30T13:10:22+00:00"
+            "time": "2018-12-07T12:44:52+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2037,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.42.1",
+            "version": "1.43.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f"
+                "reference": "7436954c7d1369d02799883f431cf172ef715185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.42.1-408004.zip",
-                "reference": "3ed2e2c0bf007d70713ac0e64028d7005b6c8f4f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.43.1-5c4eb7.zip",
+                "reference": "7436954c7d1369d02799883f431cf172ef715185",
                 "shasum": null
             },
             "require": {
@@ -2117,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-27T11:08:46+00:00"
+            "time": "2018-11-30T15:55:50+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3535,16 +3547,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.4",
+            "version": "1.26.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "7aca77dd960a49f31e2761feafa1ed629c99a90c"
+                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.4-646f2a.zip",
-                "reference": "7aca77dd960a49f31e2761feafa1ed629c99a90c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.26.5-25e866.zip",
+                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
                 "shasum": null
             },
             "require": {
@@ -3559,9 +3571,9 @@
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
-                "channelgrabber/slim": "^1.13.14",
+                "channelgrabber/slim": "^1.14.0",
                 "channelgrabber/stats": ">=1.0.1, <2.0.0",
-                "channelgrabber/stdlib": "^2.12.47",
+                "channelgrabber/stdlib": "^2.16.3",
                 "channelgrabber/validation": ">=1.2.5",
                 "channelgrabber/zf2-stdlib": ">=1.1.17,<2.0.0",
                 "guzzle/guzzle": "~3.7",
@@ -3580,12 +3592,17 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-9867-apc-for-ou": "1.26.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\": "src"
                 }
             },
-            "time": "2018-10-03T13:20:24+00:00"
+            "time": "2018-12-03T14:55:22+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4364,16 +4381,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "a1ae81d8f83274eb14fb5afd949ac4bf416526d1"
+                "reference": "99b5243ba12ede268ad38f7618fb9908cba74417"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-TAC-251-netdespatch-allow-for-other-carriers-d29a64.zip",
-                "reference": "a1ae81d8f83274eb14fb5afd949ac4bf416526d1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.1.0-65e9ca.zip",
+                "reference": "99b5243ba12ede268ad38f7618fb9908cba74417",
                 "shasum": null
             },
             "require": {
@@ -4403,7 +4420,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2018-11-16T10:21:46+00:00"
+            "time": "2018-12-05T09:41:53+00:00"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -4817,12 +4834,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "128434d35b142b64ee3c3cf0fe51089508c90f49"
+                "reference": "57692beea5ba3d688159ad42b3d8cc60bee07f1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-253-yodel-via-netdespatch-a5b334.zip",
-                "reference": "128434d35b142b64ee3c3cf0fe51089508c90f49",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-253-yodel-via-netdespatch-5d5057.zip",
+                "reference": "57692beea5ba3d688159ad42b3d8cc60bee07f1d",
                 "shasum": null
             },
             "require": {
@@ -4874,7 +4891,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-11-30T15:50:05+00:00"
+            "time": "2018-12-07T12:43:05+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10455,32 +10472,20 @@
     ],
     "aliases": [
         {
-            "alias": "1.42.4",
-            "alias_normalized": "1.42.4.0",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.42.4",
-            "alias_normalized": "1.42.4.0",
+            "alias": "1.42.5",
+            "alias_normalized": "1.42.5.0",
             "version": "dev-TAC-253-yodel-via-netdespatch",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
+            "alias": "1.4.2",
+            "alias_normalized": "1.4.2.0",
             "version": "dev-TAC-253-yodel-via-netdespatch",
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.0.8",
-            "alias_normalized": "1.0.8.0",
-            "version": "dev-TAC-251-netdespatch-allow-for-other-carriers",
-            "package": "channelgrabber/zf2-netdespatch"
-        },
-        {
-            "alias": "1.25.10",
-            "alias_normalized": "1.25.10.0",
+            "alias": "1.25.11",
+            "alias_normalized": "1.25.11.0",
             "version": "dev-TAC-253-yodel-via-netdespatch",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -10490,11 +10495,10 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
-        "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
