@@ -10,15 +10,15 @@ let ListingIcon = styled(Icon)`
     background-size: 80%;
     cursor: ${props => (props.status === 'active' ? 'pointer' : 'inherit')};
     ${props => {
-        if (props.status === 'inactive') {
-            return `
+    if (props.status === 'inactive') {
+        return `
                     &:hover{
                         background-image: url('${constants.ADD_ICON_URL}');
                         background-size: 40%;
                     }
                 `;
-        }
-    }}
+    }
+}}
 `;
 
 ListingIcon.sizer = styled.div`
@@ -30,25 +30,26 @@ ListingIcon.sizer = styled.div`
 class ListingStatusComponent extends React.Component {
     static defaultProps = {
         status: '',
-        title:'',
+        title: '',
         onAddListingClick: () => {},
-        className:'',
-        listingUrl:''
+        className: '',
+        listingUrl: ''
     };
 
     getCursor() {
         return this.props.status === 'inactive' ? 'pointer' : 'initial';
     };
-    getListingIconOnClick(){
-        if(this.props.status === 'inactive'){
+    getListingIconOnClick() {
+        if (this.props.status === 'inactive') {
             return this.props.onAddListingClick;
         }
-        if(this.props.status === 'active'){
+        if (this.props.status === 'active') {
             return () => {
                 window.location = this.props.listingUrl
             }
         }
-        return () => {}
+        return () => {
+        }
     }
     render() {
         return (
