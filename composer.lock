@@ -2970,13 +2970,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "0e0f16f605321915927ee778c9cf3a3eec618bba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10164-handle-shipstation-timeout-manifest-fb80d0.zip",
-                "reference": "0e0f16f605321915927ee778c9cf3a3eec618bba",
-                "shasum": null
+                "reference": "7c1d71fe2ae1e66922aba44f7f713a13e8190213"
             },
             "require": {
                 "channelgrabber/channel": "^1.36.5",
@@ -10483,8 +10477,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/shipstation": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
