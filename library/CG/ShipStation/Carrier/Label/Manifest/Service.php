@@ -32,7 +32,7 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     protected const LOG_CODE = 'ShipStationManifestService';
-    protected const GATEwAY_TIMEOUT_WAIT = 60;
+    protected const GATEWAY_TIMEOUT_WAIT = 60;
 
     /** @var ShipStationService */
     protected $shipStationService;
@@ -178,7 +178,7 @@ class Service implements LoggerAwareInterface
 
     protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount)
     {
-        sleep(static::GATEwAY_TIMEOUT_WAIT);
+        sleep(static::GATEWAY_TIMEOUT_WAIT);
         $creationFromTime = new DateTime();
         $creationFromTime->setTimestamp($beginCreationTimestamp);
         return $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount);
