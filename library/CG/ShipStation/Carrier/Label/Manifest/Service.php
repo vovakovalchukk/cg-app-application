@@ -115,7 +115,7 @@ class Service implements LoggerAwareInterface
         }
 
         if (isset($failedRequests['timeout']) && count($failedRequests['timeout']) > 0) {
-            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount);
+            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount) ?? $responses;
         }
         $this->mergeManifests($responses, $accountManifest);
     }
@@ -202,7 +202,6 @@ class Service implements LoggerAwareInterface
             return $responses;
         } catch (StorageException $e) {
             $this->logCriticalException($e, 'Some manifests have been created but we have been unable to retrieve them from shipstation.');
-            throw $e;
         }
     }
 }
