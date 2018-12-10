@@ -184,7 +184,7 @@ class Service implements LoggerAwareInterface
         return $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount);
     }
 
-    protected function fetchShipsStationManifestsSinceDate($earliestDate, Account $shipStationAccount)
+    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount)
     {
         $manifestQuery = new ManifestQuery(
             $shipStationAccount->getExternalDataByKey('warehouseId'),
