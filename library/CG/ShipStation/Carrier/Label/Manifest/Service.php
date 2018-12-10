@@ -32,7 +32,7 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     protected const LOG_CODE = 'ShipStationManifestService';
-    protected const GATEWAY_TIMEOUT_WAIT = 1;
+    protected const GATEWAY_TIMEOUT_WAIT = 60;
 
     /** @var ShipStationService */
     protected $shipStationService;
