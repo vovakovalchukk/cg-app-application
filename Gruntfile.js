@@ -222,7 +222,8 @@ function getDevAdjustedWebpackConfig(webpackConfig){
         watch: true,
         watchOptions: {
             // delay applied so that webpack runs after cg-common's grunt tasks are executed
-            aggregateTimeout: 1500
+            aggregateTimeout: 1500,
+            poll: true
         }
     })
 }
