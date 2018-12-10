@@ -115,7 +115,7 @@ class Service implements LoggerAwareInterface
         }
 
         if (isset($failedRequests['timeout']) && count($failedRequests['timeout']) > 0) {
-            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount) ?? $responses;
+            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount, $shippingAccount) ?? $responses;
         }
         $this->mergeManifests($responses, $accountManifest);
     }
@@ -176,18 +176,18 @@ class Service implements LoggerAwareInterface
         return new \DatePeriod($lastManifestDate, $interval, $tomorrow);
     }
 
-    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount)
+    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount, Account $shippingAccount)
     {
         sleep(static::GATEWAY_TIMEOUT_WAIT);
         $creationFromTime = new DateTime("@$beginCreationTimestamp");
         return $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount);
     }
 
-    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount)
+    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount)
     {
         $manifestQuery = new ManifestQuery(
             $shipStationAccount->getExternalDataByKey('warehouseId'),
-            null,
+            $shippingAccount->getExternalId(),
             null,
             null,
             $earliestDate
