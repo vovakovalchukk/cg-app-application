@@ -32,8 +32,7 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     protected const LOG_CODE = 'ShipStationManifestService';
-    protected const GATEWAY_TIMEOUT_WAIT = 60;
-    protected const SHIPSTATION_DATETIME_FORMAT = 'Y-m-d\TH:i:s\Z';
+    protected const GATEWAY_TIMEOUT_WAIT = 1;
 
     /** @var ShipStationService */
     protected $shipStationService;
@@ -180,8 +179,7 @@ class Service implements LoggerAwareInterface
     protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount)
     {
         sleep(static::GATEWAY_TIMEOUT_WAIT);
-        $creationFromTime = new DateTime();
-        $creationFromTime->setTimestamp($beginCreationTimestamp);
+        $creationFromTime = new DateTime("@$beginCreationTimestamp");
         return $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount);
     }
 
@@ -199,9 +197,9 @@ class Service implements LoggerAwareInterface
             $manifestResponses = $this->client->sendRequest($manifestQuery, $shipStationAccount);
             /** @var ManifestResponse $manifest */
             foreach ($manifestResponses->getManifests() as $manifest) {
-                $creationDate = DateTime::createFromFormat(static::SHIPSTATION_DATETIME_FORMAT, $manifest->getCreatedAt());
+                $creationDate = new DateTime($manifest->getCreatedAt());
                 $manifestCreationTime = $creationDate->getTimestamp() - $earliestDate->getTimestamp();
-                $this->logDebug('Manifest received with creation time of %s, request started at %s, manifest creation took %s', ['manifestCreationDate' => $manifest->getCreatedAt(), 'requestStarted' => $earliestDate->format(static::SHIPSTATION_DATETIME_FORMAT), 'manifestCreationDuration' => $manifestCreationTime], [static::LOG_CODE, 'CreateManifest']);
+                $this->logDebug('Manifest received with creation time of %s, request started at %s, manifest creation took %s seconds', ['manifestCreationDate' => $manifest->getCreatedAt(), 'requestStarted' => $earliestDate->format(DateTime::ISO8601), 'manifestCreationDuration' => $manifestCreationTime], [static::LOG_CODE, 'CreateManifest']);
                 $responses[] = $manifest;
             }
             return $responses;
