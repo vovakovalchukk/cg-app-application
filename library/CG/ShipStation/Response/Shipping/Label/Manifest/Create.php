@@ -11,8 +11,10 @@ class Create extends ResponseAbstract
     protected $formId;
     /** @var Downloadable */
     protected $manifestDownload;
+    /** @var string */
+    protected $createdAt;
 
-    public function __construct(string $formId, Downloadable $manifestDownload)
+    public function __construct(string $formId, Downloadable $manifestDownload, string $createdAt)
     {
         $this->formId = $formId;
         $this->manifestDownload = $manifestDownload;
@@ -29,7 +31,8 @@ class Create extends ResponseAbstract
 
         return new static(
             $decodedJson->form_id,
-            isset($decodedJson->manifest_download) ? Downloadable::build($decodedJson->manifest_download) : null
+            isset($decodedJson->manifest_download) ? Downloadable::build($decodedJson->manifest_download) : null,
+            $decodedJson->created_at
         );
     }
 
@@ -41,5 +44,10 @@ class Create extends ResponseAbstract
     public function getManifestDownload(): Downloadable
     {
         return $this->manifestDownload;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt;
     }
 }
