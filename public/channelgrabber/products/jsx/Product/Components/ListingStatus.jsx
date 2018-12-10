@@ -48,8 +48,7 @@ class ListingStatusComponent extends React.Component {
                 window.location = this.props.listingUrl
             }
         }
-        return () => {
-        }
+        return () => {}
     }
     render() {
         return (
