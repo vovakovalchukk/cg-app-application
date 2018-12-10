@@ -57,13 +57,13 @@ class Service implements LoggerAwareInterface
         AccountManifest $accountManifest,
         DateTime $lastManifestDate
     ): void {
-        $this->logDebug('attempting to create manifest(s) for shipstation account %s belonging to OU %s', [$shippingAccount->getId(), $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
+        $this->logDebug('attempting to create manifest(s) for shipstation account %s belonging to OU %s', [$shippingAccount->getId(), $shippingAccount->getOrganisationUnitId()], [static::LOG_CODE, 'CreateManifest']);
 
         // We use tomorrow to include any manifests that need generating for today
         $tomorrow = new DateTime("tomorrow");
         $datesToManifest = $this->determineDatesRequiringManifests($lastManifestDate, $tomorrow);
         $totalNumberOfManifests = count($datesToManifest);
-        $this->logDebug('%u manifest(s) required for OU %s dating from %s to %s', [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $tomorrow->format('d-m-y')], static::LOG_CODE);
+        $this->logDebug('%u manifest(s) required for OU %s dating from %s to %s', [$totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $lastManifestDate->format('d-m-y'), $tomorrow->format('d-m-y')], [static::LOG_CODE, 'CreateManifest']);
         $this->requestManifestsFromShipStation($shippingAccount, $shipStationAccount, $datesToManifest, $totalNumberOfManifests, $accountManifest);
     }
 
@@ -76,7 +76,7 @@ class Service implements LoggerAwareInterface
             $pdf = $response->getBody(true);
             return $pdf;
         } catch (MultiTransferException $e) {
-            $this->logCriticalException($e, 'Failed to download PDF of manifest %s at URL %S', [$manifest->getFormId(), $manifest->getManifestDownload()->getHref()], static::LOG_CODE);
+            $this->logCriticalException($e, 'Failed to download PDF of manifest %s at URL %S', [$manifest->getFormId(), $manifest->getManifestDownload()->getHref()], [static::LOG_CODE, 'CreateManifest']);
         }
     }
 
@@ -94,10 +94,10 @@ class Service implements LoggerAwareInterface
         /** @var \DateTime $manifestDate */
         foreach ($datesToManifest as $manifestDate) {
             $currentManifest++;
-            $this->logDebug('Attempting to create manifest %u of %u for OU %s, dated %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')], static::LOG_CODE);
+            $this->logDebug('Attempting to create manifest %u of %u for OU %s, dated %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId(), $manifestDate->format('d-m-y')], [static::LOG_CODE, 'CreateManifest']);
             $warehouseId = $shipStationAccount->getExternalDataByKey('warehouseId');
             $manifestRequest = new ManifestRequest($shippingAccount->getExternalId(), $warehouseId, $manifestDate);
-            $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], static::LOG_CODE);
+            $this->logDebug('Sending manifest creation request for account %s using warehouseID %s', [$shippingAccount->getId(), $warehouseId], [static::LOG_CODE, 'CreateManifest']);
             try {
                 /** @var ManifestResponse $response */
                 $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
@@ -109,7 +109,7 @@ class Service implements LoggerAwareInterface
                 $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
                 throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
             } catch (GatewayTimeout $e) {
-                $this->logNotice('Received timeout response from shipstation for manifest %u of %u, dated %s. Will attempt to retrieve this at the end', [$currentManifest, $totalNumberOfManifests, $manifestDate->format('d-m-y')], static::LOG_CODE);
+                $this->logNotice('Received timeout response from shipstation for manifest %u of %u, dated %s. Will attempt to retrieve this at the end', [$currentManifest, $totalNumberOfManifests, $manifestDate->format('d-m-y')], [static::LOG_CODE, 'CreateManifest']);
                 $failedRequests['timeout'][] = $manifestRequest;
             }
         }
@@ -130,8 +130,8 @@ class Service implements LoggerAwareInterface
         AccountManifest $accountManifest
     )
     {
-        $this->logCriticalException($exception, 'Failed to create manifest %u of %u for account %s for OU %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getId(), $warehouseId, $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
-        $this->logInfo('Stopping manifest creation early for account %s at manifest %u of %u for OU %s', [$shippingAccount->getId(), $currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId()], static::LOG_CODE);
+        $this->logCriticalException($exception, 'Failed to create manifest %u of %u for account %s for OU %s', [$currentManifest, $totalNumberOfManifests, $shippingAccount->getId(), $warehouseId, $shippingAccount->getOrganisationUnitId()], [static::LOG_CODE, 'CreateManifest']);
+        $this->logInfo('Stopping manifest creation early for account %s at manifest %u of %u for OU %s', [$shippingAccount->getId(), $currentManifest, $totalNumberOfManifests, $shippingAccount->getOrganisationUnitId()], [static::LOG_CODE, 'CreateManifest']);
         $this->mergeManifests($responses, $accountManifest);
     }
 
