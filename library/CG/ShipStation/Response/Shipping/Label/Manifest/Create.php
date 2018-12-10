@@ -18,6 +18,7 @@ class Create extends ResponseAbstract
     {
         $this->formId = $formId;
         $this->manifestDownload = $manifestDownload;
+        $this->createdAt = $createdAt;
     }
 
     protected static function build($decodedJson)
