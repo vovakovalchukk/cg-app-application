@@ -56,10 +56,12 @@ class ListingAccountCell extends React.Component {
         let mostNegativeListing = getMostNegativeListing(listingsForAccount);
         let mostNegativeListingStateFromListings = getMostNegativeListingStateFromListings(mostNegativeListing);
         let listingUrl = getListingUrl(mostNegativeListing);
+        let listingTitle = getListingTitle(mostNegativeListing);
         let {status} = mostNegativeListingStateFromListings;
 
         return <ListingStatus
             status={status}
+            title={listingTitle}
             onAddListingClick={this.onAddListingClick}
             className={this.props.className}
             listingUrl={listingUrl}
@@ -82,6 +84,16 @@ function getListingsForAccount(rowData, listingAccountId) {
     return listingsIdsForAccount.map((listingId) => {
         return listings[listingId];
     });
+}
+
+function getListingTitle(listing) {
+    if (!listing) {
+        return '';
+    }
+    let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
+        return listing.status === status.status;
+    });
+    return relevantListingStatus.getHoverMessage(listing);
 }
 
 function getListingUrl(listing) {

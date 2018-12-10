@@ -29,7 +29,11 @@ ListingIcon.sizer = styled.div`
 
 class ListingStatusComponent extends React.Component {
     static defaultProps = {
-        status: ''
+        status: '',
+        title:'',
+        onAddListingClick: () => {},
+        className:'',
+        listingUrl:''
     };
 
     getCursor() {
@@ -54,6 +58,7 @@ class ListingStatusComponent extends React.Component {
                         onClick={this.getListingIconOnClick()}
                         {...this.props}
                         cursor={this.getCursor()}
+                        title={this.props.title}
                     />
                 </ListingIcon.sizer>
             </div>
