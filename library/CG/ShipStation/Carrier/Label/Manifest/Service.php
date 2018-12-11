@@ -32,9 +32,10 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     protected const LOG_CODE = 'ShipStationManifestService';
-    protected const GATEWAY_TIMEOUT_WAIT = 60;
+    protected const GATEWAY_TIMEOUT_WAIT = 10;
+    protected const GATEWAY_TIMEOUT_MAXIMUM_RETRIES = 6;
 
-    /** @var ShipStationService */
+    protected const RESPONSE_NO_MATCHING_LABELS = "No labels were found matching the given criteria.";
     protected $shipStationService;
     /** @var Client */
     protected $client;
@@ -103,11 +104,16 @@ class Service implements LoggerAwareInterface
                 $response = $this->client->sendRequest($manifestRequest, $shipStationAccount);
                 $responses[] = $response;
             } catch (StorageException $e) {
-                if (count($responses) == 0) {
-                    throw $e;
+                if (strpos($e->getMessage(), static::RESPONSE_NO_MATCHING_LABELS) !== false) {
+                    $failedRequests['noLabels'] = $manifestRequest;
+                    if ($currentManifest >= $totalNumberOfManifests) {
+                        if (count($responses) == 0) {
+                            throw $e;
+                        }
+                        $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
+                        throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
+                    }
                 }
-                $this->endManifestingEarly($shippingAccount, $e, $responses, $warehouseId, $currentManifest, $totalNumberOfManifests, $accountManifest);
-                throw new IncompleteManifestException('Failed to complete manifest', $e->getCode(), $e);
             } catch (GatewayTimeout $e) {
                 $this->logNotice('Received timeout response from shipstation for manifest %u of %u, dated %s. Will attempt to retrieve this at the end', [$currentManifest, $totalNumberOfManifests, $manifestDate->format('d-m-y')], [static::LOG_CODE, 'CreateManifest']);
                 $failedRequests['timeout'][] = $manifestRequest;
@@ -115,7 +121,9 @@ class Service implements LoggerAwareInterface
         }
 
         if (isset($failedRequests['timeout']) && count($failedRequests['timeout']) > 0) {
-            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount, $shippingAccount) ?? $responses;
+            $totalIgnorableRequests = isset($failedRequests['noLabels']) ? count($failedRequests['noLabels']) : 0;
+            $expectedManifests = $totalNumberOfManifests - $totalIgnorableRequests;
+            $responses = $this->handleTimeoutResponse($beginCreationTime, $shipStationAccount, $shippingAccount, $expectedManifests) ?? $responses;
         }
         $this->mergeManifests($responses, $accountManifest);
     }
@@ -176,14 +184,22 @@ class Service implements LoggerAwareInterface
         return new \DatePeriod($lastManifestDate, $interval, $tomorrow);
     }
 
-    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount, Account $shippingAccount)
+    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests)
     {
-        sleep(static::GATEWAY_TIMEOUT_WAIT);
         $creationFromTime = new DateTime("@$beginCreationTimestamp");
-        return $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount);
+        $attempts = 0;
+        while ($attempts < static::GATEWAY_TIMEOUT_MAXIMUM_RETRIES) {
+            $attempts++;
+            sleep(static::GATEWAY_TIMEOUT_WAIT);
+            $responses = $this->fetchShipsStationManifestsSinceDate($creationFromTime, $shipStationAccount, $shippingAccount, $expectedManifests);
+            if ($responses) {
+                return $responses;
+            }
+        }
+        return false;
     }
 
-    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount)
+    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests)
     {
         $manifestQuery = new ManifestQuery(
             $shipStationAccount->getExternalDataByKey('warehouseId'),
@@ -201,6 +217,9 @@ class Service implements LoggerAwareInterface
                 $manifestCreationTime = $creationDate->getTimestamp() - $earliestDate->getTimestamp();
                 $this->logDebug('Manifest received with creation time of %s, request started at %s, manifest creation took %s seconds', ['manifestCreationDate' => $manifest->getCreatedAt(), 'requestStarted' => $earliestDate->format(DateTime::ISO8601), 'manifestCreationDuration' => $manifestCreationTime], [static::LOG_CODE, 'CreateManifest']);
                 $responses[] = $manifest;
+            }
+            if (count($responses) < $expectedManifests) {
+                return false;
             }
             return $responses;
         } catch (StorageException $e) {
