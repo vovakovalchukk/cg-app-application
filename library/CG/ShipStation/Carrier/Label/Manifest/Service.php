@@ -199,7 +199,7 @@ class Service implements LoggerAwareInterface
         return null;
     }
 
-    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests)
+    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests): ?array
     {
         $manifestQuery = new ManifestQuery(
             $shipStationAccount->getExternalDataByKey('warehouseId'),
@@ -219,7 +219,7 @@ class Service implements LoggerAwareInterface
                 $responses[] = $manifest;
             }
             if (count($responses) < $expectedManifests) {
-                return false;
+                return null;
             }
             return $responses;
         } catch (StorageException $e) {
