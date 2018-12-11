@@ -184,7 +184,7 @@ class Service implements LoggerAwareInterface
         return new \DatePeriod($lastManifestDate, $interval, $tomorrow);
     }
 
-    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests)
+    protected function handleTimeoutResponse(string $beginCreationTimestamp, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests): ?array
     {
         $creationFromTime = new DateTime("@$beginCreationTimestamp");
         $attempts = 0;
