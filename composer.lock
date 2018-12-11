@@ -2970,12 +2970,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "9f56a2c44577623e0319e92ca5ba428d9dece78a"
+                "reference": "f2872a7d84c34e47c9038c671a9c672f3f65690b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10164-handle-shipstation-timeout-manifest-3a8093.zip",
-                "reference": "9f56a2c44577623e0319e92ca5ba428d9dece78a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-dev-CGIV-10164-handle-shipstation-timeout-manifest-b5f84b.zip",
+                "reference": "f2872a7d84c34e47c9038c671a9c672f3f65690b",
                 "shasum": null
             },
             "require": {
@@ -3001,7 +3001,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-12-11T09:19:38+00:00"
+            "time": "2018-12-11T11:58:29+00:00"
         },
         {
             "name": "channelgrabber/shopify",
