@@ -199,14 +199,14 @@ class Service implements LoggerAwareInterface
         return null;
     }
 
-    protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests): ?array
+    protected function fetchShipsStationManifestsSinceDate(DateTime $fromDate, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests): ?array
     {
         $manifestQuery = new ManifestQuery(
             $shipStationAccount->getExternalDataByKey('warehouseId'),
             $shippingAccount->getExternalId(),
             null,
             null,
-            $earliestDate
+            $fromDate
         );
         try {
             $responses = [];
@@ -214,7 +214,7 @@ class Service implements LoggerAwareInterface
             /** @var ManifestResponse $manifest */
             foreach ($manifestResponses->getManifests() as $manifest) {
                 $creationDate = new DateTime($manifest->getCreatedAt());
-                $manifestCreationTime = $creationDate->getTimestamp() - $earliestDate->getTimestamp();
+                $manifestCreationTime = $creationDate->getTimestamp() - $fromDate->getTimestamp();
                 $this->logDebug('Manifest received with creation time of %s, request started at %s, manifest creation took %s seconds', ['manifestCreationDate' => $manifest->getCreatedAt(), 'requestStarted' => $earliestDate->format(DateTime::ISO8601), 'manifestCreationDuration' => $manifestCreationTime], [static::LOG_CODE, 'CreateManifest']);
                 $responses[] = $manifest;
             }
