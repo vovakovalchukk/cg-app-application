@@ -196,7 +196,7 @@ class Service implements LoggerAwareInterface
                 return $responses;
             }
         }
-        return false;
+        return null;
     }
 
     protected function fetchShipsStationManifestsSinceDate(DateTime $earliestDate, Account $shipStationAccount, Account $shippingAccount, int $expectedManifests)
