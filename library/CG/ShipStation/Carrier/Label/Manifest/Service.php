@@ -209,7 +209,7 @@ class Service implements LoggerAwareInterface
             foreach ($manifestResponses->getManifests() as $manifest) {
                 $creationDate = new DateTime($manifest->getCreatedAt());
                 $manifestCreationTime = $creationDate->getTimestamp() - $fromDate->getTimestamp();
-                $this->logDebug('Manifest received with creation time of %s, request started at %s, manifest creation took %s seconds', ['manifestCreationDate' => $manifest->getCreatedAt(), 'requestStarted' => $earliestDate->format(DateTime::ISO8601), 'manifestCreationDuration' => $manifestCreationTime], [static::LOG_CODE, 'CreateManifest']);
+                $this->logDebug('Manifest received with creation time of %s, request started at %s, manifest creation took %s seconds', ['manifestCreationDate' => $manifest->getCreatedAt(), 'requestStarted' => $fromDate->format(DateTime::ISO8601), 'manifestCreationDuration' => $manifestCreationTime], [static::LOG_CODE, 'CreateManifest']);
                 $responses[] = $manifest;
             }
             if (count($responses) < $expectedManifests) {
