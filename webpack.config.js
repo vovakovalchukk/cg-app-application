@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
@@ -50,6 +51,9 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
     output: {
         path: path.resolve(__dirname, 'public', 'cg-built'),
         filename: "[name].js",
