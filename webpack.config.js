@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     mode: "production",
@@ -17,18 +18,22 @@ module.exports = {
         "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
     },
     module: {
-        rules:[
+        rules: [
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['es2015', 'react', 'stage-2']
+                    presets: ['es2015', 'react', 'stage-2'],
+                    cacheDirectory: true
                 }
             },
-            { test: /jquery/, use: 'exports-loader?$' },
+            {test: /jquery/, use: 'exports-loader?$'}
         ]
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
     output: {
         path: path.resolve(__dirname, 'public', 'cg-built'),
         filename: "[name].js",
@@ -44,7 +49,7 @@ module.exports = {
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'js-vanilla'),
             path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6'),
             "node_modules",
-            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js'),
+            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js')
         ],
         extensions: ['.js', '.jsx'],
         alias: {
