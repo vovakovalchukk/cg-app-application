@@ -10,7 +10,6 @@ class Merchant extends DefaultMap
     {
         return [
             Status::AWAITING_PAYMENT => [
-                static::DISPATCH,
                 static::CANCEL,
             ],
             Status::NEW_ORDER => [
