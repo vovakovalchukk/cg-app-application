@@ -1,5 +1,5 @@
 <?php
-namespace CG\Walmart\Account\Order\Map;
+namespace CG\Walmart\Action\Order\Map;
 
 use CG\Channel\Action\Order\Map as DefaultMap;
 use CG\Order\Shared\Status;
