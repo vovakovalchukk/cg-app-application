@@ -15,6 +15,7 @@ const LINK_ICON_DIMENSIONS = {
 
 const LinkIcon = styled.div`
     cursor: pointer;
+    transform: scale(0.7);
 `;
 
 class LinkComponent extends React.Component {
@@ -73,8 +74,9 @@ class LinkComponent extends React.Component {
                 />
             );
         }
+        var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
         return (
-            <LinkIcon className={"sprite sprite-linked-18-blue click"} onClick={this.onClick} />
+            <LinkIcon className={"sprite click " + spriteClass} onClick={this.onClick} />
         );
     };
 
