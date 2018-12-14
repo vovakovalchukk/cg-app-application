@@ -19,15 +19,15 @@ const LISTING_STATUSES_BY_PRIORITY = [
         statusPriority: 2
     }, {
         status: 'error',
-        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        getHoverMessage: () => ('We received an error when sending a stock update for this listing and so we are not currently able to manage the stock for this listing.'),
         statusPriority: 3
     }, {
         status: 'inactive',
-        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        getHoverMessage: () => ('You do not currently have this SKU listed in this location'),
         statusPriority: 4
     }, {
         status: 'uninmported',
-        getHoverMessage: () => ('Listing is paused due to no stock being available for sale'),
+        getHoverMessage: () => ('This listing has not yet been imported or does not exist'),
         statusPriority: 5
     }
 ];
