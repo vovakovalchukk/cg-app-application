@@ -1747,9 +1747,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-261-improve-our-webpack-setup-for-development-processes":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-261-improve-webpack-cg-common":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#958998fb3ec4d67c0faed888855347d42294af5d"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#bcd7ee10e0873684acb848d4ba2b146840bf7740"
   dependencies:
     chalk "^2.4.1"
     react "^16.5.2"
