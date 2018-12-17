@@ -95,7 +95,7 @@ function getListingTitle(listing) {
     let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
         return listing.status === status.status;
     });
-    if(relevantListingStatus.status === 'error' && listing.message){
+    if (relevantListingStatus.status === 'error' && listing.message) {
         return listing.message;
     }
     return relevantListingStatus.getHoverMessage(listing);
