@@ -2053,7 +2053,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d8383a5d3922f9d77d7c678d1ae53fcfb580a23a"
+                "reference": "7ec245b2ea45917055710533f008f9be580e2bf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-10033-order-stuck-processing-shipping-013c7c.zip",
+                "reference": "7ec245b2ea45917055710533f008f9be580e2bf6",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2123,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-12-17T15:22:21+00:00"
+            "time": "2018-12-17T15:36:31+00:00"
         },
         {
             "name": "channelgrabber/payment",
