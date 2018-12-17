@@ -14,12 +14,16 @@ let visibleRowService = (function() {
             let rowsContainer, parentRow;
 
             for (let index = 0; index < allRows.length; index++) {
+                let amountOfVisibleRows = utility.getArrayOfAllRenderedRows().length;
                 let rowIndex = utility.getRowIndexFromRow(allRows[index]);
+
                 parentRow = allRows[index].parentNode;
                 if (index === 0) {
                     rowsContainer = parentRow.parentNode;
                 }
-                let desiredZIndex = (allRows.length * 2) - rowIndex;
+
+                let desiredZIndex = rowIndex % amountOfVisibleRows;
+
                 parentRow.style.zIndex = desiredZIndex;
             }
         }
