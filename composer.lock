@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7dd11dc8b0cc0e61c44b7eef9460d3d",
+    "content-hash": "a07b6a8578afdd29d26b93981ea67a84",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2049,17 +2049,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.1",
+            "version": "dev-CGIV-10033-order-stuck-processing-shipping",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7436954c7d1369d02799883f431cf172ef715185"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.43.1-5c4eb7.zip",
-                "reference": "7436954c7d1369d02799883f431cf172ef715185",
-                "shasum": null
+                "reference": "d8383a5d3922f9d77d7c678d1ae53fcfb580a23a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2129,7 +2123,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-30T15:55:50+00:00"
+            "time": "2018-12-17T15:22:21+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -10470,10 +10464,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.43.2",
+            "alias_normalized": "1.43.2.0",
+            "version": "dev-CGIV-10033-order-stuck-processing-shipping",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
