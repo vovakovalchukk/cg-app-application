@@ -15,7 +15,6 @@ class Merchant extends DefaultMap
             Status::NEW_ORDER => [
                 static::DISPATCH,
                 static::CANCEL,
-                static::REFUND,
             ],
             Status::DISPATCHING => [
                 static::CANCEL,
