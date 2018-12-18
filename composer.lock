@@ -2053,12 +2053,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6520cff241331f252245c6f8bdf90163cb635ac7"
+                "reference": "fcbe4b1560c74d038b54417e84694a83445e0a66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-10186-not-using-etsy-invoice-template-8719a8.zip",
-                "reference": "6520cff241331f252245c6f8bdf90163cb635ac7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-10186-not-using-etsy-invoice-template-35e1af.zip",
+                "reference": "fcbe4b1560c74d038b54417e84694a83445e0a66",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-12-18T10:28:33+00:00"
+            "time": "2018-12-18T10:43:18+00:00"
         },
         {
             "name": "channelgrabber/payment",
