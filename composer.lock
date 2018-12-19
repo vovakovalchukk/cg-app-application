@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb67098568525e77f443a0571a7823de",
+    "content-hash": "a1cf260fe1601b5e36bc2441b727eec8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3693,12 +3693,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "88e94ebe136a937ed57759e54efa3e0e3b4d030f"
+                "reference": "146a3dd3f8e9be82fd670fc7cb128e907e9db045"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/walmart/channelgrabber-walmart-dev-EPIC-TAC-258-walmart-orders-a5f7c9.zip",
-                "reference": "88e94ebe136a937ed57759e54efa3e0e3b4d030f",
+                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/walmart/channelgrabber-walmart-dev-EPIC-TAC-258-walmart-orders-872b1e.zip",
+                "reference": "146a3dd3f8e9be82fd670fc7cb128e907e9db045",
                 "shasum": null
             },
             "require": {
@@ -3721,7 +3721,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2018-11-27T11:37:37+00:00"
+            "time": "2018-12-19T10:54:28+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
