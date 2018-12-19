@@ -24,6 +24,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\OrderLinker;
 use CG\Order\Shared\Status as OrderStatus;
@@ -467,12 +468,34 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $columns = [
             ['name' => RowMapper::COLUMN_SKU,       'class' => 'sku-col'],
             ['name' => RowMapper::COLUMN_PRODUCT,   'class' => 'product-name-col'],
+            ['name' => RowMapper::COLUMN_VARIATIONS,'class' => 'variation-attributes-col'],
             ['name' => RowMapper::COLUMN_QUANTITY,  'class' => 'quantity'],
             ['name' => RowMapper::COLUMN_PRICE,     'class' => 'price right'],
             ['name' => RowMapper::COLUMN_DISCOUNT,  'class' => 'price right'],
             ['name' => RowMapper::COLUMN_TOTAL,     'class' => 'price right'],
         ];
+
+        if (!$this->doesOrderContainVariationAttributes($order)) {
+            $columns = array_filter($columns, function(array $column)
+            {
+                return $column['name'] != RowMapper::COLUMN_VARIATIONS;
+            });
+        }
+
         return $columns;
+    }
+
+    protected function doesOrderContainVariationAttributes(OrderEntity $order): bool
+    {
+        $containsVariations = false;
+        /** @var OrderItem $orderItem **/
+        foreach ($order->getItems() as $orderItem) {
+            if (!empty($orderItem->getItemVariationAttribute())) {
+                $containsVariations = true;
+                break;
+            }
+        }
+        return $containsVariations;
     }
 
     protected function getOrderItemTableProductLinks(OrderEntity $order): array
