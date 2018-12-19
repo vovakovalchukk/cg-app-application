@@ -1747,9 +1747,9 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.17":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.18":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#958998fb3ec4d67c0faed888855347d42294af5d"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#41940f0f17c611e9786244288d29be2c0f60a48d"
   dependencies:
     chalk "^2.4.1"
     react "^16.5.2"
@@ -5325,12 +5325,12 @@ react-tether@^0.6.1:
     tether "^1.4.3"
 
 react-tether@^1.0.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-1.0.3.tgz#5883c8c914d59a3b0753fe4380a949de220b95bf"
-  integrity sha512-bh2Yg/M70f1eflx1QmQCqAqv3kRp6CMLCZuQMxbBZG2PE0eMJhfcdk2tLES79QMwAPu2eivQ2WJacTmcpW0fog==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-1.0.4.tgz#a1f0973391ba4c3c2b5c38d5be16c42f0fd96759"
+  integrity sha512-WQ3Ulj9k6to8We/rUqkX4fB5L4jYGnUEXtAxyth9kcKqf0miVOR6MYS3hJodQbpNIBB5DvA+/ZH8nlUtMupSVA==
   dependencies:
-    prop-types "^15.5.8"
-    tether "^1.4.3"
+    prop-types "^15.6.2"
+    tether "^1.4.5"
 
 react@^16.5.2:
   version "16.5.2"
@@ -6251,7 +6251,7 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-tether@^1.4.3:
+tether@^1.4.3, tether@^1.4.5:
   version "1.4.5"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.5.tgz#8efd7b35572767ba502259ba9b1cc167fcf6f2c1"
   integrity sha512-fysT1Gug2wbRi7a6waeu39yVDwiNtvwj5m9eRD+qZDSHKNghLo6KqP/U3yM2ap6TNUL2skjXGJaJJTJqoC31vw==
