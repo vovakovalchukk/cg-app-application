@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2010e3a402e2e184b2c43090126e4659",
+    "content-hash": "8d251e0cb6a2637ce43a1c2c12dbeaca",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2966,16 +2966,16 @@
         },
         {
             "name": "channelgrabber/shipstation",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shipstation.git",
-                "reference": "ce81c13505941e822fd8c327191b9dc60cae8dca"
+                "reference": "5a0a4ea3eb8bb3b3a0cd2db3c806332da91cdf25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-1.1.0-a18842.zip",
-                "reference": "ce81c13505941e822fd8c327191b9dc60cae8dca",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shipstation-1.1.1-52b190.zip",
+                "reference": "5a0a4ea3eb8bb3b3a0cd2db3c806332da91cdf25",
                 "shasum": null
             },
             "require": {
@@ -3001,7 +3001,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-11-26T15:54:50+00:00"
+            "time": "2018-12-17T12:17:20+00:00"
         },
         {
             "name": "channelgrabber/shopify",
