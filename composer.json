@@ -79,7 +79,7 @@
         "channelgrabber/stdlib": "~2.16.5",
         "channelgrabber/stock": "~1.13.0",
         "channelgrabber/tax": "~1.0.2",
-        "channelgrabber/template": "~1.6.4",
+        "channelgrabber/template": "dev-CGIV-10064-buyer-message-encoded-characters as 1.6.5",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.0",
         "channelgrabber/user": "~1.26.5",
