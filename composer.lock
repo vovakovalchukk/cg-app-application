@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d8752d205332c4935d6f00c7d1a6b92",
+    "content-hash": "6c41aa004c28652282d8a46fbe42d2a3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3378,16 +3378,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.4",
+            "version": "dev-TAC-306-add-variation-attribute-column-to-orders-table",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "34dc8b8d4bb1f0bf327c09a7d4afc95c869666b6"
+                "reference": "901086d2af82b27a77a88aa43e95e87536c3fbdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.6.4-7439fb.zip",
-                "reference": "34dc8b8d4bb1f0bf327c09a7d4afc95c869666b6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-TAC-306-add-variation-attribute-column-to-orders-table-130058.zip",
+                "reference": "901086d2af82b27a77a88aa43e95e87536c3fbdd",
                 "shasum": null
             },
             "require": {
@@ -3401,7 +3401,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.35.1",
                 "channelgrabber/product": "^1.10.1",
-                "channelgrabber/settings": "^1.5.4",
+                "channelgrabber/settings": "dev-TAC-306-add-variation-attribute-column-to-orders-table as 1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/user": "^1.26.0",
                 "ext-gd": "*",
@@ -3434,7 +3434,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-09-18T12:35:56+00:00"
+            "time": "2019-01-02T12:17:39+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10476,12 +10476,19 @@
             "alias_normalized": "1.6.5.0",
             "version": "dev-TAC-306-add-variation-attribute-column-to-orders-table",
             "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.6.5",
+            "alias_normalized": "1.6.5.0",
+            "version": "dev-TAC-306-add-variation-attribute-column-to-orders-table",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
