@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d251e0cb6a2637ce43a1c2c12dbeaca",
+    "content-hash": "11ac09bb0d778aea99bded4e11fdc2ba",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2049,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.1",
+            "version": "1.43.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7436954c7d1369d02799883f431cf172ef715185"
+                "reference": "391359db555d19728fe300d3172a3fd333f27a1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.43.1-5c4eb7.zip",
-                "reference": "7436954c7d1369d02799883f431cf172ef715185",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.43.2-5d8b63.zip",
+                "reference": "391359db555d19728fe300d3172a3fd333f27a1a",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-11-30T15:55:50+00:00"
+            "time": "2018-12-19T09:45:27+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -5973,7 +5973,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "url": "https://composer.build.channelgrabber.com/dist/jakoch-phantomjs-installer-2431d7001a911c672b2ef04f447222a967134313-zip-e2c1cf.zip",
                 "reference": "2431d7001a911c672b2ef04f447222a967134313",
                 "shasum": ""
             },
@@ -6823,7 +6823,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpish/link_header/zipball/c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
                 "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
                 "shasum": ""
             },
@@ -8814,7 +8814,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-32858f883fffb5eef9f610b538ed026f6033b6de-zip-061607.zip",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
@@ -9282,7 +9282,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9627,8 +9627,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
