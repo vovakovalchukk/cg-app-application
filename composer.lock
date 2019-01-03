@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ada199f190c105ca6d4e2b62f0a4eb2c",
+    "content-hash": "e8e8625f1e6fac7a9ef4d12e399cc84c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -948,17 +948,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.6",
+            "version": "dev-CGIV-10215-missing-parcelforce-service",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "646535831c01716e00b19d035b9d32d21ba7b06d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-courier-1.1.6-8a4b1a.zip",
-                "reference": "646535831c01716e00b19d035b9d32d21ba7b06d",
-                "shasum": null
+                "reference": "2c68baf17c0213af732a31b696b7e4d141768e66"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -10470,13 +10464,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.7",
+            "alias_normalized": "1.1.7.0",
+            "version": "dev-CGIV-10215-missing-parcelforce-service",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
