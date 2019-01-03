@@ -1747,10 +1747,11 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.14":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.18":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#4b66fc3761e82b6c842f194e5f3aecb7035ff7c0"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#41940f0f17c611e9786244288d29be2c0f60a48d"
   dependencies:
+    chalk "^2.4.1"
     react "^16.5.2"
     react-dom "^16.5.2"
     react-redux "^5.0.7"
@@ -5324,12 +5325,12 @@ react-tether@^0.6.1:
     tether "^1.4.3"
 
 react-tether@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-1.0.2.tgz#3851d76049a12475204b913469e9fb8377234cf4"
-  integrity sha512-tp+exTal7FjTNaHF+SGUEGTu+NHT0NU7rLkvb86UvWyd8sQtlir12ymAPJR0Sie42JEi1lKfN1q0I1O7o86GBA==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-1.0.4.tgz#a1f0973391ba4c3c2b5c38d5be16c42f0fd96759"
+  integrity sha512-WQ3Ulj9k6to8We/rUqkX4fB5L4jYGnUEXtAxyth9kcKqf0miVOR6MYS3hJodQbpNIBB5DvA+/ZH8nlUtMupSVA==
   dependencies:
-    prop-types "^15.5.8"
-    tether "^1.4.3"
+    prop-types "^15.6.2"
+    tether "^1.4.5"
 
 react@^16.5.2:
   version "16.5.2"
@@ -6250,10 +6251,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-tether@^1.4.3:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
-  integrity sha512-bagKeRRo3vEynHnO3GB7/jB3Q4YIf0mN7gXM/nR0wZvNHkPrwmZemg1w0C32JZP0prHZUwxGwoX5CdA7tuIDEw==
+tether@^1.4.3, tether@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.5.tgz#8efd7b35572767ba502259ba9b1cc167fcf6f2c1"
+  integrity sha512-fysT1Gug2wbRi7a6waeu39yVDwiNtvwj5m9eRD+qZDSHKNghLo6KqP/U3yM2ap6TNUL2skjXGJaJJTJqoC31vw==
 
 tfunk@^3.0.1:
   version "3.1.0"

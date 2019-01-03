@@ -255,7 +255,7 @@ class MultiCreationService implements LoggerAwareInterface
             return false;
         }
         $variationsData = $productData['variations'] ?? [];
-        if (!isset($productData['variations']) || empty($productData['variations'])) {
+        if (empty($variationsData)) {
             $this->logWarning(static::LOG_MSG_NO_VARIATIONS_SPECIFIED, [], static::LOG_CODE_NO_VARIATIONS_SPECIFIED);
             return false;
         }

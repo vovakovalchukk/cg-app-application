@@ -2,19 +2,26 @@
 namespace CG\CourierAdapter\Provider\Account;
 
 use CG\Account\Client\Entity as AccountEntity;
+use CG\Account\Client\Mapper as AccountMapper;
+use CG\Account\Client\Service as AccountService;
 use CG\Account\CreationServiceAbstract;
+use CG\Account\Credentials\Cryptor;
+use CG\Channel\AccountInterface;
 use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account as CAAccount;
-use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\ConfigInterface;
+use CG\CourierAdapter\Account\CredentialRequestInterface;
+use CG\CourierAdapter\Account\LocalAuth\CredentialsChangedInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Account\ThirdPartyAuthInterface;
-use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Exception\InvalidCredentialsException;
+use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
+use CG\CourierAdapter\Provider\Credentials;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Implementation\ServiceAwareInterface as AdapterImplementationServiceAwareInterface;
-use CG\CourierAdapter\Provider\Credentials;
+use CG\Scraper\Client as ScraperClient;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 
 class CreationService extends CreationServiceAbstract implements AdapterImplementationServiceAwareInterface
@@ -26,6 +33,21 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
+
+    /** @var CAAccountMapper */
+    protected $caAccountMapper;
+
+    public function __construct(
+        AccountService $accountService,
+        Cryptor $cryptor,
+        AccountMapper $accountMapper,
+        ScraperClient $scraperClient,
+        CAAccountMapper $caAccountMapper,
+        AccountInterface $channelAccount = null
+    ) {
+        parent::__construct($accountService, $cryptor, $accountMapper, $scraperClient, $channelAccount);
+        $this->caAccountMapper = $caAccountMapper;
+    }
 
     public function configureAccount(AccountEntity $account, array $params)
     {
@@ -74,6 +96,7 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setActive(true)
             ->setPending(false);
         $credentials = ($account->getCredentials() ? $this->cryptor->decrypt($account->getCredentials()) : new Credentials());
+        $existingCredentials = clone $credentials;
         $credentialsForm = $courierInstance->getCredentialsForm();
         $this->prepareAdapterImplementationFormForSubmission($credentialsForm, $params);
         if (!$credentialsForm->isValid()) {
@@ -84,6 +107,11 @@ class CreationService extends CreationServiceAbstract implements AdapterImplemen
         $account->setCredentials($this->cryptor->encrypt($credentials));
 
         $this->addConfigFieldsToAccountExternalData($account, $courierInstance);
+
+        if ($courierInstance instanceof CredentialsChangedInterface) {
+            $caAccount = $this->caAccountMapper->fromOHAccount($account);
+            $courierInstance->credentialsChanged($caAccount, $existingCredentials->toArray(), $credentials->toArray());
+        }
     }
 
     protected function configureAccountFromThirdPartyAuth(
