@@ -3382,12 +3382,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "901086d2af82b27a77a88aa43e95e87536c3fbdd"
+                "reference": "19666a8ce8c84d76538d135661f9de56c906a29b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-TAC-306-add-variation-attribute-column-to-orders-table-130058.zip",
-                "reference": "901086d2af82b27a77a88aa43e95e87536c3fbdd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-TAC-306-add-variation-attribute-column-to-orders-table-05198c.zip",
+                "reference": "19666a8ce8c84d76538d135661f9de56c906a29b",
                 "shasum": null
             },
             "require": {
@@ -3434,7 +3434,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-02T12:17:39+00:00"
+            "time": "2019-01-03T13:39:51+00:00"
         },
         {
             "name": "channelgrabber/transaction",
