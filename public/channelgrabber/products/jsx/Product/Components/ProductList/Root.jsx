@@ -68,6 +68,7 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
         createNewListing: ({rowData}) => {
             return async function(dispatch, getState) {
                 const state = getState();
+
                 if (rowData.parentProductId) {
                     await productActions.getVariationsByParentProductId(rowData.parentProductId);
                 }
@@ -75,9 +76,13 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                 let idToGetProductFor = rowData.parentProductId === 0 ? rowData.id : rowData.parentProductId;
                 let product = getState.customGetters.getProductById(idToGetProductFor);
                 
+                let variations = state.products.variationsByParent[idToGetProductFor];
+                console.log('variations in createNewListing: ', variations);
+                //
+
                 ownProps.onCreateNewListingIconClick({
                     product,
-                    variations: state.products.variationsByParent,
+                    variations,
                     accounts: state.accounts.getAccounts(state),
                     productSearchActive: state.search.productSearchActive,
                     createListingsAllowedChannels: state.createListing.createListingsAllowedChannels,
