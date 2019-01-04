@@ -31,7 +31,8 @@ class ListingStatusComponent extends React.Component {
     static defaultProps = {
         status: '',
         title: '',
-        onAddListingClick: () => {},
+        onAddListingClick: () => {
+        },
         className: '',
         listingUrl: ''
     };
@@ -39,28 +40,37 @@ class ListingStatusComponent extends React.Component {
     getCursor() {
         return this.props.status === 'inactive' ? 'pointer' : 'initial';
     };
-    getListingIconOnClick() {
-        if (this.props.status === 'inactive') {
-            return this.props.onAddListingClick;
+    getListingIconOnClick(e) {
+        if (this.props.status !== 'inactive') {
+            return;
         }
-        if (this.props.status === 'active') {
-            return () => {
-                window.location = this.props.listingUrl
-            }
+        console.log('preventing default...');
+        
+        
+        e.preventDefault();
+        console.log('this.props.onAddListingClick', this.props.onAddListingClick);
+
+
+        this.props.onAddListingClick();
+    }
+    getListingHref() {
+        if (this.props.status !== 'active') {
+            return '';
         }
-        return () => {}
+        return this.props.listingUrl
     }
     render() {
         return (
             <div className={this.props.className}>
-                <ListingIcon.sizer>
-                    <ListingIcon
-                        onClick={this.getListingIconOnClick()}
-                        {...this.props}
-                        cursor={this.getCursor()}
-                        title={this.props.title}
-                    />
-                </ListingIcon.sizer>
+                <a href={this.getListingHref()} target="_blank" onClick={this.getListingIconOnClick.bind(this)}>
+                    <ListingIcon.sizer>
+                        <ListingIcon
+                            {...this.props}
+                            cursor={this.getCursor()}
+                            title={this.props.title}
+                        />
+                    </ListingIcon.sizer>
+                </a>
             </div>
         );
     }
