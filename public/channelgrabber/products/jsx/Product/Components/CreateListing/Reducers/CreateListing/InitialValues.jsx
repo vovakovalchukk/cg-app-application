@@ -85,9 +85,6 @@ import reducerCreator from 'Common/Reducers/creator';
                 selectedAccounts = action.payload.selectedAccounts;
 
             var dimensions = {};
-//            console.log('LOAD_INITIAL_VALUES ', {variationData});
-
-
             variationData.map(function(variation) {
                 dimensions[variation.id] = {
                     length: variation.details.length,

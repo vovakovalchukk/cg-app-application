@@ -76,10 +76,6 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                 
                 let idToGetProductFor = rowData.parentProductId === 0 ? rowData.id : rowData.parentProductId;
                 let product = getState.customGetters.getProductById(idToGetProductFor);
-                
-//                let variations = state.products.variationsByParent[idToGetProductFor];
-
-                //todo - identify whether product is a parent product o0r not...
                 let variations = await getVariations(product, state, dispatch);
 
                 ownProps.onCreateNewListingIconClick({
@@ -96,18 +92,12 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
 }
 
 async function getVariations(product, state, dispatch){
-    console.log('in getVariations (check to see if anything signalling it has variations or not):', {product,state});
     if(product.variationCount === 0){
         return [product];
     }
     if(state.products.variationsByParent[product.id]){
-        console.log('variations got! so returning them')
         return state.products.variationsByParent[product.id];
     }
-    // fetch
-    console.log('no variations got yet... fetching them')
-    // todo change this when ready
-
     return await getVariationsForProductThatHasNotBeenExpandedYet(dispatch, product);
 }
 

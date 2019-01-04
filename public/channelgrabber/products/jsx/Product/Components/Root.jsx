@@ -81,9 +81,6 @@ class RootComponent extends React.Component {
             variations
         } = createListingData;
 
-
-        console.log('onCreateListingIconClick.... VARIATIONS', variations);
-
         this.setState({
             currentView: ACCOUNT_SELECTION_VIEW,
             accounts,
@@ -168,20 +165,9 @@ class RootComponent extends React.Component {
     };
 
     renderCreateListingPopup = () => {
-
-
         var variationData = this.state.createListing.variations
             ? this.state.createListing.variations
             : [this.state.createListingData.product];
-
-        console.log('in renderCreateListingPopup.... ' ,
-
-            {
-                variationData,
-                'this.state.createListing.variations: ' : this.state.createListing.variations,
-                'this.state.createListing.variations[this.state.createListingData.product.id] (this is what is being rendered)': this.state.createListing.variations[this.state.createListingData.product.id]
-            });
-
 
         return <CreateListingPopupRoot
             {...this.state.createListingData}

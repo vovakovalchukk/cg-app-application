@@ -31,8 +31,7 @@ class ListingStatusComponent extends React.Component {
     static defaultProps = {
         status: '',
         title: '',
-        onAddListingClick: () => {
-        },
+        onAddListingClick: () => {},
         className: '',
         listingUrl: ''
     };
