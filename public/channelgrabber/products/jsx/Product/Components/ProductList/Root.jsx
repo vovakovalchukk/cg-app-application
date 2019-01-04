@@ -98,7 +98,7 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
 async function getVariations(product, state, dispatch){
     console.log('in getVariations (check to see if anything signalling it has variations or not):', {product,state});
     if(product.variationCount === 0){
-        return [];
+        return [product];
     }
     if(state.products.variationsByParent[product.id]){
         console.log('variations got! so returning them')

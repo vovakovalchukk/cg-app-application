@@ -44,13 +44,7 @@ class ListingStatusComponent extends React.Component {
         if (this.props.status !== 'inactive') {
             return;
         }
-        console.log('preventing default...');
-        
-        
         e.preventDefault();
-        console.log('this.props.onAddListingClick', this.props.onAddListingClick);
-
-
         this.props.onAddListingClick();
     }
     getListingHref() {
