@@ -141,7 +141,7 @@ var actionCreators = (function() {
                     return;
                 }
                 
-                actionCreators.dispatchExpandVariationWithAjaxRequest(dispatch, productRowIdToExpand);
+                actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productRowIdToExpand);
             }
         },
         collapseProduct: (productRowIdToCollapse) => {
@@ -152,15 +152,15 @@ var actionCreators = (function() {
                 }
             }
         },
-        dispatchExpandVariationWithAjaxRequest: (dispatch, productRowIdToExpand) => {
-            let filter = new ProductFilter(null, productRowIdToExpand);
+        dispatchExpandVariationsWithAjaxRequest: async (dispatch, productRowId) => {
+            let filter = new ProductFilter(null, productRowId);
             AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
             
             function fetchProductVariationsCallback(data) {
                 $('#products-loading-message').hide();
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                dispatch(expandProductSuccess(productRowIdToExpand));
+                dispatch(expandProductSuccess(productRowId));
                 dispatch(actionCreators.getLinkedProducts(getSkusFromData(data)));
                 dispatch(vatActions.extractVatFromProducts(data.products));
             }
