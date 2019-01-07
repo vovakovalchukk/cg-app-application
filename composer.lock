@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16f96b756cfa2003411889f776db573d",
+    "content-hash": "c77635f81855b01e6cbf5a597770acfc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5064,7 +5064,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/clue-socket-raw-1f9060a973e2bc50389a89d9d2bdb64750fcc8f1-zip-cb24f4.zip",
+                "url": "https://api.github.com/repos/clue/php-socket-raw/zipball/1f9060a973e2bc50389a89d9d2bdb64750fcc8f1",
                 "reference": "1f9060a973e2bc50389a89d9d2bdb64750fcc8f1",
                 "shasum": ""
             },
@@ -10436,7 +10436,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/whichbrowser-whichbrowser-4f1f3b4c78cecf502a4415c2bbd20b71cf64c043-zip-89f322.zip",
+                "url": "https://api.github.com/repos/WhichBrowser/Legacy/zipball/4f1f3b4c78cecf502a4415c2bbd20b71cf64c043",
                 "reference": "4f1f3b4c78cecf502a4415c2bbd20b71cf64c043",
                 "shasum": ""
             },
@@ -10472,14 +10472,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.20.2",
-            "alias_normalized": "1.20.2.0",
+            "alias": "1.20.6",
+            "alias_normalized": "1.20.6.0",
             "version": "dev-CGIV-10180-remove-annual-option-for-free-package",
             "package": "channelgrabber/billing"
         },
         {
-            "alias": "1.2.1",
-            "alias_normalized": "1.2.1.0",
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
             "version": "dev-CGIV-10180-remove-annual-option-for-free-package",
             "package": "channelgrabber/usage-check"
         }

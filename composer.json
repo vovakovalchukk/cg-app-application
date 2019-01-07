@@ -5,7 +5,7 @@
             "url": "git@github.com:channelgrabber/ZendPdf.git"
         },
         {
-            "url": "https://channelgrabber-composer.s3.amazonaws.com",
+            "url": "https://d1erq3dexipllg.cloudfront.net",
             "type": "composer"
         },
         {
