@@ -3,7 +3,7 @@ namespace Settings\Channel;
 
 use CG\Account\DataTableMapper;
 use CG\Account\Shared\Entity;
-use CG\NetDespatch\Account\CreationService as NetDespatchAccountCreationService;
+use CG\NetDespatch\Account\CreationService\RoyalMail as NDRMAccountCreationService;
 use CG\OrganisationUnit\StorageInterface as OUStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface as ActiveUser;
@@ -40,7 +40,7 @@ class Mapper extends DataTableMapper
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($accountEntity->getOrganisationUnitId());
         $dataTableArray['status'] = $accountEntity->getStatus($now);
         // Don't allow users to enable pending OBA accounts, we enable them once we get the credentials
-        if ($accountEntity->getChannel() == NetDespatchAccountCreationService::CHANNEL_NAME
+        if ($accountEntity->getChannel() == NDRMAccountCreationService::CHANNEL_NAME
             && !$this->activeUser->isAdmin()
             && $accountEntity->getPending()
         ) {

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     mode: "production",
@@ -13,21 +14,25 @@ module.exports = {
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
         "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
-        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
+        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js"
     },
     module: {
-        rules:[
+        rules: [
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['es2015', 'react', 'stage-2']
+                    presets: ['es2015', 'react', 'stage-2'],
+                    cacheDirectory: true
                 }
             },
-            { test: /jquery/, use: 'exports-loader?$' },
+            {test: /jquery/, use: 'exports-loader?$'}
         ]
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
     output: {
         path: path.resolve(__dirname, 'public', 'cg-built'),
         filename: "[name].js",
@@ -43,7 +48,7 @@ module.exports = {
             path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'js-vanilla'),
             path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6'),
             "node_modules",
-            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js'),
+            path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js')
         ],
         extensions: ['.js', '.jsx'],
         alias: {

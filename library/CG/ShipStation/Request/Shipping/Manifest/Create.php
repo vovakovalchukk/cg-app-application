@@ -1,12 +1,12 @@
 <?php
-namespace CG\ShipStation\Request\Shipping;
+namespace CG\ShipStation\Request\Shipping\Manifest;
 
 use CG\ShipStation\RequestAbstract;
-use CG\ShipStation\Response\Shipping\Manifest as Response;
+use CG\ShipStation\Response\Shipping\Manifest\Create as Response;
 use CG\Stdlib\Date;
 use CG\Stdlib\DateTime;
 
-class Manifest extends RequestAbstract
+class Create extends RequestAbstract
 {
     const METHOD = 'POST';
     const URI = '/manifests';
