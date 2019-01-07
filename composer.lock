@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ea4f789dfe7addba434e020a9023f90",
+    "content-hash": "84b97e4b1e9ee0d456d8d7aafbff3f77",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -220,7 +220,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/cache-apcu-adapter-542a23dbf7c9c50a9099d341931faf14f8ffda9b-zip-f42f3a.zip",
+                "url": "https://api.github.com/repos/php-cache/apcu-adapter/zipball/542a23dbf7c9c50a9099d341931faf14f8ffda9b",
                 "reference": "542a23dbf7c9c50a9099d341931faf14f8ffda9b",
                 "shasum": ""
             },
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
+            "version": "1.42.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ba4c1bbe41b9c9fe5c20090ba498dfde1fa94f10"
+                "reference": "f4ba2aa047bd04c73ba47d674470f92ac45a3d1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://channelgrabber-composer.s3.eu-west-2.amazonaws.com/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-253-yodel-via-netdespatch-1435f0.zip",
-                "reference": "ba4c1bbe41b9c9fe5c20090ba498dfde1fa94f10",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.6-c97b80.zip",
+                "reference": "f4ba2aa047bd04c73ba47d674470f92ac45a3d1b",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2018-12-07T12:49:56+00:00"
+            "time": "2019-01-07T09:44:06+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1944,26 +1944,26 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "22892a46d8c4da8bb12b350c62cb242444862b48"
+                "reference": "f6e434e7683df7de8bf12313029dc186b4975576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-TAC-253-yodel-via-netdespatch-41cac6.zip",
-                "reference": "22892a46d8c4da8bb12b350c62cb242444862b48",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.4.2-d2602b.zip",
+                "reference": "f6e434e7683df7de8bf12313029dc186b4975576",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-TAC-253-yodel-via-netdespatch as 1.42.5",
+                "channelgrabber/channel": "^1.42.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
                 "channelgrabber/exchangerate": "^1.2.6",
                 "channelgrabber/locale": "^1.2.1",
-                "channelgrabber/order": "dev-TAC-253-yodel-via-netdespatch as 1.43.2",
+                "channelgrabber/order": "^1.43.3",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.16.4",
                 "channelgrabber/user": "^1.26.4",
@@ -1994,7 +1994,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2018-12-07T15:20:26+00:00"
+            "time": "2019-01-07T09:49:02+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -2049,16 +2049,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
+            "version": "1.43.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e363d1e4f9be736f14ba31de3472e2869b484f1d"
+                "reference": "b3c7569588cd3e1c1eee3a247cbeec3976a18ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-253-yodel-via-netdespatch-726bc5.zip",
-                "reference": "e363d1e4f9be736f14ba31de3472e2869b484f1d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.3-84ae10.zip",
+                "reference": "b3c7569588cd3e1c1eee3a247cbeec3976a18ef0",
                 "shasum": null
             },
             "require": {
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2018-12-07T14:55:00+00:00"
+            "time": "2019-01-07T09:44:06+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4830,16 +4830,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
+            "version": "1.25.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b25b3c60f1df248a55d4f63e21545b9cd132e79c"
+                "reference": "74a46c5dd146020a6d2216ca893255f7268fa931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-253-yodel-via-netdespatch-dee653.zip",
-                "reference": "b25b3c60f1df248a55d4f63e21545b9cd132e79c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.25.12-f1470b.zip",
+                "reference": "74a46c5dd146020a6d2216ca893255f7268fa931",
                 "shasum": null
             },
             "require": {
@@ -4891,7 +4891,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-12-07T16:54:43+00:00"
+            "time": "2019-01-07T09:44:06+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5064,7 +5064,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/clue-socket-raw-1f9060a973e2bc50389a89d9d2bdb64750fcc8f1-zip-cb24f4.zip",
+                "url": "https://api.github.com/repos/clue/php-socket-raw/zipball/1f9060a973e2bc50389a89d9d2bdb64750fcc8f1",
                 "reference": "1f9060a973e2bc50389a89d9d2bdb64750fcc8f1",
                 "shasum": ""
             },
@@ -5378,7 +5378,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-f8527ee6580c8f154362dcedfe5e63f4969203bf-zip-a1780b.zip",
+                "url": "https://api.github.com/repos/contextio/PHP-ContextIO/zipball/f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "reference": "f8527ee6580c8f154362dcedfe5e63f4969203bf",
                 "shasum": ""
             },
@@ -6514,7 +6514,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/nelexa-zip-251ce11bdc4754962f29cd2d31014549377ea617-zip-ac5be2.zip",
+                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/251ce11bdc4754962f29cd2d31014549377ea617",
                 "reference": "251ce11bdc4754962f29cd2d31014549377ea617",
                 "shasum": ""
             },
@@ -6865,7 +6865,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpseclib-mcrypt_compat-cb31b37952c5eab15e21bee8cb35d1cadf84c6f5-zip-828877.zip",
+                "url": "https://api.github.com/repos/phpseclib/mcrypt_compat/zipball/cb31b37952c5eab15e21bee8cb35d1cadf84c6f5",
                 "reference": "cb31b37952c5eab15e21bee8cb35d1cadf84c6f5",
                 "shasum": ""
             },
@@ -7401,7 +7401,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/realityking-hash_equals-c94c380358f0649d4efe09c59fa94d16a65607bf-zip-1306d9.zip",
+                "url": "https://api.github.com/repos/realityking/hash_equals/zipball/c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "reference": "c94c380358f0649d4efe09c59fa94d16a65607bf",
                 "shasum": ""
             },
@@ -8755,7 +8755,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/whichbrowser-parser-ad4fce96a17fc1bf6fc741b175de5e231bae7ebe-zip-0ce6d5.zip",
+                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
                 "reference": "ad4fce96a17fc1bf6fc741b175de5e231bae7ebe",
                 "shasum": ""
             },
@@ -9012,7 +9012,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/zeroclipboard-zeroclipboard-e4f6ab73861924341792aa671592cdcb45d6e5cc-zip-757bd7.zip",
+                "url": "https://api.github.com/repos/zeroclipboard/zeroclipboard/zipball/e4f6ab73861924341792aa671592cdcb45d6e5cc",
                 "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc",
                 "shasum": ""
             },
@@ -10470,39 +10470,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.42.5",
-            "alias_normalized": "1.42.5.0",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.4.2",
-            "alias_normalized": "1.4.2.0",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.43.2",
-            "alias_normalized": "1.43.2.0",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.25.12",
-            "alias_normalized": "1.25.12.0",
-            "version": "dev-TAC-253-yodel-via-netdespatch",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
