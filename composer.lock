@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e4ce7ab28a5e86e60b0458abf7d74bf",
+    "content-hash": "02670336ffcc490159f228ec091a75fb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -452,12 +452,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "b79aa21408f966e2f295400f5d9e5f4e0a0eafc6"
+                "reference": "34850169becd8d4f657d74c49e5248e76d241faf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-dev-TAC-123-bigcommerce-abandoned-orders-432b94.zip",
-                "reference": "b79aa21408f966e2f295400f5d9e5f4e0a0eafc6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-TAC-123-bigcommerce-abandoned-orders-99e73c.zip",
+                "reference": "34850169becd8d4f657d74c49e5248e76d241faf",
                 "shasum": null
             },
             "require": {
@@ -489,7 +489,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-11-19T10:01:28+00:00"
+            "time": "2019-01-07T10:23:54+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -716,12 +716,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a25f61acc98ef5b936cb1f75d1a55e1f68104543"
+                "reference": "a41111e9bdd9dde2f5467e4448d751bfe934bd02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-TAC-123-bigcommerce-abandoned-orders-3c91b5.zip",
-                "reference": "a25f61acc98ef5b936cb1f75d1a55e1f68104543",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-123-bigcommerce-abandoned-orders-891824.zip",
+                "reference": "a41111e9bdd9dde2f5467e4448d751bfe934bd02",
                 "shasum": null
             },
             "require": {
@@ -795,7 +795,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-01-07T09:44:06+00:00"
+            "time": "2019-01-07T13:19:03+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2055,12 +2055,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "63e720608440892598157019af3e4d75264d1e34"
+                "reference": "35b359ac4dca2d94b74f414b5ac7008153795941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-TAC-123-bigcommerce-abandoned-orders-afc808.zip",
-                "reference": "63e720608440892598157019af3e4d75264d1e34",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-123-bigcommerce-abandoned-orders-66e27e.zip",
+                "reference": "35b359ac4dca2d94b74f414b5ac7008153795941",
                 "shasum": null
             },
             "require": {
@@ -2131,7 +2131,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-01-07T09:44:06+00:00"
+            "time": "2019-01-07T10:12:51+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3244,12 +3244,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "e067b4bcf5c279d4505d1f291fbbb68689ac5c0e"
+                "reference": "325bd71c28d3333a1a4f034c0f23c61eb1525dde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-TAC-123-bigcommerce-abandoned-orders-528b54.zip",
-                "reference": "e067b4bcf5c279d4505d1f291fbbb68689ac5c0e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-123-bigcommerce-abandoned-orders-b4ee44.zip",
+                "reference": "325bd71c28d3333a1a4f034c0f23c61eb1525dde",
                 "shasum": null
             },
             "require": {
@@ -3300,7 +3300,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2018-11-19T10:24:49+00:00"
+            "time": "2019-01-07T11:12:57+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4838,12 +4838,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e27b35479bb8b1d3c667d31415d6573effce068a"
+                "reference": "90afa6d827e7803b1a24fe1ed9a9ee522a00f50a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-032fe6.zip",
-                "reference": "e27b35479bb8b1d3c667d31415d6573effce068a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-97da75.zip",
+                "reference": "90afa6d827e7803b1a24fe1ed9a9ee522a00f50a",
                 "shasum": null
             },
             "require": {
@@ -4895,7 +4895,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-01-07T09:44:06+00:00"
+            "time": "2019-01-07T13:31:01+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9064,7 +9064,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9119,7 +9119,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9174,7 +9174,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10482,14 +10482,14 @@
             "package": "channelgrabber/bigcommerce"
         },
         {
-            "alias": "1.42.1",
-            "alias_normalized": "1.42.1.0",
+            "alias": "1.42.6",
+            "alias_normalized": "1.42.6.0",
             "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.41.1",
-            "alias_normalized": "1.41.1.0",
+            "alias": "1.43.3",
+            "alias_normalized": "1.43.3.0",
             "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "package": "channelgrabber/order"
         },
