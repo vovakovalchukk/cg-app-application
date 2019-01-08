@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66b736c12d603cb4341cdc9e463de82d",
+    "content-hash": "be48bec99c241210e76553278c4c1256",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -952,7 +952,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "8201d743b6c6fe8f211f599f9248e350e6bf8405"
+                "reference": "ac0ca0216806a98a980d1126ea7873f2609e9efc"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -984,7 +984,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-01-07T10:49:18+00:00"
+            "time": "2019-01-08T15:16:07+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1016,7 +1016,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-12-03T11:32:22+00:00"
+            "time": "2019-01-08T15:18:03+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -6608,7 +6608,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/opensoft-rollout-2e5a72b7e59b7296d50f36404a1e404f67e67636-zip-1c9b4a.zip",
+                "url": "https://api.github.com/repos/opensoft/rollout/zipball/2e5a72b7e59b7296d50f36404a1e404f67e67636",
                 "reference": "2e5a72b7e59b7296d50f36404a1e404f67e67636",
                 "shasum": ""
             },
@@ -6761,7 +6761,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-units-of-measure-php-units-of-measure-2424d6444333603c04bc16bc864cd0b45730ea65-zip-ddc8b8.zip",
+                "url": "https://api.github.com/repos/PhpUnitsOfMeasure/php-units-of-measure/zipball/2424d6444333603c04bc16bc864cd0b45730ea65",
                 "reference": "2424d6444333603c04bc16bc864cd0b45730ea65",
                 "shasum": ""
             },
