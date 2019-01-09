@@ -138,7 +138,7 @@ class Mapper
                 throw new NotFound(sprintf('Parent product with id %s not found', [$product->getParentProductId()]));
             }
 
-            $this->getProductName($product, $parentProduct);
+            return $this->getProductName($product, $parentProduct);
         }
 
         return $product->getName();
