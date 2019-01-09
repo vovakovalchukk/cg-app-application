@@ -169,4 +169,16 @@ class Mapper
         $uri = 'data://application/octet-stream;base64,' . $encodedImage;
         return image_type_to_extension(exif_imagetype($uri), false);
     }
+
+    protected function getProductName(Product $product, Product $parentProduct): string
+    {
+        $name = [];
+
+        $name[] = $parentProduct->getName();
+        if ($product->getName() != '') {
+            $name[] = '('.$product->getName().')';
+        }
+
+        return implode("\n", $name);
+    }
 }
