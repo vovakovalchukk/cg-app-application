@@ -952,7 +952,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ac0ca0216806a98a980d1126ea7873f2609e9efc"
+                "reference": "de65e21c530a6d0d324ca0926ad23d4aaa0942a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10110-dpd-manifest-correction-452da7.zip",
+                "reference": "de65e21c530a6d0d324ca0926ad23d4aaa0942a5",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -984,7 +990,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-01-08T15:16:07+00:00"
+            "time": "2019-01-09T12:25:17+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -10479,8 +10485,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
