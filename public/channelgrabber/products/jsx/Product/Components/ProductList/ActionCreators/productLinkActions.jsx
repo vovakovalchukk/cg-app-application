@@ -41,25 +41,36 @@ var actionCreators = (function() {
     };
     
     return {
-        getLinkedProducts: (productSkus) => {
+        getLinkedProducts: (productSkus, links) => {
+            console.log('in getLinkedProducts with productSkus: ' , productSkus);
+            //todo - fix this - make the skus update for the corresponding links....
+
             return async function(dispatch, getState) {
                 let state = getState();
                 if (!state.accounts.getFeatures(state).linkedProducts) {
                     return;
                 }
+
+
+                  let  skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(productSkus, state.products, links);
                 
-                let skusToFindLinkedProductsFor = [];
-                if (!productSkus) {
-                    skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
-                } else {
-                    skusToFindLinkedProductsFor = productSkus;
-                }
+                console.log('skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
                 
+//                    skusToFindLinkedProductsFor = skusToFetchLinksFor;
+//                }
+//
+//                console.log('skusToFind: ', skusToFind);
+//
+
                 dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
                 
                 let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                 try {
+                    console.log('formattedSkus to send to api: ', formattedSkus);
+
                     let response = await getProductLinksRequest(formattedSkus);
+                    console.log(' response: ',  response);
+                    
                     dispatch(getProductLinksSuccess(response.productLinks, formattedSkus));
                     dispatch(fetchingProductLinksFinish(skusToFindLinkedProductsFor));
                 } catch (error) {
@@ -72,13 +83,36 @@ var actionCreators = (function() {
 
 export default actionCreators;
 
-function getSkusToFindLinkedProductsFor(products) {
-    let skusToFindLinkedProductsFor = [];
-    products.visibleRows.forEach((product) => {
-        if (product.sku) {
-            skusToFindLinkedProductsFor.push(product.sku);
-        }
+function getSkusFromLinks(links ){
+    let resultingSkus = [];
+
+    if(!links){
+        return resultingSkus;
+    }
+
+    links.forEach(link=>{
+        resultingSkus.push(link.sku);
     });
+    return resultingSkus;
+}
+
+function getSkusToFindLinkedProductsFor(productSkus, products, links) {
+    let skusToFindLinkedProductsFor = [];
+    if(!productSkus){
+        products.visibleRows.forEach((product) => {
+            if (product.sku) {
+                skusToFindLinkedProductsFor.push(product.sku);
+            }
+        });
+        return skusToFindLinkedProductsFor;
+    }
+    skusToFindLinkedProductsFor = productSkus;
+    if(links){
+        let skusFromLinks = getSkusFromLinks(links);
+        console.log('skusFromLinks: ', skusFromLinks);
+
+        skusToFindLinkedProductsFor = skusToFindLinkedProductsFor.concat(skusFromLinks);
+    }
     return skusToFindLinkedProductsFor;
 }
 

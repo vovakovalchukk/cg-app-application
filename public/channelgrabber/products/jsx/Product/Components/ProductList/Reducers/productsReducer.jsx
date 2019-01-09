@@ -194,6 +194,9 @@ function getVisibleRowIndexToChangeFromId(rowId, visibleRows) {
 }
 
 function applySingleProductLinkChangeToState(state, newLinks, sku) {
+    console.log('in applySingleProductLinkChangeToState ', {state,newLinks,sku});
+
+
     const normalizedNewLinks = normalizeLinks(newLinks);
     const stateLinksCopy = Object.assign({}, state.allProductsLinks);
     
@@ -213,6 +216,8 @@ function applySingleProductLinkChangeToState(state, newLinks, sku) {
 }
 
 function applyNewProductLinksToState(state, newLinks) {
+    console.log('in applyNewProductLinksToState ', {state,newLinks});
+
     const normalizedNewLinks = normalizeLinks(newLinks);
     const stateLinksCopy = Object.assign({}, state.allProductsLinks);
     

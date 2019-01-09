@@ -53,8 +53,12 @@ class ProductList extends React.Component {
         this.props.actions.resetHorizontalScrollbarIndex();
     };
     onProductLinkRefresh = (event) => {
-        let sku = event.detail;
-        this.props.actions.getLinkedProducts([sku]);
+        let {sku, links} = event.detail
+
+        console.log('on ProductLinksRefresh (this is being triggered by the event listener...)', {sku, links});
+
+
+        this.props.actions.getLinkedProducts([sku], links);
     };
     onEditProductLink = (event) => {
         let {sku, productLinks} = event.detail;
