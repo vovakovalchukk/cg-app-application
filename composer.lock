@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1ebfe0fed282e2f0201541811248958",
+    "content-hash": "c21c9ccb3bde50d4bdc3f98726fd76d2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -6620,7 +6620,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/opensoft-rollout-2e5a72b7e59b7296d50f36404a1e404f67e67636-zip-1c9b4a.zip",
+                "url": "https://api.github.com/repos/opensoft/rollout/zipball/2e5a72b7e59b7296d50f36404a1e404f67e67636",
                 "reference": "2e5a72b7e59b7296d50f36404a1e404f67e67636",
                 "shasum": ""
             },
@@ -6773,7 +6773,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-units-of-measure-php-units-of-measure-2424d6444333603c04bc16bc864cd0b45730ea65-zip-ddc8b8.zip",
+                "url": "https://api.github.com/repos/PhpUnitsOfMeasure/php-units-of-measure/zipball/2424d6444333603c04bc16bc864cd0b45730ea65",
                 "reference": "2424d6444333603c04bc16bc864cd0b45730ea65",
                 "shasum": ""
             },
@@ -9061,7 +9061,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9116,7 +9116,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9171,7 +9171,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
