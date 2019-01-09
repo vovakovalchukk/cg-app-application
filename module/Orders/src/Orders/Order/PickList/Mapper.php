@@ -132,14 +132,19 @@ class Mapper
 
     protected function searchProductTitle(Product $product, ProductCollection $parentProducts)
     {
-        if($product->getParentProductId() !== 0 &&
-            ($product->getName() === '' || $product->getName() === null)
-        ) {
+        $title = [];
+        if ($product->getParentProductId() !== 0) {
             $parentProduct = $parentProducts->getById($product->getParentProductId());
             if (is_null($parentProduct)) {
                 throw new NotFound(sprintf('Parent product with id %s not found', [$product->getParentProductId()]));
             }
-            return $parentProduct->getName();
+
+            $title[] = $parentProduct->getName();
+            if ($product->getName() != '') {
+                $title[] = '('.$product->getName().')';
+            }
+
+            return implode("\n", $title);
         }
 
         return $product->getName();
