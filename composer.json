@@ -35,7 +35,7 @@
         "channelgrabber/communication": "~1.0.11",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "dev-CGIV-10110-dpd-manifest-correction as 1.1.8",
-        "channelgrabber/courieradapter": "dev-CGIV-10110-dpd-manifest-correction as 1.4.2",
+        "channelgrabber/courieradapter": "~1.4.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
         "channelgrabber/ebay": "~1.16.0",
