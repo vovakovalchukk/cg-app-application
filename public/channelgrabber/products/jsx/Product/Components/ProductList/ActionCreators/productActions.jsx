@@ -88,6 +88,7 @@ var actionCreators = (function() {
         },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
+                console.log('in get products ', skuList)
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];
@@ -161,7 +162,8 @@ var actionCreators = (function() {
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowId));
-                dispatch(actionCreators.getLinkedProducts(getSkusFromData(data)));
+                let skusFromData = getSkusFromData(data);
+                dispatch(actionCreators.getLinkedProducts(skusFromData));
                 dispatch(vatActions.extractVatFromProducts(data.products));
             }
         },

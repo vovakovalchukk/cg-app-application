@@ -43,6 +43,7 @@ var actionCreators = (function() {
     return {
         getLinkedProducts: (productSkus, links) => {
             console.log('in getLinkedProducts with productSkus: ' , productSkus);
+            console.trace();
             //todo - fix this - make the skus update for the corresponding links....
 
             return async function(dispatch, getState) {
