@@ -1,22 +1,27 @@
 <?php
 namespace SetupWizard\Controller;
 
+use CG\Billing\Discount\Entity as Discount;
 use CG\Billing\Licence\Entity as Licence;
 use CG\Billing\Price\Service as PriceService;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Locale\DemoLink;
 use CG\Locale\PhoneNumber;
 use CG\Payment\Exception\MultipleSubscriptionsException;
-use CG_Billing\Package\Exception as SetPackageException;
-use CG_Billing\Package\ManagementService as PackageManagementService;
-use CG_Billing\Payment\Service as PaymentService;
-use CG_Billing\Payment\View\Service as PaymentViewService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG_Billing\Package\Exception as SetPackageException;
+use CG_Billing\Package\ManagementService as PackageManagementService;
+use CG_Billing\Package\Service as BillingPackageService;
+use CG_Billing\Payment\Service as PaymentService;
+use CG_Billing\Payment\View\Service as PaymentViewService;
+use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Payment\PackageService;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
@@ -48,6 +53,12 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     protected $packageManagementService;
     /** @var SessionManager */
     protected $session;
+    /** @var BillingPackageService */
+    protected $billingPackageService;
+    /** @var Translator */
+    protected $translator;
+    /** @var MustacheRenderer */
+    protected $mustacheRenderer;
 
     public function __construct(
         Service $setupService,
@@ -57,7 +68,10 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         PaymentService $paymentService,
         PaymentViewService $paymentViewService,
         PackageManagementService $packageManagementService,
-        SessionManager $session
+        SessionManager $session,
+        BillingPackageService $billingPackageService,
+        Translator $translator,
+        MustacheRenderer $mustacheRenderer
     ) {
         $this->setupService = $setupService;
         $this->packageService = $packageService;
@@ -67,6 +81,9 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         $this->paymentViewService = $paymentViewService;
         $this->packageManagementService = $packageManagementService;
         $this->session = $session;
+        $this->billingPackageService = $billingPackageService;
+        $this->translator = $translator;
+        $this->mustacheRenderer = $mustacheRenderer;
     }
 
     public function indexAction()
@@ -92,11 +109,67 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             return $body->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethodSelect');
         }
 
+        $discount = $this->getAppliedDiscount();
+        $this->addPromotionCode($body, $discount);
+
         return $body->addChild(
             $this->viewModelFactory->newInstance()
                 ->setTemplate('setup-wizard/payment/method')
                 ->setVariable('method', $this->paymentViewService->getDefaultPaymentProvider()),
             'paymentMethod'
+        );
+    }
+
+    protected function getAppliedDiscount()
+    {
+        $discountCode = $this->params()->fromQuery('discountCode');
+        if (!$discountCode) {
+            return $this->getActiveDiscountForCurrentSubscription();
+        }
+        try {
+            return $this->billingPackageService->fetchDiscountByCodeIfInDate($discountCode);
+        } catch (NotFound $ex) {
+            return $this->getActiveDiscountForCurrentSubscription();
+        }
+    }
+
+    protected function getActiveDiscountForCurrentSubscription()
+    {
+        try {
+            return $this->billingPackageService->getActiveDiscountForCurrentSubscription();
+        } catch (NotFound $e) {
+            return null;
+        }
+    }
+
+    protected function addPromotionCode(ViewModel $view, Discount $discount = null)
+    {
+        $applyButtonView = $this->viewModelFactory->newInstance();
+        $applyButtonView->setTemplate('elements/buttons');
+        $applyButtonView->setVariable('buttons', [
+            [
+                'id' => 'package-promo-code-apply',
+                'value' => $this->translator->translate('Apply Code'),
+                'type' => 'button'
+            ]
+        ]);
+
+        $discountCode = '';
+        $successMsg = '';
+        if ($discount) {
+            $discountCode = $discount->getCode();
+            $successMsg = $this->translator->translate($discount->getName() . ' - ' . $discount->getCode() . ' has been applied');
+        }
+        $promoCodeView = $this->viewModelFactory->newInstance();
+        $promoCodeView->setTemplate('package/promoCode');
+        $promoCodeView->setVariable('label', $this->translator->translate('Apply a Promotional Code'));
+        $promoCodeView->setVariable('code', $discountCode);
+        $promoCodeView->setVariable('successMessage', $successMsg);
+        $promoCodeView->setVariable('applyButton', $applyButtonView);
+
+        $view->setVariable(
+            'promoCode',
+            $this->mustacheRenderer->render($promoCodeView)
         );
     }
 
