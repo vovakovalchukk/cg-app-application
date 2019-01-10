@@ -3958,13 +3958,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "679b9386967c040a72b831a81c80f56accec1617"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-dev-CGIV-10098-signup-discount-code-9764bb.zip",
-                "reference": "679b9386967c040a72b831a81c80f56accec1617",
-                "shasum": null
+                "reference": "06b65abaca31b366ce39d4109541f35c785b69de"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -10514,8 +10508,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-billing": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
