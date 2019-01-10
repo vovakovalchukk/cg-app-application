@@ -93,17 +93,8 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
-
-    console.log('in generateVatColumns with vat: ' , vat);
-
     if(Object.keys(vat.productsVat).length === 0){
-        return {
-            key: 'noVat',
-            headerText: '',
-            fixed: false,
-            tab: 'vat',
-            align: 'center'
-        }
+        return getNoVatColumn();
     }
 
     let vatColumns = [];
@@ -172,4 +163,15 @@ function generateListingsColumnsFromAccounts(accounts) {
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+function getNoVatColumn() {
+    return {
+        key: 'noVat',
+        headerText: '',
+        width: 600,
+        fixed: false,
+        tab: 'vat',
+        align: 'left'
+    }
 }
