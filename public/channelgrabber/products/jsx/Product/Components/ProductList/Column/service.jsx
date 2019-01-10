@@ -93,6 +93,19 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
+
+    console.log('in generateVatColumns with vat: ' , vat);
+
+    if(Object.keys(vat.productsVat).length === 0){
+        return {
+            key: 'noVat',
+            headerText: '',
+            fixed: false,
+            tab: 'vat',
+            align: 'center'
+        }
+    }
+
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {
         let options = vat.vatRates[countryCode];

@@ -283,6 +283,9 @@ import ResponseActions from './ResponseActions';
             };
         },
         submitListingsForm: function(dispatch, formValues, props) {
+            console.log('in submitListingsForm .... formatFormValuesForSubmission(formValues, props)', formatFormValuesForSubmission(formValues, props));
+            
+            
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',

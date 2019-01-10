@@ -42,9 +42,9 @@ var actionCreators = (function() {
     
     return {
         getLinkedProducts: (productSkus, links) => {
-            console.log('in getLinkedProducts with productSkus: ' , productSkus);
-            console.trace();
-            //todo - fix this - make the skus update for the corresponding links....
+//            console.log('in getLinkedProducts with productSkus: ' , productSkus);
+//            console.trace();
+//            todo - fix this - make the skus update for the corresponding links....
 
             return async function(dispatch, getState) {
                 let state = getState();
@@ -55,7 +55,7 @@ var actionCreators = (function() {
 
                   let  skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(productSkus, state.products, links);
                 
-                console.log('skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
+//                console.log('skusToFindLinkedProductsFor: ', skusToFindLinkedProductsFor);
                 
 //                    skusToFindLinkedProductsFor = skusToFetchLinksFor;
 //                }
@@ -67,10 +67,10 @@ var actionCreators = (function() {
                 
                 let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                 try {
-                    console.log('formattedSkus to send to api: ', formattedSkus);
+//                    console.log('formattedSkus to send to api: ', formattedSkus);
 
                     let response = await getProductLinksRequest(formattedSkus);
-                    console.log(' response: ',  response);
+//                    console.log(' response: ',  response);
                     
                     dispatch(getProductLinksSuccess(response.productLinks, formattedSkus));
                     dispatch(fetchingProductLinksFinish(skusToFindLinkedProductsFor));

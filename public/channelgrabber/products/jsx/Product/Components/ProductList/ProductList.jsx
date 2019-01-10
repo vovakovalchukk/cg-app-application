@@ -144,6 +144,9 @@ class ProductList extends React.Component {
         return true;
     };
     renderProducts = () => {
+//        console.log('in renderProducts');
+        
+        
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
             return;
@@ -222,6 +225,9 @@ class ProductList extends React.Component {
         );
     }
     render() {
+//        console.log('this.props in PL: '  , this.props);
+
+
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

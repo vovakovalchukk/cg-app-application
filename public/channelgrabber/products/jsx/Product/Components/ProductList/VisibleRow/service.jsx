@@ -9,6 +9,9 @@ let visibleRowService = (function() {
 
     let service = {
         modifyZIndexOfRows: () => {
+            console.log('triggering the modify-zindex of rows');
+            
+            
             modifyZIndexOfHeader();
             let allRows = document.querySelectorAll('.js-row');
             let rowsContainer, parentRow;
