@@ -17,7 +17,7 @@ var rowsReducer = reducerCreator(initialState, {
         });
     },
     "VISIBLE_ROWS_RECORD": function(state) {
-        let allVisibleRowsIds = utility.getArrayOfAllRenderedRows().sort();
+        let allVisibleRowsIds = utility.getArrayOfAllRenderedRowIndexes().sort();
         state.allIds = allVisibleRowsIds;
         return Object.assign({}, state, {
             allIds: allVisibleRowsIds

@@ -9,15 +9,14 @@ let visibleRowService = (function() {
 
     let service = {
         modifyZIndexOfRows: () => {
-            console.log('triggering the modify-zindex of rows');
-            
-            
             modifyZIndexOfHeader();
             let allRows = document.querySelectorAll('.js-row');
             let rowsContainer, parentRow;
 
+            let visibleRowsIndexes = utility.getArrayOfAllRenderedRowIndexes();
+            let highestRowIndexOfVisibleRows = Math.max.apply(null, visibleRowsIndexes);
+
             for (let index = 0; index < allRows.length; index++) {
-                let amountOfVisibleRows = utility.getArrayOfAllRenderedRows().length;
                 let rowIndex = utility.getRowIndexFromRow(allRows[index]);
 
                 parentRow = allRows[index].parentNode;
@@ -25,7 +24,7 @@ let visibleRowService = (function() {
                     rowsContainer = parentRow.parentNode;
                 }
 
-                let desiredZIndex = rowIndex % amountOfVisibleRows;
+                let desiredZIndex = highestRowIndexOfVisibleRows - rowIndex ;
 
                 parentRow.style.zIndex = desiredZIndex;
             }
