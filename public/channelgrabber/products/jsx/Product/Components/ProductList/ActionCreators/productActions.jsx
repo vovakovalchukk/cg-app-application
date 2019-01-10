@@ -88,7 +88,6 @@ var actionCreators = (function() {
         },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
-                console.log('in get products ', skuList)
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];

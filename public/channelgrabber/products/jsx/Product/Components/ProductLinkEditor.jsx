@@ -126,8 +126,7 @@ class ProductLinkEditorComponent extends React.Component {
             'dataType': 'json',
             'success': function() {
                 window.triggerEvent('productLinkRefresh', {
-                    sku: this.state.sku,
-                    links: this.state.links
+                    sku: this.state.sku
                 });
                 this.setState(
                     {unlinkConfirmPopup: false},

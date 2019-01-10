@@ -53,12 +53,8 @@ class ProductList extends React.Component {
         this.props.actions.resetHorizontalScrollbarIndex();
     };
     onProductLinkRefresh = (event) => {
-        let {sku, links} = event.detail
-
-        console.log('on ProductLinksRefresh (this is being triggered by the event listener...)', {sku, links});
-
-
-        this.props.actions.getLinkedProducts([sku], links);
+        let sku = event.detail;
+        this.props.actions.getLinkedProducts([sku]);
     };
     onEditProductLink = (event) => {
         let {sku, productLinks} = event.detail;
@@ -144,9 +140,6 @@ class ProductList extends React.Component {
         return true;
     };
     renderProducts = () => {
-//        console.log('in renderProducts');
-        
-        
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
             return;
@@ -225,9 +218,6 @@ class ProductList extends React.Component {
         );
     }
     render() {
-//        console.log('this.props in PL: '  , this.props);
-
-
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

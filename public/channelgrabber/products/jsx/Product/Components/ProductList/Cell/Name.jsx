@@ -39,10 +39,6 @@ class NameCell extends React.Component {
         const isVariation = stateUtility.isVariation(row);
         let name = isVariation ? this.getVariationName(row) : row['name'];
 
-//        console.log('in name rowIndex', rowIndex);
-
-
-
         return (
             <NameContainer>
                 <LinesEllipsis

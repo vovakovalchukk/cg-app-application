@@ -1,7 +1,6 @@
 import React from 'react';
 import layoutSettings from "../Config/layoutSettings";
 import styled from 'styled-components';
-import stateUtility from "../stateUtility";
 
 const CellContainer = styled.div`
     padding-left: ${layoutSettings.columnPadding};
