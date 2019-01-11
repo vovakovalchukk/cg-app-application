@@ -47,19 +47,17 @@ return [
                         [
                             'channelName' => 'dpd-ca',
                             'displayName' => 'DPD',
-                            'courierFactory' => function()
+                            'courierFactory' => function(Di $di)
                             {
-                                $courier = new DpdCourier();
-                                return $courier;
+                                return $di->get(DpdCourier::class);
                             }
                         ],
                         [
                             'channelName' => 'interlink-ca',
                             'displayName' => 'DPD Local',
-                            'courierFactory' => function()
+                            'courierFactory' => function(Di $di)
                             {
-                                $courier = new InterlinkCourier();
-                                return $courier;
+                                return $di->get(InterlinkCourier::class);
                             }
                         ],
                         [
