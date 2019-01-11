@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b3ad0464e36ee5bb50c2eb1ad23e964",
+    "content-hash": "e9f91f4f57255818210f7a1ae7d7927e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.1",
+            "version": "1.20.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "03128c02fcbaca60ef88b058b77e2a2ac73aa8d5"
+                "reference": "766510584c857e9642378e89d344e271a7eb68e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.20.1-799f84.zip",
-                "reference": "03128c02fcbaca60ef88b058b77e2a2ac73aa8d5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.5-5c058b.zip",
+                "reference": "766510584c857e9642378e89d344e271a7eb68e1",
                 "shasum": null
             },
             "require": {
@@ -550,7 +550,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-05T13:44:54+00:00"
+            "time": "2018-12-05T14:47:19+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3379,16 +3379,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-10064-buyer-message-encoded-characters",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "aa1f491bbaf2fa0c86a13e2f38680584f8001780"
+                "reference": "ce93de587b995999c3f15c28674fa82602a0d54e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-CGIV-10064-buyer-message-encoded-characters-67ede5.zip",
-                "reference": "aa1f491bbaf2fa0c86a13e2f38680584f8001780",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.5-60e67e.zip",
+                "reference": "ce93de587b995999c3f15c28674fa82602a0d54e",
                 "shasum": null
             },
             "require": {
@@ -3435,7 +3435,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-10T15:32:17+00:00"
+            "time": "2019-01-11T10:36:16+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3508,16 +3508,16 @@
         },
         {
             "name": "channelgrabber/usage-check",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "b5c47f5530f1be1cc2718e95879d5e356280300e"
+                "reference": "3e2d56cd8bca552c1ff984f54aed5e9beed32d86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-check-1.2.0-f45b39.zip",
-                "reference": "b5c47f5530f1be1cc2718e95879d5e356280300e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-1.2.1-5b3b35.zip",
+                "reference": "3e2d56cd8bca552c1ff984f54aed5e9beed32d86",
                 "shasum": null
             },
             "require": {
@@ -3544,7 +3544,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2018-10-05T11:09:43+00:00"
+            "time": "2018-11-16T14:17:10+00:00"
         },
         {
             "name": "channelgrabber/user",
@@ -5890,7 +5890,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/iio-libmergepdf-2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc-zip-9552fd.zip",
+                "url": "https://api.github.com/repos/hanneskod/libmergepdf/zipball/2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "reference": "2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "shasum": ""
             },
@@ -6302,7 +6302,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -7314,7 +7314,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/react-event-loop-13e03b17e54ea864c6653a2cf6d146dad8464e91-zip-eb345b.zip",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "reference": "13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "shasum": ""
             },
@@ -7627,7 +7627,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdf-2c68c9e6c034ac3187d25968790139a73184cdb1-zip-a22a64.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "shasum": ""
             },
@@ -7666,7 +7666,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-879dd95cd6b258ba5b062624723ef16c954f2b17-zip-01d960.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "shasum": ""
             },
@@ -7725,7 +7725,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-fpdf-39d8fe065ef27816e78ceebf87719bebe6abdd73-zip-1b4a74.zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "reference": "39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "shasum": ""
             },
@@ -9061,7 +9061,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9116,7 +9116,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9171,7 +9171,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -10471,18 +10471,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.5",
-            "alias_normalized": "1.6.5.0",
-            "version": "dev-CGIV-10064-buyer-message-encoded-characters",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
