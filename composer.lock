@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9f91f4f57255818210f7a1ae7d7927e",
+    "content-hash": "a808bf174e8e22d32a47ba85bf9fc870",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3239,22 +3239,23 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.13.0",
+            "version": "dev-TAC-305-LinkedAudit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41"
+                "reference": "516515dba354579535dbdbd19ee92e7be64190af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.13.0-8f817b.zip",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-305-LinkedAudit-608caa.zip",
+                "reference": "516515dba354579535dbdbd19ee92e7be64190af",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/db": "^1.0.4",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
@@ -3297,7 +3298,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-26T09:05:13+00:00"
+            "time": "2019-01-11T10:03:32+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -5890,7 +5891,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hanneskod/libmergepdf/zipball/2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
+                "url": "https://composer.build.channelgrabber.com/dist/iio-libmergepdf-2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc-zip-9552fd.zip",
                 "reference": "2a9d6cc9a15f3cf240c7a0b2fdbd4d0ef8ef05bc",
                 "shasum": ""
             },
@@ -6302,7 +6303,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c492ddf4abcb0f6bed287faae35ebe77be7b690f",
+                "url": "https://composer.build.channelgrabber.com/dist/maennchen-zipstream-php-c492ddf4abcb0f6bed287faae35ebe77be7b690f-zip-b865d2.zip",
                 "reference": "c492ddf4abcb0f6bed287faae35ebe77be7b690f",
                 "shasum": ""
             },
@@ -7314,7 +7315,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/13e03b17e54ea864c6653a2cf6d146dad8464e91",
+                "url": "https://composer.build.channelgrabber.com/dist/react-event-loop-13e03b17e54ea864c6653a2cf6d146dad8464e91-zip-eb345b.zip",
                 "reference": "13e03b17e54ea864c6653a2cf6d146dad8464e91",
                 "shasum": ""
             },
@@ -7627,7 +7628,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdf-2c68c9e6c034ac3187d25968790139a73184cdb1-zip-a22a64.zip",
                 "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
                 "shasum": ""
             },
@@ -7666,7 +7667,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/879dd95cd6b258ba5b062624723ef16c954f2b17",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-879dd95cd6b258ba5b062624723ef16c954f2b17-zip-01d960.zip",
                 "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17",
                 "shasum": ""
             },
@@ -7725,7 +7726,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/39d8fe065ef27816e78ceebf87719bebe6abdd73",
+                "url": "https://composer.build.channelgrabber.com/dist/setasign-fpdi-fpdf-39d8fe065ef27816e78ceebf87719bebe6abdd73-zip-1b4a74.zip",
                 "reference": "39d8fe065ef27816e78ceebf87719bebe6abdd73",
                 "shasum": ""
             },
@@ -9061,7 +9062,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9116,7 +9117,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9171,7 +9172,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -9341,7 +9342,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/intercom-intercom-php-a0a1bd91afbb6424fa4c003fe2dcd744fff24b51-zip-5b82bd.zip",
+                "url": "https://api.github.com/repos/intercom/intercom-php/zipball/a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
                 "reference": "a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
                 "shasum": ""
             },
@@ -10471,10 +10472,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.15.1",
+            "alias_normalized": "1.15.1.0",
+            "version": "dev-TAC-305-LinkedAudit",
+            "package": "channelgrabber/stock"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

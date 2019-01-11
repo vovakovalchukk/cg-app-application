@@ -203,10 +203,14 @@ class Service
     protected function addProductDetailsToUiData(array &$data, MvcEvent $event)
     {
         foreach ($data as &$row) {
-            $row['productLink'] = $event->getRouter()->assemble(
+            $link = $event->getRouter()->assemble(
                 [],
                 ['name' => ProductsModule::ROUTE]
-            ) . '?' . http_build_query(['search' => $row['sku']]);
+            );
+            $row['productLink'] = $link . '?' . http_build_query(['search' => $row['sku']]);
+            if (isset($row['referenceSku'])) {
+                $row['referenceProductLink'] = $link . '?' . http_build_query(['search' => $row['referenceSku']]);
+            }
         }
         return $this;
     }
@@ -276,15 +280,21 @@ class Service
     protected function addAdjustmentDetailsToUiData(array &$data)
     {
         foreach ($data as &$row) {
-            if (!isset($row['adjustmentQty']) || (int)$row['adjustmentQty'] == 0 ) {
-                continue;
-            }
-            $quantity = $row['adjustmentQty'];
-            $sign = ($row['adjustmentOperator'] == StockAdjustment::OPERATOR_DEC ? '-' : '+');
-            $type = $row['adjustmentType'];
-            $row[$type . 'Qty'] = $sign . $quantity;
+            $this->formatAdjustmentDetailsForUiData($row, 'adjustmentQty');
+            $this->formatAdjustmentDetailsForUiData($row, 'adjustmentReferenceQuantity', 'Reference');
         }
         return $this;
+    }
+
+    protected function formatAdjustmentDetailsForUiData(array &$row, string $field, string $prefix = null)
+    {
+        if (!isset($row[$field]) || (int)$row[$field] == 0 ) {
+            return;
+        }
+        $quantity = $row[$field];
+        $sign = ($row['adjustmentOperator'] == StockAdjustment::OPERATOR_DEC ? '-' : '+');
+        $type = $row['adjustmentType'];
+        $row[$type . ($prefix ?? '') . 'Qty'] = $sign . $quantity;
     }
 
     protected function formatActionForUiData(array &$data, Filter $filter)
