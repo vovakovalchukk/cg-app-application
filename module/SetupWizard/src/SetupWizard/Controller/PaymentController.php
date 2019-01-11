@@ -271,7 +271,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
 
     public function setPackageAction()
     {
-        $mark = $this->getAppliedDiscount();
         $response = ['success' => false, 'error' => ''];
         try {
             $this->packageManagementService->setPackage(
