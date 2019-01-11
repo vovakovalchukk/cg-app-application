@@ -9371,7 +9371,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/intercom-intercom-php-a0a1bd91afbb6424fa4c003fe2dcd744fff24b51-zip-5b82bd.zip",
+                "url": "https://api.github.com/repos/intercom/intercom-php/zipball/a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
                 "reference": "a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
                 "shasum": ""
             },
