@@ -3958,12 +3958,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "fd8a05b105efa615e12428df933946da3ad4e5b0"
+                "reference": "63d70c1cd3160426a870fe4ec683ef846783f084"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-dev-CGIV-10098-signup-discount-code-1f6e3f.zip",
-                "reference": "fd8a05b105efa615e12428df933946da3ad4e5b0",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-dev-CGIV-10098-signup-discount-code-da7c7b.zip",
+                "reference": "63d70c1cd3160426a870fe4ec683ef846783f084",
                 "shasum": null
             },
             "require": {
@@ -4001,7 +4001,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2019-01-11T10:21:30+00:00"
+            "time": "2019-01-11T14:11:48+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
