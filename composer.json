@@ -57,7 +57,7 @@
         "channelgrabber/log": "~2.3.3",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
-        "channelgrabber/order": "~1.43.3",
+        "channelgrabber/order": "dev-CGIV-10147-low-prio-order-printed-date-jobs as 1.43.4",
         "channelgrabber/payment": "~1.12.0",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
