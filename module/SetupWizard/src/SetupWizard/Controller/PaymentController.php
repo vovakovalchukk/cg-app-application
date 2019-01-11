@@ -112,6 +112,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         }
 
         $this->addPromotionCode($body, $discount);
+        $this->addSelectedDiscountCode($body);
 
         return $body->addChild(
             $this->viewModelFactory->newInstance()
@@ -132,6 +133,12 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         } catch (NotFound $ex) {
             return $this->getActiveDiscountForCurrentSubscription();
         }
+    }
+
+    protected function addSelectedDiscountCode(ViewModel $view)
+    {
+        $discountCode = $this->params()->fromQuery('discountCode');
+        $view->setVariable('discountCode', $discountCode);
     }
 
     protected function getActiveDiscountForCurrentSubscription()
@@ -264,12 +271,13 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
 
     public function setPackageAction()
     {
+        $mark = $this->getAppliedDiscount();
         $response = ['success' => false, 'error' => ''];
         try {
             $this->packageManagementService->setPackage(
                 $this->packageManagementService->createPackageUpgradeRequest(
                     $this->params()->fromRoute('id'),
-                    null,
+                    $this->params()->fromPost('discountCode') ?? null,
                     $this->params()->fromPost('billingDuration') ?? null
                 )
             );

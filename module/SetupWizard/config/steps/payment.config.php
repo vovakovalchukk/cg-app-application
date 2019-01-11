@@ -70,6 +70,7 @@ return [
                                     'route' => '/applyDiscountCode',
                                     'defaults' => [
                                         'action' => 'applyDiscountCode',
+                                        'controller' => PaymentJsonController::class,
                                     ]
                                 ],
                             ],

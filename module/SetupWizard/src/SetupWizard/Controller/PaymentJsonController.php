@@ -7,6 +7,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_Billing\Package\Service as PackageService;
+use SetupWizard\Module;
 
 class PaymentJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -41,7 +42,7 @@ class PaymentJsonController extends AbstractActionController implements LoggerAw
 
         if ($this->packageService->isValidDiscountCode($discountCode)) {
             $redirect = $this->url()->fromRoute(
-                PaymentController::ROUTE_PAYMENT
+                Module::ROUTE . '/' . PaymentController::ROUTE_PAYMENT
             );
             $redirect .= '?' . http_build_query(['discountCode' => $discountCode]);
             return $this->jsonModelFactory->newInstance(['redirect' => $redirect]);
