@@ -32,8 +32,11 @@
         'react',
         'react-dom',
         'SetupWizard/Component/Payment/PackageSelector',
-        'SetupWizard/Payment/Locale/<?= $this->locale ?>'
-    ], function(Payment, React, ReactDOM, PackageSelectorComponent, Locale) {
+        'SetupWizard/Payment/Locale/<?= $this->locale ?>',
+        '<?= $this->basePath() . CG_Billing\Module::PUBLIC_FOLDER . 'js/Package/PromoCode.js'; ?>',
+    ], function(Payment, React, ReactDOM, PackageSelectorComponent, Locale, PromoCode) {
+        PromoCode.URL_APPLY_CODE = '/setup/payment/applyDiscountCode';
+        PromoCode.init();
         var paymentSelector = document.getElementById('setup-wizard-payment-selector');
         paymentSelector.style.display = (<?= json_encode($this->selectedPackage) ?> ? "inherit": "none");
         var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, <?= json_encode($this->selectedBillingDuration) ?>, "<?= $this->activePaymentMethod ?>");

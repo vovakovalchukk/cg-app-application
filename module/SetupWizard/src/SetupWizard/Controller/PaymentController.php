@@ -94,13 +94,15 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     protected function getBody(): ViewModel
     {
         $locale = $this->packageService->getLocale();
+        $discount = $this->getAppliedDiscount();
+
         $body = $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
             ->setVariable('locale', $locale)
             ->setVariable('phoneNumber', PhoneNumber::getForLocale($locale))
             ->setVariable('selectedPackage', $this->getSelectedPackage())
             ->setVariable('selectedBillingDuration', $this->getSelectedBillingDuration())
-            ->setVariable('packages', $this->getPackagesData())
+            ->setVariable('packages', $this->getPackagesData($discount))
             ->setVariable('activePaymentMethod', $this->paymentService->getPaymentMethod())
             ->setVariable('demoLink', DemoLink::getForLocale($locale))
             ->setVariable('takePayment', (bool) $this->params()->fromQuery('cardAuth'));
@@ -109,7 +111,6 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             return $body->addChild($this->paymentViewService->getPaymentMethodSelectView(), 'paymentMethodSelect');
         }
 
-        $discount = $this->getAppliedDiscount();
         $this->addPromotionCode($body, $discount);
 
         return $body->addChild(
@@ -183,18 +184,20 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
         return $this->session->getStorage()['setup-payment']['selected-duration'] ?? Subscription::DEFAULT_BILLING_DURATION;
     }
 
-    protected function getPackagesData(): array
+    protected function getPackagesData(?Discount $discount): array
     {
         $packages = [];
+        $currentPackage = $this->billingPackageService->getCurrentPackage();
         foreach ($this->packageService->getSelectableOrderPackages() as $package) {
+            $discountedPrice = $this->billingPackageService->getUpgradeCostForBillingDuration($currentPackage, $package, PriceService::BILLING_DURATION_MONTHLY, $discount);
             $packages[] = [
                 'id' => $package->getId(),
                 'name' => $package->getName(),
                 'band' => $package->getBand(),
                 'monthlyPrice' => [
-                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getPackageMonthlyPrice(
-                        $package,
-                        PriceService::BILLING_DURATION_MONTHLY
+                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getFormattedPrice(
+                        $package->getPrice(),
+                        $discountedPrice
                     ),
                     PriceService::BILLING_DURATION_ANNUAL => $this->packageService->getPackageMonthlyPrice(
                         $package,
@@ -202,9 +205,9 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
                     ),
                 ],
                 'price' => [
-                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getPackagePrice(
-                        $package,
-                        PriceService::BILLING_DURATION_MONTHLY
+                    PriceService::BILLING_DURATION_MONTHLY => $this->packageService->getFormattedPrice(
+                        $package->getPrice(),
+                        $discountedPrice
                     ),
                     PriceService::BILLING_DURATION_ANNUAL => $this->packageService->getPackagePrice(
                         $package,
