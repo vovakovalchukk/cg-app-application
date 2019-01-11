@@ -1,5 +1,6 @@
 <?php
 use SetupWizard\Controller\PaymentController;
+use SetupWizard\Controller\PaymentJsonController;
 use SetupWizard\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
@@ -60,6 +61,15 @@ return [
                                     'route' => '/setPackage/:id',
                                     'defaults' => [
                                         'action' => 'setPackage',
+                                    ]
+                                ],
+                            ],
+                            PaymentJsonController::ROUTE_APPLY_DISCOUNT_CODE => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/applyDiscountCode',
+                                    'defaults' => [
+                                        'action' => 'applyDiscountCode',
                                     ]
                                 ],
                             ],
