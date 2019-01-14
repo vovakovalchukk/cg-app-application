@@ -1,26 +1,32 @@
 <?php
 namespace Settings\Controller;
 
-use Settings\Module;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\I18n\Translator\Translator;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
+use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Module;
 use Settings\PickList\Service as PickListService;
+use Zend\I18n\Translator\Translator;
+use Zend\Mvc\Controller\AbstractActionController;
+use CG\Settings\PickList\SortValidator;
 
 class PickListController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
     use ExceptionToViewModelUserExceptionTrait;
 
+    /** @var ActiveUserContainer */
     protected $activeUserContainer;
+    /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var Translator */
     protected $translator;
+    /** @var PickListService */
     protected $pickListService;
 
     const LOG_CODE = 'PickListController';
@@ -36,11 +42,11 @@ class PickListController extends AbstractActionController implements LoggerAware
         Translator $translator,
         PickListService $pickListService
     ) {
-        $this->setActiveUserContainer($activeUserContainer)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory)
-            ->setTranslator($translator)
-            ->setPickListService($pickListService);
+        $this->activeUserContainer = $activeUserContainer;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->viewModelFactory = $viewModelFactory;
+        $this->translator = $translator;
+        $this->pickListService = $pickListService;
     }
 
     public function indexAction()
@@ -50,25 +56,23 @@ class PickListController extends AbstractActionController implements LoggerAware
 
     public function pickListAction()
     {
-        $pickListSettings = $this->getPickListService()->getPickListSettings($this->getOrganisationUnitId());
-        $view = $this->getViewModelFactory()->newInstance();
-
+        $pickListSettings = $this->pickListService->getPickListSettings($this->getOrganisationUnitId());
+        $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('settings/picking/list');
         $view->setVariable('title', 'Pick List');
         $view->setVariable('eTag', $pickListSettings->getStoredETag());
-
-        $view->addChild(
-            $this->getSortFieldCustomSelect($this->getPickListService()->getSortFields(), $pickListSettings->getSortField()),
-            'sortFieldCustomSelect'
-        );
-
-        $view->addChild(
-            $this->getSortDirectionCustomSelect($this->getPickListService()->getSortDirections(), $pickListSettings->getSortDirection()),
-            'sortDirectionCustomSelect'
-        );
-
-        $view->addChild($this->getShowPicturesCheckbox($pickListSettings->getShowPictures()), 'showPicturesCheckbox');
-        $view->addChild($this->getShowSkulessCheckbox($pickListSettings->getShowSkuless()), 'showSkulessCheckbox');
+        $view->setVariable('pickList', $pickListSettings->toArray());
+        $view->setVariable('sortFields', $this->pickListService->getSortFields());
+        $view->setVariable('sortFieldsMap', [
+            SortValidator::SORT_FIELD_PICKING_LOCATION => 'showPickingLocations',
+        ]);
+        $view->setVariable('sortDirections', $this->pickListService->getSortDirections());
+        $view->setVariable('saveRoute', $this->url()->fromRoute(implode('/', [
+            Module::ROUTE,
+            PickListController::ROUTE,
+            PickListController::ROUTE_PICK_LIST,
+            PickListController::ROUTE_PICK_LIST_SAVE,
+        ])));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         return $view;
@@ -77,162 +81,24 @@ class PickListController extends AbstractActionController implements LoggerAware
     public function saveAction()
     {
         $pickListSettings = $this->params()->fromPost();
-        $pickList = $this->getPickListService()->savePickListSettings($pickListSettings, $this->getOrganisationUnitId());
-        return $this->getJsonModelFactory()->newInstance(['eTag' => $pickList->getStoredETag()]);
-    }
-    
-    protected function getSortFieldCustomSelect(array $sortFields, $selectedSortField)
-    {
-        $options = [];
-        foreach($sortFields as $sortField => $name) {
-            $options[] = [
-                'title' => $name,
-                'value' => $sortField,
-                'selected' => $sortField == $selectedSortField
-            ];
-        }
-
-        $customSelect = $this->getViewModelFactory()->newInstance([
-            'name' => 'sort-field-custom-select',
-            'id' => 'sort-field-custom-select',
-            'options' => $options
-        ]);
-        $customSelect->setTemplate('elements/custom-select.mustache');
-        return $customSelect;
-    }
-
-    protected function getSortDirectionCustomSelect(array $sortDirections, $selectedSortDirection)
-    {
-        $options = [];
-        foreach($sortDirections as $sortDirection => $name) {
-            $options[] = [
-                'title' => $name,
-                'value' => $sortDirection,
-                'selected' => $sortDirection == $selectedSortDirection
-            ];
-        }
-
-        $customSelect = $this->getViewModelFactory()->newInstance([
-            'name' => 'sort-direction-custom-select',
-            'id' => 'sort-direction-custom-select',
-            'options' => $options
-        ]);
-        $customSelect->setTemplate('elements/custom-select.mustache');
-        return $customSelect;
-    }
-
-    protected function getShowPicturesCheckbox($selected)
-    {
-        $checkbox = $this->getViewModelFactory()->newInstance([
-            'id' => 'show-pictures-checkbox',
-            'selected' => $selected
-        ]);
-        $checkbox->setTemplate('elements/checkbox.mustache');
-        return $checkbox;
-    }
-
-    protected function getShowSkulessCheckbox($selected)
-    {
-        $checkbox = $this->getViewModelFactory()->newInstance([
-            'id' => 'show-skuless-checkbox',
-            'selected' => $selected
-        ]);
-        $checkbox->setTemplate('elements/checkbox.mustache');
-        return $checkbox;
+        $pickList = $this->pickListService->savePickListSettings($pickListSettings, $this->getOrganisationUnitId());
+        return $this->jsonModelFactory->newInstance(['eTag' => $pickList->getStoredETag()]);
     }
 
     protected function getOrganisationUnitId()
     {
-        return $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        return $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
     }
 
-    /**
-     * @return PickListService
-     */
-    protected function getPickListService()
-    {
-        return $this->pickListService;
-    }
-
-    /**
-     * @param PickListService $pickListService
-     * @return $this
-     */
-    public function setPickListService(PickListService $pickListService)
-    {
-        $this->pickListService = $pickListService;
-        return $this;
-    }
-
-    /**
-     * @param ActiveUserContainer $activeUserContainer
-     * @return $this
-     */
-    protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return ActiveUserContainer
-     */
-    protected function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
-    /**
-     * @param JsonModelFactory $jsonModelFactory
-     * @return $this
-     */
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return JsonModelFactory
-     */
-    protected function getJsonModelFactory()
+    /** Required by trait */
+    protected function getJsonModelFactory(): JsonModelFactory
     {
         return $this->jsonModelFactory;
     }
 
-    /**
-     * @param ViewModelFactory $viewModelFactory
-     * @return $this
-     */
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return ViewModelFactory
-     */
-    protected function getViewModelFactory()
-    {
-        return $this->viewModelFactory;
-    }
-
-    /**
-     * @return Translator
-     */
-    protected function getTranslator()
+    /** Required by trait */
+    protected function getTranslator(): Translator
     {
         return $this->translator;
-    }
-
-    /**
-     * @param Translator $translator
-     * @return $this
-     */
-    protected function setTranslator(Translator $translator)
-    {
-        $this->translator = $translator;
-        return $this;
     }
 }

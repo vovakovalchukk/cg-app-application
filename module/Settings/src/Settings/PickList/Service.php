@@ -22,13 +22,21 @@ class Service
      */
     public function savePickListSettings(array $pickListSettings, $organisationUnitId)
     {
-        $pickListSettings['showPictures'] = $pickListSettings['showPictures'] == 'true';
-        $pickListSettings['showSkuless'] = $pickListSettings['showSkuless'] == 'true';
         $pickListSettings['id'] = $organisationUnitId;
+        $pickListSettings['showPictures'] = $this->filterBoolean($pickListSettings['showPictures'] ?? null);
+        $pickListSettings['showSkuless'] = $this->filterBoolean($pickListSettings['showSkuless'] ?? null);
+        $pickListSettings['showPickingLocations'] = $this->filterBoolean($pickListSettings['showPickingLocations'] ?? null);
         $pickList = $this->getPickListMapper()->fromArray($pickListSettings);
-        $pickList->setStoredETag($pickListSettings['eTag']);
+        if (isset($pickListSettings['eTag'])) {
+            $pickList->setStoredETag($pickListSettings['eTag']);
+        }
         $this->getPickListService()->save($pickList);
         return $pickList;
+    }
+
+    protected function filterBoolean($value): bool
+    {
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
 
     /**

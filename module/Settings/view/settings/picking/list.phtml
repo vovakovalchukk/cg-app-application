@@ -2,17 +2,20 @@
     $(document).ready(function() {
         require.config({
             paths: {
-                'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+                'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js',
+                'PickListSettings': "<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/PickListSettings' ?>"
             }
         });
-        require([
-            'Settings/PickList/PickList',
-            'element/Factory/Select'
-        ], function(
-            pickList,
-            select
-        ) {
-            new pickList();
+        require(['PickListSettings/PickListSettings'], function(PickListSettings) {
+            new PickListSettings(
+                document.getElementById('picklist-settings'),
+                <?= json_encode($this->eTag) ?>,
+                <?= json_encode($this->pickList) ?>,
+                <?= json_encode($this->sortFields) ?>,
+                <?= json_encode($this->sortFieldsMap) ?>,
+                <?= json_encode($this->sortDirections) ?>,
+                <?= json_encode($this->saveRoute) ?>
+            );
         });
     });
 <?php $this->inlineScript()->captureEnd(); ?>
@@ -22,33 +25,4 @@
     <?= $this->translate($title) ?>
   </span>
 </div>
-<div class="module clearfix">
-  <form>
-    <div class="pick-list-form">
-      <input type='hidden' value="<?= $eTag ?>" id="pick-list-eTag">
-      <div class="half">
-        <label>
-          <span class="inputbox-label">Sort by Column:</span>
-          <div class="order-inputbox-holder half-input">
-            <?= $sortFieldCustomSelect; ?>
-          </div>
-          <div class="order-inputbox-holder half-input">
-            <?= $sortDirectionCustomSelect; ?>
-          </div>
-        </label>
-        <label>
-          <span class="inputbox-label">Show Pictures:</span>
-          <div class="order-inputbox-holder">
-            <?= $showPicturesCheckbox; ?>
-          </div>
-        </label>
-        <label>
-          <span class="inputbox-label">Include SKUless Products:</span>
-          <div class="order-inputbox-holder">
-            <?= $showSkulessCheckbox; ?>
-          </div>
-        </label>
-      </div>
-    </div>
-  </form>
-</div>
+<div id="picklist-settings" class="module clearfix"></div>
