@@ -161,7 +161,8 @@ var actionCreators = (function() {
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowId));
-                dispatch(actionCreators.getLinkedProducts(getSkusFromData(data)));
+                let skusFromData = getSkusFromData(data);
+                dispatch(actionCreators.getLinkedProducts(skusFromData));
                 dispatch(vatActions.extractVatFromProducts(data.products));
             }
         },

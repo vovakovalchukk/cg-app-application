@@ -93,6 +93,10 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
+    if(Object.keys(vat.productsVat).length === 0){
+        return getNoVatColumn();
+    }
+
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {
         let options = vat.vatRates[countryCode];
@@ -159,4 +163,15 @@ function generateListingsColumnsFromAccounts(accounts) {
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+function getNoVatColumn() {
+    return {
+        key: 'noVat',
+        headerText: '',
+        width: 600,
+        fixed: false,
+        tab: 'vat',
+        align: 'left'
+    }
 }

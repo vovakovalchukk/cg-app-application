@@ -15,7 +15,7 @@ let utility = (function() {
             let rowClassIndex = parseInt(rowClassSplitByHyphens[rowClassSplitByHyphens.length - 1]);
             return rowClassIndex;
         },
-        getArrayOfAllRenderedRows() {
+        getArrayOfAllRenderedRowIndexes() {
             let allVisibleNonHeaderRows = getAllVisibleRowNodes();
             let allRows = allVisibleNonHeaderRows.map(row => {
                 let rowIndex = utility.getRowIndexFromRow(row);

@@ -125,7 +125,9 @@ class ProductLinkEditorComponent extends React.Component {
             'method': 'POST',
             'dataType': 'json',
             'success': function() {
-                window.triggerEvent('productLinkRefresh', this.state.sku);
+                window.triggerEvent('productLinkRefresh', {
+                    sku: this.state.sku
+                });
                 this.setState(
                     {unlinkConfirmPopup: false},
                     function() {
