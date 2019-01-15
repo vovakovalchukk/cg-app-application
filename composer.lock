@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8e8625f1e6fac7a9ef4d12e399cc84c",
+    "content-hash": "a222787accd45c6efebf645047958559",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -655,7 +655,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.16.12-1903e3.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cglib/channelgrabber-cglib-1.16.12-1903e3.zip",
                 "reference": "ae9725bf82d267c6865ac489a9a91a67acf73ac1",
                 "shasum": null
             },
@@ -948,11 +948,17 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "dev-CGIV-10215-missing-parcelforce-service",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "2c68baf17c0213af732a31b696b7e4d141768e66"
+                "reference": "09a8a799757a93d79fc77b27ec34c61f99e16dd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.8-707474.zip",
+                "reference": "09a8a799757a93d79fc77b27ec34c61f99e16dd8",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -984,7 +990,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-01-07T10:49:18+00:00"
+            "time": "2019-01-15T13:09:05+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1453,7 +1459,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.4.1-428d84.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.4.1-428d84.zip",
                 "reference": "75a58a7992d0f27300028c3c071a2716373431d9",
                 "shasum": null
             },
@@ -2136,7 +2142,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-payment-1.12.0-179c2a.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.12.0-179c2a.zip",
                 "reference": "395f79f36eebef7782bb5475afd180a65d9b8e58",
                 "shasum": null
             },
@@ -3926,7 +3932,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-billing-1.2.5-9d448b.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.5-9d448b.zip",
                 "reference": "c23f8a9bb453478f71f2226b2546ecb7b1efda5e",
                 "shasum": null
             },
@@ -9055,7 +9061,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9110,7 +9116,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9165,7 +9171,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
+                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -9277,7 +9283,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -10465,21 +10471,13 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.7",
-            "alias_normalized": "1.1.7.0",
-            "version": "dev-CGIV-10215-missing-parcelforce-service",
-            "package": "channelgrabber/courier"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
