@@ -417,6 +417,245 @@ return [
                                 ],
                             ]
                         ],
+                        'yodel' => [
+                            'channelName' => 'yodel-nd',
+                            'displayName' => 'Yodel',
+                            'providerCode' => '11',
+                            'featureFlag' => 'Yodel',
+                            'allowsCancellation' => true,
+                            'allowsManifesting' => false,
+                            'fields' => [],
+                            'bookingOptions' => [
+                                'weight' => 'weight',
+                                'height' => 'height',
+                                'width'  => 'width',
+                                'length' => 'length',
+                            ],
+                            'shippingServices' => [
+                                'DIA' => [
+                                    'name' => 'Priority 10:00',
+                                    'domestic' => true,
+                                ],
+                                'NOON' => [
+                                    'name' => 'Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                'SAT' => [
+                                    'name' => 'Saturday Priority 12:00',
+                                    'domestic' => true,
+                                ],
+                                '1EXP' => [
+                                    'name' => 'UK Expect 24 POD',
+                                    'domestic' => true,
+                                ],
+                                'ISLE' => [ //will replace STD for B2B or HDN for B2C
+                                    'name' => 'UK Express (Isle)',
+                                    'domestic' => true,
+                                ],
+                                'STD' => [
+                                    'name' => 'UK Express 24',
+                                    'domestic' => true,
+                                ],
+                                '1EB' => [
+                                    'name' => 'UK Express 24 (NI INT)',
+                                    'domestic' => true,
+                                ],
+                                '1EU' => [
+                                    'name' => 'UK Express 24 (UK)',
+                                    'domestic' => true,
+                                ],
+                                'ECO' => [
+                                    'name' => 'UK Express 48',
+                                    'domestic' => true,
+                                ],
+                                'NIS' => [
+                                    'name' => 'UK Express 48 (NI)',
+                                    'domestic' => true,
+                                ],
+                                'STSA' => [
+                                    'name' => 'UK Express Saturday',
+                                    'domestic' => true,
+                                ],
+                                'HDN' => [
+                                    'name' => 'UK Home Delivery 24',
+                                    'domestic' => true,
+                                ],
+                                '1HB' => [
+                                    'name' => 'UK Home Delivery 24 (BT)',
+                                    'domestic' => true,
+                                ],
+                                'HECO' => [
+                                    'name' => 'UK Home Delivery 48',
+                                    'domestic' => true,
+                                ],
+                                '2HB' => [
+                                    'name' => 'UK Home Delivery 48 (BT)',
+                                    'domestic' => true,
+                                ],
+                                '2HN' => [
+                                    'name' => 'UK Home Delivery 48 (NI)',
+                                    'domestic' => true,
+                                ],
+                                'HDPA' => [
+                                    'name' => 'UK Home Delivery 72',
+                                    'domestic' => true,
+                                ],
+                                'HIPA' => [
+                                    'name' => 'UK Home Delivery 72 (NI)',
+                                    'domestic' => true,
+                                ],
+                                '5HCT' => [
+                                    'name' => 'UK Home Delivery Catalogue',
+                                    'domestic' => true,
+                                ],
+                                'HSAT' => [
+                                    'name' => 'UK Home Delivery Saturday',
+                                    'domestic' => true,
+                                ],
+                                'PACK' => [
+                                    'name' => 'UK Packet Service',
+                                    'domestic' => true,
+                                ],
+                                '1CP' => [
+                                    'name' => 'Xpress 24 POD',
+                                    'domestic' => true,
+                                ],
+                                '1CN' => [
+                                    'name' => 'Xpress 24 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '2CP' => [
+                                    'name' => 'Xpress 48 POD',
+                                    'domestic' => true,
+                                ],
+                                '2CN' => [
+                                    'name' => 'Xpress 48 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '1VP' => [
+                                    'name' => 'Xpect 24 POD',
+                                    'domestic' => true,
+                                ],
+                                '1VN' => [
+                                    'name' => 'Xpect 24 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '2VP' => [
+                                    'name' => 'Xpect 48 POD',
+                                    'domestic' => true,
+                                ],
+                                '2VN' => [
+                                    'name' => 'Xpect 48 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '2VLP' => [
+                                    'name' => 'Xpect 48 XL POD',
+                                    'domestic' => true,
+                                ],
+                                '2VLN' => [
+                                    'name' => 'Xpect 48 XL NON POD',
+                                    'domestic' => true,
+                                ],
+                                '1VSP' => [
+                                    'name' => 'Xpect Saturday POD',
+                                    'domestic' => true,
+                                ],
+                                '1VSN' => [
+                                    'name' => 'Xpect Saturday NON POD',
+                                    'domestic' => true,
+                                ],
+                                '12P' => [
+                                    'name' => 'Xpect Pre 12 POD',
+                                    'domestic' => true,
+                                ],
+                                '1VD' => [
+                                    'name' => 'Xpert 24 POD Desk',
+                                    'domestic' => true,
+                                ],
+                                '1VA' => [
+                                    'name' => 'Xpert 24 Address Only',
+                                    'domestic' => true,
+                                ],
+                                '1VT' => [
+                                    'name' => 'Xpert 24 HVT POD',
+                                    'domestic' => true,
+                                ],
+                                '1BFP' => [
+                                    'name' => 'Xpert 24 BFPO POD',
+                                    'domestic' => true,
+                                ],
+                                '1VSA' => [
+                                    'name' => 'Xpert Saturday Address Only',
+                                    'domestic' => true,
+                                ],
+                                '1VST' => [
+                                    'name' => 'Xpert Saturday HVT POD',
+                                    'domestic' => true,
+                                ],
+                                '12N' => [
+                                    'name' => 'Xpert Pre 12 NON POD',
+                                    'domestic' => true,
+                                ],
+                                '12T' => [
+                                    'name' => 'Xpert Pre 12 HVT Address Only',
+                                    'domestic' => true,
+                                ],
+                                '12A' => [
+                                    'name' => 'Xpert Pre 12 Address Only',
+                                    'domestic' => true,
+                                ],
+                                '12SP' => [
+                                    'name' => 'Xpert Pre 12 Saturday POD',
+                                    'domestic' => true,
+                                ],
+                                '12SN' => [
+                                    'name' => 'Xpert Pre 12 Saturday NON POD',
+                                    'domestic' => true,
+                                ],
+                                '12SA' => [
+                                    'name' => 'Xpert Pre 12 Saturday Address Only',
+                                    'domestic' => true,
+                                ],
+                                '12ST' => [
+                                    'name' => 'Xpert Pre 12 Saturday HVT Address Only',
+                                    'domestic' => true,
+                                ],
+                                '5CN' => [
+                                    'name' => 'Xpert Catalogue NON POD',
+                                    'domestic' => true,
+                                ],
+
+                                //ROI and CI only
+                                '48POD' => [
+                                    'name' => 'Yodel 48 POD',
+                                    'domestic' => false,
+                                    'countries' => [
+                                        'GG', 'IE', 'JE'
+                                    ]
+                                ],
+                                '48NPOD' => [
+                                    'name' => 'Yodel 48 NON POD',
+                                    'domestic' => false,
+                                    'countries' => [
+                                        'GG', 'IE', 'JE'
+                                    ]
+                                ],
+                                '72POD' => [
+                                    'name' => 'Yodel 72 POD',
+                                    'domestic' => false,
+                                    'countries' => [
+                                        'GG', 'IE', 'JE'
+                                    ]
+                                ],
+                                '72NPOD' => [
+                                    'name' => 'Yodel 72 NON POD',
+                                    'domestic' => false,
+                                    'countries' => [
+                                        'GG', 'IE', 'JE'
+                                    ]
+                                ],
+                            ]
+                        ]
                     ]
                 ]
             ],

@@ -41,7 +41,6 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $massUnit; ?>',
         '<?= $lengthUnit; ?>'
     );
-    new Clipboard('td.sku-cell', [], 'data-copy');
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
@@ -49,7 +48,14 @@ function(ProductRoot, Clipboard, ImageUtils) {
 $this->placeholder('#sidebar')
     ->append($this->sidebarLinks);
 ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+
+<?php
+$this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']);
+$this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/fixed-data-table-2/dist/fixed-data-table.css', ['screen', 'print']);
+?>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:400,700" media="screen" rel="stylesheet" type="text/css">
+
 <div id="main" class="products transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>

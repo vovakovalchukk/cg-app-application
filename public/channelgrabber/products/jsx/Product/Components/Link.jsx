@@ -1,34 +1,32 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Tooltip from 'Product/Components/Tooltip';
+import constants from 'Product/Components/ProductList/Config/constants';
+import Skeleton from 'react-skeleton-loader';
+import styled from 'styled-components';
 
+"use strict";
+
+const {LINK_STATUSES} = constants;
+const LINK_ICON_DIMENSIONS = {
+    width: 18,
+    height: 18
+};
+
+const LinkIcon = styled.div`
+    cursor: pointer;
+    transform: scale(0.7);
+`;
 
 class LinkComponent extends React.Component {
     static defaultProps = {
         sku: "",
-        productLinks: []
+        productLinks: [],
+        linkStatus: ''
     };
 
     state = {
         fetchingLinks: false,
-    };
-
-    componentDidMount() {
-        window.addEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
-        window.addEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('fetchingProductLinksStart', this.onStartFetchingLinks, false);
-        window.removeEventListener('fetchingProductLinksStop', this.onStopFetchingLinks, false);
-    }
-
-    onStartFetchingLinks = () => {
-        this.setState({ fetchingLinks: true });
-    };
-
-    onStopFetchingLinks = () => {
-        this.setState({ fetchingLinks: false });
     };
 
     onClick = () => {
@@ -47,7 +45,7 @@ class LinkComponent extends React.Component {
                 </div>
             );
         }
-
+        
         return this.props.productLinks.map(function(linkedProduct) {
             return (
                 <div key={linkedProduct.sku}
@@ -55,33 +53,30 @@ class LinkComponent extends React.Component {
                      onClick={this.onLinkRowClick.bind(this, linkedProduct.sku)}
                      title="Click to search for this product."
                 >
-                    <span className="thumbnail">
-                        <img src={linkedProduct.product ? this.context.imageUtils.getProductImage(linkedProduct.product, linkedProduct.sku) : ''} />
-                    </span>
+                        <span className="thumbnail">
+                            <img
+                                src={linkedProduct.product ? this.context.imageUtils.getProductImage(linkedProduct.product, linkedProduct.sku) : ''}/>
+                        </span>
                     <span className="sku">{linkedProduct.sku}</span>
                     <span className="stock">{linkedProduct.quantity}</span>
                 </div>
             );
         }.bind(this));
     };
-
+  
     getLinkIcon = () => {
-        if (this.state.fetchingLinks) {
+        if (this.props.linkStatus == LINK_STATUSES.fetching) {
             return (
-                <span>
-                    <img
-                        title="Loading Product Links..."
-                        src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif"
-                        className="b-loader"
-                    />
-                </span>
+                <Skeleton
+                    width={LINK_ICON_DIMENSIONS.height + 'px'}
+                    height={LINK_ICON_DIMENSIONS.height + 'px'}
+                    borderRadius={(LINK_ICON_DIMENSIONS.height / 2) + 'px'}
+                />
             );
         }
         var spriteClass = (this.props.productLinks.length ? 'sprite-linked-22-blue' : 'sprite-linked-22-white');
         return (
-            <span className={"sprite "+ spriteClass + " click"}
-                  onClick={this.onClick}
-            ></span>
+            <LinkIcon className={"sprite click " + spriteClass} onClick={this.onClick} />
         );
     };
 
