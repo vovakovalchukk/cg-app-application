@@ -3,7 +3,7 @@ import styled from 'styled-components';
     
     let PageLink = styled.a.attrs({
         title: props => {
-            return 'go to ' + props.count;
+            return 'go to page ' + props.count;
         }
     })`
         color: ${props => props.isCurrentPage ? '#1477aa' : ''};
