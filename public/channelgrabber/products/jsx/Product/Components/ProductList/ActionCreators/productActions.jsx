@@ -101,7 +101,6 @@ var actionCreators = (function() {
                 } catch (err) {
                     throw 'Unable to load products... error: ' + err;
                 }
-
                 dispatch(vatActions.extractVatFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
