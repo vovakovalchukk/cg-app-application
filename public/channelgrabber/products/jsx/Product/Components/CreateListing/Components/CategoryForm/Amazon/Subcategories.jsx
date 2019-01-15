@@ -58,6 +58,7 @@ class SubcategoriesComponent extends React.Component {
                 onOptionChange={this.onCategorySelected.bind(this, field.input, field.fields, field.index)}
                 selectedOption={field.input.value.selected}
                 className={"sub-category-select"}
+                filterable={true}
             />
             {field.index === 0 && this.renderRemoveButton(field.fields)}
         </span>
