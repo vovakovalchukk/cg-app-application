@@ -4,11 +4,14 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\ApcRead as OrganisationUnitStorageApcRead;
 use CG\OrganisationUnit\Storage\ApcWrite as OrganisationUnitStorageApcWrite;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
+use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 
 return [
     'di' => [
         'instance' => [
-            'preferences' => [],
+            'preferences' => [
+                OrganisationUnitStorage::class => OrganisationUnitStorageApi::class,
+            ],
             'aliases' => [
                 'organisationUnitApcReadService' => OrganisationUnitService::class,
                 'organisationUnitApcReadRepository' => OrganisationUnitRepository::class
