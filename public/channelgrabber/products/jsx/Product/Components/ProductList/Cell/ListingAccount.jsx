@@ -29,6 +29,10 @@ const LISTING_STATUSES_BY_PRIORITY = [
         status: 'uninmported',
         getHoverMessage: () => ('This listing has not yet been imported or does not exist'),
         statusPriority: 5
+    }, {
+        status: 'ended',
+        getHoverMessage: () => ('This listing has ended'),
+        statusPriority: 6
     }
 ];
 
@@ -59,7 +63,7 @@ class ListingAccountCell extends React.Component {
         let listingUrl = getListingUrl(mostNegativeListing);
         let listingTitle = getListingTitle(mostNegativeListing);
 
-        let {status} = mostNegativeListingStateFromListings;
+        let status = mostNegativeListingStateFromListings && mostNegativeListingStateFromListings.status ? mostNegativeListingStateFromListings.status : '';
 
         return <ListingStatus
             status={status}
@@ -95,6 +99,9 @@ function getListingTitle(listing) {
     let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
         return listing.status === status.status;
     });
+    if(!relevantListingStatus){
+        return '';
+    }
     if (relevantListingStatus.status === 'error' && listing.message) {
         return listing.message;
     }
@@ -117,6 +124,9 @@ function getMostNegativeListing(listings) {
         let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
             return listing.status === status.status;
         });
+        if(!relevantListingStatus){
+            return;
+        }
         if (relevantListingStatus.statusPriority > mostNegativeListing.status.statusPriority) {
             mostNegativeListing = relevantListingStatus;
         }

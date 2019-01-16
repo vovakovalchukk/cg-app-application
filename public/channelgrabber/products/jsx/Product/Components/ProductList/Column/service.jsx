@@ -132,7 +132,7 @@ function generateListingsColumnsFromAccounts(accounts) {
     let channelSpecificColumns = [];
     Object.keys(accounts).forEach((accountKey) => {
         let account = accounts[accountKey];
-        if (!account.type.includes('sales')) {
+        if (!account.type.includes('sales') || account.channel === 'api') {
             return;
         }
         channelSpecificColumns.push({
