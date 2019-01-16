@@ -29,7 +29,7 @@ class FooterComponent extends React.Component {
         for (var count = firstPageLink; count <= lastPageLink; count++) {
             pageLinks.push(
                 <PageLink
-                    page={count}
+                    count={count}
                     isCurrentPage={this.props.pagination.page === count}
                     onClick={this.props.actions.changePage.bind(this, count)}
                 >
