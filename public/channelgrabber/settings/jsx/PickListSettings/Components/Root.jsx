@@ -8,7 +8,8 @@ import ajaxRequester from "AjaxRequester";
 
 class RootComponent extends React.Component {
     defaultProps = {
-        saveUrl: null
+        saveUrl: null,
+        isPickLocationsEnabled: false
     };
 
     constructor(props) {
@@ -61,6 +62,7 @@ class RootComponent extends React.Component {
                         checked={this.state.showSkuless || false}
                     />
                 </Row>
+                {this.props.isPickLocationsEnabled &&
                 <Row label="Show Picking Location:">
                     <Checkbox
                         name="showPickingLocations"
@@ -68,6 +70,7 @@ class RootComponent extends React.Component {
                         checked={this.state.showPickingLocations || false}
                     />
                 </Row>
+                }
                 <Row label="Sort by Column:" className="selects">
                     <Select
                         name="sortField"
@@ -82,11 +85,13 @@ class RootComponent extends React.Component {
                         options={this.sortDirections()}
                     />
                 </Row>
+                {this.props.isPickLocationsEnabled &&
                 <StockLocation
                     name="locationNames"
                     onChange={(locationNames) => this.setState({locationNames: locationNames})}
                     locationNames={this.state.locationNames || []}
                 />
+                }
                 <div className="align-center">
                     <ButtonComponent
                         text="Save"

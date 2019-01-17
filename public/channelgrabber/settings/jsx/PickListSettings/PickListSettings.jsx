@@ -2,7 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import RootComponent from './Components/Root';
 
-var PickListSettings = function(domNode, eTag, pickList, sortFields, sortFieldsMap, sortDirections, saveUrl) {
+var PickListSettings = function(
+    domNode,
+    eTag,
+    pickList,
+    sortFields,
+    sortFieldsMap,
+    sortDirections,
+    saveUrl,
+    isPickLocationsEnabled
+) {
     ReactDOM.render(
         <RootComponent
             eTag={eTag}
@@ -11,6 +20,7 @@ var PickListSettings = function(domNode, eTag, pickList, sortFields, sortFieldsM
             sortFieldsMap={sortFieldsMap}
             sortDirections={sortDirections}
             saveUrl={saveUrl}
+            isPickLocationsEnabled={isPickLocationsEnabled}
         />,
         domNode
     );

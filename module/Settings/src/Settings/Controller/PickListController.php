@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Settings\PickList\SortValidator;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
@@ -11,7 +12,6 @@ use Settings\Module;
 use Settings\PickList\Service as PickListService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Settings\PickList\SortValidator;
 
 class PickListController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -56,13 +56,16 @@ class PickListController extends AbstractActionController implements LoggerAware
 
     public function pickListAction()
     {
-        $pickListSettings = $this->pickListService->getPickListSettings($this->getOrganisationUnitId());
+        $ouId = $this->getOrganisationUnitId();
+        $isPickLocationsEnabled = $this->pickListService->isPickLocationsEnabled($ouId);
+        $pickListSettings = $this->pickListService->getPickListSettings($ouId);
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('settings/picking/list');
         $view->setVariable('title', 'Pick List');
         $view->setVariable('eTag', $pickListSettings->getStoredETag());
+        $view->setVariable('isPickLocationsEnabled', $isPickLocationsEnabled);
         $view->setVariable('pickList', $pickListSettings->toArray());
-        $view->setVariable('sortFields', $this->pickListService->getSortFields());
+        $view->setVariable('sortFields', $this->pickListService->getSortFields($isPickLocationsEnabled));
         $view->setVariable('sortFieldsMap', [
             SortValidator::SORT_FIELD_PICKING_LOCATION => 'showPickingLocations',
         ]);

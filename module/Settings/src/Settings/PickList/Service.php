@@ -1,26 +1,50 @@
 <?php
 namespace Settings\PickList;
 
-use CG\Settings\PickList\Service as PickListService;
-use CG\Settings\PickList\Mapper as PickListMapper;
+use CG\FeatureFlags\Service as FeatureFlags;
+use CG\OrganisationUnit\Service as OuService;
 use CG\Settings\PickList\Entity as PickList;
+use CG\Settings\PickList\Mapper as PickListMapper;
+use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\SortValidator;
 
 class Service
 {
-    protected $pickListService;
-    protected $pickListMapper;
+    const FEATURE_FLAG = 'PickLocations';
 
-    public function __construct(PickListService $pickListService, PickListMapper $pickListMapper)
+    /** @var PickListService */
+    protected $pickListService;
+    /** @var PickListMapper */
+    protected $pickListMapper;
+    /** @var OuService */
+    protected $ouService;
+    /** @var FeatureFlags */
+    protected $featureFlags;
+
+    public function __construct(
+        PickListService $pickListService,
+        PickListMapper $pickListMapper,
+        OuService $ouService,
+        FeatureFlags $featureFlags
+    ) {
+        $this->pickListService = $pickListService;
+        $this->pickListMapper = $pickListMapper;
+        $this->ouService = $ouService;
+        $this->featureFlags = $featureFlags;
+    }
+
+    public function isPickLocationsEnabled(int $organisationUnitId): bool
     {
-        $this->setPickListService($pickListService)
-            ->setPickListMapper($pickListMapper);
+        return $this->featureFlags->isActive(
+            static::FEATURE_FLAG,
+            $this->ouService->getRootOuFromOuId($organisationUnitId)
+        );
     }
 
     /**
      * @return PickList
      */
-    public function savePickListSettings(array $pickListSettings, $organisationUnitId)
+    public function savePickListSettings(array $pickListSettings, int $organisationUnitId)
     {
         $pickListSettings['id'] = $organisationUnitId;
         $pickListSettings['showPictures'] = $this->filterBoolean($pickListSettings['showPictures'] ?? null);
@@ -42,14 +66,18 @@ class Service
     /**
      * @return PickList
      */
-    public function getPickListSettings($organisationUnitId)
+    public function getPickListSettings(int $organisationUnitId)
     {
         return $this->getPickListService()->fetch($organisationUnitId);
     }
 
-    public function getSortFields()
+    public function getSortFields(bool $pickLocationsEnabled)
     {
-        return SortValidator::getSortFieldsNames();
+        $sortFields = SortValidator::getSortFieldsNames();
+        if (!$pickLocationsEnabled) {
+            unset($sortFields[SortValidator::SORT_FIELD_PICKING_LOCATION]);
+        }
+        return $sortFields;
     }
 
     public function getSortDirections()
