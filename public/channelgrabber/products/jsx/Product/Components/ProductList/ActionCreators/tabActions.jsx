@@ -16,6 +16,14 @@ let tabActions = (function() {
                 dispatch(rowActions.modifyZIndexOfRows);
             }
         },
+        showStockTab: () => {
+            return function (dispatch) {
+                dispatch({
+                    type: 'SHOW_STOCK_TAB',
+                    payload: {}
+                })
+            }
+        }
     };
 })();
 
