@@ -17,12 +17,17 @@ class NameCell extends React.Component {
     static defaultProps = {};
     state = {};
 
-    getVariationName = (row) => {
+    getVariationAttributeArray = (row) => {
         return Object.keys(row.attributeValues).map((key) => {
-            return (
-                <div>{key}: {row.attributeValues[key]}&nbsp;</div>
-            );
+            return key + ': ' + row.attributeValues[key];
         });
+    };
+    getVariationName = (row, isVariation) => {
+        if (!isVariation) {
+            return row['name'];
+        }
+        let variationAttributeArray = this.getVariationAttributeArray(row)
+        return variationAttributeArray.join(', ');
     };
     getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
@@ -30,14 +35,15 @@ class NameCell extends React.Component {
     getClassNames = () => {
         return this.props.className + ' ' + this.getUniqueClassName();
     };
-    componentDidMount() {
+    componentDidMount = () => {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
     render() {
         const {products, rowIndex} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);
-        let name = isVariation ? this.getVariationName(row) : row['name'];
+
+        let name = this.getVariationName(row, isVariation);
 
         return (
             <NameContainer>
