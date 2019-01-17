@@ -7,10 +7,6 @@
         {
             "url": "https://d1erq3dexipllg.cloudfront.net",
             "type": "composer"
-        },
-        {
-            "url": "https://composer.build.channelgrabber.com",
-            "type": "composer"
         }
     ],
     "config": {
@@ -34,7 +30,7 @@
         "channelgrabber/clearbooks": "~1.12.0",
         "channelgrabber/communication": "~1.0.11",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "~1.1.7",
+        "channelgrabber/courier": "~1.1.8",
         "channelgrabber/courieradapter": "~1.4.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
@@ -100,7 +96,7 @@
         "channelgrabber/zf2-login": "~1.6.5",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.1.0",
-        "channelgrabber/zf2-permission": "~1.2.3",
+        "channelgrabber/zf2-permission": "~1.2.4",
         "channelgrabber/zf2-register": "~1.6.18",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sagepay": "~1.0.7",
