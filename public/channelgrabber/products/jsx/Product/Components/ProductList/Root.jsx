@@ -14,6 +14,7 @@ import ProductList from 'Product/Components/ProductList/ProductList'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
+import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 
 "use strict";
 
@@ -30,7 +31,8 @@ const mapStateToProps = function(state) {
         bulkSelect: state.bulkSelect,
         rows: state.rows,
         userSettings: state.userSettings,
-        search: state.search
+        search: state.search,
+        pickLocations: state.pickLocations
     };
 };
 
@@ -60,7 +62,8 @@ function combineActionCreators(ownProps) {
         bulkSelectActions,
         passedInMethodsAsActions,
         rowActions,
-        userSettingsActions
+        userSettingsActions,
+        pickLocationsActions
     );
 }
 

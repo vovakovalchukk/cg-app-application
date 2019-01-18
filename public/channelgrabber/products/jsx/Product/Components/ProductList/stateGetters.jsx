@@ -35,6 +35,9 @@ let stateGetters = function(getState) {
             },
             getSelectedProducts() {
                 return _getState().bulkSelect.selectedProducts;
+            },
+            getPickLocationNames() {
+                return _getState().pickLocations.names;
             }
         };
         return self;

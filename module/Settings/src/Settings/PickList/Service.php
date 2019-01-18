@@ -3,14 +3,18 @@ namespace Settings\PickList;
 
 use CG\FeatureFlags\Service as FeatureFlags;
 use CG\OrganisationUnit\Service as OuService;
+use CG\Product\PickingLocation\Entity as PickingLocation;
+use CG\Product\PickingLocation\Filter as PickingLocationFilter;
+use CG\Product\PickingLocation\Service as PickingLocationService;
 use CG\Settings\PickList\Entity as PickList;
 use CG\Settings\PickList\Mapper as PickListMapper;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\SortValidator;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Service
 {
-    const FEATURE_FLAG = 'PickLocations';
+    const FEATURE_FLAG_PICK_LOCATIONS = 'PickLocations';
 
     /** @var PickListService */
     protected $pickListService;
@@ -20,23 +24,27 @@ class Service
     protected $ouService;
     /** @var FeatureFlags */
     protected $featureFlags;
+    /** @var PickingLocationService */
+    protected $pickingLocationService;
 
     public function __construct(
         PickListService $pickListService,
         PickListMapper $pickListMapper,
         OuService $ouService,
-        FeatureFlags $featureFlags
+        FeatureFlags $featureFlags,
+        PickingLocationService $pickingLocationService
     ) {
         $this->pickListService = $pickListService;
         $this->pickListMapper = $pickListMapper;
         $this->ouService = $ouService;
         $this->featureFlags = $featureFlags;
+        $this->pickingLocationService = $pickingLocationService;
     }
 
     public function isPickLocationsEnabled(int $organisationUnitId): bool
     {
         return $this->featureFlags->isActive(
-            static::FEATURE_FLAG,
+            static::FEATURE_FLAG_PICK_LOCATIONS,
             $this->ouService->getRootOuFromOuId($organisationUnitId)
         );
     }
@@ -69,6 +77,24 @@ class Service
     public function getPickListSettings(int $organisationUnitId)
     {
         return $this->getPickListService()->fetch($organisationUnitId);
+    }
+
+    public function getPickListValues(int $organisationUnitId): array
+    {
+        try {
+            /** @var PickingLocation[] $pickingLocations */
+            $pickingLocations = $this->pickingLocationService->fetchCollectionByFilter(
+                (new PickingLocationFilter('all'))->setOrganisationUnitId([$organisationUnitId])
+            );
+        } catch (NotFound $exception) {
+            return [];
+        }
+
+        $values = [];
+        foreach ($pickingLocations as $pickingLocation) {
+            $values[$pickingLocation->getLevel()] = $pickingLocation->getNames();
+        }
+        return $values;
     }
 
     public function getSortFields(bool $pickLocationsEnabled)

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "932a57a95e9011887c471c1c2296a63d",
+    "content-hash": "64d2f61221e7a0094a53a43af7a78005",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2466,21 +2466,21 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.7",
+            "version": "dev-TAC-287-ProductPickingLocation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "c6ccc2647314e0304a5736a89979e0cf192bdfd8"
+                "reference": "e5e561c0cbbf1b517f60d5f27940a13d6a5247c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.7-e4d91a.zip",
-                "reference": "c6ccc2647314e0304a5736a89979e0cf192bdfd8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-287-ProductPickingLocation-88b110.zip",
+                "reference": "e5e561c0cbbf1b517f60d5f27940a13d6a5247c7",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": "^1.32.7",
+                "channelgrabber/channel": "^1.33.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.5.4",
@@ -2490,7 +2490,7 @@
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.1",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/notification": "^1.0.0",
+                "channelgrabber/notification": "^1.2.1",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.24",
@@ -2527,7 +2527,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-09-27T13:58:01+00:00"
+            "time": "2019-01-17T16:10:21+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -8969,6 +8969,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zendpdf.git",
                 "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-2.0.2.2-20f803.zip",
+                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5",
+                "shasum": null
+            },
             "require": {
                 "php": ">=5.3.3",
                 "zendframework/zend-memory": ">=2.0.0",
@@ -10942,6 +10948,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.16.11",
+            "alias_normalized": "1.16.11.0",
+            "version": "dev-TAC-287-ProductPickingLocation",
+            "package": "channelgrabber/product"
+        },
+        {
             "alias": "1.6.5",
             "alias_normalized": "1.6.5.0",
             "version": "dev-TAC-286-PickingLocationNames",
@@ -10951,6 +10963,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/settings": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

@@ -39,6 +39,9 @@ class StatelessSelectComponent extends React.Component {
         portalSettingsForDropdown: {},
         active: false
     };
+    state = {
+        filter: ""
+    };
     onComponentClick = () => {
         this.props.selectToggle(this.props.inputId);
     };
@@ -48,11 +51,17 @@ class StatelessSelectComponent extends React.Component {
     getClassNames = () => {
         return 'custom-select ' + this.props.classNames + (this.props.active ? 'active' : '');
     };
+    setFilter = (filter) => {
+        this.setState({filter});
+    };
+    filter = (opt) => {
+        return this.state.filter ? opt.name.toLowerCase().includes(this.state.filter.toLowerCase()) : true;
+    };
     onOptionSelected = (value) => {
         var selectedOption = this.props.options.find(function(option) {
             return option.value === value;
         });
-        this.props.onOptionChange(selectedOption);
+        this.props.onOptionChange(selectedOption || {value});
     };
     renderOption = (opt, index) => {
         return <li
@@ -67,7 +76,10 @@ class StatelessSelectComponent extends React.Component {
     };
     renderOptions = () => {
         return (
-            this.props.options.map(this.renderOption)
+            <React.Fragment>
+                {this.props.children}
+                {this.props.options.filter(this.filter).map(this.renderOption)}
+            </React.Fragment>
         )
     };
     renderDropdownInPortal = () => {
