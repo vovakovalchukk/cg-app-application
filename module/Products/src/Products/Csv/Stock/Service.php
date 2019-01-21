@@ -1,31 +1,25 @@
 <?php
-namespace Products\Stock\Csv;
+namespace Products\Csv\Stock;
 
-use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Product\Client\Service as ProductService;
-use CG\Product\Entity as Product;
-use CG\Product\Filter as ProductFilter;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stock\Collection as Stock;
 use CG\Stock\Gearman\Generator\StockImport as StockImportGearmanJobGenerator;
-use CG\Stock\Import\File\Entity as ImportFile;
 use CG\Stock\Import\File\Mapper as ImportFileMapper;
 use CG\Stock\Import\File\StorageInterface as ImportFileStorage;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
+use Products\Csv\ServiceAbstract;
+use SplFileObject as Csv;
+use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
-class Service
+class Service extends ServiceAbstract
 {
-    const MIME_TYPE = "text/csv";
     const FILENAME = "stock.csv";
-    const COLLECTION_SIZE = 200;
-    const EVENT_STOCK_IMPORT = "Stock Levels Imported";
-    const EVENT_STOCK_EXPORT = "Stock Levels Exported";
+    const EVENT_TYPE = "Stock Levels";
 
-    /** @var ActiveUserInterface $activeUserContainer */
-    protected $activeUserContainer;
     /** @var StockStorage $stockStorage */
     protected $stockStorage;
     /** @var ProductService $productService */
@@ -38,10 +32,6 @@ class Service
     protected $importFileMapper;
     /** @var StockImportGearmanJobGenerator $stockImportGearmanJobGenerator */
     protected $stockImportGearmanJobGenerator;
-    /** @var IntercomEventService $intercomEventService */
-    protected $intercomEventService;
-    /** @var ProgressStorage */
-    protected $progressStorage;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -54,7 +44,11 @@ class Service
         IntercomEventService $intercomEventService,
         ProgressStorage $progressStorage
     ) {
-        $this->activeUserContainer = $activeUserContainer;
+        parent::__construct(
+            $activeUserContainer,
+            $intercomEventService,
+            $progressStorage
+        );
         $this->stockStorage = $stockStorage;
         $this->productService = $productService;
         $this->mapper = $mapper;
@@ -65,47 +59,9 @@ class Service
         $this->progressStorage = $progressStorage;
     }
 
-    public function uploadCsvForActiveUser($updateOption, $fileContents)
+    protected function generateCsv($userId, $organisationUnitId, $progressKey = null): CsvWriter
     {
-        $this->uploadCsv(
-            $this->getActiveUserId(),
-            $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            $updateOption,
-            $fileContents
-        );
-    }
-
-    public function uploadCsv(
-        $userId,
-        $organisationUnitId,
-        $updateOption,
-        $fileContents
-    ) {
-        $this->notifyOfUpload($userId);
-        ($this->stockImportGearmanJobGenerator)->generateJob(
-            $this->saveFile($updateOption, $fileContents, $userId, $organisationUnitId)
-        );
-    }
-
-    protected function saveFile($updateOption, $fileContents, $userId, $organisationUnitId): ImportFile
-    {
-        return $this->importFileStorage->save(
-            $this->importFileMapper->fromUpload($updateOption, $fileContents, $userId, $organisationUnitId)
-        );
-    }
-
-    public function generateCsvForActiveUser($progressKey = null)
-    {
-        return $this->generateCsv(
-            $this->getActiveUserId(),
-            $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            $progressKey
-        );
-    }
-
-    public function generateCsv($userId, $organisationUnitId, $progressKey = null)
-    {
-        $this->notifyOfExport($userId);
+        $this->notifyIntercom(static::EVENT_TYPE . static::EVENT_EXPORTED, $userId);
 
         $csv = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
         $csv->insertOne($this->getHeaders());
@@ -162,7 +118,7 @@ class Service
         }
     }
 
-    protected function getHeaders()
+    protected function getHeaders(): array
     {
         return [
             "SKU",
@@ -171,59 +127,22 @@ class Service
         ];
     }
 
-    public function startProgress($progressKey)
-    {
-        $this->progressStorage->setProgress($progressKey, 0);
-    }
-
-    /**
-     * @return int | null
-     */
-    public function checkProgress($progressKey)
-    {
-        $count = $this->progressStorage->getProgress($progressKey);
-        if ($count === null) {
-            return null;
-        }
-        return (int)$count;
-    }
-
-    protected function endProgress($progressKey)
-    {
-        $this->progressStorage->removeProgress($progressKey);
-    }
-
-    /**
-     * @return int | null
-     */
-    public function getTotalForProgress($key)
-    {
-        $total = $this->progressStorage->getTotal($key);
-        if ($total === null) {
-            return null;
-        }
-        return (int)$total;
-    }
-
-    protected function notifyOfExport($userId)
-    {
-        $this->notifyIntercom(static::EVENT_STOCK_EXPORT, $userId);
-    }
-
-    protected function notifyOfUpload($userId)
-    {
-        $this->notifyIntercom(static::EVENT_STOCK_IMPORT, $userId);
-    }
-
-    protected function notifyIntercom($event, $userId)
-    {
-        $this->intercomEventService->save(
-            new IntercomEvent($event, $userId)
+    protected function uploadCsv(
+        $userId,
+        $organisationUnitId,
+        $updateOption,
+        $fileContents
+    ) {
+        $this->notifyIntercom(static::EVENT_TYPE . self::EVENT_IMPORTED, $userId);
+        ($this->stockImportGearmanJobGenerator)->generateJob(
+            $this->saveFile($updateOption, $fileContents, $userId, $organisationUnitId)
         );
     }
 
-    protected function getActiveUserId()
+    protected function saveFile($updateOption, $fileContents, $userId, $organisationUnitId)
     {
-        return $this->activeUserContainer->getActiveUser()->getId();
+        return $this->importFileStorage->save(
+            $this->importFileMapper->fromUpload($updateOption, $fileContents, $userId, $organisationUnitId)
+        );
     }
 }

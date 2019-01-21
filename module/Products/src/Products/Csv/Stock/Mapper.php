@@ -1,5 +1,5 @@
 <?php
-namespace Products\Stock\Csv;
+namespace Products\Csv\Stock;
 
 use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
