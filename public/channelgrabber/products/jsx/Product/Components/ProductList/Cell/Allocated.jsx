@@ -8,9 +8,7 @@ class AllocatedCell extends React.Component {
     render() {
         const {
             products,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
-            width
+            rowIndex
         } = this.props;
         let rowData = stateUtility.getRowData(products, rowIndex);
         const isParentProduct = stateUtility.isParentProduct(rowData);
