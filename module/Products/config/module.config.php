@@ -168,6 +168,37 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_EXPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/link/csv/export',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'linkCsvExport'
+                            ]
+                        ],
+                        'may_terminate' => true,
+//                        'child_routes' => [
+//                            ProductsJsonController::ROUTE_STOCK_CSV_EXPORT_CHECK => [
+//                                'type' => Literal::class,
+//                                'options' => [
+//                                    'route' => '/check',
+//                                    'defaults' => [
+//                                        'action' => 'stockCsvExportCheck'
+//                                    ]
+//                                ],
+//                            ],
+//                            ProductsJsonController::ROUTE_STOCK_CSV_EXPORT_PROGRESS => [
+//                                'type' => Literal::class,
+//                                'options' => [
+//                                    'route' => '/progress',
+//                                    'defaults' => [
+//                                        'action' => 'stockCsvExportProgress'
+//                                    ]
+//                                ],
+//                            ],
+//                        ]
+                    ],
                     ProductsJsonController::ROUTE_DETAILS_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
