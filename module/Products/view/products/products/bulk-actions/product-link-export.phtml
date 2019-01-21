@@ -1,0 +1,9 @@
+require(["Product/BulkAction/ProductLinkExport"], function(ProductLinkExport)
+{
+    var stockExportAction = new ProductLinkExport(
+        "<?= $this->translate('Preparing to generate product link export') ?>",
+        "<?= $this->translate('Generating product link export') ?>",
+        "<?= $this->translate('Finished generating product link export') ?>"
+    );
+    ProductLinkExportAction.init('<?=$selector;?>');
+});
