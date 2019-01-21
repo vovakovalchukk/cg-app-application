@@ -132,14 +132,13 @@ class Mapper
 
     protected function searchProductTitle(Product $product, ProductCollection $parentProducts)
     {
-        if($product->getParentProductId() !== 0 &&
-            ($product->getName() === '' || $product->getName() === null)
-        ) {
+        if ($product->getParentProductId() !== 0) {
             $parentProduct = $parentProducts->getById($product->getParentProductId());
             if (is_null($parentProduct)) {
                 throw new NotFound(sprintf('Parent product with id %s not found', [$product->getParentProductId()]));
             }
-            return $parentProduct->getName();
+
+            return $this->getProductName($product, $parentProduct);
         }
 
         return $product->getName();
@@ -163,5 +162,17 @@ class Mapper
     {
         $uri = 'data://application/octet-stream;base64,' . $encodedImage;
         return image_type_to_extension(exif_imagetype($uri), false);
+    }
+
+    protected function getProductName(Product $product, Product $parentProduct): string
+    {
+        $name = [];
+
+        $name[] = $parentProduct->getName();
+        if ($product->getName() != '') {
+            $name[] = '('.$product->getName().')';
+        }
+
+        return implode("\n", $name);
     }
 }
