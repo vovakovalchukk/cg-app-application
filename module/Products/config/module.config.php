@@ -36,7 +36,7 @@ use Products\Controller\StockLogJsonController;
 use Products\Listing\Channel\Amazon\Service as ListingAmazonService;
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
 use Products\Product\Service as ModuleProductService;
-use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
+use Products\Csv\Stock\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 use Zend\View\Model\ViewModel;

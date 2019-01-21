@@ -1,14 +1,18 @@
 <?php
-namespace Products\Stock\Csv;
+namespace Products\Csv;
 
 use Predis\Client as Predis;
 
-class ProgressStorage
+abstract class ProgressStorageAbstract
 {
-    const KEY_PREFIX = 'StockExportProgress:';
-    const KEY_PREFIX_TOTAL = 'Total:';
+    /** @var string */
+    const KEY_PREFIX = '';
+    /** @var string */
+    const KEY_PREFIX_TOTAL = '';
+    /** @var int */
     const KEY_EXPIRY_SEC = 30;
 
+    /** @var Predis */
     protected $predis;
 
     public function __construct(Predis $predis)
