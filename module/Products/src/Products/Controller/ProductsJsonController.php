@@ -510,7 +510,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function linkCsvExportAction()
     {
-
+        return $this->jsonModelFactory->newInstance();
     }
 
     public function stockCsvExportCheckAction()
