@@ -33,6 +33,9 @@ class CategorySelectComponent extends React.Component {
     };
 
     render() {
+        console.log('in Category select');
+        
+        
         if (this.props.resetSelection) {
             this.props.input.onChange(null);
         }
@@ -43,6 +46,8 @@ class CategorySelectComponent extends React.Component {
             onOptionChange={this.onOptionChange}
             selectedOption={this.getSelectedCategory()}
             className={this.props.className}
+            filterable={true}
+            key={this.props.name}
         />
     }
 }
