@@ -96,7 +96,9 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     {
         $locale = $this->packageService->getLocale();
         $discount = $this->getAppliedDiscount();
-        $this->savePromotionCodeInSession($discount->getCode());
+        if ($discount) {
+            $this->savePromotionCodeInSession($discount->getCode());
+        }
 
         $body = $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
