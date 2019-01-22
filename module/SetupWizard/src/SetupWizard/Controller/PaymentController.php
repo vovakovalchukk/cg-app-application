@@ -96,6 +96,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     {
         $locale = $this->packageService->getLocale();
         $discount = $this->getAppliedDiscount();
+        $this->savePromotionCodeInSession($discount->getCode());
 
         $body = $this->viewModelFactory->newInstance()
             ->setTemplate('setup-wizard/payment/index')
@@ -126,6 +127,9 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     protected function getAppliedDiscount()
     {
         $discountCode = $this->params()->fromQuery('discountCode');
+        if ($discountCode == null) {
+            $discountCode = $this->getPromotionCodeFromSession();
+        }
         if (!$discountCode) {
             return $this->getActiveDiscountForCurrentSubscription();
         }
@@ -291,7 +295,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             $this->packageManagementService->setPackage(
                 $this->packageManagementService->createPackageUpgradeRequest(
                     $packageId,
-                    $this->params()->fromPost('discountCode') ?? null,
+                    $this->getPromotionCodeFromSession() ?? null,
                     $billingDuration
                 )
             );
@@ -328,5 +332,15 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             return $forcedBillingDuration;
         }
         return $billingDuration;
+    }
+
+    protected function savePromotionCodeInSession(string $discountCode)
+    {
+        $this->session->getStorage()['setup-payment']['discount-code'] = $discountCode;
+    }
+
+    protected function getPromotionCodeFromSession()
+    {
+        return $this->session->getStorage()['setup-payment']['discount-code'] ?? null;
     }
 }
