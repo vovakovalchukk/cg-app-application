@@ -2,6 +2,7 @@
 namespace SetupWizard\Controller;
 
 use CG\Billing\Licence\Entity as Licence;
+use CG\Billing\Package\Entity as Package;
 use CG\Billing\Price\Service as PriceService;
 use CG\Billing\Subscription\Entity as Subscription;
 use CG\Locale\DemoLink;
@@ -139,6 +140,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
                     ),
                 ],
                 'orderVolume' => $package->getLicences()->getTotalLicenceAmount(Licence::TYPE_ORDER),
+                'forceBillingDuration' => $this->getForcedBillingDurationForPackage($package),
             ];
         }
         usort(
@@ -154,6 +156,15 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             }
         );
         return $packages;
+    }
+
+    protected function getForcedBillingDurationForPackage(Package $package): ?int
+    {
+        // Don't allow annual billing for free packages
+        if ($package->getPrice() <= 0) {
+            return Subscription::MIN_BILLING_DURATION;
+        }
+        return null;
     }
 
     protected function getFooter(): ViewModel
@@ -190,11 +201,15 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
     {
         $response = ['success' => false, 'error' => ''];
         try {
+            $packageId = $this->params()->fromRoute('id');
+            $billingDuration = $this->params()->fromPost('billingDuration') ?? null;
+            $billingDuration = $this->determineBillingDurationToSetForPackage($packageId, $billingDuration);
+
             $this->packageManagementService->setPackage(
                 $this->packageManagementService->createPackageUpgradeRequest(
-                    $this->params()->fromRoute('id'),
+                    $packageId,
                     null,
-                    $this->params()->fromPost('billingDuration') ?? null
+                    $billingDuration
                 )
             );
             $response['success'] = true;
@@ -220,5 +235,15 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             $response['error'] = $throwable->getMessage() ?? 'There was a problem with changing your package, please contact support.';
         }
         return $this->jsonModelFactory->newInstance($response);
+    }
+
+    protected function determineBillingDurationToSetForPackage(int $packageId, ?int $billingDuration): ?int
+    {
+        $package = $this->packageService->fetch($packageId);
+        $forcedBillingDuration = $this->getForcedBillingDurationForPackage($package);
+        if ($forcedBillingDuration) {
+            return $forcedBillingDuration;
+        }
+        return $billingDuration;
     }
 }
