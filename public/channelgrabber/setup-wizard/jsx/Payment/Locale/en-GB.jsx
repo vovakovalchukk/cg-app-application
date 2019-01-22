@@ -10,12 +10,13 @@ import PackageInfo from 'SetupWizard/Component/Payment/PackageInfo/UK';
         return packageInfo.fromOrderVolume + "-" + packageInfo.orderVolume;
     };
 
-    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChanged)
+    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChangeAllowed, billingDurationChanged)
     {
         return (
             <PackageInfo
                 {...selectedPackage}
                 billingDuration={billingDuration}
+                billingDurationChangeAllowed={billingDurationChangeAllowed}
                 billingDurationChanged={billingDurationChanged}
             />
         );

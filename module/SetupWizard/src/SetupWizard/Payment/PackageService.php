@@ -131,4 +131,9 @@ class PackageService
 
         return $this->renderer->render($monthlyPrice);
     }
+
+    public function fetch(int $id): Package
+    {
+        return $this->service->fetch($id);
+    }
 }

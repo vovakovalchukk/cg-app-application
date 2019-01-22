@@ -10,12 +10,13 @@ import PackageInfo from 'SetupWizard/Component/Payment/PackageInfo/US';
         return "< " + (packageInfo.orderVolume / 1000) + " k";
     };
 
-    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChanged)
+    Locale.prototype.getPackageInfo = function(selectedPackage, billingDuration, billingDurationChangeAllowed, billingDurationChanged)
     {
         return (
             <PackageInfo
                 {...selectedPackage}
                 billingDuration={billingDuration}
+                billingDurationChangeAllowed={billingDurationChangeAllowed}
                 billingDurationChanged={billingDurationChanged}
             />
         );
