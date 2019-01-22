@@ -21,13 +21,13 @@ abstract class ServiceAbstract
     protected $activeUserContainer;
     /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
-    /** @var ProgressStorage */
+    /** @var ProgressStorageAbstract */
     protected $progressStorage;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         IntercomEventService $intercomEventService,
-        ProgressStorage $progressStorage
+        ProgressStorageAbstract $progressStorage
     ) {
         $this->activeUserContainer = $activeUserContainer;
         $this->intercomEventService = $intercomEventService;

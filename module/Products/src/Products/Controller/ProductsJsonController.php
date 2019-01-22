@@ -27,6 +27,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Products\Csv\Stock\Service as StockCsvService;
+use Products\Csv\Link\Service as ProductLinkCsvService;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
 use Products\Product\Link\Service as ProductLinkService;
@@ -75,6 +76,8 @@ class ProductsJsonController extends AbstractActionController
     protected $organisationUnitService;
     /** @var StockCsvService $stockCsvService */
     protected $stockCsvService;
+    /** @var ProductLinkCsvService */
+    protected $productLinkCsvService;
     /** @var StockSettingsService */
     protected $stockSettingsService;
     /** @var UsageService */
@@ -103,6 +106,7 @@ class ProductsJsonController extends AbstractActionController
         TaxRateService $taxRateService,
         OrganisationUnitService $organisationUnitService,
         StockCsvService $stockCsvService,
+        ProductLinkCsvService $productLinkCsvService,
         StockSettingsService $stockSettingsService,
         UsageService $usageService,
         LocationService $locationService,
@@ -121,6 +125,7 @@ class ProductsJsonController extends AbstractActionController
         $this->taxRateService = $taxRateService;
         $this->organisationUnitService = $organisationUnitService;
         $this->stockCsvService = $stockCsvService;
+        $this->productLinkCsvService = $productLinkCsvService;
         $this->stockSettingsService = $stockSettingsService;
         $this->usageService = $usageService;
         $this->locationService = $locationService;
@@ -510,6 +515,9 @@ class ProductsJsonController extends AbstractActionController
 
     public function linkCsvExportAction()
     {
+
+        $csv = $this->productLinkCsvService->generateCsvForActiveUser();
+        $mark = null;
         return $this->jsonModelFactory->newInstance();
     }
 
