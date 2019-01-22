@@ -291,7 +291,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
             $this->packageManagementService->setPackage(
                 $this->packageManagementService->createPackageUpgradeRequest(
                     $packageId,
-                    null,
+                    $this->params()->fromPost('discountCode') ?? null,
                     $billingDuration
                 )
             );
