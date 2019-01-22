@@ -126,10 +126,7 @@ class PaymentController extends AbstractActionController implements LoggerAwareI
 
     protected function getAppliedDiscount()
     {
-        $discountCode = $this->params()->fromQuery('discountCode');
-        if ($discountCode == null) {
-            $discountCode = $this->getPromotionCodeFromSession();
-        }
+        $discountCode = $this->params()->fromQuery('discountCode') ?? $this->getPromotionCodeFromSession() ?? null;
         if (!$discountCode) {
             return $this->getActiveDiscountForCurrentSubscription();
         }
