@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b51d561e932a6939edfea05a5e73caf5",
+    "content-hash": "288e58516e5b9a3735ed35d401a459be",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -603,7 +603,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cg-predis-v0.8.8-ccdcdb.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cg-predis/channelgrabber-cg-predis-v0.8.8-ccdcdb.zip",
                 "reference": "abe02422bc29ff723fc2cbc969181b6cbf50b386",
                 "shasum": null
             },
@@ -1066,7 +1066,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.9-e45436.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/db/channelgrabber-db-1.0.9-e45436.zip",
                 "reference": "5c4496722c62c55f568f23cf79db75164bee5305",
                 "shasum": null
             },
@@ -2277,7 +2277,7 @@
             "version": "3.1.8",
             "source": {
                 "type": "git",
-                "url": "git@github.com:channelgrabber/php-phantomjs.git",
+                "url": "git@bitbucket.org:channelgrabber/php-phantomjs.git",
                 "reference": "f8f28253a0784ff31fdd67ce0e80240459635fcc"
             },
             "dist": {
@@ -2465,15 +2465,21 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-develop",
+            "version": "dev-TAC-324-product-link-export",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "677cbc4bcf1de2a769fa4e9ec43029ff0d0c7893"
+                "reference": "1316141601595098faa771898c964058495028a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-324-product-link-export-08e923.zip",
+                "reference": "1316141601595098faa771898c964058495028a6",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": "^1.32.7",
+                "channelgrabber/channel": "^1.33.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.5.4",
@@ -2483,7 +2489,7 @@
                 "channelgrabber/locale": "^1.2.1",
                 "channelgrabber/location": "^1.2.1",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/notification": "^1.0.0",
+                "channelgrabber/notification": "^1.2.1",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.24",
@@ -2520,7 +2526,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-09-27T13:58:01+00:00"
+            "time": "2019-01-23T09:00:35+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3054,7 +3060,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.14.0-7aecc2.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.0-7aecc2.zip",
                 "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55",
                 "shasum": null
             },
@@ -3303,7 +3309,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-locking-1.1.1-697bc5.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock-locking/channelgrabber-stock-locking-1.1.1-697bc5.zip",
                 "reference": "d253cf1fa87425b2d19a7c80aa964751d4b0146f",
                 "shasum": null
             },
@@ -4826,16 +4832,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.0",
+            "version": "1.26.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "27a3c945585b99f6a9bc4bb4a75d304c9c665973"
+                "reference": "3a086ea4db84c029d391c6cb49bc5b242616de5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.0-ded9c2.zip",
-                "reference": "27a3c945585b99f6a9bc4bb4a75d304c9c665973",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.1-bf6b61.zip",
+                "reference": "3a086ea4db84c029d391c6cb49bc5b242616de5e",
                 "shasum": null
             },
             "require": {
@@ -4887,7 +4893,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-01-14T12:13:55+00:00"
+            "time": "2019-01-22T14:33:27+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10468,15 +10474,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.8",
-            "alias_normalized": "1.16.8.0",
-            "version": "dev-TAC-331-abstract-csv-service",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.16.8",
-            "alias_normalized": "1.16.8.0",
-            "version": "dev-develop",
+            "alias": "1.16.11",
+            "alias_normalized": "1.16.11.0",
+            "version": "dev-TAC-324-product-link-export",
             "package": "channelgrabber/product"
         }
     ],
@@ -10485,8 +10485,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
