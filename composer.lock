@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2313c586e7033be4783f4e4fe667dcc0",
+    "content-hash": "b51d561e932a6939edfea05a5e73caf5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2465,17 +2465,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.7",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "c6ccc2647314e0304a5736a89979e0cf192bdfd8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.16.7-e4d91a.zip",
-                "reference": "c6ccc2647314e0304a5736a89979e0cf192bdfd8",
-                "shasum": null
+                "reference": "677cbc4bcf1de2a769fa4e9ec43029ff0d0c7893"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -10472,13 +10466,27 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.8",
+            "alias_normalized": "1.16.8.0",
+            "version": "dev-TAC-331-abstract-csv-service",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.16.8",
+            "alias_normalized": "1.16.8.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
