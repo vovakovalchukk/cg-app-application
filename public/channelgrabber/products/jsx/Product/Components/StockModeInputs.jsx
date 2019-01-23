@@ -4,9 +4,12 @@ import Select from 'Common/Components/Select';
 class StockModeInputsComponent extends React.Component {
     static defaultProps = {
         stockModeOptions: null,
+        stockModeType: '',
         onChange: null,
         value: "",
-        classNames: null
+        classNames: null,
+        className: '',
+        portalSettingsForSelect: {}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
@@ -43,35 +46,38 @@ class StockModeInputsComponent extends React.Component {
         return shortenedOptions;
     };
 
-    getClassNames = () => {
-        var classNames = 'c-stock-mode-input';
-        if (!this.props.classNames) {
-            classNames += ' c-stock-mode-input--medium';
-        }
-        return classNames
-    };
-
     render() {
-        var shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
-        var stockModeOptions = shortenedOptions.map(function(option) {
+        let shortenedOptions = this.shortenOptions(this.props.stockModeOptions);
+        let stockModeOptions = shortenedOptions.map(function(option) {
             return {
                 name: option.title,
                 value: option.value
             }
         });
+
+        let selected = this.props.stockModeType.input.value;
+
+        let selectedNameFromValue = '';
+        if (selected.value) {
+            selectedNameFromValue = stockModeOptions.find(option => {
+                return option.value === selected.value;
+            }).name;
+        }
+
         return (
-            <div className={this.getClassNames()}>
+            <div className={this.props.className}>
                 <div className={"c-stock-mode-input__type-select-container"}>
                     <Select
                         options={stockModeOptions}
                         autoSelectFirst={true}
                         selectedOption={{
-                            name: this.props.stockModeType.input.value.name,
+                            name: selectedNameFromValue,
                             value: this.props.stockModeType.input.value.value
                         }}
                         onOptionChange={function(option) {
                             this.props.stockModeType.input.onChange(option)
                         }.bind(this)}
+                        portalSettingsForDropdown={this.props.portalSettingsForDropdown}
                     />
                 </div>
                 <div className={"c-stock-mode-input__amount-container"}>
@@ -90,4 +96,3 @@ class StockModeInputsComponent extends React.Component {
 }
 
 export default StockModeInputsComponent;
-

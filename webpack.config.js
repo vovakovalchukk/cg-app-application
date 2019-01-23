@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const babelPluginStyledComponents = require('babel-plugin-styled-components').default;
 
 module.exports = {
     mode: "production",
@@ -24,11 +25,31 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['es2015', 'react', 'stage-2'],
-                    cacheDirectory: true
+                    plugins: babelPluginStyledComponents,
+                    presets: [
+                        ["env",
+                            {
+                                "targets": {
+                                    "browsers": [
+                                        "last 2 Chrome versions",
+                                        "last 2 ff versions"
+                                    ]
+                                }
+                            }
+                        ],
+                        'react',
+                        'stage-2'
+                    ]
                 }
             },
-            {test: /jquery/, use: 'exports-loader?$'}
+            {
+                test: /jquery/,
+                use: 'exports-loader?$'
+            },
+            {
+                test: /thenBy/,
+                use: 'exports-loader?firstBy'
+            }
         ]
     },
     plugins: [
@@ -74,7 +95,9 @@ module.exports = {
             'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
             'react-tether': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-tether', 'dist', 'react-tether.js'),
-            'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js')
+            'ChartJs': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'chart.js', 'dist', 'Chart.bundle.js'),
+            'styled-components': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'styled-components', 'dist', 'styled-components.js'),
+            'fixed-data-table-2': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'fixed-data-table-2', 'dist', 'fixed-data-table.js')
         }
     }
 };

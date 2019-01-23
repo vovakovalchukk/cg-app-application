@@ -36,9 +36,13 @@ class PackageSelectorComponent extends React.Component {
 
     getSelectedPackage = () => {
         var selectedPackage = this.state.selected;
+        return this.getPackageById(selectedPackage);
+    };
+
+    getPackageById = (id) => {
         var packages = this.getPackages();
         var indexOfSelectedPackage = packages.findIndex(function(packageInfo) {
-            return packageInfo.id == selectedPackage;
+            return packageInfo.id == id;
         });
         return (indexOfSelectedPackage > -1 ? packages[indexOfSelectedPackage] : null);
     };
@@ -61,12 +65,17 @@ class PackageSelectorComponent extends React.Component {
         };
     };
 
-    selectPackage = (selectedPackage) => {
+    selectPackage = (packageOption) => {
+        let selectedPackage = this.getPackageById(packageOption.value)
         this.setState({
-            selected: selectedPackage.value
+            selected: packageOption.value,
+            billingDuration: selectedPackage.forceBillingDuration || this.state.billingDuration
         }, function() {
             if (typeof(this.props.onPackageSelection) === "function") {
-                this.props.onPackageSelection(selectedPackage.value)
+                this.props.onPackageSelection(packageOption.value)
+            }
+            if (selectedPackage.forceBillingDuration && typeof(this.props.onBillingDurationSelection) === "function") {
+                this.props.onBillingDurationSelection(selectedPackage.forceBillingDuration)
             }
         });
     };
@@ -100,7 +109,8 @@ class PackageSelectorComponent extends React.Component {
         if (!selectedPackage) {
             return;
         }
-        return this.props.locale.getPackageInfo(selectedPackage, this.state.billingDuration, function(billingDuration) {
+        let billingDurationChangeAllowed = !selectedPackage.forceBillingDuration;
+        return this.props.locale.getPackageInfo(selectedPackage, this.state.billingDuration, billingDurationChangeAllowed, function(billingDuration) {
             this.setState({
                 billingDuration: billingDuration
             }, function() {
