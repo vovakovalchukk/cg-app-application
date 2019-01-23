@@ -1572,9 +1572,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.20":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10255-customer-unable-to-select-required-subcategory-during-listing-creation":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#05e4eb03eb2ccecb0691ff544ff9dda69087e537"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#360fa59b32dda73daddadc9d708367b34ef9a7ef"
   dependencies:
     chalk "^2.4.1"
     react "^16.5.2"

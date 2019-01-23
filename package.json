@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.20",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10255-customer-unable-to-select-required-subcategory-during-listing-creation",
     "chart.js": "^2.7.0",
     "create-react-class": "^15.6.3",
     "css-toggle-switch": "^4.1.0",

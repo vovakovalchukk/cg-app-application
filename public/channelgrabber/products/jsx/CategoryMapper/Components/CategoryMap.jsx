@@ -111,7 +111,7 @@ class CategoryMapComponent extends React.Component {
     };
 
     renderSaveButton = () => {
-        return <div className={"map-button save-button"}>
+        return <div className={"map-button save-button u-float-left u-margin-left-small"}>
             <div className={"button" + (this.props.submitting ? " disabled" : "")} onClick={this.onSaveButtonClick}>
                 <span>Save</span>
             </div>
@@ -156,7 +156,7 @@ class CategoryMapComponent extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <div className={"order-form half product-container category-map-container"}>
-                    <div className={"header-container"}>
+                    <div className={"header-container u-margin-top-small"}>
                         {this.renderNameField()}
                         {this.renderCloseButton()}
                         {this.renderSaveButton()}
