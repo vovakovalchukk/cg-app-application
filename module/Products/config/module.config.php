@@ -1297,7 +1297,8 @@ return [
             ],
             ProductsJsonController::class => [
                 'parameters' => [
-                    'usageService' => 'order_count_usage_service'
+                    'usageService' => 'order_count_usage_service',
+                    'productsGearmanClient' => 'productGearmanClient'
                 ]
             ],
             StockCsvProgressStorage::class => [

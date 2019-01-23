@@ -26,8 +26,8 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use Products\Csv\Stock\Service as StockCsvService;
-use Products\Csv\Link\Service as ProductLinkCsvService;
+use CG\Product\Csv\Stock\Service as StockCsvService;
+use CG\Product\Csv\Link\Service as ProductLinkCsvService;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
 use Products\Product\Link\Service as ProductLinkService;
@@ -36,6 +36,8 @@ use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
+use GearmanClient;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -96,6 +98,8 @@ class ProductsJsonController extends AbstractActionController
     protected $imageUploader;
     /** @var ProductCreator */
     protected $productCreator;
+    /** @var GearmanClient */
+    protected $productsGearmanClient;
 
     public function __construct(
         ProductService $productService,
@@ -115,7 +119,8 @@ class ProductsJsonController extends AbstractActionController
         ProductLinkService $productLinkService,
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
-        ProductCreator $productCreator
+        ProductCreator $productCreator,
+        GearmanClient $productsGearmanClient
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -135,6 +140,7 @@ class ProductsJsonController extends AbstractActionController
         $this->listingChannelService = $listingChannelService;
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
+        $this->productsGearmanClient = $productsGearmanClient;
     }
 
     public function ajaxAction()
@@ -516,9 +522,13 @@ class ProductsJsonController extends AbstractActionController
     public function linkCsvExportAction()
     {
 
-        $csv = $this->productLinkCsvService->generateCsvForActiveUser();
-        $mark = null;
-        return $this->jsonModelFactory->newInstance();
+        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+        $userId = $this->activeUser->getActiveUser()->getUsername();
+
+        $workload = new ExportProductLinksWorkload($rootOuId, $userId);
+        $this->productsGearmanClient->doBackground(ExportProductLinksWorkload::FUNCTION_NAME, serialize($workload), ExportProductLinksWorkload::FUNCTION_NAME . $rootOuId);
+
+        return $this->jsonModelFactory->newInstance(['email' => $userId]);
     }
 
     public function stockCsvExportCheckAction()
