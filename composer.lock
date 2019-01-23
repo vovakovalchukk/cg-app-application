@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e03b22cfe178900210db63ee44be20d6",
+    "content-hash": "ceabf2c9eb37791da3494f600da96051",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-TAC-258-walmart-orders",
+            "version": "1.42.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6c7825a355cced2ca6c4c91c6902988055d00ba4"
+                "reference": "8ba0bf5e1b331a84a38f72dc16853da4f5b8cffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-EPIC-TAC-258-walmart-orders-a60d7b.zip",
-                "reference": "6c7825a355cced2ca6c4c91c6902988055d00ba4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.7-c55a4a.zip",
+                "reference": "8ba0bf5e1b331a84a38f72dc16853da4f5b8cffa",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-01-23T12:28:24+00:00"
+            "time": "2019-01-23T16:31:28+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3691,16 +3691,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "dev-EPIC-TAC-258-walmart-orders",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "141e4ee329729b06fdd7715455d6e9224fbe2a41"
+                "reference": "a1dbbc20020decb2191fe830b9021551bda15f97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-EPIC-TAC-258-walmart-orders-539fdf.zip",
-                "reference": "141e4ee329729b06fdd7715455d6e9224fbe2a41",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.0.0-0dab93.zip",
+                "reference": "a1dbbc20020decb2191fe830b9021551bda15f97",
                 "shasum": null
             },
             "require": {
@@ -3723,7 +3723,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-01-23T12:50:37+00:00"
+            "time": "2019-01-23T16:31:43+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4869,16 +4869,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-TAC-258-walmart-orders",
+            "version": "1.26.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5ec0e5865e892576ba49d15bd199cd0e515c3160"
+                "reference": "80003756d33c0454be5e4fb6c4e9cec865986a63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-EPIC-TAC-258-walmart-orders-828b2e.zip",
-                "reference": "5ec0e5865e892576ba49d15bd199cd0e515c3160",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.2-e9b8db.zip",
+                "reference": "80003756d33c0454be5e4fb6c4e9cec865986a63",
                 "shasum": null
             },
             "require": {
@@ -4930,7 +4930,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-01-23T13:44:40+00:00"
+            "time": "2019-01-23T16:32:00+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -10947,32 +10947,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.42.7",
-            "alias_normalized": "1.42.7.0",
-            "version": "dev-EPIC-TAC-258-walmart-orders",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-TAC-258-walmart-orders",
-            "package": "channelgrabber/walmart"
-        },
-        {
-            "alias": "1.26.2",
-            "alias_normalized": "1.26.2.0",
-            "version": "dev-EPIC-TAC-258-walmart-orders",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/walmart": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
