@@ -3,6 +3,7 @@ import React from "react";
 let rowActions = (function() {
     return {
         runIntialUpdateForRowsIfApplicable: () => {
+            console.log('in runInitialUpdateForRowsIfApplicable');
             return function(dispatch, getState) {
                 if(getState().rows.initialModifyHasOccurred){
                     return;
