@@ -31,6 +31,9 @@ var appReducer = combineReducers({
 });
 
 const combinedReducer = (state, action) => {
+    if(action === 'VIEW_CHANGE'){
+        state = undefined;
+    }
     return appReducer(state, action);
 };
 
