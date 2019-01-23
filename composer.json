@@ -1,10 +1,6 @@
 {
     "repositories": [
         {
-            "type": "git",
-            "url": "git@github.com:channelgrabber/ZendPdf.git"
-        },
-        {
             "url": "https://d1erq3dexipllg.cloudfront.net",
             "type": "composer"
         }
