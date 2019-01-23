@@ -18,6 +18,7 @@ class StockModeInputsComponent extends React.Component {
         value: "",
         classNames: null,
         className: '',
+        portalSettingsForSelect: {}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
