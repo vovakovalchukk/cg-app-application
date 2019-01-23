@@ -80,8 +80,8 @@
 
     .category-selects-container {
         display: inline-block;
-        label {
-            margin: 0 30px 0 0;
+        .select-wrapper {
+            margin-right: 30px;
             float: initial;
             clear: none;
             display: inline-table;
@@ -91,7 +91,7 @@
                 max-width: 260px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: nowrap;;
+                white-space: nowrap;
             }
         }
     }
@@ -102,6 +102,7 @@
 
     .actions-container {
         display: inline-block;
+        float: left;
     }
 
     .delete-container > div {
@@ -112,6 +113,10 @@
         .order-inputbox-holder {
             width: 260px;
         }
+    }
+
+    .select-and-actions-container{
+        width: 260px;
     }
 }
 
