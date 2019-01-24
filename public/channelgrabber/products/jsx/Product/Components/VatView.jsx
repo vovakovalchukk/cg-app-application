@@ -1,5 +1,5 @@
 import React from 'react';
-
+"use strict";
 
 class VatViewComponent extends React.Component {
     static defaultProps = {
@@ -62,7 +62,7 @@ class VatViewComponent extends React.Component {
                 }
                 rates.push(element);
             }.bind(this));
-
+            
             var row = rates.map(function(object, index) {
                 if (object.name === undefined) {
                     var cellText = "";
@@ -72,16 +72,16 @@ class VatViewComponent extends React.Component {
                     return (<td>{cellText}</td>);
                 }
                 return (<td>
-                    <span className="checkbox-wrapper">
-                        <a className="std-checkbox">
-                            <input type="checkbox" id={object.taxRateId + "-radio-" + product.id}
-                                   name={object.taxRateId + "-radio-" + product.id} value={object.taxRateId}
-                                   onClick={this.onVatChanged.bind(this, object.taxRateId)}
-                                   checked={object.selected === true} key={object.taxRateId}/>
-                            <label htmlFor={object.taxRateId + "-radio-" + product.id}></label>
-                        </a>
-                        <span className="rate">{parseFloat(object.rate) + '%'}</span>
-                    </span>
+                        <span className="checkbox-wrapper">
+                            <a className="std-checkbox">
+                                <input type="checkbox" id={object.taxRateId + "-radio-" + product.id}
+                                       name={object.taxRateId + "-radio-" + product.id} value={object.taxRateId}
+                                       onClick={this.onVatChanged.bind(this, object.taxRateId)}
+                                       checked={object.selected === true} key={object.taxRateId}/>
+                                <label htmlFor={object.taxRateId + "-radio-" + product.id}></label>
+                            </a>
+                            <span className="rate">{parseFloat(object.rate) + '%'}</span>
+                        </span>
                 </td>);
             }.bind(this));
             vatRows.push(<tr>{row}</tr>);
