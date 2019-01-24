@@ -665,6 +665,8 @@ return [
                 'StockLogOnHandQtyColumn' => DataTable\Column::class,
                 'StockLogAvailableQtyColumnView' => ViewModel::class,
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
+                'StockLogOnPurchaseOrderQtyColumnView' => ViewModel::class,
+                'StockLogOnPurchaseOrderQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
             ],
@@ -978,6 +980,7 @@ return [
                         ['column' => 'StockLogOnHandQtyColumn'],
                         ['column' => 'StockLogAllocatedQtyColumn'],
                         ['column' => 'StockLogAvailableQtyColumn'],
+                        ['column' => 'StockLogOnPurchaseOrderQtyColumn'],
                         ['column' => 'StockLogStockManagementColumn'],
                         ['column' => 'StockLogStidColumn'],
                         ['column' => 'StockLogProductIdColumn'],
@@ -1148,6 +1151,20 @@ return [
                     'column' => 'availableQty',
                     'viewModel' => 'StockLogAvailableQtyColumnView',
                     'class' => 'availableqty-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogOnPurchaseOrderQtyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'On Purchase<br/>Order'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogOnPurchaseOrderQtyColumn' => [
+                'parameters' => [
+                    'column' => 'onPurchaseOrderQty',
+                    'viewModel' => 'StockLogOnPurchaseOrderQtyColumnView',
+                    'class' => 'onpurchaseorderqty-col',
                     'sortable' => false,
                 ],
             ],
