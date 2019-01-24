@@ -496,12 +496,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "45b1cdf50481d8d68abdbdf6f06beb6de7afb484"
+                "reference": "56b471cd5c59b39cce7e04300c9987876ca21612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10303-default-billing-duration-monthly-1b7350.zip",
-                "reference": "45b1cdf50481d8d68abdbdf6f06beb6de7afb484",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10303-default-billing-duration-monthly-5f2c6a.zip",
+                "reference": "56b471cd5c59b39cce7e04300c9987876ca21612",
                 "shasum": null
             },
             "require": {
@@ -535,6 +535,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-10303-default-billing-duration-monthly": "1.20.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -550,7 +555,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-24T14:59:18+00:00"
+            "time": "2019-01-24T16:28:38+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3513,12 +3518,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "83bc9c6c6231692348cab5ed6fd325b1e3492084"
+                "reference": "c4a30af0bd57954966166144f5bd3b011df8e511"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10303-default-billing-duration-monthly-a6e7de.zip",
-                "reference": "83bc9c6c6231692348cab5ed6fd325b1e3492084",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10303-default-billing-duration-monthly-7f89d2.zip",
+                "reference": "c4a30af0bd57954966166144f5bd3b011df8e511",
                 "shasum": null
             },
             "require": {
@@ -3550,7 +3555,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2019-01-24T15:47:59+00:00"
+            "time": "2019-01-24T16:31:21+00:00"
         },
         {
             "name": "channelgrabber/user",
