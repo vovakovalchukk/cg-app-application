@@ -3513,12 +3513,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "15660cf9fda4a4d6c9dc58f4b1922e0590ee1b33"
+                "reference": "83bc9c6c6231692348cab5ed6fd325b1e3492084"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10303-default-billing-duration-monthly-269828.zip",
-                "reference": "15660cf9fda4a4d6c9dc58f4b1922e0590ee1b33",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10303-default-billing-duration-monthly-a6e7de.zip",
+                "reference": "83bc9c6c6231692348cab5ed6fd325b1e3492084",
                 "shasum": null
             },
             "require": {
@@ -3550,7 +3550,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2019-01-24T15:15:01+00:00"
+            "time": "2019-01-24T15:47:59+00:00"
         },
         {
             "name": "channelgrabber/user",
