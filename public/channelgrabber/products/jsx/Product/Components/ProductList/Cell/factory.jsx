@@ -14,6 +14,7 @@ import AvailableCell from 'Product/Components/ProductList/Cell/Available';
 import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
 import NoVatCell from 'Product/Components/ProductList/Cell/NoVat';
 import FixedDataTable from 'fixed-data-table-2';
+import AllocatedCell from 'Product/Components/ProductList/Cell/Allocated';
 
 "use strict";
 
@@ -33,7 +34,8 @@ let cells = {
     weight: WeightCell,
     dimensions: DimensionsCell,
     vat: VatCell,
-    noVat: NoVatCell
+    noVat: NoVatCell,
+    allocated: AllocatedCell
 };
 
 export default (function() {

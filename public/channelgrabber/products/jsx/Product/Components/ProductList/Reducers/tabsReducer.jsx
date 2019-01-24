@@ -2,20 +2,27 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 let initialState = {
-    tabs: [{
-        key: 'listings',
-        label: 'Listings'
-    }, {
-        key: 'details',
-        label: 'Details'
-    },
+    tabs: [
+        {
+            key: 'listings',
+            label: 'Listings'
+        },
+        {
+            key: 'details',
+            label: 'Details'
+        },
         {
             key: 'vat',
             label: 'VAT'
-        },
+        }
     ],
     currentTab: 'listings',
     currentColumnScrollIndex: null
+};
+
+let stockTab = {
+    key: 'stock',
+    label: 'Stock'
 };
 
 var TabsReducer = reducerCreator(initialState, {
@@ -31,6 +38,13 @@ var TabsReducer = reducerCreator(initialState, {
             currentColumnScrollIndex: null
         });
         return newState;
+    },
+    "SHOW_STOCK_TAB": function (state) {
+        let newTabs = state.tabs;
+        newTabs.push(stockTab);
+        return Object.assign({}, state, {
+            tabs: newTabs
+        });
     }
 });
 

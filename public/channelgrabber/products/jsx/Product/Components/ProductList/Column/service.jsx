@@ -79,12 +79,23 @@ let detailsColumns = [
     }
 ];
 
+let stockColumns = [
+    {
+        key: 'allocated',
+        width: 80,
+        headerText: 'Awaiting Dispatch',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
+    }
+];
+
 let columnService = (function() {
     return {
         generateColumnSettings: function(accounts, vat) {
             let listingsColumns = generateListingsColumnsFromAccounts(accounts);
             let vatColumns = generateVatColumns(vat);
-            let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns);
+            let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns, stockColumns);
             return generatedColumns;
         }
     }
