@@ -26,8 +26,7 @@ var appReducer = combineReducers({
     vat: vatReducer,
     bulkSelect: bulkSelectReducer,
     rows: rowsReducer,
-    userSettings: userSettingsReducer,
-    search: searchReducer
+    userSettings: userSettingsReducer
 });
 
 const combinedReducer = (state, action) => {

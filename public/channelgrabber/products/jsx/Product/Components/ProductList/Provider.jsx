@@ -10,6 +10,7 @@ import userSettingsActions from 'Product/Components/ProductList/ActionCreators/u
 import combinedReducer from 'Product/Components/ProductList/Reducers/combinedReducer';
 import ProductListRoot from 'Product/Components/ProductList/Root';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions';
 
 var enhancer = applyMiddleware(thunk);
 
@@ -45,6 +46,11 @@ class ProductListProvider extends React.Component {
         store.dispatch(productActions.storeStockModeOptions(this.props.stockModeOptions));
         store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
         store.dispatch(vatActions.storeVatRates(vatRates));
+
+        if (this.props.features.stockTabEnabled) {
+            store.dispatch(tabActions.showStockTab());
+        }
+
         let productsResponse = await store.dispatch(productActions.getProducts());
 
         store.dispatch(columnActions.generateColumnSettings());

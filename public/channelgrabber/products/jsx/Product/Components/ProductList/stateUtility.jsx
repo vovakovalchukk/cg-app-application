@@ -18,7 +18,8 @@ let stateUtility = function() {
             let keyToCellDataMap = {
                 sku: row['sku'],
                 image: getImageData(row),
-                available: stateUtility().getStockAvailable(row)
+                available: stateUtility().getStockAvailable(row),
+                allocated: stateUtility().getAllocatedStock(row)
             };
             let cellData = keyToCellDataMap[columnKey];
             if (columnKey.indexOf('dummy') > -1) {
