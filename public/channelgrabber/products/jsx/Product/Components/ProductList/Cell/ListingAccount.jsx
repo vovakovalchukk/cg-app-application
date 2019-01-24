@@ -111,7 +111,7 @@ function getListingUrl(listing) {
     if (!listing) {
         return '';
     }
-    return listing.url;
+    return listing.url ? listing.url : '';
 }
 
 function getMostNegativeListing(listings) {
