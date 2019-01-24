@@ -8,10 +8,6 @@ class CellWrapper extends React.Component {
         const rowData = stateUtility.getRowData(products, rowIndex);
 
         if (this.isFirstCell()) {
-            // firing this method here as it ensures that the rows would have been rendered before calling the method.
-            console.log('calling from Wrapper... initial update');
-            
-            
             this.props.actions.runIntialUpdateForRowsIfApplicable();
         }
 
@@ -20,7 +16,6 @@ class CellWrapper extends React.Component {
                 <span/>
             )
         }
-
         return (
             <CellContent
                 {...this.props}

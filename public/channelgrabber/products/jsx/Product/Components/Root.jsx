@@ -71,7 +71,7 @@ class RootComponent extends React.Component {
         this.performProductsRequest(null, null, skuList);
     };
 
-    onCreateListingIconClick =  (createListingData) => {
+    onCreateListingIconClick = (createListingData) => {
         let {
             product,
             createListingsAllowedChannels,
@@ -91,7 +91,7 @@ class RootComponent extends React.Component {
                 createListingsAllowedChannels,
                 createListingsAllowedVariationChannels
             }
-        })
+        });
     };
 
     onCreateListingClose = () => {

@@ -3,16 +3,10 @@ import React from "react";
 let rowActions = (function() {
     return {
         runIntialUpdateForRowsIfApplicable: () => {
-            console.log('in runInitialUpdateForRowsIfApplicable');
             return function updateRowsThunk(dispatch, getState) {
                 if(getState().rows.initialModifyHasOccurred){
-                    console.log('not running...');
-
-
                     return;
                 }
-                console.log('RUNNING!');
-
                 dispatch(rowActions.updateRowsForPortals());
             }
         },
