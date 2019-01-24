@@ -111,7 +111,7 @@ function getListingUrl(listing) {
     if (!listing) {
         return '';
     }
-    return listing.status === 'active' || listing.status === 'paused' ? listing.url : '';
+    return listing.url;
 }
 
 function getMostNegativeListing(listings) {
