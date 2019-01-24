@@ -71,7 +71,7 @@ class RootComponent extends React.Component {
         this.performProductsRequest(null, null, skuList);
     };
 
-    onCreateListingIconClick =  async(createListingData) => {
+    onCreateListingIconClick =  (createListingData) => {
         let {
             product,
             createListingsAllowedChannels,
@@ -81,19 +81,17 @@ class RootComponent extends React.Component {
             variations
         } = createListingData;
 
-        return new Promise((resolve) => {
-            this.setState({
-                currentView: ACCOUNT_SELECTION_VIEW,
-                accounts,
-                createListing: {
-                    product: product,
-                    variations,
-                    productSearchActive,
-                    createListingsAllowedChannels,
-                    createListingsAllowedVariationChannels
-                }
-            }, resolve)
-        });
+        this.setState({
+            currentView: ACCOUNT_SELECTION_VIEW,
+            accounts,
+            createListing: {
+                product: product,
+                variations,
+                productSearchActive,
+                createListingsAllowedChannels,
+                createListingsAllowedVariationChannels
+            }
+        })
     };
 
     onCreateListingClose = () => {

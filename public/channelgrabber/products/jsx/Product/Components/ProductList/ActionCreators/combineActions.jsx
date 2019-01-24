@@ -44,13 +44,7 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                 let product = getState.customGetters.getProductById(idToGetProductFor);
                 let variations = await getVariations(product, state, dispatch);
 
-                console.log('changing view before onClick...');
-
-
-
-                console.log('await onClick stateSet to end...');
-
-                await ownProps.onCreateNewListingIconClick({
+                ownProps.onCreateNewListingIconClick({
                     product,
                     variations,
                     accounts: state.accounts.getAccounts(state),
@@ -60,10 +54,6 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                 })
 
                 dispatch(globalActions.changeView());
-
-                console.log('onListing click awaited..');
-
-
             }
         }
     };
