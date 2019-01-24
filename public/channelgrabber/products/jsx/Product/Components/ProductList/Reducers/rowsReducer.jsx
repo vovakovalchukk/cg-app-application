@@ -11,7 +11,6 @@ var initialState = {
 
 var rowsReducer = reducerCreator(initialState, {
     "VIEW_CHANGE": function(state){
-        console.log('view Change fired... seting initialModifyHasoccurred to FALSE');
         return Object.assign({}, state, {
             initialModifyHasOccurred: false
         });
