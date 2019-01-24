@@ -29,6 +29,7 @@ const alignFlexMap = {
 };
 
 let columnCreator = function(column, parentProps) {
+
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);

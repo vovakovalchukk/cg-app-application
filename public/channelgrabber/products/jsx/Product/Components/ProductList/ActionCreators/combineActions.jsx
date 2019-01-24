@@ -8,11 +8,13 @@ import productDetailsActions from 'Product/Components/ProductList/ActionCreators
 import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
+import globalActions from 'Product/Components/ProductList/ActionCreators/globalActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 
 export default (ownProps) => {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
     return Object.assign(
+        globalActions,
         productActions,
         productLinkActions,
         paginationActions,
@@ -42,7 +44,13 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                 let product = getState.customGetters.getProductById(idToGetProductFor);
                 let variations = await getVariations(product, state, dispatch);
 
-                ownProps.onCreateNewListingIconClick({
+                console.log('changing view before onClick...');
+
+
+
+                console.log('await onClick stateSet to end...');
+
+                await ownProps.onCreateNewListingIconClick({
                     product,
                     variations,
                     accounts: state.accounts.getAccounts(state),
@@ -50,6 +58,12 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                     createListingsAllowedChannels: state.createListing.createListingsAllowedChannels,
                     createListingsAllowedVariationChannels: state.createListing.createListingsAllowedVariationChannels,
                 })
+
+                dispatch(globalActions.changeView());
+
+                console.log('onListing click awaited..');
+
+
             }
         }
     };

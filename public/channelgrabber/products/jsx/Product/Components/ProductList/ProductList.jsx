@@ -65,12 +65,16 @@ class ProductList extends React.Component {
             }
         });
     };
+    addProductClick = () => {
+        this.props.actions.changeView();
+        this.props.addNewProductButtonClick();
+    }
     renderAdditionalNavbarButtons = () => {
         return (
             <div className=" navbar-strip--push-up-fix ">
                 <NavbarButton
                     buttonLabel={'Add'}
-                    onClick={this.props.addNewProductButtonClick}
+                    onClick={this.addProductClick}
                     iconClass={'fa-plus navbar-strip__button__icon--center-add'}
                 />
                 <NavbarButton
@@ -218,6 +222,9 @@ class ProductList extends React.Component {
         );
     }
     render() {
+        console.log('PL render');
+        
+        
         return (
             <div id='products-app'>
                 <div className="top-toolbar">

@@ -40,9 +40,13 @@ class AddListingCell extends React.Component {
     };
 
     onAddListingClick = async (rowData) => {
-        this.props.actions.createNewListing({
+        console.log('awaiting this..');
+        await this.props.actions.createNewListing({
             rowData
         });
+        console.log('finished awaiting');
+        
+        
     };
 
     render() {
