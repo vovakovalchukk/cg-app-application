@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4206e1b241265ca1339cf1e014c2d06",
+    "content-hash": "288e58516e5b9a3735ed35d401a459be",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2465,16 +2465,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-331-abstract-csv-service",
+            "version": "dev-TAC-324-product-link-export",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "a748c00b7c90677499097a99ca998ac035237886"
+                "reference": "f55f5300199603d0daecad0031caafe69fbb729d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-331-abstract-csv-service-51a81e.zip",
-                "reference": "a748c00b7c90677499097a99ca998ac035237886",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-324-product-link-export-f5d447.zip",
+                "reference": "f55f5300199603d0daecad0031caafe69fbb729d",
                 "shasum": null
             },
             "require": {
@@ -2526,7 +2526,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-23T09:41:26+00:00"
+            "time": "2019-01-23T14:34:41+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -10475,7 +10475,7 @@
         {
             "alias": "1.16.11",
             "alias_normalized": "1.16.11.0",
-            "version": "dev-TAC-331-abstract-csv-service",
+            "version": "dev-TAC-324-product-link-export",
             "package": "channelgrabber/product"
         }
     ],
