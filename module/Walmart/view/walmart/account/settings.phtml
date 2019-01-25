@@ -1,0 +1,10 @@
+<?php
+
+use Walmart\Controller\AccountController;
+use Walmart\Module;
+
+$url = $this->url(Module::ROUTE . '/' . AccountController::ROUTE_SETUP) . '?accountId=' . $account->getId();
+?>
+<div>
+    <?= $this->partial(\CG_Channel\Module::TEMPLATE_TOKEN_RENEWAL_HREF, compact('account', 'form', 'route', 'url')) ?>
+</div>
