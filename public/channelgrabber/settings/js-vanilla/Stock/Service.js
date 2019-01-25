@@ -17,8 +17,9 @@ define([
         var init = function()
         {
             eventHandler = new EventHandler(this);
-            var form = new AjaxForm(notifications, EventHandler.SELECTOR_FORM);
+            new AjaxForm(notifications, EventHandler.SELECTOR_FORM);
             this.checkInitialStockMode();
+            this.checkInitialLowStockThresholdToggle();
         };
         init.call(this);
     }
@@ -29,6 +30,11 @@ define([
     {
         var stockMode = $(EventHandler.SELECTOR_DEFAULT_STOCK_MODE_INPUT).val();
         this.defaultStockModeChanged(stockMode);
+    };
+
+    Service.prototype.checkInitialLowStockThresholdToggle = function()
+    {
+        this.lowStockThresholdChanged($(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_TOGGLE).is(':checked'));
     };
 
     Service.prototype.defaultStockModeChanged = function(stockMode)

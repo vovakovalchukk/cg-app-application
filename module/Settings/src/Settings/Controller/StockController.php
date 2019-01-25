@@ -65,7 +65,7 @@ class StockController extends AbstractActionController
             ->addChild($this->getSaveButton(), 'saveButton');
         $this->addAccountStockSettingsTableToView($view);
 
-        $this->addLowStockThresholdToView($rootOu, $view);
+        $this->addLowStockThresholdToView($rootOu, $view, $productSettings);
 
         return $view;
     }
@@ -98,23 +98,31 @@ class StockController extends AbstractActionController
         return $view;
     }
 
-    protected function addLowStockThresholdToView(OrganisationUnit $organisationUnit, ViewModel $view): void
-    {
+    protected function addLowStockThresholdToView(
+        OrganisationUnit $organisationUnit,
+        ViewModel $view,
+        ProductSettings $productSettings
+    ): void {
         if (!$this->featureFlagsService->isActive(static::FEATURE_FLAG_LOW_STOCK_THRESHOLD, $organisationUnit)) {
             return;
         }
 
         $view
-            ->setVariable('lowStockThresholdValue',12)
-            ->addChild($this->getLowStockThreshold(), 'lowStockThreshold');
+            ->setVariable('lowStockThresholdValue', (int) $productSettings->getLowStockThresholdValue())
+            ->addChild($this->getLowStockThreshold($productSettings->isLowStockThresholdOn()), 'lowStockThreshold');
     }
 
-    protected function getLowStockThreshold()
+    protected function getLowStockThreshold(bool $isLowStockThresholdOn): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/toggle.mustache')
             ->setVariable('id', 'low-stock-threshold-toggle')
             ->setVariable('name', 'low-stock-threshold-toggle');
+
+        if ($isLowStockThresholdOn) {
+            $view->setVariable('selected', true);
+        }
+
         return $view;
     }
 
