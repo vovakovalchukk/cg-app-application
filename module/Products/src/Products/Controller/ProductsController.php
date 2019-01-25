@@ -38,6 +38,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     const ROUTE_INDEX_URL = '/products';
 
+    const STOCK_TAB_FEATURE_FLAG = 'Stock Tab Enabled';
+
     protected $viewModelFactory;
     protected $productService;
     protected $bulkActionsService;
@@ -122,6 +124,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ),
             'createProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
+                $rootOuId,
+                $rootOu
+            ),
+            'stockTabEnabled' => $this->featureFlagService->featureEnabledForOu(
+                static::STOCK_TAB_FEATURE_FLAG,
                 $rootOuId,
                 $rootOu
             )

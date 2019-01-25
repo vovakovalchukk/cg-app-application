@@ -12,6 +12,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Renderer\PhpRenderer;
+use CG_Billing\Package\Service as BillingPackageService;
 
 return [
     'service_manager' => [
@@ -54,11 +55,16 @@ return [
             },
             ZendDi::class => function(ServiceLocatorInterface $serviceManager) {
                 return $serviceManager->get(Di::class);
+            },
+            // Hack to prevent ServiceManager treating two classes as one because \ = _ in namespace!
+            BillingPackageService::class => function(ServiceLocatorInterface $serviceManager, $alias, $class) {
+                return $serviceManager->get(Di::class)->get($class);
             }
         ],
         'shared' => [
             Di::class => true,
             ZendDi::class => true,
+            BillingPackageService::class => false,
         ],
         'aliases' => [
             'Di' => Di::class,

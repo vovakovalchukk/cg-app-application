@@ -61,6 +61,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 // Order usage
 use CG_Usage\Service as UsageService;
+use CG\UsageCheck\Service as UsageCheckService;
 
 // Settings
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
@@ -217,6 +218,7 @@ $config = array(
                 TransactionClient::class => RedisTransactionClient::class,
                 StockLogStorage::class => StockLogApiStorage::class,
                 UsageService::class => 'order_count_usage_service',
+                UsageCheckService::class => 'order_count_usage_check_service',
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
