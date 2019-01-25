@@ -1,16 +1,18 @@
 <?php
 namespace Settings\Controller;
 
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\StockMode;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
+use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\User\OrganisationUnit\Service as UserOUService;
-use Settings\Controller\StockJsonController;
 use Settings\Controller\Stock\AccountTableTrait;
 use Settings\Module;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class StockController extends AbstractActionController
 {
@@ -19,6 +21,7 @@ class StockController extends AbstractActionController
     const ACCOUNT_SETTINGS_TABLE_TEMPLATE = 'Account Settings Table';
     const ROUTE = 'Stock';
     const ROUTE_URI = '/stock';
+    const FEATURE_FLAG_LOW_STOCK_THRESHOLD = 'Low stock threshold';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -28,22 +31,27 @@ class StockController extends AbstractActionController
     protected $userOUService;
     /** @var DataTable */
     protected $accountsTable;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductSettingsService $productSettingsService,
         UserOUService $userOUService,
-        DataTable $accountsTable
+        DataTable $accountsTable,
+        FeatureFlagsService $featureFlagsService
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setProductSettingsService($productSettingsService)
-            ->setUserOUService($userOUService)
-            ->setAccountsTable($accountsTable);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->productSettingsService = $productSettingsService;
+        $this->userOUService = $userOUService;
+        $this->accountsTable = $accountsTable;
+        $this->featureFlagsService = $featureFlagsService;
     }
 
     public function indexAction()
     {
         $rootOu = $this->userOUService->getRootOuByActiveUser();
+        /** @var ProductSettings $productSettings */
         $productSettings = $this->productSettingsService->fetch($rootOu->getId());
         $saveUri = $this->url()->fromRoute(
             Module::ROUTE . '/' . static::ROUTE . '/' . StockJsonController::ROUTE_SAVE
@@ -56,6 +64,8 @@ class StockController extends AbstractActionController
             ->setVariable('defaultStockLevel', (int)$productSettings->getDefaultStockLevel())
             ->addChild($this->getSaveButton(), 'saveButton');
         $this->addAccountStockSettingsTableToView($view);
+
+        $this->addLowStockThresholdToView($rootOu, $view);
 
         return $view;
     }
@@ -88,28 +98,25 @@ class StockController extends AbstractActionController
         return $view;
     }
 
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    protected function addLowStockThresholdToView(OrganisationUnit $organisationUnit, ViewModel $view): void
     {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
+        if (!$this->featureFlagsService->isActive(static::FEATURE_FLAG_LOW_STOCK_THRESHOLD, $organisationUnit)) {
+            return;
+        }
+
+        $view
+            ->setVariable('lowStockThresholdValue',12)
+            ->addChild($this->getLowStockThreshold(), 'lowStockThreshold');
     }
 
-    protected function setProductSettingsService(ProductSettingsService $productSettingsService)
+    protected function getLowStockThreshold()
     {
-        $this->productSettingsService = $productSettingsService;
-        return $this;
-    }
-
-    protected function setUserOUService(UserOUService $userOUService)
-    {
-        $this->userOUService = $userOUService;
-        return $this;
-    }
-
-    protected function setAccountsTable(DataTable $accountsTable)
-    {
-        $this->accountsTable = $accountsTable;
-        return $this;
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('elements/toggle.mustache')
+            ->setVariable('id', 'low-stock-threshold')
+            ->setVariable('name', 'low-stock-threshold')
+            ->setVariable('class', 'low-stock-threshold');
+        return $view;
     }
 
     // Required by AccountTableTrait
