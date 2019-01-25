@@ -14,6 +14,11 @@ let visibleRowService = (function() {
             let rowsContainer, parentRow;
 
             let visibleRowsIndexes = utility.getArrayOfAllRenderedRowIndexes();
+
+            if(!(visibleRowsIndexes instanceof Array && visibleRowsIndexes.length)){
+                return false;
+            }
+
             let highestRowIndexOfVisibleRows = Math.max.apply(null, visibleRowsIndexes);
 
             for (let index = 0; index < allRows.length; index++) {
@@ -28,6 +33,7 @@ let visibleRowService = (function() {
 
                 parentRow.style.zIndex = desiredZIndex;
             }
+            return true;
         }
     };
 
