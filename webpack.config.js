@@ -15,7 +15,8 @@ module.exports = {
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
         "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
-        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js"
+        "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
+        "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
     },
     module: {
         rules: [

@@ -79,6 +79,9 @@ $combined-height-of-non-list-ui-elements: $header-height+$pagination-height+50px
         background: #5fafda;
         color:white;
         border-bottom: #1b75a436 solid 2px;
+        .public_fixedDataTableCell_cellContent {
+            padding: 0 8px;
+        }
     }
     .public_fixedDataTableRow_highlighted, .public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
         background: #edf7fc;
