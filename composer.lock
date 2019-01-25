@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dce1d7a348a898fc35390d1374fc6960",
+    "content-hash": "d50ea220f1c4d7175b31cf5967c16481",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3270,16 +3270,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-TAC-305-LinkedAudit",
+            "version": "1.15.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "516515dba354579535dbdbd19ee92e7be64190af"
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-305-LinkedAudit-608caa.zip",
-                "reference": "516515dba354579535dbdbd19ee92e7be64190af",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.15.1-4ad4e8.zip",
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e",
                 "shasum": null
             },
             "require": {
@@ -3329,7 +3329,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-11T10:03:32+00:00"
+            "time": "2019-01-25T14:33:25+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -10977,18 +10977,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.15.1",
-            "alias_normalized": "1.15.1.0",
-            "version": "dev-TAC-305-LinkedAudit",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
