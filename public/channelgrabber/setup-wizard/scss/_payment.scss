@@ -86,6 +86,11 @@
         &:checked + .label::before {
           margin-left: 15px;
         }
+
+        &:disabled + .label {
+          background-color: $color-grey;
+          cursor: not-allowed;
+        }
       }
     }
   }
