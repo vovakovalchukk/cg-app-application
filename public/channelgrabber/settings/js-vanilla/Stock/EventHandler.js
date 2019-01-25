@@ -36,7 +36,6 @@ define([], function()
 
     EventHandler.prototype.listenForLowThresholdToggleChange = function()
     {
-        console.log('registering');
         var service = this.getService();
         $(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_TOGGLE).on('change', function() {
             service.lowStockThresholdChanged($(this).is(':checked'));
