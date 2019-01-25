@@ -40,6 +40,17 @@ define([
         }
     };
 
+    Service.prototype.lowStockThresholdChanged = function(toggle)
+    {
+        let thresholdInput = $(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_INPUT);
+        if (toggle) {
+            thresholdInput.removeAttr('disabled').removeClass('disabled');
+            return;
+        }
+
+        thresholdInput.attr('disabled', 'disabled').addClass('disabled');
+    };
+
     Service.prototype.save = function()
     {
         if (!this.validateForm()) {

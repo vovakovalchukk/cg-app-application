@@ -113,9 +113,8 @@ class StockController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/toggle.mustache')
-            ->setVariable('id', 'low-stock-threshold')
-            ->setVariable('name', 'low-stock-threshold')
-            ->setVariable('class', 'low-stock-threshold');
+            ->setVariable('id', 'low-stock-threshold-toggle')
+            ->setVariable('name', 'low-stock-threshold-toggle');
         return $view;
     }
 
