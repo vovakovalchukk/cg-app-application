@@ -2965,13 +2965,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "1aacc4272131102b9a68f9b0ac8a57fe91b73877"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-325-low-stock-threshold-c1f19e.zip",
-                "reference": "1aacc4272131102b9a68f9b0ac8a57fe91b73877",
-                "shasum": null
+                "reference": "5c48a3a6c078b0d20b691ad3b5f779125dfc2ba6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2994,7 +2988,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-01-25T11:36:52+00:00"
+            "time": "2019-01-25T13:52:39+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -10989,8 +10983,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

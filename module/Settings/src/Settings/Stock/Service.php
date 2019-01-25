@@ -10,6 +10,7 @@ use CG\CGLib\Gearman\Workload\PushAllStockForAccount as PushAllStockForAccountWo
 use CG\Channel\Type as ChannelType;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -45,22 +46,36 @@ class Service implements LoggerAwareInterface
             ->setGearmanClient($gearmanClient);
     }
 
-    public function saveDefaults(OrganisationUnit $rootOu, array $ouList, $defaultStockMode, $defaultStockLevel)
-    {
+    public function saveDefaults(
+        OrganisationUnit $rootOu,
+        array $ouList,
+        $defaultStockMode,
+        $defaultStockLevel,
+        bool $lowStockThresholdOn,
+        ?int $lowStockThresholdValue
+    ) {
         $this->addGlobalLogEventParam('ou', $rootOu->getId());
         $defaultsString = 'stock mode "' . $defaultStockMode . '", stock level "' . $defaultStockLevel . '"';
         $this->logDebug(static::LOG_SAVE_DEFAULTS, [$rootOu->getId(), $defaultsString], static::LOG_CODE);
+
+        /** @var ProductSettings $productSettings */
         $productSettings = $this->productSettingsService->fetch($rootOu->getId());
-        $productSettings->setDefaultStockMode($defaultStockMode)
-            ->setDefaultStockLevel($defaultStockLevel);
+        $productSettings
+            ->setDefaultStockMode($defaultStockMode)
+            ->setDefaultStockLevel($defaultStockLevel)
+            ->setLowStockThresholdOn($lowStockThresholdOn)
+            ->setLowStockThresholdValue($lowStockThresholdValue);
+
         try {
             $this->productSettingsService->save($productSettings);
         } catch (NotModified $e) {
             // No-op
         }
+
         $this->triggerStockPushForAccounts(
             $this->getSalesAccountsForOU($ouList)
         );
+
         $this->removeGlobalLogEventParam('ou');
     }
 
