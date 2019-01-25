@@ -69,7 +69,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.16.5",
-        "channelgrabber/stock": "~1.13.0",
+        "channelgrabber/stock": "~1.15.1",
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.6.5",
         "channelgrabber/usage": "~1.0.7",
