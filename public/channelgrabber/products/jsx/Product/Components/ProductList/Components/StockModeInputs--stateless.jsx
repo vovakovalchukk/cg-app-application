@@ -48,9 +48,8 @@ class StockModeInputsComponent extends React.Component {
 
             let formattedOption;
 
-
-            if (option.title.indexOf('List all') > -1) {
-                formattedOption = option;
+            if (option.title.indexOf('List all') > -1 || option.value == 'null') {
+                formattedOption = Object.assign({}, option);
             }
             if (option.title.indexOf('List up to a') > -1) {
                 formattedOption = {
@@ -64,12 +63,10 @@ class StockModeInputsComponent extends React.Component {
                     value: option.value
                 }
             }
-            if (option.value == 'null') {
-                formattedOption.value == option.value;
-                formattedOption.title = 'Default ('+ formattedOption.title+')';
-            }
+
             shortenedOptions.push(formattedOption)
         }
+
         return shortenedOptions;
     };
 
