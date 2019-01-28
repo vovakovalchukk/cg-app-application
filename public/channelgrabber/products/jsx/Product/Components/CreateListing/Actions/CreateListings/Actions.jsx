@@ -345,11 +345,9 @@ import ResponseActions from './ResponseActions';
             };
         },
         fetchCategoryTemplateDependentFieldValues: function(categoryTemplateIds, accountDefaultSettings, accountsData, dispatch) {
-            console.log('in fetchCategoryTemplateDependentFieldValues');
-
             $.ajax({
                 url: '/products/create-listings/category-template-dependent-field-values',
-                data: {categoryTemplateIds},
+                data: {categoryTemplateIds: categoryTemplateIds},
                 method: 'POST',
                 success: function(response) {
                     dispatch(ResponseActions.categoryTemplateDependentFieldValuesFetched(response.categoryTemplates, accountDefaultSettings, accountsData))

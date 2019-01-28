@@ -45,9 +45,6 @@ import ResponseActions from 'Product/Components/CreateListing/Actions/ResponseAc
             };
         },
         fetchSettingsForAccount: function(accountId, dispatch) {
-            console.log(' in fetchSettingsForaCCOUNT');
-            
-            
             $.ajax({
                 context: this,
                 url: '/products/create-listings/' + accountId + '/default-settings',

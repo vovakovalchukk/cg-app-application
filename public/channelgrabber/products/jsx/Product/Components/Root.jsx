@@ -113,8 +113,6 @@ class RootComponent extends React.Component {
     };
 
     renderAccountSelectionPopup = () => {
-
-
         var AccountSelectionRootComponent = AccountSelectionRoot(
             this.state.accounts,
             this.state.createListing.createListingsAllowedChannels,
@@ -122,7 +120,6 @@ class RootComponent extends React.Component {
             this.state.createListing.productSearchActive,
             this.onCreateListingClose,
             this.props.ebaySiteOptions,
-            //todo-remove this hack to replicate QA OU 649
             this.props.categoryTemplateOptions,
             this.showCreateListingPopup,
             this.showSearchPopup,

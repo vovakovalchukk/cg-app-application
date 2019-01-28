@@ -27,19 +27,8 @@ class CategoryFormsComponent extends React.Component {
 
     renderForCategoryTemplates = () => {
         var output = [];
-        let catTemplates = {
-            5: {
-                accounts: {
-                    6: {
-                        accountId: 6,
-                        channel: 'amazon',
-                        categoryId: 13213
-                    }
-                }
-            }
-        };
-        for (var categoryTemplateId in catTemplates) {
-            var categoryTemplate = catTemplates[categoryTemplateId];
+        for (var categoryTemplateId in this.props.categoryTemplates) {
+            var categoryTemplate = this.props.categoryTemplates[categoryTemplateId];
             output = output.concat(this.renderForCategoryTemplate(categoryTemplate))
         }
         return output;
@@ -59,10 +48,10 @@ class CategoryFormsComponent extends React.Component {
 
     renderForCategory = (category, categoryId) => {
         if (!this.isAccountSelected(category.accountId)) {
-//            return null;
+            return null;
         }
         if (!this.isChannelSpecificFormPresent(category.channel)) {
-//            return null;
+            return null;
         }
 
         var ChannelForm = channelToFormMap[category.channel];
@@ -93,7 +82,6 @@ class CategoryFormsComponent extends React.Component {
     };
 
     render() {
-        console.log(this.props);
         return (
             <div className="category-forms-container">
                 {this.renderForCategoryTemplates()}
