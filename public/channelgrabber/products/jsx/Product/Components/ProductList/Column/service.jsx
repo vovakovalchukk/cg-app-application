@@ -87,6 +87,14 @@ let stockColumns = [
         fixed: false,
         tab: 'stock',
         align: 'center'
+    },
+    {
+        key: 'lowStock',
+        width: 200,
+        headerText: 'Low stock',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
     }
 ];
 
