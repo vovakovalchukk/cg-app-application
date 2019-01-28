@@ -131,7 +131,7 @@ class CategoryMapComponent extends React.Component {
         if (!this.props.closeButtonVisible) {
             return null;
         }
-        return <div className={"map-button save-button"}>
+        return <div className={"map-button save-button u-float-left u-margin-left-small"}>
             <div className={"button"} onClick={this.props.onCloseButtonPressed}>
                 <span>Close</span>
             </div>
