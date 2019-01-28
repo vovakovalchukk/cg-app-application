@@ -48,18 +48,16 @@ let portalSettingsFactory = (function() {
                 elemType,
                 distanceFromLeftSideOfTableToStartOfCell,
                 width,
-                elemType,
                 dimension,
                 translateProp: getTranslateProp({elemType})
             });
 
-            let portalSettings = {
+            return {
                 id: rowIndex,
                 usePortal: true,
                 domNodeForSubmits,
                 PortalWrapper: WrapperForPortal
             };
-            return portalSettings;
         }
     };
 

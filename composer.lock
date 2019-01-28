@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "367382af06d91f8a70bef9709c2a8999",
+    "content-hash": "d50ea220f1c4d7175b31cf5967c16481",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3270,22 +3270,23 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.13.0",
+            "version": "1.15.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41"
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.13.0-8f817b.zip",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.15.1-4ad4e8.zip",
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/db": "^1.0.4",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
@@ -3328,7 +3329,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-26T09:05:13+00:00"
+            "time": "2019-01-25T14:33:25+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
