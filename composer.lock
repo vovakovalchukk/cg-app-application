@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d50ea220f1c4d7175b31cf5967c16481",
+    "content-hash": "725984ec6a82d6b4dd0ed6df8dca3a66",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3270,16 +3270,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.15.1",
+            "version": "dev-TAC-325-low-stock-threshold",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e"
+                "reference": "73722f6d7a7056e609f57c4f1c9e391a2355e078"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.15.1-4ad4e8.zip",
-                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-54030e.zip",
+                "reference": "73722f6d7a7056e609f57c4f1c9e391a2355e078",
                 "shasum": null
             },
             "require": {
@@ -3329,7 +3329,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-25T14:33:25+00:00"
+            "time": "2019-01-28T09:48:35+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -10983,12 +10983,19 @@
             "alias_normalized": "1.7.0.0",
             "version": "dev-TAC-325-low-stock-threshold",
             "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.15.2",
+            "alias_normalized": "1.15.2.0",
+            "version": "dev-TAC-325-low-stock-threshold",
+            "package": "channelgrabber/stock"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
