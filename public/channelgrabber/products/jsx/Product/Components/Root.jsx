@@ -113,6 +113,100 @@ class RootComponent extends React.Component {
     };
 
     renderAccountSelectionPopup = () => {
+
+        //todo - remove this hack for OU-649
+        let categoryTemplateOptions = {
+            "72": {
+                "name": "character limit what is that I've never heard of such a thing, I thought I could just keep on naming this category template forever with no consequences human madmen arghhhhhhhhhh get to the chopper",
+                "accounts": {
+                    "2492": 2492,
+                    "2509": 2509,
+                    "2510": 2510,
+                    "2551": 2551,
+                    "2697": 2697
+                }
+            },
+            "74": {
+                "name": "lis-262",
+                "accounts": {
+                    "2492": 2492,
+                    "2510": 2510,
+                    "2551": 2551
+                }
+            },
+            "88": {
+                "name": "DON'T TOUCH amazon test ed ",
+                "accounts": {
+                    "2551": 2551
+                }
+            },
+            "95": {
+                "name": "valid ebay test category",
+                "accounts": {
+                    "2492": 2492,
+                    "2509": 2509,
+                    "2510": 2510,
+                    "2551": 2551,
+                    "2697": 2697
+                }
+            },
+            "109": {
+                "name": "ebay breaker 2000",
+                "accounts": {
+                    "2509": 2509,
+                    "2510": 2510,
+                    "2551": 2551,
+                    "2697": 2697
+                }
+            },
+            "112": {
+                "name": "PBSE category",
+                "accounts": {
+                    "2492": 2492
+                }
+            },
+            "114": {
+                "name": "Home, Furniture & DIY > Appliances > Washing Machines & Dryers > Washers-Dryers",
+                "accounts": {
+                    "2492": 2492
+                }
+            },
+            "115": {
+                "name": "Sporting Goods > Fitness, Running & Yoga > Cardio Machines > Other Cardio Machines",
+                "accounts": {
+                    "2492": 2492
+                }
+            },
+            "120": {
+                "name": "valid non-pbse",
+                "accounts": {
+                    "2492": 2492
+                }
+            },
+            "123": {
+                "name": "another VALID non-pbse",
+                "accounts": {
+                    "2492": 2492
+                }
+            },
+            "131": {
+                "name": "mad donking test",
+                "accounts": {
+                    "2492": 2492,
+                    "2551": 2551,
+                    "2603": 2603,
+                    "2692": 2692,
+                    "2697": 2697
+                }
+            },
+            "132": {
+                "name": "Grocery -> Fresh & Chilled -> Dairy -> Cheese -> Artisan & Speciality -> Hard & Semi-Hard",
+                "accounts": {
+                    "2551": 2551
+                }
+            }
+        };
+
         var AccountSelectionRootComponent = AccountSelectionRoot(
             this.state.accounts,
             this.state.createListing.createListingsAllowedChannels,
@@ -120,7 +214,8 @@ class RootComponent extends React.Component {
             this.state.createListing.productSearchActive,
             this.onCreateListingClose,
             this.props.ebaySiteOptions,
-            this.props.categoryTemplateOptions,
+            //todo-remove this hack for 649
+            categoryTemplateOptions,
             this.showCreateListingPopup,
             this.showSearchPopup,
             this.state.createListing.product,
