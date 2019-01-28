@@ -53,6 +53,15 @@ class Service implements
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
+        $categories = [
+            327422 => ['title' => 'test', 'listable' => true, "variations" => true],
+            327423 => ['title' => 'test 2', 'listable' => true, "variations" => true],
+            3274223 => ['title' => 'test 3', 'listable' => true, "variations" => true],
+        ];
+
+        return [
+            'categories' => $categories
+        ];
         return [
             'categories' => $this->categoryService->fetchRootCategoriesForAccount(
                 $account,
