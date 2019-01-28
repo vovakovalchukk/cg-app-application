@@ -77,10 +77,7 @@ class SubcategoriesComponent extends React.Component {
         $.get(
             ApiHelper.buildCategoryChildrenUrl(this.props.accountId, category.value),
             function(response) {
-
                 response = {"categories":{"630540":{"title":"Mens","listable":true},"630547":{"title":"Women","listable":true}},"bodyTag":[]};
-
-
                 self.setState({
                     disabled: false
                 });
@@ -122,7 +119,7 @@ class SubcategoriesComponent extends React.Component {
     };
 
     render() {
-        return <label className="input-container">
+        return <div className="input-container">
             <span className={"inputbox-label"}>Subcategory</span>
             <div className={"order-inputbox-holder sub-category-select-container"}>
                 <FieldArray
@@ -131,7 +128,7 @@ class SubcategoriesComponent extends React.Component {
                     rerenderOnEveryChange={true}
                 />
             </div>
-        </label>;
+        </div>;
     }
 }
 
