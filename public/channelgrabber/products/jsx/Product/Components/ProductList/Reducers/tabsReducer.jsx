@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+
 "use strict";
 
 let initialState = {
@@ -39,7 +40,10 @@ var TabsReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    "SHOW_STOCK_TAB": function (state) {
+    "STOCK_TAB_SHOW": function(state) {
+        if (doesStockTabExistOnState(state)) {
+            return state;
+        }
         let newTabs = state.tabs;
         newTabs.push(stockTab);
         return Object.assign({}, state, {
@@ -49,3 +53,9 @@ var TabsReducer = reducerCreator(initialState, {
 });
 
 export default TabsReducer
+
+function doesStockTabExistOnState(state) {
+    return !!state.tabs.find(tab => {
+        return tab.key === 'stock';
+    });
+}

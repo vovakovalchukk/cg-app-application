@@ -1,5 +1,5 @@
 define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequester) {
-    function Payment(notifications, selectedPackage, selectedBillingDuration, activePaymentMethod)
+    function Payment(notifications, selectedPackage, selectedBillingDuration, activePaymentMethod, discountCode)
     {
         this.getNotifications = function()
         {
@@ -33,6 +33,10 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
 
         this.getActivePaymentMethod = function() {
             return activePaymentMethod;
+        };
+
+        this.getDiscountCode = function() {
+            return discountCode;
         };
 
         var init = function()
@@ -83,7 +87,8 @@ define(['../SetupWizard.js', 'AjaxRequester'], function(setupWizard, ajaxRequest
                 ajaxRequester.sendRequest(
                     Payment.SetPackageUrl + selectedPackage,
                     {
-                        billingDuration: selectedBillingDuration
+                        billingDuration: selectedBillingDuration,
+                        discountCode: self.getDiscountCode()
                     },
                     function(data) {
                         if (data.success) {

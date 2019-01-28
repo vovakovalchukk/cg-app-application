@@ -162,7 +162,7 @@ var actionCreators = (function() {
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
-                dispatch(actionCreators.getLinkedProducts(skusFromData));
+                dispatch(productLinkActions.getLinkedProducts(skusFromData));
                 dispatch(vatActions.extractVatFromProducts(data.products));
             }
         },

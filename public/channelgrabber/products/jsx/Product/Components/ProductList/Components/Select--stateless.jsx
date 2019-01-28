@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import styled from 'styled-components';
+import portalFactory from "../Portal/portalFactory";
 
-const Dropdown = props => (
-    <div className={"animated fadeInDown open-content " + props.className}>
-        <ul>
-            {props.renderOptions()}
-        </ul>
+const Dropdown = (props) => (
+    <div className={"custom-select active"}>
+        <div className={"animated fadeInDown open-content " + props.className}>
+            <ul>
+                {props.renderOptions()}
+            </ul>
+        </div>
     </div>
 );
 const StyledDropdown = styled(Dropdown)`
@@ -67,34 +70,24 @@ class StatelessSelectComponent extends React.Component {
             this.props.options.map(this.renderOption)
         )
     };
-    renderDropdownInPortal = (Dropdown) => {
-        let PortalWrapper = this.props.portalSettingsForDropdown.PortalWrapper;
-        let DropdownInWrapper = () => {
-            return (
-                <PortalWrapper style={{'display': 'green'}}>
-                    <div className={'custom-select active'}>
-                        <StyledDropdown
-                            renderOptions={this.renderOptions}
-                            width={this.props.styleVars.widthOfDropdown}
-                        />
-                    </div>
-                </PortalWrapper>
-            );
-        };
-        if (this.props.active) {
-            let PortalledComponent = DropdownInWrapper;
-            let targetNode = this.props.portalSettingsForDropdown.domNodeForSubmits;
-
-            return ReactDOM.createPortal(
-                <PortalledComponent/>,
-                targetNode
-            )
+    renderDropdownInPortal = () => {
+        if (!this.props.active) {
+            return <span/>
         }
-        return <span/>
+
+        let portalSettings = this.props.portalSettingsForDropdown;
+        return portalFactory.createPortal({
+            portalSettings,
+            Component: StyledDropdown,
+            componentProps: {
+                renderOptions: this.renderOptions,
+                width: this.props.styleVars.widthOfDropdown
+            }
+        });
     };
     renderDropdown = () => {
         if (this.props.portalSettingsForDropdown.usePortal && this.props.portalSettingsForDropdown.domNodeForSubmits) {
-            return this.renderDropdownInPortal(Dropdown);
+            return this.renderDropdownInPortal();
         }
         return <StyledDropdown
             renderOptions={this.renderOptions}
