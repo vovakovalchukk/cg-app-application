@@ -1574,7 +1574,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10319-vat-rates-are-not-selectable":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#9577564d2ef777c3e2afb7aa47256cb4cbda2c58"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#c1895ce729454c490058433eb38e8fbed2ea288f"
   dependencies:
     chalk "^2.4.1"
     react "^16.5.2"
