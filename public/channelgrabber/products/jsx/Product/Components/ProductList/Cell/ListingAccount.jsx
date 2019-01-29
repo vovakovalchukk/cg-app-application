@@ -62,7 +62,6 @@ class ListingAccountCell extends React.Component {
 
         let listingUrl = getListingUrl(mostNegativeListing);
         let listingTitle = getListingTitle(mostNegativeListing);
-
         let status = mostNegativeListingStateFromListings && mostNegativeListingStateFromListings.status ? mostNegativeListingStateFromListings.status : '';
 
         return <ListingStatus
@@ -112,7 +111,7 @@ function getListingUrl(listing) {
     if (!listing) {
         return '';
     }
-    return listing.status === 'active' ? listing.url : '';
+    return listing.url ? listing.url : '';
 }
 
 function getMostNegativeListing(listings) {
