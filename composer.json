@@ -63,7 +63,7 @@
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sagepay": "~1.1.24",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "dev-TAC-286-PickingLocationNames as 1.6.5",
+        "channelgrabber/settings": "dev-EPIC-TAC-283-PickingLocations as 1.6.5",
         "channelgrabber/shipstation": "~1.1.1",
         "channelgrabber/shopify": "~1.3.1",
         "channelgrabber/sso": "~1.2.7",
