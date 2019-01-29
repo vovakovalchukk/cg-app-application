@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49ea14216acabd31c21ace3ee78ec92a",
+    "content-hash": "d50ea220f1c4d7175b31cf5967c16481",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2080,16 +2080,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-10147-low-prio-order-printed-date-jobs",
+            "version": "1.43.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "bfd69bc96bde352b2576861b0085ab3e52670b8a"
+                "reference": "53045cd80f636655ae18841efde0d5c5f64273dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10147-low-prio-order-printed-date-jobs-2f16d7.zip",
-                "reference": "bfd69bc96bde352b2576861b0085ab3e52670b8a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.5-2ffa7d.zip",
+                "reference": "53045cd80f636655ae18841efde0d5c5f64273dc",
                 "shasum": null
             },
             "require": {
@@ -2160,7 +2160,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-01-25T12:22:06+00:00"
+            "time": "2019-01-22T15:49:03+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3270,22 +3270,23 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.13.2",
+            "version": "1.15.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "58a84b2b4a0ac20cba67416526f06c5427d250e5"
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.13.2-2f0497.zip",
-                "reference": "58a84b2b4a0ac20cba67416526f06c5427d250e5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.15.1-4ad4e8.zip",
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/db": "^1.0.4",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
@@ -3328,7 +3329,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-17T09:54:18+00:00"
+            "time": "2019-01-25T14:33:25+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -10976,18 +10977,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.43.6",
-            "alias_normalized": "1.43.6.0",
-            "version": "dev-CGIV-10147-low-prio-order-printed-date-jobs",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
