@@ -71,10 +71,6 @@ class StatelessSelectComponent extends React.Component {
         )
     };
     renderDropdownInPortal = () => {
-        if (!this.props.active) {
-            return <span/>
-        }
-
         let portalSettings = this.props.portalSettingsForDropdown;
         return portalFactory.createPortal({
             portalSettings,
@@ -86,6 +82,9 @@ class StatelessSelectComponent extends React.Component {
         });
     };
     renderDropdown = () => {
+        if (!this.props.active) {
+            return <span/>
+        }
         if (this.props.portalSettingsForDropdown.usePortal && this.props.portalSettingsForDropdown.domNodeForSubmits) {
             return this.renderDropdownInPortal();
         }

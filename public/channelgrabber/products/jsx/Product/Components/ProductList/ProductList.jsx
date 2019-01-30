@@ -137,10 +137,14 @@ class ProductList extends React.Component {
     };
     onVerticalScroll = () => {
         let scrollTimeout;
+        if(!this.props.scroll.userScrolling){
+            this.props.actions.setUserScrolling();
+        }
         clearTimeout(this.scrollTimeout);
         this.scrollTimeout = setTimeout(() => {
+            this.props.actions.unsetUserScrolling();
             this.props.actions.updateRowsForPortals();
-        }, 500);
+        }, 120);
         return true;
     };
     renderProducts = () => {
