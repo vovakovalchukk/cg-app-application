@@ -17,9 +17,9 @@
     "@babel/types" "^7.0.0"
 
 "@babel/types@^7.0.0":
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.2.2.tgz#44e10fc24e33af524488b716cdaee5360ea8ed1e"
-  integrity sha512-fKCuD6UFUMkR541eDWL+2ih/xFZBXPOg/7EQFeTluMDebfqR4jrpaCjLhkWlQS4hT6nRa2PMEgXKbRB5/H2fpg==
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.3.0.tgz#61dc0b336a93badc02bf5f69c4cd8e1353f2ffc0"
+  integrity sha512-QkFPw68QqWU1/RVPyBe8SO7lXbPfjtqAxRYQKpFpaB8yMq7X2qAqfwK5LKoQufEkSmO5NQ70O6Kc3Afk03RwXw==
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.10"
@@ -1574,7 +1574,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10255-customer-unable-to-select-required-subcategory-during-listing-creation":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#360fa59b32dda73daddadc9d708367b34ef9a7ef"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#ec1ae94a5cba889593abceb808d6ef8c92d904d7"
   dependencies:
     chalk "^2.4.1"
     react "^16.5.2"
