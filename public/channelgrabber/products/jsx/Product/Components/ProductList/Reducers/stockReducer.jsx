@@ -31,6 +31,10 @@ let initialState = {
     },
     stockLevels: {
         byProductId: {}
+    },
+    lowStockThresholdToggle: {
+    },
+    lowStockThresholdValue: {
     }
 };
 
@@ -127,6 +131,22 @@ let stockModeReducer = reducerCreator(initialState, {
         console.error(error);
         n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
         return state;
+    },
+    "STORE_LOW_STOCK_THRESHOLD": function(state, action) {
+        let products = action.payload.products;
+
+        let lowStockThresholdToggle = Object.assign({}, state.lowStockThresholdToggle);
+        let lowStockThresholdValue = Object.assign({}, state.lowStockThresholdValue);
+
+        products.forEach((product) => {
+            lowStockThresholdToggle[product.id] = product.stock.lowStockThresholdOn;
+            lowStockThresholdValue[product.id] = product.stock.lowStockThresholdValue
+        });
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle,
+            lowStockThresholdValue
+        });
     }
 });
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import portalFactory from "../Portal/portalFactory";
 
@@ -34,8 +33,7 @@ class StatelessSelectComponent extends React.Component {
     static defaultProps = {
         inputId: '',
         title: '',
-        onClick: () => {
-        },
+        onClick: () => {},
         portalSettingsForDropdown: {},
         active: false
     };

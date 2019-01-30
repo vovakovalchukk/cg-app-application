@@ -4,6 +4,7 @@ import constants from 'Product/Components/ProductList/Config/constants'
 import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
 import stateUtility from 'Product/Components/ProductList/stateUtility'
+import stockActions from '../ActionCreators/stockActions';
 
 "use strict";
 
@@ -164,6 +165,7 @@ var actionCreators = (function() {
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.storeLowStockThreshold(data.products));
             }
         },
         getVariationsByParentProductId: (parentProductId) => {

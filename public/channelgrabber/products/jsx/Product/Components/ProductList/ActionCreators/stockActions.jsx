@@ -121,6 +121,16 @@ let actionCreators = (function() {
                 });
                 return response;
             }
+        },
+        storeLowStockThreshold: (products) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "STORE_LOW_STOCK_THRESHOLD",
+                    payload: {
+                        products
+                    }
+                });
+            }
         }
     }
 }());
