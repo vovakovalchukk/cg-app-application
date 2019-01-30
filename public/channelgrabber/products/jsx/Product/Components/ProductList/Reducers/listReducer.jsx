@@ -3,8 +3,7 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 var initialState = {
-    fetchingUpdatedStockLevelsForSkus: {},
-    currentRowScrollIndex: null
+    fetchingUpdatedStockLevelsForSkus: {}
 };
 
 var listReducer = reducerCreator(initialState, {
@@ -20,18 +19,6 @@ var listReducer = reducerCreator(initialState, {
         let {fetchingStockLevelsForSkus} = action.payload;
         let newState = Object.assign({}, state, {
             fetchingStockLevelsForSkus
-        });
-        return newState;
-    },
-    "VERTICAL_SCROLLBAR_SET_TO_0": function(state) {
-        let newState = Object.assign({}, state, {
-            currentRowScrollIndex: 0
-        });
-        return newState;
-    },
-    "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state) {
-        let newState = Object.assign({}, state, {
-            currentRowScrollIndex: null
         });
         return newState;
     }

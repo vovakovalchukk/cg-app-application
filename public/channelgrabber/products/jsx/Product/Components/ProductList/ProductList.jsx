@@ -172,8 +172,8 @@ class ProductList extends React.Component {
                 groupHeaderHeight={0}
                 showScrollbarX={true}
                 showScrollbarY={true}
-                scrollToColumn={this.props.tabs.currentColumnScrollIndex}
-                scrollToRow={this.props.list.currentRowScrollIndex}
+                scrollToColumn={this.props.scroll.currentColumnScrollIndex}
+                scrollToRow={this.props.scroll.currentRowScrollIndex}
                 rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
                 onVerticalScroll={this.onVerticalScroll}
             >
