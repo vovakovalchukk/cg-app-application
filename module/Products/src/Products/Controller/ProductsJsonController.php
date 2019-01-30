@@ -42,6 +42,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_LEVEL = 'Stock Level';
+    const ROUTE_LOW_STOCK_THRESHOLD = 'Low stock threshold';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
@@ -481,6 +482,19 @@ class ProductsJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance(
             $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel)
+        );
+    }
+
+    public function saveLowStockThresholdAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('productId', 0);
+        $toggle = $this->params()->fromPost('lowStockThresholdToggle', StockSettingsService::LOW_STOCK_THRESHOLD_DEFAULT);
+        $value = $this->params()->fromPost('lowStockThresholdValue', null);
+
+        return $this->jsonModelFactory->newInstance(
+            $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)
         );
     }
 

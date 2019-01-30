@@ -12,9 +12,20 @@ use CG\Stock\Entity as Stock;
 use CG\Stock\Mode as StockMode;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdUpdateGenerator;
 
 class Service
 {
+    const LOW_STOCK_THRESHOLD_DEFAULT = 'default';
+    const LOW_STOCK_THRESHOLD_ON = 'true';
+    const LOW_STOCK_THRESHOLD_OFF = 'false';
+
+    const LOW_STOCK_THRESHOLD_MAP = [
+        self::LOW_STOCK_THRESHOLD_DEFAULT => null,
+        self::LOW_STOCK_THRESHOLD_ON => true,
+        self::LOW_STOCK_THRESHOLD_OFF => false
+    ];
+
     /** @var UserOUService */
     protected $userOUService;
     /** @var ProductSettingsService */
@@ -23,38 +34,34 @@ class Service
     protected $productService;
     /** @var StockStorage $stockStorage */
     protected $stockStorage;
-
     /** @var ProductSettings $productSettings */
     protected $productSettings;
     /** @var array $stockModeOptions */
     protected $stockModeOptions;
+    /** @var LowStockThresholdUpdateGenerator */
+    protected $lowStockThresholdUpdateGenerator;
 
     public function __construct(
         UserOUService $userOUService,
         ProductSettingsService $productSettingsService,
         ProductService $productService,
-        StockStorage $stockStorage
+        StockStorage $stockStorage,
+        LowStockThresholdUpdateGenerator $lowStockThresholdUpdateGenerator
     ) {
-        $this
-            ->setUserOUService($userOUService)
-            ->setProductSettingsService($productSettingsService)
-            ->setProductService($productService)
-            ->setStockStorage($stockStorage);
+        $this->userOUService = $userOUService;
+        $this->productSettingsService = $productSettingsService;
+        $this->productService = $productService;
+        $this->stockStorage = $stockStorage;
+        $this->lowStockThresholdUpdateGenerator = $lowStockThresholdUpdateGenerator;
     }
 
-    /**
-     * @return array
-     */
-    public function getStockModeOptionsForStock(Stock $stock = null)
+    public function getStockModeOptionsForStock(Stock $stock = null): array
     {
         $stockMode = $stock ? $stock->getStockMode() : null;
         return $this->getStockModeOptions($stockMode ?: 'null');
     }
 
-    /**
-     * @return array
-     */
-    public function getStockModeOptionsForProduct(Product $product)
+    public function getStockModeOptionsForProduct(Product $product): array
     {
         return $this->getStockModeOptionsForStock(
             $this->getStockFromProduct($product)
@@ -95,10 +102,7 @@ class Service
         return $this->stockModeOptions;
     }
 
-    /**
-     * @return ProductSettings
-     */
-    protected function getProductSettings()
+    protected function getProductSettings(): ProductSettings
     {
         if ($this->productSettings) {
             return $this->productSettings;
@@ -108,25 +112,19 @@ class Service
         return $this->productSettings;
     }
 
-    /**
-     * @return string
-     */
-    public function getStockModeDecriptionForStock(Stock $stock = null)
+    public function getStockModeDecriptionForStock(Stock $stock = null): ?string
     {
         return $this->getStockModeDecription($stock ? $stock->getStockMode() : null);
     }
 
-    /**
-     * @return string
-     */
-    public function getStockModeDecriptionForProduct(Product $product)
+    public function getStockModeDecriptionForProduct(Product $product): ?string
     {
         return $this->getStockModeDecriptionForStock(
             $this->getStockFromProduct($product)
         );
     }
 
-    protected function getStockModeDecription($stockMode = null)
+    protected function getStockModeDecription($stockMode = null): ?string
     {
         $stockMode = $stockMode ?: null;
         if (!$stockMode) {
@@ -145,27 +143,6 @@ class Service
     {
         $productSettings = $this->getProductSettings();
         return $productSettings->getDefaultStockLevel();
-    }
-
-    /**
-     * @return int|null Null returned if stockLevel is not applicable to this Product
-     */
-    public function getStockLevelForStock(Stock $stock = null)
-    {
-        return $this->getStockLevel(
-            $stock ? $stock->getStockMode() : null,
-            $stock ? $stock->getStockLevel() : null
-        );
-    }
-
-    /**
-     * @return int|null Null returned if stockLevel is not applicable to this Product
-     */
-    public function getStockLevelForProduct(Product $product)
-    {
-        return $this->getStockLevelForStock(
-            $this->getStockFromProduct($product)
-        );
     }
 
     protected function getStockLevel($stockMode = null, $stockLevel = null)
@@ -203,20 +180,14 @@ class Service
         }
     }
 
-    /**
-     * @return Stock
-     */
-    public function saveStockStockMode($stockId, $stockMode, $eTag = null)
+    public function saveStockStockMode($stockId, $stockMode, $eTag = null): Stock
     {
         $stock = $this->stockStorage->fetch($stockId);
         $this->saveStockMode($stock, $stockMode, $eTag);
         return $stock;
     }
 
-    /**
-     * @return array
-     */
-    public function saveProductStockMode($productId, $stockMode)
+    public function saveProductStockMode($productId, $stockMode): array
     {
         /** @var Product $product */
         $product = $this->productService->fetch($productId);
@@ -253,20 +224,53 @@ class Service
         }
     }
 
-    /**
-     * @return Stock
-     */
-    public function saveStockStockLevel($stockId, $stockLevel, $eTag = null)
+    public function saveProductLowStockThreshold(int $productId, string $toggle, ?int $value): array
+    {
+        /** @var Product $product */
+        $product = $this->productService->fetch($productId);
+        $products = $product->isParent() ? $product->getVariations() : [$product];
+
+        // There can be null values, so we have to use array_key_exists, not isset or the null coalescing operator (??)
+        $toggle = array_key_exists($toggle, static::LOW_STOCK_THRESHOLD_MAP) ? static::LOW_STOCK_THRESHOLD_MAP[$toggle] : static::LOW_STOCK_THRESHOLD_DEFAULT;
+
+        $resultsBySku = [];
+        foreach ($products as $product) {
+            $stock = $this->saveLowStockThreshold($product->getStock()->getId(), $toggle, $value);
+            $resultsBySku[$product->getSku()] = [
+                'lowStockThresholdToggle' => $stock->isLowStockThresholdOn(),
+                'lowStockThresholdValue' => $stock->getLowStockThresholdValue()
+            ];
+        }
+
+        return $resultsBySku;
+    }
+
+    protected function saveLowStockThreshold(int $stockId, ?bool $toggle, ?int $value): Stock
+    {
+        try {
+            /** @var Stock $stock*/
+            $stock = $this->stockStorage->fetch($stockId);
+            $stock
+                ->setLowStockThresholdOn($toggle)
+                ->setLowStockThresholdValue($value);
+            $this->stockStorage->save($stock);
+            // Only generate the low stock threshold triggered job if the stock entity was updated
+            $this->lowStockThresholdUpdateGenerator->generateJob($stock->getId());
+        } catch (NotModified $e) {
+            // no-op
+        }
+
+        return $stock;
+    }
+
+    public function saveStockStockLevel($stockId, $stockLevel, $eTag = null): Stock
     {
         $stock = $this->stockStorage->fetch($stockId);
         $this->saveStockLevel($stock, $stockLevel, $eTag);
         return $stock;
     }
 
-    /**
-     * @return array
-     */
-    public function saveProductStockLevel($productId, $stockLevel)
+    public function saveProductStockLevel($productId, $stockLevel): array
     {
         /** @var Product $product */
         $product = $this->productService->fetch($productId);
@@ -290,10 +294,7 @@ class Service
         return $skuMap;
     }
 
-    /**
-     * @return Stock
-     */
-    protected function getStockFromProduct(Product $product)
+    protected function getStockFromProduct(Product $product): ?Stock
     {
         if (!$product->isParent()) {
             return $product->getStock();
@@ -318,56 +319,5 @@ class Service
             ->setPage(1)
             ->setParentProductId([$parentId]);
         return $this->productService->fetchCollectionByFilter($filter);
-    }
-
-    protected function checkAllSiblingsHaveZeroStockLevel(Product $variation, ProductCollection $siblings)
-    {
-        $allZero = true;
-        foreach ($siblings as $sibling) {
-            if ($sibling->getId() == $variation->getId()) {
-                continue;
-            }
-            if ($sibling->getStockLevel() != 0) {
-                $allZero = false;
-                break;
-            }
-        }
-        return $allZero;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUserOUService(UserOUService $userOUService)
-    {
-        $this->userOUService = $userOUService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProductSettingsService(ProductSettingsService $productSettingsService)
-    {
-        $this->productSettingsService = $productSettingsService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setStockStorage(StockStorage $stockStorage)
-    {
-        $this->stockStorage = $stockStorage;
-        return $this;
     }
 }

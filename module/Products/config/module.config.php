@@ -117,6 +117,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_LOW_STOCK_THRESHOLD => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/lowStockThreshold',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveLowStockThreshold'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [

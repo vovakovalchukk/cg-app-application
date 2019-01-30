@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e894646b81733cbe66e7df00f4c9f88",
+    "content-hash": "e9ea508c616719c9d678e4904123afa4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3274,12 +3274,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "73722f6d7a7056e609f57c4f1c9e391a2355e078"
+                "reference": "252de3c7aa526d146d29f3d962a22a02d8958c3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-54030e.zip",
-                "reference": "73722f6d7a7056e609f57c4f1c9e391a2355e078",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-fba7f4.zip",
+                "reference": "252de3c7aa526d146d29f3d962a22a02d8958c3e",
                 "shasum": null
             },
             "require": {
@@ -3329,7 +3329,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-28T09:48:35+00:00"
+            "time": "2019-01-29T10:32:10+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
