@@ -492,6 +492,7 @@ class ProductsJsonController extends AbstractActionController
         $productId = $this->params()->fromPost('productId', 0);
         $toggle = $this->params()->fromPost('lowStockThresholdToggle', StockSettingsService::LOW_STOCK_THRESHOLD_DEFAULT);
         $value = $this->params()->fromPost('lowStockThresholdValue', null);
+        $value = filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
 
         return $this->jsonModelFactory->newInstance(
             $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)
