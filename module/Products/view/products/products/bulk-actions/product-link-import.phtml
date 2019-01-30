@@ -1,0 +1,11 @@
+require.config({
+    paths: {
+        "Product/BulkAction/ProductLinkImport": "<?= $this->baseUrl . Products\Module::PUBLIC_FOLDER . 'js/Product/BulkAction/ProductLinkImport' ?>"
+    }
+});
+
+require(["Product/BulkAction/ProductLinkImport"], function(ProductLinkImport)
+{
+    var productLinkImportAction = new ProductLinkImport("<?= $selector ?>");
+    productLinkImportAction.init(<?= json_encode($this->templateMap) ?>);
+});

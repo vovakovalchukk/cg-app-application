@@ -47,6 +47,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
+    const ROUTE_PRODUCT_LINK_CSV_IMPORT = 'productLinkCsvImport';
     const ROUTE_DELETE = 'Delete';
     const ROUTE_DELETE_CHECK = 'Delete Check';
     const ROUTE_DELETE_PROGRESS = 'Delete Progress';
@@ -547,6 +548,21 @@ class ProductsJsonController extends AbstractActionController
 
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable("success", true);
+        return $view;
+    }
+
+    public function linkCsvImportAction()
+    {
+        $this->checkUsage();
+        $request = $this->getRequest();
+        $post = $request->getPost()->toArray();
+
+        if (!isset($post['productLinkUploadFile'])) {
+            throw new \RuntimeException('No file uploaded');
+        }
+
+        $view = $this->jsonModelFactory->newInstance();
+        $view->setVariable('success', true);
         return $view;
     }
 

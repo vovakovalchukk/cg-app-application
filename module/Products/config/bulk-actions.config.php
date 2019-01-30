@@ -31,12 +31,14 @@ return [
                 'DeleteJSViewModel' => ViewModel::class,
                 'StockImportJSViewModel' => ViewModel::class,
                 'StockExportJSViewModel' => ViewModel::class,
+                'ProductLinkImportJSViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
                 'ImportJSViewModel' => ViewModel::class,
                 'ImportAllFilteredJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class,
                 'UrlDataViewStockImport' => ViewModel::class,
-                'UrlDataViewStockExport' => ViewModel::class
+                'UrlDataViewStockExport' => ViewModel::class,
+                'UrlDataViewProductLinkImport' => ViewModel::class,
             ],
             ProductBulkActionsService::class => [
                 'parameters' => [
@@ -60,7 +62,8 @@ return [
                 'injections' => [
                     'addAction' => [
                         ['action' => ProductAction\StockExport::class],
-                        ['action' => ProductAction\StockImport::class]
+                        ['action' => ProductAction\StockImport::class],
+                        ['action' => ProductAction\ProductLinkImport::class],
                     ]
                 ],
             ],
@@ -110,12 +113,28 @@ return [
                     'template' => 'products/products/bulk-actions/stock-export',
                 ],
             ],
+            ProductAction\ProductLinkImport::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewProductLinkImport',
+                    'javascript' => 'ProductLinkImportJSViewModel'
+                ]
+            ],
+            'ProductLinkImportJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/product-link-import',
+                ],
+            ],
             'UrlDataViewStockImport' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/data-url',
                 ],
             ],
             'UrlDataViewStockExport' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewProductLinkImport' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/data-url',
                 ],
