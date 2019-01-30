@@ -77,7 +77,8 @@ class StatelessSelectComponent extends React.Component {
             Component: StyledDropdown,
             componentProps: {
                 renderOptions: this.renderOptions,
-                width: this.props.styleVars.widthOfDropdown
+                width: this.props.styleVars.widthOfDropdown,
+                className:'u-ease_0-1'
             }
         });
     };
@@ -91,6 +92,7 @@ class StatelessSelectComponent extends React.Component {
         return <StyledDropdown
             renderOptions={this.renderOptions}
             width={this.props.styleVars.widthOfDropdown}
+            className={'u-ease_0-1'}
         />
     };
     render() {
