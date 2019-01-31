@@ -40,6 +40,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_COUNTRY),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_COUNTRY),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_CURRENCY_CODE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_TOTAL),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_WEIGHT),
@@ -51,7 +52,8 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_FULFILMENT_CHANNEL),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_ARCHIVED),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_BUYER_MESSAGE),
-                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_GIFT_MESSAGE)
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_GIFT_MESSAGE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_DISPATCHABLE)
                     ]
                 ]
             ],
