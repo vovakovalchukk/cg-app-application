@@ -19,7 +19,8 @@ const columnSpecificPropsMap = {
     dimensions: ['rows'],
     weight: ['rows'],
     vat: ['rows', 'vat'],
-    bulkSelect: ['bulkSelect']
+    bulkSelect: ['bulkSelect'],
+    lowStock: ['stock', 'rows', 'userSettings']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {

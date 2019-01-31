@@ -109,6 +109,7 @@ var actionCreators = (function() {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
+                dispatch(stockActions.storeLowStockThreshold(data.products));
                 return data;
             }
         },

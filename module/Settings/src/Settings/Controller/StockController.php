@@ -112,7 +112,7 @@ class StockController extends AbstractActionController
             ->addChild($this->getLowStockThreshold($productSettings->isLowStockThresholdOn()), 'lowStockThreshold');
     }
 
-    protected function getLowStockThreshold(bool $isLowStockThresholdOn): ViewModel
+    protected function getLowStockThreshold(?bool $isLowStockThresholdOn): ViewModel
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('elements/toggle.mustache')

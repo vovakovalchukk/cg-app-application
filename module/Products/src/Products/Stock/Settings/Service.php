@@ -139,6 +139,16 @@ class Service
         return $productSettings->getDefaultStockMode();
     }
 
+    public function getLowStockThresholdToggleDefault()
+    {
+        return $this->getProductSettings()->isLowStockThresholdOn();
+    }
+
+    public function getLowStockThresholdDefaultValue()
+    {
+        return $this->getProductSettings()->getLowStockThresholdValue();
+    }
+
     public function getStockLevelDefault()
     {
         $productSettings = $this->getProductSettings();

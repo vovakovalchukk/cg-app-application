@@ -72,6 +72,16 @@ let stateUtility = function() {
                 return;
             }
             return products[0].stockLevelDefault;
+        },
+        getLowStockThresholdDefaultsFromProducts(products) {
+            if (products.length === 0) {
+                return {
+                    toggle: false,
+                    value: null
+                }
+            }
+
+            return products[0].lowStockThresholdDefault;
         }
     };
     

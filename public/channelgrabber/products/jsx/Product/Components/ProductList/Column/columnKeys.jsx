@@ -9,5 +9,6 @@ export default {
     addListing: 'addListing',
     stockMode: 'stockMode',
     weight: 'weight',
-    dimensions: 'dimensions'
+    dimensions: 'dimensions',
+    lowStock: 'lowStock'
 };

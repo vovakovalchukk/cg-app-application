@@ -58,6 +58,9 @@ class ProductListProvider extends React.Component {
             stateUtility.getDefaultStockModeFromProducts(productsResponse.products),
             stateUtility.getDefaultStockLevelFromProducts(productsResponse.products)
         ));
+        store.dispatch(userSettingsActions.storeLowStockThresholdDefaults(
+            stateUtility.getLowStockThresholdDefaultsFromProducts(productsResponse.products)
+        ));
     }
 
     render() {

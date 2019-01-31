@@ -139,8 +139,24 @@ let stockModeReducer = reducerCreator(initialState, {
         let lowStockThresholdValue = Object.assign({}, state.lowStockThresholdValue);
 
         products.forEach((product) => {
-            lowStockThresholdToggle[product.id] = product.stock.lowStockThresholdOn;
-            lowStockThresholdValue[product.id] = product.stock.lowStockThresholdValue
+            if (parseInt(product.variationCount) > 0) {
+                return;
+            }
+
+            if (!product.stock) {
+                return;
+            }
+
+            lowStockThresholdToggle[product.id] = {
+                value: product.stock.lowStockThresholdOn,
+                editedValue: product.stock.lowStockThresholdOn,
+                active: false
+            };
+            lowStockThresholdValue[product.id] = {
+                value: product.stock.lowStockThresholdValue,
+                editedValue: product.stock.lowStockThresholdValue,
+                active: false
+            };
         });
 
         return Object.assign({}, state, {
