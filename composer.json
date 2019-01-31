@@ -49,13 +49,8 @@
         "channelgrabber/log": "~2.3.3",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
-<<<<<<< HEAD
         "channelgrabber/order": "dev-TAC-123-bigcommerce-abandoned-orders as 1.43.3",
-        "channelgrabber/payment": "~1.12.0",
-=======
-        "channelgrabber/order": "~1.43.6",
         "channelgrabber/payment": "~1.13.1",
->>>>>>> origin/develop
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
@@ -74,11 +69,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.16.5",
-<<<<<<< HEAD
         "channelgrabber/stock": "dev-TAC-123-bigcommerce-abandoned-orders as 1.13.1",
-=======
-        "channelgrabber/stock": "~1.15.1",
->>>>>>> origin/develop
         "channelgrabber/tax": "~1.0.2",
         "channelgrabber/template": "~1.6.5",
         "channelgrabber/usage": "~1.0.7",
@@ -111,11 +102,7 @@
         "channelgrabber/zf2-stdlib": "~1.3.1",
         "channelgrabber/zf2-tideways": "~1.0.0",
         "channelgrabber/zf2-usage": "~1.1.0",
-<<<<<<< HEAD
         "channelgrabber/zf2-v4-ui": "dev-TAC-123-bigcommerce-abandoned-orders as 1.25.4",
-=======
-        "channelgrabber/zf2-v4-ui": "~1.26.2",
->>>>>>> origin/develop
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "guzzle/guzzle": "~3.7",
