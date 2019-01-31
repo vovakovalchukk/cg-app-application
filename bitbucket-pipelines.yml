@@ -11,5 +11,7 @@ pipelines:
         caches:
           - composer
         script:
-          - COMPOSER_ROOT_VERSION=1.x-dev composer install --no-ansi --no-progress --no-suggest --prefer-dist  --ignore-platform-reqs
+          - >
+            sed -i 's/"shasum": "[^"]*"/"shasum": null/g' composer.lock
+          - composer install --no-ansi --no-progress --no-suggest --prefer-dist  --ignore-platform-reqs --no-scripts
           - vendor/bin/phpunit

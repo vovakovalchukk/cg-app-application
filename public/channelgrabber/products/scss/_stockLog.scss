@@ -41,6 +41,13 @@
                 width: 80px;
                 margin: auto;
             }
+
+            .stock-log-sku-cell .reference, .stock-log-qty-cell .reference {
+                color: $color-lgrey;
+                a:not(:hover) {
+                    color: $color-lgrey;
+                }
+            }
         }
     }
 }

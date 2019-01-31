@@ -30,22 +30,77 @@ $screen-padding: 20px;
     color: $color-black;
 }
 
-.products-list__container {
-    margin-top: 50px;
-    background-color: $color-bluegrey;
-    overflow: hidden;
+#product-pagination-container {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 #products-list {
     width: 100%;
-    height: auto;
-    min-height: 90vh;
     float: left;
     clear: both;
-    margin-bottom: 20px;
-    padding: 20px 20px 0px 20px !important;
     box-sizing: border-box;
     transition: all 0.5s ease;
+}
+
+.products-list__container {
+    margin-top: 48px;
+    flex: 18;
+    z-index: 20;
+    background-color: $color-bluegrey;
+    overflow: hidden;
+}
+
+.products-list__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.products-list__cell {
+    padding: 1em;
+}
+
+$combined-height-of-non-list-ui-elements: $header-height+$pagination-height+50px;
+
+#products-app{
+    font-size:12px;
+}
+#products-list {
+    .c-products-data-table {
+        border: none;
+    }
+    // header cells
+    .public_fixedDataTable_header, .public_fixedDataTable_scrollbarSpacer, .public_fixedDataTable_header .public_fixedDataTableCell_main {
+        border-left: none;
+        border-right: none;
+        background: #5fafda;
+        color:white;
+        border-bottom: #1b75a436 solid 2px;
+        .public_fixedDataTableCell_cellContent {
+            padding: 0 8px;
+        }
+    }
+    .public_fixedDataTableRow_highlighted, .public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
+        background: #edf7fc;
+    }
+    .public_fixedDataTable_bodyRow {
+        border-top: 1px solid lighten(black , 85%);
+        &.child-row {
+            border-top: none;
+        }
+    }
+    .fixedDataTableCellLayout_main {
+        border-right-style: none;
+    }
+}
+
+#products-app {
+    display: flex;
+    flex-flow: column;
+    height: calc(100vh - #{$header-height});
 }
 
 .icon-create-listing {
@@ -502,7 +557,7 @@ span.product-status-holder {
     z-index: 10;
     top: 49px;
     left: 0px;
-    width: 330px;
+    width: 370px;
     padding: 11px 0 9px 10px;
     background-color: $color-xlgrey;
     #searchUIContainer {
@@ -519,7 +574,7 @@ span.product-status-holder {
 }
 
 #main.products > #bulk-actions {
-    padding-left: 428px;
+    padding-left: 582px;
 }
 
 #searchSubmit {
@@ -643,6 +698,9 @@ div.tether-element div.tooltip-hover {
     }
     .sku {
         width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     .stock {
         width: 20px;
@@ -713,16 +771,19 @@ div.tether-element div.tooltip-hover {
 
 $medium-margin-distance: 2rem;
 $small-margin-distance: 1rem;
-$button-height: 22px;
+$button-height: 30px;
 $vertical-margin: 3px;
+$navbar-height: 50px;
+$tabs-container-height: 50px;
 
 .navbar-strip {
     &__button {
-        display: block;
+        display: inline-block;
         border: 1px solid #c2c2c2;
         position: relative;
         height: $button-height;
         background-color: transparent;
+        box-sizing: border-box;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -ms-border-radius: 5px;
@@ -748,7 +809,10 @@ $vertical-margin: 3px;
             float: left;
             font-size: $button-height;
             line-height: $button-height+($vertical-margin*2);
-            margin-top: -($vertical-margin/2);
+            &--center-add {
+                font-size: 22px;
+                line-height: 25px;
+            }
         }
     }
 }
@@ -756,12 +820,18 @@ $vertical-margin: 3px;
 .navbar-strip--push-up-fix {
     position: fixed;
     top: 49px;
-    left: 330px;
+    left: 370px;
     z-index: 10;
     padding: 11px 0 9px 10px;
 }
 
 .tooltip-hover {
     z-index: 99999;
+}
+
+.products-tabs-container {
+    position: relative;
+    top: $navbar-height;
+    height: $tabs-container-height;
 }
 
