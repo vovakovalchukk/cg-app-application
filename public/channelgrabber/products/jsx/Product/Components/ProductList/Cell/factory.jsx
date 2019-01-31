@@ -46,7 +46,7 @@ export default (function() {
     };
     function getCreatedCell(column) {
         if (!column.products.visibleRows.length) {
-            return () => (<Cell></Cell>)
+            return Cell
         }
         return column.type ? cells[column.type] : cells[column.key];
     }

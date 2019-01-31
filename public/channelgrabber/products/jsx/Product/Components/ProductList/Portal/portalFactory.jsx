@@ -7,21 +7,15 @@ let portalFactory = (function() {
             let {
                 portalSettings,
                 Component,
-                componentProps
+                componentProps,
             } = paramObj;
 
-            let ComponentInWrapper = () => {
-                return (
-                    <portalSettings.PortalWrapper>
-                       <Component
-                           {...componentProps}
-                       />
-                    </portalSettings.PortalWrapper>
-                );
-            };
-
             return ReactDOM.createPortal(
-                <ComponentInWrapper/>,
+                (
+                    <portalSettings.PortalWrapper>
+                        <Component {...componentProps} />
+                    </portalSettings.PortalWrapper>
+                ),
                 portalSettings.domNodeForSubmits
             )
         }

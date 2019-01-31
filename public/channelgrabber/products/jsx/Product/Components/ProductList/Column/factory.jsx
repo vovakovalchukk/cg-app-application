@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import FixedDataTable from 'fixed-data-table-2';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
-import StockModeCell from 'Product/Components/ProductList/Cell/StockMode';
 import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
 
 "use strict";
@@ -22,11 +21,14 @@ const columnSpecificPropsMap = {
     vat: ['rows', 'vat'],
     bulkSelect: ['bulkSelect']
 };
+const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {
     'center': 'center',
     'left': 'flex-start',
     'right': 'flex-end'
 };
+
+let columnWrappers = {};
 
 let columnCreator = function(column, parentProps) {
     column.actions = parentProps.actions;
@@ -35,24 +37,25 @@ let columnCreator = function(column, parentProps) {
 
     let CellContent = CellFactory.createCellContent(column);
 
-    let StyledCellWrapper = styled(CellWrapper)`
+    columnWrappers[column.columnKey] = columnWrappers[column.columnKey] || styled(CellWrapper)`
             display: flex;
             align-items: center;
             height: 100%;
-            width:100%;
+            width: 100%;
             box-sizing: border-box;
-            justify-content:${getJustifyContentProp(column)}
+            justify-content: ${getJustifyContentProp(column)}
         `;
 
     if (!CellContent) {
         console.error("cannot create cell in column factory for column: ", column);
     }
 
-    let CellToRender = StyledCellWrapper;
-
-    // bypassing the CellWrapper for certain cells for performance reasons
-    if (column.key === columnKeys.stockMode) {
-        CellToRender = StockModeCell;
+    let CellToRender;
+    if (columnNoWrapper.includes(column.key)) {
+        CellToRender = <CellContent {...column} />;
+    } else {
+        let StyledCellWrapper = columnWrappers[column.columnKey];
+        CellToRender = <StyledCellWrapper {...column} CellContent={CellContent} />;
     }
 
     return (<Column
@@ -63,12 +66,7 @@ let columnCreator = function(column, parentProps) {
         header={getHeaderText(column, parentProps.userSettings)}
         align={getHeaderCellAlignment(column)}
         pureRendering={true}
-        cell={<CellToRender
-            {...column}
-            products={column.products}
-            actions={column.actions}
-            CellContent={CellContent}
-        />}
+        cell={CellToRender}
     />);
 };
 

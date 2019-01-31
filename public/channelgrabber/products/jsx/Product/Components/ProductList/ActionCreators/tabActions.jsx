@@ -19,7 +19,7 @@ let tabActions = (function() {
         showStockTab: () => {
             return function (dispatch) {
                 dispatch({
-                    type: 'SHOW_STOCK_TAB',
+                    type: 'STOCK_TAB_SHOW',
                     payload: {}
                 })
             }

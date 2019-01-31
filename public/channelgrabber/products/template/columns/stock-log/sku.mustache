@@ -1,3 +1,10 @@
-<div class="center">
-    <a href="{{productLink}}">{{sku}}</a>
+<div class="stock-log-sku-cell">
+    <div class="center">
+        <a href="{{productLink}}">{{sku}}</a>
+    </div>
+    {{#referenceSku}}
+        <div class="center reference">
+            <a href="{{referenceProductLink}}">({{referenceSku}})</a>
+        </div>
+    {{/referenceSku}}
 </div>

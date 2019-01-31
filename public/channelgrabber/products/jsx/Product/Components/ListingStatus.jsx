@@ -46,16 +46,10 @@ class ListingStatusComponent extends React.Component {
         e.preventDefault();
         this.props.onAddListingClick();
     }
-    getListingHref() {
-        if (this.props.status !== 'active') {
-            return '';
-        }
-        return this.props.listingUrl
-    }
     render() {
         return (
             <div className={this.props.className}>
-                <a href={this.getListingHref()} target="_blank" onClick={this.getListingIconOnClick.bind(this)}>
+                <a href={this.props.listingUrl} target="_blank" onClick={this.getListingIconOnClick.bind(this)}>
                     <ListingIcon.sizer>
                         <ListingIcon
                             {...this.props}
