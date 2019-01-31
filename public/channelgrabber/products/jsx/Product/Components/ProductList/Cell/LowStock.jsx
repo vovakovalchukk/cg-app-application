@@ -7,6 +7,13 @@ import elementTypes from "../Portal/elementTypes";
 class LowStockCell extends React.Component {
     static defaultProps = {};
 
+    getLowStockThresholdDefaults() {
+        return {
+            toggle: this.props.userSettings.lowStockThresholdToggle,
+            value: this.props.userSettings.lowStockThresholdValue
+        };
+    };
+
     render() {
         const {
             products,
@@ -32,6 +39,8 @@ class LowStockCell extends React.Component {
         return <LowStockInputs
             product={product}
             portalSettingsForDropdown={portalSettingsForDropdown}
+            lowStockThreshold={stateUtility.getLowStockThresholdForProduct(product, this.props.stock)}
+            default={this.getLowStockThresholdDefaults()}
         />;
     }
 }

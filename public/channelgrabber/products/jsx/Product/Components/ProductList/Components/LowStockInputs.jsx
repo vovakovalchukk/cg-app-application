@@ -8,7 +8,8 @@ class LowStockInputs extends React.Component {
             toggle: false,
             value: null
         },
-        portalSettingsForDropdown: {}
+        portalSettingsForDropdown: {},
+        stock: {}
     };
 
     static optionDefault = 'default';

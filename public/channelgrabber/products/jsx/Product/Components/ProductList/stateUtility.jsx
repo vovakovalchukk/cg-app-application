@@ -82,6 +82,12 @@ let stateUtility = function() {
             }
 
             return products[0].lowStockThresholdDefault;
+        },
+        getLowStockThresholdForProduct(product, stock) {
+            return {
+                toggle: stock.lowStockThresholdValue[product.id] ? stock.lowStockThresholdValue[product.id] : null,
+                value: stock.lowStockThresholdToggle[product.id] ? stock.lowStockThresholdToggle[product.id] : null
+            }
         }
     };
     
