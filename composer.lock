@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e894646b81733cbe66e7df00f4c9f88",
+    "content-hash": "0d3319b9ae7a1fb5a651503751d1a654",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2965,12 +2965,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "e2df6355feced065d371365ae8cb86bf904e271d"
+                "reference": "3fdee61ad1451697ab39ba0ac1452126d15cced8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.6.4-5c5b6e.zip",
-                "reference": "edc02ba46915359c66bebd0cb23a5dede29c6564",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-306-add-variation-attribute-column-to-orders-table-cb90b9.zip",
+                "reference": "3fdee61ad1451697ab39ba0ac1452126d15cced8",
                 "shasum": null
             },
             "require": {
@@ -2994,7 +2994,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2018-12-20T12:38:56+00:00"
+            "time": "2019-01-24T15:45:37+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3415,12 +3415,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "19666a8ce8c84d76538d135661f9de56c906a29b"
+                "reference": "2b957109770f0742cb7fd013af1a34b392a9a209"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-TAC-306-add-variation-attribute-column-to-orders-table-05198c.zip",
-                "reference": "19666a8ce8c84d76538d135661f9de56c906a29b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-306-add-variation-attribute-column-to-orders-table-68e906.zip",
+                "reference": "2b957109770f0742cb7fd013af1a34b392a9a209",
                 "shasum": null
             },
             "require": {
@@ -3467,7 +3467,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-03T13:39:51+00:00"
+            "time": "2019-01-24T15:46:15+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10985,8 +10985,8 @@
             "package": "channelgrabber/settings"
         },
         {
-            "alias": "1.6.5",
-            "alias_normalized": "1.6.5.0",
+            "alias": "1.6.6",
+            "alias_normalized": "1.6.6.0",
             "version": "dev-TAC-306-add-variation-attribute-column-to-orders-table",
             "package": "channelgrabber/template"
         }
