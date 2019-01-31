@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "183bf08d7ce36c90f4da50436a7d28b6",
+    "content-hash": "9a2ea475308826586bb4c7e688435bec",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2370,23 +2370,23 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.1.0",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "44cbfc5482d448d777475225c626e90789672a06"
+                "reference": "9a810221da7e1f4da8a7887d5c8cc18d4df36d65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.1.0-8eaad2.zip",
-                "reference": "44cbfc5482d448d777475225c626e90789672a06",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-TAC-288-RenderPickListWithLocations-7354ae.zip",
+                "reference": "9a810221da7e1f4da8a7887d5c8cc18d4df36d65",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.5.0",
+                "channelgrabber/template": "dev-TAC-288-RenderPickListWithLocations as 1.6.8",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2410,7 +2410,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-12-01T12:16:56+00:00"
+            "time": "2019-02-06T14:52:47+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -3411,16 +3411,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.6",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c9c7290b8dc9d6377e9b4f29b5196f0a1146666f"
+                "reference": "345e137c9f0c87d49be5404c30281025fd7ea8c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.6-3fc22e.zip",
-                "reference": "c9c7290b8dc9d6377e9b4f29b5196f0a1146666f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-288-RenderPickListWithLocations-d9d1ee.zip",
+                "reference": "345e137c9f0c87d49be5404c30281025fd7ea8c5",
                 "shasum": null
             },
             "require": {
@@ -3467,7 +3467,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-01T14:03:14+00:00"
+            "time": "2019-02-06T14:32:35+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -10980,6 +10980,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
+            "package": "channelgrabber/picklist"
+        },
+        {
             "alias": "1.16.13",
             "alias_normalized": "1.16.13.0",
             "version": "dev-EPIC-TAC-283-PickingLocations",
@@ -10990,13 +10996,21 @@
             "alias_normalized": "1.6.6.0",
             "version": "dev-EPIC-TAC-283-PickingLocations",
             "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.6.7",
+            "alias_normalized": "1.6.7.0",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/picklist": 20,
         "channelgrabber/product": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

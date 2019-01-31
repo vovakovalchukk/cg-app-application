@@ -8,6 +8,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\ComponentReplacer;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\PickList\Service as PickListService;
+use CG\PickList\Settings;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
@@ -79,12 +80,12 @@ class Service implements LoggerAwareInterface
         $pickListSettings = $this->getPickListSettings();
         $pickListEntries = $this->getPickListEntries($orderCollection, $pickListSettings);
 
-        $render = 'renderTemplateWithoutImages';
-        if ($pickListSettings->getShowPictures()) {
-            $render = 'renderTemplate';
-        }
+        $content = $this->pickListService->renderTemplate(
+            $pickListEntries,
+            $this->activeUserContainer->getActiveUser(),
+            $this->mapPickListSettings($pickListSettings)
+        );
 
-        $content = $this->pickListService->{$render}($pickListEntries, $this->activeUserContainer->getActiveUser());
         $response = new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
         $this->notifyOfGeneration();
 
@@ -126,24 +127,45 @@ class Service implements LoggerAwareInterface
         return $pickListEntries;
     }
 
-    protected function sortEntries(array $pickListEntries, $field, $ascending = true)
+    protected function sortEntries(array $pickListEntries, string $field, bool $ascending = true): array
     {
         usort($pickListEntries, function($a, $b) use ($field, $ascending) {
-            $getter = 'get' . ucfirst(strtolower($field));
-            $directionChanger = ($ascending === false) ? -1 : 1;
-
-            if (is_string($a->$getter())) {
-                return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
-            }
-
-            if ($a->$getter() === $b->$getter()) {
-                return 0;
-            }
-            $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
-            return $directionChanger * $compareValue;
+            $getter = 'get' . implode('', array_map('ucfirst', explode(' ', $field)));
+            return $this->sortValue(
+                $a->{$getter}(),
+                $b->{$getter}(),
+                $ascending
+            );
         });
 
         return $pickListEntries;
+    }
+
+    protected function sortValue($aValue, $bValue, bool $ascending = true): int
+    {
+        $directionChanger = ($ascending === false) ? -1 : 1;
+
+        if (is_string($aValue) || is_string($bValue)) {
+            return $directionChanger * strcasecmp($aValue, $bValue);
+        }
+
+        if (is_array($aValue) && is_array($bValue)) {
+            $keys = array_unique(array_merge(array_keys($aValue), array_keys($bValue)));
+            foreach ($keys as $key) {
+                $sort = $this->sortValue($aValue[$key] ?? null, $bValue[$key] ?? null, $ascending);
+                if ($sort !== 0) {
+                    return $sort;
+                }
+            }
+            return 0;
+        }
+
+        if ($aValue === $bValue) {
+            return 0;
+        }
+
+        $compareValue = ($aValue > $bValue) ? 1 : -1;
+        return $directionChanger * $compareValue;
     }
 
     protected function fetchProductsForSkus(array $skus)
@@ -217,13 +239,17 @@ class Service implements LoggerAwareInterface
         $this->progressStorage->setProgress($key, $count);
     }
 
-    /**
-     * @return PickListSettings
-     */
-    protected function getPickListSettings()
+    protected function getPickListSettings(): PickListSettings
     {
         $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         return $this->pickListSettingsService->fetch($organisationUnitId);
+    }
+
+    protected function mapPickListSettings(PickListSettings $settings): Settings
+    {
+        return new Settings(
+            $settings->getShowPictures()
+        );
     }
 
     protected function notifyOfGeneration()
