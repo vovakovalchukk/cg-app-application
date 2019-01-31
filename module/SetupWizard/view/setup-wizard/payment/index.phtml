@@ -3,6 +3,7 @@
         <div id="setup-wizard-package-selector" class="clearfix">
             <div id="package-setup"></div>
         </div>
+        <?= $this->promoCode; ?>
         <div id="setup-wizard-payment-selector" class="clearfix">
             <div><?= $this->paymentMethodSelect ?? '' ?></div>
             <div class="payment-setup"><?= $this->paymentMethod ?? '' ?></div>
@@ -31,11 +32,13 @@
         'react',
         'react-dom',
         'SetupWizard/Component/Payment/PackageSelector',
-        'SetupWizard/Payment/Locale/<?= $this->locale ?>'
-    ], function(Payment, React, ReactDOM, PackageSelectorComponent, Locale) {
+        'SetupWizard/Payment/Locale/<?= $this->locale ?>',
+        '<?= $this->basePath() . CG_Billing\Module::PUBLIC_FOLDER . 'js/Package/PromoCode.js'; ?>',
+    ], function(Payment, React, ReactDOM, PackageSelectorComponent, Locale, PromoCode) {
+        PromoCode.init('/setup/payment/applyDiscountCode');
         var paymentSelector = document.getElementById('setup-wizard-payment-selector');
         paymentSelector.style.display = (<?= json_encode($this->selectedPackage) ?> ? "inherit": "none");
-        var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, <?= json_encode($this->selectedBillingDuration) ?>, "<?= $this->activePaymentMethod ?>");
+        var payment = new Payment(n, <?= json_encode($this->selectedPackage) ?>, <?= json_encode($this->selectedBillingDuration) ?>, "<?= $this->activePaymentMethod ?>", "<?= $this->discountCode ?>");
         ReactDOM.render(
             React.createElement(PackageSelectorComponent, {
                 locale: new Locale(),
