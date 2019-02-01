@@ -1,6 +1,8 @@
 import React from 'react';
 import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
 import styled from "styled-components";
+import portalFactory from "../Portal/portalFactory";
+import {StyledSafeSubmits} from "../Cell/StockMode";
 
 const Container = styled.div`
     display: flex;
@@ -147,11 +149,55 @@ class LowStockInputs extends React.Component {
         </div>
     };
 
+    renderSubmits = () => {
+        let portalSettings = this.props.getPortalSettingsForSubmits;
+
+        if (!portalSettings) {
+            return null;
+        }
+
+        return portalFactory.createPortal({
+            portalSettings: portalSettings,
+            Component: StyledSafeSubmits,
+            componentProps: {
+                isEditing: this.hasTheLowStockThresholdChanged(),
+                submitInput: this.submitChanges,
+                cancelInput: this.cancelChanges
+            }
+        });
+    };
+
+    hasTheLowStockThresholdChanged = () => {
+        let toggle = this.props.lowStockThreshold.toggle,
+            value = this.props.lowStockThreshold.value;
+
+        if (!toggle || !value) {
+            return false;
+        }
+
+        if (toggle.value !== toggle.editedValue || value.value != value.editedValue) {
+            return true;
+        }
+
+        return false;
+    };
+
+    submitChanges = () => {
+
+    };
+
+    cancelChanges = () => {
+
+    };
+
     render() {
-        return <Container>
-            {this.renderSelect()}
-            {this.renderValueInput()}
-        </Container>;
+        return <span>
+            <Container>
+                {this.renderSelect()}
+                {this.renderValueInput()}
+            </Container>
+            {this.renderSubmits()}
+        </span>
     }
 }
 
