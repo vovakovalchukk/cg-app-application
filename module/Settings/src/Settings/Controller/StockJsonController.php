@@ -41,9 +41,10 @@ class StockJsonController extends AbstractActionController
         if ($defaultStockMode != StockMode::LIST_ALL && (!is_numeric($defaultStockLevel) || (int)$defaultStockLevel < 0)) {
             throw new \InvalidArgumentException('Default stock level must be a number >= 0');
         }
+        $includePurchaseOrders = filter_var($this->params()->fromPost('includePurchaseOrdersInAvailable', false), FILTER_VALIDATE_BOOLEAN);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $ouList = $this->userOUService->getAncestorOrganisationUnitIdsByActiveUser();
-        $this->service->saveDefaults($rootOu, $ouList, $defaultStockMode, $defaultStockLevel);
+        $this->service->saveDefaults($rootOu, $ouList, $defaultStockMode, $defaultStockLevel, $includePurchaseOrders);
 
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);
     }

@@ -63,7 +63,7 @@
         "channelgrabber/royalmail": "~1.0.8",
         "channelgrabber/sagepay": "~1.1.24",
         "channelgrabber/sequential-numbering": "~1.0.0",
-        "channelgrabber/settings": "~1.6.5",
+        "channelgrabber/settings": "dev-TAC-326-include-po-stock-in-available as 1.6.6",
         "channelgrabber/shipstation": "~1.1.1",
         "channelgrabber/shopify": "~1.3.1",
         "channelgrabber/sso": "~1.2.7",

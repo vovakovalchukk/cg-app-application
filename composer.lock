@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "897ca4a1a4c2968cf0e4e6419cfd3276",
+    "content-hash": "466863e58d33ecd20e3747da05337015",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2961,17 +2961,11 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.6.5",
+            "version": "dev-TAC-326-include-po-stock-in-available",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "72ced076cd6265225d0d2fd65b18b8ea546468c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.6.5-e75655.zip",
-                "reference": "72ced076cd6265225d0d2fd65b18b8ea546468c5",
-                "shasum": null
+                "reference": "45443a11bea504df510f382c848ddfc47c39fc86"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2994,7 +2988,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-02-01T13:53:43+00:00"
+            "time": "2019-01-21T15:56:46+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -9751,7 +9745,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -10977,13 +10972,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.6.6",
+            "alias_normalized": "1.6.6.0",
+            "version": "dev-TAC-326-include-po-stock-in-available",
+            "package": "channelgrabber/settings"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

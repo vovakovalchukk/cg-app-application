@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\Product\StockMode;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
@@ -11,6 +12,7 @@ use Settings\Controller\StockJsonController;
 use Settings\Controller\Stock\AccountTableTrait;
 use Settings\Module;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class StockController extends AbstractActionController
 {
@@ -28,17 +30,21 @@ class StockController extends AbstractActionController
     protected $userOUService;
     /** @var DataTable */
     protected $accountsTable;
+    /** @var FeatureFlagsService */
+    protected $featureFlagsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductSettingsService $productSettingsService,
         UserOUService $userOUService,
-        DataTable $accountsTable
+        DataTable $accountsTable,
+        FeatureFlagsService $featureFlagsService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productSettingsService = $productSettingsService;
         $this->userOUService = $userOUService;
         $this->accountsTable = $accountsTable;
+        $this->featureFlagsService = $featureFlagsService;
     }
 
     public function indexAction()
@@ -56,6 +62,10 @@ class StockController extends AbstractActionController
             ->setVariable('defaultStockLevel', (int)$productSettings->getDefaultStockLevel())
             ->addChild($this->getSaveButton(), 'saveButton');
         $this->addAccountStockSettingsTableToView($view);
+
+        if ($this->featureFlagsService->isActive(ProductSettingsService::FEATURE_FLAG_PO_STOCK_IN_AVAILABLE, $rootOu)) {
+            $view->addChild($this->getIncludePurchaseOrdersToggle($productSettings), 'includePurchaseOrdersToggle');
+        }
 
         return $view;
     }
@@ -75,6 +85,16 @@ class StockController extends AbstractActionController
             ->setVariable('id', 'settings-stock-default-stock-mode')
             ->setVariable('name', 'defaultStockMode')
             ->setVariable('options', $options);
+        return $view;
+    }
+
+    protected function getIncludePurchaseOrdersToggle(ProductSettings $productSettings): ViewModel
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('elements/toggle.mustache')
+            ->setVariable('id', 'settings-stock-include-purchase-orders')
+            ->setVariable('name', 'includePurchaseOrdersInAvailable')
+            ->setVariable('selected', $productSettings->isIncludePurchaseOrdersInAvailable());
         return $view;
     }
 
