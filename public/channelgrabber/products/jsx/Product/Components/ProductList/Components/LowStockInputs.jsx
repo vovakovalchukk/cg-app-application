@@ -1,5 +1,15 @@
 import React from 'react';
 import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import styled from "styled-components";
+
+const Container = styled.div`
+    display: flex;
+    align-items: center;  
+`;
+const ValueInput = styled.input`
+    width: 45px;
+    color: ${props => props.disabled ? 'grey !important': 'initial'};
+`;
 
 class LowStockInputs extends React.Component {
     static defaultProps = {
@@ -17,8 +27,7 @@ class LowStockInputs extends React.Component {
             },
             value: {
                 value: null,
-                editedValue: null,
-                active: false
+                editedValue: null
             }
         }
     };
@@ -27,20 +36,20 @@ class LowStockInputs extends React.Component {
     static optionNameOn = 'On';
     static optionNameOff = 'Off';
 
-    static getSelectOptions() {
+    getSelectOptions = () =>  {
         return [
             this.getDefaultOption(),
-            this.getOnOption(),
-            this.getOffOption()
+            LowStockInputs.getOnOption(),
+            LowStockInputs.getOffOption()
         ];
-    }
+    };
 
-    static getDefaultOption() {
+    getDefaultOption = () => {
         return {
-            name: this.optionNameDefault + '(' + (this.defaultProps.default.toggle ? this.optionNameOn : this.optionNameOff) + ')',
+            name: LowStockInputs.optionNameDefault + '(' + (this.props.default.toggle ? LowStockInputs.optionNameOn : LowStockInputs.optionNameOff) + ')',
             value: null
         }
-    }
+    };
 
     static getOnOption() {
         return {
@@ -73,7 +82,7 @@ class LowStockInputs extends React.Component {
 
     getSelectedOption = () => {
         if (!this.props.lowStockThreshold.toggle || this.props.lowStockThreshold.toggle.editedValue === null) {
-            return LowStockInputs.getDefaultOption();
+            return this.getDefaultOption();
         }
 
         if (this.props.lowStockThreshold.toggle.editedValue === true) {
@@ -83,21 +92,64 @@ class LowStockInputs extends React.Component {
         return LowStockInputs.getOffOption();
     };
 
-    onOptionChange = (productId, selectedOption) => {
-        this.props.actions.lowStockChange(productId, 'lowStockThresholdToggle', selectedOption.value);
+    onOptionChange = (selectedOption) => {
+        this.props.actions.lowStockChange(this.props.product.id, 'lowStockThresholdToggle', selectedOption.value);
     };
 
-    render() {
+    getInputValue = (selectedOption) => {
+        let inputValue = this.props.lowStockThreshold.value;
+        if (!inputValue) {
+            return null;
+        }
+
+        if (inputValue.editedValue === null || selectedOption.value === null) {
+            return this.props.default.value;
+        }
+
+        return inputValue.editedValue;
+    };
+
+    isValueInputDisabled = (selectedOption) => {
+        return selectedOption.value !== true;
+    };
+
+    onInputValueChange = (event) => {
+        this.props.actions.lowStockChange(this.props.product.id, 'lowStockThresholdValue', event.target.value);
+    };
+
+    renderSelect = () => {
         return <StatelessSelect
-            options={LowStockInputs.getSelectOptions()}
+            options={this.getSelectOptions()}
             selectedOption={this.getSelectedOption()}
             styleVars={LowStockInputs.getStyle()}
             selectToggle={this.selectToggle}
             inputId={this.props.product.id}
             portalSettingsForDropdown={this.props.portalSettingsForDropdown}
             active={this.isToggleActive()}
-            onOptionChange={this.onOptionChange.bind(this, this.props.product.id)}
+            onOptionChange={this.onOptionChange}
         />;
+    };
+
+    renderValueInput = () => {
+        let selectedOption = this.getSelectedOption();
+        return <div className={'safe-input-box'}>
+            <div className={'submit-input'}>
+                <ValueInput
+                    className={'c-input-field'}
+                    value={this.getInputValue(selectedOption)}
+                    disabled={this.isValueInputDisabled(selectedOption)}
+                    type={'number'}
+                    onChange={this.onInputValueChange}
+                />
+            </div>
+        </div>
+    };
+
+    render() {
+        return <Container>
+            {this.renderSelect()}
+            {this.renderValueInput()}
+        </Container>;
     }
 }
 

@@ -195,7 +195,7 @@ function updateStockMode(id, value) {
         success: response => (response),
         error: error => (error)
     });
-};
+}
 
 function updateStock(data) {
     return $.ajax({

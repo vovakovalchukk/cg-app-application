@@ -151,8 +151,7 @@ let stockModeReducer = reducerCreator(initialState, {
             };
             lowStockThresholdValue[product.id] = {
                 value: product.stock.lowStockThresholdValue,
-                editedValue: product.stock.lowStockThresholdValue,
-                active: false
+                editedValue: product.stock.lowStockThresholdValue
             };
         });
 
