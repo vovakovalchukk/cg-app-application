@@ -175,8 +175,12 @@ class LowStockInputs extends React.Component {
             return false;
         }
 
-        if (toggle.value !== toggle.editedValue || value.value != value.editedValue) {
+        if (toggle.value !== toggle.editedValue) {
             return true;
+        }
+
+        if (this.getSelectedOption().value === true) {
+            return value.value != value.editedValue;
         }
 
         return false;
