@@ -102,7 +102,7 @@ class AccountCategorySelect extends React.Component {
 
     render() {
         return <span className={'account-category-container'}>
-            <div className={"order-inputbox-holder"}>
+            <div className={"select-and-actions-container u-float-left"}>
                 {this.renderCategorySelects()}
             </div>
             {this.renderActionButtons()}

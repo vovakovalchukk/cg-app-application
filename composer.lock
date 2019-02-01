@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "585b14ffc06e06197a347f3cf9000496",
+    "content-hash": "127bd01f9653fe4f0b67b99d9629d342",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2080,16 +2080,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.5",
+            "version": "1.43.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "53045cd80f636655ae18841efde0d5c5f64273dc"
+                "reference": "af870ed20d73b3b53cee6442b4a5716a18bbd0bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.5-2ffa7d.zip",
-                "reference": "53045cd80f636655ae18841efde0d5c5f64273dc",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.6-6e424c.zip",
+                "reference": "af870ed20d73b3b53cee6442b4a5716a18bbd0bc",
                 "shasum": null
             },
             "require": {
@@ -2160,7 +2160,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-01-22T15:49:03+00:00"
+            "time": "2019-01-29T12:17:57+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2500,12 +2500,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "6ffb995f715df47e04f841ca1a182f512a6c9bdc"
+                "reference": "b8fcdb44f2d77038365b87a2f764cc089de97b58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-EPIC-TAC-283-PickingLocations-32afc4.zip",
-                "reference": "6ffb995f715df47e04f841ca1a182f512a6c9bdc",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-EPIC-TAC-283-PickingLocations-e54be1.zip",
+                "reference": "b8fcdb44f2d77038365b87a2f764cc089de97b58",
                 "shasum": null
             },
             "require": {
@@ -2557,7 +2557,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-29T09:23:52+00:00"
+            "time": "2019-02-01T08:57:41+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -10979,8 +10979,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.12",
-            "alias_normalized": "1.16.12.0",
+            "alias": "1.16.13",
+            "alias_normalized": "1.16.13.0",
             "version": "dev-EPIC-TAC-283-PickingLocations",
             "package": "channelgrabber/product"
         },
