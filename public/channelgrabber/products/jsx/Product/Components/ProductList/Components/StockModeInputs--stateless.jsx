@@ -107,7 +107,6 @@ class StockModeInputsComponent extends React.Component {
                         selectToggle={this.props.stockModeSelectToggle}
                         actions={this.props.actions}
                         styleVars={{
-                           widthOfDropdown: 100,
                             widthOfInput: 80
                         }}
                     />
