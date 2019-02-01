@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import Input from 'Common/Components/SafeInput';
+import SafeInput from 'Common/Components/SafeInputStateless';
 import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 
@@ -10,7 +10,7 @@ const InputsContainer = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const StyledInput = styled(Input)`
+const StyledSafeInput = styled(SafeInput)`
     display:inline-block,
 `;
 const Cross = styled.span`
@@ -27,7 +27,7 @@ class DimensionsCell extends React.Component {
     state = {};
 
     renderInput = (row, detail) => {
-        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, visibleRows} = this.props;
+        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
 
         let dimension = detail;
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
@@ -40,11 +40,12 @@ class DimensionsCell extends React.Component {
         });
 
         return (
-            <StyledInput
+            <StyledSafeInput
                 name={detail}
                 initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0, 1)}
                 step="0.1"
                 submitCallback={this.props.actions.saveDetail.bind(this, row)}
+                onValueChange={this.props.actions.changeDimensionValue.bind(this, row.id, detail)}
                 submitsPortalSettings={portalSettingsForSubmits}
                 width={45}
                 placeholder={detail.substring(0, 1)}

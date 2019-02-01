@@ -39,7 +39,8 @@ let stockModeReducer = reducerCreator(initialState, {
         let {productId, currentStock} = action.payload;
         let stateCopy = Object.assign({}, state);
         let stockModes = Object.assign({}, state.stockModes);
-
+        console.log('stockModes: ', stockModes);
+        
         let stockModeExists = !!state.stockModes.byProductId[productId];
         stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
 
