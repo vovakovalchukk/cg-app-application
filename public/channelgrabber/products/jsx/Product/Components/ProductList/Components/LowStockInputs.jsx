@@ -9,7 +9,18 @@ class LowStockInputs extends React.Component {
             value: null
         },
         portalSettingsForDropdown: {},
-        stock: {}
+        lowStockThreshold: {
+            toggle: {
+                value: null,
+                editedValue: null,
+                active: false
+            },
+            value: {
+                value: null,
+                editedValue: null,
+                active: false
+            }
+        }
     };
 
     static optionDefault = 'default';
@@ -22,19 +33,31 @@ class LowStockInputs extends React.Component {
 
     static getSelectOptions() {
         return [
-            {
-                name: this.optionNameDefault + '(' + (this.defaultProps.default.toggle ? this.optionNameOn : this.optionNameOff) + ')',
-                value: this.optionDefault
-            },
-            {
-                name: this.optionNameOn,
-                value: this.optionOn
-            },
-            {
-                name: this.optionNameOff,
-                value: this.optionOff
-            }
+            this.getDefaultOption(),
+            this.getOnOption(),
+            this.getOffOption()
         ];
+    }
+
+    static getDefaultOption() {
+        return {
+            name: this.optionNameDefault + '(' + (this.defaultProps.default.toggle ? this.optionNameOn : this.optionNameOff) + ')',
+            value: this.optionDefault
+        }
+    }
+
+    static getOnOption() {
+        return {
+            name: this.optionNameOn,
+            value: this.optionOn
+        };
+    }
+
+    static getOffOption() {
+        return {
+            name: this.optionNameOff,
+            value: this.optionOff
+        };
     }
 
     static getStyle() {
@@ -52,9 +75,22 @@ class LowStockInputs extends React.Component {
         return this.props.lowStockThreshold.toggle && this.props.lowStockThreshold.toggle.active;
     };
 
+    getSelectedOption = () => {
+        if (!this.props.lowStockThreshold.toggle || this.props.lowStockThreshold.toggle.value === null) {
+            return LowStockInputs.getDefaultOption();
+        }
+
+        if (this.props.lowStockThreshold.toggle.value === true) {
+            return LowStockInputs.getOnOption();
+        }
+
+        return LowStockInputs.getOffOption();
+    };
+
     render() {
         return <StatelessSelect
             options={LowStockInputs.getSelectOptions()}
+            selectedOption={this.getSelectedOption()}
             styleVars={LowStockInputs.getStyle()}
             selectToggle={this.selectToggle}
             inputId={this.props.product.id}
