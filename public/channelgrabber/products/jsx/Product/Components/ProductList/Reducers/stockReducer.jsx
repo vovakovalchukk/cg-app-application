@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+import stateUtility from "../stateUtility";
 
 /*
 * the state shape with example entries,
@@ -139,11 +140,7 @@ let stockModeReducer = reducerCreator(initialState, {
         let lowStockThresholdValue = Object.assign({}, state.lowStockThresholdValue);
 
         products.forEach((product) => {
-            if (parseInt(product.variationCount) > 0) {
-                return;
-            }
-
-            if (!product.stock) {
+            if (stateUtility.isParentProduct(product) || !product.stock) {
                 return;
             }
 
@@ -162,6 +159,21 @@ let stockModeReducer = reducerCreator(initialState, {
         return Object.assign({}, state, {
             lowStockThresholdToggle,
             lowStockThresholdValue
+        });
+    },
+    "LOW_STOCK_SELECT_TOGGLE": function(state, action) {
+        let productId = action.payload.productId;
+        let currentActiveStateForProduct = state.lowStockThresholdToggle[productId].active;
+
+        let lowStockThresholdToggle = Object.assign({}, state.lowStockThresholdToggle);
+        for (let id in state.lowStockThresholdToggle) {
+            lowStockThresholdToggle[id] = Object.assign({}, state.lowStockThresholdToggle[id], {
+                active: id == productId && currentActiveStateForProduct == false
+            });
+        }
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle
         });
     }
 });

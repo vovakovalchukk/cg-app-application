@@ -44,8 +44,12 @@ class LowStockInputs extends React.Component {
         };
     }
 
-    selectToggle = function() {
-        // TODO: mark the select as active
+    selectToggle = (productId) => {
+        this.props.actions.lowStockSelectToggle(productId);
+    };
+
+    isToggleActive = () => {
+        return this.props.lowStockThreshold.toggle && this.props.lowStockThreshold.toggle.active;
     };
 
     render() {
@@ -55,6 +59,7 @@ class LowStockInputs extends React.Component {
             selectToggle={this.selectToggle}
             inputId={this.props.product.id}
             portalSettingsForDropdown={this.props.portalSettingsForDropdown}
+            active={this.isToggleActive()}
         />;
     }
 }

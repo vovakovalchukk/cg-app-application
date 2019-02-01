@@ -32,7 +32,7 @@ class LowStockCell extends React.Component {
 
         const product = stateUtility.getRowData(products, rowIndex);
 
-        if (stateUtility.isParentProduct(product)) {
+        if (stateUtility.isParentProduct(product) || !product.stock) {
             return null;
         }
 
@@ -41,6 +41,7 @@ class LowStockCell extends React.Component {
             portalSettingsForDropdown={portalSettingsForDropdown}
             lowStockThreshold={stateUtility.getLowStockThresholdForProduct(product, this.props.stock)}
             default={this.getLowStockThresholdDefaults()}
+            actions={this.props.actions}
         />;
     }
 }

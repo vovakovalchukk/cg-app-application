@@ -131,6 +131,16 @@ let actionCreators = (function() {
                     }
                 });
             }
+        },
+        lowStockSelectToggle: (productId) => {
+            return function(dispatch) {
+                dispatch({
+                   type: "LOW_STOCK_SELECT_TOGGLE",
+                   payload: {
+                       productId: productId
+                   }
+                });
+            }
         }
     }
 }());
