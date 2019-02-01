@@ -141,6 +141,16 @@ let actionCreators = (function() {
                    }
                 });
             }
+        },
+        lowStockChange: (productId, type, newValue) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "LOW_STOCK_CHANGE",
+                    payload: {
+                        productId, newValue, type
+                    }
+                });
+            }
         }
     }
 }());

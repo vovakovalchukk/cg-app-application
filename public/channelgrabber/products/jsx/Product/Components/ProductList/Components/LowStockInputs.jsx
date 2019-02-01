@@ -23,10 +23,6 @@ class LowStockInputs extends React.Component {
         }
     };
 
-    static optionDefault = 'default';
-    static optionOn = 'on';
-    static optionOff = 'off';
-
     static optionNameDefault = 'Default';
     static optionNameOn = 'On';
     static optionNameOff = 'Off';
@@ -42,21 +38,21 @@ class LowStockInputs extends React.Component {
     static getDefaultOption() {
         return {
             name: this.optionNameDefault + '(' + (this.defaultProps.default.toggle ? this.optionNameOn : this.optionNameOff) + ')',
-            value: this.optionDefault
+            value: null
         }
     }
 
     static getOnOption() {
         return {
             name: this.optionNameOn,
-            value: this.optionOn
+            value: true
         };
     }
 
     static getOffOption() {
         return {
             name: this.optionNameOff,
-            value: this.optionOff
+            value: false
         };
     }
 
@@ -76,15 +72,19 @@ class LowStockInputs extends React.Component {
     };
 
     getSelectedOption = () => {
-        if (!this.props.lowStockThreshold.toggle || this.props.lowStockThreshold.toggle.value === null) {
+        if (!this.props.lowStockThreshold.toggle || this.props.lowStockThreshold.toggle.editedValue === null) {
             return LowStockInputs.getDefaultOption();
         }
 
-        if (this.props.lowStockThreshold.toggle.value === true) {
+        if (this.props.lowStockThreshold.toggle.editedValue === true) {
             return LowStockInputs.getOnOption();
         }
 
         return LowStockInputs.getOffOption();
+    };
+
+    onOptionChange = (productId, selectedOption) => {
+        this.props.actions.lowStockChange(productId, 'lowStockThresholdToggle', selectedOption.value);
     };
 
     render() {
@@ -96,6 +96,7 @@ class LowStockInputs extends React.Component {
             inputId={this.props.product.id}
             portalSettingsForDropdown={this.props.portalSettingsForDropdown}
             active={this.isToggleActive()}
+            onOptionChange={this.onOptionChange.bind(this, this.props.product.id)}
         />;
     }
 }
