@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f4fd3fee1c5ec38fee05e730bb664c5",
+    "content-hash": "585b14ffc06e06197a347f3cf9000496",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2496,7 +2496,7 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-287-ProductPickingLocation",
+            "version": "dev-EPIC-TAC-283-PickingLocations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
@@ -2504,7 +2504,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-287-ProductPickingLocation-32afc4.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-EPIC-TAC-283-PickingLocations-32afc4.zip",
                 "reference": "6ffb995f715df47e04f841ca1a182f512a6c9bdc",
                 "shasum": null
             },
@@ -10979,9 +10979,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.11",
-            "alias_normalized": "1.16.11.0",
-            "version": "dev-TAC-287-ProductPickingLocation",
+            "alias": "1.16.12",
+            "alias_normalized": "1.16.12.0",
+            "version": "dev-EPIC-TAC-283-PickingLocations",
             "package": "channelgrabber/product"
         },
         {

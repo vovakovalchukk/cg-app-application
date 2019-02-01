@@ -55,7 +55,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.1.0",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "dev-TAC-287-ProductPickingLocation as 1.16.11",
+        "channelgrabber/product": "dev-EPIC-TAC-283-PickingLocations as 1.16.12",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
