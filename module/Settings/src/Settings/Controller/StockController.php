@@ -35,10 +35,10 @@ class StockController extends AbstractActionController
         UserOUService $userOUService,
         DataTable $accountsTable
     ) {
-        $this->setViewModelFactory($viewModelFactory)
-            ->setProductSettingsService($productSettingsService)
-            ->setUserOUService($userOUService)
-            ->setAccountsTable($accountsTable);
+        $this->viewModelFactory = $viewModelFactory;
+        $this->productSettingsService = $productSettingsService;
+        $this->userOUService = $userOUService;
+        $this->accountsTable = $accountsTable;
     }
 
     public function indexAction()
@@ -86,30 +86,6 @@ class StockController extends AbstractActionController
                 ['id' => 'settings-stock-save-button', 'value' => 'Save']
             ]);
         return $view;
-    }
-
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    protected function setProductSettingsService(ProductSettingsService $productSettingsService)
-    {
-        $this->productSettingsService = $productSettingsService;
-        return $this;
-    }
-
-    protected function setUserOUService(UserOUService $userOUService)
-    {
-        $this->userOUService = $userOUService;
-        return $this;
-    }
-
-    protected function setAccountsTable(DataTable $accountsTable)
-    {
-        $this->accountsTable = $accountsTable;
-        return $this;
     }
 
     // Required by AccountTableTrait
