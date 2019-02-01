@@ -31,6 +31,7 @@ return [
                 'DeleteJSViewModel' => ViewModel::class,
                 'StockImportJSViewModel' => ViewModel::class,
                 'StockExportJSViewModel' => ViewModel::class,
+                'ProductLinkExportJSViewModel' => ViewModel::class,
                 'ProductLinkImportJSViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
                 'ImportJSViewModel' => ViewModel::class,
@@ -38,7 +39,8 @@ return [
                 'UrlDataViewSearch' => ViewModel::class,
                 'UrlDataViewStockImport' => ViewModel::class,
                 'UrlDataViewStockExport' => ViewModel::class,
-                'UrlDataViewProductLinkImport' => ViewModel::class,
+                'UrlDataViewProductLinkExport' => ViewModel::class,
+                'UrlDataViewProductLinkImport' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
                 'parameters' => [
@@ -63,6 +65,7 @@ return [
                     'addAction' => [
                         ['action' => ProductAction\StockExport::class],
                         ['action' => ProductAction\StockImport::class],
+                        ['action' => ProductAction\ProductLinkExport::class],
                         ['action' => ProductAction\ProductLinkImport::class],
                     ]
                 ],
@@ -113,6 +116,17 @@ return [
                     'template' => 'products/products/bulk-actions/stock-export',
                 ],
             ],
+            ProductAction\ProductLinkExport::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewProductLinkExport',
+                    'javascript' => 'ProductLinkExportJSViewModel'
+                ]
+            ],
+            'ProductLinkExportJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/product-link-export',
+                ],
+            ],
             ProductAction\ProductLinkImport::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewProductLinkImport',
@@ -130,6 +144,11 @@ return [
                 ],
             ],
             'UrlDataViewStockExport' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewProductLinkExport' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/data-url',
                 ],

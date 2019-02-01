@@ -36,7 +36,7 @@ use Products\Controller\StockLogJsonController;
 use Products\Listing\Channel\Amazon\Service as ListingAmazonService;
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
 use Products\Product\Service as ModuleProductService;
-use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
+use Products\Csv\Stock\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 use Zend\View\Model\ViewModel;
@@ -167,6 +167,17 @@ return [
                                 'action' => 'stockCsvImport'
                             ]
                         ],
+                    ],
+                    ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_EXPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/link/csv/export',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'linkCsvExport'
+                            ]
+                        ],
+                        'may_terminate' => true
                     ],
                     ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_IMPORT => [
                         'type' => Literal::class,
