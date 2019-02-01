@@ -3,6 +3,7 @@ import stateUtility from "../stateUtility";
 import LowStockInputs from "../Components/LowStockInputs";
 import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
+import {StockModeCellContainer, StyledSafeSubmits} from "./StockMode";
 
 class LowStockCell extends React.Component {
     static defaultProps = {};
@@ -36,13 +37,15 @@ class LowStockCell extends React.Component {
             return null;
         }
 
-        return <LowStockInputs
-            product={product}
-            portalSettingsForDropdown={portalSettingsForDropdown}
-            lowStockThreshold={stateUtility.getLowStockThresholdForProduct(product, this.props.stock)}
-            default={this.getLowStockThresholdDefaults()}
-            actions={this.props.actions}
-        />;
+        return <StockModeCellContainer>
+            <LowStockInputs
+                product={product}
+                portalSettingsForDropdown={portalSettingsForDropdown}
+                lowStockThreshold={stateUtility.getLowStockThresholdForProduct(product, this.props.stock)}
+                default={this.getLowStockThresholdDefaults()}
+                actions={this.props.actions}
+            />
+        </StockModeCellContainer>
     }
 }
 

@@ -68,7 +68,7 @@ class LowStockInputs extends React.Component {
     static getStyle() {
         return {
             widthOfDropdown: 100,
-            widthOfInput: 100
+            widthOfInput: 80
         };
     }
 
@@ -118,16 +118,18 @@ class LowStockInputs extends React.Component {
     };
 
     renderSelect = () => {
-        return <StatelessSelect
-            options={this.getSelectOptions()}
-            selectedOption={this.getSelectedOption()}
-            styleVars={LowStockInputs.getStyle()}
-            selectToggle={this.selectToggle}
-            inputId={this.props.product.id}
-            portalSettingsForDropdown={this.props.portalSettingsForDropdown}
-            active={this.isToggleActive()}
-            onOptionChange={this.onOptionChange}
-        />;
+        return <div className={"c-stock-mode-input__type-select-container"}>
+            <StatelessSelect
+                options={this.getSelectOptions()}
+                selectedOption={this.getSelectedOption()}
+                styleVars={LowStockInputs.getStyle()}
+                selectToggle={this.selectToggle}
+                inputId={this.props.product.id}
+                portalSettingsForDropdown={this.props.portalSettingsForDropdown}
+                active={this.isToggleActive()}
+                onOptionChange={this.onOptionChange}
+            />
+        </div>;
     };
 
     renderValueInput = () => {

@@ -199,6 +199,7 @@ class StockModeCell extends React.Component {
 }
 
 export default StockModeCell;
+export {StockModeCellContainer, StyledSafeSubmits};
 
 function isStockModeBeingEdited(stock, row) {
     let rowId = row.id;
