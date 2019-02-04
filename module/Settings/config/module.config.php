@@ -18,8 +18,6 @@ use CG\Log\Logger;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
-use CG\OrganisationUnit\Storage\Api as OUApiStorage;
-use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
 use CG\Product\Client\Service as ProductService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
@@ -1040,7 +1038,6 @@ return [
         'instance' => [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
-                OUStorageInterface::class => OUApiStorage::class,
                 LoggerInterface::class => Logger::class,
                 ListingsCsvStorage::class => ListingsCsvStorageS3::class,
             ],
@@ -1067,6 +1064,7 @@ return [
                 'InvoiceMappingSiteColumn' => DataTable\Column::class,
                 'InvoiceMappingTradingCompanyColumn' => DataTable\Column::class,
                 'InvoiceMappingAssignedInvoiceColumn' => DataTable\Column::class,
+                'InvoiceMappingEmailContentColumn' => DataTable\Column::class,
                 'InvoiceMappingSendViaEmailColumn' => DataTable\Column::class,
                 'InvoiceMappingSendToFbaColumn' => DataTable\Column::class,
                 'InvoiceMappingChannelColumnView' => ViewModel::class,
@@ -1074,6 +1072,7 @@ return [
                 'InvoiceMappingSiteColumnView' => ViewModel::class,
                 'InvoiceMappingTradingCompanyColumnView' => ViewModel::class,
                 'InvoiceMappingAssignedInvoiceColumnView' => ViewModel::class,
+                'InvoiceMappingEmailContentColumnView' => ViewModel::class,
                 'InvoiceMappingSendViaEmailColumnView' => ViewModel::class,
                 'InvoiceMappingSendToFbaColumnView' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
@@ -1161,6 +1160,7 @@ return [
                         ['column' => 'InvoiceMappingTradingCompanyColumn'],
                         ['column' => 'InvoiceMappingSiteColumn'],
                         ['column' => 'InvoiceMappingAssignedInvoiceColumn'],
+                        ['column' => 'InvoiceMappingEmailContentColumn'],
                         ['column' => 'InvoiceMappingSendViaEmailColumn'],
                         ['column' => 'InvoiceMappingSendToFbaColumn'],
                     ],
@@ -1289,7 +1289,7 @@ return [
                     'viewModel' => 'InvoiceTradingCompanyColumnView',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
+                    'width' => '300px',
                 ],
             ],
             'InvoiceAssignedInvoiceColumn' => [
@@ -1307,7 +1307,7 @@ return [
                     'viewModel' => 'InvoiceSendFromAddressColumnView',
                     'sortable' => false,
                     'hideable' => true,
-                    'width' => '200px',
+                    'width' => '350px',
                 ],
             ],
             'InvoiceTradingCompanyColumnView' => [
@@ -1353,7 +1353,7 @@ return [
                     'viewModel' => 'InvoiceMappingSiteColumnView',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
+                    'width' => '50px',
                 ],
             ],
             'InvoiceMappingTradingCompanyColumn' => [
@@ -1374,13 +1374,22 @@ return [
                     'width' => '100px',
                 ],
             ],
+            'InvoiceMappingEmailContentColumn' => [
+                'parameters' => [
+                    'templateId' => 'emailContent',
+                    'viewModel' => 'InvoiceMappingEmailContentColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '50px',
+                ],
+            ],
             'InvoiceMappingSendViaEmailColumn' => [
                 'parameters' => [
                     'templateId' => 'sendViaEmail',
                     'viewModel' => 'InvoiceMappingSendViaEmailColumnView',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
+                    'width' => '50px',
                 ],
             ],
             'InvoiceMappingSendToFbaColumn' => [
@@ -1389,7 +1398,7 @@ return [
                     'viewModel' => 'InvoiceMappingSendToFbaColumnView',
                     'sortable' => false,
                     'hideable' => false,
-                    'width' => '100px',
+                    'width' => '50px',
                 ],
             ],
             'InvoiceMappingChannelColumnView' => [
@@ -1422,15 +1431,21 @@ return [
                     'template' => 'value.phtml',
                 ],
             ],
+            'InvoiceMappingEmailContentColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Email Content'],
+                    'template' => 'value.phtml',
+                ],
+            ],
             'InvoiceMappingSendViaEmailColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'SendViaEmail'],
+                    'variables' => ['value' => 'Email Invoice'],
                     'template' => 'value.phtml',
                 ],
             ],
             'InvoiceMappingSendToFbaColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'SendToFba'],
+                    'variables' => ['value' => 'Send To FBA'],
                     'template' => 'value.phtml',
                 ],
             ],

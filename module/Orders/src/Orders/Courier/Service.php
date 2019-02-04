@@ -102,7 +102,7 @@ class Service implements LoggerAwareInterface
         {
             // Only show accounts that support the requested order
             $provider = $this->getShippingChannelsProvider($account);
-            if ($order && !$provider->isOrderSupported($account->getChannel(), $order)) {
+            if ($order && !$provider->isOrderSupported($account, $order)) {
                 continue;
             }
 

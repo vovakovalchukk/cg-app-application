@@ -16,7 +16,8 @@ class VariationTableComponent extends React.Component {
         containerCssClasses:'',
         tableCssClasses:'',
         renderCustomTableHeaders: function() { return null; },
-        renderCustomTableRows: function() { return null; }
+        renderCustomTableRows: function() { return null; },
+        variationImages: {}
     };
 
     renderImageHeader = () => {
@@ -41,7 +42,7 @@ class VariationTableComponent extends React.Component {
     renderVariationRows = () => {
         return this.props.variationsDataForProduct.map(function(variation) {
             return <tr>
-                {this.renderImageColumn(variation)}
+                <td>{this.renderImageColumn(variation)}</td>
                 <td>{variation.sku}</td>
                 {this.renderAttributeColumns(variation)}
                 {this.props.renderCustomTableRows(variation)}
@@ -50,30 +51,54 @@ class VariationTableComponent extends React.Component {
     };
 
     renderImageColumn = (variation) => {
-        let fieldName = "images." + variation.sku + ".imageId";
-
         if (!this.props.showImages) {
-            return;
+            return '';
         }
         if (this.props.product.images == 0) {
-            return <td>No images available</td>
+            return 'No images available';
         }
 
-        return (<td>
-            <Field
-                name={fieldName}
-                component={this.renderImageField}
+        if (!this.props.renderImagePicker) {
+            return this.renderStaticImage(variation);
+        }
+
+        return <Field
+            name={"images." + variation.sku + ".imageId"}
+            component={this.renderImageField}
+            variation={variation}
+        />;
+    };
+
+    renderStaticImage = (variation) => {
+        if (this.props.renderStaticImageFromFormValues) {
+            return <Field
+                name={"images." + variation.sku + ".imageId"}
+                component={this.renderStaticImageFromFormValues}
                 variation={variation}
-            />
-        </td>);
+            />;
+        }
+
+        const selectedImageForVariation = this.props.variationImages[variation.sku];
+        if (!selectedImageForVariation) {
+            return '';
+        }
+
+        const image = this.findSelectedImageForVariation(selectedImageForVariation.imageId);
+        return this.renderStaticImageComponent(image.url);
+    };
+
+    renderStaticImageComponent = (imageUrl) => {
+        return <div className="image-dropdown-target">
+            <div className="react-image-picker">
+                <span className="react-image-picker-image">
+                    <img src={imageUrl}/>
+                </span>
+            </div>
+        </div>;
     };
 
     renderImageField = (field) => {
-        if (!this.props.renderImagePicker) {
-            return this.renderStaticImage(field);
-        }
-
-        var selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
+        const selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
         return <ImageDropDown
             selected={selected}
             autoSelectFirst={false}
@@ -94,8 +119,8 @@ class VariationTableComponent extends React.Component {
         return this.findSelectedImageForVariation(fieldValue);
     };
 
-    renderStaticImage = (field) => {
-        var image = this.getStaticImage(field.input.value, field.variation);
+    renderStaticImageFromFormValues = (field) => {
+        let image = this.getStaticImage(field.input.value, field.variation);
         return (
             <div className="image-dropdown-target">
                 <div className="react-image-picker">
@@ -128,7 +153,7 @@ class VariationTableComponent extends React.Component {
 
     render() {
         return (
-            <div className={"variation-picker "+this.props.containerCssClasses}>
+            <div className={"variation-picker " + this.props.containerCssClasses}>
                 <table className={this.props.tableCssClasses}>
                     <thead>
                     <tr>

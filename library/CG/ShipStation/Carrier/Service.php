@@ -2,6 +2,9 @@
 namespace CG\ShipStation\Carrier;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Shipping\Provider\Carrier\Entity;
+use CG\Channel\Shipping\Provider\Carrier\Collection;
+use CG\Channel\Shipping\Provider\Carrier\Mapper;
 use CG\Channel\Shipping\Provider\ChannelsInterface;
 use CG\Channel\Shipping\Provider\Channels\ShippingOptionsInterface;
 use CG\FeatureFlags\Service as FeatureFlagsService;
@@ -55,7 +58,7 @@ class Service implements ChannelsInterface, ShippingOptionsInterface
     /**
      * @return bool Does this provider support the provided order for the selected channel?
      */
-    public function isOrderSupported($channelName, Order $order)
+    public function isOrderSupported(Account $account, Order $order)
     {
         return true;
     }

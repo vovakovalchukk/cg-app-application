@@ -50,6 +50,12 @@ class BarcodeController extends AbstractActionController
 
         $orderAndAction = $this->barcodeDecoder->decodeBarcodeToOrderAndAction($postData['barcode']);
         $method = $this->actionMap[$orderAndAction['action']];
+
+        if (!method_exists($this, $method)) {
+            $msg = sprintf(BarcodeDecoder::EXC_INVALID_BARCODE, __METHOD__, $postData['barcode']);
+            throw new \InvalidArgumentException($msg);
+        }
+
         $this->$method($orderAndAction['order'], $view);
 
         // This action can be called from App or Admin

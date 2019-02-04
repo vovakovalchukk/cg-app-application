@@ -12,6 +12,7 @@ use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -36,6 +37,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     use AccountStockSettingsTableTrait;
 
     const ROUTE_INDEX_URL = '/products';
+
+    const STOCK_TAB_FEATURE_FLAG = 'Stock Tab Enabled';
 
     protected $viewModelFactory;
     protected $productService;
@@ -93,6 +96,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
     public function indexAction()
     {
         $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $rootOu = $this->organisationUnitService->fetch($rootOuId);
         $view = $this->viewModelFactory->newInstance();
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
@@ -115,19 +119,26 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('featureFlagJson', json_encode([
             'linkedProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
-                $rootOuId
+                $rootOuId,
+                $rootOu
             ),
             'createProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_CREATE_PRODUCTS,
-                $rootOuId
+                $rootOuId,
+                $rootOu
+            ),
+            'stockTabEnabled' => $this->featureFlagService->featureEnabledForOu(
+                static::STOCK_TAB_FEATURE_FLAG,
+                $rootOuId,
+                $rootOu
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
-        $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuIdWithDefaultsSelected($rootOuId));
+        $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuWithDefaultsSelected($rootOu));
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
         $view->setVariable('categoryTemplateOptions', $this->categoryService->getTemplateOptions());
-        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForActiveUser());
+        $view->setVariable('defaultCurrency', $this->getDefaultCurrencyForRootOu($rootOu));
         $view->setVariable('listingCreationAllowed', $this->productListingService->isListingCreationAllowed());
         $view->setVariable('managePackageUrl', $this->productListingService->getManagePackageUrl());
         $locale = $this->activeUserContainer->getLocale();
@@ -184,10 +195,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
     }
 
-    protected function getDefaultCurrencyForActiveUser(): ?string
+    protected function getDefaultCurrencyForRootOu(OrganisationUnit $rootOu): ?string
     {
         $currencyCode = CurrencyCode::getCurrencyCodeForLocale($this->activeUserContainer->getLocale());
-        $rootOu = $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
         return (new CurrencyFormatter($rootOu))->getSymbol($currencyCode);
     }
 

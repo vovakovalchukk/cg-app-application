@@ -1,8 +1,9 @@
 const webpackConfig = require('./webpack.config.js');
+const chalk = require('chalk');
 
 module.exports = function(grunt) {
-
     require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
         babel: {
             es6: {
@@ -16,7 +17,7 @@ module.exports = function(grunt) {
                         src: ['**/es6/**/*.es6'],
                         dest: 'public/channelgrabber/',
                         ext: '.js',
-                        rename: function (dest, src) {
+                        rename: function(dest, src) {
                             return dest + src.replace('es6', 'js');
                         }
                     }
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
                         src: ['**/jsx/**/*.jsx'],
                         dest: 'public/channelgrabber/',
                         ext: '.js',
-                        rename: function (dest, src) {
+                        rename: function(dest, src) {
                             return dest + src.replace('jsx', 'js');
                         }
                     }
@@ -46,7 +47,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/',
-                        src: [ '**/js/**/*.js'],
+                        src: ['**/js/**/*.js'],
                         dest: 'public/cg-built/'
                     }
                 ]
@@ -56,7 +57,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/vendor/',
-                        src: [ '**/dist/**/*.css', '**/dist/**/*.map' ],
+                        src: ['**/dist/**/*.css', '**/dist/**/*.map'],
                         dest: 'public/cg-built/vendor'
                     }
                 ]
@@ -82,7 +83,7 @@ module.exports = function(grunt) {
                         cwd: 'public/channelgrabber/',
                         src: ['**/js-vanilla/**/*.js'],
                         dest: 'public/channelgrabber/',
-                        rename: function (dest, src) {
+                        rename: function(dest, src) {
                             return dest + src.replace('js-vanilla', 'js');
                         }
                     }
@@ -93,16 +94,16 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'public/channelgrabber/',
-                        src: [ '**/template/**/*.mustache'],
+                        src: ['**/template/**/*.mustache'],
                         dest: 'public/cg-built/'
                     }
                 ]
-            },
+            }
         },
         browserSync: {
             dev: {
                 bsFiles: {
-                    src : [
+                    src: [
                         'public/cg-built/**/*.js',
                         'public/cg-built/**/*.css'
                     ]
@@ -139,9 +140,9 @@ module.exports = function(grunt) {
                     modules: [{
                         name: "main"
                     }, {
-                        name: "element/moreButton",
+                        name: "element/moreButton"
                     }, {
-                        name: "popup/mustache",
+                        name: "popup/mustache"
                     }],
                     logLevel: 0
                 }
@@ -156,8 +157,7 @@ module.exports = function(grunt) {
             options: {
                 stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
             },
-            prod: webpackConfig,
-            dev: webpackConfig
+            prod: getWebpackConfig.bind(this, grunt.option('env'))
         },
         watch: {
             babelReact: {
@@ -172,9 +172,9 @@ module.exports = function(grunt) {
                 files: 'public/channelgrabber/vendor/**/dist/**/*.css',
                 tasks: ['newer:copy:vendorCssToCgBuilt']
             },
-            copyVendorJs:{
-                files:'public/channelgrabber/vendor/**/dist/**/*.js',
-                tasks:['newer:copy:vendorJsToCgBuilt']
+            copyVendorJs: {
+                files: 'public/channelgrabber/vendor/**/dist/**/*.js',
+                tasks: ['newer:copy:vendorJsToCgBuilt']
             },
             copyVanillaJs: {
                 files: 'public/channelgrabber/**/js-vanilla/**/*.js',
@@ -205,3 +205,25 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install', ['install:css', 'install:js', 'install:vendor', 'webpack']);
 };
+
+function getWebpackConfig(env) {
+    if (env !== 'dev') {
+        console.log(chalk.cyan('running webpack in production mode...'));
+        console.log(chalk.italic.blue('To use webpack in development mode run `grunt webpack --env=dev`'));
+        return webpackConfig
+    }
+    console.log(chalk.cyan('running webpack in development mode...'))
+    return getDevAdjustedWebpackConfig(webpackConfig)
+}
+
+function getDevAdjustedWebpackConfig(webpackConfig){
+    return Object.assign(webpackConfig, {
+        mode: 'development',
+        watch: true,
+        watchOptions: {
+            // delay applied so that webpack runs after cg-common's grunt tasks are executed
+            aggregateTimeout: 1500,
+            poll: true
+        }
+    })
+}

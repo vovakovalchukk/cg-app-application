@@ -66,7 +66,7 @@ class Service
         foreach ($rates->getAll() as $rateId => $rate) {
             $ratesOptions[$rateId] = [
                 'name' => $rate->getName(),
-                'rate' => bcmul($rate->getCurrent(), 100, 2)
+                'rate' => (float) bcmul($rate->getCurrent(), 100, 2)
             ];
         }
         return $ratesOptions;
@@ -120,6 +120,11 @@ class Service
     public function getTaxRatesOptionsForOuIdWithDefaultsSelected(int $ouId): array
     {
         $ou = $this->organisationUnitService->fetch($ouId);
+        return $this->getTaxRatesOptionsForOuWithDefaultsSelected($ou);
+    }
+
+    public function  getTaxRatesOptionsForOuWithDefaultsSelected(OrganisationUnit $ou): array
+    {
         $ratesOptions = $this->getTaxRatesOptionsForOu($ou);
         $defaultRates = $this->getDefaultTaxRatesForOu($ou);
         return $this->markRateOptionSelectedForOu($ou, $ratesOptions, $defaultRates);

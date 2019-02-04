@@ -13,6 +13,7 @@ class Mapper extends UIMapper
 {
     const COLUMN_SKU = 'SKU';
     const COLUMN_PRODUCT = 'Product Name';
+    const COLUMN_VARIATIONS = 'Variation Attributes';
     const COLUMN_QUANTITY = 'Quantity';
     const COLUMN_PRICE = 'Price inc. VAT';
     const COLUMN_DISCOUNT = 'Discount Total';
@@ -25,6 +26,7 @@ class Mapper extends UIMapper
     protected $mapItem = [
         self::COLUMN_SKU => ['getter' => 'getItemSku', 'callback' => null],
         self::COLUMN_PRODUCT => ['getter' => 'getItemName', 'callback' => 'formatItemName'],
+        self::COLUMN_VARIATIONS => ['getter' => 'getItemVariationAttribute', 'callback' => 'formatVariationAttributes'],
         self::COLUMN_QUANTITY => ['getter' => 'getItemQuantity', 'callback' => null],
         self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatCurrency'],
@@ -243,6 +245,15 @@ class Mapper extends UIMapper
         $currencyCode = $this->order->getCurrencyCode();
         $formatter = $this->currencyFormat;
         return $formatter($value, $currencyCode);
+    }
+
+    protected function formatVariationAttributes(Item $entity, array $attributes): string
+    {
+        $mergedKeyVals = [];
+        foreach($attributes as $attribute => $value) {
+            $mergedKeyVals[] = $attribute . ': ' . $value;
+        }
+        return implode("<br />", $mergedKeyVals);
     }
 
     protected function setCurrencyFormat(CurrencyFormat $currencyFormat)

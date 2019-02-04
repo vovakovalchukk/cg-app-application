@@ -174,9 +174,9 @@ class Service implements
     /**
      * @return bool
      */
-    public function isOrderSupported($channelName, Order $order)
+    public function isOrderSupported(Account $account, Order $order)
     {
-        return $this->isProvidedChannel($channelName);
+        return $this->isProvidedChannel($account->getChannel());
     }
 
     /**

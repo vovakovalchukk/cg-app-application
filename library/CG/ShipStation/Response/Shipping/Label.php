@@ -35,6 +35,8 @@ class Label extends ResponseAbstract
     protected $insuranceCostCurrency;
     /** @var string */
     protected $trackingNumber;
+    /** @var string */
+    protected $carrierReferenceNumber;
     /** @var bool */
     protected $returnLabel;
     /** @var bool */
@@ -79,6 +81,7 @@ class Label extends ResponseAbstract
         ?float $insuranceCost,
         ?string $insuranceCostCurrency,
         ?string $trackingNumber,
+        ?string $carrierReferenceNumber,
         ?bool $returnLabel,
         ?bool $international,
         ?string $batchId,
@@ -106,6 +109,7 @@ class Label extends ResponseAbstract
         $this->insuranceCost = $insuranceCost;
         $this->insuranceCostCurrency = $insuranceCostCurrency;
         $this->trackingNumber = $trackingNumber;
+        $this->carrierReferenceNumber = $carrierReferenceNumber;
         $this->returnLabel = $returnLabel;
         $this->international = $international;
         $this->batchId = $batchId;
@@ -144,6 +148,7 @@ class Label extends ResponseAbstract
             $decodedJson->insurance_cost->amount ?? null,
             $decodedJson->insurance_cost->currency ?? null,
             $decodedJson->tracking_number ?? null,
+            $decodedJson->carrier_response_details->reference_number ?? null,
             $decodedJson->is_return_label ?? null,
             $decodedJson->is_international ?? null,
             $decodedJson->batch_id ?? null,
@@ -221,9 +226,14 @@ class Label extends ResponseAbstract
         return $this->insuranceCostCurrency;
     }
 
-    public function getTrackingNumber(): string
+    public function getTrackingNumber(): ?string
     {
         return $this->trackingNumber;
+    }
+
+    public function getCarrierReferenceNumber(): ?string
+    {
+        return $this->carrierReferenceNumber;
     }
 
     public function isReturnLabel(): bool

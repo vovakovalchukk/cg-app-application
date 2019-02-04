@@ -459,6 +459,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function imagesForOrdersAction()
     {
         $orderIds = $this->params()->fromPost('orders');
+        if (!is_array($orderIds)) {
+            throw new \Exception('Order Ids must be an array');
+        }
         $imagesForOrders = $this->orderService->getImagesForOrders($orderIds);
         return $this->jsonModelFactory->newInstance($imagesForOrders);
     }

@@ -5,8 +5,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "7",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.24.1",
     "exports-loader": "^0.7.0",
@@ -28,19 +27,24 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.14",
+    "babel-plugin-styled-components": "^1.5.1",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.22",
     "chart.js": "^2.7.0",
     "create-react-class": "^15.6.3",
     "css-toggle-switch": "^4.1.0",
+    "fixed-data-table-2": "^0.8.13",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-lines-ellipsis": "^0.13.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-skeleton-loader": "^1.0.3",
     "react-tether": "^0.6.1",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
+    "styled-components": "^3.4.2",
     "thenby": "^1.3.0"
   }
 }

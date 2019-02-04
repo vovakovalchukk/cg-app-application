@@ -12,10 +12,11 @@ define([
         var InvoiceSettings = function(basePath, amazonSite, tagOptions) {
 
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
+            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes, #itemVariationAttributes';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
+            var itemVariationAttributesSettingsSelector = container + ' .invoiceDefaultSettings #itemVariationAttributes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
 
@@ -41,6 +42,7 @@ define([
             var emailVerifyButtonSelector = '.email-verify-button';
             var emailVerifyStatusSelector = '.email-verify-status';
             var emailVerifyHolderSelector = '.email-send-as-holder';
+            var emailEditTemplateButtonSelector = '.edit-content-button';
             var isPendingConfirmationMessageRequired = false;
 
             var emailInvoiceFieldsSelector = container + ' .emailInvoiceFields';
@@ -48,7 +50,10 @@ define([
 
             var emailBccField = $(emailBccSelector);
 
-            var emailEditorSelector = '#invoice-email-editor';
+            var emailEditorContentId = 'invoice-email-editor';
+            var emailSubjectEditorId = 'invoice-email-subject-editor';
+            var emailEditorSelector = '#' + emailEditorContentId;
+            var emailSubjectEditorSelector = '#' + emailSubjectEditorId;
             var existingEmailTemplate = $(emailEditorSelector).html();
             EventCollator.setTimeout(3000);
 
@@ -59,9 +64,6 @@ define([
 
                 // Set field states
                 setCopyRequired();
-
-                // Setup emailEditor
-                setupEmailEditor();
 
                 // Set event listeners
                 $(document).on('change', selector, function() {
@@ -82,13 +84,19 @@ define([
                     self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
-                $(document).on('change', mappingSendViaEmailSelector, function(event, element) {
-                    var saveData = self.getMappingSaveData(element, 'sendViaEmail');
+                $(document).on('change', mappingSendViaEmailSelector, function(event) {
+                    let element = event.target;
+                    let saveData = Object.assign(buildSaveMappingBaseData($(element)), {
+                        sendViaEmail: $(element).is(':checked')
+                    });
                     self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
-                $(document).on('change', mappingSendToFbaSelector, function(event, element) {
-                    var saveData = self.getMappingSaveData(element, 'sendToFba');
+                $(document).on('change', mappingSendToFbaSelector, function(event) {
+                    let element = event.target;
+                    let saveData = Object.assign(buildSaveMappingBaseData($(element)), {
+                        sendToFba: $(element).is(':checked')
+                    });
                     self.saveMapping(saveData, handleSaveMappingResponse);
                 });
 
@@ -110,6 +118,14 @@ define([
                     } else {
                         ajaxVerify(self);
                     }
+                });
+
+                $(document).on('click', emailEditTemplateButtonSelector, function (event) {
+                    renderEmailTemplatePopup(event.target, function(saveData) {
+                        self.saveMapping(saveData, function(data) {
+                            handleInvoiceMappingSuccessSave(data, saveData, $(event.target));
+                        });
+                    });
                 });
 
                 $(document).on('change', copyRequiredSelector, function () {
@@ -162,6 +178,77 @@ define([
                 });
             };
 
+            function handleInvoiceMappingSuccessSave(responseData, savedData, element) {
+                handleSaveMappingResponse(responseData);
+                element.data({
+                    subject: savedData.emailSubject,
+                    content: savedData.emailTemplate
+                });
+            }
+
+            function renderEmailTemplatePopup(editButton, saveMappingCallback) {
+                var emailData = $(editButton).data();
+
+                var templateUrlMap = {
+                    invoiceEmail: '/cg-built/settings/template/Messages/invoiceEmailEditForm.mustache'
+                };
+
+                CGMustache.get().fetchTemplates(
+                    templateUrlMap,
+                    function (templates, cgmustache) {
+                        var messageHTML = cgmustache.renderTemplate(templates, emailData, "invoiceEmail");
+                        renderEmailTemplatePopupContent(editButton, messageHTML, saveMappingCallback);
+                    }
+                );
+            }
+
+            function renderEmailTemplatePopupContent(editButton, messageHTML, saveMappingCallback) {
+                new Confirm(
+                    messageHTML,
+                    (response) => { handleEmailTemplatePopupAction(editButton, response, saveMappingCallback) },
+                    buildEmailTemplatePopupButtons(),
+                    () => {},
+                    buildEmailTemplatePopupName(editButton)
+                );
+            }
+
+            function handleEmailTemplatePopupAction(editButton, response, saveMappingCallback) {
+                if (!response) {
+                    setupEmailEditor();
+                    setupEmailSubjectEditor();
+                    return;
+                }
+
+                if (response == 'Save') {
+                    let saveData = Object.assign(buildSaveMappingBaseData($(editButton)), {
+                        emailSubject: tinyMCE.get(emailSubjectEditorId).getContent(),
+                        emailTemplate: tinyMCE.get(emailEditorContentId).getContent()
+                    });
+                    saveMappingCallback(saveData);
+                }
+
+                tinyMCE.remove();
+            }
+
+            function buildEmailTemplatePopupButtons() {
+                return [
+                    {
+                        value: 'Cancel'
+                    },
+                    {
+                        value: 'Save',
+                        class: 'yes-button'
+                    }
+                ];
+            }
+
+            function buildEmailTemplatePopupName(editButton) {
+                let row = $(editButton).closest('tr');
+                let accountName = $.trim($(row.find('.account-column')).text());
+                let site = $.trim($(row.find('.site-column input')).val());
+                return 'Email Subject and Content for ' + accountName + ' ' + site;
+            }
+
             function validateEmailFields()
             {
                 var valid = true;
@@ -196,7 +283,10 @@ define([
                             setEmailVerifyButtonVerifying(emailVerifyButton);
                             ajaxVerify(self, {'confirmationAmazon': true});
                         }
-                    }, ["Cancel", InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON]);
+                    }, ["Cancel", {
+                        value: InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON,
+                        class: 'yes-button'
+                    }]);
                 });
             }
 
@@ -256,11 +346,6 @@ define([
                     menubar : false,
                     forced_root_block: false,
                     paste_as_text: true,
-                    init_instance_callback: function (editor) {
-                        editor.on('keyup change paste SetContent', function (e) {
-                            $(document).trigger(EventCollator.getRequestMadeEvent(), ['invoiceEmailTemplate', editor.getContent(), false]);
-                        });
-                    },
                     toolbar: 'fontselect | bold italic | fontsizeselect | forecolor | tagSelect | resetDefault',
                     setup: function(editor) {
                         function addToEditor(e){
@@ -281,6 +366,50 @@ define([
                             })
                         });
 
+                    }
+                });
+            }
+
+            function setupEmailSubjectEditor() {
+                var tags = JSON.parse(tagOptions);
+
+                tinyMCE.init({
+                    selector: emailSubjectEditorSelector,
+                    theme_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/theme.js',
+                    skin_url: '/channelgrabber/zf2-v4-ui/js/jqueryPlugin/tinymce/orderhub',
+                    plugins: ['save', 'textcolor'],
+                    height: 10,
+                    statusbar : false,
+                    menubar : false,
+                    forced_root_block: false,
+                    paste_as_text: true,
+                    toolbar: 'tagSelect',
+                    inline: true,
+                    setup: function(editor) {
+                        function addToEditor(e){
+                            tinymce.activeEditor.insertContent(e.target.textContent);
+                        }
+                        editor.addButton('resetDefault', {
+                            text: 'Reset to Default',
+                            onclick: function () {
+                                tinymce.execCommand('mceCancel');
+                            }
+                        });
+                        editor.addButton('tagSelect', {
+                            type: 'menubutton',
+                            text: 'Insert Tag',
+                            icon: false,
+                            menu: tags.map(function (tag) {
+                                return {text: tag, onclick: addToEditor};
+                            })
+                        });
+                        editor.on('keydown', function (event) {
+                            if (event.keyCode == 13)  {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                return false;
+                            }
+                        })
                     }
                 });
             }
@@ -375,21 +504,26 @@ define([
                     'itemSku': getItemSku(),
                     'productImages': getProductImages(),
                     'itemBarcodes': getItemBarcodes(),
+                    'itemVariationAttributes': getItemVariationAttributes(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
                 };
             };
 
             this.getMappingSaveData = function (element, property) {
+                var saveData = buildSaveMappingBaseData(element);
+                saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
+                return saveData;
+            };
+
+            function buildSaveMappingBaseData(element) {
                 var row = element.closest('tr');
-                var saveData = {
+                return {
                     id: $(row).attr('data-element-row-id'),
                     site: $.trim($(row.find('.site-column input')).val()),
                     accountId: $(row.find('.account-column input')).val(),
                 };
-                saveData[property] = $(element.closest('td').find('.custom-select input')[0]).val();
-                return saveData;
-            };
+            }
 
             this.initialiseInvoiceMappingEntity = function (entity) {
                 $('#invoiceMapping tbody tr').each(function (index, row) {
@@ -450,6 +584,11 @@ define([
                 return $(itemBarcodesSettingsSelector).is(':checked');
             };
 
+            var getItemVariationAttributes = function()
+            {
+                return $(itemVariationAttributesSettingsSelector).is(':checked');
+            };
+
             var getTradingCompanies = function()
             {
                 var tradingCompanies = {};
@@ -473,7 +612,7 @@ define([
         InvoiceSettings.EMAIL_STATUS_VERIFIED = 'success';
         InvoiceSettings.EMAIL_STATUS_PENDING = 'pending';
         InvoiceSettings.EMAIL_STATUS_FAILED = 'failed';
-        InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Email address approved for all Amazon accounts';
+        InvoiceSettings.EMAIL_VALIDATION_CONFIRMATION_AMAZON = 'Confirm';
 
         InvoiceSettings.prototype.save = function(callback, additionalData)
         {

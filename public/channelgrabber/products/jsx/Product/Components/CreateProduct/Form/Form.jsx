@@ -182,8 +182,10 @@ class createFormComponent extends React.Component {
 
     formatReduxFormValuesForProductIdentifiersComponent = () => {
         let formVariations = this.props.formValues.variations;
-        formVariations = Object.keys(formVariations).map(variation => {
-            return formVariations[variation];
+        formVariations = Object.keys(formVariations).map((variation, index) => {
+            return Object.assign(formVariations[variation], {
+                id: 'variation-' + index
+            });
         });
         formVariations = this.formatVariationImagesForProductIdentifiersComponent(formVariations);
         formVariations = this.addAttributeValuesToVariationsData(formVariations);
@@ -229,6 +231,7 @@ class createFormComponent extends React.Component {
                     containerCssClasses={'u-margin-top-none u-max-width-80'}
                     tableCssClasses={'u-min-width-50 u-width-inherit'}
                     attributeNames={attributeNames}
+                    renderStaticImageFromFormValues={true}
                 />
             </fieldset>
         );

@@ -56,7 +56,38 @@ class ExportOptions implements ExportOptionsInterface
                 ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
             ],
         ],
+        ShippingService::TRACKED_TWENTY_FOUR => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            ],
+        ],
+        ShippingService::TRACKED_FORTY_EIGHT => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            ],
+        ],
+        ShippingService::TRACKED_RETURNS_FORTY_EIGHT => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+            ],
+        ],
         ShippingService::INTERNATIONAL_TRACKED => [
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Extra Compensation', 'value' => 'extraCompensation'],
+            ],
+        ],
+        ShippingService::INTERNATIONAL_BUSINESS => [
+            'packageTypes' => [
+                'Large letter' => ['title' => 'Large letter', 'value' => 'Large letter'],
+                'Parcel' => ['title' => 'Parcel', 'value' => 'Parcel'],
+            ],
+            'addOns' => [
+                ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
+                ['title' => 'Tracked', 'value' => 'tracked'],
+            ],
+        ],
+        ShippingService::INTERNATIONAL_SIGNED_ON => [
             'addOns' => [
                 ['title' => 'Signed For', 'value' => ShippingService::ADD_ON_SIGNED_FOR_VALUE],
                 ['title' => 'Extra Compensation', 'value' => 'extraCompensation'],

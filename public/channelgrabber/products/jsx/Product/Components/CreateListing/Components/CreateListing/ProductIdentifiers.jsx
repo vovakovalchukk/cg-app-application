@@ -2,7 +2,6 @@ import React from 'react';
 import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import Checkbox from 'Common/Components/Checkbox';
-import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
 import VariationTable from './VariationTable';
 
 var inputTypeComponents = {
@@ -89,7 +88,8 @@ class ProductIdentifiers extends React.Component {
         renderImagePicker: true,
         shouldRenderStaticImagesFromVariationValues: false,
         containerCssClasses: '',
-        tableCssClasses: ''
+        tableCssClasses: '',
+        renderStaticImageFromFormValues: false
     };
 
     renderIdentifierHeaders = () => {
@@ -107,7 +107,7 @@ class ProductIdentifiers extends React.Component {
         return identifiers.map(function(identifier) {
             return (<td>
                 <Field
-                    name={"identifiers." + variation.sku + "." + identifier.name}
+                    name={"identifiers." + variation.id + "." + identifier.name}
                     component={this.renderInputComponent}
                     validate={identifier.validate ? [identifier.validate] : undefined}
                     normalize={identifier.normalize ? identifier.normalize : value => value}
@@ -149,6 +149,7 @@ class ProductIdentifiers extends React.Component {
                 tableCssClasses={this.props.tableCssClasses}
                 renderCustomTableHeaders={this.renderIdentifierHeaders}
                 renderCustomTableRows={this.renderIdentifierColumns}
+                renderStaticImageFromFormValues={this.props.renderStaticImageFromFormValues}
             />
         );
     }
