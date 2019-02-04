@@ -30,7 +30,7 @@
         "channelgrabber/courieradapter": "~1.4.1",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
-        "channelgrabber/ebay": "~1.16.0",
+        "channelgrabber/ebay": "dev-CGIV-10015-ebay-default-site-id as 1.19.0",
         "channelgrabber/ekm": "~1.10.14",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.6.0",
