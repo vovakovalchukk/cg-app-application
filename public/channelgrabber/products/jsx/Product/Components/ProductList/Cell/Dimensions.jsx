@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import SafeInput from 'Common/Components/SafeInputStateless';
+import SafeInputStateless from 'Common/Components/SafeInputStateless';
 import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 
@@ -10,7 +10,7 @@ const InputsContainer = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const StyledSafeInput = styled(SafeInput)`
+const StyledSafeInputStateless = styled(SafeInputStateless)`
     display:inline-block,
 `;
 const Cross = styled.span`
@@ -26,8 +26,27 @@ class DimensionsCell extends React.Component {
 
     state = {};
 
-    renderInput = (row, detail) => {
-        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
+    getValueForDetail = (row, detail) => {
+        let detailForId = this.props.dimensions[detail].byProductId[row.id];
+        if(!detailForId){
+            return row.details[detail];
+        }
+        if(detailForId.valueEdited){
+            return detailForId.valueEdited;
+        }
+        if(detailForId.value){
+            return detailForId.value;
+        }
+        return row.details[detail];
+    };
+
+    renderInput = (row, detail, value) => {
+        const {
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width,
+            dimensions
+        } = this.props;
 
         let dimension = detail;
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
@@ -39,16 +58,21 @@ class DimensionsCell extends React.Component {
             allRows: this.props.rows.allIds
         });
 
+        let isEditing = dimensions[detail].byProductId[row.id] ? dimensions[detail].byProductId[row.id].isEditing : false;
+
         return (
-            <StyledSafeInput
+            <StyledSafeInputStateless
                 name={detail}
                 initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0, 1)}
                 step="0.1"
                 submitCallback={this.props.actions.saveDetail.bind(this, row)}
+                setIsEditing={this.props.actions.setIsEditing.bind(this,row.id, detail)}
                 onValueChange={this.props.actions.changeDimensionValue.bind(this, row.id, detail)}
                 submitsPortalSettings={portalSettingsForSubmits}
                 width={45}
                 placeholder={detail.substring(0, 1)}
+                value={value}
+                isEditing={isEditing}
             />
         )
     };
@@ -64,13 +88,21 @@ class DimensionsCell extends React.Component {
             return <span></span>
         }
 
+        let valueForHeight = this.getValueForDetail(row, 'height');
+        
+        console.log('valueForHeight: ', valueForHeight);
+        
+        
+        let valueForWidth = this.getValueForDetail(row, 'width');
+        let valueForLength = this.getValueForDetail(row, 'length');
+
         return (
             <InputsContainer className={this.props.className}>
-                {this.renderInput(row, 'height')}
+                {this.renderInput(row, 'height', valueForHeight)}
                 <Cross>✕</Cross>
-                {this.renderInput(row, 'width')}
+                {this.renderInput(row, 'width', valueForWidth)}
                 <Cross>✕</Cross>
-                {this.renderInput(row, 'length')}
+                {this.renderInput(row, 'length', valueForLength)}
             </InputsContainer>
         );
     }

@@ -1,7 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
 
 let initialState = {
-    stockModeOptions: [],
     height: {
         byProductId: {}
     },
@@ -15,44 +14,37 @@ let initialState = {
 
 let dimensionReducer = reducerCreator(initialState, {
     "DIMENSION_VALUE_CHANGE": function(state, action) {
-        let dimensions = Object.assign({}, state);
-
         let {
             productId,
             detail,
             newValue,
-            currentDetails
+            currentDetailsFromProductState
         } = action.payload;
+        let dimensions = Object.assign({}, state);
 
-        console.log('DIMENSION_VALUE_CHANGE ', {
-            productId,
-            detail,
-            newValue,
-            currentDetails,
-            dimensions
-        });
+        let productDimension = dimensions[detail].byProductId[productId];
 
-        let dimensionExists = !!dimensions[detail].byProductId[productId];
-        console.log('dimensionExists: ', dimensionExists);
-
-//        if (dimensionExists) {
-//            dimensions[detail].byProductId.value = dimensions[detail].byProductId ? dimensions[detail].byProductId.value : currentDetails[detail];
-//            dimensions[detail].byProductId.active = !dimensions[detail].byProductId.active;
-//            return applyDimensionToState(stateCopy, dimensions)
-//        }
-
-        if (!dimensions[detail].byProductId[productId]) {
-            dimensions[detail].byProductId[productId] = {}
+        if (!productDimension) {
+            productDimension = dimensions[detail].byProductId[productId] = {};
         }
-        let productDimensions = dimensions[detail].byProductId[productId];
-        productDimensions.value = currentDetails[detail];
-        productDimensions.valueEdited = newValue;
-        productDimensions.active = productDimensions.value !== productDimensions.valueEdited;
+        productDimension.value = currentDetailsFromProductState[detail];
+        productDimension.valueEdited = newValue;
+        productDimension.active = productDimension.value !== productDimension.valueEdited;
 
-        console.log('productDimensions: ', productDimensions);
-        console.log('dimensions[detail].byProductId[productId]: ', dimensions[detail].byProductId[productId]);
-        
-        
+        return applyDimensionsToState(state, dimensions)
+    },
+    "IS_EDITING_SET": function(state,action){
+        let {
+           productId,
+           detail,
+           setToBoolean
+        } = action.payload;
+        let dimensions = Object.assign({}, state);
+        let productDimension = dimensions[detail].byProductId[productId];
+        if (!productDimension) {
+            productDimension = {}
+        }
+        productDimension.isEditing = setToBoolean;
         return applyDimensionsToState(state, dimensions)
     }
 });
@@ -60,7 +52,5 @@ let dimensionReducer = reducerCreator(initialState, {
 export default dimensionReducer;
 
 function applyDimensionsToState(state, dimensions) {
-    return Object.assign({}, state, {
-        dimensions
-    });
+    return Object.assign({}, state, dimensions);
 }

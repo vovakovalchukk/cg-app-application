@@ -20,7 +20,8 @@ const mapStateToProps = function(state) {
         rows: state.rows,
         userSettings: state.userSettings,
         search: state.search,
-        scroll: state.scroll
+        scroll: state.scroll,
+        dimensions: state.dimensions
     };
 };
 

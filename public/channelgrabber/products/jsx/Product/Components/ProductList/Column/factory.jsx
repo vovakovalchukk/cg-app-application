@@ -16,7 +16,7 @@ const columnKeysMetricPropertyMap = {
 const columnSpecificPropsMap = {
     stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
     available: ['rows'],
-    dimensions: ['rows'],
+    dimensions: ['rows', 'dimensions'],
     weight: ['rows'],
     vat: ['rows', 'vat'],
     bulkSelect: ['bulkSelect']
@@ -36,7 +36,6 @@ let columnCreator = function(column, parentProps) {
     column = applyColumnSpecificProps(column, parentProps);
 
     let CellContent = CellFactory.createCellContent(column);
-
     columnWrappers[column.columnKey] = columnWrappers[column.columnKey] || styled(CellWrapper)`
             display: flex;
             align-items: center;

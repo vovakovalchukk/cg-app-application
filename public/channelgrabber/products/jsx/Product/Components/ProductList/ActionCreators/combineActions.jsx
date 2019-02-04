@@ -4,7 +4,6 @@ import paginationActions from 'Product/Components/ProductList/ActionCreators/pag
 import searchActions from 'Product/Components/ProductList/ActionCreators/searchActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions'
-import productDetailsActions from 'Product/Components/ProductList/ActionCreators/productDetailsActions'
 import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
@@ -22,7 +21,6 @@ export default (ownProps) => {
         paginationActions,
         searchActions,
         tabActions,
-        productDetailsActions,
         stockActions,
         vatActions,
         bulkSelectActions,
@@ -55,7 +53,7 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                     productSearchActive: state.search.productSearchActive,
                     createListingsAllowedChannels: state.createListing.createListingsAllowedChannels,
                     createListingsAllowedVariationChannels: state.createListing.createListingsAllowedVariationChannels,
-                })
+                });
 
                 dispatch(globalActions.changeView());
             }
