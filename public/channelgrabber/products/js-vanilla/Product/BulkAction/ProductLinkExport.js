@@ -25,7 +25,7 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
             processData: false,
             contentType: false,
             success : function(data) {
-                self.getNotificationHandler().success("Your export will be emailed to " +  data.email + ". This can take up to 10 minutes depending on the amount of your products and complexity of your product links.");
+                self.getNotificationHandler().success("Your export will be emailed to " +  data.email + ". This can take up to 10 minutes depending on the amount of your products and complexity of your product links.", true, 2400);
             },
             error: function(error, textStatus, errorThrown) {
                 self.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
