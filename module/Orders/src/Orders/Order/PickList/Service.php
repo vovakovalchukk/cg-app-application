@@ -1,12 +1,14 @@
 <?php
 namespace Orders\Order\PickList;
 
+use CG\FeatureFlags\Service as FeatureFlags;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\ComponentReplacer;
 use CG\Order\Shared\Item\Entity as Item;
+use CG\OrganisationUnit\Service as OuService;
 use CG\PickList\Service as PickListService;
 use CG\PickList\Settings;
 use CG\Product\Client\Service as ProductService;
@@ -23,6 +25,7 @@ use CG\Template\Image\ClientInterface as ImageClient;
 use CG\Template\Image\Map as ImageMap;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
+use Settings\PickList\Service as SettingsService;
 
 class Service implements LoggerAwareInterface
 {
@@ -50,6 +53,10 @@ class Service implements LoggerAwareInterface
     protected $imageService;
     /** @var ComponentReplacer $componentReplacer */
     protected $componentReplacer;
+    /** @var FeatureFlags */
+    protected $featureFlags;
+    /** @var OuService */
+    protected $ouService;
 
     public function __construct(
         ProductService $productService,
@@ -61,7 +68,9 @@ class Service implements LoggerAwareInterface
         ActiveUserContainer $activeUserContainer,
         IntercomEventService $intercomEventService,
         ImageService $imageService,
-        ComponentReplacer $componentReplacer
+        ComponentReplacer $componentReplacer,
+        FeatureFlags $featureFlags,
+        OuService $ouService
     ) {
         $this->productService = $productService;
         $this->pickListService = $pickListService;
@@ -73,6 +82,8 @@ class Service implements LoggerAwareInterface
         $this->intercomEventService = $intercomEventService;
         $this->imageService = $imageService;
         $this->componentReplacer = $componentReplacer;
+        $this->featureFlags = $featureFlags;
+        $this->ouService = $ouService;
     }
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
@@ -247,8 +258,10 @@ class Service implements LoggerAwareInterface
 
     protected function mapPickListSettings(PickListSettings $settings): Settings
     {
+        $pickingLocationsFeature = $this->getFeatureFlagStatus(SettingsService::FEATURE_FLAG_PICK_LOCATIONS);
         return new Settings(
-            $settings->getShowPictures()
+            $settings->getShowPictures(),
+            $pickingLocationsFeature && $settings->getShowPickingLocations() ? $settings->getLocationNames() : []
         );
     }
 
@@ -256,5 +269,14 @@ class Service implements LoggerAwareInterface
     {
         $event = new IntercomEvent(static::EVENT_PICKING_LIST_PRINTED, $this->activeUserContainer->getActiveUser()->getId());
         $this->intercomEventService->save($event);
+    }
+
+    protected function getFeatureFlagStatus(string $featureFlag): bool
+    {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        return $this->featureFlags->isActive(
+            $featureFlag,
+            $this->ouService->fetch($rootOuId)
+        );
     }
 }
