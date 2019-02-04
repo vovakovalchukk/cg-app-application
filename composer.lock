@@ -3083,16 +3083,16 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.14.0",
+            "version": "1.14.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55"
+                "reference": "26a197189c323aeee7df6476a7d5b389be97f383"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.0-7aecc2.zip",
-                "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.3-cf3312.zip",
+                "reference": "26a197189c323aeee7df6476a7d5b389be97f383",
                 "shasum": null
             },
             "require": {
@@ -3143,7 +3143,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-04-03T08:37:37+00:00"
+            "time": "2018-11-01T15:48:16+00:00"
         },
         {
             "name": "channelgrabber/sso",
@@ -4846,7 +4846,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-10-25T10:12:14+00:00"
+            "time": "2018-10-25T10:12:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -9752,8 +9752,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
