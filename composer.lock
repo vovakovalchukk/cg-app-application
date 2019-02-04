@@ -9042,6 +9042,12 @@
                 "url": "git@bitbucket.org:channelgrabber/zendpdf.git",
                 "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-2.0.2.2-20f803.zip",
+                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5",
+                "shasum": null
+            },
             "require": {
                 "php": ">=5.3.3",
                 "zendframework/zend-memory": ">=2.0.0",
