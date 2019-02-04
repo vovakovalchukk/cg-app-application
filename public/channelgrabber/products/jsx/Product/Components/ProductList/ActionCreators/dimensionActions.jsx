@@ -60,7 +60,7 @@ let dimensionActions = (function() {
                 type: "DIMENSION_CANCEL_INPUT",
                 payload: {
                     detail,
-                    variation: row
+                    row
                 }
             });
 

@@ -25,16 +25,18 @@ let dimensionReducer = reducerCreator(initialState, {
         let productDimension = dimensions[detail].byProductId[productId];
 
         if (!productDimension) {
-            productDimension = dimensions[detail].byProductId[productId] = {};
+            productDimension = dimensions[detail].byProductId[productId] = {
+                value: currentDetailsFromProductState[detail]
+            };
         }
-        productDimension.value = productDimension.value === undefined ? currentDetailsFromProductState[detail] : productDimension.value;
         productDimension.valueEdited = newValue ? newValue : "";
+        productDimension.isEditing = true;
         return applyDimensionsToState(state, dimensions)
     },
     "DIMENSION_CANCEL_INPUT": function(state, action) {
-        let {detail, variation} = action.payload;
+        let {detail, row} = action.payload;
         let dimensions = Object.assign({}, state);
-        let variationDimension = dimensions[detail].byProductId[variation.id];
+        let variationDimension = dimensions[detail].byProductId[row.id];
         variationDimension.valueEdited = variationDimension.value;
         variationDimension.isEditing = false;
         return applyDimensionsToState(state, dimensions);
@@ -63,10 +65,9 @@ let dimensionReducer = reducerCreator(initialState, {
         n.success('Successfully updated ' + detail + '.');
         let dimensions = Object.assign({}, state);
         let variationDimension = dimensions[detail].byProductId[row.id];
-        variationDimension.value = variationDimension.valueEdited;
+        variationDimension.value = variationDimension.valueEdited ? variationDimension.valueEdited : "";
         variationDimension.isEditing = false;
         delete variationDimension.valueEdited;
-        debugger;
         return applyDimensionsToState(state, dimensions)
     }
 });

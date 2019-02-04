@@ -27,6 +27,9 @@ class DimensionsCell extends React.Component {
     state = {};
 
     getValueForDetail = (row, detail) => {
+        if(row.id===1){
+            debugger;
+        }
         let detailForId = this.props.dimensions[detail].byProductId[row.id];
         if(!detailForId){
             return row.details[detail];
@@ -34,7 +37,7 @@ class DimensionsCell extends React.Component {
         if(typeof detailForId.valueEdited === "string"){
             return detailForId.valueEdited;
         }
-        if(detailForId.value){
+        if(typeof detailForId.value === "string"){
             return detailForId.value;
         }
         return row.details[detail];
