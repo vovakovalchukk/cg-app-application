@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "288e58516e5b9a3735ed35d401a459be",
+    "content-hash": "df449c6521cae34cccabba0a1233a55d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2527,6 +2527,7 @@
                 "channelgrabber/stock": "^1.13.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
+                "guzzlehttp/psr7": "^1.5",
                 "nocarrier/hal": "~0.9.7",
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
@@ -8998,12 +8999,6 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zendpdf.git",
                 "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-2.0.2.2-20f803.zip",
-                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5",
-                "shasum": null
             },
             "require": {
                 "php": ">=5.3.3",
