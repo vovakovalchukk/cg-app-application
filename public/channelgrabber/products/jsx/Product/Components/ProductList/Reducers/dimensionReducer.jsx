@@ -27,17 +27,23 @@ let dimensionReducer = reducerCreator(initialState, {
         if (!productDimension) {
             productDimension = dimensions[detail].byProductId[productId] = {};
         }
-        productDimension.value = currentDetailsFromProductState[detail];
-        productDimension.valueEdited = newValue;
-        productDimension.active = productDimension.value !== productDimension.valueEdited;
-
+        productDimension.value = productDimension.value === undefined ? currentDetailsFromProductState[detail] : productDimension.value;
+        productDimension.valueEdited = newValue ? newValue : "";
         return applyDimensionsToState(state, dimensions)
     },
-    "IS_EDITING_SET": function(state,action){
+    "DIMENSION_CANCEL_INPUT": function(state, action) {
+        let {detail, variation} = action.payload;
+        let dimensions = Object.assign({}, state);
+        let variationDimension = dimensions[detail].byProductId[variation.id];
+        variationDimension.valueEdited = variationDimension.value;
+        variationDimension.isEditing = false;
+        return applyDimensionsToState(state, dimensions);
+    },
+    "IS_EDITING_SET": function(state, action) {
         let {
-           productId,
-           detail,
-           setToBoolean
+            productId,
+            detail,
+            setToBoolean
         } = action.payload;
         let dimensions = Object.assign({}, state);
         let productDimension = dimensions[detail].byProductId[productId];
@@ -52,10 +58,16 @@ let dimensionReducer = reducerCreator(initialState, {
         n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
         return state;
     },
-    "PRODUCT_DETAILS_CHANGE": function(state, action) {
-        let {detail} = action.payload;
+    "PRODUCT_DETAILS_CHANGE_SUCCESS": function(state, action) {
+        let {detail, row} = action.payload;
         n.success('Successfully updated ' + detail + '.');
-        return state;
+        let dimensions = Object.assign({}, state);
+        let variationDimension = dimensions[detail].byProductId[row.id];
+        variationDimension.value = variationDimension.valueEdited;
+        variationDimension.isEditing = false;
+        delete variationDimension.valueEdited;
+        debugger;
+        return applyDimensionsToState(state, dimensions)
     }
 });
 

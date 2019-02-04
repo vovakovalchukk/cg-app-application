@@ -31,7 +31,7 @@ class DimensionsCell extends React.Component {
         if(!detailForId){
             return row.details[detail];
         }
-        if(detailForId.valueEdited){
+        if(typeof detailForId.valueEdited === "string"){
             return detailForId.valueEdited;
         }
         if(detailForId.value){
@@ -65,7 +65,8 @@ class DimensionsCell extends React.Component {
                 name={detail}
                 initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0, 1)}
                 step="0.1"
-                submitCallback={this.props.actions.saveDetail.bind(this, row)}
+                submitCallback={this.props.actions.saveDetail.bind(this, row, detail)}
+                cancelInput={this.props.actions.cancelInput.bind(this, row, detail)}
                 setIsEditing={this.props.actions.setIsEditing.bind(this,row.id, detail)}
                 onValueChange={this.props.actions.changeDimensionValue.bind(this, row.id, detail)}
                 submitsPortalSettings={portalSettingsForSubmits}

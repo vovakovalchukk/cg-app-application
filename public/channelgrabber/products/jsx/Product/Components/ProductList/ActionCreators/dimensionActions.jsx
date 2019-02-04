@@ -18,7 +18,6 @@ let dimensionActions = (function() {
             }
         },
         setIsEditing: (productId, detail, setToBoolean) => {
-            console.log('in setIsEditing AQ');
             return {
                 type: "IS_EDITING_SET",
                 payload: {
@@ -28,14 +27,15 @@ let dimensionActions = (function() {
                 }
             }
         },
-        saveDetail: (variation, detail) => {
+        saveDetail: (row, detail) => {
             return async function(dispatch, getState) {
-                if (variation === null) {
+                if (row === null) {
                     return;
                 }
-                let value = getState().dimensions[detail].byProductId[variation.id].valueEdited;
+                let state = getState();
+                let value = state.dimensions[detail].byProductId[row.id].valueEdited;
                 n.notice('Updating ' + detail + ' value.');
-                let response = await setDetail(variation, detail, value);
+                let response = await setDetail(row, detail, value);
                 if (response.exception) {
                     return dispatch({
                         type: "PRODUCT_DETAILS_CHANGE_FAILURE",
@@ -43,14 +43,27 @@ let dimensionActions = (function() {
                     });
                 }
                 return dispatch({
-                    type: "PRODUCT_DETAILS_CHANGE",
+                    type: "PRODUCT_DETAILS_CHANGE_SUCCESS",
                     payload: {
-                        value: value,
-                        detail: detail,
-                        row: variation
+                        value,
+                        detail,
+                        row
                     }
                 });
             }
+        },
+        cancelInput: (row, detail) => {
+            if (row === null) {
+                return;
+            }
+            return ({
+                type: "DIMENSION_CANCEL_INPUT",
+                payload: {
+                    detail,
+                    variation: row
+                }
+            });
+
         }
     }
 })();
