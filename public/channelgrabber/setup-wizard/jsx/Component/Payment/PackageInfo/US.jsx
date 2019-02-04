@@ -11,11 +11,14 @@ class PackageInfoComponent extends React.Component {
         price: null,
         orderVolume: null,
         billingDuration: null,
+        billingDurationChangeAllowed: true,
         billingDurationChanged: null
     };
 
-    state = {
-        billingDuration: this.props.billingDuration
+    static getDerivedStateFromProps(props) {
+        return {
+            billingDuration: props.billingDuration
+        };
     };
 
     billingDurationChanged = (billingDuration) => {
@@ -42,6 +45,7 @@ class PackageInfoComponent extends React.Component {
                         <BillingPeriod
                             billingDuration={this.state.billingDuration}
                             billingDurationChanged={this.billingDurationChanged}
+                            disabled={!this.props.billingDurationChangeAllowed}
                         />
                     </span>
                 </div>
