@@ -67,7 +67,7 @@ class Cancel
         }
 
         try {
-            $orderLabel = $this->orderLabelService->fetchOrderLabelForOrder($order);
+            $orderLabel = $this->orderLabelService->fetchNonCancelledOrderLabelForOrder($order);
         } catch (NotFound $e) {
             return false;
         }

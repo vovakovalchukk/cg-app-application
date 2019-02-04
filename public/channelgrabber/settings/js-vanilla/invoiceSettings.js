@@ -12,10 +12,11 @@ define([
         var InvoiceSettings = function(basePath, amazonSite, tagOptions) {
 
             var container = '.invoiceSettings';
-            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes';
+            var selector = container + ' .custom-select, #itemSku, #productImages, #itemBarcodes, #itemVariationAttributes';
             var itemSkuSettingsSelector = container + ' .invoiceDefaultSettings #itemSku';
             var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
             var itemBarcodesSettingsSelector = container + ' .invoiceDefaultSettings #itemBarcodes';
+            var itemVariationAttributesSettingsSelector = container + ' .invoiceDefaultSettings #itemVariationAttributes';
             var tradingCompaniesAssignedInvoiceSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
             var tradingCompaniesSendFromAddressSelector = container + ' .invoiceTradingCompanySettings input.invoiceSendFromAddressInput';
 
@@ -503,6 +504,7 @@ define([
                     'itemSku': getItemSku(),
                     'productImages': getProductImages(),
                     'itemBarcodes': getItemBarcodes(),
+                    'itemVariationAttributes': getItemVariationAttributes(),
                     'tradingCompanies': getTradingCompanies(),
                     'eTag': $('#setting-etag').val()
                 };
@@ -580,6 +582,11 @@ define([
             var getItemBarcodes = function()
             {
                 return $(itemBarcodesSettingsSelector).is(':checked');
+            };
+
+            var getItemVariationAttributes = function()
+            {
+                return $(itemVariationAttributesSettingsSelector).is(':checked');
             };
 
             var getTradingCompanies = function()

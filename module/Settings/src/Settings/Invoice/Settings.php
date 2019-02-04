@@ -103,6 +103,7 @@ class Settings
             $data['itemSku'] = $this->validateBoolean($data['itemSku']);
             $data['productImages'] = $this->validateBoolean($data['productImages']);
             $data['itemBarcodes'] = $this->validateBoolean($data['itemBarcodes']);
+            $data['itemVariationAttributes'] = $this->validateBoolean($data['itemVariationAttributes']);
             $data['autoEmail'] = $this->handleDateTimeValue(
                 $currentAutoEmail,
                 $this->validateBoolean($data['autoEmail']),

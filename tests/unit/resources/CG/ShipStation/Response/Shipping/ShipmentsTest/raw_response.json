@@ -91,16 +91,16 @@
       "tags": [],
       "total_weight": {
         "value": 1.0,
-        "units": "ounce"
+        "unit": "ounce"
       },
       "packages": [
         {
           "weight": {
             "value": 1.0,
-            "units": "ounce"
+            "unit": "ounce"
           },
           "dimensions": {
-            "units": "inch",
+            "unit": "inch",
             "length": 0.0,
             "width": 0.0,
             "height": 0.0
