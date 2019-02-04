@@ -29,52 +29,50 @@ let dimensionActions = (function() {
             }
         },
         saveDetail: (variation, detail) => {
-            return async function(dispatch) {
-                //todo - get value from state
-                let value = getState().dimensions[detail].byProductId[variation.id].valueEdited;
-                console.log('value to save...: ', value);
-
+            return async function(dispatch, getState) {
                 if (variation === null) {
                     return;
                 }
+                let value = getState().dimensions[detail].byProductId[variation.id].valueEdited;
                 n.notice('Updating ' + detail + ' value.');
-
-                return new Promise(function(resolve, reject) {
-                    $.ajax({
-                        url: '/products/details/update',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            id: variation.details.id,
-                            detail: detail,
-                            value: value,
-                            sku: variation.sku
-                        },
-                        success: function() {
-                            dispatch({
-                                type: "PRODUCT_DETAILS_CHANGE",
-                                payload: {
-                                    value: value,
-                                    detail: detail,
-                                    row: variation
-                                }
-                            });
-                            resolve({savedValue: value});
-                        },
-                        error: function(error) {
-                            dispatch({
-                                type: "PRODUCT_DETAILS_CHANGE_FAILURE",
-                                payload: {error, detail}
-                            });
-                            reject(new Error(error));
-                        }
+                let response = await setDetail(variation, detail, value);
+                if (response.exception) {
+                    return dispatch({
+                        type: "PRODUCT_DETAILS_CHANGE_FAILURE",
+                        payload: response
                     });
+                }
+                return dispatch({
+                    type: "PRODUCT_DETAILS_CHANGE",
+                    payload: {
+                        value: value,
+                        detail: detail,
+                        row: variation
+                    }
                 });
-            };
+            }
         }
     }
 })();
 
 export default dimensionActions;
 
-
+async function setDetail(variation, detail, value) {
+    return $.ajax({
+        url: '/products/details/update',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            id: variation.details.id,
+            detail: detail,
+            value: value,
+            sku: variation.sku
+        },
+        success: function(response) {
+            return response;
+        },
+        error: function(error) {
+            return error;
+        }
+    });
+}

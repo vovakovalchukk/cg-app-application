@@ -90,9 +90,6 @@ class DimensionsCell extends React.Component {
 
         let valueForHeight = this.getValueForDetail(row, 'height');
         
-        console.log('valueForHeight: ', valueForHeight);
-        
-        
         let valueForWidth = this.getValueForDetail(row, 'width');
         let valueForLength = this.getValueForDetail(row, 'length');
 

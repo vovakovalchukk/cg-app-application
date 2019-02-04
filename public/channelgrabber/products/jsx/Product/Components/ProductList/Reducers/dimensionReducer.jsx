@@ -46,6 +46,16 @@ let dimensionReducer = reducerCreator(initialState, {
         }
         productDimension.isEditing = setToBoolean;
         return applyDimensionsToState(state, dimensions)
+    },
+    "PRODUCT_DETAILS_CHANGE_FAILURE": function(state, action) {
+        let {error, detail} = action.payload;
+        n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
+        return state;
+    },
+    "PRODUCT_DETAILS_CHANGE": function(state, action) {
+        let {detail} = action.payload;
+        n.success('Successfully updated ' + detail + '.');
+        return state;
     }
 });
 
