@@ -3,9 +3,9 @@ import constants from "../Config/constants";
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
 const distanceDimensionMap = {
-    height: 10,
-    width: 85,
-    length: 160
+    height: 20,
+    width: 105,
+    length: 192
 };
 const distanceElementMap = {
     // hard coding the distances here due to a lack of better alternatives

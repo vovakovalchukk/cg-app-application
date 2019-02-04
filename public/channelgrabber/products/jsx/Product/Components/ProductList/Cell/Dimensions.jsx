@@ -21,23 +21,23 @@ const Cross = styled.span`
 class DimensionsCell extends React.Component {
     static defaultProps = {
         products: {},
-        rowIndex: null
+        dimensions: {},
+        rows: [],
+        rowIndex: null,
+        actions: {},
+        width: '',
+        distanceFromLeftSideOfTableToStartOfCell: ''
     };
 
-    state = {};
-
     getValueForDetail = (row, detail) => {
-        if(row.id===1){
-            debugger;
-        }
         let detailForId = this.props.dimensions[detail].byProductId[row.id];
-        if(!detailForId){
+        if (!detailForId) {
             return row.details[detail];
         }
-        if(typeof detailForId.valueEdited === "string"){
+        if (typeof detailForId.valueEdited === "string") {
             return detailForId.valueEdited;
         }
-        if(typeof detailForId.value === "string"){
+        if (typeof detailForId.value === "string") {
             return detailForId.value;
         }
         return row.details[detail];
@@ -55,7 +55,7 @@ class DimensionsCell extends React.Component {
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.DIMENSIONS_INPUT_SUBMITS,
             rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
+            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell,
             width,
             dimension,
             allRows: this.props.rows.allIds
@@ -66,11 +66,10 @@ class DimensionsCell extends React.Component {
         return (
             <StyledSafeInputStateless
                 name={detail}
-                initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0, 1)}
                 step="0.1"
                 submitCallback={this.props.actions.saveDetail.bind(this, row, detail)}
                 cancelInput={this.props.actions.cancelInput.bind(this, row, detail)}
-                setIsEditing={this.props.actions.setIsEditing.bind(this,row.id, detail)}
+                setIsEditing={this.props.actions.setIsEditing.bind(this, row.id, detail)}
                 onValueChange={this.props.actions.changeDimensionValue.bind(this, row.id, detail)}
                 submitsPortalSettings={portalSettingsForSubmits}
                 width={45}
@@ -93,7 +92,6 @@ class DimensionsCell extends React.Component {
         }
 
         let valueForHeight = this.getValueForDetail(row, 'height');
-        
         let valueForWidth = this.getValueForDetail(row, 'width');
         let valueForLength = this.getValueForDetail(row, 'length');
 
