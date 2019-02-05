@@ -28,6 +28,8 @@ class Service
     protected $productSettings;
     /** @var array $stockModeOptions */
     protected $stockModeOptions;
+    /** @var array */
+    protected $incPOStockInAvailableOptions;
 
     public function __construct(
         UserOUService $userOUService,
@@ -335,6 +337,24 @@ class Service
         return $allZero;
     }
 
+    public function getIncPOStockInAvailableOptions(): array
+    {
+        if ($this->incPOStockInAvailableOptions) {
+            return $this->incPOStockInAvailableOptions;
+        }
+        $productSettings = $this->getProductSettings();
+        $defaultStockMode = $productSettings->isIncludePurchaseOrdersInAvailable();
+        $defaultStockModeTitle = ($defaultStockMode ? 'On' : 'Off');
+        $options = [
+            // Can't use any value that equates to false (e.g. '') as then custom-select will replace it with the title
+            ['value' => 'default', 'name' => 'Default (' . $defaultStockModeTitle . ')'],
+            ['value' => 'on', 'name' => 'On'],
+            ['value' => 'off', 'name' => 'Off'],
+        ];
+        $this->incPOStockInAvailableOptions = $options;
+        return $this->incPOStockInAvailableOptions;
+    }
+    
     /**
      * @return self
      */

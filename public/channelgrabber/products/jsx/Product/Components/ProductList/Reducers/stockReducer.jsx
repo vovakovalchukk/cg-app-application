@@ -21,7 +21,8 @@ import reducerCreator from 'Common/Reducers/creator';
 *                active:true
 *            }
 *        }
-*    }
+*    },
+*    incPOStockInAvailableOptions: []
 */
 
 let initialState = {
@@ -31,7 +32,8 @@ let initialState = {
     },
     stockLevels: {
         byProductId: {}
-    }
+    },
+    incPOStockInAvailableOptions: []
 };
 
 let stockModeReducer = reducerCreator(initialState, {
@@ -127,7 +129,13 @@ let stockModeReducer = reducerCreator(initialState, {
         console.error(error);
         n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
         return state;
-    }
+    },
+    "INC_PO_STOCK_IN_AVAIL_STORE": function(state, action) {
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailableOptions: action.payload.incPOStockInAvailableOptions
+        });
+        return newState;
+    },
 });
 
 export default stockModeReducer;

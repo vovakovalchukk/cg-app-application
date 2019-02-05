@@ -86,6 +86,14 @@ var actionCreators = (function() {
                 }
             }
         },
+        storeIncPOStockInAvailableOptions: (incPOStockInAvailableOptions) => {
+            return {
+                type: "INC_PO_STOCK_IN_AVAIL_STORE",
+                payload: {
+                    incPOStockInAvailableOptions
+                }
+            }
+        },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
                 pageNumber = pageNumber || 1;

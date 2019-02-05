@@ -96,6 +96,7 @@ let stockColumns = [
         tab: 'stock',
         align: 'center'
     }
+    // The includePurchaseOrdersInAvailable column is behind a feature flag, see columnsReducer for its config
 ];
 
 let columnService = (function() {

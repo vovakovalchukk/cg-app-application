@@ -15,6 +15,7 @@ const columnKeysMetricPropertyMap = {
 };
 const columnSpecificPropsMap = {
     stockMode: ['stock', 'rows', 'userSettings'],
+    includePurchaseOrdersInAvailable: ['rows', 'incPOStockInAvailableOptions'],
     available: ['rows'],
     dimensions: ['rows'],
     weight: ['rows'],
