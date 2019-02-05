@@ -585,6 +585,8 @@ class ProductsJsonController extends AbstractActionController
             throw new \RuntimeException('No file uploaded');
         }
 
+        $this->productLinkCsvService->uploadCsvForActiveUser($post['productLinkUploadFile']);
+
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable('success', true);
         return $view;
