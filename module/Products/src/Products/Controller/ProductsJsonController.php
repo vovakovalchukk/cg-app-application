@@ -524,12 +524,12 @@ class ProductsJsonController extends AbstractActionController
     {
 
         $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
-        $userId = $this->activeUser->getActiveUser()->getUsername();
+        $userName = $this->activeUser->getActiveUser()->getUsername();
 
-        $workload = new ExportProductLinksWorkload($rootOuId, $userId);
+        $workload = new ExportProductLinksWorkload($rootOuId, $userName);
         $this->productsGearmanClient->doBackground(ExportProductLinksWorkload::FUNCTION_NAME, serialize($workload), ExportProductLinksWorkload::FUNCTION_NAME . $rootOuId);
 
-        return $this->jsonModelFactory->newInstance(['email' => $userId]);
+        return $this->jsonModelFactory->newInstance(['email' => $userName]);
     }
 
     public function stockCsvExportCheckAction()
