@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "288e58516e5b9a3735ed35d401a459be",
+    "content-hash": "fc38b2a29cd4e36f5daf742a836e9401",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.7",
+            "version": "dev-TAC-330-product-links-csv-import",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8ba0bf5e1b331a84a38f72dc16853da4f5b8cffa"
+                "reference": "3acfcd38963acc532cbf2f4cb89de6d4f15d116e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.7-c55a4a.zip",
-                "reference": "8ba0bf5e1b331a84a38f72dc16853da4f5b8cffa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-330-product-links-csv-import-c180d9.zip",
+                "reference": "3acfcd38963acc532cbf2f4cb89de6d4f15d116e",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-01-23T16:31:28+00:00"
+            "time": "2019-02-01T12:09:47+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2080,16 +2080,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.5",
+            "version": "1.43.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "53045cd80f636655ae18841efde0d5c5f64273dc"
+                "reference": "386ff78e6010968db744b581a4eb4fd1b1a6ceb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.5-2ffa7d.zip",
-                "reference": "53045cd80f636655ae18841efde0d5c5f64273dc",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.8-8c8ca8.zip",
+                "reference": "386ff78e6010968db744b581a4eb4fd1b1a6ceb3",
                 "shasum": null
             },
             "require": {
@@ -2160,7 +2160,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-01-22T15:49:03+00:00"
+            "time": "2019-01-30T13:59:52+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2496,16 +2496,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-324-product-link-export",
+            "version": "dev-TAC-330-product-links-csv-import",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "f55f5300199603d0daecad0031caafe69fbb729d"
+                "reference": "423041b156ea3c894140a8e9612a6f7cb9114c4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.7-e4d91a.zip",
-                "reference": "c6ccc2647314e0304a5736a89979e0cf192bdfd8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-330-product-links-csv-import-3054a9.zip",
+                "reference": "423041b156ea3c894140a8e9612a6f7cb9114c4e",
                 "shasum": null
             },
             "require": {
@@ -2527,6 +2527,7 @@
                 "channelgrabber/stock": "^1.13.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
+                "guzzlehttp/psr7": "^1.5",
                 "nocarrier/hal": "~0.9.7",
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
@@ -2544,7 +2545,8 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-develop": "1.x-dev",
+                    "dev-TAC-330-product-links-csv-import": "1.16.x-dev"
                 }
             },
             "autoload": {
@@ -2557,7 +2559,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-23T14:34:41+00:00"
+            "time": "2019-02-01T10:57:17+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3270,22 +3272,23 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.13.0",
+            "version": "1.15.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41"
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.13.0-8f817b.zip",
-                "reference": "155c8bfd363df016efb0a1e43b0029bf672d7e41",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.15.1-4ad4e8.zip",
+                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/db": "^1.0.4",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
@@ -3328,7 +3331,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2018-04-26T09:05:13+00:00"
+            "time": "2019-01-25T14:33:25+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -5784,32 +5787,33 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.4.2",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
+                "reference": "9f83dded91781a01c63574e387eaa769be769115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
-                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/9f83dded91781a01c63574e387eaa769be769115",
+                "reference": "9f83dded91781a01c63574e387eaa769be769115",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "psr/http-message": "~1.0"
+                "psr/http-message": "~1.0",
+                "ralouphie/getallheaders": "^2.0.5"
             },
             "provide": {
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -5839,13 +5843,14 @@
             "keywords": [
                 "http",
                 "message",
+                "psr-7",
                 "request",
                 "response",
                 "stream",
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20T17:10:46+00:00"
+            "time": "2018-12-04T20:46:45+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -7370,6 +7375,46 @@
                 "simple-cache"
             ],
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "ralouphie/getallheaders",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ralouphie/getallheaders.git",
+                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "reference": "5601c8a83fbba7ef674a7369456d12f1e0d0eafa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7.0",
+                "satooshi/php-coveralls": ">=1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/getallheaders.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ralph Khattar",
+                    "email": "ralph.khattar@gmail.com"
+                }
+            ],
+            "description": "A polyfill for getallheaders.",
+            "time": "2016-02-11T07:05:27+00:00"
         },
         {
             "name": "react/event-loop",
@@ -10978,14 +11023,21 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.11",
-            "alias_normalized": "1.16.11.0",
-            "version": "dev-TAC-324-product-link-export",
+            "alias": "1.42.8",
+            "alias_normalized": "1.42.8.0",
+            "version": "dev-TAC-330-product-links-csv-import",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.16.12",
+            "alias_normalized": "1.16.12.0",
+            "version": "dev-TAC-330-product-links-csv-import",
             "package": "channelgrabber/product"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
