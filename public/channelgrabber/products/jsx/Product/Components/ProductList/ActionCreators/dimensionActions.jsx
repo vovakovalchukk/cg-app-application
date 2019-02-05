@@ -27,7 +27,7 @@ let dimensionActions = (function() {
                 }
             }
         },
-        saveDetail: (row, detail) => {
+        saveDetail: (row, sku, detail) => {
             return async function(dispatch, getState) {
                 if (row === null) {
                     return;
