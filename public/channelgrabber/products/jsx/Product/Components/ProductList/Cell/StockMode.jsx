@@ -99,6 +99,7 @@ class StockModeCell extends React.Component {
         }
         return row.stock[stockProp];
     };
+
     createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,

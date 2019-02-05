@@ -16,7 +16,7 @@ const columnKeysMetricPropertyMap = {
 const columnSpecificPropsMap = {
     stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
     available: ['rows'],
-    dimensions: ['rows', 'dimensions'],
+    dimensions: ['rows', 'dimensions', 'scroll'],
     weight: ['rows'],
     vat: ['rows', 'vat'],
     bulkSelect: ['bulkSelect']

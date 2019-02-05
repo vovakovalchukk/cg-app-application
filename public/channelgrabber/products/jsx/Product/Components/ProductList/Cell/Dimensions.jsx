@@ -43,6 +43,10 @@ class DimensionsCell extends React.Component {
         return row.details[detail];
     };
 
+    shouldRenderSubmits = () => {
+        return !this.props.scroll.userScrolling;
+    };
+
     renderInput = (row, detail, value) => {
         const {
             rowIndex,
@@ -62,7 +66,14 @@ class DimensionsCell extends React.Component {
         });
 
         let isEditing = dimensions[detail].byProductId[row.id] ? dimensions[detail].byProductId[row.id].isEditing : false;
-
+        if(this.props.rowIndex===1){
+//            debugger;
+            if(this.shouldRenderSubmits()===false){
+//                console.log('returning false! shoudl not render...');
+                
+                
+            }
+        }
         return (
             <StyledSafeInputStateless
                 name={detail}
@@ -76,6 +87,7 @@ class DimensionsCell extends React.Component {
                 placeholder={detail.substring(0, 1)}
                 value={value}
                 isEditing={isEditing}
+                shouldRenderSubmits={this.shouldRenderSubmits()}
             />
         )
     };
