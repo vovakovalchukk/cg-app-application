@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a2ea475308826586bb4c7e688435bec",
+    "content-hash": "d91a90f390af9375bb9e1d71bb604f41",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2496,16 +2496,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-EPIC-TAC-283-PickingLocations",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "b8fcdb44f2d77038365b87a2f764cc089de97b58"
+                "reference": "9e477b8273d54c54bf7e7b89f54048204f45e810"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-EPIC-TAC-283-PickingLocations-e54be1.zip",
-                "reference": "b8fcdb44f2d77038365b87a2f764cc089de97b58",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-288-RenderPickListWithLocations-ddf85d.zip",
+                "reference": "9e477b8273d54c54bf7e7b89f54048204f45e810",
                 "shasum": null
             },
             "require": {
@@ -2557,7 +2557,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-01T08:57:41+00:00"
+            "time": "2019-02-05T16:13:40+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -10988,7 +10988,7 @@
         {
             "alias": "1.16.13",
             "alias_normalized": "1.16.13.0",
-            "version": "dev-EPIC-TAC-283-PickingLocations",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
             "package": "channelgrabber/product"
         },
         {
