@@ -87,6 +87,14 @@ let stockColumns = [
         fixed: false,
         tab: 'stock',
         align: 'center'
+    },
+    {
+        key: 'onPurchaseOrder',
+        width: 80,
+        headerText: 'Purchase Order',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
     }
 ];
 

@@ -19,7 +19,8 @@ let stateUtility = function() {
                 sku: row['sku'],
                 image: getImageData(row),
                 available: stateUtility().getStockAvailable(row),
-                allocated: stateUtility().getAllocatedStock(row)
+                allocated: stateUtility().getAllocatedStock(row),
+                onPurchaseOrder: stateUtility().getOnPurchaseOrderStock(row)
             };
             let cellData = keyToCellDataMap[columnKey];
             if (columnKey.indexOf('dummy') > -1) {
@@ -44,6 +45,9 @@ let stateUtility = function() {
         },
         getAllocatedStock: function(rowData) {
             return (rowData.stock ? rowData.stock.locations[0].allocated : '');
+        },
+        getOnPurchaseOrderStock: function(rowData) {
+            return (rowData.stock ? rowData.stock.locations[0].onPurchaseOrder : '');
         },
         getProductIdFromSku(products, sku) {
             return products.find((product) => {

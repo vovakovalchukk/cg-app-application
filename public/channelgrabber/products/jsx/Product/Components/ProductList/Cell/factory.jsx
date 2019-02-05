@@ -15,6 +15,7 @@ import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
 import NoVatCell from 'Product/Components/ProductList/Cell/NoVat';
 import FixedDataTable from 'fixed-data-table-2';
 import AllocatedCell from 'Product/Components/ProductList/Cell/Allocated';
+import OnPurchaseOrderCell from 'Product/Components/ProductList/Cell/OnPurchaseOrder';
 
 "use strict";
 
@@ -35,7 +36,8 @@ let cells = {
     dimensions: DimensionsCell,
     vat: VatCell,
     noVat: NoVatCell,
-    allocated: AllocatedCell
+    allocated: AllocatedCell,
+    onPurchaseOrder: OnPurchaseOrderCell
 };
 
 export default (function() {
