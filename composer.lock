@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20153c70ab9c8edf81076c743f05a646",
+    "content-hash": "592e48c7416a82caefccaef6e17811fd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4816,16 +4816,16 @@
         },
         {
             "name": "channelgrabber/zf2-tideways",
-            "version": "dev-CGIV-9870-tideways-itid",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/tideways-module.git",
-                "reference": "bb04e138deed9a6fe54c35d0be87cbb05b1df72d"
+                "reference": "37c391b990b5ea5f337208e243dd1393ebaa9684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-tideways/channelgrabber-zf2-tideways-dev-CGIV-9870-tideways-itid-fabdfc.zip",
-                "reference": "bb04e138deed9a6fe54c35d0be87cbb05b1df72d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-tideways/channelgrabber-zf2-tideways-1.0.1-fc2462.zip",
+                "reference": "37c391b990b5ea5f337208e243dd1393ebaa9684",
                 "shasum": null
             },
             "require": {
@@ -4846,7 +4846,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-10-25T10:12:09+00:00"
+            "time": "2019-02-05T13:24:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -10978,18 +10978,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.0",
-            "alias_normalized": "1.1.0.0",
-            "version": "dev-CGIV-9870-tideways-itid",
-            "package": "channelgrabber/zf2-tideways"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-tideways": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
