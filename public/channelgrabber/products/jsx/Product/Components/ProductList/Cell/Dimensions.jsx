@@ -66,14 +66,6 @@ class DimensionsCell extends React.Component {
         });
 
         let isEditing = dimensions[detail].byProductId[row.id] ? dimensions[detail].byProductId[row.id].isEditing : false;
-        if(this.props.rowIndex===1){
-//            debugger;
-            if(this.shouldRenderSubmits()===false){
-//                console.log('returning false! shoudl not render...');
-                
-                
-            }
-        }
         return (
             <StyledSafeInputStateless
                 name={detail}
