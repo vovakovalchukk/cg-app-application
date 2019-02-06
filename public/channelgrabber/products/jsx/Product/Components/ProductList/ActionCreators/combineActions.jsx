@@ -10,6 +10,7 @@ import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bul
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 import globalActions from 'Product/Components/ProductList/ActionCreators/globalActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
+import scrollActions from 'Product/Components/ProductList/ActionCreators/scrollActions';
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 
 export default (ownProps) => {
@@ -28,6 +29,7 @@ export default (ownProps) => {
         passedInMethodsAsActions,
         rowActions,
         userSettingsActions,
+        scrollActions,
         pickLocationsActions
     );
 }

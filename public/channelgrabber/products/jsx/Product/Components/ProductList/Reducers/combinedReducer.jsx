@@ -12,6 +12,7 @@ import vatReducer from 'Product/Components/ProductList/Reducers/vatReducer';
 import bulkSelectReducer from 'Product/Components/ProductList/Reducers/bulkSelectReducer';
 import rowsReducer from 'Product/Components/ProductList/Reducers/rowsReducer';
 import userSettingsReducer from 'Product/Components/ProductList/Reducers/userSettingsReducer';
+import scrollReducer from 'Product/Components/ProductList/Reducers/scrollReducer';
 import pickLocationsReducer from 'Product/Components/ProductList/Reducers/pickLocationsReducer';
 
 var appReducer = combineReducers({
@@ -28,6 +29,7 @@ var appReducer = combineReducers({
     bulkSelect: bulkSelectReducer,
     rows: rowsReducer,
     userSettings: userSettingsReducer,
+    scroll: scrollReducer,
     pickLocations: pickLocationsReducer
 });
 

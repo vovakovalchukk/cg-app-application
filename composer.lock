@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "127bd01f9653fe4f0b67b99d9629d342",
+    "content-hash": "183bf08d7ce36c90f4da50436a7d28b6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1124,16 +1124,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.16.0",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "712bf98406db64f6ca83568fb8caff0777e90667"
+                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.16.0-44d27c.zip",
-                "reference": "712bf98406db64f6ca83568fb8caff0777e90667",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.19.0-92d52e.zip",
+                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2",
                 "shasum": null
             },
             "require": {
@@ -1185,7 +1185,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-11-14T13:39:18+00:00"
+            "time": "2019-02-06T11:31:29+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2965,12 +2965,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "c605e62d352978c49dded935f3aa29a775d48084"
+                "reference": "3041c094f8c96f678fd29fdcdd3cbbd9bd1e5858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-EPIC-TAC-283-PickingLocations-cbba17.zip",
-                "reference": "c605e62d352978c49dded935f3aa29a775d48084",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-EPIC-TAC-283-PickingLocations-d9ee17.zip",
+                "reference": "3041c094f8c96f678fd29fdcdd3cbbd9bd1e5858",
                 "shasum": null
             },
             "require": {
@@ -2994,7 +2994,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-01-15T15:49:38+00:00"
+            "time": "2019-02-06T14:14:21+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3083,16 +3083,16 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.14.0",
+            "version": "1.14.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55"
+                "reference": "26a197189c323aeee7df6476a7d5b389be97f383"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.0-7aecc2.zip",
-                "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.3-cf3312.zip",
+                "reference": "26a197189c323aeee7df6476a7d5b389be97f383",
                 "shasum": null
             },
             "require": {
@@ -3143,7 +3143,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-04-03T08:37:37+00:00"
+            "time": "2018-11-01T15:48:16+00:00"
         },
         {
             "name": "channelgrabber/sso",
@@ -3411,16 +3411,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ce93de587b995999c3f15c28674fa82602a0d54e"
+                "reference": "c9c7290b8dc9d6377e9b4f29b5196f0a1146666f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.5-60e67e.zip",
-                "reference": "ce93de587b995999c3f15c28674fa82602a0d54e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.6-3fc22e.zip",
+                "reference": "c9c7290b8dc9d6377e9b4f29b5196f0a1146666f",
                 "shasum": null
             },
             "require": {
@@ -3434,7 +3434,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.35.1",
                 "channelgrabber/product": "^1.10.1",
-                "channelgrabber/settings": "^1.5.4",
+                "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/user": "^1.26.0",
                 "ext-gd": "*",
@@ -3467,7 +3467,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-01-11T10:36:16+00:00"
+            "time": "2019-02-01T14:03:14+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4816,19 +4816,20 @@
         },
         {
             "name": "channelgrabber/zf2-tideways",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/tideways-module.git",
-                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e"
+                "reference": "37c391b990b5ea5f337208e243dd1393ebaa9684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-tideways/channelgrabber-zf2-tideways-1.0.0-1bca83.zip",
-                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-tideways/channelgrabber-zf2-tideways-1.0.1-fc2462.zip",
+                "reference": "37c391b990b5ea5f337208e243dd1393ebaa9684",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/log": "^2.3",
                 "channelgrabber/stdlib": "^2.16.0",
                 "channelgrabber/zf2-logclient": "^1.4.3",
                 "channelgrabber/zf2-stdlib": "^1.3.1",
@@ -4845,7 +4846,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-10T09:16:48+00:00"
+            "time": "2019-02-05T13:24:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -10985,8 +10986,8 @@
             "package": "channelgrabber/product"
         },
         {
-            "alias": "1.6.5",
-            "alias_normalized": "1.6.5.0",
+            "alias": "1.6.6",
+            "alias_normalized": "1.6.6.0",
             "version": "dev-EPIC-TAC-283-PickingLocations",
             "package": "channelgrabber/settings"
         }

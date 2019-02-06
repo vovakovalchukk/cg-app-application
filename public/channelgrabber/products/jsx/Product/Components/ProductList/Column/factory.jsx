@@ -14,7 +14,7 @@ const columnKeysMetricPropertyMap = {
     [columnKeys.dimensions]: 'lengthUnit'
 };
 const columnSpecificPropsMap = {
-    stockMode: ['stock', 'rows', 'userSettings'],
+    stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
     available: ['rows'],
     dimensions: ['rows'],
     weight: ['rows'],
