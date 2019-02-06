@@ -177,10 +177,28 @@ let stockModeReducer = reducerCreator(initialState, {
     },
     "LOW_STOCK_CHANGE": function(state, action) {
         let {productId, newValue, type} = action.payload;
+
         return Object.assign({}, state, {
             [type]: Object.assign({}, state[type], {
                 [productId]: Object.assign({}, state[type][productId], {
                     editedValue: newValue
+                })
+            })
+        });
+    },
+    "LOW_STOCK_RESET": function(state, action) {
+        let {productId} = action.payload;
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle: Object.assign({}, state.lowStockThresholdToggle, {
+                [productId]: Object.assign({}, state.lowStockThresholdToggle[productId], {
+                    editedValue: state.lowStockThresholdToggle[productId].value,
+                    active: false
+                })
+            }),
+            lowStockThresholdValue: Object.assign({}, state.lowStockThresholdValue, {
+                [productId]: Object.assign({}, state.lowStockThresholdValue[productId], {
+                    editedValue: state.lowStockThresholdValue[productId].value
                 })
             })
         });

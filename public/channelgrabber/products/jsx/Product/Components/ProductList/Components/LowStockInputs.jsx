@@ -3,6 +3,7 @@ import StatelessSelect from 'Product/Components/ProductList/Components/Select--s
 import styled from "styled-components";
 import portalFactory from "../Portal/portalFactory";
 import {StyledSafeSubmits} from "../Cell/StockMode";
+import stateUtility from "../stateUtility";
 
 const Container = styled.div`
     display: flex;
@@ -191,7 +192,7 @@ class LowStockInputs extends React.Component {
     };
 
     cancelChanges = () => {
-
+        this.props.actions.lowStockReset(this.props.product.id);
     };
 
     render() {

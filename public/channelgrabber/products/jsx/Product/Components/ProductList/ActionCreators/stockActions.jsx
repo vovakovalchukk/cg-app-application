@@ -151,6 +151,16 @@ let actionCreators = (function() {
                     }
                 });
             }
+        },
+        lowStockReset: (productId) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "LOW_STOCK_RESET",
+                    payload: {
+                        productId
+                    }
+                });
+            }
         }
     }
 }());
