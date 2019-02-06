@@ -65,7 +65,6 @@ class StockModeCell extends React.Component {
         const row = stateUtility.getRowData(products, rowIndex);
         let value = propToChange === 'stockMode' ? event.value : event.target.value;
         this.props.actions.changeStockMode(row, value, propToChange);
-        debugger;
     };
 
     getStockModeSelectActive(row) {
