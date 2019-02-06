@@ -33,10 +33,14 @@ class StatelessSelectComponent extends React.Component {
     static defaultProps = {
         inputId: '',
         title: '',
-        onClick: () => {
-        },
+        onClick: () => {},
         portalSettingsForDropdown: {},
-        active: false
+        active: false,
+        selectedOption: {},
+        classNames: '',
+        active: false,
+        styleVars: {},
+        prefix: ''
     };
     onComponentClick = () => {
         this.props.selectToggle(this.props.inputId);

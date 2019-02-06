@@ -59,7 +59,7 @@ class DimensionsCell extends React.Component {
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.DIMENSIONS_INPUT_SUBMITS,
             rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell,
+            distanceFromLeftSideOfTableToStartOfCell,
             width,
             dimension,
             allRows: this.props.rows.allIds
