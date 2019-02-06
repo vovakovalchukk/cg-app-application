@@ -1572,9 +1572,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10332-fix-the-ui-side-effect-for-the-stock-mode-cell-when-scrolling":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.23":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#3832ea4803a1bfad5ae9dfe7e4d5af315f9cd78a"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#578e6a6a87d39216f1ef6dd9303135500a2c800a"
   dependencies:
     chalk "^2.4.1"
     react "^16.5.2"
