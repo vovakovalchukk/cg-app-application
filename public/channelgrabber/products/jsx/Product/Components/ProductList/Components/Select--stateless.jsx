@@ -71,27 +71,28 @@ class StatelessSelectComponent extends React.Component {
         )
     };
     renderDropdownInPortal = () => {
-        if (!this.props.active) {
-            return <span/>
-        }
-
         let portalSettings = this.props.portalSettingsForDropdown;
         return portalFactory.createPortal({
             portalSettings,
             Component: StyledDropdown,
             componentProps: {
                 renderOptions: this.renderOptions,
-                width: this.props.styleVars.widthOfDropdown
+                width: this.props.styleVars.widthOfDropdown,
+                className:'u-ease_0-1'
             }
         });
     };
     renderDropdown = () => {
+        if (!this.props.active) {
+            return <span/>
+        }
         if (this.props.portalSettingsForDropdown.usePortal && this.props.portalSettingsForDropdown.domNodeForSubmits) {
             return this.renderDropdownInPortal();
         }
         return <StyledDropdown
             renderOptions={this.renderOptions}
             width={this.props.styleVars.widthOfDropdown}
+            className={'u-ease_0-1'}
         />
     };
     render() {

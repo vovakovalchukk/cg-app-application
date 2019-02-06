@@ -10,6 +10,7 @@ import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bul
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 import globalActions from 'Product/Components/ProductList/ActionCreators/globalActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
+import scrollActions from 'Product/Components/ProductList/ActionCreators/scrollActions';
 
 export default (ownProps) => {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
@@ -26,7 +27,8 @@ export default (ownProps) => {
         bulkSelectActions,
         passedInMethodsAsActions,
         rowActions,
-        userSettingsActions
+        userSettingsActions,
+        scrollActions
     );
 }
 
