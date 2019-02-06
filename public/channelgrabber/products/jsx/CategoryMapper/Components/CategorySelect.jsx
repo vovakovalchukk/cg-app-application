@@ -43,6 +43,8 @@ class CategorySelectComponent extends React.Component {
             onOptionChange={this.onOptionChange}
             selectedOption={this.getSelectedCategory()}
             className={this.props.className}
+            filterable={true}
+            key={this.props.name}
         />
     }
 }

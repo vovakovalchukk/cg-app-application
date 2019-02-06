@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+
 "use strict";
 
 let initialState = {
@@ -16,8 +17,7 @@ let initialState = {
             label: 'VAT'
         }
     ],
-    currentTab: 'listings',
-    currentColumnScrollIndex: null
+    currentTab: 'listings'
 };
 
 let stockTab = {
@@ -33,13 +33,10 @@ var TabsReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    "HORIZONTAL_SCROLLBAR_INDEX_RESET": function(state) {
-        let newState = Object.assign({}, state, {
-            currentColumnScrollIndex: null
-        });
-        return newState;
-    },
-    "SHOW_STOCK_TAB": function (state) {
+    "STOCK_TAB_SHOW": function(state) {
+        if (doesStockTabExistOnState(state)) {
+            return state;
+        }
         let newTabs = state.tabs;
         newTabs.push(stockTab);
         return Object.assign({}, state, {
@@ -49,3 +46,9 @@ var TabsReducer = reducerCreator(initialState, {
 });
 
 export default TabsReducer
+
+function doesStockTabExistOnState(state) {
+    return !!state.tabs.find(tab => {
+        return tab.key === 'stock';
+    });
+}
