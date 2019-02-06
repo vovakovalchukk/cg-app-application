@@ -5,6 +5,7 @@ namespace Products\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Product\Gearman\Workload\ImportLinks\Csv as ImportProductLinksCsvWorkload;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Image\Uploader as ImageUploader;
@@ -37,7 +38,7 @@ use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
-use GearmanClient;
+use \GearmanClient;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -121,7 +122,7 @@ class ProductsJsonController extends AbstractActionController
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
         ProductCreator $productCreator,
-        GearmanClient $productsGearmanClient
+        \GearmanClient $productsGearmanClient
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -585,8 +586,12 @@ class ProductsJsonController extends AbstractActionController
             throw new \RuntimeException('No file uploaded');
         }
 
-        $this->productLinkCsvService->uploadCsvForActiveUser($post['productLinkUploadFile']);
-
+        $stream = fopen('php://temp', 'r+');
+        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+        $username = $this->activeUser->getActiveUser()->getUsername();
+        $filename = $this->productLinkCsvService->uploadCsvForOu($rootOuId, $stream);
+        $workload = new ImportProductLinksCsvWorkload($rootOuId, $username, $filename);
+        $this->productsGearmanClient->doBackground(ImportProductLinksCsvWorkload::FUNCTION_NAME, serialize($workload), ImportProductLinksCsvWorkload::FUNCTION_NAME . $rootOuId);
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable('success', true);
         return $view;
