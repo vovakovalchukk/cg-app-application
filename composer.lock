@@ -1124,16 +1124,16 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.16.0",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "712bf98406db64f6ca83568fb8caff0777e90667"
+                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.16.0-44d27c.zip",
-                "reference": "712bf98406db64f6ca83568fb8caff0777e90667",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.19.0-92d52e.zip",
+                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2",
                 "shasum": null
             },
             "require": {
@@ -1185,7 +1185,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2018-11-14T13:39:18+00:00"
+            "time": "2019-02-06T11:31:29+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3083,16 +3083,16 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.14.0",
+            "version": "1.14.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55"
+                "reference": "26a197189c323aeee7df6476a7d5b389be97f383"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.0-7aecc2.zip",
-                "reference": "cb17d2c714e2c76786d608c294bc41b51b9c4e55",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.3-cf3312.zip",
+                "reference": "26a197189c323aeee7df6476a7d5b389be97f383",
                 "shasum": null
             },
             "require": {
@@ -3143,7 +3143,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-04-03T08:37:37+00:00"
+            "time": "2018-11-01T15:48:16+00:00"
         },
         {
             "name": "channelgrabber/sso",
@@ -4816,19 +4816,20 @@
         },
         {
             "name": "channelgrabber/zf2-tideways",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/tideways-module.git",
-                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e"
+                "reference": "37c391b990b5ea5f337208e243dd1393ebaa9684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-tideways/channelgrabber-zf2-tideways-1.0.0-1bca83.zip",
-                "reference": "8587891172d025852f0ef45e34ebb6262c586a7e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-tideways/channelgrabber-zf2-tideways-1.0.1-fc2462.zip",
+                "reference": "37c391b990b5ea5f337208e243dd1393ebaa9684",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/log": "^2.3",
                 "channelgrabber/stdlib": "^2.16.0",
                 "channelgrabber/zf2-logclient": "^1.4.3",
                 "channelgrabber/zf2-stdlib": "^1.3.1",
@@ -4845,7 +4846,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-09-10T09:16:48+00:00"
+            "time": "2019-02-05T13:24:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-usage",

@@ -138,10 +138,14 @@ class ProductList extends React.Component {
     };
     onVerticalScroll = () => {
         let scrollTimeout;
+        if(!this.props.scroll.userScrolling){
+            this.props.actions.setUserScrolling();
+        }
         clearTimeout(this.scrollTimeout);
         this.scrollTimeout = setTimeout(() => {
+            this.props.actions.unsetUserScrolling();
             this.props.actions.updateRowsForPortals();
-        }, 500);
+        }, 120);
         return true;
     };
     renderProducts = () => {
@@ -169,8 +173,8 @@ class ProductList extends React.Component {
                 groupHeaderHeight={0}
                 showScrollbarX={true}
                 showScrollbarY={true}
-                scrollToColumn={this.props.tabs.currentColumnScrollIndex}
-                scrollToRow={this.props.list.currentRowScrollIndex}
+                scrollToColumn={this.props.scroll.currentColumnScrollIndex}
+                scrollToRow={this.props.scroll.currentRowScrollIndex}
                 rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
                 onVerticalScroll={this.onVerticalScroll}
             >
