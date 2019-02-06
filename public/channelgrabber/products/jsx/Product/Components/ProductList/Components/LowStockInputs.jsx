@@ -14,6 +14,21 @@ const ValueInput = styled.input`
     color: ${props => props.disabled ? 'grey !important': 'initial'};
 `;
 
+const TOGGLE_MAP = [
+    {
+        value: null,
+        string: 'default'
+    },
+    {
+        value: true,
+        string: 'true'
+    },
+    {
+        value: false,
+        string: 'false'
+    }
+];
+
 class LowStockInputs extends React.Component {
     static defaultProps = {
         product: {},
@@ -188,7 +203,14 @@ class LowStockInputs extends React.Component {
     };
 
     submitChanges = () => {
+        const selectedToggle = this.getSelectedOption(),
+            inputValue = this.getInputValue(selectedToggle);
 
+        this.props.actions.saveLowStockToBackend(
+            this.props.product.id,
+            selectedToggle.value,
+            inputValue
+        )
     };
 
     cancelChanges = () => {
@@ -207,3 +229,4 @@ class LowStockInputs extends React.Component {
 }
 
 export default LowStockInputs;
+export {TOGGLE_MAP};

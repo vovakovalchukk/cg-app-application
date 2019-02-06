@@ -1,4 +1,5 @@
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import {TOGGLE_MAP} from "../Components/LowStockInputs";
 
 "use strict";
 
@@ -161,6 +162,37 @@ let actionCreators = (function() {
                     }
                 });
             }
+        },
+        saveLowStockToBackend: (productId, toggle, value) => {
+            return async function(dispatch) {
+                n.notice('Updating low stock threshold...', true);
+                try {
+                    let response = await updateLowStock(
+                        productId,
+                        formatLowStockToggle(toggle),
+                        formatLowStockValue(toggle, value)
+                    );
+                    let responseForProduct = {};
+
+                    n.success('The low stock threshold was updates successfully');
+
+                    Object.keys(response.products).forEach((productId) => {
+                        responseForProduct = response.products[productId];
+                        dispatch({
+                            type: "LOW_STOCK_UPDATE_SUCCESSFUL",
+                            payload: {
+                                productId: productId,
+                                toggle: responseForProduct.lowStockThresholdToggle,
+                                value: responseForProduct.lowStockThresholdValue
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error(error);
+                    n.error('There was an error while saving the low stock threshold. Please try again or contact support if the problem persists');
+                    actionCreators.lowStockReset(productId);
+                }
+            }
         }
     }
 }());
@@ -218,10 +250,43 @@ function updateStock(data) {
     });
 }
 
+function updateLowStock(productId, toggle, value) {
+    return $.ajax({
+        url: "products/lowStockThreshold",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            productId: productId,
+            lowStockThresholdToggle: toggle,
+            lowStockThresholdValue: value
+        },
+        success: response => (response),
+        error: error => (error)
+    });
+}
+
 function stockModeHasBeenEdited(productStock, stock, rowData) {
     return stock.stockModes.byProductId[rowData.id] && stock.stockModes.byProductId[rowData.id].valueEdited;
 }
 
 function stockLevelHasBeenEdited(productStock, stock, rowData) {
     return stock.stockLevels.byProductId[rowData.id] && stock.stockLevels.byProductId[rowData.id].valueEdited;
+}
+
+function formatLowStockToggle(toggle) {
+    for (let toggleValue of TOGGLE_MAP) {
+        if (toggleValue.value === toggle) {
+            return toggleValue.string;
+        }
+    }
+
+    return 'default';
+}
+
+function formatLowStockValue(toggle, value) {
+    if (toggle !== true) {
+        return null;
+    }
+
+    return value;
 }

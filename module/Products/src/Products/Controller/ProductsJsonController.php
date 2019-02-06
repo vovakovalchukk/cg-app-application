@@ -499,7 +499,7 @@ class ProductsJsonController extends AbstractActionController
         $value = filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
 
         return $this->jsonModelFactory->newInstance(
-            $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)
+            ['products' => $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)]
         );
     }
 

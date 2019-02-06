@@ -243,16 +243,16 @@ class Service
         // There can be null values, so we have to use array_key_exists, not isset or the null coalescing operator (??)
         $toggle = array_key_exists($toggle, static::LOW_STOCK_THRESHOLD_MAP) ? static::LOW_STOCK_THRESHOLD_MAP[$toggle] : static::LOW_STOCK_THRESHOLD_DEFAULT;
 
-        $resultsBySku = [];
+        $resultsById = [];
         foreach ($products as $product) {
             $stock = $this->saveLowStockThreshold($product->getStock()->getId(), $toggle, $value);
-            $resultsBySku[$product->getSku()] = [
+            $resultsById[$product->getId()] = [
                 'lowStockThresholdToggle' => $stock->isLowStockThresholdOn(),
                 'lowStockThresholdValue' => $stock->getLowStockThresholdValue()
             ];
         }
 
-        return $resultsBySku;
+        return $resultsById;
     }
 
     protected function saveLowStockThreshold(int $stockId, ?bool $toggle, ?int $value): Stock

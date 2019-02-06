@@ -203,6 +203,25 @@ let stockModeReducer = reducerCreator(initialState, {
             })
         });
     },
+    "LOW_STOCK_UPDATE_SUCCESSFUL": function(state, action) {
+        let {productId, toggle, value} = action.payload;
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle: Object.assign({}, state.lowStockThresholdToggle, {
+                [productId]: Object.assign({}, state.lowStockThresholdToggle[productId], {
+                    value: toggle,
+                    editedValue: toggle,
+                    active: false
+                })
+            }),
+            lowStockThresholdValue: Object.assign({}, state.lowStockThresholdValue, {
+                [productId]: Object.assign({}, state.lowStockThresholdValue[productId], {
+                    value: value,
+                    editedValue: value
+                })
+            })
+        });
+    }
 });
 
 export default stockModeReducer;
