@@ -3,9 +3,9 @@ import constants from "../Config/constants";
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
 const distanceDimensionMap = {
-    height: 33,
+    height: 20,
     width: 105,
-    length: 178
+    length: 192
 };
 const distanceElementMap = {
     // Hard coding the distances because we couldn't portal submits to a cell dom node due to z-index issues.
