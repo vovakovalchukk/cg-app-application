@@ -7,10 +7,9 @@ import elementTypes from "../Portal/elementTypes";
 class IncludePurchaseOrdersInAvailableCell extends React.Component {
 
     changeSetting = (e) => {
-        // TODO
-        // const {products, rowIndex, stock} = this.props;
-        // const row = stateUtility.getRowData(products, rowIndex);
-        // this.props.actions.updateVat(row.id, countryCode, e.value);
+        const {products, rowIndex} = this.props;
+        const row = stateUtility.getRowData(products, rowIndex);
+        this.props.actions.updateIncPOStockInAvailable(row.id, e.value);
     };
 
     render() {
@@ -20,6 +19,7 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             rows,
+            stock,
             incPOStockInAvailableOptions
         } = this.props;
         let rowData = stateUtility.getRowData(products, rowIndex);
@@ -29,7 +29,7 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
             return <span></span>
         }
 
-        let selected = (rowData.stock.includePurchaseOrdersUseDefault ? 'default' : (rowData.stock.includePurchaseOrders ? 'on' : 'off'));
+        let selected = stock.incPOStockInAvailable.byProductId[rowData.id];
         let selectedOption = incPOStockInAvailableOptions.find((option) => {
             return option.value == selected;
         });
@@ -48,7 +48,7 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
                     options={incPOStockInAvailableOptions}
                     selectedOption={selectedOption}
                     onOptionChange={this.changeSetting}
-                    //classNames={'u-width-140px'}
+                    classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
                 />
             </div>

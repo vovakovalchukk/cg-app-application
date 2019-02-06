@@ -121,6 +121,39 @@ let actionCreators = (function() {
                 });
                 return response;
             }
+        },
+        extractIncPOStockInAvailableFromProducts: (products) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT",
+                    payload: {
+                        products
+                    }
+                });
+            }
+        },
+        updateIncPOStockInAvailable: (productId, desiredVal) => {
+            return async function(dispatch) {
+                try {
+                    n.notice('Updating Purchase Order stock preference.');
+                    let response = await updateIncPOStockInAvailable(productId, desiredVal);
+                    dispatch({
+                        type: "INC_PO_STOCK_UPDATE_SUCCESS",
+                        payload: {
+                            productId,
+                            desiredVal,
+                            response
+                        }
+                    });
+                } catch (error) {
+                    dispatch({
+                        type: "INC_PO_STOCK_UPDATE_FAILURE",
+                        payload: {
+                            error
+                        },
+                    })
+                }
+            }
         }
     }
 }());
@@ -175,6 +208,21 @@ function updateStock(data) {
         data,
         success: response => (response),
         error: error => (error)
+    });
+}
+
+async function updateIncPOStockInAvailable(productId, includePurchaseOrders) {
+    return $.ajax({
+        url: '/products/includePurchaseOrders',
+        data: {productId: productId, includePurchaseOrders: includePurchaseOrders},
+        method: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            return response;
+        },
+        error: function(error) {
+            return error;
+        }
     });
 }
 

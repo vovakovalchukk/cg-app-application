@@ -43,6 +43,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
+    const ROUTE_STOCK_INC_PURCHASE_ORDERS = 'stockIncludePurchaseOrders';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
@@ -395,6 +396,33 @@ class ProductsJsonController extends AbstractActionController
                 $this->params()->fromPost('totalQuantity')
             );
             $view->setVariable('eTag', $stockLocation->getStoredETag());
+        } catch (NotModified $e) {
+            $view->setVariable('code', StatusCode::NOT_MODIFIED);
+            $view->setVariable('message', $this->translator->translate('There were no changes to be saved'));
+        }
+
+        return $view;
+    }
+
+    public function saveProductStockIncludePurchaseOrdersAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('productId');
+        $includePurchaseOrdersString = $this->params()->fromPost('includePurchaseOrders');
+        if ($includePurchaseOrdersString == 'default') {
+            $includePurchaseOrders = null;
+        } else {
+            $includePurchaseOrders = filter_var($includePurchaseOrdersString, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        }
+
+        $view = $this->jsonModelFactory->newInstance();
+        try {
+            $product = $this->productService->fetchProductById($productId);
+            $stock = $this->productService->saveStockIncludePurchaseOrdersForProduct($product, $includePurchaseOrders);
+            $view->setVariable('saved', true)
+                ->setVariable('includePurchaseOrders', $stock->isIncludePurchaseOrders())
+                ->setVariable('includePurchaseOrdersUseDefault', $stock->isIncludePurchaseOrdersUseDefault());
         } catch (NotModified $e) {
             $view->setVariable('code', StatusCode::NOT_MODIFIED);
             $view->setVariable('message', $this->translator->translate('There were no changes to be saved'));

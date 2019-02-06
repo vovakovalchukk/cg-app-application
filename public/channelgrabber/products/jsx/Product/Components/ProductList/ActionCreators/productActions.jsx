@@ -3,6 +3,7 @@ import ProductFilter from 'Product/Filter/Entity'
 import constants from 'Product/Components/ProductList/Config/constants'
 import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
+import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import stateUtility from 'Product/Components/ProductList/stateUtility'
 
 "use strict";
@@ -110,6 +111,7 @@ var actionCreators = (function() {
                     throw 'Unable to load products... error: ' + err;
                 }
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {

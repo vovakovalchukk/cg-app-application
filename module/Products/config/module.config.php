@@ -127,6 +127,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_STOCK_INC_PURCHASE_ORDERS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/includePurchaseOrders',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductStockIncludePurchaseOrders'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_CSV_EXPORT => [
                         'type' => Literal::class,
                         'options' => [
