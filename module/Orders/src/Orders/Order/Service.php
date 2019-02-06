@@ -24,6 +24,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\OrderLinker;
 use CG\Order\Shared\Status as OrderStatus;
@@ -452,15 +453,53 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrderItemTable(OrderEntity $order)
     {
+        $columns = $this->getOrderItemTableColumnsConfig($order);
+        $productLinks = $this->getOrderItemTableProductLinks($order);
+
+        $table = new Table();
+        $tableColumns = $this->getOrderItemTableColumns($columns, $table);
+        $tableRows = $this->getOrderItemTableRows($order, $tableColumns, $productLinks);
+        $table->setRows($tableRows);
+        return $table;
+    }
+
+    protected function getOrderItemTableColumnsConfig(OrderEntity $order): array
+    {
         $columns = [
             ['name' => RowMapper::COLUMN_SKU,       'class' => 'sku-col'],
             ['name' => RowMapper::COLUMN_PRODUCT,   'class' => 'product-name-col'],
+            ['name' => RowMapper::COLUMN_VARIATIONS,'class' => 'variation-attributes-col'],
             ['name' => RowMapper::COLUMN_QUANTITY,  'class' => 'quantity'],
             ['name' => RowMapper::COLUMN_PRICE,     'class' => 'price right'],
             ['name' => RowMapper::COLUMN_DISCOUNT,  'class' => 'price right'],
             ['name' => RowMapper::COLUMN_TOTAL,     'class' => 'price right'],
         ];
 
+        if (!$this->doesOrderContainVariationAttributes($order)) {
+            $columns = array_filter($columns, function(array $column)
+            {
+                return $column['name'] != RowMapper::COLUMN_VARIATIONS;
+            });
+        }
+
+        return $columns;
+    }
+
+    protected function doesOrderContainVariationAttributes(OrderEntity $order): bool
+    {
+        $containsVariations = false;
+        /** @var OrderItem $orderItem **/
+        foreach ($order->getItems() as $orderItem) {
+            if (!empty($orderItem->getItemVariationAttribute())) {
+                $containsVariations = true;
+                break;
+            }
+        }
+        return $containsVariations;
+    }
+
+    protected function getOrderItemTableProductLinks(OrderEntity $order): array
+    {
         $productLinks = [];
         if (
             $this->featureFlagService->featureEnabledForOu(
@@ -470,14 +509,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ) {
             $productLinks = $this->getProductLinksForOrder($order);
         }
+        return $productLinks;
+    }
 
-        $table = new Table();
+    protected function getOrderItemTableColumns(array $columnsConfig, Table $table): TableColumnCollection
+    {
         $tableColumns = new TableColumnCollection();
-        foreach ($columns as $column) {
+        foreach ($columnsConfig as $column) {
             $tableColumn = new TableColumn($column["name"], $column["class"]);
             $table->addColumn($tableColumn);
             $tableColumns->attach($tableColumn);
         }
+        return $tableColumns;
+    }
+
+    protected function getOrderItemTableRows(
+        OrderEntity $order,
+        TableColumnCollection $tableColumns,
+        array $productLinks
+    ): TableRowCollection {
         $tableRows = new TableRowCollection();
         $itemCount = 0;
         foreach ($order->getItems() as $item) {
@@ -512,9 +562,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $tableRow = $this->rowMapper->fromOrderDiscount($order, $tableColumns, 'discount');
             $tableRows->attach($tableRow);
         }
-
-        $table->setRows($tableRows);
-        return $table;
+        return $tableRows;
     }
 
     protected function addOrderDiscount(Table $table, $discount, $discountDescription)
