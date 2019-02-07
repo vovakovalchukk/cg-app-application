@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d91a90f390af9375bb9e1d71bb604f41",
+    "content-hash": "194f1c2789155bc9c0daef1c1128ca46",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2496,16 +2496,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-288-RenderPickListWithLocations",
+            "version": "dev-EPIC-TAC-283-PickingLocations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "9e477b8273d54c54bf7e7b89f54048204f45e810"
+                "reference": "b8fcdb44f2d77038365b87a2f764cc089de97b58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-288-RenderPickListWithLocations-ddf85d.zip",
-                "reference": "9e477b8273d54c54bf7e7b89f54048204f45e810",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-EPIC-TAC-283-PickingLocations-e54be1.zip",
+                "reference": "b8fcdb44f2d77038365b87a2f764cc089de97b58",
                 "shasum": null
             },
             "require": {
@@ -2557,7 +2557,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-05T16:13:40+00:00"
+            "time": "2019-02-01T08:57:41+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3213,16 +3213,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.5",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea"
+                "reference": "62b7868a6553282f93da4d8a7e08a5b9e183b017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.5-509b13.zip",
-                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-dev-TAC-288-RenderPickListWithLocations-eb9bbe.zip",
+                "reference": "62b7868a6553282f93da4d8a7e08a5b9e183b017",
                 "shasum": null
             },
             "require": {
@@ -3266,7 +3266,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-11-15T10:31:57+00:00"
+            "time": "2019-02-07T14:33:15+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -10988,7 +10988,7 @@
         {
             "alias": "1.16.13",
             "alias_normalized": "1.16.13.0",
-            "version": "dev-TAC-288-RenderPickListWithLocations",
+            "version": "dev-EPIC-TAC-283-PickingLocations",
             "package": "channelgrabber/product"
         },
         {
@@ -10996,6 +10996,12 @@
             "alias_normalized": "1.6.6.0",
             "version": "dev-EPIC-TAC-283-PickingLocations",
             "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "2.16.7",
+            "alias_normalized": "2.16.7.0",
+            "version": "dev-TAC-288-RenderPickListWithLocations",
+            "package": "channelgrabber/stdlib"
         },
         {
             "alias": "1.6.7",
@@ -11010,6 +11016,7 @@
         "channelgrabber/picklist": 20,
         "channelgrabber/product": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
