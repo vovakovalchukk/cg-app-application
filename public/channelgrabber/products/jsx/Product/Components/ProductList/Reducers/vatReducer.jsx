@@ -2,6 +2,23 @@ import reducerCreator from 'Common/Reducers/creator';
 
 "use strict";
 
+/*
+the state shape with example entries
+vat : {
+    varRates: [],
+    GB: {
+        byProductId:{
+            1: {
+                productId: 1
+                key: "GB1",
+                active: false
+            }
+        }
+    },
+    FR ...
+}
+*/
+
 let initialState = {
     vatRates: [],
     productsVat: {}
@@ -34,7 +51,7 @@ let vatReducer = reducerCreator(initialState, {
         let {rowId, countryCode, desiredVal, response} = action.payload;
         let newProductsVat = Object.assign({}, state.productsVat);
         n.success('Product tax rate updated successfully.');
-        newProductsVat[rowId][countryCode] = desiredVal;
+        newProductsVat[countryCode].byProductId[rowId].key = desiredVal;
         let newState = Object.assign({}, state, {
             productsVat: newProductsVat
         });
@@ -44,35 +61,69 @@ let vatReducer = reducerCreator(initialState, {
         let error = action.payload;
         n.showErrorNotification(error, "There was an error when attempting to update the product tax rate.");
         return state;
-    }
+    },
+    "VAT_SELECT_TOGGLE": function(state, action) {
+        let {productId, row} = action.payload;
+        let stateCopy = Object.assign({}, state);
+         return stateCopy;
+//        let stockModeExists = !!state.stockModes.byProductId[productId];
+//        stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
+//
+//        if (stockModeExists) {
+//            stockModes.byProductId[productId].value = stockModes.byProductId[productId] ? stockModes.byProductId[productId].value : currentStock.stockMode;
+//            stockModes.byProductId[productId].active = !stockModes.byProductId[productId].active;
+//            return applyStockModesToState(stateCopy, stockModes)
+//        }
+//
+//        stockModes.byProductId[productId] = {
+//            value: stockModes.byProductId[productId] ? stockModes.byProductId[productId] : currentStock.stockMode,
+//            valueEdited: '',
+//            active: true
+//        };
+//        return applyStockModesToState(stateCopy, stockModes)
+    },
 });
 
 export default vatReducer;
 
+function applyCountryCodesToState(products, productsVat) {
+    for (let product of products) {
+        if (!product.taxRates) {
+            continue;
+        }
+        for (let countryCode of Object.keys(product.taxRates)) {
+            productsVat[countryCode] = {
+                byProductId: {}
+            }
+        }
+        break;
+    }
+    return productsVat;
+}
+
 function getChosenVatFromProducts(products) {
     let productsVat = {};
-    products.forEach(product => {
-        if (!product.taxRates) {
-            console.error('no tax rates set for product:', product);
-            return;
-        }
-        let chosenVats = {
-            productId: product.id
-        };
-        Object.keys(product.taxRates).forEach((countryCode) => {
-            let taxOptionsForCountry = product.taxRates[countryCode];
-            Object.keys(taxOptionsForCountry).forEach(taxOptionKey => {
-                let option = taxOptionsForCountry[taxOptionKey];
 
+    productsVat = applyCountryCodesToState(products, productsVat);
+
+    for(let product of products){
+        if (!product.taxRates) {
+            continue;
+        }
+        for(let countryCode of Object.keys(product.taxRates)){
+            let taxOptionsForCountry = product.taxRates[countryCode];
+            for(let taxOptionKey of Object.keys(taxOptionsForCountry)){
+                let option = taxOptionsForCountry[taxOptionKey];
                 if (!option.selected) {
-                    return;
+                    continue;
                 }
-                chosenVats[countryCode] = taxOptionKey;
-            });
-        });
-        productsVat[product.id] = chosenVats;
-        return;
-    });
+                productsVat[countryCode].byProductId[product.id] = {
+                    productId: product.id,
+                    key: taxOptionKey
+                };
+            }
+        }
+    }
     return productsVat;
 }
 
@@ -98,7 +149,7 @@ function formatTaxOptions(taxRates) {
                 label: generateLabel(option)
             }
         })
-    })
+    });
 
     return options;
 }

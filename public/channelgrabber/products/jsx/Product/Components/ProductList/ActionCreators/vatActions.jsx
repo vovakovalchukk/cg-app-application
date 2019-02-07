@@ -41,12 +41,32 @@ let vatActions = (function() {
                         type: "VAT_UPDATE_FAILURE",
                         payload: {
                             error
-                        },
+                        }
                     })
                 }
             }
+        },
+        toggleVatSelect: (productId, row) => {
+            return {
+                type: 'STOCK_MODE_SELECT_TOGGLE',
+                payload: {
+                    productId,
+                    currentStock
+                }
+            }
         }
-    };
+    }
+//            return function(dispatch, getState) {
+//                let currentStock = getState.customGetters.getStock(productId);
+//                dispatch({
+//                    type: 'STOCK_MODE_SELECT_TOGGLE',
+//                    payload: {
+//                        productId,
+//                        currentStock
+//                    }
+//                });
+//            }
+//}
 })();
 
 export default vatActions;

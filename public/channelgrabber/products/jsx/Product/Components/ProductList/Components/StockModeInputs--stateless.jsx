@@ -1,5 +1,6 @@
 import React from 'react';
-import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import StatelessSelect from 'Common/Components/Select--stateless';
+
 import styled from 'styled-components';
 
 const StockModesContainer = styled.div`
@@ -18,7 +19,8 @@ class StockModeInputsComponent extends React.Component {
         value: "",
         classNames: null,
         className: '',
-        portalSettingsForSelect: {}
+        portalSettingsForSelect: {},
+        stockModeSelectToggle: ()=>{}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
