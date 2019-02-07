@@ -72,8 +72,14 @@ let vatReducer = reducerCreator(initialState, {
     "VAT_SELECT_TOGGLE": function(state, action) {
         let {productId, countryCode} = action.payload;
         let vat = Object.assign({}, state);
+        let productVat = vat.productsVat[countryCode].byProductId[productId];
+        let previousActiveProp = productVat.active;
         vat = makeAllVatSelectsInactive(vat, productId);
-        vat.productsVat[countryCode].byProductId[productId].active = true;
+        if(previousActiveProp){
+            delete productVat.active;
+            return vat;
+        }
+        productVat.active = true;
         return vat;
     }
 });
@@ -173,7 +179,7 @@ function makeAllVatSelectsInactive(vat, toggledProductId) {
 
     for (let country of countryCodes) {
         for (let productId of vatCopy.productsVat.allProductIds) {
-            vatCopy.productsVat[country].byProductId[productId].active = false;
+            delete vatCopy.productsVat[country].byProductId[productId].active;
         }
     }
     return vatCopy;

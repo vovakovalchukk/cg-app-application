@@ -42,7 +42,7 @@ let stockModeReducer = reducerCreator(initialState, {
 
         let stockModeExists = !!state.stockModes.byProductId[productId];
         stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
-
+        debugger;
         if (stockModeExists) {
             stockModes.byProductId[productId].value = stockModes.byProductId[productId] ? stockModes.byProductId[productId].value : currentStock.stockMode;
             stockModes.byProductId[productId].active = !stockModes.byProductId[productId].active;
@@ -77,6 +77,7 @@ let stockModeReducer = reducerCreator(initialState, {
             stockModes.byProductId[row.id].value = currentStock.stockMode;
             stockModes.byProductId[row.id].valueEdited = value;
         }
+        debugger;
         if (propToChange === "stockLevel") {
             if (!stockLevels.byProductId[row.id]) {
                 stockLevels.byProductId[row.id] = {}
