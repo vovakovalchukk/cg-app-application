@@ -9,21 +9,17 @@ use CG\Product\Filter as ProductFilter;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stock\Entity as Stock;
+use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdUpdateGenerator;
 use CG\Stock\Mode as StockMode;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\OrganisationUnit\Service as UserOUService;
-use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdUpdateGenerator;
 
 class Service
 {
-    const LOW_STOCK_THRESHOLD_DEFAULT = 'default';
-    const LOW_STOCK_THRESHOLD_ON = 'true';
-    const LOW_STOCK_THRESHOLD_OFF = 'false';
-
     const LOW_STOCK_THRESHOLD_MAP = [
-        self::LOW_STOCK_THRESHOLD_DEFAULT => self::LOW_STOCK_THRESHOLD_DEFAULT,
-        self::LOW_STOCK_THRESHOLD_ON => self::LOW_STOCK_THRESHOLD_ON,
-        self::LOW_STOCK_THRESHOLD_OFF => self::LOW_STOCK_THRESHOLD_OFF
+        STOCK::LOW_STOCK_THRESHOLD_DEFAULT => STOCK::LOW_STOCK_THRESHOLD_DEFAULT,
+        STOCK::LOW_STOCK_THRESHOLD_ON => STOCK::LOW_STOCK_THRESHOLD_ON,
+        STOCK::LOW_STOCK_THRESHOLD_OFF => STOCK::LOW_STOCK_THRESHOLD_OFF
     ];
 
     /** @var UserOUService */
@@ -240,7 +236,7 @@ class Service
         $product = $this->productService->fetch($productId);
         $products = $product->isParent() ? $product->getVariations() : [$product];
 
-        $toggle = static::LOW_STOCK_THRESHOLD_MAP[$toggle] ?? static::LOW_STOCK_THRESHOLD_DEFAULT;
+        $toggle = static::LOW_STOCK_THRESHOLD_MAP[$toggle] ?? Stock::LOW_STOCK_THRESHOLD_DEFAULT;
 
         $resultsById = [];
         foreach ($products as $product) {

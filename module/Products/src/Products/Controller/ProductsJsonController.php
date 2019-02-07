@@ -19,6 +19,7 @@ use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\Stock\Entity as Stock;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
@@ -494,7 +495,7 @@ class ProductsJsonController extends AbstractActionController
         $this->checkUsage();
 
         $productId = $this->params()->fromPost('productId', 0);
-        $toggle = $this->params()->fromPost('lowStockThresholdToggle', StockSettingsService::LOW_STOCK_THRESHOLD_DEFAULT);
+        $toggle = $this->params()->fromPost('lowStockThresholdToggle', Stock::LOW_STOCK_THRESHOLD_DEFAULT);
         $value = $this->params()->fromPost('lowStockThresholdValue', null);
         $value = filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
 
