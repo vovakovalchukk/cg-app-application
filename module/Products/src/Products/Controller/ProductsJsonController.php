@@ -587,6 +587,8 @@ class ProductsJsonController extends AbstractActionController
         }
 
         $stream = fopen('php://temp', 'r+');
+        fputs($stream, $post['productLinkUploadFile']);
+        rewind($stream);
         $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
         $username = $this->activeUser->getActiveUser()->getUsername();
         $filename = $this->productLinkCsvService->uploadCsvForOu($rootOuId, $stream);
