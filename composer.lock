@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80ec71b807ae9ecd55e0c9b145d80c49",
+    "content-hash": "7765a1246b608d0308781a4793dbe24c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2084,12 +2084,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "70cb5ccbdc0b6eb06ff0ef9677bed48a6d788a66"
+                "reference": "e2ff4deb9e753c807573c23278751e3f882cf065"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-4598c5.zip",
-                "reference": "70cb5ccbdc0b6eb06ff0ef9677bed48a6d788a66",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-d8a6b3.zip",
+                "reference": "e2ff4deb9e753c807573c23278751e3f882cf065",
                 "shasum": null
             },
             "require": {
@@ -2160,7 +2160,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-02-01T09:43:23+00:00"
+            "time": "2019-02-07T09:09:32+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -9000,6 +9000,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zendpdf.git",
                 "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/zendframework/zendpdf/zendframework-zendpdf-2.0.2.2-20f803.zip",
+                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5",
+                "shasum": null
             },
             "require": {
                 "php": ">=5.3.3",
