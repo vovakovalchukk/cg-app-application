@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc02dfba7b9383d84825ceb7e1be6e31",
+    "content-hash": "ec30cee2f1f621ec957f1675f982b473",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2965,12 +2965,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "928a1e1585443ff942c20483440f5a8beefef8ea"
+                "reference": "d7c8f918ab696d36231af4741da61c3eb10c1f10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-325-low-stock-threshold-884dbb.zip",
-                "reference": "928a1e1585443ff942c20483440f5a8beefef8ea",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-325-low-stock-threshold-a3587c.zip",
+                "reference": "d7c8f918ab696d36231af4741da61c3eb10c1f10",
                 "shasum": null
             },
             "require": {
@@ -2994,7 +2994,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-02-01T13:53:43+00:00"
+            "time": "2019-02-07T15:40:39+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3274,12 +3274,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "252de3c7aa526d146d29f3d962a22a02d8958c3e"
+                "reference": "539ab17aa01d338ae36f467f1e34adb6bc99909a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-fba7f4.zip",
-                "reference": "252de3c7aa526d146d29f3d962a22a02d8958c3e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-c248cf.zip",
+                "reference": "539ab17aa01d338ae36f467f1e34adb6bc99909a",
                 "shasum": null
             },
             "require": {
@@ -3329,7 +3329,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-29T10:32:10+00:00"
+            "time": "2019-02-07T15:42:27+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
