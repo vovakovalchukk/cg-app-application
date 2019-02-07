@@ -3,7 +3,6 @@ import StatelessSelect from 'Product/Components/ProductList/Components/Select--s
 import styled from "styled-components";
 import portalFactory from "../Portal/portalFactory";
 import {StyledSafeSubmits} from "../Cell/StockMode";
-import stateUtility from "../stateUtility";
 
 const Container = styled.div`
     display: flex;
@@ -13,21 +12,6 @@ const ValueInput = styled.input`
     width: 45px;
     color: ${props => props.disabled ? 'grey !important': 'initial'};
 `;
-
-const TOGGLE_MAP = [
-    {
-        value: null,
-        string: 'default'
-    },
-    {
-        value: true,
-        string: 'true'
-    },
-    {
-        value: false,
-        string: 'false'
-    }
-];
 
 class LowStockInputs extends React.Component {
     static defaultProps = {
@@ -50,36 +34,44 @@ class LowStockInputs extends React.Component {
         }
     };
 
+    static optionValueDefault = 'default';
+    static optionValueOn = 'true';
+    static optionValueOff = 'false';
+
     static optionNameDefault = 'Default';
     static optionNameOn = 'On';
     static optionNameOff = 'Off';
 
+    getSelectOptionsMap = () => {
+        return {
+            [LowStockInputs.optionValueDefault]: this.getDefaultOption(),
+            [LowStockInputs.optionValueOn]: LowStockInputs.getOnOption(),
+            [LowStockInputs.optionValueOff]: LowStockInputs.getOffOption()
+        }
+    };
+
     getSelectOptions = () =>  {
-        return [
-            this.getDefaultOption(),
-            LowStockInputs.getOnOption(),
-            LowStockInputs.getOffOption()
-        ];
+        return Object.values(this.getSelectOptionsMap());
     };
 
     getDefaultOption = () => {
         return {
             name: LowStockInputs.optionNameDefault + '(' + (this.props.default.toggle ? LowStockInputs.optionNameOn : LowStockInputs.optionNameOff) + ')',
-            value: null
+            value: LowStockInputs.optionValueDefault
         }
     };
 
     static getOnOption() {
         return {
             name: this.optionNameOn,
-            value: true
+            value: LowStockInputs.optionValueOn
         };
     }
 
     static getOffOption() {
         return {
             name: this.optionNameOff,
-            value: false
+            value: LowStockInputs.optionValueOff
         };
     }
 
@@ -99,15 +91,11 @@ class LowStockInputs extends React.Component {
     };
 
     getSelectedOption = () => {
-        if (!this.props.lowStockThreshold.toggle || this.props.lowStockThreshold.toggle.editedValue === null) {
+        if (!this.props.lowStockThreshold.toggle) {
             return this.getDefaultOption();
         }
 
-        if (this.props.lowStockThreshold.toggle.editedValue === true) {
-            return LowStockInputs.getOnOption();
-        }
-
-        return LowStockInputs.getOffOption();
+        return this.getSelectOptionsMap()[this.props.lowStockThreshold.toggle.editedValue];
     };
 
     onOptionChange = (selectedOption) => {
@@ -120,7 +108,7 @@ class LowStockInputs extends React.Component {
             return null;
         }
 
-        if (inputValue.editedValue === null || selectedOption.value === null) {
+        if (inputValue.editedValue === null || selectedOption.value === LowStockInputs.optionValueDefault) {
             return this.props.default.value;
         }
 
@@ -128,7 +116,7 @@ class LowStockInputs extends React.Component {
     };
 
     isValueInputDisabled = (selectedOption) => {
-        return selectedOption.value !== true;
+        return selectedOption.value !== LowStockInputs.optionValueOn;
     };
 
     onInputValueChange = (event) => {
@@ -195,8 +183,8 @@ class LowStockInputs extends React.Component {
             return true;
         }
 
-        if (this.getSelectedOption().value === true) {
-            return value.value != value.editedValue;
+        if (this.getSelectedOption().value === LowStockInputs.optionValueOn) {
+            return value.value != (value.editedValue != '' ? value.editedValue : null);
         }
 
         return false;
@@ -229,4 +217,3 @@ class LowStockInputs extends React.Component {
 }
 
 export default LowStockInputs;
-export {TOGGLE_MAP};

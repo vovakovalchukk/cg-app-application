@@ -1,5 +1,4 @@
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import {TOGGLE_MAP} from "../Components/LowStockInputs";
 
 "use strict";
 
@@ -169,7 +168,7 @@ let actionCreators = (function() {
                 try {
                     let response = await updateLowStock(
                         productId,
-                        formatLowStockToggle(toggle),
+                        toggle,
                         formatLowStockValue(toggle, value)
                     );
                     let responseForProduct = {};
@@ -271,16 +270,6 @@ function stockModeHasBeenEdited(productStock, stock, rowData) {
 
 function stockLevelHasBeenEdited(productStock, stock, rowData) {
     return stock.stockLevels.byProductId[rowData.id] && stock.stockLevels.byProductId[rowData.id].valueEdited;
-}
-
-function formatLowStockToggle(toggle) {
-    for (let toggleValue of TOGGLE_MAP) {
-        if (toggleValue.value === toggle) {
-            return toggleValue.string;
-        }
-    }
-
-    return 'default';
 }
 
 function formatLowStockValue(toggle, value) {

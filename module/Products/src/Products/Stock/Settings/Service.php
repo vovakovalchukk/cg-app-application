@@ -18,12 +18,12 @@ class Service
 {
     const LOW_STOCK_THRESHOLD_DEFAULT = 'default';
     const LOW_STOCK_THRESHOLD_ON = 'true';
-    const LOW_STOCK_THRESHOLD_OFF = 'false';
+    const LOW_STOCK_THRESHOLD_OFF = 'true';
 
     const LOW_STOCK_THRESHOLD_MAP = [
-        self::LOW_STOCK_THRESHOLD_DEFAULT => null,
-        self::LOW_STOCK_THRESHOLD_ON => true,
-        self::LOW_STOCK_THRESHOLD_OFF => false
+        self::LOW_STOCK_THRESHOLD_DEFAULT => self::LOW_STOCK_THRESHOLD_DEFAULT,
+        self::LOW_STOCK_THRESHOLD_ON => self::LOW_STOCK_THRESHOLD_ON,
+        self::LOW_STOCK_THRESHOLD_OFF => self::LOW_STOCK_THRESHOLD_OFF
     ];
 
     /** @var UserOUService */
@@ -240,14 +240,13 @@ class Service
         $product = $this->productService->fetch($productId);
         $products = $product->isParent() ? $product->getVariations() : [$product];
 
-        // There can be null values, so we have to use array_key_exists, not isset or the null coalescing operator (??)
-        $toggle = array_key_exists($toggle, static::LOW_STOCK_THRESHOLD_MAP) ? static::LOW_STOCK_THRESHOLD_MAP[$toggle] : static::LOW_STOCK_THRESHOLD_DEFAULT;
+        $toggle = static::LOW_STOCK_THRESHOLD_MAP[$toggle] ?? static::LOW_STOCK_THRESHOLD_DEFAULT;
 
         $resultsById = [];
         foreach ($products as $product) {
             $stock = $this->saveLowStockThreshold($product->getStock()->getId(), $toggle, $value);
             $resultsById[$product->getId()] = [
-                'lowStockThresholdToggle' => $stock->isLowStockThresholdOn(),
+                'lowStockThresholdToggle' => $stock->getLowStockThresholdOn(),
                 'lowStockThresholdValue' => $stock->getLowStockThresholdValue()
             ];
         }
@@ -255,7 +254,7 @@ class Service
         return $resultsById;
     }
 
-    protected function saveLowStockThreshold(int $stockId, ?bool $toggle, ?int $value): Stock
+    protected function saveLowStockThreshold(int $stockId, ?string $toggle, ?int $value): Stock
     {
         try {
             /** @var Stock $stock*/
