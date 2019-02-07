@@ -171,12 +171,7 @@ class Service implements LoggerAwareInterface
             return 0;
         }
 
-        if ($aValue === $bValue) {
-            return 0;
-        }
-
-        $compareValue = ($aValue > $bValue) ? 1 : -1;
-        return $directionChanger * $compareValue;
+        return $directionChanger * ($aValue <=> $bValue);
     }
 
     protected function fetchProductsForSkus(array $skus)
