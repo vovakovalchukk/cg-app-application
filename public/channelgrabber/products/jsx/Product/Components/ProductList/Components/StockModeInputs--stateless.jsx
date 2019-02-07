@@ -46,7 +46,7 @@ class StockModeInputsComponent extends React.Component {
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
 
-            let formattedOption;
+            let formattedOption = {};
 
             if (option.title.indexOf('List all') > -1 || option.value == 'null') {
                 formattedOption = Object.assign({}, option);
@@ -55,16 +55,16 @@ class StockModeInputsComponent extends React.Component {
                 formattedOption = {
                     title: 'List up to',
                     value: option.value
-                }
+                };
             }
             if (option.title.indexOf('Fix') > -1) {
                 formattedOption = {
                     title: 'Fixed at',
                     value: option.value
-                }
+                };
             }
 
-            shortenedOptions.push(formattedOption)
+            shortenedOptions.push(formattedOption);
         }
 
         return shortenedOptions;
@@ -104,7 +104,6 @@ class StockModeInputsComponent extends React.Component {
                         selectToggle={this.props.stockModeSelectToggle}
                         actions={this.props.actions}
                         styleVars={{
-                           widthOfDropdown: 100,
                             widthOfInput: 80
                         }}
                     />

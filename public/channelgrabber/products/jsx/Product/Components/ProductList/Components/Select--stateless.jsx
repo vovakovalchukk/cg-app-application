@@ -58,7 +58,6 @@ class StatelessSelectComponent extends React.Component {
             value={opt.value}
             key={index}
             onClick={this.onOptionSelected.bind(this, opt.value)}
-            title={opt.name}
         >
             <CustomSelectLink value={opt.value} data-trigger-select-click="false">{opt.name}</CustomSelectLink>
         </li>
