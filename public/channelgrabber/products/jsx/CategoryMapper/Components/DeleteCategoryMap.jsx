@@ -40,7 +40,7 @@ class DeleteCategoryMapComponent extends React.Component {
                         <p>Do you want to delete this category map?</p>
                         <p>It will be deleted permanently and it cannot be recovered.</p>
                     </Popup>)}
-                <label className={"map-button remove-button"}>
+                <label className={"map-button remove-button u-float-left u-margin-left-small"}>
                     <div className={"button"} onClick={this.displayConfirmationPopup}>
                         <span>Delete</span>
                     </div>
