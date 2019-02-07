@@ -1,4 +1,5 @@
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import LowStockInputs from "../Components/LowStockInputs";
 
 "use strict";
 
@@ -273,7 +274,7 @@ function stockLevelHasBeenEdited(productStock, stock, rowData) {
 }
 
 function formatLowStockValue(toggle, value) {
-    if (toggle !== true) {
+    if (toggle !== LowStockInputs.optionValueOn) {
         return null;
     }
 
