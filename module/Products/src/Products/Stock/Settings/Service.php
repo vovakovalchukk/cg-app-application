@@ -18,7 +18,7 @@ class Service
 {
     const LOW_STOCK_THRESHOLD_DEFAULT = 'default';
     const LOW_STOCK_THRESHOLD_ON = 'true';
-    const LOW_STOCK_THRESHOLD_OFF = 'true';
+    const LOW_STOCK_THRESHOLD_OFF = 'false';
 
     const LOW_STOCK_THRESHOLD_MAP = [
         self::LOW_STOCK_THRESHOLD_DEFAULT => self::LOW_STOCK_THRESHOLD_DEFAULT,
