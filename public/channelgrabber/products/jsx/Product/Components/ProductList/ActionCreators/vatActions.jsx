@@ -46,12 +46,12 @@ let vatActions = (function() {
                 }
             }
         },
-        toggleVatSelect: (productId, row) => {
+        toggleVatSelect: (productId, countryCode) => {
             return {
-                type: 'STOCK_MODE_SELECT_TOGGLE',
+                type: 'VAT_SELECT_TOGGLE',
                 payload: {
                     productId,
-                    currentStock
+                    countryCode
                 }
             }
         }

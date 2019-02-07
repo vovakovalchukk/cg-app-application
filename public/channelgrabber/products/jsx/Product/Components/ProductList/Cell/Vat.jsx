@@ -26,8 +26,8 @@ class VatCell extends React.Component {
             }
         });
     }
-    selectToggle(row, productId) {
-        this.props.actions.toggleVatSelect(productId, row);
+    selectToggle(productId, countryCode) {
+        this.props.actions.toggleVatSelect(productId, countryCode);
     }
     render() {
         const {
@@ -49,7 +49,6 @@ class VatCell extends React.Component {
         let options = this.generateOptionsFromVatRates(vatRatesForCountry);
 
         let selectedVatKey = productVat.key;
-        debugger;
 
         let selectedVat = options.find(option => (selectedVatKey === option.value));
         if (!selectedVat) {
@@ -68,7 +67,7 @@ class VatCell extends React.Component {
             width,
             allRows: this.props.rows.allIds
         });
-        ////
+
         return (
             <div className={this.props.className}>
                 <StatelessSelect
@@ -77,7 +76,8 @@ class VatCell extends React.Component {
                     onOptionChange={this.changeVat}
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
-                    selectToggle={this.selectToggle.bind(this, row)}
+                    selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
+                    active={productVat.active}
                 />
             </div>
         );

@@ -5,6 +5,11 @@ import reducerCreator from 'Common/Reducers/creator';
 /*
 the state shape with example entries
 vat : {
+    countries: {
+        byId: {
+            id: 'GB'
+        }
+    },
     varRates: [],
     GB: {
         byProductId:{
@@ -20,6 +25,7 @@ vat : {
 */
 
 let initialState = {
+    countries: {},
     vatRates: [],
     productsVat: {}
 };
@@ -27,13 +33,15 @@ let initialState = {
 let vatReducer = reducerCreator(initialState, {
     "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
         let {products} = action.payload;
-        let newProductsVat = getChosenVatFromProducts(products);
+        let countries = getCountries(products);
+        let newProductsVat = getChosenVatFromProducts(products, countries);
 
         let productsVat = Object.assign(state.productsVat, newProductsVat);
         productsVat = sortByKey(productsVat);
 
         let newState = Object.assign({}, state, {
-            productsVat
+            productsVat,
+            countries
         });
         return newState;
     },
@@ -44,7 +52,6 @@ let vatReducer = reducerCreator(initialState, {
         let newState = Object.assign({}, state, {
             vatRates
         });
-
         return newState;
     },
     "VAT_UPDATE_SUCCESS": function(state, action) {
@@ -63,56 +70,39 @@ let vatReducer = reducerCreator(initialState, {
         return state;
     },
     "VAT_SELECT_TOGGLE": function(state, action) {
-        let {productId, row} = action.payload;
-        let stateCopy = Object.assign({}, state);
-         return stateCopy;
-//        let stockModeExists = !!state.stockModes.byProductId[productId];
-//        stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
-//
-//        if (stockModeExists) {
-//            stockModes.byProductId[productId].value = stockModes.byProductId[productId] ? stockModes.byProductId[productId].value : currentStock.stockMode;
-//            stockModes.byProductId[productId].active = !stockModes.byProductId[productId].active;
-//            return applyStockModesToState(stateCopy, stockModes)
-//        }
-//
-//        stockModes.byProductId[productId] = {
-//            value: stockModes.byProductId[productId] ? stockModes.byProductId[productId] : currentStock.stockMode,
-//            valueEdited: '',
-//            active: true
-//        };
-//        return applyStockModesToState(stateCopy, stockModes)
-    },
+        let {productId, countryCode} = action.payload;
+        let vat = Object.assign({}, state);
+        vat = makeAllVatSelectsInactive(vat, productId);
+        vat.productsVat[countryCode].byProductId[productId].active = true;
+        return vat;
+    }
 });
 
 export default vatReducer;
 
-function applyCountryCodesToState(products, productsVat) {
-    for (let product of products) {
-        if (!product.taxRates) {
-            continue;
+function applyCountryCodesToState(productsVat, countries) {
+    for (let countryCode of countries.allIds) {
+        productsVat[countryCode] = {
+            byProductId: {}
         }
-        for (let countryCode of Object.keys(product.taxRates)) {
-            productsVat[countryCode] = {
-                byProductId: {}
-            }
-        }
-        break;
     }
     return productsVat;
 }
 
-function getChosenVatFromProducts(products) {
-    let productsVat = {};
+function getChosenVatFromProducts(products, countries) {
+    let productsVat = {
+        allProductIds: []
+    };
 
-    productsVat = applyCountryCodesToState(products, productsVat);
-
-    for(let product of products){
+    productsVat = applyCountryCodesToState(productsVat, countries);
+    for (let product of products) {
         if (!product.taxRates) {
             continue;
         }
-        for(let countryCode of Object.keys(product.taxRates)){
+        productsVat.allProductIds.push(product.id);
+        for (let countryCode of Object.keys(product.taxRates)) {
             let taxOptionsForCountry = product.taxRates[countryCode];
-            for(let taxOptionKey of Object.keys(taxOptionsForCountry)){
+            for (let taxOptionKey of Object.keys(taxOptionsForCountry)) {
                 let option = taxOptionsForCountry[taxOptionKey];
                 if (!option.selected) {
                     continue;
@@ -135,6 +125,26 @@ function sortByKey(unordered) {
     return ordered;
 }
 
+function getCountries(products) {
+    let countries = {
+        byId: {},
+        allIds: []
+    };
+    for (let product of products) {
+        if (!product.taxRates) {
+            continue;
+        }
+        for (let countryCode of Object.keys(product.taxRates)) {
+            countries.byId[countryCode] = {
+                countryCode
+            };
+            countries.allIds.push(countryCode);
+        }
+        break;
+    }
+    return countries;
+}
+
 function formatTaxOptions(taxRates) {
     let options = {};
     Object.keys(taxRates).forEach((countryCode) => {
@@ -149,11 +159,22 @@ function formatTaxOptions(taxRates) {
                 label: generateLabel(option)
             }
         })
-    });
-
+    })
     return options;
 }
 
 function generateLabel(option) {
     return option.rate + "%" + ' (' + option.name + ')';
+}
+
+function makeAllVatSelectsInactive(vat, toggledProductId) {
+    let vatCopy = Object.assign({}, vat);
+    let countryCodes = vatCopy.countries.allIds;
+
+    for (let country of countryCodes) {
+        for (let productId of vatCopy.productsVat.allProductIds) {
+            vatCopy.productsVat[country].byProductId[productId].active = false;
+        }
+    }
+    return vatCopy;
 }
