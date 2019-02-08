@@ -1,27 +1,45 @@
 <?php
 namespace Products\Product\BulkActions\Action;
 
-use CG_UI\View\BulkActions\Action;
-use Zend\View\Model\ViewModel;
-use SplObjectStorage;
-use Products\Module;
-use CG_UI\Module as CG_UI;
+use CG\FeatureFlags\Service as FeatureFlagsService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Import\UpdateOptions;
+use CG\User\ActiveUserInterface;
+use CG_UI\Module as CG_UI;
+use CG_UI\View\BulkActions\Action;
+use CG_UI\View\BulkActions\FeatureFlagRequiredInterface;
+use Products\Module;
+use SplObjectStorage;
+use Zend\View\Model\ViewModel;
 
-class ProductLinkImport extends Action
+
+class ProductLinkImport extends Action implements FeatureFlagRequiredInterface
 {
     const ICON = 'sprite-csv-upload-22-black';
+    const FEATURE_FLAG = 'Product Link Export';
 
     protected $urlView;
+    /** @var FeatureFlagsService */
+    protected $featureFlagService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
+    /** @var OrganisationUnitService */
+    protected $ouService;
 
     public function __construct(
         ViewModel $urlView,
-        array $elementData = [],
+        FeatureFlagsService $featureFlagService,
+        ActiveUserInterface $activeUserContainer,
+        OrganisationUnitService $ouService,
         ViewModel $javascript = null,
-        SplObjectStorage $subActions = null
+        SplObjectStorage $subActions = null,
+        array $elementData = []
     ) {
         parent::__construct(static::ICON, "Product Link Import", "productLinkImport", $elementData, $javascript, $subActions);
         $this->setUrlView($urlView)->configure();
+        $this->featureFlagService = $featureFlagService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->ouService = $ouService;
     }
 
     /**
@@ -71,5 +89,15 @@ class ProductLinkImport extends Action
     {
         $this->urlView = $urlView;
         return $this;
+    }
+
+    public function isFeatureEnabled(): bool
+    {
+        return $this->featureFlagService->isActive(
+            static::FEATURE_FLAG,
+            $this->ouService->getRootOuFromOuId(
+                $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+            )
+        );
     }
 }
