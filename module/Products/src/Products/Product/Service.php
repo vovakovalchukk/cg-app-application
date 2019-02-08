@@ -31,6 +31,7 @@ use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -66,6 +67,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LIMIT = 50;
     const PAGE = 1;
     const MAX_FOREGROUND_DELETES = 5;
+    const MAX_SAVE_ATTEMPTS = 2;
     const NAV_KEY_FEATURE_FLAG = 'featureFlag';
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
@@ -428,7 +430,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $id;
     }
 
-    public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock
+    public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders, int $attempt = 1): Stock
     {
         /** @var ProductSettings $productSettings */
         $productSettings = $this->productSettingsService->fetch($product->getOrganisationUnitId());
@@ -442,7 +444,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $stock->setIncludePurchaseOrdersUseDefault(false)
                 ->setIncludePurchaseOrders($includePurchaseOrders);
         }
-        return $this->stockStorage->save($stock);
+        try {
+            return $this->stockStorage->save($stock);
+        } catch (HttpNotModified $e) {
+            // No-op
+            return $stock;
+        } catch (Conflict $e) {
+            if ($attempt >= static::MAX_SAVE_ATTEMPTS) {
+                throw $e;
+            }
+            return $this->saveStockIncludePurchaseOrdersForProduct($product, $includePurchaseOrders, ++$attempt);
+        }
     }
 
     protected function getActiveUserPreference()
