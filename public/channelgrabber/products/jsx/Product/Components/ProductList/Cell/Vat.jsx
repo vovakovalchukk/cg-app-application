@@ -79,8 +79,8 @@ class VatCell extends React.Component {
                     selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
                     active={productVat.active}
                     styleVars={{
-                        widthOfInput: 120,
-                        widthOfDropdown: 140
+                        widthOfInput: 110,
+                        widthOfDropdown: 130
                     }}
                 />
             </div>
