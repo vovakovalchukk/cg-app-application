@@ -13,7 +13,8 @@ class VatCell extends React.Component {
         distanceFromLeftSideOfTableToStartOfCell: '',
         actions: {},
         vat: {},
-        scroll: {}
+        scroll: {},
+        rows: {}
     };
 
     state = {};
@@ -36,7 +37,10 @@ class VatCell extends React.Component {
         this.props.actions.toggleVatSelect(productId, countryCode);
     };
     getVatSelectActive(activePropOnState) {
-        if (!activePropOnState || this.props.scroll.userScrolling) {
+        if (!activePropOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+            if(this.props.rowIndex===1){
+                debugger;
+            }
             return false;
         }
         return true;
