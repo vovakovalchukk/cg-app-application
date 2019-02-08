@@ -8,6 +8,7 @@ use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stock\Entity as Stock;
 use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdUpdateGenerator;
 use CG\Stock\Mode as StockMode;
@@ -16,11 +17,7 @@ use CG\User\OrganisationUnit\Service as UserOUService;
 
 class Service
 {
-    const LOW_STOCK_THRESHOLD_MAP = [
-        STOCK::LOW_STOCK_THRESHOLD_DEFAULT => STOCK::LOW_STOCK_THRESHOLD_DEFAULT,
-        STOCK::LOW_STOCK_THRESHOLD_ON => STOCK::LOW_STOCK_THRESHOLD_ON,
-        STOCK::LOW_STOCK_THRESHOLD_OFF => STOCK::LOW_STOCK_THRESHOLD_OFF
-    ];
+    const MAX_SAVE_ATTEMPTS = 3;
 
     /** @var UserOUService */
     protected $userOUService;
@@ -236,7 +233,7 @@ class Service
         $product = $this->productService->fetch($productId);
         $products = $product->isParent() ? $product->getVariations() : [$product];
 
-        $toggle = static::LOW_STOCK_THRESHOLD_MAP[$toggle] ?? Stock::LOW_STOCK_THRESHOLD_DEFAULT;
+        $toggle = Stock::isValidLowStockThresholdOption($toggle) ? $toggle : Stock::LOW_STOCK_THRESHOLD_DEFAULT;
 
         $resultsById = [];
         foreach ($products as $product) {
@@ -252,20 +249,25 @@ class Service
 
     protected function saveLowStockThreshold(int $stockId, ?string $toggle, ?int $value): Stock
     {
-        try {
-            /** @var Stock $stock*/
-            $stock = $this->stockStorage->fetch($stockId);
-            $stock
-                ->setLowStockThresholdOn($toggle)
-                ->setLowStockThresholdValue($value);
-            $this->stockStorage->save($stock);
-            // Only generate the low stock threshold triggered job if the stock entity was updated
-            $this->lowStockThresholdUpdateGenerator->generateJob($stock->getId());
-        } catch (NotModified $e) {
-            // no-op
+        for ($attempt = 0; $attempt < self::MAX_SAVE_ATTEMPTS; $attempt++) {
+            try {
+                /** @var Stock $stock */
+                $stock = $this->stockStorage->fetch($stockId);
+                $stock
+                    ->setLowStockThresholdOn($toggle)
+                    ->setLowStockThresholdValue($value);
+                $this->stockStorage->save($stock);
+                // Only generate the low stock threshold triggered job if the stock entity was updated
+                $this->lowStockThresholdUpdateGenerator->generateJob($stock->getId());
+                return $stock;
+            } catch (NotModified $e) {
+                return $stock;
+            } catch (Conflict $e) {
+                continue;
+            }
         }
 
-        return $stock;
+        throw $e;
     }
 
     public function saveStockStockLevel($stockId, $stockLevel, $eTag = null): Stock
