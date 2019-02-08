@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc02dfba7b9383d84825ceb7e1be6e31",
+    "content-hash": "a7e8bb0e78f977b5358b16821b6b31e5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -492,16 +492,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.6",
+            "version": "dev-CGIV-10347-new-pricing-scheme",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "c8b7a2e9e298096326dabd49fab90db757cd4f70"
+                "reference": "b3a48f37093ee3ba318ff722c1a0463c6f9314b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.6-8d85d6.zip",
-                "reference": "c8b7a2e9e298096326dabd49fab90db757cd4f70",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10347-new-pricing-scheme-57f8db.zip",
+                "reference": "b3a48f37093ee3ba318ff722c1a0463c6f9314b8",
                 "shasum": null
             },
             "require": {
@@ -535,6 +535,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-10347-new-pricing-scheme": "1.20.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -550,7 +555,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-21T11:01:36+00:00"
+            "time": "2019-02-08T15:04:15+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -10978,9 +10983,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.20.7",
+            "alias_normalized": "1.20.7.0",
+            "version": "dev-CGIV-10347-new-pricing-scheme",
+            "package": "channelgrabber/billing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
