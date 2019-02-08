@@ -1,6 +1,6 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import StatelessSelect from 'Common/Components/Select--stateless';
+import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
 import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 
@@ -61,7 +61,7 @@ class VatCell extends React.Component {
             value: selectedVatKey
         };
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.SELECT_DROPDOWN,
+            elemType: elementTypes.SELECT_VAT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
@@ -79,8 +79,8 @@ class VatCell extends React.Component {
                     selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
                     active={productVat.active}
                     styleVars={{
-                        widthOfInput: 80,
-                        widthOfDropdown: 100
+                        widthOfInput: 120,
+                        widthOfDropdown: 140
                     }}
                 />
             </div>
