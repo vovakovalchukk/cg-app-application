@@ -430,30 +430,38 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $id;
     }
 
-    public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders, int $attempt = 1): Stock
+    public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock
     {
-        /** @var ProductSettings $productSettings */
-        $productSettings = $this->productSettingsService->fetch($product->getOrganisationUnitId());
-        $stockCollection = $this->fetchStockCollectionBySkusAndOuId([$product->getSku()], $product->getOrganisationUnitId());
+        $stockCollection = $this->fetchStockCollectionBySkusAndOuId([$product->getSku()],
+            $product->getOrganisationUnitId());
         /** @var Stock $stock */
         $stock = $stockCollection->getFirst();
-        if ($includePurchaseOrders === null) {
-            $stock->setIncludePurchaseOrdersUseDefault(true)
-                ->setIncludePurchaseOrders($productSettings->isIncludePurchaseOrdersInAvailable());
-        } else {
-            $stock->setIncludePurchaseOrdersUseDefault(false)
-                ->setIncludePurchaseOrders($includePurchaseOrders);
-        }
-        try {
-            return $this->stockStorage->save($stock);
-        } catch (HttpNotModified $e) {
-            // No-op
-            return $stock;
-        } catch (Conflict $e) {
-            if ($attempt >= static::MAX_SAVE_ATTEMPTS) {
-                throw $e;
+        return $this->saveStockIncludePurchaseOrders($stock, $includePurchaseOrders);
+    }
+
+    protected function saveStockIncludePurchaseOrders(Stock $stock, ?bool $includePurchaseOrders): Stock
+    {
+        /** @var ProductSettings $productSettings */
+        $productSettings = $this->productSettingsService->fetch($stock->getOrganisationUnitId());
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
+            if ($includePurchaseOrders === null) {
+                $stock->setIncludePurchaseOrdersUseDefault(true)
+                    ->setIncludePurchaseOrders($productSettings->isIncludePurchaseOrdersInAvailable());
+            } else {
+                $stock->setIncludePurchaseOrdersUseDefault(false)
+                    ->setIncludePurchaseOrders($includePurchaseOrders);
             }
-            return $this->saveStockIncludePurchaseOrdersForProduct($product, $includePurchaseOrders, ++$attempt);
+            try {
+                return $this->stockStorage->save($stock);
+            } catch (HttpNotModified $e) {
+                // No-op
+                return $stock;
+            } catch (Conflict $e) {
+                if ($attempt >= static::MAX_SAVE_ATTEMPTS) {
+                    throw $e;
+                }
+                $stock = $this->stockStorage->fetch($stock->getId());
+            }
         }
     }
 
