@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import styled from 'styled-components';
-import portalFactory from "../Portal/portalFactory";
 
 const Dropdown = (props) => (
     <div className={"custom-select active"}>
@@ -34,10 +33,14 @@ class StatelessSelectComponent extends React.Component {
     static defaultProps = {
         inputId: '',
         title: '',
-        onClick: () => {
-        },
+        onClick: () => {},
         portalSettingsForDropdown: {},
-        active: false
+        active: false,
+        selectedOption: {},
+        classNames: '',
+        styleVars: {},
+        prefix: '',
+        selectToggle: () => {}
     };
     onComponentClick = () => {
         this.props.selectToggle(this.props.inputId);
@@ -46,7 +49,7 @@ class StatelessSelectComponent extends React.Component {
         return this.props.selectedOption && this.props.selectedOption.name ? this.props.selectedOption.name : ''
     };
     getClassNames = () => {
-        return 'custom-select ' + this.props.classNames + (this.props.active ? 'active' : '');
+        return 'custom-select ' + this.props.classNames + (this.props.active ? ' active' : '');
     };
     onOptionSelected = (value) => {
         var selectedOption = this.props.options.find(function(option) {
@@ -71,15 +74,18 @@ class StatelessSelectComponent extends React.Component {
     };
     renderDropdownInPortal = () => {
         let portalSettings = this.props.portalSettingsForDropdown;
-        return portalFactory.createPortal({
-            portalSettings,
-            Component: StyledDropdown,
-            componentProps: {
-                renderOptions: this.renderOptions,
-                width: this.props.styleVars.widthOfDropdown,
-                className:'u-ease_0-1'
-            }
-        });
+        return ReactDOM.createPortal(
+            (
+                <portalSettings.PortalWrapper>
+                    <StyledDropdown
+                        renderOptions={this.renderOptions}
+                        width={this.props.styleVars.widthOfDropdown}
+                        className='u-ease_0-1'
+                    />
+                </portalSettings.PortalWrapper>
+            ),
+            portalSettings.domNodeForSubmits
+        );
     };
     renderDropdown = () => {
         if (!this.props.active) {
