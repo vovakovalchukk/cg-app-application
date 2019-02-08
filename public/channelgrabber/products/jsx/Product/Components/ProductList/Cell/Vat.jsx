@@ -7,7 +7,13 @@ import portalSettingsFactory from "../Portal/settingsFactory";
 class VatCell extends React.Component {
     static defaultProps = {
         products: {},
-        rowIndex: null
+        rowIndex: null,
+        countryCode:'',
+        width: '',
+        distanceFromLeftSideOfTableToStartOfCell: '',
+        actions: {},
+        vat: {},
+        scroll: {}
     };
 
     state = {};
@@ -25,10 +31,16 @@ class VatCell extends React.Component {
                 value: rate
             }
         });
-    }
+    };
     selectToggle(productId, countryCode) {
         this.props.actions.toggleVatSelect(productId, countryCode);
-    }
+    };
+    getVatSelectActive(activePropOnState) {
+        if (!activePropOnState || this.props.scroll.userScrolling) {
+            return false;
+        }
+        return true;
+    };
     render() {
         const {
             products,
@@ -77,7 +89,7 @@ class VatCell extends React.Component {
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
                     selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
-                    active={productVat.active}
+                    active={this.getVatSelectActive(productVat.active)}
                     styleVars={{
                         widthOfInput: 110,
                         widthOfDropdown: 130

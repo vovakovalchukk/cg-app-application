@@ -18,7 +18,7 @@ const columnSpecificPropsMap = {
     available: ['rows'],
     dimensions: ['rows'],
     weight: ['rows'],
-    vat: ['rows', 'vat'],
+    vat: ['rows', 'vat', 'scroll'],
     bulkSelect: ['bulkSelect']
 };
 const columnNoWrapper = [columnKeys.stockMode];
