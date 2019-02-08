@@ -87,24 +87,25 @@ let stockColumns = [
         fixed: false,
         tab: 'stock',
         align: 'center'
-    },
-    {
-        key: 'lowStock',
-        width: 200,
-        headerText: 'Low stock',
-        fixed: false,
-        tab: 'stock',
-        align: 'center'
     }
 ];
 
+const lowStockColumn = {
+    key: 'lowStock',
+    width: 200,
+    headerText: 'Low stock',
+    fixed: false,
+    tab: 'stock',
+    align: 'center'
+};
+
 let columnService = (function() {
     return {
-        generateColumnSettings: function(accounts, vat) {
-            let listingsColumns = generateListingsColumnsFromAccounts(accounts);
-            let vatColumns = generateVatColumns(vat);
-            let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns, stockColumns);
-            return generatedColumns;
+        generateColumnSettings: function(accounts, vat, features) {
+            const listingsColumns = generateListingsColumnsFromAccounts(accounts);
+            const vatColumns = generateVatColumns(vat);
+            const stockColumns = generateStockColumns(features);
+            return coreColumns.concat(listingsColumns, detailsColumns, vatColumns, stockColumns);
         }
     }
 }());
@@ -141,6 +142,15 @@ function generateVatColumns(vat) {
             }
         }
     });
+}
+
+function generateStockColumns(features) {
+    if (!features.lowStockThresholdEnabled) {
+        return stockColumns;
+    }
+
+    stockColumns.push(lowStockColumn);
+    return lowStockColumn;
 }
 
 function generateListingsColumnsFromAccounts(accounts) {

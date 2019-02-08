@@ -28,6 +28,7 @@ use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
+use Settings\Controller\StockController;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -129,6 +130,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ),
             'stockTabEnabled' => $this->featureFlagService->featureEnabledForOu(
                 static::STOCK_TAB_FEATURE_FLAG,
+                $rootOuId,
+                $rootOu
+            ),
+            'lowStockThresholdEnabled' => $this->featureFlagService->featureEnabledForOu(
+                StockController::FEATURE_FLAG_LOW_STOCK_THRESHOLD,
                 $rootOuId,
                 $rootOu
             )

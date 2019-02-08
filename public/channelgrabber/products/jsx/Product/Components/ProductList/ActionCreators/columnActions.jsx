@@ -3,11 +3,12 @@ import columnService from 'Product/Components/ProductList/Column/service';
     
     let columnActions = (function() {
         return {
-            generateColumnSettings: () => {
+            generateColumnSettings: (features) => {
                 return function(dispatch, getState) {
                     let columnSettings = columnService.generateColumnSettings(
                         getState.customGetters.getAccounts().accounts,
-                        getState.customGetters.getVat()
+                        getState.customGetters.getVat(),
+                        features
                     );
                     dispatch({
                         type: "COLUMNS_GENERATE_SETTINGS",
