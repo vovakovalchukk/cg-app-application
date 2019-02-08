@@ -68,9 +68,6 @@ class StockModeCell extends React.Component {
     };
 
     getStockModeSelectActive(row) {
-        if(row.id===1){
-            debugger;
-        }
         if (!this.props.stock.stockModes.byProductId[row.id] || this.props.scroll.userScrolling) {
             return false;
         }

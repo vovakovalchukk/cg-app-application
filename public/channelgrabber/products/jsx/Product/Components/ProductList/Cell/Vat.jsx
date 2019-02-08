@@ -78,6 +78,10 @@ class VatCell extends React.Component {
                     portalSettingsForDropdown={portalSettingsForDropdown}
                     selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
                     active={productVat.active}
+                    styleVars={{
+                        widthOfInput: 80,
+                        widthOfDropdown: 100
+                    }}
                 />
             </div>
         );

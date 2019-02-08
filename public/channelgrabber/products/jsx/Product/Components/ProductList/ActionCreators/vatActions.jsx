@@ -56,17 +56,6 @@ let vatActions = (function() {
             }
         }
     }
-//            return function(dispatch, getState) {
-//                let currentStock = getState.customGetters.getStock(productId);
-//                dispatch({
-//                    type: 'STOCK_MODE_SELECT_TOGGLE',
-//                    payload: {
-//                        productId,
-//                        currentStock
-//                    }
-//                });
-//            }
-//}
 })();
 
 export default vatActions;
