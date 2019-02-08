@@ -10,22 +10,24 @@ use CG\CGLib\Gearman\Workload\PushAllStockForAccount as PushAllStockForAccountWo
 use CG\Channel\Type as ChannelType;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
-use CG\Product\Client\Service as ProductService;
-use CG\Product\Collection as ProductCollection;
-use CG\Product\Entity as Product;
-use CG\Product\Filter as ProductFilter;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use function CG\Stdlib\registerShutdownFunction;
+use CG\Stock\Collection as StockCollection;
+use CG\Stock\Entity as Stock;
+use CG\Stock\Filter as StockFilter;
 use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdJobGenerator;
+use CG\Stock\Service as StockService;
 use GearmanClient;
+use function CG\Stdlib\registerShutdownFunction;
 
 class Service implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const STOCK_FETCH_LIMIT = 300;
 
     const LOG_CODE = 'StockSettingsService';
     const LOG_SAVE_DEFAULTS = 'Saving default stock settings for OU %d: %s';
@@ -41,8 +43,8 @@ class Service implements LoggerAwareInterface
     protected $productSettingsService;
     /** @var GearmanClient */
     protected $gearmanClient;
-    /** @var ProductService */
-    protected $productService;
+    /** @var StockService */
+    protected $stockService;
     /** @var LowStockThresholdJobGenerator */
     protected $lowStockThresholdJobGenerator;
 
@@ -50,13 +52,13 @@ class Service implements LoggerAwareInterface
         AccountService $accountService,
         ProductSettingsService $productSettingsService,
         GearmanClient $gearmanClient,
-        ProductService $productService,
+        StockService $stockService,
         LowStockThresholdJobGenerator $lowStockThresholdJobGenerator
     ) {
         $this->accountService = $accountService;
         $this->productSettingsService = $productSettingsService;
         $this->gearmanClient = $gearmanClient;
-        $this->productService = $productService;
+        $this->stockService = $stockService;
         $this->lowStockThresholdJobGenerator = $lowStockThresholdJobGenerator;
     }
 
@@ -149,33 +151,27 @@ class Service implements LoggerAwareInterface
      */
     protected function fetchAllStockIdsForOu(ProductSettings $settings): \Generator
     {
-        $limit = ProductService::DEFAULT_STAGGERING_LIMIT;
-        $limit = 2;
         $page = 1;
 
-        $filter = (new ProductFilter())
-            ->setLimit($limit)
+        $filter = (new StockFilter())
+            ->setLimit(static::STOCK_FETCH_LIMIT)
             ->setPage($page)
-            ->setOrganisationUnitId([$settings->getOrganisationUnitId()])
-            ->setType([ProductFilter::TYPE_SIMPLE, ProductFilter::TYPE_VARIATION])
-            ->setEmbeddedDataToReturn(['stock']);
+            ->setOrganisationUnitId([$settings->getOrganisationUnitId()]);
 
         try {
             do {
-                /** @var ProductCollection $productCollection */
-                $productCollection = $this->productService->fetchCollectionByFilter($filter);
+                /** @var StockCollection$productCollection */
+                $stockCollection = $this->stockService->fetchCollectionByFilter($filter);
 
-                /** @var Product $product */
-                foreach ($productCollection as $product) {
-                    if ($product->getStock()) {
-                        yield $product->getStock()->getId();
-                    }
+                /** @var Stock $stock*/
+                foreach ($stockCollection as $stock) {
+                    yield $stock->getId();
                 }
 
-                $total = $productCollection->getTotal();
+                $total = $stockCollection->getTotal();
                 $filter->setPage(++$page);
 
-            } while ($total > $limit * $page);
+            } while ($total > static::STOCK_FETCH_LIMIT * $page);
         } catch (NotFound $e) {
             // nothing to do
         }
