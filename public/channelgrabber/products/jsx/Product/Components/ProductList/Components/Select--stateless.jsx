@@ -40,7 +40,7 @@ class StatelessSelectComponent extends React.Component {
         classNames: '',
         styleVars: {},
         prefix: '',
-        selectToggle: ()=>{}
+        selectToggle: () => {}
     };
     onComponentClick = () => {
         this.props.selectToggle(this.props.inputId);

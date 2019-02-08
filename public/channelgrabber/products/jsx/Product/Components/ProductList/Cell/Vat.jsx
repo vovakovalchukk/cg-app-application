@@ -8,7 +8,7 @@ class VatCell extends React.Component {
     static defaultProps = {
         products: {},
         rowIndex: null,
-        countryCode:'',
+        countryCode: '',
         width: '',
         distanceFromLeftSideOfTableToStartOfCell: '',
         actions: {},
@@ -38,7 +38,7 @@ class VatCell extends React.Component {
     };
     getVatSelectActive(activePropOnState) {
         if (!activePropOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            if(this.props.rowIndex===1){
+            if (this.props.rowIndex === 1) {
                 debugger;
             }
             return false;
