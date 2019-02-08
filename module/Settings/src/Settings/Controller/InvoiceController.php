@@ -31,6 +31,7 @@ use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -226,6 +227,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
+            ->addChild($this->getInvoiceSettingsItemVariationAttributesCheckboxView($invoiceSettings), 'itemVariationAttributesCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
             ->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
@@ -448,6 +450,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'itemBarcodes',
                     'name' => 'itemBarcodes',
                     'selected' => $invoiceSettings->getItemBarcodes(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsItemVariationAttributesCheckboxView(InvoiceSettingsEntity $invoiceSettings): ViewModel
+    {
+        return $this->viewModelFactory
+            ->newInstance(
+                [
+                    'id' => 'itemVariationAttributes',
+                    'name' => 'itemVariationAttributes',
+                    'selected' => $invoiceSettings->getItemVariationAttributes(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');

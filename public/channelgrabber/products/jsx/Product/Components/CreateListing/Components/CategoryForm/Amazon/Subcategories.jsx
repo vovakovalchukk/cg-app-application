@@ -58,6 +58,7 @@ class SubcategoriesComponent extends React.Component {
                 onOptionChange={this.onCategorySelected.bind(this, field.input, field.fields, field.index)}
                 selectedOption={field.input.value.selected}
                 className={"sub-category-select"}
+                filterable={true}
             />
             {field.index === 0 && this.renderRemoveButton(field.fields)}
         </span>
@@ -117,7 +118,7 @@ class SubcategoriesComponent extends React.Component {
     };
 
     render() {
-        return <label className="input-container">
+        return <div className="input-container">
             <span className={"inputbox-label"}>Subcategory</span>
             <div className={"order-inputbox-holder sub-category-select-container"}>
                 <FieldArray
@@ -126,7 +127,7 @@ class SubcategoriesComponent extends React.Component {
                     rerenderOnEveryChange={true}
                 />
             </div>
-        </label>;
+        </div>;
     }
 }
 

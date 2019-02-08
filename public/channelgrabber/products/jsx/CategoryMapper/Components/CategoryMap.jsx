@@ -41,23 +41,27 @@ class CategoryMapComponent extends React.Component {
 
     renderAccountCategorySelectComponent = (accountId, field) => {
         var accountData = this.props.accounts[accountId];
-        return <label>
-            <span
-                className={"inputbox-label"}>{accountData.displayName}
-            </span>
-            <AccountCategorySelect
-                {...field}
-                accountId={accountId}
-                categories={accountData.categories}
-                refreshing={accountData.refreshing}
-                refreshable={accountData.refreshable}
-                selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
-                onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
-                onRefreshClick={this.props.onRefreshClick}
-                onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
-            />
-            {this.renderErrorMessageForCategory(accountId, field)}
-        </label>;
+        return <div class="select-wrapper u-margin-bottom-med">
+            <div className={"inputbox-label"}>
+                {accountData.displayName}
+            </div>
+            <div>
+                <AccountCategorySelect
+                    {...field}
+                    accountId={accountId}
+                    categories={accountData.categories}
+                    refreshing={accountData.refreshing}
+                    refreshable={accountData.refreshable}
+                    selectedCategories={accountData.selectedCategories ? accountData.selectedCategories : []}
+                    onCategorySelected={this.props.onCategorySelected.bind(this, this.props.mapId)}
+                    onRefreshClick={this.props.onRefreshClick}
+                    onRemoveButtonClick={this.props.onRemoveButtonClick.bind(this, this.props.mapId)}
+                />
+            </div>
+            <div>
+                {this.renderErrorMessageForCategory(accountId, field)}
+            </div>
+        </div>;
     };
 
     renderCategorySelects = () => {
@@ -74,7 +78,7 @@ class CategoryMapComponent extends React.Component {
                 />
             );
         };
-        return <div className={"category-selects-container"}>
+        return <div className={"category-selects-container u-margin-top-med"}>
             {selects}
         </div>;
     };
@@ -92,7 +96,7 @@ class CategoryMapComponent extends React.Component {
             touched = field.meta.touched,
             error = field.meta.error;
 
-        return <label>
+        return <div>
             <div className={"order-inputbox-holder"}>
                 <input
                     {...field.input}
@@ -103,15 +107,15 @@ class CategoryMapComponent extends React.Component {
             {touched && error && (
                 <span className="input-error">{error}</span>
             )}
-        </label>;
+        </div>;
     };
 
     renderSaveButton = () => {
-        return <label className={"map-button save-button"}>
+        return <div className={"map-button save-button u-float-left u-margin-left-small"}>
             <div className={"button" + (this.props.submitting ? " disabled" : "")} onClick={this.onSaveButtonClick}>
                 <span>Save</span>
             </div>
-        </label>
+        </div>
     };
 
     renderDeleteButton = () => {
@@ -127,11 +131,11 @@ class CategoryMapComponent extends React.Component {
         if (!this.props.closeButtonVisible) {
             return null;
         }
-        return <label className={"map-button save-button"}>
+        return <div className={"map-button save-button u-float-left u-margin-left-small"}>
             <div className={"button"} onClick={this.props.onCloseButtonPressed}>
                 <span>Close</span>
             </div>
-        </label>
+        </div>
     };
 
     renderFormErrorMessage = () => {
@@ -152,7 +156,7 @@ class CategoryMapComponent extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <div className={"order-form half product-container category-map-container"}>
-                    <div className={"header-container"}>
+                    <div className={"header-container u-margin-top-small"}>
                         {this.renderNameField()}
                         {this.renderCloseButton()}
                         {this.renderSaveButton()}
@@ -189,7 +193,7 @@ var getSelectedLeafCategoriesByAccount = function(categoryMap) {
     }
 
     return categories;
-}
+};
 
 var convertCategoryMapToFormData = function(categoryMap) {
     return {
@@ -197,7 +201,7 @@ var convertCategoryMapToFormData = function(categoryMap) {
         etag: categoryMap.etag,
         categories: getSelectedLeafCategoriesByAccount(categoryMap)
     }
-}
+};
 
 var mapStateToProps = function (state, ownProps) {
     return {
@@ -225,4 +229,3 @@ var mapDispatchToProps = function (dispatch) {
 
 var CategoryMapConnector = connect(mapStateToProps, mapDispatchToProps);
 export default CategoryMapConnector(CategoryMapComponent);
-
