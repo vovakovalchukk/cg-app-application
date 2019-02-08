@@ -10,11 +10,17 @@ use CG\CGLib\Gearman\Workload\PushAllStockForAccount as PushAllStockForAccountWo
 use CG\Channel\Type as ChannelType;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Client\Service as ProductService;
+use CG\Product\Collection as ProductCollection;
+use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use function CG\Stdlib\registerShutdownFunction;
+use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdJobGenerator;
 use GearmanClient;
 
 class Service implements LoggerAwareInterface
@@ -35,15 +41,23 @@ class Service implements LoggerAwareInterface
     protected $productSettingsService;
     /** @var GearmanClient */
     protected $gearmanClient;
+    /** @var ProductService */
+    protected $productService;
+    /** @var LowStockThresholdJobGenerator */
+    protected $lowStockThresholdJobGenerator;
 
     public function __construct(
         AccountService $accountService,
         ProductSettingsService $productSettingsService,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        ProductService $productService,
+        LowStockThresholdJobGenerator $lowStockThresholdJobGenerator
     ) {
-        $this->setAccountService($accountService)
-            ->setProductSettingsService($productSettingsService)
-            ->setGearmanClient($gearmanClient);
+        $this->accountService = $accountService;
+        $this->productSettingsService = $productSettingsService;
+        $this->gearmanClient = $gearmanClient;
+        $this->productService = $productService;
+        $this->lowStockThresholdJobGenerator = $lowStockThresholdJobGenerator;
     }
 
     public function saveDefaults(
@@ -60,6 +74,10 @@ class Service implements LoggerAwareInterface
 
         /** @var ProductSettings $productSettings */
         $productSettings = $this->productSettingsService->fetch($rootOu->getId());
+
+        $existingLowStockThresholdToggle = $productSettings->isLowStockThresholdOn();
+        $existingLowStockThresholdValue = $productSettings->getLowStockThresholdValue();
+
         $productSettings
             ->setDefaultStockMode($defaultStockMode)
             ->setDefaultStockLevel($defaultStockLevel)
@@ -68,6 +86,17 @@ class Service implements LoggerAwareInterface
 
         try {
             $this->productSettingsService->save($productSettings);
+
+            /**
+             * This method has to be called on shutdown so that the response is sent to the browser first, then we
+             * generate this jobs for settings the slow stock threshold
+             */
+            registerShutdownFunction(
+                [$this, 'generateLowStockThresholdUpdateJobs'],
+                $existingLowStockThresholdToggle,
+                $existingLowStockThresholdValue,
+                $productSettings
+            );
         } catch (NotModified $e) {
             // No-op
         }
@@ -75,6 +104,7 @@ class Service implements LoggerAwareInterface
         $this->triggerStockPushForAccounts(
             $this->getSalesAccountsForOU($ouList)
         );
+
 
         $this->removeGlobalLogEventParam('ou');
     }
@@ -98,6 +128,56 @@ class Service implements LoggerAwareInterface
             );
             $this->logDebug(static::LOG_STOCK_PUSH_JOB, [$jobId, $account->getId()], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account');
+        }
+    }
+
+    public function generateLowStockThresholdUpdateJobs(bool $toggle, ?int $value, ProductSettings $settings): void
+    {
+        if ($settings->getLowStockThresholdValue() === $value && $settings->isLowStockThresholdOn() === $toggle) {
+            // Nothing to generate, the low stock threshold hasn't changed
+            return;
+        }
+
+        foreach ($this->fetchAllStockIdsForOu($settings) as $stockId) {
+            $this->lowStockThresholdJobGenerator->generateJob($stockId);
+        }
+    }
+
+    /**
+     * @param ProductSettings $settings
+     * @return \Generator|int[]
+     */
+    protected function fetchAllStockIdsForOu(ProductSettings $settings): \Generator
+    {
+        $limit = ProductService::DEFAULT_STAGGERING_LIMIT;
+        $limit = 2;
+        $page = 1;
+
+        $filter = (new ProductFilter())
+            ->setLimit($limit)
+            ->setPage($page)
+            ->setOrganisationUnitId([$settings->getOrganisationUnitId()])
+            ->setType([ProductFilter::TYPE_SIMPLE, ProductFilter::TYPE_VARIATION])
+            ->setEmbeddedDataToReturn(['stock']);
+
+        try {
+            do {
+                /** @var ProductCollection $productCollection */
+                $productCollection = $this->productService->fetchCollectionByFilter($filter);
+
+                /** @var Product $product */
+                foreach ($productCollection as $product) {
+                    if ($product->getStock()) {
+                        yield $product->getStock()->getId();
+                    }
+                }
+
+                $total = $productCollection->getTotal();
+                $filter->setPage(++$page);
+
+            } while ($total > $limit * $page);
+        } catch (NotFound $e) {
+            // nothing to do
         }
     }
 
@@ -164,23 +244,5 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setId($ids);
         return $this->accountService->fetchByFilter($filter);
-    }
-
-    protected function setAccountService(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    protected function setProductSettingsService(ProductSettingsService $productSettingsService)
-    {
-        $this->productSettingsService = $productSettingsService;
-        return $this;
-    }
-
-    protected function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-        return $this;
     }
 }
