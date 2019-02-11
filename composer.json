@@ -18,7 +18,7 @@
         "channelgrabber/amazon": "~1.28.1",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.3.0",
-        "channelgrabber/billing": "dev-CGIV-10347-new-pricing-scheme as 1.20.7",
+        "channelgrabber/billing": "~1.20.7",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.14",
         "channelgrabber/channel": "~1.42.7",
