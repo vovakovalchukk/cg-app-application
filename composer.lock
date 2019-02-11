@@ -3275,12 +3275,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "19893c55af4d24f5010cbc1101ad36825203d427"
+                "reference": "6dba06a1200915a44ef3ddba500b77b01557380b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-6ab27c.zip",
-                "reference": "19893c55af4d24f5010cbc1101ad36825203d427",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-164de1.zip",
+                "reference": "6dba06a1200915a44ef3ddba500b77b01557380b",
                 "shasum": null
             },
             "require": {
@@ -3317,7 +3317,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-TAC-325-low-stock-threshold": "1.15.*-dev"
                 }
             },
             "autoload": {
@@ -3330,7 +3330,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2019-02-11T12:19:48+00:00"
+            "time": "2019-02-11T15:06:47+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
