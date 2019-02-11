@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a9b96a738d7b01b68117a711ee413f3",
+    "content-hash": "e4b80262d20abfbd643bd6746bb6c1e8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -448,16 +448,16 @@
         },
         {
             "name": "channelgrabber/bigcommerce",
-            "version": "1.3.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-bigcommerce.git",
-                "reference": "918d64ac3c4be216f5f157f56f873feefa66996f"
+                "reference": "3b4c9304dcde7e8694c673db7d6ac540c34ea563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-bigcommerce-1.3.0-1752e7.zip",
-                "reference": "918d64ac3c4be216f5f157f56f873feefa66996f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/bigcommerce/channelgrabber-bigcommerce-dev-TAC-123-bigcommerce-abandoned-orders-96151f.zip",
+                "reference": "3b4c9304dcde7e8694c673db7d6ac540c34ea563",
                 "shasum": null
             },
             "require": {
@@ -465,6 +465,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/listing": "^1.16.2",
                 "channelgrabber/locale": "^1.1.3",
+                "channelgrabber/order": "dev-TAC-123-bigcommerce-abandoned-orders as 1.41.1",
                 "channelgrabber/product": "^1.14.0",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/webhook-framework": "^1.0.0",
@@ -475,7 +476,7 @@
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.0",
-                "phpunit/phpunit": "~4.6.6"
+                "phpunit/phpunit": "~7.3.0"
             },
             "type": "library",
             "autoload": {
@@ -488,7 +489,7 @@
                     "CG\\BigCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2018-08-15T11:09:45+00:00"
+            "time": "2019-02-06T12:08:52+00:00"
         },
         {
             "name": "channelgrabber/billing",
@@ -711,16 +712,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.7",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8ba0bf5e1b331a84a38f72dc16853da4f5b8cffa"
+                "reference": "808b7a9ab1ec88b3425dfb95fe9e12ea65150b1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.7-c55a4a.zip",
-                "reference": "8ba0bf5e1b331a84a38f72dc16853da4f5b8cffa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-123-bigcommerce-abandoned-orders-88caf7.zip",
+                "reference": "808b7a9ab1ec88b3425dfb95fe9e12ea65150b1b",
                 "shasum": null
             },
             "require": {
@@ -740,7 +741,7 @@
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
-                "channelgrabber/order": "^1.28.9",
+                "channelgrabber/order": "dev-TAC-123-bigcommerce-abandoned-orders as 1.41.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
                 "channelgrabber/product": "^1.14.0",
@@ -794,7 +795,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-01-23T16:31:28+00:00"
+            "time": "2019-02-11T12:59:40+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2080,16 +2081,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.9",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9a5b6b51730cc64a41f18f84c5684260217909a5"
+                "reference": "0334634c9e77bf663674577e76af71f066d53b28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.9-47123d.zip",
-                "reference": "9a5b6b51730cc64a41f18f84c5684260217909a5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-123-bigcommerce-abandoned-orders-864650.zip",
+                "reference": "0334634c9e77bf663674577e76af71f066d53b28",
                 "shasum": null
             },
             "require": {
@@ -2160,7 +2161,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-02-06T10:20:37+00:00"
+            "time": "2019-02-11T12:59:40+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3271,16 +3272,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.15.1",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e"
+                "reference": "357cca1bcae69458687d481c4f276fc3ab04ffbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.15.1-4ad4e8.zip",
-                "reference": "8ac21e8071b3d82a0c79dd1ce026df7be2c3080e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-123-bigcommerce-abandoned-orders-e1fea2.zip",
+                "reference": "357cca1bcae69458687d481c4f276fc3ab04ffbf",
                 "shasum": null
             },
             "require": {
@@ -3297,7 +3298,7 @@
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
-                "channelgrabber/order": "^1.18.2",
+                "channelgrabber/order": "dev-TAC-123-bigcommerce-abandoned-orders as 1.41.1",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
@@ -3327,10 +3328,12 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "CG\\Stock\\Test\\": "tests"
+                    "CG\\Stock\\Test\\": "tests",
+                    "CG\\Channel\\Test\\": "vendor/channelgrabber/channel/tests/Channel/Test",
+                    "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-01-25T14:33:25+00:00"
+            "time": "2019-01-31T11:07:02+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -4902,16 +4905,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.3",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0056275e88b0be75a81d48956781cd7c6ef097f9"
+                "reference": "2f400e44c63361e37b2aded652b32eb75ff646b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.3-4de1a2.zip",
-                "reference": "0056275e88b0be75a81d48956781cd7c6ef097f9",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-123-bigcommerce-abandoned-orders-ebf521.zip",
+                "reference": "2f400e44c63361e37b2aded652b32eb75ff646b9",
                 "shasum": null
             },
             "require": {
@@ -4963,7 +4966,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-02-11T10:40:13+00:00"
+            "time": "2019-02-11T12:59:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9174,7 +9177,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-0769e6d9726c140a54dbf827a438c0f9912749fe-zip-ae4f3d.zip",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe",
                 "shasum": ""
             },
@@ -9229,7 +9232,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-browserkit-driver-63960c8fcad4529faad1ff33e950217980baa64c-zip-dbf956.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/63960c8fcad4529faad1ff33e950217980baa64c",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c",
                 "shasum": ""
             },
@@ -9284,7 +9287,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/behat-mink-selenium2-driver-bcf1b537de37db6db0822d9e7bd97e600fd7a476-zip-16355d.zip",
+                "url": "https://api.github.com/repos/minkphp/MinkSelenium2Driver/zipball/bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476",
                 "shasum": ""
             },
@@ -9342,7 +9345,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/doctrine-instantiator-185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda-zip-b52616.zip",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
                 "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
                 "shasum": ""
             },
@@ -9396,7 +9399,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/instaclick-php-webdriver-47a6019553a7a5b42d35493276ffc2c9252c53d5-zip-403190.zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
@@ -9454,7 +9457,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/intercom-intercom-php-a0a1bd91afbb6424fa4c003fe2dcd744fff24b51-zip-5b82bd.zip",
+                "url": "https://api.github.com/repos/intercom/intercom-php/zipball/a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
                 "reference": "a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
                 "shasum": ""
             },
@@ -9500,7 +9503,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/monolog-monolog-fd8c787753b3a2ad11bc60c063cff1358a32a3b4-zip-88ebdd.zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
                 "reference": "fd8c787753b3a2ad11bc60c063cff1358a32a3b4",
                 "shasum": ""
             },
@@ -9626,7 +9629,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpdocumentor-reflection-common-21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6-zip-5ca449.zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
                 "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
                 "shasum": ""
             },
@@ -9680,7 +9683,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpdocumentor-reflection-docblock-2d3d238c433cf69caeb4842e97a3223a116f94b2-zip-2d8066.zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2d3d238c433cf69caeb4842e97a3223a116f94b2",
                 "reference": "2d3d238c433cf69caeb4842e97a3223a116f94b2",
                 "shasum": ""
             },
@@ -9725,7 +9728,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpdocumentor-type-resolver-9c977708995954784726e25d0cd1dddf4e65b0f7-zip-28400d.zip",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/9c977708995954784726e25d0cd1dddf4e65b0f7",
                 "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7",
                 "shasum": ""
             },
@@ -9772,7 +9775,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpspec-php-diff-30e103d19519fe678ae64a60d77884ef3d71b28a-zip-b63c58.zip",
+                "url": "https://api.github.com/repos/phpspec/php-diff/zipball/30e103d19519fe678ae64a60d77884ef3d71b28a",
                 "reference": "30e103d19519fe678ae64a60d77884ef3d71b28a",
                 "shasum": ""
             },
@@ -9805,7 +9808,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpspec-phpspec-61712147412cb647b6cb68b19833a60bfda759a1-zip-6bc9f9.zip",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/61712147412cb647b6cb68b19833a60bfda759a1",
                 "reference": "61712147412cb647b6cb68b19833a60bfda759a1",
                 "shasum": ""
             },
@@ -9878,7 +9881,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpspec-prophecy-c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6-zip-1cd899.zip",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
                 "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
                 "shasum": ""
             },
@@ -10052,7 +10055,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpunit-php-text-template-31f8b717e51d9a2afca6c9f046f5d69fc27c8686-zip-c6bcbd.zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/31f8b717e51d9a2afca6c9f046f5d69fc27c8686",
                 "reference": "31f8b717e51d9a2afca6c9f046f5d69fc27c8686",
                 "shasum": ""
             },
@@ -10093,7 +10096,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpunit-php-timer-3dcf38ca72b158baf0bc245e9184d3fdffa9c46f-zip-c27592.zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/3dcf38ca72b158baf0bc245e9184d3fdffa9c46f",
                 "reference": "3dcf38ca72b158baf0bc245e9184d3fdffa9c46f",
                 "shasum": ""
             },
@@ -10543,7 +10546,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/sebastian-exporter-234199f4528de6d12aaa58b612e98f7d36adb937-zip-ba849f.zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/234199f4528de6d12aaa58b612e98f7d36adb937",
                 "reference": "234199f4528de6d12aaa58b612e98f7d36adb937",
                 "shasum": ""
             },
@@ -10753,7 +10756,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/sebastian-recursion-context-5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8-zip-ab6a2f.zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8",
                 "reference": "5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8",
                 "shasum": ""
             },
@@ -10931,7 +10934,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/webmozart-assert-2db61e59ff05fe5126d152bd0655c9ea113e550f-zip-36e9ad.zip",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "shasum": ""
             },
@@ -11015,10 +11018,46 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/bigcommerce"
+        },
+        {
+            "alias": "1.42.7",
+            "alias_normalized": "1.42.7.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.43.3",
+            "alias_normalized": "1.43.3.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.13.1",
+            "alias_normalized": "1.13.1.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.25.4",
+            "alias_normalized": "1.25.4.0",
+            "version": "dev-TAC-123-bigcommerce-abandoned-orders",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/bigcommerce": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/stock": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
