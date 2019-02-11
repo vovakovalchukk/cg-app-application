@@ -9,6 +9,9 @@ let initialState = {
     },
     length: {
         byProductId: {}
+    },
+    weight: {
+        byProductId: {}
     }
 };
 
