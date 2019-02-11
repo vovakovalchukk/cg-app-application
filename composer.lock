@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d7504a989037fc8c1b1b14bc9c6a5c9",
+    "content-hash": "21eb850874423c56595481ebda23c798",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1423,17 +1423,24 @@
         },
         {
             "name": "channelgrabber/file-storage",
-            "version": "1.0.0",
+            "version": "dev-TAC-330-product-links-csv-import",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-file-storage.git",
-                "reference": "55504d9b46fe07a44c0e1fdaebdba7413d923875"
+                "reference": "36ac0dfa844533d982ba76b704ccad9d3a25a443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-1.0.0-cce2aa.zip",
-                "reference": "55504d9b46fe07a44c0e1fdaebdba7413d923875",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-dev-TAC-330-product-links-csv-import-5d0acd.zip",
+                "reference": "36ac0dfa844533d982ba76b704ccad9d3a25a443",
                 "shasum": null
+            },
+            "require": {
+                "guzzlehttp/promises": "~1.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^3.19"
             },
             "type": "library",
             "autoload": {
@@ -1448,7 +1455,7 @@
                 }
             ],
             "description": "Handles the interaction with file storages",
-            "time": "2017-10-10T15:58:25+00:00"
+            "time": "2019-02-11T15:10:17+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -11030,6 +11037,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
+            "version": "dev-TAC-330-product-links-csv-import",
+            "package": "channelgrabber/file-storage"
+        },
+        {
             "alias": "1.16.14",
             "alias_normalized": "1.16.14.0",
             "version": "dev-TAC-330-product-links-csv-import",
@@ -11040,6 +11053,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/file-storage": 20,
         "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
