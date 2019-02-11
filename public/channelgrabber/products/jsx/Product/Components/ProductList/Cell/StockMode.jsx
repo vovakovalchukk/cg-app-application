@@ -68,7 +68,7 @@ class StockModeCell extends React.Component {
     };
 
     getStockModeSelectActive(row) {
-        if (!this.props.stock.stockModes.byProductId[row.id] || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+        if (!this.props.stock.stockModes.byProductId[row.id] || this.props.scroll.userScrolling  || !this.props.rows.initialModifyHasOccurred) {
             return false;
         }
         return this.props.stock.stockModes.byProductId[row.id].active;

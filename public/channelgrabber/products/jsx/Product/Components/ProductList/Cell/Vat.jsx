@@ -1,6 +1,6 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import StatelessSelect from 'Common/Components/Select--stateless';
 import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 
@@ -38,9 +38,6 @@ class VatCell extends React.Component {
     };
     getVatSelectActive(activePropOnState) {
         if (!activePropOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            if (this.props.rowIndex === 1) {
-                debugger;
-            }
             return false;
         }
         return true;
