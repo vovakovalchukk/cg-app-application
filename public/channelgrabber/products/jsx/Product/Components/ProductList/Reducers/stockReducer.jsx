@@ -22,6 +22,12 @@ import stateUtility from "../stateUtility";
 *                active:true
 *            }
 *        }
+*    },
+*    incPOStockInAvailableOptions: [],
+*    incPOStockInAvailable: {
+*       byProductId: {
+*           1: "default"
+*       }
 *    }
 */
 
@@ -33,10 +39,12 @@ let initialState = {
     stockLevels: {
         byProductId: {}
     },
-    lowStockThresholdToggle: {
+    incPOStockInAvailableOptions: [],
+    incPOStockInAvailable: {
+        byProductId: {}
     },
-    lowStockThresholdValue: {
-    }
+    lowStockThresholdToggle: {},
+    lowStockThresholdValue: {}
 };
 
 let stockModeReducer = reducerCreator(initialState, {
@@ -220,6 +228,38 @@ let stockModeReducer = reducerCreator(initialState, {
                 })
             })
         });
+    },
+    "INC_PO_STOCK_IN_AVAIL_STORE": function(state, action) {
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailableOptions: action.payload.incPOStockInAvailableOptions
+        });
+        return newState;
+    },
+    "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT": function(state, action) {
+        let {products} = action.payload;
+        let newIncPOStockInAvailable = getIncPOStockInAvailableFromProducts(products);
+
+        let incPOStockInAvailable = Object.assign(state.incPOStockInAvailable, newIncPOStockInAvailable);
+
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailable
+        });
+        return newState;
+    },
+    "INC_PO_STOCK_UPDATE_SUCCESS": function(state, action) {
+        let {productId, desiredVal, response} = action.payload;
+        let newIncPOStockInAvailable = Object.assign({}, state.incPOStockInAvailable);
+        newIncPOStockInAvailable.byProductId[productId] = desiredVal;
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailable: newIncPOStockInAvailable
+        });
+        n.success('Product\'s include purchase order stock setting updated successfully.');
+        return newState;
+    },
+    "INC_PO_STOCK_UPDATE_ERROR": function(state, action) {
+        let error = action.payload;
+        n.showErrorNotification(error, "There was an error when attempting to update the product\'s include purchase order stock setting.");
+        return state;
     }
 });
 
@@ -254,4 +294,19 @@ function resetEditsForRow(values, rowData) {
         values.byProductId[id].valueEdited = '';
     });
     return values;
+}
+
+function getIncPOStockInAvailableFromProducts(products) {
+    let incPOStockInAvailable = {
+        byProductId: {}
+    };
+    products.forEach(product => {
+        if (!product.stock) {
+            console.error('no stock set for product:', product);
+            return;
+        }
+        let value = (product.stock.includePurchaseOrdersUseDefault ? 'default' : (product.stock.includePurchaseOrders ? 'on' : 'off'));
+        incPOStockInAvailable.byProductId[product.id] = value;
+    });
+    return incPOStockInAvailable;
 }

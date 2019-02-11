@@ -21,7 +21,8 @@ class ProductList extends React.Component {
         features: {},
         accounts: {},
         actions: {},
-        tabs: {}
+        tabs: {},
+        incPOStockInAvailableOptions: {}
     };
 
     state = {

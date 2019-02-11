@@ -3,6 +3,7 @@ import ProductFilter from 'Product/Filter/Entity'
 import constants from 'Product/Components/ProductList/Config/constants'
 import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
+import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import stateUtility from 'Product/Components/ProductList/stateUtility'
 import stockActions from '../ActionCreators/stockActions';
 
@@ -87,6 +88,14 @@ var actionCreators = (function() {
                 }
             }
         },
+        storeIncPOStockInAvailableOptions: (incPOStockInAvailableOptions) => {
+            return {
+                type: "INC_PO_STOCK_IN_AVAIL_STORE",
+                payload: {
+                    incPOStockInAvailableOptions
+                }
+            }
+        },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
                 pageNumber = pageNumber || 1;
@@ -103,6 +112,7 @@ var actionCreators = (function() {
                     throw 'Unable to load products... error: ' + err;
                 }
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {

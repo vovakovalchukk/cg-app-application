@@ -18,6 +18,14 @@ import columnService from 'Product/Components/ProductList/Column/service';
                     });
                 }
             },
+            showIncludePOStockInAvailableColumn: () => {
+                return function (dispatch) {
+                    dispatch({
+                        type: 'INC_PO_STOCK_IN_AVAIL_COL_SHOW',
+                        payload: {}
+                    })
+                }
+            }
         };
     })();
     

@@ -14,6 +14,7 @@ use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductClientService;
+use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -133,6 +134,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 $rootOuId,
                 $rootOu
             ),
+            'poStockInAvailableEnabled' => $this->featureFlagService->featureEnabledForOu(
+                ProductSettingsService::FEATURE_FLAG_PO_STOCK_IN_AVAILABLE,
+                $rootOuId,
+                $rootOu
+            ),
             'lowStockThresholdEnabled' => $this->featureFlagService->featureEnabledForOu(
                 StockController::FEATURE_FLAG_LOW_STOCK_THRESHOLD,
                 $rootOuId,
@@ -140,6 +146,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
+        $view->setVariable('incPOStockInAvailableOptions', $this->stockSettingsService->getIncPOStockInAvailableOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuWithDefaultsSelected($rootOu));
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());

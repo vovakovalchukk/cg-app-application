@@ -49,11 +49,14 @@ class StockJsonController extends AbstractActionController
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $ouList = $this->userOUService->getAncestorOrganisationUnitIdsByActiveUser();
 
+        $includePurchaseOrders = filter_var($this->params()->fromPost('includePurchaseOrdersInAvailable', false), FILTER_VALIDATE_BOOLEAN);
+
         $this->service->saveDefaults(
             $rootOu,
             $ouList,
             $defaultStockMode,
             $defaultStockLevel,
+            $includePurchaseOrders,
             $lowStockThresholdOn,
             $lowStockThresholdValue
         );

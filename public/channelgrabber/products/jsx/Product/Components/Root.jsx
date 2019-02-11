@@ -21,6 +21,7 @@ class RootComponent extends React.Component {
         features: {},
         taxRates: {},
         stockModeOptions: {},
+        incPOStockInAvailableOptions: {},
         ebaySiteOptions: {},
         categoryTemplateOptions: {},
         createListingData: {},
@@ -219,6 +220,7 @@ class RootComponent extends React.Component {
                     addNewProductButtonClick={this.addNewProductButtonClick}
                     onCreateNewListingIconClick={this.onCreateListingIconClick}
                     stockModeOptions={this.props.stockModeOptions}
+                    incPOStockInAvailableOptions={this.props.incPOStockInAvailableOptions}
                     massUnit={this.props.massUnit}
                     lengthUnit={this.props.lengthUnit}
                     vatRates={this.props.taxRates}

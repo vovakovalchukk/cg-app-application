@@ -16,6 +16,8 @@ import NoVatCell from 'Product/Components/ProductList/Cell/NoVat';
 import FixedDataTable from 'fixed-data-table-2';
 import AllocatedCell from 'Product/Components/ProductList/Cell/Allocated';
 import LowStock from 'Product/Components/ProductList/Cell/LowStock';
+import OnPurchaseOrderCell from 'Product/Components/ProductList/Cell/OnPurchaseOrder';
+import IncludePurchaseOrdersInAvailableCell from 'Product/Components/ProductList/Cell/IncludePurchaseOrdersInAvailable';
 
 "use strict";
 
@@ -37,6 +39,8 @@ let cells = {
     vat: VatCell,
     noVat: NoVatCell,
     allocated: AllocatedCell,
+    onPurchaseOrder: OnPurchaseOrderCell,
+    includePurchaseOrdersInAvailable: IncludePurchaseOrdersInAvailableCell,
     lowStock: LowStock
 };
 

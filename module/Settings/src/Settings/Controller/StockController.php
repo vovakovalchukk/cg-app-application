@@ -67,6 +67,10 @@ class StockController extends AbstractActionController
 
         $this->addLowStockThresholdToView($rootOu, $view, $productSettings);
 
+        if ($this->featureFlagsService->isActive(ProductSettingsService::FEATURE_FLAG_PO_STOCK_IN_AVAILABLE, $rootOu)) {
+            $view->addChild($this->getIncludePurchaseOrdersToggle($productSettings), 'includePurchaseOrdersToggle');
+        }
+
         return $view;
     }
 
@@ -85,6 +89,16 @@ class StockController extends AbstractActionController
             ->setVariable('id', 'settings-stock-default-stock-mode')
             ->setVariable('name', 'defaultStockMode')
             ->setVariable('options', $options);
+        return $view;
+    }
+
+    protected function getIncludePurchaseOrdersToggle(ProductSettings $productSettings): ViewModel
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('elements/toggle.mustache')
+            ->setVariable('id', 'settings-stock-include-purchase-orders')
+            ->setVariable('name', 'includePurchaseOrdersInAvailable')
+            ->setVariable('selected', $productSettings->isIncludePurchaseOrdersInAvailable());
         return $view;
     }
 

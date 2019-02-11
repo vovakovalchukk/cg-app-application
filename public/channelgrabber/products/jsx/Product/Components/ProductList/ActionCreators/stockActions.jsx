@@ -123,6 +123,16 @@ let actionCreators = (function() {
                 return response;
             }
         },
+        extractIncPOStockInAvailableFromProducts: (products) => {
+            return function(dispatch) {
+                dispatch({
+                        type: "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT",
+                    payload: {
+                        products
+                    }
+                });
+            }
+        },
         storeLowStockThreshold: (products) => {
             return function(dispatch) {
                 dispatch({
@@ -164,7 +174,7 @@ let actionCreators = (function() {
             }
         },
         saveLowStockToBackend: (productId, toggle, value) => {
-            return async function(dispatch) {
+            return async function (dispatch) {
                 n.notice('Updating low stock threshold...', true);
                 try {
                     let response = await updateLowStock(
@@ -191,6 +201,29 @@ let actionCreators = (function() {
                     console.error(error);
                     n.error('There was an error while saving the low stock threshold. Please try again or contact support if the problem persists');
                     actionCreators.lowStockReset(productId);
+                }
+            }
+        },
+        updateIncPOStockInAvailable: (productId, desiredVal) => {
+            return async function(dispatch) {
+                try {
+                    n.notice('Updating Purchase Order stock preference.');
+                    let response = await updateIncPOStockInAvailable(productId, desiredVal);
+                    dispatch({
+                        type: "INC_PO_STOCK_UPDATE_SUCCESS",
+                        payload: {
+                            productId,
+                            desiredVal,
+                            response
+                        }
+                    });
+                } catch (error) {
+                    dispatch({
+                        type: "INC_PO_STOCK_UPDATE_FAILURE",
+                        payload: {
+                            error
+                        },
+                    })
                 }
             }
         }
@@ -262,6 +295,21 @@ function updateLowStock(productId, toggle, value) {
         },
         success: response => (response),
         error: error => (error)
+    });
+}
+
+async function updateIncPOStockInAvailable(productId, includePurchaseOrders) {
+    return $.ajax({
+        url: '/products/includePurchaseOrders',
+        data: {productId: productId, includePurchaseOrders: includePurchaseOrders},
+        method: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            return response;
+        },
+        error: function(error) {
+            return error;
+        }
     });
 }
 

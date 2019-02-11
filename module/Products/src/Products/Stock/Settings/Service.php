@@ -33,6 +33,8 @@ class Service
     protected $stockModeOptions;
     /** @var LowStockThresholdUpdateGenerator */
     protected $lowStockThresholdUpdateGenerator;
+    /** @var array */
+    protected $incPOStockInAvailableOptions;
 
     public function __construct(
         UserOUService $userOUService,
@@ -326,5 +328,38 @@ class Service
             ->setPage(1)
             ->setParentProductId([$parentId]);
         return $this->productService->fetchCollectionByFilter($filter);
+    }
+
+    protected function checkAllSiblingsHaveZeroStockLevel(Product $variation, ProductCollection $siblings)
+    {
+        $allZero = true;
+        foreach ($siblings as $sibling) {
+            if ($sibling->getId() == $variation->getId()) {
+                continue;
+            }
+            if ($sibling->getStockLevel() != 0) {
+                $allZero = false;
+                break;
+            }
+        }
+        return $allZero;
+    }
+
+    public function getIncPOStockInAvailableOptions(): array
+    {
+        if ($this->incPOStockInAvailableOptions) {
+            return $this->incPOStockInAvailableOptions;
+        }
+        $productSettings = $this->getProductSettings();
+        $defaultStockMode = $productSettings->isIncludePurchaseOrdersInAvailable();
+        $defaultStockModeTitle = ($defaultStockMode ? 'On' : 'Off');
+        $options = [
+            // Can't use any value that equates to false (e.g. '') as then custom-select will replace it with the title
+            ['value' => 'default', 'name' => 'Default (' . $defaultStockModeTitle . ')'],
+            ['value' => 'on', 'name' => 'On'],
+            ['value' => 'off', 'name' => 'Off'],
+        ];
+        $this->incPOStockInAvailableOptions = $options;
+        return $this->incPOStockInAvailableOptions;
     }
 }

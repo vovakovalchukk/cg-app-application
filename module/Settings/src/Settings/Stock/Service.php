@@ -53,6 +53,7 @@ class Service implements LoggerAwareInterface
         array $ouList,
         $defaultStockMode,
         $defaultStockLevel,
+        ?bool $includePurchaseOrders,
         bool $lowStockThresholdOn,
         ?int $lowStockThresholdValue
     ) {
@@ -69,6 +70,10 @@ class Service implements LoggerAwareInterface
             ->setLowStockThresholdOn($lowStockThresholdOn)
             ->setLowStockThresholdValue($lowStockThresholdValue);
 
+        if ($includePurchaseOrders !== null) {
+            $productSettings->setIncludePurchaseOrdersInAvailable($includePurchaseOrders);
+        }
+
         try {
             $this->productSettingsService->save($productSettings);
         } catch (NotModified $e) {
@@ -78,7 +83,6 @@ class Service implements LoggerAwareInterface
         $this->triggerStockPushForAccounts(
             $this->getSalesAccountsForOU($ouList)
         );
-
 
         $this->removeGlobalLogEventParam('ou');
     }

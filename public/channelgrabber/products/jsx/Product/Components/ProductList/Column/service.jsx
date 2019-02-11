@@ -87,7 +87,16 @@ let stockColumns = [
         fixed: false,
         tab: 'stock',
         align: 'center'
+    },
+    {
+        key: 'onPurchaseOrder',
+        width: 80,
+        headerText: 'Purchase Order',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
     }
+    // The includePurchaseOrdersInAvailable column is behind a feature flag, see columnsReducer for its config
 ];
 
 const lowStockColumn = {

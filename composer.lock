@@ -2995,7 +2995,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-02-11T11:06:06+00:00"
+            "time": "2019-02-01T16:15:13+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3330,7 +3330,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2019-02-11T11:08:56+00:00"
+            "time": "2019-01-31T14:01:11+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -9789,7 +9789,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
