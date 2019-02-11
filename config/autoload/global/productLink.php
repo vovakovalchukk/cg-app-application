@@ -17,6 +17,7 @@ return [
             ProductCsvLinkService::class => [
                 'parameters' => [
                     'exportFileStorage' => 'ProductLinkS3FileImportAdapter',
+                    'environment' => function() { return ENVIRONMENT ;},
                 ],
             ],
         ],
