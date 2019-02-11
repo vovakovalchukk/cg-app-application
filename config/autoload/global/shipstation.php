@@ -1153,9 +1153,11 @@ return [
                 'parameters' => [
                     'signatureServices' => [
                         'rm_special_delivery_1pm_500',
+                        'rm_special_delivery_1pm_750',
                         'rm_special_delivery_1pm_1000',
                         'rm_special_delivery_1pm_2500',
                         'rm_special_delivery_9am_50',
+                        'rm_special_delivery_9am_750',
                         'rm_special_delivery_9am_1000',
                         'rm_special_delivery_9am_2500',
                         'rm_special_delivery_1pm_500_sg',
