@@ -64,7 +64,6 @@ let stockModeReducer = reducerCreator(initialState, {
             valueEdited: '',
             active: true
         };
-
         return applyStockModesToState(stateCopy, stockModes)
     },
     "STOCK_MODE_OPTIONS_STORE": function(state, action) {
