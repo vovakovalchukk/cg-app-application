@@ -95,26 +95,56 @@ let stockColumns = [
         fixed: false,
         tab: 'stock',
         align: 'center'
+    },
+    {
+        key: 'includePurchaseOrdersInAvailable',
+        width: 200,
+        headerText: 'Include quantity on Purchase Orders in available stock',
+        fixed: false,
+        tab: 'stock',
+        align: 'center',
+        feature: 'poStockInAvailableEnabled'
+    },
+    {
+        key: 'lowStock',
+        width: 200,
+        headerText: 'Low stock threshold',
+        fixed: false,
+        tab: 'stock',
+        align: 'center',
+        feature: 'lowStockThresholdEnabled'
     }
-    // The includePurchaseOrdersInAvailable column is behind a feature flag, see columnsReducer for its config
 ];
-
-const lowStockColumn = {
-    key: 'lowStock',
-    width: 200,
-    headerText: 'Low stock',
-    fixed: false,
-    tab: 'stock',
-    align: 'center'
-};
 
 let columnService = (function() {
     return {
         generateColumnSettings: function(accounts, vat, features) {
             const listingsColumns = generateListingsColumnsFromAccounts(accounts);
             const vatColumns = generateVatColumns(vat);
-            const stockColumns = generateStockColumns(features);
-            return coreColumns.concat(listingsColumns, detailsColumns, vatColumns, stockColumns);
+
+            let tab = (tab, columns) => {
+                return columns.map((column) => {
+                    column['tab'] = tab;
+                    return column;
+                });
+            };
+
+            let featureFilter = (column) => {
+                if (!column.hasOwnProperty('feature')) {
+                    return true;
+                }
+                if (!features.hasOwnProperty(column.feature)) {
+                    return false;
+                }
+                return features[column.feature];
+            };
+
+            return coreColumns.concat(
+                tab('listings', listingsColumns),
+                tab('details', detailsColumns),
+                tab('vat', vatColumns),
+                tab('stock', stockColumns)
+            ).filter(featureFilter);
         }
     }
 }());
@@ -153,15 +183,6 @@ function generateVatColumns(vat) {
     });
 }
 
-function generateStockColumns(features) {
-    if (!features.lowStockThresholdEnabled) {
-        return stockColumns;
-    }
-
-    stockColumns.push(lowStockColumn);
-    return lowStockColumn;
-}
-
 function generateListingsColumnsFromAccounts(accounts) {
     if (typeof accounts === "string") {
         return [];
@@ -195,8 +216,7 @@ function generateListingsColumnsFromAccounts(accounts) {
         }
     ];
 
-    let listingColumns = channelSpecificColumns.concat(miscListingColumns);
-    return listingColumns;
+    return channelSpecificColumns.concat(miscListingColumns);
 }
 
 function capitalize(string) {

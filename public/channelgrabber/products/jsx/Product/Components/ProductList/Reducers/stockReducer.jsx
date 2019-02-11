@@ -302,7 +302,6 @@ function getIncPOStockInAvailableFromProducts(products) {
     };
     products.forEach(product => {
         if (!product.stock) {
-            console.error('no stock set for product:', product);
             return;
         }
         let value = (product.stock.includePurchaseOrdersUseDefault ? 'default' : (product.stock.includePurchaseOrders ? 'on' : 'off'));

@@ -55,9 +55,6 @@ class ProductListProvider extends React.Component {
         let productsResponse = await store.dispatch(productActions.getProducts());
 
         store.dispatch(columnActions.generateColumnSettings(this.props.features));
-        if (this.props.features.poStockInAvailableEnabled) {
-            store.dispatch(columnActions.showIncludePOStockInAvailableColumn());
-        }
 
         store.dispatch(userSettingsActions.storeStockDefaults(
             stateUtility.getDefaultStockModeFromProducts(productsResponse.products),
