@@ -38,9 +38,6 @@ class VatCell extends React.Component {
     };
     getVatSelectActive(activePropOnState) {
         if (!activePropOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            if (this.props.rowIndex === 1) {
-                debugger;
-            }
             return false;
         }
         return true;
