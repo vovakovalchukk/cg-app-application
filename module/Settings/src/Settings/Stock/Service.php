@@ -15,13 +15,7 @@ use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Stock\Collection as StockCollection;
-use CG\Stock\Entity as Stock;
-use CG\Stock\Filter as StockFilter;
-use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdJobGenerator;
-use CG\Stock\Service as StockService;
 use GearmanClient;
-use function CG\Stdlib\registerShutdownFunction;
 
 class Service implements LoggerAwareInterface
 {
@@ -43,23 +37,15 @@ class Service implements LoggerAwareInterface
     protected $productSettingsService;
     /** @var GearmanClient */
     protected $gearmanClient;
-    /** @var StockService */
-    protected $stockService;
-    /** @var LowStockThresholdJobGenerator */
-    protected $lowStockThresholdJobGenerator;
 
     public function __construct(
         AccountService $accountService,
         ProductSettingsService $productSettingsService,
-        GearmanClient $gearmanClient,
-        StockService $stockService,
-        LowStockThresholdJobGenerator $lowStockThresholdJobGenerator
+        GearmanClient $gearmanClient
     ) {
         $this->accountService = $accountService;
         $this->productSettingsService = $productSettingsService;
         $this->gearmanClient = $gearmanClient;
-        $this->stockService = $stockService;
-        $this->lowStockThresholdJobGenerator = $lowStockThresholdJobGenerator;
     }
 
     public function saveDefaults(
@@ -77,9 +63,6 @@ class Service implements LoggerAwareInterface
         /** @var ProductSettings $productSettings */
         $productSettings = $this->productSettingsService->fetch($rootOu->getId());
 
-        $existingLowStockThresholdToggle = $productSettings->isLowStockThresholdOn();
-        $existingLowStockThresholdValue = $productSettings->getLowStockThresholdValue();
-
         $productSettings
             ->setDefaultStockMode($defaultStockMode)
             ->setDefaultStockLevel($defaultStockLevel)
@@ -88,17 +71,6 @@ class Service implements LoggerAwareInterface
 
         try {
             $this->productSettingsService->save($productSettings);
-
-            /**
-             * This method has to be called on shutdown so that the response is sent to the browser first, then we
-             * generate this jobs for settings the slow stock threshold
-             */
-            registerShutdownFunction(
-                [$this, 'generateLowStockThresholdUpdateJobs'],
-                $existingLowStockThresholdToggle,
-                $existingLowStockThresholdValue,
-                $productSettings
-            );
         } catch (NotModified $e) {
             // No-op
         }
@@ -130,50 +102,6 @@ class Service implements LoggerAwareInterface
             );
             $this->logDebug(static::LOG_STOCK_PUSH_JOB, [$jobId, $account->getId()], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account');
-        }
-    }
-
-    public function generateLowStockThresholdUpdateJobs(bool $toggle, ?int $value, ProductSettings $settings): void
-    {
-        if ($settings->getLowStockThresholdValue() === $value && $settings->isLowStockThresholdOn() === $toggle) {
-            // Nothing to generate, the low stock threshold hasn't changed
-            return;
-        }
-
-        foreach ($this->fetchAllStockIdsForOu($settings) as $stockId) {
-            $this->lowStockThresholdJobGenerator->generateJob($stockId);
-        }
-    }
-
-    /**
-     * @param ProductSettings $settings
-     * @return \Generator|int[]
-     */
-    protected function fetchAllStockIdsForOu(ProductSettings $settings): \Generator
-    {
-        $page = 1;
-
-        $filter = (new StockFilter())
-            ->setLimit(static::STOCK_FETCH_LIMIT)
-            ->setPage($page)
-            ->setOrganisationUnitId([$settings->getOrganisationUnitId()]);
-
-        try {
-            do {
-                /** @var StockCollection$productCollection */
-                $stockCollection = $this->stockService->fetchCollectionByFilter($filter);
-
-                /** @var Stock $stock*/
-                foreach ($stockCollection as $stock) {
-                    yield $stock->getId();
-                }
-
-                $total = $stockCollection->getTotal();
-                $filter->setPage(++$page);
-
-            } while ($total > static::STOCK_FETCH_LIMIT * $page);
-        } catch (NotFound $e) {
-            // nothing to do
         }
     }
 
