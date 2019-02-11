@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7765a1246b608d0308781a4793dbe24c",
+    "content-hash": "be1d87e36e43aa4f394c2d2b52375603",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1781,16 +1781,16 @@
         },
         {
             "name": "channelgrabber/location",
-            "version": "1.2.1",
+            "version": "dev-TAC-328-order-dispatchable-flag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "2c401b5a118ce02ad6d0a476d478b7f5cfc0e0fa"
+                "reference": "e711a5e2d6d6ff8800a4646ae006e3bec946ecde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/location/channelgrabber-location-1.2.1-d02078.zip",
-                "reference": "2c401b5a118ce02ad6d0a476d478b7f5cfc0e0fa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/location/channelgrabber-location-dev-TAC-328-order-dispatchable-flag-4266c5.zip",
+                "reference": "e711a5e2d6d6ff8800a4646ae006e3bec946ecde",
                 "shasum": null
             },
             "require": {
@@ -1829,7 +1829,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-17T09:27:42+00:00"
+            "time": "2019-02-08T16:37:35+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2084,12 +2084,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "56f01fb53338d713d3ff1214c0ff72794d77f413"
+                "reference": "61094dfd9d75882056d5f6958b5ed348cb64050c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-17bc7a.zip",
-                "reference": "56f01fb53338d713d3ff1214c0ff72794d77f413",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-60fb90.zip",
+                "reference": "61094dfd9d75882056d5f6958b5ed348cb64050c",
                 "shasum": null
             },
             "require": {
@@ -2109,7 +2109,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.2.1",
-                "channelgrabber/location": "dev-TAC-328-order-dispatchable-flag as 1.2.1",
+                "channelgrabber/location": "dev-TAC-328-order-dispatchable-flag as 1.2.2",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/notification": "^1.2.2",
@@ -2161,7 +2161,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-02-11T10:05:13+00:00"
+            "time": "2019-02-11T12:21:32+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -10981,6 +10981,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-TAC-328-order-dispatchable-flag",
+            "package": "channelgrabber/location"
+        },
+        {
             "alias": "1.43.7",
             "alias_normalized": "1.43.7.0",
             "version": "dev-TAC-328-order-dispatchable-flag",
@@ -10990,6 +10996,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/location": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

@@ -44,7 +44,7 @@
         "channelgrabber/intercom": "~1.5.4",
         "channelgrabber/listing": "~1.18.4",
         "channelgrabber/locale": "~1.2.2",
-        "channelgrabber/location": "~1.2.0",
+        "channelgrabber/location": "dev-TAC-328-order-dispatchable-flag as 1.2.2",
         "channelgrabber/locking": "~1.1.2",
         "channelgrabber/log": "~2.3.3",
         "channelgrabber/manual-order": "~1.0.1",
