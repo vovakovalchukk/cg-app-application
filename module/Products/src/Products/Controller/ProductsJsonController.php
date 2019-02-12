@@ -5,7 +5,6 @@ namespace Products\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
-use CG\Channel\Product\Gearman\Workload\ImportLinks\Csv as ImportProductLinksCsvWorkload;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use CG\Image\Uploader as ImageUploader;
@@ -37,8 +36,6 @@ use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
-use \GearmanClient;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -100,8 +97,6 @@ class ProductsJsonController extends AbstractActionController
     protected $imageUploader;
     /** @var ProductCreator */
     protected $productCreator;
-    /** @var GearmanClient */
-    protected $productsGearmanClient;
 
     public function __construct(
         ProductService $productService,
@@ -121,8 +116,7 @@ class ProductsJsonController extends AbstractActionController
         ProductLinkService $productLinkService,
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
-        ProductCreator $productCreator,
-        \GearmanClient $productsGearmanClient
+        ProductCreator $productCreator
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -142,7 +136,6 @@ class ProductsJsonController extends AbstractActionController
         $this->listingChannelService = $listingChannelService;
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
-        $this->productsGearmanClient = $productsGearmanClient;
     }
 
     public function ajaxAction()
@@ -514,7 +507,11 @@ class ProductsJsonController extends AbstractActionController
     {
         try {
             $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME_STOCK_EXPORT);
-            $csv = $this->stockCsvService->generateCsvForActiveUser($guid);
+            $csv = $this->stockCsvService->generateCsv(
+                $this->activeUser->getActiveUser()->getId(),
+                $this->activeUser->getActiveUserRootOrganisationUnitId(),
+                $guid
+            );
             return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Products');
@@ -523,13 +520,9 @@ class ProductsJsonController extends AbstractActionController
 
     public function linkCsvExportAction()
     {
-
         $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
         $userName = $this->activeUser->getActiveUser()->getUsername();
-
-        $workload = new ExportProductLinksWorkload($rootOuId, $userName);
-        $this->productsGearmanClient->doBackground(ExportProductLinksWorkload::FUNCTION_NAME, serialize($workload), ExportProductLinksWorkload::FUNCTION_NAME . $rootOuId);
-
+        $this->productLinkCsvService->generateExportProductLinksJob($rootOuId, $userName);
         return $this->jsonModelFactory->newInstance(['email' => $userName]);
     }
 
@@ -569,7 +562,12 @@ class ProductsJsonController extends AbstractActionController
             throw new \RuntimeException("No File uploaded");
         }
 
-        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $post['stockUploadFile']);
+        $this->stockCsvService->uploadCsv(
+            $this->activeUser->getActiveUser()->getId(),
+            $this->activeUser->getActiveUserRootOrganisationUnitId(),
+            $post['updateOption'],
+            $post['stockUploadFile']
+        );
 
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable("success", true);
@@ -586,14 +584,10 @@ class ProductsJsonController extends AbstractActionController
             throw new \RuntimeException('No file uploaded');
         }
 
-        $stream = fopen('php://temp', 'r+');
-        fputs($stream, $post['productLinkUploadFile']);
-        rewind($stream);
         $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
         $username = $this->activeUser->getActiveUser()->getUsername();
-        $filename = $this->productLinkCsvService->uploadCsvForOu($rootOuId, $stream);
-        $workload = new ImportProductLinksCsvWorkload($rootOuId, $username, $filename);
-        $this->productsGearmanClient->doBackground(ImportProductLinksCsvWorkload::FUNCTION_NAME, serialize($workload), ImportProductLinksCsvWorkload::FUNCTION_NAME . $rootOuId);
+        $this->productLinkCsvService->uploadCsv($rootOuId, $username, $post['productLinkUploadFile']);
+
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable('success', true);
         return $view;
