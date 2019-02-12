@@ -2,6 +2,8 @@
 
 use CG\Product\Csv\Link\Service as ProductCsvLinkService;
 use CG\FileStorage\S3\Adapter as ProductLinkCsvS3Storage;
+use CG\Channel\Product\Gearman\Generator\ImportLinks\Csv as ImportCsvLinksJobGenerator;
+use CG\Product\Link\Gearman\Generator\ExportProductLinks as ExportCsvLinksJobGenerator;
 
 return [
     'di' => [
@@ -18,6 +20,16 @@ return [
                 'parameters' => [
                     'exportFileStorage' => 'ProductLinkS3FileImportAdapter',
                     'environment' => function() { return ENVIRONMENT ;},
+                ],
+            ],
+            ImportCsvLinksJobGenerator::class => [
+                'parameters' => [
+                    'gearmanClient' => 'productGearmanClient',
+                ],
+            ],
+            ExportCsvLinksJobGenerator::class => [
+                'parameters' => [
+                    'gearmanClient' => 'productGearmanClient',
                 ],
             ],
         ],
