@@ -104,10 +104,9 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
-    if(Object.keys(vat.productsVat).length === 0){
+    if(vat.productsVat.allProductIds.length === 0){
         return getNoVatColumn();
     }
-
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {
         let options = vat.vatRates[countryCode];
