@@ -5,7 +5,6 @@ let detailActions = (function() {
         changeDetailValue: (productId, detail, newValue) => {
             return async function(dispatch, getState) {
                 let currentDetailsFromProductState = getState.customGetters.getDetailsFromProductState(productId);
-
                 dispatch({
                     type: "DETAIL_VALUE_CHANGE",
                     payload: {
@@ -63,7 +62,6 @@ let detailActions = (function() {
                     row
                 }
             });
-
         }
     }
 })();
