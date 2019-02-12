@@ -104,7 +104,7 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
-    if(vat.productsVat.allProductIds.length === 0){
+    if (vat.productsVat.allProductIds.length === 0) {
         return getNoVatColumn();
     }
     let vatColumns = [];
