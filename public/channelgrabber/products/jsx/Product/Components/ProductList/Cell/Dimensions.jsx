@@ -26,11 +26,12 @@ class DimensionsCell extends React.Component {
         rowIndex: null,
         actions: {},
         width: '',
-        distanceFromLeftSideOfTableToStartOfCell: ''
+        distanceFromLeftSideOfTableToStartOfCell: '',
+        detail: {}
     };
 
     getValueForDetail = (row, detail) => {
-        let detailForId = this.props.dimensions[detail].byProductId[row.id];
+        let detailForId = this.props.detail[detail].byProductId[row.id];
         if (!detailForId) {
             return row.details[detail];
         }
@@ -47,36 +48,35 @@ class DimensionsCell extends React.Component {
         return !this.props.scroll.userScrolling;
     };
 
-    renderInput = (row, detail, value) => {
+    renderInput = (row, detailForInput, value) => {
         const {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            dimensions
+            detail
         } = this.props;
 
-        let dimension = detail;
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.DIMENSIONS_INPUT_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            dimension,
+            detailForInput,
             allRows: this.props.rows.allIds
         });
 
-        let isEditing = dimensions[detail].byProductId[row.id] ? dimensions[detail].byProductId[row.id].isEditing : false;
+        let isEditing = detail[detailForInput].byProductId[row.id] ? detail[detailForInput].byProductId[row.id].isEditing : false;
         return (
             <StyledSafeInputStateless
-                name={detail}
+                name={detailForInput}
                 step="0.1"
-                submitCallback={this.props.actions.saveDetail.bind(this, row, detail)}
-                cancelInput={this.props.actions.cancelInput.bind(this, row, detail)}
-                setIsEditing={this.props.actions.setIsEditing.bind(this, row.id, detail)}
-                onValueChange={this.props.actions.changeDimensionValue.bind(this, row.id, detail)}
+                submitCallback={this.props.actions.saveDetail.bind(this, row, detailForInput)}
+                cancelInput={this.props.actions.cancelInput.bind(this, row, detailForInput)}
+                setIsEditing={this.props.actions.setIsEditing.bind(this, row.id, detailForInput)}
+                onValueChange={this.props.actions.changeDetailValue.bind(this, row.id, detailForInput)}
                 submitsPortalSettings={portalSettingsForSubmits}
                 width={45}
-                placeholder={detail.substring(0, 1)}
+                placeholder={detailForInput.substring(0, 1)}
                 value={value}
                 isEditing={isEditing}
                 shouldRenderSubmits={this.shouldRenderSubmits()}

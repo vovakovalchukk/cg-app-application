@@ -21,7 +21,7 @@ const mapStateToProps = function(state) {
         userSettings: state.userSettings,
         search: state.search,
         scroll: state.scroll,
-        dimensions: state.dimensions
+        detail: state.detail
     };
 };
 

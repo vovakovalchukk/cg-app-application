@@ -11,11 +11,11 @@ class WeightCell extends React.Component {
         rows: {},
         width: '',
         rowData: [],
-        dimensions: {},
+        detail: {},
         scroll: {}
     };
     getValue = (row) => {
-        let detailForId = this.props.dimensions['weight'].byProductId[row.id];
+        let detailForId = this.props.detail['weight'].byProductId[row.id];
         if (!detailForId) {
             return row.details['weight'];
         }
@@ -36,43 +36,44 @@ class WeightCell extends React.Component {
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             rowData,
-            dimensions
+            detail
         } = this.props;
 
-        const isSimpleProduct = stateUtility.isSimpleProduct(rowData);
-        const isVariation = stateUtility.isVariation(rowData);
-
-        if (!isSimpleProduct && !isVariation) {
-            return <span></span>
-        }
-        let valueForWeight = this.getValue(rowData);
-
-        let portalSettings = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.INPUT_SAFE_SUBMITS,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
-            width,
-            allRows: this.props.rows.allIds
-        });
-        let isEditing = dimensions['weight'].byProductId[rowData.id] ? dimensions['weight'].byProductId[rowData.id].isEditing : false;
-
-        return (
-            <span className={this.props.className}>
-                <SafeInputStateless
-                    name='weight'
-                    step="0.1"
-                    submitCallback={this.props.actions.saveDetail.bind(this, rowData, 'weight')}
-                    cancelInput={this.props.actions.cancelInput.bind(this, rowData, 'weight')}
-                    setIsEditing={this.props.actions.setIsEditing.bind(this, rowData.id, 'weight')}
-                    onValueChange={this.props.actions.changeDimensionValue.bind(this, rowData.id, 'weight')}
-                    value={valueForWeight}
-                    submitsPortalSettings={portalSettings}
-                    width={45}
-                    isEditing={isEditing}
-                    shouldRenderSubmits={this.shouldRenderSubmits()}
-                />
-            </span>
-        );
+//        const isSimpleProduct = stateUtility.isSimpleProduct(rowData);
+//        const isVariation = stateUtility.isVariation(rowData);
+//
+//        if (!isSimpleProduct && !isVariation) {
+//            return <span></span>
+//        }
+//        let valueForWeight = this.getValue(rowData);
+//
+//        let portalSettings = portalSettingsFactory.createPortalSettings({
+//            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+//            rowIndex,
+//            distanceFromLeftSideOfTableToStartOfCell,
+//            width,
+//            allRows: this.props.rows.allIds
+//        });
+//        let isEditing = detail['weight'].byProductId[rowData.id] ? detail['weight'].byProductId[rowData.id].isEditing : false;
+//
+//        return (
+//            <span className={this.props.className}>
+//                <SafeInputStateless
+//                    name='weight'
+//                    step="0.1"
+//                    submitCallback={this.props.actions.saveDetail.bind(this, rowData, 'weight')}
+//                    cancelInput={this.props.actions.cancelInput.bind(this, rowData, 'weight')}
+//                    setIsEditing={this.props.actions.setIsEditing.bind(this, rowData.id, 'weight')}
+//                    onValueChange={this.props.actions.changeDetailValue.bind(this, rowData.id, 'weight')}
+//                    value={valueForWeight}
+//                    submitsPortalSettings={portalSettings}
+//                    width={45}
+//                    isEditing={isEditing}
+//                    shouldRenderSubmits={this.shouldRenderSubmits()}
+//                />
+//            </span>
+//        );
+        return <span>sdf</span>
     }
 }
 

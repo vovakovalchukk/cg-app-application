@@ -13,7 +13,7 @@ import bulkSelectReducer from 'Product/Components/ProductList/Reducers/bulkSelec
 import rowsReducer from 'Product/Components/ProductList/Reducers/rowsReducer';
 import userSettingsReducer from 'Product/Components/ProductList/Reducers/userSettingsReducer';
 import scrollReducer from 'Product/Components/ProductList/Reducers/scrollReducer';
-import dimensionReducer from 'Product/Components/ProductList/Reducers/dimensionReducer';
+import detailReducer from 'Product/Components/ProductList/Reducers/detailReducer';
 
 var appReducer = combineReducers({
     products: productsReducer,
@@ -30,7 +30,7 @@ var appReducer = combineReducers({
     rows: rowsReducer,
     userSettings: userSettingsReducer,
     scroll: scrollReducer,
-    dimensions: dimensionReducer
+    detail: detailReducer
 });
 
 const combinedReducer = (state, action) => {

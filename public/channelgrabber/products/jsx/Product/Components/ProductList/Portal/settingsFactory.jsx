@@ -16,7 +16,7 @@ const distanceElementMap = {
     [elementTypes.SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {
         return distanceFromLeftSideOfTableToStartOfCell
     },
-    [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell, dimension}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension))
+    [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell, detailForInput}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(detailForInput))
 };
 const elemTypeZIndexMap = {
     [elementTypes.SELECT_DROPDOWN]: 150,
@@ -35,7 +35,7 @@ let portalSettingsFactory = (function() {
                 rowIndex,
                 width,
                 distanceFromLeftSideOfTableToStartOfCell,
-                dimension,
+                detailForInput,
                 allRows
             } = paramObj;
 
@@ -52,8 +52,9 @@ let portalSettingsFactory = (function() {
                 elemType,
                 distanceFromLeftSideOfTableToStartOfCell,
                 width,
-                dimension,
-                translateProp: getTranslateProp({elemType})
+                detailForInput,
+                translateProp: getTranslateProp({elemType}),
+                rowIndex
             });
 
             return {
@@ -69,8 +70,8 @@ let portalSettingsFactory = (function() {
         return translateElementMap[elemType];
     }
 
-    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
-        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell, width, dimension});
+    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, detailForInput}) {
+        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell, width, detailForInput});
     }
 
     function getZIndexForWrapper(elemType) {
@@ -80,7 +81,7 @@ let portalSettingsFactory = (function() {
         return elemTypeZIndexMap[elemType];
     }
 
-    function getWrapperForPortal({elemType, distanceFromLeftSideOfTableToStartOfCell, width, dimension, rowIndex, translateProp}) {
+    function getWrapperForPortal({elemType, distanceFromLeftSideOfTableToStartOfCell, width, detailForInput, rowIndex, translateProp}) {
         let createWrapper = wrapperStyle => {
             return ({children}) => (
                 <div style={wrapperStyle}>
@@ -93,7 +94,7 @@ let portalSettingsFactory = (function() {
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             elemType,
-            dimension
+            detailForInput
         });
 
         let zIndexForWrapper = getZIndexForWrapper(elemType);

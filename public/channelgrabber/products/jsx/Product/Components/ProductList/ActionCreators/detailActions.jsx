@@ -1,13 +1,13 @@
 "use strict";
 
-let dimensionActions = (function() {
+let detailActions = (function() {
     return {
-        changeDimensionValue: (productId, detail, newValue) => {
+        changeDetailValue: (productId, detail, newValue) => {
             return async function(dispatch, getState) {
                 let currentDetailsFromProductState = getState.customGetters.getDetailsFromProductState(productId);
 
                 dispatch({
-                    type: "DIMENSION_VALUE_CHANGE",
+                    type: "DETAIL_VALUE_CHANGE",
                     payload: {
                         productId,
                         detail,
@@ -33,7 +33,7 @@ let dimensionActions = (function() {
                     return;
                 }
                 let state = getState();
-                let value = state.dimensions[detail].byProductId[row.id].valueEdited;
+                let value = state.detail[detail].byProductId[row.id].valueEdited;
                 n.notice('Updating ' + detail + ' value.');
                 let response = await setDetail(row, detail, value);
                 if (response.exception) {
@@ -57,7 +57,7 @@ let dimensionActions = (function() {
                 return;
             }
             return ({
-                type: "DIMENSION_CANCEL_INPUT",
+                type: "DETAIL_CANCEL_INPUT",
                 payload: {
                     detail,
                     row
@@ -68,7 +68,7 @@ let dimensionActions = (function() {
     }
 })();
 
-export default dimensionActions;
+export default detailActions;
 
 async function setDetail(variation, detail, value) {
     return $.ajax({
