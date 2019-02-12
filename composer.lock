@@ -715,12 +715,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f04fe171e519fdb99e7c3c5efc9d1327d01d7bde"
+                "reference": "ec3efdc4aa40679b666e97e091729484eb350e92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-330-product-links-csv-import-0d2047.zip",
-                "reference": "f04fe171e519fdb99e7c3c5efc9d1327d01d7bde",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-330-product-links-csv-import-6a3135.zip",
+                "reference": "ec3efdc4aa40679b666e97e091729484eb350e92",
                 "shasum": null
             },
             "require": {
@@ -794,7 +794,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-02-11T15:11:09+00:00"
+            "time": "2019-02-12T14:21:47+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2507,12 +2507,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "028b0490884f561dc68cfcd799fdedf2b313716d"
+                "reference": "ceb2803dc85bcb0f1bd16b01c5d4b1e395684456"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-330-product-links-csv-import-97ada5.zip",
-                "reference": "028b0490884f561dc68cfcd799fdedf2b313716d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-330-product-links-csv-import-6d0a27.zip",
+                "reference": "ceb2803dc85bcb0f1bd16b01c5d4b1e395684456",
                 "shasum": null
             },
             "require": {
@@ -2566,7 +2566,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-11T15:08:02+00:00"
+            "time": "2019-02-12T15:21:59+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
