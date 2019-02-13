@@ -2084,12 +2084,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "deaf39805409ed077221b231cad9f34144380269"
+                "reference": "44e9470e4f8ead43b983f77177fd2da0236da852"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-7b960b.zip",
-                "reference": "deaf39805409ed077221b231cad9f34144380269",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-11fd5c.zip",
+                "reference": "44e9470e4f8ead43b983f77177fd2da0236da852",
                 "shasum": null
             },
             "require": {
@@ -2161,7 +2161,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-02-13T10:00:33+00:00"
+            "time": "2019-02-13T16:32:24+00:00"
         },
         {
             "name": "channelgrabber/payment",
