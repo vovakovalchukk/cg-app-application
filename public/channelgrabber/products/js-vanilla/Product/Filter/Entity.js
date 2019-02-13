@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -9,6 +9,7 @@ define([
         this.sku = sku;
         this.skuThatProductsCantLinkFrom = skuThatProductsCantLinkFrom;
         this.limit = limit;
+        this.replaceVariationWithParent = replaceVariationWithParent;
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
@@ -55,6 +56,11 @@ define([
             this.limit = newLimit;
             return this;
         };
+
+        this.getReplaceVariationWithParent = function()
+        {
+            return this.replaceVariationWithParent;
+        };
     };
 
     Entity.prototype.toObject = function()
@@ -90,6 +96,10 @@ define([
 
         if (this.getSkuThatProductsCantLinkFrom()) {
             object['skuThatProductsCantLinkFrom'] = this.getSkuThatProductsCantLinkFrom();
+        }
+
+        if (typeof this.getReplaceVariationWithParent() === 'boolean') {
+            object['replaceVariationWithParent'] = this.getReplaceVariationWithParent();
         }
 
         return object;

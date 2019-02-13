@@ -1,6 +1,7 @@
 import React from 'react';
 import EditorComponent from 'PurchaseOrders/Components/Editor';
-
+import ProductFilter from 'Product/Filter/Entity';
+import AjaxHandler from 'Product/Storage/Ajax';
 
 var COMPLETE_STATUS = "Complete";
 var DEFAULT_PO_STATUS = "In Progress";
@@ -18,6 +19,8 @@ class EditorContainer extends React.Component {
         window.addEventListener('createNewPurchaseOrder', this.resetEditor);
         window.addEventListener('purchaseOrderSelected', this.populateEditor);
         window.addEventListener('productSelection', this.onProductSelected);
+
+        this.fetchProductsWithLowStock();
     }
 
     componentWillUnmount() {
@@ -271,6 +274,28 @@ class EditorContainer extends React.Component {
     deleteButtonEnabled = () => {
         return this.state.purchaseOrderId
             && this.state.purchaseOrderId > 0;
+    };
+
+    fetchProductsWithLowStock = () => {
+        $.get('/products/purchaseOrders/fetchLowStockProducts', (data) => {
+            let filter = new ProductFilter;
+            filter.sku = data.skus;
+            filter.limit = 500;
+            filter.replaceVariationWithParent = false;
+            AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
+        });
+    };
+
+    populateWithLowStockProducts = (response) => {
+        for (let product of response.products) {
+            this.onProductSelected({
+                detail: {
+                    product: product,
+                    sku: product.sku,
+                    quantity: 1
+                }
+            });
+        }
     };
 
     render() {
