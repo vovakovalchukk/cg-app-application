@@ -136,6 +136,7 @@ let actionCreators = (function() {
             return async function(dispatch) {
                 try {
                     n.notice('Updating Purchase Order stock preference.');
+                    debugger;
                     let response = await updateIncPOStockInAvailable(productId, desiredVal);
                     dispatch({
                         type: "INC_PO_STOCK_UPDATE_SUCCESS",

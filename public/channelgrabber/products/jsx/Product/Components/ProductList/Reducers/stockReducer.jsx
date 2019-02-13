@@ -25,7 +25,11 @@ import reducerCreator from 'Common/Reducers/creator';
 *    incPOStockInAvailableOptions: [],
 *    incPOStockInAvailable: {
 *       byProductId: {
-*           1: "default"
+*           1: {
+*               productId: 1,
+*               selected: "default",
+*               active: false
+*           }
 *       }
 *    }
 */
@@ -43,6 +47,7 @@ let initialState = {
         byProductId: {}
     }
 };
+
 
 let stockModeReducer = reducerCreator(initialState, {
     "STOCK_MODE_SELECT_TOGGLE": function(state, action) {
@@ -206,15 +211,19 @@ function resetEditsForRow(values, rowData) {
 
 function getIncPOStockInAvailableFromProducts(products) {
     let incPOStockInAvailable = {
-        byProductId: {}
+        byProductId: {},
+        allProductIds: []
     };
     products.forEach(product => {
         if (!product.stock) {
-            console.error('no stock set for product:', product);
             return;
         }
         let value = (product.stock.includePurchaseOrdersUseDefault ? 'default' : (product.stock.includePurchaseOrders ? 'on' : 'off'));
-        incPOStockInAvailable.byProductId[product.id] = value;
+        incPOStockInAvailable.byProductId[product.id] = {
+            productId: product.id,
+            selected: value
+        };
+        incPOStockInAvailable.allProductIds.push(product.id);
     });
     return incPOStockInAvailable;
 }

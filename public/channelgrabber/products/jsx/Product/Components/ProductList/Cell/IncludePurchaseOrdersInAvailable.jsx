@@ -5,6 +5,15 @@ import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
 
 class IncludePurchaseOrdersInAvailableCell extends React.Component {
+    static defaultProps = {
+        products : {},
+        rowIndex: '',
+        distanceFromLeftSideOfTableToStartOfCell: '',
+        width: '',
+        rows: {},
+        stock: {},
+        incPOStockInAvailableOptions: {}
+    };
 
     changeSetting = (e) => {
         const {products, rowIndex} = this.props;
@@ -29,11 +38,15 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
             return <span></span>
         }
 
-        let selected = stock.incPOStockInAvailable.byProductId[rowData.id];
+        let selected = stock.incPOStockInAvailable.byProductId[rowData.id].selected;
+        
         let selectedOption = incPOStockInAvailableOptions.find((option) => {
             return option.value == selected;
         });
 
+        console.log('selectedOption: ', selectedOption);
+        
+        
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.SELECT_DROPDOWN,
             rowIndex,
