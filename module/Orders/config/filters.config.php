@@ -40,7 +40,6 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_COUNTRY),
-                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SHIPPING_COUNTRY),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_CURRENCY_CODE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_TOTAL),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_WEIGHT),
