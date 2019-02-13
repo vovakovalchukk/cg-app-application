@@ -481,6 +481,16 @@ return [
                                     ]
                                 ]
                             ],
+                            PurchaseOrdersJsonController::FETCH_LOW_STOCK_PRODUCTS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetchLowStockProducts',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'fetchLowStockProducts'
+                                    ]
+                                ]
+                            ],
                         ],
                     ],
                     CreateListingsJsonController::ROUTE_CREATE_LISTINGS => [
