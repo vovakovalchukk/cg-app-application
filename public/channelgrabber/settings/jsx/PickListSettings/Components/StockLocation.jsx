@@ -9,7 +9,6 @@ class StockLocation extends React.Component {
 
     constructor(props) {
         super(props);
-        this.active = React.createRef();
         this.state = {locationNames: this.props.locationNames || []};
         this.placeholders = ["Warehouse", "Aisle", "Shelf"];
         if (this.state.locationNames.length === 0) {
@@ -20,11 +19,6 @@ class StockLocation extends React.Component {
     componentDidUpdate() {
         if (this.state.locationNames.length === 0) {
             this.addLocationName("");
-        }
-
-        let active = this.active.current;
-        if (active) {
-            active.focus();
         }
     }
 
@@ -90,7 +84,6 @@ class StockLocation extends React.Component {
             <Row label={"Stock Location " + (index + 1) + ":"}>
                 <div className="stock-location">
                     <input
-                        ref={this.active}
                         name={this.props.name + "[" + index + "]"}
                         className="inputbox"
                         onChange={(event) => this.setLocationName(event.target.value, index)}
