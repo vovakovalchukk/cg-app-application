@@ -99,6 +99,7 @@ class StockModeCell extends React.Component {
         }
         return row.stock[stockProp];
     };
+
     createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
@@ -166,7 +167,6 @@ class StockModeCell extends React.Component {
         return (
             <StockModeCellContainer className={this.props.className}>
                 <DataTablesStockModeInputs
-                    key={'stockMode-' + row.id}
                     inputId={row.id}
                     selectActive={this.getStockModeSelectActive(row)}
                     stockModeOptions={this.props.stock.stockModeOptions}

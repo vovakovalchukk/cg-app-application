@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import portalFactory from "../Portal/portalFactory";
 
@@ -34,10 +33,14 @@ class StatelessSelectComponent extends React.Component {
     static defaultProps = {
         inputId: '',
         title: '',
-        onClick: () => {
-        },
+        onClick: () => {},
         portalSettingsForDropdown: {},
-        active: false
+        active: false,
+        selectedOption: {},
+        classNames: '',
+        active: false,
+        styleVars: {},
+        prefix: ''
     };
     state = {
         filter: ""
@@ -89,7 +92,7 @@ class StatelessSelectComponent extends React.Component {
             componentProps: {
                 renderOptions: this.renderOptions,
                 width: this.props.styleVars.widthOfDropdown,
-                className:'u-ease_0-1'
+                className:'u-ease-xshort'
             }
         });
     };
@@ -103,7 +106,7 @@ class StatelessSelectComponent extends React.Component {
         return <StyledDropdown
             renderOptions={this.renderOptions}
             width={this.props.styleVars.widthOfDropdown}
-            className={'u-ease_0-1'}
+            className={'u-ease-xshort'}
         />
     };
     render() {

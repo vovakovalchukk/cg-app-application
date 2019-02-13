@@ -4,13 +4,13 @@ import paginationActions from 'Product/Components/ProductList/ActionCreators/pag
 import searchActions from 'Product/Components/ProductList/ActionCreators/searchActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions'
-import productDetailsActions from 'Product/Components/ProductList/ActionCreators/productDetailsActions'
 import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 import globalActions from 'Product/Components/ProductList/ActionCreators/globalActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 import scrollActions from 'Product/Components/ProductList/ActionCreators/scrollActions';
+import detailActions from 'Product/Components/ProductList/ActionCreators/detailActions';
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 
 export default (ownProps) => {
@@ -22,7 +22,6 @@ export default (ownProps) => {
         paginationActions,
         searchActions,
         tabActions,
-        productDetailsActions,
         stockActions,
         vatActions,
         bulkSelectActions,
@@ -30,6 +29,7 @@ export default (ownProps) => {
         rowActions,
         userSettingsActions,
         scrollActions,
+        detailActions,
         pickLocationsActions
     );
 }
