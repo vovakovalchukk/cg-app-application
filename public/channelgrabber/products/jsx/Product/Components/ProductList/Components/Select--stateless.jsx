@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import portalFactory from "../Portal/portalFactory";
 
@@ -34,10 +33,17 @@ class StatelessSelectComponent extends React.Component {
     static defaultProps = {
         inputId: '',
         title: '',
-        onClick: () => {
-        },
+        onClick: () => {},
         portalSettingsForDropdown: {},
-        active: false
+        active: false,
+        selectedOption: {},
+        classNames: '',
+        active: false,
+        styleVars: {},
+        prefix: ''
+    };
+    state = {
+        filter: ""
     };
     onComponentClick = () => {
         this.props.selectToggle(this.props.inputId);
@@ -48,11 +54,17 @@ class StatelessSelectComponent extends React.Component {
     getClassNames = () => {
         return 'custom-select ' + this.props.classNames + (this.props.active ? 'active' : '');
     };
+    setFilter = (filter) => {
+        this.setState({filter});
+    };
+    filter = (opt) => {
+        return this.state.filter ? opt.name.toLowerCase().includes(this.state.filter.toLowerCase()) : true;
+    };
     onOptionSelected = (value) => {
         var selectedOption = this.props.options.find(function(option) {
             return option.value === value;
         });
-        this.props.onOptionChange(selectedOption);
+        this.props.onOptionChange(selectedOption || {value});
     };
     renderOption = (opt, index) => {
         return <li
@@ -66,7 +78,10 @@ class StatelessSelectComponent extends React.Component {
     };
     renderOptions = () => {
         return (
-            this.props.options.map(this.renderOption)
+            <React.Fragment>
+                {this.props.children}
+                {this.props.options.filter(this.filter).map(this.renderOption)}
+            </React.Fragment>
         )
     };
     renderDropdownInPortal = () => {
@@ -77,7 +92,7 @@ class StatelessSelectComponent extends React.Component {
             componentProps: {
                 renderOptions: this.renderOptions,
                 width: this.props.styleVars.widthOfDropdown,
-                className:'u-ease_0-1'
+                className:'u-ease-xshort'
             }
         });
     };
@@ -91,7 +106,7 @@ class StatelessSelectComponent extends React.Component {
         return <StyledDropdown
             renderOptions={this.renderOptions}
             width={this.props.styleVars.widthOfDropdown}
-            className={'u-ease_0-1'}
+            className={'u-ease-xshort'}
         />
     };
     render() {
