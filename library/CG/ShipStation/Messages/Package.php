@@ -14,6 +14,9 @@ class Package
     const WEIGHT_UNIT = 'kilogram';
     const DIMENSION_UNIT = 'centimeter';
 
+    const WEIGHT_UNIT_G_ABBR = 'g';
+    const WEIGHT_KG_TO_G_RATIO = 1000;
+
     /** @var float|null */
     protected $weight;
     /** @var string|null */
@@ -34,6 +37,7 @@ class Package
     protected $insuredCurrency;
 
     protected static $unitMap = [
+        'g' => 'gram',
         'kg' => 'kilogram',
         'oz' => 'ounce',
         'cm' => 'centimeter',
@@ -87,9 +91,17 @@ class Package
         if ((float)$orderData->getInsuranceMonetary() > 0) {
             $insuranceAmount = round($orderData->getInsuranceMonetary() / $orderData->getParcels(), 2);
         }
+
+        $weightValue = $parcelData->getWeight();
+        $weightUnit = static::$unitMap[LocaleMass::getForLocale($rootOu->getLocale())];
+        if ($weightUnit == static::WEIGHT_UNIT) {
+            $weightValue = $weightValue * static::WEIGHT_KG_TO_G_RATIO;
+            $weightUnit = static::$unitMap[static::WEIGHT_UNIT_G_ABBR];
+        }
+
         return new static(
-            $parcelData->getWeight(),
-            static::$unitMap[LocaleMass::getForLocale($rootOu->getLocale())],
+            $weightValue,
+            $weightUnit,
             $parcelData->getLength(),
             $parcelData->getWidth(),
             $parcelData->getHeight(),
