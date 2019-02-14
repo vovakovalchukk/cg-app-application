@@ -1,5 +1,4 @@
 <?php
-
 namespace Products\Controller;
 
 use CG\Account\Client\Service as AccountService;
@@ -14,9 +13,12 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Csv\Link\Service as ProductLinkCsvService;
+use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
@@ -26,12 +28,13 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
+use GearmanClient;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
+use Products\Product\Importer as ProductImporter;
 use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
-use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -40,6 +43,7 @@ class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
+    const ROUTE_PICK_LOCATIONS = 'PickLocation';
     const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
@@ -47,6 +51,8 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
+    const ROUTE_PRODUCT_CSV_IMPORT = 'productCsvImport';
+    const ROUTE_PRODUCT_LINK_CSV_EXPORT = 'productLinkCsvExport';
     const ROUTE_DELETE = 'Delete';
     const ROUTE_DELETE_CHECK = 'Delete Check';
     const ROUTE_DELETE_PROGRESS = 'Delete Progress';
@@ -74,6 +80,8 @@ class ProductsJsonController extends AbstractActionController
     protected $organisationUnitService;
     /** @var StockCsvService $stockCsvService */
     protected $stockCsvService;
+    /** @var ProductLinkCsvService */
+    protected $productLinkCsvService;
     /** @var StockSettingsService */
     protected $stockSettingsService;
     /** @var UsageService */
@@ -92,6 +100,10 @@ class ProductsJsonController extends AbstractActionController
     protected $imageUploader;
     /** @var ProductCreator */
     protected $productCreator;
+    /** @var GearmanClient */
+    protected $productsGearmanClient;
+    /** @var ProductImporter */
+    protected $productImporter;
 
     public function __construct(
         ProductService $productService,
@@ -102,6 +114,7 @@ class ProductsJsonController extends AbstractActionController
         TaxRateService $taxRateService,
         OrganisationUnitService $organisationUnitService,
         StockCsvService $stockCsvService,
+        ProductLinkCsvService $productLinkCsvService,
         StockSettingsService $stockSettingsService,
         UsageService $usageService,
         LocationService $locationService,
@@ -110,7 +123,9 @@ class ProductsJsonController extends AbstractActionController
         ProductLinkService $productLinkService,
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
-        ProductCreator $productCreator
+        ProductCreator $productCreator,
+        GearmanClient $productsGearmanClient,
+        ProductImporter $productImporter
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -120,6 +135,7 @@ class ProductsJsonController extends AbstractActionController
         $this->taxRateService = $taxRateService;
         $this->organisationUnitService = $organisationUnitService;
         $this->stockCsvService = $stockCsvService;
+        $this->productLinkCsvService = $productLinkCsvService;
         $this->stockSettingsService = $stockSettingsService;
         $this->usageService = $usageService;
         $this->locationService = $locationService;
@@ -129,6 +145,8 @@ class ProductsJsonController extends AbstractActionController
         $this->listingChannelService = $listingChannelService;
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
+        $this->productsGearmanClient = $productsGearmanClient;
+        $this->productImporter = $productImporter;
     }
 
     public function ajaxAction()
@@ -457,6 +475,16 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
+    public function saveProductPickLocationsAction()
+    {
+        $this->checkUsage();
+        $this->productService->saveProductPickLocations(
+            $this->params()->fromPost('productId'),
+            $this->params()->fromPost('productPickLocations') ?? []
+        );
+        return $this->jsonModelFactory->newInstance(['saved' => true]);
+    }
+
     public function saveProductStockModeAction()
     {
         $this->checkUsage();
@@ -507,6 +535,18 @@ class ProductsJsonController extends AbstractActionController
         }
     }
 
+    public function linkCsvExportAction()
+    {
+
+        $rootOuId = $this->activeUser->getActiveUserRootOrganisationUnitId();
+        $userName = $this->activeUser->getActiveUser()->getUsername();
+
+        $workload = new ExportProductLinksWorkload($rootOuId, $userName);
+        $this->productsGearmanClient->doBackground(ExportProductLinksWorkload::FUNCTION_NAME, serialize($workload), ExportProductLinksWorkload::FUNCTION_NAME . $rootOuId);
+
+        return $this->jsonModelFactory->newInstance(['email' => $userName]);
+    }
+
     public function stockCsvExportCheckAction()
     {
         $this->checkUsage();
@@ -548,6 +588,19 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable("success", true);
         return $view;
+    }
+
+    public function productCsvImportAction()
+    {
+        $this->checkUsage();
+
+        $productUploadFile = $this->getRequest()->getPost('productUploadFile');
+        if (empty($productUploadFile)) {
+            throw new \RuntimeException('No File uploaded');
+        }
+
+        $importStatus = $this->productImporter->importProductsFromCsvString($productUploadFile);
+        return $this->jsonModelFactory->newInstance(['status' => $importStatus->toArray()]);
     }
 
     public function detailsUpdateAction()

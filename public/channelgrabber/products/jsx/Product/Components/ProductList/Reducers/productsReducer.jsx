@@ -39,36 +39,6 @@ var ProductsReducer = reducerCreator(initialState, {
         newState = applySingleProductLinkChangeToState(state, action.payload.productLinks, skus[0]);
         return newState;
     },
-    "PRODUCT_DETAILS_CHANGE": function(state, action) {
-        let {row, value, detail} = action.payload;
-        let stateCopy = Object.assign({}, state);
-        let visibleRowsCopy = JSON.parse(JSON.stringify(stateCopy.visibleRows));
-        
-        let rowIndexToChange = getVisibleRowIndexToChangeFromId(row.id, visibleRowsCopy);
-        
-        visibleRowsCopy[rowIndexToChange].details[detail] = value;
-        
-        let variationsByParentCopy = JSON.parse(JSON.stringify(stateCopy.variationsByParent));
-        
-        if (stateUtility.isVariation(row)) {
-            let rowIndexOfVariationToChange = variationsByParentCopy[row.parentProductId].findIndex(rowOfChangedProduct => {
-                return rowOfChangedProduct.id === row.id;
-            });
-            variationsByParentCopy[row.parentProductId][rowIndexOfVariationToChange].details[detail] = value;
-        }
-        n.success('Successfully updated ' + detail + '.');
-        
-        let newState = Object.assign({}, stateCopy, {
-            visibleRows: visibleRowsCopy,
-            variationsByParent: variationsByParentCopy
-        });
-        return newState;
-    },
-    "PRODUCT_DETAILS_CHANGE_FAILURE": function(state, action) {
-        let {error, detail} = action.payload;
-        n.showErrorNotification(error, "There was an error when attempting to update the " + detail + ".");
-        return state;
-    },
     "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
         let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
         let newState = Object.assign({}, state, {

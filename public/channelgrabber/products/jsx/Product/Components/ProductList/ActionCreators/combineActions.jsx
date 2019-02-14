@@ -4,13 +4,14 @@ import paginationActions from 'Product/Components/ProductList/ActionCreators/pag
 import searchActions from 'Product/Components/ProductList/ActionCreators/searchActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions'
-import productDetailsActions from 'Product/Components/ProductList/ActionCreators/productDetailsActions'
 import stockActions from 'Product/Components/ProductList/ActionCreators/stockActions'
 import bulkSelectActions from 'Product/Components/ProductList/ActionCreators/bulkSelectActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 import globalActions from 'Product/Components/ProductList/ActionCreators/globalActions';
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 import scrollActions from 'Product/Components/ProductList/ActionCreators/scrollActions';
+import detailActions from 'Product/Components/ProductList/ActionCreators/detailActions';
+import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 
 export default (ownProps) => {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
@@ -21,14 +22,15 @@ export default (ownProps) => {
         paginationActions,
         searchActions,
         tabActions,
-        productDetailsActions,
         stockActions,
         vatActions,
         bulkSelectActions,
         passedInMethodsAsActions,
         rowActions,
         userSettingsActions,
-        scrollActions
+        scrollActions,
+        detailActions,
+        pickLocationsActions
     );
 }
 
@@ -53,7 +55,7 @@ function formatPassedInMethodsAsReduxActions(ownProps) {
                     productSearchActive: state.search.productSearchActive,
                     createListingsAllowedChannels: state.createListing.createListingsAllowedChannels,
                     createListingsAllowedVariationChannels: state.createListing.createListingsAllowedVariationChannels,
-                })
+                });
 
                 dispatch(globalActions.changeView());
             }
