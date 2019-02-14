@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6082d27473a5f1e4cca4153df24251ac",
+    "content-hash": "96b77a4099e077319c2477a024acfbd7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2376,23 +2376,23 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "44cbfc5482d448d777475225c626e90789672a06"
+                "reference": "2ea1fd1d4645c312710102d48449149bd975d46b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.1.0-8eaad2.zip",
-                "reference": "44cbfc5482d448d777475225c626e90789672a06",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.0-cde0e6.zip",
+                "reference": "2ea1fd1d4645c312710102d48449149bd975d46b",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.5.0",
+                "channelgrabber/template": "^1.6.8",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2416,7 +2416,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2017-12-01T12:16:56+00:00"
+            "time": "2019-02-13T12:25:49+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -2564,7 +2564,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-13T09:15:57+00:00"
+            "time": "2019-02-13T12:22:10+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2968,16 +2968,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "72ced076cd6265225d0d2fd65b18b8ea546468c5"
+                "reference": "c429641543e212b482fa7d16f2981af67436b4f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.6.5-e75655.zip",
-                "reference": "72ced076cd6265225d0d2fd65b18b8ea546468c5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.6.6-b3d5f9.zip",
+                "reference": "c429641543e212b482fa7d16f2981af67436b4f8",
                 "shasum": null
             },
             "require": {
@@ -3001,7 +3001,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-02-01T13:53:43+00:00"
+            "time": "2019-02-13T12:22:28+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3220,16 +3220,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.5",
+            "version": "2.16.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea"
+                "reference": "b9a5be011bc5b964b994bf87c476d9bb9281f243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.5-509b13.zip",
-                "reference": "a72dbe6d3790067a6aed4c61b3b78b1edfc183ea",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.7-4e639b.zip",
+                "reference": "b9a5be011bc5b964b994bf87c476d9bb9281f243",
                 "shasum": null
             },
             "require": {
@@ -3273,7 +3273,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-11-15T10:31:57+00:00"
+            "time": "2019-02-13T12:22:45+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -3420,16 +3420,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.6",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c9c7290b8dc9d6377e9b4f29b5196f0a1146666f"
+                "reference": "330b9198f1e7fdf841329f2fce1e1f60089a6fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.6-3fc22e.zip",
-                "reference": "c9c7290b8dc9d6377e9b4f29b5196f0a1146666f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.8-b94a76.zip",
+                "reference": "330b9198f1e7fdf841329f2fce1e1f60089a6fb4",
                 "shasum": null
             },
             "require": {
@@ -3476,7 +3476,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-01T14:03:14+00:00"
+            "time": "2019-02-13T12:21:50+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -9803,7 +9803,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",

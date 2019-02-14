@@ -38,6 +38,9 @@ let stateGetters = function(getState) {
             },
             getDetailsFromProductState(id) {
                 return self.getProductById(id).details;
+            },
+            getPickLocationNames() {
+                return _getState().pickLocations.names;
             }
         };
         return self;

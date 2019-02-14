@@ -11,6 +11,7 @@ import globalActions from 'Product/Components/ProductList/ActionCreators/globalA
 import userSettingsActions from 'Product/Components/ProductList/ActionCreators/userSettingsActions';
 import scrollActions from 'Product/Components/ProductList/ActionCreators/scrollActions';
 import detailActions from 'Product/Components/ProductList/ActionCreators/detailActions';
+import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 
 export default (ownProps) => {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
@@ -28,7 +29,8 @@ export default (ownProps) => {
         rowActions,
         userSettingsActions,
         scrollActions,
-        detailActions
+        detailActions,
+        pickLocationsActions
     );
 }
 

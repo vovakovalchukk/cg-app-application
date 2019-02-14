@@ -43,6 +43,7 @@ class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
+    const ROUTE_PICK_LOCATIONS = 'PickLocation';
     const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
@@ -472,6 +473,16 @@ class ProductsJsonController extends AbstractActionController
         $this->productService->saveProductTaxRateId($productId, $taxRateId, $memberState);
         $view->setVariable('saved', true);
         return $view;
+    }
+
+    public function saveProductPickLocationsAction()
+    {
+        $this->checkUsage();
+        $this->productService->saveProductPickLocations(
+            $this->params()->fromPost('productId'),
+            $this->params()->fromPost('productPickLocations') ?? []
+        );
+        return $this->jsonModelFactory->newInstance(['saved' => true]);
     }
 
     public function saveProductStockModeAction()
