@@ -14,9 +14,13 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Csv\Link\Service as ProductLinkCsvService;
+use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Entity as Stock;
@@ -27,8 +31,7 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use CG\Product\Csv\Stock\Service as StockCsvService;
-use CG\Product\Csv\Link\Service as ProductLinkCsvService;
+use GearmanClient;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
 use Products\Product\Link\Service as ProductLinkService;
@@ -37,8 +40,6 @@ use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
-use GearmanClient;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -150,25 +151,13 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->jsonModelFactory->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
-        $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
-        $limit = 'all';
-        if (
-            !array_key_exists('parentProductId', $filterParams)
-            && !array_key_exists('id', $filterParams)
-            && !array_key_exists('replaceVariationWithParent', $filterParams)
-        ) {
-            $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
-            $filterParams['replaceVariationWithParent'] = true;
-        }
-        if (!array_key_exists('deleted', $filterParams)) {
-            $filterParams['deleted'] = false;
-        }
-        $requestFilter = $this->filterMapper->fromArray($filterParams);
-        $requestFilter->setEmbedVariationsAsLinks(true);
+
+        $requestFilter = $this->buildFilter($filterParams);
+
         $total = 0;
         $productsArray = [];
         try {
-            $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
+            $products = $this->productService->fetchProducts($requestFilter, $requestFilter->getLimit(), $requestFilter->getPage());
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->fetchAccounts($organisationUnitIds);
             $accountsArray = $this->getAccountsIndexedById($accounts);
@@ -218,8 +207,36 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
             ->setVariable('productSearchActive', $productSearchActive)
             ->setVariable('productSearchActiveForVariations', $productSearchActiveForVariations)
-            ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
+            ->setVariable('pagination', ['page' => (int) $requestFilter->getPage(), 'limit' => (int) $requestFilter->getLimit(), 'total' => (int)$total]);
         return $view;
+    }
+
+    protected function buildFilter(array $filterParams): ProductFilter
+    {
+        $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
+        $limit = 'all';
+        $embedVariationsAsLinks = isset($filterParams['embedVariationsAsLinks']) ?
+            filter_var($filterParams['embedVariationsAsLinks'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
+            : true;
+
+        if (
+            !array_key_exists('parentProductId', $filterParams)
+            && !array_key_exists('id', $filterParams)
+            && !array_key_exists('replaceVariationWithParent', $filterParams)
+        ) {
+            $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
+            $filterParams['replaceVariationWithParent'] = false;
+        }
+        if (!array_key_exists('deleted', $filterParams)) {
+            $filterParams['deleted'] = false;
+        }
+
+        $requestFilter = $this->filterMapper->fromArray($filterParams)
+            ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
+            ->setLimit($limit)
+            ->setPage($page);
+
+        return $requestFilter;
     }
 
     protected function fetchAccounts($organisationUnitIds): AccountCollection
@@ -287,6 +304,12 @@ class ProductsJsonController extends AbstractActionController
 
         $product['variationCount'] = count($productEntity->getVariationIds());
         $product['variationIds'] = $productEntity->getVariationIds();
+        if (count($productEntity->getVariationIds()) > 0) {
+            /** @var ProductEntity $variation */
+            foreach ($productEntity->getVariations() as $variation) {
+                $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts, $rootOrganisationUnit, $merchantLocationIds);
+            }
+        }
 
         if (!$productEntity->getStock() || count($productEntity->getVariations())) {
             return $product;
