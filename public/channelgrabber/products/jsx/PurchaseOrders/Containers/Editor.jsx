@@ -288,9 +288,13 @@ class EditorContainer extends React.Component {
     };
 
     populateWithLowStockProducts = (response) => {
-        let products = response.products;
+        let products = response.products.slice();
+
+        response = undefined;
 
         for (let product of products) {
+            this.cleanupProductData(product);
+
             if (product.variationCount === 0) {
                 this.onProductSelected({
                     detail: {
@@ -304,6 +308,10 @@ class EditorContainer extends React.Component {
 
             this.populateWithLowStockVariations(product);
         }
+
+        if (products.length > 0) {
+            n.success("For your convenience, we have fetched all of your low stock products onto a new purchase order ready for you to check and save.", true, 4000);
+        }
     };
 
     populateWithLowStockVariations = (product) => {
@@ -312,6 +320,7 @@ class EditorContainer extends React.Component {
             if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
                 continue;
             }
+            this.cleanupProductData(variation);
             this.onProductSelected({
                 detail: {
                     product: product,
@@ -320,6 +329,21 @@ class EditorContainer extends React.Component {
                 }
             });
         }
+    };
+
+    cleanupProductData = (product) => {
+        delete product.imageIds;
+        delete product.listingImageIds;
+        delete product.taxRateIds;
+        delete product.eTag;
+        delete product.listings;
+        delete product.listingsPerAccount;
+        delete product.activeSalesAccounts;
+        delete product.accounts;
+        delete product.stockModeDefault;
+        delete product.stockLevelDefault;
+        delete product.lowStockThresholdDefault;
+        delete product.taxRates;
     };
 
     render() {
