@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "96b77a4099e077319c2477a024acfbd7",
+    "content-hash": "c38e63ba949b42788b48b30dee29b5de",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2506,12 +2506,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "a461e4a47f9ddba2ad6ed395374012395ba7f9e3"
+                "reference": "4e41cdad183ac82f3c62252491f31b7355fc2819"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-282-ProductUpload-af02b9.zip",
-                "reference": "a461e4a47f9ddba2ad6ed395374012395ba7f9e3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-282-ProductUpload-383e57.zip",
+                "reference": "4e41cdad183ac82f3c62252491f31b7355fc2819",
                 "shasum": null
             },
             "require": {
@@ -2564,7 +2564,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-13T12:22:10+00:00"
+            "time": "2019-02-14T11:52:31+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -9803,8 +9803,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
