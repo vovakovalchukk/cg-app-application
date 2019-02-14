@@ -7,14 +7,17 @@ use CG\Order\Shared\Courier\Label\OrderData;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
-use CG\Product\Detail\Entity as ProductDetail;
+use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
 class Package
 {
     const WEIGHT_UNIT = 'kilogram';
     const DIMENSION_UNIT = 'centimeter';
 
-    const WEIGHT_UNIT_G_ABBR = 'g';
+    const WEIGHT_UNIT_KG_ABBR = 'kg';
+
+    const WEIGHT_UNIT_GRAM_ABBR = 'g';
+    const WEIGHT_UNIT_GRAM = 'gram';
     const WEIGHT_KG_TO_G_RATIO = 1000;
 
     /** @var float|null */
@@ -42,6 +45,10 @@ class Package
         'oz' => 'ounce',
         'cm' => 'centimeter',
         'in' => 'inch',
+    ];
+
+    protected static $unitConversion = [
+        self::WEIGHT_UNIT_KG_ABBR => self::WEIGHT_UNIT_GRAM_ABBR
     ];
 
     public function __construct(
@@ -92,11 +99,14 @@ class Package
             $insuranceAmount = round($orderData->getInsuranceMonetary() / $orderData->getParcels(), 2);
         }
 
+        $localeMass = LocaleMass::getForLocale($rootOu->getLocale());
+
         $weightValue = $parcelData->getWeight();
-        $weightUnit = static::$unitMap[LocaleMass::getForLocale($rootOu->getLocale())];
-        if ($weightUnit == static::WEIGHT_UNIT) {
-            $weightValue = $weightValue * static::WEIGHT_KG_TO_G_RATIO;
-            $weightUnit = static::$unitMap[static::WEIGHT_UNIT_G_ABBR];
+        $weightUnit = static::$unitMap[$localeMass];
+
+        if (isset(static::$unitConversion[$localeMass])) {
+            $weightValue = (new Mass($weightValue, $localeMass))->toUnit(static::$unitConversion[$localeMass]);
+            $weightUnit = static::$unitMap[static::$unitConversion[$localeMass]];
         }
 
         return new static(
