@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import Input from 'Common/Components/SafeInput';
+import SafeInputStateless from 'Common/Components/SafeInputStateless';
 import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 
@@ -10,7 +10,7 @@ const InputsContainer = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const StyledInput = styled(Input)`
+const StyledSafeInputStateless = styled(SafeInputStateless)`
     display:inline-block,
 `;
 const Cross = styled.span`
@@ -21,33 +21,65 @@ const Cross = styled.span`
 class DimensionsCell extends React.Component {
     static defaultProps = {
         products: {},
-        rowIndex: null
+        dimensions: {},
+        rows: [],
+        rowIndex: null,
+        actions: {},
+        width: '',
+        distanceFromLeftSideOfTableToStartOfCell: '',
+        detail: {}
     };
 
-    state = {};
+    getValueForDetail = (row, detail) => {
+        let detailForId = this.props.detail[detail].byProductId[row.id];
+        if (!detailForId) {
+            return row.details[detail];
+        }
+        if (typeof detailForId.valueEdited === "string") {
+            return detailForId.valueEdited;
+        }
+        if (typeof detailForId.value === "string") {
+            return detailForId.value;
+        }
+        return row.details[detail];
+    };
 
-    renderInput = (row, detail) => {
-        const {rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, visibleRows} = this.props;
+    shouldRenderSubmits = () => {
+        return !this.props.scroll.userScrolling;
+    };
 
-        let dimension = detail;
+    renderInput = (row, detailForInput, value) => {
+        const {
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width,
+            detail
+        } = this.props;
+
         let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.DIMENSIONS_INPUT_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            dimension,
+            detailForInput,
             allRows: this.props.rows.allIds
         });
 
+        let isEditing = detail[detailForInput].byProductId[row.id] ? detail[detailForInput].byProductId[row.id].isEditing : false;
         return (
-            <StyledInput
-                name={detail}
-                initialValue={(row.details && row.details[detail]) ? row.details[detail] : detail.substring(0, 1)}
+            <StyledSafeInputStateless
+                name={detailForInput}
                 step="0.1"
-                submitCallback={this.props.actions.saveDetail.bind(this, row)}
+                submitCallback={this.props.actions.saveDetail.bind(this, row, detailForInput)}
+                cancelInput={this.props.actions.cancelInput.bind(this, row, detailForInput)}
+                setIsEditing={this.props.actions.setIsEditing.bind(this, row.id, detailForInput)}
+                onValueChange={this.props.actions.changeDetailValue.bind(this, row.id, detailForInput)}
                 submitsPortalSettings={portalSettingsForSubmits}
                 width={45}
-                placeholder={detail.substring(0, 1)}
+                placeholder={detailForInput.substring(0, 1)}
+                value={value}
+                isEditing={isEditing}
+                shouldRenderSubmits={this.shouldRenderSubmits()}
             />
         )
     };
@@ -63,13 +95,17 @@ class DimensionsCell extends React.Component {
             return <span></span>
         }
 
+        let valueForHeight = this.getValueForDetail(row, 'height');
+        let valueForWidth = this.getValueForDetail(row, 'width');
+        let valueForLength = this.getValueForDetail(row, 'length');
+
         return (
             <InputsContainer className={this.props.className}>
-                {this.renderInput(row, 'height')}
+                {this.renderInput(row, 'height', valueForHeight)}
                 <Cross>✕</Cross>
-                {this.renderInput(row, 'width')}
+                {this.renderInput(row, 'width', valueForWidth)}
                 <Cross>✕</Cross>
-                {this.renderInput(row, 'length')}
+                {this.renderInput(row, 'length', valueForLength)}
             </InputsContainer>
         );
     }

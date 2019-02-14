@@ -5,14 +5,13 @@ use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
 use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Ebay\Site\Map as EbaySiteMap;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
-use CG\Listing\Client\Service as ListingClientService;
 use CG\Locale\CurrencyCode;
 use CG\Locale\DemoLink;
 use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\PhoneNumber;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -29,6 +28,7 @@ use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
+use Settings\PickList\Service as PickListService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -41,13 +41,17 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     const STOCK_TAB_FEATURE_FLAG = 'Stock Tab Enabled';
 
+    /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var ProductService */
     protected $productService;
+    /** @var BulkActionsService */
     protected $bulkActionsService;
+    /** @var Translator */
     protected $translator;
     /** @var DataTable */
     protected $accountStockSettingsTable;
-    /** @var ActiveUserInterface $activeUserContainer */
+    /** @var ActiveUserInterface */
     protected $activeUserContainer;
     /** @var UsageService */
     protected $usageService;
@@ -63,6 +67,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $organisationUnitService;
     /** @var ProductListingService */
     protected $productListingService;
+    /** @var PickListService */
+    protected $pickListService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -77,7 +83,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         TaxRateService $taxRateService,
         CategoryService $categoryService,
         OrganisationUnitService $organisationUnitService,
-        ProductListingService $productListingService
+        ProductListingService $productListingService,
+        PickListService $pickListService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -92,6 +99,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->categoryService = $categoryService;
         $this->organisationUnitService = $organisationUnitService;
         $this->productListingService = $productListingService;
+        $this->pickListService = $pickListService;
     }
 
     public function indexAction()
@@ -133,6 +141,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 $rootOuId,
                 $rootOu
             ),
+            'pickLocations' => $this->featureFlagService->featureEnabledForOu(
+                PickListService::FEATURE_FLAG_PICK_LOCATIONS,
+                $rootOuId,
+                $rootOu
+            ),
             'poStockInAvailableEnabled' => $this->featureFlagService->featureEnabledForOu(
                 ProductSettingsService::FEATURE_FLAG_PO_STOCK_IN_AVAILABLE,
                 $rootOuId,
@@ -154,6 +167,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('showVAT', $this->productService->isVatRelevant());
         $view->setVariable('massUnit', LocaleMass::getForLocale($locale));
         $view->setVariable('lengthUnit', LocaleLength::getForLocale($locale));
+        $view->setVariable('pickLocations', $this->pickListService->getPickListSettings($rootOuId)->getLocationNames());
+        $view->setVariable('pickLocationValues', $this->pickListService->getPickListValues($rootOuId));
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);

@@ -17,10 +17,11 @@ const columnSpecificPropsMap = {
     stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
     includePurchaseOrdersInAvailable: ['rows', 'stock', 'incPOStockInAvailableOptions'],
     available: ['rows'],
-    dimensions: ['rows'],
-    weight: ['rows'],
+    dimensions: ['rows', 'detail', 'scroll'],
+    weight: ['rows', 'detail', 'scroll'],
     vat: ['rows', 'vat'],
-    bulkSelect: ['bulkSelect']
+    bulkSelect: ['bulkSelect'],
+    pickingLocation: ['rows', 'pickLocations', 'pickLocationsSelect']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {
@@ -37,7 +38,6 @@ let columnCreator = function(column, parentProps) {
     column = applyColumnSpecificProps(column, parentProps);
 
     let CellContent = CellFactory.createCellContent(column);
-
     columnWrappers[column.columnKey] = columnWrappers[column.columnKey] || styled(CellWrapper)`
             display: flex;
             align-items: center;

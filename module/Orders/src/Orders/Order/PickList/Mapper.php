@@ -40,7 +40,8 @@ class Mapper
                 $this->sumQuantities($matchingItems),
                 $sku,
                 $variation,
-                $this->getSkuImage($sku, $imageMap)
+                $this->getSkuImage($sku, $imageMap),
+                $matchingProduct !== null ? $matchingProduct->getPickingLocations() : []
             );
         }
         return $pickListEntries;
@@ -64,7 +65,8 @@ class Mapper
                 $this->sumQuantities($matchingItems),
                 '',
                 $this->formatAttributes($this->searchMostDescriptiveItemDetails($matchingItems)['variationAttributes']),
-                null
+                null,
+                []
             );
         }
 
