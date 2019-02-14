@@ -14,11 +14,8 @@ class Package
     const WEIGHT_UNIT = 'kilogram';
     const DIMENSION_UNIT = 'centimeter';
 
-    const WEIGHT_UNIT_KG_ABBR = 'kg';
-
     const WEIGHT_UNIT_GRAM_ABBR = 'g';
-    const WEIGHT_UNIT_GRAM = 'gram';
-    const WEIGHT_KG_TO_G_RATIO = 1000;
+    const WEIGHT_UNIT_KG_ABBR = 'kg';
 
     /** @var float|null */
     protected $weight;
