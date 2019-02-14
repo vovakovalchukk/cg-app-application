@@ -1,5 +1,4 @@
 <?php
-
 namespace Products\Controller;
 
 use CG\Account\Client\Service as AccountService;
@@ -14,9 +13,12 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Csv\Link\Service as ProductLinkCsvService;
+use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
@@ -26,18 +28,16 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use CG\Product\Csv\Stock\Service as StockCsvService;
-use CG\Product\Csv\Link\Service as ProductLinkCsvService;
+use GearmanClient;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
+use Products\Product\Importer as ProductImporter;
 use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Product\Link\Gearman\Workload\ExportProductLinks as ExportProductLinksWorkload;
-use GearmanClient;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -51,6 +51,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
+    const ROUTE_PRODUCT_CSV_IMPORT = 'productCsvImport';
     const ROUTE_PRODUCT_LINK_CSV_EXPORT = 'productLinkCsvExport';
     const ROUTE_DELETE = 'Delete';
     const ROUTE_DELETE_CHECK = 'Delete Check';
@@ -101,6 +102,8 @@ class ProductsJsonController extends AbstractActionController
     protected $productCreator;
     /** @var GearmanClient */
     protected $productsGearmanClient;
+    /** @var ProductImporter */
+    protected $productImporter;
 
     public function __construct(
         ProductService $productService,
@@ -121,7 +124,8 @@ class ProductsJsonController extends AbstractActionController
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
         ProductCreator $productCreator,
-        GearmanClient $productsGearmanClient
+        GearmanClient $productsGearmanClient,
+        ProductImporter $productImporter
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -142,6 +146,7 @@ class ProductsJsonController extends AbstractActionController
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
         $this->productsGearmanClient = $productsGearmanClient;
+        $this->productImporter = $productImporter;
     }
 
     public function ajaxAction()
@@ -583,6 +588,19 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable("success", true);
         return $view;
+    }
+
+    public function productCsvImportAction()
+    {
+        $this->checkUsage();
+
+        $productUploadFile = $this->getRequest()->getPost('productUploadFile');
+        if (empty($productUploadFile)) {
+            throw new \RuntimeException('No File uploaded');
+        }
+
+        $importStatus = $this->productImporter->importProductsFromCsvString($productUploadFile);
+        return $this->jsonModelFactory->newInstance(['status' => $importStatus->toArray()]);
     }
 
     public function detailsUpdateAction()
