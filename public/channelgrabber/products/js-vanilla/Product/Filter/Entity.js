@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -10,6 +10,7 @@ define([
         this.skuThatProductsCantLinkFrom = skuThatProductsCantLinkFrom;
         this.limit = limit;
         this.replaceVariationWithParent = replaceVariationWithParent;
+        this.embedVariationsAsLinks = embedVariationsAsLinks;
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
@@ -61,6 +62,11 @@ define([
         {
             return this.replaceVariationWithParent;
         };
+
+        this.getEmbedVariationsAsLinks = function()
+        {
+            return this.embedVariationsAsLinks;
+        }
     };
 
     Entity.prototype.toObject = function()
@@ -100,6 +106,10 @@ define([
 
         if (typeof this.getReplaceVariationWithParent() === 'boolean') {
             object['replaceVariationWithParent'] = this.getReplaceVariationWithParent();
+        }
+
+        if (typeof this.getEmbedVariationsAsLinks() === 'boolean') {
+            object['embedVariationsAsLinks'] = this.getEmbedVariationsAsLinks();
         }
 
         return object;

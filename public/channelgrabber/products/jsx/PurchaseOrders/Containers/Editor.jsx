@@ -281,17 +281,41 @@ class EditorContainer extends React.Component {
             let filter = new ProductFilter;
             filter.sku = data.skus;
             filter.limit = 500;
-            filter.replaceVariationWithParent = false;
+            filter.replaceVariationWithParent = true;
+            filter.embedVariationsAsLinks = false;
             AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
         });
     };
 
     populateWithLowStockProducts = (response) => {
-        for (let product of response.products) {
+        let products = response.products;
+
+        for (let product of products) {
+            if (product.variationCount === 0) {
+                this.onProductSelected({
+                    detail: {
+                        product: product,
+                        sku: product.sku,
+                        quantity: 1
+                    }
+                });
+                continue;
+            }
+
+            this.populateWithLowStockVariations(product);
+        }
+    };
+
+    populateWithLowStockVariations = (product) => {
+        let variations = product.variations.slice();
+        for (let variation of variations) {
+            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
+                continue;
+            }
             this.onProductSelected({
                 detail: {
                     product: product,
-                    sku: product.sku,
+                    sku: variation.sku,
                     quantity: 1
                 }
             });
