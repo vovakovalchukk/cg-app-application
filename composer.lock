@@ -960,6 +960,12 @@
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
                 "reference": "5ff2f5c9344ad70e3922bb30faf8a4136cc016e6"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10320-parcelforce-email-d05581.zip",
+                "reference": "5ff2f5c9344ad70e3922bb30faf8a4136cc016e6",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
                 "channelgrabber/locale": "^1.0.17",
@@ -991,7 +997,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-01-22T15:51:35+00:00"
+            "time": "2019-02-14T15:22:17+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11036,8 +11042,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
