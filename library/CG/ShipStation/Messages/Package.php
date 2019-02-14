@@ -102,7 +102,7 @@ class Package
         $weightUnit = static::$unitMap[$localeMass];
 
         if (isset(static::$unitConversion[$localeMass])) {
-            $weightValue = (new Mass($weightValue, $localeMass))->toUnit(static::$unitConversion[$localeMass]);
+            $weightValue = round((new Mass($weightValue, $localeMass))->toUnit(static::$unitConversion[$localeMass]), 2);
             $weightUnit = static::$unitMap[static::$unitConversion[$localeMass]];
         }
 
