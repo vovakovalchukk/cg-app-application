@@ -137,7 +137,7 @@
                     }
                     .item-row-qty-input {
                         input {
-                            width: 40px;
+                            width: 30px;
                             border-radius: 5px;
                             border: 1px solid $color-lgrey;
                         }
@@ -148,5 +148,12 @@
     }
     .react-popup {
         width: 25%;
+    }
+
+    .incrementor-input-box {
+        color: $color-mgrey;
+    }
+    .item-row-qty-input {
+        width: 70px;
     }
 }
