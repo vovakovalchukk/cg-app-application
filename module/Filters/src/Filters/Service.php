@@ -330,7 +330,7 @@ class Service
                 'variables' => [
                     'isBoolean' => true,
                     'name' => 'dispatchable',
-                    'title' => 'Is Dispatchable',
+                    'title' => 'Dispatchable By Merchant',
                     'isOptional' => true,
                     'emptyValue' => true,
                     'options' => [
