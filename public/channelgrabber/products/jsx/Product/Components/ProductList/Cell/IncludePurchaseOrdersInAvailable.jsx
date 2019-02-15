@@ -49,7 +49,7 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
         });
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.SELECT_DROPDOWN,
+            elemType: elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,

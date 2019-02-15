@@ -52,7 +52,7 @@ class StatelessSelectComponent extends React.Component {
         return this.props.selectedOption && this.props.selectedOption.name ? this.props.selectedOption.name : ''
     };
     getClassNames = () => {
-        return 'custom-select ' + this.props.classNames + (this.props.active ? 'active' : '');
+        return 'custom-select ' + this.props.classNames + (this.props.active ? ' active' : '');
     };
     setFilter = (filter) => {
         this.setState({filter});
