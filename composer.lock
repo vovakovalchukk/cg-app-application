@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "ca641f0d6a4f26473eda0841299b5fd5",
@@ -2972,12 +2972,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "6f99f4e827d7fcac28b025fd6383f238bed33db1"
+                "reference": "ad1457882e3fea3e6210d4020cf61750359cdbb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-326-include-po-stock-in-available-d4d1b1.zip",
-                "reference": "6f99f4e827d7fcac28b025fd6383f238bed33db1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-326-include-po-stock-in-available-2bec12.zip",
+                "reference": "ad1457882e3fea3e6210d4020cf61750359cdbb2",
                 "shasum": null
             },
             "require": {
@@ -3001,7 +3001,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-02-14T12:07:00+00:00"
+            "time": "2019-02-14T10:55:06+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3281,12 +3281,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "aa359257fa3cf5b452d92db1febe16a0042311ec"
+                "reference": "d69687c592da0f69071b1c4f43fdf37912d3516c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-326-include-po-stock-in-available-3b592e.zip",
-                "reference": "aa359257fa3cf5b452d92db1febe16a0042311ec",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-326-include-po-stock-in-available-6e2beb.zip",
+                "reference": "d69687c592da0f69071b1c4f43fdf37912d3516c",
                 "shasum": null
             },
             "require": {
@@ -3338,7 +3338,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-02-14T12:12:54+00:00"
+            "time": "2019-02-14T10:55:39+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -9803,7 +9803,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",

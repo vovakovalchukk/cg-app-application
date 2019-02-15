@@ -48,7 +48,6 @@ let initialState = {
     }
 };
 
-
 let stockModeReducer = reducerCreator(initialState, {
     "STOCK_MODE_SELECT_TOGGLE": function(state, action) {
         let {productId, currentStock} = action.payload;
@@ -159,22 +158,21 @@ let stockModeReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    'INC_PO_STOCK_IN_AVAILABLE_TOGGLE': function(state, action){
+    'INC_PO_STOCK_IN_AVAILABLE_TOGGLE': function(state, action) {
         let {productId} = action.payload;
         let stock = Object.assign({}, state);
         let productIncPOStockInAvailable = stock.incPOStockInAvailable.byProductId[productId]
-//
         let previousActiveProp = productIncPOStockInAvailable.active;
-        stock = makeAllIncPoStockInAvailableSelectsInactive(stock, productId);
-        if(previousActiveProp){
-             delete productIncPOStockInAvailable.active;
-             return stock;
+        stock = makeAllIncPoStockInAvailableSelectsInactive(stock);
+        if (previousActiveProp) {
+            delete productIncPOStockInAvailable.active;
+            return stock;
         }
         productIncPOStockInAvailable.active = true;
         return stock;
     },
     "INC_PO_STOCK_UPDATE_SUCCESS": function(state, action) {
-        let {productId, desiredVal, response} = action.payload;
+        let {productId, desiredVal} = action.payload;
         let newIncPOStockInAvailable = Object.assign({}, state.incPOStockInAvailable);
 
         newIncPOStockInAvailable.byProductId[productId].selected = desiredVal;
@@ -193,9 +191,9 @@ let stockModeReducer = reducerCreator(initialState, {
 
 export default stockModeReducer;
 
-function makeAllIncPoStockInAvailableSelectsInactive(stock, productId){
+function makeAllIncPoStockInAvailableSelectsInactive(stock) {
     let stockCopy = Object.assign({}, stock);
-    for(let id of Object.keys(stock.incPOStockInAvailable.byProductId)){
+    for (let id of Object.keys(stock.incPOStockInAvailable.byProductId)) {
         delete stock.incPOStockInAvailable.byProductId[id].active;
     }
     return stockCopy;
