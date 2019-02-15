@@ -132,11 +132,19 @@ let actionCreators = (function() {
                 });
             }
         },
-        updateIncPOStockInAvailable: (productId, desiredVal) => {
+        toggleIncPOStockInAvailableSelect: (productId) => {
+            return {
+                type: 'INC_PO_STOCK_IN_AVAILABLE_TOGGLE',
+                payload: {
+                    productId
+                }
+            };
+        },
+        updateIncPOStockInAvailable: (productId, e) => {
+            let desiredVal = e.value;
             return async function(dispatch) {
                 try {
                     n.notice('Updating Purchase Order stock preference.');
-                    debugger;
                     let response = await updateIncPOStockInAvailable(productId, desiredVal);
                     dispatch({
                         type: "INC_PO_STOCK_UPDATE_SUCCESS",
@@ -215,7 +223,7 @@ function updateStock(data) {
 async function updateIncPOStockInAvailable(productId, includePurchaseOrders) {
     return $.ajax({
         url: '/products/includePurchaseOrders',
-        data: {productId: productId, includePurchaseOrders: includePurchaseOrders},
+        data: {productId, includePurchaseOrders},
         method: 'POST',
         dataType: 'json',
         success: function(response) {

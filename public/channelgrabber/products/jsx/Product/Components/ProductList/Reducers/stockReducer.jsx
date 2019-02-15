@@ -159,10 +159,25 @@ let stockModeReducer = reducerCreator(initialState, {
         });
         return newState;
     },
+    'INC_PO_STOCK_IN_AVAILABLE_TOGGLE': function(state, action){
+        let {productId} = action.payload;
+        let stock = Object.assign({}, state);
+        let productIncPOStockInAvailable = stock.incPOStockInAvailable.byProductId[productId]
+//
+        let previousActiveProp = productIncPOStockInAvailable.active;
+        stock = makeAllIncPoStockInAvailableSelectsInactive(stock, productId);
+        if(previousActiveProp){
+             delete productIncPOStockInAvailable.active;
+             return stock;
+        }
+        productIncPOStockInAvailable.active = true;
+        return stock;
+    },
     "INC_PO_STOCK_UPDATE_SUCCESS": function(state, action) {
         let {productId, desiredVal, response} = action.payload;
         let newIncPOStockInAvailable = Object.assign({}, state.incPOStockInAvailable);
-        newIncPOStockInAvailable.byProductId[productId] = desiredVal;
+
+        newIncPOStockInAvailable.byProductId[productId].selected = desiredVal;
         let newState = Object.assign({}, state, {
             incPOStockInAvailable: newIncPOStockInAvailable
         });
@@ -177,6 +192,14 @@ let stockModeReducer = reducerCreator(initialState, {
 });
 
 export default stockModeReducer;
+
+function makeAllIncPoStockInAvailableSelectsInactive(stock, productId){
+    let stockCopy = Object.assign({}, stock);
+    for(let id of Object.keys(stock.incPOStockInAvailable.byProductId)){
+        delete stock.incPOStockInAvailable.byProductId[id].active;
+    }
+    return stockCopy;
+}
 
 function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {
