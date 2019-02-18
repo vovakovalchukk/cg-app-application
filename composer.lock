@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbbffc2c6a4174073dc745ce9e32a5b4",
+    "content-hash": "a5a55a58bf6515f5f094c36f2b878e70",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2090,12 +2090,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "db8729291e1a29a52d32600eda2148d856e72f3f"
+                "reference": "b55505571237159f34e40a7235ab032fd1e49719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-4d5663.zip",
-                "reference": "db8729291e1a29a52d32600eda2148d856e72f3f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-b5c69d.zip",
+                "reference": "b55505571237159f34e40a7235ab032fd1e49719",
                 "shasum": null
             },
             "require": {
@@ -2167,7 +2167,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-02-14T14:56:24+00:00"
+            "time": "2019-02-18T13:11:23+00:00"
         },
         {
             "name": "channelgrabber/payment",
