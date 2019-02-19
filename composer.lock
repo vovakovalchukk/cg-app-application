@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a33f6d215758ab62548d55b3e0221f40",
+    "content-hash": "b8f3e8e31ec3bc15a9946eb7e1086159",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -954,16 +954,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.9",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "0a3959eb67c7b4890496f5d1a2a884e631ef2c85"
+                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.9-6afa15.zip",
-                "reference": "0a3959eb67c7b4890496f5d1a2a884e631ef2c85",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.10-89f2f2.zip",
+                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd",
                 "shasum": null
             },
             "require": {
@@ -997,7 +997,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-01-22T15:51:35+00:00"
+            "time": "2019-02-18T11:42:44+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
