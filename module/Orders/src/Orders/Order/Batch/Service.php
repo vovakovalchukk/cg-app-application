@@ -61,7 +61,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $organisationUnitIds, $active);
+                static::DEFAULT_PAGE, $organisationUnitIds, 1);
             $batches = $batchCollection->toArray();
             usort($batches, array($this, "compare"));
         } catch (NotFound $exception) {
