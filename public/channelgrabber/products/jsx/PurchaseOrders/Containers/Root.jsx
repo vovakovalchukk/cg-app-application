@@ -7,7 +7,8 @@ class RootContainer extends React.Component {
     state = {
         filterStatus: 'All',
         sortAsc: true,
-        purchaseOrders: []
+        purchaseOrders: [],
+        isEditorEmpty: true
     };
 
     getChildContext() {
@@ -55,6 +56,12 @@ class RootContainer extends React.Component {
         });
     };
 
+    setEditorEmptyFlag = (isEditorEmpty) => {
+        this.setState({
+            isEditorEmpty: isEditorEmpty
+        });
+    };
+
     render() {
         return (
             <RootComponent
@@ -65,6 +72,8 @@ class RootContainer extends React.Component {
                 onCreateNewPurchaseOrder={this.onCreateNewPurchaseOrder}
                 onCreateNewPurchaseOrderButtonPressed={this.onCreateNewPurchaseOrderButtonPressed}
                 onDateColumnClicked={this.onDateColumnClicked}
+                newButtonDisabled={this.state.isEditorEmpty}
+                setEditorEmptyFlag={this.setEditorEmptyFlag}
             />
         );
     }

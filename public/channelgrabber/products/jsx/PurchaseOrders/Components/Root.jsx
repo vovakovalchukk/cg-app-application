@@ -36,6 +36,7 @@ class RootComponent extends React.Component {
                         onClick={this.props.onCreateNewPurchaseOrderButtonPressed}
                         sprite="sprite-plus-18-black"
                         text="New"
+                        disabled={this.props.newButtonDisabled}
                     />
                 </div>
             </div>
@@ -47,7 +48,9 @@ class RootComponent extends React.Component {
                     onPurchaseOrderSelected={this.props.onPurchaseOrderSelected}
                     onDateColumnClicked={this.props.onDateColumnClicked}
                 />
-                <PurchaseOrdersEditor />
+                <PurchaseOrdersEditor
+                    setEditorEmptyFlag={this.props.setEditorEmptyFlag}
+                />
             </div>
         </div>
         );

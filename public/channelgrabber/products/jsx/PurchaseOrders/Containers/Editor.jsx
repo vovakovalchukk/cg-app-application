@@ -33,6 +33,15 @@ class EditorContainer extends React.Component {
         this.savePurchaseOrderRequest.abort();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        let poItemsCount = this.state.purchaseOrderItems.length;
+        if (poItemsCount === prevState.purchaseOrderItems.length) {
+            return;
+        }
+
+        this.props.setEditorEmptyFlag(poItemsCount === 0);
+    }
+
     populateEditor = (event) => {
         if (! event.detail) {
             return;
@@ -307,10 +316,6 @@ class EditorContainer extends React.Component {
             }
 
             this.populateWithLowStockVariations(product);
-        }
-
-        if (products.length > 0) {
-            n.success("For your convenience, we have fetched all of your low stock products onto a new purchase order ready for you to check and save.", true, 4000);
         }
     };
 
