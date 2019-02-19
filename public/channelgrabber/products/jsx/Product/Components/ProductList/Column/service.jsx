@@ -58,7 +58,6 @@ let detailsColumns = [
         width: 200,
         headerText: 'Stock Mode',
         fixed: false,
-        tab: 'details',
         align: 'center'
     },
     {
@@ -66,7 +65,6 @@ let detailsColumns = [
         width: 80,
         headerText: 'Weight',
         fixed: false,
-        tab: 'details',
         align: 'center'
     },
     {
@@ -74,7 +72,6 @@ let detailsColumns = [
         width: 280,
         headerText: 'Dimensions',
         fixed: false,
-        tab: 'details',
         align: 'center'
     }
 ];
@@ -85,18 +82,36 @@ let stockColumns = [
         width: 80,
         headerText: 'Awaiting Dispatch',
         fixed: false,
-        tab: 'stock',
         align: 'center'
     }
 ];
 
 let columnService = (function() {
     return {
-        generateColumnSettings: function(accounts, vat) {
-            let listingsColumns = generateListingsColumnsFromAccounts(accounts);
-            let vatColumns = generateVatColumns(vat);
-            let generatedColumns = coreColumns.concat(listingsColumns, detailsColumns, vatColumns, stockColumns);
-            return generatedColumns;
+        generateColumnSettings: function(features, accounts, vat, pickLocationNames) {
+            let tab = (tab, columns) => {
+                return columns.map((column) => {
+                    column['tab'] = tab;
+                    return column;
+                });
+            };
+
+            let featureFilter = (column) => {
+                if (!column.hasOwnProperty('feature')) {
+                    return true
+                }
+                if (!features.hasOwnProperty(column.feature)) {
+                    return false;
+                }
+                return features[column.feature];
+            };
+
+            return coreColumns.concat(
+                tab('listings', generateListingsColumnsFromAccounts(accounts)),
+                tab('details', detailsColumns),
+                tab('vat', generateVatColumns(vat)),
+                tab('stock', stockColumns.concat([getPickLocationColumn(pickLocationNames)]))
+            ).filter(featureFilter);
         }
     }
 }());
@@ -127,7 +142,6 @@ function generateVatColumns(vat) {
                 width: 160,
                 headerText: countryCode,
                 fixed: false,
-                tab: 'vat',
                 align: 'center'
             }
         }
@@ -152,7 +166,6 @@ function generateListingsColumnsFromAccounts(accounts) {
             width: 115,
             headerText: capitalize(account.channel),
             fixed: false,
-            tab: 'listings',
             align: 'center'
         });
     });
@@ -162,7 +175,6 @@ function generateListingsColumnsFromAccounts(accounts) {
             width: 120,
             headerText: 'Add Listing',
             fixed: false,
-            tab: 'listings',
             align: 'center'
         }
     ];
@@ -181,7 +193,21 @@ function getNoVatColumn() {
         headerText: '',
         width: 600,
         fixed: false,
-        tab: 'vat',
         align: 'left'
     }
+}
+
+function getPickLocationColumn(pickLocationNames) {
+    let selectWidth = 150;
+    let padding = 5;
+    return {
+        key: 'pickingLocation',
+        selectWidth,
+        padding,
+        width: (selectWidth * (pickLocationNames.length || 1)) + (padding * 2),
+        headerText: 'Picking Location',
+        fixed: false,
+        align: 'center',
+        feature: 'pickLocations'
+    };
 }

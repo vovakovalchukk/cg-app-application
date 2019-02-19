@@ -22,7 +22,9 @@ var Product = function(
     demoLink,
     showVAT,
     massUnit,
-    lengthUnit
+    lengthUnit,
+    pickLocations,
+    pickLocationValues
 ) {
     ReactDOM.render(
         <RootComponent
@@ -45,6 +47,8 @@ var Product = function(
             showVAT={showVAT}
             massUnit={massUnit}
             lengthUnit={lengthUnit}
+            pickLocations={pickLocations}
+            pickLocationValues={pickLocationValues}
         />,
         mountingNode
     );

@@ -21,7 +21,7 @@ class TooltipComponent extends React.Component {
                     to: 'scrollParent',
                     attachment: 'together'
                 }]}
-                className='tooltip-hover'
+                className='tooltip-hover u-ease_0-1'
             >
                 <div className={'trigger'} onMouseOver={() => {
                     this.setState({isOpen: true})
