@@ -55,12 +55,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setActiveUserContainer($activeUserContainer);
     }
 
-    public function getBatches(bool $active = true): array
+    public function getBatches(?bool $active = true): array
     {
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $organisationUnitIds, (int)$active);
+                static::DEFAULT_PAGE, $organisationUnitIds, $active);
             $batches = $batchCollection->toArray();
             usort($batches, [$this, "compare"]);
         } catch (NotFound $exception) {
