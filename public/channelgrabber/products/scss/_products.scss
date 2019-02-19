@@ -726,10 +726,6 @@ div.tether-element div.tooltip-hover {
             margin-right: 23%;
         }
     }
-    .item-row-img {
-        margin-right: 0;
-        margin-left: 30px;
-    }
 }
 
 .product-unlink-button {
@@ -757,9 +753,16 @@ div.tether-element div.tooltip-hover {
             margin-right: 10px;
         }
         .item-row-qty-input {
-            max-width: 80px;
+            .incrementor-input-box {
+                color: $color-mgrey;
+            }
+
+            width: 70px;
+
             input {
-                width: 50px;
+                width: 30px;
+                border-radius: 5px;
+                border: 1px solid $color-lgrey;
             }
         }
     }
