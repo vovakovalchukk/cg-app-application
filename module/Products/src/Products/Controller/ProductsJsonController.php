@@ -225,7 +225,7 @@ class ProductsJsonController extends AbstractActionController
             && !array_key_exists('replaceVariationWithParent', $filterParams)
         ) {
             $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
-            $filterParams['replaceVariationWithParent'] = false;
+            $filterParams['replaceVariationWithParent'] = true;
         }
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
