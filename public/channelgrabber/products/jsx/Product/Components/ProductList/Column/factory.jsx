@@ -18,7 +18,7 @@ const columnSpecificPropsMap = {
     available: ['rows'],
     dimensions: ['rows', 'detail', 'scroll'],
     weight: ['rows', 'detail', 'scroll'],
-    vat: ['rows', 'vat'],
+    vat: ['rows', 'vat', 'scroll'],
     bulkSelect: ['bulkSelect'],
     pickingLocation: ['rows', 'pickLocations', 'pickLocationsSelect']
 };
@@ -65,7 +65,6 @@ let columnCreator = function(column, parentProps) {
         fixed={column.fixed}
         header={getHeaderText(column, parentProps.userSettings)}
         align={getHeaderCellAlignment(column)}
-        pureRendering={true}
         cell={CellToRender}
     />);
 };
