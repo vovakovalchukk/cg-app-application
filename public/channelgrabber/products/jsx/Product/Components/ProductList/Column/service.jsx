@@ -120,7 +120,7 @@ export default columnService;
 
 function generateVatColumns(vat) {
     if (vat.productsVat.allProductIds.length === 0) {
-        return getNoVatColumn();
+        return [getNoVatColumn()];
     }
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {

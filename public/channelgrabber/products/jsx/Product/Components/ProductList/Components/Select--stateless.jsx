@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactDOM from 'react-dom';
 
 const Dropdown = (props) => (
     <div className={"custom-select active"}>
