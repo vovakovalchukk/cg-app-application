@@ -4,6 +4,8 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
 import LinesEllipsis from 'react-lines-ellipsis'
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
+import SafeInputStateless from 'Common/Components/SafeInputStateless';
+
 
 let NameContainer = styled.div`
     display:flex;
@@ -46,17 +48,23 @@ class NameCell extends React.Component {
         let name = this.getVariationName(row, isVariation);
 
         return (
-            <NameContainer>
-                <LinesEllipsis
-                    text={name}
-                    maxLine='2'
-                    ellipsis='...'
-                    trimRight
-                    basedOn='letters'
-                    title={name}
-                />
-            </NameContainer>
-        );
+            <SafeInputStateless
+                borderless={true}
+
+            />
+        )
+//        return (
+//            <NameContainer>
+//                <LinesEllipsis
+//                    text={name}
+//                    maxLine='2'
+//                    ellipsis='...'
+//                    trimRight
+//                    basedOn='letters'
+//                    title={name}
+//                />
+//            </NameContainer>
+//        );
     }
 }
 
