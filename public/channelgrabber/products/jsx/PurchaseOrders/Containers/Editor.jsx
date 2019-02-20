@@ -19,6 +19,7 @@ class EditorContainer extends React.Component {
         window.addEventListener('createNewPurchaseOrder', this.resetEditor);
         window.addEventListener('purchaseOrderSelected', this.populateEditor);
         window.addEventListener('productSelection', this.onProductSelected);
+        window.addEventListener('purchaseOrderListRefresh', this.resetEditor);
 
         this.fetchProductsWithLowStock();
     }
