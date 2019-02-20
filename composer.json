@@ -57,7 +57,7 @@
         "channelgrabber/predis": "~1.0.12",
         "channelgrabber/product": "~1.16.13",
         "channelgrabber/profiling": "^1.1",
-        "channelgrabber/purchase-order": "~1.0.0",
+        "channelgrabber/purchase-order": "dev-TAC-327-po-low-stock-products as 1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/reporting": "~1.0.0",
