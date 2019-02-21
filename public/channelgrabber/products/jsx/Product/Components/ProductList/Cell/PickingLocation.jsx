@@ -17,7 +17,7 @@ class PickingLocationCell extends React.Component {
 
         if (!stateUtility.isSimpleProduct(row) && !stateUtility.isVariation(row)) {
             return (
-                <span className={this.props.className} />
+                <span className={this.props.className}/>
             );
         }
 
@@ -27,7 +27,16 @@ class PickingLocationCell extends React.Component {
             </span>
         );
     }
-
+    getPickLocationActive(pickLocations, row, index) {
+        if (!(pickLocations.selected
+            && pickLocations.selected.productId === row.id
+            && pickLocations.selected.level === index)
+            || this.props.scroll.userScrolling
+            || !this.props.rows.initialModifyHasOccurred) {
+            return false;
+        }
+        return true;
+    };
     renderPickLocation(name, index, row, rowIndex) {
         const {distanceFromLeftSideOfTableToStartOfCell, pickLocations, padding, selectWidth} = this.props;
 
@@ -43,7 +52,7 @@ class PickingLocationCell extends React.Component {
         if (pickLocations.byProductId.hasOwnProperty(row.id) && pickLocations.byProductId[row.id].hasOwnProperty(index)) {
             selected = pickLocations.byProductId[row.id][index];
         } else if (row.pickingLocations.hasOwnProperty(index)) {
-            selected = row.pickingLocations[index];
+                selected = row.pickingLocations[index];
         }
 
         let select = React.createRef();
@@ -52,11 +61,7 @@ class PickingLocationCell extends React.Component {
                 ref={select}
                 title={name}
                 prefix={name}
-                active={
-                    pickLocations.selected
-                    && pickLocations.selected.productId === row.id
-                    && pickLocations.selected.level === index
-                }
+                active={ this.getPickLocationActive(pickLocations, row, index) }
                 options={(pickLocations.values[index] || []).map((value) => {
                     return {name: value, value};
                 })}
@@ -97,7 +102,7 @@ class PickingLocationCell extends React.Component {
 
         return (
             <div className={"search-selected-wrapper clearfix"} onClick={(event) => event.stopPropagation()}>
-                <input className={"search-selected"} onKeyUp={onKeyUp} />
+                <input className={"search-selected"} onKeyUp={onKeyUp}/>
             </div>
         );
     }
