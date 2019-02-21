@@ -163,7 +163,6 @@ var actionCreators = (function() {
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
-//                dispatch(vatActions.extractVatFromProducts(data.products));
             }
         },
         getVariationsByParentProductId: (parentProductId) => {
