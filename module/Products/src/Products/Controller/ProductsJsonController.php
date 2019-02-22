@@ -1,5 +1,4 @@
 <?php
-
 namespace Products\Controller;
 
 use CG\Account\Client\Service as AccountService;
@@ -14,6 +13,8 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Csv\Link\Service as ProductLinkCsvService;
+use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
 use CG\Product\Filter\Mapper as FilterMapper;
@@ -26,10 +27,9 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
-use CG\Product\Csv\Stock\Service as StockCsvService;
-use CG\Product\Csv\Link\Service as ProductLinkCsvService;
 use Products\Listing\Channel\Service as ListingChannelService;
 use Products\Product\Creator as ProductCreator;
+use Products\Product\Importer as ProductImporter;
 use Products\Product\Link\Service as ProductLinkService;
 use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
@@ -41,6 +41,7 @@ class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
+    const ROUTE_PICK_LOCATIONS = 'PickLocation';
     const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
@@ -48,6 +49,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
+    const ROUTE_PRODUCT_CSV_IMPORT = 'productCsvImport';
     const ROUTE_PRODUCT_LINK_CSV_EXPORT = 'productLinkCsvExport';
     const ROUTE_PRODUCT_LINK_CSV_IMPORT = 'productLinkCsvImport';
     const ROUTE_DELETE = 'Delete';
@@ -97,6 +99,8 @@ class ProductsJsonController extends AbstractActionController
     protected $imageUploader;
     /** @var ProductCreator */
     protected $productCreator;
+    /** @var ProductImporter */
+    protected $productImporter;
 
     public function __construct(
         ProductService $productService,
@@ -116,7 +120,8 @@ class ProductsJsonController extends AbstractActionController
         ProductLinkService $productLinkService,
         ListingChannelService $listingChannelService,
         ImageUploader $imageUploader,
-        ProductCreator $productCreator
+        ProductCreator $productCreator,
+        ProductImporter $productImporter
     ) {
         $this->productService = $productService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -136,6 +141,7 @@ class ProductsJsonController extends AbstractActionController
         $this->listingChannelService = $listingChannelService;
         $this->imageUploader = $imageUploader;
         $this->productCreator = $productCreator;
+        $this->productImporter = $productImporter;
     }
 
     public function ajaxAction()
@@ -464,6 +470,16 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
+    public function saveProductPickLocationsAction()
+    {
+        $this->checkUsage();
+        $this->productService->saveProductPickLocations(
+            $this->params()->fromPost('productId'),
+            $this->params()->fromPost('productPickLocations') ?? []
+        );
+        return $this->jsonModelFactory->newInstance(['saved' => true]);
+    }
+
     public function saveProductStockModeAction()
     {
         $this->checkUsage();
@@ -591,6 +607,19 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->jsonModelFactory->newInstance();
         $view->setVariable('success', true);
         return $view;
+    }
+
+    public function productCsvImportAction()
+    {
+        $this->checkUsage();
+
+        $productUploadFile = $this->getRequest()->getPost('productUploadFile');
+        if (empty($productUploadFile)) {
+            throw new \RuntimeException('No File uploaded');
+        }
+
+        $importStatus = $this->productImporter->importProductsFromCsvString($productUploadFile);
+        return $this->jsonModelFactory->newInstance(['status' => $importStatus->toArray()]);
     }
 
     public function detailsUpdateAction()

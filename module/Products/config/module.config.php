@@ -87,6 +87,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_PICK_LOCATIONS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/pickLocation',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductPickLocations'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_NEW_NAME => [
                         'type' => Literal::class,
                         'options' => [
@@ -165,6 +175,16 @@ return [
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'stockCsvImport'
+                            ]
+                        ],
+                    ],
+                    ProductsJsonController::ROUTE_PRODUCT_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'productCsvImport'
                             ]
                         ],
                     ],

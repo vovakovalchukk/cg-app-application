@@ -16,10 +16,11 @@ const columnKeysMetricPropertyMap = {
 const columnSpecificPropsMap = {
     stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
     available: ['rows'],
-    dimensions: ['rows'],
-    weight: ['rows'],
-    vat: ['rows', 'vat'],
-    bulkSelect: ['bulkSelect']
+    dimensions: ['rows', 'detail', 'scroll'],
+    weight: ['rows', 'detail', 'scroll'],
+    vat: ['rows', 'vat', 'scroll'],
+    bulkSelect: ['bulkSelect'],
+    pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {
@@ -36,7 +37,6 @@ let columnCreator = function(column, parentProps) {
     column = applyColumnSpecificProps(column, parentProps);
 
     let CellContent = CellFactory.createCellContent(column);
-
     columnWrappers[column.columnKey] = columnWrappers[column.columnKey] || styled(CellWrapper)`
             display: flex;
             align-items: center;

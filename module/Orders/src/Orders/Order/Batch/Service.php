@@ -11,7 +11,6 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Batch\Entity as BatchEntity;
 use CG\Order\Client\Service as OrderClient;
 use Zend\Di\Di;
-use Guzzle\Common\Exception\GuzzleException;
 use Predis\Client as PredisClient;
 use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
 use CG\Order\Shared\Collection as Orders;
@@ -56,16 +55,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setActiveUserContainer($activeUserContainer);
     }
 
-    public function getBatches($active = true)
+    public function getBatches(?bool $active = true): array
     {
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
                 static::DEFAULT_PAGE, $organisationUnitIds, $active);
             $batches = $batchCollection->toArray();
-            usort($batches, array($this, "compare"));
+            usort($batches, [$this, "compare"]);
         } catch (NotFound $exception) {
-            $batches = array();
+            $batches = [];
         }
         return $batches;
     }

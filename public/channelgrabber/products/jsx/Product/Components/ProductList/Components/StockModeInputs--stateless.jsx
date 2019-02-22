@@ -12,13 +12,17 @@ const StockModeValue = styled.input`
 
 class StockModeInputsComponent extends React.Component {
     static defaultProps = {
+        actions: {},
         stockModeOptions: null,
         stockModeType: '',
+        stockAmount: {},
         onChange: null,
         value: "",
         classNames: null,
         className: '',
-        portalSettingsForSelect: {}
+        portalSettingsForSelect: {},
+        stockLevelPlaceholder: '',
+        stockModeSelectToggle: () => {}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
@@ -112,9 +116,7 @@ class StockModeInputsComponent extends React.Component {
                         }}
                     />
                 </div>
-                <div className={"c-stock-mode-input__amount-container"}
-                     key={'stockModeContainerDiv-' + this.props.inputId}
-                >
+                <div className={"c-stock-mode-input__amount-container"}>
                     <div className={'safe-input-box'}>
                         <div className={'submit-input'}>
                             <StockModeValue

@@ -19,7 +19,7 @@ class Batch implements SelectOptionsInterface
 
     public function getBatches()
     {
-        return $this->getBatchService()->getBatches(null);
+        return $this->getBatchService()->getBatches();
     }
 
     protected function getBatchService()
