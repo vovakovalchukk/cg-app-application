@@ -39,13 +39,13 @@ let columnCreator = function(column, parentProps) {
 
     let CellContent = CellFactory.createCellContent(column);
     columnWrappers[column.columnKey] = columnWrappers[column.columnKey] || styled(CellWrapper)`
-            display: flex;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-            box-sizing: border-box;
-            justify-content: ${getJustifyContentProp(column)}
-        `;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: ${getJustifyContentProp(column)}
+    `;
 
     if (!CellContent) {
         console.error("cannot create cell in column factory for column: ", column);
