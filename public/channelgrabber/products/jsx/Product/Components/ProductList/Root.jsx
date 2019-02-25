@@ -22,7 +22,8 @@ const mapStateToProps = function(state) {
         search: state.search,
         scroll: state.scroll,
         detail: state.detail,
-        pickLocations: state.pickLocations
+        pickLocations: state.pickLocations,
+        name: state.name
     };
 };
 

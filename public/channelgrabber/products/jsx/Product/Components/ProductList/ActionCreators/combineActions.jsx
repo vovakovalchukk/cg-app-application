@@ -12,6 +12,7 @@ import userSettingsActions from 'Product/Components/ProductList/ActionCreators/u
 import scrollActions from 'Product/Components/ProductList/ActionCreators/scrollActions';
 import detailActions from 'Product/Components/ProductList/ActionCreators/detailActions';
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
+import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions';
 
 export default (ownProps) => {
     let passedInMethodsAsActions = formatPassedInMethodsAsReduxActions(ownProps);
@@ -30,7 +31,8 @@ export default (ownProps) => {
         userSettingsActions,
         scrollActions,
         detailActions,
-        pickLocationsActions
+        pickLocationsActions,
+        nameActions
     );
 }
 

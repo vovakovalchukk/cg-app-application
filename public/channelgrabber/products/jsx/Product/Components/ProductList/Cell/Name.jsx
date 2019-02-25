@@ -46,9 +46,12 @@ const COLS = 32;
 
 class NameCell extends React.Component {
     static defaultProps = {};
+
+    baseValue = 'Please write an essay about your favorite DOM element something else is in here somethingsomething else is in here somethingsomething else is in here something';
+
     state = {
-        origVal: 'Please write an essay about your favorite DOM element something else is in here somethingsomething else is in here somethingsomething else is in here something',
-        value: 'Please write an essay about your favorite DOM element something else is in here somethingsomething else is in here somethingsomething else is in here something'
+        value: this.baseValue,
+        shortenedValue : this.baseValue.substring(0, 40) + "..."
     };
 
     getVariationAttributeArray = (row) => {
@@ -56,12 +59,19 @@ class NameCell extends React.Component {
             return key + ': ' + row.attributeValues[key];
         });
     };
-    getVariationName = (row, isVariation) => {
-        if (!isVariation) {
-            return row['name'];
+    getVariationName = (row) => {
+        const isVariation = stateUtility.isVariation(row);
+        if (isVariation) {
+            let variationAttributeArray = this.getVariationAttributeArray(row);
+            return variationAttributeArray.join(', ');
         }
-        let variationAttributeArray = this.getVariationAttributeArray(row)
-        return variationAttributeArray.join(', ');
+        let {name} = this.props;
+        let productName = name.names.byProductId[row.id];
+
+        if(name.focusedId === row.id){
+            return productName.value;
+        }
+        return productName.shortenedValue;
     };
     getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
@@ -72,54 +82,45 @@ class NameCell extends React.Component {
     componentDidMount = () => {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
-    onChange = (e) => {
-        console.log('on change');
-        
-        
-        this.setState({
-            value: e.target.value
-        });
-    };
-    isActive(){
+    isActive() {
         return this.state.value !== this.state.origVal;
     }
+    onFocus() {
+        if (!this.state.isFocused) {
+            this.setState({
+                isFocused: true
+            })
+        }
+    }
+    onBlur() {
+        if (this.state.isFocused) {
+            this.setState({
+                isFocused: false
+            })
+        }
+    }
     render() {
-        const {products, rowIndex} = this.props;
+        const {products, rowIndex, actions, name} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
-        const isVariation = stateUtility.isVariation(row);
-
-        let name = this.getVariationName(row, isVariation);
 
         //todo - remove this hack....
-
 //        return (
 //            <SafeInputStateless
 //                borderless={true}
 //                width={200}
 //            />
 //        )
-        // this is to dummy when a value has been saved
-        if(this.state.value==='something'){
-                    return (
-                        <NameContainer>
-                            <LinesEllipsis
-                                text={this.state.value}
-                                maxLine='2'
-                                ellipsis='...'
-                                trimRight
-                                basedOn='letters'
-                                title={name}
-                            />
-                        </NameContainer>
-                    );
-        }
+        let value = this.state.isFocused ? this.state.value : this.state.shortenedValue;
+
         return (
             <TextAreaContainer>
                 <TextArea
                     cols={COLS}
                     rows={2}
-                    value={this.state.value}
-                    onChange={this.onChange}
+                    onFocus={actions.focusName.bind(this, row.id)}
+                    onBlur={actions.blurName.bind(this, row.id)}
+                    value={this.getVariationName(row)}
+                    onChange={actions.changeName.bind(this, row.id)}
                     active={this.isActive()}
                 />
             </TextAreaContainer>
