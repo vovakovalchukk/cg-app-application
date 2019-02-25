@@ -11,12 +11,11 @@ const distanceElementMap = {
     // Hard coding the distances because we couldn't portal submits to a cell dom node due to z-index issues.
     // We had to portal the element to become a sibling of the row to get around this and hence needed to absolutely position
     // relative to the start of the row (at 0px).
-    [elementTypes.INPUT_SAFE_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell, width}) => (distanceFromLeftSideOfTableToStartOfCell + (width / 2)),
-    [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => (distanceFromLeftSideOfTableToStartOfCell + 15),
-    [elementTypes.SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {
-        return distanceFromLeftSideOfTableToStartOfCell
-    },
-    [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell, detailForInput}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(detailForInput))
+    [elementTypes.INPUT_SAFE_SUBMITS] : ({distanceFromLeftSideOfTableToStartOfCell, width}) => (distanceFromLeftSideOfTableToStartOfCell + (width / 2)),
+    [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : ({distanceFromLeftSideOfTableToStartOfCell}) =>  (distanceFromLeftSideOfTableToStartOfCell + 15),
+    [elementTypes.SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {return distanceFromLeftSideOfTableToStartOfCell},
+    [elementTypes.SELECT_VAT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {return distanceFromLeftSideOfTableToStartOfCell + 10},
+    [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell,dimension}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension))
 };
 const elemTypeZIndexMap = {
     [elementTypes.SELECT_DROPDOWN]: 150,

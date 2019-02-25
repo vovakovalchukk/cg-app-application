@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import portalFactory from "../Portal/portalFactory";
+import ReactDOM from 'react-dom';
 
 const Dropdown = (props) => (
     <div className={"custom-select active"}>
@@ -38,9 +38,10 @@ class StatelessSelectComponent extends React.Component {
         active: false,
         selectedOption: {},
         classNames: '',
-        active: false,
         styleVars: {},
-        prefix: ''
+        active: false,
+        prefix: '',
+        selectToggle: () => {}
     };
     state = {
         filter: ""
@@ -52,7 +53,7 @@ class StatelessSelectComponent extends React.Component {
         return this.props.selectedOption && this.props.selectedOption.name ? this.props.selectedOption.name : ''
     };
     getClassNames = () => {
-        return 'custom-select ' + this.props.classNames + (this.props.active ? 'active' : '');
+        return 'custom-select ' + this.props.classNames + (this.props.active ? ' active' : '');
     };
     setFilter = (filter) => {
         this.setState({filter});
@@ -86,15 +87,18 @@ class StatelessSelectComponent extends React.Component {
     };
     renderDropdownInPortal = () => {
         let portalSettings = this.props.portalSettingsForDropdown;
-        return portalFactory.createPortal({
-            portalSettings,
-            Component: StyledDropdown,
-            componentProps: {
-                renderOptions: this.renderOptions,
-                width: this.props.styleVars.widthOfDropdown,
-                className:'u-ease-xshort'
-            }
-        });
+        return ReactDOM.createPortal(
+            (
+                <portalSettings.PortalWrapper>
+                    <StyledDropdown
+                        renderOptions={this.renderOptions}
+                        width={this.props.styleVars.widthOfDropdown}
+                        className='u-ease_0-1'
+                    />
+                </portalSettings.PortalWrapper>
+            ),
+            portalSettings.domNodeForSubmits
+        );
     };
     renderDropdown = () => {
         if (!this.props.active) {

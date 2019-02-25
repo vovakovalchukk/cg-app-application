@@ -18,7 +18,7 @@ const columnSpecificPropsMap = {
     available: ['rows'],
     dimensions: ['rows', 'detail', 'scroll'],
     weight: ['rows', 'detail', 'scroll'],
-    vat: ['rows', 'vat'],
+    vat: ['rows', 'vat', 'scroll'],
     bulkSelect: ['bulkSelect'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect']
 };

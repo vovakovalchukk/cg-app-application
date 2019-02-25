@@ -246,6 +246,7 @@ $config = array(
                 'StockSettingsAccountsMaxColumnView' => ViewModel::class,
                 'StockSettingsAccountsFixedColumnView' => ViewModel::class,
                 'EUVATCodeCheckerSoapClient' => CGSoapClient::class,
+                'StockImportS3FileImportAdapter' => S3FileImportAdapter::class,
             ],
             ExchangeRateApiStorage::class => [
                 'parameters' => [
@@ -444,10 +445,10 @@ $config = array(
             StockImportFileS3::class => [
                 'parameter' => [
                     'mapper' => StockImportFileMapper::class,
-                    's3FileStorage' => S3FileImportAdapter::class
+                    's3FileStorage' => 'StockImportS3FileImportAdapter'
                 ]
             ],
-            S3FileImportAdapter::class => [
+            'StockImportS3FileImportAdapter' => [
                 'parameter' => [
                     'location' => function() { return StockImportFileS3::S3_BUCKET; }
                 ]
