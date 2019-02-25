@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0649a055f5e6b8e48bf1326604d75335",
+    "content-hash": "2a176c68bdecfa5461464105be220abb",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -717,16 +717,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-330-product-links-csv-import",
+            "version": "1.42.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "15f0626b249664c752eeca079ecd19d9d6a5d74a"
+                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-330-product-links-csv-import-c94fc1.zip",
-                "reference": "15f0626b249664c752eeca079ecd19d9d6a5d74a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.13-e980b4.zip",
+                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819",
                 "shasum": null
             },
             "require": {
@@ -800,7 +800,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-02-22T10:05:12+00:00"
+            "time": "2019-02-25T10:56:59+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1429,16 +1429,16 @@
         },
         {
             "name": "channelgrabber/file-storage",
-            "version": "dev-TAC-330-product-links-csv-import",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-file-storage.git",
-                "reference": "36ac0dfa844533d982ba76b704ccad9d3a25a443"
+                "reference": "6032d452f1c521f735b3747e77697ef642c62468"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-dev-TAC-330-product-links-csv-import-5d0acd.zip",
-                "reference": "36ac0dfa844533d982ba76b704ccad9d3a25a443",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/file-storage/channelgrabber-file-storage-1.1.2-5601be.zip",
+                "reference": "6032d452f1c521f735b3747e77697ef642c62468",
                 "shasum": null
             },
             "require": {
@@ -1461,7 +1461,7 @@
                 }
             ],
             "description": "Handles the interaction with file storages",
-            "time": "2019-02-11T15:10:17+00:00"
+            "time": "2019-02-25T11:00:04+00:00"
         },
         {
             "name": "channelgrabber/gearman",
@@ -2509,21 +2509,21 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-TAC-330-product-links-csv-import",
+            "version": "1.16.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "291ac6c4c7df501be8ebd179662801d779fd526a"
+                "reference": "d1def1b9611f4b86254d051f6b95136a71d5167a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-330-product-links-csv-import-a0e1e1.zip",
-                "reference": "291ac6c4c7df501be8ebd179662801d779fd526a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.16-4e84f3.zip",
+                "reference": "d1def1b9611f4b86254d051f6b95136a71d5167a",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": "dev-TAC-330-product-links-csv-import as 1.42.11",
+                "channelgrabber/channel": "^1.42.13",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.5.4",
@@ -2558,8 +2558,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev",
-                    "dev-TAC-330-product-links-csv-import": "1.16.x-dev"
+                    "dev-develop": "1.x-dev"
                 }
             },
             "autoload": {
@@ -2572,7 +2571,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-22T10:07:06+00:00"
+            "time": "2019-02-25T11:06:19+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11038,32 +11037,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.42.13",
-            "alias_normalized": "1.42.13.0",
-            "version": "dev-TAC-330-product-links-csv-import",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-TAC-330-product-links-csv-import",
-            "package": "channelgrabber/file-storage"
-        },
-        {
-            "alias": "1.16.16",
-            "alias_normalized": "1.16.16.0",
-            "version": "dev-TAC-330-product-links-csv-import",
-            "package": "channelgrabber/product"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/file-storage": 20,
-        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
