@@ -199,6 +199,17 @@ return [
                         ],
                         'may_terminate' => true
                     ],
+                    ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/link/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'linkCsvImport'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
                     ProductsJsonController::ROUTE_DETAILS_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
@@ -1298,7 +1309,6 @@ return [
             ProductsJsonController::class => [
                 'parameters' => [
                     'usageService' => 'order_count_usage_service',
-                    'productsGearmanClient' => 'productGearmanClient'
                 ]
             ],
             StockCsvProgressStorage::class => [
