@@ -41,6 +41,8 @@ let TextArea = styled.textarea`
     }
 `;
 
+const COLS = 32;
+
 class NameCell extends React.Component {
     static defaultProps = {};
 
@@ -84,14 +86,7 @@ class NameCell extends React.Component {
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);
 
-        //todo - remove this hack....
-//        return (
-//            <SafeInputStateless
-//                borderless={true}
-//                width={200}
-//            />
-//        )
-        let value = this.state.isFocused ? this.state.value : this.state.shortenedValue;
+
 
         if(isVariation){
             let variationName = this.getVariationName(row);
@@ -113,7 +108,6 @@ class NameCell extends React.Component {
                     onBlur={actions.blurName.bind(this, row.id)}
                     value={this.getProductName(row, isVariation)}
                     onChange={actions.changeName.bind(this, row.id)}
-                    active={this.isActive()}
                 />
             </TextAreaContainer>
         )
