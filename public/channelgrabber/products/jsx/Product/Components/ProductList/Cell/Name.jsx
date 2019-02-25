@@ -5,20 +5,15 @@ import utility from 'Product/Components/ProductList/utility';
 import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
 
-let NameContainer = styled.div`
-    display:flex;
-    align-items:center;
-    height:100%;
-    padding-left: ${layoutSettings.columnPadding};
-    padding-right: ${layoutSettings.columnPadding};
-`;
-let TextAreaContainer = styled.div`
+const TextAreaContainer = styled.div`
   width:100%;
   height:100%;
   display:flex;
   align-items: center;
+  padding-left: ${layoutSettings.columnPadding};
+  padding-right: ${layoutSettings.columnPadding};
 `;
-let TextArea = styled.textarea`
+const TextArea = styled.textarea`
     background:none;
     resize: none;
     box-sizing: border-box;
@@ -85,8 +80,6 @@ class NameCell extends React.Component {
         const {products, rowIndex, actions, name} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);
-
-
 
         if(isVariation){
             let variationName = this.getVariationName(row);

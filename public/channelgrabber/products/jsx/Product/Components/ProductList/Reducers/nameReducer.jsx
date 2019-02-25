@@ -52,6 +52,7 @@ function getNamesOntoStateFromProducts(state, products){
         let name = product.name + product.name + product.name;
 
         state.names.byProductId[product.id] = {
+            originalValue: name,
             value : name,
             shortenedValue : utility.shortenNameForCell(name)
         };
@@ -60,9 +61,8 @@ function getNamesOntoStateFromProducts(state, products){
     return state;
 }
 function setNameValuesToState(stateCopy, newName, productId) {
-    stateCopy = initProductObj(stateCopy, productId);
     stateCopy.names.byProductId[productId].value = newName;
-    stateCopy.names.byProductId[productId].shortenedValue = shortenName(newName);
+    stateCopy.names.byProductId[productId].shortenedValue = utility.shortenNameForCell(name)
     stateCopy.names.allIds.push(productId);
     return stateCopy;
 }
@@ -73,12 +73,6 @@ function setNameFocus(state, productId) {
 function setBlur(state, productId) {
     if (state.focusedId === productId) {
         state.focusedId = null;
-    }
-    return state;
-}
-function initProductObj(state, productId) {
-    if (!state.names.byProductId[productId]) {
-        state.names.byProductId[productId] = {}
     }
     return state;
 }
