@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "b8f3e8e31ec3bc15a9946eb7e1086159",
@@ -954,17 +954,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.10",
+            "version": "dev-CGIV-10302-dpd-local-manifest",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.10-89f2f2.zip",
-                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd",
-                "shasum": null
+                "reference": "26bb76e88fc7a2747d5b849f29957b4f7864b4f2"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -11029,13 +11023,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.11",
+            "alias_normalized": "1.1.11.0",
+            "version": "dev-CGIV-10302-dpd-local-manifest",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
