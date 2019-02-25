@@ -1555,9 +1555,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10361-update-styled-components-for-cg-orders":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.25":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#0eade4e0a9391957d1f6c653c489fe5a52ae57df"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#76931563bebc0235ef38ab8ed7a279bfef2abb1a"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
