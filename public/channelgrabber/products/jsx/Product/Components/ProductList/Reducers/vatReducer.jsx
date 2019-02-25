@@ -7,20 +7,36 @@ the state shape with example entries
 vat : {
     countries: {
         byId: {
-            id: 'GB'
-        }
+            FR: {
+                countryCode: "FR"
+            },
+            GB: {...}
+        },
+        allIds: ["GB", "FR"]
     },
-    varRates: [],
-    GB: {
-        byProductId:{
-            1: {
-                productId: 1
-                key: "GB1",
-                active: false
+    productsVat: {
+        FR: {
+            byProductId: {
+                1: {
+                    key: "FR2"
+                    productId: 1
+                }
             }
         }
-    },
-    FR ...
+        GB: {...},
+        allProductIds: [1,2,3,4]
+    }
+    varRates: {
+        GB: {
+            GB1: {
+                countryCode: "GB"
+                key: "GB1"
+                label: "20% (Standard)"
+                name: "Standard"
+                rate: 20
+            }
+        }
+    }
 }
 */
 
