@@ -1,5 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import utility from 'Product/Components/ProductList/utility';
 
 "use strict";
 
@@ -52,18 +53,11 @@ function getNamesOntoStateFromProducts(state, products){
 
         state.names.byProductId[product.id] = {
             value : name,
-            shortenedValue : shortenName(name)
+            shortenedValue : utility.shortenNameForCell(name)
         };
         state.names.allIds.push(product.id);
     }
     return state;
-}
-function shortenName(name) {
-    let cutOffLength = 60;
-    if(name.length > cutOffLength){
-        return name.substring(0, cutOffLength) + "...";
-    }
-    return name;
 }
 function setNameValuesToState(stateCopy, newName, productId) {
     stateCopy = initProductObj(stateCopy, productId);

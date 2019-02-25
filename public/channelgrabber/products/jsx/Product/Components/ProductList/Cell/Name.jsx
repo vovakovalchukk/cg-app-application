@@ -1,6 +1,7 @@
 import React from 'react';
 import Clipboard from 'Clipboard';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import utility from 'Product/Components/ProductList/utility';
 import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
 
@@ -40,31 +41,15 @@ let TextArea = styled.textarea`
     }
 `;
 
-//border: ${props => props.active ? '3px dashed grey' : 'inherit'};
-
-const COLS = 32;
-
 class NameCell extends React.Component {
     static defaultProps = {};
-
-    baseValue = 'Please write an essay about your favorite DOM element something else is in here somethingsomething else is in here somethingsomething else is in here something';
-
-    state = {
-        value: this.baseValue,
-        shortenedValue : this.baseValue.substring(0, 40) + "..."
-    };
 
     getVariationAttributeArray = (row) => {
         return Object.keys(row.attributeValues).map((key) => {
             return key + ': ' + row.attributeValues[key];
         });
     };
-    getVariationName = (row) => {
-        const isVariation = stateUtility.isVariation(row);
-        if (isVariation) {
-            let variationAttributeArray = this.getVariationAttributeArray(row);
-            return variationAttributeArray.join(', ');
-        }
+    getProductName = (row, isVariation) => {
         let {name} = this.props;
         let productName = name.names.byProductId[row.id];
 
@@ -73,6 +58,15 @@ class NameCell extends React.Component {
         }
         return productName.shortenedValue;
     };
+    getVariationName(row){
+        let variationAttributeArray = this.getVariationAttributeArray(row);
+        let nameStr = variationAttributeArray.join(', ');
+
+        //todo - remove this hack
+        nameStr = "lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji"
+
+        return nameStr;
+    }
     getUniqueClassName = () => {
         return 'js-' + this.props.columnKey + '-' + this.props.rowIndex;
     };
@@ -85,23 +79,10 @@ class NameCell extends React.Component {
     isActive() {
         return this.state.value !== this.state.origVal;
     }
-    onFocus() {
-        if (!this.state.isFocused) {
-            this.setState({
-                isFocused: true
-            })
-        }
-    }
-    onBlur() {
-        if (this.state.isFocused) {
-            this.setState({
-                isFocused: false
-            })
-        }
-    }
     render() {
         const {products, rowIndex, actions, name} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
+        const isVariation = stateUtility.isVariation(row);
 
         //todo - remove this hack....
 //        return (
@@ -112,6 +93,17 @@ class NameCell extends React.Component {
 //        )
         let value = this.state.isFocused ? this.state.value : this.state.shortenedValue;
 
+        if(isVariation){
+            let variationName = this.getVariationName(row);
+            return (
+                <TextAreaContainer>
+                    <div title={variationName}>
+                        {utility.shortenNameForCell(variationName) }
+                    </div>
+                </TextAreaContainer>
+            );
+        }
+
         return (
             <TextAreaContainer>
                 <TextArea
@@ -119,24 +111,12 @@ class NameCell extends React.Component {
                     rows={2}
                     onFocus={actions.focusName.bind(this, row.id)}
                     onBlur={actions.blurName.bind(this, row.id)}
-                    value={this.getVariationName(row)}
+                    value={this.getProductName(row, isVariation)}
                     onChange={actions.changeName.bind(this, row.id)}
                     active={this.isActive()}
                 />
             </TextAreaContainer>
         )
-//        return (
-//            <NameContainer>
-//                <LinesEllipsis
-//                    text={name}
-//                    maxLine='2'
-//                    ellipsis='...'
-//                    trimRight
-//                    basedOn='letters'
-//                    title={name}
-//                />
-//            </NameContainer>
-//        );
     }
 }
 

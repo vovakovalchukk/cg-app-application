@@ -22,6 +22,13 @@ let utility = (function() {
                 return rowIndex
             });
             return allRows;
+        },
+        shortenNameForCell(name){
+            let cutOffLength = 70;
+            if(name.length > cutOffLength){
+                return name.substring(0, cutOffLength) + "...";
+            }
+            return name;
         }
     };
 }());
