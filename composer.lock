@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8f3e8e31ec3bc15a9946eb7e1086159",
+    "content-hash": "efd3b0970270d494e68bba81267b2fd0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3731,20 +3731,20 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.0.0",
+            "version": "dev-TAC-308-walmart-orders-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "a1dbbc20020decb2191fe830b9021551bda15f97"
+                "reference": "aaa9a249893de93ea783d614131c3c4e226cf481"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.0.0-0dab93.zip",
-                "reference": "a1dbbc20020decb2191fe830b9021551bda15f97",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-308-walmart-orders-fixes-c69ca5.zip",
+                "reference": "aaa9a249893de93ea783d614131c3c4e226cf481",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.42.3",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.16.5",
                 "php": ">=7.1"
@@ -3763,7 +3763,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-01-23T16:31:43+00:00"
+            "time": "2019-02-25T10:14:18+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -9803,7 +9803,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11029,10 +11030,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-TAC-308-walmart-orders-fixes",
+            "package": "channelgrabber/walmart"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/walmart": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
