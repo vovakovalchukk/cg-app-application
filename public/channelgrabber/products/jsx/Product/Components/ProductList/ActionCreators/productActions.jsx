@@ -143,7 +143,6 @@ var actionCreators = (function() {
                 }
                 
                 actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productRowIdToExpand);
-                dispatch(rowActions.updateRowsForPortals());
             }
         },
         collapseProduct: (productRowIdToCollapse) => {
@@ -165,6 +164,7 @@ var actionCreators = (function() {
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
+                dispatch(rowActions.updateRowsForPortals());
             }
         },
         getVariationsByParentProductId: (parentProductId) => {
