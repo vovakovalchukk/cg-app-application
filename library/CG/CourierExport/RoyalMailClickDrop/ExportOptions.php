@@ -5,13 +5,9 @@ use CG\CourierExport\ExportOptionsInterface;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetails;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 
-class ExportOptions implements LoggerAwareInterface, ExportOptionsInterface
+class ExportOptions implements ExportOptionsInterface
 {
-    use LogTrait;
-
     protected $defaultExportOptions = [
         'packageTypes' => [
             'Letter' => ['title' => 'Letter', 'value' => 'Letter'],
@@ -106,23 +102,20 @@ class ExportOptions implements LoggerAwareInterface, ExportOptionsInterface
 
     public function addCarrierSpecificDataToListArray(array $data): array
     {
-        $this->logDebug(__METHOD__, [], 'MYTEST');
-
         $service = null;
 
         foreach ($data as &$row) {
-
             if (isset($row['service']) && $row['service'] != '') {
                 $service = $row['service'];
             }
 
-//            if ($row['actionRow'] ?? false) {
+            if ($row['actionRow'] ?? false) {
                 $row = array_merge($row, $this->defaultExportOptions);
                 if (isset($this->serviceExportOptions[$service])) {
                     $row = array_merge($row, $this->serviceExportOptions[$service ?? '']);
                 }
                 $row['deliveryInstructionsRequired'] = true;
-//            }
+            }
         }
 
         return $data;
@@ -135,13 +128,6 @@ class ExportOptions implements LoggerAwareInterface, ExportOptionsInterface
         OrganisationUnit $rootOu,
         ProductDetails $productDetails
     ) {
-
-        $this->logDebug(__METHOD__, [], 'MYTEST');
-
-        $this->logDebugDump($option, 'OPTION', [], 'MYTEST');
-        $this->logDebugDump($order, 'ORDER', [], 'MYTEST');
-        $this->logDebugDump($service, 'SERVICE', [], 'MYTEST');
-
         return $this->serviceExportOptions[$service][$option] ?? $this->defaultExportOptions[$option] ?? '';
     }
 }
