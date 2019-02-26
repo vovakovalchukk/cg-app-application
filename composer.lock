@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a176c68bdecfa5461464105be220abb",
+    "content-hash": "c5713f244b7c8e4595e523fd557c0c3a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -2093,16 +2093,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.10",
+            "version": "1.43.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2ee3e161aea6e39e9c1e652e66013027dab9c3ae"
+                "reference": "a201b05d38f7002239cfe74cc1180614486bbeac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.10-e732ef.zip",
-                "reference": "2ee3e161aea6e39e9c1e652e66013027dab9c3ae",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.11-0569db.zip",
+                "reference": "a201b05d38f7002239cfe74cc1180614486bbeac",
                 "shasum": null
             },
             "require": {
@@ -2173,20 +2173,20 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-02-12T09:47:34+00:00"
+            "time": "2019-02-15T11:49:05+00:00"
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.13.1",
+            "version": "dev-CGIV-9891-no-payment-required-for-free-packages",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "58ced534c76d4d53eb5cc1d2116e94986e235a11"
+                "reference": "1d636e99327956a847ed39938dd9d3278d6c114b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.13.1-906c60.zip",
-                "reference": "58ced534c76d4d53eb5cc1d2116e94986e235a11",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-dev-CGIV-9891-no-payment-required-for-free-packages-f9372a.zip",
+                "reference": "1d636e99327956a847ed39938dd9d3278d6c114b",
                 "shasum": null
             },
             "require": {
@@ -2229,7 +2229,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-12-06T10:04:23+00:00"
+            "time": "2019-02-22T16:39:47+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -11037,10 +11037,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.13.2",
+            "alias_normalized": "1.13.2.0",
+            "version": "dev-CGIV-9891-no-payment-required-for-free-packages",
+            "package": "channelgrabber/payment"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/payment": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
