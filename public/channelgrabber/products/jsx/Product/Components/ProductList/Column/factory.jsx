@@ -21,7 +21,7 @@ const columnSpecificPropsMap = {
     vat: ['rows', 'vat', 'scroll'],
     bulkSelect: ['bulkSelect'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
-    name: ['name']
+    name: ['rows', 'name']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {

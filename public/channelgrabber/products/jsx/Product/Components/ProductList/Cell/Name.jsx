@@ -6,8 +6,14 @@ import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
 import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
-import portalFactory from "../Portal/portalFactory";
+import SafeSubmits from 'Common/Components/SafeSubmits';
 
+import ReactDOM from "react-dom";
+
+const StyledSafeSubmits = styled(SafeSubmits)`
+    position: absolute;
+    transform: translateX(-50%);
+`;
 const TextAreaContainer = styled.div`
   width:100%;
   height:100%;
@@ -49,9 +55,8 @@ class NameCell extends React.Component {
             return key + ': ' + row.attributeValues[key];
         });
     };
-    getProductName = (row, isVariation) => {
+    getProductName = (row, productName) => {
         let {name} = this.props;
-        let productName = name.names.byProductId[row.id];
 
         if(name.focusedId === row.id){
             return productName.value;
@@ -79,7 +84,11 @@ class NameCell extends React.Component {
         return this.state.value !== this.state.origVal;
     }
     createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
-        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
+        if(!isEditing){
+            return <span/>
+        }
+
+        let portalSettings = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
@@ -87,34 +96,30 @@ class NameCell extends React.Component {
             allRows: this.props.rows.allIds
         });
 
-        let Submits = <span></span>;
-        if (portalSettingsForSubmits) {
-            Submits = portalFactory.createPortal({
-                portalSettings: portalSettingsForSubmits,
-                Component: StyledSafeSubmits,
-                componentProps: {
-                    isEditing,
-                    submitInput: this.submitInput,
-                    cancelInput: this.cancelInput
-                }
-            });
+        if(!portalSettings){
+            // will return undefined if editing is true and no rows have rendered yet
+            return <span />
         }
-        return Submits;
+
+        return ReactDOM.createPortal(
+            (
+                <portalSettings.PortalWrapper>
+                    <StyledSafeSubmits
+                        renderOptions={this.renderOptions}
+                    />
+                </portalSettings.PortalWrapper>
+            ),
+            portalSettings.domNodeForSubmits
+        );
     }
     render() {
         const {products, rowIndex, actions, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);
 
-        // todo stop hardcoding this
-        let isEditing = true;
-        let
-
-        let Submits = this.createSubmits({
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
-            width
-        });
+        let productName = name.names.byProductId[row.id];
+        let isEditing = productName.originalValue !== productName.value;
+        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing});
 
         if(isVariation){
             let variationName = this.getVariationName(row);
@@ -127,6 +132,8 @@ class NameCell extends React.Component {
             );
         }
 
+        let nameValue = this.getProductName(row, productName);
+
         return (
             <TextAreaContainer>
                 <TextArea
@@ -134,7 +141,7 @@ class NameCell extends React.Component {
                     rows={2}
                     onFocus={actions.focusName.bind(this, row.id)}
                     onBlur={actions.blurName.bind(this, row.id)}
-                    value={this.getProductName(row, isVariation)}
+                    value={nameValue}
                     onChange={actions.changeName.bind(this, row.id)}
                 />
                 {Submits}
