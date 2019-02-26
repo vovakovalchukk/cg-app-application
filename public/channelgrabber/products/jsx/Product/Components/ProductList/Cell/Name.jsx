@@ -4,6 +4,9 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 import utility from 'Product/Components/ProductList/utility';
 import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
+import portalSettingsFactory from "../Portal/settingsFactory";
+import elementTypes from "../Portal/elementTypes";
+import portalFactory from "../Portal/portalFactory";
 
 const TextAreaContainer = styled.div`
   width:100%;
@@ -58,7 +61,6 @@ class NameCell extends React.Component {
     getVariationName(row){
         let variationAttributeArray = this.getVariationAttributeArray(row);
         let nameStr = variationAttributeArray.join(', ');
-
         //todo - remove this hack
         nameStr = "lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji"
 
@@ -76,10 +78,43 @@ class NameCell extends React.Component {
     isActive() {
         return this.state.value !== this.state.origVal;
     }
+    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
+        let portalSettingsForSubmits = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.INPUT_SAFE_SUBMITS,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width,
+            allRows: this.props.rows.allIds
+        });
+
+        let Submits = <span></span>;
+        if (portalSettingsForSubmits) {
+            Submits = portalFactory.createPortal({
+                portalSettings: portalSettingsForSubmits,
+                Component: StyledSafeSubmits,
+                componentProps: {
+                    isEditing,
+                    submitInput: this.submitInput,
+                    cancelInput: this.cancelInput
+                }
+            });
+        }
+        return Submits;
+    }
     render() {
-        const {products, rowIndex, actions, name} = this.props;
+        const {products, rowIndex, actions, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
         const row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);
+
+        // todo stop hardcoding this
+        let isEditing = true;
+        let
+
+        let Submits = this.createSubmits({
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell,
+            width
+        });
 
         if(isVariation){
             let variationName = this.getVariationName(row);
@@ -102,6 +137,7 @@ class NameCell extends React.Component {
                     value={this.getProductName(row, isVariation)}
                     onChange={actions.changeName.bind(this, row.id)}
                 />
+                {Submits}
             </TextAreaContainer>
         )
     }
