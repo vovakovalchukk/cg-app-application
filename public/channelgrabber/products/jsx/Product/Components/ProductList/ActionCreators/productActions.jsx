@@ -1,9 +1,10 @@
 import AjaxHandler from 'Product/Storage/Ajax';
-import ProductFilter from 'Product/Filter/Entity'
-import constants from 'Product/Components/ProductList/Config/constants'
-import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
-import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
-import stateUtility from 'Product/Components/ProductList/stateUtility'
+import ProductFilter from 'Product/Filter/Entity';
+import constants from 'Product/Components/ProductList/Config/constants';
+import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions';
+import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
+import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
+import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 "use strict";
 
@@ -142,6 +143,7 @@ var actionCreators = (function() {
                 }
                 
                 actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productRowIdToExpand);
+                dispatch(rowActions.updateRowsForPortals());
             }
         },
         collapseProduct: (productRowIdToCollapse) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
-import StatelessSelectComponent from 'Product/Components/ProductList/Components/Select--stateless';
+import StatelessSelectComponent from 'Common/Components/Select--stateless';
 import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
 

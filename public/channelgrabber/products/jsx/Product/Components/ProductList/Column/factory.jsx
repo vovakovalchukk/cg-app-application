@@ -65,7 +65,6 @@ let columnCreator = function(column, parentProps) {
         fixed={column.fixed}
         header={getHeaderText(column, parentProps.userSettings)}
         align={getHeaderCellAlignment(column)}
-        pureRendering={true}
         cell={CellToRender}
     />);
 };
