@@ -41,6 +41,12 @@ class ProductList extends React.Component {
         fetchingUpdatedStockLevelsForSkus: {}
     };
 
+    componentDidUpdate = function(prevProps){
+        if(prevProps.products.visibleRows.length === this.props.products.visibleRows.length){
+            return;
+        }
+        this.props.actions.updateRowsForPortals();
+    }
     updateDimensions = () => {
         this.setState({
             productsListContainer: {
