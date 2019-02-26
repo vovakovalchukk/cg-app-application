@@ -117,7 +117,6 @@ class ExportOptions implements ExportOptionsInterface
                 $row['deliveryInstructionsRequired'] = true;
             }
         }
-
         return $data;
     }
 
