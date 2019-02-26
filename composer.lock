@@ -3735,12 +3735,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "d6751d404c343de9953a5158f446c46e7cbe5bfd"
+                "reference": "e9727f326662415204ba192a2cb98214f50a470d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-308-walmart-orders-fixes-a0ecd3.zip",
-                "reference": "d6751d404c343de9953a5158f446c46e7cbe5bfd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-308-walmart-orders-fixes-fc2808.zip",
+                "reference": "e9727f326662415204ba192a2cb98214f50a470d",
                 "shasum": null
             },
             "require": {
@@ -3764,7 +3764,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-25T12:19:20+00:00"
+            "time": "2019-02-26T10:39:30+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
