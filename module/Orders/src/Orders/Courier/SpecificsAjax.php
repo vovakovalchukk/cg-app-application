@@ -36,11 +36,14 @@ use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use DateTimeZone;
 
-class SpecificsAjax
+class SpecificsAjax implements LoggerAwareInterface
 {
+    use LogTrait;
     use GetProductDetailsForOrdersTrait;
 
     const DEFAULT_PARCELS = 1;
@@ -97,6 +100,9 @@ class SpecificsAjax
         OrderDataCollection $ordersData = null,
         OrderParcelsDataCollection $ordersParcelsData = null
     ): array {
+
+        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $ordersData = $ordersData ?? new OrderDataCollection();
         $ordersParcelsData = $ordersParcelsData ?? new OrderParcelsDataCollection();
 
@@ -113,6 +119,9 @@ class SpecificsAjax
         OrderDataCollection $ordersData,
         OrderParcelsDataCollection $ordersParcelsData
     ) {
+
+        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $specificsListData = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->courierService->getProductsForOrders($orders, $rootOu);
@@ -141,15 +150,27 @@ class SpecificsAjax
             }
             $orderData = array_merge($orderData, $specificsOrderData, $inputDataArray);
             $orderData = $this->checkOrderDataParcels($orderData, $order, $parcelsInputData);
+
+            $this->logDebugDump($orderData, 'BEFORE 2 orderData', [], 'MYTEST');
+
             $itemsData = $this->formatOrderItemsAsSpecificsListData(
                 $order->getItems(), $orderData, $products, $productDetails, $options, $carrierOptions, $rootOu
             );
+
+            $this->logDebugDump($itemsData, 'BEFORE 2 itemsData', [], 'MYTEST');
+
             $parcelsData = $this->getParcelOrderListData(
                 $order, $orderData, $options, $carrierOptions, $rootOu, $parcelsInputData
             );
+
+            $this->logDebugDump($parcelsData, 'BEFORE 2 parcelsData', [], 'MYTEST');
+
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
+
+
+
             $specificsListData = array_merge($specificsListData, $itemsData);
         }
         $now = (new DateTime())->setTimezone(new DateTimeZone($this->getUsersTimezone()));
@@ -157,9 +178,30 @@ class SpecificsAjax
             $row['currentTime'] = $now->format('H:i');
             $row['timezone'] = $now->getTimezone()->getName();
         }
+
+//        $this->logDebugDump($courierAccount, 'courierAccount', [], 'MYTEST');
+
+
+
         $specificsListData = $this->performSumsOnSpecificsListData($specificsListData, $options);
-        $specificsListData = $this->courierService->getCarrierOptionsProvider($courierAccount)
-            ->addCarrierSpecificDataToListArray($specificsListData, $courierAccount);
+
+//        $this->logDebugDump($specificsListData, 'specificsListData', [], 'MYTEST');
+
+
+        $csProvider =  $this->courierService->getCarrierOptionsProvider($courierAccount);
+
+//        $this->logDebugDump($csProvider, 'csProvider', [], 'MYTEST');
+//        $this->logDebugDump($specificsListData, 'BEFORE specificsListData', [], 'MYTEST');
+
+        /* @var $csProvider \CG\CourierExport\RoyalMailClickDrop\ExportOptions */
+        $specificsListData = $csProvider->addCarrierSpecificDataToListArray($specificsListData, $courierAccount);
+
+
+
+//        $this->logDebugDump($specificsListData, 'AFTER specificsListData', [], 'MYTEST');
+
+
+
         return $specificsListData;
     }
 
@@ -176,6 +218,10 @@ class SpecificsAjax
         array $options,
         OrderLabel $orderLabel = null
     ) {
+
+
+        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $services = $this->shippingServiceFactory->createShippingService($courierAccount)->getShippingServicesForOrder($order);
         $providerService = $this->getCarrierServiceProvider($courierAccount);
         $exportable = ($providerService instanceof CarrierServiceProviderExportInterface
@@ -214,6 +260,8 @@ class SpecificsAjax
 
     protected function checkOrderDataParcels(array $orderData, Order $order, OrderParcelsData $parcelsData = null)
     {
+//        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         if ($orderData['parcels'] < static::MIN_PARCELS) {
             $orderData['parcels'] = static::MIN_PARCELS;
         } elseif ($orderData['parcels'] > static::MAX_PARCELS) {
@@ -232,6 +280,8 @@ class SpecificsAjax
 
     protected function parcelDataToSpecificsListArray(ParcelData $parcelData): array
     {
+//        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $array = $parcelData->toArray();
         $array['itemParcelAssignment'] = json_encode($array['itemParcelAssignment']);
         return $array;
@@ -242,6 +292,8 @@ class SpecificsAjax
      */
     protected function getOrderLabelsForOrders(OrderCollection $orders)
     {
+//        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $orderIds = [];
         foreach ($orders as $order) {
             $orderIds[] = $order->getId();
@@ -270,6 +322,9 @@ class SpecificsAjax
         array $carrierOptions,
         OrganisationUnit $rootOu
     ) {
+
+        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $itemsData = [];
         $itemCount = 0;
         $massUnit = LocaleMass::getForLocale($rootOu->getLocale());
@@ -306,6 +361,9 @@ class SpecificsAjax
         array $options,
         array $rowData = null
     ) {
+
+        $this->logDebug(__METHOD__, [], 'MYTEST');
+
         $data = ($rowData ?: []);
         $productDetail = null;
         $matchingProductDetails = $productDetails->getBy('sku', $item->getItemSku());
@@ -458,10 +516,15 @@ class SpecificsAjax
     }
 
     protected function sortSpecificsListData(array $data, Account $courierAccount)
-    {
-        return $this->courierService->sortOrderListData(
+    {   $this->logDebug(__METHOD__, [], 'MYTEST');
+
+        $ret = $this->courierService->sortOrderListData(
             $data, $this->specificsListRequiredOrderFields, $this->specificsListRequiredParcelFields, true, $courierAccount
        );
+
+        $this->logDebugDump($ret, 'SORT ', [], 'MYTEST');
+
+        return $ret;
     }
 
     /**
