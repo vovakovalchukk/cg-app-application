@@ -3,7 +3,6 @@ import ProductFilter from 'Product/Filter/Entity';
 import constants from 'Product/Components/ProductList/Config/constants';
 import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions';
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
-import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 "use strict";
