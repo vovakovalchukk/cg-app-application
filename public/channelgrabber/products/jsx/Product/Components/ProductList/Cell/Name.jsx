@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
 import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
+import Portaller from "../Portal/Portaller";
 import SafeSubmits from 'Common/Components/SafeSubmits';
 
 import ReactDOM from "react-dom";
@@ -88,29 +89,19 @@ class NameCell extends React.Component {
             return <span/>
         }
 
-        let portalSettings = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.INPUT_SAFE_SUBMITS,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell,
-            width,
-            allRows: this.props.rows.allIds
-        });
-
-        if(!portalSettings){
-            // will return undefined if editing is true and no rows have rendered yet
-            return <span />
-        }
-
-        return ReactDOM.createPortal(
-            (
-                <portalSettings.PortalWrapper>
+        return (<Portaller
+            rowIndex={rowIndex}
+            distanceFromLeftSideOfTableToStartOfCell={distanceFromLeftSideOfTableToStartOfCell}
+            width={width}
+            allRows={this.props.rows.allIds}
+            render= {(data)=>{
+               return (
                     <StyledSafeSubmits
-                        renderOptions={this.renderOptions}
+                       renderOptions={this.renderOptions}
                     />
-                </portalSettings.PortalWrapper>
-            ),
-            portalSettings.domNodeForSubmits
-        );
+                )
+            }}
+        />);
     }
     render() {
         const {products, rowIndex, actions, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
