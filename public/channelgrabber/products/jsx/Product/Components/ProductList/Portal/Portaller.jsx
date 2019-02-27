@@ -9,7 +9,6 @@ class Portaller extends React.Component {
     };
 
     render() {
-        console.log('in Portaller');
         let {rowIndex,distanceFromLeftSideOfTableToStartOfCell, allRows, width} = this.props;
         
         let portalSettings = portalSettingsFactory.createPortalSettings({

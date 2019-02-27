@@ -4,12 +4,8 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 import utility from 'Product/Components/ProductList/utility';
 import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
-import portalSettingsFactory from "../Portal/settingsFactory";
-import elementTypes from "../Portal/elementTypes";
 import Portaller from "../Portal/Portaller";
 import SafeSubmits from 'Common/Components/SafeSubmits';
-
-import ReactDOM from "react-dom";
 
 const StyledSafeSubmits = styled(SafeSubmits)`
     position: absolute;
@@ -51,6 +47,11 @@ const COLS = 32;
 class NameCell extends React.Component {
     static defaultProps = {};
 
+    constructor(props){
+        super(props);
+        this.row = stateUtility.getRowData(props.products, props.rowIndex);
+    }
+
     getVariationAttributeArray = (row) => {
         return Object.keys(row.attributeValues).map((key) => {
             return key + ': ' + row.attributeValues[key];
@@ -81,17 +82,12 @@ class NameCell extends React.Component {
     componentDidMount = () => {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
-    isActive() {
-        return this.state.value !== this.state.origVal;
-    }
-    submitInput(){
-
-    }
-    cancelInput = () => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.cancelNameEdit(row.id);
-    }
+    submitInput = (e) => {
+        this.props.actions.updateName(this.row.id);
+    };
+    cancelInput = (e) => {
+        this.props.actions.cancelNameEdit(this.row.id);
+    };
     createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row}){
         if(!isEditing){
             return <span/>
@@ -106,24 +102,32 @@ class NameCell extends React.Component {
                return (
                     <StyledSafeSubmits
                        renderOptions={this.renderOptions}
-                       submitInput= {this.submitInput(row)}
+                       submitInput= {this.submitInput}
                        cancelInput={this.cancelInput}
                     />
                 )
             }}
         />);
-    }
-    render() {
+    };
+    onFocus = () => {
+        this.props.actions.focusName(this.row.id)
+    };
+    onBlur = () => {
+        this.props.actions.blurName(this.row.id)
+    };
+    changeName = (e) => {
+        this.props.actions.changeName(e.target.value, this.row.id);
+    };
+    render = () => {
         const {products, rowIndex, actions, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
-        const isVariation = stateUtility.isVariation(row);
+        const isVariation = stateUtility.isVariation(this.row);
 
-        let productName = name.names.byProductId[row.id];
+        let productName = name.names.byProductId[this.row.id];
         let isEditing = productName.originalValue !== productName.value;
-        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row});
+        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row: this.row});
 
         if(isVariation){
-            let variationName = this.getVariationName(row);
+            let variationName = this.getVariationName(this.row);
             return (
                 <TextAreaContainer>
                     <div title={variationName}>
@@ -133,22 +137,21 @@ class NameCell extends React.Component {
             );
         }
 
-        let nameValue = this.getProductName(row, productName);
+        let nameValue = this.getProductName(this.row, productName);
 
         return (
             <TextAreaContainer>
                 <TextArea
                     cols={COLS}
                     rows={2}
-                    onFocus={actions.focusName.bind(this, row.id)}
-                    onBlur={actions.blurName.bind(this, row.id)}
+                    onFocus={this.onFocus}
                     value={nameValue}
-                    onChange={actions.changeName.bind(this, row.id)}
+                    onChange={this.changeName}
                 />
                 {Submits}
             </TextAreaContainer>
         )
-    }
+    };
 }
 
 export default NameCell;

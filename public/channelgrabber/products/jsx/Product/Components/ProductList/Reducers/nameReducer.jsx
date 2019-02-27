@@ -12,7 +12,7 @@ let initialState = {
     focusedId: null
 };
 let nameReducer = reducerCreator(initialState, {
-    "NAMES_FROM_PRODUCTS_EXTRACT": function(state,action){
+    "NAMES_FROM_PRODUCTS_EXTRACT": function(state, action) {
         let {products} = action.payload;
         let stateCopy = Object.assign({}, state);
         stateCopy = getNamesOntoStateFromProducts(stateCopy, products);
@@ -30,27 +30,35 @@ let nameReducer = reducerCreator(initialState, {
         stateCopy = setNameFocus(stateCopy, productId);
         return stateCopy;
     },
-    "NAME_BLUR": function(state, action) {
-        let {productId} = action.payload;
-        let stateCopy = Object.assign({}, state);
-        stateCopy = setBlur(stateCopy, productId);
-        return stateCopy;
-    },
-    "NAME_EDIT_CANCEL": function(state,action){
+    "NAME_EDIT_CANCEL": function(state, action) {
         const {productId} = action.payload;
         let stateCopy = Object.assign({}, state);
         let productName = stateCopy.names.byProductId[productId];
         return setNameValuesToState(stateCopy, productName.originalValue, productId);
+    },
+    "NAME_UPDATE_SUCCESS": function(state, action) {
+        const {productId, newName} = action.payload;
+        let stateCopy = Object.assign({}, state);
+        n.success('Product name updated successfully.');
+        stateCopy.names.byProductId[productId].originalValue = newName;
+        return stateCopy
+    },
+    "NAME_UPDATE_ERROR": function(state, action) {
+        const {productId, error, newName} = action.payload;
+        let stateCopy = Object.assign({}, state);
+        n.showErrorNotification(error, "There was an error when attempting to update the product name.");
+        stateCopy.names.byProductId[productId].originalValue = newName;
+        return stateCopy
     }
 });
 
 export default nameReducer;
 
-function getNamesOntoStateFromProducts(state, products){
+function getNamesOntoStateFromProducts(state, products) {
     state = Object.assign({}, state);
-    for (let product of products){
-        if(stateUtility.isVariation(product)){
-          continue;
+    for (let product of products) {
+        if (stateUtility.isVariation(product)) {
+            continue;
         }
 
         //todo - remove this hack - name should just be product.name (only changed to make longer for testing)
@@ -58,8 +66,8 @@ function getNamesOntoStateFromProducts(state, products){
 
         state.names.byProductId[product.id] = {
             originalValue: name,
-            value : name,
-            shortenedValue : utility.shortenNameForCell(name)
+            value: name,
+            shortenedValue: utility.shortenNameForCell(name)
         };
         state.names.allIds.push(product.id);
     }
@@ -68,18 +76,12 @@ function getNamesOntoStateFromProducts(state, products){
 function setNameValuesToState(stateCopy, newName, productId) {
     stateCopy.names.byProductId[productId].value = newName;
     stateCopy.names.byProductId[productId].shortenedValue = utility.shortenNameForCell(newName);
-    if(!stateCopy.names.allIds.includes(productId)){
+    if (!stateCopy.names.allIds.includes(productId)) {
         stateCopy.names.allIds.push(productId);
     }
     return stateCopy;
 }
 function setNameFocus(state, productId) {
     state.focusedId = productId;
-    return state;
-}
-function setBlur(state, productId) {
-    if (state.focusedId === productId) {
-        state.focusedId = null;
-    }
     return state;
 }

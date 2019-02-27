@@ -10,8 +10,7 @@ let nameActions = (function() {
                 }
             }
         },
-        changeName: (productId, e) => {
-            let newName = e.target.value;
+        changeName: (newName, productId) => {
             return {
                 type: "NAME_CHANGE",
                 payload: {
@@ -20,17 +19,32 @@ let nameActions = (function() {
                 }
             }
         },
+        updateName: productId => {
+            return async (dispatch, getState) => {
+                let newName = getState().name.names.byProductId[productId].value;
+                let response = await updateNameAjax(productId, newName);
+                if(response.error){
+                    return dispatch({
+                        type: "NAME_UPDATE_ERROR",
+                        payload: {
+                            productId,
+                            newName,
+                            error: response.error
+                        }
+                    })
+                }
+                return dispatch({
+                    type: "NAME_UPDATE_SUCCESS",
+                    payload: {
+                        productId,
+                        newName
+                    }
+                })
+            }
+        },
         focusName: productId => {
             return {
                 type: "NAME_FOCUS",
-                payload: {
-                    productId
-                }
-            }
-        },
-        blurName: productId => {
-            return {
-                type: "NAME_BLUR",
                 payload: {
                     productId
                 }
@@ -48,3 +62,20 @@ let nameActions = (function() {
 })();
 
 export default nameActions;
+
+async function updateNameAjax(productId, newName) {
+    return new Promise((resolve) => {
+        $.ajax({
+            url: 'products/name',
+            type: 'POST',
+            dataType: 'json',
+            data: {id: productId, name: newName},
+            success: response => {
+                return resolve({status: 'success', response})
+            },
+            error: error => {
+                return resolve({status: 'error', error})
+            }
+        });
+    });
+}
