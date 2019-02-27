@@ -62,7 +62,7 @@ function getNamesOntoStateFromProducts(state, products){
 }
 function setNameValuesToState(stateCopy, newName, productId) {
     stateCopy.names.byProductId[productId].value = newName;
-    stateCopy.names.byProductId[productId].shortenedValue = utility.shortenNameForCell(name)
+    stateCopy.names.byProductId[productId].shortenedValue = utility.shortenNameForCell(newName)
     stateCopy.names.allIds.push(productId);
     return stateCopy;
 }
