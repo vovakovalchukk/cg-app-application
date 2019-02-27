@@ -5,7 +5,11 @@ import ReactDOM from "react-dom";
 
 class Portaller extends React.Component {
     static defaultProps = {
-        height: 0
+        rowIndex: null,
+        distanceFromLeftSideOfTableToStartOfCell: null,
+        width: null,
+        allRows: [],
+        render: () => {}
     };
 
     render() {
