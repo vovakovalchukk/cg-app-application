@@ -50,11 +50,6 @@ const COLS = 32;
 class NameCell extends React.Component {
     static defaultProps = {};
 
-    constructor(props){
-        super(props);
-        this.row = stateUtility.getRowData(props.products, props.rowIndex);
-    }
-
     getVariationAttributeArray = (row) => {
         return Object.keys(row.attributeValues).map((key) => {
             return key + ': ' + row.attributeValues[key];
@@ -83,10 +78,12 @@ class NameCell extends React.Component {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
     submitInput = () => {
-        this.props.actions.updateName(this.row.id);
+        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        this.props.actions.updateName(row.id);
     };
     cancelInput = () => {
-        this.props.actions.cancelNameEdit(this.row.id);
+        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        this.props.actions.cancelNameEdit(row.id);
     };
     createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
         if(!isEditing || this.props.name.nameUpdating){
@@ -110,10 +107,12 @@ class NameCell extends React.Component {
         />);
     };
     onFocus = () => {
-        this.props.actions.focusName(this.row.id)
+        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        this.props.actions.focusName(row.id)
     };
     changeName = (e) => {
-        this.props.actions.changeName(e.target.value, this.row.id);
+        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        this.props.actions.changeName(e.target.value, row.id);
     };
     render = () => {
         const {products, rowIndex, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
