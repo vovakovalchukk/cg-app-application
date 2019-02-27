@@ -35,6 +35,14 @@ let nameActions = (function() {
                     productId
                 }
             }
+        },
+        cancelNameEdit: productId => {
+            return {
+                type: "NAME_EDIT_CANCEL",
+                payload: {
+                    productId
+                }
+            }
         }
     };
 })();

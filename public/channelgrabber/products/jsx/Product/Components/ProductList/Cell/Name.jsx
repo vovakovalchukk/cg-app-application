@@ -84,7 +84,15 @@ class NameCell extends React.Component {
     isActive() {
         return this.state.value !== this.state.origVal;
     }
-    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
+    submitInput(){
+
+    }
+    cancelInput = () => {
+        const {products, rowIndex} = this.props;
+        const row = stateUtility.getRowData(products, rowIndex);
+        this.props.actions.cancelNameEdit(row.id);
+    }
+    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row}){
         if(!isEditing){
             return <span/>
         }
@@ -94,10 +102,12 @@ class NameCell extends React.Component {
             distanceFromLeftSideOfTableToStartOfCell={distanceFromLeftSideOfTableToStartOfCell}
             width={width}
             allRows={this.props.rows.allIds}
-            render= {(data)=>{
+            render= {()=>{
                return (
                     <StyledSafeSubmits
                        renderOptions={this.renderOptions}
+                       submitInput= {this.submitInput(row)}
+                       cancelInput={this.cancelInput}
                     />
                 )
             }}
@@ -110,7 +120,7 @@ class NameCell extends React.Component {
 
         let productName = name.names.byProductId[row.id];
         let isEditing = productName.originalValue !== productName.value;
-        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing});
+        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row});
 
         if(isVariation){
             let variationName = this.getVariationName(row);

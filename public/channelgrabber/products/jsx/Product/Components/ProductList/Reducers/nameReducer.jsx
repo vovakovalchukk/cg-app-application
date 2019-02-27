@@ -35,11 +35,16 @@ let nameReducer = reducerCreator(initialState, {
         let stateCopy = Object.assign({}, state);
         stateCopy = setBlur(stateCopy, productId);
         return stateCopy;
+    },
+    "NAME_EDIT_CANCEL": function(state,action){
+        const {productId} = action.payload;
+        let stateCopy = Object.assign({}, state);
+        let productName = stateCopy.names.byProductId[productId];
+        return setNameValuesToState(stateCopy, productName.originalValue, productId);
     }
 });
 
 export default nameReducer;
-
 
 function getNamesOntoStateFromProducts(state, products){
     state = Object.assign({}, state);
@@ -48,7 +53,7 @@ function getNamesOntoStateFromProducts(state, products){
           continue;
         }
 
-        //todo - remove this hack
+        //todo - remove this hack - name should just be product.name (only changed to make longer for testing)
         let name = product.name + product.name + product.name;
 
         state.names.byProductId[product.id] = {
@@ -62,8 +67,10 @@ function getNamesOntoStateFromProducts(state, products){
 }
 function setNameValuesToState(stateCopy, newName, productId) {
     stateCopy.names.byProductId[productId].value = newName;
-    stateCopy.names.byProductId[productId].shortenedValue = utility.shortenNameForCell(newName)
-    stateCopy.names.allIds.push(productId);
+    stateCopy.names.byProductId[productId].shortenedValue = utility.shortenNameForCell(newName);
+    if(!stateCopy.names.allIds.includes(productId)){
+        stateCopy.names.allIds.push(productId);
+    }
     return stateCopy;
 }
 function setNameFocus(state, productId) {
