@@ -68,9 +68,6 @@ class NameCell extends React.Component {
     getVariationName(row){
         let variationAttributeArray = this.getVariationAttributeArray(row);
         let nameStr = variationAttributeArray.join(', ');
-        //todo - remove this hack
-        nameStr = "lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji lorem sdoifsodfjsoidgsidugjadsogdo oisjdfsoijfdsodfi jo ji"
-
         return nameStr;
     }
     getUniqueClassName = () => {
@@ -82,14 +79,14 @@ class NameCell extends React.Component {
     componentDidMount = () => {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
-    submitInput = (e) => {
+    submitInput = () => {
         this.props.actions.updateName(this.row.id);
     };
-    cancelInput = (e) => {
+    cancelInput = () => {
         this.props.actions.cancelNameEdit(this.row.id);
     };
-    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row}){
-        if(!isEditing){
+    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
+        if(!isEditing || this.props.name.nameUpdating){
             return <span/>
         }
 
@@ -112,22 +109,16 @@ class NameCell extends React.Component {
     onFocus = () => {
         this.props.actions.focusName(this.row.id)
     };
-    onBlur = () => {
-        this.props.actions.blurName(this.row.id)
-    };
     changeName = (e) => {
         this.props.actions.changeName(e.target.value, this.row.id);
     };
     render = () => {
-        const {products, rowIndex, actions, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
-        const isVariation = stateUtility.isVariation(this.row);
-
-        let productName = name.names.byProductId[this.row.id];
-        let isEditing = productName.originalValue !== productName.value;
-        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row: this.row});
+        const {products, rowIndex, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
+        let row = stateUtility.getRowData(products, rowIndex);
+        const isVariation = stateUtility.isVariation(row);
 
         if(isVariation){
-            let variationName = this.getVariationName(this.row);
+            let variationName = this.getVariationName(row);
             return (
                 <TextAreaContainer>
                     <div title={variationName}>
@@ -137,7 +128,10 @@ class NameCell extends React.Component {
             );
         }
 
-        let nameValue = this.getProductName(this.row, productName);
+        let productName = name.names.byProductId[row.id];
+        let isEditing = productName.originalValue !== productName.value;
+        let nameValue = this.getProductName(row, productName);
+        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row});
 
         return (
             <TextAreaContainer>

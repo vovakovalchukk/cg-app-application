@@ -9,7 +9,8 @@ let initialState = {
         byProductId: {},
         allIds: []
     },
-    focusedId: null
+    focusedId: null,
+    nameUpdating: false
 };
 let nameReducer = reducerCreator(initialState, {
     "NAMES_FROM_PRODUCTS_EXTRACT": function(state, action) {
@@ -36,18 +37,25 @@ let nameReducer = reducerCreator(initialState, {
         let productName = stateCopy.names.byProductId[productId];
         return setNameValuesToState(stateCopy, productName.originalValue, productId);
     },
+    "NAME_UPDATE_START": function(state, action){
+        let stateCopy = Object.assign({}, state);
+        n.notice('Updating name.');
+        stateCopy.nameUpdating = true;
+        return stateCopy;
+    },
     "NAME_UPDATE_SUCCESS": function(state, action) {
         const {productId, newName} = action.payload;
         let stateCopy = Object.assign({}, state);
         n.success('Product name updated successfully.');
         stateCopy.names.byProductId[productId].originalValue = newName;
+        stateCopy.nameUpdating = false;
         return stateCopy
     },
     "NAME_UPDATE_ERROR": function(state, action) {
-        const {productId, error, newName} = action.payload;
+        const {error} = action.payload;
         let stateCopy = Object.assign({}, state);
         n.showErrorNotification(error, "There was an error when attempting to update the product name.");
-        stateCopy.names.byProductId[productId].originalValue = newName;
+        stateCopy.nameUpdating = true;
         return stateCopy
     }
 });
@@ -60,10 +68,7 @@ function getNamesOntoStateFromProducts(state, products) {
         if (stateUtility.isVariation(product)) {
             continue;
         }
-
-        //todo - remove this hack - name should just be product.name (only changed to make longer for testing)
-        let name = product.name + product.name + product.name;
-
+        let name = product.name;
         state.names.byProductId[product.id] = {
             originalValue: name,
             value: name,

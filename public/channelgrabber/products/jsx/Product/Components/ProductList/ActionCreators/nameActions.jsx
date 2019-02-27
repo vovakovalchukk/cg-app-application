@@ -22,13 +22,12 @@ let nameActions = (function() {
         updateName: productId => {
             return async (dispatch, getState) => {
                 let newName = getState().name.names.byProductId[productId].value;
+                dispatch({type: "NAME_UPDATE_START"});
                 let response = await updateNameAjax(productId, newName);
                 if(response.error){
                     return dispatch({
                         type: "NAME_UPDATE_ERROR",
                         payload: {
-                            productId,
-                            newName,
                             error: response.error
                         }
                     })
