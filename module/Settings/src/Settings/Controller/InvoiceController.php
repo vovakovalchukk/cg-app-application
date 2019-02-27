@@ -192,8 +192,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setDeleted(0)
             ->setType(ChannelType::SALES)
             ->setLimit("all");
-        $accounts = $this->accountService->fetchByFilter($filter);
+        $accounts = $this->accountService->fetchByFilter($filter, true);
+
+        $this->logDebugDump($accounts, 'ACCOUNTS', [], 'MYTEST');
+
         $dataTablesData = $this->invoiceMappings->getInvoiceMappingDataTablesData($accounts, $invoices);
+
+        $this->logDebugDump($dataTablesData, 'dataTablesData', [], 'MYTEST');
 
         $data = [
             'iTotalRecords' => 0,
