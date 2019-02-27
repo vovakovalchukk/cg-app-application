@@ -1,7 +1,7 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Account\Client\Filter;
+use CG\Account\Shared\Filter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
