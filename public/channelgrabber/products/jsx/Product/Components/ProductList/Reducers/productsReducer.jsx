@@ -77,7 +77,7 @@ var ProductsReducer = reducerCreator(initialState, {
             action.payload.productRowIdToExpand,
             'expanded'
         );
-        
+
         let newState = Object.assign({}, state, {
             visibleRows: currentVisibleProducts
         });
@@ -156,12 +156,6 @@ var ProductsReducer = reducerCreator(initialState, {
 });
 
 export default ProductsReducer;
-
-function getVisibleRowIndexToChangeFromId(rowId, visibleRows) {
-    return visibleRows.findIndex((visibleRow) => {
-        return visibleRow.id === rowId
-    });
-}
 
 function applySingleProductLinkChangeToState(state, newLinks, sku) {
     const normalizedNewLinks = normalizeLinks(newLinks);

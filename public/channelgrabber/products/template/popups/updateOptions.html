@@ -5,10 +5,12 @@
         </div>
     </div>
     <div class="popup-stock-import-content-box">
+        {{#updateOptions}}
         <div class="popup-stock-import-selection">
             <div class="popup-stock-import-label label">Stock Action:</div>
             <div class="popup-stock-import-drop-down">{{{updateOptions}}}</div>
         </div>
+        {{/updateOptions}}
         {{{fileUpload}}}
     </div>
     <div class="popup-stock-import-button-box">
