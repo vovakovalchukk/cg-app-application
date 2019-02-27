@@ -56,6 +56,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
 
+    const INCLUDE_INVISIBLE_CHANNELS = true;
+
     /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory $jsonModelFactory */
@@ -192,7 +194,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setDeleted(0)
             ->setType(ChannelType::SALES)
             ->setLimit("all");
-        $accounts = $this->accountService->fetchByFilter($filter, true);
+        $accounts = $this->accountService->fetchByFilter($filter, static::INCLUDE_INVISIBLE_CHANNELS);
         $dataTablesData = $this->invoiceMappings->getInvoiceMappingDataTablesData($accounts, $invoices);
 
         $data = [
