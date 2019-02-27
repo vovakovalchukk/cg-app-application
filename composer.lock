@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "962eeca740a2c33eb85ea45da7437469",
+    "content-hash": "207f1e7b6cfadba2d3fc8e5d1a6add03",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -954,16 +954,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.10",
+            "version": "1.1.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd"
+                "reference": "bf4304a40e6df72efb30fd6502aefb294039761f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.10-89f2f2.zip",
-                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.11-88028b.zip",
+                "reference": "bf4304a40e6df72efb30fd6502aefb294039761f",
                 "shasum": null
             },
             "require": {
@@ -997,7 +997,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-02-18T11:42:44+00:00"
+            "time": "2019-02-27T14:56:23+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3742,12 +3742,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "e9727f326662415204ba192a2cb98214f50a470d"
+                "reference": "ddf2f9c67f6b743241a33040946a906c0bf31979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-308-walmart-orders-fixes-fc2808.zip",
-                "reference": "e9727f326662415204ba192a2cb98214f50a470d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-308-walmart-orders-fixes-d6b89c.zip",
+                "reference": "ddf2f9c67f6b743241a33040946a906c0bf31979",
                 "shasum": null
             },
             "require": {
@@ -3771,7 +3771,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-26T10:39:30+00:00"
+            "time": "2019-02-26T16:29:20+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -9811,8 +9811,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
