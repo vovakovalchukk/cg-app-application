@@ -25,6 +25,9 @@ const TextArea = styled.textarea`
     box-sizing: border-box;
     overflow: hidden;
     border:none;
+    transition: outline 0.1s ease;
+    outline-color: transparent;
+    margin-left: -2px;
     &:hover{
         outline-color:rgb(97, 180, 224);
         outline-offset:-1.81818px;

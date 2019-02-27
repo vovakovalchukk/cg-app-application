@@ -45,7 +45,7 @@ let coreColumns = [
     },
     {
         key: 'available',
-        width: 80,
+        width: 70,
         fixed: true,
         headerText: 'Available',
         align: 'center'
