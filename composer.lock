@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cdbb2a6474083aea9c7cb5ef7cad7065",
+    "content-hash": "aea78723a0a84342c00020f47b2e06ce",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3738,16 +3738,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "dev-TAC-308-walmart-orders-fixes",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "ef37bd7fdecf85c4db2e8add5ae7eb61fb254a5f"
+                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-308-walmart-orders-fixes-2c9617.zip",
-                "reference": "ef37bd7fdecf85c4db2e8add5ae7eb61fb254a5f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.0-e7358b.zip",
+                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1",
                 "shasum": null
             },
             "require": {
@@ -3771,7 +3771,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-28T09:27:46+00:00"
+            "time": "2019-02-28T12:08:33+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -11038,18 +11038,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-TAC-308-walmart-orders-fixes",
-            "package": "channelgrabber/walmart"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/walmart": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
