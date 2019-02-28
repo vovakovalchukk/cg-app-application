@@ -151,7 +151,6 @@ class NameCell extends React.Component {
         return (
             <TextAreaContainer>
                 <TextArea
-                    id={row.id+'-'+this.props.columnKey}
                     key={row.id+'-'+this.props.columnKey}
                     cols={COLS}
                     rows={2}
