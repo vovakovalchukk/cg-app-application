@@ -45,7 +45,7 @@ const TextArea = styled.textarea`
     }
 `;
 
-const COLS = 32;
+const TEXT_AREA_COLUMN_AMOUNT = 32;
 
 class NameCell extends React.Component {
     static defaultProps = {
@@ -154,7 +154,7 @@ class NameCell extends React.Component {
             <TextAreaContainer>
                 <TextArea
                     key={row.id+'-'+this.props.columnKey}
-                    cols={COLS}
+                    cols={TEXT_AREA_COLUMN_AMOUNT}
                     rows={2}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
