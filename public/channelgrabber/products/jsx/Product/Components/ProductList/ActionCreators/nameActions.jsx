@@ -41,14 +41,6 @@ let nameActions = (function() {
                 })
             }
         },
-        focusName: productId => {
-            return {
-                type: "NAME_FOCUS",
-                payload: {
-                    productId
-                }
-            }
-        },
         cancelNameEdit: productId => {
             return {
                 type: "NAME_EDIT_CANCEL",

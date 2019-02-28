@@ -46,23 +46,22 @@ class ProductList extends React.Component {
         if(prevProps.products.visibleRows.length !== this.props.products.visibleRows.length){
             this.props.actions.updateRowsForPortals();
         }
-
-        if(this.props.focus.focusedInputInfo.columnKey){
-            var inputs = document.querySelectorAll('[data-inputinfo]');
-            for(let input of inputs){
-                let parsedInfo = JSON.parse(input.dataset.inputinfo);
-                if (!utility.areObjectsShallowPropsEqual(parsedInfo,this.props.focus.focusedInputInfo )){
-                    continue;
-                }
-                console.log('found the focused input: ', {
-                    input,
-                    'this.props.focus.focusedInputInfo':this.props.focus.focusedInputInfo,
-                    parsedInfo
-                } );
-                input.focus();
-            }
+        this.focusInputIfApplicable();
+    };
+    focusInputIfApplicable = () => {
+        if(!this.props.focus.focusedInputInfo.columnKey) {
+            return
         }
-    }
+        var inputs = document.querySelectorAll('[data-inputinfo]');
+        for(let input of inputs){
+            let parsedInfo = JSON.parse(input.dataset.inputinfo);
+            if (!utility.areObjectsShallowPropsEqual(parsedInfo,this.props.focus.focusedInputInfo )){
+                continue;
+            }
+            input.focus();
+            break;
+        }
+    };
     updateDimensions = () => {
         this.setState({
             productsListContainer: {

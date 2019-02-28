@@ -114,11 +114,8 @@ class NameCell extends React.Component {
     }
     onFocus = () => {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-        this.props.actions.focusInput(
-            this.getInputInfo(row)
-        );
-
-        //todo remove the previous onFocus from the nameACtions
+        let inputInfo = this.getInputInfo(row);
+        this.props.actions.focusInput(inputInfo);
     };
     onBlur = () => {
         this.props.actions.blurInput();

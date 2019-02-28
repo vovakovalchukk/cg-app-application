@@ -9,7 +9,6 @@ let initialState = {
         byProductId: {},
         allIds: []
     },
-    focusedId: null,
     nameUpdating: false
 };
 let nameReducer = reducerCreator(initialState, {
@@ -23,12 +22,6 @@ let nameReducer = reducerCreator(initialState, {
         let {newName, productId} = action.payload;
         let stateCopy = Object.assign({}, state);
         stateCopy = setNameValuesToState(stateCopy, newName, productId);
-        return stateCopy;
-    },
-    "NAME_FOCUS": function(state, action) {
-        let {productId} = action.payload;
-        let stateCopy = Object.assign({}, state);
-        stateCopy = setNameFocus(stateCopy, productId);
         return stateCopy;
     },
     "NAME_EDIT_CANCEL": function(state, action) {
@@ -85,8 +78,4 @@ function setNameValuesToState(stateCopy, newName, productId) {
         stateCopy.names.allIds.push(productId);
     }
     return stateCopy;
-}
-function setNameFocus(state, productId) {
-    state.focusedId = productId;
-    return state;
 }
