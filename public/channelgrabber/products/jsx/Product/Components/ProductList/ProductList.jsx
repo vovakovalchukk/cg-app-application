@@ -10,6 +10,7 @@ import constants from 'Product/Components/ProductList/Config/constants';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import visibleRowService from 'Product/Components/ProductList/VisibleRow/service';
 import BlockerModal from 'Common/Components/BlockerModal';
+import utility from 'Product/Components/ProductList/utility';
 
 "use strict";
 
@@ -42,10 +43,25 @@ class ProductList extends React.Component {
     };
 
     componentDidUpdate = function(prevProps){
-        if(prevProps.products.visibleRows.length === this.props.products.visibleRows.length){
-            return;
+        if(prevProps.products.visibleRows.length !== this.props.products.visibleRows.length){
+            this.props.actions.updateRowsForPortals();
         }
-        this.props.actions.updateRowsForPortals();
+
+        if(this.props.focus.focusedInputInfo.columnKey){
+            var inputs = document.querySelectorAll('[data-inputinfo]');
+            for(let input of inputs){
+                let parsedInfo = JSON.parse(input.dataset.inputinfo);
+                if (!utility.areObjectsShallowPropsEqual(parsedInfo,this.props.focus.focusedInputInfo )){
+                    continue;
+                }
+                console.log('found the focused input: ', {
+                    input,
+                    'this.props.focus.focusedInputInfo':this.props.focus.focusedInputInfo,
+                    parsedInfo
+                } );
+                input.focus();
+            }
+        }
     }
     updateDimensions = () => {
         this.setState({

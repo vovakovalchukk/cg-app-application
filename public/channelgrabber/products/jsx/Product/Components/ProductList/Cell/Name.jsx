@@ -106,9 +106,22 @@ class NameCell extends React.Component {
             }}
         />);
     };
+    getInputInfo = (row) => {
+        return {
+            'id': row.id,
+            'columnKey': this.props.columnKey
+        };
+    }
     onFocus = () => {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-        this.props.actions.focusName(row.id)
+        this.props.actions.focusInput(
+            this.getInputInfo(row)
+        );
+
+        //todo remove the previous onFocus from the nameACtions
+    };
+    onBlur = () => {
+        this.props.actions.blurInput();
     };
     changeName = (e) => {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
@@ -138,11 +151,15 @@ class NameCell extends React.Component {
         return (
             <TextAreaContainer>
                 <TextArea
+                    id={row.id+'-'+this.props.columnKey}
+                    key={row.id+'-'+this.props.columnKey}
                     cols={COLS}
                     rows={2}
                     onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                     value={nameValue}
                     onChange={this.changeName}
+                    data-inputinfo={JSON.stringify(this.getInputInfo(row),null,1)}
                 />
                 {Submits}
             </TextAreaContainer>
