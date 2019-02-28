@@ -16,9 +16,6 @@ let focusReducer = reducerCreator(initialState, {
     },
     "INPUT_BLUR": function(state, action) {
         let stateCopy = Object.assign({}, state);
-        console.log('INPUT_BLUR');
-        
-        
         stateCopy.focusedInputInfo = {};
         return stateCopy;
     }

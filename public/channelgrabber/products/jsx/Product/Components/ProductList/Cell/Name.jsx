@@ -63,9 +63,7 @@ class NameCell extends React.Component {
         });
     };
     getProductName = (row, productName) => {
-        let {name} = this.props;
-
-        if(name.focusedId === row.id){
+        if(this.props.focus.focusedInputInfo.columnKey && (this.props.focus.focusedInputInfo.columnKey === 'name') && (this.props.focus.focusedInputInfo.rowId === row.id)){
             return productName.value;
         }
         return productName.shortenedValue;
@@ -115,7 +113,7 @@ class NameCell extends React.Component {
     };
     getInputInfo = (row) => {
         return {
-            'id': row.id,
+            'rowId': row.id,
             'columnKey': this.props.columnKey
         };
     }
@@ -135,7 +133,7 @@ class NameCell extends React.Component {
         const {products, rowIndex, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
         let row = stateUtility.getRowData(products, rowIndex);
         const isVariation = stateUtility.isVariation(row);
-
+        
         if(isVariation){
             let variationName = this.getVariationName(row);
             return (
