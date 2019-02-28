@@ -48,7 +48,14 @@ const TextArea = styled.textarea`
 const COLS = 32;
 
 class NameCell extends React.Component {
-    static defaultProps = {};
+    static defaultProps = {
+        products: {},
+        rowIndex: null,
+        name: {},
+        rows: {},
+        columnKey: '',
+        actions: {}
+    };
 
     getVariationAttributeArray = (row) => {
         return Object.keys(row.attributeValues).map((key) => {

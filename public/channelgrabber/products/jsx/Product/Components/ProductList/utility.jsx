@@ -23,9 +23,9 @@ let utility = (function() {
             });
             return allRows;
         },
-        shortenNameForCell(name){
+        shortenNameForCell(name) {
             let cutOffLength = 70;
-            if(name.length > cutOffLength){
+            if (name.length > cutOffLength) {
                 return name.substring(0, cutOffLength) + "...";
             }
             return name;

@@ -42,20 +42,20 @@ class ProductList extends React.Component {
         fetchingUpdatedStockLevelsForSkus: {}
     };
 
-    componentDidUpdate = function(prevProps){
-        if(prevProps.products.visibleRows.length !== this.props.products.visibleRows.length){
+    componentDidUpdate = function(prevProps) {
+        if (prevProps.products.visibleRows.length !== this.props.products.visibleRows.length) {
             this.props.actions.updateRowsForPortals();
         }
         this.focusInputIfApplicable();
     };
     focusInputIfApplicable = () => {
-        if(!this.props.focus.focusedInputInfo.columnKey) {
+        if (!this.props.focus.focusedInputInfo.columnKey) {
             return
         }
         var inputs = document.querySelectorAll('[data-inputinfo]');
-        for(let input of inputs){
+        for (let input of inputs) {
             let parsedInfo = JSON.parse(input.dataset.inputinfo);
-            if (!utility.areObjectsShallowPropsEqual(parsedInfo,this.props.focus.focusedInputInfo )){
+            if (!utility.areObjectsShallowPropsEqual(parsedInfo, this.props.focus.focusedInputInfo)) {
                 continue;
             }
             input.focus();
@@ -158,7 +158,7 @@ class ProductList extends React.Component {
     };
     onVerticalScroll = () => {
         let scrollTimeout;
-        if(!this.props.scroll.userScrolling){
+        if (!this.props.scroll.userScrolling) {
             this.props.actions.setUserScrolling();
         }
         clearTimeout(this.scrollTimeout);
@@ -239,8 +239,10 @@ class ProductList extends React.Component {
                 contentJsx={
                     <div>
                         <div>You have no products... yet!</div>
-                        <div><a href={'products/listing/import'} >Click here</a> to import your active listings </div>
-                        <div>or <a href={'#'} onClick={this.props.addNewProductButtonClick} >here</a> to add a new product manually. </div>
+                        <div><a href={'products/listing/import'}>Click here</a> to import your active listings</div>
+                        <div>or <a href={'#'} onClick={this.props.addNewProductButtonClick}>here</a> to add a new
+                            product manually.
+                        </div>
                     </div>
                 }
             />
