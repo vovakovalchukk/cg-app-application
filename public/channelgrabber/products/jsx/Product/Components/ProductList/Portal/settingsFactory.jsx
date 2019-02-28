@@ -69,8 +69,8 @@ let portalSettingsFactory = (function() {
         return translateElementMap[elemType];
     }
 
-    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, detailForInput}) {
-        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell, width, detailForInput});
+    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
+        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell, width, dimension});
     }
 
     function getZIndexForWrapper(elemType) {
@@ -93,7 +93,7 @@ let portalSettingsFactory = (function() {
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             elemType,
-            detailForInput
+            dimension: detailForInput
         });
 
         let zIndexForWrapper = getZIndexForWrapper(elemType);
