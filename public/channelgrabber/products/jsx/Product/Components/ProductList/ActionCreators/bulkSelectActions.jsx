@@ -2,6 +2,12 @@
 
 let bulkSelectActions = (function() {
     return {
+        toggleSelectAllBulkSelect: () => {
+          return {
+              type: "SELECT_ALL_BULK_SELECT_TOGGLE",
+              payload: {}
+          };
+        },
         changeProductBulkSelectStatus: (productId, checked) => {
             return function(dispatch) {
                 dispatch({

@@ -8,6 +8,10 @@ let initialState = {
 };
 
 let bulkSelectReducer = reducerCreator(initialState, {
+    "SELECT_ALL_BULK_SELECT_TOGGLE": function(state, action){
+        let stateCopy = Object.assign({}, state);
+        debugger;
+    },
     "BULK_SELECT_PRODUCT_STATUS_CHANGE": function(state, action) {
         let {productId, checked} = action.payload;
         let selectedProducts = state.selectedProducts.slice();

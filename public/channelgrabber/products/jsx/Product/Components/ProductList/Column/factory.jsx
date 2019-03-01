@@ -125,7 +125,7 @@ function getHeaderCell(column, userSettings) {
     if(column.key === 'bulkSelect'){
         return (
             <HeaderCell>
-                <BulkSelectHeader column={column}/>
+                <BulkSelectHeader {...column}/>
             </HeaderCell>
         )
     }
