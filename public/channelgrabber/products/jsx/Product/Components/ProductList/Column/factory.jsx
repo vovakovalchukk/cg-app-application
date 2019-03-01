@@ -50,7 +50,7 @@ let columnCreator = function(column, parentProps) {
     createCellWrapper(column);
 
     let CellToRender = getCell(column);
-    let HeaderCellToRender = getHeaderCell(column, parentProps.userSettings, cellWrappers);
+    let HeaderCellToRender = getHeaderCell(column, parentProps.userSettings);
 
     return (<Column
         pureRendering={true}
@@ -118,19 +118,20 @@ function getHeaderTextWithMetricInfo(column, userSettings) {
     return column.headerText + ' ' + metricString;
 }
 
-function getHeaderCell(column, userSettings, CellWrapper) {
+function getHeaderCell(column, userSettings) {
     if (columnKeysMetricPropertyMap[column.key]) {
         return getHeaderTextWithMetricInfo(column, userSettings);
     }
     if(column.key === 'bulkSelect'){
         return (
-                <HeaderCell>
-                    <BulkSelectHeader />
-                </HeaderCell>
+            <HeaderCell>
+                <BulkSelectHeader column={column}/>
+            </HeaderCell>
         )
     }
-    debugger;
-    return <HeaderCell title={column.headerText}>
-        {column.headerText}
-    </HeaderCell>
+    return  (
+        <HeaderCell title={column.headerText}>
+            {column.headerText}
+        </HeaderCell>
+    );
 }
