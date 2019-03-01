@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Clipboard from 'Clipboard';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import utility from 'Product/Components/ProductList/utility';
@@ -116,18 +117,34 @@ class NameCell extends React.Component {
             'rowId': row.id,
             'columnKey': this.props.columnKey
         };
-    }
+    };
     onFocus = () => {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         let inputInfo = this.getInputInfo(row);
+        this.moveCaretToEndOfTextArea(row);
         this.props.actions.focusInput(inputInfo);
     };
+    moveCaretToEndOfTextArea(row) {
+        let textArea = ReactDOM.findDOMNode(this.refs[this.getUniqueInputId()]);
+        let productName = this.props.name.names.byProductId[row.id];
+        let caretPosition = productName.value.length;
+
+        // setting timeout to bypass the event Queue (Chrome sets input focus before adding a caret)
+        setTimeout(() => {
+            textArea.setSelectionRange(caretPosition, caretPosition);
+            textArea.scrollTop = textArea.scrollHeight;
+        }, 0);
+    }
     onBlur = () => {
         this.props.actions.blurInput();
     };
     changeName = (e) => {
         let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         this.props.actions.changeName(e.target.value, row.id);
+    };
+    getUniqueInputId = () => {
+        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        return row.id+'-'+ this.props.columnKey
     };
     render = () => {
         const {products, rowIndex, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
@@ -149,11 +166,13 @@ class NameCell extends React.Component {
         let isEditing = productName.originalValue !== productName.value;
         let nameValue = this.getProductName(row, productName);
         let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row});
+        let uniqueInputId = this.getUniqueInputId();
 
         return (
             <TextAreaContainer>
                 <TextArea
-                    key={row.id+'-'+this.props.columnKey}
+                    ref={uniqueInputId}
+                    key={uniqueInputId}
                     cols={TEXT_AREA_COLUMN_AMOUNT}
                     rows={2}
                     onFocus={this.onFocus}
