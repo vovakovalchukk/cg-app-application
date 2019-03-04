@@ -96,7 +96,7 @@ class NameCell extends React.Component {
         let productName = this.props.name.names.byProductId[row.id];
         let caretPosition = productName.value.length;
 
-        // setting timeout to bypass the event queue (Chrome sets input focus before adding a caret)
+        // setting timeout because Chrome sets input focus before adding a caret
         setTimeout(() => {
             textArea.setSelectionRange(caretPosition, caretPosition);
             textArea.scrollTop = textArea.scrollHeight;
