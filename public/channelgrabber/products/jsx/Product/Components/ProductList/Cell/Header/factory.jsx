@@ -33,7 +33,6 @@ export default (function() {
             let CellContent = {};
             if(cells[column.key]){
                 CellContent = cells[column.key]
-                debugger;
                 return (<HeaderCellContainer>
                     <CellContent {...column}/>
                 </HeaderCellContainer>);

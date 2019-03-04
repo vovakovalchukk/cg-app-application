@@ -1,22 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import ExpandIcon from 'Common/Components/ExpandIcon'
 
-const ArrowWrapper = styled.div`
+const ExpandIconContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
 `;
+const ExpandLink = styled.a`
+        user-select: none;
+    `;
 
 class ProductExpandHeader extends React.Component {
-    static defaultProps = {
+    static defaultProps = {};
+    onClick = () => {
+        console.log('on click');
+        
+        
+        this.props.actions.toggleExpandAll()
     };
     render() {
-        let {bulkSelect} = this.props;
+        let {expand} = this.props;
+        console.log('this.props: ', this.props);
 
         return (
-            <ArrowWrapper>
-               expand
-            </ArrowWrapper>
+            <ExpandIconContainer>
+                <ExpandLink onClick={this.onClick}>
+                    <ExpandIcon
+                        expandStatus={''}
+                    />
+                </ExpandLink>
+            </ExpandIconContainer>
         );
     }
 }

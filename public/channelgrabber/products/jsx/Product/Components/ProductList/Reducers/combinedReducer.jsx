@@ -15,6 +15,7 @@ import userSettingsReducer from 'Product/Components/ProductList/Reducers/userSet
 import scrollReducer from 'Product/Components/ProductList/Reducers/scrollReducer';
 import detailReducer from 'Product/Components/ProductList/Reducers/detailReducer';
 import pickLocationsReducer from 'Product/Components/ProductList/Reducers/pickLocationsReducer';
+import expandReducer from 'Product/Components/ProductList/Reducers/expandReducer';
 
 var appReducer = combineReducers({
     products: productsReducer,
@@ -32,7 +33,8 @@ var appReducer = combineReducers({
     userSettings: userSettingsReducer,
     scroll: scrollReducer,
     detail: detailReducer,
-    pickLocations: pickLocationsReducer
+    pickLocations: pickLocationsReducer,
+    expand: expandReducer
 });
 
 const combinedReducer = (state, action) => {
