@@ -45,7 +45,7 @@ let bulkSelectActions = (function() {
             }
         }
     };
-    
+
     async function deleteProducts(productsIds) {
         return $.ajax({
             'url': '/products/delete',

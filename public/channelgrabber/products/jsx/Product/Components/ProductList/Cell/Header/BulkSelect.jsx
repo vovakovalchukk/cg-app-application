@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CheckboxStateless from  'Common/Components/Checkbox--stateless';
+import CheckboxStateless from 'Common/Components/Checkbox--stateless';
 
 const CheckboxWrapper = styled.div`
   display: flex;
