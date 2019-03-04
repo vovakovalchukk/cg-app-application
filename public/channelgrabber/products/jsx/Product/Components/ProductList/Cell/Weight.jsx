@@ -10,7 +10,7 @@ class WeightCell extends React.Component {
         rowIndex: null,
         rows: {},
         width: '',
-        rowData: [],
+        rowData: {},
         detail: {},
         scroll: {}
     };

@@ -4,23 +4,25 @@ import Input from 'Common/Components/SafeInput';
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes';
 import portalSettingsFactory from 'Product/Components/ProductList/Portal/settingsFactory'
 
-let rowData = {};
-
 class AvailableCell extends React.Component {
+    static defaultProps = {
+        products: {},
+        rowIndex: null,
+        rows: {},
+        rowData: {},
+    };
     getUniqueInputId = () => {
-        return rowData[this.props.rowIndex].id+'-'+ this.props.columnKey
+        return this.props.rowData.id+'-'+ this.props.columnKey
     };
     render() {
         const {
-            products,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            rowData
         } = this.props;
 
-        rowData[rowIndex] = stateUtility.getRowData(products, rowIndex);
-
-        const isParentProduct = stateUtility.isParentProduct(rowData[rowIndex]);
+        const isParentProduct = stateUtility.isParentProduct(rowData);
 
         if (isParentProduct) {
             return <span></span>
@@ -48,21 +50,15 @@ class AvailableCell extends React.Component {
                     key={this.getUniqueInputId()}
                     initialValue={parseFloat(availableValue)}
                     step="0.1"
-                    submitCallback={this.props.actions.updateAvailable.bind(this, rowData[rowIndex])}
+                    submitCallback={this.props.actions.updateAvailable.bind(this, rowData)}
                     inputClassNames={'u-width-100pc'}
-                    sku={rowData[rowIndex].sku}
+                    sku={rowData.sku}
                     submitsPortalSettings={portalSettings}
                     width={45}
                 />
             </span>
         );
     }
-
-    onChange(e) {
-        const {products, rowIndex} = this.props;
-        let rowData = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.updateAvailable(rowData, 'available', e.target.value);
-    };
 }
 
 export default AvailableCell;
