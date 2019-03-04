@@ -1555,9 +1555,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10394-edit-product-names":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.26":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#608f187e01bcef6ff3c57f911830b5c56eb2a580"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#d6d45697b6ff9c776808b2076c14ee883772f9eb"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
