@@ -47,7 +47,9 @@ class DimensionsCell extends React.Component {
     shouldRenderSubmits = () => {
         return !this.props.scroll.userScrolling;
     };
-
+    getUniqueInputId = (dimension) => {
+        return this.props.rowData.id+'-'+this.props.columnKey+'-'+dimension
+    };
     renderInput = (row, detailForInput, value) => {
         const {
             rowIndex,
@@ -70,6 +72,7 @@ class DimensionsCell extends React.Component {
             <StyledSafeInputStateless
                 name={detailForInput}
                 step="0.1"
+                key={this.getUniqueInputId(detailForInput)}
                 submitCallback={this.props.actions.saveDetail.bind(this, row, detailForInput)}
                 cancelInput={this.props.actions.cancelInput.bind(this, row, detailForInput)}
                 setIsEditing={this.props.actions.setIsEditing.bind(this, row.id, detailForInput)}
@@ -85,27 +88,26 @@ class DimensionsCell extends React.Component {
     };
 
     render() {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const {rowData} = this.props;
 
-        const isSimpleProduct = stateUtility.isSimpleProduct(row)
-        const isVariation = stateUtility.isVariation(row);
+        const isSimpleProduct = stateUtility.isSimpleProduct(rowData)
+        const isVariation = stateUtility.isVariation(rowData);
 
         if (!isSimpleProduct && !isVariation) {
             return <span></span>
         }
 
-        let valueForHeight = this.getValueForDetail(row, 'height');
-        let valueForWidth = this.getValueForDetail(row, 'width');
-        let valueForLength = this.getValueForDetail(row, 'length');
+        let valueForHeight = this.getValueForDetail(rowData, 'height');
+        let valueForWidth = this.getValueForDetail(rowData, 'width');
+        let valueForLength = this.getValueForDetail(rowData, 'length');
 
         return (
             <InputsContainer className={this.props.className}>
-                {this.renderInput(row, 'height', valueForHeight)}
+                {this.renderInput(rowData, 'height', valueForHeight)}
                 <Cross>✕</Cross>
-                {this.renderInput(row, 'width', valueForWidth)}
+                {this.renderInput(rowData, 'width', valueForWidth)}
                 <Cross>✕</Cross>
-                {this.renderInput(row, 'length', valueForLength)}
+                {this.renderInput(rowData, 'length', valueForLength)}
             </InputsContainer>
         );
     }
