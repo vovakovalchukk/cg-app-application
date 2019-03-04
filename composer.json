@@ -55,7 +55,7 @@
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.2.0",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "~1.16.16",
+        "channelgrabber/product": "dev-TAC-339-stock-file-cost-price as 1.16.17",
         "channelgrabber/profiling": "^1.1",
         "channelgrabber/purchase-order": "~1.0.0",
         "channelgrabber/redis": "~0.1.0",
