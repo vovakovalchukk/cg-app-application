@@ -2,17 +2,6 @@
 
 let bulkSelectActions = (function() {
     return {
-        toggleSelectAllBulkSelect: () => {
-            return function(dispatch, getState) {
-                let allVisibleProductIds = getState().products.visibleRows.map(product => product.id);
-                dispatch({
-                    type: "SELECT_ALL_BULK_SELECT_TOGGLE",
-                    payload: {
-                        allVisibleProductIds
-                    }
-                });
-            }
-        },
         changeProductBulkSelectStatus: (productId, checked) => {
             return function(dispatch) {
                 dispatch({

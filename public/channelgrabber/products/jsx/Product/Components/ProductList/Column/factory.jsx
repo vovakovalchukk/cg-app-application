@@ -1,24 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import FixedDataTable from 'fixed-data-table-2';
 import CellFactory from 'Product/Components/ProductList/Cell/factory';
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys'
 import CellWrapper from 'Product/Components/ProductList/Cell/Wrapper';
-import BulkSelectHeader from 'Product/Components/ProductList/Cell/Header/BulkSelect';
-import FixedDataTable from 'fixed-data-table-2';
-import styleVars from 'Product/Components/ProductList/styleVars';
 
 "use strict";
 
-const {Column, Cell} = FixedDataTable;
-
-let HeaderCell = styled(Cell)`
-    .public_fixedDataTableCell_cellContent{
-      max-height: ${styleVars.heights.headerHeight}px;  
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-`;
+const Column = FixedDataTable.Column;
 
 const columnKeysMetricPropertyMap = {
     [columnKeys.weight]: 'massUnit',
@@ -40,44 +29,22 @@ const alignFlexMap = {
     'right': 'flex-end'
 };
 
-let cellWrappers = {};
+let columnWrappers = {};
 
 let columnCreator = function(column, parentProps) {
     column.actions = parentProps.actions;
     column.products = parentProps.products;
     column = applyColumnSpecificProps(column, parentProps);
 
-    createCellWrapper(column);
-
-    let CellToRender = getCell(column);
-    let HeaderCellToRender = getHeaderCell(column, parentProps.userSettings);
-
-    return (<Column
-        pureRendering={true}
-        columnKey={column.key}
-        width={column.width}
-        fixed={column.fixed}
-        header={HeaderCellToRender}
-        align={getHeaderCellAlignment(column)}
-        cell={CellToRender}
-    />);
-};
-
-export default columnCreator;
-
-function createCellWrapper(column){
-    cellWrappers[column.columnKey] = cellWrappers[column.columnKey] || styled(CellWrapper)`
-        display: flex;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        box-sizing: border-box;
-        justify-content: ${getJustifyContentProp(column)}
-    `;
-}
-
-function getCell(column) {
     let CellContent = CellFactory.createCellContent(column);
+    columnWrappers[column.columnKey] = columnWrappers[column.columnKey] || styled(CellWrapper)`
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            justify-content: ${getJustifyContentProp(column)}
+        `;
 
     if (!CellContent) {
         console.error("cannot create cell in column factory for column: ", column);
@@ -87,11 +54,22 @@ function getCell(column) {
     if (columnNoWrapper.includes(column.key)) {
         CellToRender = <CellContent {...column} />;
     } else {
-        let StyledCellWrapper = cellWrappers[column.columnKey];
-        CellToRender = <StyledCellWrapper {...column} CellContent={CellContent}/>;
+        let StyledCellWrapper = columnWrappers[column.columnKey];
+        CellToRender = <StyledCellWrapper {...column} CellContent={CellContent} />;
     }
-    return CellToRender;
-}
+
+    return (<Column
+        pureRendering={true}
+        columnKey={column.key}
+        width={column.width}
+        fixed={column.fixed}
+        header={getHeaderText(column, parentProps.userSettings)}
+        align={getHeaderCellAlignment(column)}
+        cell={CellToRender}
+    />);
+};
+
+export default columnCreator;
 
 function applyColumnSpecificProps(column, parentProps) {
     let keysToAssign = columnSpecificPropsMap[column.key] ? columnSpecificPropsMap[column.key] : columnSpecificPropsMap[column.type];
@@ -112,26 +90,11 @@ function getHeaderCellAlignment(column) {
     return column.align;
 }
 
-function getHeaderTextWithMetricInfo(column, userSettings) {
+function getHeaderText(column, userSettings) {
+    if (!columnKeysMetricPropertyMap[column.key]) {
+        return column.headerText;
+    }
     let metricProp = columnKeysMetricPropertyMap[column.key];
     let metricString = '(' + userSettings[metricProp] + ')';
     return column.headerText + ' ' + metricString;
-}
-
-function getHeaderCell(column, userSettings) {
-    if (columnKeysMetricPropertyMap[column.key]) {
-        return getHeaderTextWithMetricInfo(column, userSettings);
-    }
-    if(column.key === 'bulkSelect'){
-        return (
-            <HeaderCell>
-                <BulkSelectHeader {...column}/>
-            </HeaderCell>
-        )
-    }
-    return  (
-        <HeaderCell title={column.headerText}>
-            {column.headerText}
-        </HeaderCell>
-    );
 }
