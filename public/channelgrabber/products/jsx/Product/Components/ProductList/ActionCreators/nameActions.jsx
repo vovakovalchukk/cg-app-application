@@ -1,3 +1,5 @@
+import focusActions from 'Product/Components/ProductList/ActionCreators/focusActions';
+
 "use strict";
 
 let nameActions = (function() {
@@ -19,11 +21,19 @@ let nameActions = (function() {
                 }
             }
         },
-        updateName: productId => {
-            return async (dispatch, getState) => {
-                let newName = getState().name.names.byProductId[productId].value;
+        nameBlur : productId => {
+            return async (dispatch,getState) => {
+                dispatch(focusActions.blurInput());
+                let productName = getState().name.names.byProductId[productId];
+                let newName = productName.value;
+
+                if(newName === productName.originalValue){
+                    return;
+                }
+
                 dispatch({type: "NAME_UPDATE_START"});
                 let response = await updateNameAjax(productId, newName);
+
                 if(response.error){
                     return dispatch({
                         type: "NAME_UPDATE_ERROR",

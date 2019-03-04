@@ -5,13 +5,7 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 import utility from 'Product/Components/ProductList/utility';
 import styled from 'styled-components';
 import layoutSettings from 'Product/Components/ProductList/Config/layoutSettings';
-import Portaller from "../Portal/Portaller";
-import SafeSubmits from 'Common/Components/SafeSubmits';
 
-const StyledSafeSubmits = styled(SafeSubmits)`
-    position: absolute;
-    transform: translateX(-50%);
-`;
 const TextAreaContainer = styled.div`
   width:100%;
   height:100%;
@@ -48,6 +42,8 @@ const TextArea = styled.textarea`
 
 const TEXT_AREA_COLUMN_AMOUNT = 32;
 
+let rowData = {};
+
 class NameCell extends React.Component {
     static defaultProps = {
         products: {},
@@ -83,35 +79,6 @@ class NameCell extends React.Component {
     componentDidMount = () => {
         new Clipboard('div.' + this.getUniqueClassName(), [], 'data-copy');
     };
-    submitInput = () => {
-        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-        this.props.actions.updateName(row.id);
-    };
-    cancelInput = () => {
-        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-        this.props.actions.cancelNameEdit(row.id);
-    };
-    createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing}){
-        if(!isEditing || this.props.name.nameUpdating){
-            return <span/>
-        }
-
-        return (<Portaller
-            rowIndex={rowIndex}
-            distanceFromLeftSideOfTableToStartOfCell={distanceFromLeftSideOfTableToStartOfCell}
-            width={width}
-            allRows={this.props.rows.allIds}
-            render= {()=>{
-               return (
-                    <StyledSafeSubmits
-                       renderOptions={this.renderOptions}
-                       submitInput= {this.submitInput}
-                       cancelInput={this.cancelInput}
-                    />
-                )
-            }}
-        />);
-    };
     getInputInfo = (row) => {
         return {
             'rowId': row.id,
@@ -119,7 +86,7 @@ class NameCell extends React.Component {
         };
     };
     onFocus = () => {
-        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        let row = rowData[this.props.rowIndex];
         let inputInfo = this.getInputInfo(row);
         this.moveCaretToEndOfTextArea(row);
         this.props.actions.focusInput(inputInfo);
@@ -136,23 +103,26 @@ class NameCell extends React.Component {
         }, 0);
     }
     onBlur = () => {
-        this.props.actions.blurInput();
+        let row = rowData[this.props.rowIndex];
+        this.props.actions.nameBlur(row.id);
     };
     changeName = (e) => {
-        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        let row = rowData[this.props.rowIndex];
         this.props.actions.changeName(e.target.value, row.id);
     };
     getUniqueInputId = () => {
-        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        let row = rowData[this.props.rowIndex];
         return row.id+'-'+ this.props.columnKey
     };
     render = () => {
-        const {products, rowIndex, name, distanceFromLeftSideOfTableToStartOfCell, width} = this.props;
-        let row = stateUtility.getRowData(products, rowIndex);
-        const isVariation = stateUtility.isVariation(row);
+        const {products, rowIndex, name} = this.props;
+
+        rowData[rowIndex] = stateUtility.getRowData(products, rowIndex);
+
+        const isVariation = stateUtility.isVariation(rowData[rowIndex]);
         
         if(isVariation){
-            let variationName = this.getVariationName(row);
+            let variationName = this.getVariationName(rowData[rowIndex]);
             return (
                 <TextAreaContainer>
                     <div title={variationName}>
@@ -162,10 +132,8 @@ class NameCell extends React.Component {
             );
         }
 
-        let productName = name.names.byProductId[row.id];
-        let isEditing = productName.originalValue !== productName.value;
-        let nameValue = this.getProductName(row, productName);
-        let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing, row});
+        let productName = name.names.byProductId[rowData[rowIndex].id];
+        let nameValue = this.getProductName(rowData[rowIndex], productName);
         let uniqueInputId = this.getUniqueInputId();
 
         return (
@@ -179,9 +147,8 @@ class NameCell extends React.Component {
                     onBlur={this.onBlur}
                     value={nameValue}
                     onChange={this.changeName}
-                    data-inputinfo={JSON.stringify(this.getInputInfo(row),null,1)}
+                    data-inputinfo={JSON.stringify(this.getInputInfo(rowData[rowIndex]),null,1)}
                 />
-                {Submits}
             </TextAreaContainer>
         )
     };
