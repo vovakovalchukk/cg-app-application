@@ -10,6 +10,7 @@ import constants from 'Product/Components/ProductList/Config/constants';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import visibleRowService from 'Product/Components/ProductList/VisibleRow/service';
 import BlockerModal from 'Common/Components/BlockerModal';
+import styleVars from 'Product/Components/ProductList/styleVars';
 import utility from 'Product/Components/ProductList/utility';
 
 "use strict";
@@ -181,13 +182,13 @@ class ProductList extends React.Component {
         }
         return (
             <Table
-                rowHeight={44}
+                rowHeight={styleVars.heights.rowHeight}
                 className={'c-products-data-table'}
                 // add one extra row to provide room for the portalled elements in previous row
                 rowsCount={rowCount + 1}
                 width={width}
                 height={height}
-                headerHeight={36}
+                headerHeight={styleVars.heights.headerHeight}
                 data={rows}
                 footerHeight={0}
                 groupHeaderHeight={0}
