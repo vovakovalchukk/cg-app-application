@@ -65,7 +65,7 @@ let columnCreator = function(column, parentProps) {
 
 export default columnCreator;
 
-function createCellWrapper(column){
+function createCellWrapper(column) {
     cellWrappers[column.columnKey] = cellWrappers[column.columnKey] || styled(CellWrapper)`
         display: flex;
         align-items: center;
@@ -122,14 +122,14 @@ function getHeaderCell(column, userSettings) {
     if (columnKeysMetricPropertyMap[column.key]) {
         return getHeaderTextWithMetricInfo(column, userSettings);
     }
-    if(column.key === 'bulkSelect'){
+    if (column.key === 'bulkSelect') {
         return (
             <HeaderCell>
                 <BulkSelectHeader {...column}/>
             </HeaderCell>
         )
     }
-    return  (
+    return (
         <HeaderCell title={column.headerText}>
             {column.headerText}
         </HeaderCell>
