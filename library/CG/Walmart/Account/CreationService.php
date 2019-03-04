@@ -56,7 +56,7 @@ class CreationService extends CreationServiceAbstract
             // Requesting a Client will request a token which will test the connection
             ($this->clientFactory)($account);
         } catch (StorageException $e) {
-            throw new \InvalidArgumentException('There was a problem connecting up that account. Please check your credentials and try again');
+            throw new \InvalidArgumentException('There was a problem connecting up that account. Please check your credentials and try again', $e->getCode(), $e);
         }
     }
 }
