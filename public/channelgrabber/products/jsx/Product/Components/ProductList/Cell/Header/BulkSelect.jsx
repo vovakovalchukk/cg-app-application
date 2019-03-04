@@ -10,21 +10,21 @@ const CheckboxWrapper = styled.div`
 `;
 
 class BulkSelectHeader extends React.Component {
-    static defaultProps = {};
-    state = {};
-
+    static defaultProps = {
+        bulkSelect: {}
+    };
     onSelect = () => {
         this.props.actions.toggleSelectAllBulkSelect();
     };
     render() {
-        let isSelected = false;
+        let {bulkSelect} = this.props;
 
         return (
             <CheckboxWrapper>
                 <CheckboxStateless
                     className={this.props.className}
                     onSelect={this.onSelect}
-                    isSelected={isSelected}
+                    isSelected={bulkSelect.selectAllOn}
                 />
             </CheckboxWrapper>
         );
