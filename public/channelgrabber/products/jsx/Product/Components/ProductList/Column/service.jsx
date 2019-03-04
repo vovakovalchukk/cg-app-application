@@ -154,17 +154,20 @@ function generateListingsColumnsFromAccounts(accounts) {
     }
 
     let channelSpecificColumns = [];
-    Object.keys(accounts).forEach((accountKey) => {
+    Object.keys(accounts).forEach((accountKey, index) => {
         let account = accounts[accountKey];
         if (!account.type.includes('sales') || account.channel === 'api') {
             return;
         }
+
+        let headerText = `${account.displayName} (${capitalize(account.channel)})`;
+
         channelSpecificColumns.push({
             key: 'ListingAccountCell-' + account.id,
             type: 'listingAccount',
             listingAccountId: account.id,
             width: 115,
-            headerText: capitalize(account.channel),
+            headerText,
             fixed: false,
             align: 'center'
         });
