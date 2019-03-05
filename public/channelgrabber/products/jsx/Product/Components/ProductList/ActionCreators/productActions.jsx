@@ -46,6 +46,11 @@ var actionCreators = (function() {
             payload: data
         }
     };
+    const getProductsError = function() {
+        return {
+            type: "PRODUCTS_GET_REQUEST_ERROR"
+        }
+    };
     const updateStockLevelsRequestSuccess = (response) => {
         return {
             type: "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS",
@@ -99,6 +104,7 @@ var actionCreators = (function() {
                     dispatch(getProductsRequestStart());
                     data = await fetchProducts(filter);
                 } catch (err) {
+                    dispatch(getProductsError(err));
                     throw 'Unable to load products... error: ' + err;
                 }
                 dispatch(vatActions.extractVatFromProducts(data.products));
