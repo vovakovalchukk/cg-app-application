@@ -1,10 +1,10 @@
 import AjaxHandler from 'Product/Storage/Ajax';
-import ProductFilter from 'Product/Filter/Entity';
-import constants from 'Product/Components/ProductList/Config/constants';
-import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions';
-import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
-import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
-import stateUtility from 'Product/Components/ProductList/stateUtility';
+import ProductFilter from 'Product/Filter/Entity'
+import constants from 'Product/Components/ProductList/Config/constants'
+import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
+import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
+import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions'
+import stateUtility from 'Product/Components/ProductList/stateUtility'
 
 "use strict";
 
@@ -12,7 +12,7 @@ const {PRODUCTS_URL} = constants;
 
 var actionCreators = (function() {
     let self = {};
-    
+
     const getProductsRequestStart = () => {
         return {
             type: 'PRODUCTS_GET_REQUEST_START'
@@ -69,7 +69,7 @@ var actionCreators = (function() {
             type: 'GET'
         });
     };
-    
+
     return {
         storeAccountFeatures: (features) => {
             return {
@@ -102,7 +102,9 @@ var actionCreators = (function() {
                 } catch (err) {
                     throw 'Unable to load products... error: ' + err;
                 }
+
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {
@@ -136,14 +138,12 @@ var actionCreators = (function() {
                     }
                 });
                 let variationsByParent = getState().products.variationsByParent;
-                
+
                 if (variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)) {
-                    dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand);
+                    actionCreators.dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand);
                     return;
                 }
-                
                 actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productRowIdToExpand);
-                dispatch(rowActions.updateRowsForPortals());
             }
         },
         collapseProduct: (productRowIdToCollapse) => {
@@ -154,24 +154,34 @@ var actionCreators = (function() {
                 }
             }
         },
-        dispatchExpandVariationsWithAjaxRequest: async (dispatch, productRowId) => {
+        dispatchExpandVariationsWithAjaxRequest: (dispatch, productRowId) => {
             let filter = new ProductFilter(null, productRowId);
             AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-            
+
             function fetchProductVariationsCallback(data) {
                 $('#products-loading-message').hide();
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
+
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
             }
         },
+        dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
+            dispatch(getProductVariationsRequestSuccess(variationsByParent));
+            dispatch(expandProductSuccess(productRowIdToExpand));
+            let data = {
+                products: variationsByParent[productRowIdToExpand]
+            };
+            let skusFromData = getSkusFromData(data);
+            dispatch(productLinkActions.getLinkedProducts(skusFromData));
+        },
         getVariationsByParentProductId: (parentProductId) => {
             return async function(dispatch) {
                 let filter = new ProductFilter(null, parentProductId);
                 let data = await AjaxHandler.fetchByFilter(filter);
-                
+
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 return data;
@@ -209,11 +219,7 @@ var actionCreators = (function() {
             };
         }
     };
-    
-    function dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand) {
-        dispatch(getProductVariationsRequestSuccess(variationsByParent));
-        dispatch(expandProductSuccess(productRowIdToExpand))
-    }
+
 })();
 
 export default actionCreators;

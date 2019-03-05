@@ -954,16 +954,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.10",
+            "version": "1.1.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd"
+                "reference": "bf4304a40e6df72efb30fd6502aefb294039761f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.10-89f2f2.zip",
-                "reference": "5748f7e9acfeaec286184ffeb25fd451e56aabbd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.11-88028b.zip",
+                "reference": "bf4304a40e6df72efb30fd6502aefb294039761f",
                 "shasum": null
             },
             "require": {
@@ -997,7 +997,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-02-18T11:42:44+00:00"
+            "time": "2019-02-27T14:56:23+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -3738,21 +3738,22 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "a1dbbc20020decb2191fe830b9021551bda15f97"
+                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.0.0-0dab93.zip",
-                "reference": "a1dbbc20020decb2191fe830b9021551bda15f97",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.0-e7358b.zip",
+                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.42.3",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/http": "^1.3.33",
                 "channelgrabber/stdlib": "^2.16.5",
                 "php": ">=7.1"
             },
@@ -3770,7 +3771,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-01-23T16:31:43+00:00"
+            "time": "2019-02-28T12:08:33+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
