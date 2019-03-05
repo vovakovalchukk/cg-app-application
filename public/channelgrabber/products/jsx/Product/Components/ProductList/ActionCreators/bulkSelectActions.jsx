@@ -1,3 +1,5 @@
+import paginationActions from "Product/Components/ProductList/ActionCreators/paginationActions";
+
 "use strict";
 
 let bulkSelectActions = (function() {
@@ -29,10 +31,17 @@ let bulkSelectActions = (function() {
                 try {
                     n.notice('Deleting products.');
                     let data = await deleteProducts(selectedProducts);
+
                     dispatch({
                         type: "PRODUCTS_DELETE_SUCCESS",
                         payload: {deletedProducts: selectedProducts}
                     });
+
+                    let state = getState();
+                    let desiredPageNumber = getDesiredPageNumber(state, selectedProducts);
+
+                    dispatch(paginationActions.changePage(desiredPageNumber));
+
                     return data;
                 } catch (err) {
                     console.error(err);
@@ -65,3 +74,9 @@ let bulkSelectActions = (function() {
 })();
 
 export default bulkSelectActions;
+
+function getDesiredPageNumber(state, selectedProducts) {
+    let total = state.pagination.total;
+    let limit = state.pagination.limit;
+    return Math.ceil((total - selectedProducts.length) / limit);
+}

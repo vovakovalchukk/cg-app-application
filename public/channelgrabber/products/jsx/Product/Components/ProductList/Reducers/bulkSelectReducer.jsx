@@ -52,7 +52,8 @@ let bulkSelectReducer = reducerCreator(initialState, {
             {},
             state,
             {
-                selectedProducts: nonDeletedIds
+                selectedProducts: nonDeletedIds,
+                selectAllOn: false
             }
         );
         return newState;
