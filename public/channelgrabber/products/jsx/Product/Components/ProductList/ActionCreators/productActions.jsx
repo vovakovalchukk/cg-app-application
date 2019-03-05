@@ -1,9 +1,10 @@
 import AjaxHandler from 'Product/Storage/Ajax';
-import ProductFilter from 'Product/Filter/Entity';
-import constants from 'Product/Components/ProductList/Config/constants';
-import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions';
-import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
-import stateUtility from 'Product/Components/ProductList/stateUtility';
+import ProductFilter from 'Product/Filter/Entity'
+import constants from 'Product/Components/ProductList/Config/constants'
+import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
+import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
+import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions'
+import stateUtility from 'Product/Components/ProductList/stateUtility'
 
 "use strict";
 
@@ -107,7 +108,9 @@ var actionCreators = (function() {
                     dispatch(getProductsError(err));
                     throw 'Unable to load products... error: ' + err;
                 }
+
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {
