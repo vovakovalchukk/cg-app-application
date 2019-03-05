@@ -75,11 +75,8 @@ class ProductList extends React.Component {
     addProductClick = () => {
         this.props.actions.changeView();
         this.props.addNewProductButtonClick();
-    }
+    };
     renderAdditionalNavbarButtons = () => {
-        console.log('in renderAdditional NavbarButtons ', this.props);
-
-
         return (
             <div className=" navbar-strip--push-up-fix ">
                 <NavbarButton

@@ -26,12 +26,11 @@ let bulkSelectActions = (function() {
             }
         },
         deleteProducts: () => {
-            return function(dispatch, getState) {
+            return async function(dispatch, getState) {
                 let selectedProducts = getState.customGetters.getSelectedProducts();
                 try {
                     n.notice('Deleting products.');
-                    //todo - reinstate this actual delete
-//                    let data = await deleteProducts(selectedProducts);
+                    let data = await deleteProducts(selectedProducts);
 
                     dispatch({
                         type: "PRODUCTS_DELETE_SUCCESS",
@@ -39,18 +38,11 @@ let bulkSelectActions = (function() {
                     });
 
                     let state = getState();
-                    let total = state.pagination.total;
-                    let limit = state.pagination.limit;
-
-                    let desiredPageNumber = Math.ceil((total - selectedProducts.length) / limit);
-                    debugger;
+                    let desiredPageNumber = getDesiredPageNumber(state, selectedProducts);
 
                     dispatch(paginationActions.changePage(desiredPageNumber));
 
-                    return {};
-
-                    //todo reinstate this
-//                    return data;
+                    return data;
                 } catch (err) {
                     console.error(err);
                     n.error('There was an error deleting products.');
@@ -82,3 +74,9 @@ let bulkSelectActions = (function() {
 })();
 
 export default bulkSelectActions;
+
+function getDesiredPageNumber(state, selectedProducts) {
+    let total = state.pagination.total;
+    let limit = state.pagination.limit;
+    return Math.ceil((total - selectedProducts.length) / limit);
+}
