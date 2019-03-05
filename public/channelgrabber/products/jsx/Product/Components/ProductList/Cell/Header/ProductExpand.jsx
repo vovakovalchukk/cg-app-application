@@ -8,15 +8,13 @@ const ExpandIconContainer = styled.div`
   width: 100%;
 `;
 const ExpandLink = styled.a`
-        user-select: none;
-    `;
+    user-select: none;
+`;
 
 class ProductExpandHeader extends React.Component {
     static defaultProps = {};
     onClick = () => {
         console.log('on click');
-        
-        
         this.props.actions.toggleExpandAll()
     };
     render() {

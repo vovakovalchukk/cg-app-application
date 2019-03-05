@@ -132,6 +132,9 @@ var actionCreators = (function() {
                 dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
             }
         },
+        expandAllProducts: () => {
+            return
+        },
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
                 dispatch({

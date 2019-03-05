@@ -3,7 +3,7 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 var initialState = {
-    expandAllExpandStatus: '',
+    expandAllStatus: '',
 };
 
 var expandReducer = reducerCreator(initialState, {
