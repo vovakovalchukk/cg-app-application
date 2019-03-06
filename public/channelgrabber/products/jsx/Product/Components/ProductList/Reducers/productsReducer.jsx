@@ -102,14 +102,9 @@ var ProductsReducer = reducerCreator(initialState, {
         let currentVisibleProducts = state.visibleRows.slice();
         let {productIdsToExpand} = action.payload;
 
-//        currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, productIdsToExpand, state);
-        debugger;
         for(let id of productIdsToExpand){
             currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, id, state);
         }
-
-        debugger;
-
 
         let newState = Object.assign({}, state, {
             visibleRows: currentVisibleProducts

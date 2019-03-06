@@ -84,6 +84,20 @@ var actionCreators = (function() {
         });
     };
 
+    const handleNewVariations = (data, productIds, dispatch, isMultipleProducts) => {
+        $('#products-loading-message').hide();
+        let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
+        debugger;
+        dispatch(getProductVariationsRequestSuccess(variationsByParent));
+        if(isMultipleProducts){
+            dispatch(expandProductsSuccess(productIds));
+        }else{
+            dispatch(expandProductSuccess(productIds));
+        }
+        let skusFromData = getSkusFromData(data);
+        dispatch(productLinkActions.getLinkedProducts(skusFromData));
+    };
+
     return {
         storeAccountFeatures: (features) => {
             return {
@@ -146,13 +160,12 @@ var actionCreators = (function() {
         },
         expandAllProducts(){
             return function(dispatch, getState) {
-                let productIdsToExpand = [];
-                for (let product of getState.customGetters.getVisibleProducts()){
-                    if(!stateUtility.isParentProduct(product)){
-                        continue;
-                    }
-                    productIdsToExpand.push(product.id);
-                }
+                dispatch({
+                    type: 'PRODUCT_EXPAND_ALL_REQUEST',
+                    payload: {}
+                });
+
+                let productIdsToExpand = getAllParentProductIds(getState);
                 actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
             }
         },
@@ -183,32 +196,16 @@ var actionCreators = (function() {
         },
         dispatchExpandAllVariationsWithAjaxRequest: (dispatch, productIds) =>{
             let filter = new ProductFilter(null, productIds);
-            AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-
-            function fetchProductVariationsCallback(data) {
-                $('#products-loading-message').hide();
-                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-                debugger;
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                dispatch(expandProductsSuccess(productIds));
-                let skusFromData = getSkusFromData(data);
-                dispatch(productLinkActions.getLinkedProducts(skusFromData));
-            }
+            AjaxHandler.fetchByFilter(filter, data => {
+                handleNewVariations(data, productIds, dispatch, true);
+            });
         },
-        dispatchExpandVariationsWithAjaxRequest: (dispatch, productRowId) => {
-            let filter = new ProductFilter(null, productRowId);
+        dispatchExpandVariationsWithAjaxRequest: (dispatch, productId) => {
+            let filter = new ProductFilter(null, productId);
 
-            AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-
-            function fetchProductVariationsCallback(data) {
-                $('#products-loading-message').hide();
-                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-                debugger;
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                dispatch(expandProductSuccess(productRowId));
-                let skusFromData = getSkusFromData(data);
-                dispatch(productLinkActions.getLinkedProducts(skusFromData));
-            }
+            AjaxHandler.fetchByFilter(filter, data => {
+                handleNewVariations(data, productId, dispatch, false);
+            });
         },
         dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
             dispatch(getProductVariationsRequestSuccess(variationsByParent));
@@ -280,4 +277,15 @@ function getSkusFromData(data) {
 
 function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
     return !!variationsByParent[productId]
+}
+
+function getAllParentProductIds(getState) {
+    let productIdsToExpand = [];
+    for (let product of getState.customGetters.getVisibleProducts()) {
+        if (!stateUtility.isParentProduct(product)) {
+            continue;
+        }
+        productIdsToExpand.push(product.id);
+    }
+    return productIdsToExpand;
 }
