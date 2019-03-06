@@ -14,7 +14,6 @@ const ExpandLink = styled.a`
 class ProductExpandHeader extends React.Component {
     static defaultProps = {};
     onClick = () => {
-        console.log('on click');
         this.props.actions.toggleExpandAll()
     };
     render() {
@@ -25,6 +24,7 @@ class ProductExpandHeader extends React.Component {
                 <ExpandLink onClick={this.onClick}>
                     <ExpandIcon
                         expandStatus={expand.expandAllStatus}
+                        iconColor={'white'}
                     />
                 </ExpandLink>
             </ExpandIconContainer>

@@ -100,7 +100,6 @@ var ProductsReducer = reducerCreator(initialState, {
         return newState;
     },
     "ALL_PRODUCTS_COLLAPSE": function(state, action){
-        console.log('');
         let currentVisibleProducts = state.visibleRows.slice();
         let parentProductIds = stateUtility.getAllParentProductIds(state);
 

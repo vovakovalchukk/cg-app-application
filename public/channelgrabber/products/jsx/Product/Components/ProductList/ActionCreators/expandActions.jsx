@@ -19,8 +19,6 @@ let expandActions = (function() {
                 let expandHandler = {
                     'loading': () => {},
                     'collapsed': async () => {
-                        //todo - handle the case where ajax isn't required
-                        // check if variationsByParent has all of productIds
                         let state = getState();
                         let allParentIds = stateUtility.getAllParentProductIds(state.products);
                         let variationsByParent = state.products.variationsByParent;
