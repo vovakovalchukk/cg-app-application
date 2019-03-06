@@ -5,11 +5,18 @@ use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter\StorageInterface as OrderFilterStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Collection as Products;
+use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
+use CG\Product\Service\Service as ProductService;
 use CG\Stdlib;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Csv\Mapper\Formatter\Alert as AlertFormatter;
 use Orders\Order\Csv\Mapper\Formatter\Date as DateFormatter;
+use Orders\Order\Csv\Mapper\Formatter\ProductFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapMessage as GiftWrapMessageFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapPrice as GiftWrapPriceFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapType as GiftWrapTypeFormatter;
@@ -59,10 +66,14 @@ class OrdersItems implements MapperInterface
     protected $vatNumberFormatter;
     /** @var AlertFormatter */
     protected $alertFormatter;
+    /** @var ProductFormatter */
+    protected $productFormatter;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
     /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var ProductService */
+    protected $productService;
 
     public function __construct(
         OrderService $orderService,
@@ -80,8 +91,10 @@ class OrdersItems implements MapperInterface
         InvoiceDateFormatter $invoiceDateFormatter,
         VatNumberFormatter $vatNumberFormatter,
         AlertFormatter $alertFormatter,
+        ProductFormatter $productFormatter,
         ActiveUserInterface $activeUserContainer,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        ProductService $productService
     ) {
         $this->orderService = $orderService;
         $this->orderFilterStorage = $orderFilterStorage;
@@ -98,8 +111,10 @@ class OrdersItems implements MapperInterface
         $this->invoiceDateFormatter = $invoiceDateFormatter;
         $this->vatNumberFormatter = $vatNumberFormatter;
         $this->alertFormatter = $alertFormatter;
+        $this->productFormatter = $productFormatter;
         $this->activeUserContainer = $activeUserContainer;
         $this->organisationUnitService = $organisationUnitService;
+        $this->productService = $productService;
     }
 
     protected function getFormatters()
@@ -160,6 +175,7 @@ class OrdersItems implements MapperInterface
             'Billing Username' => 'externalUsername',
             'Shipping VAT' => $this->shippingVatFormatter,
             'Order Alert' => $this->alertFormatter,
+            'Cost Price' => ['field' => ['name' => 'cost', 'type' => 'detail', 'default' => '0.00'], 'formatter' => $this->productFormatter],
         ];
 
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
@@ -187,13 +203,15 @@ class OrdersItems implements MapperInterface
         $orderFilter = $this->orderFilterStorage->save(
             $orderFilter->setConvertToOrderIds($this->convertToOrderIdsFlag)
         );
-
+        $productCollection = new Products(Product::class, __METHOD__);
         $page = 1;
         do {
             /** @var OrderCollection $orderCollection */
             $orderCollection = $this->orderService->fetchCollectionIncludingLinkedOrdersByFilter(
                 $orderFilter->setLimit(static::ORDERS_PER_PAGE)->setPage($page)
             );
+
+            $this->updateProductCollectionForOrders($productCollection, $orderCollection);
 
             foreach ($this->fromOrderCollection($orderCollection) as $rows) {
                 yield $rows;
@@ -209,7 +227,7 @@ class OrdersItems implements MapperInterface
         $columnFormatters = $this->getFormatters();
         $formatters = [];
         foreach ($columnFormatters as $header => $formatter) {
-            if(is_object($formatter)) {
+            if (is_object($formatter)) {
                 $formatters[$header] = $formatter;
                 $fieldNames[$header] = '';
             } elseif (is_array($formatter) && isset($formatter['formatter'], $formatter['field'])) {
@@ -228,5 +246,35 @@ class OrdersItems implements MapperInterface
             }
             yield Stdlib\transposeArray($columns);
         }
+    }
+
+    protected function updateProductCollectionForOrders(Products $products, OrderCollection $orders): void
+    {
+        $orderItemSkus = $this->getOrderItemSkusFromOrders($orders);
+        $skusToFetch = array_diff($orderItemSkus, $products->getArrayOf('sku'));
+        if (empty($skusToFetch)) {
+            return;
+        }
+        $productFilter = (new ProductFilter('all'))
+            ->setReplaceVariationWithParent(true)
+            ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()])
+            ->setSku($skusToFetch)
+            ->setEmbeddedDataToReturn([Product::EMBEDDED_DATA_TYPE_VARIATION, Product::EMBEDDED_DATA_TYPE_PRODUCT_DETAIL]);
+        try {
+            $products->addAll($this->productService->fetchCollectionByFilter($productFilter));
+            $this->productFormatter->setProducts($products);
+        } catch (NotFound $e){
+            //no-op
+        }
+    }
+
+    protected function getOrderItemSkusFromOrders(OrderCollection $orders): array
+    {
+        $skus = [];
+        /** @var Order $order */
+        foreach ($orders as $order) {
+            $skus += $order->getItems()->getArrayOf('itemSku');
+        }
+        return array_values($skus);
     }
 }
