@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aea78723a0a84342c00020f47b2e06ce",
+    "content-hash": "c736e6f1612b742d2e796f64e8bdb45e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2509,16 +2509,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.16",
+            "version": "dev-TAC-339-stock-file-cost-price",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "d1def1b9611f4b86254d051f6b95136a71d5167a"
+                "reference": "71e681f9449e165270aca7c2d5a23828b60db580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.16-4e84f3.zip",
-                "reference": "d1def1b9611f4b86254d051f6b95136a71d5167a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-TAC-339-stock-file-cost-price-6701fe.zip",
+                "reference": "71e681f9449e165270aca7c2d5a23828b60db580",
                 "shasum": null
             },
             "require": {
@@ -2571,7 +2571,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-25T11:06:19+00:00"
+            "time": "2019-03-04T10:44:06+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11038,10 +11038,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.16",
+            "alias_normalized": "1.16.16.0",
+            "version": "dev-TAC-339-stock-file-cost-price",
+            "package": "channelgrabber/product"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
