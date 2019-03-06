@@ -1555,9 +1555,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.25":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.26":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#76931563bebc0235ef38ab8ed7a279bfef2abb1a"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#d6d45697b6ff9c776808b2076c14ee883772f9eb"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
@@ -4637,10 +4637,6 @@ react-is@^16.8.1:
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.1.tgz#a80141e246eb894824fb4f2901c0c50ef31d4cdb"
   integrity sha512-ioMCzVDWvCvKD8eeT+iukyWrBGrA3DiFYkXfBsVYIRdaREZuBjENG+KjrikavCLasozqRWTwFUagU/O4vPpRMA==
-
-react-lines-ellipsis@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/react-lines-ellipsis/-/react-lines-ellipsis-0.13.2.tgz#0d5726ab1f5e8107398262f5faf16e2e4de08951"
 
 react-redux@^5.0.7:
   version "5.0.7"
