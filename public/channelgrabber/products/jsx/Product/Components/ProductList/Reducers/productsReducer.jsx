@@ -19,6 +19,20 @@ var initialState = {
 
 const {LINK_STATUSES} = constants;
 
+function addRowsForSingleProductExpansion(currentVisibleProducts, productRowIdToExpand, state) {
+    let rowsToAdd = [];
+
+    let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
+    rowsToAdd = state.variationsByParent[productRowIdToExpand];
+
+    currentVisibleProducts.splice(
+        parentProductIndex + 1,
+        0,
+        ...rowsToAdd
+    );
+    currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
+    return currentVisibleProducts;
+}
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
         let newState = Object.assign({}, state, {
@@ -79,32 +93,17 @@ var ProductsReducer = reducerCreator(initialState, {
         let currentVisibleProducts = state.visibleRows.slice();
         let {productRowIdToExpand} = action.payload;
 
-        let rowsToAdd = [];
 
         if(productRowIdToExpand.constructor !== Array){
-
-            let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
-            rowsToAdd = state.variationsByParent[productRowIdToExpand];
-
-            currentVisibleProducts.splice(
-                parentProductIndex + 1,
-                0,
-                ...rowsToAdd
-            );
-            currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
-            debugger;
+            currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, productRowIdToExpand, state);
         }else{
 
-            let rowsToAdd = getRowsToAdd(productRowIdToExpand, state);
-            currentVisibleProducts = changeExpandStatusForIds(currentVisibleProducts, productRowIdToExpand, 'expanded');
+            debugger;
 
+//            currentVisibleProducts = changeExpandStatusForIds(currentVisibleProducts, productRowIdToExpand, 'expanded');
         }
 
 
-
-
-
-        debugger;
 //        if(rowsToAdd.length === 1){
 //            currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
 //        }else{
@@ -190,23 +189,6 @@ var ProductsReducer = reducerCreator(initialState, {
 });
 
 export default ProductsReducer;
-
-function getRowsToAdd(productRowIdToExpand, state){
-    if(productRowIdToExpand.constructor !== Array){
-        return state.variationsByParent[productRowIdToExpand];
-    }
-
-    let rowsToAdd = [];
-
-    for(var id of productRowIdToExpand){
-        if(!state.variationsByParent[id]){
-            continue;
-        }
-        rowsToAdd.push(state.variationsByParent[id]);
-    }
-
-    return rowsToAdd;
-}
 
 function applySingleProductLinkChangeToState(state, newLinks, sku) {
     const normalizedNewLinks = normalizeLinks(newLinks);

@@ -137,11 +137,14 @@ var actionCreators = (function() {
         },
         expandAllProducts(){
             return function(dispatch, getState) {
-                console.log('in expand all');
-                
-                let visibleProductIds = getState.customGetters.getVisibleProducts().map(product => product.id);
-                actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, visibleProductIds);
-                return;
+                let productIdsToExpand = [];
+                for (let product of getState.customGetters.getVisibleProducts()){
+                    if(!stateUtility.isParentProduct(product)){
+                        continue;
+                    }
+                    productIdsToExpand.push(product.id);
+                }
+                actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productIdsToExpand);
             }
         },
         expandProduct: (productRowIdToExpand) => {
@@ -177,6 +180,7 @@ var actionCreators = (function() {
             function fetchProductVariationsCallback(data) {
                 $('#products-loading-message').hide();
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
+                debugger;
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
