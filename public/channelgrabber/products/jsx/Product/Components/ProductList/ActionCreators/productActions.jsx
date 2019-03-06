@@ -24,12 +24,21 @@ var actionCreators = (function() {
             payload: variationsByParent
         };
     };
-    const expandProductSuccess = (productRowIdToExpand) => {
+    const expandProductSuccess = (productIdToExpand) => {
         return {
             type: 'PRODUCT_EXPAND_SUCCESS',
             payload:
                 {
-                    productRowIdToExpand
+                    productIdToExpand
+                }
+        }
+    };
+    const expandProductsSuccess = (productIdsToExpand) => {
+        return {
+            type: 'PRODUCTS_EXPAND_SUCCESS',
+            payload:
+                {
+                    productIdsToExpand
                 }
         }
     };
@@ -144,7 +153,7 @@ var actionCreators = (function() {
                     }
                     productIdsToExpand.push(product.id);
                 }
-                actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+                actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
             }
         },
         expandProduct: (productRowIdToExpand) => {
@@ -170,6 +179,20 @@ var actionCreators = (function() {
                 payload: {
                     productRowIdToCollapse
                 }
+            }
+        },
+        dispatchExpandAllVariationsWithAjaxRequest: (dispatch, productIds) =>{
+            let filter = new ProductFilter(null, productIds);
+            AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
+
+            function fetchProductVariationsCallback(data) {
+                $('#products-loading-message').hide();
+                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
+                debugger;
+                dispatch(getProductVariationsRequestSuccess(variationsByParent));
+                dispatch(expandProductsSuccess(productIds));
+                let skusFromData = getSkusFromData(data);
+                dispatch(productLinkActions.getLinkedProducts(skusFromData));
             }
         },
         dispatchExpandVariationsWithAjaxRequest: (dispatch, productRowId) => {

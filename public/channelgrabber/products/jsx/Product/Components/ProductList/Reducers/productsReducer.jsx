@@ -20,10 +20,8 @@ var initialState = {
 const {LINK_STATUSES} = constants;
 
 function addRowsForSingleProductExpansion(currentVisibleProducts, productRowIdToExpand, state) {
-    let rowsToAdd = [];
-
     let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
-    rowsToAdd = state.variationsByParent[productRowIdToExpand];
+    let rowsToAdd = state.variationsByParent[productRowIdToExpand];
 
     currentVisibleProducts.splice(
         parentProductIndex + 1,
@@ -91,24 +89,26 @@ var ProductsReducer = reducerCreator(initialState, {
     },
     "PRODUCT_EXPAND_SUCCESS": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
-        let {productRowIdToExpand} = action.payload;
+        let {productIdToExpand} = action.payload;
 
+        currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, productIdToExpand, state);
 
-        if(productRowIdToExpand.constructor !== Array){
-            currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, productRowIdToExpand, state);
-        }else{
+        let newState = Object.assign({}, state, {
+            visibleRows: currentVisibleProducts
+        });
+        return newState;
+    },
+    "PRODUCTS_EXPAND_SUCCESS": function(state, action) {
+        let currentVisibleProducts = state.visibleRows.slice();
+        let {productIdsToExpand} = action.payload;
 
-            debugger;
-
-//            currentVisibleProducts = changeExpandStatusForIds(currentVisibleProducts, productRowIdToExpand, 'expanded');
+//        currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, productIdsToExpand, state);
+        debugger;
+        for(let id of productIdsToExpand){
+            currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, id, state);
         }
 
-
-//        if(rowsToAdd.length === 1){
-//            currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
-//        }else{
-//            currentVisibleProducts = changeExpandStatusForIds(currentVisibleProducts, productRowIdToExpand, 'expanded');
-//        }
+        debugger;
 
 
         let newState = Object.assign({}, state, {
