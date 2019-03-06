@@ -70,7 +70,11 @@ define([
 
         var parentProductId = this.getParentProductId();
         if (parentProductId) {
-            object['parentProductId'] = [parentProductId];
+            if(parentProductId.constructor === Array){
+                object['parentProductId'] = parentProductId;
+            }else{
+                object['parentProductId'] = [parentProductId];
+            }
         }
 
         var id = this.getId();

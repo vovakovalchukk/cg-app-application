@@ -19,7 +19,6 @@ class ProductExpandHeader extends React.Component {
     };
     render() {
         let {expand} = this.props;
-        console.log('this.props: ', this.props);
 
         return (
             <ExpandIconContainer>

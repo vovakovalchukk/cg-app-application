@@ -4,12 +4,14 @@ import productActions from "Product/Components/ProductList/ActionCreators/produc
 
 let expandActions = (function() {
     return {
-        toggleExpandAll: (dispatch, getState) => {
-            return function(dispatch, getState) {
+        toggleExpandAll: () => {
+            return async function(dispatch, getState) {
                 let expand = getState().expand;
-                console.log('in toggleExpand All');
 
-                dispatch(productActions.expandAllProducts);
+                dispatch(productActions.expandAllProducts());
+
+
+                
 
                 // needs to fire an update in product actions
                 dispatch({

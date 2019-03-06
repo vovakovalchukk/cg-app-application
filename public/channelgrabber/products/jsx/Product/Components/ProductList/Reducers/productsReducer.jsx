@@ -64,7 +64,7 @@ var ProductsReducer = reducerCreator(initialState, {
     "PRODUCT_EXPAND_REQUEST": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
 
-        currentVisibleProducts = changeExpandStatus(
+        currentVisibleProducts = changeExpandStatusForId(
             currentVisibleProducts,
             action.payload.productRowIdToExpand,
             'loading'
@@ -77,21 +77,40 @@ var ProductsReducer = reducerCreator(initialState, {
     },
     "PRODUCT_EXPAND_SUCCESS": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
-        let productRowIdToExpand = action.payload.productRowIdToExpand;
+        let {productRowIdToExpand} = action.payload;
 
-        let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
+        let rowsToAdd = [];
 
-        let rowsToAdd = state.variationsByParent[action.payload.productRowIdToExpand];
-        currentVisibleProducts.splice(
-            parentProductIndex + 1,
-            0,
-            ...rowsToAdd
-        );
-        currentVisibleProducts = changeExpandStatus(
-            currentVisibleProducts,
-            action.payload.productRowIdToExpand,
-            'expanded'
-        );
+        if(productRowIdToExpand.constructor !== Array){
+
+            let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
+            rowsToAdd = state.variationsByParent[productRowIdToExpand];
+
+            currentVisibleProducts.splice(
+                parentProductIndex + 1,
+                0,
+                ...rowsToAdd
+            );
+            currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
+            debugger;
+        }else{
+
+            let rowsToAdd = getRowsToAdd(productRowIdToExpand, state);
+            currentVisibleProducts = changeExpandStatusForIds(currentVisibleProducts, productRowIdToExpand, 'expanded');
+
+        }
+
+
+
+
+
+        debugger;
+//        if(rowsToAdd.length === 1){
+//            currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
+//        }else{
+//            currentVisibleProducts = changeExpandStatusForIds(currentVisibleProducts, productRowIdToExpand, 'expanded');
+//        }
+
 
         let newState = Object.assign({}, state, {
             visibleRows: currentVisibleProducts
@@ -111,7 +130,7 @@ var ProductsReducer = reducerCreator(initialState, {
             numberOfRowsToRemove
         );
 
-        currentVisibleProducts = changeExpandStatus(
+        currentVisibleProducts = changeExpandStatusForId(
             currentVisibleProducts,
             productRowId,
             'collapsed'
@@ -171,6 +190,23 @@ var ProductsReducer = reducerCreator(initialState, {
 });
 
 export default ProductsReducer;
+
+function getRowsToAdd(productRowIdToExpand, state){
+    if(productRowIdToExpand.constructor !== Array){
+        return state.variationsByParent[productRowIdToExpand];
+    }
+
+    let rowsToAdd = [];
+
+    for(var id of productRowIdToExpand){
+        if(!state.variationsByParent[id]){
+            continue;
+        }
+        rowsToAdd.push(state.variationsByParent[id]);
+    }
+
+    return rowsToAdd;
+}
 
 function applySingleProductLinkChangeToState(state, newLinks, sku) {
     const normalizedNewLinks = normalizeLinks(newLinks);
@@ -244,11 +280,22 @@ function applyLinksStatusChangesToProducts(state, skusToFindLinkedProductsFor, d
     });
 }
 
-function changeExpandStatus(products, productId, desiredStatus) {
+function changeExpandStatusForId(products, productId, desiredStatus) {
     let productRowIndex = products.findIndex((product) => {
         return product.id === productId;
     });
     products[productRowIndex].expandStatus = desiredStatus;
+
+    return products;
+}
+
+function changeExpandStatusForIds(products, productIds, desiredStatus) {
+    let productWithSameId = {};
+    for(let id of productIds){
+//        products[id].expandStatus = desiredStatus;
+        products.find(product => (product.id === id)).expandStatus = desiredStatus;
+    }
+    debugger;
     return products;
 }
 

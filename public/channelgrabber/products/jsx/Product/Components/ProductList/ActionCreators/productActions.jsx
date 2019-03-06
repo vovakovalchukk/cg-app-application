@@ -135,8 +135,14 @@ var actionCreators = (function() {
                 dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
             }
         },
-        expandAllProducts: () => {
-            return
+        expandAllProducts(){
+            return function(dispatch, getState) {
+                console.log('in expand all');
+                
+                let visibleProductIds = getState.customGetters.getVisibleProducts().map(product => product.id);
+                actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, visibleProductIds);
+                return;
+            }
         },
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
@@ -165,13 +171,13 @@ var actionCreators = (function() {
         },
         dispatchExpandVariationsWithAjaxRequest: (dispatch, productRowId) => {
             let filter = new ProductFilter(null, productRowId);
+
             AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
 
             function fetchProductVariationsCallback(data) {
                 $('#products-loading-message').hide();
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
-
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
