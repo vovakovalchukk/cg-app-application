@@ -9,7 +9,6 @@ var initialState = {
 var expandReducer = reducerCreator(initialState, {
     "EXPAND_ALL_STATUS_CHANGE": function(state, action){
         let {desiredStatus} = action.payload;
-        console.log('in EXPAND_ALL_TOGGLE');
 
         return Object.assign({}, state, {
             expandAllStatus: desiredStatus

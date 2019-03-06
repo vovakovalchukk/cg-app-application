@@ -1,4 +1,5 @@
 import productActions from "Product/Components/ProductList/ActionCreators/productActions"
+import stateUtility from "Product/Components/ProductList/stateUtility";
 
 let expandActions = (function() {
     const changeStatusExpandAll = (desiredStatus) => {
@@ -18,8 +19,18 @@ let expandActions = (function() {
                 let expandHandler = {
                     'loading': () => {},
                     'collapsed': async () => {
-                        dispatch(changeStatusExpandAll('loading'));
-                        await dispatch(productActions.expandAllProducts());
+                        //todo - handle the case where ajax isn't required
+                        // check if variationsByParent has all of productIds
+                        let state = getState();
+                        let allParentIds = stateUtility.getAllParentProductIds(state.products);
+                        let variationsByParent = state.products.variationsByParent;
+
+                        let haveFetchedAlready = checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParentIds);
+
+                        if(!haveFetchedAlready){
+                            dispatch(changeStatusExpandAll('loading'));
+                        }
+                        await dispatch(productActions.expandAllProducts(haveFetchedAlready));
                         dispatch(changeStatusExpandAll('expanded'));
                     },
                     'expanded': () => {
@@ -35,3 +46,23 @@ let expandActions = (function() {
 }());
 
 export default expandActions;
+
+function checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParentIds) {
+    if(!Object.keys(variationsByParent).length){
+        return false;
+    }
+    for (let parentProductId of allParentIds) {
+        let parentHasHadVariationRetrievedAlready = false;
+        for (let parentId of Object.keys(variationsByParent)) {
+            if (parentId == parentProductId) {
+                parentHasHadVariationRetrievedAlready = true;
+                break;
+            }
+        }
+        if (!parentHasHadVariationRetrievedAlready) {
+            expandAllHasOccurred = false;
+            return false;
+        }
+    }
+    return true;
+}

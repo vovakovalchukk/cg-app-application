@@ -88,9 +88,9 @@ var actionCreators = (function() {
         $('#products-loading-message').hide();
         let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
         dispatch(getProductVariationsRequestSuccess(variationsByParent));
-        if(isMultipleProducts){
+        if (isMultipleProducts) {
             dispatch(expandProductsSuccess(productIds));
-        }else{
+        } else {
             dispatch(expandProductSuccess(productIds));
         }
         let skusFromData = getSkusFromData(data);
@@ -157,17 +157,20 @@ var actionCreators = (function() {
                 dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
             }
         },
-        expandAllProducts(){
+        expandAllProducts(haveFetchedAlready) {
             return async function(dispatch, getState) {
                 let productIdsToExpand = stateUtility.getAllParentProductIds(getState().products);
 
                 // todo - determine if we have variations for these already.. if so do not fetch again.
-                await actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+                if (!haveFetchedAlready) {
+                    return await actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+                }
+                actionCreators.dispatchExpandAllVariationsWithoutAjaxRequest(dispatch, productIdsToExpand);
             }
         },
-        collapseAllProducts(){
+        collapseAllProducts() {
             return {
-                type: "ALL_PRODUCTS_COLLAPSE",
+                type: "ALL_PRODUCTS_COLLAPSE"
             }
         },
         expandProduct: (productRowIdToExpand) => {
@@ -195,15 +198,15 @@ var actionCreators = (function() {
                 }
             }
         },
-        dispatchExpandAllVariationsWithAjaxRequest: async (dispatch, productIds) =>{
+        dispatchExpandAllVariationsWithAjaxRequest: async (dispatch, productIds) => {
             let filter = new ProductFilter(null, productIds);
-            console.log('before fetch by filter');
-            
-            
+
             await AjaxHandler.fetchByFilter(filter, data => {
                 handleNewVariations(data, productIds, dispatch, true);
             });
-            console.log('after fetch by');
+        },
+        dispatchExpandAllVariationsWithoutAjaxRequest: (dispatch, productIds) => {
+            dispatch(expandProductsSuccess(productIds));
         },
         dispatchExpandVariationsWithAjaxRequest: (dispatch, productId) => {
             let filter = new ProductFilter(null, productId);
