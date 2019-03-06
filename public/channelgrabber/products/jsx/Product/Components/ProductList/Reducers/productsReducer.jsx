@@ -19,18 +19,6 @@ var initialState = {
 
 const {LINK_STATUSES} = constants;
 
-function addRowsForSingleProductExpansion(currentVisibleProducts, productRowIdToExpand, state) {
-    let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
-    let rowsToAdd = state.variationsByParent[productRowIdToExpand];
-
-    currentVisibleProducts.splice(
-        parentProductIndex + 1,
-        0,
-        ...rowsToAdd
-    );
-    currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
-    return currentVisibleProducts;
-}
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
         let newState = Object.assign({}, state, {
@@ -111,24 +99,25 @@ var ProductsReducer = reducerCreator(initialState, {
         });
         return newState;
     },
+    "ALL_PRODUCTS_COLLAPSE": function(state, action){
+        console.log('');
+        let currentVisibleProducts = state.visibleRows.slice();
+        let parentProductIds = stateUtility.getAllParentProductIds(state);
+
+        for(let id of parentProductIds){
+            currentVisibleProducts = collapseSingleProduct(currentVisibleProducts, id, state);
+        }
+
+        let newState = Object.assign({}, state, {
+            visibleRows: currentVisibleProducts
+        });
+        return newState;
+    },
     "PRODUCT_COLLAPSE": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
         let productRowId = action.payload.productRowIdToCollapse;
 
-        let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowId);
-
-        let numberOfRowsToRemove = state.variationsByParent[productRowId].length;
-
-        currentVisibleProducts.splice(
-            parentProductIndex + 1,
-            numberOfRowsToRemove
-        );
-
-        currentVisibleProducts = changeExpandStatusForId(
-            currentVisibleProducts,
-            productRowId,
-            'collapsed'
-        );
+        currentVisibleProducts = collapseSingleProduct(currentVisibleProducts, productRowId, state);
 
         let newState = Object.assign({}, state, {
             visibleRows: currentVisibleProducts
@@ -297,4 +286,35 @@ function applyFetchingStatusToNewVisibleRows(visibleRowsCopy, skusToFindLinkedPr
         visibleRowsCopy[i]["linkStatus"] = DESIRED_LINK_STATUS;
     });
     return visibleRowsCopy;
+}
+
+function addRowsForSingleProductExpansion(currentVisibleProducts, productRowIdToExpand, state) {
+    let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowIdToExpand);
+    let rowsToAdd = state.variationsByParent[productRowIdToExpand];
+
+    currentVisibleProducts.splice(
+        parentProductIndex + 1,
+        0,
+        ...rowsToAdd
+    );
+    currentVisibleProducts = changeExpandStatusForId(currentVisibleProducts, productRowIdToExpand, 'expanded');
+    return currentVisibleProducts;
+}
+
+function collapseSingleProduct(currentVisibleProducts, productRowId, state) {
+    let parentProductIndex = stateUtility.getProductIndex(currentVisibleProducts, productRowId);
+
+    let numberOfRowsToRemove = state.variationsByParent[productRowId].length;
+
+    currentVisibleProducts.splice(
+        parentProductIndex + 1,
+        numberOfRowsToRemove
+    );
+
+    currentVisibleProducts = changeExpandStatusForId(
+        currentVisibleProducts,
+        productRowId,
+        'collapsed'
+    );
+    return currentVisibleProducts;
 }

@@ -24,7 +24,7 @@ class ProductExpandHeader extends React.Component {
             <ExpandIconContainer>
                 <ExpandLink onClick={this.onClick}>
                     <ExpandIcon
-                        expandStatus={''}
+                        expandStatus={expand.expandAllStatus}
                     />
                 </ExpandLink>
             </ExpandIconContainer>

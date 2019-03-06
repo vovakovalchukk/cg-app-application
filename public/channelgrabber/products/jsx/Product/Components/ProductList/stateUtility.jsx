@@ -13,6 +13,20 @@ let stateUtility = function() {
         getRowData: (products, rowIndex) => {
             return products.visibleRows[rowIndex];
         },
+        getVisibleProducts: (products) => {
+            return products.visibleRows;
+        },
+        getAllParentProductIds: (productsState) => {
+            let visibleProducts = self.getVisibleProducts(productsState);
+            let parentProductIds = [];
+            for (let product of visibleProducts) {
+                if (!self.isParentProduct(product)) {
+                    continue;
+                }
+                parentProductIds.push(product.id);
+            }
+            return parentProductIds;
+        },
         getCellData: (products, columnKey, rowIndex) => {
             let row = products.visibleRows[rowIndex];
             let keyToCellDataMap = {

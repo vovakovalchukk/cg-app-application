@@ -18,7 +18,8 @@ const columnSpecificPropsMap = {
     vat: ['rows', 'vat', 'scroll'],
     bulkSelect: ['bulkSelect'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
-    name: ['rows', 'name', 'focus']
+    name: ['rows', 'name', 'focus'],
+    productExpand: ['expand']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {

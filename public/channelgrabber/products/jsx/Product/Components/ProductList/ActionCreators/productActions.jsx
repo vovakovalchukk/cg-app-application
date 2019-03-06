@@ -87,7 +87,6 @@ var actionCreators = (function() {
     const handleNewVariations = (data, productIds, dispatch, isMultipleProducts) => {
         $('#products-loading-message').hide();
         let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-        debugger;
         dispatch(getProductVariationsRequestSuccess(variationsByParent));
         if(isMultipleProducts){
             dispatch(expandProductsSuccess(productIds));
@@ -159,14 +158,16 @@ var actionCreators = (function() {
             }
         },
         expandAllProducts(){
-            return function(dispatch, getState) {
-                dispatch({
-                    type: 'PRODUCT_EXPAND_ALL_REQUEST',
-                    payload: {}
-                });
+            return async function(dispatch, getState) {
+                let productIdsToExpand = stateUtility.getAllParentProductIds(getState().products);
 
-                let productIdsToExpand = getAllParentProductIds(getState);
-                actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+                // todo - determine if we have variations for these already.. if so do not fetch again.
+                await actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+            }
+        },
+        collapseAllProducts(){
+            return {
+                type: "ALL_PRODUCTS_COLLAPSE",
             }
         },
         expandProduct: (productRowIdToExpand) => {
@@ -194,11 +195,15 @@ var actionCreators = (function() {
                 }
             }
         },
-        dispatchExpandAllVariationsWithAjaxRequest: (dispatch, productIds) =>{
+        dispatchExpandAllVariationsWithAjaxRequest: async (dispatch, productIds) =>{
             let filter = new ProductFilter(null, productIds);
-            AjaxHandler.fetchByFilter(filter, data => {
+            console.log('before fetch by filter');
+            
+            
+            await AjaxHandler.fetchByFilter(filter, data => {
                 handleNewVariations(data, productIds, dispatch, true);
             });
+            console.log('after fetch by');
         },
         dispatchExpandVariationsWithAjaxRequest: (dispatch, productId) => {
             let filter = new ProductFilter(null, productId);
@@ -277,15 +282,4 @@ function getSkusFromData(data) {
 
 function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
     return !!variationsByParent[productId]
-}
-
-function getAllParentProductIds(getState) {
-    let productIdsToExpand = [];
-    for (let product of getState.customGetters.getVisibleProducts()) {
-        if (!stateUtility.isParentProduct(product)) {
-            continue;
-        }
-        productIdsToExpand.push(product.id);
-    }
-    return productIdsToExpand;
 }
