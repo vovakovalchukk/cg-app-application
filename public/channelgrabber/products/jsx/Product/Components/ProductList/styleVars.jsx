@@ -6,6 +6,8 @@ let styleVars = {
         'blue-medium-border': '#1b75a436'
     },
     heights: {
+        headerHeight: 36,
+        rowHeight: 44,
         navbar: 50,
         productTabsContainer: 32
     }

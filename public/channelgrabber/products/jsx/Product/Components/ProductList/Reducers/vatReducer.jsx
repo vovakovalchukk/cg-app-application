@@ -2,44 +2,6 @@ import reducerCreator from 'Common/Reducers/creator';
 
 "use strict";
 
-/*
-the state shape with example entries
-vat : {
-    countries: {
-        byId: {
-            FR: {
-                countryCode: "FR"
-            },
-            GB: {...}
-        },
-        allIds: ["GB", "FR"]
-    },
-    productsVat: {
-        FR: {
-            byProductId: {
-                1: {
-                    key: "FR2"
-                    productId: 1
-                }
-            }
-        }
-        GB: {...},
-        allProductIds: [1,2,3,4]
-    }
-    varRates: {
-        GB: {
-            GB1: {
-                countryCode: "GB"
-                key: "GB1"
-                label: "20% (Standard)"
-                name: "Standard"
-                rate: 20
-            }
-        }
-    }
-}
-*/
-
 let initialState = {
     countries: {},
     vatRates: [],
