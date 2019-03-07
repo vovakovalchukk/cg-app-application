@@ -369,7 +369,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         try {
             $accounts = $this->getSalesAccounts();
             foreach ($accounts as $account) {
-                
+
                 if ($account->getStockFixedEnabled()) {
                     $statuses[StockMode::LIST_FIXED] = true;
                 }
@@ -400,14 +400,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function saveProductDetail($sku, $detail, $value, $id = null)
     {
-        $value = is_numeric($value) ? (float) $value : null;
-        $locale = $this->activeUserContainer->getLocale();
-        if ($detail == 'weight') {
-            $displayUnit = LocaleMass::getForLocale($locale);
-            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
-        } else {
-            $displayUnit = LocaleLength::getForLocale($locale);
-            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
+        if ($this->isDetailUnitOfMeasurement($detail)) {
+            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detail, $value);
         }
 
         if ($id) {
@@ -480,5 +474,29 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $ou = $this->userOuService->getRootOuByActiveUser();
         return $ou->isVatRegistered();
+    }
+
+    protected function isDetailUnitOfMeasurement(string $detail)
+    {
+        foreach (['weight', 'length', 'width', 'height'] as $unit) {
+            if (strtolower($detail) === $unit) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected function convertDetailValueToInternalUnitOfMeasurement(string $detail, $value): float
+    {
+        $value = is_numeric($value) ? (float) $value : null;
+        $locale = $this->activeUserContainer->getLocale();
+        if ($detail == 'weight') {
+            $displayUnit = LocaleMass::getForLocale($locale);
+            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
+        } else {
+            $displayUnit = LocaleLength::getForLocale($locale);
+            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
+        }
+        return $value;
     }
 }
