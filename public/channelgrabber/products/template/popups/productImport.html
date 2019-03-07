@@ -1,0 +1,22 @@
+<div class="popup-product-import clearfix">
+    <div class="popup-product-import-header-box">
+        <div class="popup-product-import-header">
+            {{title}}
+        </div>
+    </div>
+    <div class="popup-product-import-content-box">
+        <p>
+            To upload products you will need to create a CSV file with the following headers:<br/>
+            <samp>Title,SKU,Stock Quantity</samp><br/>
+            The stock quantity should be the quantity available for sale, i.e. the total quantity you have displayed online.<br/>
+        </p>
+        <p><a download="example.csv" href="{{exampleFile}}">Download example file.</a></p>
+        <p><strong>Note:</strong> If you upload a product with a SKU that already exists the product will be ignored. Bulk stock updates can be performed via the stock import functionality.</p>
+        {{#fileUpload}}{{>fileUpload}}{{/fileUpload}}
+    </div>
+    <div class="popup-product-import-button-box">
+        <div class="center">
+            <input type="button" class="button inline popup-product-import-button" value="Upload">
+        </div>
+    </div>
+</div>

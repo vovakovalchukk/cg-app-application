@@ -31,14 +31,18 @@ return [
                 'DeleteJSViewModel' => ViewModel::class,
                 'StockImportJSViewModel' => ViewModel::class,
                 'StockExportJSViewModel' => ViewModel::class,
+                'ProductImportJSViewModel' => ViewModel::class,
                 'ProductLinkExportJSViewModel' => ViewModel::class,
+                'ProductLinkImportJSViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
                 'ImportJSViewModel' => ViewModel::class,
                 'ImportAllFilteredJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class,
                 'UrlDataViewStockImport' => ViewModel::class,
                 'UrlDataViewStockExport' => ViewModel::class,
-                'UrlDataViewProductLinkExport' => ViewModel::class
+                'UrlDataViewProductImport' => ViewModel::class,
+                'UrlDataViewProductLinkExport' => ViewModel::class,
+                'UrlDataViewProductLinkImport' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
                 'parameters' => [
@@ -63,7 +67,9 @@ return [
                     'addAction' => [
                         ['action' => ProductAction\StockExport::class],
                         ['action' => ProductAction\StockImport::class],
-                        ['action' => ProductAction\ProductLinkExport::class]
+                        ['action' => ProductAction\ProductImport::class],
+                        ['action' => ProductAction\ProductLinkExport::class],
+                        ['action' => ProductAction\ProductLinkImport::class],
                     ]
                 ],
             ],
@@ -113,6 +119,17 @@ return [
                     'template' => 'products/products/bulk-actions/stock-export',
                 ],
             ],
+            ProductAction\ProductImport::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewProductImport',
+                    'javascript' => 'ProductImportJSViewModel'
+                ]
+            ],
+            'ProductImportJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/product-import',
+                ],
+            ],
             ProductAction\ProductLinkExport::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewProductLinkExport',
@@ -122,6 +139,17 @@ return [
             'ProductLinkExportJSViewModel' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/product-link-export',
+                ],
+            ],
+            ProductAction\ProductLinkImport::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewProductLinkImport',
+                    'javascript' => 'ProductLinkImportJSViewModel'
+                ]
+            ],
+            'ProductLinkImportJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/product-link-import',
                 ],
             ],
             'UrlDataViewStockImport' => [
@@ -134,7 +162,17 @@ return [
                     'template' => 'products/products/bulk-actions/data-url',
                 ],
             ],
+            'UrlDataViewProductImport' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/data-url',
+                ],
+            ],
             'UrlDataViewProductLinkExport' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewProductLinkImport' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/data-url',
                 ],

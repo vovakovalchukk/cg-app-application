@@ -45,7 +45,7 @@ let coreColumns = [
     },
     {
         key: 'available',
-        width: 80,
+        width: 70,
         fixed: true,
         headerText: 'Available',
         align: 'center'
@@ -128,10 +128,9 @@ let columnService = (function() {
 export default columnService;
 
 function generateVatColumns(vat) {
-    if (Object.keys(vat.productsVat).length === 0){
+    if (vat.productsVat.allProductIds.length === 0) {
         return [getNoVatColumn()];
     }
-
     let vatColumns = [];
     return Object.keys(vat.vatRates).map(countryCode => {
         let options = vat.vatRates[countryCode];
@@ -164,17 +163,20 @@ function generateListingsColumnsFromAccounts(accounts) {
     }
 
     let channelSpecificColumns = [];
-    Object.keys(accounts).forEach((accountKey) => {
+    Object.keys(accounts).forEach((accountKey, index) => {
         let account = accounts[accountKey];
         if (!account.type.includes('sales') || account.channel === 'api') {
             return;
         }
+
+        let headerText = `${account.displayName} (${capitalize(account.channel)})`;
+
         channelSpecificColumns.push({
             key: 'ListingAccountCell-' + account.id,
             type: 'listingAccount',
             listingAccountId: account.id,
             width: 115,
-            headerText: capitalize(account.channel),
+            headerText,
             fixed: false,
             align: 'center'
         });
