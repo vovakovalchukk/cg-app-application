@@ -1,6 +1,7 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
+import Tooltip from 'Product/Components/Tooltip';
 
 const ImageContainer = styled.div`
     height:100%;
@@ -14,6 +15,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
     max-height: 100%;
     max-width: 100%;
+    height: ${props => props.height ? props.height+'px' : 'auto'};
     background-color: #ebebeb;
     visibility: ${props => props.imageLoaded ? 'visible' : 'hidden'};
 `;
@@ -38,6 +40,18 @@ class ImageCell extends React.Component {
             imageLoaded: true
         });
     };
+    getHoverContent = (cellData) => {
+      return (
+          <Image
+              title={'image-' + cellData.id + '-hovered'}
+              src={cellData.url}
+              onError={this.onError}
+              onLoad={this.onLoad}
+              height={100}
+              imageLoaded={this.state.imageLoaded}
+          />
+      )
+    };
     renderImage = () => {
         if (!this.props.products.visibleRows[this.props.rowIndex]) {
             return;
@@ -52,15 +66,17 @@ class ImageCell extends React.Component {
         if (!cellData || !cellData.id || this.state.error) {
             return '';
         }
+
         return (
-            <Image
-                title={'image-' + cellData.id}
-                src={cellData.url}
-                onError={this.onError}
-                onLoad={this.onLoad}
-                maxLength={this.props.height}
-                imageLoaded={this.state.imageLoaded}
-            />
+            <Tooltip hoverContent={this.getHoverContent(cellData)}>
+                <Image
+                    title={'image-' + cellData.id}
+                    src={cellData.url}
+                    onError={this.onError}
+                    onLoad={this.onLoad}
+                    imageLoaded={this.state.imageLoaded}
+                />
+            </Tooltip>
         );
     };
     render() {

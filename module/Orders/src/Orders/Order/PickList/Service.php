@@ -1,13 +1,16 @@
 <?php
 namespace Orders\Order\PickList;
 
+use CG\FeatureFlags\Service as FeatureFlags;
 use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\ComponentReplacer;
 use CG\Order\Shared\Item\Entity as Item;
+use CG\OrganisationUnit\Service as OuService;
 use CG\PickList\Service as PickListService;
+use CG\PickList\Settings;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
@@ -22,6 +25,7 @@ use CG\Template\Image\ClientInterface as ImageClient;
 use CG\Template\Image\Map as ImageMap;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
+use Settings\PickList\Service as SettingsService;
 
 class Service implements LoggerAwareInterface
 {
@@ -49,6 +53,10 @@ class Service implements LoggerAwareInterface
     protected $imageService;
     /** @var ComponentReplacer $componentReplacer */
     protected $componentReplacer;
+    /** @var FeatureFlags */
+    protected $featureFlags;
+    /** @var OuService */
+    protected $ouService;
 
     public function __construct(
         ProductService $productService,
@@ -60,7 +68,9 @@ class Service implements LoggerAwareInterface
         ActiveUserContainer $activeUserContainer,
         IntercomEventService $intercomEventService,
         ImageService $imageService,
-        ComponentReplacer $componentReplacer
+        ComponentReplacer $componentReplacer,
+        FeatureFlags $featureFlags,
+        OuService $ouService
     ) {
         $this->productService = $productService;
         $this->pickListService = $pickListService;
@@ -72,6 +82,8 @@ class Service implements LoggerAwareInterface
         $this->intercomEventService = $intercomEventService;
         $this->imageService = $imageService;
         $this->componentReplacer = $componentReplacer;
+        $this->featureFlags = $featureFlags;
+        $this->ouService = $ouService;
     }
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
@@ -79,12 +91,12 @@ class Service implements LoggerAwareInterface
         $pickListSettings = $this->getPickListSettings();
         $pickListEntries = $this->getPickListEntries($orderCollection, $pickListSettings);
 
-        $render = 'renderTemplateWithoutImages';
-        if ($pickListSettings->getShowPictures()) {
-            $render = 'renderTemplate';
-        }
+        $content = $this->pickListService->renderTemplate(
+            $pickListEntries,
+            $this->activeUserContainer->getActiveUser(),
+            $this->mapPickListSettings($pickListSettings)
+        );
 
-        $content = $this->pickListService->{$render}($pickListEntries, $this->activeUserContainer->getActiveUser());
         $response = new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
         $this->notifyOfGeneration();
 
@@ -126,24 +138,40 @@ class Service implements LoggerAwareInterface
         return $pickListEntries;
     }
 
-    protected function sortEntries(array $pickListEntries, $field, $ascending = true)
+    protected function sortEntries(array $pickListEntries, string $field, bool $ascending = true): array
     {
         usort($pickListEntries, function($a, $b) use ($field, $ascending) {
-            $getter = 'get' . ucfirst(strtolower($field));
-            $directionChanger = ($ascending === false) ? -1 : 1;
-
-            if (is_string($a->$getter())) {
-                return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
-            }
-
-            if ($a->$getter() === $b->$getter()) {
-                return 0;
-            }
-            $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
-            return $directionChanger * $compareValue;
+            $getter = 'get' . implode('', array_map('ucfirst', explode(' ', $field)));
+            return $this->sortValue(
+                $a->{$getter}(),
+                $b->{$getter}(),
+                $ascending
+            );
         });
 
         return $pickListEntries;
+    }
+
+    protected function sortValue($aValue, $bValue, bool $ascending = true): int
+    {
+        $directionChanger = ($ascending === false) ? -1 : 1;
+
+        if (is_string($aValue) || is_string($bValue)) {
+            return $directionChanger * strcasecmp($aValue, $bValue);
+        }
+
+        if (is_array($aValue) && is_array($bValue)) {
+            $keys = array_unique(array_merge(array_keys($aValue), array_keys($bValue)));
+            foreach ($keys as $key) {
+                $sort = $this->sortValue($aValue[$key] ?? null, $bValue[$key] ?? null, $ascending);
+                if ($sort !== 0) {
+                    return $sort;
+                }
+            }
+            return 0;
+        }
+
+        return $directionChanger * ($aValue <=> $bValue);
     }
 
     protected function fetchProductsForSkus(array $skus)
@@ -217,18 +245,33 @@ class Service implements LoggerAwareInterface
         $this->progressStorage->setProgress($key, $count);
     }
 
-    /**
-     * @return PickListSettings
-     */
-    protected function getPickListSettings()
+    protected function getPickListSettings(): PickListSettings
     {
         $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         return $this->pickListSettingsService->fetch($organisationUnitId);
+    }
+
+    protected function mapPickListSettings(PickListSettings $settings): Settings
+    {
+        $pickingLocationsFeature = $this->getFeatureFlagStatus(SettingsService::FEATURE_FLAG_PICK_LOCATIONS);
+        return new Settings(
+            $settings->getShowPictures(),
+            $pickingLocationsFeature && $settings->getShowPickingLocations() ? $settings->getLocationNames() : []
+        );
     }
 
     protected function notifyOfGeneration()
     {
         $event = new IntercomEvent(static::EVENT_PICKING_LIST_PRINTED, $this->activeUserContainer->getActiveUser()->getId());
         $this->intercomEventService->save($event);
+    }
+
+    protected function getFeatureFlagStatus(string $featureFlag): bool
+    {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        return $this->featureFlags->isActive(
+            $featureFlag,
+            $this->ouService->fetch($rootOuId)
+        );
     }
 }

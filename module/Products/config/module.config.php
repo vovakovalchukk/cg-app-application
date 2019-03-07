@@ -87,6 +87,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_PICK_LOCATIONS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/pickLocation',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductPickLocations'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_NEW_NAME => [
                         'type' => Literal::class,
                         'options' => [
@@ -188,6 +198,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_PRODUCT_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'productCsvImport'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_EXPORT => [
                         'type' => Literal::class,
                         'options' => [
@@ -195,6 +215,17 @@ return [
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'linkCsvExport'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
+                    ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/link/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'linkCsvImport'
                             ]
                         ],
                         'may_terminate' => true
@@ -1315,7 +1346,6 @@ return [
             ProductsJsonController::class => [
                 'parameters' => [
                     'usageService' => 'order_count_usage_service',
-                    'productsGearmanClient' => 'productGearmanClient'
                 ]
             ],
             StockCsvProgressStorage::class => [

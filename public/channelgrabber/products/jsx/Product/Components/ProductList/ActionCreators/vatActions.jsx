@@ -41,12 +41,21 @@ let vatActions = (function() {
                         type: "VAT_UPDATE_FAILURE",
                         payload: {
                             error
-                        },
+                        }
                     })
                 }
             }
+        },
+        toggleVatSelect: (productId, countryCode) => {
+            return {
+                type: 'VAT_SELECT_TOGGLE',
+                payload: {
+                    productId,
+                    countryCode
+                }
+            }
         }
-    };
+    }
 })();
 
 export default vatActions;

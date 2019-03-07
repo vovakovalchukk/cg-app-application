@@ -204,7 +204,16 @@ let actionCreators = (function() {
                 }
             }
         },
-        updateIncPOStockInAvailable: (productId, desiredVal) => {
+        toggleIncPOStockInAvailableSelect: (productId) => {
+            return {
+                type: 'INC_PO_STOCK_IN_AVAILABLE_TOGGLE',
+                payload: {
+                    productId
+                }
+            };
+        },
+        updateIncPOStockInAvailable: (productId, e) => {
+            let desiredVal = e.value;
             return async function(dispatch) {
                 try {
                     n.notice('Updating Purchase Order stock preference.');
@@ -301,7 +310,7 @@ function updateLowStock(productId, toggle, value) {
 async function updateIncPOStockInAvailable(productId, includePurchaseOrders) {
     return $.ajax({
         url: '/products/includePurchaseOrders',
-        data: {productId: productId, includePurchaseOrders: includePurchaseOrders},
+        data: {productId, includePurchaseOrders},
         method: 'POST',
         dataType: 'json',
         success: function(response) {

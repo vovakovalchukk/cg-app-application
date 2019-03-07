@@ -1,17 +1,29 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility.jsx';
-import Select from 'Common/Components/Select';
+import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
 import portalSettingsFactory from "../Portal/settingsFactory";
 import elementTypes from "../Portal/elementTypes";
 
 class IncludePurchaseOrdersInAvailableCell extends React.Component {
-
-    changeSetting = (e) => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.updateIncPOStockInAvailable(row.id, e.value);
+    static defaultProps = {
+        products : {},
+        rowIndex: '',
+        distanceFromLeftSideOfTableToStartOfCell: '',
+        width: '',
+        actions: {},
+        rows: {},
+        stock: {},
+        incPOStockInAvailableOptions: {}
     };
-
+    getVatSelectActive(activePropOnState) {
+        if (!activePropOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+            return false;
+        }
+        return true;
+    };
+    selectToggle(productId) {
+        this.props.actions.toggleIncPOStockInAvailableSelect(productId);
+    };
     render() {
         const {
             products,
@@ -22,20 +34,22 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
             stock,
             incPOStockInAvailableOptions
         } = this.props;
-        let rowData = stateUtility.getRowData(products, rowIndex);
-        const isParentProduct = stateUtility.isParentProduct(rowData);
 
+        const rowData = stateUtility.getRowData(products, rowIndex);
+        const isParentProduct = stateUtility.isParentProduct(rowData);
         if (isParentProduct) {
             return <span></span>
         }
 
-        let selected = stock.incPOStockInAvailable.byProductId[rowData.id];
+        let productIncPoStockInAvailable = stock.incPOStockInAvailable.byProductId[rowData.id];
+        let selected = productIncPoStockInAvailable.selected;
+
         let selectedOption = incPOStockInAvailableOptions.find((option) => {
             return option.value == selected;
         });
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.SELECT_DROPDOWN,
+            elemType: elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
@@ -44,12 +58,18 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
 
         return (
             <div className={this.props.className + " includePurchaseOrdersInAvailable-cell"}>
-                <Select
+                <StatelessSelect
                     options={incPOStockInAvailableOptions}
                     selectedOption={selectedOption}
-                    onOptionChange={this.changeSetting}
+                    onOptionChange={this.props.actions.updateIncPOStockInAvailable.bind(this, rowData.id)}
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
+                    selectToggle={this.selectToggle.bind(this, rowData.id)}
+                    active={this.getVatSelectActive(productIncPoStockInAvailable.active)}
+                    styleVars={{
+                        widthOfInput: 110,
+                        widthOfDropdown: 130
+                    }}
                 />
             </div>
         );

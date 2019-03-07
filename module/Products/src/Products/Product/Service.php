@@ -302,6 +302,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
     }
 
+    public function saveProductPickLocations($productId, array $pickLocations)
+    {
+        /** @var Product $product */
+        $product = $this->productService->fetch($productId);
+        try {
+            $this->productService->save(
+                $product->setPickingLocations($pickLocations)
+            );
+        } catch (NotModified | HttpNotModified $exception) {
+            // Ignore - product is up to date
+        }
+    }
+
     public function saveProductName($productId, $newName)
     {
         try {
