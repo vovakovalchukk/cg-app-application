@@ -39,6 +39,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
     const ROUTE_INDEX_URL = '/products';
 
     const STOCK_TAB_FEATURE_FLAG = 'Stock Tab Enabled';
+    const PRE_FETCH_VARIATIONS_FEATURE_FLAG = 'Pre Fetch Variations Enabled';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -142,6 +143,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ),
             'pickLocations' => $this->featureFlagService->featureEnabledForOu(
                 PickListService::FEATURE_FLAG_PICK_LOCATIONS,
+                $rootOuId,
+                $rootOu
+            ),
+            'fetchVariations' => $this->featureFlagService->featureEnabledForOu(
+                static::PRE_FETCH_VARIATIONS_FEATURE_FLAG,
                 $rootOuId,
                 $rootOu
             )
