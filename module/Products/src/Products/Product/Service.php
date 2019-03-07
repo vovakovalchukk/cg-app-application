@@ -70,6 +70,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_MANUAL_STOCK_CHANGE = 'Manual Stock Change';
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
     const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
+    const DETAILTYPES_WITH_UNITS_OF_MEASURE = [
+        'weight' => 'weight',
+        'length' => 'length',
+        'width' => 'width',
+        'height' => 'height',
+    ];
 
     /** @var UserService $userService */
     protected $userService;
@@ -400,7 +406,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function saveProductDetail($sku, $detailType, $value, $id = null)
     {
-        if ($this->isDetailUnitOfMeasurement($detailType)) {
+        if ($this->doesDetailTypeHaveUOM($detailType)) {
             $value = $this->convertDetailValueToInternalUnitOfMeasurement($detailType, $value);
         }
 
@@ -476,21 +482,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $ou->isVatRegistered();
     }
 
-    protected function isDetailUnitOfMeasurement(string $detail)
+    protected function doesDetailTypeHaveUOM(string $detailType)
     {
-        foreach (['weight', 'length', 'width', 'height'] as $unit) {
-            if (strtolower($detail) === $unit) {
-                return true;
-            }
+        if (static::DETAILTYPES_WITH_UNITS_OF_MEASURE[strtolower($detailType)]) {
+            return true;
         }
         return false;
     }
 
-    protected function convertDetailValueToInternalUnitOfMeasurement(string $detail, $value): float
+    protected function convertDetailValueToInternalUnitOfMeasurement(string $detailType, $value): float
     {
         $value = is_numeric($value) ? (float) $value : null;
         $locale = $this->activeUserContainer->getLocale();
-        if ($detail == 'weight') {
+        if ($detailType == 'weight') {
             $displayUnit = LocaleMass::getForLocale($locale);
             $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
         } else {
