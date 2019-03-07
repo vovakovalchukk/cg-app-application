@@ -1,5 +1,5 @@
 import React from 'react';
-import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import StatelessSelect from 'Common/Components/Select--stateless';
 import styled from "styled-components";
 import portalFactory from "../Portal/portalFactory";
 import {StyledSafeSubmits} from "../Cell/StockMode";
