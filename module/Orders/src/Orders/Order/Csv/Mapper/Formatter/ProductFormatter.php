@@ -83,10 +83,10 @@ class ProductFormatter implements ProductFormatterInterface
     protected function getValueFromProduct(array $field, Product $product)
     {
         $getter = 'get' . ucfirst($field['name']);
-        $objects = $this->getObjectsForProduct($product);
-        if (isset($objects[$field['type']]) && is_callable([$objects[$field['type']], $getter])) {
+        $productWithEmbeds = $this->getProductWithEmbeds($product);
+        if (isset($productWithEmbeds[$field['type']]) && is_callable([$productWithEmbeds[$field['type']], $getter])) {
             try {
-                $value = $objects[$field['type']]->$getter();
+                $value = $productWithEmbeds[$field['type']]->$getter();
                 if (!empty($value)) {
                     return $value;
                 }
@@ -96,17 +96,7 @@ class ProductFormatter implements ProductFormatterInterface
         }
     }
 
-    protected function getRelevantProductsForItem(Item $item): Products
-    {
-        $itemSku = $item->getItemSku();
-        $relevantProducts = new Products(Product::class, __METHOD__);
-        $relevantProducts->addAll($this->getProducts()->getBy('sku', [$itemSku]));
-        $parentProductIds = $relevantProducts->getArrayOf('ParentProductId');
-        $relevantProducts->addAll($this->getProducts()->getBy('parentProductId', $parentProductIds));
-        return $relevantProducts;
-    }
-
-    protected function getObjectsForProduct(Product $product): array
+    protected function getProductWithEmbeds(Product $product): array
     {
         $objects = ['product' => $product];
         if ($product->hasDetails()) {
