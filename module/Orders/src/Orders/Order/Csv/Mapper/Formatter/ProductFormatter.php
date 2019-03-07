@@ -98,11 +98,11 @@ class ProductFormatter implements ProductFormatterInterface
 
     protected function getProductWithEmbeds(Product $product): array
     {
-        $objects = ['product' => $product];
+        $productWithEmbeds = ['product' => $product];
         if ($product->hasDetails()) {
-            $objects += ['detail' => $product->getDetails()];
+            $productWithEmbeds += ['detail' => $product->getDetails()];
         }
-        return $objects;
+        return $productWithEmbeds;
     }
 
     protected function returnDefaultValueForField(array $field): string
