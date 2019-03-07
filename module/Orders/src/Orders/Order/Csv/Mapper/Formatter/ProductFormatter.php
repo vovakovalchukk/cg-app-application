@@ -27,8 +27,7 @@ class ProductFormatter implements ProductFormatterInterface
         }
 
         foreach ($order->getItems() as $item) {
-            $callback = $this->getCallbackValueForField($item, $fieldName);
-            $columns[] = $callback();
+            $columns[] = $this->getFieldValueFromItem($fieldName, $item);
         }
         return $columns;
     }
@@ -55,20 +54,26 @@ class ProductFormatter implements ProductFormatterInterface
         return false;
     }
 
-    protected function getCallbackValueForField(
-        Item $item,
-        array $field
-    ): callable {
-        return function() use($item, $field) {
+    protected function getFieldValueFromItem(array $field, Item $item)
+    {
+        try {
+            $product = $this->getProductForItem($item);
+        } catch (NotFound $e) {
+            return $this->returnDefaultValueForField($field);
+        }
+        $getter = 'get' . ucfirst($field['name']);
+        $productWithEmbeds = $this->getProductWithEmbeds($product);
+        if (isset($productWithEmbeds[$field['type']]) && is_callable([$productWithEmbeds[$field['type']], $getter])) {
             try {
-                if ($value = $this->getValueFromProduct($field, $this->getProductForItem($item))) {
+                $value = $productWithEmbeds[$field['type']]->$getter();
+                if (!empty($value)) {
                     return $value;
                 }
-            } catch (NotFound $e) {
+            } catch (\BadMethodCallException $e) {
                 //no-op
             }
-            return $this->returnDefaultValueForField($field);
-        };
+        }
+        return $this->returnDefaultValueForField($field);
     }
 
     protected function getProductForItem(Item $item): Product
