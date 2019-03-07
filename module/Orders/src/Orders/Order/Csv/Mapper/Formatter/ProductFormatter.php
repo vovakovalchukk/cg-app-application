@@ -6,6 +6,7 @@ use CG\Order\Shared\Item\Collection as Items;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Product\Collection as Products;
 use CG\Product\Entity as Product;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Orders\Order\Csv\Mapper\ProductFormatterInterface;
 
 class ProductFormatter implements ProductFormatterInterface
@@ -26,8 +27,7 @@ class ProductFormatter implements ProductFormatterInterface
         }
 
         foreach ($order->getItems() as $item) {
-            $relevantProducts = $this->getRelevantProductsForItem($item);
-            $callback = $this->getCallbackValueForField($fieldName, $relevantProducts);
+            $callback = $this->getCallbackValueForField($item, $fieldName);
             $columns[] = $callback();
         }
         return $columns;
@@ -56,18 +56,28 @@ class ProductFormatter implements ProductFormatterInterface
     }
 
     protected function getCallbackValueForField(
-        array $field,
-        Products $products
+        Item $item,
+        array $field
     ): callable {
-        return function() use($field, $products) {
-            /** @var Product $product */
-            foreach ($products as $product) {
-                if ($value = $this->getValueFromProduct($field, $product)) {
+        return function() use($item, $field) {
+            try {
+                if ($value = $this->getValueFromProduct($field, $this->getProductForItem($item))) {
                     return $value;
                 }
+            } catch (NotFound $e) {
+                //no-op
             }
             return $this->returnDefaultValueForField($field);
         };
+    }
+
+    protected function getProductForItem(Item $item): Product
+    {
+        $products = $this->products->getBy('sku', [$item->getItemSku()]);
+        if ($product = $products->getFirst()) {
+            return $product;
+        }
+        throw new NotFound();
     }
 
     protected function getValueFromProduct(array $field, Product $product)
