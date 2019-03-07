@@ -46,11 +46,10 @@ class ProductFormatter implements ProductFormatterInterface
 
     protected function noProductsFound(): bool
     {
-        $products = $this->getProducts();
-        if ($products === null) {
+        if ($this->products === null) {
             return true;
         }
-        if ($products->count() === 0) {
+        if ($this->products->count() === 0) {
             return true;
         }
         return false;
