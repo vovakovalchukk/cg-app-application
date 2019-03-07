@@ -2,10 +2,12 @@ import stateUtility from "../stateUtility";
 import React from "react";
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys';
 
+let rowData = {};
+
 class CellWrapper extends React.Component {
     render() {
         let {CellContent, products, rowIndex} = this.props;
-        const rowData = stateUtility.getRowData(products, rowIndex);
+        rowData[rowIndex] = stateUtility.getRowData(products, rowIndex);
 
         if (this.isFirstCell()) {
             this.props.actions.runIntialUpdateForRowsIfApplicable();
@@ -19,7 +21,7 @@ class CellWrapper extends React.Component {
         return (
             <CellContent
                 {...this.props}
-                rowData={rowData}
+                rowData={rowData[rowIndex]}
             />
         )
     };

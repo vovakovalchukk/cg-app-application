@@ -18,7 +18,6 @@ class BulkSelectHeader extends React.Component {
     };
     render() {
         let {bulkSelect} = this.props;
-
         return (
             <CheckboxWrapper>
                 <CheckboxStateless
