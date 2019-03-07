@@ -398,14 +398,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService->fetchByFilter($filter);
     }
 
-    public function saveProductDetail($sku, $detail, $value, $id = null)
+    public function saveProductDetail($sku, $detailType, $value, $id = null)
     {
-        if ($this->isDetailUnitOfMeasurement($detail)) {
-            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detail, $value);
+        if ($this->isDetailUnitOfMeasurement($detailType)) {
+            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detailType, $value);
         }
 
         if ($id) {
-            $this->detailService->patchEntity($id, [$detail => $value]);
+            $this->detailService->patchEntity($id, [$detailType => $value]);
         } else {
             /** @var Details $details */
             $details = $this->detailService->save(
@@ -413,7 +413,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                     [
                         'organisationUnitId' => $this->getActiveUserRootOu(),
                         'sku' => $sku,
-                        $detail => $value,
+                        $detailType => $value,
                     ]
                 )
             );
