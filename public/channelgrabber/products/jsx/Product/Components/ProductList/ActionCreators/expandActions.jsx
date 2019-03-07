@@ -58,7 +58,6 @@ function checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParen
             }
         }
         if (!parentHasHadVariationRetrievedAlready) {
-            expandAllHasOccurred = false;
             return false;
         }
     }
