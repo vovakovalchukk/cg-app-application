@@ -77,9 +77,10 @@ let detailsColumns = [
     {
         key: 'cost',
         width: 80,
-        headerText: 'Cost',
+        headerText: 'Cost Price',
         fixed: false,
-        align: 'center'
+        align: 'center',
+        feature: 'costPriceEnabled'
     }
 ];
 
@@ -105,7 +106,7 @@ let columnService = (function() {
 
             let featureFilter = (column) => {
                 if (!column.hasOwnProperty('feature')) {
-                    return true
+                    return true;
                 }
                 if (!features.hasOwnProperty(column.feature)) {
                     return false;
