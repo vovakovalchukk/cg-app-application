@@ -58,22 +58,10 @@ class ProductFormatter implements ProductFormatterInterface
     {
         try {
             $product = $this->getProductForItem($item);
+            return $this->getValueFromProduct($field, $product);
         } catch (NotFound $e) {
             return $this->returnDefaultValueForField($field);
         }
-        $getter = 'get' . ucfirst($field['name']);
-        $productWithEmbeds = $this->getProductWithEmbeds($product);
-        if (isset($productWithEmbeds[$field['type']]) && is_callable([$productWithEmbeds[$field['type']], $getter])) {
-            try {
-                $value = $productWithEmbeds[$field['type']]->$getter();
-                if (!empty($value)) {
-                    return $value;
-                }
-            } catch (\BadMethodCallException $e) {
-                //no-op
-            }
-        }
-        return $this->returnDefaultValueForField($field);
     }
 
     protected function getProductForItem(Item $item): Product
@@ -99,6 +87,7 @@ class ProductFormatter implements ProductFormatterInterface
                 //no-op
             }
         }
+        return $this->returnDefaultValueForField($field);
     }
 
     protected function getProductWithEmbeds(Product $product): array
