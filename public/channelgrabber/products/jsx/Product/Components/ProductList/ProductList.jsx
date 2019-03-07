@@ -62,7 +62,6 @@ class ProductList extends React.Component {
             input.focus();
             break;
         }
-        console.log('end of focusINputIfApplicable (no fail)');
     };
     updateDimensions = () => {
         this.setState({

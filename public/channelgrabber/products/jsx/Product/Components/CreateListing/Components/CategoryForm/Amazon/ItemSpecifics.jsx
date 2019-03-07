@@ -120,11 +120,13 @@ class AmazonItemSpecifics extends React.Component {
         var options = itemSpecific.children.map((itemSpecific) => {
             return itemSpecific.name;
         });
+
         return <Field
             name={'selectedChoice'}
             displayTitle={itemSpecific.name}
             component={this.renderChoiceSelectComponent}
             options={options}
+            validate={itemSpecific.required ? Validators.required : null}
         />;
     };
 
