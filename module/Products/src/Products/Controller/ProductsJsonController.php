@@ -312,6 +312,7 @@ class ProductsJsonController extends AbstractActionController
                 'upc' => $detailsEntity->getUpc(),
                 'isbn' => $detailsEntity->getIsbn(),
                 'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
+                'cost' => $detailsEntity->getDisplayCost(),
             ];
         } else {
             $product['details'] = ['sku' => $productEntity->getSku()];
