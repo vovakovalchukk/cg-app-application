@@ -11,6 +11,7 @@ import combinedReducer from 'Product/Components/ProductList/Reducers/combinedRed
 import ProductListRoot from 'Product/Components/ProductList/Root';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions';
+import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
 
 var enhancer = applyMiddleware(thunk);
 
@@ -47,6 +48,8 @@ class ProductListProvider extends React.Component {
         store.dispatch(productActions.storeIncPOStockInAvailableOptions(this.props.incPOStockInAvailableOptions));
         store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
         store.dispatch(vatActions.storeVatRates(vatRates));
+        store.dispatch(pickLocationsActions.storePickLocationNames(this.props.pickLocations));
+        store.dispatch(pickLocationsActions.storePickLocationValues(this.props.pickLocationValues));
 
         if (this.props.features.stockTabEnabled) {
             store.dispatch(tabActions.showStockTab());

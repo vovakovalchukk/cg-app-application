@@ -5,10 +5,12 @@ import columnService from 'Product/Components/ProductList/Column/service';
         return {
             generateColumnSettings: (features) => {
                 return function(dispatch, getState) {
+                    let accounts = getState.customGetters.getAccounts();
                     let columnSettings = columnService.generateColumnSettings(
-                        getState.customGetters.getAccounts().accounts,
+                        accounts.features,
+                        accounts.accounts,
                         getState.customGetters.getVat(),
-                        features
+                        getState.customGetters.getPickLocationNames()
                     );
                     dispatch({
                         type: "COLUMNS_GENERATE_SETTINGS",

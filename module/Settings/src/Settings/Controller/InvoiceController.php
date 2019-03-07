@@ -1,7 +1,7 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Account\Client\Filter;
+use CG\Account\Shared\Filter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
@@ -55,6 +55,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
+
+    const INCLUDE_INVISIBLE_CHANNELS = true;
 
     /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
@@ -192,7 +194,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setDeleted(0)
             ->setType(ChannelType::SALES)
             ->setLimit("all");
-        $accounts = $this->accountService->fetchByFilter($filter);
+        $accounts = $this->accountService->fetchByFilter($filter, static::INCLUDE_INVISIBLE_CHANNELS);
         $dataTablesData = $this->invoiceMappings->getInvoiceMappingDataTablesData($accounts, $invoices);
 
         $data = [

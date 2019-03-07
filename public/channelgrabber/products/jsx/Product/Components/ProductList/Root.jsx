@@ -20,7 +20,11 @@ const mapStateToProps = function(state) {
         rows: state.rows,
         userSettings: state.userSettings,
         search: state.search,
-        scroll: state.scroll
+        scroll: state.scroll,
+        detail: state.detail,
+        pickLocations: state.pickLocations,
+        name: state.name,
+        focus: state.focus
     };
 };
 

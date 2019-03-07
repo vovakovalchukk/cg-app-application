@@ -40,7 +40,9 @@ function(ProductRoot, Clipboard, ImageUtils) {
         '<?= $demoLink; ?>',
         <?= ($showVAT ? 'true' : 'false') ?>,
         '<?= $massUnit; ?>',
-        '<?= $lengthUnit; ?>'
+        '<?= $lengthUnit; ?>',
+        <?= json_encode($this->pickLocations) ?>,
+        <?= json_encode($this->pickLocationValues) ?>
     );
 });
 <?php $this->inlineScript()->captureEnd(); ?>

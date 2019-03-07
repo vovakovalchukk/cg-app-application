@@ -590,11 +590,11 @@ div#products-loading-message {
     padding-left: 50px
 }
 
-.popup-stock-import {
-    .popup-stock-import-header {
+.popup-product-import, .popup-stock-import {
+    .popup-product-import-header, .popup-stock-import-header {
         font-weight: bold;
     }
-    .popup-stock-import-content-box {
+    .popup-product-import-content-box, .popup-stock-import-content-box {
         display: inline-block;
         margin: 20px 0px;
         .popup-stock-import-selection {
