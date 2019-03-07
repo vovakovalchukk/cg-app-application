@@ -84,15 +84,19 @@ var actionCreators = (function() {
         });
     };
 
-    const handleNewVariations = (data, productIds, dispatch, isMultipleProducts) => {
+    const handleNewVariations = (data, productIds, dispatch, isMultipleProducts, shouldNotExpand) => {
         $('#products-loading-message').hide();
         let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
         dispatch(getProductVariationsRequestSuccess(variationsByParent));
-        if (isMultipleProducts) {
-            dispatch(expandProductsSuccess(productIds));
-        } else {
-            dispatch(expandProductSuccess(productIds));
+
+        if(!shouldNotExpand){
+            if (isMultipleProducts) {
+                dispatch(expandProductsSuccess(productIds));
+            } else {
+                dispatch(expandProductSuccess(productIds));
+            }
         }
+
         let skusFromData = getSkusFromData(data);
         dispatch(productLinkActions.getLinkedProducts(skusFromData));
     };
@@ -116,6 +120,7 @@ var actionCreators = (function() {
         },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
+                let state = getState();
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];
@@ -139,6 +144,11 @@ var actionCreators = (function() {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
+
+                if(state.accounts.features.preFetchVariations){
+                    dispatch(actionCreators.dispatchGetAllVariations());
+                }
+
                 return data;
             }
         },
@@ -196,6 +206,15 @@ var actionCreators = (function() {
                 payload: {
                     productRowIdToCollapse
                 }
+            }
+        },
+        dispatchGetAllVariations: () => {
+            return async function(dispatch, getState){
+                let productIds = stateUtility.getAllParentProductIds(getState().products);
+                let filter = new ProductFilter(null, productIds);
+                await AjaxHandler.fetchByFilter(filter, data => {
+                    handleNewVariations(data, productIds, dispatch, true, true);
+                });
             }
         },
         dispatchExpandAllVariationsWithAjaxRequest: async (dispatch, productIds) => {

@@ -146,7 +146,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 $rootOuId,
                 $rootOu
             ),
-            'fetchVariations' => $this->featureFlagService->featureEnabledForOu(
+            'preFetchVariations' => $this->featureFlagService->featureEnabledForOu(
                 static::PRE_FETCH_VARIATIONS_FEATURE_FLAG,
                 $rootOuId,
                 $rootOu
