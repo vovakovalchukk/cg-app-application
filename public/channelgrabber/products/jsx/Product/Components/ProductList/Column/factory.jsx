@@ -31,7 +31,7 @@ const columnSpecificPropsMap = {
     weight: ['rows', 'detail', 'scroll'],
     vat: ['rows', 'vat', 'scroll'],
     bulkSelect: ['bulkSelect'],
-    lowStock: ['stock', 'rows', 'userSettings']
+    lowStock: ['stock', 'rows', 'userSettings'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
     name: ['rows', 'name', 'focus']
 };
