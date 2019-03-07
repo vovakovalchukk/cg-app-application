@@ -251,7 +251,7 @@ class OrdersItems implements MapperInterface
     protected function updateProductCollectionForOrders(Products $products, OrderCollection $orders): void
     {
         $orderItemSkus = $this->getOrderItemSkusFromOrders($orders);
-        $skusToFetch = array_diff($orderItemSkus, $products->getArrayOf('sku'));
+        $skusToFetch = array_filter(array_diff($orderItemSkus, $products->getArrayOf('sku')));
         if (empty($skusToFetch)) {
             return;
         }
