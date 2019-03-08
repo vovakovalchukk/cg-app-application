@@ -288,6 +288,9 @@ class EditorContainer extends React.Component {
 
     fetchProductsWithLowStock = () => {
         $.get('/products/purchaseOrders/fetchLowStockProducts', (data) => {
+            if (data.skus.length === 0) {
+                return;
+            }
             let filter = new ProductFilter;
             filter.sku = data.skus;
             filter.limit = 500;
