@@ -243,7 +243,22 @@ let stockModeReducer = reducerCreator(initialState, {
         let {products} = action.payload;
         let newIncPOStockInAvailable = getIncPOStockInAvailableFromProducts(products);
 
-        let incPOStockInAvailable = Object.assign(state.incPOStockInAvailable, newIncPOStockInAvailable);
+        let newAllProductIds = state.incPOStockInAvailable.allProductIds ? state.incPOStockInAvailable.allProductIds.slice() : [];
+        let newPObyProductId = Object.assign({}, state.incPOStockInAvailable.byProductId);
+
+        newIncPOStockInAvailable.allProductIds.forEach(productId => {
+            newAllProductIds.push(productId);
+        });
+
+        for (let productId in newIncPOStockInAvailable.byProductId) {
+            newPObyProductId[productId] = newIncPOStockInAvailable.byProductId[productId];
+        }
+
+        let incPOStockInAvailable = {
+            byProductId: newPObyProductId,
+            allProductIds: newAllProductIds
+        };
+
 
         let newState = Object.assign({}, state, {
             incPOStockInAvailable
