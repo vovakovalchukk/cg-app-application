@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ExpandIcon from 'Common/Components/ExpandIcon'
+import LoadingSpinner from 'Common/Components/LoadingSpinner'
 
 const ExpandIconContainer = styled.div`
   display: flex;
@@ -24,8 +25,12 @@ class ProductExpandHeader extends React.Component {
                 <ExpandLink onClick={this.onClick}>
                     <ExpandIcon
                         expandStatus={expand.expandAllStatus}
-                        noLoader={true}
                         iconColor={'white'}
+                        loader={()=>{
+                            <LoadingSpinner
+                                loaderStyle={'dark'}
+                            />
+                        }}
                     />
                 </ExpandLink>
             </ExpandIconContainer>
