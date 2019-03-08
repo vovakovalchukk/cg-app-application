@@ -484,10 +484,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     protected function doesDetailTypeHaveUOM(string $detailType)
     {
-        if (static::DETAILTYPES_WITH_UNITS_OF_MEASURE[strtolower($detailType)]) {
-            return true;
-        }
-        return false;
+        return isset(static::DETAILTYPES_WITH_UNITS_OF_MEASURE[strtolower($detailType)]);
     }
 
     protected function convertDetailValueToInternalUnitOfMeasurement(string $detailType, $value): float
