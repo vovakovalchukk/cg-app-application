@@ -33,6 +33,18 @@ class CostCell extends React.Component {
     shouldRenderSubmits = () => {
         return !this.props.scroll.userScrolling;
     };
+    saveDetail = () => {
+        this.props.actions.saveDetail(this.props.rowData, 'cost');
+    };
+    cancelInput = () => {
+        this.props.actions.cancelInput(this.props.rowData, 'cost');
+    };
+    setIsEditing = (isEditing) => {
+        this.props.actions.setIsEditing(this.props.rowData.id, 'cost', isEditing);
+    };
+    changeDetailValue = (e) => {
+        this.props.actions.changeDetailValue(this.props.rowData.id, 'cost', e);
+    };
     render() {
         const {
             rowIndex,
@@ -65,10 +77,10 @@ class CostCell extends React.Component {
                     name='cost'
                     step="0.1"
                     key={this.getUniqueInputId()}
-                    submitCallback={this.props.actions.saveDetail.bind(this, rowData, 'cost')}
-                    cancelInput={this.props.actions.cancelInput.bind(this, rowData, 'cost')}
-                    setIsEditing={this.props.actions.setIsEditing.bind(this, rowData.id, 'cost')}
-                    onValueChange={this.props.actions.changeDetailValue.bind(this, rowData.id, 'cost')}
+                    submitCallback={this.saveDetail}
+                    cancelInput={this.cancelInput}
+                    setIsEditing={this.setIsEditing}
+                    onValueChange={this.changeDetailValue}
                     value={valueForCost}
                     submitsPortalSettings={portalSettings}
                     width={45}
