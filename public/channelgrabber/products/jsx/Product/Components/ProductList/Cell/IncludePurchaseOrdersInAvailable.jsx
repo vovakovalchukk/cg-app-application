@@ -37,11 +37,12 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
 
         const rowData = stateUtility.getRowData(products, rowIndex);
         const isParentProduct = stateUtility.isParentProduct(rowData);
-        if (isParentProduct) {
-            return <span></span>
-        }
 
         let productIncPoStockInAvailable = stock.incPOStockInAvailable.byProductId[rowData.id];
+        if (isParentProduct || !productIncPoStockInAvailable) {
+            return <span/>;
+        }
+
         let selected = productIncPoStockInAvailable.selected;
 
         let selectedOption = incPOStockInAvailableOptions.find((option) => {

@@ -126,7 +126,7 @@ let actionCreators = (function() {
         extractIncPOStockInAvailableFromProducts: (products) => {
             return function(dispatch) {
                 dispatch({
-                        type: "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT",
+                    type: "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT",
                     payload: {
                         products
                     }

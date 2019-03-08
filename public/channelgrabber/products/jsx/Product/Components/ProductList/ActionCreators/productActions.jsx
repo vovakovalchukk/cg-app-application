@@ -178,6 +178,7 @@ var actionCreators = (function() {
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
                 dispatch(stockActions.storeLowStockThreshold(data.products));
             }
         },
