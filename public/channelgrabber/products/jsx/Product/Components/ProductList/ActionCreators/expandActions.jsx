@@ -2,16 +2,15 @@ import productActions from "Product/Components/ProductList/ActionCreators/produc
 import stateUtility from "Product/Components/ProductList/stateUtility";
 
 let expandActions = (function() {
-    const changeStatusExpandAll = (desiredStatus) => {
-        return {
-            type: "EXPAND_ALL_STATUS_CHANGE",
-            payload: {
-                desiredStatus
-            }
-        }
-    };
-
     return {
+        changeStatusExpandAll : (desiredStatus) => {
+            return {
+                type: "EXPAND_ALL_STATUS_CHANGE",
+                payload: {
+                    desiredStatus
+                }
+            }
+        },
         toggleExpandAll: () => {
             return async function(dispatch, getState) {
                 let expand = getState().expand;
@@ -26,14 +25,14 @@ let expandActions = (function() {
                         let haveFetchedAlready = checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParentIds);
 
                         if(!haveFetchedAlready){
-                            dispatch(changeStatusExpandAll('loading'));
+                            dispatch(expandActions.changeStatusExpandAll('loading'));
                         }
                         await dispatch(productActions.expandAllProducts(haveFetchedAlready));
-                        dispatch(changeStatusExpandAll('expanded'));
+                        dispatch(expandActions.changeStatusExpandAll('expanded'));
                     },
                     'expanded': () => {
                         dispatch(productActions.collapseAllProducts());
-                        dispatch(changeStatusExpandAll('collapsed'));
+                        dispatch(expandActions.changeStatusExpandAll('collapsed'));
                     }
                 };
 
