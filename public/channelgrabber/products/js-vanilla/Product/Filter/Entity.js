@@ -70,11 +70,7 @@ define([
 
         var parentProductId = this.getParentProductId();
         if (parentProductId) {
-            if(parentProductId.constructor === Array){
-                object['parentProductId'] = parentProductId;
-            }else{
-                object['parentProductId'] = [parentProductId];
-            }
+            object['parentProductId'] = formatParentProductId(parentProductId);
         }
 
         var id = this.getId();
@@ -101,3 +97,10 @@ define([
 
     return Entity;
 });
+
+function formatParentProductId(parentProductId) {
+    if (parentProductId.constructor === Array) {
+        return parentProductId;
+    }
+    return[parentProductId];
+}
