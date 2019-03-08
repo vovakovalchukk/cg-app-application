@@ -254,16 +254,6 @@ function changeExpandStatusForId(products, productId, desiredStatus) {
     return products;
 }
 
-function changeExpandStatusForIds(products, productIds, desiredStatus) {
-    let productWithSameId = {};
-    for(let id of productIds){
-//        products[id].expandStatus = desiredStatus;
-        products.find(product => (product.id === id)).expandStatus = desiredStatus;
-    }
-    debugger;
-    return products;
-}
-
 function applyFetchingStatusToVariations(variationsByParent, skusToFindLinkedProductsFor, DESIRED_LINK_STATUS) {
     Object.keys(variationsByParent).map(parentId => {
         let variations = variationsByParent[parentId];

@@ -84,18 +84,23 @@ var actionCreators = (function() {
         });
     };
 
+    const expandHandler = (shouldNotExpand, isMultipleProducts, dispatch, productIds) => {
+        if (shouldNotExpand) {
+            return;
+        }
+        if (isMultipleProducts) {
+            dispatch(expandProductsSuccess(productIds));
+            return;
+        }
+        dispatch(expandProductSuccess(productIds));
+    };
+
     const handleNewVariations = (data, productIds, dispatch, isMultipleProducts, shouldNotExpand) => {
         $('#products-loading-message').hide();
         let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
         dispatch(getProductVariationsRequestSuccess(variationsByParent));
 
-        if(!shouldNotExpand){
-            if (isMultipleProducts) {
-                dispatch(expandProductsSuccess(productIds));
-            } else {
-                dispatch(expandProductSuccess(productIds));
-            }
-        }
+        expandHandler(shouldNotExpand, isMultipleProducts, dispatch, productIds);
 
         let skusFromData = getSkusFromData(data);
         dispatch(productLinkActions.getLinkedProducts(skusFromData));
@@ -171,7 +176,6 @@ var actionCreators = (function() {
             return async function(dispatch, getState) {
                 let productIdsToExpand = stateUtility.getAllParentProductIds(getState().products);
 
-                // todo - determine if we have variations for these already.. if so do not fetch again.
                 if (!haveFetchedAlready) {
                     return await actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
                 }
