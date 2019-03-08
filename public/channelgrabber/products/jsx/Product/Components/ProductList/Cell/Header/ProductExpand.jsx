@@ -25,6 +25,7 @@ class ProductExpandHeader extends React.Component {
                     <ExpandIcon
                         expandStatus={expand.expandAllStatus}
                         noLoader={true}
+                        iconColor={'white'}
                     />
                 </ExpandLink>
             </ExpandIconContainer>
