@@ -90,7 +90,7 @@ var ProductsReducer = reducerCreator(initialState, {
         let currentVisibleProducts = state.visibleRows.slice();
         let {productIdsToExpand} = action.payload;
 
-        for(let id of productIdsToExpand){
+        for (let id of productIdsToExpand) {
             currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, id, state);
         }
 
@@ -99,11 +99,11 @@ var ProductsReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    "ALL_PRODUCTS_COLLAPSE": function(state, action){
+    "ALL_PRODUCTS_COLLAPSE": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
         let parentProductIds = stateUtility.getAllParentProductIds(state);
 
-        for(let id of parentProductIds){
+        for (let id of parentProductIds) {
             currentVisibleProducts = collapseSingleProduct(currentVisibleProducts, id, state);
         }
 

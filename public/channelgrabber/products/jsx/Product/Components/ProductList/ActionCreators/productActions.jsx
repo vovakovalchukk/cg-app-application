@@ -150,7 +150,7 @@ var actionCreators = (function() {
                 }
                 dispatch(productLinkActions.getLinkedProducts());
 
-                if(state.accounts.features.preFetchVariations){
+                if (state.accounts.features.preFetchVariations) {
                     dispatch(actionCreators.dispatchGetAllVariations());
                 }
 
@@ -213,7 +213,7 @@ var actionCreators = (function() {
             }
         },
         dispatchGetAllVariations: () => {
-            return async function(dispatch, getState){
+            return async function(dispatch, getState) {
                 let productIds = stateUtility.getAllParentProductIds(getState().products);
                 let filter = new ProductFilter(null, productIds);
                 await AjaxHandler.fetchByFilter(filter, data => {

@@ -31,13 +31,13 @@ export default (function() {
                 return getHeaderTextWithMetricInfo(column, userSettings);
             }
             let CellContent = {};
-            if(cells[column.key]){
+            if (cells[column.key]) {
                 CellContent = cells[column.key]
                 return (<HeaderCellContainer>
                     <CellContent {...column}/>
                 </HeaderCellContainer>);
             }
-            return  (
+            return (
                 <HeaderCellContainer title={column.headerText}>
                     {column.headerText}
                 </HeaderCellContainer>

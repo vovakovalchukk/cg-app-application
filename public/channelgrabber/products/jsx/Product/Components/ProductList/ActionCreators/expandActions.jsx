@@ -3,7 +3,7 @@ import stateUtility from "Product/Components/ProductList/stateUtility";
 
 let expandActions = (function() {
     return {
-        changeStatusExpandAll : (desiredStatus) => {
+        changeStatusExpandAll: (desiredStatus) => {
             return {
                 type: "EXPAND_ALL_STATUS_CHANGE",
                 payload: {
@@ -24,7 +24,7 @@ let expandActions = (function() {
 
                         let haveFetchedAlready = checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParentIds);
 
-                        if(!haveFetchedAlready){
+                        if (!haveFetchedAlready) {
                             dispatch(expandActions.changeStatusExpandAll('loading'));
                         }
                         await dispatch(productActions.expandAllProducts(haveFetchedAlready));
@@ -45,7 +45,7 @@ let expandActions = (function() {
 export default expandActions;
 
 function checkIfAllVariationsHaveBeenFetchedAlready(variationsByParent, allParentIds) {
-    if(!Object.keys(variationsByParent).length){
+    if (!Object.keys(variationsByParent).length) {
         return false;
     }
     for (let parentProductId of allParentIds) {
