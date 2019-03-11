@@ -497,12 +497,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "6ec38accbdf2402ff92d705628c1056b017c3298"
+                "reference": "4b5e11ef5d441cd295a6586ba24f0c93eb3c9d33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10410-new-pricing-scheme-af7179.zip",
-                "reference": "6ec38accbdf2402ff92d705628c1056b017c3298",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10410-new-pricing-scheme-f1a0ba.zip",
+                "reference": "4b5e11ef5d441cd295a6586ba24f0c93eb3c9d33",
                 "shasum": null
             },
             "require": {
@@ -556,7 +556,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-03-11T13:27:54+00:00"
+            "time": "2019-03-11T14:55:27+00:00"
         },
         {
             "name": "channelgrabber/cache",
