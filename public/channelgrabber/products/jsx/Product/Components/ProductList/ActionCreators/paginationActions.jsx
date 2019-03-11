@@ -1,4 +1,5 @@
 import productActions from 'Product/Components/ProductList/ActionCreators/productActions';
+import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
 
 "use strict";
 
@@ -18,6 +19,7 @@ let paginationActions = (function() {
                 let {searchTerm} = state.search;
                 await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));
                 dispatch(productActions.moveVerticalScrollbarToTop());
+                dispatch(rowActions.updateRowsForPortals());
             }
         },
         changeLimit: desiredLimit => {

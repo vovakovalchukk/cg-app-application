@@ -19,7 +19,12 @@ const mapStateToProps = function(state) {
         bulkSelect: state.bulkSelect,
         rows: state.rows,
         userSettings: state.userSettings,
-        search: state.search
+        search: state.search,
+        scroll: state.scroll,
+        detail: state.detail,
+        pickLocations: state.pickLocations,
+        name: state.name,
+        focus: state.focus
     };
 };
 

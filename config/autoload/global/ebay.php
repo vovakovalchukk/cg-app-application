@@ -1,7 +1,8 @@
 <?php
 
-use CG\Ebay\Listing\CreateData\StorageInterface as ListingDataStorage;
+use CG\Ebay\Account\UserDetailsService;
 use CG\Ebay\Listing\CreateData\Storage\Redis as ListingDataStorageRedis;
+use CG\Ebay\Listing\CreateData\StorageInterface as ListingDataStorage;
 use CG\Ebay\ListingImport;
 
 return [
@@ -20,6 +21,11 @@ return [
                     'gearmanClient' => 'ebayGearmanClient'
                 ]
             ],
+            UserDetailsService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ]
         ]
     ]
 ];

@@ -1,5 +1,5 @@
 import React from 'react';
-import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import StatelessSelect from 'Common/Components/Select--stateless';
 import styled from 'styled-components';
 
 const StockModesContainer = styled.div`
@@ -12,13 +12,17 @@ const StockModeValue = styled.input`
 
 class StockModeInputsComponent extends React.Component {
     static defaultProps = {
+        actions: {},
         stockModeOptions: null,
         stockModeType: '',
+        stockAmount: {},
         onChange: null,
         value: "",
         classNames: null,
         className: '',
-        portalSettingsForSelect: {}
+        portalSettingsForSelect: {},
+        stockLevelPlaceholder: '',
+        stockModeSelectToggle: () => {}
     };
 
     stockAmountShouldBeDisabled = (stockModeTypeValue) => {
@@ -46,29 +50,30 @@ class StockModeInputsComponent extends React.Component {
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
 
-            let formattedOption;
+            let formattedOption = {};
 
-
-            if (option.title.indexOf('List all') > -1) {
-                formattedOption = option;
+            if (option.value == 'null' || option.title.indexOf('List all') > -1) {
+                formattedOption = {
+                    title: option.title,
+                    value: option.value
+                };
+                shortenedOptions.push(formattedOption);
+                continue;
             }
             if (option.title.indexOf('List up to a') > -1) {
                 formattedOption = {
                     title: 'List up to',
                     value: option.value
-                }
+                };
             }
             if (option.title.indexOf('Fix') > -1) {
                 formattedOption = {
                     title: 'Fixed at',
                     value: option.value
-                }
+                };
             }
-            if (option.value == 'null') {
-                formattedOption.value == option.value;
-                formattedOption.title = 'Default ('+ formattedOption.title+')';
-            }
-            shortenedOptions.push(formattedOption)
+
+            shortenedOptions.push(formattedOption);
         }
         return shortenedOptions;
     };
@@ -107,14 +112,11 @@ class StockModeInputsComponent extends React.Component {
                         selectToggle={this.props.stockModeSelectToggle}
                         actions={this.props.actions}
                         styleVars={{
-                           widthOfDropdown: 100,
                             widthOfInput: 80
                         }}
                     />
                 </div>
-                <div className={"c-stock-mode-input__amount-container"}
-                     key={'stockModeContainerDiv-' + this.props.inputId}
-                >
+                <div className={"c-stock-mode-input__amount-container"}>
                     <div className={'safe-input-box'}>
                         <div className={'submit-input'}>
                             <StockModeValue

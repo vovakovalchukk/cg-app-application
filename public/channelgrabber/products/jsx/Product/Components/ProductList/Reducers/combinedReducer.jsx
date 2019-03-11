@@ -12,6 +12,11 @@ import vatReducer from 'Product/Components/ProductList/Reducers/vatReducer';
 import bulkSelectReducer from 'Product/Components/ProductList/Reducers/bulkSelectReducer';
 import rowsReducer from 'Product/Components/ProductList/Reducers/rowsReducer';
 import userSettingsReducer from 'Product/Components/ProductList/Reducers/userSettingsReducer';
+import scrollReducer from 'Product/Components/ProductList/Reducers/scrollReducer';
+import detailReducer from 'Product/Components/ProductList/Reducers/detailReducer';
+import pickLocationsReducer from 'Product/Components/ProductList/Reducers/pickLocationsReducer';
+import nameReducer from 'Product/Components/ProductList/Reducers/nameReducer';
+import focusReducer from 'Product/Components/ProductList/Reducers/focusReducer';
 
 var appReducer = combineReducers({
     products: productsReducer,
@@ -26,7 +31,12 @@ var appReducer = combineReducers({
     vat: vatReducer,
     bulkSelect: bulkSelectReducer,
     rows: rowsReducer,
-    userSettings: userSettingsReducer
+    userSettings: userSettingsReducer,
+    scroll: scrollReducer,
+    detail: detailReducer,
+    pickLocations: pickLocationsReducer,
+    name: nameReducer,
+    focus: focusReducer
 });
 
 const combinedReducer = (state, action) => {

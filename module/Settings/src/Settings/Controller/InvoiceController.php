@@ -1,7 +1,7 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Account\Client\Filter;
+use CG\Account\Shared\Filter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
@@ -31,6 +31,7 @@ use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -54,6 +55,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
+
+    const INCLUDE_INVISIBLE_CHANNELS = true;
 
     /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
@@ -191,7 +194,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setDeleted(0)
             ->setType(ChannelType::SALES)
             ->setLimit("all");
-        $accounts = $this->accountService->fetchByFilter($filter);
+        $accounts = $this->accountService->fetchByFilter($filter, static::INCLUDE_INVISIBLE_CHANNELS);
         $dataTablesData = $this->invoiceMappings->getInvoiceMappingDataTablesData($accounts, $invoices);
 
         $data = [
@@ -226,6 +229,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->addChild($this->getInvoiceSettingsItemSkuCheckboxView($invoiceSettings), 'itemSkuCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getInvoiceSettingsItemBarcodesCheckboxView($invoiceSettings), 'itemBarcodesCheckbox')
+            ->addChild($this->getInvoiceSettingsItemVariationAttributesCheckboxView($invoiceSettings), 'itemVariationAttributesCheckbox')
             ->addChild($this->getInvoiceSettingsEmailSendAsView($invoiceSettings), 'emailSendAsInput')
             ->addChild($this->getInvoiceSettingsCopyRequiredView($invoiceSettings), 'copyRequiredCheckbox')
             ->addChild($this->getInvoiceSettingsEmailBccView($invoiceSettings), 'emailBccInput')
@@ -448,6 +452,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'itemBarcodes',
                     'name' => 'itemBarcodes',
                     'selected' => $invoiceSettings->getItemBarcodes(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsItemVariationAttributesCheckboxView(InvoiceSettingsEntity $invoiceSettings): ViewModel
+    {
+        return $this->viewModelFactory
+            ->newInstance(
+                [
+                    'id' => 'itemVariationAttributes',
+                    'name' => 'itemVariationAttributes',
+                    'selected' => $invoiceSettings->getItemVariationAttributes(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');
