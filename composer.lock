@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aea78723a0a84342c00020f47b2e06ce",
+    "content-hash": "cb8e5cee553edeffed1b35d3b245ce17",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.7",
+            "version": "dev-CGIV-10410-new-pricing-scheme",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "8d4050534908347605170907c9ee50d61dfa15d3"
+                "reference": "6ec38accbdf2402ff92d705628c1056b017c3298"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.7-651e0f.zip",
-                "reference": "8d4050534908347605170907c9ee50d61dfa15d3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10410-new-pricing-scheme-af7179.zip",
+                "reference": "6ec38accbdf2402ff92d705628c1056b017c3298",
                 "shasum": null
             },
             "require": {
@@ -556,7 +556,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-02-11T15:35:57+00:00"
+            "time": "2019-03-11T13:27:54+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -11038,9 +11038,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.20.8",
+            "alias_normalized": "1.20.8.0",
+            "version": "dev-CGIV-10410-new-pricing-scheme",
+            "package": "channelgrabber/billing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
