@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb8e5cee553edeffed1b35d3b245ce17",
+    "content-hash": "3cee2201bf457e10d9390caca8f7564f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-CGIV-10410-new-pricing-scheme",
+            "version": "1.20.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "4b5e11ef5d441cd295a6586ba24f0c93eb3c9d33"
+                "reference": "7ac0083575cf860dbf9ecd1bb090946cc2d08e06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10410-new-pricing-scheme-f1a0ba.zip",
-                "reference": "4b5e11ef5d441cd295a6586ba24f0c93eb3c9d33",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.8-d48335.zip",
+                "reference": "7ac0083575cf860dbf9ecd1bb090946cc2d08e06",
                 "shasum": null
             },
             "require": {
@@ -556,7 +556,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-03-11T14:55:27+00:00"
+            "time": "2019-03-11T16:25:30+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -11038,17 +11038,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.8",
-            "alias_normalized": "1.20.8.0",
-            "version": "dev-CGIV-10410-new-pricing-scheme",
-            "package": "channelgrabber/billing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
