@@ -3742,12 +3742,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "9206940736501e4dcfbdd002aa922f3f9a612e66"
+                "reference": "7c936ebe3c9a783b2e63ecceff6d743d4727f324"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-348-walmart-unimported-listings-4197cf.zip",
-                "reference": "9206940736501e4dcfbdd002aa922f3f9a612e66",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-348-walmart-unimported-listings-9bc93c.zip",
+                "reference": "7c936ebe3c9a783b2e63ecceff6d743d4727f324",
                 "shasum": null
             },
             "require": {
@@ -3771,7 +3771,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-03-11T09:51:39+00:00"
+            "time": "2019-03-11T15:56:27+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
