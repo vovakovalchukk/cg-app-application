@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfa18d267058859b220fb511ca5943c1",
+    "content-hash": "eb36a79cc52dba0fee6723685e1c76da",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2639,16 +2639,16 @@
         },
         {
             "name": "channelgrabber/purchase-order",
-            "version": "dev-TAC-327-po-low-stock-products",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purchase-order.git",
-                "reference": "c9edbe66754b01866e63002ab1a32cdb0dbb8d7a"
+                "reference": "0b574a9ae1176ebd0695db6e5d26c0db4bae4f70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-dev-TAC-327-po-low-stock-products-fe7b9d.zip",
-                "reference": "c9edbe66754b01866e63002ab1a32cdb0dbb8d7a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purchase-order/channelgrabber-purchase-order-1.0.2-2966b8.zip",
+                "reference": "0b574a9ae1176ebd0695db6e5d26c0db4bae4f70",
                 "shasum": null
             },
             "require": {
@@ -2666,7 +2666,7 @@
                 "commercial"
             ],
             "description": "Composer library for supporting purchase order code",
-            "time": "2019-02-13T09:55:44+00:00"
+            "time": "2019-03-11T15:19:02+00:00"
         },
         {
             "name": "channelgrabber/purge",
@@ -2975,16 +2975,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-TAC-325-low-stock-threshold",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "44e20dd81b860ec4b5b2bbe1443586adb1009719"
+                "reference": "8f685cfa8b01fbd6e237d8f3ac0552ef4c8c599d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-dev-TAC-325-low-stock-threshold-c4f588.zip",
-                "reference": "44e20dd81b860ec4b5b2bbe1443586adb1009719",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/settings/channelgrabber-settings-1.7.0-809c38.zip",
+                "reference": "8f685cfa8b01fbd6e237d8f3ac0552ef4c8c599d",
                 "shasum": null
             },
             "require": {
@@ -3008,7 +3008,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2019-03-07T10:33:02+00:00"
+            "time": "2019-03-11T15:16:09+00:00"
         },
         {
             "name": "channelgrabber/shipstation",
@@ -3284,16 +3284,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-TAC-325-low-stock-threshold",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "d71dd5e013a69ca346634e5fcbd22422205a8ee6"
+                "reference": "025b53c9e08a49cc8d6a6b00840744d3b13e5608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-TAC-325-low-stock-threshold-53b36b.zip",
-                "reference": "d71dd5e013a69ca346634e5fcbd22422205a8ee6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.16.0-b7f167.zip",
+                "reference": "025b53c9e08a49cc8d6a6b00840744d3b13e5608",
                 "shasum": null
             },
             "require": {
@@ -3328,11 +3328,6 @@
                 "phpunit/phpunit": "~6.0.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-TAC-325-low-stock-threshold": "1.15.*-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Stock\\": "src"
@@ -3345,7 +3340,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-03-07T10:33:35+00:00"
+            "time": "2019-03-11T15:12:13+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -11038,32 +11033,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-TAC-327-po-low-stock-products",
-            "package": "channelgrabber/purchase-order"
-        },
-        {
-            "alias": "1.7.0",
-            "alias_normalized": "1.7.0.0",
-            "version": "dev-TAC-325-low-stock-threshold",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.15.2",
-            "alias_normalized": "1.15.2.0",
-            "version": "dev-TAC-325-low-stock-threshold",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/purchase-order": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
