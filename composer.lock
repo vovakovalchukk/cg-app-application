@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dd9ec6d60cb50cd08483d3afa6c32fb",
+    "content-hash": "a4b21e2bc1d91846c690cd8d7950aeef",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -497,12 +497,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "cf41f577eaa0fe80cf578563d07e37a6b5008259"
+                "reference": "63b4056aa6c2b2a71a7f34d8c7845a2040a145a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10303-default-billing-duration-monthly-9de2eb.zip",
-                "reference": "cf41f577eaa0fe80cf578563d07e37a6b5008259",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10303-default-billing-duration-monthly-9da679.zip",
+                "reference": "63b4056aa6c2b2a71a7f34d8c7845a2040a145a3",
                 "shasum": null
             },
             "require": {
@@ -556,7 +556,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-03-11T15:16:03+00:00"
+            "time": "2019-03-12T10:18:00+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3560,16 +3560,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "c6068013e68e80a8e6240aa3255bbd2db46f2375"
+                "reference": "32b3cf5b12398593dbc41a28107f57c450ed0bf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10303-default-billing-duration-monthly-418078.zip",
-                "reference": "c6068013e68e80a8e6240aa3255bbd2db46f2375",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10303-default-billing-duration-monthly-46a595.zip",
+                "reference": "32b3cf5b12398593dbc41a28107f57c450ed0bf0",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-CGIV-10303-default-billing-duration-monthly as 1.20.8",
+                "channelgrabber/billing": "dev-CGIV-10303-default-billing-duration-monthly as 1.20.9",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/settings": "^1.5.5",
@@ -3597,7 +3597,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2019-03-11T15:18:02+00:00"
+            "time": "2019-03-12T10:21:59+00:00"
         },
         {
             "name": "channelgrabber/user",
@@ -11045,8 +11045,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.20.8",
-            "alias_normalized": "1.20.8.0",
+            "alias": "1.20.9",
+            "alias_normalized": "1.20.9.0",
             "version": "dev-CGIV-10303-default-billing-duration-monthly",
             "package": "channelgrabber/billing"
         },
