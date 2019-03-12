@@ -27,6 +27,7 @@ import ItemRow from 'Common/Components/ItemRow';
                                     onSkuChange={this.props.onSkuChanged}
                                     onStockQuantityUpdate={this.props.onStockQuantityUpdated}
                                     onRowRemove={this.props.onRowRemove}
+                                    showStockColumn={true}
                                 />
                             );
                         }.bind(this))}

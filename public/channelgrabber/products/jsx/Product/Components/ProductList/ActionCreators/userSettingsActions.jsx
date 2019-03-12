@@ -17,6 +17,15 @@ let userSettingsActions = (function() {
                     stockLevelDefault
                 }
             }
+        },
+        storeLowStockThresholdDefaults: (lowStockThresholdDefault) => {
+            return {
+                type: "LOW_STOCK_DEFAULT_THRESHOLD",
+                payload: {
+                    lowStockThresholdToggle: lowStockThresholdDefault.toggle,
+                    lowStockThresholdValue: lowStockThresholdDefault.value
+                }
+            }
         }
     };
 })();

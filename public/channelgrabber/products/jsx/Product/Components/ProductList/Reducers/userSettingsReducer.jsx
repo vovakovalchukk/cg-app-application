@@ -6,7 +6,9 @@ let initialState = {
     massUnit: '',
     lengthUnit: '',
     stockModeDefault: '',
-    stockLevelDefault: ''
+    stockLevelDefault: '',
+    lowStockThresholdToggle: false,
+    lowStockThresholdValue: null
 };
 
 var userSettingsReducer = reducerCreator(initialState, {
@@ -25,6 +27,9 @@ var userSettingsReducer = reducerCreator(initialState, {
             stockLevelDefault
         });
         return newState;
+    },
+    "LOW_STOCK_DEFAULT_THRESHOLD": function(state, action) {
+        return Object.assign({}, state, action.payload);
     }
 });
 

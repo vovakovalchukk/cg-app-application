@@ -38,12 +38,28 @@ class StockJsonController extends AbstractActionController
     {
         $defaultStockMode = $this->params()->fromPost('defaultStockMode', StockMode::LIST_ALL);
         $defaultStockLevel = $this->params()->fromPost('defaultStockLevel', null);
+
+        $lowStockThresholdOn = $this->params()->fromPost('low-stock-threshold-toggle', null) === 'on';
+        $lowStockThresholdValue = $this->params()->fromPost('low-stock-threshold-value', null);
+
         if ($defaultStockMode != StockMode::LIST_ALL && (!is_numeric($defaultStockLevel) || (int)$defaultStockLevel < 0)) {
             throw new \InvalidArgumentException('Default stock level must be a number >= 0');
         }
+
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $ouList = $this->userOUService->getAncestorOrganisationUnitIdsByActiveUser();
-        $this->service->saveDefaults($rootOu, $ouList, $defaultStockMode, $defaultStockLevel);
+
+        $includePurchaseOrders = filter_var($this->params()->fromPost('includePurchaseOrdersInAvailable', false), FILTER_VALIDATE_BOOLEAN);
+
+        $this->service->saveDefaults(
+            $rootOu,
+            $ouList,
+            $defaultStockMode,
+            $defaultStockLevel,
+            $includePurchaseOrders,
+            $lowStockThresholdOn,
+            $lowStockThresholdValue
+        );
 
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);
     }
