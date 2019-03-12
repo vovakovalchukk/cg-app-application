@@ -4,6 +4,9 @@ import CreateListingPopupRoot from 'Product/Components/CreateListing/CreateListi
 import CreateProductRoot from 'Product/Components/CreateProduct/CreateProductRoot'
 import AccountSelectionRoot from 'Product/Components/CreateListing/AccountSelectionRoot'
 import ProductListProvider from 'Product/Components/ProductList/Provider'
+
+import LoadingSpinner from 'Common/Components/LoadingSpinner'
+
 "use strict";
 
 const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
@@ -214,21 +217,29 @@ class RootComponent extends React.Component {
     };
 
     renderProductListView = () => {
+
         return (
-            <div>
-                <ProductListProvider
-                    features={this.props.features}
-                    addNewProductButtonClick={this.addNewProductButtonClick}
-                    onCreateNewListingIconClick={this.onCreateListingIconClick}
-                    stockModeOptions={this.props.stockModeOptions}
-                    massUnit={this.props.massUnit}
-                    lengthUnit={this.props.lengthUnit}
-                    vatRates={this.props.taxRates}
-                    pickLocations={this.props.pickLocations}
-                    pickLocationValues={this.props.pickLocationValues}
+            <div className={"move-down"}>
+                <LoadingSpinner
+                    loaderStyle={''}
                 />
             </div>
         )
+//        return (
+//            <div>
+//                <ProductListProvider
+//                    features={this.props.features}
+//                    addNewProductButtonClick={this.addNewProductButtonClick}
+//                    onCreateNewListingIconClick={this.onCreateListingIconClick}
+//                    stockModeOptions={this.props.stockModeOptions}
+//                    massUnit={this.props.massUnit}
+//                    lengthUnit={this.props.lengthUnit}
+//                    vatRates={this.props.taxRates}
+//                    pickLocations={this.props.pickLocations}
+//                    pickLocationValues={this.props.pickLocationValues}
+//                />
+//            </div>
+//        )
     };
 
     render() {

@@ -1557,7 +1557,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10397-expand-all-variations-on-the-products-page":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#97bd8ed8cff560c031373a770fee839546709311"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#f11439ec96863ddae0575522612d37eee4cf2080"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
