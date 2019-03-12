@@ -13,6 +13,7 @@ use CG\Locale\PhoneNumber;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Client\Service as ProductClientService;
+use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -27,6 +28,7 @@ use Products\Product\Service as ProductService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
+use Settings\Controller\StockController;
 use Settings\PickList\Service as PickListService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -144,9 +146,20 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 PickListService::FEATURE_FLAG_PICK_LOCATIONS,
                 $rootOuId,
                 $rootOu
+            ),
+            'poStockInAvailableEnabled' => $this->featureFlagService->featureEnabledForOu(
+                ProductSettingsService::FEATURE_FLAG_PO_STOCK_IN_AVAILABLE,
+                $rootOuId,
+                $rootOu
+            ),
+            'lowStockThresholdEnabled' => $this->featureFlagService->featureEnabledForOu(
+                StockController::FEATURE_FLAG_LOW_STOCK_THRESHOLD,
+                $rootOuId,
+                $rootOu
             )
         ]));
         $view->setVariable('stockModeOptions', $this->stockSettingsService->getStockModeOptions());
+        $view->setVariable('incPOStockInAvailableOptions', $this->stockSettingsService->getIncPOStockInAvailableOptions());
         $view->setVariable('taxRates', $this->taxRateService->getTaxRatesOptionsForOuWithDefaultsSelected($rootOu));
         $view->setVariable('ebaySiteOptions', EbaySiteMap::getIdToNameMap());
         $view->setVariable('conditionOptions', ChannelItemConditionMap::getCgConditions());
