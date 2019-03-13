@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb36a79cc52dba0fee6723685e1c76da",
+    "content-hash": "4680e2d393a4e0b8723635d179458f31",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3284,16 +3284,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.16.0",
+            "version": "dev-CGIV-10455-fix-create-product",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "025b53c9e08a49cc8d6a6b00840744d3b13e5608"
+                "reference": "12a5ea9cc1b81559af4374b5b3d115717686ddf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.16.0-b7f167.zip",
-                "reference": "025b53c9e08a49cc8d6a6b00840744d3b13e5608",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-CGIV-10455-fix-create-product-ddd16a.zip",
+                "reference": "12a5ea9cc1b81559af4374b5b3d115717686ddf5",
                 "shasum": null
             },
             "require": {
@@ -3340,7 +3340,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-03-11T15:12:13+00:00"
+            "time": "2019-03-13T11:31:19+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -11033,10 +11033,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.0.1",
+            "alias_normalized": "1.16.0.1",
+            "version": "dev-CGIV-10455-fix-create-product",
+            "package": "channelgrabber/stock"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
