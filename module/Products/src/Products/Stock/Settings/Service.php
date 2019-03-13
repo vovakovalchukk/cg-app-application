@@ -8,13 +8,17 @@ use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Settings\Product\Entity as ProductSettings;
 use CG\Settings\Product\Service as ProductSettingsService;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stock\Entity as Stock;
+use CG\Stock\Gearman\Generator\LowStockThresholdUpdate as LowStockThresholdUpdateGenerator;
 use CG\Stock\Mode as StockMode;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\OrganisationUnit\Service as UserOUService;
 
 class Service
 {
+    const MAX_SAVE_ATTEMPTS = 3;
+
     /** @var UserOUService */
     protected $userOUService;
     /** @var ProductSettingsService */
@@ -23,38 +27,36 @@ class Service
     protected $productService;
     /** @var StockStorage $stockStorage */
     protected $stockStorage;
-
     /** @var ProductSettings $productSettings */
     protected $productSettings;
     /** @var array $stockModeOptions */
     protected $stockModeOptions;
+    /** @var LowStockThresholdUpdateGenerator */
+    protected $lowStockThresholdUpdateGenerator;
+    /** @var array */
+    protected $incPOStockInAvailableOptions;
 
     public function __construct(
         UserOUService $userOUService,
         ProductSettingsService $productSettingsService,
         ProductService $productService,
-        StockStorage $stockStorage
+        StockStorage $stockStorage,
+        LowStockThresholdUpdateGenerator $lowStockThresholdUpdateGenerator
     ) {
-        $this
-            ->setUserOUService($userOUService)
-            ->setProductSettingsService($productSettingsService)
-            ->setProductService($productService)
-            ->setStockStorage($stockStorage);
+        $this->userOUService = $userOUService;
+        $this->productSettingsService = $productSettingsService;
+        $this->productService = $productService;
+        $this->stockStorage = $stockStorage;
+        $this->lowStockThresholdUpdateGenerator = $lowStockThresholdUpdateGenerator;
     }
 
-    /**
-     * @return array
-     */
-    public function getStockModeOptionsForStock(Stock $stock = null)
+    public function getStockModeOptionsForStock(Stock $stock = null): array
     {
         $stockMode = $stock ? $stock->getStockMode() : null;
         return $this->getStockModeOptions($stockMode ?: 'null');
     }
 
-    /**
-     * @return array
-     */
-    public function getStockModeOptionsForProduct(Product $product)
+    public function getStockModeOptionsForProduct(Product $product): array
     {
         return $this->getStockModeOptionsForStock(
             $this->getStockFromProduct($product)
@@ -95,10 +97,7 @@ class Service
         return $this->stockModeOptions;
     }
 
-    /**
-     * @return ProductSettings
-     */
-    protected function getProductSettings()
+    protected function getProductSettings(): ProductSettings
     {
         if ($this->productSettings) {
             return $this->productSettings;
@@ -108,25 +107,19 @@ class Service
         return $this->productSettings;
     }
 
-    /**
-     * @return string
-     */
-    public function getStockModeDecriptionForStock(Stock $stock = null)
+    public function getStockModeDecriptionForStock(Stock $stock = null): ?string
     {
         return $this->getStockModeDecription($stock ? $stock->getStockMode() : null);
     }
 
-    /**
-     * @return string
-     */
-    public function getStockModeDecriptionForProduct(Product $product)
+    public function getStockModeDecriptionForProduct(Product $product): ?string
     {
         return $this->getStockModeDecriptionForStock(
             $this->getStockFromProduct($product)
         );
     }
 
-    protected function getStockModeDecription($stockMode = null)
+    protected function getStockModeDecription($stockMode = null): ?string
     {
         $stockMode = $stockMode ?: null;
         if (!$stockMode) {
@@ -141,31 +134,20 @@ class Service
         return $productSettings->getDefaultStockMode();
     }
 
+    public function getLowStockThresholdToggleDefault()
+    {
+        return $this->getProductSettings()->isLowStockThresholdOn();
+    }
+
+    public function getLowStockThresholdDefaultValue()
+    {
+        return $this->getProductSettings()->getLowStockThresholdValue();
+    }
+
     public function getStockLevelDefault()
     {
         $productSettings = $this->getProductSettings();
         return $productSettings->getDefaultStockLevel();
-    }
-
-    /**
-     * @return int|null Null returned if stockLevel is not applicable to this Product
-     */
-    public function getStockLevelForStock(Stock $stock = null)
-    {
-        return $this->getStockLevel(
-            $stock ? $stock->getStockMode() : null,
-            $stock ? $stock->getStockLevel() : null
-        );
-    }
-
-    /**
-     * @return int|null Null returned if stockLevel is not applicable to this Product
-     */
-    public function getStockLevelForProduct(Product $product)
-    {
-        return $this->getStockLevelForStock(
-            $this->getStockFromProduct($product)
-        );
     }
 
     protected function getStockLevel($stockMode = null, $stockLevel = null)
@@ -203,20 +185,14 @@ class Service
         }
     }
 
-    /**
-     * @return Stock
-     */
-    public function saveStockStockMode($stockId, $stockMode, $eTag = null)
+    public function saveStockStockMode($stockId, $stockMode, $eTag = null): Stock
     {
         $stock = $this->stockStorage->fetch($stockId);
         $this->saveStockMode($stock, $stockMode, $eTag);
         return $stock;
     }
 
-    /**
-     * @return array
-     */
-    public function saveProductStockMode($productId, $stockMode)
+    public function saveProductStockMode($productId, $stockMode): array
     {
         /** @var Product $product */
         $product = $this->productService->fetch($productId);
@@ -253,20 +229,57 @@ class Service
         }
     }
 
-    /**
-     * @return Stock
-     */
-    public function saveStockStockLevel($stockId, $stockLevel, $eTag = null)
+    public function saveProductLowStockThreshold(int $productId, string $toggle, ?int $value): array
+    {
+        /** @var Product $product */
+        $product = $this->productService->fetch($productId);
+        $products = $product->isParent() ? $product->getVariations() : [$product];
+
+        $toggle = Stock::isValidLowStockThresholdOption($toggle) ? $toggle : Stock::LOW_STOCK_THRESHOLD_DEFAULT;
+
+        $resultsById = [];
+        foreach ($products as $product) {
+            $stock = $this->saveLowStockThreshold($product->getStock()->getId(), $toggle, $value);
+            $resultsById[$product->getId()] = [
+                'lowStockThresholdToggle' => $stock->getLowStockThresholdOn(),
+                'lowStockThresholdValue' => $stock->getLowStockThresholdValue()
+            ];
+        }
+
+        return $resultsById;
+    }
+
+    protected function saveLowStockThreshold(int $stockId, ?string $toggle, ?int $value): Stock
+    {
+        for ($attempt = 0; $attempt < self::MAX_SAVE_ATTEMPTS; $attempt++) {
+            try {
+                /** @var Stock $stock */
+                $stock = $this->stockStorage->fetch($stockId);
+                $stock
+                    ->setLowStockThresholdOn($toggle)
+                    ->setLowStockThresholdValue($value);
+                $this->stockStorage->save($stock);
+                // Only generate the low stock threshold triggered job if the stock entity was updated
+                $this->lowStockThresholdUpdateGenerator->generateJob($stock->getId());
+                return $stock;
+            } catch (NotModified $e) {
+                return $stock;
+            } catch (Conflict $e) {
+                continue;
+            }
+        }
+
+        throw $e;
+    }
+
+    public function saveStockStockLevel($stockId, $stockLevel, $eTag = null): Stock
     {
         $stock = $this->stockStorage->fetch($stockId);
         $this->saveStockLevel($stock, $stockLevel, $eTag);
         return $stock;
     }
 
-    /**
-     * @return array
-     */
-    public function saveProductStockLevel($productId, $stockLevel)
+    public function saveProductStockLevel($productId, $stockLevel): array
     {
         /** @var Product $product */
         $product = $this->productService->fetch($productId);
@@ -290,10 +303,7 @@ class Service
         return $skuMap;
     }
 
-    /**
-     * @return Stock
-     */
-    protected function getStockFromProduct(Product $product)
+    protected function getStockFromProduct(Product $product): ?Stock
     {
         if (!$product->isParent()) {
             return $product->getStock();
@@ -335,39 +345,21 @@ class Service
         return $allZero;
     }
 
-    /**
-     * @return self
-     */
-    protected function setUserOUService(UserOUService $userOUService)
+    public function getIncPOStockInAvailableOptions(): array
     {
-        $this->userOUService = $userOUService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProductSettingsService(ProductSettingsService $productSettingsService)
-    {
-        $this->productSettingsService = $productSettingsService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setStockStorage(StockStorage $stockStorage)
-    {
-        $this->stockStorage = $stockStorage;
-        return $this;
+        if ($this->incPOStockInAvailableOptions) {
+            return $this->incPOStockInAvailableOptions;
+        }
+        $productSettings = $this->getProductSettings();
+        $defaultStockMode = $productSettings->isIncludePurchaseOrdersInAvailable();
+        $defaultStockModeTitle = ($defaultStockMode ? 'On' : 'Off');
+        $options = [
+            // Can't use any value that equates to false (e.g. '') as then custom-select will replace it with the title
+            ['value' => 'default', 'name' => 'Default (' . $defaultStockModeTitle . ')'],
+            ['value' => 'on', 'name' => 'On'],
+            ['value' => 'off', 'name' => 'Off'],
+        ];
+        $this->incPOStockInAvailableOptions = $options;
+        return $this->incPOStockInAvailableOptions;
     }
 }

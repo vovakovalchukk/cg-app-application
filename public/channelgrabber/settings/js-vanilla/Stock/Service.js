@@ -17,8 +17,9 @@ define([
         var init = function()
         {
             eventHandler = new EventHandler(this);
-            var form = new AjaxForm(notifications, EventHandler.SELECTOR_FORM);
+            new AjaxForm(notifications, EventHandler.SELECTOR_FORM);
             this.checkInitialStockMode();
+            this.checkInitialLowStockThresholdToggle();
         };
         init.call(this);
     }
@@ -31,6 +32,11 @@ define([
         this.defaultStockModeChanged(stockMode);
     };
 
+    Service.prototype.checkInitialLowStockThresholdToggle = function()
+    {
+        this.lowStockThresholdChanged($(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_TOGGLE).is(':checked'));
+    };
+
     Service.prototype.defaultStockModeChanged = function(stockMode)
     {
         if (stockMode == Service.STOCK_MODE_ALL) {
@@ -38,6 +44,17 @@ define([
         } else {
             $(EventHandler.SELECTOR_DEFAULT_STOCK_LEVEL).removeAttr('disabled').removeClass('disabled');
         }
+    };
+
+    Service.prototype.lowStockThresholdChanged = function(toggle)
+    {
+        let thresholdInput = $(EventHandler.SELECTOR_LOW_STOCK_THRESHOLD_INPUT);
+        if (toggle) {
+            thresholdInput.removeAttr('disabled').removeClass('disabled');
+            return;
+        }
+
+        thresholdInput.attr('disabled', 'disabled').addClass('disabled');
     };
 
     Service.prototype.save = function()
