@@ -3,7 +3,7 @@ import columnService from 'Product/Components/ProductList/Column/service';
     
     let columnActions = (function() {
         return {
-            generateColumnSettings: () => {
+            generateColumnSettings: (features) => {
                 return function(dispatch, getState) {
                     let accounts = getState.customGetters.getAccounts();
                     let columnSettings = columnService.generateColumnSettings(
@@ -19,7 +19,7 @@ import columnService from 'Product/Components/ProductList/Column/service';
                         }
                     });
                 }
-            },
+            }
         };
     })();
     
