@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4680e2d393a4e0b8723635d179458f31",
+    "content-hash": "892fd1671dbfb2a462ba93f8b4f25357",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3284,16 +3284,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-10455-fix-create-product",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "12a5ea9cc1b81559af4374b5b3d115717686ddf5"
+                "reference": "7ae00a1a516be0f735e951c0ec1283e3559d95da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-dev-CGIV-10455-fix-create-product-ddd16a.zip",
-                "reference": "12a5ea9cc1b81559af4374b5b3d115717686ddf5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.16.1-1ca6da.zip",
+                "reference": "7ae00a1a516be0f735e951c0ec1283e3559d95da",
                 "shasum": null
             },
             "require": {
@@ -3340,7 +3340,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-03-13T11:31:19+00:00"
+            "time": "2019-03-13T15:30:50+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -9806,7 +9806,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11033,18 +11034,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.0.1",
-            "alias_normalized": "1.16.0.1",
-            "version": "dev-CGIV-10455-fix-create-product",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
