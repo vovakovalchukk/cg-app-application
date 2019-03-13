@@ -13,13 +13,15 @@ const distanceElementMap = {
     // relative to the start of the row (at 0px).
     [elementTypes.INPUT_SAFE_SUBMITS] : ({distanceFromLeftSideOfTableToStartOfCell, width}) => (distanceFromLeftSideOfTableToStartOfCell + (width / 2)),
     [elementTypes.STOCK_MODE_SELECT_DROPDOWN] : ({distanceFromLeftSideOfTableToStartOfCell}) =>  (distanceFromLeftSideOfTableToStartOfCell + 15),
+    [elementTypes.LOW_STOCK_SELECT_DROPDOWN] : ({distanceFromLeftSideOfTableToStartOfCell}) =>  (distanceFromLeftSideOfTableToStartOfCell + 15),
     [elementTypes.SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {return distanceFromLeftSideOfTableToStartOfCell},
     [elementTypes.SELECT_VAT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {return distanceFromLeftSideOfTableToStartOfCell + 10},
     [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell,dimension}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension))
 };
 const elemTypeZIndexMap = {
     [elementTypes.SELECT_DROPDOWN]: 150,
-    [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: 150
+    [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: 150,
+    [elementTypes.LOW_STOCK_SELECT_DROPDOWN]: 150,
 };
 const translateElementMap = {
     [elementTypes.INPUT_SAFE_SUBMITS]: 'translateX(-50%)',
@@ -69,8 +71,8 @@ let portalSettingsFactory = (function() {
         return translateElementMap[elemType];
     }
 
-    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, detailForInput}) {
-        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell, width, detailForInput});
+    function getDistanceFromLeftSideOfTableToStartOfPortal({distanceFromLeftSideOfTableToStartOfCell, width, elemType, dimension}) {
+        return distanceElementMap[elemType]({distanceFromLeftSideOfTableToStartOfCell, width, dimension});
     }
 
     function getZIndexForWrapper(elemType) {
@@ -93,7 +95,7 @@ let portalSettingsFactory = (function() {
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             elemType,
-            detailForInput
+            dimension: detailForInput
         });
 
         let zIndexForWrapper = getZIndexForWrapper(elemType);

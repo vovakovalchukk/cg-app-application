@@ -45,7 +45,7 @@ let coreColumns = [
     },
     {
         key: 'available',
-        width: 80,
+        width: 70,
         fixed: true,
         headerText: 'Available',
         align: 'center'
@@ -83,12 +83,41 @@ let stockColumns = [
         headerText: 'Awaiting Dispatch',
         fixed: false,
         align: 'center'
+    },
+    {
+        key: 'onPurchaseOrder',
+        width: 80,
+        headerText: 'Purchase Order',
+        fixed: false,
+        tab: 'stock',
+        align: 'center'
+    },
+    {
+        key: 'includePurchaseOrdersInAvailable',
+        width: 200,
+        headerText: 'Include quantity on Purchase Orders in available stock',
+        fixed: false,
+        tab: 'stock',
+        align: 'center',
+        feature: 'poStockInAvailableEnabled'
+    },
+    {
+        key: 'lowStock',
+        width: 200,
+        headerText: 'Low stock threshold',
+        fixed: false,
+        tab: 'stock',
+        align: 'center',
+        feature: 'lowStockThresholdEnabled'
     }
 ];
 
 let columnService = (function() {
     return {
         generateColumnSettings: function(features, accounts, vat, pickLocationNames) {
+            const listingsColumns = generateListingsColumnsFromAccounts(accounts);
+            const vatColumns = generateVatColumns(vat);
+
             let tab = (tab, columns) => {
                 return columns.map((column) => {
                     column['tab'] = tab;
@@ -98,7 +127,7 @@ let columnService = (function() {
 
             let featureFilter = (column) => {
                 if (!column.hasOwnProperty('feature')) {
-                    return true
+                    return true;
                 }
                 if (!features.hasOwnProperty(column.feature)) {
                     return false;
@@ -107,9 +136,9 @@ let columnService = (function() {
             };
 
             return coreColumns.concat(
-                tab('listings', generateListingsColumnsFromAccounts(accounts)),
+                tab('listings', listingsColumns),
                 tab('details', detailsColumns),
-                tab('vat', generateVatColumns(vat)),
+                tab('vat', vatColumns),
                 tab('stock', stockColumns.concat([getPickLocationColumn(pickLocationNames)]))
             ).filter(featureFilter);
         }
@@ -154,17 +183,20 @@ function generateListingsColumnsFromAccounts(accounts) {
     }
 
     let channelSpecificColumns = [];
-    Object.keys(accounts).forEach((accountKey) => {
+    Object.keys(accounts).forEach((accountKey, index) => {
         let account = accounts[accountKey];
         if (!account.type.includes('sales') || account.channel === 'api') {
             return;
         }
+
+        let headerText = `${account.displayName} (${capitalize(account.channel)})`;
+
         channelSpecificColumns.push({
             key: 'ListingAccountCell-' + account.id,
             type: 'listingAccount',
             listingAccountId: account.id,
             width: 115,
-            headerText: capitalize(account.channel),
+            headerText,
             fixed: false,
             align: 'center'
         });
@@ -179,8 +211,7 @@ function generateListingsColumnsFromAccounts(accounts) {
         }
     ];
 
-    let listingColumns = channelSpecificColumns.concat(miscListingColumns);
-    return listingColumns;
+    return channelSpecificColumns.concat(miscListingColumns);
 }
 
 function capitalize(string) {

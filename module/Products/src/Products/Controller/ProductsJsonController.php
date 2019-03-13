@@ -17,9 +17,11 @@ use CG\Product\Csv\Link\Service as ProductLinkCsvService;
 use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
+use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
+use CG\Stock\Entity as Stock;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\User\ActiveUserInterface;
@@ -44,7 +46,9 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_PICK_LOCATIONS = 'PickLocation';
     const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_LEVEL = 'Stock Level';
+    const ROUTE_LOW_STOCK_THRESHOLD = 'Low stock threshold';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
+    const ROUTE_STOCK_INC_PURCHASE_ORDERS = 'stockIncludePurchaseOrders';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
@@ -148,25 +152,13 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->jsonModelFactory->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
-        $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
-        $limit = 'all';
-        if (
-            !array_key_exists('parentProductId', $filterParams)
-            && !array_key_exists('id', $filterParams)
-            && !array_key_exists('replaceVariationWithParent', $filterParams)
-        ) {
-            $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
-            $filterParams['replaceVariationWithParent'] = true;
-        }
-        if (!array_key_exists('deleted', $filterParams)) {
-            $filterParams['deleted'] = false;
-        }
-        $requestFilter = $this->filterMapper->fromArray($filterParams);
-        $requestFilter->setEmbedVariationsAsLinks(true);
+
+        $requestFilter = $this->buildFilter($filterParams);
+
         $total = 0;
         $productsArray = [];
         try {
-            $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
+            $products = $this->productService->fetchProducts($requestFilter, $requestFilter->getLimit(), $requestFilter->getPage());
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->fetchAccounts($organisationUnitIds);
             $accountsArray = $this->getAccountsIndexedById($accounts);
@@ -216,8 +208,36 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
             ->setVariable('productSearchActive', $productSearchActive)
             ->setVariable('productSearchActiveForVariations', $productSearchActiveForVariations)
-            ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
+            ->setVariable('pagination', ['page' => (int) $requestFilter->getPage(), 'limit' => (int) $requestFilter->getLimit(), 'total' => (int)$total]);
         return $view;
+    }
+
+    protected function buildFilter(array $filterParams): ProductFilter
+    {
+        $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
+        $limit = 'all';
+        $embedVariationsAsLinks = isset($filterParams['embedVariationsAsLinks']) ?
+            filter_var($filterParams['embedVariationsAsLinks'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
+            : true;
+
+        if (
+            !array_key_exists('parentProductId', $filterParams)
+            && !array_key_exists('id', $filterParams)
+            && !array_key_exists('replaceVariationWithParent', $filterParams)
+        ) {
+            $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
+            $filterParams['replaceVariationWithParent'] = true;
+        }
+        if (!array_key_exists('deleted', $filterParams)) {
+            $filterParams['deleted'] = false;
+        }
+
+        $requestFilter = $this->filterMapper->fromArray($filterParams)
+            ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
+            ->setLimit($limit)
+            ->setPage($page);
+
+        return $requestFilter;
     }
 
     protected function fetchAccounts($organisationUnitIds): AccountCollection
@@ -254,6 +274,10 @@ class ProductsJsonController extends AbstractActionController
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockLevelDefault' => $this->stockSettingsService->getStockLevelDefault(),
+            'lowStockThresholdDefault' => [
+                'toggle' => $this->stockSettingsService->getLowStockThresholdToggleDefault(),
+                'value' => $this->stockSettingsService->getLowStockThresholdDefaultValue()
+            ]
         ]);
 
         $images = array_column($productEntity->getImageIds(), 'id', 'order');
@@ -281,6 +305,12 @@ class ProductsJsonController extends AbstractActionController
 
         $product['variationCount'] = count($productEntity->getVariationIds());
         $product['variationIds'] = $productEntity->getVariationIds();
+        if (count($productEntity->getVariationIds()) > 0) {
+            /** @var ProductEntity $variation */
+            foreach ($productEntity->getVariations() as $variation) {
+                $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts, $rootOrganisationUnit, $merchantLocationIds);
+            }
+        }
 
         if (!$productEntity->getStock() || count($productEntity->getVariations())) {
             return $product;
@@ -416,6 +446,33 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
+    public function saveProductStockIncludePurchaseOrdersAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('productId');
+        $includePurchaseOrdersString = $this->params()->fromPost('includePurchaseOrders');
+        if ($includePurchaseOrdersString == 'default') {
+            $includePurchaseOrders = null;
+        } else {
+            $includePurchaseOrders = filter_var($includePurchaseOrdersString, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        }
+
+        $view = $this->jsonModelFactory->newInstance();
+        try {
+            $product = $this->productService->fetchProductById($productId);
+            $stock = $this->productService->saveStockIncludePurchaseOrdersForProduct($product, $includePurchaseOrders);
+            $view->setVariable('saved', true)
+                ->setVariable('includePurchaseOrders', $stock->isIncludePurchaseOrders())
+                ->setVariable('includePurchaseOrdersUseDefault', $stock->isIncludePurchaseOrdersUseDefault());
+        } catch (NotModified $e) {
+            $view->setVariable('code', StatusCode::NOT_MODIFIED);
+            $view->setVariable('message', $this->translator->translate('There were no changes to be saved'));
+        }
+
+        return $view;
+    }
+
     public function deleteCheckAction()
     {
         $this->checkUsage();
@@ -504,6 +561,20 @@ class ProductsJsonController extends AbstractActionController
 
         return $this->jsonModelFactory->newInstance(
             $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel)
+        );
+    }
+
+    public function saveLowStockThresholdAction()
+    {
+        $this->checkUsage();
+
+        $productId = $this->params()->fromPost('productId', 0);
+        $toggle = $this->params()->fromPost('lowStockThresholdToggle', Stock::LOW_STOCK_THRESHOLD_DEFAULT);
+        $value = $this->params()->fromPost('lowStockThresholdValue', null);
+        $value = filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+
+        return $this->jsonModelFactory->newInstance(
+            ['products' => $this->stockSettingsService->saveProductLowStockThreshold($productId, $toggle, $value)]
         );
     }
 

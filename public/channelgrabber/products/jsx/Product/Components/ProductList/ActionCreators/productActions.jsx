@@ -1,9 +1,11 @@
 import AjaxHandler from 'Product/Storage/Ajax';
-import ProductFilter from 'Product/Filter/Entity';
-import constants from 'Product/Components/ProductList/Config/constants';
-import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions';
-import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions';
-import stateUtility from 'Product/Components/ProductList/stateUtility';
+import ProductFilter from 'Product/Filter/Entity'
+import constants from 'Product/Components/ProductList/Config/constants'
+import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
+import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
+import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions'
+import stateUtility from 'Product/Components/ProductList/stateUtility'
+import stockActions from '../ActionCreators/stockActions';
 
 "use strict";
 
@@ -86,6 +88,14 @@ var actionCreators = (function() {
                 }
             }
         },
+        storeIncPOStockInAvailableOptions: (incPOStockInAvailableOptions) => {
+            return {
+                type: "INC_PO_STOCK_IN_AVAIL_STORE",
+                payload: {
+                    incPOStockInAvailableOptions
+                }
+            }
+        },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
                 pageNumber = pageNumber || 1;
@@ -101,13 +111,17 @@ var actionCreators = (function() {
                 } catch (err) {
                     throw 'Unable to load products... error: ' + err;
                 }
+
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
+                dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
+                dispatch(stockActions.storeLowStockThreshold(data.products));
                 return data;
             }
         },
@@ -163,6 +177,9 @@ var actionCreators = (function() {
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
+                dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
+                dispatch(stockActions.storeLowStockThreshold(data.products));
             }
         },
         dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
