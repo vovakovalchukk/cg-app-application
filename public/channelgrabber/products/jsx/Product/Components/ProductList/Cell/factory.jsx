@@ -15,7 +15,10 @@ import BulkSelectCell from 'Product/Components/ProductList/Cell/BulkSelect';
 import NoVatCell from 'Product/Components/ProductList/Cell/NoVat';
 import FixedDataTable from 'fixed-data-table-2';
 import AllocatedCell from 'Product/Components/ProductList/Cell/Allocated';
+import LowStock from 'Product/Components/ProductList/Cell/LowStock';
 import PickingLocationCell from 'Product/Components/ProductList/Cell/PickingLocation';
+import OnPurchaseOrderCell from 'Product/Components/ProductList/Cell/OnPurchaseOrder';
+import IncludePurchaseOrdersInAvailableCell from 'Product/Components/ProductList/Cell/IncludePurchaseOrdersInAvailable';
 import CostCell from 'Product/Components/ProductList/Cell/Cost';
 
 "use strict";
@@ -39,6 +42,9 @@ let cells = {
     noVat: NoVatCell,
     allocated: AllocatedCell,
     pickingLocation: PickingLocationCell,
+    onPurchaseOrder: OnPurchaseOrderCell,
+    includePurchaseOrdersInAvailable: IncludePurchaseOrdersInAvailableCell,
+    lowStock: LowStock,
     cost: CostCell
 };
 
