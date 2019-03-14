@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "892fd1671dbfb2a462ba93f8b4f25357",
+    "content-hash": "98e3769231af79b07b8643848084b1a1",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4913,16 +4913,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.4",
+            "version": "dev-TAC-354-auth-app-styling",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a365c2293e909460725618fc4298290f7fe623ef"
+                "reference": "11a6d066f614d9b8446bd326aef9cf1c2c3b14e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.4-c64a26.zip",
-                "reference": "a365c2293e909460725618fc4298290f7fe623ef",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-354-auth-app-styling-c3f4d0.zip",
+                "reference": "11a6d066f614d9b8446bd326aef9cf1c2c3b14e6",
                 "shasum": null
             },
             "require": {
@@ -4974,7 +4974,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-02-12T09:44:50+00:00"
+            "time": "2019-03-14T12:19:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -9806,8 +9806,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11034,10 +11033,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.26.5",
+            "alias_normalized": "1.26.5.0",
+            "version": "dev-TAC-354-auth-app-styling",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
