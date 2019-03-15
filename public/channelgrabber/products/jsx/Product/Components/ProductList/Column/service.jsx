@@ -73,6 +73,14 @@ let detailsColumns = [
         headerText: 'Dimensions',
         fixed: false,
         align: 'center'
+    },
+    {
+        key: 'cost',
+        width: 80,
+        headerText: 'Cost Price',
+        fixed: false,
+        align: 'center',
+        feature: 'costPriceEnabled'
     }
 ];
 

@@ -41,6 +41,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
     const ROUTE_INDEX_URL = '/products';
 
     const STOCK_TAB_FEATURE_FLAG = 'Stock Tab Enabled';
+    const COST_PRICE_FEATURE_FLAG = 'Product cost price';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -154,6 +155,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ),
             'lowStockThresholdEnabled' => $this->featureFlagService->featureEnabledForOu(
                 StockController::FEATURE_FLAG_LOW_STOCK_THRESHOLD,
+                $rootOuId,
+                $rootOu
+            ),
+            'costPriceEnabled' => $this->featureFlagService->featureEnabledForOu(
+                static::COST_PRICE_FEATURE_FLAG,
                 $rootOuId,
                 $rootOu
             )
