@@ -33,7 +33,8 @@ const columnSpecificPropsMap = {
     bulkSelect: ['bulkSelect'],
     lowStock: ['stock', 'rows', 'userSettings'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
-    name: ['rows', 'name', 'focus']
+    name: ['rows', 'name', 'focus'],
+    cost: ['rows', 'detail', 'scroll']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {
