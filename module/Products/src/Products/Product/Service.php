@@ -75,6 +75,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_MANUAL_STOCK_CHANGE = 'Manual Stock Change';
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
     const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
+    const DETAILTYPES_WITH_UNITS_OF_MEASURE = [
+        'weight' => 'weight',
+        'length' => 'length',
+        'width' => 'width',
+        'height' => 'height',
+    ];
 
     /** @var UserService $userService */
     protected $userService;
@@ -383,7 +389,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         try {
             $accounts = $this->getSalesAccounts();
             foreach ($accounts as $account) {
-                
+
                 if ($account->getStockFixedEnabled()) {
                     $statuses[StockMode::LIST_FIXED] = true;
                 }
@@ -412,20 +418,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService->fetchByFilter($filter);
     }
 
-    public function saveProductDetail($sku, $detail, $value, $id = null)
+    public function saveProductDetail($sku, $detailType, $value, $id = null)
     {
-        $value = is_numeric($value) ? (float) $value : null;
-        $locale = $this->activeUserContainer->getLocale();
-        if ($detail == 'weight') {
-            $displayUnit = LocaleMass::getForLocale($locale);
-            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
-        } else {
-            $displayUnit = LocaleLength::getForLocale($locale);
-            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
+        if ($this->doesDetailTypeHaveUOM($detailType)) {
+            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detailType, $value);
         }
 
         if ($id) {
-            $this->detailService->patchEntity($id, [$detail => $value]);
+            $this->detailService->patchEntity($id, [$detailType => $value]);
         } else {
             /** @var Details $details */
             $details = $this->detailService->save(
@@ -433,7 +433,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                     [
                         'organisationUnitId' => $this->getActiveUserRootOu(),
                         'sku' => $sku,
-                        $detail => $value,
+                        $detailType => $value,
                     ]
                 )
             );
@@ -529,5 +529,24 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $ou = $this->userOuService->getRootOuByActiveUser();
         return $ou->isVatRegistered();
+    }
+
+    protected function doesDetailTypeHaveUOM(string $detailType)
+    {
+        return isset(static::DETAILTYPES_WITH_UNITS_OF_MEASURE[strtolower($detailType)]);
+    }
+
+    protected function convertDetailValueToInternalUnitOfMeasurement(string $detailType, $value): float
+    {
+        $value = is_numeric($value) ? (float) $value : null;
+        $locale = $this->activeUserContainer->getLocale();
+        if ($detailType == 'weight') {
+            $displayUnit = LocaleMass::getForLocale($locale);
+            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
+        } else {
+            $displayUnit = LocaleLength::getForLocale($locale);
+            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
+        }
+        return $value;
     }
 }
