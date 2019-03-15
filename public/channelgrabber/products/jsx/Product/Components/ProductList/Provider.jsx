@@ -46,6 +46,7 @@ class ProductListProvider extends React.Component {
         const {massUnit, lengthUnit, vatRates} = this.props;
         store.dispatch(productActions.storeAccountFeatures(this.props.features));
         store.dispatch(productActions.storeStockModeOptions(this.props.stockModeOptions));
+        store.dispatch(productActions.storeIncPOStockInAvailableOptions(this.props.incPOStockInAvailableOptions));
         store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
         store.dispatch(vatActions.storeVatRates(vatRates));
         store.dispatch(pickLocationsActions.storePickLocationNames(this.props.pickLocations));
@@ -59,12 +60,15 @@ class ProductListProvider extends React.Component {
 
         let productsResponse = await store.dispatch(productActions.getProducts());
 
-        store.dispatch(columnActions.generateColumnSettings());
+        store.dispatch(columnActions.generateColumnSettings(this.props.features));
+
         store.dispatch(userSettingsActions.storeStockDefaults(
             stateUtility.getDefaultStockModeFromProducts(productsResponse.products),
             stateUtility.getDefaultStockLevelFromProducts(productsResponse.products)
         ));
-
+        store.dispatch(userSettingsActions.storeLowStockThresholdDefaults(
+            stateUtility.getLowStockThresholdDefaultsFromProducts(productsResponse.products)
+        ));
     }
 
     render() {

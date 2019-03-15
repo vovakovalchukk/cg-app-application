@@ -24,6 +24,7 @@ class RootComponent extends React.Component {
         features: {},
         taxRates: {},
         stockModeOptions: {},
+        incPOStockInAvailableOptions: {},
         ebaySiteOptions: {},
         categoryTemplateOptions: {},
         createListingData: {},
@@ -217,29 +218,30 @@ class RootComponent extends React.Component {
     };
 
     renderProductListView = () => {
-
+        //todo - remove this - only put this here to quickly test the component
+//        return (
+//            <div className={"move-down"}>
+//                <LoadingSpinner
+//                    loaderStyle={''}
+//                />
+//            </div>
+//        );
         return (
-            <div className={"move-down"}>
-                <LoadingSpinner
-                    loaderStyle={''}
+            <div>
+                <ProductListProvider
+                    features={this.props.features}
+                    addNewProductButtonClick={this.addNewProductButtonClick}
+                    onCreateNewListingIconClick={this.onCreateListingIconClick}
+                    stockModeOptions={this.props.stockModeOptions}
+                    incPOStockInAvailableOptions={this.props.incPOStockInAvailableOptions}
+                    massUnit={this.props.massUnit}
+                    lengthUnit={this.props.lengthUnit}
+                    vatRates={this.props.taxRates}
+                    pickLocations={this.props.pickLocations}
+                    pickLocationValues={this.props.pickLocationValues}
                 />
             </div>
         )
-//        return (
-//            <div>
-//                <ProductListProvider
-//                    features={this.props.features}
-//                    addNewProductButtonClick={this.addNewProductButtonClick}
-//                    onCreateNewListingIconClick={this.onCreateListingIconClick}
-//                    stockModeOptions={this.props.stockModeOptions}
-//                    massUnit={this.props.massUnit}
-//                    lengthUnit={this.props.lengthUnit}
-//                    vatRates={this.props.taxRates}
-//                    pickLocations={this.props.pickLocations}
-//                    pickLocationValues={this.props.pickLocationValues}
-//                />
-//            </div>
-//        )
     };
 
     render() {
