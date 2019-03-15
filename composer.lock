@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb36a79cc52dba0fee6723685e1c76da",
+    "content-hash": "892fd1671dbfb2a462ba93f8b4f25357",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3284,16 +3284,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.16.0",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "025b53c9e08a49cc8d6a6b00840744d3b13e5608"
+                "reference": "7ae00a1a516be0f735e951c0ec1283e3559d95da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.16.0-b7f167.zip",
-                "reference": "025b53c9e08a49cc8d6a6b00840744d3b13e5608",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.16.1-1ca6da.zip",
+                "reference": "7ae00a1a516be0f735e951c0ec1283e3559d95da",
                 "shasum": null
             },
             "require": {
@@ -3340,7 +3340,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-03-11T15:12:13+00:00"
+            "time": "2019-03-13T15:30:50+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -9806,7 +9806,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
