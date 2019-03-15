@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61338d936b040e62e06abd653ca6ceba",
+    "content-hash": "7d8c6c47335fccbd3e06430ba637bfc5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3737,12 +3737,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "7c936ebe3c9a783b2e63ecceff6d743d4727f324"
+                "reference": "ebb40916f2ad411b22e5ccae9a9b07bf05ecda68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-348-walmart-unimported-listings-9bc93c.zip",
-                "reference": "7c936ebe3c9a783b2e63ecceff6d743d4727f324",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-dev-TAC-348-walmart-unimported-listings-2f1062.zip",
+                "reference": "ebb40916f2ad411b22e5ccae9a9b07bf05ecda68",
                 "shasum": null
             },
             "require": {
@@ -3766,7 +3766,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-03-11T15:56:27+00:00"
+            "time": "2019-03-13T13:31:25+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -9806,8 +9806,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
