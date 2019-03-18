@@ -32,7 +32,12 @@ class RootComponent extends React.Component {
                     <Select prefix="Show" options={FILTER_OPTIONS} onOptionChange={this.props.onFilterSelected}/>
                 </div>
                 <div className="purchase-orders-action">
-                    <Button onClick={this.props.onCreateNewPurchaseOrderButtonPressed} sprite="sprite-plus-18-black" text="Create Purchase Order"/>
+                    <Button
+                        onClick={this.props.onCreateNewPurchaseOrderButtonPressed}
+                        sprite="sprite-plus-18-black"
+                        text="New"
+                        disabled={this.props.newButtonDisabled}
+                    />
                 </div>
             </div>
             <div className="purchase-orders-container">
@@ -43,7 +48,9 @@ class RootComponent extends React.Component {
                     onPurchaseOrderSelected={this.props.onPurchaseOrderSelected}
                     onDateColumnClicked={this.props.onDateColumnClicked}
                 />
-                <PurchaseOrdersEditor />
+                <PurchaseOrdersEditor
+                    setEditorEmptyFlag={this.props.setEditorEmptyFlag}
+                />
             </div>
         </div>
         );

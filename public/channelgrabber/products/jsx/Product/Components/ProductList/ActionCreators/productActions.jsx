@@ -5,6 +5,7 @@ import productLinkActions from 'Product/Components/ProductList/ActionCreators/pr
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
 import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions'
 import stateUtility from 'Product/Components/ProductList/stateUtility'
+import stockActions from '../ActionCreators/stockActions';
 
 "use strict";
 
@@ -47,6 +48,11 @@ var actionCreators = (function() {
             payload: data
         }
     };
+    const getProductsError = function() {
+        return {
+            type: "PRODUCTS_GET_REQUEST_ERROR"
+        }
+    };
     const updateStockLevelsRequestSuccess = (response) => {
         return {
             type: "STOCK_LEVELS_UPDATE_REQUEST_SUCCESS",
@@ -87,6 +93,14 @@ var actionCreators = (function() {
                 }
             }
         },
+        storeIncPOStockInAvailableOptions: (incPOStockInAvailableOptions) => {
+            return {
+                type: "INC_PO_STOCK_IN_AVAIL_STORE",
+                payload: {
+                    incPOStockInAvailableOptions
+                }
+            }
+        },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
                 pageNumber = pageNumber || 1;
@@ -100,10 +114,12 @@ var actionCreators = (function() {
                     dispatch(getProductsRequestStart());
                     data = await fetchProducts(filter);
                 } catch (err) {
+                    dispatch(getProductsError(err));
                     throw 'Unable to load products... error: ' + err;
                 }
 
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
                 dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
@@ -111,6 +127,7 @@ var actionCreators = (function() {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
+                dispatch(stockActions.storeLowStockThreshold(data.products));
                 return data;
             }
         },
@@ -166,6 +183,9 @@ var actionCreators = (function() {
                 dispatch(expandProductSuccess(productRowId));
                 let skusFromData = getSkusFromData(data);
                 dispatch(productLinkActions.getLinkedProducts(skusFromData));
+                dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
+                dispatch(stockActions.storeLowStockThreshold(data.products));
             }
         },
         dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {

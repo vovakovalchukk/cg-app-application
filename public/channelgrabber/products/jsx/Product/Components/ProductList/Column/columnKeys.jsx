@@ -10,5 +10,7 @@ export default {
     stockMode: 'stockMode',
     weight: 'weight',
     dimensions: 'dimensions',
-    pickingLocation: 'pickingLocation'
+    lowStock: 'lowStock',
+    pickingLocation: 'pickingLocation',
+    cost: 'cost'
 };

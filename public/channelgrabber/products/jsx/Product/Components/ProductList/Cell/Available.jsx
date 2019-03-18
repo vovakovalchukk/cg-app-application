@@ -5,14 +5,23 @@ import elementTypes from 'Product/Components/ProductList/Portal/elementTypes';
 import portalSettingsFactory from 'Product/Components/ProductList/Portal/settingsFactory'
 
 class AvailableCell extends React.Component {
+    static defaultProps = {
+        products: {},
+        rowIndex: null,
+        rows: {},
+        rowData: {},
+    };
+    getUniqueInputId = () => {
+        return this.props.rowData.id+'-'+ this.props.columnKey
+    };
     render() {
         const {
-            products,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            rowData
         } = this.props;
-        let rowData = stateUtility.getRowData(products, rowIndex);
+
         const isParentProduct = stateUtility.isParentProduct(rowData);
 
         if (isParentProduct) {
@@ -38,6 +47,7 @@ class AvailableCell extends React.Component {
             <span className={this.props.className + " available-cell"}>
                 <Input
                     name='available'
+                    key={this.getUniqueInputId()}
                     initialValue={parseFloat(availableValue)}
                     step="0.1"
                     submitCallback={this.props.actions.updateAvailable.bind(this, rowData)}
@@ -49,12 +59,6 @@ class AvailableCell extends React.Component {
             </span>
         );
     }
-
-    onChange(e) {
-        const {products, rowIndex} = this.props;
-        let rowData = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.updateAvailable(rowData, 'available', e.target.value);
-    };
 }
 
 export default AvailableCell;

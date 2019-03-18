@@ -4,7 +4,7 @@ import elementTypes from "../Portal/elementTypes";
 import portalSettingsFactory from "../Portal/settingsFactory";
 import SafeInputStateless from 'Common/Components/SafeInputStateless';
 
-class WeightCell extends React.Component {
+class CostCell extends React.Component {
     static defaultProps = {
         products: {},
         rowIndex: null,
@@ -18,9 +18,9 @@ class WeightCell extends React.Component {
         return this.props.rowData.id+'-'+ this.props.columnKey
     };
     getValue = (row) => {
-        let detailForId = this.props.detail['weight'].byProductId[row.id];
+        let detailForId = this.props.detail['cost'].byProductId[row.id];
         if (!detailForId) {
-            return row.details['weight'];
+            return row.details['cost'];
         }
         if (typeof detailForId.valueEdited === "string") {
             return detailForId.valueEdited;
@@ -28,10 +28,22 @@ class WeightCell extends React.Component {
         if (typeof detailForId.value === "string") {
             return detailForId.value;
         }
-        return row.details['weight'];
+        return row.details['cost'];
     };
     shouldRenderSubmits = () => {
         return !this.props.scroll.userScrolling;
+    };
+    saveDetail = () => {
+        this.props.actions.saveDetail(this.props.rowData, 'cost');
+    };
+    cancelInput = () => {
+        this.props.actions.cancelInput(this.props.rowData, 'cost');
+    };
+    setIsEditing = (isEditing) => {
+        this.props.actions.setIsEditing(this.props.rowData.id, 'cost', isEditing);
+    };
+    changeDetailValue = (e) => {
+        this.props.actions.changeDetailValue(this.props.rowData.id, 'cost', e);
     };
     render() {
         const {
@@ -48,7 +60,7 @@ class WeightCell extends React.Component {
         if (!isSimpleProduct && !isVariation) {
             return <span></span>
         }
-        let valueForWeight = this.getValue(rowData);
+        let valueForCost = this.getValue(rowData);
 
         let portalSettings = portalSettingsFactory.createPortalSettings({
             elemType: elementTypes.INPUT_SAFE_SUBMITS,
@@ -57,19 +69,19 @@ class WeightCell extends React.Component {
             width,
             allRows: this.props.rows.allIds
         });
-        let isEditing = detail['weight'].byProductId[rowData.id] ? detail['weight'].byProductId[rowData.id].isEditing : false;
+        let isEditing = detail['cost'].byProductId[rowData.id] ? detail['cost'].byProductId[rowData.id].isEditing : false;
 
         return (
             <span className={this.props.className}>
                 <SafeInputStateless
-                    name='weight'
+                    name='cost'
                     step="0.1"
                     key={this.getUniqueInputId()}
-                    submitCallback={this.props.actions.saveDetail.bind(this, rowData, 'weight')}
-                    cancelInput={this.props.actions.cancelInput.bind(this, rowData, 'weight')}
-                    setIsEditing={this.props.actions.setIsEditing.bind(this, rowData.id, 'weight')}
-                    onValueChange={this.props.actions.changeDetailValue.bind(this, rowData.id, 'weight')}
-                    value={valueForWeight}
+                    submitCallback={this.saveDetail}
+                    cancelInput={this.cancelInput}
+                    setIsEditing={this.setIsEditing}
+                    onValueChange={this.changeDetailValue}
+                    value={valueForCost}
                     submitsPortalSettings={portalSettings}
                     width={45}
                     isEditing={isEditing}
@@ -80,4 +92,4 @@ class WeightCell extends React.Component {
     }
 }
 
-export default WeightCell;
+export default CostCell;

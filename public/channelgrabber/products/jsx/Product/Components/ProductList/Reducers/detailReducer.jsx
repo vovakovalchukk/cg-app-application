@@ -12,6 +12,9 @@ let initialState = {
     },
     weight: {
         byProductId: {}
+    },
+    cost: {
+        byProductId: {}
     }
 };
 
