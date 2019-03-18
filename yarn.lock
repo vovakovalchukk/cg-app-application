@@ -1557,7 +1557,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10456-fix-low-stock-threshold":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#2ca8a8660443a3775767c7ea2e8e4babf68683ea"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#c028ca6ddd617bd01ebd7f0e603c099167b4b3f7"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
