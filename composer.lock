@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c24cdb0cdef7b55ff3b3cf92e420b01",
+    "content-hash": "57eab34c883d301b57e157658a3c2380",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -963,7 +963,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.12-5fc3b4.zip",
-                "reference": "170ab238eb855cf96e5d2dd3871718f5323f9332"
+                "reference": "170ab238eb855cf96e5d2dd3871718f5323f9332",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -1290,16 +1291,16 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "dev-CGIV-10458-fix-etag-fatal",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "fa4349afbe9c134a91db808ce135fad8fc2526c5"
+                "reference": "b6bc23c571df0b3bcf0519f37c657c915c0c5dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etag/channelgrabber-etag-dev-CGIV-10458-fix-etag-fatal-90dacb.zip",
-                "reference": "fa4349afbe9c134a91db808ce135fad8fc2526c5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etag/channelgrabber-etag-1.7.1-9c3786.zip",
+                "reference": "b6bc23c571df0b3bcf0519f37c657c915c0c5dfc",
                 "shasum": null
             },
             "require": {
@@ -1315,7 +1316,7 @@
                     "CG\\ETag\\": "src"
                 }
             },
-            "time": "2019-03-15T09:12:07+00:00"
+            "time": "2019-03-18T15:25:39+00:00"
         },
         {
             "name": "channelgrabber/etsy",
@@ -11034,18 +11035,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.7.1",
-            "alias_normalized": "1.7.1.0",
-            "version": "dev-CGIV-10458-fix-etag-fatal",
-            "package": "channelgrabber/etag"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/etag": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
