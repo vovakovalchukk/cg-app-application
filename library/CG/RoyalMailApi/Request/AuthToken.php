@@ -8,7 +8,7 @@ class AuthToken extends GetAbstract
 {
     public function getUri(): string
     {
-        return '/token';
+        return 'token';
     }
 
     public function getResponseClass(): string
