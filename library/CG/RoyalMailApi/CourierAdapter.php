@@ -8,6 +8,7 @@ use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
 use Psr\Log\LoggerInterface;
+use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface
 {
@@ -15,13 +16,16 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
 
     /** @var CredentialsFormFactory */
     protected $credentialsFormFactory;
+    /** @var DeliveryServiceService */
+    protected $deliveryServiceService;
 
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory)
+    public function __construct(CredentialsFormFactory $credentialsFormFactory, DeliveryServiceService $deliveryServiceService)
     {
         $this->credentialsFormFactory = $credentialsFormFactory;
+        $this->deliveryServiceService = $deliveryServiceService;
     }
 
     /**
@@ -45,7 +49,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServices()
     {
-        // TODO in TAC-374
+        $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -53,7 +57,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        // TODO in TAC-374
+        $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
@@ -69,7 +73,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
