@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f551be7bab8935bf3bb3e952488dfd21",
+    "content-hash": "8ad345909680abbe379453815e6d240f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1291,30 +1291,32 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.6.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "6dcdea929d5fc263475604dbd33a19d6c220c952"
+                "reference": "b6bc23c571df0b3bcf0519f37c657c915c0c5dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etag/channelgrabber-etag-1.6.0-c5da24.zip",
-                "reference": "6dcdea929d5fc263475604dbd33a19d6c220c952",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/etag/channelgrabber-etag-1.7.1-9c3786.zip",
+                "reference": "b6bc23c571df0b3bcf0519f37c657c915c0c5dfc",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/predis": "^1.1.0",
                 "channelgrabber/stdlib": "^2.10.4",
+                "php": ">=7.1",
                 "predis/predis": "~0.8.3"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\ETag\\": "src"
                 }
             },
-            "time": "2015-04-30T14:35:36+00:00"
+            "time": "2019-03-18T15:25:39+00:00"
         },
         {
             "name": "channelgrabber/etsy",
@@ -2427,23 +2429,23 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.0.13",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "85db5b2d061797a0f90090486ddfc2e1f5c8dd8b"
+                "reference": "670eb8c16ab202cb620939ce8ee53b9e8bf198c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.0.13-20b905.zip",
-                "reference": "85db5b2d061797a0f90090486ddfc2e1f5c8dd8b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.1-c46657.zip",
+                "reference": "670eb8c16ab202cb620939ce8ee53b9e8bf198c0",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
-                "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/stdlib": "^2.10.4",
-                "composer/composer": "@dev"
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/stdlib": "^2.16.3",
+                "php": ">=7.1"
             },
             "type": "di-definition",
             "autoload": {
@@ -2451,7 +2453,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2017-03-02T15:28:19+00:00"
+            "time": "2019-02-21T13:33:46+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -9806,8 +9808,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
