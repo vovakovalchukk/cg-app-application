@@ -26,7 +26,7 @@ class Factory
         $this->authTokenStorage = $authTokenStorage;
     }
 
-    public function __invoke(CourierAdapterAccount $account)
+    public function __invoke(CourierAdapterAccount $account): Client
     {
         if ($client = $this->getCachedClient($account)) {
             return $client;
