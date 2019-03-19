@@ -20,6 +20,8 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $width;
     /** @var float */
     protected $length;
+
+    protected $type;
     /** @var PackageContent[] */
     protected $contents;
 
@@ -34,6 +36,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         float $height,
         float $width,
         float $length,
+        $type,
         array $contents = []
     ) {
         $this->number = $number;
@@ -41,6 +44,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         $this->height = $height;
         $this->width = $width;
         $this->length = $length;
+        $this->type = $type;
         $this->contents = $contents;
     }
 
@@ -52,6 +56,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
             $array['height'],
             $array['width'],
             $array['length'],
+            $array['type'],
             $array['contents'] ?? []
         );
     }
@@ -106,6 +111,11 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
             'width' => $this->getWidth(),
             'length' => $this->getLength(),
         ];
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
