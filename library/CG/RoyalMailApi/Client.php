@@ -67,10 +67,10 @@ class Client implements LoggerAwareInterface
             if ($guzzleResponse && $guzzleResponse->getStatusCode() == HttpStatusCode::NOT_FOUND) {
                 throw new NotFound($exception->getMessage(), HttpStatusCode::NOT_FOUND, $exception);
             }
-            $this->logWarningException($exception, 'Royal Mail API error', [], [static::LOG_CODE, 'Exception']);
+            $this->logWarningException($exception, 'Royal Mail API error', [], [static::LOG_CODE, 'Exception', get_class($exception)]);
             throw new StorageException('There was a problem contacting Royal Mail', $exception->getCode(), $exception);
         } catch (\Throwable $throwable) {
-            $this->logWarningException($throwable, 'Royal Mail API error', [], [static::LOG_CODE, 'Throwable']);
+            $this->logWarningException($throwable, 'Royal Mail API error', [], [static::LOG_CODE, 'Throwable', get_class($throwable)]);
             throw new StorageException('There was a problem contacting Royal Mail', $throwable->getCode());
         } finally {
             $this->logDebug(static::LOG_REQUEST_MSG, [$request->getMethod(), $request->getUri()], array_filter([static::LOG_CODE, 'Request', isset($guzzleResponse) ? $guzzleResponse->getStatusCode() : null]), ['request' => (string) $guzzleRequest, 'response' => (string) ($guzzleResponse ?? '-')]);
