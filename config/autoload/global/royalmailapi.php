@@ -533,7 +533,7 @@ return [
                             ],
                             'WW6' => [
                                 'displayName' => 'International Business Mail Mixd Zero Sort Economy Machine'
-                            ],
+                            ]
                         ],
                         'serviceTypes' => [
                             '1' => [
@@ -563,7 +563,7 @@ return [
                             'T' => [
                                 'description' => 'Royal Mail Tracked',
                                 'domestic' => true,
-                            ],
+                            ]
                         ],
                         'serviceFormats' => [
                             'domestic' => [
@@ -619,9 +619,193 @@ return [
                             '24' => [
                                 'description' => 'Saturday Guaranteed'
                             ]
+                        ],
+                        'services' => [
+                            [
+                                'serviceOffering' => 'BF1',
+                                'serviceTypes' => [
+                                    'H'
+                                ],
+                                'serviceFormats' => [
+                                    'E',
+                                    'G',
+                                    'P'
+                                ],
+                                'serviceAddOns' => []
+                            ],
+                            [
+                                'serviceOffering' => 'BF2',
+                                'serviceTypes' => [
+                                    'H'
+                                ],
+                                'serviceFormats' => [
+                                    'E',
+                                    'G',
+                                    'P'
+                                ],
+                                'serviceAddOns' => []
+                            ],
+                            [
+                                'serviceOffering' => 'BF7',
+                                'serviceTypes' => [
+                                    'H'
+                                ],
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => []
+                            ],
+                            [
+                                'serviceOffering' => 'BF8',
+                                'serviceTypes' => [
+                                    'H'
+                                ],
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => []
+                            ],
+                            [
+                                'serviceOffering' => 'BF9',
+                                'serviceTypes' => [
+                                    'H'
+                                ],
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => []
+                            ],
+                            [
+                                'serviceOffering' => 'CRL',
+                                'serviceTypes' => [
+                                    '1',
+                                    '2'
+                                ],
+                                'serviceFormats' => [
+                                    'F',
+                                    'P'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ]
+                            ],
+                            [
+                                'serviceOffering' => 'DE1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ]
+                            ],
+                            [
+                                'serviceOffering' => 'DE3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DE4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DE6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DG1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ]
+                            ],
+                            [
+                                'serviceOffering' => 'DG3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DG4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DG6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'FS1',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'serviceFormats' => [
+                                    'F'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'FS2',
+                                'serviceTypes' => [
+                                    '2'
+                                ],
+                                'serviceFormats' => [
+                                    'F'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            // More to follow
                         ]
-                    ],
-                    'defaultConfig' => []
+                    ]
                 ]
             ]
         ]
