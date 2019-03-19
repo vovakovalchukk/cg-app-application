@@ -9,6 +9,7 @@ use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
 use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
+use CG\RoyalMailApi\Shipment\Booker as ShipmentBooker;
 use Psr\Log\LoggerInterface;
 use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 
@@ -22,6 +23,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     protected $credentialsValidator;
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
+    /** @var ShipmentBooker */
+    protected $shipmentBooker;
 
     /** @var LoggerInterface */
     protected $logger;
@@ -29,11 +32,13 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     public function __construct(
         CredentialsFormFactory $credentialsFormFactory,
         CredentialsValidator $credentialsValidator,
-        DeliveryServiceService $deliveryServiceService
+        DeliveryServiceService $deliveryServiceService,
+        ShipmentBooker $shipmentBooker
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsValidator = $credentialsValidator;
         $this->deliveryServiceService = $deliveryServiceService;
+        $this->shipmentBooker = $shipmentBooker;
     }
 
     /**
@@ -57,7 +62,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-375
+        $this->logger->debug('Booking Royal Mail API shipment for Account {account}', ['account' => $shipment->getAccount()->getId()]);
+        return ($this->shipmentBooker)($shipment);
     }
 
     /**
