@@ -13,7 +13,7 @@ use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
-use CG\Hermes\Shipment\Package;
+use CG\RoyalMailApi\Shipment\Package;
 use DateTime;
 
 class Shipment implements
