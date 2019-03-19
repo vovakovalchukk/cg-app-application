@@ -2,26 +2,31 @@
 namespace CG\RoyalMailApi;
 
 use CG\CourierAdapter\Account;
+use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
+use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
 use Psr\Log\LoggerInterface;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface
 {
     const FEATURE_FLAG = 'Royal Mail API';
 
     /** @var CredentialsFormFactory */
     protected $credentialsFormFactory;
+    /** @var CredentialsValidator */
+    protected $credentialsValidator;
 
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory)
+    public function __construct(CredentialsFormFactory $credentialsFormFactory, CredentialsValidator $credentialsValidator)
     {
         $this->credentialsFormFactory = $credentialsFormFactory;
+        $this->credentialsValidator = $credentialsValidator;
     }
 
     /**
@@ -30,6 +35,14 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     public function getCredentialsForm()
     {
         return ($this->credentialsFormFactory)();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateCredentials(Account $account)
+    {
+        return ($this->credentialsValidator)($account);
     }
 
     /**
