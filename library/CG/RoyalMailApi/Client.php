@@ -27,8 +27,6 @@ class Client implements LoggerAwareInterface
     const LOG_CODE = 'RoyalMailApiClient';
     const LOG_REQUEST_MSG = '%s request for uri %s';
 
-    const CORRELATION_ID_PREFIX = 'CG';
-
     /** @var GuzzleClient */
     protected $guzzleClient;
     /** @var ResponseFactory */
