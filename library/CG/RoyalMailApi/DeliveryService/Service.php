@@ -78,27 +78,6 @@ class Service
             }
     }
 
-//    protected function buildServiceForType(array $serviceConfig, array $services)
-//    {
-//        foreach ($serviceConfig['serviceType'] as $serviceType) {
-//            $services[$serviceConfig['serviceOffering'] . '-' . $serviceType] = [];
-//        }
-//        $mark = null;
-//        return $services;
-//    }
-//
-//    protected function buildServiceForFormats(array $serviceConfig, array $services)
-//    {
-//        $mark = null;
-//        return $services;
-//    }
-//
-//    protected function buildServiceForAddOns(array $serviceConfig, array $services)
-//    {
-//        $mark = null;
-//        return $services;
-//    }
-
     public function getServiceTypes(): array
     {
         return $this->serviceTypes;
