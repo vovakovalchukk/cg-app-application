@@ -8,9 +8,12 @@ use CG\RoyalMailApi\Shipment\International\LetterLargeLetter as InternationalLet
 use CG\RoyalMailApi\Shipment\Domestic\LetterLargeLetter as DomesticLetterLargeLetterShipment;
 use CG\RoyalMailApi\Shipment\International\NotApplicable as InternationalNotApplicableShipment;
 use CG\RoyalMailApi\Shipment\Domestic\NotApplicable as DomesticNotApplicableShipment;
-use CG\RoyalMailApi\Shipment\Domestic\LargeLetterParcel as DomesticLargeLetterParcel;
-use CG\RoyalMailApi\Shipment\International\LargeLetterParcel as InternationalLargeLetterParcel;
-use CG\RoyalMailApi\Shipment\International\Parcel as InternationalParcel;
+use CG\RoyalMailApi\Shipment\Domestic\LargeLetterParcel as DomesticLargeLetterParcelShipment;
+use CG\RoyalMailApi\Shipment\International\LargeLetterParcel as InternationalLargeLetterParcelShipment;
+use CG\RoyalMailApi\Shipment\International\Parcel as InternationalParcelShipment;
+use CG\RoyalMailApi\Shipment\International\LargeLetter as InternationalLargeLetterShipment;
+use CG\RoyalMailApi\Shipment\Domestic\LargeLetter as DomesticLargeLetterShipment;
+use CG\RoyalMailApi\Shipment\International\NotApplicableParcel as InternationalNotApplicableParcelShipment;
 
 return [
     'di' => [
@@ -696,7 +699,7 @@ return [
                                     '1',
                                     '2'
                                 ],
-                                'shipmentClass' => DomesticLargeLetterParcel::class,
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
                                     'F',
                                     'P'
@@ -710,7 +713,7 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => InternationalParcel::class,
+                                'shipmentClass' => InternationalParcelShipment::class,
                                 'serviceFormats' => [
                                     'E'
                                 ],
@@ -718,109 +721,218 @@ return [
                                     '6'
                                 ]
                             ],
-//                            [
-//                                'serviceOffering' => 'DE3',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'E'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DE4',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'E'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DE6',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'E'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DG1',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'G'
-//                                ],
-//                                'serviceAddOns' => [
-//                                    '6'
-//                                ]
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DG3',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'G'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DG4',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'G'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DG6',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'G'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'DW1',
-//                                'serviceTypes' => [
-//                                    'I'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'E'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'FS1',
-//                                'serviceTypes' => [
-//                                    '1'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'F'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-//                            [
-//                                'serviceOffering' => 'FS2',
-//                                'serviceTypes' => [
-//                                    '2'
-//                                ],
-//                                'serviceFormats' => [
-//                                    'F'
-//                                ],
-//                                'serviceAddOns' => [],
-//                            ],
-                            // More to follow
+                            [
+                                'serviceOffering' => 'DE3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DE4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DE6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DG1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ]
+                            ],
+                            [
+                                'serviceOffering' => 'DG3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DG4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DG6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'DW1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'FS1',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'F'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'FS2',
+                                'serviceTypes' => [
+                                    '2'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'F'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IE1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IE3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IG1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IG3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IG4',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'IG6',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalLargeLetterShipment::class,
+                                'serviceFormats' => [
+                                    'G'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'MB1',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableParcelShipment::class,
+                                'serviceFormats' => [
+                                    'E',
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'MB2',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'MB3',
+                                'serviceTypes' => [
+                                    'I'
+                                ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'E'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
                         ]
                     ]
                 ]
