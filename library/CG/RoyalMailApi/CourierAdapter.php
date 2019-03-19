@@ -57,7 +57,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        $this->deliveryServiceService->getDeliveryServiceByReference($reference);
+        return $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
@@ -65,7 +65,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForAccount(Account $account)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -81,7 +81,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**

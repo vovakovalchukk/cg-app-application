@@ -14,25 +14,29 @@ use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\Hermes\Shipment\Package;
+use CG\RoyalMailApi\Package\Type;
 use DateTime;
 
 class Shipment implements
     ShipmentInterface,
-    CollectionAddressInterface,
     DeliveryInstructionsInterface,
     CollectionDateInterface,
     PackagesInterface,
     PackageTypesInterface,
     SignatureRequiredInterface
 {
+    const packageTypes = [
+        'L' => 'Letter',
+        'F' => 'Large Letter',
+        'P' => 'Parcel',
+    ];
+
     /** @var string */
     protected $customerReference;
     /** @var Account */
     protected $account;
     /** @var AddressInterface */
     protected $deliveryAddress;
-    /** @var AddressInterface */
-    protected $collectionAddress;
     /** @var string */
     protected $deliveryInstructions;
     /** @var DateTime */
@@ -75,7 +79,6 @@ class Shipment implements
             $array['customerReference'],
             $array['account'],
             $array['deliveryAddress'],
-            $array['collectionAddress'] ?? null,
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
             $array['packages'] ?? [],
@@ -233,7 +236,16 @@ class Shipment implements
      */
     public static function getPackageTypes()
     {
-
+        $packageTypes = [];
+        foreach (static::packageTypes as $packageReference => $packageDisplayName) {
+            $packageTypes[] = Type::fromArray(
+                [
+                    'reference' => $packageReference,
+                    'displayName' => $packageDisplayName
+                ]
+            );
+        }
+        return $packageTypes;
     }
 
     /**

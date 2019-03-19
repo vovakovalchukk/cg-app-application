@@ -1,9 +1,10 @@
 <?php
 namespace CG\RoyalMailApi;
 
+use CG\Channel\Shipping\Provider\Carrier\ShippingService\OptionTypes\PackageType;
 use CG\CourierAdapter\DeliveryServiceInterface;
-use CG\RoyalMail\DeliveryService\Option as DeliveryServiceOption;
 use CG\Locale\CountryCode;
+use CG\Channel\Shipping\Provider\Carrier\ShippingService\OptionTypes\AddOn;
 
 class DeliveryService implements DeliveryServiceInterface
 {
@@ -31,32 +32,36 @@ class DeliveryService implements DeliveryServiceInterface
         'T' => 'Royal Mail Tracked'
     ];
 
+    const SERVICE_TYPE_INTERNATIONAL = 'I';
+
     /** @var string */
     protected $reference;
     /** @var string */
     protected $displayName;
-    /** @var PackageTypesInterface[] */
-    protected $format;
-    protected $occurrence;
-    protected $offering;
-    protected $signature;
-    /** @var AddOnsTrait[] */
-    protected $enhancements;
-    protected $additionalProperties;
+    /** @var string */
+    protected $serviceType;
+    /** @var string */
+    protected $shipmentClass;
 
     public function __construct(
         string $reference,
-        string $displayName
+        string $displayName,
+        string $serviceType,
+        string $shipmentClass
     ) {
         $this->reference = $reference;
         $this->displayName = $displayName;
+        $this->serviceType = $serviceType;
+        $this->shipmentClass = $shipmentClass;
     }
 
     public static function fromArray(array $array): DeliveryService
     {
         return new static(
             $array['reference'],
-            $array['displayName']
+            $array['displayName'],
+            $array['serviceType'],
+            $array['shipmentClass' ?? Shipment::class]
         );
     }
 
@@ -65,7 +70,7 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function getShipmentClass()
     {
-        return Shipment::class;
+        return $this->shipmentClass;
     }
 
     /**
@@ -74,7 +79,7 @@ class DeliveryService implements DeliveryServiceInterface
     public function createShipment(array $shipmentDetails)
     {
         $shipmentDetails['deliveryService'] = $this;
-        return Shipment::fromArray($shipmentDetails);
+        return ($this->getShipmentClass)::fromArray($shipmentDetails);
     }
 
     /**
@@ -101,20 +106,26 @@ class DeliveryService implements DeliveryServiceInterface
         return $this->reference;
     }
 
+    /** string */
+    public function getServiceType()
+    {
+        return $this->serviceType;
+    }
+
     /**
      * @inheritdoc
      */
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
-        // For now we're only supporting EU countries.
-        // If we decide to support other countries we'll have to do work to get the required HS Codes from the user.
-        // See comments on TAC-172.
-        if (!CountryCode::isEUCountryCode($isoAlpha2CountryCode)) {
+        CountryCode::ensureValidCountryCode($isoAlpha2CountryCode);
+        if ($this->getServiceType() == static::SERVICE_TYPE_INTERNATIONAL && $this->isCountryCodeUkOrGb($isoAlpha2CountryCode)) {
             return false;
         }
-        if (!$this->countries) {
-            return true;
-        }
-        return in_array($isoAlpha2CountryCode, $this->countries);
+        return true;
+    }
+
+    protected function isCountryCodeUkOrGb(string $countryCode)
+    {
+        return ($countryCode == 'GB' || $countryCode == 'UK');
     }
 }

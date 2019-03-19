@@ -1,6 +1,16 @@
 <?php
 
 use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
+use CG\RoyalMailApi\Shipment as Shipment;
+use CG\RoyalMailApi\Shipment\International\LetterLargeLetterParcel as InternationalLetterLargeLetterParcelShipment;
+use CG\RoyalMailApi\Shipment\Domestic\LetterLargeLetterParcel as DomesticLetterLargeLetterParcelShipment;
+use CG\RoyalMailApi\Shipment\International\LetterLargeLetter as InternationalLetterLargeLetterShipment;
+use CG\RoyalMailApi\Shipment\Domestic\LetterLargeLetter as DomesticLetterLargeLetterShipment;
+use CG\RoyalMailApi\Shipment\International\NotApplicable as InternationalNotApplicableShipment;
+use CG\RoyalMailApi\Shipment\Domestic\NotApplicable as DomesticNotApplicableShipment;
+use CG\RoyalMailApi\Shipment\Domestic\LargeLetterParcel as DomesticLargeLetterParcel;
+use CG\RoyalMailApi\Shipment\International\LargeLetterParcel as InternationalLargeLetterParcel;
+use CG\RoyalMailApi\Shipment\International\Parcel as InternationalParcel;
 
 return [
     'di' => [
@@ -631,6 +641,7 @@ return [
                                     'G',
                                     'P'
                                 ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
                                 'serviceAddOns' => []
                             ],
                             [
@@ -643,6 +654,7 @@ return [
                                     'G',
                                     'P'
                                 ],
+                                'shipmentClass' => InternationalLetterLargeLetterParcelShipment::class,
                                 'serviceAddOns' => []
                             ],
                             [
@@ -653,6 +665,7 @@ return [
                                 'serviceFormats' => [
                                     'N'
                                 ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
                                 'serviceAddOns' => []
                             ],
                             [
@@ -660,6 +673,7 @@ return [
                                 'serviceTypes' => [
                                     'H'
                                 ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -670,6 +684,7 @@ return [
                                 'serviceTypes' => [
                                     'H'
                                 ],
+                                'shipmentClass' => InternationalNotApplicableShipment::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -681,6 +696,7 @@ return [
                                     '1',
                                     '2'
                                 ],
+                                'shipmentClass' => DomesticLargeLetterParcel::class,
                                 'serviceFormats' => [
                                     'F',
                                     'P'
@@ -694,6 +710,7 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
+                                'shipmentClass' => InternationalParcel::class,
                                 'serviceFormats' => [
                                     'E'
                                 ],
@@ -701,108 +718,108 @@ return [
                                     '6'
                                 ]
                             ],
-                            [
-                                'serviceOffering' => 'DE3',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'E'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'DE4',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'E'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'DE6',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'E'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'DG1',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'G'
-                                ],
-                                'serviceAddOns' => [
-                                    '6'
-                                ]
-                            ],
-                            [
-                                'serviceOffering' => 'DG3',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'G'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'DG4',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'G'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'DG6',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'G'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'DW1',
-                                'serviceTypes' => [
-                                    'I'
-                                ],
-                                'serviceFormats' => [
-                                    'E'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'FS1',
-                                'serviceTypes' => [
-                                    '1'
-                                ],
-                                'serviceFormats' => [
-                                    'F'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
-                            [
-                                'serviceOffering' => 'FS2',
-                                'serviceTypes' => [
-                                    '2'
-                                ],
-                                'serviceFormats' => [
-                                    'F'
-                                ],
-                                'serviceAddOns' => [],
-                            ],
+//                            [
+//                                'serviceOffering' => 'DE3',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'E'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DE4',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'E'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DE6',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'E'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DG1',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'G'
+//                                ],
+//                                'serviceAddOns' => [
+//                                    '6'
+//                                ]
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DG3',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'G'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DG4',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'G'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DG6',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'G'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'DW1',
+//                                'serviceTypes' => [
+//                                    'I'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'E'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'FS1',
+//                                'serviceTypes' => [
+//                                    '1'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'F'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
+//                            [
+//                                'serviceOffering' => 'FS2',
+//                                'serviceTypes' => [
+//                                    '2'
+//                                ],
+//                                'serviceFormats' => [
+//                                    'F'
+//                                ],
+//                                'serviceAddOns' => [],
+//                            ],
                             // More to follow
                         ]
                     ]
