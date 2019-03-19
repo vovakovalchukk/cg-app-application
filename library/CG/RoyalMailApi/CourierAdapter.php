@@ -10,6 +10,7 @@ use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
 use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
 use Psr\Log\LoggerInterface;
+use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface
 {
@@ -19,14 +20,20 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     protected $credentialsFormFactory;
     /** @var CredentialsValidator */
     protected $credentialsValidator;
+    /** @var DeliveryServiceService */
+    protected $deliveryServiceService;
 
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory, CredentialsValidator $credentialsValidator)
-    {
+    public function __construct(
+        CredentialsFormFactory $credentialsFormFactory,
+        CredentialsValidator $credentialsValidator,
+        DeliveryServiceService $deliveryServiceService
+    ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsValidator = $credentialsValidator;
+        $this->deliveryServiceService = $deliveryServiceService;
     }
 
     /**
@@ -58,7 +65,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServices()
     {
-        // TODO in TAC-374
+        $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -66,7 +73,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        // TODO in TAC-374
+        $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
@@ -82,7 +89,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
