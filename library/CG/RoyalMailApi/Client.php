@@ -90,7 +90,7 @@ class Client implements LoggerAwareInterface
         if ($this->getAuthToken()) {
             $headers['x-rmg-auth-token'] = $this->getAuthToken()->getToken();
         }
-        return array_merge($headers, $request->getAdditionalHeaders());
+        return array_merge($headers, $request->getAdditionalHeaders($this->account, $this->credentials));
     }
 
     protected function getRequestBody(RequestInterface $request): ?string

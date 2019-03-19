@@ -1,6 +1,8 @@
 <?php
 namespace CG\RoyalMailApi\Request;
 
+use CG\CourierAdapter\Account;
+use CG\RoyalMailApi\Credentials;
 use CG\RoyalMailApi\RequestInterface;
 
 abstract class GetAbstract implements RequestInterface
@@ -10,7 +12,7 @@ abstract class GetAbstract implements RequestInterface
         return 'GET';
     }
 
-    public function getAdditionalHeaders(): array
+    public function getAdditionalHeaders(Account $account, Credentials $credentials): array
     {
         return [];
     }
