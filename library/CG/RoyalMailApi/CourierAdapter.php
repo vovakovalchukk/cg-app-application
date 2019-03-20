@@ -73,7 +73,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        return $this->deliveryServiceService->getDeliveryServices();
+        return $this->deliveryServiceService->getDeliveryServicesForCountry($isoAlpha2CountryCode);
     }
 
     /**

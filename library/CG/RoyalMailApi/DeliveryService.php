@@ -33,6 +33,7 @@ class DeliveryService implements DeliveryServiceInterface
     ];
 
     const SERVICE_TYPE_INTERNATIONAL = 'I';
+    const SERVICE_TYPE_HM_FORCES = 'H';
 
     /** @var string */
     protected $reference;
@@ -118,7 +119,8 @@ class DeliveryService implements DeliveryServiceInterface
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
         CountryCode::ensureValidCountryCode($isoAlpha2CountryCode);
-        if ($this->getServiceType() == static::SERVICE_TYPE_INTERNATIONAL && $this->isCountryCodeUkOrGb($isoAlpha2CountryCode)) {
+        if (($this->getServiceType() == static::SERVICE_TYPE_INTERNATIONAL || $this->getServiceType() == static::SERVICE_TYPE_HM_FORCES)
+            && $this->isCountryCodeUkOrGb($isoAlpha2CountryCode)) {
             return false;
         }
         return true;

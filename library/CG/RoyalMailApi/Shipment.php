@@ -4,8 +4,11 @@ namespace CG\RoyalMailApi;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
+use CG\CourierAdapter\InsuranceOptionInterface;
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
+use CG\CourierAdapter\Shipment\SupportedField\InsuranceAmountInterface;
+use CG\CourierAdapter\Shipment\SupportedField\InsuranceRequiredInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
@@ -23,7 +26,10 @@ class Shipment implements
     CollectionDateInterface,
     PackagesInterface,
     PackageTypesInterface,
-    SignatureRequiredInterface
+    SignatureRequiredInterface,
+    InsuranceRequiredInterface,
+    InsuranceOptionInterface,
+    InsuranceAmountInterface
 {
     const packageTypes = [
         'L' => 'Letter',
@@ -253,6 +259,37 @@ class Shipment implements
      */
     public static function getPackageTypeByReference($reference)
     {
-
+        $packageTypes = [];
+        foreach (static::packageTypes as $packageReference => $packageDisplayName) {
+            $packageTypes[] = Type::fromArray(
+                [
+                    'reference' => $packageReference,
+                    'displayName' => $packageDisplayName
+                ]
+            );
+        }
+        return $packageTypes[$reference];
     }
+
+    public function getInsuranceAmount()
+    {
+        return 100;
+    }
+
+    public function getDisplayName()
+    {
+        return 'Insurance name';
+    }
+
+    public function getReference()
+    {
+        return 'in-sur-ance';
+    }
+
+    public function isInsuranceRequired()
+    {
+        return true;
+    }
+
+
 }
