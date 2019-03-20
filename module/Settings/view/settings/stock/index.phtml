@@ -17,6 +17,31 @@
                     <input id="settings-stock-default-stock-level" name="defaultStockLevel" type="number" step="1" min="0" class="inputbox number" value="<?=$this->defaultStockLevel;?>" />
                 </div>
             </label>
+
+            <?php if (isset($this->lowStockThreshold)) : ?>
+                <label>
+                    <span class="inputbox-label"><?= $this->translate('Low stock threshold');?>:</span>
+                    <div class="order-inputbox-holder">
+                        <?= $this->lowStockThreshold; ?>
+                    </div>
+                </label>
+                <label>
+                    <span class="inputbox-label"><?= $this->translate('Threshold value');?>:</span>
+                    <div class="order-inputbox-holder">
+                        <input id="low-stock-threshold-value" name="low-stock-threshold-value" type="number" step="1" min="0" class="inputbox number" value="<?=$this->lowStockThresholdValue;?>" />
+                    </div>
+                </label>
+            <?php endif; ?>
+
+            <?php if (isset($this->includePurchaseOrdersToggle)): ?>
+            <label>
+                <span class="inputbox-label" style="width:150px"><?= $this->translate('Include quantity on Purchase Orders in available stock');?>:</span>
+                <div class="order-inputbox-holder">
+                    <?=$this->includePurchaseOrdersToggle;?>
+                </div>
+            </label>
+            <?php endif; ?>
+
             <div class="order-inputbox-holder">
                 <?=$this->saveButton;?>
             </div>

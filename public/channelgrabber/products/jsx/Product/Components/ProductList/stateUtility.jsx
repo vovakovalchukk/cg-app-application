@@ -19,7 +19,8 @@ let stateUtility = function() {
                 sku: row['sku'],
                 image: getImageData(row),
                 available: stateUtility().getStockAvailable(row),
-                allocated: stateUtility().getAllocatedStock(row)
+                allocated: stateUtility().getAllocatedStock(row),
+                onPurchaseOrder: stateUtility().getOnPurchaseOrderStock(row)
             };
             let cellData = keyToCellDataMap[columnKey];
             if (columnKey.indexOf('dummy') > -1) {
@@ -44,6 +45,9 @@ let stateUtility = function() {
         },
         getAllocatedStock: function(rowData) {
             return (rowData.stock ? rowData.stock.locations[0].allocated : '');
+        },
+        getOnPurchaseOrderStock: function(rowData) {
+            return (rowData.stock ? rowData.stock.locations[0].onPurchaseOrder : '');
         },
         getProductIdFromSku(products, sku) {
             return products.find((product) => {
@@ -72,9 +76,25 @@ let stateUtility = function() {
                 return;
             }
             return products[0].stockLevelDefault;
+        },
+        getLowStockThresholdDefaultsFromProducts(products) {
+            if (products.length === 0) {
+                return {
+                    toggle: false,
+                    value: null
+                }
+            }
+
+            return products[0].lowStockThresholdDefault;
+        },
+        getLowStockThresholdForProduct(product, stock) {
+            return {
+                toggle: stock.lowStockThresholdToggle[product.id] ? stock.lowStockThresholdToggle[product.id] : null,
+                value: stock.lowStockThresholdValue[product.id] ? stock.lowStockThresholdValue[product.id] : null
+            }
         }
     };
-    
+
     return self;
 };
 

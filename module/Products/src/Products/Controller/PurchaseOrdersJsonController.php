@@ -10,6 +10,9 @@ use CG\PurchaseOrder\Service as PurchaseOrderService;
 use CG\PurchaseOrder\Status as PurchaseOrderStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LogTrait;
+use CG\Stock\Service as StockService;
+use CG\Stock\Filter as StockFilter;
+use CG\Stock\Entity as Stock;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -24,7 +27,10 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     const ROUTE_DELETE = 'AJAX Delete';
     const ROUTE_SAVE = 'AJAX Save';
     const ROUTE_CREATE = 'AJAX Create';
+    const FETCH_LOW_STOCK_PRODUCTS = 'Fetch low stock products';
     const DEFAULT_PO_STATUS = 'In Progress';
+
+    const STOCK_FETCH_LIMIT = 300;
 
     /** @var PurchaseOrderService */
     protected $purchaseOrderService;
@@ -32,17 +38,21 @@ class PurchaseOrdersJsonController extends AbstractJsonController
     protected $purchaseOrderMapper;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var StockService */
+    protected $stockService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         PurchaseOrderService $purchaseOrderService,
         PurchaseOrderMapper $purchaseOrderMapper,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        StockService $stockService
     ) {
         parent::__construct($jsonModelFactory);
         $this->purchaseOrderService = $purchaseOrderService;
         $this->purchaseOrderMapper = $purchaseOrderMapper;
         $this->activeUserContainer = $activeUserContainer;
+        $this->stockService = $stockService;
     }
 
     public function createAction()
@@ -142,6 +152,35 @@ class PurchaseOrdersJsonController extends AbstractJsonController
 
         return $this->buildResponse([
             'list' => $this->purchaseOrderMapper->hydratePurchaseOrdersWithProducts($records, $ouId)
+        ]);
+    }
+
+    public function fetchLowStockProductsAction()
+    {
+        $page = 0;
+
+        $filter = (new StockFilter())
+            ->setLimit(static::STOCK_FETCH_LIMIT)
+            ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()])
+            ->setLowStockThresholdTriggered(true);
+
+        $productSkus = [];
+
+        do {
+            $filter->setPage(++$page);
+            try {
+                $stockCollection = $this->stockService->fetchCollectionByFilter($filter);
+                /** @var Stock $stock */
+                foreach ($stockCollection as $stock) {
+                    $productSkus[] = $stock->getSku();
+                }
+            } catch (NotFound $e) {
+                break;
+            }
+        } while ($stockCollection->getTotal() > $page * static::STOCK_FETCH_LIMIT);
+
+        return $this->buildResponse([
+            'skus' => $productSkus
         ]);
     }
 }

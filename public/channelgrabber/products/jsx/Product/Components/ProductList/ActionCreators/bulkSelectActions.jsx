@@ -1,7 +1,20 @@
+import paginationActions from "Product/Components/ProductList/ActionCreators/paginationActions";
+
 "use strict";
 
 let bulkSelectActions = (function() {
     return {
+        toggleSelectAllBulkSelect: () => {
+            return function(dispatch, getState) {
+                let allVisibleProductIds = getState().products.visibleRows.map(product => product.id);
+                dispatch({
+                    type: "SELECT_ALL_BULK_SELECT_TOGGLE",
+                    payload: {
+                        allVisibleProductIds
+                    }
+                });
+            }
+        },
         changeProductBulkSelectStatus: (productId, checked) => {
             return function(dispatch) {
                 dispatch({
@@ -18,10 +31,17 @@ let bulkSelectActions = (function() {
                 try {
                     n.notice('Deleting products.');
                     let data = await deleteProducts(selectedProducts);
+
                     dispatch({
                         type: "PRODUCTS_DELETE_SUCCESS",
                         payload: {deletedProducts: selectedProducts}
                     });
+
+                    let state = getState();
+                    let desiredPageNumber = getDesiredPageNumber(state, selectedProducts);
+
+                    dispatch(paginationActions.changePage(desiredPageNumber));
+
                     return data;
                 } catch (err) {
                     console.error(err);
@@ -34,7 +54,7 @@ let bulkSelectActions = (function() {
             }
         }
     };
-    
+
     async function deleteProducts(productsIds) {
         return $.ajax({
             'url': '/products/delete',
@@ -54,3 +74,9 @@ let bulkSelectActions = (function() {
 })();
 
 export default bulkSelectActions;
+
+function getDesiredPageNumber(state, selectedProducts) {
+    let total = state.pagination.total;
+    let limit = state.pagination.limit;
+    return Math.ceil((total - selectedProducts.length) / limit);
+}
