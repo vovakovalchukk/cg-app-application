@@ -16,7 +16,7 @@ class Service
     /** @var array */
     protected $serviceFormats;
 
-    public function __construct(array $servicesConfig = [], array $defaultConfig = [])
+    public function __construct(array $servicesConfig = [])
     {
         $this->serviceTypes = $servicesConfig['serviceTypes'] ?? [];
         $this->serviceOfferings = $servicesConfig['serviceOfferings'] ?? [];
@@ -25,12 +25,6 @@ class Service
             $this->buildServices($serviceConfig);
 
         }
-//        $this->deliveryServices = [];
-//        foreach ($servicesConfig as $reference => $config) {
-//            $config['reference'] = $reference;
-//            $mergedConfig = array_merge($defaultConfig, $config);
-//            $this->deliveryServices[$reference] = DeliveryService::fromArray($mergedConfig);
-//        }
     }
 
     /**
