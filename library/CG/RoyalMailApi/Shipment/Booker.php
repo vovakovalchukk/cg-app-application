@@ -3,17 +3,22 @@ namespace CG\RoyalMailApi\Shipment;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
-use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\LabelInterface;
+use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
 use CG\RoyalMailApi\Request\Shipment\Create as Request;
+use CG\RoyalMailApi\Request\Shipment\Create\Domestic as DomesticRequest;
+use CG\RoyalMailApi\Request\Shipment\Create\International as InternationalRequest;
+use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
 use CG\RoyalMailApi\Response\Shipment\Create as Response;
 use CG\RoyalMailApi\Shipment;
-use CG\RoyalMailApi\Shipment\Label;
 
 class Booker
 {
+    const DOMESTIC_COUNTRY = 'GB';
+    const ONE_D_BARCODE_PATTERN = '/[A-Z]{2}[0-9]{9}GB/';
+
     /** @var ClientFactory */
     protected $clientFactory;
 
@@ -31,10 +36,18 @@ class Booker
 
     protected function buildRequestFromShipment(Shipment $shipment): Request
     {
-        return new Request($shipment);
+        if ($this->isDomesticShipment($shipment)) {
+            return new DomesticRequest($shipment);
+        }
+        return new InternationalRequest($shipment);
     }
 
-    protected function sendRequest(Request $request, CourierAdapterAccount $account)
+    protected function isDomesticShipment(Shipment $shipment): bool
+    {
+        return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
+    }
+
+    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
     {
         try {
             /** @var Client $client */
@@ -47,25 +60,31 @@ class Booker
 
     protected function updateShipmentFromResponse(Shipment $shipment, Response $response): Shipment
     {
-        //TODO!
-        if (!empty($response->getErrorMessages())) {
-            throw new UserError(implode('; ', $response->getErrorMessages()));
+        $shipmentItems = $response->getShipmentItems();
+        $shipmentNumbers = [];
+        foreach ($shipmentItems as $shipmentItem) {
+            $shipmentNumbers[] = $shipmentItem->getShipmentNumber();
         }
-        // There is no courier reference as such, just use the first barcode
-        $courierReference = $response->getBarcodeNumbers() ? $response->getBarcodeNumbers()[0] : '';
-        $shipment->setCourierReference($courierReference);
-        $labels = $response->getLabels();
-        $barcodes = $response->getBarcodeNumbers();
+        $shipment->setCourierReference(implode('|', $shipmentNumbers));
+
         foreach ($shipment->getPackages() as $package) {
-            $labelData = current($labels);
-            if ($labelData) {
-                $package->setLabel(new Label($labelData, LabelInterface::TYPE_PDF));
+            $shipmentItem = current($shipmentItems);
+            if ($shipmentItem && $shipmentItem->getLabel()) {
+                $package->setLabel(new Label($shipmentItem->getLabel(), LabelInterface::TYPE_PDF));
             }
-            $barcode = current($barcodes) ?? '';
-            $package->setTrackingReference($barcode);
-            next($labels);
-            next($barcodes);
+            $package->setTrackingReference($this->determineTrackingNumber($shipmentItem));
+            next($shipmentItems);
         }
         return $shipment;
+    }
+
+    protected function determineTrackingNumber(ShipmentItem $shipmentItem): ?string
+    {
+        // The shipmentNumber is the 1D barcode when present, otherwise it's an RM internal ID
+        if (preg_match(static::ONE_D_BARCODE_PATTERN, $shipmentItem->getShipmentNumber())) {
+            return $shipmentItem->getShipmentNumber();
+        }
+        // Fallback to the 2D barcode number
+        return $shipmentItem->getItemId();
     }
 }
