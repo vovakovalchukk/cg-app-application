@@ -7,11 +7,15 @@ use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
+use CG\RoyalMailApi\RequestInterface;
 use CG\RoyalMailApi\Request\Shipment\Create as Request;
 use CG\RoyalMailApi\Request\Shipment\Create\Domestic as DomesticRequest;
 use CG\RoyalMailApi\Request\Shipment\Create\International as InternationalRequest;
+use CG\RoyalMailApi\Request\Shipment\Label as LabelRequest;
+use CG\RoyalMailApi\ResponseInterface;
 use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
 use CG\RoyalMailApi\Response\Shipment\Create as Response;
+use CG\RoyalMailApi\Response\Shipment\Label as LabelResponse;
 use CG\RoyalMailApi\Shipment;
 
 class Booker
@@ -47,7 +51,7 @@ class Booker
         return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
     }
 
-    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
+    protected function sendRequest(RequestInterface $request, CourierAdapterAccount $account): ResponseInterface
     {
         try {
             /** @var Client $client */
@@ -72,14 +76,22 @@ class Booker
             if (!$shipmentItem) {
                 break;
             }
-            if ($shipmentItem->getLabel()) {
-                $package->setLabel(new Label($shipmentItem->getLabel(), LabelInterface::TYPE_PDF));
+            $label = $shipmentItem->getLabel() ?? $this->fetchLabelForShipmentItem($shipmentItem, $shipment->getAccount());
+            if ($label) {
+                $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
             }
-            // TODO: if theres no label then fetch it
             $package->setTrackingReference($this->determineTrackingNumber($shipmentItem));
             next($shipmentItems);
         }
         return $shipment;
+    }
+
+    protected function fetchLabelForShipmentItem(ShipmentItem $shipmentItem, CourierAdapterAccount $account): ?string
+    {
+        $request = new LabelRequest($shipmentItem->getShipmentNumber());
+        /** @var LabelResponse $response */
+        $response = $this->sendRequest($request, $account);
+        return $response->getLabel();
     }
 
     protected function determineTrackingNumber(ShipmentItem $shipmentItem): ?string
