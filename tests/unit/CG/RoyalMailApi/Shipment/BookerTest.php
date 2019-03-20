@@ -13,6 +13,7 @@ use CG\RoyalMailApi\Response\Shipment\Create as Response;
 use CG\RoyalMailApi\Shipment;
 use CG\RoyalMailApi\Shipment\Booker;
 use CG\RoyalMailApi\Shipment\Package;
+use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
@@ -32,8 +33,9 @@ class BookerTest extends TestCase
         $clientFactory->expects($this->any())
             ->method('__invoke')
             ->willReturn($this->client);
+        $labelGenerator = $this->getMockBuilder(LabelGenerator::class)->disableOriginalConstructor()->getMock();
 
-        $this->booker = new Booker($clientFactory);
+        $this->booker = new Booker($clientFactory, $labelGenerator);
     }
 
     public function testDomesticShipmentCreatesDomesticRequest()

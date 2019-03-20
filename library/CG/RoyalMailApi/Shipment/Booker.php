@@ -11,12 +11,11 @@ use CG\RoyalMailApi\RequestInterface;
 use CG\RoyalMailApi\Request\Shipment\Create as Request;
 use CG\RoyalMailApi\Request\Shipment\Create\Domestic as DomesticRequest;
 use CG\RoyalMailApi\Request\Shipment\Create\International as InternationalRequest;
-use CG\RoyalMailApi\Request\Shipment\Label as LabelRequest;
 use CG\RoyalMailApi\ResponseInterface;
 use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
 use CG\RoyalMailApi\Response\Shipment\Create as Response;
-use CG\RoyalMailApi\Response\Shipment\Label as LabelResponse;
 use CG\RoyalMailApi\Shipment;
+use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
 
 class Booker
 {
@@ -25,10 +24,13 @@ class Booker
 
     /** @var ClientFactory */
     protected $clientFactory;
+    /** @var LabelGenerator */
+    protected $labelGenerator;
 
-    public function __construct(ClientFactory $clientFactory)
+    public function __construct(ClientFactory $clientFactory, LabelGenerator $labelGenerator)
     {
         $this->clientFactory = $clientFactory;
+        $this->labelGenerator = $labelGenerator;
     }
 
     public function __invoke(Shipment $shipment): Shipment
@@ -51,7 +53,7 @@ class Booker
         return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
     }
 
-    protected function sendRequest(RequestInterface $request, CourierAdapterAccount $account): ResponseInterface
+    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
     {
         try {
             /** @var Client $client */
@@ -76,7 +78,7 @@ class Booker
             if (!$shipmentItem) {
                 break;
             }
-            $label = $shipmentItem->getLabel() ?? $this->fetchLabelForShipmentItem($shipmentItem, $shipment->getAccount());
+            $label = $shipmentItem->getLabel() ?? $this->fetchLabelForShipmentItem($shipmentItem, $shipment);
             if ($label) {
                 $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
             }
@@ -86,12 +88,10 @@ class Booker
         return $shipment;
     }
 
-    protected function fetchLabelForShipmentItem(ShipmentItem $shipmentItem, CourierAdapterAccount $account): ?string
+    protected function fetchLabelForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): ?string
     {
-        $request = new LabelRequest($shipmentItem->getShipmentNumber());
-        /** @var LabelResponse $response */
-        $response = $this->sendRequest($request, $account);
-        return $response->getLabel();
+        $labelData = ($this->labelGenerator)($shipmentItem, $shipment);
+        return $labelData;
     }
 
     protected function determineTrackingNumber(ShipmentItem $shipmentItem): ?string
