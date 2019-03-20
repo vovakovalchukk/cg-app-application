@@ -79,7 +79,7 @@ class DeliveryService implements DeliveryServiceInterface
     public function createShipment(array $shipmentDetails)
     {
         $shipmentDetails['deliveryService'] = $this;
-        return ($this->getShipmentClass)::fromArray($shipmentDetails);
+        return ($this->getShipmentClass())::fromArray($shipmentDetails);
     }
 
     /**
