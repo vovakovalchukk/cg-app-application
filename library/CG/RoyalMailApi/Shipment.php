@@ -26,10 +26,7 @@ class Shipment implements
     CollectionDateInterface,
     PackagesInterface,
     PackageTypesInterface,
-    SignatureRequiredInterface,
-    InsuranceRequiredInterface,
-    InsuranceOptionInterface,
-    InsuranceAmountInterface
+    SignatureRequiredInterface
 {
     const packageTypes = [
         'L' => 'Letter',
@@ -270,26 +267,4 @@ class Shipment implements
         }
         return $packageTypes[$reference];
     }
-
-    public function getInsuranceAmount()
-    {
-        return 100;
-    }
-
-    public function getDisplayName()
-    {
-        return 'Insurance name';
-    }
-
-    public function getReference()
-    {
-        return 'in-sur-ance';
-    }
-
-    public function isInsuranceRequired()
-    {
-        return true;
-    }
-
-
 }

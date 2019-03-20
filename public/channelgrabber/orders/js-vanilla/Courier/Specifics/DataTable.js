@@ -94,7 +94,8 @@ CourierSpecificsDataTable.columnRenderers = {
     itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
     packageType: "addCustomSelectToPackageTypeColumn",
     addOns: "addCustomSelectToAddOnsColumn",
-    deliveryExperience: "addCustomSelectToDeliveryExperienceColumn"
+    deliveryExperience: "addCustomSelectToDeliveryExperienceColumn",
+    insuranceOptions: "addCustomSelectToInsuranceOptionsColumn"
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -315,6 +316,20 @@ CourierSpecificsDataTable.prototype.addCustomSelectToDeliveryExperienceColumn = 
             options: templateData.deliveryExperiences
         };
         templateData.deliveryExperienceOptions = cgMustache.renderTemplate(template, data);
+    }, true);
+};
+
+CourierSpecificsDataTable.prototype.addCustomSelectToInsuranceOptionsColumn = function(templateData, cgMustache)
+{
+    this.fetchTemplate('select', cgMustache, function(template)
+    {
+        var data = {
+            id: 'courier-package-insurance-options_' + templateData.orderId,
+            name: 'orderData[' + templateData.orderId + '][insuranceOptions]',
+            class: 'courier-package-insurance-options-select',
+            options: templateData.packageInsuranceOptions
+        };
+        templateData.packageInsuranceOptions = cgMustache.renderTemplate(template, data);
     }, true);
 };
 

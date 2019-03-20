@@ -14,6 +14,7 @@ use CG\RoyalMailApi\Shipment\International\Parcel as InternationalParcelShipment
 use CG\RoyalMailApi\Shipment\International\LargeLetter as InternationalLargeLetterShipment;
 use CG\RoyalMailApi\Shipment\Domestic\LargeLetter as DomesticLargeLetterShipment;
 use CG\RoyalMailApi\Shipment\International\NotApplicableParcel as InternationalNotApplicableParcelShipment;
+use CG\RoyalMailApi\Shipment\Domestic\SpecialDeliveryNotApplicable as DomesticSpecialDeliveryNotApplicable;
 
 return [
     'di' => [
@@ -618,7 +619,8 @@ return [
                                 'enhancementGroup' => 'Recorded Signed For Mail'
                             ],
                             '11' => [
-                                'description' => 'Consequential Loss £750'
+                                'description' => 'Consequential Loss £750',
+                                'enhancementGroup' => 'Consequential Loss Insurance'
                             ],
                             '12' => [
                                 'description' => 'Tracked Signature'
@@ -1759,7 +1761,7 @@ return [
                                 'serviceTypes' => [
                                     'D'
                                 ],
-                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -1772,7 +1774,7 @@ return [
                                 'serviceTypes' => [
                                     'D'
                                 ],
-                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -1785,7 +1787,7 @@ return [
                                 'serviceTypes' => [
                                     'D'
                                 ],
-                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -1798,7 +1800,7 @@ return [
                                 'serviceTypes' => [
                                     'D'
                                 ],
-                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -1811,7 +1813,7 @@ return [
                                 'serviceTypes' => [
                                     'D'
                                 ],
-                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
@@ -1824,7 +1826,7 @@ return [
                                 'serviceTypes' => [
                                     'D'
                                 ],
-                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'shipmentClass' => DomesticSpecialDeliveryNotApplicable::class,
                                 'serviceFormats' => [
                                     'N'
                                 ],
