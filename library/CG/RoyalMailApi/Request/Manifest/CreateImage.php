@@ -23,7 +23,7 @@ class CreateImage extends PutAbstract
 
     public function getUri(): string
     {
-        return static::URI . '?' . $this->manifestBatchNumber;
+        return static::URI . '?' . http_build_query(['manifestBatchNumber' => $this->manifestBatchNumber]);
     }
 
     public function getResponseClass(): string
