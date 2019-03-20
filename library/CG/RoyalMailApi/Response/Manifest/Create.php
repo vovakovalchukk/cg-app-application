@@ -5,7 +5,7 @@ use CG\CourierAdapter\Account;
 use CG\CourierAdapter\ManifestInterface;
 use CG\RoyalMailApi\Response\FromJsonInterface;
 use CG\RoyalMailApi\ResponseInterface;
-use CG\Template\DocumentInterface;
+use CG\CourierAdapter\DocumentInterface;
 use stdClass;
 
 class Create implements ResponseInterface, FromJsonInterface, ManifestInterface
@@ -46,7 +46,7 @@ class Create implements ResponseInterface, FromJsonInterface, ManifestInterface
 
     public function getType()
     {
-        return \CG\CourierAdapter\DocumentInterface::TYPE_PDF;
+        return DocumentInterface::TYPE_PDF;
     }
 
     public function getData()
