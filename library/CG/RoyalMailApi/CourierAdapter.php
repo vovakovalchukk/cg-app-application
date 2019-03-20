@@ -6,7 +6,6 @@ use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Manifest\GeneratingInterface;
-use CG\CourierAdapter\Manifest\ManifestInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
