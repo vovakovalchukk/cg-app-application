@@ -27,7 +27,7 @@ class Booker
         $this->clientFactory = $clientFactory;
     }
 
-    public function bookShipment(Shipment $shipment): Shipment
+    public function __invoke(Shipment $shipment): Shipment
     {
         $request = $this->buildRequestFromShipment($shipment);
         $response = $this->sendRequest($request, $shipment->getAccount());
@@ -69,9 +69,13 @@ class Booker
 
         foreach ($shipment->getPackages() as $package) {
             $shipmentItem = current($shipmentItems);
-            if ($shipmentItem && $shipmentItem->getLabel()) {
+            if (!$shipmentItem) {
+                break;
+            }
+            if ($shipmentItem->getLabel()) {
                 $package->setLabel(new Label($shipmentItem->getLabel(), LabelInterface::TYPE_PDF));
             }
+            // TODO: if theres no label then fetch it
             $package->setTrackingReference($this->determineTrackingNumber($shipmentItem));
             next($shipmentItems);
         }
