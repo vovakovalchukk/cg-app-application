@@ -19,7 +19,7 @@ class Create implements ResponseInterface, FromJsonInterface
     public static function fromJson(stdClass $json)
     {
         if (!isset($json->completedShipments, $json->completedShipments[0], $json->completedShipments[0]->shipmentItems, $json->completedShipments[0]->shipmentItems[0])) {
-            throw new \RuntimeException('Create shipments response not in expected format');
+            throw new \InvalidArgumentException('Create shipments response not in expected format');
         }
         $shipmentItems = [];
         foreach ($json->completedShipments as $completedShipmentJson) {
