@@ -11,12 +11,12 @@ class Create implements ResponseInterface, FromJsonInterface
     protected $batchNumber;
     /** @var integer */
     protected $count;
-    /** @var string */
+    /** @var ?string */
     protected $manifest;
     /** @var Shipment[] */
     protected $shipments;
 
-    public function __construct(int $batchNumber, int $count, string $manifest, array $shipments)
+    public function __construct(int $batchNumber, int $count, ?string $manifest, array $shipments)
     {
         $this->batchNumber = $batchNumber;
         $this->count = $count;
@@ -34,7 +34,7 @@ class Create implements ResponseInterface, FromJsonInterface
         return new static(
             (int) $json->batchNumber,
             (int) $json->count,
-            (string) $json->manifest,
+            $json->manifest ?? null,
             $shipments
         );
     }
@@ -49,7 +49,7 @@ class Create implements ResponseInterface, FromJsonInterface
         return $this->count;
     }
 
-    public function getManifest(): string
+    public function getManifest(): ?string
     {
         return $this->manifest;
     }
