@@ -5,15 +5,17 @@ use CG\CourierAdapter\Account;
 use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Manifest\GeneratingInterface;
+use CG\CourierAdapter\Manifest\ManifestInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
 use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
+use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 use CG\RoyalMailApi\Shipment\Booker as ShipmentBooker;
 use Psr\Log\LoggerInterface;
-use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface, GeneratingInterface
 {
     const FEATURE_FLAG = 'Royal Mail API';
 
@@ -25,7 +27,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     protected $deliveryServiceService;
     /** @var ShipmentBooker */
     protected $shipmentBooker;
-
+    /** @var ManifestService */
+    protected $manifestService;
     /** @var LoggerInterface */
     protected $logger;
 
@@ -33,12 +36,14 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
         CredentialsFormFactory $credentialsFormFactory,
         CredentialsValidator $credentialsValidator,
         DeliveryServiceService $deliveryServiceService,
-        ShipmentBooker $shipmentBooker
+        ShipmentBooker $shipmentBooker,
+        ManifestService $manifestService
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsValidator = $credentialsValidator;
         $this->deliveryServiceService = $deliveryServiceService;
         $this->shipmentBooker = $shipmentBooker;
+        $this->manifestService = $manifestService;
     }
 
     /**
@@ -120,6 +125,11 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     public function updateShipment(ShipmentInterface $shipment)
     {
         // TODO in TAC-375
+    }
+
+    public function generateManifest(Account $account)
+    {
+        return $this->manifestService->createManifest($account);
     }
 
     /**

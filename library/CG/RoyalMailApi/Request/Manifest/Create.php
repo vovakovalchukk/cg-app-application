@@ -19,6 +19,18 @@ class Create extends PostAbstract
     /** @var ?string */
     protected $yourReference;
 
+    public function __construct(
+        ?string $serviceOccurence = null,
+        ?string $serviceCode = null,
+        ?string$yourDescription = null ,
+        ?string $yourReference = null
+    ) {
+        $this->serviceOccurence = $serviceOccurence;
+        $this->serviceCode = $serviceCode;
+        $this->yourDescription = $yourDescription;
+        $this->yourReference = $yourReference;
+    }
+
     public function getUri(): string
     {
         return static::URI;

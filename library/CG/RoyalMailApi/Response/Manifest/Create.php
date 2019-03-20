@@ -1,11 +1,14 @@
 <?php
 namespace CG\RoyalMailApi\Response\Manifest;
 
+use CG\CourierAdapter\Account;
+use CG\CourierAdapter\ManifestInterface;
 use CG\RoyalMailApi\Response\FromJsonInterface;
 use CG\RoyalMailApi\ResponseInterface;
+use CG\Template\DocumentInterface;
 use stdClass;
 
-class Create implements ResponseInterface, FromJsonInterface
+class Create implements ResponseInterface, FromJsonInterface, ManifestInterface
 {
     /** @var integer */
     protected $batchNumber;
@@ -15,6 +18,8 @@ class Create implements ResponseInterface, FromJsonInterface
     protected $manifest;
     /** @var Shipment[] */
     protected $shipments;
+    /** @var Account */
+    protected $account;
 
     public function __construct(int $batchNumber, int $count, ?string $manifest, array $shipments)
     {
@@ -37,6 +42,26 @@ class Create implements ResponseInterface, FromJsonInterface
             $json->manifest ?? null,
             $shipments
         );
+    }
+
+    public function getType()
+    {
+        return \CG\CourierAdapter\DocumentInterface::TYPE_PDF;
+    }
+
+    public function getData()
+    {
+        return $this->getManifest();
+    }
+
+    public function getAccount()
+    {
+        $this->account;
+    }
+
+    public function getReference()
+    {
+        return $this->getBatchNumber();
     }
 
     public function getBatchNumber(): int
