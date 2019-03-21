@@ -5,14 +5,15 @@ use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
 use CG\CourierAdapter\PackageInterface;
-use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
-use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
+use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
+use CG\CourierAdapter\ShipmentInterface;
+use CG\RoyalMailApi\Package\Type as PackageType;
 use CG\RoyalMailApi\Shipment\Package;
-use CG\RoyalMailApi\Package\Type;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use DateTime;
 
 class Shipment implements
@@ -140,14 +141,6 @@ class Shipment implements
         return $this->deliveryAddress;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getCollectionAddress()
-    {
-        return $this->collectionAddress;
-    }
-
      /**
       * @inheritdoc
       */
@@ -236,7 +229,7 @@ class Shipment implements
     {
         $packageTypes = [];
         foreach (static::$packageTypes as $packageReference => $packageDisplayName) {
-            $packageTypes[] = Type::fromArray(
+            $packageTypes[] = PackageType::fromArray(
                 [
                     'reference' => $packageReference,
                     'displayName' => $packageDisplayName
@@ -251,15 +244,15 @@ class Shipment implements
      */
     public static function getPackageTypeByReference($reference)
     {
-        $packageTypes = [];
-        foreach (static::packageTypes as $packageReference => $packageDisplayName) {
-            $packageTypes[] = Type::fromArray(
-                [
-                    'reference' => $packageReference,
-                    'displayName' => $packageDisplayName
-                ]
-            );
+        if (!isset(static::$packageTypes[$reference])) {
+            throw new NotFound('No package type available for reference ' . $reference);
         }
-        return $packageTypes[$reference];
+
+        return PackageType::fromArray(
+            [
+                'reference' => $reference,
+                'displayName' => static::$packageTypes[$reference]
+            ]
+        );
     }
 }
