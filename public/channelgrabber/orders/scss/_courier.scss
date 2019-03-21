@@ -59,6 +59,8 @@
     }
 }
 
-.courier-order-deliveryInstructions {
-    width: 100px;
+.inputbox {
+    &.courier-order-deliveryInstructions {
+        width: 100px;
+    }
 }
