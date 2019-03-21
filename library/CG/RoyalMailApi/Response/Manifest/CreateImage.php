@@ -7,15 +7,15 @@ use stdClass;
 
 class CreateImage implements ResponseInterface, FromJsonInterface
 {
-    /** @var string */
+    /** @var ?string */
     protected $manifest;
 
-    public function __construct(string $manifest)
+    public function __construct(?string $manifest = null)
     {
         $this->manifest = $manifest;
     }
 
-    public function getManifest(): string
+    public function getManifest(): ?string
     {
         return $this->manifest;
     }
@@ -23,7 +23,7 @@ class CreateImage implements ResponseInterface, FromJsonInterface
     public static function fromJson(stdClass $json)
     {
         return new static(
-            (string) $json->manifest
+           isset($json->manifest) ? (string) $json->manifest : null
         );
     }
 }
