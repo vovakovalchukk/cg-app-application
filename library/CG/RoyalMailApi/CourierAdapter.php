@@ -2,29 +2,35 @@
 namespace CG\RoyalMailApi;
 
 use CG\CourierAdapter\Account;
+use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
+use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
 use Psr\Log\LoggerInterface;
 use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface
 {
     const FEATURE_FLAG = 'Royal Mail API';
 
     /** @var CredentialsFormFactory */
     protected $credentialsFormFactory;
+    /** @var CredentialsValidator */
+    protected $credentialsValidator;
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
 
     /** @var LoggerInterface */
     protected $logger;
 
+    public function __construct(CredentialsFormFactory $credentialsFormFactory, CredentialsValidator $credentialsValidator)
     public function __construct(CredentialsFormFactory $credentialsFormFactory, DeliveryServiceService $deliveryServiceService)
     {
         $this->credentialsFormFactory = $credentialsFormFactory;
+        $this->credentialsValidator = $credentialsValidator;
         $this->deliveryServiceService = $deliveryServiceService;
     }
 
@@ -34,6 +40,14 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     public function getCredentialsForm()
     {
         return ($this->credentialsFormFactory)();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateCredentials(Account $account)
+    {
+        return ($this->credentialsValidator)($account);
     }
 
     /**
