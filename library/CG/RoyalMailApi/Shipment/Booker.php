@@ -15,7 +15,9 @@ use CG\RoyalMailApi\ResponseInterface;
 use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
 use CG\RoyalMailApi\Response\Shipment\Create as Response;
 use CG\RoyalMailApi\Shipment;
+use CG\RoyalMailApi\Shipment\Documents\Generator as DocumentsGenerator;
 use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
+use function CG\Stdlib\mergePdfData;
 
 class Booker
 {
@@ -26,11 +28,17 @@ class Booker
     protected $clientFactory;
     /** @var LabelGenerator */
     protected $labelGenerator;
+    /** @var DocumentsGenerator */
+    protected $documentsGenerator;
 
-    public function __construct(ClientFactory $clientFactory, LabelGenerator $labelGenerator)
-    {
+    public function __construct(
+        ClientFactory $clientFactory,
+        LabelGenerator $labelGenerator,
+        DocumentsGenerator $documentsGenerator
+    ) {
         $this->clientFactory = $clientFactory;
         $this->labelGenerator = $labelGenerator;
+        $this->documentsGenerator = $documentsGenerator;
     }
 
     public function __invoke(Shipment $shipment): Shipment
@@ -73,11 +81,13 @@ class Booker
         }
         $shipment->setCourierReference(implode('|', $shipmentNumbers));
 
+        /** @var Package $package */
         foreach ($shipment->getPackages() as $package) {
             $shipmentItem = current($shipmentItems);
             if (!$shipmentItem) {
                 break;
             }
+            $package->setRmShipmentNumber($shipmentItem->getShipmentNumber());
             $label = $shipmentItem->getLabel() ?? $this->fetchLabelForShipmentItem($shipmentItem, $shipment);
             if ($label) {
                 $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
@@ -91,7 +101,25 @@ class Booker
     protected function fetchLabelForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): ?string
     {
         $labelData = ($this->labelGenerator)($shipmentItem, $shipment);
+        if (!$this->isDomesticShipment($shipment)) {
+            $documentData = $this->fetchInternationalDocumentsForShipmentItem($shipmentItem, $shipment);
+            $labelData = $this->mergeInternationalDocumentsIntoLabel($labelData, $documentData);
+        }
         return $labelData;
+    }
+
+    protected function fetchInternationalDocumentsForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): ?string
+    {
+        return ($this->documentsGenerator)($shipmentItem, $shipment);
+    }
+
+    protected function mergeInternationalDocumentsIntoLabel(string $labelData, ?string $documentsData): string
+    {
+        if (!$documentsData) {
+            return $labelData;
+        }
+        $mergedPdfData = mergePdfData([base64_decode($labelData), base64_decode($documentsData)]);
+        return base64_encode($mergedPdfData);
     }
 
     protected function determineTrackingNumber(ShipmentItem $shipmentItem): ?string

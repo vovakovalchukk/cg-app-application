@@ -10,7 +10,7 @@ use CG\RoyalMailApi\Request\Shipment\Create\International as InternationalReques
 use CG\RoyalMailApi\Response\Shipment\Create as Response;
 use CG\RoyalMailApi\Shipment;
 use CG\RoyalMailApi\Shipment\Booker;
-use CG\RoyalMailApi\Shipment\Package;
+use CG\RoyalMailApi\Shipment\Documents\Generator as DocumentsGenerator;
 use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
 use CG\RoyalMailApi\Test\MockAccountTrait;
 use CG\RoyalMailApi\Test\MockDeliveryAddressTrait;
@@ -32,6 +32,8 @@ class BookerTest extends TestCase
     protected $client;
     /** @var MockObject */
     protected $labelGenerator;
+    /** @var MockObject */
+    protected $documentsGenerator;
     /** @var Request */
     protected $request;
 
@@ -43,8 +45,9 @@ class BookerTest extends TestCase
             ->method('__invoke')
             ->willReturn($this->client);
         $this->labelGenerator = $this->getMockBuilder(LabelGenerator::class)->disableOriginalConstructor()->getMock();
+        $this->documentsGenerator = $this->getMockBuilder(DocumentsGenerator::class)->disableOriginalConstructor()->getMock();
 
-        $this->booker = new Booker($clientFactory, $this->labelGenerator);
+        $this->booker = new Booker($clientFactory, $this->labelGenerator, $this->documentsGenerator);
     }
 
     public function testDomesticShipmentCreatesDomesticRequest()
@@ -96,18 +99,11 @@ class BookerTest extends TestCase
         $this->whenTheShipmentIsBookedSuccessfully($shipment);
     }
 
-    protected function givenAValidShipment(): MockObject
+    public function testInternationalShipmentWithoutLabelThenFetchesTheInternationalDocs()
     {
-        $shipment = $this->getMockBuilder(Shipment::class)
-            ->disableOriginalConstructor()
-            // Dont mock all the methods, requires too much duplication
-            ->setMethods(['getAccount', 'getPackages', 'getDeliveryAddress'])
-            ->getMock();
-
-        $shipment->expects($this->any())->method('getAccount')->willReturn($this->getMockAccount());
-        $shipment->expects($this->any())->method('getPackages')->willReturn([$this->getMockPackage()]);
-
-        return $shipment;
+        $shipment = $this->givenAValidInternationalShipment();
+        $this->thenTheInternationalDocsShouldBeFetched($shipment);
+        $this->whenTheShipmentIsBookedSuccessfullyButWithoutALabelReturned($shipment);
     }
 
     protected function givenAValidDomesticShipment(): MockObject
@@ -213,35 +209,14 @@ class BookerTest extends TestCase
             ->method('__invoke');
     }
 
-    protected function getMockAccount(): MockObject
+    protected function thenTheInternationalDocsShouldBeFetched()
     {
-        $account = $this->getMockBuilder(Account::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $account->expects($this->any())
-            ->method('getId')
-            ->willReturn(1);
-        return $account;
-    }
+        $this->labelGenerator->expects($this->once())
+            ->method('__invoke')
+            ->willReturn('JVBERi0xLjYKJeTjz9IKMSAwIG9iagpbL1BERi9JbWFnZUIvSW1hZ2VDL0ltYWdlSS9UZXh0XQplbmRvYmoKNCAwIG9iago8PC9MZW5ndGggNSAwIFIKL0ZpbHRlci9GbGF0ZURlY29kZQo');
 
-    protected function getMockPackage(): MockObject
-    {
-        $package = $this->getMockBuilder(Package::class)
-            ->disableOriginalConstructor()
-            ->setMethods(null)
-            ->getMock();
-        return $package;
-    }
-
-    protected function getMockDeliveryAddress(?string $countryCode = null): MockObject
-    {
-        $deliveryAddress = $this->getMockBuilder(Address::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['getISOAlpha2CountryCode'])
-            ->getMock();
-        $deliveryAddress->expects($this->any())
-            ->method('getISOAlpha2CountryCode')
-            ->willReturn($countryCode ?? Booker::DOMESTIC_COUNTRY);
-        return $deliveryAddress;
+        $this->documentsGenerator->expects($this->once())
+            ->method('__invoke')
+            ->willReturn('JVBERi0xLjYKJeTjz9IKMSAwIG9iagpbL1BERi9JbWFnZUIvSW1hZ2VDL0ltYWdlSS9UZXh0XQplbmRvYmoKNCAwIG9iago8PC9MZW5ndGggNSAwIFIKL0ZpbHRlci9GbGF0ZURlY29kZQo');
     }
 }

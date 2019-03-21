@@ -29,6 +29,8 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $label;
     /** @var string */
     protected $trackingReference;
+    /** @var string|null */
+    protected $rmShipmentNumber;
 
     public function __construct(
         int $number,
@@ -158,5 +160,16 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     public function getTrackingReference()
     {
         return $this->trackingReference;
+    }
+
+    public function getRmShipmentNumber(): ?string
+    {
+        return $this->rmShipmentNumber;
+    }
+
+    public function setRmShipmentNumber(string $rmShipmentNumber)
+    {
+        $this->rmShipmentNumber = $rmShipmentNumber;
+        return $this;
     }
 }
