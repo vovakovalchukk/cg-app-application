@@ -23,7 +23,7 @@ class Shipment implements
     PackageTypesInterface,
     SignatureRequiredInterface
 {
-    const packageTypes = [
+    protected static $packageTypes = [
         'L' => 'Letter',
         'F' => 'Large Letter',
         'P' => 'Parcel',
@@ -235,7 +235,7 @@ class Shipment implements
     public static function getPackageTypes()
     {
         $packageTypes = [];
-        foreach (static::packageTypes as $packageReference => $packageDisplayName) {
+        foreach (static::$packageTypes as $packageReference => $packageDisplayName) {
             $packageTypes[] = Type::fromArray(
                 [
                     'reference' => $packageReference,
