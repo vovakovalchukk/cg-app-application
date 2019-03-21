@@ -45,8 +45,8 @@ class Shipment implements
     protected $signatureRequired;
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
-     /** @var string */
-     protected $courierReference;
+    /** @var string */
+    protected $courierReference;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
