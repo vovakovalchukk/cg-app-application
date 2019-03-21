@@ -267,6 +267,37 @@ CourierSpecificsDataTable.prototype.addItemParcelAssignmentButtonColumn = functi
 
 CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = function(templateData, cgMustache)
 {
+    var options = templateData.packageType;
+    var optionsObject = {};
+    var selected;
+    if (options instanceof Array) {
+        options.forEach(function (value) {
+            optionsObject[value] = {title: value};
+        });
+    } else {
+        optionsObject = options;
+    }
+
+    var firstValue = '';
+    var selectedValue = '';
+
+    for (var value in optionsObject) {
+        var option = optionsObject[value];
+        if (typeof(option) !== 'object') {
+            optionsObject[value] = {'title': option};
+        } else if (!option.hasOwnProperty('title')) {
+            optionsObject[value].title = value;
+        }
+        firstValue = firstValue || value;
+        if (option.hasOwnProperty('selected') && options[value].selected) {
+            selectedValue = value;
+        }
+    }
+
+    if (!optionsObject[selected]) {
+        selected = selectedValue || firstValue;
+    }
+
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
@@ -275,11 +306,11 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
             class: 'required',
             options: []
         };
-        for (var index in templateData.packageTypes) {
+        for (var value in options) {
             data.options.push({
-                title: templateData.packageTypes[index].title,
-                value: templateData.packageTypes[index].value,
-                selected: templateData.packageTypes[index].selected
+                title: optionsObject[value].title,
+                value: value,
+                selected: (value == selected)
             });
         }
         templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
@@ -321,14 +352,52 @@ CourierSpecificsDataTable.prototype.addCustomSelectToDeliveryExperienceColumn = 
 
 CourierSpecificsDataTable.prototype.addCustomSelectToInsuranceOptionsColumn = function(templateData, cgMustache)
 {
+    var options = templateData.insuranceOptions;
+    var optionsObject = {};
+    var selected;
+    if (options instanceof Array) {
+        options.forEach(function (value) {
+            optionsObject[value] = {title: value};
+        });
+    } else {
+        optionsObject = options;
+    }
+
+    var firstValue = '';
+    var selectedValue = '';
+
+    for (var value in optionsObject) {
+        var option = optionsObject[value];
+        if (typeof(option) !== 'object') {
+            optionsObject[value] = {'title': option};
+        } else if (!option.hasOwnProperty('title')) {
+            optionsObject[value].title = value;
+        }
+        firstValue = firstValue || value;
+        if (option.hasOwnProperty('selected') && options[value].selected) {
+            selectedValue = value;
+        }
+    }
+
+    if (!optionsObject[selected]) {
+        selected = selectedValue || firstValue;
+    }
+
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
             id: 'courier-package-insurance-options_' + templateData.orderId,
             name: 'orderData[' + templateData.orderId + '][insuranceOptions]',
             class: 'courier-package-insurance-options-select',
-            options: templateData.packageInsuranceOptions
+            options: []
         };
+        for (var value in options) {
+            data.options.push({
+                title: optionsObject[value].title,
+                value: value,
+                selected: (value == selected)
+            });
+        }
         templateData.packageInsuranceOptions = cgMustache.renderTemplate(template, data);
     }, true);
 };
