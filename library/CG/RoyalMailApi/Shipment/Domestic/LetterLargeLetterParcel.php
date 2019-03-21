@@ -5,7 +5,7 @@ use CG\RoyalMailApi\Shipment;
 
 class LetterLargeLetterParcel extends Shipment
 {
-    const packageTypes = [
+    protected static $packageTypes = [
         'L' => 'Letter',
         'F' => 'Large Letter',
         'P' => 'Parcel',

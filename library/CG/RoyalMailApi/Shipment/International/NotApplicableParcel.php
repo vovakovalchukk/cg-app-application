@@ -5,7 +5,7 @@ use CG\RoyalMailApi\Shipment;
 
 class NotApplicableParcel extends Shipment
 {
-    const packageTypes = [
+    protected static $packageTypes = [
         'N' => 'Not Applicable',
         'G' => 'Large Letter',
     ];
