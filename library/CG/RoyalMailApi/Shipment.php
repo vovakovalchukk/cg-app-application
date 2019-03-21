@@ -15,6 +15,7 @@ use CG\RoyalMailApi\Package\Type as PackageType;
 use CG\RoyalMailApi\Shipment\Package;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use DateTime;
+use CG\CourierAdapter\InsuranceOptionInterface as InsuranceOption;
 
 class Shipment implements
     ShipmentInterface,
@@ -48,6 +49,8 @@ class Shipment implements
     protected $deliveryService;
     /** @var string */
     protected $courierReference;
+    /** @var InsuranceOption */
+    protected $insuranceOption;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
@@ -57,7 +60,8 @@ class Shipment implements
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         array $packages = [],
-        ?bool $signatureRequired = null
+        ?bool $signatureRequired = null,
+        ?InsuranceOption $insuranceOption
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
@@ -67,6 +71,7 @@ class Shipment implements
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
         $this->signatureRequired = $signatureRequired;
+        $this->insuranceOption = $insuranceOption;
     }
 
     public static function fromArray(array $array): Shipment
@@ -79,7 +84,8 @@ class Shipment implements
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
             $array['packages'] ?? [],
-            $array['signatureRequired'] ?? null
+            $array['signatureRequired'] ?? null,
+            $array['insuranceOption'] ?? null
         );
     }
 
@@ -252,5 +258,13 @@ class Shipment implements
                 'displayName' => static::$packageTypes[$reference]
             ]
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getInsuranceOption()
+    {
+        return $this->insuranceOption;
     }
 }
