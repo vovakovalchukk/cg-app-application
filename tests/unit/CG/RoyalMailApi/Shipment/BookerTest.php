@@ -1,8 +1,6 @@
 <?php
 namespace CG\RoyalMailApi\Test\Shipment;
 
-use CG\CourierAdapter\Account;
-use CG\CourierAdapter\Address;
 use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
@@ -14,11 +12,20 @@ use CG\RoyalMailApi\Shipment;
 use CG\RoyalMailApi\Shipment\Booker;
 use CG\RoyalMailApi\Shipment\Package;
 use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
+use CG\RoyalMailApi\Test\MockAccountTrait;
+use CG\RoyalMailApi\Test\MockDeliveryAddressTrait;
+use CG\RoyalMailApi\Test\MockPackageTrait;
+use CG\RoyalMailApi\Test\MockShipmentTrait;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class BookerTest extends TestCase
 {
+    use MockAccountTrait;
+    use MockPackageTrait;
+    use MockDeliveryAddressTrait;
+    use MockShipmentTrait;
+
     /** @var Booker */
     protected $booker;
     /** @var MockObject */
@@ -105,16 +112,12 @@ class BookerTest extends TestCase
 
     protected function givenAValidDomesticShipment(): MockObject
     {
-        $shipment = $this->givenAValidShipment();
-        $shipment->expects($this->any())->method('getDeliveryAddress')->willReturn($this->getMockDeliveryAddress());
-        return $shipment;
+        return $this->getMockDomesticShipment();
     }
 
     protected function givenAValidInternationalShipment(): MockObject
     {
-        $shipment = $this->givenAValidShipment();
-        $shipment->expects($this->any())->method('getDeliveryAddress')->willReturn($this->getMockDeliveryAddress('FR'));
-        return $shipment;
+        return $this->getMockInternationalShipment();
     }
 
     protected function whenTheShipmentIsBookedSuccessfully(MockObject $shipment): MockObject
