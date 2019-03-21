@@ -85,7 +85,20 @@ class ManifestServiceTest extends TestCase
 
     public function testManifestCreationAndPrintTimesOut()
     {
+        $createManifestResponse = CreateManifestResponse::fromJson($this->buildCreateManifestJsonResponseWithoutManifest());
 
+        $printManifestResponseWithoutManifest = new PrintManifestResponse();
+
+        $this->client->expects($this->at(0))
+            ->method('send')
+            ->willReturn($createManifestResponse);
+
+        $this->client->expects($this->any())
+            ->method('send')
+            ->willReturn($printManifestResponseWithoutManifest);
+
+        $this->expectExceptionMessage('generate a manifest on Royal Mail');
+        $this->manifestService->createManifest($this->createAccount());
     }
 
     protected function createAccount(): Account
