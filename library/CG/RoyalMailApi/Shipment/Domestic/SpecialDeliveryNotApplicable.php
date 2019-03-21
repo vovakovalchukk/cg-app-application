@@ -2,12 +2,10 @@
 namespace CG\RoyalMailApi\Shipment\Domestic;
 
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
-use CG\CourierAdapter\Shipment\SupportedField\InsuranceRequiredInterface;
 use CG\RoyalMailApi\Shipment\Insurance\Option as InsuranceOption;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class SpecialDeliveryNotApplicable extends NotApplicable implements
-    InsuranceRequiredInterface,
     InsuranceOptionsInterface
 {
     protected static $availableInsuranceOptions = [
