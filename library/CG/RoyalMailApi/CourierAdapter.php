@@ -26,9 +26,11 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory, CredentialsValidator $credentialsValidator)
-    public function __construct(CredentialsFormFactory $credentialsFormFactory, DeliveryServiceService $deliveryServiceService)
-    {
+    public function __construct(
+        CredentialsFormFactory $credentialsFormFactory,
+        CredentialsValidator $credentialsValidator,
+        DeliveryServiceService $deliveryServiceService
+    ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsValidator = $credentialsValidator;
         $this->deliveryServiceService = $deliveryServiceService;
