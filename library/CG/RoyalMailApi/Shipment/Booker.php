@@ -23,6 +23,7 @@ class Booker
 {
     const DOMESTIC_COUNTRY = 'GB';
     const ONE_D_BARCODE_PATTERN = '/[A-Z]{2}[0-9]{9}GB/';
+    const SHIP_NO_SEP = '|';
 
     /** @var ClientFactory */
     protected $clientFactory;
@@ -79,7 +80,7 @@ class Booker
         foreach ($shipmentItems as $shipmentItem) {
             $shipmentNumbers[] = $shipmentItem->getShipmentNumber();
         }
-        $shipment->setCourierReference(implode('|', $shipmentNumbers));
+        $shipment->setCourierReference(implode(static::SHIP_NO_SEP, $shipmentNumbers));
 
         /** @var Package $package */
         foreach ($shipment->getPackages() as $package) {

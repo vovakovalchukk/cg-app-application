@@ -10,6 +10,7 @@ use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
 use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
 use CG\RoyalMailApi\Shipment\Booker as ShipmentBooker;
+use CG\RoyalMailApi\Shipment\Canceller as ShipmentCanceller;
 use Psr\Log\LoggerInterface;
 use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
 
@@ -25,6 +26,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     protected $deliveryServiceService;
     /** @var ShipmentBooker */
     protected $shipmentBooker;
+    /** @var ShipmentCanceller */
+    protected $shipmentCanceller;
 
     /** @var LoggerInterface */
     protected $logger;
@@ -33,12 +36,14 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
         CredentialsFormFactory $credentialsFormFactory,
         CredentialsValidator $credentialsValidator,
         DeliveryServiceService $deliveryServiceService,
-        ShipmentBooker $shipmentBooker
+        ShipmentBooker $shipmentBooker,
+        ShipmentCanceller $shipmentCanceller
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsValidator = $credentialsValidator;
         $this->deliveryServiceService = $deliveryServiceService;
         $this->shipmentBooker = $shipmentBooker;
+        $this->shipmentCanceller = $shipmentCanceller;
     }
 
     /**
@@ -111,7 +116,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function cancelShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-375
+        ($this->shipmentCanceller)($shipment);
+        return true;
     }
 
     /**
@@ -119,7 +125,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function updateShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-375
+        $this->cancelShipment($shipment);
+        $this->bookShipment($shipment);
     }
 
     /**
