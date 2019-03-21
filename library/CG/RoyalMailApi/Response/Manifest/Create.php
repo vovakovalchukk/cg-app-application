@@ -29,8 +29,12 @@ class Create implements ResponseInterface, FromJsonInterface
 
     public static function fromJson(stdClass $json)
     {
+        if (!isset($json->batchNumber, $json->count, $json->shipments)) {
+            throw new \InvalidArgumentException('Create manifest response has an invalid format');
+        }
+
         $shipments = [];
-        foreach (array($json->shipments ?? []) as $shipment) {
+        foreach ($json->shipments as $shipment) {
             $shipments[] = Shipment::fromJson($shipment);
         }
 
