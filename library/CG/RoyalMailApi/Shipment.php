@@ -54,7 +54,6 @@ class Shipment implements
         string $customerReference,
         Account $account,
         AddressInterface $deliveryAddress,
-        ?AddressInterface $collectionAddress = null,
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         array $packages = [],
@@ -64,7 +63,6 @@ class Shipment implements
         $this->customerReference = $customerReference;
         $this->account = $account;
         $this->deliveryAddress = $deliveryAddress;
-        $this->collectionAddress = $collectionAddress;
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
