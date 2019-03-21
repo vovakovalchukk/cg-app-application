@@ -118,6 +118,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function cancelShipment(ShipmentInterface $shipment)
     {
+        $this->logger->debug('Cancelling Royal Mail API shipment for order {order} and Account {account}', ['order' => $shipment->getCustomerReference(), 'account' => $shipment->getAccount()->getId()]);
         ($this->shipmentCanceller)($shipment);
         return true;
     }
