@@ -84,7 +84,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        $this->deliveryServiceService->getDeliveryServiceByReference($reference);
+        return $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
@@ -92,7 +92,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForAccount(Account $account)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -100,7 +100,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        return $this->deliveryServiceService->getDeliveryServices();
+        return $this->deliveryServiceService->getDeliveryServicesForCountry($isoAlpha2CountryCode);
     }
 
     /**
@@ -108,7 +108,9 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServicesForCountry(
+            $shipment->getDeliveryAddress()->getISOAlpha2CountryCode()
+        );
     }
 
     /**

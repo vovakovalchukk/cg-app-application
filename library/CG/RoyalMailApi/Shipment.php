@@ -4,35 +4,38 @@ namespace CG\RoyalMailApi;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
-use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\PackageInterface;
-use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
-use CG\CourierAdapter\ShipmentInterface;
-use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
+use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
+use CG\CourierAdapter\ShipmentInterface;
+use CG\RoyalMailApi\Package\Type as PackageType;
 use CG\RoyalMailApi\Shipment\Package;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use DateTime;
 
 class Shipment implements
     ShipmentInterface,
-    CollectionAddressInterface,
     DeliveryInstructionsInterface,
     CollectionDateInterface,
     PackagesInterface,
     PackageTypesInterface,
     SignatureRequiredInterface
 {
+    protected static $packageTypes = [
+        'L' => 'Letter',
+        'F' => 'Large Letter',
+        'P' => 'Parcel',
+    ];
+
     /** @var string */
     protected $customerReference;
     /** @var Account */
     protected $account;
     /** @var AddressInterface */
     protected $deliveryAddress;
-    /** @var AddressInterface */
-    protected $collectionAddress;
     /** @var string */
     protected $deliveryInstructions;
     /** @var DateTime */
@@ -43,15 +46,14 @@ class Shipment implements
     protected $signatureRequired;
     /** @var DeliveryServiceInterface */
     protected $deliveryService;
-     /** @var string */
-     protected $courierReference;
+    /** @var string */
+    protected $courierReference;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
         string $customerReference,
         Account $account,
         AddressInterface $deliveryAddress,
-        ?AddressInterface $collectionAddress = null,
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         array $packages = [],
@@ -61,7 +63,6 @@ class Shipment implements
         $this->customerReference = $customerReference;
         $this->account = $account;
         $this->deliveryAddress = $deliveryAddress;
-        $this->collectionAddress = $collectionAddress;
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
@@ -75,7 +76,6 @@ class Shipment implements
             $array['customerReference'],
             $array['account'],
             $array['deliveryAddress'],
-            $array['collectionAddress'] ?? null,
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
             $array['packages'] ?? [],
@@ -137,14 +137,6 @@ class Shipment implements
     public function getDeliveryAddress()
     {
         return $this->deliveryAddress;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getCollectionAddress()
-    {
-        return $this->collectionAddress;
     }
 
      /**
@@ -233,7 +225,16 @@ class Shipment implements
      */
     public static function getPackageTypes()
     {
-
+        $packageTypes = [];
+        foreach (static::$packageTypes as $packageReference => $packageDisplayName) {
+            $packageTypes[] = PackageType::fromArray(
+                [
+                    'reference' => $packageReference,
+                    'displayName' => $packageDisplayName
+                ]
+            );
+        }
+        return $packageTypes;
     }
 
     /**
@@ -241,6 +242,15 @@ class Shipment implements
      */
     public static function getPackageTypeByReference($reference)
     {
+        if (!isset(static::$packageTypes[$reference])) {
+            throw new NotFound('No package type available for reference ' . $reference);
+        }
 
+        return PackageType::fromArray(
+            [
+                'reference' => $reference,
+                'displayName' => static::$packageTypes[$reference]
+            ]
+        );
     }
 }
