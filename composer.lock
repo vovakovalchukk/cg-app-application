@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3924e3d921369715a4e1c98248a4476e",
+    "content-hash": "1aa60fe8077c066ac25b889653c73142",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4910,16 +4910,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.6",
+            "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b81aee4b229e19b619109c2f35993c8043581165"
+                "reference": "e55d5fe3c3b3adc60122b2cd2d6e9f7e6e32e760"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.6-176f8b.zip",
-                "reference": "b81aee4b229e19b619109c2f35993c8043581165",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-374-royal-mail-api-shipping-service-options-de9194.zip",
+                "reference": "e55d5fe3c3b3adc60122b2cd2d6e9f7e6e32e760",
                 "shasum": null
             },
             "require": {
@@ -4971,7 +4971,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-03-19T11:57:29+00:00"
+            "time": "2019-03-21T14:38:30+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11036,12 +11036,19 @@
             "alias_normalized": "1.43.11.0",
             "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.26.7",
+            "alias_normalized": "1.26.7.0",
+            "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
