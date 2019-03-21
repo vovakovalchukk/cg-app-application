@@ -7,6 +7,7 @@ use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
+use CG\RoyalMailApi\Package\Type as PackageType;
 
 class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
 {
@@ -20,7 +21,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $width;
     /** @var float */
     protected $length;
-
+    /** @var PackageType */
     protected $type;
     /** @var PackageContent[] */
     protected $contents;
@@ -38,7 +39,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         float $height,
         float $width,
         float $length,
-        $type,
+        PackageType $type,
         array $contents = []
     ) {
         $this->number = $number;
@@ -115,7 +116,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         ];
     }
 
-    public function getType()
+    public function getType(): PackageType
     {
         return $this->type;
     }
