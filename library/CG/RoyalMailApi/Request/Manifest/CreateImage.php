@@ -30,4 +30,9 @@ class CreateImage extends PutAbstract
     {
         return Response::class;
     }
+
+    public function getManifestBatchNumber(): string
+    {
+        return $this->manifestBatchNumber;
+    }
 }
