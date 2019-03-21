@@ -267,37 +267,7 @@ CourierSpecificsDataTable.prototype.addItemParcelAssignmentButtonColumn = functi
 
 CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = function(templateData, cgMustache)
 {
-    var options = templateData.packageType;
-    var optionsObject = {};
-    var selected;
-    if (options instanceof Array) {
-        options.forEach(function (value) {
-            optionsObject[value] = {title: value};
-        });
-    } else {
-        optionsObject = options;
-    }
-
-    var firstValue = '';
-    var selectedValue = '';
-
-    for (var value in optionsObject) {
-        var option = optionsObject[value];
-        if (typeof(option) !== 'object') {
-            optionsObject[value] = {'title': option};
-        } else if (!option.hasOwnProperty('title')) {
-            optionsObject[value].title = value;
-        }
-        firstValue = firstValue || value;
-        if (option.hasOwnProperty('selected') && options[value].selected) {
-            selectedValue = value;
-        }
-    }
-
-    if (!optionsObject[selected]) {
-        selected = selectedValue || firstValue;
-    }
-
+    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.packageType);
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
@@ -306,11 +276,11 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
             class: 'required',
             options: []
         };
-        for (var value in options) {
+        for (var value in optionsObject.options) {
             data.options.push({
-                title: optionsObject[value].title,
+                title: optionsObject.options[value].title,
                 value: value,
-                selected: (value == selected)
+                selected: (value == optionsObject.selected)
             });
         }
         templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
@@ -352,37 +322,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToDeliveryExperienceColumn = 
 
 CourierSpecificsDataTable.prototype.addCustomSelectToInsuranceOptionsColumn = function(templateData, cgMustache)
 {
-    var options = templateData.insuranceOptions;
-    var optionsObject = {};
-    var selected;
-    if (options instanceof Array) {
-        options.forEach(function (value) {
-            optionsObject[value] = {title: value};
-        });
-    } else {
-        optionsObject = options;
-    }
-
-    var firstValue = '';
-    var selectedValue = '';
-
-    for (var value in optionsObject) {
-        var option = optionsObject[value];
-        if (typeof(option) !== 'object') {
-            optionsObject[value] = {'title': option};
-        } else if (!option.hasOwnProperty('title')) {
-            optionsObject[value].title = value;
-        }
-        firstValue = firstValue || value;
-        if (option.hasOwnProperty('selected') && options[value].selected) {
-            selectedValue = value;
-        }
-    }
-
-    if (!optionsObject[selected]) {
-        selected = selectedValue || firstValue;
-    }
-
+    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.insuranceOptions);
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
@@ -391,11 +331,11 @@ CourierSpecificsDataTable.prototype.addCustomSelectToInsuranceOptionsColumn = fu
             class: 'courier-package-insurance-options-select',
             options: []
         };
-        for (var value in options) {
+        for (var value in optionsObject.options) {
             data.options.push({
-                title: optionsObject[value].title,
+                title: optionsObject.options[value].title,
                 value: value,
-                selected: (value == selected)
+                selected: (value == optionsObject.selected)
             });
         }
         templateData.packageInsuranceOptions = cgMustache.renderTemplate(template, data);
@@ -613,4 +553,43 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 CourierSpecificsDataTable.prototype.getOrderIdForParcelInput = function(element)
 {
     return element.name.split(/[\[\]]/)[1];
+};
+
+CourierSpecificsDataTable.prototype.convertDataToSelectTemplateFormat = function(options)
+{
+    var optionsObject = {
+        options: {}
+    };
+    var selected;
+    if (options instanceof Array) {
+        options.forEach(function (value) {
+            optionsObject.options[value] = {title: value};
+        });
+    } else {
+        optionsObject.options = options;
+    }
+
+    var firstValue = '';
+    var selectedValue = '';
+
+    for (var value in optionsObject.options) {
+        var option = optionsObject.options[value];
+        if (typeof(option) !== 'object') {
+            optionsObject.options[value] = {'title': option};
+        } else if (!option.hasOwnProperty('title')) {
+            optionsObject.options[value].title = value;
+        }
+        firstValue = firstValue || value;
+        if (option.hasOwnProperty('selected') && options[value].selected) {
+            selectedValue = value;
+        }
+    }
+
+    if (!optionsObject.selected) {
+        optionsObject.selected = selectedValue || firstValue;
+
+    }
+
+    console.log(optionsObject);
+    return optionsObject;
 };
