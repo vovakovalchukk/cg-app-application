@@ -2,9 +2,9 @@
 namespace CG\RoyalMailApi\Request\Manifest;
 
 use CG\RoyalMailApi\Request\PutAbstract;
-use CG\RoyalMailApi\Response\Manifest\CreateImage as Response;
+use CG\RoyalMailApi\Response\Manifest\PrintManifest as Response;
 
-class CreateImage extends PutAbstract
+class PrintManifest extends PutAbstract
 {
     const URI = '/manifest';
 

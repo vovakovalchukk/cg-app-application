@@ -1,11 +1,11 @@
 <?php
-namespace CG\RoyalMailApi\Response\Manifest;
+namespace CG\RoyalMailApi;
 
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\DocumentInterface;
 use CG\CourierAdapter\ManifestInterface;
 
-class Response implements ManifestInterface
+class Manifest implements ManifestInterface
 {
     /** @var string */
     protected $manifest;

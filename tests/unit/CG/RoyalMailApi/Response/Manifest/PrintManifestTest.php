@@ -2,9 +2,9 @@
 namespace CG\RoyalMailApi\Test\Response\Manifest;
 
 use PHPUnit\Framework\TestCase;
-use CG\RoyalMailApi\Response\Manifest\CreateImage as CreateResponse;
+use CG\RoyalMailApi\Response\Manifest\PrintManifest as CreateResponse;
 
-class CreateImageTest extends TestCase
+class PrintManifestTest extends TestCase
 {
     public function testCreateFromJsonSuccess()
     {

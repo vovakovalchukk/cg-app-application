@@ -5,7 +5,7 @@ use CG\RoyalMailApi\Response\FromJsonInterface;
 use CG\RoyalMailApi\ResponseInterface;
 use stdClass;
 
-class CreateImage implements ResponseInterface, FromJsonInterface
+class PrintManifest implements ResponseInterface, FromJsonInterface
 {
     /** @var ?string */
     protected $manifest;

@@ -46,15 +46,6 @@ class Create implements ResponseInterface, FromJsonInterface
         );
     }
 
-    public function buildManifestResponseForAccount(Account $account): Response
-    {
-        return new Response(
-            $account,
-            $this->getManifest(),
-            $this->getBatchNumber()
-        );
-    }
-
     public function getBatchNumber(): int
     {
         return $this->batchNumber;
