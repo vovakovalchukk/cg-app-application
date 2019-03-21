@@ -97,7 +97,9 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        return $this->deliveryServiceService->getDeliveryServices();
+        return $this->deliveryServiceService->getDeliveryServicesForCountry(
+            $shipment->getDeliveryAddress()->getISOAlpha2CountryCode()
+        );
     }
 
     /**
