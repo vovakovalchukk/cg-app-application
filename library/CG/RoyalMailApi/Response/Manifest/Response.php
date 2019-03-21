@@ -33,7 +33,7 @@ class Response implements ManifestInterface
 
     public function getAccount()
     {
-        $this->account;
+        return $this->account;
     }
 
     public function getReference()
