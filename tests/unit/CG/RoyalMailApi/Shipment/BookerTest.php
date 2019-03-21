@@ -23,6 +23,8 @@ class BookerTest extends TestCase
     protected $booker;
     /** @var MockObject */
     protected $client;
+    /** @var MockObject */
+    protected $labelGenerator;
     /** @var Request */
     protected $request;
 
@@ -33,9 +35,9 @@ class BookerTest extends TestCase
         $clientFactory->expects($this->any())
             ->method('__invoke')
             ->willReturn($this->client);
-        $labelGenerator = $this->getMockBuilder(LabelGenerator::class)->disableOriginalConstructor()->getMock();
+        $this->labelGenerator = $this->getMockBuilder(LabelGenerator::class)->disableOriginalConstructor()->getMock();
 
-        $this->booker = new Booker($clientFactory, $labelGenerator);
+        $this->booker = new Booker($clientFactory, $this->labelGenerator);
     }
 
     public function testDomesticShipmentCreatesDomesticRequest()
@@ -71,6 +73,20 @@ class BookerTest extends TestCase
         $shipment = $this->givenAValidDomesticShipment();
         $this->whenANonTrackedShipmentIsBookedSuccessfully($shipment);
         $this->thenTheTrackingNumberShouldBeFromTheTwoDBarcode($shipment);
+    }
+
+    public function testSuccessfulShipmentWithoutLabelThenFetchesTheLabel()
+    {
+        $shipment = $this->givenAValidDomesticShipment();
+        $this->thenTheLabelShouldBeFetchedSeparately($shipment);
+        $this->whenTheShipmentIsBookedSuccessfullyButWithoutALabelReturned($shipment);
+    }
+
+    public function testSuccessfulShipmentWithLabelDoesntThenFetchTheLabel()
+    {
+        $shipment = $this->givenAValidDomesticShipment();
+        $this->thenTheLabelShouldNotBeFetchedSeparately($shipment);
+        $this->whenTheShipmentIsBookedSuccessfully($shipment);
     }
 
     protected function givenAValidShipment(): MockObject
@@ -129,7 +145,7 @@ class BookerTest extends TestCase
         return $this->whenTheShipmentIsBooked($shipment, $response);
     }
 
-    protected function whenTheShipmentRequestIsMade(MockObject $shipment)
+    protected function whenTheShipmentRequestIsMade(MockObject $shipment): Request
     {
         $rawJson = file_get_contents(__DIR__ . '/../../../resources/CG/RoyalMailApi/Response/Shipment/Create/raw_response.json');
         $response = Response::fromJson(json_decode($rawJson));
@@ -143,6 +159,13 @@ class BookerTest extends TestCase
 
         ($this->booker)($shipment);
         return $this->request;
+    }
+
+    protected function whenTheShipmentIsBookedSuccessfullyButWithoutALabelReturned(MockObject $shipment)
+    {
+        $rawJson = file_get_contents(__DIR__ . '/../../../resources/CG/RoyalMailApi/Response/Shipment/Create/raw_response_no_label.json');
+        $response = Response::fromJson(json_decode($rawJson));
+        return $this->whenTheShipmentIsBooked($shipment, $response);
     }
 
     protected function thenTheShipmentShouldBeUpdatedFromTheResponse(MockObject $shipment)
@@ -173,6 +196,18 @@ class BookerTest extends TestCase
     protected function thenTheRequestShouldBeForAnInternationalShipment(Request $request): void
     {
         $this->assertInstanceOf(InternationalRequest::class, $request);
+    }
+
+    protected function thenTheLabelShouldBeFetchedSeparately()
+    {
+        $this->labelGenerator->expects($this->once())
+            ->method('__invoke');
+    }
+
+    protected function thenTheLabelShouldNotBeFetchedSeparately()
+    {
+        $this->labelGenerator->expects($this->never())
+            ->method('__invoke');
     }
 
     protected function getMockAccount(): MockObject
