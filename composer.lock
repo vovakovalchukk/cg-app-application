@@ -2174,17 +2174,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.13.1",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "58ced534c76d4d53eb5cc1d2116e94986e235a11"
+                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.13.1-906c60.zip",
-                "reference": "58ced534c76d4d53eb5cc1d2116e94986e235a11",
-                "shasum": null
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.0-dc7a9f.zip",
+                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.3",
@@ -2226,7 +2225,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2018-12-06T10:04:23+00:00"
+            "time": "2019-03-22T11:57:34+00:00"
         },
         {
             "name": "channelgrabber/permission",
