@@ -50,7 +50,7 @@
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
         "channelgrabber/order": "~1.43.10",
-        "channelgrabber/payment": "dev-CGIV-9891-no-payment-required-for-free-packages as 1.13.2",
+        "channelgrabber/payment": "~1.14.0",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.2.0",
