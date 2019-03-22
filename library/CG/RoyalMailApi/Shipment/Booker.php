@@ -7,13 +7,11 @@ use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
-use CG\RoyalMailApi\RequestInterface;
-use CG\RoyalMailApi\Request\Shipment\Create as Request;
+use CG\RoyalMailApi\Request\Shipment\Create as CreateRequest;
 use CG\RoyalMailApi\Request\Shipment\Create\Domestic as DomesticRequest;
 use CG\RoyalMailApi\Request\Shipment\Create\International as InternationalRequest;
-use CG\RoyalMailApi\ResponseInterface;
 use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
-use CG\RoyalMailApi\Response\Shipment\Create as Response;
+use CG\RoyalMailApi\Response\Shipment\Create as CreateResponse;
 use CG\RoyalMailApi\Shipment;
 use CG\RoyalMailApi\Shipment\Documents\Generator as DocumentsGenerator;
 use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
@@ -49,7 +47,7 @@ class Booker
         return $this->updateShipmentFromResponse($shipment, $response);
     }
 
-    protected function buildRequestFromShipment(Shipment $shipment): Request
+    protected function buildRequestFromShipment(Shipment $shipment): CreateRequest
     {
         if ($this->isDomesticShipment($shipment)) {
             return new DomesticRequest($shipment);
@@ -62,7 +60,7 @@ class Booker
         return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
     }
 
-    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
+    protected function sendRequest(CreateRequest $request, CourierAdapterAccount $account): CreateResponse
     {
         try {
             /** @var Client $client */
@@ -73,7 +71,7 @@ class Booker
         }
     }
 
-    protected function updateShipmentFromResponse(Shipment $shipment, Response $response): Shipment
+    protected function updateShipmentFromResponse(Shipment $shipment, CreateResponse $response): Shipment
     {
         $shipmentItems = $response->getShipmentItems();
         $shipmentNumbers = [];
