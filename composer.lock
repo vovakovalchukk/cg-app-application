@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1aa60fe8077c066ac25b889653c73142",
+    "content-hash": "7ed54be7045efd05e39ae605a3d37a18",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2094,12 +2094,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "08ccf8dd415af1dcd76015dcb6efbcc8cad8ed42"
+                "reference": "a2034f6e2b06bd431b866e078bfb80185c649ee7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-374-royal-mail-api-shipping-service-options-f76c21.zip",
-                "reference": "08ccf8dd415af1dcd76015dcb6efbcc8cad8ed42",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-374-royal-mail-api-shipping-service-options-27dc79.zip",
+                "reference": "a2034f6e2b06bd431b866e078bfb80185c649ee7",
                 "shasum": null
             },
             "require": {
@@ -2170,7 +2170,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-21T17:05:38+00:00"
+            "time": "2019-03-22T13:36:24+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2183,7 +2183,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.0-dc7a9f.zip",
-                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e"
+                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.20.3",
