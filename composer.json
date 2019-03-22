@@ -50,7 +50,7 @@
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
         "channelgrabber/order": "dev-TAC-374-royal-mail-api-shipping-service-options as 1.43.11",
-        "channelgrabber/payment": "~1.13.1",
+        "channelgrabber/payment": "~1.14.0",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
         "channelgrabber/picklist": "~1.2.0",
