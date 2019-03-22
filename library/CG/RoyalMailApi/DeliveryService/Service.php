@@ -16,7 +16,7 @@ class Service
     /** @var array */
     protected $serviceFormats;
 
-    public function __construct(array $servicesConfig = [], array $defaultConfig = [])
+    public function __construct(array $servicesConfig = [])
     {
         $this->serviceTypes = $servicesConfig['serviceTypes'] ?? [];
         $this->serviceOfferings = $servicesConfig['serviceOfferings'] ?? [];
@@ -25,12 +25,6 @@ class Service
             $this->buildServices($serviceConfig);
 
         }
-//        $this->deliveryServices = [];
-//        foreach ($servicesConfig as $reference => $config) {
-//            $config['reference'] = $reference;
-//            $mergedConfig = array_merge($defaultConfig, $config);
-//            $this->deliveryServices[$reference] = DeliveryService::fromArray($mergedConfig);
-//        }
     }
 
     /**
@@ -72,30 +66,11 @@ class Service
                 $config = [];
                 $config['reference'] = $serviceConfig['serviceOffering'] . '-' . $type;
                 $config['displayName'] = $this->getServiceOfferings()[$serviceConfig['serviceOffering']]['displayName'];
+                $config['serviceType'] = $type;
+                $config['shipmentClass'] = $serviceConfig['shipmentClass'];
                 $this->deliveryServices[$config['reference']] = DeliveryService::fromArray($config);
             }
     }
-
-//    protected function buildServiceForType(array $serviceConfig, array $services)
-//    {
-//        foreach ($serviceConfig['serviceType'] as $serviceType) {
-//            $services[$serviceConfig['serviceOffering'] . '-' . $serviceType] = [];
-//        }
-//        $mark = null;
-//        return $services;
-//    }
-//
-//    protected function buildServiceForFormats(array $serviceConfig, array $services)
-//    {
-//        $mark = null;
-//        return $services;
-//    }
-//
-//    protected function buildServiceForAddOns(array $serviceConfig, array $services)
-//    {
-//        $mark = null;
-//        return $services;
-//    }
 
     public function getServiceTypes(): array
     {

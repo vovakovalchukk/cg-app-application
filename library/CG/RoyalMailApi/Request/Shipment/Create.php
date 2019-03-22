@@ -59,7 +59,7 @@ abstract class Create extends PostAbstract
         $firstPackage = $this->shipment->getPackages()[0];
         [$offering, $type] = explode('-', $deliveryService->getReference());
         return [
-            'format' => $firstPackage->getType(),
+            'format' => $firstPackage->getType()->getReference(),
             'offering' => $offering,
             'type' => $type,
             'signature' => $this->shipment->isSignatureRequired(),

@@ -1,0 +1,8 @@
+<?= $value ?>
+<script type='text/javascript'>
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Columns/InsuranceOption.js'], function(InsuranceOption)
+    {
+        var templatePath = "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache";
+        var insuranceOption = new InsuranceOption(templatePath);
+    });
+</script>
