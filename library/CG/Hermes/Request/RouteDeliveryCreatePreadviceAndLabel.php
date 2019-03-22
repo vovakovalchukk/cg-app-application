@@ -17,7 +17,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     const METHOD = 'POST';
     const URI = 'routeDeliveryCreatePreadviceAndLabel';
     const SOURCE_OF_REQUEST = 'CLIENTWS';
-    const DEFAULT_MAX_LEN = 50;
+    const DEFAULT_MAX_LEN = 32;
     const MAX_PHONE_LEN = 15;
     const MAX_EMAIL_LEN = 80;
     const MAX_REF_LEN = 20;
