@@ -5,8 +5,8 @@ use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
-use CG\RoyalMailApi\Request\Shipment\Cancel as Request;
-use CG\RoyalMailApi\Response\Shipment\Cancel as Response;
+use CG\RoyalMailApi\Request\Shipment\Cancel as CancelRequest;
+use CG\RoyalMailApi\Response\Shipment\Cancel as CancelResponse;
 use CG\RoyalMailApi\Shipment;
 
 class Canceller
@@ -23,7 +23,7 @@ class Canceller
     {
         $shipmentNumbers = $this->getShipmentNumbersFromShipment($shipment);
         foreach ($shipmentNumbers as $shipmentNumber) {
-            $request = new Request($shipmentNumber);
+            $request = new CancelRequest($shipmentNumber);
             $this->sendRequest($request, $shipment->getAccount());
         }
     }
@@ -33,7 +33,7 @@ class Canceller
         return explode(Booker::SHIP_NO_SEP, $shipment->getCourierReference());
     }
 
-    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
+    protected function sendRequest(CancelRequest $request, CourierAdapterAccount $account): CancelResponse
     {
         try {
             /** @var Client $client */

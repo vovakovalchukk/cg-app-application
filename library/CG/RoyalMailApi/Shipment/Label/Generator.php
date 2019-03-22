@@ -5,9 +5,9 @@ use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
-use CG\RoyalMailApi\Request\Shipment\Label as Request;
+use CG\RoyalMailApi\Request\Shipment\Label as LabelRequest;
 use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
-use CG\RoyalMailApi\Response\Shipment\Label as Response;
+use CG\RoyalMailApi\Response\Shipment\Label as LabelResponse;
 use CG\RoyalMailApi\Shipment;
 
 class Generator
@@ -22,13 +22,13 @@ class Generator
 
     public function __invoke(ShipmentItem $shipmentItem, Shipment $shipment): ?string
     {
-        $request = new Request($shipmentItem->getShipmentNumber());
-        /** @var Response $response */
+        $request = new LabelRequest($shipmentItem->getShipmentNumber());
+        /** @var LabelResponse $response */
         $response = $this->sendRequest($request, $shipment->getAccount());
         return $response->getLabel();
     }
 
-    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
+    protected function sendRequest(LabelRequest $request, CourierAdapterAccount $account): LabelResponse
     {
         try {
             /** @var Client $client */
