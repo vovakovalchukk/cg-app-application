@@ -28,6 +28,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     const DIMENSION_UNIT = 'cm';
     const DEFAULT_VALUE = 100;
     const DUTY_UNPAID_FLAG = 'U';
+    const COUNTRY_CODE_NETHERLANDS = 'NL';
 
     /** @var Shipment */
     protected $shipment;
@@ -117,7 +118,8 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $customerAddressNode = $customerNode->addChild('address');
         $customerAddressNode->addChild('firstName', $this->sanitiseString($deliveryAddress->getFirstName()));
         $customerAddressNode->addChild('lastName', $this->sanitiseString($deliveryAddress->getLastName()));
-        $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
+        $this->addAddressLine1($customerAddressNode, $deliveryAddress);
+
         if ($line2 && $line2 != $city && $line2 != $region) {
             $customerAddressNode->addChild('addressLine2', $this->sanitiseString($line2));
         }
@@ -240,5 +242,18 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     public function getResponseClass(): string
     {
         return Response::class;
+    }
+
+    protected function addAddressLine1(SimpleXMLElement $customerAddressNode, AddressInterface $deliveryAddress): void
+    {
+        // Right now we only need to do anything different for Netherlands. If we need to handle differences for additional countries in the future
+        // this should be refactored
+        if (strtoupper($deliveryAddress->getISOAlpha2CountryCode() !== static::COUNTRY_CODE_NETHERLANDS)) {
+            $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
+            return;
+        }
+
+//        $lineDetails = preg_split($pattern, $subject, -1, PREG_SPLIT_NO_EMPTY);
+//        $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
     }
 }
