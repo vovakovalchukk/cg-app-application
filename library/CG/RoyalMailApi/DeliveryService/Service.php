@@ -23,7 +23,6 @@ class Service
         $this->serviceFormats = $servicesConfig['serviceFormats'] ?? [];
         foreach ($servicesConfig['services'] as $serviceConfig) {
             $this->buildServices($serviceConfig);
-
         }
     }
 
