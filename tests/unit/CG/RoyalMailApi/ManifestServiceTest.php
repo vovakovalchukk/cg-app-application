@@ -3,6 +3,7 @@ namespace CG\RoyalMailApi\Test\Shipment;
 
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\DocumentInterface;
+use CG\CourierAdapter\Exception\OperationFailed as OperationFailedException;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
 use CG\RoyalMailApi\Manifest;
@@ -16,6 +17,8 @@ class ManifestServiceTest extends TestCase
 {
     /** @var ManifestService */
     protected $manifestService;
+    /** @var ClientFactory */
+    protected $clientFactory;
     /** @var MockObject */
     protected $client;
 
@@ -27,6 +30,8 @@ class ManifestServiceTest extends TestCase
         $clientFactory->expects($this->any())
             ->method('__invoke')
             ->willReturn($this->client);
+
+        $this->clientFactory = $clientFactory;
 
         $this->manifestService = new ManifestService($clientFactory);
     }
@@ -97,8 +102,14 @@ class ManifestServiceTest extends TestCase
             ->method('send')
             ->willReturn($printManifestResponseWithoutManifest);
 
+        $manifestService = new class($this->clientFactory) extends ManifestService {
+            const WAIT_TIME = 0.1;
+            const MAX_RETRIES = 5;
+        };
+
+        $this->expectException(OperationFailedException::class);
         $this->expectExceptionMessage('generate a manifest on Royal Mail');
-        $this->manifestService->createManifest($this->createAccount());
+        $manifestService->createManifest($this->createAccount());
     }
 
     protected function createAccount(): Account

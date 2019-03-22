@@ -2,13 +2,13 @@
 namespace CG\RoyalMailApi;
 
 use CG\CourierAdapter\Account;
+use CG\CourierAdapter\Exception\OperationFailed as OperationFailedException;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
 use CG\RoyalMailApi\Manifest as Manifest;
 use CG\RoyalMailApi\Request\Manifest\Create as CreateManifestRequest;
 use CG\RoyalMailApi\Request\Manifest\PrintManifest as PrintManifestRequest;
 use CG\RoyalMailApi\Response\Manifest\Create as CreateManifestResponse;
 use CG\RoyalMailApi\Response\Manifest\PrintManifest as PrintManifestResponse;
-use CG\CourierAdapter\Exception\OperationFailed as OperationFailedException;
 
 class ManifestService
 {
@@ -31,7 +31,7 @@ class ManifestService
 
         $createManifestResponse = $this->sendCreateManifestRequest($client);
         if ($createManifestResponse->getManifest() !== null) {
-            return $this->buildManifestResponseFromCreateResponse($createManifestResponse, $account);
+            return $this->buildManifestFromCreateResponse($createManifestResponse, $account);
         }
 
         return $this->sendPrintManifestRequest($account, $client, $createManifestResponse);
@@ -67,10 +67,10 @@ class ManifestService
             sleep(static::WAIT_TIME);
         }
 
-        throw new \Exception('Couldn\'t generate a manifest on Royal Mail');
+        throw new OperationFailedException('Couldn\'t generate a manifest on Royal Mail');
     }
 
-    protected function buildManifestResponseFromCreateResponse(
+    protected function buildManifestFromCreateResponse(
         CreateManifestResponse $response,
         Account $account
     ): Manifest {
