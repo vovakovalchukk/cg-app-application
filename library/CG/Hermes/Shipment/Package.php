@@ -2,12 +2,14 @@
 namespace CG\Hermes\Shipment;
 
 use CG\CourierAdapter\LabelInterface;
+use CG\CourierAdapter\Package\ContentInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
+use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
+use CG\CourierAdapter\Package\ContentInterface as PackageContentsInterface;
 
-// If / when we support non-EU shipments we'll need to implement CG\CourierAdapter\Package\SupportedField\ContentsInterface
-class Package implements PackageInterface, WeightInterface, DimensionsInterface
+class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
 {
     /** @var int */
     protected $number;
@@ -19,24 +21,27 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface
     protected $width;
     /** @var float */
     protected $length;
-
-    /** @var LabelInterface */
+    /** @var PackageContentsInterface[]  */
     protected $label;
     /** @var string */
     protected $trackingReference;
+    /** @var PackageContentsInterface[]  */
+    protected $contents;
 
     public function __construct(
         int $number,
         float $weight,
         float $height,
         float $width,
-        float $length
+        float $length,
+        ContentsInterface $contents
     ) {
         $this->number = $number;
         $this->weight = $weight;
         $this->height = $height;
         $this->width = $width;
         $this->length = $length;
+        $this->contents = $contents;
     }
 
     public static function fromArray(array $array): Package
@@ -46,7 +51,8 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface
             $array['weight'],
             $array['height'],
             $array['width'],
-            $array['length']
+            $array['length'],
+            $array['contents']
         );
     }
 
@@ -134,5 +140,15 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface
     public function getTrackingReference()
     {
         return $this->trackingReference;
+    }
+
+    /**
+     * An array of the contents of the package
+     *
+     * @return ContentInterface[]
+     */
+    public function getContents()
+    {
+        return $this->contents;
     }
 }
