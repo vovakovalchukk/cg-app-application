@@ -564,7 +564,7 @@ return [
                             ],
                             'H' => [
                                 'description' => 'HM Forces (BFPO)',
-                                'domestic' => true,
+                                'domestic' => false,
                             ],
                             'I' => [
                                 'description' => 'International',

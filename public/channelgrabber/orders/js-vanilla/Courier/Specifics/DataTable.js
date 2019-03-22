@@ -590,6 +590,5 @@ CourierSpecificsDataTable.prototype.convertDataToSelectTemplateFormat = function
 
     }
 
-    console.log(optionsObject);
     return optionsObject;
 };
