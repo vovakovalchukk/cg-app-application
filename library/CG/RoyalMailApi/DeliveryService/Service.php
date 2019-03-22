@@ -23,7 +23,6 @@ class Service
         $this->serviceFormats = $servicesConfig['serviceFormats'] ?? [];
         foreach ($servicesConfig['services'] as $serviceConfig) {
             $this->buildServices($serviceConfig);
-
         }
     }
 
@@ -59,17 +58,17 @@ class Service
 
     protected function buildServices(array $serviceConfig)
     {
-            foreach ($serviceConfig['serviceTypes'] as $type) {
-                if ($this->serviceOfferingDoesNotExist($serviceConfig['serviceOffering'])) {
-                    continue;
-                }
-                $config = [];
-                $config['reference'] = $serviceConfig['serviceOffering'] . '-' . $type;
-                $config['displayName'] = $this->getServiceOfferings()[$serviceConfig['serviceOffering']]['displayName'];
-                $config['serviceType'] = $type;
-                $config['shipmentClass'] = $serviceConfig['shipmentClass'];
-                $this->deliveryServices[$config['reference']] = DeliveryService::fromArray($config);
+        foreach ($serviceConfig['serviceTypes'] as $type) {
+            if ($this->serviceOfferingDoesNotExist($serviceConfig['serviceOffering'])) {
+                continue;
             }
+            $config = [];
+            $config['reference'] = $serviceConfig['serviceOffering'] . '-' . $type;
+            $config['displayName'] = $this->getServiceOfferings()[$serviceConfig['serviceOffering']]['displayName'];
+            $config['serviceType'] = $type;
+            $config['shipmentClass'] = $serviceConfig['shipmentClass'];
+            $this->deliveryServices[$config['reference']] = DeliveryService::fromArray($config);
+        }
     }
 
     public function getServiceTypes(): array
