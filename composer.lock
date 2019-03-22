@@ -2094,12 +2094,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "124761c8de32000f077d9b174e27be58e13ade25"
+                "reference": "08ccf8dd415af1dcd76015dcb6efbcc8cad8ed42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-374-royal-mail-api-shipping-service-options-481402.zip",
-                "reference": "124761c8de32000f077d9b174e27be58e13ade25",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-374-royal-mail-api-shipping-service-options-f76c21.zip",
+                "reference": "08ccf8dd415af1dcd76015dcb6efbcc8cad8ed42",
                 "shasum": null
             },
             "require": {
@@ -2170,7 +2170,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-20T16:28:59+00:00"
+            "time": "2019-03-21T17:05:38+00:00"
         },
         {
             "name": "channelgrabber/payment",

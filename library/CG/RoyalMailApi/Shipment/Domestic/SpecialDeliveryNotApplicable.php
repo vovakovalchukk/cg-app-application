@@ -28,14 +28,6 @@ class SpecialDeliveryNotApplicable extends NotApplicable implements
     /**
      * @inheritdoc
      */
-    public function getInsuranceOption()
-    {
-        // TODO: Implement getInsuranceOption() method.
-    }
-
-    /**
-     * @inheritdoc
-     */
     public static function getAvailableInsuranceOptions()
     {
         $insuranceOptions = [];

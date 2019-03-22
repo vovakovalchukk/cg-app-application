@@ -6,9 +6,9 @@ use CG\CourierAdapter\Exception\OperationFailed;
 use CG\ExchangeRate\Service as ExchangeRateService;
 use CG\RoyalMailApi\Client;
 use CG\RoyalMailApi\Client\Factory as ClientFactory;
-use CG\RoyalMailApi\Request\Shipment\Documents as Request;
+use CG\RoyalMailApi\Request\Shipment\Documents as DocumentsRequest;
 use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
-use CG\RoyalMailApi\Response\Shipment\Documents as Response;
+use CG\RoyalMailApi\Response\Shipment\Documents as DocumentsResponse;
 use CG\RoyalMailApi\Shipment;
 use CG\RoyalMailApi\Shipment\Package;
 
@@ -30,13 +30,13 @@ class Generator
     public function __invoke(ShipmentItem $shipmentItem, Shipment $shipment): ?string
     {
         $requiredDocument = $this->determineRequiredDocument($shipmentItem, $shipment);
-        $request = new Request($shipmentItem->getShipmentNumber(), $requiredDocument);
-        /** @var Response $response */
+        $request = new DocumentsRequest($shipmentItem->getShipmentNumber(), $requiredDocument);
+        /** @var DocumentsResponse $response */
         $response = $this->sendRequest($request, $shipment->getAccount());
         return $response->getInternationalDocument();
     }
 
-    protected function sendRequest(Request $request, CourierAdapterAccount $account): Response
+    protected function sendRequest(DocumentsRequest $request, CourierAdapterAccount $account): DocumentsResponse
     {
         try {
             /** @var Client $client */
@@ -52,9 +52,9 @@ class Generator
         $package = $this->getPackageForShipmentItem($shipmentItem, $shipment);
         $totalValue = $this->getTotalValueOfPackageInGBP($package);
         if ($totalValue <= static::CN22_MAX_VALUE_GBP) {
-            return Request::DOCUMENT_CN22;
+            return DocumentsRequest::DOCUMENT_CN22;
         }
-        return Request::DOCUMENT_CN23;
+        return DocumentsRequest::DOCUMENT_CN23;
     }
 
     protected function getPackageForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): Package
