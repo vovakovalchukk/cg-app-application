@@ -25,6 +25,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     const MAX_INSTRUCT_LEN = 32;
     const MAX_SKU_LEN = 30;
     const MAX_DESC_LEN = 2000;
+    const MAX_HS_CODE_LENGTH = 10;
     const WEIGHT_UNIT = 'g';
     const DIMENSION_UNIT = 'cm';
     const DEFAULT_VALUE = 100;
@@ -142,15 +143,8 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $parcelNode->addChild('girth', 0);
         $parcelNode->addChild('combinedDimension', 0);
         $parcelNode->addChild('volume', 0);
-        $parcelNode->addChild('value', static::DEFAULT_VALUE);
+        $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
         $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
-
-        // As we're only supporting EU orders for now the 'currency' and 'contents' sections are not required.
-        // If / when we support non-EU orders we'll need to add these back in.
-        //$parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
-        //$this->addContentsToParcelNode($parcelNode, $package);
-        //$parcelNode->addChild('value', $this->calculateValueOfPackage($package));
-
         $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
         $parcelNode->addChild('numberOfItems', $this->determineNumberOfItems($package));
         $parcelNode->addChild('description', $this->getPackageDescription($package));
@@ -159,23 +153,23 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 //        $parcelNode->addChild('dutyPaidValue', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
 //        $parcelNode->addChild('vatValue', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
         $contents = $parcelNode->addChild('contents');
-        $this->addContentsAsXml($contents, $package);
+        $this->addContentsToParcelNode($contents, $package);
     }
 
-    protected function addContentsToParcelNode(SimpleXMLElement $parcelNode, Package $package): void
+    protected function addContentsToParcelNode(SimpleXMLElement $contents, Package $package)
     {
-        $contentsNode = $parcelNode->addChild('contents');
-        foreach ($package->getContents() as $content) {
-            for ($count = 1; $count <= $content->getQuantity(); $count++) {
-                $contentNode = $contentsNode->addChild('content');
-                $contentNode->addChild('skuCode', $this->sanitiseString($content->getSku(), static::MAX_SKU_LEN));
-                $contentNode->addChild('skuDescription',
-                    $this->sanitiseString($content->getName() . "\n" . $content->getDescription(),static::MAX_DESC_LEN)
-                );
-                $contentNode->addChild('hsCode', $content->getHSCode());
-                $contentNode->addChild('value', $this->convertValueToMinorUnits($content->getUnitValue()));
-            }
+        /** @var PackageContent $packageContent */
+        foreach ($package->getContents() as $packageContent) {
+            $content = $contents->addChild('content');
+            $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
+            $content->addChild('hsCode', $this->sanitiseString($packageContent->getHsCode(), static::MAX_HS_CODE_LENGTH));
+            $content->addChild('countryOfManufacture', 'GB');
+            $content->addChild('itemQuantity', $packageContent->getQuantity());
+            $content->addChild('itemWeight', $this->convertValueToMinorUnits($packageContent->getWeight()));
+            $content->addChild('value', $this->convertValueToMinorUnits($packageContent->getUnitValue()));
+            $content->addChild('skuCode', $this->sanitiseString($packageContent->getSku(), static::MAX_SKU_LEN));
         }
+        return;
     }
 
     protected function addServicesToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode): void
@@ -231,7 +225,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         if (empty($package->getContents())) {
             return '';
         }
-        return $package->getContents()[0]->getUnitCurrency();
+        return $this->sanitiseString($package->getContents()[0]->getUnitCurrency());
     }
 
     protected function calculateValueOfPackage(Package $package): float
@@ -283,22 +277,6 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         foreach ($package->getContents() as $packageContent) {
             $description .= $packageContent->getDescription() . '|';
         }
-        return rtrim($description, '|');
-    }
-
-    protected function addContentsAsXml(SimpleXMLElement $contents, Package $package)
-    {
-        /** @var PackageContent $packageContent */
-        foreach ($package->getContents() as $packageContent) {
-            $content = $contents->addChild('content');
-            $content->addChild('skuDescription', $this->sanitiseString($content->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
-            $content->addChild('hsCode', $packageContent->getHsCode());
-            $content->addChild('countryOfManufacture', 'GB');
-            $content->addChild('itemQuantity', $packageContent->getQuantity());
-            $content->addChild('itemWeight', $packageContent->getWeight());
-            $content->addChild('value', $this->convertValueToMinorUnits($packageContent->getUnitValue()));
-            $content->addChild('skuCode', $this->sanitiseString($packageContent->getSku(), static::MAX_SKU_LEN));
-        }
-        return;
+        return $this->sanitiseString(rtrim($description, '|'));
     }
 }
