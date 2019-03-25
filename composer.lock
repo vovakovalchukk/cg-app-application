@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ed54be7045efd05e39ae605a3d37a18",
+    "content-hash": "0846ef87e39601cf8d91f3d96cb04b11",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2090,16 +2090,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
+            "version": "1.43.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a2034f6e2b06bd431b866e078bfb80185c649ee7"
+                "reference": "4d5a101230397aeb6714de97db3f58e734b66265"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-374-royal-mail-api-shipping-service-options-27dc79.zip",
-                "reference": "a2034f6e2b06bd431b866e078bfb80185c649ee7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.13-4f96f0.zip",
+                "reference": "4d5a101230397aeb6714de97db3f58e734b66265",
                 "shasum": null
             },
             "require": {
@@ -2170,7 +2170,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-22T13:36:24+00:00"
+            "time": "2019-03-25T10:12:31+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4910,16 +4910,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
+            "version": "1.26.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e55d5fe3c3b3adc60122b2cd2d6e9f7e6e32e760"
+                "reference": "f9e3e7107cb56bbb67c8ae71f3273e9a4ee6d940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-374-royal-mail-api-shipping-service-options-de9194.zip",
-                "reference": "e55d5fe3c3b3adc60122b2cd2d6e9f7e6e32e760",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.7-039d3f.zip",
+                "reference": "f9e3e7107cb56bbb67c8ae71f3273e9a4ee6d940",
                 "shasum": null
             },
             "require": {
@@ -4971,7 +4971,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-03-21T14:38:30+00:00"
+            "time": "2019-03-25T10:19:39+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11030,25 +11030,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.43.11",
-            "alias_normalized": "1.43.11.0",
-            "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.26.7",
-            "alias_normalized": "1.26.7.0",
-            "version": "dev-TAC-374-royal-mail-api-shipping-service-options",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
