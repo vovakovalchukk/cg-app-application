@@ -5,12 +5,12 @@ use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
 use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\LabelInterface;
+use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\Hermes\Client;
 use CG\Hermes\Client\Factory as ClientFactory;
 use CG\Hermes\Request\RouteDeliveryCreatePreadviceAndLabel as Request;
 use CG\Hermes\Response\RouteDeliveryCreatePreadviceAndLabel as Response;
 use CG\Hermes\Shipment;
-use CG\Hermes\Shipment\Label;
 
 class Service
 {
