@@ -36,7 +36,6 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             PackageField\ContentsInterface::class => ['itemParcelAssignment'],
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
             PackageField\WeightInterface::class => 'weight',
-            PackageField\CountryOfOriginInterface::class => 'countryOfOrigin',
             PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
         ],
         'shipment' => [
