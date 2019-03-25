@@ -3,13 +3,19 @@ namespace CG\Hermes\Shipment;
 
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Package\ContentInterface;
+use CG\CourierAdapter\Package\SupportedField\HarmonisedSystemCodeInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
 use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
 use CG\Hermes\Shipment\Package\Content as PackageContents;
 
-class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
+class Package implements
+    PackageInterface,
+    WeightInterface,
+    DimensionsInterface,
+    ContentsInterface,
+    HarmonisedSystemCodeInterface
 {
     /** @var int */
     protected $number;
@@ -21,6 +27,8 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $width;
     /** @var float */
     protected $length;
+    /** @var string */
+    protected $harmonisedSystemCode;
 
     /** @var LabelInterface */
     protected $label;
@@ -151,5 +159,15 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     public function getContents()
     {
         return $this->contents;
+    }
+
+    /**
+     * A string representing the harmonised system code of the item
+     *
+     * @return string
+     */
+    public function getHarmonisedSystemCode()
+    {
+        return $this->harmonisedSystemCode;
     }
 }

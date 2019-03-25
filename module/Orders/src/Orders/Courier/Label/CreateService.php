@@ -166,7 +166,7 @@ class CreateService extends ServiceAbstract
             $items->rewind();
             $item = $items->current();
 
-            $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item->getId());
+            $itemData = ItemData::fromParcelData($parcelsData->getParcels()->getFirst(), $item);
             $itemsData = new ItemDataCollection();
             $itemsData->attach($itemData);
             $orderItemsData = new OrderItemsData($order->getId(), $itemsData);

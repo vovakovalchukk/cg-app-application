@@ -1295,6 +1295,8 @@ return [
                 'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
                 'CourierSpecificsCostColumnView' => ViewModel::class,
                 'CourierSpecificsCostColumn' => DataTable\Column::class,
+                'CourierSpecificsHarmonisedSystemCodeColumnView' => ViewModel::class,
+                'CourierSpecificsHarmonisedSystemCodeColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2581,6 +2583,22 @@ return [
                     'sortable' => false,
                     'order' => 145,
                     'defaultContent' => '',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'HS Code'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeColumn' => [
+                'parameters' => [
+                    'column' => 'harmonisedSystemCode',
+                    'viewModel' => 'CourierSpecificsHarmonisedSystemCodeColumnView',
+                    'class' => 'harmonisedSystemCode-col',
+                    'sortable' => false,
+                    'order' => 148,
+                    'width' => '150px',
                 ],
             ],
         ],

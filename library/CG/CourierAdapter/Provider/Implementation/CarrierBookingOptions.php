@@ -33,9 +33,11 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     protected $optionInterfacesToOptionNameMap = [
         'package' => [
-            PackageField\ContentsInterface::class => 'itemParcelAssignment',
+            PackageField\ContentsInterface::class => ['itemParcelAssignment'],
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
             PackageField\WeightInterface::class => 'weight',
+            PackageField\CountryOfOriginInterface::class => 'countryOfOrigin',
+            PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
         ],
         'shipment' => [
             ShipmentField\CollectionDateInterface::class => 'collectionDate',

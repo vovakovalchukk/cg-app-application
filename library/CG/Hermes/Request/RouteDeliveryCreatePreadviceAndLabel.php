@@ -291,13 +291,13 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         /** @var PackageContent $packageContent */
         foreach ($package->getContents() as $packageContent) {
             $content = $contents->addChild('content');
-            $content->addChild('skuDescription', $packageContent->getDescription());
+            $content->addChild('skuDescription', $this->sanitiseString($content->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
             $content->addChild('hsCode', $packageContent->getHsCode());
-            $content->addChild('countryOfManufacture', $packageContent->getOrigin());
+            $content->addChild('countryOfManufacture', 'GB');
             $content->addChild('itemQuantity', $packageContent->getQuantity());
             $content->addChild('itemWeight', $packageContent->getWeight());
-            $content->addChild('value', $packageContent->getUnitValue());
-            $content->addChild('skuCode', $packageContent->getSku());
+            $content->addChild('value', $this->convertValueToMinorUnits($packageContent->getUnitValue()));
+            $content->addChild('skuCode', $this->sanitiseString($packageContent->getSku(), static::MAX_SKU_LEN));
         }
         return;
     }

@@ -149,7 +149,7 @@ class Mapper
         foreach ($parcelData['itemParcelAssignment'] as $parcelItemId => $parcelItemQty) {
             $item = $items->getById($parcelItemId);
             $itemData = $itemsData[$parcelItemId];
-            $contents[] = $this->ohItemAndDataToPackageContents($item, $order, $itemData, $parcelItemQty);
+            $contents[] = $this->ohItemAndDataToPackageContents($item, $order, $itemData, $parcelItemQty, $parcelData);
         }
         return $contents;
     }
@@ -158,12 +158,13 @@ class Mapper
         Item $item,
         Order $order,
         array $itemData,
-        $parcelItemQty
+        $parcelItemQty,
+        $parcelData
     ) {
         $itemUnitWeight = $itemData['weight'] / $item->getItemQuantity();
         return new CAPackageContent(
             $item->getItemName(),
-            '',
+            $parcelData['harmonisedSystemCode'] ?? '',
             'UK',
             $parcelItemQty,
             $itemUnitWeight,
