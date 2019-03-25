@@ -5,13 +5,17 @@ use CG\CourierAdapter\Account;
 use CG\CourierAdapter\Account\CredentialVerificationInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Manifest\GeneratingInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\RoyalMailApi\Credentials\FormFactory as CredentialsFormFactory;
 use CG\RoyalMailApi\Credentials\Validator as CredentialsValidator;
+use CG\RoyalMailApi\DeliveryService\Service as DeliveryServiceService;
+use CG\RoyalMailApi\Shipment\Booker as ShipmentBooker;
+use CG\RoyalMailApi\Shipment\Canceller as ShipmentCanceller;
 use Psr\Log\LoggerInterface;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CredentialVerificationInterface, CancellingInterface, GeneratingInterface
 {
     const FEATURE_FLAG = 'Royal Mail API';
 
@@ -19,14 +23,32 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
     protected $credentialsFormFactory;
     /** @var CredentialsValidator */
     protected $credentialsValidator;
+    /** @var DeliveryServiceService */
+    protected $deliveryServiceService;
+    /** @var ShipmentBooker */
+    protected $shipmentBooker;
+    /** @var ManifestService */
+    protected $manifestService;
+    /** @var ShipmentCanceller */
+    protected $shipmentCanceller;
 
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory, CredentialsValidator $credentialsValidator)
-    {
+    public function __construct(
+        CredentialsFormFactory $credentialsFormFactory,
+        CredentialsValidator $credentialsValidator,
+        DeliveryServiceService $deliveryServiceService,
+        ShipmentBooker $shipmentBooker,
+        ManifestService $manifestService,
+        ShipmentCanceller $shipmentCanceller
+    ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->credentialsValidator = $credentialsValidator;
+        $this->deliveryServiceService = $deliveryServiceService;
+        $this->shipmentBooker = $shipmentBooker;
+        $this->manifestService = $manifestService;
+        $this->shipmentCanceller = $shipmentCanceller;
     }
 
     /**
@@ -50,7 +72,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-375
+        $this->logger->debug('Booking Royal Mail API shipment for Account {account}', ['account' => $shipment->getAccount()->getId()]);
+        return ($this->shipmentBooker)($shipment);
     }
 
     /**
@@ -58,7 +81,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServices()
     {
-        // TODO in TAC-374
+        $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -66,7 +89,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
@@ -74,7 +97,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForAccount(Account $account)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -82,7 +105,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServicesForCountry($isoAlpha2CountryCode);
     }
 
     /**
@@ -90,7 +113,9 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-374
+        return $this->deliveryServiceService->getDeliveryServicesForCountry(
+            $shipment->getDeliveryAddress()->getISOAlpha2CountryCode()
+        );
     }
 
     /**
@@ -98,7 +123,9 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function cancelShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-375
+        $this->logger->debug('Cancelling Royal Mail API shipment for order {order} and Account {account}', ['order' => $shipment->getCustomerReference(), 'account' => $shipment->getAccount()->getId()]);
+        ($this->shipmentCanceller)($shipment);
+        return true;
     }
 
     /**
@@ -106,7 +133,13 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Credential
      */
     public function updateShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-375
+        $this->cancelShipment($shipment);
+        $this->bookShipment($shipment);
+    }
+
+    public function generateManifest(Account $account)
+    {
+        return $this->manifestService->createManifest($account);
     }
 
     /**

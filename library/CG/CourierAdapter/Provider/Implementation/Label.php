@@ -1,5 +1,5 @@
 <?php
-namespace CG\Hermes\Shipment;
+namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\CourierAdapter\LabelInterface;
 
