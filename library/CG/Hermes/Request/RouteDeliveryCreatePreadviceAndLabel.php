@@ -7,6 +7,7 @@ use CG\Hermes\RequestInterface;
 use CG\Hermes\Response\RouteDeliveryCreatePreadviceAndLabel as Response;
 use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Package;
+use CG\Hermes\Shipment\Package\Content as PackageContent;
 use CG\Product\Detail\Entity as ProductDetail;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
@@ -149,6 +150,16 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         //$parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
         //$this->addContentsToParcelNode($parcelNode, $package);
         //$parcelNode->addChild('value', $this->calculateValueOfPackage($package));
+
+        $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
+        $parcelNode->addChild('numberOfItems', $this->determineNumberOfItems($package));
+        $parcelNode->addChild('description', $this->getPackageDescription($package));
+        $parcelNode->addChild('originOfParcel', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+//        $parcelNode->addChild('dutyPaid', 'U');
+//        $parcelNode->addChild('dutyPaidValue', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+//        $parcelNode->addChild('vatValue', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        $contents = $parcelNode->addChild('contents');
+        $this->addContentsAsXml($contents, $package);
     }
 
     protected function addContentsToParcelNode(SimpleXMLElement $parcelNode, Package $package): void
@@ -255,5 +266,39 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
 
 //        $lineDetails = preg_split($pattern, $subject, -1, PREG_SPLIT_NO_EMPTY);
 //        $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
+    }
+
+    protected function determineNumberOfItems(Package $package): int
+    {
+        $itemCount = 0;
+        foreach ($package->getContents() as $packageContent) {
+            $itemCount+= $packageContent->getQuantity();
+        }
+        return $itemCount;
+    }
+
+    protected function getPackageDescription(Package $package): string
+    {
+        $description = '';
+        foreach ($package->getContents() as $packageContent) {
+            $description .= $packageContent->getDescription() . '|';
+        }
+        return rtrim($description, '|');
+    }
+
+    protected function addContentsAsXml(SimpleXMLElement $contents, Package $package)
+    {
+        /** @var PackageContent $packageContent */
+        foreach ($package->getContents() as $packageContent) {
+            $content = $contents->addChild('content');
+            $content->addChild('skuDescription', $packageContent->getDescription());
+            $content->addChild('hsCode', $packageContent->getHsCode());
+            $content->addChild('countryOfManufacture', $packageContent->getOrigin());
+            $content->addChild('itemQuantity', $packageContent->getQuantity());
+            $content->addChild('itemWeight', $packageContent->getWeight());
+            $content->addChild('value', $packageContent->getUnitValue());
+            $content->addChild('skuCode', $packageContent->getSku());
+        }
+        return;
     }
 }

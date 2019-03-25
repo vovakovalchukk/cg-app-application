@@ -7,7 +7,7 @@ use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Package\SupportedField\DimensionsInterface;
 use CG\CourierAdapter\Package\SupportedField\WeightInterface;
 use CG\CourierAdapter\Package\SupportedField\ContentsInterface;
-use CG\CourierAdapter\Package\ContentInterface as PackageContentsInterface;
+use CG\Hermes\Shipment\Package\Content as PackageContents;
 
 class Package implements PackageInterface, WeightInterface, DimensionsInterface, ContentsInterface
 {
@@ -21,11 +21,12 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     protected $width;
     /** @var float */
     protected $length;
-    /** @var PackageContentsInterface[]  */
+
+    /** @var LabelInterface */
     protected $label;
     /** @var string */
     protected $trackingReference;
-    /** @var PackageContentsInterface[]  */
+    /** @var PackageContents[]  */
     protected $contents;
 
     public function __construct(
@@ -34,7 +35,7 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
         float $height,
         float $width,
         float $length,
-        ContentsInterface $contents
+        array $contents
     ) {
         $this->number = $number;
         $this->weight = $weight;
