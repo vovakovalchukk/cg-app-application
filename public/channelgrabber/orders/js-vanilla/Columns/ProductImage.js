@@ -1,7 +1,15 @@
-define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
-{
-    function ProductImage(tableElement, templatePath)
-    {
+define([
+    'AjaxRequester',
+    'cg-mustache',
+    'element/loadingIndicator'
+],
+function(
+    ajaxRequester,
+    CGMustache,
+    loadingIndicator
+) {
+
+    function ProductImage(tableElement, templatePath) {
         this.getTableElement = function()
         {
             return tableElement;
@@ -21,13 +29,14 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         {
             this.listenForColumnToggle();
         };
+
         init.call(this);
     }
 
     ProductImage.SELECTOR_CONTAINERS = '.order-product-image-container';
     ProductImage.PREFIX_CONTAINER = '#order-product-image-container_';
     ProductImage.URI = '/orders/images';
-    ProductImage.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
+    ProductImage.LOADER = loadingIndicator.getIndicator();
 
     ProductImage.prototype.listenForColumnToggle = function()
     {
