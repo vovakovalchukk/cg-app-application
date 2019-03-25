@@ -1224,6 +1224,8 @@ return [
                 'OrdersPostcodeColumn' => DataTable\Column::class,
                 'OrdersProductImageColumnView' => ViewModel::class,
                 'OrdersProductImageColumn' => DataTable\Column::class,
+                'OrdersCustomisationColumnView' => ViewModel::class,
+                'OrdersCustomisationColumn' => DataTable\Column::class,
 
                 'OrderRpcClient' => JsonRpcClient::class,
 
@@ -1393,6 +1395,7 @@ return [
                         ['column' => 'OrdersPaymentReferenceColumn'],
                         ['column' => 'OrdersTrackingInfoColumn'],
                         ['column' => 'OrdersPostcodeColumn'],
+                        ['column' => 'OrdersCustomisationColumn'],
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'OrdersTableSettings']
@@ -1836,6 +1839,21 @@ return [
                     'column' => 'image',
                     'viewModel' => 'OrdersProductImageColumnView',
                     'class' => 'order-product-image-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersCustomisationColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Customisation'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersCustomisationColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'customisation',
+                    'viewModel' => 'OrdersCustomisationColumnView',
+                    'class' => 'order-customisation-col',
                     'sortable' => false,
                 ]
             ],
