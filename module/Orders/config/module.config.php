@@ -1275,6 +1275,8 @@ return [
                 'CourierSpecificsInsuranceColumn' => DataTable\Column::class,
                 'CourierSpecificsInsuranceMonetaryColumnView' => ViewModel::class,
                 'CourierSpecificsInsuranceMonetaryColumn' => DataTable\Column::class,
+                'CourierSpecificsInsuranceOptionsColumnView' => ViewModel::class,
+                'CourierSpecificsInsuranceOptionsColumn' => DataTable\Column::class,
                 'CourierSpecificsSignatureColumnView' => ViewModel::class,
                 'CourierSpecificsSignatureColumn' => DataTable\Column::class,
                 'CourierSpecificsDeliveryInstructionsColumnView' => ViewModel::class,
@@ -2419,6 +2421,22 @@ return [
                     'class' => 'insuranceMonetary-col',
                     'sortable' => false,
                     'order' => 130,
+                ],
+            ],
+            'CourierSpecificsInsuranceOptionsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Insurance'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/insuranceOptions.phtml',
+                ],
+            ],
+            'CourierSpecificsInsuranceOptionsColumn' => [
+                'parameters' => [
+                    'column' => 'insuranceOptions',
+                    'viewModel' => 'CourierSpecificsInsuranceOptionsColumnView',
+                    'class' => 'insuranceOptions-col',
+                    'sortable' => false,
+                    'order' => 140,
                 ],
             ],
             'CourierSpecificsSignatureColumnView' => [

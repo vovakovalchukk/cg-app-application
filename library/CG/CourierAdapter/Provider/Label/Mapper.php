@@ -111,6 +111,9 @@ class Mapper
         if (isset($orderData['saturday'])) {
             $caShipmentData['saturdayDelivery'] = (bool)$orderData['saturday'];
         }
+        if (isset($orderData['insuranceOption'])) {
+            $caShipmentData['insuranceOption'] = $orderData['insuranceOption'];
+        }
 
         return $caShipmentData;
     }
