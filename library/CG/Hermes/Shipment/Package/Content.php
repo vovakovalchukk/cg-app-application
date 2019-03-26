@@ -16,6 +16,9 @@ class Content implements ContentInterface
     protected $composition;
     protected $sku;
 
+    /**
+     * @inheritdoc
+     */
     public function __construct(
         $description,
         $hsCode,
