@@ -31,6 +31,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     const DEFAULT_VALUE = 100;
     const DUTY_UNPAID_FLAG = 'U';
     const COUNTRY_CODE_NETHERLANDS = 'NL';
+    const NETHERLANDS_ADDRESS_1_REGEX = '/(?:\d+[a-z]*)$/';
 
     /** @var Shipment */
     protected $shipment;
@@ -258,8 +259,16 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
             return;
         }
 
-//        $lineDetails = preg_split($pattern, $subject, -1, PREG_SPLIT_NO_EMPTY);
-//        $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
+        $streetName = preg_replace_callback(
+            static::NETHERLANDS_ADDRESS_1_REGEX,
+            function($matches) use ($customerAddressNode) {
+                $customerAddressNode->addChild('houseNo', $matches[0]);
+                return '';
+            },
+            $deliveryAddress->getLine1(),
+            1
+            );
+        $customerAddressNode->addChild('streetName', $this->sanitiseString(rtrim($streetName)));
     }
 
     protected function determineNumberOfItems(Package $package): int
