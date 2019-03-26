@@ -159,7 +159,7 @@ class Create implements LoggerAwareInterface
         if (is_a($shipmentClass, PackagesInterface::class, true)) {
             $packageClass = call_user_func([$shipmentClass, 'getPackageClass']);
             $packages = $this->createPackagesForOrderParcelData(
-                $order, $parcelsData, $itemsData, $shipmentClass, $packageClass, $rootOu
+                $order, $parcelsData, $itemsData, $shipmentClass, $packageClass, $rootOu, $orderData
             );
         }
 
@@ -175,12 +175,13 @@ class Create implements LoggerAwareInterface
         array $itemsData,
         $shipmentClass,
         $packageClass,
-        OrganisationUnit $rootOu
+        OrganisationUnit $rootOu,
+        ?array $orderData = []
     ) {
         $packages = [];
         foreach ($parcelsData as $parcelData) {
             $caPackagedata = $this->mapper->ohParcelDataToCAPackageData(
-                $order, $parcelData, $itemsData, $packageClass, $rootOu
+                $order, $parcelData, $itemsData, $shipmentClass, $packageClass, $rootOu, $orderData
             );
 
             if (is_a($packageClass, PackageContentsInterface::class, true) &&
