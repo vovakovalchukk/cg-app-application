@@ -1000,12 +1000,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "3025b843ed03d1e76c14fae7483dfef5dd81433f"
+                "reference": "4a5a0013860cc4f25c0782037d1367d4f4cbf260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-378-hermes-corporate-api-v4-4dc7a1.zip",
-                "reference": "3025b843ed03d1e76c14fae7483dfef5dd81433f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-378-hermes-corporate-api-v4-e4d69b.zip",
+                "reference": "4a5a0013860cc4f25c0782037d1367d4f4cbf260",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-03-26T16:27:09+00:00"
+            "time": "2019-03-26T16:32:46+00:00"
         },
         {
             "name": "channelgrabber/currency",
