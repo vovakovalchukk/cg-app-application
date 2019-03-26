@@ -267,7 +267,7 @@ CourierSpecificsDataTable.prototype.addItemParcelAssignmentButtonColumn = functi
 
 CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = function(templateData, cgMustache)
 {
-    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.packageType);
+    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.packageTypes);
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {

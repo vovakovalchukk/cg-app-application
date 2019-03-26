@@ -161,11 +161,10 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             }
 
             foreach ($serviceOptions as $optionType) {
-                $optionReference = $optionType;
-                if ($optionReference == 'packageType') {
-                    $optionReference = 'packageTypes';
+                if ($optionType == 'packageType') {
+                    $optionType = 'packageTypes';
                 }
-                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionReference, $courierInstance);
+                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $courierInstance);
                 if (!$options) {
                     continue;
                 }
