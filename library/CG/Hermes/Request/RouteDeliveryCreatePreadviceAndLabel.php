@@ -284,8 +284,8 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     {
         $description = '';
         foreach ($package->getContents() as $packageContent) {
-            $description .= $packageContent->getDescription() . '|';
+            $description .= $packageContent->getDescription() . "\n";
         }
-        return $this->sanitiseString(rtrim($description, '|'));
+        return $this->sanitiseString(rtrim($description));
     }
 }
