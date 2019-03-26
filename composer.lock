@@ -2094,12 +2094,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ddac7adbbfa4429259cff8b182ef840733707924"
+                "reference": "68bf64289fb74d8dd6d38fd474f591c0cb686938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-378-hermes-corporate-api-v4-2c4c88.zip",
-                "reference": "ddac7adbbfa4429259cff8b182ef840733707924",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-378-hermes-corporate-api-v4-b0b74a.zip",
+                "reference": "68bf64289fb74d8dd6d38fd474f591c0cb686938",
                 "shasum": null
             },
             "require": {
@@ -2170,7 +2170,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-25T15:19:37+00:00"
+            "time": "2019-03-26T11:55:35+00:00"
         },
         {
             "name": "channelgrabber/payment",
