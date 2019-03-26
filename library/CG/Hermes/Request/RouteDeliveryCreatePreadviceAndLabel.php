@@ -150,9 +150,9 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $parcelNode->addChild('numberOfItems', $this->determineNumberOfItems($package));
         $parcelNode->addChild('description', $this->getPackageDescription($package));
         $parcelNode->addChild('originOfParcel', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
-//        $parcelNode->addChild('dutyPaid', 'U');
-//        $parcelNode->addChild('dutyPaidValue', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
-//        $parcelNode->addChild('vatValue', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        // The below may need adding as part of TAC-378, we are awaiting a response from our customer
+//        $parcelNode->addChild('dutyPaidValue', '');
+//        $parcelNode->addChild('vatValue', '');
         $contents = $parcelNode->addChild('contents');
         $this->addContentsToParcelNode($contents, $package);
     }
