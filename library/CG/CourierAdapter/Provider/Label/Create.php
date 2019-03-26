@@ -180,7 +180,7 @@ class Create implements LoggerAwareInterface
         $packages = [];
         foreach ($parcelsData as $parcelData) {
             $caPackagedata = $this->mapper->ohParcelDataToCAPackageData(
-                $order, $parcelData, $itemsData, $shipmentClass, $packageClass, $rootOu
+                $order, $parcelData, $itemsData, $packageClass, $rootOu
             );
 
             if (is_a($packageClass, PackageContentsInterface::class, true) &&

@@ -34,7 +34,6 @@ class Mapper
         Order $order,
         array $parcelData,
         array $itemsData,
-        $shipmentClass,
         $packageClass,
         OrganisationUnit $rootOu
     ) {
@@ -45,9 +44,6 @@ class Mapper
             'length' => (isset($parcelData['length']) && $parcelData['length'] !== '' ? $this->normaliseDimension($parcelData['length'], $rootOu->getLocale()) : null),
             'number' => (isset($parcelData['number']) && $parcelData['number'] !== '' ? $parcelData['number'] : null),
         ];
-        if (isset($parcelData['packageType']) && $parcelData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
-            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
-        }
         if (isset($parcelData['itemParcelAssignment']) && $parcelData['itemParcelAssignment'] !== '' && is_a($packageClass, PackageContentsInterface::class, true)) {
             $caPackageData['contents'] = $this->ohOrderAndDataToPackageContents($order, $parcelData, $itemsData);
         }
@@ -113,6 +109,9 @@ class Mapper
         }
         if (isset($orderData['insuranceOption'])) {
             $caShipmentData['insuranceOption'] = $orderData['insuranceOption'];
+        }
+        if (isset($orderData['packageType']) && $orderData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
+            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($orderData, $shipmentClass);
         }
 
         return $caShipmentData;
