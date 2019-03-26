@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc26488b39c1d4cde5cf0603723ef31f",
+    "content-hash": "e33af33b697c1d24f29b339d3131d58a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -996,16 +996,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.1",
+            "version": "dev-TAC-378-hermes-corporate-api-v4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398"
+                "reference": "3025b843ed03d1e76c14fae7483dfef5dd81433f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.1-53db0d.zip",
-                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-378-hermes-corporate-api-v4-4dc7a1.zip",
+                "reference": "3025b843ed03d1e76c14fae7483dfef5dd81433f",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-12-03T11:32:22+00:00"
+            "time": "2019-03-26T16:27:09+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -11032,6 +11032,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.2",
+            "alias_normalized": "1.4.2.0",
+            "version": "dev-TAC-378-hermes-corporate-api-v4",
+            "package": "channelgrabber/courieradapter"
+        },
+        {
             "alias": "1.43.14",
             "alias_normalized": "1.43.14.0",
             "version": "dev-TAC-378-hermes-corporate-api-v4",
@@ -11041,6 +11047,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
