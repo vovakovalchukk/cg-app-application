@@ -15,6 +15,11 @@ use CG_Usage\Service as UsageService;
 use Products\Listing\Filter\Service as FilterService;
 use Products\Listing\Service as ListingService;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Listing\Unimported\Collection as UnimportedListingCollection;
+use CG\Listing\Unimported\Entity as UnimportedListingEntity;
+use CG\User\ActiveUserInterface;
+use CG\FeatureFlags\Service as FeatureFlagService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class ListingsJsonController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -27,6 +32,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     const ROUTE_IMPORT = 'import';
     const ROUTE_IMPORT_ALL_FILTERED = 'import all filtered';
     const ROUTE_CREATE = 'create';
+    const CHANNEL_WALMART = 'walmart';
 
     /** @var ListingService */
     protected $listingService;
@@ -42,6 +48,12 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
     protected $usageService;
     /** @var CreationService */
     protected $creationService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
+    /** @var FeatureFlagService */
+    protected $featureFlagService;
+    /** @var OrganisationUnitService */
+    protected $organisationUnitService;
 
     public function __construct(
         ListingService $listingService,
@@ -50,7 +62,10 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         ListingMapper $listingMapper,
         FilterService $filterService,
         UsageService $usageService,
-        CreationService $creationService
+        CreationService $creationService,
+        ActiveUserInterface $activeUserContainer,
+        FeatureFlagService $featureFlagService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->listingService = $listingService;
         $this->jsonModelFactory = $jsonModelFactory;
@@ -59,6 +74,9 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         $this->filterService = $filterService;
         $this->usageService = $usageService;
         $this->creationService = $creationService;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->featureFlagService = $featureFlagService;
+        $this->organisationUnitService = $organisationUnitService;
     }
 
     protected function getPageLimit()
@@ -109,9 +127,25 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
                 $requestFilter->setCreatedDateTo($this->dateFormatInput($requestFilter->getCreatedDateTo()));
             }
 
+            /** @var UnimportedListingCollection $listings */
             $listings = $this->listingService->fetchListings($requestFilter);
-            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
-            $listings = $this->listingService->alterListingTable($listings, $this->getEvent());
+
+            $currentUserChannels = $listings->getArrayOf('channel');
+            if (isset($currentUserChannels[static::CHANNEL_WALMART]) && !$this->featureFlagService->isActive('Walmart Listings', $this->getOuEntity())) {
+
+                $listingsToReturn = new UnimportedListingCollection(UnimportedListingEntity::class, 'ListingsToReturn');
+                /** @var UnimportedListingEntity $listing */
+                $listings->rewind();
+                foreach ($listings as $listing) {
+                    if ($listing->getChannel() != static::CHANNEL_WALMART) {
+                        $listingsToReturn->attach($listing);
+                    }
+                }
+            }
+            $listingsToReturn = $listingsToReturn ?? $listings;
+
+            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listingsToReturn->count();
+            $listings = $this->listingService->alterListingTable($listingsToReturn, $this->getEvent());
 
             foreach ($pageLimit->getPageData($listings) as $listing) {
                 $data['Records'][] = $listing;
@@ -241,5 +275,10 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         if ($this->usageService->hasUsageBeenExceeded()) {
             throw new UsageExceeded();
         }
+    }
+
+    protected function getOuEntity()
+    {
+        return $this->organisationUnitService->fetch($this->activeUserContainer->getActiveUserRootOrganisationUnitId());
     }
 }
