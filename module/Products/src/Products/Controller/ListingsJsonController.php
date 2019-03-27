@@ -209,10 +209,14 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         );
 
         $hasAmazonAccount = false;
-        foreach ($accounts as $account) {
+        foreach ($accounts as $index => $account) {
             if (($account['channel'] ?? '') == 'amazon') {
                 $hasAmazonAccount = true;
                 break;
+            }
+
+            if ($account['channel'] == static::CHANNEL_WALMART && !$this->featureFlagService->isActive('Walmart Listings', $this->getOuEntity())) {
+                unset($accounts[$index]);
             }
         }
 
