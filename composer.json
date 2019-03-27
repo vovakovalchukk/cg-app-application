@@ -51,7 +51,7 @@
         "channelgrabber/locale": "~1.2.2",
         "channelgrabber/location": "~1.2.0",
         "channelgrabber/locking": "~1.1.2",
-        "channelgrabber/log": "~2.3.3",
+        "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
         "channelgrabber/order": "~1.43.14",
