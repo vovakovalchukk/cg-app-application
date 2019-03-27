@@ -94,7 +94,8 @@ CourierSpecificsDataTable.columnRenderers = {
     itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
     packageType: "addCustomSelectToPackageTypeColumn",
     addOns: "addCustomSelectToAddOnsColumn",
-    deliveryExperience: "addCustomSelectToDeliveryExperienceColumn"
+    deliveryExperience: "addCustomSelectToDeliveryExperienceColumn",
+    insuranceOptions: "addCustomSelectToInsuranceOptionsColumn"
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -266,6 +267,7 @@ CourierSpecificsDataTable.prototype.addItemParcelAssignmentButtonColumn = functi
 
 CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = function(templateData, cgMustache)
 {
+    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.packageTypes);
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
@@ -274,11 +276,11 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
             class: 'required',
             options: []
         };
-        for (var index in templateData.packageTypes) {
+        for (var value in optionsObject.options) {
             data.options.push({
-                title: templateData.packageTypes[index].title,
-                value: templateData.packageTypes[index].value,
-                selected: templateData.packageTypes[index].selected
+                title: optionsObject.options[value].title,
+                value: value,
+                selected: (value == optionsObject.selected)
             });
         }
         templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
@@ -315,6 +317,28 @@ CourierSpecificsDataTable.prototype.addCustomSelectToDeliveryExperienceColumn = 
             options: templateData.deliveryExperiences
         };
         templateData.deliveryExperienceOptions = cgMustache.renderTemplate(template, data);
+    }, true);
+};
+
+CourierSpecificsDataTable.prototype.addCustomSelectToInsuranceOptionsColumn = function(templateData, cgMustache)
+{
+    var optionsObject = this.convertDataToSelectTemplateFormat(templateData.insuranceOptions);
+    this.fetchTemplate('select', cgMustache, function(template)
+    {
+        var data = {
+            id: 'courier-package-insurance-options_' + templateData.orderId,
+            name: 'orderData[' + templateData.orderId + '][insuranceOptions]',
+            class: 'courier-package-insurance-options-select',
+            options: []
+        };
+        for (var value in optionsObject.options) {
+            data.options.push({
+                title: optionsObject.options[value].title,
+                value: value,
+                selected: (value == optionsObject.selected)
+            });
+        }
+        templateData.packageInsuranceOptions = cgMustache.renderTemplate(template, data);
     }, true);
 };
 
@@ -529,4 +553,42 @@ CourierSpecificsDataTable.prototype.listenForDimensionsChange = function()
 CourierSpecificsDataTable.prototype.getOrderIdForParcelInput = function(element)
 {
     return element.name.split(/[\[\]]/)[1];
+};
+
+CourierSpecificsDataTable.prototype.convertDataToSelectTemplateFormat = function(options)
+{
+    var optionsObject = {
+        options: {}
+    };
+    var selected;
+    if (options instanceof Array) {
+        options.forEach(function (value) {
+            optionsObject.options[value] = {title: value};
+        });
+    } else {
+        optionsObject.options = options;
+    }
+
+    var firstValue = '';
+    var selectedValue = '';
+
+    for (var value in optionsObject.options) {
+        var option = optionsObject.options[value];
+        if (typeof(option) !== 'object') {
+            optionsObject.options[value] = {'title': option};
+        } else if (!option.hasOwnProperty('title')) {
+            optionsObject.options[value].title = value;
+        }
+        firstValue = firstValue || value;
+        if (option.hasOwnProperty('selected') && options[value].selected) {
+            selectedValue = value;
+        }
+    }
+
+    if (!optionsObject.selected) {
+        optionsObject.selected = selectedValue || firstValue;
+
+    }
+
+    return optionsObject;
 };
