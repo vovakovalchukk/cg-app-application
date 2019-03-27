@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0ede39726da6a5b437ac6dd7a0af96b",
+    "content-hash": "947b6168a7fc7b8a4ce1614357b6dafa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2090,16 +2090,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-380-amazon-custom",
+            "version": "1.43.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "13b82c5656b0d9a8eb0202e3e50e12c64a7b2ee1"
+                "reference": "18d7e7036c0ba77ac3b6e2ccdc4629c613114f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-380-amazon-custom-e2acd8.zip",
-                "reference": "13b82c5656b0d9a8eb0202e3e50e12c64a7b2ee1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.14-d4a70a.zip",
+                "reference": "18d7e7036c0ba77ac3b6e2ccdc4629c613114f38",
                 "shasum": null
             },
             "require": {
@@ -2170,7 +2170,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-25T10:39:33+00:00"
+            "time": "2019-03-26T16:55:54+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4910,16 +4910,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-380-amazon-custom",
+            "version": "1.26.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c72d89f4699a29aec033b28a204a549c4e6ba7fb"
+                "reference": "e3d3471ebd01a49512b1967281a1f21e24d488b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-380-amazon-custom-d511e8.zip",
-                "reference": "c72d89f4699a29aec033b28a204a549c4e6ba7fb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.8-3a5b88.zip",
+                "reference": "e3d3471ebd01a49512b1967281a1f21e24d488b0",
                 "shasum": null
             },
             "require": {
@@ -4971,7 +4971,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-03-26T15:07:44+00:00"
+            "time": "2019-03-27T15:50:13+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11030,25 +11030,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.43.14",
-            "alias_normalized": "1.43.14.0",
-            "version": "dev-TAC-380-amazon-custom",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.26.8",
-            "alias_normalized": "1.26.8.0",
-            "version": "dev-TAC-380-amazon-custom",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
