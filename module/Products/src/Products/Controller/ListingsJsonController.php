@@ -131,6 +131,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
             $listings = $this->listingService->fetchListings($requestFilter);
 
             $currentUserChannels = $listings->getArrayOf('channel');
+            // These changes are to be removed after TAC-347 goes live in full.
             if (isset($currentUserChannels[static::CHANNEL_WALMART]) && !$this->featureFlagService->isActive('Walmart Listings', $this->getOuEntity())) {
 
                 $listingsToReturn = new UnimportedListingCollection(UnimportedListingEntity::class, 'ListingsToReturn');
@@ -215,6 +216,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
                 break;
             }
 
+            // This changes is to be removed after TAC-347 goes live in full.
             if ($account['channel'] == static::CHANNEL_WALMART && !$this->featureFlagService->isActive('Walmart Listings', $this->getOuEntity())) {
                 unset($accounts[$index]);
             }
