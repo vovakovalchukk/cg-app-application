@@ -21,7 +21,8 @@ const columnSpecificPropsMap = {
     lowStock: ['stock', 'rows', 'userSettings'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
     name: ['rows', 'name', 'focus'],
-    productExpand: ['expand']
+    productExpand: ['expand'],
+    cost: ['rows', 'detail', 'scroll']
 };
 const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {

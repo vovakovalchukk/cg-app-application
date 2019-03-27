@@ -6,6 +6,7 @@ $files = [
     'geopost.php',
     'shipstation.php',
     'hermes.php',
+    'royalmailapi.php',
 ];
 
 $commands = [];

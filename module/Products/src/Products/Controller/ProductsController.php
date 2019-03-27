@@ -42,6 +42,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     const STOCK_TAB_FEATURE_FLAG = 'Stock Tab Enabled';
     const PRE_FETCH_VARIATIONS_FEATURE_FLAG = 'Pre Fetch Variations Enabled';
+    const COST_PRICE_FEATURE_FLAG = 'Product cost price';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -160,6 +161,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ),
             'lowStockThresholdEnabled' => $this->featureFlagService->featureEnabledForOu(
                 StockController::FEATURE_FLAG_LOW_STOCK_THRESHOLD,
+                $rootOuId,
+                $rootOu
+            ),
+            'costPriceEnabled' => $this->featureFlagService->featureEnabledForOu(
+                static::COST_PRICE_FEATURE_FLAG,
                 $rootOuId,
                 $rootOu
             )
