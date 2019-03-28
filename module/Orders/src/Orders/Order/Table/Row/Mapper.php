@@ -8,6 +8,9 @@ use CG\Product\Link\Entity as ProductLink;
 use CG_UI\View\Table\Column\Collection as Columns;
 use CG_UI\View\Table\Row\Mapper as UIMapper;
 use Zend\I18n\View\Helper\CurrencyFormat;
+use CG_Mustache\View\Renderer as MustacheRenderer;
+use CG_UI\View\Prototyper\ViewModelFactory;
+
 
 class Mapper extends UIMapper
 {
@@ -20,6 +23,10 @@ class Mapper extends UIMapper
     const COLUMN_TOTAL = 'Line Total';
     const GIFT_SKU_HEADER = 'GIFT';
 
+    /** @var MustacheRenderer */
+    protected $mustacheRenderer;
+    /** @var ViewModelFactory */
+    protected $viewModelFactory;
     protected $currencyFormat;
     protected $order;
 
@@ -46,9 +53,14 @@ class Mapper extends UIMapper
         self::COLUMN_TOTAL => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
     ];
 
-    public function __construct(CurrencyFormat $currencyFormat)
-    {
+    public function __construct(
+        CurrencyFormat $currencyFormat,
+        MustacheRenderer $mustacheRenderer,
+        ViewModelFactory $viewModelFactory
+    ) {
         $this->setCurrencyFormat($currencyFormat);
+        $this->mustacheRenderer = $mustacheRenderer;
+        $this->viewModelFactory = $viewModelFactory;
     }
 
     public function fromItem(Item $item, Order $order, Columns $columns, $className = null, array $productLinks = [])
@@ -86,7 +98,15 @@ class Mapper extends UIMapper
 
         $loadingSpinner = '';
         if ($isFirstLinkedProduct) {
-            $loadingSpinner = '<img title="Loading..." src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif" style="max-height:12px;">';
+
+            $loadingSpinnerView = $this->viewModelFactory->newInstance();
+            $loadingSpinnerView->setTemplate('elements/loadingIndicator.mustache');
+
+            $loadingSpinner = $this->mustacheRenderer->render(
+                $loadingSpinnerView
+            );
+
+//            $loadingSpinner = '<img title="Loading..." src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif" style="max-height:12px;">';
         }
         $rowData[] = [
             'content' => $loadingSpinner,
