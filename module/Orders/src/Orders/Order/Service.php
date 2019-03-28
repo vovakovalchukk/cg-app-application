@@ -466,36 +466,40 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function getOrderItemTableColumnsConfig(OrderEntity $order): array
     {
         $columns = [
-            ['name' => RowMapper::COLUMN_SKU,       'class' => 'sku-col'],
-            ['name' => RowMapper::COLUMN_PRODUCT,   'class' => 'product-name-col'],
-            ['name' => RowMapper::COLUMN_VARIATIONS,'class' => 'variation-attributes-col'],
-            ['name' => RowMapper::COLUMN_QUANTITY,  'class' => 'quantity'],
-            ['name' => RowMapper::COLUMN_PRICE,     'class' => 'price right'],
-            ['name' => RowMapper::COLUMN_DISCOUNT,  'class' => 'price right'],
-            ['name' => RowMapper::COLUMN_TOTAL,     'class' => 'price right'],
+            ['name' => RowMapper::COLUMN_SKU,           'class' => 'sku-col'],
+            ['name' => RowMapper::COLUMN_PRODUCT,       'class' => 'product-name-col'],
+            ['name' => RowMapper::COLUMN_VARIATIONS,    'class' => 'variation-attributes-col'],
+            ['name' => RowMapper::COLUMN_QUANTITY,      'class' => 'quantity'],
+            ['name' => RowMapper::COLUMN_CUSTOMISATION, 'class' => 'customisation-col'],
+            ['name' => RowMapper::COLUMN_PRICE,         'class' => 'price right'],
+            ['name' => RowMapper::COLUMN_DISCOUNT,      'class' => 'price right'],
+            ['name' => RowMapper::COLUMN_TOTAL,         'class' => 'price right'],
         ];
 
-        if (!$this->doesOrderContainVariationAttributes($order)) {
-            $columns = array_filter($columns, function(array $column)
-            {
-                return $column['name'] != RowMapper::COLUMN_VARIATIONS;
-            });
+        foreach ($this->rowMapper->getOptionalColumns() as $columnName => $columnInfo) {
+            if (!$this->doOrderItemsHaveOptionalColumnData($order, $columnInfo['getter'])) {
+                $columns = array_filter($columns, function(array $column) use ($columnName) {
+                    return $column['name'] != $columnName;
+                });
+            }
         }
-
         return $columns;
     }
 
-    protected function doesOrderContainVariationAttributes(OrderEntity $order): bool
+    protected function doOrderItemsHaveOptionalColumnData(OrderEntity $order, string $getter): bool
     {
-        $containsVariations = false;
+        $containsOptionalData = false;
         /** @var OrderItem $orderItem **/
         foreach ($order->getItems() as $orderItem) {
-            if (!empty($orderItem->getItemVariationAttribute())) {
-                $containsVariations = true;
+            if (!is_callable([$orderItem, $getter])) {
+                break;
+            }
+            if (!empty($orderItem->$getter())) {
+                $containsOptionalData = true;
                 break;
             }
         }
-        return $containsVariations;
+        return $containsOptionalData;
     }
 
     protected function getOrderItemTableProductLinks(OrderEntity $order): array
