@@ -15,13 +15,13 @@ class Generic implements ResponseInterface, FromXmlInterface
         $this->xml = $xml;
     }
 
-    public static function fromXml(SimpleXMLElement $xml)
+    public static function fromXml(SimpleXMLElement $xml): Generic
     {
         return new static($xml);
     }
 
     public function __toString(): string
     {
-        return (string)$this->xml;
+        return $this->xml->asXML();
     }
 }

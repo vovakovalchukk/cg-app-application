@@ -1,6 +1,8 @@
 <?php
 namespace CG\Intersoft;
 
+use SimpleXMLElement;
+
 interface RequestInterface
 {
     public function getMethod(): string;

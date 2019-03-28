@@ -71,6 +71,6 @@ class Client implements LoggerAwareInterface
 
     protected function getRequestBody(RequestInterface $request): ?string
     {
-        return $request->asXml();
+        return $request->asXmlString();
     }
 }
