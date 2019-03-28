@@ -1,5 +1,5 @@
 <?php
-namespace CG\RoyalMailApi;
+namespace CG\Intersoft;
 
 interface ResponseInterface
 {
