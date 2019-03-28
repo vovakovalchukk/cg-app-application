@@ -1,4 +1,5 @@
 <?php
+
 namespace Orders\Order\Table\Row;
 
 use CG\Order\Shared\Entity as Order;
@@ -41,7 +42,12 @@ class Mapper extends UIMapper
     ];
     protected $mapDiscount = [
         self::COLUMN_SKU => ['getter' => 'getOrderDiscountSummary', 'callback' => null, 'colSpan' => 3],
-        self::COLUMN_PRICE => ['getter' => 'getOrderDiscountSubHeading', 'callback' => null, 'colSpan' => 2, 'class' => ''],
+        self::COLUMN_PRICE => [
+            'getter' => 'getOrderDiscountSubHeading',
+            'callback' => null,
+            'colSpan' => 2,
+            'class' => ''
+        ],
         self::COLUMN_TOTAL => ['getter' => 'getOrderDiscountTotal', 'callback' => 'formatCurrency'],
     ];
     protected $mapGiftWrap = [
@@ -96,20 +102,18 @@ class Mapper extends UIMapper
             'class' => 'product-link-td'
         ];
 
-        $loadingSpinner = '';
+        $loadingSpinnerHTML = '';
         if ($isFirstLinkedProduct) {
-
             $loadingSpinnerView = $this->viewModelFactory->newInstance();
             $loadingSpinnerView->setTemplate('elements/loadingIndicator.mustache');
 
             $loadingSpinner = $this->mustacheRenderer->render(
                 $loadingSpinnerView
             );
-
-//            $loadingSpinner = '<img title="Loading..." src="/channelgrabber/zf2-v4-ui/img/loading-transparent-21x21.gif" style="max-height:12px;">';
+            $loadingSpinnerHTML = '<div id="u-flex-center">' . $loadingSpinner . '</div>';
         }
         $rowData[] = [
-            'content' => $loadingSpinner,
+            'content' => $loadingSpinnerHTML,
             'class' => 'product-link-td js-linked-product-name',
             'attributes' => [
                 'data-sku' => $sku
@@ -220,7 +224,7 @@ class Mapper extends UIMapper
 
     protected function getGiftWrapType(GiftWrap $giftWrap)
     {
-        if(!$giftWrap->getGiftWrapType()) {
+        if (!$giftWrap->getGiftWrapType()) {
             return '';
         }
         return '<div class="wrap-type-holder"><b>Wrap: </b>' . strtoupper($giftWrap->getGiftWrapType()) . '</div>';
@@ -253,7 +257,8 @@ class Mapper extends UIMapper
         }
 
         if (empty($entity->getUrl())) {
-            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . $linkedProductIcon . '</div>';
+            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL,
+                    $values)) . $linkedProductIcon . '</div>';
         }
 
         return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . array_shift($values) . $linkedProductIcon . '</a>'
@@ -270,7 +275,7 @@ class Mapper extends UIMapper
     protected function formatVariationAttributes(Item $entity, array $attributes): string
     {
         $mergedKeyVals = [];
-        foreach($attributes as $attribute => $value) {
+        foreach ($attributes as $attribute => $value) {
             $mergedKeyVals[] = $attribute . ': ' . $value;
         }
         return implode("<br />", $mergedKeyVals);
