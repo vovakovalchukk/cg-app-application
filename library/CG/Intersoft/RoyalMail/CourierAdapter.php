@@ -6,6 +6,7 @@ use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
+use CG\Intersoft\RoyalMail\DeliveryService\Service as DeliveryServiceService;
 use CG\Intersoft\Credentials\FormFactory as CredentialsFormFactory;
 use Psr\Log\LoggerInterface;
 
@@ -18,10 +19,15 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
 
     /** @var LoggerInterface */
     protected $logger;
+    /** @var DeliveryServiceService */
+    protected $deliveryServiceService;
 
-    public function __construct(CredentialsFormFactory $credentialsFormFactory)
-    {
+    public function __construct(
+        CredentialsFormFactory $credentialsFormFactory,
+        DeliveryServiceService $deliveryServiceService
+    ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
+        $this->deliveryServiceService = $deliveryServiceService;
     }
 
     /**
@@ -45,7 +51,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServices()
     {
-        // TODO in TAC-385
+        $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -53,7 +59,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServiceByReference($reference)
     {
-        // TODO in TAC-385
+        return $this->deliveryServiceService->getDeliveryServiceByReference($reference);
     }
 
     /**
@@ -61,7 +67,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForAccount(Account $account)
     {
-        // TODO in TAC-385
+        return $this->deliveryServiceService->getDeliveryServices();
     }
 
     /**
@@ -69,7 +75,7 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForAccountAndCountry(Account $account, $isoAlpha2CountryCode)
     {
-        // TODO in TAC-385
+        return $this->deliveryServiceService->getDeliveryServicesForCountry($isoAlpha2CountryCode);
     }
 
     /**
@@ -77,7 +83,9 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function fetchDeliveryServicesForShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-385
+        return $this->deliveryServiceService->getDeliveryServicesForCountry(
+            $shipment->getDeliveryAddress()->getISOAlpha2CountryCode()
+        );
     }
 
     /**
