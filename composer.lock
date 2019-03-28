@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bdf193d3996d2b461be048851ff2b10e",
+    "content-hash": "4b7a3227e3f54a546200c1cc6ac1805f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -983,16 +983,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398"
+                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.1-53db0d.zip",
-                "reference": "8fa74998efa541c4078946b0ce0f71e9c0207398"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.2-caf595.zip",
+                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1016,7 +1016,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2018-12-03T11:32:22+00:00"
+            "time": "2019-03-28T13:49:00+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2050,16 +2050,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.14",
+            "version": "1.43.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "18d7e7036c0ba77ac3b6e2ccdc4629c613114f38"
+                "reference": "25ee7d4fee815faede0e322ef32206bfc69a5c99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.14-d4a70a.zip",
-                "reference": "18d7e7036c0ba77ac3b6e2ccdc4629c613114f38"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.15-e554a4.zip",
+                "reference": "25ee7d4fee815faede0e322ef32206bfc69a5c99"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2129,7 +2129,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-26T16:55:54+00:00"
+            "time": "2019-03-28T13:51:45+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2458,16 +2458,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.16.17",
+            "version": "1.16.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "30504e960bcc31c219a7211c15a101d5e0c09c5d"
+                "reference": "be9802751552cac2f08958861b11b5e0b927cdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.17-6f0d6e.zip",
-                "reference": "30504e960bcc31c219a7211c15a101d5e0c09c5d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.16.18-2a94f3.zip",
+                "reference": "be9802751552cac2f08958861b11b5e0b927cdae"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2519,7 +2519,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-03-15T10:59:47+00:00"
+            "time": "2019-03-28T13:27:28+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
