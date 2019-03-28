@@ -9,4 +9,5 @@ interface RequestInterface
     public function getUri(): string;
     public function getResponseClass(): string;
     public function asXml(): string;
+    public function setCredentials(Credentials $credentials);
 }

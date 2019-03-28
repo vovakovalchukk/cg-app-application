@@ -47,6 +47,7 @@ class Client implements LoggerAwareInterface
 
     public function send(RequestInterface $request): ResponseInterface
     {
+        $request->setCredentials($this->credentials);
         $guzzleRequest = $this->guzzleClient->createRequest($request->getMethod(), $request->getUri(), [
             'body' => $this->getRequestBody($request),
         ]);
@@ -71,6 +72,6 @@ class Client implements LoggerAwareInterface
 
     protected function getRequestBody(RequestInterface $request): ?string
     {
-        return $request->asXmlString();
+        return $request->asXml();
     }
 }
