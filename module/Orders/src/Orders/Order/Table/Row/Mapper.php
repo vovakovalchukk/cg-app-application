@@ -110,7 +110,7 @@ class Mapper extends UIMapper
             $loadingSpinner = $this->mustacheRenderer->render(
                 $loadingSpinnerView
             );
-            $loadingSpinnerHTML = '<div id="u-flex-center">' . $loadingSpinner . '</div>';
+            $loadingSpinnerHTML = '<div class="u-margin-center" style="max-height:12px; max-width: 12px;">' . $loadingSpinner . '</div>';
         }
         $rowData[] = [
             'content' => $loadingSpinnerHTML,
