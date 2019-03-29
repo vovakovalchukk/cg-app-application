@@ -119,7 +119,7 @@ class DeliveryService implements DeliveryServiceInterface
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
         CountryCode::ensureValidCountryCode($isoAlpha2CountryCode);
-        if (($this->getServiceType() == static::SERVICE_TYPE_INTERNATIONAL || $this->getServiceType() == static::SERVICE_TYPE_HM_FORCES)
+        if (($this->isInternationalServiceType($this->getServiceType()) || $this->isArmedForcesServiceType($this->getServiceType()))
             && $this->isCountryCodeUkOrGb($isoAlpha2CountryCode)) {
             return false;
         }
@@ -129,5 +129,15 @@ class DeliveryService implements DeliveryServiceInterface
     protected function isCountryCodeUkOrGb(string $countryCode)
     {
         return ($countryCode == 'GB' || $countryCode == 'UK');
+    }
+
+    protected function isInternationalServiceType(string $isoAlpha2CountryCode): bool
+    {
+        return ($isoAlpha2CountryCode == static::SERVICE_TYPE_INTERNATIONAL);
+    }
+
+    protected function isArmedForcesServiceType(string $isoAlpha2CountryCode): bool
+    {
+        return ($isoAlpha2CountryCode == static::SERVICE_TYPE_HM_FORCES);
     }
 }
