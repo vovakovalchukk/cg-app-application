@@ -2,7 +2,6 @@
 namespace CG\Intersoft\Credentials;
 
 use Zend\Form\Element;
-use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Password;
 use Zend\Form\Form;
 
@@ -17,7 +16,7 @@ class FormFactory
         $form->add((new Element("userId", [
             "label" => "User ID"
         ]))->setAttribute('required', true));
-        $form->add((new Element("password", [
+        $form->add((new Password("password", [
             "label" => "Password"
         ]))->setAttribute('required', true));
         return $form;
