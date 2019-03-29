@@ -12,7 +12,7 @@ class Validator implements LoggerAwareInterface
 {
     use LogTrait;
 
-    const LOG_CODE = 'RoyalMailApiCredentialsValidator';
+    const LOG_CODE = 'IntersoftCredentialsValidator';
 
     /** @var ClientFactory */
     protected $clientFactory;
