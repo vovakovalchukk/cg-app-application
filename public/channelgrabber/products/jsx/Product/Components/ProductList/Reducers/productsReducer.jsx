@@ -13,11 +13,11 @@ var initialState = {
     variationsByParent: [],
     allProductsLinks: {},
     visibleRows: [],
-    haveFetched: false,
+    haveFetched: false,         
     fetching: false
 };
 
-const {LINK_STATUSES} = constants;
+const {LINK_STATUSES, EXPAND_STATUSES} = constants;
 
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
@@ -63,7 +63,6 @@ var ProductsReducer = reducerCreator(initialState, {
     },
     "PRODUCT_EXPAND_REQUEST": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
-
         currentVisibleProducts = changeExpandStatusForId(
             currentVisibleProducts,
             action.payload.productRowIdToExpand,
@@ -104,6 +103,12 @@ var ProductsReducer = reducerCreator(initialState, {
         let parentProductIds = stateUtility.getAllParentProductIds(state);
 
         for (let id of parentProductIds) {
+            let parentProduct = stateUtility.getProductById(currentVisibleProducts, id);
+
+            if(parentProduct.expandStatus === EXPAND_STATUSES.collapsed){
+                continue;
+            }
+
             currentVisibleProducts = collapseSingleProduct(currentVisibleProducts, id, state);
         }
 
