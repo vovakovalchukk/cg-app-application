@@ -15,6 +15,7 @@ use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 
 class CarrierBookingOptions implements CarrierBookingOptionsInterface
 {
@@ -35,6 +36,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             PackageField\ContentsInterface::class => 'itemParcelAssignment',
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
             PackageField\WeightInterface::class => 'weight',
+            PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
         ],
         'shipment' => [
             ShipmentField\CollectionDateInterface::class => 'collectionDate',
@@ -205,6 +207,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $option,
         CourierInterface $courierInstance = null
     ) {
+        $data = [];
         if (isset($this->carrierBookingOptionData[$account->getId()][$option])) {
             return $this->carrierBookingOptionData[$account->getId()][$option];
         }
@@ -219,7 +222,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $shipmentClass = $deliveryService->getShipmentClass();
         if ($option == 'packageTypes') {
             $data = $this->getDataForPackageTypesOption($shipmentClass);
-        } elseif ($option == 'insuranceOptions') {
+        } elseif ($option == 'insuranceOptions' && isset(class_implements($shipmentClass)[InsuranceOptionsInterface::class])) {
             $data = $this->getDataForInsuranceOptionsOption($shipmentClass);
         }
 

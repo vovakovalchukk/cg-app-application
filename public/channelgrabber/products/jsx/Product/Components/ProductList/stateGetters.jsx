@@ -10,6 +10,9 @@ let stateGetters = function(getState) {
                     return product.id === id;
                 });
             },
+            getTotalProducts: () => {
+                return _getState().pagination.total;
+            },
             getPaginationLimit() {
                 return _getState().pagination.limit;
             },

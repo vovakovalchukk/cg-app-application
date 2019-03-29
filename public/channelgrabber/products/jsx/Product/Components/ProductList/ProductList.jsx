@@ -91,7 +91,7 @@ class ProductList extends React.Component {
     addProductClick = () => {
         this.props.actions.changeView();
         this.props.addNewProductButtonClick();
-    }
+    };
     renderAdditionalNavbarButtons = () => {
         return (
             <div className=" navbar-strip--push-up-fix ">
@@ -229,6 +229,7 @@ class ProductList extends React.Component {
     }
     shouldRenderModal() {
         return (
+            !this.props.products.fetching &&
             this.isReadyToRenderTable() &&
             !this.props.products.visibleRows.length &&
             !this.props.search.productSearchActive &&

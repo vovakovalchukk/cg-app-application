@@ -7,6 +7,7 @@ use CG\Hermes\RequestInterface;
 use CG\Hermes\Response\RouteDeliveryCreatePreadviceAndLabel as Response;
 use CG\Hermes\Shipment;
 use CG\Hermes\Shipment\Package;
+use CG\Hermes\Shipment\Package\Content as PackageContent;
 use CG\Product\Detail\Entity as ProductDetail;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
@@ -17,17 +18,20 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     const METHOD = 'POST';
     const URI = 'routeDeliveryCreatePreadviceAndLabel';
     const SOURCE_OF_REQUEST = 'CLIENTWS';
-    const DEFAULT_MAX_LEN = 50;
+    const DEFAULT_MAX_LEN = 32;
     const MAX_PHONE_LEN = 15;
     const MAX_EMAIL_LEN = 80;
     const MAX_REF_LEN = 20;
     const MAX_INSTRUCT_LEN = 32;
     const MAX_SKU_LEN = 30;
     const MAX_DESC_LEN = 2000;
+    const MAX_HS_CODE_LENGTH = 10;
     const WEIGHT_UNIT = 'g';
     const DIMENSION_UNIT = 'cm';
     const DEFAULT_VALUE = 100;
     const DUTY_UNPAID_FLAG = 'U';
+    const COUNTRY_CODE_NETHERLANDS = 'NL';
+    const NETHERLANDS_ADDRESS_1_REGEX = '/(?:\d+[a-z]*)$/';
 
     /** @var Shipment */
     protected $shipment;
@@ -117,7 +121,8 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $customerAddressNode = $customerNode->addChild('address');
         $customerAddressNode->addChild('firstName', $this->sanitiseString($deliveryAddress->getFirstName()));
         $customerAddressNode->addChild('lastName', $this->sanitiseString($deliveryAddress->getLastName()));
-        $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
+        $this->addAddressLine1($customerAddressNode, $deliveryAddress);
+
         if ($line2 && $line2 != $city && $line2 != $region) {
             $customerAddressNode->addChild('addressLine2', $this->sanitiseString($line2));
         }
@@ -139,30 +144,37 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         $parcelNode->addChild('girth', 0);
         $parcelNode->addChild('combinedDimension', 0);
         $parcelNode->addChild('volume', 0);
-        $parcelNode->addChild('value', static::DEFAULT_VALUE);
+        $parcelNode->addChild('value', $this->calculateValueOfPackage($package));
         $parcelNode->addChild('dutyPaid', static::DUTY_UNPAID_FLAG);
-
-        // As we're only supporting EU orders for now the 'currency' and 'contents' sections are not required.
-        // If / when we support non-EU orders we'll need to add these back in.
-        //$parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
-        //$this->addContentsToParcelNode($parcelNode, $package);
-        //$parcelNode->addChild('value', $this->calculateValueOfPackage($package));
+        $parcelNode->addChild('currency', $this->determineCurrencyOfPackage($package));
+        $parcelNode->addChild('numberOfItems', $this->determineNumberOfItems($package));
+        $parcelNode->addChild('description', $this->getPackageDescription($package));
+        $parcelNode->addChild('originOfParcel', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        // The below may need adding as part of TAC-378, we are awaiting a response from our customer
+//        $parcelNode->addChild('dutyPaidValue', '');
+//        $parcelNode->addChild('vatValue', '');
+        $contents = $parcelNode->addChild('contents');
+        $this->addContentsToParcelNode($contents, $package);
     }
 
-    protected function addContentsToParcelNode(SimpleXMLElement $parcelNode, Package $package): void
+    protected function addContentsToParcelNode(SimpleXMLElement $contents, Package $package)
     {
-        $contentsNode = $parcelNode->addChild('contents');
-        foreach ($package->getContents() as $content) {
-            for ($count = 1; $count <= $content->getQuantity(); $count++) {
-                $contentNode = $contentsNode->addChild('content');
-                $contentNode->addChild('skuCode', $this->sanitiseString($content->getSku(), static::MAX_SKU_LEN));
-                $contentNode->addChild('skuDescription',
-                    $this->sanitiseString($content->getName() . "\n" . $content->getDescription(),static::MAX_DESC_LEN)
-                );
-                $contentNode->addChild('hsCode', $content->getHSCode());
-                $contentNode->addChild('value', $this->convertValueToMinorUnits($content->getUnitValue()));
+        /** @var PackageContent $packageContent */
+        foreach ($package->getContents() as $packageContent) {
+            $content = $contents->addChild('content');
+            $content->addChild('skuDescription', $this->sanitiseString($packageContent->getName() . "\n" . $packageContent->getDescription(),static::MAX_DESC_LEN));
+            $content->addChild('countryOfManufacture', 'GB');
+            $content->addChild('itemQuantity', $packageContent->getQuantity());
+            $content->addChild('itemWeight', $this->convertValueToMinorUnits($packageContent->getWeight()));
+            $content->addChild('value', $this->convertValueToMinorUnits($packageContent->getUnitValue()));
+            $content->addChild('skuCode', $this->sanitiseString($packageContent->getSku(), static::MAX_SKU_LEN));
+
+            if ($packageContent->getHsCode() && strlen($packageContent->getHsCode()) > 0) {
+                $content->addChild('hsCode', $this->sanitiseString($packageContent->getHsCode(), static::MAX_HS_CODE_LENGTH));
             }
+
         }
+        return;
     }
 
     protected function addServicesToRoutingRequestNode(SimpleXMLElement $deliveryRoutingRequestEntryNode): void
@@ -218,7 +230,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         if (empty($package->getContents())) {
             return '';
         }
-        return $package->getContents()[0]->getUnitCurrency();
+        return $this->sanitiseString($package->getContents()[0]->getUnitCurrency());
     }
 
     protected function calculateValueOfPackage(Package $package): float
@@ -240,5 +252,44 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     public function getResponseClass(): string
     {
         return Response::class;
+    }
+
+    protected function addAddressLine1(SimpleXMLElement $customerAddressNode, AddressInterface $deliveryAddress): void
+    {
+        // Right now we only need to do anything different for Netherlands. If we need to handle differences for additional countries in the future
+        // this should be refactored
+        if (strtoupper($deliveryAddress->getISOAlpha2CountryCode() !== static::COUNTRY_CODE_NETHERLANDS)) {
+            $customerAddressNode->addChild('streetName', $this->sanitiseString($deliveryAddress->getLine1()));
+            return;
+        }
+
+        $streetName = preg_replace_callback(
+            static::NETHERLANDS_ADDRESS_1_REGEX,
+            function($matches) use ($customerAddressNode) {
+                $customerAddressNode->addChild('houseNo', $matches[0]);
+                return '';
+            },
+            $deliveryAddress->getLine1(),
+            1
+            );
+        $customerAddressNode->addChild('streetName', $this->sanitiseString(rtrim($streetName)));
+    }
+
+    protected function determineNumberOfItems(Package $package): int
+    {
+        $itemCount = 0;
+        foreach ($package->getContents() as $packageContent) {
+            $itemCount+= $packageContent->getQuantity();
+        }
+        return $itemCount;
+    }
+
+    protected function getPackageDescription(Package $package): string
+    {
+        $description = '';
+        foreach ($package->getContents() as $packageContent) {
+            $description .= $packageContent->getDescription() . "\n";
+        }
+        return $this->sanitiseString(rtrim($description));
     }
 }

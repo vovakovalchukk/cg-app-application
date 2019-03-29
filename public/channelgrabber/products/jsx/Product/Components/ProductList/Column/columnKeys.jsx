@@ -11,5 +11,6 @@ export default {
     weight: 'weight',
     dimensions: 'dimensions',
     lowStock: 'lowStock',
-    pickingLocation: 'pickingLocation'
+    pickingLocation: 'pickingLocation',
+    cost: 'cost'
 };
