@@ -8,6 +8,7 @@ use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\Intersoft\RoyalMail\DeliveryService\Service as DeliveryServiceService;
 use CG\Intersoft\Credentials\FormFactory as CredentialsFormFactory;
+use CG\Intersoft\RoyalMail\Shipment\Booker as ShipmentBooker;
 use Psr\Log\LoggerInterface;
 
 class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface
@@ -21,13 +22,17 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     protected $logger;
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
+    /** @var ShipmentBooker */
+    protected $shipmentBooker;
 
     public function __construct(
         CredentialsFormFactory $credentialsFormFactory,
-        DeliveryServiceService $deliveryServiceService
+        DeliveryServiceService $deliveryServiceService,
+        ShipmentBooker $shipmentBooker
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->deliveryServiceService = $deliveryServiceService;
+        $this->shipmentBooker = $shipmentBooker;
     }
 
     /**
@@ -43,7 +48,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-386
+        $this->logger->debug('Booking Royal Mail Intersoft shipment for Account {account}', ['account' => $shipment->getAccount()->getId()]);
+        return ($this->shipmentBooker)($shipment);
     }
 
     /**
