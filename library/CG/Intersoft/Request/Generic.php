@@ -43,6 +43,6 @@ class Generic extends RequestAbstract
     {
         $xml = new SimpleXMLElement($this->body);
         $xml = $this->addIntegrationHeader($xml);
-        return $xml;
+        return $xml->asXML();
     }
 }
