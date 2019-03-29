@@ -7,6 +7,7 @@ use CG\Intersoft\RequestAbstract;
 use CG\Intersoft\RequestInterface;
 use CG\Intersoft\Response\Generic as Response;
 use SimpleXMLElement;
+use CG\Intersoft\IntersoftXml;
 
 class Generic extends RequestAbstract
 {
@@ -41,8 +42,21 @@ class Generic extends RequestAbstract
 
     public function asXml(): string
     {
-        $xml = new SimpleXMLElement($this->body);
-        $xml = $this->addIntegrationHeader($xml);
+        $xml = simplexml_load_string($this->body, IntersoftXml::class);
+        $this->addIntegrationHeader($xml);
+        return $xml->asXML();
+    }
+
+    protected function addIntegrationHeader(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        /** @var IntersoftXml $xml */
+        $integrationHeader = new SimpleXMLElement('<integrationHeader></integrationHeader>');
+        $integrationHeader->addChild('dateTimeStamp', date(static::DATE_FORMAT));
+        $integrationHeader->addChild('transactionId', $this->generateTransactionId());
+        $integrationHeader->addChild('applicationId', $this->getApplicationId());
+        $integrationHeader->addChild('userId', $this->getUserId());
+        $integrationHeader->addChild('password', $this->getPassword());
+        $xml->prependChild($integrationHeader->asXML());
         return $xml;
     }
 }

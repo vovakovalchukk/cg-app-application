@@ -35,7 +35,7 @@ abstract class RequestAbstract implements RequestInterface
 
     protected function generateTransactionId(): string
     {
-        return md5(uniqid());
+        return uniqid();
     }
 
     protected function addIntegrationHeader(SimpleXMLElement $xml): SimpleXMLElement
