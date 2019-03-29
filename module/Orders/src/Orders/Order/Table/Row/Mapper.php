@@ -15,10 +15,12 @@ class Mapper extends UIMapper
     const COLUMN_PRODUCT = 'Product Name';
     const COLUMN_VARIATIONS = 'Variation Attributes';
     const COLUMN_QUANTITY = 'Quantity';
+    const COLUMN_CUSTOMISATION = 'Customisation';
     const COLUMN_PRICE = 'Price inc. VAT';
     const COLUMN_DISCOUNT = 'Discount Total';
     const COLUMN_TOTAL = 'Line Total';
     const GIFT_SKU_HEADER = 'GIFT';
+
 
     protected $currencyFormat;
     protected $order;
@@ -31,6 +33,7 @@ class Mapper extends UIMapper
         self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatCurrency'],
         self::COLUMN_TOTAL => ['getter' => 'getItemLineTotal', 'callback' => 'formatCurrency'],
+        self::COLUMN_CUSTOMISATION => ['getter' => 'getCustomisation', 'callback' => 'formatCustomisation'],
     ];
     protected $mapDiscount = [
         self::COLUMN_SKU => ['getter' => 'getOrderDiscountSummary', 'callback' => null, 'colSpan' => 3],
@@ -44,6 +47,11 @@ class Mapper extends UIMapper
         self::COLUMN_PRICE => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => null, 'callback' => null],
         self::COLUMN_TOTAL => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
+    ];
+
+    protected $optionalColumns = [
+        self::COLUMN_VARIATIONS => ['getter' => 'getItemVariationAttribute'],
+        self::COLUMN_CUSTOMISATION => ['getter' => 'getCustomisation'],
     ];
 
     public function __construct(CurrencyFormat $currencyFormat)
@@ -256,6 +264,15 @@ class Mapper extends UIMapper
         return implode("<br />", $mergedKeyVals);
     }
 
+    protected function formatCustomisation(Item $entity, $value)
+    {
+        if (filter_var($value, FILTER_VALIDATE_URL)) {
+            return '<a href="'.$value.'">Download</a>';
+        } else {
+            return '<div>'.substr($value, 0, 40).'...</div>';
+        }
+    }
+
     protected function setCurrencyFormat(CurrencyFormat $currencyFormat)
     {
         $this->currencyFormat = $currencyFormat;
@@ -266,5 +283,10 @@ class Mapper extends UIMapper
     {
         $this->order = $order;
         return $this;
+    }
+
+    public function getOptionalColumns(): array
+    {
+        return $this->optionalColumns;
     }
 }
