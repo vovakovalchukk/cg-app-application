@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d56f3174356d6f57b147c6ad4ec5ce2",
+    "content-hash": "48ea56ee86e9042e3bbda221e4cbbefa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4914,12 +4914,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "930751e07ecdc01b8a17263c17c6acfe895eed62"
+                "reference": "335bbbbdeba0a219769fdec7c08000e734380ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-384-add-intersoft-royal-mail-b148b6.zip",
-                "reference": "930751e07ecdc01b8a17263c17c6acfe895eed62",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-384-add-intersoft-royal-mail-815590.zip",
+                "reference": "335bbbbdeba0a219769fdec7c08000e734380ace",
                 "shasum": null
             },
             "require": {
@@ -4971,7 +4971,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-03-28T15:45:25+00:00"
+            "time": "2019-03-28T15:56:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
