@@ -5,16 +5,14 @@ use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
-use CG\RoyalMailApi\Client;
-use CG\RoyalMailApi\Client\Factory as ClientFactory;
-use CG\RoyalMailApi\Request\Shipment\Create as CreateRequest;
-use CG\RoyalMailApi\Request\Shipment\Create\Domestic as DomesticRequest;
-use CG\RoyalMailApi\Request\Shipment\Create\International as InternationalRequest;
-use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
-use CG\RoyalMailApi\Response\Shipment\Create as CreateResponse;
-use CG\RoyalMailApi\Shipment;
-use CG\RoyalMailApi\Shipment\Documents\Generator as DocumentsGenerator;
-use CG\RoyalMailApi\Shipment\Label\Generator as LabelGenerator;
+use CG\Intersoft\Client;
+use CG\Intersoft\Client\Factory as ClientFactory;
+use CG\Intersoft\RoyalMail\Request\Shipment\Create as CreateRequest;
+use CG\Intersoft\RoyalMail\Response\Shipment\Completed\Item as ShipmentItem;
+use CG\Intersoft\RoyalMail\Response\Shipment\Create as CreateResponse;
+use CG\Intersoft\RoyalMail\Shipment;
+use CG\Intersoft\RoyalMail\Shipment\Documents\Generator as DocumentsGenerator;
+use CG\Intersoft\RoyalMail\Shipment\Label\Generator as LabelGenerator;
 use function CG\Stdlib\mergePdfData;
 
 class Booker
@@ -49,10 +47,7 @@ class Booker
 
     protected function buildRequestFromShipment(Shipment $shipment): CreateRequest
     {
-        if ($this->isDomesticShipment($shipment)) {
-            return new DomesticRequest($shipment);
-        }
-        return new InternationalRequest($shipment);
+        return new CreateRequest($shipment);
     }
 
     protected function isDomesticShipment(Shipment $shipment): bool
