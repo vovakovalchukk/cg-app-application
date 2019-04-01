@@ -92,7 +92,7 @@ class Create extends PostAbstract
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
-        $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
+        $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber() ?? 00000000000);
         $shipper->addChild('shipperReference', $this->shipment->getCustomerReference());
         return $xml;
     }
@@ -107,7 +107,8 @@ class Create extends PostAbstract
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
         $destination->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
-        $destination->addChild('destinationPhoneNumber', $deliveryAddress->getPhoneNumber());
+        $destination->addChild('destinationPhoneNumber', 00000000000);
+
         return $xml;
     }
 
@@ -130,7 +131,7 @@ class Create extends PostAbstract
         $firstPackage = $this->shipment->getPackages()[0];
         $serviceOptions = $xml->addChild('serviceOptions');
         $serviceOptions->addChild('postingLocation', $this->getPostingLocationNumber());
-        $serviceOptions->addChild('serviceLevel', 1);
+        $serviceOptions->addChild('serviceLevel', '01');
         $serviceOptions->addChild('serviceFormat', $firstPackage->getType()->getReference());
         $serviceOptions->addChild('safePlace', $this->getSafePlace());
         $serviceOptions = $this->addServiceEnhancements($serviceOptions);
@@ -173,11 +174,12 @@ class Create extends PostAbstract
         $packageId = 1;
         /** @var Package $package */
         foreach ($packages as $package) {
-            $packagesXml->addChild('packageId', $packageId++);
-            $packagesXml->addChild('weight', $package->getWeight());
-            $packagesXml->addChild('length', $this->convertLength($package->getLength()));
-            $packagesXml->addChild('width', $this->convertLength($package->getWidth()));
-            $packagesXml->addChild('height', $this->convertLength($package->getHeight()));
+            $packageXml = $packagesXml->addChild('package');
+            $packageXml->addChild('packageId', $packageId++);
+            $packageXml->addChild('weight', $package->getWeight());
+            $packageXml->addChild('length', $this->convertLength($package->getLength()));
+            $packageXml->addChild('width', $this->convertLength($package->getWidth()));
+            $packageXml->addChild('height', $this->convertLength($package->getHeight()));
         }
         return $xml;
     }
