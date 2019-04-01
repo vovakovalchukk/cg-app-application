@@ -52,7 +52,6 @@ class Client implements LoggerAwareInterface
             'body' => $this->getRequestBody($request),
         ]);
         try {
-            $mark = $this->getRequestBody($request);
             $guzzleResponse = $this->guzzleClient->send($guzzleRequest);
             $xml = $guzzleResponse->xml();
             return ($this->responseFactory)($request, $xml);

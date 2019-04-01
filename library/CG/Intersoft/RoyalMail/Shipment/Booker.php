@@ -71,9 +71,9 @@ class Booker
     {
         $rmPackages = $response->getPackages();
         $shipmentNumbers = [];
-        /** @var RoyalMailPackage $package */
+        /** @var RoyalMailPackage $rmPackage */
         foreach ($rmPackages as $rmPackage) {
-            $shipmentNumbers[] = $rmPackage->getUniqueId();
+            $shipmentNumbers[] = $rmPackage->getTrackingNumber();
         }
         $shipment->setCourierReference(implode(static::SHIP_NO_SEP, $shipmentNumbers));
 
