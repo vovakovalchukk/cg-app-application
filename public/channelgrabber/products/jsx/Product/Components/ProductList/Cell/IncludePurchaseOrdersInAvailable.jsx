@@ -24,8 +24,6 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
         return true;
     };
     selectToggle(productId) {
-        //todo - replace with select state
-//        this.props.actions.toggleIncPOStockInAvailableSelect(productId);
         this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
     render() {
