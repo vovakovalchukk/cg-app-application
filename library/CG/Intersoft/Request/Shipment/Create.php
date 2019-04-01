@@ -5,6 +5,7 @@ use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SaturdayDeliveryInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
+use CG\Email\Attachment\Simple;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Intersoft\RoyalMail\Request\PostAbstract;
 use CG\Intersoft\RoyalMail\Response\Shipment\Create as Response;
@@ -19,8 +20,12 @@ class Create extends PostAbstract
     static $requestNameSpace = 'createShipmentRequest';
 
     const DATE_FORMAT_SHIPMENT = 'Y-m-d';
-    const WEIGHT_UNIT = 'g';
+    const WEIGHT_UNIT = 'K';
     const DIMENSIONS_UNIT = 'cm';
+    const PRODUCT_TYPE = 'NDX'; // DOX for documents, NDX for anything else
+    const CURRENCY_DEFAULT = 'GBP';
+    const MAX_LEN_DEFAULT = 32;
+    const MAX_LEN_DESCRIPTION = 255;
 
     /** @var Shipment */
     protected $shipment;
@@ -60,11 +65,6 @@ class Create extends PostAbstract
         return $xml;
     }
 
-    protected function convertWeight(float $weight): float
-    {
-        return (new Mass($weight, ProductDetail::UNIT_MASS))->toUnit(static::WEIGHT_UNIT);
-    }
-
     protected function convertLength(float $length): float
     {
         return (new Length($length, ProductDetail::UNIT_LENGTH))->toUnit(static::DIMENSIONS_UNIT);
@@ -91,6 +91,7 @@ class Create extends PostAbstract
             ?: $collectionAddress->getLine4()
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
+        $shipper->addChild('shipperPostcode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
         $shipper->addChild('shipperReference', $this->shipment->getCustomerReference());
         return $xml;
@@ -112,12 +113,14 @@ class Create extends PostAbstract
 
     protected function addShipmentInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
+        $packages = $this->shipment->getPackages();
         $shipmentInformation = $xml->addChild('shipmentInformation');
         $shipmentInformation->addChild('shipmentDate', $this->shipment->getCollectionDate()->format(static::DATE_FORMAT_SHIPMENT));
         $shipmentInformation->addChild('serviceCode', $this->shipment->getDeliveryService()->getReference());
         $shipmentInformation = $this->addServiceOptions($shipmentInformation);
         $shipmentInformation = $this->addPackageInformation($shipmentInformation);
         $shipmentInformation = $this->addItemInformation($shipmentInformation);
+        $shipmentInformation = $this->addShipmentOverview($shipmentInformation);
         return $xml;
     }
 
@@ -171,7 +174,7 @@ class Create extends PostAbstract
         /** @var Package $package */
         foreach ($packages as $package) {
             $packagesXml->addChild('packageId', $packageId++);
-            $packagesXml->addChild('weight', $this->convertWeight($package->getWeight()));
+            $packagesXml->addChild('weight', $package->getWeight());
             $packagesXml->addChild('length', $this->convertLength($package->getLength()));
             $packagesXml->addChild('width', $this->convertLength($package->getWidth()));
             $packagesXml->addChild('height', $this->convertLength($package->getHeight()));
@@ -186,12 +189,56 @@ class Create extends PostAbstract
         foreach ($packages as $package) {
             foreach ($package->getContents() as $packageContents) {
                 $itemInformation = $xml->addChild('itemInformation');
-                $itemInformation->addChild('description', $packageContents->getDescription());
-                $itemInformation->addChild('quantity', $packageContents->getQuantity());
+                $itemInformation->addChild('itemDescription', $packageContents->getDescription());
+                $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
                 $itemInformation->addChild('itemValue', $packageContents->getUnitValue());
-                $itemInformation->addChild('itemNetWeight', $this->convertLength($packageContents->getWeight()));
+                $itemInformation->addChild('itemNetWeight', $packageContents->getWeight());
             }
         }
         return $xml;
+    }
+
+    protected function addShipmentOverview(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $packageOverviewDetails = $this->getOverviewDetailsArray();
+        $xml->addChild('totalPackages', count($this->shipment->getPackages()));
+        $xml->addChild('totalWeight', $packageOverviewDetails['totalWeight']);
+        $xml->addChild('weightId', static::WEIGHT_UNIT);
+        $xml->addChild('product', static::PRODUCT_TYPE);
+        $xml->addChild('descriptionOfGoods', $packageOverviewDetails['description']);
+        $xml->addChild('declaredValue', $packageOverviewDetails['totalValue']);
+        $xml->addChild('declaredCurrencyCode', $packageOverviewDetails['currencyCode']);
+        return $xml;
+    }
+
+    protected function getOverviewDetailsArray(): array
+    {
+        $packages = $this->shipment->getPackages();
+        $details = [
+            'description' => '',
+            'totalValue' => 0,
+            'totalWeight' => 0,
+            'currencyCode' => static::CURRENCY_DEFAULT
+        ];
+
+        /** @var Package $package */
+        foreach ($packages as $package) {
+            foreach ($package->getContents() as $packageContent) {
+                $details['description'] .=  $packageContent->getDescription() . '|';
+                $details['currencyCode'] =  $packageContent->getUnitCurrency();
+                $details['totalWeight'] += $packageContent->getWeight();
+                $details['totalValue'] += $packageContent->getUnitValue() * $packageContent->getQuantity();
+            }
+            $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION);
+        }
+        return $details;
+    }
+
+    protected function sanitiseString(?string $string = null, ?int $maxLength = null): string
+    {
+        if ($string === null) {
+            return '';
+        }
+        return substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT);
     }
 }
