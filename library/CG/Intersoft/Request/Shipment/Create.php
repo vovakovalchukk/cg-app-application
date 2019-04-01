@@ -150,22 +150,31 @@ class Create extends PostAbstract
 
     protected function addShipper(SimpleXMLElement $xml): SimpleXMLElement
     {
-        $xml->addChild('shipperCompanyName', $this->shipment->getCollectionAddress()->getCompanyName());
-        $xml->addChild('shipperAddressLine1', $this->shipment->getCollectionAddress()->getLine1());
+        $collectionAddress = $this->shipment->getCollectionAddress();
+        $xml->addChild('shipperCompanyName', $collectionAddress->getCompanyName());
+        $xml->addChild('shipperAddressLine1', $collectionAddress->getLine1());
         $xml->addChild(
         'shipperCity',
-        $this->shipment->getCollectionAddress()->getLine3()
-            ?: $this->shipment->getCollectionAddress()->getLine2()
-            ?: $this->shipment->getCollectionAddress()->getLine4()
+        $collectionAddress->getLine3()
+            ?: $collectionAddress->getLine2()
+            ?: $collectionAddress->getLine4()
         );
-        $xml->addChild('shipperCountryCode', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
-        $xml->addChild('shipperPhoneNumber', $this->shipment->getCollectionAddress()->getPhoneNumber());
+        $xml->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
+        $xml->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
         $xml->addChild('shipperReference', $this->shipment->getCustomerReference());
         return $xml;
     }
 
     protected function addDestination(SimpleXMLElement $xml): SimpleXMLElement
     {
+        $deliveryAddress = $this->shipment->getDeliveryAddress();
+        $xml->addChild('destinationAddressLine1', $deliveryAddress->getLine1());
+        $xml->addChild('destinationAddressLine2', $deliveryAddress->getLine2());
+        $xml->addChild('destinationCity', $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2() ?: $deliveryAddress->getLine4());
+        $xml->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
+        $xml->addChild('destinationPostCode', $deliveryAddress->getPostCode());
+        $xml->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
+        $xml->addChild('destinationPhoneNumber', $deliveryAddress->getPhoneNumber());
         return $xml;
     }
 
