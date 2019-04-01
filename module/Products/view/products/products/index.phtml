@@ -64,9 +64,21 @@ $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/fixed-d
 <?= $this->bulkItems; ?>
     <div id="products-mount-node">
     </div>
+
     <div id='products-loading-message' class='dataTables_processing u-ease_1-25'>
-        Loading products...
+        <span class="u-flex-center">
+                <div class="indicator-sizer -default u-margin-right-small">
+                    <?=
+                        $this->mustache(
+                            'elements/loadingIndicator.mustache'
+                        )
+                    ?>
+                </div>
+
+                <div>Loading products...</div>
+        </span>
     </div>
+
     <div id="account-stock-settings-table-container" style="display:none">
         <?=$this->accountStockSettingsTableView;?>
     </div>
