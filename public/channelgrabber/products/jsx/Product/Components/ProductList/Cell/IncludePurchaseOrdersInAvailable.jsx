@@ -15,14 +15,18 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
         stock: {},
         incPOStockInAvailableOptions: {}
     };
-    getVatSelectActive(activePropOnState) {
-        if (!activePropOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+    getVatSelectActive() {
+        const rowData = stateUtility.getRowData(this.props.products, this.props.rowIndex);
+        let isActiveOnState = stateUtility.isCurrentActiveSelect(rowData, this.props.select, this.props.columnKey)
+        if (!isActiveOnState || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
             return false;
         }
         return true;
     };
     selectToggle(productId) {
-        this.props.actions.toggleIncPOStockInAvailableSelect(productId);
+        //todo - replace with select state
+//        this.props.actions.toggleIncPOStockInAvailableSelect(productId);
+        this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
     render() {
         const {
@@ -66,7 +70,7 @@ class IncludePurchaseOrdersInAvailableCell extends React.Component {
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
                     selectToggle={this.selectToggle.bind(this, rowData.id)}
-                    active={this.getVatSelectActive(productIncPoStockInAvailable.active)}
+                    active={this.getVatSelectActive()}
                     styleVars={{
                         widthOfInput: 110,
                         widthOfDropdown: 130

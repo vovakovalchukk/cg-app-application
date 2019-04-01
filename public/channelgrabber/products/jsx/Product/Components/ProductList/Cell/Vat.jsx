@@ -37,10 +37,6 @@ class VatCell extends React.Component {
         this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
     getVatSelectActive(product) {
-        if(product.id===1){
-            debugger;
-        }
-        //todo figure this out from something else
         let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
 
         if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {

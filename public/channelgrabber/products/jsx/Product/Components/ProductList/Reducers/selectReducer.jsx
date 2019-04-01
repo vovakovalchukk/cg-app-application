@@ -12,10 +12,6 @@ let initialState = {
 let selectReducer = reducerCreator(initialState, {
     "SELECT_ACTIVE_TOGGLE": function(state, action) {
         let {productId, columnKey} = action.payload;
-
-        console.log('in selectActiveToggle -R' , {productId, columnKey});
-
-
         let stateToReturn = Object.assign({}, state);
 
         if(isPreviousActiveSelect(stateToReturn, productId,columnKey)){
@@ -32,8 +28,7 @@ let selectReducer = reducerCreator(initialState, {
 export default selectReducer;
 
 function isPreviousActiveSelect(state, productId, columnKey){
-    let {stateProductId, stateColumnKey} = state.activeSelect;
-    return stateProductId == productId && stateColumnKey == columnKey;
+    return state.activeSelect.productId === productId && state.activeSelect.columnKey === columnKey;
 }
 
 function resetSelectActive(state) {

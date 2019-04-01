@@ -26,13 +26,13 @@ const columnKeysMetricPropertyMap = {
 };
 const columnSpecificPropsMap = {
     stockMode: ['rows', 'stock', 'userSettings', 'scroll'],
-    includePurchaseOrdersInAvailable: ['rows', 'stock', 'incPOStockInAvailableOptions', 'scroll'],
+    includePurchaseOrdersInAvailable: ['rows', 'stock', 'incPOStockInAvailableOptions', 'scroll', 'select'],
     available: ['rows'],
     dimensions: ['rows', 'detail', 'scroll'],
     weight: ['rows', 'detail', 'scroll'],
     vat: ['rows', 'vat', 'scroll', 'select'],
     bulkSelect: ['bulkSelect'],
-    lowStock: ['rows', 'stock', 'userSettings'],
+    lowStock: ['rows', 'stock', 'userSettings', 'select'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
     name: ['rows', 'name', 'focus'],
     cost: ['rows', 'detail', 'scroll']
