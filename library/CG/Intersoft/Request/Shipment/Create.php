@@ -16,7 +16,8 @@ use SimpleXMLElement;
 
 class Create extends PostAbstract
 {
-    const requestNameSpace = 'createShipmentRequest';
+    static $requestNameSpace = 'createShipmentRequest';
+
     const DATE_FORMAT_SHIPMENT = 'Y-m-d';
     const WEIGHT_UNIT = 'g';
     const DIMENSIONS_UNIT = 'cm';
@@ -47,14 +48,9 @@ class Create extends PostAbstract
         return $xml->asXml();
     }
 
-    protected function toArray(): array
-    {
-        return [];
-    }
-
     protected function buildXml(): SimpleXMLElement
     {
-        $namespace = static::requestNameSpace;
+        $namespace = static::$requestNameSpace;
         $xml = new SimpleXMLElement("<{$namespace}></{$namespace}>");
         $xml = $this->addIntegrationHeader($xml);
         $shipment = $xml->addChild('shipment');
@@ -62,57 +58,6 @@ class Create extends PostAbstract
         $shipment = $this->addDestination($shipment);
         $shipment = $this->addShipmentInformation($shipment);
         return $xml;
-    }
-
-    protected function toServiceArray(): array
-    {
-        $deliveryService = $this->shipment->getDeliveryService();
-        /** @var Package $firstPackage */
-        $firstPackage = $this->shipment->getPackages()[0];
-        [$offering, $type] = explode('-', $deliveryService->getReference());
-        return [
-            'format' => $firstPackage->getType()->getReference(),
-            'offering' => $offering,
-            'type' => $type,
-            'signature' => $this->shipment->isSignatureRequired(),
-            'enhancements' => $this->toEnhancementsArray()
-        ];
-    }
-
-    protected function getEnhancementsArray(): array
-    {
-        $enhancements = [];
-        if ($this->shipment instanceof InsuranceOptionsInterface && $this->shipment->getInsuranceOption() != null) {
-            $enhancements[] = $this->shipment->getInsuranceOption()->getReference();
-        }
-        if ($this->shipment instanceof SignatureRequiredInterface && $this->shipment->isSignatureRequired()) {
-            $enhancements[] = static::ENHANCEMENT_SIGNATURE;
-        }
-        if ($this->shipment instanceof SaturdayDeliveryInterface && $this->shipment->isSaturdayDeliveryRequired()) {
-            $enhancements[] = static::ENHANCEMENT_SATURDAY;
-        }
-        return $enhancements;
-    }
-
-    protected function toItemsArray(): array
-    {
-        $items = [];
-        /** @var Package $package */
-        foreach ($this->shipment->getPackages() as $package) {
-            $count = 0;
-            foreach ($package->getContents() as $content) {
-                $count += $content->getQuantity();
-            }
-
-            $items[] = [
-                'count' => $count,
-                'weight' => [
-                    'unitOfMeasure' => static::WEIGHT_UNIT,
-                    'value' => $this->convertWeight($package->getWeight())
-                ]
-            ];
-        }
-        return $items;
     }
 
     protected function convertWeight(float $weight): float
@@ -123,30 +68,6 @@ class Create extends PostAbstract
     protected function convertLength(float $length): float
     {
         return (new Length($length, ProductDetail::UNIT_LENGTH))->toUnit(static::DIMENSIONS_UNIT);
-    }
-
-    protected function toContactArray(): array
-    {
-        $deliveryAddress = $this->shipment->getDeliveryAddress();
-        return [
-            'name' => $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName(),
-            'complementaryName' => $deliveryAddress->getCompanyName(),
-            'telephoneNumber' => $deliveryAddress->getPhoneNumber(),
-            'email' => $deliveryAddress->getEmailAddress(),
-        ];
-    }
-
-    protected function toAddressArray(): array
-    {
-        $deliveryAddress = $this->shipment->getDeliveryAddress();
-        return [
-            'addressLine1' => $deliveryAddress->getLine1(),
-            'addressLine2' => $deliveryAddress->getLine2(),
-            'postTown' => $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2() ?: $deliveryAddress->getLine4(),
-            'county' => $deliveryAddress->getLine4() ?: $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2(),
-            'postCode' => $deliveryAddress->getPostCode(),
-            'countryCode' => strtoupper($deliveryAddress->getISOAlpha2CountryCode()),
-        ];
     }
 
     protected function getSafePlace(): ?string
