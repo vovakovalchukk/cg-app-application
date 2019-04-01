@@ -16,6 +16,9 @@ class FormFactory
         $form->add((new Element("userId", [
             "label" => "User ID"
         ]))->setAttribute('required', true));
+        $form->add((new Element("postingLocationNumber", [
+            "label" => "Posting Location Number"
+        ]))->setAttribute('required', true));
         $form->add((new Password("password", [
             "label" => "Password"
         ]))->setAttribute('required', true));
