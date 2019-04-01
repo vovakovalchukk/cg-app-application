@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e393fb20768ca8f945451c79469858e6",
+    "content-hash": "670691dd6b3aa1d32af950ed54036e6d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -949,17 +949,11 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.13",
+            "version": "dev-CGIV-10420-dpd-brexit-changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d18550968eb80a8853368e51ccd4a190d62e27e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.13-e677d6.zip",
-                "reference": "d18550968eb80a8853368e51ccd4a190d62e27e2",
-                "shasum": null
+                "reference": "a85422f8022d01d2cc2407d24236362814cfe399"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -11030,13 +11024,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.14",
+            "alias_normalized": "1.1.14.0",
+            "version": "dev-CGIV-10420-dpd-brexit-changes",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
