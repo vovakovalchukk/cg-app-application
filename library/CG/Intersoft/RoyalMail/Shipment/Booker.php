@@ -14,6 +14,7 @@ use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Documents\Generator as DocumentsGenerator;
 use CG\Intersoft\RoyalMail\Shipment\Label\Generator as LabelGenerator;
 use function CG\Stdlib\mergePdfData;
+use CG\Intersoft\RoyalMail\Package as RoyalMailPackage;
 
 class Booker
 {
@@ -68,26 +69,26 @@ class Booker
 
     protected function updateShipmentFromResponse(Shipment $shipment, CreateResponse $response): Shipment
     {
-        $shipmentItems = $response->getShipmentItems();
+        $rmPackages = $response->getPackages();
         $shipmentNumbers = [];
-        foreach ($shipmentItems as $shipmentItem) {
-            $shipmentNumbers[] = $shipmentItem->getShipmentNumber();
+        /** @var RoyalMailPackage $package */
+        foreach ($rmPackages as $rmPackage) {
+            $shipmentNumbers[] = $rmPackage->getUniqueId();
         }
         $shipment->setCourierReference(implode(static::SHIP_NO_SEP, $shipmentNumbers));
 
         /** @var Package $package */
         foreach ($shipment->getPackages() as $package) {
-            $shipmentItem = current($shipmentItems);
-            if (!$shipmentItem) {
+            $rmPackage = current($rmPackages);
+            if (!$rmPackage) {
                 break;
             }
-            $package->setRmShipmentNumber($shipmentItem->getShipmentNumber());
-            $label = $shipmentItem->getLabel() ?? $this->fetchLabelForShipmentItem($shipmentItem, $shipment);
+            $label = $response->getLabelImage();
             if ($label) {
                 $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
             }
-            $package->setTrackingReference($this->determineTrackingNumber($shipmentItem));
-            next($shipmentItems);
+            $package->setTrackingReference($rmPackage->getTrackingNumber());
+            next($rmPackages);
         }
         return $shipment;
     }

@@ -162,15 +162,4 @@ class Package implements PackageInterface, WeightInterface, DimensionsInterface,
     {
         return $this->trackingReference;
     }
-
-    public function getRmShipmentNumber(): ?string
-    {
-        return $this->rmShipmentNumber;
-    }
-
-    public function setRmShipmentNumber(string $rmShipmentNumber)
-    {
-        $this->rmShipmentNumber = $rmShipmentNumber;
-        return $this;
-    }
 }
