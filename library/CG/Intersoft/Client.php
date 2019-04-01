@@ -54,6 +54,7 @@ class Client implements LoggerAwareInterface
         try {
             $guzzleResponse = $this->guzzleClient->send($guzzleRequest);
             $xml = $guzzleResponse->xml();
+            $this->checkResponseForErrors($xml);
             return ($this->responseFactory)($request, $xml);
         } catch (GuzzleRequestException $exception) {
             $guzzleResponse = $exception->getResponse();
@@ -62,6 +63,9 @@ class Client implements LoggerAwareInterface
             }
             $this->logWarningException($exception, 'Intersoft API error', [], [static::LOG_CODE, 'Exception', get_class($exception)]);
             throw new StorageException('There was a problem contacting Intersoft', $exception->getCode(), $exception);
+        } catch (StorageException $e) {
+            // This is here so existing StorageExceptions dont get caught by the \Throwable below
+            throw $e;
         } catch (\Throwable $throwable) {
             $this->logWarningException($throwable, 'Intersoft API error', [], [static::LOG_CODE, 'Throwable', get_class($throwable)]);
             throw new StorageException('There was a problem contacting Intersoft', $throwable->getCode());
@@ -73,5 +77,21 @@ class Client implements LoggerAwareInterface
     protected function getRequestBody(RequestInterface $request): ?string
     {
         return $request->asXml();
+    }
+
+    /**
+     * @throws StorageException
+     */
+    protected function checkResponseForErrors(\SimpleXMLElement $xml): void
+    {
+        if (!isset($xml->integrationFooter, $xml->integrationFooter->errors, $xml->integrationFooter->errors->errorDetail)) {
+            return;
+        }
+        $message = $xml->integrationFooter->errors->errorDetail->errorDescription ?? 'Intersoft error';
+        $code = 500;
+        if (isset($xml->integrationFooter->errors->errorDetail->errorCode)) {
+            $code = str_replace('E', '', (string)$xml->integrationFooter->errors->errorDetail->errorCode);
+        }
+        throw new StorageException((string)$message, (int)$code);
     }
 }
