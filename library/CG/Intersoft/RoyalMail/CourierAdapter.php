@@ -4,15 +4,18 @@ namespace CG\Intersoft\RoyalMail;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Manifest\GeneratingInterface as ManifestGeneratingInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
-use CG\Intersoft\RoyalMail\DeliveryService\Service as DeliveryServiceService;
 use CG\Intersoft\Credentials\FormFactory as CredentialsFormFactory;
+use CG\Intersoft\Manifest\Generator as ManifestGenerator;
+use CG\Intersoft\RoyalMail\DeliveryService\Service as DeliveryServiceService;
 use CG\Intersoft\RoyalMail\Shipment\Booker as ShipmentBooker;
 use Psr\Log\LoggerInterface;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface
 {
+    const CARRIER_CODE = 'RMG';
     const FEATURE_FLAG = 'Royal Mail Intersoft';
 
     /** @var CredentialsFormFactory */
@@ -24,15 +27,19 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     protected $deliveryServiceService;
     /** @var ShipmentBooker */
     protected $shipmentBooker;
+    /** @var ManifestGenerator */
+    protected $manifestGenerator;
 
     public function __construct(
         CredentialsFormFactory $credentialsFormFactory,
         DeliveryServiceService $deliveryServiceService,
-        ShipmentBooker $shipmentBooker
+        ShipmentBooker $shipmentBooker,
+        ManifestGenerator $manifestGenerator
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->deliveryServiceService = $deliveryServiceService;
         $this->shipmentBooker = $shipmentBooker;
+        $this->manifestGenerator = $manifestGenerator;
     }
 
     /**
@@ -108,6 +115,15 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     public function updateShipment(ShipmentInterface $shipment)
     {
         // TODO in TAC-386
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function generateManifest(Account $account)
+    {
+        $this->logger->debug('Generating manifest for account {account}', ['account' => $account->getId()]);
+        return ($this->manifestGenerator)($account);
     }
 
     /**
