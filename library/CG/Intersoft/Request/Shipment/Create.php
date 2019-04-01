@@ -11,11 +11,15 @@ use CG\Intersoft\RoyalMail\Response\Shipment\Create as Response;
 use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Package;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
+use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use SimpleXMLElement;
 
 class Create extends PostAbstract
 {
     const requestNameSpace = 'createShipmentRequest';
+    const DATE_FORMAT_SHIPMENT = 'Y-m-d';
+    const WEIGHT_UNIT = 'g';
+    const DIMENSIONS_UNIT = 'cm';
 
     /** @var Shipment */
     protected $shipment;
@@ -53,10 +57,10 @@ class Create extends PostAbstract
         $namespace = static::requestNameSpace;
         $xml = new SimpleXMLElement("<{$namespace}></{$namespace}>");
         $xml = $this->addIntegrationHeader($xml);
-        $xml = $this->addShipper($xml);
-        $xml = $this->addDestination($xml);
-        $xml = $this->addShipmentInformation($xml);
-        $xml = $this->addItemInformation($xml);
+        $shipment = $xml->addChild('shipment');
+        $shipment = $this->addShipper($shipment);
+        $shipment = $this->addDestination($shipment);
+        $shipment = $this->addShipmentInformation($shipment);
         return $xml;
     }
 
@@ -75,7 +79,7 @@ class Create extends PostAbstract
         ];
     }
 
-    protected function toEnhancementsArray(): array
+    protected function getEnhancementsArray(): array
     {
         $enhancements = [];
         if ($this->shipment instanceof InsuranceOptionsInterface && $this->shipment->getInsuranceOption() != null) {
@@ -116,6 +120,11 @@ class Create extends PostAbstract
         return (new Mass($weight, ProductDetail::UNIT_MASS))->toUnit(static::WEIGHT_UNIT);
     }
 
+    protected function convertLength(float $length): float
+    {
+        return (new Length($length, ProductDetail::UNIT_LENGTH))->toUnit(static::DIMENSIONS_UNIT);
+    }
+
     protected function toContactArray(): array
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
@@ -151,40 +160,89 @@ class Create extends PostAbstract
     protected function addShipper(SimpleXMLElement $xml): SimpleXMLElement
     {
         $collectionAddress = $this->shipment->getCollectionAddress();
-        $xml->addChild('shipperCompanyName', $collectionAddress->getCompanyName());
-        $xml->addChild('shipperAddressLine1', $collectionAddress->getLine1());
-        $xml->addChild(
+        $shipper = $xml->addChild('shipper');
+        $shipper->addChild('shipperCompanyName', $collectionAddress->getCompanyName());
+        $shipper->addChild('shipperAddressLine1', $collectionAddress->getLine1());
+        $shipper->addChild(
         'shipperCity',
         $collectionAddress->getLine3()
             ?: $collectionAddress->getLine2()
             ?: $collectionAddress->getLine4()
         );
-        $xml->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
-        $xml->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
-        $xml->addChild('shipperReference', $this->shipment->getCustomerReference());
+        $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
+        $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
+        $shipper->addChild('shipperReference', $this->shipment->getCustomerReference());
         return $xml;
     }
 
     protected function addDestination(SimpleXMLElement $xml): SimpleXMLElement
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
-        $xml->addChild('destinationAddressLine1', $deliveryAddress->getLine1());
-        $xml->addChild('destinationAddressLine2', $deliveryAddress->getLine2());
-        $xml->addChild('destinationCity', $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2() ?: $deliveryAddress->getLine4());
-        $xml->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
-        $xml->addChild('destinationPostCode', $deliveryAddress->getPostCode());
-        $xml->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
-        $xml->addChild('destinationPhoneNumber', $deliveryAddress->getPhoneNumber());
+        $destination = $xml->addChild('destination');
+        $destination->addChild('destinationAddressLine1', $deliveryAddress->getLine1());
+        $destination->addChild('destinationAddressLine2', $deliveryAddress->getLine2());
+        $destination->addChild('destinationCity', $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2() ?: $deliveryAddress->getLine4());
+        $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
+        $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
+        $destination->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
+        $destination->addChild('destinationPhoneNumber', $deliveryAddress->getPhoneNumber());
         return $xml;
     }
 
     protected function addShipmentInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
+        $shipmentInformation = $xml->addChild('shipmentInformation');
+        $shipmentInformation->addChild('shipmentDate', $this->shipment->getCollectionDate()->format(static::DATE_FORMAT_SHIPMENT));
+        $shipmentInformation->addChild('serviceCode', $this->shipment->getDeliveryService()->getReference());
+        $shipmentInformation = $this->addServiceOptions($shipmentInformation);
+        $shipmentInformation = $this->addPackageAndItemInformation($shipmentInformation);
+        return $xml;
+    }
+
+    protected function addServiceOptions(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        /** @var Package $firstPackage */
+        $firstPackage = $this->shipment->getPackages()[0];
+        $serviceOptions = $xml->addChild('serviceOptions');
+        $serviceOptions->addChild('postingLocation', $this->getPostingLocationNumber());
+        $serviceOptions->addChild('serviceLevel', 1);
+        $serviceOptions->addChild('serviceFormat', $firstPackage->getType()->getReference());
+        $serviceOptions->addChild('safePlace', $this->getSafePlace());
+        $serviceOptions = $this->addServiceEnhancements($serviceOptions);
+        return $xml;
+    }
+
+    protected function addServiceEnhancements(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $serviceEnhancementsArray = $this->getEnhancementsArray();
+        if (!count($serviceEnhancementsArray) > 0) {
+            return $xml;
+        }
+
+        $serviceEnhancements = $xml->addChild('serviceEnhancements');
+        foreach ($serviceEnhancementsArray as $serviceEnhancementCode) {
+            $serviceEnhancements->addChild('serviceEnhancementCode', $serviceEnhancementCode);
+        }
         return $xml;
     }
 
     protected function addItemInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
         return $xml;
+    }
+
+    protected function addPackageAndItemInformation(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $packages = $this->shipment->getPackages();
+        $packagesXml = $xml->addChild('packages');
+        $packageId = 1;
+        /** @var Package $package */
+        foreach ($packages as $package) {
+            $packagesXml->addChild('packageId', $packageId++);
+            $packagesXml->addChild('weight', $this->convertWeight($package->getWeight()));
+            $packagesXml->addChild('length', $this->convertLength($package->getLength()));
+            $packagesXml->addChild('width', $this->convertLength($package->getWidth()));
+            $packagesXml->addChild('height', $this->convertLength($package->getHeight()));
+        }
     }
 }
