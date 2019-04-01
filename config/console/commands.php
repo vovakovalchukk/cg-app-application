@@ -7,6 +7,7 @@ $files = [
     'shipstation.php',
     'hermes.php',
     'royalmailapi.php',
+    'intersoft.php',
 ];
 
 $commands = [];
