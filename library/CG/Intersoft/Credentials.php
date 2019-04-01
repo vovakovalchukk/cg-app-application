@@ -5,18 +5,18 @@ class Credentials
 {
     /** @var string */
     protected $applicationId;
-    /** @var string */
-    protected $userId;
     /** @var int */
     protected $postingLocationNumber;
     /** @var string */
+    protected $userId;
+    /** @var string */
     protected $password;
 
-    public function __construct(string $applicationId, string $userId, int $postingLocationNumber, string $password)
+    public function __construct(string $applicationId, int $postingLocationNumber, string $userId, string $password)
     {
         $this->applicationId = $applicationId;
-        $this->userId = $userId;
         $this->postingLocationNumber = $postingLocationNumber;
+        $this->userId = $userId;
         $this->password = $password;
     }
 
@@ -24,8 +24,8 @@ class Credentials
     {
         return new static(
             $credentials['applicationId'],
-            $credentials['userId'],
             $credentials['postingLocationNumber'],
+            $credentials['userId'],
             $credentials['password']
         );
     }
@@ -35,14 +35,14 @@ class Credentials
         return $this->applicationId;
     }
 
-    public function getUserId(): string
-    {
-        return $this->userId;
-    }
-
     public function getPostingLocationNumber(): int
     {
         return $this->postingLocationNumber;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->userId;
     }
 
     public function getPassword(): string
