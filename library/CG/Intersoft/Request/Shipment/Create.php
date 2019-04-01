@@ -11,11 +11,16 @@ use CG\Intersoft\RoyalMail\Response\Shipment\Create as Response;
 use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Package;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
+use SimpleXMLElement;
 
-abstract class Create extends PostAbstract
+class Create extends PostAbstract
 {
+    const requestNameSpace = 'createShipmentRequest';
+
     /** @var Shipment */
     protected $shipment;
+    /** @var string */
+    protected $requestNamespace;
 
     public function __construct(Shipment $shipment)
     {
@@ -32,15 +37,27 @@ abstract class Create extends PostAbstract
         return Response::class;
     }
 
+    public function asXml(): string
+    {
+        $xml = $this->buildXml();
+        return $xml->asXml();
+    }
+
     protected function toArray(): array
     {
-        return [
-            'shipperCompanyName',
-            'shipperAddressLine1' => $this->shipment->getCollectionAddress()->getLine1(),
-            'shipperAddressLine2' => $this->shipment->getCollectionAddress()->getLine2(),
-            'shipperAddressLine3' => $this->shipment->getCollectionAddress()->getLine3(),
-            'shipperAddressLine3' => $this->shipment->getCollectionAddress()->getLine3(),
-        ];
+        return [];
+    }
+
+    protected function buildXml(): SimpleXMLElement
+    {
+        $namespace = static::requestNameSpace;
+        $xml = new SimpleXMLElement("<{$namespace}></{$namespace}>");
+        $xml = $this->addIntegrationHeader($xml);
+        $xml = $this->addShipper($xml);
+        $xml = $this->addDestination($xml);
+        $xml = $this->addShipmentInformation($xml);
+        $xml = $this->addItemInformation($xml);
+        return $xml;
     }
 
     protected function toServiceArray(): array
@@ -129,5 +146,36 @@ abstract class Create extends PostAbstract
             return null;
         }
         return $this->shipment->getDeliveryInstructions();
+    }
+
+    protected function addShipper(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $xml->addChild('shipperCompanyName', $this->shipment->getCollectionAddress()->getCompanyName());
+        $xml->addChild('shipperAddressLine1', $this->shipment->getCollectionAddress()->getLine1());
+        $xml->addChild(
+        'shipperCity',
+        $this->shipment->getCollectionAddress()->getLine3()
+            ?: $this->shipment->getCollectionAddress()->getLine2()
+            ?: $this->shipment->getCollectionAddress()->getLine4()
+        );
+        $xml->addChild('shipperCountryCode', $this->shipment->getCollectionAddress()->getISOAlpha2CountryCode());
+        $xml->addChild('shipperPhoneNumber', $this->shipment->getCollectionAddress()->getPhoneNumber());
+        $xml->addChild('shipperReference', $this->shipment->getCustomerReference());
+        return $xml;
+    }
+
+    protected function addDestination(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        return $xml;
+    }
+
+    protected function addShipmentInformation(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        return $xml;
+    }
+
+    protected function addItemInformation(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        return $xml;
     }
 }
