@@ -91,7 +91,7 @@ class Create extends PostAbstract
             ?: $collectionAddress->getLine4()
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
-        $shipper->addChild('shipperPostcode', $collectionAddress->getPostCode());
+        $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
         $shipper->addChild('shipperReference', $this->shipment->getCustomerReference());
         return $xml;
