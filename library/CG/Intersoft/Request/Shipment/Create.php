@@ -244,5 +244,6 @@ class Create extends PostAbstract
             $packagesXml->addChild('width', $this->convertLength($package->getWidth()));
             $packagesXml->addChild('height', $this->convertLength($package->getHeight()));
         }
+        return $xml;
     }
 }
