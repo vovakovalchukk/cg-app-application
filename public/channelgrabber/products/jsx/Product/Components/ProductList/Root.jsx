@@ -24,7 +24,8 @@ const mapStateToProps = function(state) {
         detail: state.detail,
         pickLocations: state.pickLocations,
         name: state.name,
-        focus: state.focus
+        focus: state.focus,
+        select: state.select
     };
 };
 

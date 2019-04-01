@@ -48,11 +48,14 @@ let vatReducer = reducerCreator(initialState, {
         return state;
     },
     "VAT_SELECT_TOGGLE": function(state, action) {
+        console.log('in VAT_@SELECT_TOGGLE');
+        
+        
         let {productId, countryCode} = action.payload;
         let vat = Object.assign({}, state);
         let productVat = vat.productsVat[countryCode].byProductId[productId];
-        let previousActiveProp = productVat.active;
-        vat = makeAllVatSelectsInactive(vat, productId);
+//        let previousActiveProp = productVat.active;
+//        vat = makeAllVatSelectsInactive(vat, productId);
         if(previousActiveProp){
             delete productVat.active;
             return vat;

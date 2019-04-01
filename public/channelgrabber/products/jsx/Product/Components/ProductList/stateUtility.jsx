@@ -28,6 +28,10 @@ let stateUtility = function() {
             }
             return cellData;
         },
+        isCurrentActiveSelect(product, select, columnKey){
+            return select.activeSelect.productId === product.id &&
+                select.activeSelect.columnKey === columnKey;
+        },
         isParentProduct: (rowData) => {
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
         },

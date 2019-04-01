@@ -25,14 +25,14 @@ const columnKeysMetricPropertyMap = {
     [columnKeys.dimensions]: 'lengthUnit'
 };
 const columnSpecificPropsMap = {
-    stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
+    stockMode: ['rows', 'stock', 'userSettings', 'scroll'],
     includePurchaseOrdersInAvailable: ['rows', 'stock', 'incPOStockInAvailableOptions', 'scroll'],
     available: ['rows'],
     dimensions: ['rows', 'detail', 'scroll'],
     weight: ['rows', 'detail', 'scroll'],
-    vat: ['rows', 'vat', 'scroll'],
+    vat: ['rows', 'vat', 'scroll', 'select'],
     bulkSelect: ['bulkSelect'],
-    lowStock: ['stock', 'rows', 'userSettings'],
+    lowStock: ['rows', 'stock', 'userSettings'],
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
     name: ['rows', 'name', 'focus'],
     cost: ['rows', 'detail', 'scroll']
