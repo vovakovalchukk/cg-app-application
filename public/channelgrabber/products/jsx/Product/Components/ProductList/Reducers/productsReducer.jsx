@@ -90,6 +90,12 @@ var ProductsReducer = reducerCreator(initialState, {
         let {productIdsToExpand} = action.payload;
 
         for (let id of productIdsToExpand) {
+            let parentProduct = stateUtility.getProductById(currentVisibleProducts, id);
+
+            if(parentProduct.expandStatus === EXPAND_STATUSES.expanded){
+                continue;
+            }
+
             currentVisibleProducts = addRowsForSingleProductExpansion(currentVisibleProducts, id, state);
         }
 
