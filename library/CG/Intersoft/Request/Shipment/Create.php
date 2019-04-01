@@ -134,6 +134,21 @@ class Create extends PostAbstract
         return $xml;
     }
 
+    protected function getEnhancementsArray(): array
+    {
+        $enhancements = [];
+        if ($this->shipment instanceof InsuranceOptionsInterface && $this->shipment->getInsuranceOption() != null) {
+            $enhancements[] = $this->shipment->getInsuranceOption()->getReference();
+        }
+        if ($this->shipment instanceof SignatureRequiredInterface && $this->shipment->isSignatureRequired()) {
+            $enhancements[] = static::ENHANCEMENT_SIGNATURE;
+        }
+        if ($this->shipment instanceof SaturdayDeliveryInterface && $this->shipment->isSaturdayDeliveryRequired()) {
+            $enhancements[] = static::ENHANCEMENT_SATURDAY;
+        }
+        return $enhancements;
+    }
+
     protected function addServiceEnhancements(SimpleXMLElement $xml): SimpleXMLElement
     {
         $serviceEnhancementsArray = $this->getEnhancementsArray();
