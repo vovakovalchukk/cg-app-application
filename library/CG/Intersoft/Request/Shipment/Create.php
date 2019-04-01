@@ -195,7 +195,8 @@ class Create extends PostAbstract
         $shipmentInformation->addChild('shipmentDate', $this->shipment->getCollectionDate()->format(static::DATE_FORMAT_SHIPMENT));
         $shipmentInformation->addChild('serviceCode', $this->shipment->getDeliveryService()->getReference());
         $shipmentInformation = $this->addServiceOptions($shipmentInformation);
-        $shipmentInformation = $this->addPackageAndItemInformation($shipmentInformation);
+        $shipmentInformation = $this->addPackageInformation($shipmentInformation);
+        $shipmentInformation = $this->addItemInformation($shipmentInformation);
         return $xml;
     }
 
@@ -226,15 +227,10 @@ class Create extends PostAbstract
         return $xml;
     }
 
-    protected function addItemInformation(SimpleXMLElement $xml): SimpleXMLElement
-    {
-        return $xml;
-    }
-
-    protected function addPackageAndItemInformation(SimpleXMLElement $xml): SimpleXMLElement
+    protected function addPackageInformation(SimpleXMLElement $xml): SimpleXMLElement
     {
         $packages = $this->shipment->getPackages();
-        $packagesXml = $xml->addChild('packages');
+        $packagesXml = $xml->addChild('packages');;
         $packageId = 1;
         /** @var Package $package */
         foreach ($packages as $package) {
@@ -243,6 +239,22 @@ class Create extends PostAbstract
             $packagesXml->addChild('length', $this->convertLength($package->getLength()));
             $packagesXml->addChild('width', $this->convertLength($package->getWidth()));
             $packagesXml->addChild('height', $this->convertLength($package->getHeight()));
+        }
+        return $xml;
+    }
+
+    protected function addItemInformation(SimpleXMLElement $xml): SimpleXMLElement
+    {
+        $packages = $this->shipment->getPackages();
+        /** @var Package $package */
+        foreach ($packages as $package) {
+            foreach ($package->getContents() as $packageContents) {
+                $itemInformation = $xml->addChild('itemInformation');
+                $itemInformation->addChild('description', $packageContents->getDescription());
+                $itemInformation->addChild('quantity', $packageContents->getQuantity());
+                $itemInformation->addChild('itemValue', $packageContents->getUnitValue());
+                $itemInformation->addChild('itemNetWeight', $this->convertLength($packageContents->getWeight()));
+            }
         }
         return $xml;
     }
