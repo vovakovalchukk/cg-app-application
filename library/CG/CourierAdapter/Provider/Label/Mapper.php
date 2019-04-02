@@ -15,11 +15,15 @@ use CG\Order\Shared\ShippableInterface as Order;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
-class Mapper
+class Mapper implements LoggerAwareInterface
 {
+    use LogTrait;
+
     /** @var CAAccountMapper */
     protected $caAccountMapper;
     /** @var CAAddressMapper */
@@ -116,7 +120,7 @@ class Mapper
             $caShipmentData['insuranceOption'] = $orderData['insuranceOption'];
         }
         if (is_a($shipmentClass, ShippersVatInterface::class, true)) {
-            $caShipmentData['shippersVatNumber'] = $rootOu->isVatRegistered() ? $rootOu->getVatNumbers()[0] : '';
+            $caShipmentData['shippersVatNumber'] = $order->getVatNumber() ?? '';
         }
 
         return $caShipmentData;
