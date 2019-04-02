@@ -29,7 +29,6 @@ let stateUtility = function() {
             return cellData;
         },
         isCurrentActiveSelect(product, select, columnKey, index){
-            console.log('in isCUrrentActiveSelect ....  ', index);
             return select.activeSelect.productId === product.id &&
                 select.activeSelect.columnKey === columnKey &&
                 doesIndexMatch(select, index);
