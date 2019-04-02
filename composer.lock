@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2cbf8d9019a7b8539db65870ca89437",
+    "content-hash": "7c13dc21fe91c84015bb61431375b56d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -712,16 +712,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.13",
+            "version": "dev-TAC-350-walmart-stock-update",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819"
+                "reference": "0af46896b75f7473c43411ce639013829f88dcc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.13-e980b4.zip",
-                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-350-walmart-stock-update-0f6974.zip",
+                "reference": "0af46896b75f7473c43411ce639013829f88dcc6",
                 "shasum": null
             },
             "require": {
@@ -795,7 +795,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-02-25T10:56:59+00:00"
+            "time": "2019-04-02T12:59:18+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -10336,6 +10336,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2017-08-03T14:08:16+00:00"
         },
         {
@@ -11031,9 +11032,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.42.14",
+            "alias_normalized": "1.42.14.0",
+            "version": "dev-TAC-350-walmart-stock-update",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
