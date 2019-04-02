@@ -24,7 +24,9 @@ class Create extends PostAbstract
     const DIMENSIONS_UNIT = 'cm';
     const PRODUCT_TYPE = 'NDX'; // DOX for documents, NDX for anything else
     const CURRENCY_DEFAULT = 'GBP';
-    const MAX_LEN_DEFAULT = 32;
+    const MAX_LEN_REFERENCE = 20;
+    const MAX_LEN_DEFAULT = 35;
+    const MAX_LEN_CONTACT = 40;
     const MAX_LEN_DESCRIPTION = 255;
 
     /** @var Shipment */
@@ -82,18 +84,18 @@ class Create extends PostAbstract
     {
         $collectionAddress = $this->shipment->getCollectionAddress();
         $shipper = $xml->addChild('shipper');
-        $shipper->addChild('shipperCompanyName', $collectionAddress->getCompanyName());
-        $shipper->addChild('shipperAddressLine1', $collectionAddress->getLine1());
+        $shipper->addChild('shipperCompanyName', $this->sanitiseString($collectionAddress->getCompanyName()));
+        $shipper->addChild('shipperAddressLine1', $this->sanitiseString($collectionAddress->getLine1()));
         $shipper->addChild(
         'shipperCity',
-        $collectionAddress->getLine3()
-            ?: $collectionAddress->getLine2()
-            ?: $collectionAddress->getLine4()
+            $this->sanitiseString($collectionAddress->getLine3())
+            ?: $this->sanitiseString($collectionAddress->getLine2())
+            ?: $this->sanitiseString($collectionAddress->getLine4())
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
-        $shipper->addChild('shipperReference', $this->shipment->getCustomerReference());
+        $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
         return $xml;
     }
 
@@ -101,12 +103,19 @@ class Create extends PostAbstract
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
         $destination = $xml->addChild('destination');
-        $destination->addChild('destinationAddressLine1', $deliveryAddress->getLine1());
-        $destination->addChild('destinationAddressLine2', $deliveryAddress->getLine2());
-        $destination->addChild('destinationCity', $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2() ?: $deliveryAddress->getLine4());
+        $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
+        $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
+        $destination->addChild(
+            'destinationCity',
+            $this->sanitiseString($deliveryAddress->getLine3())
+                ?: $this->sanitiseString($deliveryAddress->getLine2())
+                ?: $this->sanitiseString($deliveryAddress->getLine4()));
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
-        $destination->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
+        $destination->addChild('destinationContactName', $this->sanitiseString(
+            $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName(),
+            static::MAX_LEN_CONTACT)
+        );
         $destination->addChild('destinationPhoneNumber', $this->getDeliveryPhoneNumber());
 
         return $xml;
@@ -191,7 +200,7 @@ class Create extends PostAbstract
         foreach ($packages as $package) {
             foreach ($package->getContents() as $packageContents) {
                 $itemInformation = $xml->addChild('itemInformation');
-                $itemInformation->addChild('itemDescription', $packageContents->getDescription());
+                $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
                 $itemInformation->addChild('itemValue', $packageContents->getUnitValue());
                 $itemInformation->addChild('itemNetWeight', $packageContents->getWeight());
