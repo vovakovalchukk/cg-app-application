@@ -107,7 +107,7 @@ class Create extends PostAbstract
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
         $destination->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
-        $destination->addChild('destinationPhoneNumber', $deliveryAddress->getPhoneNumber());
+        $destination->addChild('destinationPhoneNumber', $this->getDeliveryPhoneNumber());
 
         return $xml;
     }
@@ -242,5 +242,14 @@ class Create extends PostAbstract
             return '';
         }
         return substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT);
+    }
+
+    protected function getDeliveryPhoneNumber(): string
+    {
+        // Intersoft REQUIRE a phone number but it is not enforced by us / most of our channels
+        if (!strlen($this->shipment->getDeliveryAddress()->getPhoneNumber()) > 0) {
+            return '00000000000';
+        }
+        return $this->shipment->getDeliveryAddress()->getPhoneNumber();
     }
 }
