@@ -14,8 +14,6 @@ use CG\Intersoft\RoyalMail\Shipment\Package;
 
 class Generator
 {
-    const CN22_MAX_VALUE_GBP = 270;
-
     /** @var ClientFactory */
     protected $clientFactory;
     /** @var ExchangeRateService */
