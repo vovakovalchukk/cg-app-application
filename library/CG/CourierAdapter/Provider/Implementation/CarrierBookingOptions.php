@@ -214,6 +214,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         if ($option != 'packageTypes' && $option != 'insuranceOptions') {
             return null;
         }
+        if (!$serviceCode) {
+            return null;
+        }
 
         if (!$courierInstance) {
             $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
