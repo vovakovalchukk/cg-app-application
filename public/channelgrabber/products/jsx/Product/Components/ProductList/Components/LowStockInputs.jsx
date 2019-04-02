@@ -3,6 +3,7 @@ import StatelessSelect from 'Common/Components/Select--stateless';
 import styled from "styled-components";
 import portalFactory from "../Portal/portalFactory";
 import {StyledSafeSubmits} from "../Cell/StockMode";
+import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 const Container = styled.div`
     display: flex;
@@ -83,11 +84,17 @@ class LowStockInputs extends React.Component {
     }
 
     selectToggle = (productId) => {
-        this.props.actions.lowStockSelectToggle(productId);
+        this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
 
     isToggleActive = () => {
-        return this.props.lowStockThreshold.toggle && this.props.lowStockThreshold.toggle.active;
+        let isCurrentActive = stateUtility.isCurrentActiveSelect(this.props.product, this.props.select, this.props.columnKey);
+
+        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+            return false;
+        }
+
+        return true;
     };
 
     getSelectedOption = () => {

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf6bf99a43a673688dc5ff34ea47fa1a",
+    "content-hash": "e2cbf8d9019a7b8539db65870ca89437",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,37 +336,37 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.28.1",
+            "version": "1.28.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "384d6bc5732c1fc744832621a9bdf129c4d05605"
+                "reference": "13d3ad3c76a6676a9d1551fda58b590855e6a3b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.28.1-c724f4.zip",
-                "reference": "384d6bc5732c1fc744832621a9bdf129c4d05605",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.28.16-9ee90d.zip",
+                "reference": "13d3ad3c76a6676a9d1551fda58b590855e6a3b5",
                 "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.42.0",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/exchangerate": "^1.1.1",
-                "channelgrabber/gearman": "^1.3.4",
+                "channelgrabber/gearman": "^1.5.0",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.17.1",
+                "channelgrabber/listing": "^1.18.4",
                 "channelgrabber/locale": "^1.1.3",
                 "channelgrabber/location": "^1.2.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/order": "^1.34.3",
-                "channelgrabber/predis": "^1.0.12",
+                "channelgrabber/order": "^1.43.16",
+                "channelgrabber/predis": "^1.1.1",
                 "channelgrabber/product": "^1.14.0",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2018-11-09T13:19:33+00:00"
+            "time": "2019-04-01T14:34:30+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1462,16 +1462,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.4.3",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "408257c2f1067c16b90f329f6dce1455e0ddd129"
+                "reference": "f4fea2be8f3f5cc71191401bb89c304be84235d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.4.3-85046b.zip",
-                "reference": "408257c2f1067c16b90f329f6dce1455e0ddd129",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.5.1-e9b009.zip",
+                "reference": "f4fea2be8f3f5cc71191401bb89c304be84235d4",
                 "shasum": null
             },
             "require": {
@@ -1479,8 +1479,8 @@
                 "channelgrabber/cilex": "^1.2.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/log": "^2.2.0",
-                "channelgrabber/opsgenie": "^1.0.1",
-                "channelgrabber/predis": "^1.0.8",
+                "channelgrabber/opsgenie": "^1.1.0",
+                "channelgrabber/predis": "^1.1.1",
                 "channelgrabber/stats": "^1.0.6",
                 "channelgrabber/stdlib": "^2.12.15",
                 "ext-gearman": "*",
@@ -1508,7 +1508,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2018-12-18T12:19:52+00:00"
+            "time": "2019-02-22T09:25:54+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -2062,21 +2062,23 @@
         },
         {
             "name": "channelgrabber/opsgenie",
-            "version": "1.0.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-opsgenie.git",
-                "reference": "303bd783257e70425423557e64b6b3d888e4ea14"
+                "reference": "a8d084fc94fd3646a6d0963575b1e6bef6e622cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/opsgenie/channelgrabber-opsgenie-1.0.1-d51429.zip",
-                "reference": "303bd783257e70425423557e64b6b3d888e4ea14",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/opsgenie/channelgrabber-opsgenie-1.2.0-9efb58.zip",
+                "reference": "a8d084fc94fd3646a6d0963575b1e6bef6e622cb",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/stdlib": "^2.12.15",
+                "ext-memcached": "*",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
+                "php": ">=7.1",
                 "zendframework/zend-eventmanager": ">=2.2,<3.0"
             },
             "type": "library",
@@ -2086,7 +2088,7 @@
                 }
             },
             "description": "ChannelGrabber opsgenie integration",
-            "time": "2018-12-18T12:14:58+00:00"
+            "time": "2019-03-13T11:34:09+00:00"
         },
         {
             "name": "channelgrabber/order",
@@ -10334,7 +10336,6 @@
                 "mock",
                 "xunit"
             ],
-            "abandoned": true,
             "time": "2017-08-03T14:08:16+00:00"
         },
         {
