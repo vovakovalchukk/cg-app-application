@@ -92,7 +92,7 @@ class Create extends PostAbstract
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
-        $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber() ?? 00000000000);
+        $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
         $shipper->addChild('shipperReference', $this->shipment->getCustomerReference());
         return $xml;
     }
@@ -107,7 +107,7 @@ class Create extends PostAbstract
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
         $destination->addChild('destinationContactName', $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName());
-        $destination->addChild('destinationPhoneNumber', 00000000000);
+        $destination->addChild('destinationPhoneNumber', $deliveryAddress->getPhoneNumber());
 
         return $xml;
     }
