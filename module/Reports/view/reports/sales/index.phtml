@@ -23,20 +23,16 @@
     });
 <?php $this->inlineScript()->captureEnd(); ?>
 
-<div class="spinner-container u-flex-center">
-<!--    <div class="spinner">-->
-<!--        <div class="bounce1"></div>-->
-<!--        <div class="bounce2"></div>-->
-<!--        <div class="bounce3"></div>-->
-<!--    </div>-->
-        <div alt="Loading" class="indicator-sizer" style="height: 3rem; width: 3rem;">
+<div class="spinner-container" style="display:flex; justify-content: center; height:100%">
+    <div class="spinner-positioner">
+        <div alt="Loading" class="indicator-sizer" style="height: 5rem; width: 5rem;">
             <?=
             $this->mustache(
                 'elements/loadingIndicator.mustache'
             )
             ?>
         </div>
-
+    </div>
 </div>
 
 <div class="chart-container">

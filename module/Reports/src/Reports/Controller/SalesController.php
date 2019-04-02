@@ -36,6 +36,7 @@ class SalesController extends AbstractActionController
     public function indexAction()
     {
         $view = $this->viewModelFactory->newInstance();
+        $view->setVariable('isFullPageContent', true);
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getHideFiltersView(), 'hideFilters');
         return $view;
