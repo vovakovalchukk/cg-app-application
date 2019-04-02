@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "670691dd6b3aa1d32af950ed54036e6d",
+    "content-hash": "68a3879e489834847340c172e7139498",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -953,7 +953,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "a85422f8022d01d2cc2407d24236362814cfe399"
+                "reference": "c2cda3527591eb900b21b45c53132180f27432b6"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -990,17 +990,11 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.2",
+            "version": "dev-CGIV-10420-dpd-brexit-changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.2-caf595.zip",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8",
-                "shasum": null
+                "reference": "b7c63710e587bad4f6ada6f73191bc6427010614"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -11030,12 +11024,19 @@
             "alias_normalized": "1.1.14.0",
             "version": "dev-CGIV-10420-dpd-brexit-changes",
             "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.4.3",
+            "alias_normalized": "1.4.3.0",
+            "version": "dev-CGIV-10420-dpd-brexit-changes",
+            "package": "channelgrabber/courieradapter"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,
         "realityking/hash_equals": 20
