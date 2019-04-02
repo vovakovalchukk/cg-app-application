@@ -12,7 +12,6 @@ use Zend\I18n\View\Helper\CurrencyFormat;
 use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_UI\View\Prototyper\ViewModelFactory;
 
-
 class Mapper extends UIMapper
 {
     const COLUMN_SKU = 'SKU';
