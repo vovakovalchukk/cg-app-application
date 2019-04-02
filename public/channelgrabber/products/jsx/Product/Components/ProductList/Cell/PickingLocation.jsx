@@ -73,7 +73,6 @@ class PickingLocationCell extends React.Component {
                 })(selected)}
                 selectToggle={() => {
                     this.props.actions.selectActiveToggle(this.props.columnKey, row.id, index);
-//                    this.props.actions.togglePickLocationsSelect(row.id, index);
                     select.current.setFilter("");
                 }}
                 onOptionChange={(selectedOption) => {
