@@ -4,13 +4,13 @@ namespace CG\Intersoft\RoyalMail\Shipment\Documents;
 use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
 use CG\ExchangeRate\Service as ExchangeRateService;
-use CG\RoyalMailApi\Client;
-use CG\RoyalMailApi\Client\Factory as ClientFactory;
-use CG\RoyalMailApi\Request\Shipment\Documents as DocumentsRequest;
-use CG\RoyalMailApi\Response\Shipment\Completed\Item as ShipmentItem;
-use CG\RoyalMailApi\Response\Shipment\Documents as DocumentsResponse;
-use CG\RoyalMailApi\Shipment;
-use CG\RoyalMailApi\Shipment\Package;
+use CG\Intersoft\Client;
+use CG\Intersoft\Client\Factory as ClientFactory;
+use CG\Intersoft\RoyalMail\Request\Shipment\Documents as DocumentsRequest;
+use CG\Intersoft\RoyalMail\Response\Shipment\Completed\Item as ShipmentItem;
+use CG\Intersoft\RoyalMail\Response\Shipment\Documents as DocumentsResponse;
+use CG\Intersoft\RoyalMail\Shipment;
+use CG\Intersoft\RoyalMail\Shipment\Package;
 
 class Generator
 {
@@ -29,11 +29,10 @@ class Generator
 
     public function __invoke(ShipmentItem $shipmentItem, Shipment $shipment): ?string
     {
-        $requiredDocument = $this->determineRequiredDocument($shipmentItem, $shipment);
-        $request = new DocumentsRequest($shipmentItem->getShipmentNumber(), $requiredDocument);
+        $request = new DocumentsRequest($shipmentItem->getShipmentNumber());
         /** @var DocumentsResponse $response */
         $response = $this->sendRequest($request, $shipment->getAccount());
-        return $response->getInternationalDocument();
+        return $response->getDocumentImage();
     }
 
     protected function sendRequest(DocumentsRequest $request, CourierAdapterAccount $account): DocumentsResponse
@@ -45,39 +44,5 @@ class Generator
         } catch (\Exception $e) {
             throw new OperationFailed($e->getMessage(), $e->getCode(), $e);
         }
-    }
-
-    protected function determineRequiredDocument(ShipmentItem $shipmentItem, Shipment $shipment): string
-    {
-        $package = $this->getPackageForShipmentItem($shipmentItem, $shipment);
-        $totalValue = $this->getTotalValueOfPackageInGBP($package);
-        if ($totalValue <= static::CN22_MAX_VALUE_GBP) {
-            return DocumentsRequest::DOCUMENT_CN22;
-        }
-        return DocumentsRequest::DOCUMENT_CN23;
-    }
-
-    protected function getPackageForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): Package
-    {
-        /** @var Package $package */
-        foreach ($shipment->getPackages() as $package) {
-            if ($package->getRmShipmentNumber() == $shipmentItem->getShipmentNumber()) {
-                return $package;
-            }
-        }
-        throw new \RuntimeException('Could not find Package for Shipment Item ' . $shipmentItem->getShipmentNumber());
-    }
-
-    protected function getTotalValueOfPackageInGBP(Package $package): float
-    {
-        $totalValue = 0;
-        foreach ($package->getContents() as $content) {
-            $contentValue = $content->getUnitValue() * $content->getQuantity();
-            if ($content->getUnitCurrency() != 'GBP') {
-                $contentValue = $this->exchangeRateService->convertAmount($content->getUnitCurrency(), 'GBP', $contentValue);
-            }
-            $totalValue += $contentValue;
-        }
-        return $totalValue;
     }
 }

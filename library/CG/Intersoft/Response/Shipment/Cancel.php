@@ -1,7 +1,6 @@
 <?php
 namespace CG\Intersoft\RoyalMail\Response\Shipment;
 
-use CG\Intersoft\RoyalMail\Request\PostAbstract;
 use CG\Intersoft\ResponseInterface;
 use CG\Intersoft\Response\FromXmlInterface;
 use SimpleXMLElement;
