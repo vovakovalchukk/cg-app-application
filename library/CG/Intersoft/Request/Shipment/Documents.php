@@ -4,6 +4,7 @@ namespace CG\Intersoft\RoyalMail\Request\Shipment;
 use CG\Intersoft\RoyalMail\Response\Shipment\Documents as Response;
 
 use SimpleXMLElement;
+use CG\Intersoft\RoyalMail\Request\PostAbstract;
 
 class Documents extends PostAbstract
 {

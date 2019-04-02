@@ -27,9 +27,9 @@ class Generator
         $this->exchangeRateService = $exchangeRateService;
     }
 
-    public function __invoke(ShipmentItem $shipmentItem, Shipment $shipment): ?string
+    public function __invoke(string $trackingNumber, Shipment $shipment): ?string
     {
-        $request = new DocumentsRequest($shipmentItem->getShipmentNumber());
+        $request = new DocumentsRequest($trackingNumber);
         /** @var DocumentsResponse $response */
         $response = $this->sendRequest($request, $shipment->getAccount());
         return $response->getDocumentImage();

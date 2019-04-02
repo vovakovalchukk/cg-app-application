@@ -84,6 +84,10 @@ class Booker
                 break;
             }
             $label = $response->getLabelImage();
+            if (!$this->isDomesticShipment($shipment)) {
+                $documentData = $this->fetchInternationalDocumentsForShipmentItem($rmPackage->getTrackingNumber(), $shipment);
+                $label = $this->mergeInternationalDocumentsIntoLabel($label, $documentData);
+            }
             if ($label) {
                 $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
             }
@@ -103,9 +107,9 @@ class Booker
         return $labelData;
     }
 
-    protected function fetchInternationalDocumentsForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): ?string
+    protected function fetchInternationalDocumentsForShipmentItem(string $trackingNumber, Shipment $shipment): ?string
     {
-        return ($this->documentsGenerator)($shipmentItem, $shipment);
+        return ($this->documentsGenerator)($trackingNumber, $shipment);
     }
 
     protected function mergeInternationalDocumentsIntoLabel(string $labelData, ?string $documentsData): string
