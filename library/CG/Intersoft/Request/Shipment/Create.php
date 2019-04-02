@@ -109,7 +109,12 @@ class Create extends PostAbstract
             'destinationCity',
             $this->sanitiseString($deliveryAddress->getLine3())
                 ?: $this->sanitiseString($deliveryAddress->getLine2())
-                ?: $this->sanitiseString($deliveryAddress->getLine4()));
+                ?: $this->sanitiseString($deliveryAddress->getLine4())
+        );
+        $destination->addChild('destinationCounty',
+            $this->sanitiseString($deliveryAddress->getLine4())
+                ?: $this->sanitiseString($deliveryAddress->getLine3())
+        );
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
         $destination->addChild('destinationContactName', $this->sanitiseString(
