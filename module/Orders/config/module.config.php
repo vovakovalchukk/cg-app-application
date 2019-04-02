@@ -1224,6 +1224,8 @@ return [
                 'OrdersPostcodeColumn' => DataTable\Column::class,
                 'OrdersProductImageColumnView' => ViewModel::class,
                 'OrdersProductImageColumn' => DataTable\Column::class,
+                'OrdersCustomisationColumnView' => ViewModel::class,
+                'OrdersCustomisationColumn' => DataTable\Column::class,
 
                 'OrderRpcClient' => JsonRpcClient::class,
 
@@ -1295,6 +1297,8 @@ return [
                 'CourierSpecificsSaturdayColumn' => DataTable\Column::class,
                 'CourierSpecificsCostColumnView' => ViewModel::class,
                 'CourierSpecificsCostColumn' => DataTable\Column::class,
+                'CourierSpecificsHarmonisedSystemCodeColumnView' => ViewModel::class,
+                'CourierSpecificsHarmonisedSystemCodeColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1393,6 +1397,7 @@ return [
                         ['column' => 'OrdersPaymentReferenceColumn'],
                         ['column' => 'OrdersTrackingInfoColumn'],
                         ['column' => 'OrdersPostcodeColumn'],
+                        ['column' => 'OrdersCustomisationColumn'],
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'OrdersTableSettings']
@@ -1836,6 +1841,21 @@ return [
                     'column' => 'image',
                     'viewModel' => 'OrdersProductImageColumnView',
                     'class' => 'order-product-image-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersCustomisationColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Customisation'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersCustomisationColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'customisation',
+                    'viewModel' => 'OrdersCustomisationColumnView',
+                    'class' => 'order-customisation-col',
                     'sortable' => false,
                 ]
             ],
@@ -2581,6 +2601,22 @@ return [
                     'sortable' => false,
                     'order' => 145,
                     'defaultContent' => '',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'HS Code'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHarmonisedSystemCodeColumn' => [
+                'parameters' => [
+                    'column' => 'harmonisedSystemCode',
+                    'viewModel' => 'CourierSpecificsHarmonisedSystemCodeColumnView',
+                    'class' => 'harmonisedSystemCode-col',
+                    'sortable' => false,
+                    'order' => 148,
+                    'width' => '150px',
                 ],
             ],
         ],

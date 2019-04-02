@@ -36,6 +36,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             PackageField\ContentsInterface::class => 'itemParcelAssignment',
             PackageField\DimensionsInterface::class => ['height', 'width', 'length'],
             PackageField\WeightInterface::class => 'weight',
+            PackageField\HarmonisedSystemCodeInterface::class => 'harmonisedSystemCode',
         ],
         'shipment' => [
             ShipmentField\CollectionDateInterface::class => 'collectionDate',
@@ -211,6 +212,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             return $this->carrierBookingOptionData[$account->getId()][$option];
         }
         if ($option != 'packageTypes' && $option != 'insuranceOptions') {
+            return null;
+        }
+        if (!$serviceCode) {
             return null;
         }
 

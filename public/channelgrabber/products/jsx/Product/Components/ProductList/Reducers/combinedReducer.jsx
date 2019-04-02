@@ -18,6 +18,7 @@ import pickLocationsReducer from 'Product/Components/ProductList/Reducers/pickLo
 import expandReducer from 'Product/Components/ProductList/Reducers/expandReducer';
 import nameReducer from 'Product/Components/ProductList/Reducers/nameReducer';
 import focusReducer from 'Product/Components/ProductList/Reducers/focusReducer';
+import selectReducer from 'Product/Components/ProductList/Reducers/selectReducer';
 
 var appReducer = combineReducers({
     products: productsReducer,
@@ -38,7 +39,8 @@ var appReducer = combineReducers({
     pickLocations: pickLocationsReducer,
     expand: expandReducer,
     name: nameReducer,
-    focus: focusReducer
+    focus: focusReducer,
+    select: selectReducer
 });
 
 const combinedReducer = (state, action) => {

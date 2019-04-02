@@ -51,12 +51,6 @@ let vatReducer = reducerCreator(initialState, {
         let {productId, countryCode} = action.payload;
         let vat = Object.assign({}, state);
         let productVat = vat.productsVat[countryCode].byProductId[productId];
-        let previousActiveProp = productVat.active;
-        vat = makeAllVatSelectsInactive(vat, productId);
-        if(previousActiveProp){
-            delete productVat.active;
-            return vat;
-        }
         productVat.active = true;
         return vat;
     }
@@ -149,16 +143,4 @@ function formatTaxOptions(taxRates) {
 
 function generateLabel(option) {
     return option.rate + "%" + ' (' + option.name + ')';
-}
-
-function makeAllVatSelectsInactive(vat, toggledProductId) {
-    let vatCopy = Object.assign({}, vat);
-    let countryCodes = vatCopy.countries.allIds;
-
-    for (let country of countryCodes) {
-        for (let productId of vatCopy.productsVat.allProductIds) {
-            delete vatCopy.productsVat[country].byProductId[productId].active;
-        }
-    }
-    return vatCopy;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
 import ExpandIcon from 'Common/Components/ExpandIcon'
+import constants from 'Product/Components/ProductList/Config/constants';
 
 const CellContainer = styled.div`
         display:flex;
@@ -12,11 +13,7 @@ const ExpandLink = styled.a`
         user-select: none;
     `;
 
-const EXPAND_STATUSES = {
-    expanded: 'expanded',
-    loading: 'loading',
-    collapsed: 'collapsed'
-};
+const {EXPAND_STATUSES} = constants;
 
 class ProductExpandCell extends React.Component {
     static defaultProps = {

@@ -10,7 +10,6 @@ import stateUtility from "../stateUtility";
 *            1 : {
 *                value: "List up to"
 *                valueEdited: "Fixed At"
-*                active:true
 *            }
 *        }
 *    },
@@ -19,7 +18,6 @@ import stateUtility from "../stateUtility";
 *            1 : {
 *                value: "43"
 *                valueEdited: "10009"
-*                active:true
 *            }
 *        }
 *    },
@@ -29,7 +27,6 @@ import stateUtility from "../stateUtility";
 *           1: {
 *               productId: 1,
 *               selected: "default",
-*               active: false
 *           }
 *       }
 *    }
@@ -58,18 +55,15 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockModes = Object.assign({}, state.stockModes);
 
         let stockModeExists = !!state.stockModes.byProductId[productId];
-        stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
 
         if (stockModeExists) {
             stockModes.byProductId[productId].value = stockModes.byProductId[productId] ? stockModes.byProductId[productId].value : currentStock.stockMode;
-            stockModes.byProductId[productId].active = !stockModes.byProductId[productId].active;
             return applyStockModesToState(stateCopy, stockModes)
         }
 
         stockModes.byProductId[productId] = {
             value: stockModes.byProductId[productId] ? stockModes.byProductId[productId] : currentStock.stockMode,
             valueEdited: '',
-            active: true
         };
         return applyStockModesToState(stateCopy, stockModes)
     },
@@ -171,21 +165,6 @@ let stockModeReducer = reducerCreator(initialState, {
             lowStockThresholdValue
         });
     },
-    "LOW_STOCK_SELECT_TOGGLE": function(state, action) {
-        let productId = action.payload.productId;
-        let currentActiveStateForProduct = state.lowStockThresholdToggle[productId].active;
-
-        let lowStockThresholdToggle = Object.assign({}, state.lowStockThresholdToggle);
-        for (let id in state.lowStockThresholdToggle) {
-            lowStockThresholdToggle[id] = Object.assign({}, state.lowStockThresholdToggle[id], {
-                active: id == productId && currentActiveStateForProduct == false
-            });
-        }
-
-        return Object.assign({}, state, {
-            lowStockThresholdToggle
-        });
-    },
     "LOW_STOCK_CHANGE": function(state, action) {
         let {productId, newValue, type} = action.payload;
 
@@ -265,19 +244,6 @@ let stockModeReducer = reducerCreator(initialState, {
         });
         return newState;
     },
-    'INC_PO_STOCK_IN_AVAILABLE_TOGGLE': function(state, action) {
-        let {productId} = action.payload;
-        let stock = Object.assign({}, state);
-        let productIncPOStockInAvailable = stock.incPOStockInAvailable.byProductId[productId]
-        let previousActiveProp = productIncPOStockInAvailable.active;
-        stock = makeAllIncPoStockInAvailableSelectsInactive(stock);
-        if (previousActiveProp) {
-            delete productIncPOStockInAvailable.active;
-            return stock;
-        }
-        productIncPOStockInAvailable.active = true;
-        return stock;
-    },
     "INC_PO_STOCK_UPDATE_SUCCESS": function(state, action) {
         let {productId, desiredVal} = action.payload;
         let newIncPOStockInAvailable = Object.assign({}, state.incPOStockInAvailable);
@@ -310,17 +276,6 @@ function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {
         stockModes
     });
-}
-
-function makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId) {
-    stockModes = Object.assign({}, stockModes)
-    Object.keys(stockModes.byProductId).forEach(key => {
-        if (key === productId.toString()) {
-            return;
-        }
-        stockModes.byProductId[key].active = false;
-    });
-    return stockModes;
 }
 
 function isNotTheStockAssociatedWithRow(id, rowData) {

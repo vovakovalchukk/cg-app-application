@@ -19,6 +19,7 @@ class Mapper extends UIMapper
     const COLUMN_PRODUCT = 'Product Name';
     const COLUMN_VARIATIONS = 'Variation Attributes';
     const COLUMN_QUANTITY = 'Quantity';
+    const COLUMN_CUSTOMISATION = 'Customisation';
     const COLUMN_PRICE = 'Price inc. VAT';
     const COLUMN_DISCOUNT = 'Discount Total';
     const COLUMN_TOTAL = 'Line Total';
@@ -28,6 +29,7 @@ class Mapper extends UIMapper
     protected $mustacheRenderer;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+
     protected $currencyFormat;
     protected $order;
 
@@ -39,15 +41,11 @@ class Mapper extends UIMapper
         self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatCurrency'],
         self::COLUMN_TOTAL => ['getter' => 'getItemLineTotal', 'callback' => 'formatCurrency'],
+        self::COLUMN_CUSTOMISATION => ['getter' => 'getCustomisation', 'callback' => 'formatCustomisation'],
     ];
     protected $mapDiscount = [
         self::COLUMN_SKU => ['getter' => 'getOrderDiscountSummary', 'callback' => null, 'colSpan' => 3],
-        self::COLUMN_PRICE => [
-            'getter' => 'getOrderDiscountSubHeading',
-            'callback' => null,
-            'colSpan' => 2,
-            'class' => ''
-        ],
+        self::COLUMN_PRICE => ['getter' => 'getOrderDiscountSubHeading', 'callback' => null, 'colSpan' => 2, 'class' => ''],
         self::COLUMN_TOTAL => ['getter' => 'getOrderDiscountTotal', 'callback' => 'formatCurrency'],
     ];
     protected $mapGiftWrap = [
@@ -57,6 +55,11 @@ class Mapper extends UIMapper
         self::COLUMN_PRICE => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => null, 'callback' => null],
         self::COLUMN_TOTAL => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
+    ];
+
+    protected $optionalColumns = [
+        self::COLUMN_VARIATIONS => ['getter' => 'getItemVariationAttribute'],
+        self::COLUMN_CUSTOMISATION => ['getter' => 'getCustomisation'],
     ];
 
     public function __construct(
@@ -224,7 +227,7 @@ class Mapper extends UIMapper
 
     protected function getGiftWrapType(GiftWrap $giftWrap)
     {
-        if (!$giftWrap->getGiftWrapType()) {
+        if(!$giftWrap->getGiftWrapType()) {
             return '';
         }
         return '<div class="wrap-type-holder"><b>Wrap: </b>' . strtoupper($giftWrap->getGiftWrapType()) . '</div>';
@@ -257,8 +260,7 @@ class Mapper extends UIMapper
         }
 
         if (empty($entity->getUrl())) {
-            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL,
-                    $values)) . $linkedProductIcon . '</div>';
+            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . $linkedProductIcon . '</div>';
         }
 
         return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . array_shift($values) . $linkedProductIcon . '</a>'
@@ -275,10 +277,19 @@ class Mapper extends UIMapper
     protected function formatVariationAttributes(Item $entity, array $attributes): string
     {
         $mergedKeyVals = [];
-        foreach ($attributes as $attribute => $value) {
+        foreach($attributes as $attribute => $value) {
             $mergedKeyVals[] = $attribute . ': ' . $value;
         }
         return implode("<br />", $mergedKeyVals);
+    }
+
+    protected function formatCustomisation(Item $entity, $value)
+    {
+        if (filter_var($value, FILTER_VALIDATE_URL)) {
+            return '<a href="'.$value.'">Download</a>';
+        } else {
+            return '<div>'.substr($value, 0, 40).'...</div>';
+        }
     }
 
     protected function setCurrencyFormat(CurrencyFormat $currencyFormat)
@@ -291,5 +302,10 @@ class Mapper extends UIMapper
     {
         $this->order = $order;
         return $this;
+    }
+
+    public function getOptionalColumns(): array
+    {
+        return $this->optionalColumns;
     }
 }
