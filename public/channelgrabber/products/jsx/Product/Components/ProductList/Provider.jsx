@@ -12,6 +12,7 @@ import ProductListRoot from 'Product/Components/ProductList/Root';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions';
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
+import expandActions from "./ActionCreators/expandActions";
 
 var enhancer = applyMiddleware(thunk);
 
@@ -54,6 +55,8 @@ class ProductListProvider extends React.Component {
         if (this.props.features.stockTabEnabled) {
             store.dispatch(tabActions.showStockTab());
         }
+
+        store.dispatch(expandActions.changeStatusExpandAll('collapsed'));
 
         let productsResponse = await store.dispatch(productActions.getProducts());
 

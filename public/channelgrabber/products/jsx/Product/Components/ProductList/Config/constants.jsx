@@ -6,6 +6,11 @@ let constants = {
         fetching: "fetching",
         finishedFetching: "finishedFetching"
     },
+    EXPAND_STATUSES: {
+        expanded: 'expanded',
+        loading: 'loading',
+        collapsed: 'collapsed'
+    },
     STOCK_MODE_EDITING_STATUSES: {
         editing: 'editing'
     },
