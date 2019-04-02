@@ -25,12 +25,21 @@ var actionCreators = (function() {
             payload: variationsByParent
         };
     };
-    const expandProductSuccess = (productRowIdToExpand) => {
+    const expandProductSuccess = (productIdToExpand) => {
         return {
             type: 'PRODUCT_EXPAND_SUCCESS',
             payload:
                 {
-                    productRowIdToExpand
+                    productIdToExpand
+                }
+        }
+    };
+    const expandProductsSuccess = (productIdsToExpand) => {
+        return {
+            type: 'PRODUCTS_EXPAND_SUCCESS',
+            payload:
+                {
+                    productIdsToExpand
                 }
         }
     };
@@ -76,6 +85,32 @@ var actionCreators = (function() {
         });
     };
 
+    const expandHandler = (shouldNotExpand, isMultipleProducts, dispatch, productIds) => {
+        if (shouldNotExpand) {
+            return;
+        }
+        if (isMultipleProducts) {
+            dispatch(expandProductsSuccess(productIds));
+            return;
+        }
+        dispatch(expandProductSuccess(productIds));
+    };
+
+    const handleNewVariations = (data, productIds, dispatch, isMultipleProducts, shouldNotExpand) => {
+        $('#products-loading-message').hide();
+        let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
+        dispatch(getProductVariationsRequestSuccess(variationsByParent));
+
+        expandHandler(shouldNotExpand, isMultipleProducts, dispatch, productIds);
+
+        let skusFromData = getSkusFromData(data);
+        dispatch(productLinkActions.getLinkedProducts(skusFromData));
+
+        dispatch(vatActions.extractVatFromProducts(data.products));
+        dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
+        dispatch(stockActions.storeLowStockThreshold(data.products));
+    };
+
     return {
         storeAccountFeatures: (features) => {
             return {
@@ -103,6 +138,7 @@ var actionCreators = (function() {
         },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
+                let state = getState();
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];
@@ -127,6 +163,11 @@ var actionCreators = (function() {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
+
+                if (state.accounts.features.preFetchVariations) {
+                    dispatch(actionCreators.dispatchGetAllVariations());
+                }
+
                 dispatch(stockActions.storeLowStockThreshold(data.products));
                 return data;
             }
@@ -144,6 +185,21 @@ var actionCreators = (function() {
                 }
                 fetchingStockLevelsForSkus[productSku] = false;
                 dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
+            }
+        },
+        expandAllProducts(haveFetchedAlready) {
+            return async function(dispatch, getState) {
+                let productIdsToExpand = stateUtility.getAllParentProductIds(getState().products);
+
+                if (!haveFetchedAlready) {
+                    return await actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+                }
+                actionCreators.dispatchExpandAllVariationsWithoutAjaxRequest(dispatch, productIdsToExpand);
+            }
+        },
+        collapseAllProducts() {
+            return {
+                type: "ALL_PRODUCTS_COLLAPSE"
             }
         },
         expandProduct: (productRowIdToExpand) => {
@@ -171,22 +227,31 @@ var actionCreators = (function() {
                 }
             }
         },
-        dispatchExpandVariationsWithAjaxRequest: (dispatch, productRowId) => {
-            let filter = new ProductFilter(null, productRowId);
-            AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-
-            function fetchProductVariationsCallback(data) {
-                $('#products-loading-message').hide();
-                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
-
-                dispatch(expandProductSuccess(productRowId));
-                let skusFromData = getSkusFromData(data);
-                dispatch(productLinkActions.getLinkedProducts(skusFromData));
-                dispatch(vatActions.extractVatFromProducts(data.products));
-                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
-                dispatch(stockActions.storeLowStockThreshold(data.products));
+        dispatchGetAllVariations: () => {
+            return async function(dispatch, getState) {
+                let productIds = stateUtility.getAllParentProductIds(getState().products);
+                let filter = new ProductFilter(null, productIds);
+                await AjaxHandler.fetchByFilter(filter, data => {
+                    handleNewVariations(data, productIds, dispatch, true, true);
+                });
             }
+        },
+        dispatchExpandAllVariationsWithAjaxRequest: async (dispatch, productIds) => {
+            let filter = new ProductFilter(null, productIds);
+
+            await AjaxHandler.fetchByFilter(filter, data => {
+                handleNewVariations(data, productIds, dispatch, true);
+            });
+        },
+        dispatchExpandAllVariationsWithoutAjaxRequest: (dispatch, productIds) => {
+            dispatch(expandProductsSuccess(productIds));
+        },
+        dispatchExpandVariationsWithAjaxRequest: (dispatch, productId) => {
+            let filter = new ProductFilter(null, productId);
+
+            AjaxHandler.fetchByFilter(filter, data => {
+                handleNewVariations(data, productId, dispatch, false);
+            });
         },
         dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
             dispatch(getProductVariationsRequestSuccess(variationsByParent));

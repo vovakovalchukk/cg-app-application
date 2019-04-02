@@ -15,6 +15,7 @@ import userSettingsReducer from 'Product/Components/ProductList/Reducers/userSet
 import scrollReducer from 'Product/Components/ProductList/Reducers/scrollReducer';
 import detailReducer from 'Product/Components/ProductList/Reducers/detailReducer';
 import pickLocationsReducer from 'Product/Components/ProductList/Reducers/pickLocationsReducer';
+import expandReducer from 'Product/Components/ProductList/Reducers/expandReducer';
 import nameReducer from 'Product/Components/ProductList/Reducers/nameReducer';
 import focusReducer from 'Product/Components/ProductList/Reducers/focusReducer';
 
@@ -35,6 +36,7 @@ var appReducer = combineReducers({
     scroll: scrollReducer,
     detail: detailReducer,
     pickLocations: pickLocationsReducer,
+    expand: expandReducer,
     name: nameReducer,
     focus: focusReducer
 });

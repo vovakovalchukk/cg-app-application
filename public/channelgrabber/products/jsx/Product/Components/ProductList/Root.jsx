@@ -23,6 +23,7 @@ const mapStateToProps = function(state) {
         scroll: state.scroll,
         detail: state.detail,
         pickLocations: state.pickLocations,
+        expand: state.expand,
         name: state.name,
         focus: state.focus
     };
