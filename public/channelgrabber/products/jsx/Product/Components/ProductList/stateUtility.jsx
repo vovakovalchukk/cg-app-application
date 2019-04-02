@@ -28,9 +28,11 @@ let stateUtility = function() {
             }
             return cellData;
         },
-        isCurrentActiveSelect(product, select, columnKey){
+        isCurrentActiveSelect(product, select, columnKey, index){
+            console.log('in isCUrrentActiveSelect ....  ', index);
             return select.activeSelect.productId === product.id &&
-                select.activeSelect.columnKey === columnKey;
+                select.activeSelect.columnKey === columnKey &&
+                doesIndexMatch(select, index);
         },
         isParentProduct: (rowData) => {
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
@@ -113,4 +115,8 @@ function getImageData(row) {
         id: primaryImage.id,
         url: primaryImage.url
     };
+}
+
+function doesIndexMatch(select, index){
+    return index === select.activeSelect.index
 }

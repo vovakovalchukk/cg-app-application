@@ -11,15 +11,15 @@ let initialState = {
 
 let selectReducer = reducerCreator(initialState, {
     "SELECT_ACTIVE_TOGGLE": function(state, action) {
-        let {productId, columnKey} = action.payload;
+        let {productId, columnKey, index} = action.payload;
         let stateToReturn = Object.assign({}, state);
 
-        if(isPreviousActiveSelect(stateToReturn, productId,columnKey)){
+        if(isPreviousActiveSelect(stateToReturn, productId, columnKey, index)){
             stateToReturn = resetSelectActive(stateToReturn);
             return stateToReturn;
         }
 
-        stateToReturn = setNewSelectAsActive(stateToReturn, productId, columnKey);
+        stateToReturn = setNewSelectAsActive(stateToReturn, productId, columnKey, index);
 
         return stateToReturn
     }
@@ -27,7 +27,11 @@ let selectReducer = reducerCreator(initialState, {
 
 export default selectReducer;
 
-function isPreviousActiveSelect(state, productId, columnKey){
+function isPreviousActiveSelect(state, productId, columnKey, index){
+    if((typeof state.activeSelect.index === 'number' && typeof index == 'number')
+        && (state.activeSelect.index !== index)){
+        return false;
+    }
     return state.activeSelect.productId === productId && state.activeSelect.columnKey === columnKey;
 }
 
@@ -36,10 +40,11 @@ function resetSelectActive(state) {
     return state;
 }
 
-function setNewSelectAsActive(state, productId, columnKey){
+function setNewSelectAsActive(state, productId, columnKey, index){
     state.activeSelect = {
         columnKey,
-        productId
+        productId,
+        index
     };
     return state;
 }
