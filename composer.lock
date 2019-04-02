@@ -716,12 +716,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0af46896b75f7473c43411ce639013829f88dcc6"
+                "reference": "645407f3a26e200822ce71388fbf84f8e979f434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-350-walmart-stock-update-0f6974.zip",
-                "reference": "0af46896b75f7473c43411ce639013829f88dcc6",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-350-walmart-stock-update-d42939.zip",
+                "reference": "645407f3a26e200822ce71388fbf84f8e979f434",
                 "shasum": null
             },
             "require": {
@@ -795,7 +795,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-04-02T12:59:18+00:00"
+            "time": "2019-04-02T13:29:57+00:00"
         },
         {
             "name": "channelgrabber/cilex",
