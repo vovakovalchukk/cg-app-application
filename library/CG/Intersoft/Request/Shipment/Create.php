@@ -111,15 +111,19 @@ class Create extends PostAbstract
                 ?: $this->sanitiseString($deliveryAddress->getLine2())
                 ?: $this->sanitiseString($deliveryAddress->getLine4())
         );
-        $destination->addChild('destinationCounty',
+        $destination->addChild(
+            'destinationCounty',
             $this->sanitiseString($deliveryAddress->getLine4())
                 ?: $this->sanitiseString($deliveryAddress->getLine3())
         );
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
-        $destination->addChild('destinationContactName', $this->sanitiseString(
-            $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName(),
-            static::MAX_LEN_CONTACT)
+        $destination->addChild(
+            'destinationContactName',
+            $this->sanitiseString(
+                $deliveryAddress->getFirstName() . ' ' . $deliveryAddress->getLastName(),
+                static::MAX_LEN_CONTACT
+            )
         );
         $destination->addChild('destinationPhoneNumber', $this->getDeliveryPhoneNumber());
 
