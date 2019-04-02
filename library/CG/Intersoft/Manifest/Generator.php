@@ -24,7 +24,7 @@ class Generator
     {
         $request = $this->buildRequest($account);
         $response = $this->sendRequest($request, $account);
-        return $this->buildManifestFromResponse($response);
+        return $this->buildManifestFromResponse($response, $account);
     }
 
     protected function buildRequest(Account $account): ConfirmShipmentRequest
@@ -38,7 +38,7 @@ class Generator
     {
         try {
             $client = ($this->clientFactory)($account);
-            $client->send($request);
+            return $client->send($request);
         } catch (\Exception $e) {
             throw new OperationFailed($e->getMessage(), $e->getCode(), $e);
         }
