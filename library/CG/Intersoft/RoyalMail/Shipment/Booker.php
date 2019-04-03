@@ -8,11 +8,9 @@ use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\Intersoft\Client;
 use CG\Intersoft\Client\Factory as ClientFactory;
 use CG\Intersoft\RoyalMail\Request\Shipment\Create as CreateRequest;
-use CG\Intersoft\RoyalMail\Response\Shipment\Completed\Item as ShipmentItem;
 use CG\Intersoft\RoyalMail\Response\Shipment\Create as CreateResponse;
 use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Documents\Generator as DocumentsGenerator;
-use CG\Intersoft\RoyalMail\Shipment\Label\Generator as LabelGenerator;
 use function CG\Stdlib\mergePdfData;
 use CG\Intersoft\RoyalMail\Package as RoyalMailPackage;
 
@@ -24,18 +22,14 @@ class Booker
 
     /** @var ClientFactory */
     protected $clientFactory;
-    /** @var LabelGenerator */
-    protected $labelGenerator;
     /** @var DocumentsGenerator */
     protected $documentsGenerator;
 
     public function __construct(
         ClientFactory $clientFactory,
-        LabelGenerator $labelGenerator,
         DocumentsGenerator $documentsGenerator
     ) {
         $this->clientFactory = $clientFactory;
-        $this->labelGenerator = $labelGenerator;
         $this->documentsGenerator = $documentsGenerator;
     }
 
@@ -84,6 +78,10 @@ class Booker
                 break;
             }
             $label = $response->getLabelImage();
+            if (!$this->isDomesticShipment($shipment)) {
+                $documentData = $this->fetchInternationalDocumentsForShipmentItem($rmPackage->getTrackingNumber(), $shipment);
+                $label = $this->mergeInternationalDocumentsIntoLabel($label, $documentData);
+            }
             if ($label) {
                 $package->setLabel(new Label($label, LabelInterface::TYPE_PDF));
             }
@@ -93,19 +91,9 @@ class Booker
         return $shipment;
     }
 
-    protected function fetchLabelForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): ?string
+    protected function fetchInternationalDocumentsForShipmentItem(string $trackingNumber, Shipment $shipment): ?string
     {
-        $labelData = ($this->labelGenerator)($shipmentItem, $shipment);
-        if (!$this->isDomesticShipment($shipment)) {
-            $documentData = $this->fetchInternationalDocumentsForShipmentItem($shipmentItem, $shipment);
-            $labelData = $this->mergeInternationalDocumentsIntoLabel($labelData, $documentData);
-        }
-        return $labelData;
-    }
-
-    protected function fetchInternationalDocumentsForShipmentItem(ShipmentItem $shipmentItem, Shipment $shipment): ?string
-    {
-        return ($this->documentsGenerator)($shipmentItem, $shipment);
+        return ($this->documentsGenerator)($trackingNumber, $shipment);
     }
 
     protected function mergeInternationalDocumentsIntoLabel(string $labelData, ?string $documentsData): string

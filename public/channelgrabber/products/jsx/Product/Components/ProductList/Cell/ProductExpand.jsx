@@ -1,6 +1,8 @@
 import React from 'react';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
+import ExpandIcon from 'Common/Components/ExpandIcon'
+import constants from 'Product/Components/ProductList/Config/constants';
 
 const CellContainer = styled.div`
         display:flex;
@@ -11,14 +13,7 @@ const ExpandLink = styled.a`
         user-select: none;
     `;
 
-const EXPAND_STATUSES = {
-    expanded: 'expanded',
-    loading: 'loading',
-    collapsed: 'collapsed'
-};
-
-const RIGHT_ARROW = '\u25BA';
-const DOWN_ARROW = '\u25BC';
+const {EXPAND_STATUSES} = constants;
 
 class ProductExpandCell extends React.Component {
     static defaultProps = {
@@ -40,14 +35,9 @@ class ProductExpandCell extends React.Component {
         if (!isParentProduct) {
             return;
         }
-        if (this.getRowData().expandStatus === EXPAND_STATUSES.loading) {
-            return <img
-                title={'loading product variations...'}
-                src={"/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif"}
-                class={"b-loader"}
-            />
-        }
-        return (!rowData.expandStatus || rowData.expandStatus === EXPAND_STATUSES.collapsed ? RIGHT_ARROW : DOWN_ARROW)
+        return (<ExpandIcon
+            expandStatus={rowData.expandStatus}
+        />);
     };
 
     onExpandClick = () => {

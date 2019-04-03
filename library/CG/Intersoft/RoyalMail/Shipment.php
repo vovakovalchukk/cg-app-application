@@ -67,7 +67,7 @@ class Shipment implements
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
         ?bool $signatureRequired = null
-        ) {
+    ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
         $this->account = $account;

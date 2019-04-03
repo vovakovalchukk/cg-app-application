@@ -28,13 +28,15 @@ class PickingLocationCell extends React.Component {
         );
     }
     getPickLocationActive(pickLocations, row, index) {
-        if (!(pickLocations.selected
-            && pickLocations.selected.productId === row.id
-            && pickLocations.selected.level === index)
-            || this.props.scroll.userScrolling
-            || !this.props.rows.initialModifyHasOccurred) {
+        let isActive = stateUtility.isCurrentActiveSelect(row, this.props.select, this.props.columnKey, index);
+
+        if (!isActive ||
+            this.props.scroll.userScrolling ||
+            !this.props.rows.initialModifyHasOccurred
+        ) {
             return false;
         }
+
         return true;
     };
     renderPickLocation(name, index, row, rowIndex) {
@@ -56,6 +58,7 @@ class PickingLocationCell extends React.Component {
         }
 
         let select = React.createRef();
+
         return (
             <StatelessSelectComponent
                 ref={select}
@@ -69,7 +72,7 @@ class PickingLocationCell extends React.Component {
                     return pickingLocation ? {name: pickingLocation, value: pickingLocation} : null;
                 })(selected)}
                 selectToggle={() => {
-                    this.props.actions.togglePickLocationsSelect(row.id, index);
+                    this.props.actions.selectActiveToggle(this.props.columnKey, row.id, index);
                     select.current.setFilter("");
                 }}
                 onOptionChange={(selectedOption) => {
