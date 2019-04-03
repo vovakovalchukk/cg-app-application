@@ -223,7 +223,7 @@ class Create extends PostAbstract
     {
         $packageOverviewDetails = $this->getOverviewDetailsArray();
         $xml->addChild('totalPackages', count($this->shipment->getPackages()));
-        $xml->addChild('totalWeight', $packageOverviewDetails['totalWeight']);
+        $xml->addChild('totalWeight', $this->getTotalPackageWeight());
         $xml->addChild('weightId', static::WEIGHT_UNIT);
         $xml->addChild('product', static::PRODUCT_TYPE);
         $xml->addChild('descriptionOfGoods', $packageOverviewDetails['description']);
@@ -238,7 +238,6 @@ class Create extends PostAbstract
         $details = [
             'description' => '',
             'totalValue' => 0,
-            'totalWeight' => 0,
             'currencyCode' => static::CURRENCY_DEFAULT
         ];
 
@@ -247,7 +246,6 @@ class Create extends PostAbstract
             foreach ($package->getContents() as $packageContent) {
                 $details['description'] .=  $packageContent->getDescription() . '|';
                 $details['currencyCode'] =  $packageContent->getUnitCurrency();
-                $details['totalWeight'] += $packageContent->getWeight();
                 $details['totalValue'] += $packageContent->getUnitValue() * $packageContent->getQuantity();
             }
             $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION_OF_GOODS);
@@ -270,5 +268,15 @@ class Create extends PostAbstract
             return '00000000000';
         }
         return $this->shipment->getDeliveryAddress()->getPhoneNumber();
+    }
+
+    protected function getTotalPackageWeight(): float
+    {
+        $totalWeight = 0;
+        /** @var Package $package */
+        foreach ($this->shipment->getPackages() as $package) {
+            $totalWeight += $package->getWeight();
+        }
+        return $totalWeight;
     }
 }
