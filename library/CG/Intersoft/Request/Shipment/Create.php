@@ -27,6 +27,7 @@ class Create extends PostAbstract
     const MAX_LEN_REFERENCE = 20;
     const MAX_LEN_DEFAULT = 35;
     const MAX_LEN_CONTACT = 40;
+    const MAX_LEN_DESCRIPTION_OF_GOODS = 70;
     const MAX_LEN_DESCRIPTION = 255;
 
     /** @var Shipment */
@@ -249,7 +250,7 @@ class Create extends PostAbstract
                 $details['totalWeight'] += $packageContent->getWeight();
                 $details['totalValue'] += $packageContent->getUnitValue() * $packageContent->getQuantity();
             }
-            $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION);
+            $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION_OF_GOODS);
         }
         return $details;
     }
