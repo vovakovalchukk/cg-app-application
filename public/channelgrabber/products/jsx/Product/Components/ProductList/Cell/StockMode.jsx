@@ -67,17 +67,17 @@ class StockModeCell extends React.Component {
         this.props.actions.changeStockMode(row, value, propToChange);
     };
 
-    getStockModeSelectActive(row) {
-        if (!this.props.stock.stockModes.byProductId[row.id] || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+    getStockModeSelectActive(product) {
+        let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
+
+        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
             return false;
         }
-        return this.props.stock.stockModes.byProductId[row.id].active;
+        return true;
     };
 
     selectToggle(productId) {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.toggleStockModeSelect(productId, row);
+        this.props.actions.selectActiveToggle(this.props.columnKey, productId)
     };
 
     getValueForStockProp(row, stockProp) {
@@ -173,7 +173,6 @@ class StockModeCell extends React.Component {
                     stockModeType={{
                         input: {
                             value: {
-                                //todo - prioritise valueEdited from stock
                                 value: valueForStockModes
                             },
                             onChange: this.onStockModeChange
