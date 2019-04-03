@@ -72,7 +72,6 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         var data = {
             id: InsuranceOption.SELECTOR_INSURANCE_OPTION_PREFIX.replace('#', '') + orderId,
             name: 'orderData[' + orderId + '][InsuranceOption]',
-            class: 'required',
             options: []
         };
         for (var value in optionsObject) {
