@@ -953,7 +953,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "533c2e5043756c4ca74f31b1881c244334ac2076"
+                "reference": "971f09870cd315449b98b774f5cc8deb48361a13"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
