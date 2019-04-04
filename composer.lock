@@ -4366,17 +4366,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.5",
+            "version": "dev-TAC-360-replace-loading-spinners-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "5dac9b71ba6c47cb5e3f386ed1e97ae8c0db9683"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.5-571438.zip",
-                "reference": "5dac9b71ba6c47cb5e3f386ed1e97ae8c0db9683",
-                "shasum": null
+                "reference": "6c231d5cd846b10ce2c1681ae89c68e759849e89"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -4554,17 +4548,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.18",
+            "version": "dev-TAC-360-replace-loading-spinners-in-app",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "b0d4a377c8ab8c12ab9117e478b1374e90e46012"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.18-98104f.zip",
-                "reference": "b0d4a377c8ab8c12ab9117e478b1374e90e46012",
-                "shasum": null
+                "reference": "f342110eb6989d23ef547be465e70911ca3166c5"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -4916,7 +4904,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "daa7a48d894d580846ae858cd9c80dd8c7d93a80"
+                "reference": "62ff9961549d5bd62cbb19e296eef83d41fd3f3a"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -11027,6 +11015,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.6.5",
+            "alias_normalized": "1.6.5.0",
+            "version": "dev-TAC-360-replace-loading-spinners-in-app",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
+            "alias": "1.6.18",
+            "alias_normalized": "1.6.18.0",
+            "version": "dev-TAC-360-replace-loading-spinners-in-app",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
             "alias": "1.26.9",
             "alias_normalized": "1.26.9.0",
             "version": "dev-TAC-360-replace-loading-spinners-in-app",
@@ -11036,6 +11036,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "phpspec/phpspec": 20,

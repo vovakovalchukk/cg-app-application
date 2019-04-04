@@ -37,7 +37,7 @@ function(
     ServiceDependantOptionsAbstract.SELECTOR_SERVICE_SELECT = '.courier-service-custom-select';
     ServiceDependantOptionsAbstract.SELECTOR_ACCOUNT_INPUT = '#courier-specifics-label-form input';
     ServiceDependantOptionsAbstract.URI = '/orders/courier/specifics/{accountId}/optionData';
-    ServiceDependantOptionsAbstract.LOADER = `<div class="indicator-sizer -default u-margin-center">
+    ServiceDependantOptionsAbstract.LOADER = `<div class="indicator-wrapper -default u-margin-center">
                                                 ${loadingIndicator.getIndicator()}
                                            </div>`;
 

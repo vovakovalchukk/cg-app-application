@@ -76,7 +76,7 @@ function(
     DeliveryExperience.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions';
     DeliveryExperience.SELECTOR_ALL_SERVICES_BUTTON = '#request-all-services-button';
     DeliveryExperience.BLANK_SERVICE = '-';
-    DeliveryExperience.LOADER = `<div class="indicator-sizer -default u-margin-center">
+    DeliveryExperience.LOADER = `<div class="indicator-wrapper -default u-margin-center">
                                     ${loadingIndicator.getIndicator()}
                                </div>`;
     DeliveryExperience.POLL_TIMEOUT_MS = 2000;

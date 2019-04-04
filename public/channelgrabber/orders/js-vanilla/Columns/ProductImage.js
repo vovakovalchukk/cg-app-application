@@ -36,7 +36,7 @@ function(
     ProductImage.SELECTOR_CONTAINERS = '.order-product-image-container';
     ProductImage.PREFIX_CONTAINER = '#order-product-image-container_';
     ProductImage.URI = '/orders/images';
-    ProductImage.LOADER = `<div class="indicator-sizer -default u-margin-center">
+    ProductImage.LOADER = `<div class="indicator-wrapper -default u-margin-center">
                                 ${loadingIndicator.getIndicator()}
                            </div>`;
 

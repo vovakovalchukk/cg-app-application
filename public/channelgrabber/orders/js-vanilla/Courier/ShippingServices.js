@@ -31,7 +31,7 @@ function(
 
     ShippingServices.TEMPLATE_PATH = '/cg-built/zf2-v4-ui/templates/elements/custom-select.mustache';
     ShippingServices.SELECT_ID_PREFIX = 'courier-service-options-';
-    ShippingServices.LOADER = `<div class="indicator-sizer -default u-margin-center">
+    ShippingServices.LOADER = `<div class="indicator-wrapper -default u-margin-center">
                                 ${loadingIndicator.getIndicator()}
                            </div>`;
     ShippingServices.URI_SERVICES_FOR_ORDER = '/orders/courier/services';
