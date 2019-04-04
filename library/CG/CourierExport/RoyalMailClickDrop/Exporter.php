@@ -4,16 +4,21 @@ namespace CG\CourierExport\RoyalMailClickDrop;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\CourierExport\ExporterInterface;
 use CG\Order\Shared\Collection as Orders;
+use CG\Order\Shared\Item\Collection as OrderItems;
 use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as User;
 
-class Exporter implements ExporterInterface
+class Exporter implements ExporterInterface, LoggerAwareInterface
 {
-    const COUNTRY_CODE_GB = 'GB';
+    use LogTrait;
+
+    const COUNTRY_NAME_UK = 'United Kingdom';
 
     protected $serviceMap = [
         ShippingService::FIRST_CLASS => [
@@ -96,46 +101,69 @@ class Exporter implements ExporterInterface
         OrganisationUnit $rootOu,
         User $user
     ) {
+        print_r($orderData);
+
+        print_r($orderItemsData);
+
+        print_r($orderParcelsData);
+
+        $this->logDebugDump($orderItemsData, 'OItemsData', [], 'MYTEST');
+        $this->logDebugDump($orderParcelsData, 'OParcelsData', [], 'MYTEST');
+
+
         [$title, $firstName, $lastName] = $this->parseName($fullName = trim($order->getShippingAddressFullNameForCourier()));
+
+        $addOn = $orderData['addOn'] ?? [];
+        $packageType = $orderData['packageType'] ?? '';
+        $serviceCode = $this->getServiceCode($orderData['service'] ?? '', $packageType, $addOn);
+        $signature = $this->getSignatureSelection($addOn);
         foreach ($orderParcelsData as $orderParcelData) {
+            foreach ($orderItemsData as $orderItemId => $orderItemData) {
 
-            $addOn = $orderData['addOn'] ?? [];
-            $packageType = $orderData['packageType'] ?? '';
+                /** @var OrderItems $orderItems */
+                $orderItems = $order->getItems();
 
-            $export->addRowData(
-                [
-                    'orderReference' => $order->getExternalId(),
-                    'specialInstructions' => $orderData['deliveryInstructions'] ?? '',
-                    'date' => $orderData['collectionDate'] ?? '',
-                    'weight' => $orderParcelData['weight'] ?? '',
-                    'packageSize' => $packageType,
-                    'subTotal' => $order->getTotal() - $order->getShippingPrice(),
-                    'shippingCost' => $order->getShippingPrice(),
-                    'total' => $order->getTotal(),
-                    'currencyCode' => $order->getCurrencyCode(),
-                    'serviceCode' => $this->getServiceCode($orderData['service'] ?? '', $packageType, $addOn),
-                    'signature' => $this->getSignatureSelection($addOn),
-                    'customerTitle' => $title,
-                    'firstName' => $firstName,
-                    'lastName' => $lastName,
-                    'fullName' => $fullName,
-                    'phone' => $order->getShippingPhoneNumberForCourier(),
-                    'email' => $order->getShippingEmailAddressForCourier(),
-                    'companyName' => $order->getShippingAddressCompanyNameForCourier(),
-                    'addressLine1' => $order->getShippingAddress1ForCourier(),
-                    'addressLine2' => $order->getShippingAddress2ForCourier(),
-                    'addressLine3' => $order->getShippingAddress3ForCourier(),
-                    'city' => $order->getShippingAddressCityForCourier(),
-                    'county' => $order->getShippingAddressCountyForCourier(),
-                    'postcode' => $order->getShippingAddressPostcodeForCourier(),
-                    'country' => $order->getShippingAddressCountryForCourier(),
-                    'customsDescription' => $this->getCustomsDescription($order),
-                    'customsCode' => $orderData['harmonisedSystemCode'],
-                    'countryOfOrigin' => static::COUNTRY_CODE_GB,
-                    'quantity' => $this->getQuantity($order),
-                    'unitPrice' => $this->getItemPrice($order),
-                ]
-            );
+
+                //@todo check if not null
+                /** @var OrderItem $orderItem */
+                $orderItem = $orderItems->getById($orderItemId);
+
+                $export->addRowData(
+                    [
+                        'orderReference' => $order->getExternalId(),
+                        'specialInstructions' => $orderData['deliveryInstructions'] ?? '',
+                        'date' => $orderData['collectionDate'] ?? '',
+                        'weight' => $orderItemData['weight'] ?? '',
+                        'packageSize' => $packageType,
+                        'subTotal' => $order->getTotal() - $order->getShippingPrice(),
+                        'shippingCost' => $order->getShippingPrice(),
+                        'total' => $order->getTotal(),
+                        'currencyCode' => $order->getCurrencyCode(),
+                        'serviceCode' => $serviceCode,
+                        'signature' => $signature,
+                        'customerTitle' => $title,
+                        'firstName' => $firstName,
+                        'lastName' => $lastName,
+                        'fullName' => $fullName,
+                        'phone' => $order->getShippingPhoneNumberForCourier(),
+                        'email' => $order->getShippingEmailAddressForCourier(),
+                        'companyName' => $order->getShippingAddressCompanyNameForCourier(),
+                        'addressLine1' => $order->getShippingAddress1ForCourier(),
+                        'addressLine2' => $order->getShippingAddress2ForCourier(),
+                        'addressLine3' => $order->getShippingAddress3ForCourier(),
+                        'city' => $order->getShippingAddressCityForCourier(),
+                        'county' => $order->getShippingAddressCountyForCourier(),
+                        'postcode' => $order->getShippingAddressPostcodeForCourier(),
+                        'country' => $order->getShippingAddressCountryForCourier(),
+                        'productSku' => $orderItem->getItemSku(),
+                        'customsDescription' => $orderItem->getItemName(),
+                        'customsCode' => $orderParcelData['harmonisedSystemCode'] ?? '',
+                        'countryOfOrigin' => static::COUNTRY_NAME_UK,
+                        'quantity' => $orderItem->getItemQuantity(),
+                        'unitPrice' => $orderItem->getIndividualItemPrice(),
+                    ]
+                );
+            }
         }
     }
 
@@ -182,38 +210,5 @@ class Exporter implements ExporterInterface
         }
 
         return 'n';
-    }
-
-    protected function getCustomsDescription(Order $order): string
-    {
-        $description = [];
-        /* @var OrderItem $ordetItem */
-        foreach ($order->getItems() as $ordetItem) {
-            $description[] = $ordetItem->getItemName();
-        }
-
-        return implode(', ', $description);
-    }
-
-    protected function getQuantity(Order $order): string
-    {
-        $qty = [];
-        /* @var OrderItem $ordetItem */
-        foreach ($order->getItems() as $ordetItem) {
-            $qty[] = $ordetItem->getItemQuantity();
-        }
-
-        return implode(', ', $qty);
-    }
-
-    protected function getItemPrice(Order $order): string
-    {
-        $price = [];
-        /* @var OrderItem $ordetItem */
-        foreach ($order->getItems() as $ordetItem) {
-            $price[] = number_format($ordetItem->getIndividualItemPrice(), 2);
-        }
-
-        return implode(', ', $price);
     }
 }

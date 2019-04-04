@@ -32,6 +32,7 @@ class Export implements ExportDocumentInterface
         'County' => 'county',
         'Postcode' => 'postcode',
         'Country' => 'country',
+        'Product SKU' => 'productSku',
         'Customs description' => 'customsDescription',
         'Customs code' => 'customsCode',
         'Country of origin' => 'countryOfOrigin',
