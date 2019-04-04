@@ -5,8 +5,6 @@ import CreateProductRoot from 'Product/Components/CreateProduct/CreateProductRoo
 import AccountSelectionRoot from 'Product/Components/CreateListing/AccountSelectionRoot'
 import ProductListProvider from 'Product/Components/ProductList/Provider'
 
-import LoadingSpinner from 'Common/Components/LoadingSpinner'
-
 "use strict";
 
 const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';
@@ -218,14 +216,6 @@ class RootComponent extends React.Component {
     };
 
     renderProductListView = () => {
-        //todo - remove this - only put this here to quickly test the component
-//        return (
-//            <div className={"move-down"}>
-//                <LoadingSpinner
-//                    loaderStyle={''}
-//                />
-//            </div>
-//        );
         return (
             <div>
                 <ProductListProvider

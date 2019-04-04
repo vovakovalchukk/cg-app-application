@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import ExpandIcon from 'Common/Components/ExpandIcon'
-import LoadingSpinner from 'Common/Components/LoadingSpinner'
+import constants from 'Product/Components/ProductList/Config/constants';
+import loadingIndicatorFactory from 'element/loadingIndicator';
+
+const loadingIndicator = loadingIndicatorFactory.getIndicator();
+
+const {EXPAND_STATUSES} = constants;
 
 const ExpandIconContainer = styled.div`
   display: flex;
@@ -25,12 +30,9 @@ class ProductExpandHeader extends React.Component {
                 <ExpandLink onClick={this.onClick}>
                     <ExpandIcon
                         expandStatus={expand.expandAllStatus}
+                        indicator={loadingIndicator}
+                        EXPAND_STATUSES={EXPAND_STATUSES}
                         iconColor={'white'}
-                        loader={()=>{
-                            <LoadingSpinner
-                                loaderStyle={'dark'}
-                            />
-                        }}
                     />
                 </ExpandLink>
             </ExpandIconContainer>
