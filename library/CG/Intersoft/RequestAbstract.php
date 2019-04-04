@@ -33,6 +33,11 @@ abstract class RequestAbstract implements RequestInterface
         return $this->credentials->getPassword();
     }
 
+    protected function getPostingLocationNumber(): int
+    {
+        return $this->credentials->getPostingLocationNumber();
+    }
+
     protected function generateTransactionId(): string
     {
         return uniqid();
