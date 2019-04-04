@@ -36,7 +36,7 @@ $(document).ready(function()
     });
 });
 </script>
-<div id="main" class="courier-specifics">
+<div id="main" class="courier-specifics <?=$this->selectedCourier->getChannel(); ?>">
     <span class="heading-large">
         <div style="float:left"><span class="logo-large <?=$this->selectedCourier->getChannel();?>"></span></div>
         <?=$this->shippingLedgerBalanceSection;?>
