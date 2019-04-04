@@ -4,6 +4,7 @@ namespace CG\CourierExport\RoyalMailClickDrop;
 use CG\Channel\Shipping\Provider\Service\ExportDocumentInterface;
 use CG\CourierExport\ExporterInterface;
 use CG\Order\Shared\Collection as Orders;
+use CG\Order\Shared\Item\Entity as OrderItem;
 use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\ShippableInterface as Order;
@@ -12,6 +13,8 @@ use CG\User\Entity as User;
 
 class Exporter implements ExporterInterface
 {
+    const COUNTRY_CODE_GB = 'GB';
+
     protected $serviceMap = [
         ShippingService::FIRST_CLASS => [
             'BPR1' => [ShippingService::ADD_ON_SIGNED_FOR_VALUE],
@@ -126,9 +129,9 @@ class Exporter implements ExporterInterface
                     'county' => $order->getShippingAddressCountyForCourier(),
                     'postcode' => $order->getShippingAddressPostcodeForCourier(),
                     'country' => $order->getShippingAddressCountryForCourier(),
-                    'customsDescription' => '',
-                    'customsCode' => '',
-                    'countryOfOrigin' => '',
+                    'customsDescription' => $this->getCustomsDescription($order),
+                    'customsCode' => $orderData['harmonisedSystemCode'],
+                    'countryOfOrigin' => static::COUNTRY_CODE_GB,
                     'quantity' => '',
                     'unitPrice' => '',
                 ]
@@ -179,5 +182,16 @@ class Exporter implements ExporterInterface
         }
 
         return 'n';
+    }
+
+    protected function getCustomsDescription(Order $order): string
+    {
+        $description = [];
+        /* @var OrderItem $ordetItem */
+        foreach ($order->getItems() as $ordetItem) {
+            $description[] = $ordetItem->getItemName();
+        }
+
+        return implode(', ', $description);
     }
 }

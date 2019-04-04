@@ -37,9 +37,8 @@ class Export implements ExportDocumentInterface
         'Country of origin' => 'countryOfOrigin',
         'Quantity' => 'quantity',
         'Unit price' => 'unitPrice',
-
-        //Unit price
     ];
+
     protected $rows = [];
 
     public function getType(): string
