@@ -132,8 +132,8 @@ class Exporter implements ExporterInterface
                     'customsDescription' => $this->getCustomsDescription($order),
                     'customsCode' => $orderData['harmonisedSystemCode'],
                     'countryOfOrigin' => static::COUNTRY_CODE_GB,
-                    'quantity' => '',
-                    'unitPrice' => '',
+                    'quantity' => $this->getQuantity($order),
+                    'unitPrice' => $this->getItemPrice($order),
                 ]
             );
         }
@@ -193,5 +193,27 @@ class Exporter implements ExporterInterface
         }
 
         return implode(', ', $description);
+    }
+
+    protected function getQuantity(Order $order): string
+    {
+        $qty = [];
+        /* @var OrderItem $ordetItem */
+        foreach ($order->getItems() as $ordetItem) {
+            $qty[] = $ordetItem->getItemQuantity();
+        }
+
+        return implode(', ', $qty);
+    }
+
+    protected function getItemPrice(Order $order): string
+    {
+        $price = [];
+        /* @var OrderItem $ordetItem */
+        foreach ($order->getItems() as $ordetItem) {
+            $price[] = number_format($ordetItem->getIndividualItemPrice(), 2);
+        }
+
+        return implode(', ', $price);
     }
 }
