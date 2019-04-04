@@ -32,6 +32,13 @@ class Export implements ExportDocumentInterface
         'County' => 'county',
         'Postcode' => 'postcode',
         'Country' => 'country',
+        'Customs description' => 'customsDescription',
+        'Customs code' => 'customsCode',
+        'Country of origin' => 'countryOfOrigin',
+        'Quantity' => 'quantity',
+        'Unit price' => 'unitPrice',
+
+        //Unit price
     ];
     protected $rows = [];
 

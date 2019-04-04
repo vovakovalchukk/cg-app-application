@@ -126,6 +126,11 @@ class Exporter implements ExporterInterface
                     'county' => $order->getShippingAddressCountyForCourier(),
                     'postcode' => $order->getShippingAddressPostcodeForCourier(),
                     'country' => $order->getShippingAddressCountryForCourier(),
+                    'customsDescription' => '',
+                    'customsCode' => '',
+                    'countryOfOrigin' => '',
+                    'quantity' => '',
+                    'unitPrice' => '',
                 ]
             );
         }
