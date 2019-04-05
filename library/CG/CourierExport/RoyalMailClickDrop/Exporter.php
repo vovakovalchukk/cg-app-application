@@ -103,6 +103,7 @@ class Exporter implements ExporterInterface
         $packageType = $orderData['packageType'] ?? '';
         $serviceCode = $this->getServiceCode($orderData['service'] ?? '', $packageType, $addOn);
         $signature = $this->getSignatureSelection($addOn);
+
         foreach ($orderParcelsData as $orderParcelData) {
             foreach ($orderItemsData as $orderItemId => $orderItemData) {
 
