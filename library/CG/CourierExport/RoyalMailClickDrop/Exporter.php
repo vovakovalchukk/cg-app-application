@@ -97,12 +97,6 @@ class Exporter implements ExporterInterface
         OrganisationUnit $rootOu,
         User $user
     ) {
-//        print_r($orderData);
-//
-//        print_r($orderItemsData);
-//
-//        print_r($orderParcelsData);
-
         [$title, $firstName, $lastName] = $this->parseName($fullName = trim($order->getShippingAddressFullNameForCourier()));
 
         $addOn = $orderData['addOn'] ?? [];
@@ -115,25 +109,12 @@ class Exporter implements ExporterInterface
                 /** @var OrderItems $orderItems */
                 $orderItems = $order->getItems();
 
-
                 /** @var OrderItem $orderItem */
-
-//                print_r($orderItemId);
-//                echo "<br>";
-
-//                echo "<pre>";
-//                print_r($orderItems);
-//                echo "</pre>";
-
                 $orderItem = $orderItems->getById($orderItemId);
 
                 if (!isset($orderItem)) {
                     continue;
                 }
-
-//                echo "<pre>";
-//                print_r($orderItem);
-//                echo "</pre>";
 
                 $export->addRowData(
                     [
