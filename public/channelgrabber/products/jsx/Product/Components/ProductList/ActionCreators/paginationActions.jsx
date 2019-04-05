@@ -1,5 +1,6 @@
 import productActions from 'Product/Components/ProductList/ActionCreators/productActions';
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions';
+import expandActions from 'Product/Components/ProductList/ActionCreators/expandActions';
 
 "use strict";
 
@@ -20,6 +21,7 @@ let paginationActions = (function() {
                 await dispatch(productActions.getProducts(desiredPageNumber, searchTerm));
                 dispatch(productActions.moveVerticalScrollbarToTop());
                 dispatch(rowActions.updateRowsForPortals());
+                dispatch(expandActions.changeStatusExpandAll('collapsed'));
             }
         },
         changeLimit: desiredLimit => {

@@ -32,6 +32,7 @@ return [
                     'trackingInfo' => Module::PUBLIC_FOLDER . 'template/columns/trackingInfo.mustache',
                     'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
                     'linkedOrdersPopup' => Module::PUBLIC_FOLDER . 'template/popup/linkedOrders.mustache',
+                    'customisation' => Module::PUBLIC_FOLDER . 'template/columns/customisation.mustache',
                 ],
                 'courierReview' => [
                     'customSelect' => UiModule::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
@@ -66,6 +67,7 @@ return [
                     'saturday' => Module::PUBLIC_FOLDER . 'template/courier/columns/saturday.mustache',
                     'cost' => Module::PUBLIC_FOLDER . 'template/courier/columns/cost.mustache',
                     'insuranceOptions' => Module::PUBLIC_FOLDER . 'template/courier/columns/insuranceOptions.mustache',
+                    'harmonisedSystemCode' => Module::PUBLIC_FOLDER . 'template/courier/columns/harmonisedSystemCode.mustache',
                 ],
             ],
         ],
