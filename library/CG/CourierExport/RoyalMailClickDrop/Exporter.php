@@ -10,14 +10,10 @@ use CG\Order\Shared\Label\Collection as OrderLabels;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\ShippableInterface as Order;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as User;
 
-class Exporter implements ExporterInterface, LoggerAwareInterface
+class Exporter implements ExporterInterface
 {
-    use LogTrait;
-
     const COUNTRY_NAME_UK = 'United Kingdom';
 
     protected $serviceMap = [
@@ -101,15 +97,11 @@ class Exporter implements ExporterInterface, LoggerAwareInterface
         OrganisationUnit $rootOu,
         User $user
     ) {
-        print_r($orderData);
-
-        print_r($orderItemsData);
-
-        print_r($orderParcelsData);
-
-        $this->logDebugDump($orderItemsData, 'OItemsData', [], 'MYTEST');
-        $this->logDebugDump($orderParcelsData, 'OParcelsData', [], 'MYTEST');
-
+//        print_r($orderData);
+//
+//        print_r($orderItemsData);
+//
+//        print_r($orderParcelsData);
 
         [$title, $firstName, $lastName] = $this->parseName($fullName = trim($order->getShippingAddressFullNameForCourier()));
 
@@ -124,9 +116,24 @@ class Exporter implements ExporterInterface, LoggerAwareInterface
                 $orderItems = $order->getItems();
 
 
-                //@todo check if not null
                 /** @var OrderItem $orderItem */
+
+//                print_r($orderItemId);
+//                echo "<br>";
+
+//                echo "<pre>";
+//                print_r($orderItems);
+//                echo "</pre>";
+
                 $orderItem = $orderItems->getById($orderItemId);
+
+                if (!isset($orderItem)) {
+                    continue;
+                }
+
+//                echo "<pre>";
+//                print_r($orderItem);
+//                echo "</pre>";
 
                 $export->addRowData(
                     [
@@ -157,7 +164,7 @@ class Exporter implements ExporterInterface, LoggerAwareInterface
                         'country' => $order->getShippingAddressCountryForCourier(),
                         'productSku' => $orderItem->getItemSku(),
                         'customsDescription' => $orderItem->getItemName(),
-                        'customsCode' => $orderParcelData['harmonisedSystemCode'] ?? '',
+                        'customsCode' => $orderItemData['harmonisedSystemCode'] ?? '',
                         'countryOfOrigin' => static::COUNTRY_NAME_UK,
                         'quantity' => $orderItem->getItemQuantity(),
                         'unitPrice' => $orderItem->getIndividualItemPrice(),
