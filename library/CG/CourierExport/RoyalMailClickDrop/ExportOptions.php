@@ -97,7 +97,7 @@ class ExportOptions implements ExportOptionsInterface
 
     public function getDefaultExportOptions($serviceCode = null): array
     {
-        return ['packageType', 'addOns', 'collectionDate', 'deliveryInstructions', 'weight'];
+        return ['packageType', 'addOns', 'collectionDate', 'deliveryInstructions', 'weight', 'harmonisedSystemCode'];
     }
 
     public function addCarrierSpecificDataToListArray(array $data): array
