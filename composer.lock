@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f8a26def01a9387a80da89386b36dd7",
+    "content-hash": "3277fe0fdc74db9d30f17997ad86a158",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3732,16 +3732,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1"
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.0-e7358b.zip",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.1-63208e.zip",
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391",
                 "shasum": null
             },
             "require": {
@@ -3765,7 +3765,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-28T12:08:33+00:00"
+            "time": "2019-04-08T13:52:43+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
