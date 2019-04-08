@@ -300,7 +300,6 @@ function getIncPOStockInAvailableFromProducts(products) {
     return incPOStockInAvailable;
 }
 
-
 function applyStockModes(stockModes, row, currentStock, value) {
     if (!stockModes.byProductId[row.id]) {
         stockModes.byProductId[row.id] = {};
