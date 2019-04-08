@@ -1,4 +1,5 @@
 import stateUtility from 'Product/Components/ProductList/stateUtility';
+import LowStockInputs from "../Components/LowStockInputs";
 
 "use strict";
 
@@ -121,6 +122,101 @@ let actionCreators = (function() {
                 });
                 return response;
             }
+        },
+        extractIncPOStockInAvailableFromProducts: (products) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT",
+                    payload: {
+                        products
+                    }
+                });
+            }
+        },
+        storeLowStockThreshold: (products) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "STORE_LOW_STOCK_THRESHOLD",
+                    payload: {
+                        products
+                    }
+                });
+            }
+        },
+        lowStockChange: (productId, type, newValue) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "LOW_STOCK_CHANGE",
+                    payload: {
+                        productId, newValue, type
+                    }
+                });
+            }
+        },
+        lowStockReset: (productId) => {
+            return function(dispatch) {
+                dispatch({
+                    type: "LOW_STOCK_RESET",
+                    payload: {
+                        productId
+                    }
+                });
+            }
+        },
+        saveLowStockToBackend: (productId, toggle, value) => {
+            return async function (dispatch) {
+                n.notice('Updating low stock threshold...', true);
+                try {
+                    let response = await updateLowStock(
+                        productId,
+                        toggle,
+                        formatLowStockValue(toggle, value)
+                    );
+                    let responseForProduct = {};
+
+                    n.success('The low stock threshold was updates successfully');
+
+                    Object.keys(response.products).forEach((productId) => {
+                        responseForProduct = response.products[productId];
+                        dispatch({
+                            type: "LOW_STOCK_UPDATE_SUCCESSFUL",
+                            payload: {
+                                productId: productId,
+                                toggle: responseForProduct.lowStockThresholdToggle,
+                                value: responseForProduct.lowStockThresholdValue
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error(error);
+                    n.error('There was an error while saving the low stock threshold. Please try again or contact support if the problem persists');
+                    actionCreators.lowStockReset(productId);
+                }
+            }
+        },
+        updateIncPOStockInAvailable: (productId, e) => {
+            let desiredVal = e.value;
+            return async function(dispatch) {
+                try {
+                    n.notice('Updating Purchase Order stock preference.');
+                    let response = await updateIncPOStockInAvailable(productId, desiredVal);
+                    dispatch({
+                        type: "INC_PO_STOCK_UPDATE_SUCCESS",
+                        payload: {
+                            productId,
+                            desiredVal,
+                            response
+                        }
+                    });
+                } catch (error) {
+                    dispatch({
+                        type: "INC_PO_STOCK_UPDATE_FAILURE",
+                        payload: {
+                            error
+                        },
+                    })
+                }
+            }
         }
     }
 }());
@@ -165,7 +261,7 @@ function updateStockMode(id, value) {
         success: response => (response),
         error: error => (error)
     });
-};
+}
 
 function updateStock(data) {
     return $.ajax({
@@ -178,10 +274,48 @@ function updateStock(data) {
     });
 }
 
+function updateLowStock(productId, toggle, value) {
+    return $.ajax({
+        url: "products/lowStockThreshold",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            productId: productId,
+            lowStockThresholdToggle: toggle,
+            lowStockThresholdValue: value
+        },
+        success: response => (response),
+        error: error => (error)
+    });
+}
+
+async function updateIncPOStockInAvailable(productId, includePurchaseOrders) {
+    return $.ajax({
+        url: '/products/includePurchaseOrders',
+        data: {productId, includePurchaseOrders},
+        method: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            return response;
+        },
+        error: function(error) {
+            return error;
+        }
+    });
+}
+
 function stockModeHasBeenEdited(productStock, stock, rowData) {
     return stock.stockModes.byProductId[rowData.id] && stock.stockModes.byProductId[rowData.id].valueEdited;
 }
 
 function stockLevelHasBeenEdited(productStock, stock, rowData) {
     return stock.stockLevels.byProductId[rowData.id] && stock.stockLevels.byProductId[rowData.id].valueEdited;
+}
+
+function formatLowStockValue(toggle, value) {
+    if (toggle !== LowStockInputs.optionValueOn) {
+        return null;
+    }
+
+    return value;
 }

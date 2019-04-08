@@ -1,16 +1,15 @@
 import reducerCreator from 'Common/Reducers/creator';
 
-var initialState = {
+let initialState = {
     columnSettings: []
 };
 
-var ColumnsReducer = reducerCreator(initialState, {
+let ColumnsReducer = reducerCreator(initialState, {
     "COLUMNS_GENERATE_SETTINGS": function(state, action) {
-        let newState = Object.assign({}, state, {
+        return Object.assign({}, state, {
             columnSettings: action.payload.columnSettings
         });
-        return newState;
     }
 });
 
-export default ColumnsReducer
+export default ColumnsReducer;

@@ -12,6 +12,7 @@ import ProductListRoot from 'Product/Components/ProductList/Root';
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 import tabActions from 'Product/Components/ProductList/ActionCreators/tabActions';
 import pickLocationsActions from 'Product/Components/ProductList/ActionCreators/pickLocationsActions';
+import expandActions from "./ActionCreators/expandActions";
 
 var enhancer = applyMiddleware(thunk);
 
@@ -45,6 +46,7 @@ class ProductListProvider extends React.Component {
         const {massUnit, lengthUnit, vatRates} = this.props;
         store.dispatch(productActions.storeAccountFeatures(this.props.features));
         store.dispatch(productActions.storeStockModeOptions(this.props.stockModeOptions));
+        store.dispatch(productActions.storeIncPOStockInAvailableOptions(this.props.incPOStockInAvailableOptions));
         store.dispatch(userSettingsActions.storeMetrics({massUnit, lengthUnit}));
         store.dispatch(vatActions.storeVatRates(vatRates));
         store.dispatch(pickLocationsActions.storePickLocationNames(this.props.pickLocations));
@@ -54,12 +56,18 @@ class ProductListProvider extends React.Component {
             store.dispatch(tabActions.showStockTab());
         }
 
+        store.dispatch(expandActions.changeStatusExpandAll('collapsed'));
+
         let productsResponse = await store.dispatch(productActions.getProducts());
 
-        store.dispatch(columnActions.generateColumnSettings());
+        store.dispatch(columnActions.generateColumnSettings(this.props.features));
+
         store.dispatch(userSettingsActions.storeStockDefaults(
             stateUtility.getDefaultStockModeFromProducts(productsResponse.products),
             stateUtility.getDefaultStockLevelFromProducts(productsResponse.products)
+        ));
+        store.dispatch(userSettingsActions.storeLowStockThresholdDefaults(
+            stateUtility.getLowStockThresholdDefaultsFromProducts(productsResponse.products)
         ));
     }
 

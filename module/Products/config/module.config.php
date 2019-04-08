@@ -127,6 +127,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_LOW_STOCK_THRESHOLD => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/lowStockThreshold',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveLowStockThreshold'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
@@ -134,6 +144,16 @@ return [
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'stockUpdate'
+                            ]
+                        ],
+                    ],
+                    ProductsJsonController::ROUTE_STOCK_INC_PURCHASE_ORDERS => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/includePurchaseOrders',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductStockIncludePurchaseOrders'
                             ]
                         ],
                     ],
@@ -195,6 +215,17 @@ return [
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'linkCsvExport'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
+                    ProductsJsonController::ROUTE_PRODUCT_LINK_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/link/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'linkCsvImport'
                             ]
                         ],
                         'may_terminate' => true
@@ -481,6 +512,16 @@ return [
                                     ]
                                 ]
                             ],
+                            PurchaseOrdersJsonController::FETCH_LOW_STOCK_PRODUCTS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/fetchLowStockProducts',
+                                    'defaults' => [
+                                        'controller' => PurchaseOrdersJsonController::class,
+                                        'action' => 'fetchLowStockProducts'
+                                    ]
+                                ]
+                            ],
                         ],
                     ],
                     CreateListingsJsonController::ROUTE_CREATE_LISTINGS => [
@@ -696,6 +737,8 @@ return [
                 'StockLogOnHandQtyColumn' => DataTable\Column::class,
                 'StockLogAvailableQtyColumnView' => ViewModel::class,
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
+                'StockLogOnPurchaseOrderQtyColumnView' => ViewModel::class,
+                'StockLogOnPurchaseOrderQtyColumn' => DataTable\Column::class,
                 'StockLogOptionsColumnView' => ViewModel::class,
                 'StockLogOptionsColumn' => DataTable\Column::class,
             ],
@@ -1009,6 +1052,7 @@ return [
                         ['column' => 'StockLogOnHandQtyColumn'],
                         ['column' => 'StockLogAllocatedQtyColumn'],
                         ['column' => 'StockLogAvailableQtyColumn'],
+                        ['column' => 'StockLogOnPurchaseOrderQtyColumn'],
                         ['column' => 'StockLogStockManagementColumn'],
                         ['column' => 'StockLogStidColumn'],
                         ['column' => 'StockLogProductIdColumn'],
@@ -1182,6 +1226,20 @@ return [
                     'sortable' => false,
                 ],
             ],
+            'StockLogOnPurchaseOrderQtyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'On Purchase<br/>Order'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogOnPurchaseOrderQtyColumn' => [
+                'parameters' => [
+                    'column' => 'onPurchaseOrderQty',
+                    'viewModel' => 'StockLogOnPurchaseOrderQtyColumnView',
+                    'class' => 'onpurchaseorderqty-col',
+                    'sortable' => false,
+                ],
+            ],
             'StockLogStockManagementColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Stock<br/>Mgmt'],
@@ -1298,7 +1356,6 @@ return [
             ProductsJsonController::class => [
                 'parameters' => [
                     'usageService' => 'order_count_usage_service',
-                    'productsGearmanClient' => 'productGearmanClient'
                 ]
             ],
             StockCsvProgressStorage::class => [

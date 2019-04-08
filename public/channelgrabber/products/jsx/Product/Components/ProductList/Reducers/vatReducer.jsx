@@ -3,6 +3,7 @@ import reducerCreator from 'Common/Reducers/creator';
 "use strict";
 
 let initialState = {
+    countries: {},
     vatRates: [],
     productsVat: {}
 };
@@ -10,13 +11,15 @@ let initialState = {
 let vatReducer = reducerCreator(initialState, {
     "VAT_FROM_PRODUCTS_EXTRACT": function(state, action) {
         let {products} = action.payload;
-        let newProductsVat = getChosenVatFromProducts(products);
+        let countries = getCountries(products);
+        let newProductsVat = getChosenVatFromProducts(products, countries);
 
         let productsVat = Object.assign(state.productsVat, newProductsVat);
         productsVat = sortByKey(productsVat);
 
         let newState = Object.assign({}, state, {
-            productsVat
+            productsVat,
+            countries
         });
         return newState;
     },
@@ -27,14 +30,13 @@ let vatReducer = reducerCreator(initialState, {
         let newState = Object.assign({}, state, {
             vatRates
         });
-
         return newState;
     },
     "VAT_UPDATE_SUCCESS": function(state, action) {
         let {rowId, countryCode, desiredVal, response} = action.payload;
         let newProductsVat = Object.assign({}, state.productsVat);
         n.success('Product tax rate updated successfully.');
-        newProductsVat[rowId][countryCode] = desiredVal;
+        newProductsVat[countryCode].byProductId[rowId].key = desiredVal;
         let newState = Object.assign({}, state, {
             productsVat: newProductsVat
         });
@@ -44,35 +46,52 @@ let vatReducer = reducerCreator(initialState, {
         let error = action.payload;
         n.showErrorNotification(error, "There was an error when attempting to update the product tax rate.");
         return state;
+    },
+    "VAT_SELECT_TOGGLE": function(state, action) {
+        let {productId, countryCode} = action.payload;
+        let vat = Object.assign({}, state);
+        let productVat = vat.productsVat[countryCode].byProductId[productId];
+        productVat.active = true;
+        return vat;
     }
 });
 
 export default vatReducer;
 
-function getChosenVatFromProducts(products) {
-    let productsVat = {};
-    products.forEach(product => {
-        if (!product.taxRates) {
-            console.error('no tax rates set for product:', product);
-            return;
+function applyCountryCodesToState(productsVat, countries) {
+    for (let countryCode of countries.allIds) {
+        productsVat[countryCode] = {
+            byProductId: {}
         }
-        let chosenVats = {
-            productId: product.id
-        };
-        Object.keys(product.taxRates).forEach((countryCode) => {
-            let taxOptionsForCountry = product.taxRates[countryCode];
-            Object.keys(taxOptionsForCountry).forEach(taxOptionKey => {
-                let option = taxOptionsForCountry[taxOptionKey];
+    }
+    return productsVat;
+}
 
+function getChosenVatFromProducts(products, countries) {
+    let productsVat = {
+        allProductIds: []
+    };
+
+    productsVat = applyCountryCodesToState(productsVat, countries);
+    for (let product of products) {
+        if (!product.taxRates) {
+            continue;
+        }
+        productsVat.allProductIds.push(product.id);
+        for (let countryCode of Object.keys(product.taxRates)) {
+            let taxOptionsForCountry = product.taxRates[countryCode];
+            for (let taxOptionKey of Object.keys(taxOptionsForCountry)) {
+                let option = taxOptionsForCountry[taxOptionKey];
                 if (!option.selected) {
-                    return;
+                    continue;
                 }
-                chosenVats[countryCode] = taxOptionKey;
-            });
-        });
-        productsVat[product.id] = chosenVats;
-        return;
-    });
+                productsVat[countryCode].byProductId[product.id] = {
+                    productId: product.id,
+                    key: taxOptionKey
+                };
+            }
+        }
+    }
     return productsVat;
 }
 
@@ -82,6 +101,26 @@ function sortByKey(unordered) {
         ordered[key] = unordered[key];
     });
     return ordered;
+}
+
+function getCountries(products) {
+    let countries = {
+        byId: {},
+        allIds: []
+    };
+    for (let product of products) {
+        if (!product.taxRates) {
+            continue;
+        }
+        for (let countryCode of Object.keys(product.taxRates)) {
+            countries.byId[countryCode] = {
+                countryCode
+            };
+            countries.allIds.push(countryCode);
+        }
+        break;
+    }
+    return countries;
 }
 
 function formatTaxOptions(taxRates) {
@@ -99,7 +138,6 @@ function formatTaxOptions(taxRates) {
             }
         })
     })
-
     return options;
 }
 

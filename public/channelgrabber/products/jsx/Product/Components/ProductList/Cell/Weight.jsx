@@ -10,9 +10,12 @@ class WeightCell extends React.Component {
         rowIndex: null,
         rows: {},
         width: '',
-        rowData: [],
+        rowData: {},
         detail: {},
         scroll: {}
+    };
+    getUniqueInputId = () => {
+        return this.props.rowData.id+'-'+ this.props.columnKey
     };
     getValue = (row) => {
         let detailForId = this.props.detail['weight'].byProductId[row.id];
@@ -61,6 +64,7 @@ class WeightCell extends React.Component {
                 <SafeInputStateless
                     name='weight'
                     step="0.1"
+                    key={this.getUniqueInputId()}
                     submitCallback={this.props.actions.saveDetail.bind(this, rowData, 'weight')}
                     cancelInput={this.props.actions.cancelInput.bind(this, rowData, 'weight')}
                     setIsEditing={this.props.actions.setIsEditing.bind(this, rowData.id, 'weight')}

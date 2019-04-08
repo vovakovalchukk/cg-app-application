@@ -36,7 +36,8 @@ class Mapper
         array $itemsData,
         $shipmentClass,
         $packageClass,
-        OrganisationUnit $rootOu
+        OrganisationUnit $rootOu,
+        $orderData
     ) {
         $caPackageData = [
             'weight' => (isset($parcelData['weight']) && $parcelData['weight'] !== '' ? $this->normaliseWeight($parcelData['weight'], $rootOu->getLocale()) : null),
@@ -45,8 +46,8 @@ class Mapper
             'length' => (isset($parcelData['length']) && $parcelData['length'] !== '' ? $this->normaliseDimension($parcelData['length'], $rootOu->getLocale()) : null),
             'number' => (isset($parcelData['number']) && $parcelData['number'] !== '' ? $parcelData['number'] : null),
         ];
-        if (isset($parcelData['packageType']) && $parcelData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
-            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($parcelData, $shipmentClass);
+        if (isset($orderData['packageType']) && $orderData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
+            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($orderData, $shipmentClass);
         }
         if (isset($parcelData['itemParcelAssignment']) && $parcelData['itemParcelAssignment'] !== '' && is_a($packageClass, PackageContentsInterface::class, true)) {
             $caPackageData['contents'] = $this->ohOrderAndDataToPackageContents($order, $parcelData, $itemsData);
@@ -111,6 +112,12 @@ class Mapper
         if (isset($orderData['saturday'])) {
             $caShipmentData['saturdayDelivery'] = (bool)$orderData['saturday'];
         }
+        if (isset($orderData['insuranceOption'])) {
+            $caShipmentData['insuranceOption'] = $orderData['insuranceOption'];
+        }
+        if (isset($orderData['packageType']) && $orderData['packageType'] !== '' && is_a($shipmentClass, PackageTypesInterface::class, true)) {
+            $caPackageData['type'] = $this->ohParcelDataToCAPackageType($orderData, $shipmentClass);
+        }
 
         return $caShipmentData;
     }
@@ -146,7 +153,7 @@ class Mapper
         foreach ($parcelData['itemParcelAssignment'] as $parcelItemId => $parcelItemQty) {
             $item = $items->getById($parcelItemId);
             $itemData = $itemsData[$parcelItemId];
-            $contents[] = $this->ohItemAndDataToPackageContents($item, $order, $itemData, $parcelItemQty);
+            $contents[] = $this->ohItemAndDataToPackageContents($item, $order, $itemData, $parcelItemQty, $parcelData);
         }
         return $contents;
     }
@@ -155,12 +162,13 @@ class Mapper
         Item $item,
         Order $order,
         array $itemData,
-        $parcelItemQty
+        $parcelItemQty,
+        $parcelData
     ) {
         $itemUnitWeight = $itemData['weight'] / $item->getItemQuantity();
         return new CAPackageContent(
             $item->getItemName(),
-            '',
+            $itemData['harmonisedSystemCode'] ?? '',
             'UK',
             $parcelItemQty,
             $itemUnitWeight,

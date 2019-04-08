@@ -14,6 +14,8 @@ use CG\Courier\Geopost\Interlink\Courier as InterlinkCourier;
 use CG\Courier\Parcelforce\Courier as ParcelforceCourier;
 use CG\Courier\MyHermes\Courier as MyHermesCourier;
 use CG\Hermes\CourierAdapter as HermesCorporateCourier;
+use CG\RoyalMailApi\CourierAdapter as RoyalMailApiCourier;
+use CG\Intersoft\RoyalMail\CourierAdapter as RoyalMailIntersoftCourier;
 
 return [
     'di' => [
@@ -76,6 +78,24 @@ return [
                             'courierFactory' => function(Di $di)
                             {
                                 return $di->get(HermesCorporateCourier::class);
+                            }
+                        ],
+                        [
+                            'channelName' => 'royal-mail-ca',
+                            'displayName' => 'Royal Mail OBA (API)',
+                            'featureFlag' => RoyalMailApiCourier::FEATURE_FLAG,
+                            'courierFactory' => function(Di $di)
+                            {
+                                return $di->get(RoyalMailApiCourier::class);
+                            }
+                        ],
+                        [
+                            'channelName' => 'royal-mail-intersoft-ca',
+                            'displayName' => 'Royal Mail OBA (In)',
+                            'featureFlag' => RoyalMailIntersoftCourier::FEATURE_FLAG,
+                            'courierFactory' => function(Di $di)
+                            {
+                                return $di->get(RoyalMailIntersoftCourier::class);
                             }
                         ],
                     ]

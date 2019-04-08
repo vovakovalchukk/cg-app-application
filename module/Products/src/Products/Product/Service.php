@@ -27,8 +27,11 @@ use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
+use CG\Settings\Product\Entity as ProductSettings;
+use CG\Settings\Product\Service as ProductSettingsService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -36,6 +39,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
+use CG\Stock\Collection as StockCollection;
 use CG\Stock\Filter;
 use CG\Stock\Entity as Stock;
 use CG\Stock\Location\StorageInterface as StockLocationStorage;
@@ -63,6 +67,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LIMIT = 50;
     const PAGE = 1;
     const MAX_FOREGROUND_DELETES = 5;
+    const MAX_SAVE_ATTEMPTS = 2;
     const NAV_KEY_FEATURE_FLAG = 'featureFlag';
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
@@ -70,6 +75,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_MANUAL_STOCK_CHANGE = 'Manual Stock Change';
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
     const LOG_PRODUCT_NAME_ERROR = 'Tried saving product %s with name "%s" but an error occurred';
+    const DETAILTYPES_WITH_UNITS_OF_MEASURE = [
+        'weight' => 'weight',
+        'length' => 'length',
+        'width' => 'width',
+        'height' => 'height',
+    ];
 
     /** @var UserService $userService */
     protected $userService;
@@ -113,6 +124,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $userOuService;
     /** @var ProductLinkNodeService $productLinkNodeService */
     protected $productLinkNodeService;
+    /** @var ProductSettingsService */
+    protected $productSettingsService;
 
     public function __construct(
         UserService $userService,
@@ -134,7 +147,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         RemoveProgressStorage $removeProgressStorage,
         FeatureFlagsService $featureFlagsService,
         UserOuService $userOuService,
-        ProductLinkNodeService $productLinkNodeService
+        ProductLinkNodeService $productLinkNodeService,
+        ProductSettingsService $productSettingsService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -156,6 +170,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->featureFlagsService = $featureFlagsService;
         $this->userOuService = $userOuService;
         $this->productLinkNodeService = $productLinkNodeService;
+        $this->productSettingsService = $productSettingsService;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -187,10 +202,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         } catch (NotFound $exception) {
             $ancestors = [];
         }
-        $stockFilter = (new Filter('all', 1))
-            ->setSku(array_merge([$productSku], $ancestors))
-            ->setOrganisationUnitId([$ouId]);
-        $stockCollection = $this->stockStorage->fetchCollectionByFilter($stockFilter);
+        $stockCollection = $this->fetchStockCollectionBySkusAndOuId(array_merge([$productSku], $ancestors), $ouId);
 
         $stockBySku = [];
         /** @var Stock $stock */
@@ -202,6 +214,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
 
         return $stockBySku;
+    }
+
+    protected function fetchStockCollectionBySkusAndOuId(array $skus, int $ouId): StockCollection
+    {
+        $stockFilter = (new Filter('all', 1))
+            ->setSku($skus)
+            ->setOrganisationUnitId([$ouId]);
+        return $this->stockStorage->fetchCollectionByFilter($stockFilter);
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
@@ -369,7 +389,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         try {
             $accounts = $this->getSalesAccounts();
             foreach ($accounts as $account) {
-                
+
                 if ($account->getStockFixedEnabled()) {
                     $statuses[StockMode::LIST_FIXED] = true;
                 }
@@ -398,20 +418,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService->fetchByFilter($filter);
     }
 
-    public function saveProductDetail($sku, $detail, $value, $id = null)
+    public function saveProductDetail($sku, $detailType, $value, $id = null)
     {
-        $value = is_numeric($value) ? (float) $value : null;
-        $locale = $this->activeUserContainer->getLocale();
-        if ($detail == 'weight') {
-            $displayUnit = LocaleMass::getForLocale($locale);
-            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
-        } else {
-            $displayUnit = LocaleLength::getForLocale($locale);
-            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
+        if ($this->doesDetailTypeHaveUOM($detailType)) {
+            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detailType, $value);
         }
 
         if ($id) {
-            $this->detailService->patchEntity($id, [$detail => $value]);
+            $this->detailService->patchEntity($id, [$detailType => $value]);
         } else {
             /** @var Details $details */
             $details = $this->detailService->save(
@@ -419,7 +433,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                     [
                         'organisationUnitId' => $this->getActiveUserRootOu(),
                         'sku' => $sku,
-                        $detail => $value,
+                        $detailType => $value,
                     ]
                 )
             );
@@ -427,6 +441,41 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
 
         return $id;
+    }
+
+    public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock
+    {
+        $stockCollection = $this->fetchStockCollectionBySkusAndOuId([$product->getSku()],
+            $product->getOrganisationUnitId());
+        /** @var Stock $stock */
+        $stock = $stockCollection->getFirst();
+        return $this->saveStockIncludePurchaseOrders($stock, $includePurchaseOrders);
+    }
+
+    protected function saveStockIncludePurchaseOrders(Stock $stock, ?bool $includePurchaseOrders): Stock
+    {
+        /** @var ProductSettings $productSettings */
+        $productSettings = $this->productSettingsService->fetch($stock->getOrganisationUnitId());
+        for ($attempt = 1; $attempt <= static::MAX_SAVE_ATTEMPTS; $attempt++) {
+            if ($includePurchaseOrders === null) {
+                $stock->setIncludePurchaseOrdersUseDefault(true)
+                    ->setIncludePurchaseOrders($productSettings->isIncludePurchaseOrdersInAvailable());
+            } else {
+                $stock->setIncludePurchaseOrdersUseDefault(false)
+                    ->setIncludePurchaseOrders($includePurchaseOrders);
+            }
+            try {
+                return $this->stockStorage->save($stock);
+            } catch (HttpNotModified $e) {
+                // No-op
+                return $stock;
+            } catch (Conflict $e) {
+                if ($attempt >= static::MAX_SAVE_ATTEMPTS) {
+                    throw $e;
+                }
+                $stock = $this->stockStorage->fetch($stock->getId());
+            }
+        }
     }
 
     protected function getActiveUserPreference()
@@ -480,5 +529,24 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $ou = $this->userOuService->getRootOuByActiveUser();
         return $ou->isVatRegistered();
+    }
+
+    protected function doesDetailTypeHaveUOM(string $detailType)
+    {
+        return isset(static::DETAILTYPES_WITH_UNITS_OF_MEASURE[strtolower($detailType)]);
+    }
+
+    protected function convertDetailValueToInternalUnitOfMeasurement(string $detailType, $value): float
+    {
+        $value = is_numeric($value) ? (float) $value : null;
+        $locale = $this->activeUserContainer->getLocale();
+        if ($detailType == 'weight') {
+            $displayUnit = LocaleMass::getForLocale($locale);
+            $value = Details::convertMass($value, $displayUnit, Details::UNIT_MASS);
+        } else {
+            $displayUnit = LocaleLength::getForLocale($locale);
+            $value = Details::convertLength($value, $displayUnit, Details::UNIT_LENGTH);
+        }
+        return $value;
     }
 }

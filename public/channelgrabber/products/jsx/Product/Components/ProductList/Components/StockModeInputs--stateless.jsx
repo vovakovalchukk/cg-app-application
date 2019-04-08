@@ -1,5 +1,5 @@
 import React from 'react';
-import StatelessSelect from 'Product/Components/ProductList/Components/Select--stateless';
+import StatelessSelect from 'Common/Components/Select--stateless';
 import styled from 'styled-components';
 
 const StockModesContainer = styled.div`
@@ -52,13 +52,8 @@ class StockModeInputsComponent extends React.Component {
 
             let formattedOption = {};
 
-            if (option.value == 'null' || option.title.indexOf('List all') > -1) {
-                formattedOption = {
-                    title: option.title,
-                    value: option.value
-                };
-                shortenedOptions.push(formattedOption);
-                continue;
+            if (option.title.indexOf('List all') > -1 || option.value == 'null') {
+                formattedOption = Object.assign({}, option);
             }
             if (option.title.indexOf('List up to a') > -1) {
                 formattedOption = {
@@ -75,6 +70,7 @@ class StockModeInputsComponent extends React.Component {
 
             shortenedOptions.push(formattedOption);
         }
+
         return shortenedOptions;
     };
 

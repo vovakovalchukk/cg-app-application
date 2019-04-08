@@ -97,16 +97,22 @@ class ExportOptions implements ExportOptionsInterface
 
     public function getDefaultExportOptions($serviceCode = null): array
     {
-        return ['packageType', 'addOns', 'collectionDate', 'deliveryInstructions', 'weight'];
+        return ['packageType', 'addOns', 'collectionDate', 'deliveryInstructions', 'weight', 'harmonisedSystemCode'];
     }
 
     public function addCarrierSpecificDataToListArray(array $data): array
     {
+        $service = null;
+
         foreach ($data as &$row) {
+            if (isset($row['service']) && $row['service'] != '') {
+                $service = $row['service'];
+            }
+
             if ($row['actionRow'] ?? false) {
                 $row = array_merge($row, $this->defaultExportOptions);
-                if (isset($this->serviceExportOptions[$row['service']])) {
-                    $row = array_merge($row, $this->serviceExportOptions[$row['service'] ?? '']);
+                if (isset($this->serviceExportOptions[$service])) {
+                    $row = array_merge($row, $this->serviceExportOptions[$service ?? '']);
                 }
                 $row['deliveryInstructionsRequired'] = true;
             }

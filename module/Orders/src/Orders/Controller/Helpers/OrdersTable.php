@@ -81,7 +81,8 @@ class OrdersTable
             ->mapImageIdsToImages($orders)
             ->mapTrackingUrls($orders)
             ->mapLabelData($orders)
-            ->mapLinkedOrdersData($orderCollection, $orders);
+            ->mapLinkedOrdersData($orderCollection, $orders)
+            ->mapOrderItemCustomisations($orderCollection, $orders);
 
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -326,6 +327,30 @@ class OrdersTable
                     'linkedOrders' => $linkedOrders[$order['id']],
                 ];
             }
+        }
+        return $this;
+    }
+
+    protected function mapOrderItemCustomisations(Orders $orderCollection, &$orders)
+    {
+        foreach ($orders as &$order) {
+            $hasCustomisation = false;
+
+            /** @var Order|null $orderEntity */
+            $orderEntity = $orderCollection->getById($order['id']);
+            if (!$orderEntity) {
+                continue;
+            }
+
+            /** @var Item $orderItemEntity */
+            foreach ($orderEntity->getItems() as $orderItemEntity) {
+                if (!empty($orderItemEntity->getCustomisation())) {
+                    $hasCustomisation = true;
+                    break;
+                }
+            }
+
+            $order['customisation'] = $hasCustomisation;
         }
         return $this;
     }

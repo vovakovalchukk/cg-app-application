@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+import stateUtility from "../stateUtility";
 
 /*
 * the state shape with example entries,
@@ -9,7 +10,6 @@ import reducerCreator from 'Common/Reducers/creator';
 *            1 : {
 *                value: "List up to"
 *                valueEdited: "Fixed At"
-*                active:true
 *            }
 *        }
 *    },
@@ -18,9 +18,17 @@ import reducerCreator from 'Common/Reducers/creator';
 *            1 : {
 *                value: "43"
 *                valueEdited: "10009"
-*                active:true
 *            }
 *        }
+*    },
+*    incPOStockInAvailableOptions: [],
+*    incPOStockInAvailable: {
+*       byProductId: {
+*           1: {
+*               productId: 1,
+*               selected: "default",
+*           }
+*       }
 *    }
 */
 
@@ -31,7 +39,13 @@ let initialState = {
     },
     stockLevels: {
         byProductId: {}
-    }
+    },
+    incPOStockInAvailableOptions: [],
+    incPOStockInAvailable: {
+        byProductId: {}
+    },
+    lowStockThresholdToggle: {},
+    lowStockThresholdValue: {}
 };
 
 let stockModeReducer = reducerCreator(initialState, {
@@ -41,18 +55,15 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockModes = Object.assign({}, state.stockModes);
 
         let stockModeExists = !!state.stockModes.byProductId[productId];
-        stockModes = makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId);
 
         if (stockModeExists) {
             stockModes.byProductId[productId].value = stockModes.byProductId[productId] ? stockModes.byProductId[productId].value : currentStock.stockMode;
-            stockModes.byProductId[productId].active = !stockModes.byProductId[productId].active;
             return applyStockModesToState(stateCopy, stockModes)
         }
 
         stockModes.byProductId[productId] = {
             value: stockModes.byProductId[productId] ? stockModes.byProductId[productId] : currentStock.stockMode,
             valueEdited: '',
-            active: true
         };
         return applyStockModesToState(stateCopy, stockModes)
     },
@@ -74,16 +85,13 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockLevels = Object.assign({}, state.stockLevels);
 
         if (propToChange === "stockMode") {
-            stockModes.byProductId[row.id].value = currentStock.stockMode;
-            stockModes.byProductId[row.id].valueEdited = value;
+            stockModes = applyStockModes(stockModes, row, currentStock, value);
         }
+
         if (propToChange === "stockLevel") {
-            if (!stockLevels.byProductId[row.id]) {
-                stockLevels.byProductId[row.id] = {}
-            }
-            stockLevels.byProductId[row.id].value = currentStock.stockLevel;
-            stockLevels.byProductId[row.id].valueEdited = value;
+            stockLevels = applyStockLevels(stockLevels, row, currentStock, value);
         }
+
         let newState = Object.assign({}, state, {
             stockModes,
             stockLevels
@@ -126,6 +134,128 @@ let stockModeReducer = reducerCreator(initialState, {
         console.error(error);
         n.showErrorNotification(error, "There was an error when attempting to update the stock mode.");
         return state;
+    },
+    "STORE_LOW_STOCK_THRESHOLD": function(state, action) {
+        let products = action.payload.products;
+
+        let lowStockThresholdToggle = Object.assign({}, state.lowStockThresholdToggle);
+        let lowStockThresholdValue = Object.assign({}, state.lowStockThresholdValue);
+
+        products.forEach((product) => {
+            if (stateUtility.isParentProduct(product) || !product.stock) {
+                return;
+            }
+
+            lowStockThresholdToggle[product.id] = {
+                value: product.stock.lowStockThresholdOn,
+                editedValue: product.stock.lowStockThresholdOn,
+                active: false
+            };
+            lowStockThresholdValue[product.id] = {
+                value: product.stock.lowStockThresholdValue,
+                editedValue: product.stock.lowStockThresholdValue
+            };
+        });
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle,
+            lowStockThresholdValue
+        });
+    },
+    "LOW_STOCK_CHANGE": function(state, action) {
+        let {productId, newValue, type} = action.payload;
+
+        return Object.assign({}, state, {
+            [type]: Object.assign({}, state[type], {
+                [productId]: Object.assign({}, state[type][productId], {
+                    editedValue: newValue
+                })
+            })
+        });
+    },
+    "LOW_STOCK_RESET": function(state, action) {
+        let {productId} = action.payload;
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle: Object.assign({}, state.lowStockThresholdToggle, {
+                [productId]: Object.assign({}, state.lowStockThresholdToggle[productId], {
+                    editedValue: state.lowStockThresholdToggle[productId].value,
+                    active: false
+                })
+            }),
+            lowStockThresholdValue: Object.assign({}, state.lowStockThresholdValue, {
+                [productId]: Object.assign({}, state.lowStockThresholdValue[productId], {
+                    editedValue: state.lowStockThresholdValue[productId].value
+                })
+            })
+        });
+    },
+    "LOW_STOCK_UPDATE_SUCCESSFUL": function(state, action) {
+        let {productId, toggle, value} = action.payload;
+
+        return Object.assign({}, state, {
+            lowStockThresholdToggle: Object.assign({}, state.lowStockThresholdToggle, {
+                [productId]: Object.assign({}, state.lowStockThresholdToggle[productId], {
+                    value: toggle,
+                    editedValue: toggle,
+                    active: false
+                })
+            }),
+            lowStockThresholdValue: Object.assign({}, state.lowStockThresholdValue, {
+                [productId]: Object.assign({}, state.lowStockThresholdValue[productId], {
+                    value: value,
+                    editedValue: value
+                })
+            })
+        });
+    },
+    "INC_PO_STOCK_IN_AVAIL_STORE": function(state, action) {
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailableOptions: action.payload.incPOStockInAvailableOptions
+        });
+        return newState;
+    },
+    "INC_PO_STOCK_FROM_PRODUCTS_EXTRACT": function(state, action) {
+        let {products} = action.payload;
+        let newIncPOStockInAvailable = getIncPOStockInAvailableFromProducts(products);
+
+        let newAllProductIds = state.incPOStockInAvailable.allProductIds ? state.incPOStockInAvailable.allProductIds.slice() : [];
+        let newPObyProductId = Object.assign({}, state.incPOStockInAvailable.byProductId);
+
+        newIncPOStockInAvailable.allProductIds.forEach(productId => {
+            newAllProductIds.push(productId);
+        });
+
+        for (let productId in newIncPOStockInAvailable.byProductId) {
+            newPObyProductId[productId] = newIncPOStockInAvailable.byProductId[productId];
+        }
+
+        let incPOStockInAvailable = {
+            byProductId: newPObyProductId,
+            allProductIds: newAllProductIds
+        };
+
+
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailable
+        });
+        return newState;
+    },
+    "INC_PO_STOCK_UPDATE_SUCCESS": function(state, action) {
+        let {productId, desiredVal} = action.payload;
+        let newIncPOStockInAvailable = Object.assign({}, state.incPOStockInAvailable);
+
+        newIncPOStockInAvailable.byProductId[productId].selected = desiredVal;
+        let newState = Object.assign({}, state, {
+            incPOStockInAvailable: newIncPOStockInAvailable
+        });
+        n.success('Product\'s include purchase order stock setting updated successfully.');
+        return newState;
+    },
+    "INC_PO_STOCK_UPDATE_ERROR": function(state, action) {
+        let error = action.payload;
+        n.showErrorNotification(error, "There was an error when attempting to update the product\'s include purchase order stock setting.");
+        return state;
     }
 });
 
@@ -135,17 +265,6 @@ function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {
         stockModes
     });
-}
-
-function makeAllStockModesInactiveApartFromOneAtSpecifiedProductId(stockModes, productId) {
-    stockModes = Object.assign({}, stockModes)
-    Object.keys(stockModes.byProductId).forEach(key => {
-        if (key === productId.toString()) {
-            return;
-        }
-        stockModes.byProductId[key].active = false;
-    });
-    return stockModes;
 }
 
 function isNotTheStockAssociatedWithRow(id, rowData) {
@@ -160,4 +279,41 @@ function resetEditsForRow(values, rowData) {
         values.byProductId[id].valueEdited = '';
     });
     return values;
+}
+
+function getIncPOStockInAvailableFromProducts(products) {
+    let incPOStockInAvailable = {
+        byProductId: {},
+        allProductIds: []
+    };
+    products.forEach(product => {
+        if (!product.stock) {
+            return;
+        }
+        let value = (product.stock.includePurchaseOrdersUseDefault ? 'default' : (product.stock.includePurchaseOrders ? 'on' : 'off'));
+        incPOStockInAvailable.byProductId[product.id] = {
+            productId: product.id,
+            selected: value
+        };
+        incPOStockInAvailable.allProductIds.push(product.id);
+    });
+    return incPOStockInAvailable;
+}
+
+function applyStockModes(stockModes, row, currentStock, value) {
+    if (!stockModes.byProductId[row.id]) {
+        stockModes.byProductId[row.id] = {};
+    }
+    stockModes.byProductId[row.id].value = currentStock.stockMode;
+    stockModes.byProductId[row.id].valueEdited = value;
+    return stockModes;
+}
+
+function applyStockLevels(stockLevels, row, currentStock, value) {
+    if (!stockLevels.byProductId[row.id]) {
+        stockLevels.byProductId[row.id] = {}
+    }
+    stockLevels.byProductId[row.id].value = currentStock.stockLevel;
+    stockLevels.byProductId[row.id].valueEdited = value;
+    return stockLevels;
 }

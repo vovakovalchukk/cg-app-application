@@ -3,7 +3,9 @@ import ProductFilter from 'Product/Filter/Entity'
 import constants from 'Product/Components/ProductList/Config/constants'
 import productLinkActions from 'Product/Components/ProductList/ActionCreators/productLinkActions'
 import vatActions from 'Product/Components/ProductList/ActionCreators/vatActions'
+import nameActions from 'Product/Components/ProductList/ActionCreators/nameActions'
 import stateUtility from 'Product/Components/ProductList/stateUtility'
+import stockActions from '../ActionCreators/stockActions';
 
 "use strict";
 
@@ -11,7 +13,7 @@ const {PRODUCTS_URL} = constants;
 
 var actionCreators = (function() {
     let self = {};
-    
+
     const getProductsRequestStart = () => {
         return {
             type: 'PRODUCTS_GET_REQUEST_START'
@@ -23,12 +25,21 @@ var actionCreators = (function() {
             payload: variationsByParent
         };
     };
-    const expandProductSuccess = (productRowIdToExpand) => {
+    const expandProductSuccess = (productIdToExpand) => {
         return {
             type: 'PRODUCT_EXPAND_SUCCESS',
             payload:
                 {
-                    productRowIdToExpand
+                    productIdToExpand
+                }
+        }
+    };
+    const expandProductsSuccess = (productIdsToExpand) => {
+        return {
+            type: 'PRODUCTS_EXPAND_SUCCESS',
+            payload:
+                {
+                    productIdsToExpand
                 }
         }
     };
@@ -44,6 +55,11 @@ var actionCreators = (function() {
         return {
             type: "PRODUCTS_GET_REQUEST_SUCCESS",
             payload: data
+        }
+    };
+    const getProductsError = function() {
+        return {
+            type: "PRODUCTS_GET_REQUEST_ERROR"
         }
     };
     const updateStockLevelsRequestSuccess = (response) => {
@@ -68,7 +84,33 @@ var actionCreators = (function() {
             type: 'GET'
         });
     };
-    
+
+    const expandHandler = (shouldNotExpand, isMultipleProducts, dispatch, productIds) => {
+        if (shouldNotExpand) {
+            return;
+        }
+        if (isMultipleProducts) {
+            dispatch(expandProductsSuccess(productIds));
+            return;
+        }
+        dispatch(expandProductSuccess(productIds));
+    };
+
+    const handleNewVariations = (data, productIds, dispatch, isMultipleProducts, shouldNotExpand) => {
+        $('#products-loading-message').hide();
+        let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
+        dispatch(getProductVariationsRequestSuccess(variationsByParent));
+
+        expandHandler(shouldNotExpand, isMultipleProducts, dispatch, productIds);
+
+        let skusFromData = getSkusFromData(data);
+        dispatch(productLinkActions.getLinkedProducts(skusFromData));
+
+        dispatch(vatActions.extractVatFromProducts(data.products));
+        dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
+        dispatch(stockActions.storeLowStockThreshold(data.products));
+    };
+
     return {
         storeAccountFeatures: (features) => {
             return {
@@ -86,8 +128,17 @@ var actionCreators = (function() {
                 }
             }
         },
+        storeIncPOStockInAvailableOptions: (incPOStockInAvailableOptions) => {
+            return {
+                type: "INC_PO_STOCK_IN_AVAIL_STORE",
+                payload: {
+                    incPOStockInAvailableOptions
+                }
+            }
+        },
         getProducts: (pageNumber, searchTerm, skuList) => {
             return async function(dispatch, getState) {
+                let state = getState();
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];
@@ -99,15 +150,25 @@ var actionCreators = (function() {
                     dispatch(getProductsRequestStart());
                     data = await fetchProducts(filter);
                 } catch (err) {
+                    dispatch(getProductsError(err));
                     throw 'Unable to load products... error: ' + err;
                 }
+
                 dispatch(vatActions.extractVatFromProducts(data.products));
+                dispatch(stockActions.extractIncPOStockInAvailableFromProducts(data.products));
+                dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
                 if (!data.products.length) {
                     return data;
                 }
                 dispatch(productLinkActions.getLinkedProducts());
+
+                if (state.accounts.features.preFetchVariations) {
+                    dispatch(actionCreators.dispatchGetAllVariations());
+                }
+
+                dispatch(stockActions.storeLowStockThreshold(data.products));
                 return data;
             }
         },
@@ -126,6 +187,21 @@ var actionCreators = (function() {
                 dispatch(updateFetchingStockLevelsForSkus(fetchingStockLevelsForSkus));
             }
         },
+        expandAllProducts(haveFetchedAlready) {
+            return async function(dispatch, getState) {
+                let productIdsToExpand = stateUtility.getAllParentProductIds(getState().products);
+
+                if (!haveFetchedAlready) {
+                    return await actionCreators.dispatchExpandAllVariationsWithAjaxRequest(dispatch, productIdsToExpand);
+                }
+                actionCreators.dispatchExpandAllVariationsWithoutAjaxRequest(dispatch, productIdsToExpand);
+            }
+        },
+        collapseAllProducts() {
+            return {
+                type: "ALL_PRODUCTS_COLLAPSE"
+            }
+        },
         expandProduct: (productRowIdToExpand) => {
             return function(dispatch, getState) {
                 dispatch({
@@ -135,12 +211,11 @@ var actionCreators = (function() {
                     }
                 });
                 let variationsByParent = getState().products.variationsByParent;
-                
+
                 if (variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)) {
-                    dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand);
+                    actionCreators.dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand);
                     return;
                 }
-                
                 actionCreators.dispatchExpandVariationsWithAjaxRequest(dispatch, productRowIdToExpand);
             }
         },
@@ -152,25 +227,46 @@ var actionCreators = (function() {
                 }
             }
         },
-        dispatchExpandVariationsWithAjaxRequest: async (dispatch, productRowId) => {
-            let filter = new ProductFilter(null, productRowId);
-            AjaxHandler.fetchByFilter(filter, fetchProductVariationsCallback);
-            
-            function fetchProductVariationsCallback(data) {
-                $('#products-loading-message').hide();
-                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
-                dispatch(expandProductSuccess(productRowId));
-                let skusFromData = getSkusFromData(data);
-                dispatch(productLinkActions.getLinkedProducts(skusFromData));
-                dispatch(vatActions.extractVatFromProducts(data.products));
+        dispatchGetAllVariations: () => {
+            return async function(dispatch, getState) {
+                let productIds = stateUtility.getAllParentProductIds(getState().products);
+                let filter = new ProductFilter(null, productIds);
+                await AjaxHandler.fetchByFilter(filter, data => {
+                    handleNewVariations(data, productIds, dispatch, true, true);
+                });
             }
+        },
+        dispatchExpandAllVariationsWithAjaxRequest: async (dispatch, productIds) => {
+            let filter = new ProductFilter(null, productIds);
+
+            await AjaxHandler.fetchByFilter(filter, data => {
+                handleNewVariations(data, productIds, dispatch, true);
+            });
+        },
+        dispatchExpandAllVariationsWithoutAjaxRequest: (dispatch, productIds) => {
+            dispatch(expandProductsSuccess(productIds));
+        },
+        dispatchExpandVariationsWithAjaxRequest: (dispatch, productId) => {
+            let filter = new ProductFilter(null, productId);
+
+            AjaxHandler.fetchByFilter(filter, data => {
+                handleNewVariations(data, productId, dispatch, false);
+            });
+        },
+        dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
+            dispatch(getProductVariationsRequestSuccess(variationsByParent));
+            dispatch(expandProductSuccess(productRowIdToExpand));
+            let data = {
+                products: variationsByParent[productRowIdToExpand]
+            };
+            let skusFromData = getSkusFromData(data);
+            dispatch(productLinkActions.getLinkedProducts(skusFromData));
         },
         getVariationsByParentProductId: (parentProductId) => {
             return async function(dispatch) {
                 let filter = new ProductFilter(null, parentProductId);
                 let data = await AjaxHandler.fetchByFilter(filter);
-                
+
                 let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
                 dispatch(getProductVariationsRequestSuccess(variationsByParent));
                 return data;
@@ -208,11 +304,7 @@ var actionCreators = (function() {
             };
         }
     };
-    
-    function dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand) {
-        dispatch(getProductVariationsRequestSuccess(variationsByParent));
-        dispatch(expandProductSuccess(productRowIdToExpand))
-    }
+
 })();
 
 export default actionCreators;

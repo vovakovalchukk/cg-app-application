@@ -13,19 +13,39 @@ let stateUtility = function() {
         getRowData: (products, rowIndex) => {
             return products.visibleRows[rowIndex];
         },
+        getVisibleProducts: (products) => {
+            return products.visibleRows;
+        },
+        getAllParentProductIds: (productsState) => {
+            let visibleProducts = self.getVisibleProducts(productsState);
+            let parentProductIds = [];
+            for (let product of visibleProducts) {
+                if (!self.isParentProduct(product)) {
+                    continue;
+                }
+                parentProductIds.push(product.id);
+            }
+            return parentProductIds;
+        },
         getCellData: (products, columnKey, rowIndex) => {
             let row = products.visibleRows[rowIndex];
             let keyToCellDataMap = {
                 sku: row['sku'],
                 image: getImageData(row),
                 available: stateUtility().getStockAvailable(row),
-                allocated: stateUtility().getAllocatedStock(row)
+                allocated: stateUtility().getAllocatedStock(row),
+                onPurchaseOrder: stateUtility().getOnPurchaseOrderStock(row)
             };
             let cellData = keyToCellDataMap[columnKey];
             if (columnKey.indexOf('dummy') > -1) {
                 cellData = `${columnKey} ${rowIndex}`;
             }
             return cellData;
+        },
+        isCurrentActiveSelect(product, select, columnKey, index){
+            return select.activeSelect.productId === product.id &&
+                select.activeSelect.columnKey === columnKey &&
+                doesIndexMatch(select, index);
         },
         isParentProduct: (rowData) => {
             return rowData.variationCount !== undefined && rowData.variationCount >= 1
@@ -44,6 +64,9 @@ let stateUtility = function() {
         },
         getAllocatedStock: function(rowData) {
             return (rowData.stock ? rowData.stock.locations[0].allocated : '');
+        },
+        getOnPurchaseOrderStock: function(rowData) {
+            return (rowData.stock ? rowData.stock.locations[0].onPurchaseOrder : '');
         },
         getProductIdFromSku(products, sku) {
             return products.find((product) => {
@@ -72,9 +95,25 @@ let stateUtility = function() {
                 return;
             }
             return products[0].stockLevelDefault;
+        },
+        getLowStockThresholdDefaultsFromProducts(products) {
+            if (products.length === 0) {
+                return {
+                    toggle: false,
+                    value: null
+                }
+            }
+
+            return products[0].lowStockThresholdDefault;
+        },
+        getLowStockThresholdForProduct(product, stock) {
+            return {
+                toggle: stock.lowStockThresholdToggle[product.id] ? stock.lowStockThresholdToggle[product.id] : null,
+                value: stock.lowStockThresholdValue[product.id] ? stock.lowStockThresholdValue[product.id] : null
+            }
         }
     };
-    
+
     return self;
 };
 
@@ -89,4 +128,8 @@ function getImageData(row) {
         id: primaryImage.id,
         url: primaryImage.url
     };
+}
+
+function doesIndexMatch(select, index){
+    return index === select.activeSelect.index
 }

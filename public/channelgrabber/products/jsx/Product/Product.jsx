@@ -14,6 +14,7 @@ var Product = function(
     adminCompanyUrl,
     taxRates,
     stockModeOptions,
+    incPOStockInAvailableOptions,
     ebaySiteOptions,
     categoryTemplateOptions,
     conditionOptions,
@@ -38,6 +39,7 @@ var Product = function(
             adminCompanyUrl={adminCompanyUrl}
             taxRates={taxRates}
             stockModeOptions={stockModeOptions}
+            incPOStockInAvailableOptions={incPOStockInAvailableOptions}
             ebaySiteOptions={ebaySiteOptions}
             categoryTemplateOptions={categoryTemplateOptions}
             conditionOptions={conditionOptions}

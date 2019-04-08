@@ -84,9 +84,11 @@ class Service implements
     public function getCategoryDependentValues(?Account $account, int $categoryId): array
     {
         $categoryData = $this->fetchAmazonSpecificCategoryData($categoryId);
+        $marketplace = $this->getMarketplaceForAccount($account);
+
         return [
             'itemSpecifics' => $this->getItemSpecifics($categoryData),
-            'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, null, false),
+            'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, $marketplace, false),
             'variationThemes' => $this->getVariationThemes($categoryData),
         ];
     }
