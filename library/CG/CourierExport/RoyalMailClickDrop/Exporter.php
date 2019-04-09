@@ -117,12 +117,17 @@ class Exporter implements ExporterInterface
                     continue;
                 }
 
+                $weight = $orderParcelData['weight'] ?? '';
+                if ($orderItems->count() > 1) {
+                    $weight = $orderItemData['weight'] ?? '';
+                }
+
                 $export->addRowData(
                     [
                         'orderReference' => $order->getExternalId(),
                         'specialInstructions' => $orderData['deliveryInstructions'] ?? '',
                         'date' => $orderData['collectionDate'] ?? '',
-                        'weight' => $orderItemData['weight'] ?? '',
+                        'weight' => $weight,
                         'packageSize' => $packageType,
                         'subTotal' => $order->getTotal() - $order->getShippingPrice(),
                         'shippingCost' => $order->getShippingPrice(),
