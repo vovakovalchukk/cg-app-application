@@ -143,16 +143,6 @@ let actionCreators = (function() {
                 });
             }
         },
-        lowStockSelectToggle: (productId) => {
-            return function(dispatch) {
-                dispatch({
-                   type: "LOW_STOCK_SELECT_TOGGLE",
-                   payload: {
-                       productId: productId
-                   }
-                });
-            }
-        },
         lowStockChange: (productId, type, newValue) => {
             return function(dispatch) {
                 dispatch({
@@ -203,14 +193,6 @@ let actionCreators = (function() {
                     actionCreators.lowStockReset(productId);
                 }
             }
-        },
-        toggleIncPOStockInAvailableSelect: (productId) => {
-            return {
-                type: 'INC_PO_STOCK_IN_AVAILABLE_TOGGLE',
-                payload: {
-                    productId
-                }
-            };
         },
         updateIncPOStockInAvailable: (productId, e) => {
             let desiredVal = e.value;

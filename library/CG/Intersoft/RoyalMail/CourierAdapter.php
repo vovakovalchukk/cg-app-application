@@ -4,14 +4,19 @@ namespace CG\Intersoft\RoyalMail;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Manifest\GeneratingInterface as ManifestGeneratingInterface;
 use CG\CourierAdapter\Shipment\CancellingInterface;
 use CG\CourierAdapter\ShipmentInterface;
-use CG\Intersoft\RoyalMail\DeliveryService\Service as DeliveryServiceService;
 use CG\Intersoft\Credentials\FormFactory as CredentialsFormFactory;
+use CG\Intersoft\Manifest\Generator as ManifestGenerator;
+use CG\Intersoft\RoyalMail\DeliveryService\Service as DeliveryServiceService;
+use CG\Intersoft\RoyalMail\Shipment\Booker as ShipmentBooker;
 use Psr\Log\LoggerInterface;
+use CG\Intersoft\RoyalMail\Shipment\Canceller as ShipmentCanceller;
 
-class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface
+class CourierAdapter implements CourierInterface, LocalAuthInterface, CancellingInterface, ManifestGeneratingInterface
 {
+    const CARRIER_CODE = 'RMG';
     const FEATURE_FLAG = 'Royal Mail Intersoft';
 
     /** @var CredentialsFormFactory */
@@ -21,13 +26,25 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     protected $logger;
     /** @var DeliveryServiceService */
     protected $deliveryServiceService;
+    /** @var ShipmentBooker */
+    protected $shipmentBooker;
+    /** @var ShipmentCanceller */
+    protected $shipmentCanceller;
+    /** @var ManifestGenerator */
+    protected $manifestGenerator;
 
     public function __construct(
         CredentialsFormFactory $credentialsFormFactory,
-        DeliveryServiceService $deliveryServiceService
+        DeliveryServiceService $deliveryServiceService,
+        ShipmentBooker $shipmentBooker,
+        ShipmentCanceller $shipmentCanceller,
+        ManifestGenerator $manifestGenerator
     ) {
         $this->credentialsFormFactory = $credentialsFormFactory;
         $this->deliveryServiceService = $deliveryServiceService;
+        $this->shipmentBooker = $shipmentBooker;
+        $this->shipmentCanceller = $shipmentCanceller;
+        $this->manifestGenerator = $manifestGenerator;
     }
 
     /**
@@ -43,7 +60,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function bookShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-386
+        $this->logger->debug('Booking Royal Mail Intersoft shipment for Account {account}', ['account' => $shipment->getAccount()->getId()]);
+        return ($this->shipmentBooker)($shipment);
     }
 
     /**
@@ -93,7 +111,9 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function cancelShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-386
+        $this->logger->debug('Cancelling Royal Mail Intersoft shipment for order {order} and Account {account}', ['order' => $shipment->getCustomerReference(), 'account' => $shipment->getAccount()->getId()]);
+        ($this->shipmentCanceller)($shipment);
+        return true;
     }
 
     /**
@@ -102,6 +122,15 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
     public function updateShipment(ShipmentInterface $shipment)
     {
         // TODO in TAC-386
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function generateManifest(Account $account)
+    {
+        $this->logger->debug('Generating manifest for account {account}', ['account' => $account->getId()]);
+        return ($this->manifestGenerator)($account);
     }
 
     /**

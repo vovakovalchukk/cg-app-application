@@ -16,6 +16,9 @@ class LowStockCell extends React.Component {
             lowStockThreshold={stateUtility.getLowStockThresholdForProduct(product, this.props.stock)}
             default={this.getLowStockThresholdDefaults()}
             actions={this.props.actions}
+            select={this.props.select}
+            scroll={this.props.scroll}
+            rows={this.props.rows}
         />
     };
 

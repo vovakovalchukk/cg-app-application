@@ -11,15 +11,15 @@ import headerCellFactory from 'Product/Components/ProductList/Cell/Header/factor
 const {Column} = FixedDataTable;
 
 const columnSpecificPropsMap = {
-    stockMode: ['stock', 'rows', 'userSettings', 'scroll'],
-    includePurchaseOrdersInAvailable: ['rows', 'stock', 'incPOStockInAvailableOptions', 'scroll'],
+    stockMode: ['rows', 'stock', 'userSettings', 'scroll', 'select'],
+    includePurchaseOrdersInAvailable: ['rows', 'stock', 'incPOStockInAvailableOptions', 'scroll', 'select'],
     available: ['rows'],
     dimensions: ['rows', 'detail', 'scroll'],
     weight: ['rows', 'detail', 'scroll'],
-    vat: ['rows', 'vat', 'scroll'],
+    vat: ['rows', 'vat', 'scroll', 'select'],
     bulkSelect: ['bulkSelect'],
-    lowStock: ['stock', 'rows', 'userSettings'],
-    pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect'],
+    lowStock: ['rows', 'stock', 'userSettings', 'scroll', 'select'],
+    pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect', 'select'],
     name: ['rows', 'name', 'focus'],
     productExpand: ['expand'],
     cost: ['rows', 'detail', 'scroll']

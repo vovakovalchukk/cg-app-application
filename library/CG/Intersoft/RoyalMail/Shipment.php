@@ -11,6 +11,7 @@ use CG\CourierAdapter\Shipment\SupportedField\PackagesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\CourierAdapter\ShipmentInterface;
+use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
 use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 use CG\Intersoft\RoyalMail\Shipment\Package;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -20,6 +21,7 @@ use CG\CourierAdapter\InsuranceOptionInterface as InsuranceOption;
 class Shipment implements
     ShipmentInterface,
     DeliveryInstructionsInterface,
+    CollectionAddressInterface,
     CollectionDateInterface,
     PackagesInterface,
     PackageTypesInterface,
@@ -51,22 +53,26 @@ class Shipment implements
     protected $courierReference;
     /** @var InsuranceOption */
     protected $insuranceOption;
+    /** @var AddressInterface */
+    protected $collectionAddress;
 
     public function __construct(
         DeliveryServiceInterface $deliveryService,
         string $customerReference,
         Account $account,
         AddressInterface $deliveryAddress,
+        ?InsuranceOption $insuranceOption,
+        ?AddressInterface $collectionAddress = null,
+        array $packages = [],
         ?string $deliveryInstructions = null,
         ?DateTime $collectionDate = null,
-        array $packages = [],
-        ?bool $signatureRequired = null,
-        ?InsuranceOption $insuranceOption
+        ?bool $signatureRequired = null
     ) {
         $this->deliveryService = $deliveryService;
         $this->customerReference = $customerReference;
         $this->account = $account;
         $this->deliveryAddress = $deliveryAddress;
+        $this->collectionAddress = $collectionAddress;
         $this->deliveryInstructions = $deliveryInstructions;
         $this->collectionDate = $collectionDate;
         $this->packages = $packages;
@@ -81,11 +87,12 @@ class Shipment implements
             $array['customerReference'],
             $array['account'],
             $array['deliveryAddress'],
+            $array['insuranceOption'] ?? null,
+            $array['collectionAddress'] ?? null,
+            $array['packages'] ?? [],
             $array['deliveryInstructions'] ?? null,
             $array['collectionDateTime'] ?? null,
-            $array['packages'] ?? [],
-            $array['signatureRequired'] ?? null,
-            $array['insuranceOption'] ?? null
+            $array['signatureRequired'] ?? null
         );
     }
 
@@ -266,5 +273,13 @@ class Shipment implements
     public function getInsuranceOption()
     {
         return $this->insuranceOption;
+    }
+
+    /**
+     * @return AddressInterface
+     */
+    public function getCollectionAddress()
+    {
+        return $this->collectionAddress;
     }
 }

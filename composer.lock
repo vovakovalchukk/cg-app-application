@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c13dc21fe91c84015bb61431375b56d",
+    "content-hash": "5a404946df258167a2ebc28dbc873b58",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -712,16 +712,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-350-walmart-stock-update",
+            "version": "1.42.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "645407f3a26e200822ce71388fbf84f8e979f434"
+                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-350-walmart-stock-update-d42939.zip",
-                "reference": "645407f3a26e200822ce71388fbf84f8e979f434",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.13-e980b4.zip",
+                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819",
                 "shasum": null
             },
             "require": {
@@ -795,7 +795,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-04-02T13:29:57+00:00"
+            "time": "2019-02-25T10:56:59+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2092,16 +2092,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.16",
+            "version": "1.44.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e04d267628266f5ff797740696a0b10775a93c84"
+                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.16-5a0398.zip",
-                "reference": "e04d267628266f5ff797740696a0b10775a93c84",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.44.0-722fcf.zip",
+                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359",
                 "shasum": null
             },
             "require": {
@@ -2172,7 +2172,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-28T15:03:22+00:00"
+            "time": "2019-04-08T15:31:48+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3732,16 +3732,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1"
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.0-e7358b.zip",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.1-63208e.zip",
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391",
                 "shasum": null
             },
             "require": {
@@ -3765,7 +3765,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-28T12:08:33+00:00"
+            "time": "2019-04-08T13:52:43+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4320,16 +4320,16 @@
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "0272863fd963da51a07c3080d2987f7e6c09049b"
+                "reference": "ac193044cc669fc9dd1675b26167877b0a93dae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-logclient/channelgrabber-zf2-logclient-1.5.0-8452d7.zip",
-                "reference": "0272863fd963da51a07c3080d2987f7e6c09049b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-logclient/channelgrabber-zf2-logclient-1.5.1-944d1b.zip",
+                "reference": "ac193044cc669fc9dd1675b26167877b0a93dae3",
                 "shasum": null
             },
             "require": {
@@ -4362,7 +4362,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2018-10-05T11:13:45+00:00"
+            "time": "2019-04-02T14:27:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -4912,16 +4912,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.9",
+            "version": "1.26.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1e2c3c8aa77b8f61e469cd8ce31cb2a9479666a8"
+                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.9-c54662.zip",
-                "reference": "1e2c3c8aa77b8f61e469cd8ce31cb2a9479666a8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.10-72652d.zip",
+                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc",
                 "shasum": null
             },
             "require": {
@@ -4973,7 +4973,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-03-29T14:13:41+00:00"
+            "time": "2019-04-10T10:34:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11032,17 +11032,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.42.14",
-            "alias_normalized": "1.42.14.0",
-            "version": "dev-TAC-350-walmart-stock-update",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
