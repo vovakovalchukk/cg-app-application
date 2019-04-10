@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c8588483099ef10ce11d0ebeaa2ec05",
+    "content-hash": "5a404946df258167a2ebc28dbc873b58",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4912,16 +4912,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-10508-remove-changelog-widget-from-the-ui",
+            "version": "1.26.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9841ea3994b331e16a4d29ec1b605adeedde3e05"
+                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-10508-remove-changelog-widget-from-the-ui-94100f.zip",
-                "reference": "9841ea3994b331e16a4d29ec1b605adeedde3e05",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.10-72652d.zip",
+                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc",
                 "shasum": null
             },
             "require": {
@@ -4973,7 +4973,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-04-05T11:07:07+00:00"
+            "time": "2019-04-10T10:34:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11032,18 +11032,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.10",
-            "alias_normalized": "1.26.10.0",
-            "version": "dev-CGIV-10508-remove-changelog-widget-from-the-ui",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
