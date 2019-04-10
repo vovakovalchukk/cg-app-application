@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d92754ca443569466e51f590bf8d1b5f",
+    "content-hash": "5c8588483099ef10ce11d0ebeaa2ec05",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2092,16 +2092,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.16",
+            "version": "1.44.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e04d267628266f5ff797740696a0b10775a93c84"
+                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.16-5a0398.zip",
-                "reference": "e04d267628266f5ff797740696a0b10775a93c84",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.44.0-722fcf.zip",
+                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359",
                 "shasum": null
             },
             "require": {
@@ -2172,7 +2172,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-28T15:03:22+00:00"
+            "time": "2019-04-08T15:31:48+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3732,16 +3732,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1"
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.0-e7358b.zip",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.1-63208e.zip",
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391",
                 "shasum": null
             },
             "require": {
@@ -3765,7 +3765,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-28T12:08:33+00:00"
+            "time": "2019-04-08T13:52:43+00:00"
         },
         {
             "name": "channelgrabber/webdriver",

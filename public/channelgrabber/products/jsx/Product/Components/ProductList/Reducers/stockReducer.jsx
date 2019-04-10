@@ -85,16 +85,13 @@ let stockModeReducer = reducerCreator(initialState, {
         let stockLevels = Object.assign({}, state.stockLevels);
 
         if (propToChange === "stockMode") {
-            stockModes.byProductId[row.id].value = currentStock.stockMode;
-            stockModes.byProductId[row.id].valueEdited = value;
+            stockModes = applyStockModes(stockModes, row, currentStock, value);
         }
+
         if (propToChange === "stockLevel") {
-            if (!stockLevels.byProductId[row.id]) {
-                stockLevels.byProductId[row.id] = {}
-            }
-            stockLevels.byProductId[row.id].value = currentStock.stockLevel;
-            stockLevels.byProductId[row.id].valueEdited = value;
+            stockLevels = applyStockLevels(stockLevels, row, currentStock, value);
         }
+
         let newState = Object.assign({}, state, {
             stockModes,
             stockLevels
@@ -264,14 +261,6 @@ let stockModeReducer = reducerCreator(initialState, {
 
 export default stockModeReducer;
 
-function makeAllIncPoStockInAvailableSelectsInactive(stock) {
-    let stockCopy = Object.assign({}, stock);
-    for (let id of Object.keys(stock.incPOStockInAvailable.byProductId)) {
-        delete stock.incPOStockInAvailable.byProductId[id].active;
-    }
-    return stockCopy;
-}
-
 function applyStockModesToState(stateCopy, stockModes) {
     return Object.assign({}, stateCopy, {
         stockModes
@@ -309,4 +298,22 @@ function getIncPOStockInAvailableFromProducts(products) {
         incPOStockInAvailable.allProductIds.push(product.id);
     });
     return incPOStockInAvailable;
+}
+
+function applyStockModes(stockModes, row, currentStock, value) {
+    if (!stockModes.byProductId[row.id]) {
+        stockModes.byProductId[row.id] = {};
+    }
+    stockModes.byProductId[row.id].value = currentStock.stockMode;
+    stockModes.byProductId[row.id].valueEdited = value;
+    return stockModes;
+}
+
+function applyStockLevels(stockLevels, row, currentStock, value) {
+    if (!stockLevels.byProductId[row.id]) {
+        stockLevels.byProductId[row.id] = {}
+    }
+    stockLevels.byProductId[row.id].value = currentStock.stockLevel;
+    stockLevels.byProductId[row.id].valueEdited = value;
+    return stockLevels;
 }
