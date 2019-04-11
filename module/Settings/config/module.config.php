@@ -35,8 +35,8 @@ use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
+use Settings\Controller\AccountController;
 use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
@@ -1020,6 +1020,18 @@ return [
                         ]
                     ]
                 ]
+            ],
+            AccountController::ROUTE_AUTHORISE_ACCOUNT => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/authoriseAccount',
+                    'defaults' => [
+                        'controller' => AccountController::class,
+                        'action' => 'index'
+                    ],
+                    'may_terminate' => true,
+                    'child_routes' => []
+                ],
             ]
         ], 
     ],
