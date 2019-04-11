@@ -159,11 +159,6 @@ var actionCreators = (function() {
                 dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
-
-                if(data.products.length === 1){
-                    dispatch(actionCreators.expandProduct(data.products[0].id));
-                }
-
                 if (!data.products.length) {
                     return data;
                 }
