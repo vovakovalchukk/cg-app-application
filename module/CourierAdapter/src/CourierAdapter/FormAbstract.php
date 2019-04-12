@@ -13,9 +13,15 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CourierAdapter\Account\Service as CAModuleAccountService;
 use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\PluginManager as PluginManager;
+use Zend\Form\Form as ZendForm;
+use Settings\Module as SettingsModule;
+use Settings\Controller\ChannelController;
+use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 
 abstract class FormAbstract implements FormInterface
 {
+    use PrepareAdapterImplementationFieldsTrait;
+
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
     /** @var AccountCreationService */
@@ -66,4 +72,65 @@ abstract class FormAbstract implements FormInterface
     }
 
     abstract public function getFormView(string $shippingChannel, int $accountId,  string $goBackUrl, string $saveUrl): ViewModel;
+
+    protected function prepareAdapterImplementationFormForDisplay(ZendForm $form, array $values = [])
+    {
+        $fieldsOrSets = array_merge($form->getFieldsets(), $form->getElements());
+        $this->prepareAdapterImplementationFieldsForDisplay($fieldsOrSets, $values);
+
+        if (!empty($values)) {
+            $form->setData($values);
+        }
+
+        $form->prepare();
+        // ZendFrom will remove any password values on prepare()
+        $this->reAddPasswordFieldValues($fieldsOrSets, $values);
+    }
+
+    protected function getAdapterFieldsView(
+        ZendForm $form,
+        $channelName,
+        string $goBackUrl,
+        string $saveUrl,
+        $savingNotification = null,
+        $savedNotification = null,
+        $accountId = null
+    ) {
+        if ($accountId) {
+            $goBackUrl .= '/' . $accountId;
+            $saveUrl .= '?accountId=' . $accountId;
+        }
+
+        $view = $this->viewModelFactory->newInstance([
+            'isHeaderBarVisible' => false,
+            'accountId' => $accountId,
+            'channelName' => $channelName,
+            'saveUrl' => $saveUrl,
+            'goBackUrl' => $goBackUrl,
+            'form' => $form,
+            'savingNotification' => $savingNotification,
+            'savedNotification' => $savedNotification,
+        ]);
+        $view
+            ->addChild($this->getButtonView('linkAccount', 'Link Account'), 'linkAccount')
+            ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
+
+        return $view;
+    }
+
+    protected function getButtonView($id, $text)
+    {
+        $buttonView = $this->viewModelFactory->newInstance([
+            'buttons' => true,
+            'value' => $text,
+            'id' => $id
+        ]);
+        $buttonView->setTemplate('elements/buttons.mustache');
+        return $buttonView;
+    }
+
+    protected function getAccountRoute()
+    {
+        return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS]);
+    }
 }
