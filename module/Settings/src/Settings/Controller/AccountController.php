@@ -2,8 +2,8 @@
 namespace Settings\Controller;
 
 use Settings\Account\AuthoriseService;
-use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Account\InvalidTokenException;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
@@ -21,7 +21,9 @@ class AccountController extends AbstractActionController
     {
         try {
             $token = $this->params()->fromQuery('token', null);
-            $this->authoriseService->validateToken($token);
+            $signature = $this->params()->fromQuery('signature', null);
+            $uri = $this->getRequest()->getUri();
+            $this->authoriseService->validateToken($token, $signature, $uri);
         } catch (InvalidTokenException $e) {
             // TODO: redirect to partner's failure URL with status code
         }

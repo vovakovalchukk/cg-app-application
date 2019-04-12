@@ -154,6 +154,10 @@ use CG\Account\Client\Storage\Api as AccountApiStorage;
 
 use CG\Stdlib\SoapClient as CGSoapClient;
 
+// Account Request
+use CG\Account\Request\StorageInterface as AccountRequestStorage;
+use CG\Account\Request\Storage\Api as AccountRequestApiStorage;
+
 // ShipmentMetadata
 use CG\Order\Shared\ShipmentMetadata\StorageInterface as ShipmentMetadataStorage;
 use CG\Order\Shared\ShipmentMetadata\Storage\Api as ShipmentMetadataApiStorage;
@@ -222,6 +226,7 @@ $config = array(
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
                 AccountStorage::class => AccountApiStorage::class,
+                AccountRequestStorage::class => AccountRequestApiStorage::class,
                 PsrLoggerInterface::class => CGPsrLogger::class,
                 ShipmentMetadataStorage::class => ShipmentMetadataApiStorage::class,
                 TokenStorageInterface::class => TokenStorageApi::class,
@@ -612,7 +617,11 @@ $config = array(
                     'client' => 'account_guzzle'
                 ]
             ],
-
+            AccountRequestApiStorage::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
+                ]
+            ],
             CustomerCountRepository::class => [
                 'parameters' => [
                     'storage' => CustomerCountCacheStorage::class,
