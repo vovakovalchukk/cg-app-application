@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "183f3aec0894a2f59e97552aaef0f8d7",
+    "content-hash": "18a57fd804087398e87268931ecc6fa8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -555,16 +555,16 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.5.2.1",
+            "version": "2.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "89581ddad9e5825d18714f2223af884b617d4dc4"
+                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cache/channelgrabber-cache-2.5.2.1-309cae.zip",
-                "reference": "89581ddad9e5825d18714f2223af884b617d4dc4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cache/channelgrabber-cache-2.5.4-ff1414.zip",
+                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a",
                 "shasum": null
             },
             "require": {
@@ -592,7 +592,7 @@
                     "CG\\Cache\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2017-11-29T12:27:08+00:00"
+            "time": "2018-06-21T11:43:26+00:00"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -2061,6 +2061,43 @@
             "time": "2018-10-22T14:13:45+00:00"
         },
         {
+            "name": "channelgrabber/oauth",
+            "version": "dev-TAC-396-partner-authentication",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-oauth.git",
+                "reference": "c4d913ea9f72273fa52ad5e6529e507588afbd7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/oauth/channelgrabber-oauth-dev-TAC-396-partner-authentication-cca5d0.zip",
+                "reference": "c4d913ea9f72273fa52ad5e6529e507588afbd7c",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/cg-predis": "^0.8.8",
+                "channelgrabber/partner": "dev-TAC-396-partner-authentication as 1.0.0",
+                "channelgrabber/stdlib": "^2.16.5",
+                "league/oauth2-server": "~7.3.2",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\OAuth\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\OAuth\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-04-12T08:12:56+00:00"
+        },
+        {
             "name": "channelgrabber/opsgenie",
             "version": "1.2.0",
             "source": {
@@ -2173,6 +2210,44 @@
                 }
             },
             "time": "2019-04-08T15:31:48+00:00"
+        },
+        {
+            "name": "channelgrabber/partner",
+            "version": "dev-TAC-396-partner-authentication",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
+                "reference": "8ca9f643779c90a860147ee4b2bc3cbf04894c74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-396-partner-authentication-6faaa5.zip",
+                "reference": "8ca9f643779c90a860147ee4b2bc3cbf04894c74",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/cache": "^2.5.4",
+                "channelgrabber/cg-predis": "^0.8.8",
+                "channelgrabber/etag": "^1.6.0",
+                "channelgrabber/predis": "dev-TAC-396-partner-authentication as 1.1.3",
+                "channelgrabber/stdlib": "^2.16.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Partner\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Partner\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-04-11T09:49:28+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2426,16 +2501,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "dev-TAC-389-account-request-endpoint",
+            "version": "dev-TAC-396-partner-authentication",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "be1cee2e566b2a61d581be6aeed55deec3f765ac"
+                "reference": "16b594525d061b56c717929f89a19e7f4a3f7d30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-dev-TAC-389-account-request-endpoint-cab009.zip",
-                "reference": "be1cee2e566b2a61d581be6aeed55deec3f765ac",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-dev-TAC-396-partner-authentication-1aef53.zip",
+                "reference": "16b594525d061b56c717929f89a19e7f4a3f7d30",
                 "shasum": null
             },
             "require": {
@@ -2450,7 +2525,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2019-04-11T08:21:48+00:00"
+            "time": "2019-04-10T09:01:50+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -2669,21 +2744,21 @@
         },
         {
             "name": "channelgrabber/purge",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purge.git",
-                "reference": "48533546542a59e02452d747fea8ce4ec8c6462a"
+                "reference": "38be63f2c23610463ff20336ab22ed49fabfd5b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purge/channelgrabber-purge-1.0.5-3bd2b7.zip",
-                "reference": "48533546542a59e02452d747fea8ce4ec8c6462a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purge/channelgrabber-purge-1.0.6-35a14f.zip",
+                "reference": "38be63f2c23610463ff20336ab22ed49fabfd5b9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/gearman": ">=1.1.5,<2.0.0",
-                "composer/composer": "@dev",
+                "channelgrabber/gearman": "^1.1.5",
+                "channelgrabber/stdlib": "^2.16.6",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "predis/predis": "~0.8.3",
@@ -2704,7 +2779,7 @@
                     "CG\\Purge\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-02-17T11:32:22+00:00"
+            "time": "2019-01-29T10:57:06+00:00"
         },
         {
             "name": "channelgrabber/queue",
@@ -3096,40 +3171,40 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.14.3",
+            "version": "1.15.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "26a197189c323aeee7df6476a7d5b389be97f383"
+                "reference": "992bd5930185d2c6b2e9d9b0c436572bc86a0908"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.3-cf3312.zip",
-                "reference": "26a197189c323aeee7df6476a7d5b389be97f383",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.15.2-6be003.zip",
+                "reference": "992bd5930185d2c6b2e9d9b0c436572bc86a0908",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/cache": ">=2.0.1,<3.0.0",
+                "channelgrabber/cache": "^2.0.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/etag": "^1.5.4",
+                "channelgrabber/etag": "^1.7.1",
                 "channelgrabber/http": "^1.3.32",
                 "channelgrabber/log": "^2.2.1",
                 "channelgrabber/permission": "^1.0.1",
-                "channelgrabber/purge": "^1.0.4.1",
-                "channelgrabber/stdlib": "^2.15.0",
-                "channelgrabber/transaction": ">=1.1.3, <2.0.0",
+                "channelgrabber/purge": "^1.0.6",
+                "channelgrabber/stdlib": "^2.16.6",
+                "channelgrabber/transaction": "^1.1.3",
                 "channelgrabber/usage": ">=1.0.5",
                 "channelgrabber/usage-check": "^1.0.0",
                 "channelgrabber/validation": "^1.2.11",
-                "channelgrabber/vnderror": ">=1.0.0",
+                "channelgrabber/vnderror": "^1.0.0",
                 "cilex/cilex": "1.0.1",
-                "league/oauth2-server": "~4.1.3",
                 "nocarrier/hal": "~0.9.4",
+                "nyholm/psr7": "^1.1",
                 "php": ">=7.1",
                 "php-jsonpatch/php-jsonpatch": "~1.2.3",
                 "rhumsaa/vnderror": "1.0.0",
-                "slim/slim": "^2.3.0",
+                "slim/slim": "^2.6.2",
                 "zendframework/zend-di": "^2.2.5",
                 "zendframework/zend-eventmanager": "^2.2.5"
             },
@@ -3156,7 +3231,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-11-01T15:48:16+00:00"
+            "time": "2019-03-18T15:34:03+00:00"
         },
         {
             "name": "channelgrabber/sso",
@@ -5488,6 +5563,69 @@
             "time": "2017-06-21T20:47:04+00:00"
         },
         {
+            "name": "defuse/php-encryption",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "0f407c43b953d571421e0020ba92082ed5fb7620"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/0f407c43b953d571421e0020ba92082ed5fb7620",
+                "reference": "0f407c43b953d571421e0020ba92082ed5fb7620",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": ">= 2",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "nikic/php-parser": "^2.0|^3.0|^4.0",
+                "phpunit/phpunit": "^4|^5"
+            },
+            "bin": [
+                "bin/generate-defuse-key"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Defuse\\Crypto\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "taylor@defuse.ca",
+                    "homepage": "https://defuse.ca/"
+                },
+                {
+                    "name": "Scott Arciszewski",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "authenticated encryption",
+                "cipher",
+                "crypto",
+                "cryptography",
+                "encrypt",
+                "encryption",
+                "openssl",
+                "security",
+                "symmetric key cryptography"
+            ],
+            "time": "2018-07-24T23:27:56+00:00"
+        },
+        {
             "name": "fabpot/goutte",
             "version": "v2.0.4",
             "source": {
@@ -6155,6 +6293,64 @@
             "time": "2017-10-21T13:15:38+00:00"
         },
         {
+            "name": "lcobucci/jwt",
+            "version": "3.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/82be04b4753f8b7693b62852b7eab30f97524f9b",
+                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "mdanter/ecc": "~0.3.1",
+                "mikey179/vfsstream": "~1.5",
+                "phpmd/phpmd": "~2.2",
+                "phpunit/php-invoker": "~1.1",
+                "phpunit/phpunit": "~4.5",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "suggest": {
+                "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Otávio Cobucci Oblonczyk",
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "keywords": [
+                "JWS",
+                "jwt"
+            ],
+            "time": "2018-11-11T12:22:26+00:00"
+        },
+        {
             "name": "league/csv",
             "version": "8.2.3",
             "source": {
@@ -6263,30 +6459,37 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "4.1.6",
+            "version": "7.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "3bec591393b1cc6a3fc02c94d18262e4ffad2e4f"
+                "reference": "c7f499849704ebe2c60b45b6d6bb231df5601d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/3bec591393b1cc6a3fc02c94d18262e4ffad2e4f",
-                "reference": "3bec591393b1cc6a3fc02c94d18262e4ffad2e4f",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/c7f499849704ebe2c60b45b6d6bb231df5601d4a",
+                "reference": "c7f499849704ebe2c60b45b6d6bb231df5601d4a",
                 "shasum": ""
             },
             "require": {
-                "league/event": "~2.1",
-                "php": ">=5.4.0",
-                "symfony/http-foundation": "~2.4|~3.0"
+                "defuse/php-encryption": "^2.1",
+                "ext-openssl": "*",
+                "lcobucci/jwt": "^3.2.2",
+                "league/event": "^2.1",
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0.1"
             },
             "replace": {
                 "league/oauth2server": "*",
                 "lncd/oauth2": "*"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.3.*"
+                "phpstan/phpstan": "^0.9.2",
+                "phpstan/phpstan-phpunit": "^0.9.4",
+                "phpstan/phpstan-strict-rules": "^0.9.0",
+                "phpunit/phpunit": "^6.3 || ^7.0",
+                "roave/security-advisories": "dev-master",
+                "zendframework/zend-diactoros": "^1.3.2"
             },
             "type": "library",
             "autoload": {
@@ -6304,10 +6507,16 @@
                     "email": "hello@alexbilbie.com",
                     "homepage": "http://www.alexbilbie.com",
                     "role": "Developer"
+                },
+                {
+                    "name": "Andy Millington",
+                    "email": "andrew@noexceptions.io",
+                    "homepage": "https://www.noexceptions.io",
+                    "role": "Developer"
                 }
             ],
             "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
-            "homepage": "http://oauth2.thephpleague.com/",
+            "homepage": "https://oauth2.thephpleague.com/",
             "keywords": [
                 "Authentication",
                 "api",
@@ -6323,7 +6532,7 @@
                 "secure",
                 "server"
             ],
-            "time": "2016-09-13T13:42:53+00:00"
+            "time": "2019-03-29T18:19:35+00:00"
         },
         {
             "name": "liuggio/statsd-php-client",
@@ -6694,6 +6903,68 @@
             "time": "2015-09-07T11:14:47+00:00"
         },
         {
+            "name": "nyholm/psr7",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Nyholm/psr7.git",
+                "reference": "701fe7ea8c12c07b985b156d589134d328160cf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/701fe7ea8c12c07b985b156d589134d328160cf7",
+                "reference": "701fe7ea8c12c07b985b156d589134d328160cf7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "php-http/message-factory": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0"
+            },
+            "provide": {
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "http-interop/http-factory-tests": "dev-master",
+                "php-http/psr7-integration-tests": "dev-master",
+                "phpunit/phpunit": "^7.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nyholm\\Psr7\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com"
+                },
+                {
+                    "name": "Martijn van der Ven",
+                    "email": "martijn@vanderven.se"
+                }
+            ],
+            "description": "A fast PHP7 implementation of PSR-7",
+            "homepage": "http://tnyholm.se",
+            "keywords": [
+                "psr-17",
+                "psr-7"
+            ],
+            "time": "2019-02-16T17:20:43+00:00"
+        },
+        {
             "name": "opensoft/rollout",
             "version": "2.2.1",
             "source": {
@@ -6744,6 +7015,101 @@
                 "toggle"
             ],
             "time": "2017-08-01T17:45:55+00:00"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v9.99.99",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "php-http/message-factory",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/message-factory.git",
+                "reference": "a478cb11f66a6ac48d8954216cfed9aa06a501a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/message-factory/zipball/a478cb11f66a6ac48d8954216cfed9aa06a501a1",
+                "reference": "a478cb11f66a6ac48d8954216cfed9aa06a501a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Factory interfaces for PSR-7 HTTP Message",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "stream",
+                "uri"
+            ],
+            "time": "2015-12-19T14:08:53+00:00"
         },
         {
             "name": "php-jsonpatch/php-jsonpatch",
@@ -7240,6 +7606,58 @@
                 "psr-6"
             ],
             "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2018-07-30T21:54:04+00:00"
         },
         {
             "name": "psr/http-message",
@@ -8537,59 +8955,6 @@
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "time": "2017-11-05T15:25:56+00:00"
-        },
-        {
-            "name": "symfony/http-foundation",
-            "version": "v3.3.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5943f0f19817a7e05992d20a90729b0dc93faf36",
-                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.5.9|>=7.0.8",
-                "symfony/polyfill-mbstring": "~1.1"
-            },
-            "require-dev": {
-                "symfony/expression-language": "~2.8|~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\HttpFoundation\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony HttpFoundation Component",
-            "homepage": "https://symfony.com",
-            "time": "2017-11-13T18:13:16+00:00"
         },
         {
             "name": "symfony/polyfill-apcu",
@@ -10899,6 +11264,59 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "symfony/http-foundation",
+            "version": "v3.3.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5943f0f19817a7e05992d20a90729b0dc93faf36",
+                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-mbstring": "~1.1"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-13T18:13:16+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.1.0",
             "source": {
@@ -11040,9 +11458,21 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
-            "version": "dev-TAC-389-account-request-endpoint",
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-TAC-396-partner-authentication",
+            "package": "channelgrabber/oauth"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-TAC-396-partner-authentication",
+            "package": "channelgrabber/partner"
+        },
+        {
+            "alias": "1.1.3",
+            "alias_normalized": "1.1.3.0",
+            "version": "dev-TAC-396-partner-authentication",
             "package": "channelgrabber/predis"
         }
     ],
@@ -11050,6 +11480,8 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/oauth": 20,
+        "channelgrabber/partner": 20,
         "channelgrabber/predis": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
