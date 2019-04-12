@@ -171,38 +171,42 @@ class ProductList extends React.Component {
         return true;
     };
     renderProducts = () => {
-        let rows = this.getVisibleRows();
-        if (!this.isReadyToRenderTable() && !this.hasProducts()) {
-            return;
-        }
-        let height = this.state.productsListContainer.height;
-        let width = this.state.productsListContainer.width;
-        let rowCount = rows.length;
-        if (!this.hasProducts() && this.props.products.haveFetched) {
-            rowCount = 50;
-        }
-        return (
-            <Table
-                rowHeight={styleVars.heights.rowHeight}
-                className={'c-products-data-table'}
-                // add one extra row to provide room for the portalled elements in previous row
-                rowsCount={rowCount + 1}
-                width={width}
-                height={height}
-                headerHeight={styleVars.heights.headerHeight}
-                data={rows}
-                footerHeight={0}
-                groupHeaderHeight={0}
-                showScrollbarX={true}
-                showScrollbarY={true}
-                scrollToColumn={this.props.scroll.currentColumnScrollIndex}
-                scrollToRow={this.props.scroll.currentRowScrollIndex}
-                rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
-                onVerticalScroll={this.onVerticalScroll}
-            >
-                {this.renderColumns()}
-            </Table>
-        )
+        //todo - reinstate this
+//        let rows = this.getVisibleRows();
+//        if (!this.isReadyToRenderTable() && !this.hasProducts()) {
+//            return;
+//        }
+//        let height = this.state.productsListContainer.height;
+//        let width = this.state.productsListContainer.width;
+//        let rowCount = rows.length;
+//        if (!this.hasProducts() && this.props.products.haveFetched) {
+//            rowCount = 50;
+//        }
+        return <div>lunatic</div>
+
+        //todo - reinstate this
+//        return (
+//            <Table
+//                rowHeight={styleVars.heights.rowHeight}
+//                className={'c-products-data-table'}
+//                // add one extra row to provide room for the portalled elements in previous row
+//                rowsCount={rowCount + 1}
+//                width={width}
+//                height={height}
+//                headerHeight={styleVars.heights.headerHeight}
+//                data={rows}
+//                footerHeight={0}
+//                groupHeaderHeight={0}
+//                showScrollbarX={true}
+//                showScrollbarY={true}
+//                scrollToColumn={this.props.scroll.currentColumnScrollIndex}
+//                scrollToRow={this.props.scroll.currentRowScrollIndex}
+//                rowClassNameGetter={this.rowClassNameGetter.bind(this, rows)}
+//                onVerticalScroll={this.onVerticalScroll}
+//            >
+//                {this.renderColumns()}
+//            </Table>
+//        )
     };
     componentDidMount() {
         this.updateDimensions();
