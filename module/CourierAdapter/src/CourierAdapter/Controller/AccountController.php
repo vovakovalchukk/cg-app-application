@@ -20,12 +20,13 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CourierAdapter\Account\Service as CAModuleAccountService;
-use CourierAdapter\Module;
+use CourierAdapter\FormInterface;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Form\Element\Hidden as ZendHiddenElement;
 use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
+use CourierAdapter\Form\Factory as FormFactory;
 
 class AccountController extends AbstractActionController
 {
@@ -57,6 +58,8 @@ class AccountController extends AbstractActionController
     protected $accountService;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
+    /** @var FormFactory */
+    protected $formFactory;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -68,7 +71,8 @@ class AccountController extends AbstractActionController
         CAAddressMapper $caAddressMapper,
         OrganisationUnitService $organisationUnitService,
         AccountService $accountService,
-        CAAccountMapper $caAccountMapper
+        CAAccountMapper $caAccountMapper,
+        FormFactory $formFactory
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -79,46 +83,20 @@ class AccountController extends AbstractActionController
             ->setCAAddressMapper($caAddressMapper)
             ->setOrganisationUnitService($organisationUnitService)
             ->setAccountService($accountService)
-            ->setCAAccountMapper($caAccountMapper);
+            ->setCAAccountMapper($caAccountMapper)
+            ->setFormFactory($formFactory);
     }
 
     public function setupAction()
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
-        $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
-        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
-            $channelName, LocalAuthInterface::class
-        );
-
-        if (!$accountId && $courierInstance instanceof CredentialRequestInterface) {
-            $requestUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_REQUEST, ['channel' => $channelName]);
-            $preInstructions = '<h1>Do you need to request your ' . $adapter->getDisplayName() . ' credentials?</h1>';
-            $preInstructions .= '<p><a href="' . $requestUri . '">Request your credentials</a></p>';
-        }
-
-        $form = $courierInstance->getCredentialsForm();
-        $values = [];
-        if ($accountId) {
-            $values = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
-        }
-        $this->prepareAdapterImplementationFormForDisplay($form, $values);
-
-        $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
-
-        $view = $this->getAdapterFieldsView(
-            $form,
-            $channelName,
-            $saveRoute,
-            'Saving credentials',
-            'Credentials saved',
-            $accountId
-        );
-        if (isset($preInstructions)) {
-            $view->setVariable('preInstructions', $preInstructions);
-        }
-
-        return $view;
+        $goBackUrl = $this->getPluginManager()->get('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
+        $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
+        $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
+        /** @var FormInterface $formService */
+        $formService = ($this->formFactory)($channelName);
+        return $formService->getFormView($channelName, $accountId, $goBackUrl, $saveUrl);
     }
 
     public function requestCredentialsAction()
@@ -428,6 +406,12 @@ class AccountController extends AbstractActionController
     protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
     {
         $this->caAccountMapper = $caAccountMapper;
+        return $this;
+    }
+
+    protected function setFormFactory(FormFactory $formFactory): AccountController
+    {
+        $this->formFactory= $formFactory;
         return $this;
     }
 }
