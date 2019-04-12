@@ -96,7 +96,7 @@ class AccountController extends AbstractActionController
         $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
         /** @var FormInterface $formService */
         $formService = ($this->formFactory)($channelName);
-        return $formService->getFormView($channelName, $accountId, $goBackUrl, $saveUrl);
+        return $formService->getFormView($channelName, $goBackUrl, $saveUrl, $accountId);
     }
 
     public function requestCredentialsAction()

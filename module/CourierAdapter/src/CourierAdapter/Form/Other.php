@@ -2,7 +2,6 @@
 
 namespace CourierAdapter\Form;
 
-use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CourierAdapter\FormAbstract;
 use Zend\View\Model\ViewModel;
 use CG\CourierAdapter\Account\LocalAuthInterface;
@@ -13,7 +12,7 @@ use CourierAdapter\Module;
 
 class Other extends FormAbstract
 {
-    public function getFormView(string $channelName, int $accountId, string $goBackUrl, string $saveUrl): ViewModel
+    public function getFormView(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null): ViewModel
     {
         $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
