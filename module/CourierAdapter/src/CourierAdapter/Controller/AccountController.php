@@ -4,8 +4,8 @@ namespace CourierAdapter\Controller;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Type as ChannelType;
-use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
+use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
@@ -20,16 +20,16 @@ use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CourierAdapter\Account\Email\Service as SupportEmailService;
 use CourierAdapter\Account\Service as CAModuleAccountService;
+use CourierAdapter\Form\Factory as FormFactory;
 use CourierAdapter\FormInterface;
+use CourierAdapter\Module;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Form\Element\Hidden as ZendHiddenElement;
 use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
-use CourierAdapter\Form\Factory as FormFactory;
-use CourierAdapter\Module;
-use CourierAdapter\Account\Email\Service as SupportEmailService;
 
 class AccountController extends AbstractActionController
 {
