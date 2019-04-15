@@ -346,7 +346,8 @@ class AccountController extends AbstractActionController
         $params = $this->params()->fromPost();
         $view = $this->jsonModelFactory->newInstance();
         $account = $this->connectAccount($params);
-        $account->setPending(true);
+        $account->setActive(false);
+        $account->setPending(false);
         $this->accountService->save($account);
         $this->supportEmailService->sendAccountConnectionRequestEmail($account, $params);
         $url = $this->getRedirectUrlForAccount($account);
