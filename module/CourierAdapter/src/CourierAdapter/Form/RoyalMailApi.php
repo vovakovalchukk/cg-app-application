@@ -78,7 +78,7 @@ class RoyalMailApi extends FormAbstract
             'savedNotification' => $savedNotification,
         ]);
         $view
-            ->addChild($this->getButtonView('submitDetails', 'Submit Details'), 'linkAccount')
+            ->addChild($this->getButtonView('linkAccount', 'Submit Details'), 'linkAccount')
             ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
 
         return $view;
