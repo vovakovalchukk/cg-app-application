@@ -55,7 +55,7 @@
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
         "channelgrabber/order": "~1.44.0",
-        "channelgrabber/partner": "dev-TAC-396-partner-authentication as 1.0.0",
+        "channelgrabber/partner": "dev-TAC-390-authorize-account as 1.0.0",
         "channelgrabber/payment": "~1.14.0",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
