@@ -80,13 +80,12 @@ class AuthoriseService implements LoggerAwareInterface
             throw new \InvalidArgumentException('User signature not provided');
         }
 
-        $queryString = http_build_query([
+        $uri->setQuery([
             'token' => $token,
             'secret' => $partner->getClientSecret()
         ]);
 
-        $urlWithSecret = $uri->getScheme() . '//' . $uri->getHost() . $uri->getPath() . '?' .$queryString;
-        $hashedSignature = hash('sha256', $urlWithSecret);
+        $hashedSignature = hash('sha256', $uri->toString());
 
         if (!hash_equals($hashedSignature, $userSignature)) {
             throw new \InvalidArgumentException('The provided user signature is not valid');
