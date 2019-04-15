@@ -27,6 +27,7 @@ use Zend\Form\Element\Hidden as ZendHiddenElement;
 use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use CourierAdapter\Form\Factory as FormFactory;
+use CourierAdapter\Module;
 
 class AccountController extends AbstractActionController
 {
@@ -92,7 +93,7 @@ class AccountController extends AbstractActionController
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
         $goBackUrl = $this->getPluginManager()->get('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
-        $saveRoute = implode('/', [CAAccountSetup::ROUTE, CAAccountSetup::ROUTE_REQUEST, static::ROUTE_REQUEST_SEND]);
+        $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
         $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
         /** @var FormInterface $formService */
         $formService = ($this->formFactory)($channelName);

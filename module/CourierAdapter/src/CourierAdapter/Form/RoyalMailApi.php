@@ -86,17 +86,9 @@ class RoyalMailApi extends FormAbstract
 
     public function getCredentialsForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId)
     {
-        $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
         );
-
-        if (!$accountId && $courierInstance instanceof CredentialRequestInterface) {
-            $requestUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_REQUEST, ['channel' => $channelName]);
-            $preInstructions = '<h1>Do you need to request your ' . $adapter->getDisplayName() . ' credentials?</h1>';
-            $preInstructions .= '<p><a href="' . $requestUri . '">Request your credentials</a></p>';
-        }
-
         $form = $courierInstance->getCredentialsForm();
         $values = [];
         if ($accountId) {
