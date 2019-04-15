@@ -7,7 +7,7 @@ use Zend\Mime\Mime;
 
 class Service
 {
-    const EMAIL_SEND_FROM = 'help@channelgrabber.com';
+    const EMAIL_SEND_FROM = 'no-reply@orderhub.io';
     const EMAIL_SEND_TO = 'help@channelgrabber.com';
     const EMAIL_SUBJECT = 'Courier Account Request';
     const EMAIL_BODY_TEMPLATE = "Hello,\n\nOU %s has requested a courier account with the following details:\n\nChannel: %s,\nCompany Name: %s,\nAddress Line 1: %s,\nAddressLine2: %s,\nAddressLine3: %s,\nTown: %s,\nCounty: %s,\nPostcode: %s,\nContact Name: %s,\nPhone Number: %s,\nEmail Address: %s,\nRoyal Mail Account Number: %s,\nPosting Location: %s,\nOBA Email Address: %s";
