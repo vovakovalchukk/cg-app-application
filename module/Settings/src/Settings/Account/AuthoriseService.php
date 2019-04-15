@@ -26,6 +26,7 @@ class AuthoriseService implements LoggerAwareInterface
     const LOG_MESSAGE_INVALID_TOKEN = 'The provided token is not valid or it has expired: %s';
     const LOG_MESSAGE_NO_SIGNATURE = 'No signature has been provided ';
     const LOG_MESSAGE_INVALID_SIGNATURE = 'The provided signature is not valid. User signature: %s . Computed signature %s';
+    const LOG_MESSAGE_VALID_URL = 'The provided URL is valid: %s';
 
     /** @var AccountRequestService */
     protected $accountRequestService;
@@ -48,12 +49,15 @@ class AuthoriseService implements LoggerAwareInterface
             throw new InvalidTokenException(static::LOG_MESSAGE_NO_TOKEN);
         }
 
+        // We need to save it at this point as the Uri object can get mutated
+        $accessedUrl = $uri->toString();
+
         try {
             $accountRequest = $this->fetchAccountRequest($token);
             /** @var Partner $partner */
             $partner = $this->partnerStorage->fetch($accountRequest->getPartnerId());
         } catch (NotFound $e) {
-            $this->logDebugException($e, static::LOG_MESSAGE_INVALID_TOKEN, [$token], static::LOG_CODE);
+            $this->logWarningException($e, static::LOG_MESSAGE_INVALID_TOKEN, [$token], static::LOG_CODE);
             /** @var Partner $partner */
             throw new InvalidTokenException(static::LOG_MESSAGE_INVALID_TOKEN);
         }
@@ -66,6 +70,8 @@ class AuthoriseService implements LoggerAwareInterface
                 $this->buildRedirectUrlForPartner($partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_INVALID_SIGNATURE)
             );
         }
+
+        $this->logDebug(static::LOG_MESSAGE_VALID_URL, [$accessedUrl], static::LOG_CODE);
     }
 
     protected function fetchAccountRequest(string $token): AccountRequest
@@ -84,7 +90,7 @@ class AuthoriseService implements LoggerAwareInterface
     protected function validateUserSignature(string $token, Partner $partner, ?string $userSignature, Uri $uri): void
     {
         if ($userSignature === null) {
-            $this->logDebug(static::LOG_MESSAGE_NO_SIGNATURE, [], static::LOG_CODE);
+            $this->logWarning(static::LOG_MESSAGE_NO_SIGNATURE, [], static::LOG_CODE);
             throw new \InvalidArgumentException(static::LOG_MESSAGE_NO_SIGNATURE);
         }
 
@@ -96,7 +102,7 @@ class AuthoriseService implements LoggerAwareInterface
         $hashedSignature = hash('sha256', $uri->toString());
 
         if (!hash_equals($hashedSignature, $userSignature)) {
-            $this->logDebug(static::LOG_MESSAGE_INVALID_SIGNATURE, [$userSignature, $hashedSignature], static::LOG_CODE);
+            $this->logWarning(static::LOG_MESSAGE_INVALID_SIGNATURE, [$userSignature, $hashedSignature], static::LOG_CODE);
             throw new \InvalidArgumentException('The provided user signature is not valid');
         }
     }
