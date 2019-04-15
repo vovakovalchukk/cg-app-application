@@ -1,20 +1,22 @@
 <?php
 namespace Settings\Controller;
 
+use Application\Controller\AbstractJsonController;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Settings\Account\AuthoriseService;
 use Settings\Account\InvalidRequestException;
 use Settings\Account\InvalidTokenException;
-use Zend\Mvc\Controller\AbstractActionController;
 
-class AccountController extends AbstractActionController
+class AccountController extends AbstractJsonController
 {
     const ROUTE_AUTHORISE_ACCOUNT = 'authorise_account';
 
     /** @var AuthoriseService */
     protected $authoriseService;
 
-    public function __construct(AuthoriseService $authoriseService)
+    public function __construct(JsonModelFactory $jsonModelFactory, AuthoriseService $authoriseService)
     {
+        parent::__construct($jsonModelFactory);
         $this->authoriseService = $authoriseService;
     }
 
@@ -26,9 +28,14 @@ class AccountController extends AbstractActionController
             $uri = $this->getRequest()->getUri();
             $this->authoriseService->validateRequest($token, $signature, $uri);
         } catch (InvalidTokenException $e) {
-            // TODO: do something about the missing token
+            return $this->buildErrorResponse('Invalid request');
         } catch (InvalidRequestException $e) {
             $this->redirect()->toUrl($e->getRedirectUrl());
+        } catch (\Throwable $e) {
+            // This catch block prevent any undesired behaviours on this page if something goes wrong
+            $this->logErrorException($e);
         }
+
+        return $this->buildErrorResponse('Invalid request');
     }
 }

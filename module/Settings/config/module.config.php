@@ -1029,6 +1029,7 @@ return [
                         'controller' => AccountController::class,
                         'action' => 'index'
                     ],
+                    'sidebar' => false,
                     'may_terminate' => true,
                     'child_routes' => []
                 ],
