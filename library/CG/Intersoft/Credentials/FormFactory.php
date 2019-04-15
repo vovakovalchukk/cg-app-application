@@ -24,4 +24,49 @@ class FormFactory
         ]))->setAttribute('required', true));
         return $form;
     }
+
+    public function getFirstTimeForm()
+    {
+        $form = new Form();
+        $form->add((new Element("companyName", [
+            "label" => "Company Name"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("addressLine1", [
+            "label" => "Address Line 1"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("addressLin2", [
+            "label" => "Address Line 2"
+        ]))->setAttribute('required', false));
+        $form->add((new Element("addressLine3", [
+            "label" => "Address Line 3"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("town", [
+            "label" => "Town"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("county", [
+            "label" => "County"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("postcode", [
+            "label" => "Postcode"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("contactName", [
+            "label" => "Contact Name"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("phoneNumber", [
+            "label" => "Phone Number"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("emailAddress", [
+            "label" => "Email Address"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("royalMailAccountNumber", [
+            "label" => "Royal Mail Account Number"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("royalMailPostingLocation", [
+            "label" => "Royal Mail Posting Location"
+        ]))->setAttribute('required', true));
+        $form->add((new Element("royalMailObaEmailAddress", [
+            "label" => "Royal Mail OBA Email Address"
+        ]))->setAttribute('required', true));
+        return $form;
+    }
 }
