@@ -21,7 +21,7 @@ class RoyalMailApi extends FormAbstract
         return $this->getCredentialsForm($channelName, $goBackUrl, $saveUrl, $accountId);
     }
 
-    public function getNewAccountForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null)
+    public function getNewAccountForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null): ViewModel
     {
         $activeUser = $this->activeUserContainer->getActiveUser();
         /** @var OrganisationUnitEntity $organisationUnit */
@@ -66,7 +66,7 @@ class RoyalMailApi extends FormAbstract
         $savingNotification = null,
         $savedNotification = null,
         $accountId = null
-    ) {
+    ): ViewModel {
         $view = $this->viewModelFactory->newInstance([
             'isHeaderBarVisible' => false,
             'accountId' => $accountId,
@@ -85,7 +85,7 @@ class RoyalMailApi extends FormAbstract
         return $view;
     }
 
-    public function getCredentialsForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId)
+    public function getCredentialsForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId): ViewModel
     {
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
