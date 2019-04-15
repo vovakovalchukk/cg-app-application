@@ -32,7 +32,7 @@ class AccountController extends AbstractJsonController
         } catch (InvalidRequestException $e) {
             $this->redirect()->toUrl($e->getRedirectUrl());
         } catch (\Throwable $e) {
-            // This catch block prevent any undesired behaviours on this page if something goes wrong
+            // This catch block prevents any undesired behaviour on this page if something goes wrong
             $this->logErrorException($e);
         }
 

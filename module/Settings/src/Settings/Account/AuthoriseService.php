@@ -5,9 +5,11 @@ use CG\Account\Request\Collection as AccountRequestCollection;
 use CG\Account\Request\Entity as AccountRequest;
 use CG\Account\Request\Filter as AccountRequestFilter;
 use CG\Account\Request\StorageInterface as AccountRequestService;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Partner\Entity as Partner;
 use CG\Partner\StatusCodes as PartnerStatusCodes;
 use CG\Partner\StorageInterface as PartnerStorage;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -16,6 +18,8 @@ use Zend\Uri\Http as Uri;
 class AuthoriseService implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const MAX_SAVE_RETRIES = 3;
 
     /** @var AccountRequestService */
     protected $accountRequestService;
@@ -50,6 +54,7 @@ class AuthoriseService implements LoggerAwareInterface
         try {
             $this->validateUserSignature($token, $partner, $userSignature, $uri);
         } catch (\InvalidArgumentException $e) {
+            $this->markAccountRequestAsFailed($accountRequest);
             throw new InvalidRequestException(
                 $this->buildRedirectUrlForPartner($partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_INVALID_SIGNATURE)
             );
@@ -100,5 +105,23 @@ class AuthoriseService implements LoggerAwareInterface
         parse_str($uri->getQuery(), $queryArray);
         $queryArray['statusCode'] = $statusCode;
         $uri->setQuery($queryArray);
+    }
+
+    protected function markAccountRequestAsFailed(AccountRequest $accountRequest): void
+    {
+        for ($retry = 0; $retry < static::MAX_SAVE_RETRIES; $retry++) {
+            try {
+                $accountRequest->setStatus(AccountRequest::STATUS_FAILED);
+                $this->accountRequestService->save($accountRequest);
+                return;
+            } catch (NotModified $e) {
+                // Nothing to do, entity already marked as failed
+                return;
+            } catch (Conflict $e) {
+                /** @var AccountRequest $accountRequest */
+                $accountRequest = $this->accountRequestService->fetch($accountRequest->getId());
+                // log here
+            }
+        }
     }
 }
