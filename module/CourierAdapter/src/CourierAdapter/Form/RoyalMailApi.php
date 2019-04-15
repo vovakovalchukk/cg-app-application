@@ -50,7 +50,7 @@ class RoyalMailApi extends FormAbstract
             $form,
             $channelName,
             $goBackUrl,
-            '/mark/test/lol',
+            '/carrier/account/ca-request-connection',
             'Submitting Details',
             'Details Submitted',
             $accountId

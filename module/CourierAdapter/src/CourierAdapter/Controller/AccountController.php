@@ -2,6 +2,7 @@
 namespace CourierAdapter\Controller;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Type as ChannelType;
 use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
@@ -28,6 +29,7 @@ use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use CourierAdapter\Form\Factory as FormFactory;
 use CourierAdapter\Module;
+use CourierAdapter\Account\Email\Service as SupportEmailService;
 
 class AccountController extends AbstractActionController
 {
@@ -38,6 +40,7 @@ class AccountController extends AbstractActionController
     const ROUTE_REQUEST_SEND = 'Send';
     const ROUTE_SAVE_CONFIG = 'Save Config';
     const ROUTE_TEST_PACK_FILE = 'Test Pack File';
+    const ROUTE_REQUEST_CONNECTION = 'Request Connection';
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -61,6 +64,8 @@ class AccountController extends AbstractActionController
     protected $caAccountMapper;
     /** @var FormFactory */
     protected $formFactory;
+    /** @var SupportEmailService */
+    protected $supportEmailService;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -73,7 +78,8 @@ class AccountController extends AbstractActionController
         OrganisationUnitService $organisationUnitService,
         AccountService $accountService,
         CAAccountMapper $caAccountMapper,
-        FormFactory $formFactory
+        FormFactory $formFactory,
+        SupportEmailService $supportEmailService
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -85,7 +91,8 @@ class AccountController extends AbstractActionController
             ->setOrganisationUnitService($organisationUnitService)
             ->setAccountService($accountService)
             ->setCAAccountMapper($caAccountMapper)
-            ->setFormFactory($formFactory);
+            ->setFormFactory($formFactory)
+            ->setSupportEmailService($supportEmailService);
     }
 
     public function setupAction()
@@ -225,11 +232,23 @@ class AccountController extends AbstractActionController
 
     protected function connectAccountAndGetRedirectUrl(array $params)
     {
+        $accountEntity = $this->connectAccount($params);
+        $url = $this->getRedirectUrlForAccount($accountEntity);
+        return $url;
+    }
+
+    protected function connectAccount(array $params): AccountEntity
+    {
         $accountEntity = $this->accountCreationService->connectAccount(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             (isset($params['account']) ? $params['account'] : null),
             $params
         );
+        return $accountEntity;
+    }
+
+    protected function getRedirectUrlForAccount(AccountEntity $accountEntity): string
+    {
         $url = $this->plugin('url')->fromRoute($this->getAccountRoute(), ["account" => $accountEntity->getId(), "type" => ChannelType::SHIPPING]);
         $url .= '/' . $accountEntity->getId();
         return $url;
@@ -320,6 +339,19 @@ class AccountController extends AbstractActionController
         $dataUri = $courierInstance->generateTestPackFile($testPackFile, $caAccount, $caAddress);
 
         return $this->dataUriToFileResponse($dataUri, $testPackFile->getName());
+    }
+
+    public function requestConnectionAction()
+    {
+        $params = $this->params()->fromPost();
+        $view = $this->jsonModelFactory->newInstance();
+        $account = $this->connectAccount($params);
+        $account->setPending(true);
+        $this->accountService->save($account);
+        $this->supportEmailService->sendAccountConnectionRequestEmail($account, $params);
+        $url = $this->getRedirectUrlForAccount($account);
+        $view->setVariable('redirectUrl', $url);
+        return $view;
     }
 
     protected function fetchTestPackFile($fileReference, TestPackInterface $courierInstance)
@@ -413,6 +445,12 @@ class AccountController extends AbstractActionController
     protected function setFormFactory(FormFactory $formFactory): AccountController
     {
         $this->formFactory= $formFactory;
+        return $this;
+    }
+
+    protected function setSupportEmailService(SupportEmailService $supportEmailService): AccountController
+    {
+        $this->supportEmailService = $supportEmailService;
         return $this;
     }
 }
