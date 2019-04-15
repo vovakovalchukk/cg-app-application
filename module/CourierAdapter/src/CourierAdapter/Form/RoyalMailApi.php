@@ -78,6 +78,7 @@ class RoyalMailApi extends FormAbstract
             'savedNotification' => $savedNotification,
         ]);
         $view
+            // The button needs to keep the existing linkAccount ID as this triggers the form submission in the JS
             ->addChild($this->getButtonView('linkAccount', 'Submit Details'), 'linkAccount')
             ->addChild($this->getButtonView('goBack', 'Go Back'), 'goBack');
 
