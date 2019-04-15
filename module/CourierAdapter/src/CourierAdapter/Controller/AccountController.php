@@ -30,6 +30,7 @@ use Settings\Module as SettingsModule;
 use Zend\Form\Element\Hidden as ZendHiddenElement;
 use Zend\Form\Form as ZendForm;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\CourierAdapter\StorageInterface;
 
 class AccountController extends AbstractActionController
 {
@@ -41,6 +42,8 @@ class AccountController extends AbstractActionController
     const ROUTE_SAVE_CONFIG = 'Save Config';
     const ROUTE_TEST_PACK_FILE = 'Test Pack File';
     const ROUTE_REQUEST_CONNECTION = 'Request Connection';
+
+    const ACCOUNT_CONNECTION_REQUEST_KEY_TEMPLATE = '%s-%s-accountConnectionData';
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -66,6 +69,8 @@ class AccountController extends AbstractActionController
     protected $formFactory;
     /** @var SupportEmailService */
     protected $supportEmailService;
+    /** @var StorageInterface */
+    protected $storage;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -79,7 +84,8 @@ class AccountController extends AbstractActionController
         AccountService $accountService,
         CAAccountMapper $caAccountMapper,
         FormFactory $formFactory,
-        SupportEmailService $supportEmailService
+        SupportEmailService $supportEmailService,
+        StorageInterface $storage
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -92,7 +98,8 @@ class AccountController extends AbstractActionController
             ->setAccountService($accountService)
             ->setCAAccountMapper($caAccountMapper)
             ->setFormFactory($formFactory)
-            ->setSupportEmailService($supportEmailService);
+            ->setSupportEmailService($supportEmailService)
+            ->setStorage($storage);
     }
 
     public function setupAction()
@@ -349,6 +356,7 @@ class AccountController extends AbstractActionController
         $account->setActive(false);
         $account->setPending(false);
         $this->accountService->save($account);
+        $this->storage->set($this->getRequestConnectionStorageKey($account), json_encode($params));
         $this->supportEmailService->sendAccountConnectionRequestEmail($account, $params);
         $url = $this->getRedirectUrlForAccount($account);
         $view->setVariable('redirectUrl', $url);
@@ -453,5 +461,16 @@ class AccountController extends AbstractActionController
     {
         $this->supportEmailService = $supportEmailService;
         return $this;
+    }
+
+    protected function setStorage(StorageInterface $storage): AccountController
+    {
+        $this->storage = $storage;
+        return $this;
+    }
+
+    protected function getRequestConnectionStorageKey(AccountEntity $account)
+    {
+        return sprintf(static::ACCOUNT_CONNECTION_REQUEST_KEY_TEMPLATE, $account->getOrganisationUnitId(), $account->getId());
     }
 }
