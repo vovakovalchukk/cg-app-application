@@ -106,12 +106,22 @@ class AccountController extends AbstractActionController
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
+
+        $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
+            $channelName, LocalAuthInterface::class
+        );
+
+        $requestUri = null;
+        if (!$accountId && $courierInstance instanceof CredentialRequestInterface) {
+            $requestUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_REQUEST, ['channel' => $channelName]);
+        }
+
         $goBackUrl = $this->getPluginManager()->get('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
         $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
         /** @var FormInterface $formService */
         $formService = ($this->formFactory)($channelName);
-        return $formService->getFormView($channelName, $goBackUrl, $saveUrl, $accountId);
+        return $formService->getFormView($channelName, $goBackUrl, $saveUrl, $accountId, $requestUri);
     }
 
     public function requestCredentialsAction()
