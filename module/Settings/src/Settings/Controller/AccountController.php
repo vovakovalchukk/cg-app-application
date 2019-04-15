@@ -27,6 +27,9 @@ class AccountController extends AbstractJsonController
             $signature = $this->params()->fromQuery('signature', null);
             $uri = $this->getRequest()->getUri();
             $this->authoriseService->validateRequest($token, $signature, $uri);
+
+            // TODO: this will be removed by TAC-392 once the account creation process is kicked off at this point
+            return $this->buildSuccessResponse();
         } catch (InvalidTokenException $e) {
             return $this->buildErrorResponse('Invalid request');
         } catch (InvalidRequestException $e) {
@@ -34,8 +37,7 @@ class AccountController extends AbstractJsonController
         } catch (\Throwable $e) {
             // This catch block prevents any undesired behaviour on this page if something goes wrong
             $this->logErrorException($e);
+            return $this->buildErrorResponse(   'Invalid request');
         }
-
-        return $this->buildErrorResponse('Invalid request');
     }
 }
