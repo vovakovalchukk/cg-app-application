@@ -71,7 +71,7 @@ abstract class FormAbstract implements FormInterface
         $this->pluginManager = $pluginManager;
     }
 
-    abstract public function getFormView(string $shippingChannel, string $goBackUrl, string $saveUrl, ?int $accountId = null): ViewModel;
+    abstract public function getFormView(string $shippingChannel, string $goBackUrl, string $saveUrl, ?int $accountId = null, ?string $requestUri = null): ViewModel;
 
     protected function prepareAdapterImplementationFormForDisplay(ZendForm $form, array $values = [])
     {

@@ -12,15 +12,14 @@ use CourierAdapter\Module;
 
 class Other extends FormAbstract
 {
-    public function getFormView(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null): ViewModel
+    public function getFormView(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null, ?string $requestUri = null): ViewModel
     {
         $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
         );
 
-        if (!$accountId && $courierInstance instanceof CredentialRequestInterface) {
-            $requestUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_REQUEST, ['channel' => $channelName]);
+        if ($requestUri) {
             $preInstructions = '<h1>Do you need to request your ' . $adapter->getDisplayName() . ' credentials?</h1>';
             $preInstructions .= '<p><a href="' . $requestUri . '">Request your credentials</a></p>';
         }

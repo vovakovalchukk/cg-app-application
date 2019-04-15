@@ -13,7 +13,7 @@ use Zend\Form\Form as ZendForm;
 
 class RoyalMailApi extends FormAbstract
 {
-    public function getFormView(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null): ViewModel
+    public function getFormView(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null, ?string $requestUri = null): ViewModel
     {
         if (!$accountId) {
             return $this->getNewAccountForm($channelName, $goBackUrl, $saveUrl, $accountId);
@@ -21,7 +21,7 @@ class RoyalMailApi extends FormAbstract
         return $this->getCredentialsForm($channelName, $goBackUrl, $saveUrl, $accountId);
     }
 
-    public function getNewAccountForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null): ViewModel
+    public function getNewAccountForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null, ?string $requestUri = null): ViewModel
     {
         $activeUser = $this->activeUserContainer->getActiveUser();
         /** @var OrganisationUnitEntity $organisationUnit */
