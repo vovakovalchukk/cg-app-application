@@ -131,13 +131,6 @@ class StockModeCell extends React.Component {
         }
         return Submits;
     };
-    getRefName() {
-        return stateUtility.getCellRef(
-            this.props.products,
-            this.props.rowIndex,
-            this.props.columnKey
-        );
-    }
     render() {
         const {
             rowIndex,
@@ -160,21 +153,13 @@ class StockModeCell extends React.Component {
             return <span/>
         }
 
-        console.log('this.props in stockMode cell: ', this.props);
-
-
-        let containerElement = this.props.cellRef;
-
-        console.log('containerElement in stockMode: ', containerElement );
-
-
         let portalSettingsParams = {
             elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             allRows: this.props.rows.allIds,
-            containerElement
+            containerElement: this.props.cellNode
         };
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings(portalSettingsParams);

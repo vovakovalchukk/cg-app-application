@@ -1,10 +1,12 @@
 import stateUtility from "../stateUtility";
 import React from "react";
+import ReactDOM from "react-dom";
 import columnKeys from 'Product/Components/ProductList/Column/columnKeys';
 
 let rowData = {};
 
 let cellRefs = {};
+let cellNodes = {};
 
 class CellWrapper extends React.Component {
     render() {
@@ -21,21 +23,21 @@ class CellWrapper extends React.Component {
             )
         }
 
-        console.log('in cellWrapper with this.props', this.props);
-
-
-        let cellRef = stateUtility.getCellRef(
+        let cellIdentifier = stateUtility.getCellIdentifier(
             this.props.products,
             this.props.rowIndex,
             this.props.columnKey
         );
 
+        cellNodes[cellIdentifier] = ReactDOM.findDOMNode(this);
+
         return (
             <CellContent
                 {...this.props}
                 rowData={rowData[rowIndex]}
-                ref={(component) => cellRefs[cellRef] = component}
-                cellRef = {cellRefs[cellRef]}
+                ref={(component) => cellRefs[cellIdentifier] = component}
+                cellRef = {cellRefs[cellIdentifier]}
+                cellNode = {cellNodes[cellIdentifier]}
             />
         )
     };

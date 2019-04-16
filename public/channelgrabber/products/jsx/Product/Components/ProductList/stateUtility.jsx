@@ -112,7 +112,7 @@ let stateUtility = function() {
                 value: stock.lowStockThresholdValue[product.id] ? stock.lowStockThresholdValue[product.id] : null
             }
         },
-        getCellRef(products, rowIndex, columnKey){
+        getCellIdentifier(products, rowIndex, columnKey){
             const row = self.getRowData(products, rowIndex);
             return columnKey + row.id;
         }
