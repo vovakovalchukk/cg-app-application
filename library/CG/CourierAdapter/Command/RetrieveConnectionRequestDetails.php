@@ -1,14 +1,12 @@
 <?php
 namespace CG\CourierAdapter\Command;
 
-use CG\CourierAdapter\Exception\NotFound;
+use CG\CourierAdapter\Provider\Implementation\Storage\Redis as ConcreteStorage;
 use CG\CourierAdapter\StorageInterface as Storage;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RetrieveConnectionRequestDetails
 {
-    const ACCOUNT_CONNECTION_REQUEST_KEY_TEMPLATE = '%s-%s-accountConnectionData';
-
     /** @var Storage */
     protected $storage;
 
@@ -30,6 +28,6 @@ class RetrieveConnectionRequestDetails
 
     protected function getStorageKey(int $ouId, int $shippingAccountId): string
     {
-        return sprintf(static::ACCOUNT_CONNECTION_REQUEST_KEY_TEMPLATE, $ouId, $shippingAccountId);
+        return sprintf(ConcreteStorage::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $ouId, $shippingAccountId);
     }
 }

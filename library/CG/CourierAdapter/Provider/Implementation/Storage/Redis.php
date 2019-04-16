@@ -18,6 +18,7 @@ class Redis implements StorageInterface, LoggerAwareInterface
     const KEY_PREFIX = 'CourierAdapter:';
 
     const CACHE_PARCEL_NUMBER_LOCK_KEY_PREFIX = 'ParcelNumberLock';
+    const SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE = '%s-%s-accountConnectionData';
 
     const LOCK_EXPIRY_SECONDS = 1;
     const LOCK_RETRY_WAIT_MICROSECONDS = 200000;
