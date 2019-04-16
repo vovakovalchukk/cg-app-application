@@ -4,6 +4,8 @@ import columnKeys from 'Product/Components/ProductList/Column/columnKeys';
 
 let rowData = {};
 
+let cellRefs = {};
+
 class CellWrapper extends React.Component {
     render() {
         let {CellContent, products, rowIndex} = this.props;
@@ -18,10 +20,22 @@ class CellWrapper extends React.Component {
                 <span/>
             )
         }
+
+        console.log('in cellWrapper with this.props', this.props);
+
+
+        let cellRef = stateUtility.getCellRef(
+            this.props.products,
+            this.props.rowIndex,
+            this.props.columnKey
+        );
+
         return (
             <CellContent
                 {...this.props}
                 rowData={rowData[rowIndex]}
+                ref={(component) => cellRefs[cellRef] = component}
+                cellRef = {cellRefs[cellRef]}
             />
         )
     };

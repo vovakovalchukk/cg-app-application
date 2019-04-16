@@ -41,14 +41,12 @@ class StockModeCell extends React.Component {
     };
 
     submitInput = () => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
         this.props.actions.saveStockModeToBackend(row);
     };
 
     cancelInput = () => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
         this.props.actions.cancelStockModeEdit(row);
     };
 
@@ -61,16 +59,26 @@ class StockModeCell extends React.Component {
     };
 
     onStockPropChange = (propToChange, event) => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
         let value = propToChange === 'stockMode' ? event.value : event.target.value;
         this.props.actions.changeStockMode(row, value, propToChange);
     };
 
-    getStockModeSelectActive(product) {
+    getStockModeSelectActive(product, containerElement) {
+        if(product.id===1){
+            debugger;
+        }
         let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
+        if(!containerElement){
+            return false;
+        }
+        let elementRect = containerElement.getBoundingClientRect();
 
-        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
+        if (!isCurrentActive ||
+            this.props.scroll.userScrolling ||
+            !this.props.rows.initialModifyHasOccurred ||
+            elementRect.top < 80
+        ) {
             return false;
         }
         return true;
@@ -123,15 +131,21 @@ class StockModeCell extends React.Component {
         }
         return Submits;
     };
+    getRefName() {
+        return stateUtility.getCellRef(
+            this.props.products,
+            this.props.rowIndex,
+            this.props.columnKey
+        );
+    }
     render() {
         const {
-            products,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width
         } = this.props;
 
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
 
         if (!row) {
             return <span />
@@ -146,14 +160,25 @@ class StockModeCell extends React.Component {
             return <span/>
         }
 
-        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+        console.log('this.props in stockMode cell: ', this.props);
+
+
+        let containerElement = this.props.cellRef;
+
+        console.log('containerElement in stockMode: ', containerElement );
+
+
+        let portalSettingsParams = {
             elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows: this.props.rows.allIds
-        });
-        
+            allRows: this.props.rows.allIds,
+            containerElement
+        };
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings(portalSettingsParams);
+
         let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing});
 
         let {
@@ -165,11 +190,10 @@ class StockModeCell extends React.Component {
         let stockLevelPlaceholder = this.props.userSettings.stockLevelDefault;
 
         return (
-            <div>
                 <StockModeCellContainer className={this.props.className}>
                     <DataTablesStockModeInputs
                         inputId={row.id}
-                        selectActive={this.getStockModeSelectActive(row)}
+                        selectActive={this.getStockModeSelectActive(row, containerElement)}
                         stockModeOptions={this.props.stock.stockModeOptions}
                         stockModeType={{
                             input: {
@@ -194,7 +218,6 @@ class StockModeCell extends React.Component {
                     />
                     {Submits}
                 </StockModeCellContainer>
-            </div>
         );
     }
 }
