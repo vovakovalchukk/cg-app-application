@@ -14,7 +14,6 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
-use CG\CourierAdapter\Provider\Implementation\Storage\Redis as ConcreteStorage;
 use CG\CourierAdapter\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
@@ -480,6 +479,6 @@ class AccountController extends AbstractActionController
 
     protected function getRequestConnectionStorageKey(AccountEntity $account)
     {
-        return sprintf(ConcreteStorage::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $account->getOrganisationUnitId(), $account->getId());
+        return sprintf(StorageInterface::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $account->getOrganisationUnitId(), $account->getId());
     }
 }

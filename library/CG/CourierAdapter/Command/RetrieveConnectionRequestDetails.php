@@ -1,7 +1,6 @@
 <?php
 namespace CG\CourierAdapter\Command;
 
-use CG\CourierAdapter\Provider\Implementation\Storage\Redis as ConcreteStorage;
 use CG\CourierAdapter\StorageInterface as Storage;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -28,6 +27,6 @@ class RetrieveConnectionRequestDetails
 
     protected function getStorageKey(int $ouId, int $shippingAccountId): string
     {
-        return sprintf(ConcreteStorage::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $ouId, $shippingAccountId);
+        return sprintf(Storage::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $ouId, $shippingAccountId);
     }
 }
