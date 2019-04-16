@@ -17,13 +17,9 @@ let rowActions = (function() {
             }
         },
         modifyZIndexOfRows: () => {
-            //todo remove this dummy after debug
             return {
-                type:'dummy'
-            }
-//            return {
-//                type: "MODIFY_ZINDEX_OF_ROWS"
-//            };
+                type: "MODIFY_ZINDEX_OF_ROWS"
+            };
         },
         recordVisibleRows: () => {
             return {
