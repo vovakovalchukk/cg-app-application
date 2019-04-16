@@ -36,10 +36,10 @@ class FormFactory
         ]))->setAttribute('required', true));
         $form->add((new Element("addressLine2", [
             "label" => "Address Line 2"
-        ]))->setAttribute('required', false));
+        ]))->setAttribute('required', true));
         $form->add((new Element("addressLine3", [
             "label" => "Address Line 3"
-        ]))->setAttribute('required', true));
+        ]))->setAttribute('required', false));
         $form->add((new Element("town", [
             "label" => "Town"
         ]))->setAttribute('required', true));
