@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a404946df258167a2ebc28dbc873b58",
+    "content-hash": "1d7e34619537d839a3230ae1a7ab7418",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3590,16 +3590,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.5",
+            "version": "dev-TAC-395-allow-partners-to-create-new-ous",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.5-25e866.zip",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-dev-TAC-395-allow-partners-to-create-new-ous-47e390.zip",
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
                 "shasum": null
             },
             "require": {
@@ -3645,7 +3645,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-12-03T14:55:22+00:00"
+            "time": "2019-04-04T07:40:33+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4366,16 +4366,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.5",
+            "version": "dev-TAC-408-prevent-partner-users-password-reset",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "5dac9b71ba6c47cb5e3f386ed1e97ae8c0db9683"
+                "reference": "b54a6779f051385d6e1f1d4b6c7cfb020c457eb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.5-571438.zip",
-                "reference": "5dac9b71ba6c47cb5e3f386ed1e97ae8c0db9683",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-03f1a6.zip",
+                "reference": "b54a6779f051385d6e1f1d4b6c7cfb020c457eb9",
                 "shasum": null
             },
             "require": {
@@ -4421,7 +4421,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2018-11-23T12:42:22+00:00"
+            "time": "2019-04-16T10:00:41+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -11032,10 +11032,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.26.7",
+            "alias_normalized": "1.26.7.0",
+            "version": "dev-TAC-395-allow-partners-to-create-new-ous",
+            "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.6.6",
+            "alias_normalized": "1.6.6.0",
+            "version": "dev-TAC-408-prevent-partner-users-password-reset",
+            "package": "channelgrabber/zf2-login"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
+        "channelgrabber/zf2-login": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
