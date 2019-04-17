@@ -27,6 +27,7 @@ class AuthoriseService implements LoggerAwareInterface
     const LOG_MESSAGE_NO_SIGNATURE = 'No signature has been provided ';
     const LOG_MESSAGE_INVALID_SIGNATURE = 'The provided signature is not valid. User signature: %s . Computed signature %s';
     const LOG_MESSAGE_VALID_URL = 'The provided URL is valid: %s';
+    const LOG_ACCOUNT_REQUEST_CONFLICT = 'Conflict occurred while marking the accountRequest with ID %s, retry number %s, as status failed';
 
     /** @var AccountRequestService */
     protected $accountRequestService;
@@ -58,7 +59,6 @@ class AuthoriseService implements LoggerAwareInterface
             $partner = $this->partnerStorage->fetch($accountRequest->getPartnerId());
         } catch (NotFound $e) {
             $this->logWarningException($e, static::LOG_MESSAGE_INVALID_TOKEN, [$token], static::LOG_CODE);
-            /** @var Partner $partner */
             throw new InvalidTokenException(static::LOG_MESSAGE_INVALID_TOKEN);
         }
 
@@ -134,7 +134,7 @@ class AuthoriseService implements LoggerAwareInterface
             } catch (Conflict $e) {
                 /** @var AccountRequest $accountRequest */
                 $accountRequest = $this->accountRequestService->fetch($accountRequest->getId());
-                // log here
+                $this->logWarningException($e, static::LOG_ACCOUNT_REQUEST_CONFLICT, [$accountRequest->getId(), $retry], static::LOG_CODE);
             }
         }
     }
