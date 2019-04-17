@@ -2,7 +2,7 @@
 
 namespace CourierAdapter\Form;
 
-use CG\User\Entity;
+use CG\User\Entity as UserEntity;
 use CourierAdapter\FormAbstract;
 use Zend\View\Model\ViewModel;
 use CG\CourierAdapter\Account\LocalAuthInterface;
