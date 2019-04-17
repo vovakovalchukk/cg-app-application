@@ -4370,12 +4370,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "b54a6779f051385d6e1f1d4b6c7cfb020c457eb9"
+                "reference": "4d2cd88590ad29ba75f0f8a76fc31cfeb678a0cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-03f1a6.zip",
-                "reference": "b54a6779f051385d6e1f1d4b6c7cfb020c457eb9",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-9a746e.zip",
+                "reference": "4d2cd88590ad29ba75f0f8a76fc31cfeb678a0cd",
                 "shasum": null
             },
             "require": {
@@ -4421,7 +4421,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-04-16T10:00:41+00:00"
+            "time": "2019-04-17T08:38:44+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
