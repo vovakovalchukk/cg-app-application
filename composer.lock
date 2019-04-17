@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3b93ea164bef4f18332ece478f97742",
+    "content-hash": "ea12e58f15110307e2b625d5e226be20",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -996,16 +996,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "dev-TAC-410-intersoft-royal-mail-two-step-account-store-details",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "9b9ab09263674a62797151fc0afd04b416ff0bd7"
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-410-intersoft-royal-mail-two-step-account-store-details-a64caa.zip",
-                "reference": "9b9ab09263674a62797151fc0afd04b416ff0bd7",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.3-b04687.zip",
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-04-17T08:43:03+00:00"
+            "time": "2019-04-17T14:06:16+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -11032,18 +11032,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.3",
-            "alias_normalized": "1.4.3.0",
-            "version": "dev-TAC-410-intersoft-royal-mail-two-step-account-store-details",
-            "package": "channelgrabber/courieradapter"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
