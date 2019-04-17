@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d7e34619537d839a3230ae1a7ab7418",
+    "content-hash": "96081926d4a95510d40adb8f11e0e9b3",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3590,7 +3590,7 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-TAC-395-allow-partners-to-create-new-ous",
+            "version": "1.26.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
@@ -3598,7 +3598,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-dev-TAC-395-allow-partners-to-create-new-ous-47e390.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
                 "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
                 "shasum": null
             },
@@ -11034,12 +11034,6 @@
     ],
     "aliases": [
         {
-            "alias": "1.26.7",
-            "alias_normalized": "1.26.7.0",
-            "version": "dev-TAC-395-allow-partners-to-create-new-ous",
-            "package": "channelgrabber/user"
-        },
-        {
             "alias": "1.6.6",
             "alias_normalized": "1.6.6.0",
             "version": "dev-TAC-408-prevent-partner-users-password-reset",
@@ -11049,7 +11043,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/user": 20,
         "channelgrabber/zf2-login": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

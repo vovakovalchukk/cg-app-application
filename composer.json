@@ -80,7 +80,7 @@
         "channelgrabber/template": "~1.6.8",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/usage-check": "~1.2.3",
-        "channelgrabber/user": "dev-TAC-395-allow-partners-to-create-new-ous as 1.26.7",
+        "channelgrabber/user": "~1.26.6",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
         "channelgrabber/walmart": "~1.1.1",
