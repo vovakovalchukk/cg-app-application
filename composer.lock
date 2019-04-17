@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a404946df258167a2ebc28dbc873b58",
+    "content-hash": "d3b93ea164bef4f18332ece478f97742",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -996,16 +996,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.2",
+            "version": "dev-TAC-410-intersoft-royal-mail-two-step-account-store-details",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
+                "reference": "9b9ab09263674a62797151fc0afd04b416ff0bd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.2-caf595.zip",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-TAC-410-intersoft-royal-mail-two-step-account-store-details-a64caa.zip",
+                "reference": "9b9ab09263674a62797151fc0afd04b416ff0bd7",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-03-28T13:49:00+00:00"
+            "time": "2019-04-17T08:43:03+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -3590,16 +3590,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.5",
+            "version": "1.26.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.5-25e866.zip",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
                 "shasum": null
             },
             "require": {
@@ -3645,7 +3645,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-12-03T14:55:22+00:00"
+            "time": "2019-04-04T07:40:33+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -11032,10 +11032,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.3",
+            "alias_normalized": "1.4.3.0",
+            "version": "dev-TAC-410-intersoft-royal-mail-two-step-account-store-details",
+            "package": "channelgrabber/courieradapter"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
