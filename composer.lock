@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96081926d4a95510d40adb8f11e0e9b3",
+    "content-hash": "32b1f8314e9d88eb5d78f56307fba9f6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4366,17 +4366,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-TAC-408-prevent-partner-users-password-reset",
+            "version": "dev-HEAD",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "858a3dfc902c0efae3143ce52511d2dd40496add"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-a04814.zip",
-                "reference": "858a3dfc902c0efae3143ce52511d2dd40496add",
-                "shasum": null
+                "reference": "54e3c59a42376a3da226d6f7c8cfcc6eabafdf59"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -4421,7 +4415,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-04-17T13:24:07+00:00"
+            "time": "2019-04-17T13:28:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -11036,7 +11030,7 @@
         {
             "alias": "1.6.6",
             "alias_normalized": "1.6.6.0",
-            "version": "dev-TAC-408-prevent-partner-users-password-reset",
+            "version": "dev-HEAD",
             "package": "channelgrabber/zf2-login"
         }
     ],
