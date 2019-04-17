@@ -4370,12 +4370,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "4d2cd88590ad29ba75f0f8a76fc31cfeb678a0cd"
+                "reference": "858a3dfc902c0efae3143ce52511d2dd40496add"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-9a746e.zip",
-                "reference": "4d2cd88590ad29ba75f0f8a76fc31cfeb678a0cd",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-a04814.zip",
+                "reference": "858a3dfc902c0efae3143ce52511d2dd40496add",
                 "shasum": null
             },
             "require": {
@@ -4386,7 +4386,7 @@
                 "channelgrabber/locale": "^1.2.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.26.0",
+                "channelgrabber/user": "^1.26.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": "^1.2.2",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -4421,7 +4421,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-04-17T08:38:44+00:00"
+            "time": "2019-04-17T13:24:07+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
