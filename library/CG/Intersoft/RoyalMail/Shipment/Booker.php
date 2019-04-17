@@ -17,6 +17,7 @@ use CG\Intersoft\RoyalMail\Package as RoyalMailPackage;
 class Booker
 {
     const DOMESTIC_COUNTRY = 'GB';
+    const COUNTRY_CODE_USA = 'US';
     const ONE_D_BARCODE_PATTERN = '/[A-Z]{2}[0-9]{9}GB/';
     const SHIP_NO_SEP = '|';
 
@@ -50,6 +51,11 @@ class Booker
         return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
     }
 
+    protected function isUsShipment(Shipment $shipment): bool
+    {
+        return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::COUNTRY_CODE_USA);
+    }
+
     protected function sendRequest(CreateRequest $request, CourierAdapterAccount $account): CreateResponse
     {
         try {
@@ -78,7 +84,8 @@ class Booker
                 break;
             }
             $label = $response->getLabelImage();
-            if (!$this->isDomesticShipment($shipment)) {
+            // We do not want to request a CN23 for US shipments as it is merged with the label by Intersoft already
+            if (!$this->isDomesticShipment($shipment) && !$this->isUsShipment($shipment)) {
                 $documentData = $this->fetchInternationalDocumentsForShipmentItem($rmPackage->getTrackingNumber(), $shipment);
                 $label = $this->mergeInternationalDocumentsIntoLabel($label, $documentData);
             }
