@@ -2,6 +2,7 @@
 
 namespace CourierAdapter\Form;
 
+use CG\User\Entity as UserEntity;
 use CourierAdapter\FormAbstract;
 use Zend\View\Model\ViewModel;
 use CG\CourierAdapter\Account\LocalAuthInterface;
@@ -23,9 +24,10 @@ class RoyalMailApi extends FormAbstract
 
     public function getNewAccountForm(string $channelName, string $goBackUrl, string $saveUrl, ?int $accountId = null, ?string $requestUri = null): ViewModel
     {
+        /** @var Entity $activeUser */
         $activeUser = $this->activeUserContainer->getActiveUser();
         /** @var OrganisationUnitEntity $organisationUnit */
-        $organisationUnit = $this->organisationUnitService->fetch($activeUser->getId());
+        $organisationUnit = $this->organisationUnitService->fetch($activeUser->getOrganisationUnitId());
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
         );

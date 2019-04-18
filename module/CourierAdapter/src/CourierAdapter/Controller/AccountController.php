@@ -14,6 +14,7 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\User\ActiveUserInterface;
@@ -66,6 +67,8 @@ class AccountController extends AbstractActionController
     protected $formFactory;
     /** @var SupportEmailService */
     protected $supportEmailService;
+    /** @var StorageInterface */
+    protected $storage;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -79,7 +82,8 @@ class AccountController extends AbstractActionController
         AccountService $accountService,
         CAAccountMapper $caAccountMapper,
         FormFactory $formFactory,
-        SupportEmailService $supportEmailService
+        SupportEmailService $supportEmailService,
+        StorageInterface $storage
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -92,7 +96,8 @@ class AccountController extends AbstractActionController
             ->setAccountService($accountService)
             ->setCAAccountMapper($caAccountMapper)
             ->setFormFactory($formFactory)
-            ->setSupportEmailService($supportEmailService);
+            ->setSupportEmailService($supportEmailService)
+            ->setStorage($storage);
     }
 
     public function setupAction()
@@ -359,6 +364,7 @@ class AccountController extends AbstractActionController
         $account->setActive(false);
         $account->setPending(false);
         $this->accountService->save($account);
+        $this->storage->set($this->getRequestConnectionStorageKey($account), json_encode($params));
         $this->supportEmailService->sendAccountConnectionRequestEmail($account, $params);
         $url = $this->getRedirectUrlForAccount($account);
         $view->setVariable('redirectUrl', $url);
@@ -463,5 +469,16 @@ class AccountController extends AbstractActionController
     {
         $this->supportEmailService = $supportEmailService;
         return $this;
+    }
+
+    protected function setStorage(StorageInterface $storage): AccountController
+    {
+        $this->storage = $storage;
+        return $this;
+    }
+
+    protected function getRequestConnectionStorageKey(AccountEntity $account)
+    {
+        return sprintf(StorageInterface::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $account->getOrganisationUnitId(), $account->getId());
     }
 }
