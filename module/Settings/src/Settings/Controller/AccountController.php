@@ -26,7 +26,8 @@ class AccountController extends AbstractJsonController
             $token = $this->params()->fromQuery('token', null);
             $signature = $this->params()->fromQuery('signature', null);
             $uri = $this->getRequest()->getUri();
-            $this->authoriseService->validateRequest($token, $signature, $uri);
+
+            $this->authoriseService->connectAccount($token, $signature, $uri);
 
             // TODO: this will be removed by TAC-392 once the account creation process is kicked off at this point
             return $this->buildSuccessResponse();

@@ -9,10 +9,13 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Partner\Entity as Partner;
 use CG\Partner\StatusCodes as PartnerStatusCodes;
 use CG\Partner\StorageInterface as PartnerStorage;
+use CG\Sso\Client\Service as SsoService;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\Entity as User;
+use CG\User\Service as UserService;
 use Zend\Uri\Http as Uri;
 
 class AuthoriseService implements LoggerAwareInterface
@@ -31,60 +34,106 @@ class AuthoriseService implements LoggerAwareInterface
 
     /** @var AccountRequestService */
     protected $accountRequestService;
-
     /** @var PartnerStorage */
     protected $partnerStorage;
+    /** @var SsoService */
+    protected $ssoService;
+    /** @var UserService */
+    protected $userService;
 
     public function __construct(
         AccountRequestService $accountRequestService,
-        PartnerStorage $partnerStorage
+        PartnerStorage $partnerStorage,
+        SsoService $ssoService,
+        UserService $userService
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
+        $this->ssoService = $ssoService;
+        $this->userService = $userService;
     }
 
-    public function validateRequest(?string $token, ?string $userSignature, Uri $uri): void
+    public function connectAccount(?string $token, ?string $userSignature, Uri $uri)
     {
-        if ($token === null) {
+        $accountRequest = $this->fetchAccountRequestForToken($token);
+        $partner = $this->fetchPartner($accountRequest->getPartnerId(), $token);
+
+        $this->validateSignature($token, $accountRequest, $partner, $uri, $userSignature);
+        $this->loginUser($accountRequest, $partner);
+    }
+
+    protected function fetchAccountRequestForToken(string $token): AccountRequest
+    {
+        if ($token !== null) {
             $this->logDebug(static::LOG_MESSAGE_NO_TOKEN, [], static::LOG_CODE);
             throw new InvalidTokenException(static::LOG_MESSAGE_NO_TOKEN);
         }
 
-        // We need to save it at this point as the Uri object can get mutated
-        $accessedUrl = $uri->toString();
-
         try {
-            $accountRequest = $this->fetchAccountRequest($token);
+            $filter = (new AccountRequestFilter(1, 1))
+                ->setToken($token);
+
+            /** @var AccountRequestCollection $accountRequests */
+            $accountRequests = $this->accountRequestService->fetchCollectionByFilter($filter);
+            /** @var AccountRequest $accountRequest */
+            $accountRequest = $accountRequests->getFirst();
+
+            return $accountRequest;
+        } catch (NotFound $e) {
+            $this->logWarningException($e, static::LOG_MESSAGE_INVALID_TOKEN, [$token], static::LOG_CODE);
+            throw new InvalidTokenException(static::LOG_MESSAGE_INVALID_TOKEN);
+        }
+    }
+
+    protected function fetchPartner(int $partnerId, string $token): Partner
+    {
+        try {
             /** @var Partner $partner */
-            $partner = $this->partnerStorage->fetch($accountRequest->getPartnerId());
+            $partner = $this->partnerStorage->fetch($partnerId);
         } catch (NotFound $e) {
             $this->logWarningException($e, static::LOG_MESSAGE_INVALID_TOKEN, [$token], static::LOG_CODE);
             throw new InvalidTokenException(static::LOG_MESSAGE_INVALID_TOKEN);
         }
 
+        return $partner;
+    }
+
+    protected function validateSignature(
+        string $token,
+        AccountRequest $accountRequest,
+        Partner $partner,
+        Uri $uri,
+        ?string $userSignature
+    ): void {
+        // We need to save it at this point as the Uri object can get mutated
+        $accessedUrl = $uri->toString();
+
         try {
             $this->validateUserSignature($token, $partner, $userSignature, $uri);
         } catch (\InvalidArgumentException $e) {
-            $this->markAccountRequestAsFailed($accountRequest);
-            throw new InvalidRequestException(
-                $this->buildRedirectUrlForPartner($partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_INVALID_SIGNATURE)
-            );
+            $this->handleInvalidAccountRequest($accountRequest, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_INVALID_SIGNATURE);
         }
 
         $this->logDebug(static::LOG_MESSAGE_VALID_URL, [$accessedUrl], static::LOG_CODE);
     }
 
-    protected function fetchAccountRequest(string $token): AccountRequest
+    protected function handleInvalidAccountRequest(
+        AccountRequest $accountRequest,
+        Partner $partner,
+        int $statusCode
+    ): void {
+        $this->markAccountRequestAsFailed($accountRequest);
+        throw new InvalidRequestException(
+            $this->buildRedirectUrlForPartner($partner, $statusCode)
+        );
+    }
+
+    protected function fetchUserForOuId(int $ouId): User
     {
-        $filter = (new AccountRequestFilter(1, 1))
-            ->setToken($token);
-
-        /** @var AccountRequestCollection $accountRequests */
-        $accountRequests = $this->accountRequestService->fetchCollectionByFilter($filter);
-        /** @var AccountRequest $accountRequest */
-        $accountRequest = $accountRequests->getFirst();
-
-        return $accountRequest;
+        // It's safe to assume that an OU that's managed by partners will have a single user for now.
+        // If this changes, will have to update the logic to fetch a specific user.
+        $users = $this->userService->fetchCollection(1, 1, $ouId);
+        return $users->getFirst();
     }
 
     protected function validateUserSignature(string $token, Partner $partner, ?string $userSignature, Uri $uri): void
@@ -136,6 +185,17 @@ class AuthoriseService implements LoggerAwareInterface
                 $accountRequest = $this->accountRequestService->fetch($accountRequest->getId());
                 $this->logWarningException($e, static::LOG_ACCOUNT_REQUEST_CONFLICT, [$accountRequest->getId(), $retry], static::LOG_CODE);
             }
+        }
+    }
+
+    protected function loginUser(AccountRequest $accountRequest, Partner $partner): void
+    {
+        try {
+            $this->ssoService->logout();
+            $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
+            $this->ssoService->login($user->getId());
+        } catch (\Throwable $e) {
+            $this->handleInvalidAccountRequest($accountRequest, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_LOGIN_FAILED);
         }
     }
 }
