@@ -25,6 +25,7 @@ class Create extends PostAbstract
     const PRODUCT_TYPE = 'NDX'; // DOX for documents, NDX for anything else
     const CURRENCY_DEFAULT = 'GBP';
     const MAX_LEN_REFERENCE = 20;
+    const MAX_LEN_DEPARTMENT = 17;
     const MAX_LEN_DEFAULT = 35;
     const MAX_LEN_CONTACT = 40;
     const MAX_LEN_DESCRIPTION_OF_GOODS = 70;
@@ -97,6 +98,7 @@ class Create extends PostAbstract
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
         $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
+        $shipper->addChild('shipperDeptCode', $this->sanitiseString($this->getDepartmentReference(), static::MAX_LEN_DEPARTMENT));
         return $xml;
     }
 
@@ -278,5 +280,24 @@ class Create extends PostAbstract
             $totalWeight += $package->getWeight();
         }
         return $totalWeight;
+    }
+
+    protected function getDepartmentReference(): string
+    {
+        $itemCount = 0;
+        $packages = $this->shipment->getPackages();
+        $skus = [];
+        /** @var Package $package */
+        foreach ($packages as $package) {
+            foreach ($package->getContents() as $packageContents) {
+                $itemCount += $packageContents->getQuantity();
+                $skus[] = $packageContents->getSku();
+            }
+        }
+        if (count($skus) > 1) {
+            return $itemCount . ' ITEMS';
+        } else {
+            return $itemCount . ' X ' . array_shift($skus);
+        }
     }
 }
