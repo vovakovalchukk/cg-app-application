@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AppendShipstationRoyalMailDisplayNames
 {
-    const BATCH_ACCOUNT_LIMIT = 300;
+    const BATCH_ACCOUNT_LIMIT = 3;
     const SHIPSTATION_RM_CHANNEL = 'royal-mail-ss';
     const SHIPSTATION_ACCOUNT_SUFFIX = ' - Shipstation';
 
@@ -33,7 +33,7 @@ class AppendShipstationRoyalMailDisplayNames
     {
         $page = 1;
         $filter = new AccountFilter(static::BATCH_ACCOUNT_LIMIT, $page);
-        $filter->setChannel(static::SHIPSTATION_RM_CHANNEL);
+        $filter->setChannel([static::SHIPSTATION_RM_CHANNEL]);
         do {
             try {
                 $filter->setPage($page++);
@@ -53,16 +53,17 @@ class AppendShipstationRoyalMailDisplayNames
             }
             $displayName = $account->getDisplayName() . static::SHIPSTATION_ACCOUNT_SUFFIX;
             $account->setDisplayName($displayName);
+            $this->saveAccount($account, $output);
         }
-        $this->saveAccountCollection($accountCollection, $output);
     }
 
-    protected function saveAccountCollection(AccountCollection $accountCollection, OutputInterface $output): void
+    protected function saveAccount(AccountEntity $account, OutputInterface $output): void
     {
         try {
-            $this->accountService->saveCollection($accountCollection);
+            $this->accountService->save($account);
+            $output->writeln(sprintf("Account %s updated: %s", $account->getId(), $account->getDisplayName()));
         } catch (\Throwable $exception) {
-            $output->writeln("Failed to save a batch of accounts due to an exception with the following message:\n{$exception->getMessage()}");
+            $output->writeln(sprintf("Failed to save account %s due to an exception with the following message:\n %s", $account->getId(), $exception->getMessage()));
         }
     }
 
