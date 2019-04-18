@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97889a641237fd751123799428f723c3",
+    "content-hash": "90711518eb80b0d9807eaabbbec3bbb5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2176,16 +2176,16 @@
         },
         {
             "name": "channelgrabber/partner",
-            "version": "dev-TAC-390-authorize-account",
+            "version": "dev-TAC-392-login-user-on-authorise",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "a7b66f917db2ffe28157460613dec02635bd1a42"
+                "reference": "efc07ee0d4963989d062095e8d5b5c0211ad9a5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-390-authorize-account-214602.zip",
-                "reference": "a7b66f917db2ffe28157460613dec02635bd1a42",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-392-login-user-on-authorise-0c19e3.zip",
+                "reference": "efc07ee0d4963989d062095e8d5b5c0211ad9a5d",
                 "shasum": null
             },
             "require": {
@@ -2210,7 +2210,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-04-15T08:22:04+00:00"
+            "time": "2019-04-18T13:12:09+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -11423,7 +11423,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-TAC-390-authorize-account",
+            "version": "dev-TAC-392-login-user-on-authorise",
             "package": "channelgrabber/partner"
         },
         {
