@@ -36,6 +36,7 @@ class AppendShipstationRoyalMailDisplayNames
         $filter->setChannel(static::SHIPSTATION_RM_CHANNEL);
         do {
             try {
+                $filter->setPage($page++);
                 yield $this->accountService->fetchByFilter($filter);
             } catch (NotFound $exception) {
                 $page = false;
