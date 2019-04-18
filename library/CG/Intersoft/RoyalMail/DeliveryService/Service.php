@@ -24,6 +24,7 @@ class Service
         foreach ($servicesConfig['services'] as $serviceConfig) {
             $this->buildServices($serviceConfig);
         }
+        $mark = null;
     }
 
     /**
@@ -63,7 +64,7 @@ class Service
                 continue;
             }
             $config = [];
-            $config['reference'] = $serviceConfig['serviceOffering'];
+            $config['reference'] = $serviceConfig['serviceOffering'] . '-' . $type;
             $config['displayName'] = $this->getServiceOfferings()[$serviceConfig['serviceOffering']]['displayName'] . ' - ' . $this->getServiceTypes()[$type]['description'];
             $config['serviceType'] = $type;
             $config['shipmentClass'] = $serviceConfig['shipmentClass'];
