@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AppendShipstationRoyalMailDisplayNames
 {
-    const BATCH_ACCOUNT_LIMIT = 3;
+    const BATCH_ACCOUNT_LIMIT = 300;
     const SHIPSTATION_RM_CHANNEL = 'royal-mail-ss';
     const SHIPSTATION_ACCOUNT_SUFFIX = ' - Shipstation';
 
