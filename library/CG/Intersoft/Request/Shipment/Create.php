@@ -138,7 +138,7 @@ class Create extends PostAbstract
         $packages = $this->shipment->getPackages();
         $shipmentInformation = $xml->addChild('shipmentInformation');
         $shipmentInformation->addChild('shipmentDate', $this->shipment->getCollectionDate()->format(static::DATE_FORMAT_SHIPMENT));
-        $shipmentInformation->addChild('serviceCode', $this->getServiceCode());
+        $shipmentInformation->addChild('serviceCode', $this->shipment->getDeliveryService()->getReference());
         $shipmentInformation = $this->addServiceOptions($shipmentInformation);
         $shipmentInformation = $this->addPackageInformation($shipmentInformation);
         $shipmentInformation = $this->addItemInformation($shipmentInformation);
@@ -299,11 +299,5 @@ class Create extends PostAbstract
         } else {
             return $itemCount . ' X ' . array_shift($skus);
         }
-    }
-
-    protected function getServiceCode(): string
-    {
-        $parts = explode('-', $this->shipment->getDeliveryService()->getReference());
-        return array_shift($parts);
     }
 }
