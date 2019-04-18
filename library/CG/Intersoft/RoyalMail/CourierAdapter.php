@@ -55,6 +55,11 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
         return ($this->credentialsFormFactory)();
     }
 
+    public function getFirstTimeAccountForm()
+    {
+        return $this->credentialsFormFactory->getFirstTimeForm();
+    }
+
     /**
      * @inheritdoc
      */

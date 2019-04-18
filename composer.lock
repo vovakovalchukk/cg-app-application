@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81f078862e6853e44489d975666441e6",
+    "content-hash": "d2fd5a2b71481d4c74e615cb55fca2c0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -996,16 +996,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.2-caf595.zip",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.3-b04687.zip",
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-03-28T13:49:00+00:00"
+            "time": "2019-04-17T14:06:16+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -1839,7 +1839,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2019-02-08T16:37:30+00:00"
+            "time": "2019-02-08T16:37:35+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2096,12 +2096,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "17fbc09501bcdcb64f442746f07b292eb90d7da3"
+                "reference": "0866cd63cd84eb45cd16045a4f18042b824ebd34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-a487d1.zip",
-                "reference": "17fbc09501bcdcb64f442746f07b292eb90d7da3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-328-order-dispatchable-flag-0afce1.zip",
+                "reference": "0866cd63cd84eb45cd16045a4f18042b824ebd34",
                 "shasum": null
             },
             "require": {
@@ -2173,7 +2173,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-04-08T16:08:33+00:00"
+            "time": "2019-04-09T12:53:21+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3591,16 +3591,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.5",
+            "version": "1.26.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.5-25e866.zip",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
                 "shasum": null
             },
             "require": {
@@ -3646,7 +3646,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-12-03T14:55:22+00:00"
+            "time": "2019-04-04T07:40:33+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4913,16 +4913,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.9",
+            "version": "1.26.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1e2c3c8aa77b8f61e469cd8ce31cb2a9479666a8"
+                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.9-c54662.zip",
-                "reference": "1e2c3c8aa77b8f61e469cd8ce31cb2a9479666a8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.10-72652d.zip",
+                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc",
                 "shasum": null
             },
             "require": {
@@ -4974,7 +4974,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-03-29T14:13:41+00:00"
+            "time": "2019-04-10T10:34:10+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
