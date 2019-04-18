@@ -64,7 +64,7 @@ class Service
             }
             $config = [];
             $config['reference'] = $serviceConfig['serviceOffering'];
-            $config['displayName'] = $this->getServiceOfferings()[$serviceConfig['serviceOffering']]['displayName'];
+            $config['displayName'] = $this->getServiceOfferings()[$serviceConfig['serviceOffering']]['displayName'] . ' - ' . $this->getServiceTypes()[$type]['description'];
             $config['serviceType'] = $type;
             $config['shipmentClass'] = $serviceConfig['shipmentClass'];
             $this->deliveryServices[$config['reference']] = DeliveryService::fromArray($config);

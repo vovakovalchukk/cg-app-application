@@ -551,11 +551,11 @@ return [
                         ],
                         'serviceTypes' => [
                             '1' => [
-                                'description' => 'Royal Mail 24 / 1st Class',
+                                'description' => '1st Class',
                                 'domestic' => true,
                             ],
                             '2' => [
-                                'description' => 'Royal Mail 48 / 2nd Class',
+                                'description' => '2nd Class',
                                 'domestic' => true,
                             ],
                             'D' => [
