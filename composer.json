@@ -100,7 +100,7 @@
         "channelgrabber/zf2-login": "~1.6.5",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.1.0",
-        "channelgrabber/zf2-permission": "~1.2.4",
+        "channelgrabber/zf2-permission": "dev-TAC-392-login-user-on-authorise as 1.2.5",
         "channelgrabber/zf2-register": "~1.6.18",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sagepay": "~1.0.7",

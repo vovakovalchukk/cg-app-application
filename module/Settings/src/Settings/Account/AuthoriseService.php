@@ -16,9 +16,9 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
-use Zend\Session\Container as Session;
-use Zend\Uri\Http as Uri;
 use CG_Permission\Service as PermissionService;
+use Zend\Session\SessionManager as SessionManager;
+use Zend\Uri\Http as Uri;
 
 class AuthoriseService implements LoggerAwareInterface
 {
@@ -42,21 +42,21 @@ class AuthoriseService implements LoggerAwareInterface
     protected $ssoService;
     /** @var UserService */
     protected $userService;
-    /** @var Session */
-    protected $session;
+    /** @var SessionManager */
+    protected $sessionManager;
 
     public function __construct(
         AccountRequestService $accountRequestService,
         PartnerStorage $partnerStorage,
         SsoService $ssoService,
         UserService $userService,
-        Session $session
+        SessionManager $sessionManager
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
         $this->ssoService = $ssoService;
         $this->userService = $userService;
-        $this->session = $session;
+        $this->sessionManager = $sessionManager;
     }
 
     public function connectAccount(?string $token, ?string $userSignature, Uri $uri)
@@ -210,7 +210,11 @@ class AuthoriseService implements LoggerAwareInterface
             $this->ssoService->logout();
             $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
             $this->ssoService->login($user->getId());
-            $this->session[PermissionService::PARTNER_MANAGED_OU] = PermissionService::PARTNER_MANAGED_OU;
+
+            $session = $this->sessionManager->getStorage();
+            $session[PermissionService::PARTNER_MANAGED_LOGIN] = [
+                PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE => PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE
+            ];
         } catch (\Throwable $e) {
             $this->logWarningException($e);
             $this->handleInvalidAccountRequest($accountRequest, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_LOGIN_FAILED);

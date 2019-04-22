@@ -1,4 +1,5 @@
 <?php
+
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 use CG\Account\Client\Storage\Api as AccountStorage;
@@ -33,6 +34,7 @@ use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
 use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
+use CG_Permission\Service as PermissionService;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
@@ -1027,7 +1029,8 @@ return [
                     'route' => '/authoriseAccount',
                     'defaults' => [
                         'controller' => AccountController::class,
-                        'action' => 'index'
+                        'action' => 'index',
+                        PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true,
                     ],
                     'sidebar' => false,
                     'may_terminate' => true,
