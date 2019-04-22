@@ -16,7 +16,9 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
+use Zend\Session\Container as Session;
 use Zend\Uri\Http as Uri;
+use CG_Permission\Service as PermissionService;
 
 class AuthoriseService implements LoggerAwareInterface
 {
@@ -40,17 +42,21 @@ class AuthoriseService implements LoggerAwareInterface
     protected $ssoService;
     /** @var UserService */
     protected $userService;
+    /** @var Session */
+    protected $session;
 
     public function __construct(
         AccountRequestService $accountRequestService,
         PartnerStorage $partnerStorage,
         SsoService $ssoService,
-        UserService $userService
+        UserService $userService,
+        Session $session
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
         $this->ssoService = $ssoService;
         $this->userService = $userService;
+        $this->session = $session;
     }
 
     public function connectAccount(?string $token, ?string $userSignature, Uri $uri)
@@ -58,13 +64,14 @@ class AuthoriseService implements LoggerAwareInterface
         $accountRequest = $this->fetchAccountRequestForToken($token);
         $partner = $this->fetchPartner($accountRequest->getPartnerId(), $token);
 
+        $this->validateAccountRequest($accountRequest, $partner);
         $this->validateSignature($token, $accountRequest, $partner, $uri, $userSignature);
         $this->loginUser($accountRequest, $partner);
     }
 
-    protected function fetchAccountRequestForToken(string $token): AccountRequest
+    protected function fetchAccountRequestForToken(?string $token): AccountRequest
     {
-        if ($token !== null) {
+        if ($token === null) {
             $this->logDebug(static::LOG_MESSAGE_NO_TOKEN, [], static::LOG_CODE);
             throw new InvalidTokenException(static::LOG_MESSAGE_NO_TOKEN);
         }
@@ -96,6 +103,15 @@ class AuthoriseService implements LoggerAwareInterface
         }
 
         return $partner;
+    }
+
+    protected function validateAccountRequest(AccountRequest $request, Partner $partner): void
+    {
+        if ($request->getStatus() === AccountRequest::STATUS_PENDING) {
+            return;
+        }
+
+        $this->handleInvalidAccountRequest($request, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_EXPIRED_TOKEN);
     }
 
     protected function validateSignature(
@@ -194,7 +210,9 @@ class AuthoriseService implements LoggerAwareInterface
             $this->ssoService->logout();
             $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
             $this->ssoService->login($user->getId());
+            $this->session[PermissionService::PARTNER_MANAGED_OU] = PermissionService::PARTNER_MANAGED_OU;
         } catch (\Throwable $e) {
+            $this->logWarningException($e);
             $this->handleInvalidAccountRequest($accountRequest, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_LOGIN_FAILED);
         }
     }
