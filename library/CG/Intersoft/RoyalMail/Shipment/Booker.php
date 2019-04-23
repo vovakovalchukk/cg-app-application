@@ -65,7 +65,7 @@ class Booker
             $client = ($this->clientFactory)($account);
             return $client->send($request);
         } catch (StorageException $e) {
-            $this->handleErrors($e);
+            $this->handleUserErrors($e);
         } catch (\Exception $e) {
             throw new OperationFailed($e->getMessage(), $e->getCode(), $e);
         }
@@ -126,7 +126,7 @@ class Booker
         return $shipmentItem->getItemId();
     }
 
-    protected function handleErrors(\Exception $exception): void
+    protected function handleUserErrors(\Exception $exception): void
     {
         if ($exception->getCode() === 500) {
             throw $exception;
