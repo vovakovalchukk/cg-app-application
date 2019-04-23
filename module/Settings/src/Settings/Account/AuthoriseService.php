@@ -214,6 +214,7 @@ class AuthoriseService implements LoggerAwareInterface
         try {
             $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
             $this->loginService->loginUser($user);
+            // Make sure the user in only logged in orders app and not in SSO
             $this->ssoClient->logoutOnSsoService();
 
             $session = $this->sessionManager->getStorage();

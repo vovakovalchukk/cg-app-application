@@ -4546,7 +4546,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "b271b3b8387e73182e09bfba4ee5c6c594b9210e"
+                "reference": "c6de5384b86d24d9855f266f179ceed6d121f1ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-dev-TAC-392-login-user-on-authorise-5234eb.zip",
+                "reference": "c6de5384b86d24d9855f266f179ceed6d121f1ea",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.10.0",
@@ -4554,6 +4560,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/stdlib": "^2.13.0",
                 "channelgrabber/user": "^1.22.7",
+                "channelgrabber/zf2-ssoclient": "^1.4.3",
                 "php": ">=7.1",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5",
@@ -4582,7 +4589,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2019-04-22T12:34:25+00:00"
+            "time": "2019-04-23T10:13:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",

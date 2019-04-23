@@ -363,7 +363,8 @@ return [
                                         'options' => [
                                             'route' => '/create',
                                             'defaults' => [
-                                                'action' => 'create'
+                                                'action' => 'create',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'may_terminate' => true
