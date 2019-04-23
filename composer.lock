@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "18909e5bc6e940c6f62c6732f3ab4d2f",
+    "content-hash": "4dccf16f999b921eb69dd06253ff5e7f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2176,17 +2176,11 @@
         },
         {
             "name": "channelgrabber/partner",
-            "version": "dev-TAC-392-login-user-on-authorise",
+            "version": "dev-TAC-393-connect-accounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "1dceaba54b238fc6ea0872f71271480b517d6e9e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-392-login-user-on-authorise-ebbfe4.zip",
-                "reference": "1dceaba54b238fc6ea0872f71271480b517d6e9e",
-                "shasum": null
+                "reference": "ede08ff95560e7a7244b2524c3abaf11914b3642"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.4",
@@ -2210,7 +2204,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-04-23T07:13:22+00:00"
+            "time": "2019-04-23T13:14:31+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -11424,7 +11418,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-TAC-392-login-user-on-authorise",
+            "version": "dev-TAC-393-connect-accounts",
             "package": "channelgrabber/partner"
         },
         {
