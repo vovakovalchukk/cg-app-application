@@ -69,6 +69,6 @@ class AppendShipstationRoyalMailDisplayNames
 
     protected function accountNameAlreadyContainsSuffix(AccountEntity $account): bool
     {
-        return (strpos($account->getDisplayName(), static::SHIPSTATION_ACCOUNT_SUFFIX) !== false);
+        return (preg_match('/'.static::SHIPSTATION_ACCOUNT_SUFFIX.'$/', $account->getDisplayName()));
     }
 }
