@@ -9,13 +9,13 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Partner\Entity as Partner;
 use CG\Partner\StatusCodes as PartnerStatusCodes;
 use CG\Partner\StorageInterface as PartnerStorage;
-use CG\Sso\Client\Service as SsoService;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\Entity as User;
 use CG\User\Service as UserService;
+use CG_Login\Service\LoginService;
 use CG_Permission\Service as PermissionService;
 use Zend\Session\SessionManager as SessionManager;
 use Zend\Uri\Http as Uri;
@@ -38,25 +38,25 @@ class AuthoriseService implements LoggerAwareInterface
     protected $accountRequestService;
     /** @var PartnerStorage */
     protected $partnerStorage;
-    /** @var SsoService */
-    protected $ssoService;
     /** @var UserService */
     protected $userService;
     /** @var SessionManager */
     protected $sessionManager;
+    /** @var LoginService */
+    protected $loginService;
 
     public function __construct(
         AccountRequestService $accountRequestService,
         PartnerStorage $partnerStorage,
-        SsoService $ssoService,
         UserService $userService,
-        SessionManager $sessionManager
+        SessionManager $sessionManager,
+        LoginService $loginService
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
-        $this->ssoService = $ssoService;
         $this->userService = $userService;
         $this->sessionManager = $sessionManager;
+        $this->loginService = $loginService;
     }
 
     public function connectAccount(?string $token, ?string $userSignature, Uri $uri)
@@ -207,9 +207,8 @@ class AuthoriseService implements LoggerAwareInterface
     protected function loginUser(AccountRequest $accountRequest, Partner $partner): void
     {
         try {
-            $this->ssoService->logout();
             $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
-            $this->ssoService->login($user->getId());
+            $this->loginService->loginUser($user);
 
             $session = $this->sessionManager->getStorage();
             $session[PermissionService::PARTNER_MANAGED_LOGIN] = [

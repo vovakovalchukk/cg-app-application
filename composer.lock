@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "90711518eb80b0d9807eaabbbec3bbb5",
+    "content-hash": "18909e5bc6e940c6f62c6732f3ab4d2f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2180,12 +2180,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "efc07ee0d4963989d062095e8d5b5c0211ad9a5d"
+                "reference": "1dceaba54b238fc6ea0872f71271480b517d6e9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-392-login-user-on-authorise-0c19e3.zip",
-                "reference": "efc07ee0d4963989d062095e8d5b5c0211ad9a5d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-392-login-user-on-authorise-ebbfe4.zip",
+                "reference": "1dceaba54b238fc6ea0872f71271480b517d6e9e",
                 "shasum": null
             },
             "require": {
@@ -2210,7 +2210,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-04-18T13:12:09+00:00"
+            "time": "2019-04-23T07:13:22+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4582,7 +4582,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2019-01-16T15:23:43+00:00"
+            "time": "2019-04-22T12:34:25+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -11441,8 +11441,8 @@
         "channelgrabber/predis": 20,
         "channelgrabber/zf2-permission": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
