@@ -28,10 +28,8 @@ return [
         ],
     ],
     'view_manager' => [
-        'template_map' => [
-            'ekm_register_pending' => dirname(__DIR__) . '/view/register/pending.phtml',
-            'ekm_register_failed' => dirname(__DIR__) . '/view/register/failed.phtml',
-            'channel_ekm_powered_by_cg' => dirname(__DIR__) . '/view/powered_by_cg.phtml',
-        ],
+        'template_path_stack' => [
+            __NAMESPACE__ => dirname(__DIR__) . '/view'
+        ]
     ],
 ];
