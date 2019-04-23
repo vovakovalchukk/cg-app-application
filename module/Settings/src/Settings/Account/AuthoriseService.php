@@ -19,6 +19,7 @@ use CG_Login\Service\LoginService;
 use CG_Permission\Service as PermissionService;
 use Zend\Session\SessionManager as SessionManager;
 use Zend\Uri\Http as Uri;
+use CG\Sso\Client\Service as SsoClient;
 
 class AuthoriseService implements LoggerAwareInterface
 {
@@ -44,19 +45,23 @@ class AuthoriseService implements LoggerAwareInterface
     protected $sessionManager;
     /** @var LoginService */
     protected $loginService;
+    /** @var SsoClient */
+    protected $ssoClient;
 
     public function __construct(
         AccountRequestService $accountRequestService,
         PartnerStorage $partnerStorage,
         UserService $userService,
         SessionManager $sessionManager,
-        LoginService $loginService
+        LoginService $loginService,
+        SsoClient $ssoClient
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
         $this->userService = $userService;
         $this->sessionManager = $sessionManager;
         $this->loginService = $loginService;
+        $this->ssoClient = $ssoClient;
     }
 
     public function connectAccount(?string $token, ?string $userSignature, Uri $uri)
@@ -209,6 +214,7 @@ class AuthoriseService implements LoggerAwareInterface
         try {
             $user = $this->fetchUserForOuId($accountRequest->getOrganisationUnitId());
             $this->loginService->loginUser($user);
+            $this->ssoClient->logoutOnSsoService();
 
             $session = $this->sessionManager->getStorage();
             $session[PermissionService::PARTNER_MANAGED_LOGIN] = [
