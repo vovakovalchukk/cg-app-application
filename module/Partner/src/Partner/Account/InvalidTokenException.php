@@ -1,5 +1,5 @@
 <?php
-namespace Settings\Account;
+namespace Partner\Account;
 
 class InvalidTokenException extends \Exception
 {

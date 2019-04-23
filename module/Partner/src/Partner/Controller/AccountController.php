@@ -1,11 +1,12 @@
 <?php
-namespace Settings\Controller;
+namespace Partner\Controller;
 
 use Application\Controller\AbstractJsonController;
+use CG_UI\Layout\ViewModelFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Settings\Account\AuthoriseService;
-use Settings\Account\InvalidRequestException;
-use Settings\Account\InvalidTokenException;
+use Partner\Account\AuthoriseService;
+use Partner\Account\InvalidRequestException;
+use Partner\Account\InvalidTokenException;
 
 class AccountController extends AbstractJsonController
 {
@@ -13,11 +14,17 @@ class AccountController extends AbstractJsonController
 
     /** @var AuthoriseService */
     protected $authoriseService;
+    /** @var ViewModelFactory */
+    protected $viewModelFactory;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, AuthoriseService $authoriseService)
-    {
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        AuthoriseService $authoriseService,
+        ViewModelFactory $viewModelFactory
+    ) {
         parent::__construct($jsonModelFactory);
         $this->authoriseService = $authoriseService;
+        $this->viewModelFactory = $viewModelFactory;
     }
 
     public function indexAction()
@@ -29,8 +36,10 @@ class AccountController extends AbstractJsonController
 
             $this->authoriseService->connectAccount($token, $signature, $uri);
 
+            $view = $this->viewModelFactory->newInstance();
+            return $view;
             // TODO: this will be removed by TAC-392 once the account creation process is kicked off at this point
-            return $this->buildSuccessResponse();
+//            return $this->buildSuccessResponse();
         } catch (InvalidTokenException $e) {
             return $this->buildErrorResponse('Invalid request');
         } catch (InvalidRequestException $e) {
@@ -40,6 +49,6 @@ class AccountController extends AbstractJsonController
             $this->logErrorException($e);
         }
 
-        return $this->buildErrorResponse('Invalid request');
+//        return $this->buildErrorResponse('Invalid request');
     }
 }

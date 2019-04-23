@@ -1,5 +1,5 @@
 <?php
-namespace Settings\Account;
+namespace Partner\Account;
 
 use CG\Account\Request\Collection as AccountRequestCollection;
 use CG\Account\Request\Entity as AccountRequest;
