@@ -14,6 +14,8 @@ return [
                     'defaults' => [
                         'controller' => AccountController::class,
                         'action' => 'index',
+                        'sidebar' => false,
+                        'layout' => 'partner/account/index',
                         PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true,
                     ],
                     'sidebar' => false,
