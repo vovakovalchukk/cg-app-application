@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea12e58f15110307e2b625d5e226be20",
+    "content-hash": "031e1362f5315f3b98fc7a9e30fe55ac",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -949,16 +949,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.13",
+            "version": "dev-CGIV-10530-myhermes-auth-url",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d18550968eb80a8853368e51ccd4a190d62e27e2"
+                "reference": "dc8390cfea074e9625a0a9cc04ebfcc343e19de7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.13-e677d6.zip",
-                "reference": "d18550968eb80a8853368e51ccd4a190d62e27e2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10530-myhermes-auth-url-c85994.zip",
+                "reference": "dc8390cfea074e9625a0a9cc04ebfcc343e19de7",
                 "shasum": null
             },
             "require": {
@@ -992,7 +992,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-03-19T15:42:06+00:00"
+            "time": "2019-04-24T11:59:54+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11032,10 +11032,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.14",
+            "alias_normalized": "1.1.14.0",
+            "version": "dev-CGIV-10530-myhermes-auth-url",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
