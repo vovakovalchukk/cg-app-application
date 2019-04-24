@@ -260,7 +260,7 @@ class Create extends PostAbstract
         if ($string === null) {
             return '';
         }
-        return substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT);
+        return substr(htmlspecialchars($string), 0, $maxLength ?? static::MAX_LEN_DEFAULT);
     }
 
     protected function getDeliveryPhoneNumber(): string
