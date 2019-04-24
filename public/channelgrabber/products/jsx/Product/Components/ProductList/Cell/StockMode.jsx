@@ -153,13 +153,15 @@ class StockModeCell extends React.Component {
             return <span/>
         }
 
+        let containerElement = this.props.cellNode;
+
         let portalSettingsParams = {
             elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
             allRows: this.props.rows.allIds,
-            containerElement: this.props.cellNode
+            containerElement
         };
 
         let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings(portalSettingsParams);
