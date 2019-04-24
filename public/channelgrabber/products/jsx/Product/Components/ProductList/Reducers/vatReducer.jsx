@@ -1,4 +1,5 @@
 import reducerCreator from 'Common/Reducers/creator';
+import deepmerge from 'deepmerge';
 
 "use strict";
 
@@ -14,7 +15,7 @@ let vatReducer = reducerCreator(initialState, {
         let countries = getCountries(products);
         let newProductsVat = getChosenVatFromProducts(products, countries);
 
-        let productsVat = Object.assign(state.productsVat, newProductsVat);
+        let productsVat = mergeNewProductsVat(newProductsVat, state.productsVat);
         productsVat = sortByKey(productsVat);
 
         let newState = Object.assign({}, state, {
@@ -57,6 +58,12 @@ let vatReducer = reducerCreator(initialState, {
 });
 
 export default vatReducer;
+
+function mergeNewProductsVat(newProductsVat, stateProductsVat){
+    let mergeResult = deepmerge.all([{}, newProductsVat, stateProductsVat]);
+    mergeResult.allProductIds =  mergeResult.allProductIds.sort(function sortAscending(a, b){return a - b;});
+    return mergeResult;
+}
 
 function applyCountryCodesToState(productsVat, countries) {
     for (let countryCode of countries.allIds) {
