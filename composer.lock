@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea12e58f15110307e2b625d5e226be20",
+    "content-hash": "4fb79a363ed8524214e2e7de82724b6e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2176,16 +2176,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.14.0",
+            "version": "dev-CGIV-10519-create-invoice-for-discounted-subscriptios",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e"
+                "reference": "6faa4c1f2bf68b9beabde54bf7c8ddcdeefbcdbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.0-dc7a9f.zip",
-                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-64f277.zip",
+                "reference": "6faa4c1f2bf68b9beabde54bf7c8ddcdeefbcdbc",
                 "shasum": null
             },
             "require": {
@@ -2228,7 +2228,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-03-22T11:57:34+00:00"
+            "time": "2019-04-24T09:36:11+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -11032,10 +11032,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.1",
+            "alias_normalized": "1.14.1.0",
+            "version": "dev-CGIV-10519-create-invoice-for-discounted-subscriptios",
+            "package": "channelgrabber/payment"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/payment": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
