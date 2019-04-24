@@ -1,1 +1,25 @@
-RENDERED!!!
+<?php
+$channelName = $this->channel . ($this->region ? ' ' . $this->region : '');
+$this->headTitle('Connecting your ' . $channelName . ' account');
+
+?>
+
+<script type="application/javascript">
+    window.setTimeout(function() {
+        window.location.replace("<?= $this->channelRedirectUrl ?>");
+    }, 5000);
+</script>
+
+<div>
+    <div class="title">
+        Connecting your <?= $channelName ?> account...
+    </div>
+
+    <div class="partner">
+        <img src="<?= $this->partnerLogoUrl ?>" alt="<?= $this->partnerName ?>">
+    </div>
+
+    <div class="header">
+        Powered by ChannelGrabber
+     </div>
+</div>

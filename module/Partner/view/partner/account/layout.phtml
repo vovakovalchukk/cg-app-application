@@ -1,0 +1,18 @@
+<?= $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <?= $this->headTitle('ChannelGrabber')->setSeparator(' - ')->setAutoEscape(false)  ?>
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+    </head>
+
+    <body>
+        <?= $this->content ?>
+    </body>
+</html>

@@ -2,11 +2,16 @@
 namespace Partner\Controller;
 
 use Application\Controller\AbstractJsonController;
-use CG_UI\Layout\ViewModelFactory;
+use CG\Account\Request\Entity as AccountRequest;
+use CG\Channel\Type as ChannelType;
+use CG\Partner\Entity as Partner;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use Partner\Account\AuthoriseService;
 use Partner\Account\InvalidRequestException;
 use Partner\Account\InvalidTokenException;
+use Settings\Channel\Service as ChannelService;
+use Zend\View\Model\ViewModel;
 
 class AccountController extends AbstractJsonController
 {
@@ -16,15 +21,19 @@ class AccountController extends AbstractJsonController
     protected $authoriseService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var ChannelService */
+    protected $channelService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         AuthoriseService $authoriseService,
-        ViewModelFactory $viewModelFactory
+        ViewModelFactory $viewModelFactory,
+        ChannelService $channelService
     ) {
         parent::__construct($jsonModelFactory);
         $this->authoriseService = $authoriseService;
         $this->viewModelFactory = $viewModelFactory;
+        $this->channelService = $channelService;
     }
 
     public function indexAction()
@@ -34,12 +43,11 @@ class AccountController extends AbstractJsonController
             $signature = $this->params()->fromQuery('signature', null);
             $uri = $this->getRequest()->getUri();
 
-            $this->authoriseService->connectAccount($token, $signature, $uri);
+            $accountRequest = $this->authoriseService->fetchAccountRequestForToken($token);
+            $partner = $this->authoriseService->fetchPartner($accountRequest->getPartnerId(), $token);
+            $this->authoriseService->connectAccount($accountRequest, $partner, $token, $signature, $uri);
 
-            $view = $this->viewModelFactory->newInstance();
-            return $view;
-            // TODO: this will be removed by TAC-392 once the account creation process is kicked off at this point
-//            return $this->buildSuccessResponse();
+            return $this->buildAccountConnectionViewModel($accountRequest, $partner);
         } catch (InvalidTokenException $e) {
             return $this->buildErrorResponse('Invalid request');
         } catch (InvalidRequestException $e) {
@@ -49,6 +57,25 @@ class AccountController extends AbstractJsonController
             $this->logErrorException($e);
         }
 
-//        return $this->buildErrorResponse('Invalid request');
+        return $this->buildErrorResponse('Invalid request');
+    }
+
+    protected function buildAccountConnectionViewModel(AccountRequest $accountRequest, Partner $partner): ViewModel
+    {
+        $redirectUrl = $this->channelService->createAccount(
+            ChannelType::SALES,
+            $accountRequest->getChannel(),
+            $accountRequest->getRegion()
+        );
+
+        $view = $this->viewModelFactory->newInstance([
+            'partnerName' => $partner->getName(),
+            'partnerLogoUrl' => $partner->getLogoUrl(),
+            'channel' => $accountRequest->getChannel(),
+            'region' => $accountRequest->getRegion(),
+            'channelRedirectUrl' => $redirectUrl
+        ]);
+
+        return $view;
     }
 }

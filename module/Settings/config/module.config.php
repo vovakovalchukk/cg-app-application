@@ -303,7 +303,8 @@ return [
                                             'route' => '/ebay',
                                             'defaults' => [
                                                 'controller' => EbayController::class,
-                                                'action' => 'save'
+                                                'action' => 'save',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'child_routes' => [
@@ -343,7 +344,8 @@ return [
                                             'route' => '/amazon/:region',
                                             'defaults' => [
                                                 'controller' => AmazonController::class,
-                                                'action' => 'save'
+                                                'action' => 'save',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'may_terminate' => true
@@ -362,8 +364,7 @@ return [
                                         'options' => [
                                             'route' => '/create',
                                             'defaults' => [
-                                                'action' => 'create',
-                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
+                                                'action' => 'create'
                                             ]
                                         ],
                                         'may_terminate' => true

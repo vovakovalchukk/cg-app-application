@@ -64,17 +64,19 @@ class AuthoriseService implements LoggerAwareInterface
         $this->ssoClient = $ssoClient;
     }
 
-    public function connectAccount(?string $token, ?string $userSignature, Uri $uri)
-    {
-        $accountRequest = $this->fetchAccountRequestForToken($token);
-        $partner = $this->fetchPartner($accountRequest->getPartnerId(), $token);
-
+    public function connectAccount(
+        AccountRequest $accountRequest,
+        Partner $partner,
+        ?string $token,
+        ?string $userSignature,
+        Uri $uri
+    ) {
         $this->validateAccountRequest($accountRequest, $partner);
         $this->validateSignature($token, $accountRequest, $partner, $uri, $userSignature);
         $this->loginUser($accountRequest, $partner);
     }
 
-    protected function fetchAccountRequestForToken(?string $token): AccountRequest
+    public function fetchAccountRequestForToken(?string $token): AccountRequest
     {
         if ($token === null) {
             $this->logDebug(static::LOG_MESSAGE_NO_TOKEN, [], static::LOG_CODE);
@@ -97,7 +99,7 @@ class AuthoriseService implements LoggerAwareInterface
         }
     }
 
-    protected function fetchPartner(int $partnerId, string $token): Partner
+    public function fetchPartner(int $partnerId, string $token): Partner
     {
         try {
             /** @var Partner $partner */
