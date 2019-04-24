@@ -8,12 +8,16 @@ class PickingLocationCell extends React.Component {
     static defaultProps = {
         products: {},
         rowIndex: null,
-        pickLocations: null
+        pickLocations: null,
+        selectWidth: null,
+        rowData: [],
+        distanceFromLeftSideOfTableToStartOfCell: null,
+        padding: null
     };
 
     render() {
-        const {products, rowIndex, pickLocations} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const {rowIndex, pickLocations} = this.props;
+        const row = this.props.rowData;
 
         if (!stateUtility.isSimpleProduct(row) && !stateUtility.isVariation(row)) {
             return (
@@ -39,23 +43,17 @@ class PickingLocationCell extends React.Component {
 
         return true;
     };
-    renderPickLocation(name, index, row, rowIndex) {
-        const {distanceFromLeftSideOfTableToStartOfCell, pickLocations, padding, selectWidth} = this.props;
-
-        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.SELECT_DROPDOWN,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + padding + (selectWidth * index),
-            width: selectWidth,
-            allRows: this.props.rows.allIds
-        });
+    renderPickLocation(name, index, row) {
+        const {pickLocations, selectWidth} = this.props;
+        let portalSettingsForDropdown = this.getPortalSettings(index);
 
         let selected = null;
         if (pickLocations.byProductId.hasOwnProperty(row.id) && pickLocations.byProductId[row.id].hasOwnProperty(index)) {
             selected = pickLocations.byProductId[row.id][index];
-        } else if (row.pickingLocations.hasOwnProperty(index)) {
+        } else
+            if (row.pickingLocations.hasOwnProperty(index)) {
                 selected = row.pickingLocations[index];
-        }
+            }
 
         let select = React.createRef();
 
@@ -64,7 +62,7 @@ class PickingLocationCell extends React.Component {
                 ref={select}
                 title={name}
                 prefix={name}
-                active={ this.getPickLocationActive(pickLocations, row, index) }
+                active={this.getPickLocationActive(pickLocations, row, index)}
                 options={(pickLocations.values[index] || []).map((value) => {
                     return {name: value, value};
                 })}
@@ -91,7 +89,22 @@ class PickingLocationCell extends React.Component {
             </StatelessSelectComponent>
         );
     }
+    getPortalSettings(index) {
+        const {distanceFromLeftSideOfTableToStartOfCell, padding, selectWidth, rowIndex} = this.props;
 
+        let containerElement = this.props.cellNode;
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.SELECT_DROPDOWN,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + padding + (selectWidth * index),
+            width: selectWidth,
+            allRows: this.props.rows.allIds,
+            containerElement
+        });
+
+        return portalSettingsForDropdown;
+    }
     renderPickLocationCustomOption(select) {
         let onKeyUp = (event) => {
             let value = event.target.value.trim();
