@@ -82,13 +82,21 @@ class VatCell extends React.Component {
             name: selectedLabel,
             value: selectedVatKey
         };
-        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.SELECT_VAT_DROPDOWN,
+
+        let containerElement = this.props.cellNode;
+        console.log('in here');
+        debugger;
+
+        let portalSettingsParams = {
+            elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows: this.props.rows.allIds
-        });
+            allRows: this.props.rows.allIds,
+            containerElement
+        };
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings(portalSettingsParams);
 
         return (
             <div className={this.props.className}>
