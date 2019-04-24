@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "67da6075f904335d101f137cb94a507c",
+    "content-hash": "2da022c72143f5c6acebeffe785808a6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -996,16 +996,16 @@
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.2-caf595.zip",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.3-b04687.zip",
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-03-28T13:49:00+00:00"
+            "time": "2019-04-17T14:06:16+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2092,16 +2092,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.43.16",
+            "version": "1.44.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e04d267628266f5ff797740696a0b10775a93c84"
+                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.43.16-5a0398.zip",
-                "reference": "e04d267628266f5ff797740696a0b10775a93c84",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.44.0-722fcf.zip",
+                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359",
                 "shasum": null
             },
             "require": {
@@ -2172,7 +2172,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-03-28T15:03:22+00:00"
+            "time": "2019-04-08T15:31:48+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -3590,16 +3590,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.5",
+            "version": "1.26.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4"
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.5-25e866.zip",
-                "reference": "c5ebd75cb8043996ebfb37ce3e5e0392c052e4a4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
                 "shasum": null
             },
             "require": {
@@ -3645,7 +3645,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2018-12-03T14:55:22+00:00"
+            "time": "2019-04-04T07:40:33+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3732,16 +3732,16 @@
         },
         {
             "name": "channelgrabber/walmart",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-walmart.git",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1"
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.0-e7358b.zip",
-                "reference": "6197b04b25027eb18a21076cec653cba6b782fe1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/walmart/channelgrabber-walmart-1.1.1-63208e.zip",
+                "reference": "1d89e94eb26b70db9febab3f9e66409ab0123391",
                 "shasum": null
             },
             "require": {
@@ -3765,7 +3765,7 @@
                     "CG\\Walmart\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-02-28T12:08:33+00:00"
+            "time": "2019-04-08T13:52:43+00:00"
         },
         {
             "name": "channelgrabber/webdriver",
@@ -4370,12 +4370,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "c1e368f16e3b1595a4b059b65e550bc6cb837630"
+                "reference": "f5d5fb95c6c08cac719c614147501f967d64c976"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-360-replace-loading-spinners-in-app-c2dbbe.zip",
-                "reference": "c1e368f16e3b1595a4b059b65e550bc6cb837630",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-360-replace-loading-spinners-in-app-433433.zip",
+                "reference": "f5d5fb95c6c08cac719c614147501f967d64c976",
                 "shasum": null
             },
             "require": {
@@ -4421,7 +4421,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-03-28T12:37:16+00:00"
+            "time": "2019-04-10T09:33:15+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4558,12 +4558,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "905234904b8a3755f15b281fbf3acacf92f5b0bb"
+                "reference": "99b5cdc80d3a4b36a49f9b1e0d7c81770ece1875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-dev-TAC-360-replace-loading-spinners-in-app-e34438.zip",
-                "reference": "905234904b8a3755f15b281fbf3acacf92f5b0bb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-dev-TAC-360-replace-loading-spinners-in-app-115c41.zip",
+                "reference": "99b5cdc80d3a4b36a49f9b1e0d7c81770ece1875",
                 "shasum": null
             },
             "require": {
@@ -4603,7 +4603,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2019-03-28T09:51:50+00:00"
+            "time": "2019-04-10T09:32:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4916,12 +4916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bd156582cdfc70e6c3e3556dfd2b767f925aa965"
+                "reference": "1ec7bc3dc0bfd489a05e35fb1c783412de212e6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-360-replace-loading-spinners-in-app-714c64.zip",
-                "reference": "bd156582cdfc70e6c3e3556dfd2b767f925aa965",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-360-replace-loading-spinners-in-app-57e341.zip",
+                "reference": "1ec7bc3dc0bfd489a05e35fb1c783412de212e6c",
                 "shasum": null
             },
             "require": {
@@ -4973,7 +4973,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-04-04T12:42:06+00:00"
+            "time": "2019-04-10T09:57:40+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11046,8 +11046,8 @@
             "package": "channelgrabber/zf2-register"
         },
         {
-            "alias": "1.26.9",
-            "alias_normalized": "1.26.9.0",
+            "alias": "1.26.19",
+            "alias_normalized": "1.26.19.0",
             "version": "dev-TAC-360-replace-loading-spinners-in-app",
             "package": "channelgrabber/zf2-v4-ui"
         }

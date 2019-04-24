@@ -44,8 +44,11 @@ return [
                             'BPR' => [
                                 'displayName' => 'Royal Mail 1st/2nd Class Signed For'
                             ],
-                            'CRL' => [
-                                'displayName' => 'Royal Mail 24/ Royal Mail 48 Standard/Signed For (Parcel - Daily Rate Service)'
+                            'CRL1' => [
+                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Daily Rate Service)'
+                            ],
+                            'CRL2' => [
+                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Daily Rate Service)'
                             ],
                             'DE1' => [
                                 'displayName' => 'International Business Parcels Zero Sort High Volume Priority'
@@ -485,8 +488,11 @@ return [
                             'SD6' => [
                                 'displayName' => 'Special Delivery Guaranteed By 9AM (£2500)'
                             ],
-                            'STL' => [
-                                'displayName' => 'Royal Mail 1st Class/ 2nd Class  Standard/Signed For (Letters - Daily Rate service)'
+                            'STL1' => [
+                                'displayName' => 'Royal Mail 1st Class Standard/Signed For (Letters - Daily Rate service)'
+                            ],
+                            'STL2' => [
+                                'displayName' => 'Royal Mail 2nd Class Standard/Signed For (Letters - Daily Rate service)'
                             ],
                             'TPL' => [
                                 'displayName' => 'Tracked 48 High Volume Signature/ No Signature'
@@ -551,11 +557,11 @@ return [
                         ],
                         'serviceTypes' => [
                             '1' => [
-                                'description' => 'Royal Mail 24 / 1st Class',
+                                'description' => '1st Class',
                                 'domestic' => true,
                             ],
                             '2' => [
-                                'description' => 'Royal Mail 48 / 2nd Class',
+                                'description' => '2nd Class',
                                 'domestic' => true,
                             ],
                             'D' => [
@@ -698,9 +704,22 @@ return [
                                 'serviceAddOns' => [],
                             ],
                             [
-                                'serviceOffering' => 'CRL',
+                                'serviceOffering' => 'CRL1',
                                 'serviceTypes' => [
-                                    '1','2'
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','P'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'CRL2',
+                                'serviceTypes' => [
+                                    '2'
                                 ],
                                 'shipmentClass' => DomesticLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
@@ -1835,9 +1854,22 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'STL',
+                                'serviceOffering' => 'STL1',
                                 'serviceTypes' => [
-                                    '1','2'
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','L','P'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'STL2',
+                                'serviceTypes' => [
+                                    '2'
                                 ],
                                 'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [

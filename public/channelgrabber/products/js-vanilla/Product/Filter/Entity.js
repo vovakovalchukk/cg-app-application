@@ -63,6 +63,11 @@ define([
             return this.replaceVariationWithParent;
         };
 
+        this.setEmbedVariationsAsLinks = function(newValue)
+        {
+            this.embedVariationsAsLinks = newValue;
+        }
+
         this.getEmbedVariationsAsLinks = function()
         {
             return this.embedVariationsAsLinks;
