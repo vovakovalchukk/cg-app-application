@@ -65,9 +65,6 @@ class StockModeCell extends React.Component {
     };
 
     getStockModeSelectActive(product, containerElement) {
-        if(product.id===1){
-            debugger;
-        }
         let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
         if(!containerElement){
             return false;

@@ -36,7 +36,6 @@ class CellWrapper extends React.Component {
                 {...this.props}
                 rowData={rowData[rowIndex]}
                 ref={(component) => cellRefs[cellIdentifier] = component}
-                cellRef = {cellRefs[cellIdentifier]}
                 cellNode = {cellNodes[cellIdentifier]}
             />
         )

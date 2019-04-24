@@ -20,9 +20,8 @@ class VatCell extends React.Component {
     state = {};
 
     changeVat = (e) => {
-        const {products, rowIndex, countryCode} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.updateVat(row.id, countryCode, e.value);
+        const {countryCode, rowData} = this.props;
+        this.props.actions.updateVat(rowData.id, countryCode, e.value);
     };
 
     generateOptionsFromVatRates = (vatRates) => {
@@ -47,19 +46,18 @@ class VatCell extends React.Component {
     };
     render() {
         const {
-            products,
             rowIndex,
             countryCode,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            rowData
         } = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
 
-        if (stateUtility.isVariation(row)) {
+        if (stateUtility.isVariation(rowData)) {
             return <span></span>
         }
 
-        let productVat = this.props.vat.productsVat[countryCode].byProductId[row.id];
+        let productVat = this.props.vat.productsVat[countryCode].byProductId[rowData.id];
 
         if(!productVat){
             return (
@@ -84,11 +82,9 @@ class VatCell extends React.Component {
         };
 
         let containerElement = this.props.cellNode;
-        console.log('in here');
-        debugger;
 
         let portalSettingsParams = {
-            elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
+            elemType: elementTypes.SELECT_VAT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
@@ -106,8 +102,8 @@ class VatCell extends React.Component {
                     onOptionChange={this.changeVat}
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
-                    selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
-                    active={this.getVatSelectActive(row)}
+                    selectToggle={this.selectToggle.bind(this, rowData.id, countryCode)}
+                    active={this.getVatSelectActive(rowData)}
                     styleVars={{
                         widthOfInput: 110,
                         widthOfDropdown: 130

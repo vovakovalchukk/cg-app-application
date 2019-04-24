@@ -38,12 +38,15 @@ class LowStockCell extends React.Component {
     };
 
     getPortalSettingsForType = (type) => {
+        let containerElement = this.props.cellNode;
+
         return portalSettingsFactory.createPortalSettings({
             elemType: type,
             rowIndex: this.props.rowIndex,
             distanceFromLeftSideOfTableToStartOfCell: this.props.distanceFromLeftSideOfTableToStartOfCell,
             width: this.props.width,
-            allRows: this.props.rows.allIds
+            allRows: this.props.rows.allIds,
+            containerElement
         });
     };
 
