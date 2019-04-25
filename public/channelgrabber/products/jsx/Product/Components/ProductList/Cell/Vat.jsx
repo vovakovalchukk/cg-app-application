@@ -35,14 +35,15 @@ class VatCell extends React.Component {
     selectToggle(productId) {
         this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
-    getVatSelectActive(product) {
-        let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
-
-        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            return false;
-        }
-
-        return true;
+    getVatSelectActive(product, containerElement) {
+        return stateUtility.shouldShowSelect({
+            product,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement,
+            scroll: this.props.scroll,
+            rows: this.props.rows
+        })
     };
     render() {
         const {
@@ -103,7 +104,7 @@ class VatCell extends React.Component {
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
                     selectToggle={this.selectToggle.bind(this, rowData.id, countryCode)}
-                    active={this.getVatSelectActive(rowData)}
+                    active={this.getVatSelectActive(rowData, containerElement)}
                     styleVars={{
                         widthOfInput: 110,
                         widthOfDropdown: 130

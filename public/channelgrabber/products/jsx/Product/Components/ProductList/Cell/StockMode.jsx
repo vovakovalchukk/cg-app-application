@@ -28,7 +28,8 @@ class StockModeCell extends React.Component {
     static defaultProps = {
         products: {},
         rowIndex: null,
-        stock: {}
+        stock: {},
+        cellNode: null
     };
 
     state = {
@@ -65,20 +66,14 @@ class StockModeCell extends React.Component {
     };
 
     getStockModeSelectActive(product, containerElement) {
-        let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
-        if(!containerElement){
-            return false;
-        }
-        let elementRect = containerElement.getBoundingClientRect();
-
-        if (!isCurrentActive ||
-            this.props.scroll.userScrolling ||
-            !this.props.rows.initialModifyHasOccurred ||
-            elementRect.top < 80
-        ) {
-            return false;
-        }
-        return true;
+        return stateUtility.shouldShowSelect({
+            product,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement,
+            scroll: this.props.scroll,
+            rows: this.props.rows
+        });
     };
 
     selectToggle(productId) {
@@ -132,7 +127,8 @@ class StockModeCell extends React.Component {
         const {
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            cellNode
         } = this.props;
 
         const row = this.props.rowData;
@@ -150,7 +146,7 @@ class StockModeCell extends React.Component {
             return <span/>
         }
 
-        let containerElement = this.props.cellNode;
+        let containerElement = cellNode;
 
         let portalSettingsParams = {
             elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,

@@ -12,7 +12,8 @@ class PickingLocationCell extends React.Component {
         selectWidth: null,
         rowData: [],
         distanceFromLeftSideOfTableToStartOfCell: null,
-        padding: null
+        padding: null,
+        cellNode: null
     };
 
     render() {
@@ -32,19 +33,19 @@ class PickingLocationCell extends React.Component {
         );
     }
     getPickLocationActive(pickLocations, row, index) {
-        let isActive = stateUtility.isCurrentActiveSelect(row, this.props.select, this.props.columnKey, index);
-
-        if (!isActive ||
-            this.props.scroll.userScrolling ||
-            !this.props.rows.initialModifyHasOccurred
-        ) {
-            return false;
-        }
-
-        return true;
+        return stateUtility.shouldShowSelect({
+            product: this.props.rowData,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement: this.props.cellNode,
+            scroll: this.props.scroll,
+            rows: this.props.rows,
+            selectIndexOfCell: index
+        });
     };
     renderPickLocation(name, index, row) {
         const {pickLocations, selectWidth} = this.props;
+
         let portalSettingsForDropdown = this.getPortalSettings(index);
 
         let selected = null;
