@@ -170,34 +170,34 @@ class StockModeCell extends React.Component {
         let stockLevelPlaceholder = this.props.userSettings.stockLevelDefault;
 
         return (
-                <StockModeCellContainer className={this.props.className}>
-                    <DataTablesStockModeInputs
-                        inputId={row.id}
-                        selectActive={this.getStockModeSelectActive(row, containerElement)}
-                        stockModeOptions={this.props.stock.stockModeOptions}
-                        stockModeType={{
-                            input: {
-                                value: {
-                                    value: valueForStockModes
-                                },
-                                onChange: this.onStockModeChange
-                            }
-                        }}
-                        stockAmount={{
-                            input: {
-                                value: valueForStockLevels,
-                                onChange: this.onStockLevelChange
-                            }
-                        }}
-                        portalSettingsForDropdown={portalSettingsForDropdown}
-                        actions={{
-                            toggleStockModeSelect
-                        }}
-                        stockModeSelectToggle={this.selectToggle.bind(this)}
-                        stockLevelPlaceholder={stockLevelPlaceholder}
-                    />
-                    {Submits}
-                </StockModeCellContainer>
+            <StockModeCellContainer className={this.props.className}>
+                <DataTablesStockModeInputs
+                    inputId={row.id}
+                    selectActive={this.getStockModeSelectActive(row, containerElement)}
+                    stockModeOptions={this.props.stock.stockModeOptions}
+                    stockModeType={{
+                        input: {
+                            value: {
+                                value: valueForStockModes
+                            },
+                            onChange: this.onStockModeChange
+                        }
+                    }}
+                    stockAmount={{
+                        input: {
+                            value: valueForStockLevels,
+                            onChange: this.onStockLevelChange
+                        }
+                    }}
+                    portalSettingsForDropdown={portalSettingsForDropdown}
+                    actions={{
+                        toggleStockModeSelect
+                    }}
+                    stockModeSelectToggle={this.selectToggle.bind(this)}
+                    stockLevelPlaceholder={stockLevelPlaceholder}
+                />
+                {Submits}
+            </StockModeCellContainer>
         );
     }
 }

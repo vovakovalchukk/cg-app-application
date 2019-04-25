@@ -32,7 +32,7 @@ class PickingLocationCell extends React.Component {
             </span>
         );
     }
-    getPickLocationActive(pickLocations, row, index) {
+    getPickLocationActive(pickLocations, index) {
         return stateUtility.shouldShowSelect({
             product: this.props.rowData,
             select: this.props.select,
@@ -51,10 +51,9 @@ class PickingLocationCell extends React.Component {
         let selected = null;
         if (pickLocations.byProductId.hasOwnProperty(row.id) && pickLocations.byProductId[row.id].hasOwnProperty(index)) {
             selected = pickLocations.byProductId[row.id][index];
-        } else
-            if (row.pickingLocations.hasOwnProperty(index)) {
-                selected = row.pickingLocations[index];
-            }
+        } else if (row.pickingLocations.hasOwnProperty(index)) {
+            selected = row.pickingLocations[index];
+        }
 
         let select = React.createRef();
 
