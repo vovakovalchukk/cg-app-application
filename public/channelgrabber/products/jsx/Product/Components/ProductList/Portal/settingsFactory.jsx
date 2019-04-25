@@ -18,10 +18,10 @@ const distanceElementMap = {
         return distanceFromLeftSideOfTableToStartOfCell
     },
     [elementTypes.SELECT_VAT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => {
-        return distanceFromLeftSideOfTableToStartOfCell + 10
+        return distanceFromLeftSideOfTableToStartOfCell + 15
     },
     [elementTypes.DIMENSIONS_INPUT_SUBMITS]: ({distanceFromLeftSideOfTableToStartOfCell, dimension}) => (distanceFromLeftSideOfTableToStartOfCell + getAddedDistanceForDimensionInput(dimension)),
-    [elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => (distanceFromLeftSideOfTableToStartOfCell + 30)
+    [elementTypes.INCLUDE_PURCHASE_ORDERS_IN_AVAILABLE_SELECT_DROPDOWN]: ({distanceFromLeftSideOfTableToStartOfCell}) => (distanceFromLeftSideOfTableToStartOfCell + 35)
 };
 const elemTypeZIndexMap = {
     [elementTypes.SELECT_DROPDOWN]: 150,
