@@ -10,6 +10,10 @@ let initialState = {
 };
 
 let selectReducer = reducerCreator(initialState, {
+    "REMOVE_ACTIVE_SELECT": function(state, action){
+        let stateToReturn = Object.assign({}, state);
+        return resetSelectActive(stateToReturn);
+    },
     "SELECT_ACTIVE_TOGGLE": function(state, action) {
         let {productId, columnKey, index} = action.payload;
         let stateToReturn = Object.assign({}, state);
