@@ -3,6 +3,7 @@ namespace CG\Intersoft\RoyalMail\Shipment;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
+use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\Intersoft\Client;
@@ -13,6 +14,7 @@ use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Documents\Generator as DocumentsGenerator;
 use function CG\Stdlib\mergePdfData;
 use CG\Intersoft\RoyalMail\Package as RoyalMailPackage;
+use CG\Stdlib\Exception\Storage as StorageException;
 
 class Booker
 {
@@ -62,6 +64,8 @@ class Booker
             /** @var Client $client */
             $client = ($this->clientFactory)($account);
             return $client->send($request);
+        } catch (StorageException $e) {
+            $this->handleUserErrors($e);
         } catch (\Exception $e) {
             throw new OperationFailed($e->getMessage(), $e->getCode(), $e);
         }
@@ -120,5 +124,13 @@ class Booker
         }
         // Fallback to the 2D barcode number
         return $shipmentItem->getItemId();
+    }
+
+    protected function handleUserErrors(\Exception $exception): void
+    {
+        if ($exception->getCode() === 500) {
+            throw $exception;
+        }
+        throw new UserError($exception->getMessage(), $exception->getCode(), $exception);
     }
 }

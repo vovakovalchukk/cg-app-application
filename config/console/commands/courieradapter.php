@@ -1,8 +1,10 @@
 <?php
 
+use CG\CourierAdapter\Command\AppendShipstationRoyalMailDisplayNames;
 use CG\CourierAdapter\Command\RetrieveConnectionRequestDetails;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use CG\Command\NullActiveUser;
 use Zend\Di\Di;
 
 /** @var Di $di */
@@ -28,6 +30,17 @@ return [
                 $input->getArgument('shippingAccountId'),
                 $output
             );
+        },
+    ],
+    'courieradapter:appendAllShipstationRoyalMailAccountDisplayNames' => [
+        'description' => 'Appends "- Shipstation" to all existing shipstation royal mail accounts',
+        'arguments' => [],
+        'command' => function(InputInterface $input, OutputInterface $output) use ($di)
+        {
+            /** @var AppendShipstationRoyalMailDisplayNames $command */
+            $di->instanceManager()->setTypePreference('CG\User\ActiveUserInterface', [new NullActiveUser()]);
+            $command = $di->get(AppendShipstationRoyalMailDisplayNames::class);
+            $command($output);
         },
     ],
 ];
