@@ -941,12 +941,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "5e8d020946d25d53f4bfbbe5a581bf16f1ec9515"
+                "reference": "a25e9190222e5242b7c0b08210e2725d3b692cd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10555-myhermes-postable-parcels-6f4f5c.zip",
-                "reference": "5e8d020946d25d53f4bfbbe5a581bf16f1ec9515"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10555-myhermes-postable-parcels-028252.zip",
+                "reference": "a25e9190222e5242b7c0b08210e2725d3b692cd8"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.4.0",
@@ -979,7 +979,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-04-29T11:21:58+00:00"
+            "time": "2019-04-29T12:28:50+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
