@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "96081926d4a95510d40adb8f11e0e9b3",
+    "content-hash": "216d99fdbf7d1d2c47553e6ff89f1b48",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -949,16 +949,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.13",
+            "version": "1.1.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d18550968eb80a8853368e51ccd4a190d62e27e2"
+                "reference": "c1cfb96c9b81f09b9ec8e2941d7a59bb51aa1dd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.13-e677d6.zip",
-                "reference": "d18550968eb80a8853368e51ccd4a190d62e27e2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.14-265b86.zip",
+                "reference": "c1cfb96c9b81f09b9ec8e2941d7a59bb51aa1dd3",
                 "shasum": null
             },
             "require": {
@@ -992,20 +992,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-03-19T15:42:06+00:00"
+            "time": "2019-04-24T13:36:22+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8"
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.2-caf595.zip",
-                "reference": "ad0a42be6953db1995e953f4dfa7da758f2bfdc8",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.3-b04687.zip",
+                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-03-28T13:49:00+00:00"
+            "time": "2019-04-17T14:06:16+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -3590,16 +3590,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.6",
+            "version": "1.26.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
+                "reference": "20ed967c9f8c826b843bd6e606d37323f92bfcb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
-                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.7-48c2d8.zip",
+                "reference": "20ed967c9f8c826b843bd6e606d37323f92bfcb0",
                 "shasum": null
             },
             "require": {
@@ -3645,7 +3645,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2019-04-04T07:40:33+00:00"
+            "time": "2019-04-25T09:12:10+00:00"
         },
         {
             "name": "channelgrabber/userpreference",

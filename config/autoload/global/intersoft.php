@@ -44,8 +44,11 @@ return [
                             'BPR' => [
                                 'displayName' => 'Royal Mail 1st/2nd Class Signed For'
                             ],
-                            'CRL' => [
-                                'displayName' => 'Royal Mail 24/ Royal Mail 48 Standard/Signed For (Parcel - Daily Rate Service)'
+                            'CRL1' => [
+                                'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Daily Rate Service)'
+                            ],
+                            'CRL2' => [
+                                'displayName' => 'Royal Mail 48 Standard/Signed For (Parcel - Daily Rate Service)'
                             ],
                             'DE1' => [
                                 'displayName' => 'International Business Parcels Zero Sort High Volume Priority'
@@ -485,8 +488,11 @@ return [
                             'SD6' => [
                                 'displayName' => 'Special Delivery Guaranteed By 9AM (£2500)'
                             ],
-                            'STL' => [
-                                'displayName' => 'Royal Mail 1st Class/ 2nd Class  Standard/Signed For (Letters - Daily Rate service)'
+                            'STL1' => [
+                                'displayName' => 'Royal Mail 1st Class Standard/Signed For (Letters - Daily Rate service)'
+                            ],
+                            'STL2' => [
+                                'displayName' => 'Royal Mail 2nd Class Standard/Signed For (Letters - Daily Rate service)'
                             ],
                             'TPL' => [
                                 'displayName' => 'Tracked 48 High Volume Signature/ No Signature'
@@ -494,11 +500,17 @@ return [
                             'TPM' => [
                                 'displayName' => 'Tracked 24 High Volume Signature/ No Signature'
                             ],
-                            'TPN' => [
-                                'displayName' => 'Tracked 24 Signature/ No Signature'
+                            'TPNN' => [
+                                'displayName' => 'Tracked 24 No Signature'
                             ],
-                            'TPS' => [
-                                'displayName' => 'Tracked 48 Signature/ No Signature'
+                            'TPNS' => [
+                                'displayName' => 'Tracked 24 Signature'
+                            ],
+                            'TPSN' => [
+                                'displayName' => 'Tracked 48 No Signature'
+                            ],
+                            'TPSS' => [
+                                'displayName' => 'Tracked 48 Signature'
                             ],
                             'TRL' => [
                                 'displayName' => 'Tracked Letter-Boxable 48 High Volume Signature'
@@ -506,11 +518,17 @@ return [
                             'TRM' => [
                                 'displayName' => 'Tracked Letter-Boxable 24 High Volume No Signature'
                             ],
-                            'TRN' => [
+                            'TRNN' => [
                                 'displayName' => 'Tracked Letter-Boxable 24 No Signature'
                             ],
-                            'TRS' => [
+                            'TRNS' => [
+                                'displayName' => 'Tracked Letter-Boxable 24 Signature'
+                            ],
+                            'TRSN' => [
                                 'displayName' => 'Tracked Letter-Boxable 48 No Signature'
+                            ],
+                            'TRSS' => [
+                                'displayName' => 'Tracked Letter-Boxable 48 Signature'
                             ],
                             'TSN' => [
                                 'displayName' => 'Tracked Returns 24'
@@ -551,11 +569,11 @@ return [
                         ],
                         'serviceTypes' => [
                             '1' => [
-                                'description' => 'Royal Mail 24 / 1st Class',
+                                'description' => '1st Class',
                                 'domestic' => true,
                             ],
                             '2' => [
-                                'description' => 'Royal Mail 48 / 2nd Class',
+                                'description' => '2nd Class',
                                 'domestic' => true,
                             ],
                             'D' => [
@@ -698,9 +716,22 @@ return [
                                 'serviceAddOns' => [],
                             ],
                             [
-                                'serviceOffering' => 'CRL',
+                                'serviceOffering' => 'CRL1',
                                 'serviceTypes' => [
-                                    '1','2'
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','P'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'CRL2',
+                                'serviceTypes' => [
+                                    '2'
                                 ],
                                 'shipmentClass' => DomesticLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
@@ -1835,9 +1866,22 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'STL',
+                                'serviceOffering' => 'STL1',
                                 'serviceTypes' => [
-                                    '1','2'
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','L','P'
+                                ],
+                                'serviceAddOns' => [
+                                    '6'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'STL2',
+                                'serviceTypes' => [
+                                    '2'
                                 ],
                                 'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
@@ -1874,7 +1918,7 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TPN',
+                                'serviceOffering' => 'TPNN',
                                 'serviceTypes' => [
                                     'T'
                                 ],
@@ -1887,7 +1931,33 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TPS',
+                                'serviceOffering' => 'TPNS',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TPSN',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TPSS',
                                 'serviceTypes' => [
                                     'T'
                                 ],
@@ -1926,7 +1996,7 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TRN',
+                                'serviceOffering' => 'TRNN',
                                 'serviceTypes' => [
                                     'T'
                                 ],
@@ -1939,7 +2009,33 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TRS',
+                                'serviceOffering' => 'TRNS',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TRSN',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TRSS',
                                 'serviceTypes' => [
                                     'T'
                                 ],
