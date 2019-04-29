@@ -106,6 +106,9 @@ class Create extends PostAbstract
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
         $destination = $xml->addChild('destination');
+        if ($deliveryAddress->getCompanyName()) {
+            $destination->addChild('destinationCompanyName', $this->sanitiseString($deliveryAddress->getCompanyName()));
+        }
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
         $destination->addChild(
