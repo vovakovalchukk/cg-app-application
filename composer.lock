@@ -2180,7 +2180,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "54e0bfcf5fe22bc81526d025d467739dc56813dd"
+                "reference": "41a78043a7f67fd9e4e9d0ac744559169329f85e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-3fab15.zip",
+                "reference": "41a78043a7f67fd9e4e9d0ac744559169329f85e",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.20.3",
@@ -2222,7 +2228,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-04-25T10:07:31+00:00"
+            "time": "2019-04-29T08:06:47+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -11039,8 +11045,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/payment": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
