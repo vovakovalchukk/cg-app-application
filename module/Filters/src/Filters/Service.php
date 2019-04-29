@@ -37,6 +37,7 @@ class Service
     const FILTER_ORDER_BUYER_MESSAGE = 'orderBuyerMessage';
     const FILTER_ORDER_GIFT_MESSAGE = 'orderGiftMessage';
     const FILTER_ORDER_STATE_FILTERS = 'orderFilterStateFilters';
+    const FILTER_ORDER_IS_DISPATCHABLE = 'orderIsDispatchable';
 
     static protected function getOrderFilters()
     {
@@ -315,6 +316,28 @@ class Service
                         [
                             'value' => true,
                             'title' => 'Yes'
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No'
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_IS_DISPATCHABLE => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'dispatchable',
+                    'title' => 'Dispatchable By Merchant',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes',
+                            'selected' => true
                         ],
                         [
                             'value' => false,

@@ -51,7 +51,8 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_FULFILMENT_CHANNEL),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_ARCHIVED),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_BUYER_MESSAGE),
-                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_GIFT_MESSAGE)
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_GIFT_MESSAGE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_DISPATCHABLE)
                     ]
                 ]
             ],
