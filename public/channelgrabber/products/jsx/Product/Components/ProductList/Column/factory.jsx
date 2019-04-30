@@ -24,7 +24,6 @@ const columnSpecificPropsMap = {
     productExpand: ['expand'],
     cost: ['rows', 'detail', 'scroll']
 };
-//const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {
     'center': 'center',
     'left': 'flex-start',

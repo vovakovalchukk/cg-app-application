@@ -173,56 +173,6 @@ class ProductList extends React.Component {
         return true;
     };
     renderProducts = () => {
-
-//        // todo - remove this sandbox dummy
-//        let options = [
-//            {
-//                name: 'test',
-//                value: 'test'
-//            },
-//            {
-//                name: 'test',
-//                value: 'test'
-//            },
-//            {
-//                name: 'test',
-//                value: 'test'
-//            },
-//            {
-//                name: 'test',
-//                value: 'test'
-//            },
-//            {
-//                name: 'test',
-//                value: 'test'
-//            },
-//            {
-//                name: 'test',
-//                value: 'test'
-//            }, {
-//                name: 'test',
-//                value: 'test'
-//            }
-//        ];
-//
-//        return <StatelessSelect
-//            options={options}
-//            onOptionChange={() => {
-//                console.log('nowt');
-//            }}
-//            classNames={'u-width-140px'}
-//            selectToggle={() => {
-//                this.setState({selectActive: !this.state.selectActive})
-//            }}
-//            active={this.state.selectActive}
-//            styleVars={{
-//                widthOfInput: 110,
-//                widthOfDropdown: 130
-//            }}
-//        />
-
-
-        //todo - reinstate this
         let rows = this.getVisibleRows();
         if (!this.isReadyToRenderTable() && !this.hasProducts()) {
             return;
@@ -233,10 +183,6 @@ class ProductList extends React.Component {
         if (!this.hasProducts() && this.props.products.haveFetched) {
             rowCount = 50;
         }
-
-
-
-        //todo - reinstate this
         return (
             <Table
                 rowHeight={styleVars.heights.rowHeight}

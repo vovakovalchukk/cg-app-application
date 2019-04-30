@@ -1,5 +1,4 @@
 import React from 'react';
-import constants from "../Config/constants";
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
 
 const distanceDimensionMap = {
@@ -50,7 +49,7 @@ let portalSettingsFactory = (function() {
                 return;
             }
 
-            let domNodeForSubmits = getDomNodeForAddingSubmitsTo(rowIndex);
+            let domNodeForSubmits = document.body;
             if (!domNodeForSubmits) {
                 return;
             }
@@ -95,14 +94,14 @@ let portalSettingsFactory = (function() {
     }
 
     function getWrapperForPortal({
-                                     elemType,
-                                     distanceFromLeftSideOfTableToStartOfCell,
-                                     width,
-                                     detailForInput,
-                                     rowIndex,
-                                     translateProp,
-                                     distanceFromTop
-                                 }) {
+         elemType,
+         distanceFromLeftSideOfTableToStartOfCell,
+         width,
+         detailForInput,
+         rowIndex,
+         translateProp,
+         distanceFromTop
+     }) {
         let createWrapper = wrapperStyle => {
             return ({children}) => (
                 <div style={wrapperStyle}>
@@ -131,23 +130,6 @@ let portalSettingsFactory = (function() {
         };
 
         return createWrapper(wrapperStyle);
-    }
-
-    function getDomNodeForAddingSubmitsTo(rowIndex) {
-//        let targetClass = getClassOfCurrentRow(rowIndex);
-//        let targetRow = document.querySelector(targetClass);
-//        if (!targetRow) {
-//            return;
-//        }
-//        return targetRow.parentNode;
-
-        //todo - reinstate the above if below solution doesn't work.
-
-        return document.body;
-    }
-
-    function getClassOfCurrentRow(rowIndex) {
-        return '.' + constants.ROW_CLASS_PREFIX + '-' + rowIndex;
     }
 }());
 
