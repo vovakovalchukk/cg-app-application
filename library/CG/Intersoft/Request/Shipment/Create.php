@@ -30,6 +30,7 @@ class Create extends PostAbstract
     const MAX_LEN_CONTACT = 40;
     const MAX_LEN_DESCRIPTION_OF_GOODS = 70;
     const MAX_LEN_DESCRIPTION = 255;
+    const MIN_FINANCIAL_VALUE = 0.01;
 
     /** @var Shipment */
     protected $shipment;
@@ -214,7 +215,7 @@ class Create extends PostAbstract
                 $itemInformation = $xml->addChild('itemInformation');
                 $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
-                $itemInformation->addChild('itemValue', $packageContents->getUnitValue());
+                $itemInformation->addChild('itemValue', $this->sanitiseFinancialValue($packageContents->getUnitValue()));
                 $itemInformation->addChild('itemNetWeight', $packageContents->getWeight());
             }
         }
@@ -229,9 +230,17 @@ class Create extends PostAbstract
         $xml->addChild('weightId', static::WEIGHT_UNIT);
         $xml->addChild('product', static::PRODUCT_TYPE);
         $xml->addChild('descriptionOfGoods', $packageOverviewDetails['description']);
-        $xml->addChild('declaredValue', $packageOverviewDetails['totalValue']);
+        $xml->addChild('declaredValue', $this->sanitiseFinancialValue($packageOverviewDetails['totalValue']));
         $xml->addChild('declaredCurrencyCode', $packageOverviewDetails['currencyCode']);
         return $xml;
+    }
+
+    protected function sanitiseFinancialValue(float $value): float
+    {
+        if ($value > 0) {
+            return $value;
+        }
+        return static::MIN_FINANCIAL_VALUE;
     }
 
     protected function getOverviewDetailsArray(): array
