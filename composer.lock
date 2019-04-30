@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "810bbc623bf5f92ae442864fdad09f70",
+    "content-hash": "88da7b1f929e68a2f5afc188efc43f18",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -949,16 +949,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.14",
+            "version": "1.1.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c1cfb96c9b81f09b9ec8e2941d7a59bb51aa1dd3"
+                "reference": "fd863a1fe85359bfb4d9093b7f7b042fa5d97c43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.14-265b86.zip",
-                "reference": "c1cfb96c9b81f09b9ec8e2941d7a59bb51aa1dd3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.15-272350.zip",
+                "reference": "fd863a1fe85359bfb4d9093b7f7b042fa5d97c43",
                 "shasum": null
             },
             "require": {
@@ -992,20 +992,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-04-24T13:36:22+00:00"
+            "time": "2019-04-30T09:57:25+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.3",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232"
+                "reference": "2d44b89ba77942f792ef3af8c3093fe8c682234b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.3-b04687.zip",
-                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.4-c385c6.zip",
+                "reference": "2d44b89ba77942f792ef3af8c3093fe8c682234b",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-04-17T14:06:16+00:00"
+            "time": "2019-04-30T09:55:35+00:00"
         },
         {
             "name": "channelgrabber/currency",
