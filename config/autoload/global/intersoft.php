@@ -38,8 +38,11 @@ return [
                             'BF9' => [
                                 'displayName' => 'HM Forces Special Delivery (£2500)'
                             ],
-                            'BPL' => [
-                                'displayName' => 'Royal Mail 1st/2nd Class'
+                            'BPL1' => [
+                                'displayName' => 'Royal Mail 1st Class'
+                            ],
+                            'BPL2' => [
+                                'displayName' => 'Royal Mail 2nd Class'
                             ],
                             'BPR' => [
                                 'displayName' => 'Royal Mail 1st/2nd Class Signed For'
@@ -740,6 +743,28 @@ return [
                                 'serviceAddOns' => [
                                     '6'
                                 ],
+                            ],
+                            [
+                                'serviceOffering' => 'BPL1',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','P'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BPL2',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','P'
+                                ],
+                                'serviceAddOns' => [],
                             ],
                             [
                                 'serviceOffering' => 'DE1',
