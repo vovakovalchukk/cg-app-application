@@ -230,7 +230,7 @@ class Create extends PostAbstract
         $xml->addChild('weightId', static::WEIGHT_UNIT);
         $xml->addChild('product', static::PRODUCT_TYPE);
         $xml->addChild('descriptionOfGoods', $packageOverviewDetails['description']);
-        $xml->addChild('declaredValue', $this->sanitiseFinancialValue($packageOverviewDetails['totalValue']));
+        $xml->addChild('declaredValue', $packageOverviewDetails['totalValue']);
         $xml->addChild('declaredCurrencyCode', $packageOverviewDetails['currencyCode']);
         return $xml;
     }
@@ -257,7 +257,7 @@ class Create extends PostAbstract
             foreach ($package->getContents() as $packageContent) {
                 $details['description'] .=  $packageContent->getDescription() . '|';
                 $details['currencyCode'] =  $packageContent->getUnitCurrency();
-                $details['totalValue'] += $packageContent->getUnitValue() * $packageContent->getQuantity();
+                $details['totalValue'] += $this->sanitiseFinancialValue($packageContent->getUnitValue()) * $packageContent->getQuantity();
             }
             $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION_OF_GOODS);
         }
