@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "706b62082ec3b288e6376c0b7220db2c",
+    "content-hash": "a18956fe3a428d9e578e033894dc322d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4362,11 +4362,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-TAC-360-replace-loading-spinners-in-app",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "fe08c4802136ce3ef410f945c2530f1de4abb750"
+                "reference": "14a16330ff86610934ef5d47381c92e584ea4b2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.6-424df0.zip",
+                "reference": "14a16330ff86610934ef5d47381c92e584ea4b2b",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -4411,7 +4417,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-05-01T08:33:29+00:00"
+            "time": "2019-05-01T14:58:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4544,11 +4550,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-TAC-360-replace-loading-spinners-in-app",
+            "version": "1.6.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "23a7fb7d45c4a77a5e7c3ac19b52b53734197340"
+                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.19-6a26a7.zip",
+                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -4587,7 +4599,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2019-05-01T08:34:10+00:00"
+            "time": "2019-05-01T14:59:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4896,16 +4908,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-360-replace-loading-spinners-in-app",
+            "version": "1.26.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ff677b0b66d8004d2acccc4d6ea51650933934eb"
+                "reference": "702109d0552c08c2ae4c9bf0d31ad8c25dae9422"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-360-replace-loading-spinners-in-app-519496.zip",
-                "reference": "ff677b0b66d8004d2acccc4d6ea51650933934eb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.12-4504b9.zip",
+                "reference": "702109d0552c08c2ae4c9bf0d31ad8c25dae9422",
                 "shasum": null
             },
             "require": {
@@ -4957,7 +4969,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-05-01T14:41:00+00:00"
+            "time": "2019-05-01T14:56:58+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11180,32 +11192,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.5",
-            "alias_normalized": "1.6.5.0",
-            "version": "dev-TAC-360-replace-loading-spinners-in-app",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.6.18",
-            "alias_normalized": "1.6.18.0",
-            "version": "dev-TAC-360-replace-loading-spinners-in-app",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.26.19",
-            "alias_normalized": "1.26.19.0",
-            "version": "dev-TAC-360-replace-loading-spinners-in-app",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
