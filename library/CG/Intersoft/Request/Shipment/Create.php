@@ -30,6 +30,7 @@ class Create extends PostAbstract
     const MAX_LEN_CONTACT = 40;
     const MAX_LEN_DESCRIPTION_OF_GOODS = 70;
     const MAX_LEN_DESCRIPTION = 255;
+    const MIN_FINANCIAL_VALUE = 0.01;
 
     /** @var Shipment */
     protected $shipment;
@@ -214,7 +215,7 @@ class Create extends PostAbstract
                 $itemInformation = $xml->addChild('itemInformation');
                 $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
-                $itemInformation->addChild('itemValue', $packageContents->getUnitValue());
+                $itemInformation->addChild('itemValue', $this->sanitiseFinancialValue($packageContents->getUnitValue()));
                 $itemInformation->addChild('itemNetWeight', $packageContents->getWeight());
             }
         }
@@ -234,6 +235,14 @@ class Create extends PostAbstract
         return $xml;
     }
 
+    protected function sanitiseFinancialValue(float $value): float
+    {
+        if ($value > 0) {
+            return $value;
+        }
+        return static::MIN_FINANCIAL_VALUE;
+    }
+
     protected function getOverviewDetailsArray(): array
     {
         $packages = $this->shipment->getPackages();
@@ -248,7 +257,7 @@ class Create extends PostAbstract
             foreach ($package->getContents() as $packageContent) {
                 $details['description'] .=  $packageContent->getDescription() . '|';
                 $details['currencyCode'] =  $packageContent->getUnitCurrency();
-                $details['totalValue'] += $packageContent->getUnitValue() * $packageContent->getQuantity();
+                $details['totalValue'] += $this->sanitiseFinancialValue($packageContent->getUnitValue()) * $packageContent->getQuantity();
             }
             $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION_OF_GOODS);
         }
