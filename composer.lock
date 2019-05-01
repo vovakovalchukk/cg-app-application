@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "706b62082ec3b288e6376c0b7220db2c",
@@ -4900,12 +4900,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8e8e5b12b3733ad66dd17c55cafd0d269c138bcb"
+                "reference": "ff677b0b66d8004d2acccc4d6ea51650933934eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-360-replace-loading-spinners-in-app-b3c1c8.zip",
-                "reference": "8e8e5b12b3733ad66dd17c55cafd0d269c138bcb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-360-replace-loading-spinners-in-app-519496.zip",
+                "reference": "ff677b0b66d8004d2acccc4d6ea51650933934eb",
                 "shasum": null
             },
             "require": {
@@ -4957,7 +4957,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-04-30T09:41:33+00:00"
+            "time": "2019-05-01T14:41:00+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
