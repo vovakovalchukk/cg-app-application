@@ -47,6 +47,7 @@ class CreationService extends CreationServiceAbstract
             $this->cryptor->encrypt(new Credentials($params['clientId'], $params['clientSecret']))
         );
         $this->testAccount($account);
+        $account->setExternalDataByKey('fulfillmentLagTime', $params['fulfillmentLagTime']);
         return $account;
     }
 
