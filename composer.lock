@@ -948,12 +948,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "0eef0b6f43d12f45a5039f57fcca8c2e54a525aa"
+                "reference": "538b372ba8ebdaeb8449a488cb2ca71d0e8812a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10558-intersoft-rm-label-fields-missing-f9d1d9.zip",
-                "reference": "0eef0b6f43d12f45a5039f57fcca8c2e54a525aa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10558-intersoft-rm-label-fields-missing-df2818.zip",
+                "reference": "538b372ba8ebdaeb8449a488cb2ca71d0e8812a9",
                 "shasum": null
             },
             "require": {
@@ -987,7 +987,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-05-02T14:32:50+00:00"
+            "time": "2019-05-02T14:44:06+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
