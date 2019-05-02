@@ -77,6 +77,11 @@ class SubcategoriesComponent extends React.Component {
         $.get(
             ApiHelper.buildCategoryChildrenUrl(this.props.accountId, category.value),
             function(response) {
+
+                //# todo - remvove this hack
+                response = {"categories":{"630540":{"title":"Mens","listable":true},"630547":{"title":"Women","listable":true}},"bodyTag":[]};
+                //#
+
                 self.setState({
                     disabled: false
                 });

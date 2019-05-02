@@ -390,6 +390,10 @@ class AmazonCategoryFormComponent extends React.Component {
     };
 
     render() {
+        //# todo- remove this hack
+        this.props.rootCategories = {"1656038":{"title":"Alexa Skills","listable":true},"1656226":{"title":"Amazon Devices \u0026 Accessories","listable":true},"1656230":{"title":"Apps for Android","listable":true},"1656328":{"title":"Automotive","listable":true},"1659116":{"title":"Baby Products Store","listable":true},"1660510":{"title":"Beauty Products","listable":true},"1661810":{"title":"Books","listable":true},"1672743":{"title":"Business, Industry \u0026 Science","listable":true},"1679869":{"title":"Outlet,Categories","listable":true},"1679881":{"title":"Music Styles","listable":true},"1681435":{"title":"Clothing","listable":true},"1686221":{"title":"Computers \u0026 Accessories","listable":true},"1686841":{"title":"Digital Music Genres","listable":true},"1687225":{"title":"DIY \u0026 Tools","listable":true},"1691000":{"title":"DVD \u0026 Blu-ray","listable":true},"1691003":{"title":"Electronics","listable":true},"1693938":{"title":"Everything Else","listable":true},"1693939":{"title":"Garden \u0026 Outdoors","listable":true},"1695059":{"title":"Gift Cards","listable":true},"1695064":{"title":"Grocery Store","listable":true},"1697870":{"title":"Health \u0026 Personal Care","listable":true},"1700014":{"title":"Home \u0026 Kitchen","listable":true},"1704167":{"title":"Jewellery","listable":true},"1704364":{"title":"Kindle Store","listable":true},"1710328":{"title":"Large Appliances","listable":true},"1710725":{"title":"Lighting","listable":true}};
+        //#
+
         return (
             <div className="amazon-category-form-container">
                 <Subcategories rootCategories={this.props.rootCategories} accountId={this.props.accountId}/>

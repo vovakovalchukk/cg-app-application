@@ -16,9 +16,11 @@ class CategoryFormsComponent extends React.Component {
         accounts: [],
         categoryTemplates: {},
         product: {},
-        refreshAccountPolicies: () => {},
+        refreshAccountPolicies: () => {
+        },
         accountsData: {},
-        setReturnPoliciesForAccount: () => {},
+        setReturnPoliciesForAccount: () => {
+        },
         variationsDataForProduct: [],
         fieldChange: null,
         resetSection: null,
@@ -27,8 +29,21 @@ class CategoryFormsComponent extends React.Component {
 
     renderForCategoryTemplates = () => {
         var output = [];
-        for (var categoryTemplateId in this.props.categoryTemplates) {
-            var categoryTemplate = this.props.categoryTemplates[categoryTemplateId];
+        //# todo revert this hack (reinstate with what was before)
+        let catTemplates = {
+            5: {
+                accounts: {
+                    6: {
+                        accountId: 6,
+                        channel: 'amazon',
+                        categoryId: 13213
+                    }
+                }
+            }
+        };
+        for (var categoryTemplateId in catTemplates) {
+            var categoryTemplate = catTemplates[categoryTemplateId];
+            //#
             output = output.concat(this.renderForCategoryTemplate(categoryTemplate))
         }
         return output;
@@ -101,7 +116,7 @@ const mapDispatchToProps = function(dispatch) {
         refreshAccountPolicies: function(accountId) {
             dispatch(Actions.refreshAccountPolicies(dispatch, accountId))
         },
-        setPoliciesForAccount: function (accountId, policies) {
+        setPoliciesForAccount: function(accountId, policies) {
             dispatch(Actions.setPoliciesForAccount(accountId, policies))
         }
     };
