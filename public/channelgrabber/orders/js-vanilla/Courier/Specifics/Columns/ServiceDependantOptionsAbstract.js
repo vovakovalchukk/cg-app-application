@@ -1,5 +1,13 @@
-define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
-{
+define([
+    'AjaxRequester',
+    'cg-mustache',
+    'element/loadingIndicator'
+],
+function(
+    ajaxRequester,
+    CGMustache,
+    loadingIndicator
+) {
     function ServiceDependantOptionsAbstract(templatePath)
     {
         var template;
@@ -29,7 +37,9 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
     ServiceDependantOptionsAbstract.SELECTOR_SERVICE_SELECT = '.courier-service-custom-select';
     ServiceDependantOptionsAbstract.SELECTOR_ACCOUNT_INPUT = '#courier-specifics-label-form input';
     ServiceDependantOptionsAbstract.URI = '/orders/courier/specifics/{accountId}/optionData';
-    ServiceDependantOptionsAbstract.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
+    ServiceDependantOptionsAbstract.LOADER = `<div class="indicator-wrapper -default u-margin-center">
+                                                ${loadingIndicator.getIndicator()}
+                                           </div>`;
 
     ServiceDependantOptionsAbstract.prototype.listenForServiceChanges = function()
     {

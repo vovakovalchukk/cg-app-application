@@ -1,5 +1,13 @@
-define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
-{
+define([
+    'AjaxRequester',
+    'cg-mustache',
+    'element/loadingIndicator'
+],
+function(
+    ajaxRequester,
+    CGMustache,
+    loadingIndicator
+) {
     function ShippingServices()
     {
         var template;
@@ -23,7 +31,9 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 
     ShippingServices.TEMPLATE_PATH = '/cg-built/zf2-v4-ui/templates/elements/custom-select.mustache';
     ShippingServices.SELECT_ID_PREFIX = 'courier-service-options-';
-    ShippingServices.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
+    ShippingServices.LOADER = `<div class="indicator-wrapper -default u-margin-center">
+                                ${loadingIndicator.getIndicator()}
+                           </div>`;
     ShippingServices.URI_SERVICES_FOR_ORDER = '/orders/courier/services';
     ShippingServices.SELECT_ELEMENTS = ".courier-service-custom-select";
 
