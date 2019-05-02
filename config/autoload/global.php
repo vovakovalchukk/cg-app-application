@@ -50,6 +50,8 @@ use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
 use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
 
+use CG_SSO\Module as SsoModule;
+
 // Logging
 use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
 use CG\Log\Psr\Logger as CGPsrLogger;
@@ -681,7 +683,11 @@ $config = array(
             ],
             PermissionService::class => [
                 'parameters' => [
-                    'ouService' => 'organisationUnitApcReadService'
+                    'ouService' => 'organisationUnitApcReadService',
+                    'partnerManagedAdditionalRouteWhiteList' => [
+                        SsoModule::ROUTE_LOGOUT => SsoModule::ROUTE_LOGOUT,
+                        SsoModule::ROUTE_RETURN => SsoModule::ROUTE_RETURN
+                    ]
                 ]
             ],
         ),
