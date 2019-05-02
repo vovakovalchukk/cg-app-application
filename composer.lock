@@ -948,10 +948,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "86180bbdcff654a985e207c0094a6b4c70dc6a75"
+                "reference": "0eef0b6f43d12f45a5039f57fcca8c2e54a525aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-CGIV-10558-intersoft-rm-label-fields-missing-f9d1d9.zip",
+                "reference": "0eef0b6f43d12f45a5039f57fcca8c2e54a525aa",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "^1.4.0",
+                "channelgrabber/courieradapter": "dev-CGIV-10558-intersoft-rm-label-fields-missing as 1.5.0",
                 "channelgrabber/locale": "^1.0.17",
                 "channelgrabber/stdlib": "^2.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
@@ -981,7 +987,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-04-30T09:57:25+00:00"
+            "time": "2019-05-02T14:32:50+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -990,6 +996,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
                 "reference": "d0badbe3abf5bc67d966b942414011d4929ab427"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-CGIV-10558-intersoft-rm-label-fields-missing-ca762f.zip",
+                "reference": "d0badbe3abf5bc67d966b942414011d4929ab427",
+                "shasum": null
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1013,7 +1025,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-04-30T09:55:35+00:00"
+            "time": "2019-05-01T14:25:29+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -9900,8 +9912,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11191,12 +11202,6 @@
         {
             "alias": "1.4.5",
             "alias_normalized": "1.4.5.0",
-            "version": "dev-develop",
-            "package": "channelgrabber/courieradapter"
-        },
-        {
-            "alias": "1.4.5",
-            "alias_normalized": "1.4.5.0",
             "version": "dev-CGIV-10558-intersoft-rm-label-fields-missing",
             "package": "channelgrabber/courieradapter"
         }
@@ -11207,8 +11212,8 @@
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
