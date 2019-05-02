@@ -91,9 +91,9 @@ class Create extends PostAbstract
         $shipper->addChild('shipperAddressLine1', $this->sanitiseString($collectionAddress->getLine1()));
         $shipper->addChild(
         'shipperCity',
-            $this->sanitiseString($collectionAddress->getLine3())
-            ?: $this->sanitiseString($collectionAddress->getLine2())
-            ?: $this->sanitiseString($collectionAddress->getLine4())
+            $this->sanitiseString($collectionAddress->getLine4())
+            ?: $this->sanitiseString($collectionAddress->getLine3())
+            ?: $this->sanitiseString($collectionAddress->getLine5())
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
