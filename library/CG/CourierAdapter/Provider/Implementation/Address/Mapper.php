@@ -38,17 +38,14 @@ class Mapper
         }
 
         list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ou->getAddressFullName());
-        $line2 = $ou->getAddress2();
-        if ($ou->getAddress3()) {
-            $line2 .= ', ' . $ou->getAddress3();
-        }
 
         return new CAAddress(
             $ou->getAddressCompanyName(),
             $firstName,
             $lastName,
             $ou->getAddress1(),
-            $line2,
+            $ou->getAddress2(),
+            $ou->getAddress3(),
             $ou->getAddressCity(),
             $ou->getAddressCounty(),
             $ou->getAddressPostcode(),
