@@ -112,16 +112,17 @@ class Create extends PostAbstract
         }
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
+        $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
         $destination->addChild(
             'destinationCity',
-            $this->sanitiseString($deliveryAddress->getLine3())
-                ?: $this->sanitiseString($deliveryAddress->getLine2())
-                ?: $this->sanitiseString($deliveryAddress->getLine4())
+            $this->sanitiseString($deliveryAddress->getLine4())
+                ?: $this->sanitiseString($deliveryAddress->getLine3())
+                ?: $this->sanitiseString($deliveryAddress->getLine5())
         );
         $destination->addChild(
             'destinationCounty',
-            $this->sanitiseString($deliveryAddress->getLine4())
-                ?: $this->sanitiseString($deliveryAddress->getLine3())
+            $this->sanitiseString($deliveryAddress->getLine5())
+                ?: $this->sanitiseString($deliveryAddress->getLine4())
         );
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
