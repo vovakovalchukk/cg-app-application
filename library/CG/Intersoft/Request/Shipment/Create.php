@@ -32,6 +32,9 @@ class Create extends PostAbstract
     const MAX_LEN_DESCRIPTION = 255;
     const MIN_FINANCIAL_VALUE = 0.01;
 
+    const ENHANCEMENT_SIGNATURE = 6;
+    const ENHANCEMENT_SATURDAY = 24;
+
     /** @var Shipment */
     protected $shipment;
     /** @var string */
