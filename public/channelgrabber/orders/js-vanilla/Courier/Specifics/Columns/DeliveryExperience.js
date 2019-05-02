@@ -1,5 +1,13 @@
-define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService)
-{
+define([
+    'AjaxRequester',
+    'cg-mustache',
+    'element/loadingIndicator'
+],
+function(
+    ajaxRequester,
+    CGMustache,
+    loadingIndicator
+) {
     function DeliveryExperience(templatePaths, disabledMessage, noServicesMessage)
     {
         var templates;
@@ -68,7 +76,9 @@ define(['cg-mustache', '../InputData.js'], function(CGMustache, inputDataService
     DeliveryExperience.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions';
     DeliveryExperience.SELECTOR_ALL_SERVICES_BUTTON = '#request-all-services-button';
     DeliveryExperience.BLANK_SERVICE = '-';
-    DeliveryExperience.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
+    DeliveryExperience.LOADER = `<div class="indicator-wrapper -default u-margin-center">
+                                    ${loadingIndicator.getIndicator()}
+                               </div>`;
     DeliveryExperience.POLL_TIMEOUT_MS = 2000;
 
     DeliveryExperience.prototype.replaceBlankServicesWithRequestButtons = function()

@@ -38,8 +38,11 @@ return [
                             'BF9' => [
                                 'displayName' => 'HM Forces Special Delivery (£2500)'
                             ],
-                            'BPL' => [
-                                'displayName' => 'Royal Mail 1st/2nd Class'
+                            'BPL1' => [
+                                'displayName' => 'Royal Mail 1st Class'
+                            ],
+                            'BPL2' => [
+                                'displayName' => 'Royal Mail 2nd Class'
                             ],
                             'BPR' => [
                                 'displayName' => 'Royal Mail 1st/2nd Class Signed For'
@@ -500,11 +503,17 @@ return [
                             'TPM' => [
                                 'displayName' => 'Tracked 24 High Volume Signature/ No Signature'
                             ],
-                            'TPN' => [
-                                'displayName' => 'Tracked 24 Signature/ No Signature'
+                            'TPNN' => [
+                                'displayName' => 'Tracked 24 No Signature'
                             ],
-                            'TPS' => [
-                                'displayName' => 'Tracked 48 Signature/ No Signature'
+                            'TPNS' => [
+                                'displayName' => 'Tracked 24 Signature'
+                            ],
+                            'TPSN' => [
+                                'displayName' => 'Tracked 48 No Signature'
+                            ],
+                            'TPSS' => [
+                                'displayName' => 'Tracked 48 Signature'
                             ],
                             'TRL' => [
                                 'displayName' => 'Tracked Letter-Boxable 48 High Volume Signature'
@@ -512,11 +521,17 @@ return [
                             'TRM' => [
                                 'displayName' => 'Tracked Letter-Boxable 24 High Volume No Signature'
                             ],
-                            'TRN' => [
+                            'TRNN' => [
                                 'displayName' => 'Tracked Letter-Boxable 24 No Signature'
                             ],
-                            'TRS' => [
+                            'TRNS' => [
+                                'displayName' => 'Tracked Letter-Boxable 24 Signature'
+                            ],
+                            'TRSN' => [
                                 'displayName' => 'Tracked Letter-Boxable 48 No Signature'
+                            ],
+                            'TRSS' => [
+                                'displayName' => 'Tracked Letter-Boxable 48 Signature'
                             ],
                             'TSN' => [
                                 'displayName' => 'Tracked Returns 24'
@@ -728,6 +743,28 @@ return [
                                 'serviceAddOns' => [
                                     '6'
                                 ],
+                            ],
+                            [
+                                'serviceOffering' => 'BPL1',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','P'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BPL2',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'F','P'
+                                ],
+                                'serviceAddOns' => [],
                             ],
                             [
                                 'serviceOffering' => 'DE1',
@@ -1906,7 +1943,7 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TPN',
+                                'serviceOffering' => 'TPNN',
                                 'serviceTypes' => [
                                     'T'
                                 ],
@@ -1919,7 +1956,33 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TPS',
+                                'serviceOffering' => 'TPNS',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TPSN',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TPSS',
                                 'serviceTypes' => [
                                     'T'
                                 ],
@@ -1958,7 +2021,7 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TRN',
+                                'serviceOffering' => 'TRNN',
                                 'serviceTypes' => [
                                     'T'
                                 ],
@@ -1971,7 +2034,33 @@ return [
                                 ],
                             ],
                             [
-                                'serviceOffering' => 'TRS',
+                                'serviceOffering' => 'TRNS',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TRSN',
+                                'serviceTypes' => [
+                                    'T'
+                                ],
+                                'shipmentClass' => DomesticNotApplicableShipment::class,
+                                'serviceFormats' => [
+                                    'N'
+                                ],
+                                'serviceAddOns' => [
+                                    '14','13','16','22'
+                                ],
+                            ],
+                            [
+                                'serviceOffering' => 'TRSS',
                                 'serviceTypes' => [
                                     'T'
                                 ],
