@@ -72,11 +72,6 @@ class Service implements LoggerAwareInterface
     protected function getCourierOptionsForOrder(Order $order, $selectedAccountId = null)
     {
         $shippingAccounts = $this->getShippingAccounts($order);
-
-
-        $this->logDebugDump($shippingAccounts, 'SHIPPING ACC', [], 'MYTEST');
-
-
         return $this->shippingAccountsService->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
@@ -105,9 +100,6 @@ class Service implements LoggerAwareInterface
         /** @var Account $account */
         foreach ($accounts as $account)
         {
-
-            $this->logDebugDump($account, 'ACCOUNTS', [], 'MYTEST');
-
             // Only show accounts that support the requested order
             $provider = $this->getShippingChannelsProvider($account);
             if ($order && !$provider->isOrderSupported($account, $order)) {

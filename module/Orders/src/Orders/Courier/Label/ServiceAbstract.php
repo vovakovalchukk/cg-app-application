@@ -185,16 +185,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         foreach ($suitableOrders as $order) {
             /** @var OrderParcelsData $parcelsData */
             $parcelsData = ($orderParcelsData->containsId($order->getId()) ? $orderParcelsData->getById($order->getId()) : $this->getEmptyParcelDataForOrder($order));
-
-            $this->logDebugDump($parcelsData, 'PARCELS2 DATA', [], 'MYTEST', [], false);
-
             /** @var OrderParcelsData $parcelsData */
             $parcelCount = count($parcelsData->getParcels());
             /** @var ParcelData $parcelData */
             $parcelData = (!empty($parcelsData) ? $parcelsData->getParcels()->getFirst() : null);
-
-            $this->logDebugDump($parcelData, 'PARCEL 2 DATA', [], 'MYTEST', [], false);
-
             /** @var OrderItemsData $itemsData */
             $itemsData = ($ordersItemsData->containsId($order->getId()) ? $ordersItemsData->getById($order->getId()) : null);
             $items = $order->getItems();
