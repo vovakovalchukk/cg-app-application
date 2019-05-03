@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a18956fe3a428d9e578e033894dc322d",
+    "content-hash": "ecb87ce4939981f310bfa260fdae626c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2053,6 +2053,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
                 "reference": "45e2f1d643b7670b3e1189ca847395b31a844673"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10574-amazon-logistics-a8e919.zip",
+                "reference": "45e2f1d643b7670b3e1189ca847395b31a844673"
+            },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.14.0",
@@ -2122,7 +2127,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-04-29T13:12:41+00:00"
+            "time": "2019-05-03T13:26:13+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -11090,8 +11095,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
