@@ -211,11 +211,14 @@ class CreateListingPopup extends React.Component {
     };
 
     renderChannelFormInputs = () => {
+
+        debugger;
+
         return <FormSection
             name="channel"
             component={ChannelForms}
             accounts={this.props.accounts}
-            categoryTemplates={this.props.categoryTemplates.categories}
+            categoryTemplates={this.props.categoryTemplateOptions}
             product={this.props.product}
             variationsDataForProduct={this.props.variationsDataForProduct}
             currency={this.props.defaultCurrency}

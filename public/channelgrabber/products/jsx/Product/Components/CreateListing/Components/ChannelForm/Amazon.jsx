@@ -16,6 +16,9 @@ class AmazonChannelFormComponent extends React.Component {
     };
 
     render() {
+        console.log('in ChannelForm Amazon');
+        
+        
         return (
             <div className="amazon-channel-form-container channel-form-container">
                 <Field name="conditionNote" component={this.renderConditionNote} displayTitle="Condition note"/>

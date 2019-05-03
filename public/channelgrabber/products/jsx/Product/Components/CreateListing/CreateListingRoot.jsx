@@ -27,9 +27,11 @@ class CreateListingRoot extends React.Component {
         defaultCurrency: null,
         massUnit: null,
         lengthUnit: null
+        categoryTemplateOptions: {}
     };
 
     render() {
+        debugger;
         return (
             <Provider store={store}>
                 <CreateListingPopup

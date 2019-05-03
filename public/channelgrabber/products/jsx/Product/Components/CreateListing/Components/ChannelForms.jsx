@@ -11,7 +11,8 @@ const channelToFormMap = {
 class ChannelFormsComponent extends React.Component {
     static defaultProps = {
         accounts: [],
-        categoryTemplates: {},
+//        categoryTemplates: {},
+        categoryTemplateOptions: {},
         product: {},
         currency: null
     };
@@ -61,6 +62,11 @@ class ChannelFormsComponent extends React.Component {
     };
 
     render() {
+        
+        console.log('ChannelForms');
+        
+        
+        
         return (
             <div className="channel-forms-container">
                 {this.renderForCategoryTemplates()}
