@@ -29,6 +29,7 @@ class AuthoriseService implements LoggerAwareInterface
 
     const LOG_CODE = 'AccountAuthoriseService';
     const LOG_MESSAGE_NO_TOKEN = 'No token has been provided';
+    const LOG_MESSAGE_REQUEST_FOUND = 'The request with ID %s was found - partner ID %s - channel %s - region %s';
     const LOG_MESSAGE_INVALID_TOKEN = 'The provided token is not valid or it has expired: %s';
     const LOG_MESSAGE_NO_SIGNATURE = 'No signature has been provided ';
     const LOG_MESSAGE_INVALID_SIGNATURE = 'The provided signature is not valid. User signature: %s . Computed signature %s';
@@ -91,6 +92,8 @@ class AuthoriseService implements LoggerAwareInterface
             $accountRequests = $this->accountRequestService->fetchCollectionByFilter($filter);
             /** @var AccountRequest $accountRequest */
             $accountRequest = $accountRequests->getFirst();
+
+            $this->logDebug(static::LOG_MESSAGE_REQUEST_FOUND, [$accountRequest->getId(), $accountRequest->getPartnerId(), $accountRequest->getChannel(), $accountRequest->getRegion()], static::LOG_CODE);
 
             return $accountRequest;
         } catch (NotFound $e) {
