@@ -403,6 +403,7 @@ class CreateListingPopup extends React.Component {
     };
 
     submitForm = () => {
+        debugger;
         if (this.isPbseRequired() && !this.areAllVariationsAssigned()) {
             this.addVariationErrorOnProductSearch();
             $('html, body').animate({
@@ -451,8 +452,6 @@ CreateListingPopup = reduxForm({
 })(CreateListingPopup);
 
 const mapStateToProps = function(state) {
-    console.log('state in CreateListingPopup Root bit: ', state);
-
     return {
         initialValues: state.initialValues,
         initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
@@ -466,9 +465,6 @@ const mapStateToProps = function(state) {
 };
 
 const mapDispatchToProps = function(dispatch, props) {
-    console.log('in mapDispatchToPRops with props: ' , props);
-
-
     return {
         submitForm: function() {
             dispatch(submit("createListing"));
