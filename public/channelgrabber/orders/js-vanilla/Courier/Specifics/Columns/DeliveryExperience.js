@@ -2,7 +2,7 @@ define([
     'AjaxRequester',
     'cg-mustache',
     'element/loadingIndicator',
-        '../InputData.js'
+    '../InputData.js'
 ],
 function(
     ajaxRequester,

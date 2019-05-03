@@ -42,6 +42,11 @@ class CreateService extends ServiceAbstract
         OrderItemsDataCollection $ordersItemsData,
         Account $shippingAccount
     ) {
+
+        $this->logDebugDump($ordersData, 'ORDER DATA', [], 'MYTEST');
+        $this->logDebugDump($orderParcelsData, 'PARCEL DATA', [], 'MYTEST', [], false);
+        $this->logDebugDump($ordersItemsData, 'ITEM DATA', [], 'MYTEST');
+
         $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $user = $this->userOUService->getActiveUser();
