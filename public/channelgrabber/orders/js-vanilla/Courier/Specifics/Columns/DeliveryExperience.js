@@ -1,12 +1,14 @@
 define([
     'AjaxRequester',
     'cg-mustache',
-    'element/loadingIndicator'
+    'element/loadingIndicator',
+        '../InputData.js'
 ],
 function(
     ajaxRequester,
     CGMustache,
-    loadingIndicator
+    loadingIndicator,
+    inputDataService
 ) {
     function DeliveryExperience(templatePaths, disabledMessage, noServicesMessage)
     {
