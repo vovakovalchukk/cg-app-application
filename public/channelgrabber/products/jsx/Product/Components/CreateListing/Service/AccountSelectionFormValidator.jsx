@@ -42,15 +42,13 @@ import React from 'react';
                    }
                }
 
-               //#todo remove this hack
-//               if (invalidCategoryMapsForAccount.length > 0) {
-//                   accountsError[accountIndex] = JSON.stringify({
-//                       message: "You cannot choose this account because the following category maps don't have " +
-//                       "any mapped categories for it: " + invalidCategoryMapsForAccount.join(", ")
-//                   });
-//                   return;
-//               }
-                //#
+               if (invalidCategoryMapsForAccount.length > 0) {
+                   accountsError[accountIndex] = JSON.stringify({
+                       message: "You cannot choose this account because the following category maps don't have " +
+                       "any mapped categories for it: " + invalidCategoryMapsForAccount.join(", ")
+                   });
+                   return;
+               }
 
                 var settings = props.accountSettings[accountId];
                 if (settings && settings.error) {

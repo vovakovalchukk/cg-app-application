@@ -1,5 +1,4 @@
 <?php
-
 namespace Products\Listing\Channel\Amazon;
 
 use CG\Account\Credentials\Cryptor;
@@ -54,19 +53,6 @@ class Service implements
 
     public function getChannelSpecificFieldValues(Account $account): array
     {
-
-       //# todo - remove this hack
-            $categories = [
-                327422 => ['title' => 'test', 'listable' => true, "variations" => true],
-                327423 => ['title' => 'test 2', 'listable' => true, "variations" => true],
-                3274223 => ['title' => 'test 3', 'listable' => true, "variations" => true],
-            ];
-
-            return [
-                'categories' => $categories
-            ];
-        //#
-
         return [
             'categories' => $this->categoryService->fetchRootCategoriesForAccount(
                 $account,
@@ -102,8 +88,7 @@ class Service implements
 
         return [
             'itemSpecifics' => $this->getItemSpecifics($categoryData),
-            'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, $marketplace,
-                false),
+            'rootCategories' => $this->categoryService->fetchRootCategoriesForAccount($account, true, $marketplace, false),
             'variationThemes' => $this->getVariationThemes($categoryData),
         ];
     }
@@ -127,7 +112,7 @@ class Service implements
         foreach ($categoryData->getVariationThemes() as $variationTheme) {
             $variationThemes[] = [
                 'name' => $variationTheme['name'],
-                'validValues' => array_map(function ($key, $options) {
+                'validValues' => array_map(function($key, $options){
                     return [
                         'name' => $key,
                         'options' => array_combine($options, $options)

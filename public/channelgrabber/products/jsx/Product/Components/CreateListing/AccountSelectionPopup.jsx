@@ -44,7 +44,6 @@ class AccountSelectionPopup extends React.Component {
     };
 
     renderCategorySelectField = () => {
-
         return <Field
             name="categories"
             component={CategoryMapSelectComponent}
@@ -129,10 +128,6 @@ class AccountSelectionPopup extends React.Component {
     };
 
     isSubmitButtonDisabled = () => {
-        //#todo remove hack
-        return false;
-        //#
-
         if (this.props.invalid) {
             return true;
         }
