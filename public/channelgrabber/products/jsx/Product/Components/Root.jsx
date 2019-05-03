@@ -169,15 +169,9 @@ class RootComponent extends React.Component {
     };
 
     renderCreateListingPopup = () => {
-
-
-
         var variationData = this.state.createListing.variations
             ? this.state.createListing.variations
             : [this.state.createListingData.product];
-
-        debugger;
-
 
         return <CreateListingPopupRoot
             {...this.state.createListingData}

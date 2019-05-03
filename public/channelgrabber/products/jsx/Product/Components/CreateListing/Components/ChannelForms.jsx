@@ -11,13 +11,14 @@ const channelToFormMap = {
 class ChannelFormsComponent extends React.Component {
     static defaultProps = {
         accounts: [],
-//        categoryTemplates: {},
-        categoryTemplateOptions: {},
+        categoryTemplates: {},
         product: {},
         currency: null
     };
 
     renderForCategoryTemplates = () => {
+        debugger;
+
         var output = [];
         var channelsData = this.getChannelsDataFromCategoryTemplates(this.props.categoryTemplates);
         for (var channel in channelsData) {
@@ -39,6 +40,16 @@ class ChannelFormsComponent extends React.Component {
         var channelsData = {};
         for (var categoryTemplateId in categoryTemplates) {
             var categoryTemplate = categoryTemplates[categoryTemplateId];
+
+            for (let account in categoryTemplate){
+                let categoryAccount = categoryTemplate[account]
+
+
+
+            }
+
+
+
             for (var categoryId in categoryTemplate.categories) {
                 var category = categoryTemplate.categories[categoryId];
                 if (!this.isAccountSelected(category.accountId)) {
@@ -64,8 +75,7 @@ class ChannelFormsComponent extends React.Component {
     render() {
         
         console.log('ChannelForms');
-        
-        
+
         
         return (
             <div className="channel-forms-container">

@@ -211,14 +211,11 @@ class CreateListingPopup extends React.Component {
     };
 
     renderChannelFormInputs = () => {
-
-        debugger;
-
         return <FormSection
             name="channel"
             component={ChannelForms}
             accounts={this.props.accounts}
-            categoryTemplates={this.props.categoryTemplateOptions}
+            categoryTemplates={this.props.categoryTemplates.categories}
             product={this.props.product}
             variationsDataForProduct={this.props.variationsDataForProduct}
             currency={this.props.defaultCurrency}
@@ -454,6 +451,8 @@ CreateListingPopup = reduxForm({
 })(CreateListingPopup);
 
 const mapStateToProps = function(state) {
+    console.log('state in CreateListingPopup Root bit: ', state);
+
     return {
         initialValues: state.initialValues,
         initialDimensions: state.initialValues.dimensions ? Object.assign(state.initialValues.dimensions) : {},
@@ -467,6 +466,9 @@ const mapStateToProps = function(state) {
 };
 
 const mapDispatchToProps = function(dispatch, props) {
+    console.log('in mapDispatchToPRops with props: ' , props);
+
+
     return {
         submitForm: function() {
             dispatch(submit("createListing"));
