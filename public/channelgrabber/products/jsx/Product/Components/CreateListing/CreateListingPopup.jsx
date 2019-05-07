@@ -403,7 +403,6 @@ class CreateListingPopup extends React.Component {
     };
 
     submitForm = () => {
-        debugger;
         if (this.isPbseRequired() && !this.areAllVariationsAssigned()) {
             this.addVariationErrorOnProductSearch();
             $('html, body').animate({

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Field, FieldArray} from 'redux-form';
 import styled from 'styled-components';
+import validators from 'Product/Components/CreateListing/Validators';
 
 const FieldRow = styled.div`
   float: left;
@@ -13,7 +14,7 @@ const FieldInput = ({ input, label, type, meta: { touched, error } }) => (
     <span>
         <div>
             <Input {...input} type={type} placeholder={label} />
-            {touched && error && <span>{error}</span>}
+            {touched && error && <div className={'u-color-red'}>{error}</div>}
         </div>
     </span>
 );
@@ -30,10 +31,10 @@ const RemoveButton = ({buttonOnClick, buttonTitle}) => {
             </button>
         </span>
     )
-}
+};
 
 
-export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit}) => {
+export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPrefix, maxCharLength}) => {
     if (!fields.length){
         fields.push();
     }
@@ -54,10 +55,11 @@ export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit}) => {
                         <div className={'u-flex-v-center u-margin-top-xsmall'}>
                             <span>
                                 <Field
-                                    name={`${item}.bullet${index+1}`}
                                     type="text"
+                                    name={`${item}.field${index+1}`}
                                     component={FieldInput}
                                     label={`${itemPlaceholder} ${index+1}`}
+                                    validate={[validators[`maxLength${maxCharLength}`]]}
                                 />
                             </span>
 

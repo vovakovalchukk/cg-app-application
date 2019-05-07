@@ -63,6 +63,25 @@ import ResponseActions from './ResponseActions';
         return details;
     };
 
+    let formatTextArrayValues = function(values, fieldPrefix){
+        if(!values[fieldPrefix]){
+            return values;
+        }
+
+        let formatted = [];
+        for(let fieldKey of Object.keys(values[fieldPrefix])){
+            let fieldObject = values[fieldPrefix][fieldKey];
+            let fieldValue = fieldObject[Object.keys(fieldObject)[0]];
+            if(!fieldValue){
+                continue;
+            }
+            formatted.push(fieldValue);
+        };
+
+        values[fieldPrefix] = formatted;
+        return values;
+    };
+
     let formatProductChannelDataForChannel = function(values, props) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
@@ -85,8 +104,13 @@ import ResponseActions from './ResponseActions';
             values.variationToEpid = variationToEpid;
         }
 
+        values = formatTextArrayValues(values, 'bulletPoint');
+        values = formatTextArrayValues(values, 'searchTerm');
+
         return values;
     };
+
+
 
     let formatThemeDetails = function(details) {
         let formattedDetails = [];
