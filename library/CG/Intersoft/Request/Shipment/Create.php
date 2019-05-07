@@ -94,9 +94,9 @@ class Create extends PostAbstract
         $shipper->addChild('shipperAddressLine1', $this->sanitiseString($collectionAddress->getLine1()));
         $shipper->addChild(
         'shipperCity',
-            $this->sanitiseString($collectionAddress->getLine3())
-            ?: $this->sanitiseString($collectionAddress->getLine2())
-            ?: $this->sanitiseString($collectionAddress->getLine4())
+            $this->sanitiseString($collectionAddress->getLine4())
+            ?: $this->sanitiseString($collectionAddress->getLine3())
+            ?: $this->sanitiseString($collectionAddress->getLine5())
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
@@ -110,18 +110,22 @@ class Create extends PostAbstract
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
         $destination = $xml->addChild('destination');
+        if ($deliveryAddress->getCompanyName()) {
+            $destination->addChild('destinationCompanyName', $this->sanitiseString($deliveryAddress->getCompanyName()));
+        }
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
+        $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
         $destination->addChild(
             'destinationCity',
-            $this->sanitiseString($deliveryAddress->getLine3())
-                ?: $this->sanitiseString($deliveryAddress->getLine2())
-                ?: $this->sanitiseString($deliveryAddress->getLine4())
+            $this->sanitiseString($deliveryAddress->getLine4())
+                ?: $this->sanitiseString($deliveryAddress->getLine3())
+                ?: $this->sanitiseString($deliveryAddress->getLine5())
         );
         $destination->addChild(
             'destinationCounty',
-            $this->sanitiseString($deliveryAddress->getLine4())
-                ?: $this->sanitiseString($deliveryAddress->getLine3())
+            $this->sanitiseString($deliveryAddress->getLine5())
+                ?: $this->sanitiseString($deliveryAddress->getLine4())
         );
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
