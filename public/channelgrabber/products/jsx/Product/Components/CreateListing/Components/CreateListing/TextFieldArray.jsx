@@ -41,32 +41,38 @@ const TextFieldArray = ({fields, displayTitle, itemPlaceholder, meta, itemLimit,
         fields.push({});
     };
 
+    let maxLengthValidatorMethod = validators.maxLength(maxCharLength);
+
+    let renderInputRows = () => {
+        return fields.map((item, index) => {
+            return (
+                <div className={'u-flex-v-center u-margin-top-xsmall'}>
+                    <span>
+                        <Field
+                            type="text"
+                            name={`${item}.field${index + 1}`}
+                            component={FieldInput}
+                            label={`${itemPlaceholder} ${index + 1}`}
+                            validate={[maxLengthValidatorMethod]}
+                        />
+                    </span>
+
+                    {index > 0 && (
+                        <RemoveButton
+                            buttonTitle={`Remove ${itemPlaceholder}`}
+                            buttonOnClick={() => fields.remove(index)}
+                        />
+                    )}
+                </div>
+            )
+        });
+    }
+
     return (
         <fieldset className="input-container">
             <span className={"inputbox-label"}>{displayTitle}</span>
             <FieldRow>
-                {fields.map((item, index) => {
-                    return(
-                        <div className={'u-flex-v-center u-margin-top-xsmall'}>
-                            <span>
-                                <Field
-                                    type="text"
-                                    name={`${item}.field${index+1}`}
-                                    component={FieldInput}
-                                    label={`${itemPlaceholder} ${index+1}`}
-                                    validate={[validators[`maxLength${maxCharLength}`]]}
-                                />
-                            </span>
-
-                            {index > 0 && (
-                                <RemoveButton
-                                    buttonTitle={`Remove ${itemPlaceholder}`}
-                                    buttonOnClick={() => fields.remove(index)}
-                                />
-                            )}
-                        </div>
-                    )
-                })}
+                {renderInputRows()}
 
                 {fields.length < itemLimit && (
                     <div className={'u-margin-top-small'}>
@@ -75,7 +81,7 @@ const TextFieldArray = ({fields, displayTitle, itemPlaceholder, meta, itemLimit,
                 )}
             </FieldRow>
         </fieldset>
-    )
+    );
 };
 
 export default TextFieldArray;
