@@ -29,7 +29,7 @@ const RemoveButton = ({buttonOnClick, buttonTitle}) => {
 };
 
 
-export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPrefix, maxCharLength}) => {
+const TextFieldArray = ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPrefix, maxCharLength}) => {
     if (!fields.length){
         fields.push();
     }
@@ -77,3 +77,5 @@ export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPre
         </fieldset>
     )
 };
+
+export default TextFieldArray;
