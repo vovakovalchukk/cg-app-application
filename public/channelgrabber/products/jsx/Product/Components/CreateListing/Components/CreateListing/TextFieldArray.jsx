@@ -18,8 +18,22 @@ const FieldInput = ({ input, label, type, meta: { touched, error } }) => (
     </span>
 );
 
+const RemoveButton = ({buttonOnClick, buttonTitle}) => {
+    return (
+        <span>
+            <button
+                type="button"
+                title={buttonTitle}
+                onClick={buttonOnClick}
+            >
+                Remove
+            </button>
+        </span>
+    )
+}
+
+
 export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit}) => {
-    console.log('fields',fields);
     if (!fields.length){
         fields.push();
     }
@@ -36,32 +50,34 @@ export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit}) => {
             <span className={"inputbox-label"}>{displayTitle}</span>
             <FieldRow>
                 {fields.map((item, index) => {
-                    return <div className={'u-flex-center u-margin-top-xsmall'}>
-                        <span>
-                            <Field
-                                name={`${item}.bullet${index+1}`}
-                                type="text"
-                                component={FieldInput}
-                                label={`${itemPlaceholder} ${index+1}`}
-                            />
-                        </span>
+                    return(
+                        <div className={'u-flex-v-center u-margin-top-xsmall'}>
+                            <span>
+                                <Field
+                                    name={`${item}.bullet${index+1}`}
+                                    type="text"
+                                    component={FieldInput}
+                                    label={`${itemPlaceholder} ${index+1}`}
+                                />
+                            </span>
 
-                        <span>
-                            <button
-                                type="button"
-                                title={`Remove ${itemPlaceholder}`}
-                                onClick={() => fields.remove(index)}
-                            >
-                                Remove
-                            </button>
-                        </span>
-                    </div>
+
+                            {index > 0 && (
+                                <RemoveButton
+                                    buttonTitle={`Remove ${itemPlaceholder}`}
+                                    buttonOnClick={() => fields.remove(index)}
+                                />
+                            )}
+                        </div>
+                    )
                 })}
-                <div className={'u-margin-top-small'}>
-                    <button type="button" onClick={addClick}>Add {itemPlaceholder}</button>
-                </div>
-            </FieldRow>
 
+                {fields.length < itemLimit && (
+                    <div className={'u-margin-top-small'}>
+                        <button type="button" onClick={addClick}>Add {itemPlaceholder}</button>
+                    </div>
+                )}
+            </FieldRow>
         </fieldset>
     )
 };
