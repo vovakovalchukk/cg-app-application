@@ -749,9 +749,9 @@ return [
                                 'serviceTypes' => [
                                     '1'
                                 ],
-                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'L', 'F','P'
+                                    'L','F','P'
                                 ],
                                 'serviceAddOns' => [],
                             ],
@@ -760,9 +760,9 @@ return [
                                 'serviceTypes' => [
                                     '2'
                                 ],
-                                'shipmentClass' => DomesticLargeLetterParcelShipment::class,
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'L', 'F','P'
+                                    'L','F','P'
                                 ],
                                 'serviceAddOns' => [],
                             ],
