@@ -55,6 +55,11 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
         return ($this->credentialsFormFactory)();
     }
 
+    public function getFirstTimeAccountForm()
+    {
+        return $this->credentialsFormFactory->getFirstTimeForm();
+    }
+
     /**
      * @inheritdoc
      */
@@ -121,7 +126,8 @@ class CourierAdapter implements CourierInterface, LocalAuthInterface, Cancelling
      */
     public function updateShipment(ShipmentInterface $shipment)
     {
-        // TODO in TAC-386
+        $this->cancelShipment($shipment);
+        $this->bookShipment($shipment);
     }
 
     /**

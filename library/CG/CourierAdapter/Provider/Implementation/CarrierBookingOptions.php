@@ -208,8 +208,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         CourierInterface $courierInstance = null
     ) {
         $data = [];
-        if (isset($this->carrierBookingOptionData[$account->getId()][$option])) {
-            return $this->carrierBookingOptionData[$account->getId()][$option];
+        if (isset($this->carrierBookingOptionData[$account->getId()][$serviceCode][$option])) {
+            return $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option];
         }
         if ($option != 'packageTypes' && $option != 'insuranceOptions') {
             return null;
@@ -229,7 +229,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             $data = $this->getDataForInsuranceOptionsOption($shipmentClass);
         }
 
-        $this->carrierBookingOptionData[$account->getId()][$option] = $data;
+        $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option] = $data;
         return $data;
     }
 

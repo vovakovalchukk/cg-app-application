@@ -25,10 +25,15 @@ class Create extends PostAbstract
     const PRODUCT_TYPE = 'NDX'; // DOX for documents, NDX for anything else
     const CURRENCY_DEFAULT = 'GBP';
     const MAX_LEN_REFERENCE = 20;
+    const MAX_LEN_DEPARTMENT = 17;
     const MAX_LEN_DEFAULT = 35;
     const MAX_LEN_CONTACT = 40;
     const MAX_LEN_DESCRIPTION_OF_GOODS = 70;
     const MAX_LEN_DESCRIPTION = 255;
+    const MIN_FINANCIAL_VALUE = 0.01;
+
+    const ENHANCEMENT_SIGNATURE = 6;
+    const ENHANCEMENT_SATURDAY = 24;
 
     /** @var Shipment */
     protected $shipment;
@@ -89,14 +94,15 @@ class Create extends PostAbstract
         $shipper->addChild('shipperAddressLine1', $this->sanitiseString($collectionAddress->getLine1()));
         $shipper->addChild(
         'shipperCity',
-            $this->sanitiseString($collectionAddress->getLine3())
-            ?: $this->sanitiseString($collectionAddress->getLine2())
-            ?: $this->sanitiseString($collectionAddress->getLine4())
+            $this->sanitiseString($collectionAddress->getLine4())
+            ?: $this->sanitiseString($collectionAddress->getLine3())
+            ?: $this->sanitiseString($collectionAddress->getLine5())
         );
         $shipper->addChild('shipperCountryCode', $collectionAddress->getISOAlpha2CountryCode());
         $shipper->addChild('shipperPostCode', $collectionAddress->getPostCode());
         $shipper->addChild('shipperPhoneNumber', $collectionAddress->getPhoneNumber());
         $shipper->addChild('shipperReference', $this->sanitiseString($this->shipment->getCustomerReference(), static::MAX_LEN_REFERENCE));
+        $shipper->addChild('shipperDeptCode', $this->sanitiseString($this->getDepartmentReference(), static::MAX_LEN_DEPARTMENT));
         return $xml;
     }
 
@@ -104,18 +110,22 @@ class Create extends PostAbstract
     {
         $deliveryAddress = $this->shipment->getDeliveryAddress();
         $destination = $xml->addChild('destination');
+        if ($deliveryAddress->getCompanyName()) {
+            $destination->addChild('destinationCompanyName', $this->sanitiseString($deliveryAddress->getCompanyName()));
+        }
         $destination->addChild('destinationAddressLine1', $this->sanitiseString($deliveryAddress->getLine1()));
         $destination->addChild('destinationAddressLine2', $this->sanitiseString($deliveryAddress->getLine2()));
+        $destination->addChild('destinationAddressLine3', $this->sanitiseString($deliveryAddress->getLine3()));
         $destination->addChild(
             'destinationCity',
-            $this->sanitiseString($deliveryAddress->getLine3())
-                ?: $this->sanitiseString($deliveryAddress->getLine2())
-                ?: $this->sanitiseString($deliveryAddress->getLine4())
+            $this->sanitiseString($deliveryAddress->getLine4())
+                ?: $this->sanitiseString($deliveryAddress->getLine3())
+                ?: $this->sanitiseString($deliveryAddress->getLine5())
         );
         $destination->addChild(
             'destinationCounty',
-            $this->sanitiseString($deliveryAddress->getLine4())
-                ?: $this->sanitiseString($deliveryAddress->getLine3())
+            $this->sanitiseString($deliveryAddress->getLine5())
+                ?: $this->sanitiseString($deliveryAddress->getLine4())
         );
         $destination->addChild('destinationCountryCode', $deliveryAddress->getISOAlpha2CountryCode());
         $destination->addChild('destinationPostCode', $deliveryAddress->getPostCode());
@@ -212,7 +222,7 @@ class Create extends PostAbstract
                 $itemInformation = $xml->addChild('itemInformation');
                 $itemInformation->addChild('itemDescription', $this->sanitiseString($packageContents->getDescription(), static::MAX_LEN_DESCRIPTION));
                 $itemInformation->addChild('itemQuantity', $packageContents->getQuantity());
-                $itemInformation->addChild('itemValue', $packageContents->getUnitValue());
+                $itemInformation->addChild('itemValue', $this->sanitiseFinancialValue($packageContents->getUnitValue()));
                 $itemInformation->addChild('itemNetWeight', $packageContents->getWeight());
             }
         }
@@ -232,6 +242,14 @@ class Create extends PostAbstract
         return $xml;
     }
 
+    protected function sanitiseFinancialValue(float $value): float
+    {
+        if ($value > 0) {
+            return $value;
+        }
+        return static::MIN_FINANCIAL_VALUE;
+    }
+
     protected function getOverviewDetailsArray(): array
     {
         $packages = $this->shipment->getPackages();
@@ -246,7 +264,7 @@ class Create extends PostAbstract
             foreach ($package->getContents() as $packageContent) {
                 $details['description'] .=  $packageContent->getDescription() . '|';
                 $details['currencyCode'] =  $packageContent->getUnitCurrency();
-                $details['totalValue'] += $packageContent->getUnitValue() * $packageContent->getQuantity();
+                $details['totalValue'] += $this->sanitiseFinancialValue($packageContent->getUnitValue()) * $packageContent->getQuantity();
             }
             $details['description'] = $this->sanitiseString(rtrim($details['description'], '|'), static::MAX_LEN_DESCRIPTION_OF_GOODS);
         }
@@ -258,7 +276,7 @@ class Create extends PostAbstract
         if ($string === null) {
             return '';
         }
-        return substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT);
+        return htmlspecialchars(substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT));
     }
 
     protected function getDeliveryPhoneNumber(): string
@@ -278,5 +296,24 @@ class Create extends PostAbstract
             $totalWeight += $package->getWeight();
         }
         return $totalWeight;
+    }
+
+    protected function getDepartmentReference(): string
+    {
+        $itemCount = 0;
+        $packages = $this->shipment->getPackages();
+        $skus = [];
+        /** @var Package $package */
+        foreach ($packages as $package) {
+            foreach ($package->getContents() as $packageContents) {
+                $itemCount += $packageContents->getQuantity();
+                $skus[] = $packageContents->getSku();
+            }
+        }
+        if (count($skus) > 1) {
+            return $itemCount . ' ITEMS';
+        } else {
+            return $itemCount . ' X ' . array_shift($skus);
+        }
     }
 }

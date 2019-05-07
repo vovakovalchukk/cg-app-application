@@ -8,6 +8,7 @@ $files = [
     'hermes.php',
     'royalmailapi.php',
     'intersoft.php',
+    'courieradapter.php'
 ];
 
 $commands = [];

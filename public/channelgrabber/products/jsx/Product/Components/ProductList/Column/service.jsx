@@ -1,4 +1,5 @@
 import React from 'react';
+import ExpandIcon from 'Common/Components/ExpandIcon'
 
 let coreColumns = [
     {
