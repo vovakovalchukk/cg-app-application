@@ -25,9 +25,12 @@ return [
             ]
         ],
     ],
-    'di' => [
-        'instance' => [
-        ],
+    'CG' => [
+        'global' => [
+            'white_listed_routes' => [
+                AccountController::ROUTE_AUTHORISE_ACCOUNT => true
+            ]
+        ]
     ],
     'view_manager' => [
         'template_path_stack' => [

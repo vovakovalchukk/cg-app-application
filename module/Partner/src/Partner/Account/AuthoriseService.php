@@ -5,10 +5,13 @@ use CG\Account\Request\Collection as AccountRequestCollection;
 use CG\Account\Request\Entity as AccountRequest;
 use CG\Account\Request\Filter as AccountRequestFilter;
 use CG\Account\Request\StorageInterface as AccountRequestService;
+use CG\Account\Shared\Entity as Account;
+use CG\Channel\Type as ChannelType;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Partner\Entity as Partner;
 use CG\Partner\StatusCodes as PartnerStatusCodes;
 use CG\Partner\StorageInterface as PartnerStorage;
+use CG\Sso\Client\Service as SsoClient;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -17,15 +20,16 @@ use CG\User\Entity as User;
 use CG\User\Service as UserService;
 use CG_Login\Service\LoginService;
 use CG_Permission\Service as PermissionService;
+use Settings\Channel\Service as ChannelService;
 use Zend\Session\SessionManager as SessionManager;
 use Zend\Uri\Http as Uri;
-use CG\Sso\Client\Service as SsoClient;
 
 class AuthoriseService implements LoggerAwareInterface
 {
     use LogTrait;
 
     const MAX_SAVE_RETRIES = 3;
+    const SESSION_KEY_ACCOUNT_REQUEST_ID  = 'accountRequestId';
 
     const LOG_CODE = 'AccountAuthoriseService';
     const LOG_MESSAGE_NO_TOKEN = 'No token has been provided';
@@ -48,6 +52,8 @@ class AuthoriseService implements LoggerAwareInterface
     protected $loginService;
     /** @var SsoClient */
     protected $ssoClient;
+    /** @var ChannelService */
+    protected $channelService;
 
     public function __construct(
         AccountRequestService $accountRequestService,
@@ -55,7 +61,8 @@ class AuthoriseService implements LoggerAwareInterface
         UserService $userService,
         SessionManager $sessionManager,
         LoginService $loginService,
-        SsoClient $ssoClient
+        SsoClient $ssoClient,
+        ChannelService $channelService
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
@@ -63,6 +70,7 @@ class AuthoriseService implements LoggerAwareInterface
         $this->sessionManager = $sessionManager;
         $this->loginService = $loginService;
         $this->ssoClient = $ssoClient;
+        $this->channelService = $channelService;
     }
 
     public function connectAccount(
@@ -71,10 +79,11 @@ class AuthoriseService implements LoggerAwareInterface
         ?string $token,
         ?string $userSignature,
         Uri $uri
-    ) {
+    ): string {
         $this->validateAccountRequest($accountRequest, $partner);
         $this->validateSignature($token, $accountRequest, $partner, $uri, $userSignature);
         $this->loginUser($accountRequest, $partner);
+        return $this->createSalesAccount($accountRequest);
     }
 
     public function fetchAccountRequestForToken(?string $token): AccountRequest
@@ -113,6 +122,38 @@ class AuthoriseService implements LoggerAwareInterface
         }
 
         return $partner;
+    }
+
+    public function fetchPartnerSuccessRedirectUrlFromSession(Account $account): string
+    {
+        $accountRequest = $this->fetchAccountRequestFromSession();
+        /** @var Partner $partner */
+        $partner = $this->partnerStorage->fetch($accountRequest->getId());
+
+        /** @TOOD: before return, notify the partner with the successfully create account ID in here */
+
+        return $partner->getAccountSuccessRedirectUrl();
+    }
+
+    public function fetchAccountRequestFromSession(): AccountRequest
+    {
+        $session = $this->sessionManager->getStorage();
+        if (!isset($session[PermissionService::PARTNER_MANAGED_LOGIN])
+            || !is_array($session[PermissionService::PARTNER_MANAGED_LOGIN])
+            || !isset($session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE])) {
+            throw new NotFound('The account request ID could not be found in the session data');
+        }
+
+        $accountRequestId = $session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE];
+        return $this->accountRequestService->fetch($accountRequestId);
+    }
+
+    public function isPartnerManagedLogin(): bool
+    {
+        $session = $this->sessionManager->getStorage();
+        return isset($session[PermissionService::PARTNER_MANAGED_LOGIN])
+            && is_array($session[PermissionService::PARTNER_MANAGED_LOGIN])
+            && isset($session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE]);
     }
 
     protected function validateAccountRequest(AccountRequest $request, Partner $partner): void
@@ -224,11 +265,21 @@ class AuthoriseService implements LoggerAwareInterface
 
             $session = $this->sessionManager->getStorage();
             $session[PermissionService::PARTNER_MANAGED_LOGIN] = [
-                PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE => PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE
+                PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE => PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE,
+                static::SESSION_KEY_ACCOUNT_REQUEST_ID => $accountRequest->getId()
             ];
         } catch (\Throwable $e) {
             $this->logWarningException($e);
             $this->handleInvalidAccountRequest($accountRequest, $partner, PartnerStatusCodes::ACCOUNT_AUTHORISATION_LOGIN_FAILED);
         }
+    }
+
+    protected function createSalesAccount(AccountRequest $accountRequest): string
+    {
+        return $this->channelService->createAccount(
+            ChannelType::SALES,
+            $accountRequest->getChannel(),
+            $accountRequest->getRegion()
+        );
     }
 }

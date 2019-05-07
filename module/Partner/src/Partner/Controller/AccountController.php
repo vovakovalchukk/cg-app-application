@@ -3,14 +3,12 @@ namespace Partner\Controller;
 
 use Application\Controller\AbstractJsonController;
 use CG\Account\Request\Entity as AccountRequest;
-use CG\Channel\Type as ChannelType;
 use CG\Partner\Entity as Partner;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Partner\Account\AuthoriseService;
 use Partner\Account\InvalidRequestException;
 use Partner\Account\InvalidTokenException;
-use Settings\Channel\Service as ChannelService;
 use Zend\View\Model\ViewModel;
 
 class AccountController extends AbstractJsonController
@@ -21,19 +19,15 @@ class AccountController extends AbstractJsonController
     protected $authoriseService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var ChannelService */
-    protected $channelService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         AuthoriseService $authoriseService,
-        ViewModelFactory $viewModelFactory,
-        ChannelService $channelService
+        ViewModelFactory $viewModelFactory
     ) {
         parent::__construct($jsonModelFactory);
         $this->authoriseService = $authoriseService;
         $this->viewModelFactory = $viewModelFactory;
-        $this->channelService = $channelService;
     }
 
     public function indexAction()
@@ -45,9 +39,9 @@ class AccountController extends AbstractJsonController
 
             $accountRequest = $this->authoriseService->fetchAccountRequestForToken($token);
             $partner = $this->authoriseService->fetchPartner($accountRequest->getPartnerId(), $token);
-            $this->authoriseService->connectAccount($accountRequest, $partner, $token, $signature, $uri);
+            $redirectUrl = $this->authoriseService->connectAccount($accountRequest, $partner, $token, $signature, $uri);
 
-            return $this->buildAccountConnectionViewModel($accountRequest, $partner);
+            return $this->buildAccountConnectionViewModel($accountRequest, $partner, $redirectUrl);
         } catch (InvalidTokenException $e) {
             return $this->buildErrorResponse('Invalid request');
         } catch (InvalidRequestException $e) {
@@ -60,14 +54,11 @@ class AccountController extends AbstractJsonController
         return $this->buildErrorResponse('Invalid request');
     }
 
-    protected function buildAccountConnectionViewModel(AccountRequest $accountRequest, Partner $partner): ViewModel
-    {
-        $redirectUrl = $this->channelService->createAccount(
-            ChannelType::SALES,
-            $accountRequest->getChannel(),
-            $accountRequest->getRegion()
-        );
-
+    protected function buildAccountConnectionViewModel(
+        AccountRequest $accountRequest,
+        Partner $partner,
+        string $redirectUrl
+    ): ViewModel {
         $view = $this->viewModelFactory->newInstance([
             'partnerName' => $partner->getName(),
             'partnerLogoUrl' => $partner->getLogoUrl(),

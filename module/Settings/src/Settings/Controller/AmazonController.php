@@ -18,6 +18,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Exception;
 use GearmanClient;
+use Partner\Account\AuthoriseService as PartnerAuthoriseService;
 use Settings\Module;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -44,13 +45,14 @@ class AmazonController extends ChannelControllerAbstract implements
         ViewModelFactory $viewModelFactory,
         FeatureFlagsService $featureFlagsService,
         OrganisationUnitService $organisationUnitService,
+        PartnerAuthoriseService $partnerAuthoriseService,
         AccountAddressGenerator $accountAddressGenerator,
         Cryptor $cryptor,
         RegionFactory $regionFactory,
         GearmanClient $gearmanClient
     ) {
         parent::__construct(
-            $accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory, $featureFlagsService, $organisationUnitService
+            $accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory, $featureFlagsService, $organisationUnitService, $partnerAuthoriseService
         );
         $this
             ->setAccountAddressGenerator($accountAddressGenerator)
@@ -66,6 +68,12 @@ class AmazonController extends ChannelControllerAbstract implements
             $this->params()->fromQuery('accountId'),
             array_merge($this->params()->fromPost(), $this->params()->fromRoute())
         );
+
+        if ($url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity)) {
+            $this->plugin('redirect')->toUrl($url);
+            return false;
+        }
+
         $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
         $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
         $this->plugin('redirect')->toUrl($url);
