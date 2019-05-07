@@ -115,6 +115,7 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
     protected function addAddressToCustomerNode(SimpleXMLElement $customerNode, AddressInterface $deliveryAddress): void
     {
         $line2 = $deliveryAddress->getLine2();
+        $line3 = $deliveryAddress->getLine3();
         $city = $deliveryAddress->determineCityFromAddressLines();
         $region = $deliveryAddress->determineRegionFromAddressLines();
 
@@ -126,6 +127,11 @@ class RouteDeliveryCreatePreadviceAndLabel implements RequestInterface
         if ($line2 && $line2 != $city && $line2 != $region) {
             $customerAddressNode->addChild('addressLine2', $this->sanitiseString($line2));
         }
+
+        if ($line3 && $line3 != $city && $line3 != $region) {
+            $customerAddressNode->addChild('addressLine3', $this->sanitiseString($line3));
+        }
+
         $customerAddressNode->addChild('city', $this->sanitiseString($city));
         if ($region && $region != $city) {
             $customerAddressNode->addChild('region', $this->sanitiseString($region));
