@@ -822,12 +822,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "6ff24292a00c17d755b4cf02ba57a9cc86afbbba"
+                "reference": "336f977ddff4609d24956837670d9fdecda60142"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-48c4c5.zip",
-                "reference": "6ff24292a00c17d755b4cf02ba57a9cc86afbbba"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-27207f.zip",
+                "reference": "336f977ddff4609d24956837670d9fdecda60142"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.1",
@@ -857,7 +857,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2019-05-02T11:24:55+00:00"
+            "time": "2019-05-07T09:55:21+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2135,12 +2135,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "a86578db94977b98ba410c9b544fd35bcc2ab3b9"
+                "reference": "5149510567f1a1f19565ec394ce9c23fb914394a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-e94a28.zip",
-                "reference": "a86578db94977b98ba410c9b544fd35bcc2ab3b9"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-028bad.zip",
+                "reference": "5149510567f1a1f19565ec394ce9c23fb914394a"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.3",
@@ -2182,7 +2182,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-05-02T11:17:49+00:00"
+            "time": "2019-05-07T09:15:01+00:00"
         },
         {
             "name": "channelgrabber/permission",
