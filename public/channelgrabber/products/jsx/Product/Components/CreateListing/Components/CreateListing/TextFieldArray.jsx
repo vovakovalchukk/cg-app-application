@@ -2,6 +2,7 @@ import React from 'react';
 import {Field, FieldArray} from 'redux-form';
 import styled from 'styled-components';
 import validators from 'Product/Components/CreateListing/Validators';
+import RemoveIcon from 'Common/Components/RemoveIcon';
 
 const FieldRow = styled.div`
   float: left;
@@ -22,13 +23,7 @@ const FieldInput = ({ input, label, type, meta: { touched, error } }) => (
 const RemoveButton = ({buttonOnClick, buttonTitle}) => {
     return (
         <span>
-            <button
-                type="button"
-                title={buttonTitle}
-                onClick={buttonOnClick}
-            >
-                Remove
-            </button>
+            <RemoveIcon onClick={buttonOnClick} title={buttonTitle} />
         </span>
     )
 };
@@ -62,7 +57,6 @@ export default ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPre
                                     validate={[validators[`maxLength${maxCharLength}`]]}
                                 />
                             </span>
-
 
                             {index > 0 && (
                                 <RemoveButton
