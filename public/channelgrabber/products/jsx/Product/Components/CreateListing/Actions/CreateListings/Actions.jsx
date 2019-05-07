@@ -1,6 +1,5 @@
 import ResponseActions from './ResponseActions';
 
-
     var formatFormValuesForSubmission = function(values, props) {
         return {
             accountIds: props.accounts,
@@ -63,14 +62,15 @@ import ResponseActions from './ResponseActions';
         return details;
     };
 
-    let formatTextArrayValues = function(values, fieldPrefix){
-        if(!values[fieldPrefix]){
+    let formatTextArrayValues = function(values, fieldPrefix) {
+        let fieldValues = values[fieldPrefix];
+        if(!fieldValues){
             return values;
         }
 
         let formatted = [];
-        for(let fieldKey of Object.keys(values[fieldPrefix])){
-            let fieldObject = values[fieldPrefix][fieldKey];
+        for(let fieldKey of Object.keys(fieldValues)){
+            let fieldObject = fieldValues[fieldKey];
             let fieldValue = fieldObject[Object.keys(fieldObject)[0]];
             if(!fieldValue){
                 continue;
