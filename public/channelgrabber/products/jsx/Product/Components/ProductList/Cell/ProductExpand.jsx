@@ -3,6 +3,9 @@ import stateUtility from 'Product/Components/ProductList/stateUtility';
 import styled from 'styled-components';
 import ExpandIcon from 'Common/Components/ExpandIcon'
 import constants from 'Product/Components/ProductList/Config/constants';
+import loadingIndicatorFactory from 'element/loadingIndicator';
+
+const loadingIndicator = loadingIndicatorFactory.getIndicator();
 
 const CellContainer = styled.div`
         display:flex;
@@ -37,6 +40,8 @@ class ProductExpandCell extends React.Component {
         }
         return (<ExpandIcon
             expandStatus={rowData.expandStatus}
+            indicator={loadingIndicator}
+            EXPAND_STATUSES={EXPAND_STATUSES}
         />);
     };
 

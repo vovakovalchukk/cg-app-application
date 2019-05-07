@@ -1,3 +1,4 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <?php $this->placeholder('#sub-header')->append($filters); ?>
 <div id="bulk-actions" class="sales-report">
     <?php echo $hideFilters; ?>
@@ -22,13 +23,18 @@
     });
 <?php $this->inlineScript()->captureEnd(); ?>
 
-<div class="spinner-container">
-    <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
+<div class="spinner-container" style="display:flex; justify-content: center; height:100%">
+    <div class="spinner-positioner">
+        <div alt="Loading" class="indicator-wrapper -large"">
+            <?=
+            $this->mustache(
+                'elements/loadingIndicator.mustache'
+            )
+            ?>
+        </div>
     </div>
 </div>
+
 
 <div class="chart-container">
     <canvas id="salesChart"></canvas>

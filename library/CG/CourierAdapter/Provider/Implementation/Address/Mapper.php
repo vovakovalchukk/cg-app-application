@@ -13,17 +13,14 @@ class Mapper
     public function ohOrderToDeliveryAddress(OHOrder $ohOrder)
     {
         list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ohOrder->getShippingAddressFullNameForCourier());
-        $line2 = $ohOrder->getShippingAddress2ForCourier();
-        if ($ohOrder->getShippingAddress3ForCourier()) {
-            $line2 .= ', ' . $ohOrder->getShippingAddress3ForCourier();
-        }
 
         return new CAAddress(
             $ohOrder->getShippingAddressCompanyNameForCourier(),
             $firstName,
             $lastName,
             $ohOrder->getShippingAddress1ForCourier(),
-            $line2,
+            $ohOrder->getShippingAddress2ForCourier(),
+            $ohOrder->getShippingAddress3ForCourier(),
             $ohOrder->getShippingAddressCityForCourier(),
             $ohOrder->getShippingAddressCountyForCourier(),
             $ohOrder->getShippingAddressPostcodeForCourier(),
@@ -41,17 +38,14 @@ class Mapper
         }
 
         list($firstName, $lastName) = $this->getFirstAndLastNameFromFullName($ou->getAddressFullName());
-        $line2 = $ou->getAddress2();
-        if ($ou->getAddress3()) {
-            $line2 .= ', ' . $ou->getAddress3();
-        }
 
         return new CAAddress(
             $ou->getAddressCompanyName(),
             $firstName,
             $lastName,
             $ou->getAddress1(),
-            $line2,
+            $ou->getAddress2(),
+            $ou->getAddress3(),
             $ou->getAddressCity(),
             $ou->getAddressCounty(),
             $ou->getAddressPostcode(),

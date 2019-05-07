@@ -9,6 +9,7 @@ use CourierAdapter\Controller\AccountController;
 use CourierAdapter\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
+use CourierAdapter\Account\Email\Service as CASupportEmailService;
 
 return [
     'view_manager' => [
@@ -71,6 +72,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            AccountController::ROUTE_REQUEST_CONNECTION => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ca-request-connection',
+                                    'defaults' => [
+                                        'action' => 'requestConnection',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ]
                         ],
                     ],
                     CAAccountService::ROUTE_SETUP => [
@@ -155,6 +166,11 @@ return [
             CAModuleAccountService::class => [
                 'parameters' => [
                     'cryptor' => 'courieradapter_cryptor'
+                ]
+            ],
+            CASupportEmailService::class => [
+                'parameters' => [
+                    'mailer' => 'orderhub-mailer'
                 ]
             ]
         ],

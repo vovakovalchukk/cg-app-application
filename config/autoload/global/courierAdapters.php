@@ -91,7 +91,7 @@ return [
                         ],
                         [
                             'channelName' => 'royal-mail-intersoft-ca',
-                            'displayName' => 'Royal Mail OBA (In)',
+                            'displayName' => 'Royal Mail (OBA)',
                             'featureFlag' => RoyalMailIntersoftCourier::FEATURE_FLAG,
                             'courierFactory' => function(Di $di)
                             {

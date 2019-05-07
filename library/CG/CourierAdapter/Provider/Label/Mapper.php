@@ -172,7 +172,7 @@ class Mapper
         $itemUnitWeight = $itemData['weight'] / $item->getItemQuantity();
         return new CAPackageContent(
             $item->getItemName(),
-            $parcelData['harmonisedSystemCode'] ?? '',
+            $itemData['harmonisedSystemCode'] ?? '',
             'UK',
             $parcelItemQty,
             $itemUnitWeight,

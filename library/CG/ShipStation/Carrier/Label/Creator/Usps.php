@@ -85,11 +85,21 @@ class Usps extends Other
         $this->addGlobalLogEventParams(['ou' => $shippingAccount->getOrganisationUnitId(), 'rootOu' => $rootOu->getId(), 'account' => $shippingAccount->getId()]);
         $this->logInfo('Create USPS labels request for OU %d', [$rootOu->getId()], [static::LOG_CODE, 'Start']);
 
+        $labelResults = new LabelResults();
+
+        $invalidOrdersData = $this->validateOrdersData($ordersData, $labelResults);
+        $labelResults = $this->markInvalidOrdersAsFailed($invalidOrdersData, $labelResults);
+        $this->removeInvalidOrdersDataAndLabels($invalidOrdersData, $ordersData, $orderLabels);
+        // If all invalid
+        if (count($ordersData) == 0) {
+            $labelExceptions = $this->getErrorsForFailedLabels($labelResults->getThrowables());
+            return $this->buildResponseArray($orders, $labelExceptions);
+        }
         $this->debitLedgerForLabels($ordersData, $rootOu);
         $this->setCostOnOrderLabels($orderLabels, $ordersData);
 
         $startDateTime = new DateTime();
-        $labelResults = $this->createLabelsFromRates($ordersData, $shippingAccount, $shipStationAccount);
+        $labelResults = $this->createLabelsFromRates($ordersData, $shippingAccount, $shipStationAccount, $labelResults);
         $labelResults = $this->checkIfFailedLabelsWereActuallyCreatedAndUpdateResults(
             $labelResults, $startDateTime, $ordersData, $shippingAccount, $shipStationAccount
         );
@@ -112,6 +122,45 @@ class Usps extends Other
         return $this->buildResponseArray($orders, $errors);
     }
 
+    protected function validateOrdersData(OrderDataCollection $ordersData): OrderDataCollection
+    {
+        $invalidOrders = new OrderDataCollection();
+        /** @var OrderData $orderData */
+        foreach ($ordersData as $orderData) {
+            // Safety check: ensure a cost is set
+            if ($orderData->getCost() !== null) {
+                continue;
+            }
+            $this->logAlert('USPS label request received for Order %s with no cost associated with it, will drop', ['order' => $orderData->getId()], [static::LOG_CODE, 'CostMissing']);
+            $invalidOrders->attach($orderData);
+        }
+        return $invalidOrders;
+    }
+
+    protected function markInvalidOrdersAsFailed(OrderDataCollection $invalidOrdersData, LabelResults $labelResults): LabelResults
+    {
+        /** @var OrderData $orderData */
+        foreach ($invalidOrdersData as $orderData) {
+            $labelResults->addThrowable($orderData->getId(), new \RuntimeException('No cost was found for this label'));
+        }
+        return $labelResults;
+    }
+
+    protected function removeInvalidOrdersDataAndLabels(
+        OrderDataCollection $invalidOrdersData,
+        OrderDataCollection $ordersData,
+        OrderLabelCollection $orderLabels
+    ): OrderDataCollection {
+        $ordersData->removeAll($invalidOrdersData);
+        /** @var OrderData $orderData */
+        foreach ($invalidOrdersData as $orderData) {
+            $orderLabel = $orderLabels->getBy('orderId', $orderData->getId())->getFirst();
+            $this->orderLabelService->remove($orderLabel);
+            $orderLabels->detach($orderLabel);
+        }
+        return $ordersData;
+    }
+
     protected function debitLedgerForLabels(OrderDataCollection $ordersData, OrganisationUnit $rootOu): void
     {
         $shippingLedger = $this->fetchShippingLedgerForOu($rootOu);
@@ -131,7 +180,11 @@ class Usps extends Other
     {
         /** @var OrderLabel $orderLabel */
         foreach ($orderLabels as $orderLabel) {
+            /** @var OrderData $orderData */
             $orderData = $ordersData->getById($orderLabel->getOrderId());
+            if (!$orderData) {
+                continue;
+            }
             $orderLabel->setCostPrice($orderData->getCost());
             $orderLabel->setCostCurrencyCode(ShippingCharge::VALUE_CURRENCY);
         }
@@ -140,10 +193,10 @@ class Usps extends Other
     protected function createLabelsFromRates(
         OrderDataCollection $ordersData,
         Account $shippingAccount,
-        Account $shipStationAccount
+        Account $shipStationAccount,
+        LabelResults $labelResults
     ): LabelResults {
         $this->logDebug('Requesting labels from rates', [], [static::LOG_CODE, 'Labels']);
-        $labelResults = new LabelResults();
         /** @var OrderData $orderData */
         foreach ($ordersData as $orderData) {
             try {
@@ -287,6 +340,9 @@ class Usps extends Other
         foreach ($labelResults->getThrowables() as $orderId => $throwable) {
             /** @var OrderData $orderData */
             $orderData = $ordersData->getById($orderId);
+            if (!$orderData) {
+                continue;
+            }
             $amount += $orderData->getCost();
             $failCount++;
             $this->logDebug('Failed to create label for Order %d, cost %.2f', [$orderId, $amount], [static::LOG_CODE, 'Failure', 'Order']);

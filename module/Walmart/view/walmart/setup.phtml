@@ -22,6 +22,16 @@
             <?=$this->clientSecret;?>
         </div>
     </div>
+    <div class="account-field-holder">
+        <p class="help-text">Unless you have specifically agreed with Walmart, please leave this as 1</p>
+        <div class="label">
+            <?= $this->translate('Fulfillment Lag Time'); ?>:
+            <abbr class="required">*</abbr>
+        </div>
+        <div class="text-field">
+            <?=$this->fulfillmentLagTime;?>
+        </div>
+    </div>
     <div class="account-form-buttons-holder">
         <?= $this->linkAccount ?>
         <a href='<?= $this->goBackUrl; ?>'><?= $this->goBack ?></a>
