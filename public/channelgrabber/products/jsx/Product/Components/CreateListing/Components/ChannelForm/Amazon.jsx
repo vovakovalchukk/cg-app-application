@@ -45,21 +45,8 @@ class AmazonChannelFormComponent extends React.Component {
                         maxCharLength={250}
                     />
                 </div>
-
             </section>
         );
-//        return (
-//            <section>
-//                <div className="amazon-channel-form-container channel-form-container">
-//                    <Field name="conditionNote" component={ConditionNote} displayTitle="Condition note"/>
-//                </div>
-//
-//                <div className="amazon-channel-form-container channel-form-container">
-//                    <Field name="bullets" component={Bullets} displayTitle="Features"/>
-//
-//                </div>
-//            </section>
-//        );
     }
 }
 

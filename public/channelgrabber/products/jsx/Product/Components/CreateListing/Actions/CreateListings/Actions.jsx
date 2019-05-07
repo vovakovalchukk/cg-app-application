@@ -110,8 +110,6 @@ import ResponseActions from './ResponseActions';
         return values;
     };
 
-
-
     let formatThemeDetails = function(details) {
         let formattedDetails = [];
         details.forEach((detailsObject) => {
