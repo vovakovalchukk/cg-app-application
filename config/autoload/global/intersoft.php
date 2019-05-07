@@ -751,18 +751,18 @@ return [
                                 ],
                                 'shipmentClass' => DomesticLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'F','P'
+                                    'L', 'F','P'
                                 ],
                                 'serviceAddOns' => [],
                             ],
                             [
                                 'serviceOffering' => 'BPL2',
                                 'serviceTypes' => [
-                                    '1'
+                                    '2'
                                 ],
                                 'shipmentClass' => DomesticLargeLetterParcelShipment::class,
                                 'serviceFormats' => [
-                                    'F','P'
+                                    'L', 'F','P'
                                 ],
                                 'serviceAddOns' => [],
                             ],
