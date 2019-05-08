@@ -26,7 +26,7 @@
         "channelgrabber/billing": "~1.20.9",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.14",
-        "channelgrabber/channel": "~1.42.16",
+        "channelgrabber/channel": "dev-MIG-3-CreateClassicAccount as 1.42.18",
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "dev-MIG-3-CreateClassicAccount as 1.0.0",
         "channelgrabber/clearbooks": "~1.12.0",

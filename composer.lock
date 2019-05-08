@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e519fab58d38b6b84db24d370994a896",
+    "content-hash": "eee481f17b83920d51da79cd5c968a22",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -705,16 +705,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.16",
+            "version": "dev-MIG-3-CreateClassicAccount",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "421c5e4ec27d6ea563a6d089abb6ef5f99747fc2"
+                "reference": "11ef961a8b97faf331278bb6701ac763af977ce8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.16-acc804.zip",
-                "reference": "421c5e4ec27d6ea563a6d089abb6ef5f99747fc2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-MIG-3-CreateClassicAccount-b93907.zip",
+                "reference": "11ef961a8b97faf331278bb6701ac763af977ce8"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -782,7 +782,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-04-30T12:31:46+00:00"
+            "time": "2019-05-08T08:31:40+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -822,15 +822,15 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-classic.git",
-                "reference": "aaf73e64959e05b8cc1fef151260a913669dcbbc"
+                "reference": "93e2860691eb0b9b3a9e0a49a40f7f29a5b552d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/classic/channelgrabber-classic-dev-MIG-3-CreateClassicAccount-629a6f.zip",
-                "reference": "aaf73e64959e05b8cc1fef151260a913669dcbbc"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/classic/channelgrabber-classic-dev-MIG-3-CreateClassicAccount-bbe826.zip",
+                "reference": "93e2860691eb0b9b3a9e0a49a40f7f29a5b552d4"
             },
             "require": {
-                "channelgrabber/channel": "^1.21.7",
+                "channelgrabber/channel": "dev-MIG-3-CreateClassicAccount as 1.42.18",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.16.7",
                 "php": ">=7.1"
@@ -850,7 +850,7 @@
                     "CG\\Classic\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-05-07T13:50:57+00:00"
+            "time": "2019-05-08T08:35:16+00:00"
         },
         {
             "name": "channelgrabber/clearbooks",
@@ -11120,6 +11120,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.42.18",
+            "alias_normalized": "1.42.18.0",
+            "version": "dev-MIG-3-CreateClassicAccount",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-MIG-3-CreateClassicAccount",
@@ -11134,6 +11140,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/classic": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
