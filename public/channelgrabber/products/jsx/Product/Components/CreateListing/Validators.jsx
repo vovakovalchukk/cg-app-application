@@ -15,7 +15,11 @@
             // Only show errors on submission, otherwise they start out as error'd
             return field.meta.error && (field.meta.touched || field.meta.submitting);
         },
-        maxLength: max => value => value && value.length > max ? `Must be ${max} characters or less` : undefined
+        maxLength: function(max){
+            return function(value){
+                return value && value.length > max ? `Must be ${max} characters or less` : undefined
+            }
+        }
     };
 
     export default Validators;
