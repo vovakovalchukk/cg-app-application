@@ -11,6 +11,7 @@ define([
             popup = new MustachePopup(
                 {
                     'header': '/cg-built/products/template/popups/listing/header.mustache',
+                    'loadingIndicator':  '/cg-built/zf2-v4-ui/templates/elements/loadingIndicator.mustache',
                     'loading': '/cg-built/products/template/popups/listing/loading.mustache',
                     'popup': '/cg-built/products/template/popups/listing/popup.mustache',
                     'button': '/cg-built/zf2-v4-ui/templates/elements/buttons.mustache',

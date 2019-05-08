@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "216d99fdbf7d1d2c47553e6ff89f1b48",
+    "content-hash": "8ed814b649150ed4ddeece04f11242c7",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -712,16 +712,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.13",
+            "version": "1.42.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819"
+                "reference": "421c5e4ec27d6ea563a6d089abb6ef5f99747fc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.13-e980b4.zip",
-                "reference": "eb0cbe89addd62913c7aaa27bc9a2cd6ffca4819",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.16-acc804.zip",
+                "reference": "421c5e4ec27d6ea563a6d089abb6ef5f99747fc2",
                 "shasum": null
             },
             "require": {
@@ -736,14 +736,14 @@
                 "channelgrabber/gearman": "^1.4.1",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
-                "channelgrabber/listing": "^1.18.4",
+                "channelgrabber/listing": "^1.19.2",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.27",
                 "channelgrabber/order": "^1.43.10",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
-                "channelgrabber/predis": "^1.0.7",
+                "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/product": "^1.14.0",
                 "channelgrabber/product-locking": "^1.0.1",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
@@ -751,7 +751,7 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.14.1",
-                "channelgrabber/stock": "^1.10.1",
+                "channelgrabber/stock": "^1.17.1",
                 "channelgrabber/stock-locking": "^1.1.0",
                 "channelgrabber/user": "^1.26.4",
                 "channelgrabber/zf2-email-template": "^1.0.12",
@@ -776,11 +776,6 @@
                 "phpunit/phpunit": "~6.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-8876-disable-accounts": "1.42.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -795,7 +790,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-02-25T10:56:59+00:00"
+            "time": "2019-04-30T12:31:46+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -949,20 +944,20 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.14",
+            "version": "1.1.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "c1cfb96c9b81f09b9ec8e2941d7a59bb51aa1dd3"
+                "reference": "ba200136fc9543ab76551beb5a3eb59530bd40e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.14-265b86.zip",
-                "reference": "c1cfb96c9b81f09b9ec8e2941d7a59bb51aa1dd3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.16-9a9f08.zip",
+                "reference": "ba200136fc9543ab76551beb5a3eb59530bd40e9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/courieradapter": "^1.4.0",
+                "channelgrabber/courieradapter": "~1.5.0",
                 "channelgrabber/locale": "^1.0.17",
                 "channelgrabber/stdlib": "^2.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
@@ -992,20 +987,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-04-24T13:36:22+00:00"
+            "time": "2019-05-07T09:59:21+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.4.3",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232"
+                "reference": "1f234f1b2469700fed7b2091729ea2daa18fffff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.4.3-b04687.zip",
-                "reference": "54bf30215b2e96d8f50d1df17b9ab94200fdc232",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.5.0-da9a06.zip",
+                "reference": "1f234f1b2469700fed7b2091729ea2daa18fffff",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1025,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-04-17T14:06:16+00:00"
+            "time": "2019-05-07T09:32:26+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -1700,16 +1695,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.18.4",
+            "version": "1.19.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "42052bb49fb0a65605ce9129389474a8e83716fa"
+                "reference": "e3469dee3489610d736f706a11619f35f5911bbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.18.4-dd3e6f.zip",
-                "reference": "42052bb49fb0a65605ce9129389474a8e83716fa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.2-e52383.zip",
+                "reference": "e3469dee3489610d736f706a11619f35f5911bbf",
                 "shasum": null
             },
             "require": {
@@ -1750,7 +1745,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2018-11-13T15:39:54+00:00"
+            "time": "2019-04-24T12:45:37+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -1791,16 +1786,16 @@
         },
         {
             "name": "channelgrabber/location",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-location.git",
-                "reference": "2c401b5a118ce02ad6d0a476d478b7f5cfc0e0fa"
+                "reference": "0dcf78458a67991300eb27c0ef39162731478d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/location/channelgrabber-location-1.2.1-d02078.zip",
-                "reference": "2c401b5a118ce02ad6d0a476d478b7f5cfc0e0fa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/location/channelgrabber-location-1.2.2-a529a7.zip",
+                "reference": "0dcf78458a67991300eb27c0ef39162731478d0b",
                 "shasum": null
             },
             "require": {
@@ -1839,7 +1834,7 @@
                     "CG\\Location\\Test\\": "tests"
                 }
             },
-            "time": "2018-08-17T09:27:42+00:00"
+            "time": "2019-04-29T12:52:04+00:00"
         },
         {
             "name": "channelgrabber/locking",
@@ -2092,16 +2087,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.44.0",
+            "version": "1.44.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359"
+                "reference": "0b8b9536c96c7f854e2ad396314ac37e9a3a01d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.44.0-722fcf.zip",
-                "reference": "7a02ed11a1aebfb611e2693d462fd9df6bc98359",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.44.2-25332f.zip",
+                "reference": "0b8b9536c96c7f854e2ad396314ac37e9a3a01d3",
                 "shasum": null
             },
             "require": {
@@ -2121,6 +2116,7 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/locale": "^1.2.1",
+                "channelgrabber/location": "^1.2.2",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/notification": "^1.2.2",
@@ -2130,7 +2126,7 @@
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.6.4",
-                "channelgrabber/slim": "^1.13.22",
+                "channelgrabber/slim": "^1.15.3",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.47",
                 "channelgrabber/stock": "^1.12.3",
@@ -2172,7 +2168,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-04-08T15:31:48+00:00"
+            "time": "2019-05-07T15:29:23+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -2426,16 +2422,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.1.1",
+            "version": "1.1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "670eb8c16ab202cb620939ce8ee53b9e8bf198c0"
+                "reference": "5c7cc2bd0bd3af04e6733567c7f10e35df9a288f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.1-c46657.zip",
-                "reference": "670eb8c16ab202cb620939ce8ee53b9e8bf198c0",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/predis/channelgrabber-predis-1.1.4.1-a72ced.zip",
+                "reference": "5c7cc2bd0bd3af04e6733567c7f10e35df9a288f",
                 "shasum": null
             },
             "require": {
@@ -2450,7 +2446,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2019-02-21T13:33:46+00:00"
+            "time": "2019-04-30T10:30:18+00:00"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -2669,21 +2665,21 @@
         },
         {
             "name": "channelgrabber/purge",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purge.git",
-                "reference": "48533546542a59e02452d747fea8ce4ec8c6462a"
+                "reference": "38be63f2c23610463ff20336ab22ed49fabfd5b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purge/channelgrabber-purge-1.0.5-3bd2b7.zip",
-                "reference": "48533546542a59e02452d747fea8ce4ec8c6462a",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/purge/channelgrabber-purge-1.0.6-35a14f.zip",
+                "reference": "38be63f2c23610463ff20336ab22ed49fabfd5b9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/gearman": ">=1.1.5,<2.0.0",
-                "composer/composer": "@dev",
+                "channelgrabber/gearman": "^1.1.5",
+                "channelgrabber/stdlib": "^2.16.6",
                 "ext-gearman": ">=1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "predis/predis": "~0.8.3",
@@ -2704,7 +2700,7 @@
                     "CG\\Purge\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2017-02-17T11:32:22+00:00"
+            "time": "2019-01-29T10:57:06+00:00"
         },
         {
             "name": "channelgrabber/queue",
@@ -3096,40 +3092,40 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.14.3",
+            "version": "1.15.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "26a197189c323aeee7df6476a7d5b389be97f383"
+                "reference": "35245ba1c24118285553500d239814fcf84090d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.14.3-cf3312.zip",
-                "reference": "26a197189c323aeee7df6476a7d5b389be97f383",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/slim/channelgrabber-slim-1.15.3-92a714.zip",
+                "reference": "35245ba1c24118285553500d239814fcf84090d9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/cache": ">=2.0.1,<3.0.0",
+                "channelgrabber/cache": "^2.0.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/etag": "^1.5.4",
+                "channelgrabber/etag": "^1.7.1",
                 "channelgrabber/http": "^1.3.32",
                 "channelgrabber/log": "^2.2.1",
                 "channelgrabber/permission": "^1.0.1",
-                "channelgrabber/purge": "^1.0.4.1",
-                "channelgrabber/stdlib": "^2.15.0",
-                "channelgrabber/transaction": ">=1.1.3, <2.0.0",
+                "channelgrabber/purge": "^1.0.6",
+                "channelgrabber/stdlib": "^2.16.6",
+                "channelgrabber/transaction": "^1.1.3",
                 "channelgrabber/usage": ">=1.0.5",
                 "channelgrabber/usage-check": "^1.0.0",
                 "channelgrabber/validation": "^1.2.11",
-                "channelgrabber/vnderror": ">=1.0.0",
+                "channelgrabber/vnderror": "^1.0.0",
                 "cilex/cilex": "1.0.1",
-                "league/oauth2-server": "~4.1.3",
                 "nocarrier/hal": "~0.9.4",
+                "nyholm/psr7": "^1.1",
                 "php": ">=7.1",
                 "php-jsonpatch/php-jsonpatch": "~1.2.3",
                 "rhumsaa/vnderror": "1.0.0",
-                "slim/slim": "^2.3.0",
+                "slim/slim": "^2.6.2",
                 "zendframework/zend-di": "^2.2.5",
                 "zendframework/zend-eventmanager": "^2.2.5"
             },
@@ -3156,7 +3152,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-11-01T15:48:16+00:00"
+            "time": "2019-04-29T12:55:36+00:00"
         },
         {
             "name": "channelgrabber/sso",
@@ -3283,16 +3279,16 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.16.1",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "7ae00a1a516be0f735e951c0ec1283e3559d95da"
+                "reference": "9fbd3bea580d17ddd3f55f30759e87a7bc449489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.16.1-1ca6da.zip",
-                "reference": "7ae00a1a516be0f735e951c0ec1283e3559d95da",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stock/channelgrabber-stock-1.17.1-e1e109.zip",
+                "reference": "9fbd3bea580d17ddd3f55f30759e87a7bc449489",
                 "shasum": null
             },
             "require": {
@@ -3339,7 +3335,7 @@
                     "CG\\Account\\Test\\": "vendor/channelgrabber/channel/tests/Account/Test"
                 }
             },
-            "time": "2019-03-13T15:30:50+00:00"
+            "time": "2019-04-30T12:16:50+00:00"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3590,16 +3586,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.26.7",
+            "version": "1.26.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "20ed967c9f8c826b843bd6e606d37323f92bfcb0"
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.7-48c2d8.zip",
-                "reference": "20ed967c9f8c826b843bd6e606d37323f92bfcb0",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/user/channelgrabber-user-1.26.6-47e390.zip",
+                "reference": "b180e7655816869e45ec878b4b9dbf03c969bf49",
                 "shasum": null
             },
             "require": {
@@ -3645,7 +3641,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2019-04-25T09:12:10+00:00"
+            "time": "2019-04-04T07:40:33+00:00"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4366,16 +4362,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-TAC-408-prevent-partner-users-password-reset",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "54e3c59a42376a3da226d6f7c8cfcc6eabafdf59"
+                "reference": "14a16330ff86610934ef5d47381c92e584ea4b2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-00d302.zip",
-                "reference": "54e3c59a42376a3da226d6f7c8cfcc6eabafdf59",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.6-424df0.zip",
+                "reference": "14a16330ff86610934ef5d47381c92e584ea4b2b",
                 "shasum": null
             },
             "require": {
@@ -4386,7 +4382,7 @@
                 "channelgrabber/locale": "^1.2.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.26.6",
+                "channelgrabber/user": "^1.26.0",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": "^1.2.2",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -4421,7 +4417,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-04-17T13:28:52+00:00"
+            "time": "2019-05-01T14:58:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -4554,16 +4550,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.6.18",
+            "version": "1.6.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "b0d4a377c8ab8c12ab9117e478b1374e90e46012"
+                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.18-98104f.zip",
-                "reference": "b0d4a377c8ab8c12ab9117e478b1374e90e46012",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-register/channelgrabber-zf2-register-1.6.19-6a26a7.zip",
+                "reference": "f06a851d1a7c6037bd9975182ee839e992b87d57",
                 "shasum": null
             },
             "require": {
@@ -4603,7 +4599,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2018-11-23T12:42:41+00:00"
+            "time": "2019-05-01T14:59:46+00:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4912,16 +4908,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.10",
+            "version": "1.26.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc"
+                "reference": "702109d0552c08c2ae4c9bf0d31ad8c25dae9422"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.10-72652d.zip",
-                "reference": "2f736e8343a8840e12c5fb9757b477dcd2ea7abc",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.12-4504b9.zip",
+                "reference": "702109d0552c08c2ae4c9bf0d31ad8c25dae9422",
                 "shasum": null
             },
             "require": {
@@ -4973,7 +4969,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-04-10T10:34:10+00:00"
+            "time": "2019-05-01T14:56:58+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6212,120 +6208,6 @@
             "time": "2018-02-06T08:27:03+00:00"
         },
         {
-            "name": "league/event",
-            "version": "2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/event.git",
-                "reference": "e4bfc88dbcb60c8d8a2939a71f9813e141bbe4cd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/event/zipball/e4bfc88dbcb60c8d8a2939a71f9813e141bbe4cd",
-                "reference": "e4bfc88dbcb60c8d8a2939a71f9813e141bbe4cd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "henrikbjorn/phpspec-code-coverage": "~1.0.1",
-                "phpspec/phpspec": "~2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\Event\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frank de Jonge",
-                    "email": "info@frenky.net"
-                }
-            ],
-            "description": "Event package",
-            "keywords": [
-                "emitter",
-                "event",
-                "listener"
-            ],
-            "time": "2015-05-21T12:24:47+00:00"
-        },
-        {
-            "name": "league/oauth2-server",
-            "version": "4.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "3bec591393b1cc6a3fc02c94d18262e4ffad2e4f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/3bec591393b1cc6a3fc02c94d18262e4ffad2e4f",
-                "reference": "3bec591393b1cc6a3fc02c94d18262e4ffad2e4f",
-                "shasum": ""
-            },
-            "require": {
-                "league/event": "~2.1",
-                "php": ">=5.4.0",
-                "symfony/http-foundation": "~2.4|~3.0"
-            },
-            "replace": {
-                "league/oauth2server": "*",
-                "lncd/oauth2": "*"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "League\\OAuth2\\Server\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alex Bilbie",
-                    "email": "hello@alexbilbie.com",
-                    "homepage": "http://www.alexbilbie.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
-            "homepage": "http://oauth2.thephpleague.com/",
-            "keywords": [
-                "Authentication",
-                "api",
-                "auth",
-                "authorisation",
-                "authorization",
-                "oauth",
-                "oauth 2",
-                "oauth 2.0",
-                "oauth2",
-                "protect",
-                "resource",
-                "secure",
-                "server"
-            ],
-            "time": "2016-09-13T13:42:53+00:00"
-        },
-        {
             "name": "liuggio/statsd-php-client",
             "version": "v1.0.18",
             "source": {
@@ -6694,6 +6576,68 @@
             "time": "2015-09-07T11:14:47+00:00"
         },
         {
+            "name": "nyholm/psr7",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Nyholm/psr7.git",
+                "reference": "701fe7ea8c12c07b985b156d589134d328160cf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/701fe7ea8c12c07b985b156d589134d328160cf7",
+                "reference": "701fe7ea8c12c07b985b156d589134d328160cf7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "php-http/message-factory": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0"
+            },
+            "provide": {
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "http-interop/http-factory-tests": "dev-master",
+                "php-http/psr7-integration-tests": "dev-master",
+                "phpunit/phpunit": "^7.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nyholm\\Psr7\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com"
+                },
+                {
+                    "name": "Martijn van der Ven",
+                    "email": "martijn@vanderven.se"
+                }
+            ],
+            "description": "A fast PHP7 implementation of PSR-7",
+            "homepage": "http://tnyholm.se",
+            "keywords": [
+                "psr-17",
+                "psr-7"
+            ],
+            "time": "2019-02-16T17:20:43+00:00"
+        },
+        {
             "name": "opensoft/rollout",
             "version": "2.2.1",
             "source": {
@@ -6744,6 +6688,56 @@
                 "toggle"
             ],
             "time": "2017-08-01T17:45:55+00:00"
+        },
+        {
+            "name": "php-http/message-factory",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/message-factory.git",
+                "reference": "a478cb11f66a6ac48d8954216cfed9aa06a501a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/message-factory/zipball/a478cb11f66a6ac48d8954216cfed9aa06a501a1",
+                "reference": "a478cb11f66a6ac48d8954216cfed9aa06a501a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Factory interfaces for PSR-7 HTTP Message",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "stream",
+                "uri"
+            ],
+            "time": "2015-12-19T14:08:53+00:00"
         },
         {
             "name": "php-jsonpatch/php-jsonpatch",
@@ -7240,6 +7234,58 @@
                 "psr-6"
             ],
             "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2018-07-30T21:54:04+00:00"
         },
         {
             "name": "psr/http-message",
@@ -8539,59 +8585,6 @@
             "time": "2017-11-05T15:25:56+00:00"
         },
         {
-            "name": "symfony/http-foundation",
-            "version": "v3.3.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5943f0f19817a7e05992d20a90729b0dc93faf36",
-                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.5.9|>=7.0.8",
-                "symfony/polyfill-mbstring": "~1.1"
-            },
-            "require-dev": {
-                "symfony/expression-language": "~2.8|~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\HttpFoundation\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony HttpFoundation Component",
-            "homepage": "https://symfony.com",
-            "time": "2017-11-13T18:13:16+00:00"
-        },
-        {
             "name": "symfony/polyfill-apcu",
             "version": "v1.6.0",
             "source": {
@@ -9505,6 +9498,120 @@
                 "intercom.io"
             ],
             "time": "2015-04-03T12:10:19+00:00"
+        },
+        {
+            "name": "league/event",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/event.git",
+                "reference": "e4bfc88dbcb60c8d8a2939a71f9813e141bbe4cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/event/zipball/e4bfc88dbcb60c8d8a2939a71f9813e141bbe4cd",
+                "reference": "e4bfc88dbcb60c8d8a2939a71f9813e141bbe4cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "henrikbjorn/phpspec-code-coverage": "~1.0.1",
+                "phpspec/phpspec": "~2.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Event\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Event package",
+            "keywords": [
+                "emitter",
+                "event",
+                "listener"
+            ],
+            "time": "2015-05-21T12:24:47+00:00"
+        },
+        {
+            "name": "league/oauth2-server",
+            "version": "4.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/oauth2-server.git",
+                "reference": "3bec591393b1cc6a3fc02c94d18262e4ffad2e4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/3bec591393b1cc6a3fc02c94d18262e4ffad2e4f",
+                "reference": "3bec591393b1cc6a3fc02c94d18262e4ffad2e4f",
+                "shasum": ""
+            },
+            "require": {
+                "league/event": "~2.1",
+                "php": ">=5.4.0",
+                "symfony/http-foundation": "~2.4|~3.0"
+            },
+            "replace": {
+                "league/oauth2server": "*",
+                "lncd/oauth2": "*"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\OAuth2\\Server\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Bilbie",
+                    "email": "hello@alexbilbie.com",
+                    "homepage": "http://www.alexbilbie.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
+            "homepage": "http://oauth2.thephpleague.com/",
+            "keywords": [
+                "Authentication",
+                "api",
+                "auth",
+                "authorisation",
+                "authorization",
+                "oauth",
+                "oauth 2",
+                "oauth 2.0",
+                "oauth2",
+                "protect",
+                "resource",
+                "secure",
+                "server"
+            ],
+            "time": "2016-09-13T13:42:53+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -10899,6 +11006,59 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "symfony/http-foundation",
+            "version": "v3.3.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5943f0f19817a7e05992d20a90729b0dc93faf36",
+                "reference": "5943f0f19817a7e05992d20a90729b0dc93faf36",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-mbstring": "~1.1"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-13T18:13:16+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.1.0",
             "source": {
@@ -11032,18 +11192,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.6",
-            "alias_normalized": "1.6.6.0",
-            "version": "dev-TAC-408-prevent-partner-users-password-reset",
-            "package": "channelgrabber/zf2-login"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
