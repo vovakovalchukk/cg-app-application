@@ -15,7 +15,7 @@ const FieldInput = ({input, label, type, meta: {touched, error}}) => {
     return (
         <span>
         <div>
-            <Input {...input} type={type} placeholder={label}/>
+            <Input {...input} type={type} placeholder={label} />
             {touched && error && <div className={'u-color-red'}>{error}</div>}
         </div>
     </span>
