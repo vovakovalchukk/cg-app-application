@@ -11,74 +11,104 @@ const Input = styled.input`
   width: 450px;
 `;
 
-const FieldInput = ({ input, label, type, meta: { touched, error } }) => (
-    <span>
+const FieldInput = ({input, label, type, meta: {touched, error}}) => {
+    return (
+        <span>
         <div>
             <Input {...input} type={type} placeholder={label} />
             {touched && error && <div className={'u-color-red'}>{error}</div>}
         </div>
     </span>
-);
+    )
 
-const RemoveButton = ({buttonOnClick, buttonTitle}) => {
+};
+
+const RemoveButton = ({buttonOnClick, buttonTitle, shouldRender}) => {
+    if (!shouldRender) {
+        return null;
+    }
     return (
         <span>
-            <RemoveIcon onClick={buttonOnClick} title={buttonTitle} />
+            <RemoveIcon onClick={buttonOnClick} title={buttonTitle}/>
         </span>
     )
 };
 
+const AddButton = ({shouldRender, onButtonClick, buttonText}) => {
+    if (!shouldRender) {
+        return null;
+    }
+    return (
+        <div className={'u-margin-top-small'}>
+            <button type="button" onClick={onButtonClick}>{buttonText}</button>
+        </div>
+    );
+};
 
-const TextFieldArray = ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPrefix, maxCharLength}) => {
-    if (!fields.length){
+const TextArrayInput = ({itemName, index, itemPlaceholder, validatorMethod}) => {
+    return (<span>
+        <Field
+            type="text"
+            name={itemName}
+            component={FieldInput}
+            label={`${itemPlaceholder} ${index + 1}`}
+            validate={[validatorMethod]}
+        />
+    </span>);
+};
+
+// declare this outside the component otherwise we see rendering issues
+let maxLengthValidatorMethods = {};
+
+const TextFieldArray = ({fields, meta: {error, submitFailed}, displayTitle, itemPlaceholder, meta, itemLimit, identifier, maxCharLength}) => {
+    if (!fields.length) {
         fields.push();
     }
 
-    let addClick = () => {
-        if(fields.length >= 5){
+    const addClick = () => {
+        if (fields.length >= 5) {
             return;
         }
-        fields.push({});
+        fields.push();
     };
 
-    let maxLengthValidatorMethod = validators.maxLength(maxCharLength);
-
-    let renderInputRows = () => {
-        return fields.map((item, index) => {
-            return (
-                <div className={'u-flex-v-center u-margin-top-xsmall'}>
-                    <span>
-                        <Field
-                            type="text"
-                            name={`${item}.field${index + 1}`}
-                            component={FieldInput}
-                            label={`${itemPlaceholder} ${index + 1}`}
-                            validate={[maxLengthValidatorMethod]}
-                        />
-                    </span>
-
-                    {index > 0 && (
-                        <RemoveButton
-                            buttonTitle={`Remove ${itemPlaceholder}`}
-                            buttonOnClick={() => fields.remove(index)}
-                        />
-                    )}
-                </div>
-            )
-        });
+    if (!maxLengthValidatorMethods[identifier]) {
+        maxLengthValidatorMethods[identifier] = validators.maxLength(maxCharLength);
     }
+
+    const renderInputRow = (item, index) => {
+        return (
+            <div className={'u-flex-v-center u-margin-top-xsmall'}>
+                <TextArrayInput
+                    itemName={item}
+                    index={index}
+                    itemPlaceholder={itemPlaceholder}
+                    validatorMethod={maxLengthValidatorMethods[identifier]}
+
+                />
+                <RemoveButton
+                    buttonTitle={`Remove ${itemPlaceholder}`}
+                    buttonOnClick={() => fields.remove(index)}
+                    shouldRender={index > 0}
+                />
+            </div>
+        )
+    };
+
+    const renderInputRows = () => {
+        return fields.map(renderInputRow);
+    };
 
     return (
         <fieldset className="input-container">
             <span className={"inputbox-label"}>{displayTitle}</span>
             <FieldRow>
                 {renderInputRows()}
-
-                {fields.length < itemLimit && (
-                    <div className={'u-margin-top-small'}>
-                        <button type="button" onClick={addClick}>Add {itemPlaceholder}</button>
-                    </div>
-                )}
+                <AddButton
+                    shouldRender={fields.length < itemLimit}
+                    onButtonClick={addClick}
+                    buttonText={`Add ${itemPlaceholder}`}
+                />
             </FieldRow>
         </fieldset>
     );
