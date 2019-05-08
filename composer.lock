@@ -822,12 +822,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "336f977ddff4609d24956837670d9fdecda60142"
+                "reference": "54bfd3311e3b75d631087b4e7a1514985bdbb069"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-27207f.zip",
-                "reference": "336f977ddff4609d24956837670d9fdecda60142"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-1fdf2e.zip",
+                "reference": "54bfd3311e3b75d631087b4e7a1514985bdbb069"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.1",
@@ -857,7 +857,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2019-05-07T09:55:21+00:00"
+            "time": "2019-05-08T15:52:44+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2137,6 +2137,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
                 "reference": "7fb4a2c0c5a97c3081f2c08b1df56b72406222f5"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-dev-CGIV-10519-create-invoice-for-discounted-subscriptios-7a1ed5.zip",
+                "reference": "7fb4a2c0c5a97c3081f2c08b1df56b72406222f5"
+            },
             "require": {
                 "channelgrabber/billing": "^1.20.3",
                 "channelgrabber/cglib": "^1.16.0",
@@ -2177,7 +2182,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-05-07T09:15:01+00:00"
+            "time": "2019-05-08T15:47:57+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -11097,8 +11102,8 @@
         "channelgrabber/constants": 20,
         "channelgrabber/payment": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
