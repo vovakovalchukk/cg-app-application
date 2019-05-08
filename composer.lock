@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a18956fe3a428d9e578e033894dc322d",
+    "content-hash": "28bb24703c9438d4e7c22a6cd61481fa",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.28.16",
+            "version": "dev-MIG-7-amazon-bulletpoints-searchterms",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "13d3ad3c76a6676a9d1551fda58b590855e6a3b5"
+                "reference": "18da06768325edd01fa36f5d4ee49b4851a71ce4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.28.16-9ee90d.zip",
-                "reference": "13d3ad3c76a6676a9d1551fda58b590855e6a3b5",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-7-amazon-bulletpoints-searchterms-474cd7.zip",
+                "reference": "18da06768325edd01fa36f5d4ee49b4851a71ce4",
                 "shasum": null
             },
             "require": {
@@ -358,7 +358,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/exchangerate": "^1.1.1",
-                "channelgrabber/gearman": "^1.5.0",
+                "channelgrabber/gearman": "^1.5.2",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.18.4",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-04-01T14:34:30+00:00"
+            "time": "2019-05-08T15:19:21+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1457,16 +1457,16 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "f4fea2be8f3f5cc71191401bb89c304be84235d4"
+                "reference": "b63c46ee06966e11b5f70bc43c8e190ad080f169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.5.1-e9b009.zip",
-                "reference": "f4fea2be8f3f5cc71191401bb89c304be84235d4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/gearman/channelgrabber-gearman-1.5.2-8ee156.zip",
+                "reference": "b63c46ee06966e11b5f70bc43c8e190ad080f169",
                 "shasum": null
             },
             "require": {
@@ -1503,7 +1503,7 @@
                     "CG\\Gearman\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-22T09:25:54+00:00"
+            "time": "2019-04-29T14:06:37+00:00"
         },
         {
             "name": "channelgrabber/go-cardless",
@@ -11192,9 +11192,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.28.19",
+            "alias_normalized": "1.28.19.0",
+            "version": "dev-MIG-7-amazon-bulletpoints-searchterms",
+            "package": "channelgrabber/amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
