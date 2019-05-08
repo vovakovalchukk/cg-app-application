@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ed814b649150ed4ddeece04f11242c7",
+    "content-hash": "4c7e69c29eca589443fc3eee9fd7fe45",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4362,16 +4362,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.6",
+            "version": "dev-TAC-408-prevent-partner-users-password-reset",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "14a16330ff86610934ef5d47381c92e584ea4b2b"
+                "reference": "54e3c59a42376a3da226d6f7c8cfcc6eabafdf59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.6-424df0.zip",
-                "reference": "14a16330ff86610934ef5d47381c92e584ea4b2b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-408-prevent-partner-users-password-reset-00d302.zip",
+                "reference": "54e3c59a42376a3da226d6f7c8cfcc6eabafdf59",
                 "shasum": null
             },
             "require": {
@@ -4382,7 +4382,7 @@
                 "channelgrabber/locale": "^1.2.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.26.0",
+                "channelgrabber/user": "^1.26.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": "^1.2.2",
                 "channelgrabber/zf2-v4-ui": "^1.17.41",
@@ -4417,7 +4417,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-05-01T14:58:33+00:00"
+            "time": "2019-04-17T13:28:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -11192,10 +11192,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.6.6",
+            "alias_normalized": "1.6.6.0",
+            "version": "dev-TAC-408-prevent-partner-users-password-reset",
+            "package": "channelgrabber/zf2-login"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
