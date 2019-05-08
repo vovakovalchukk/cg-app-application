@@ -69,17 +69,12 @@ import ResponseActions from './ResponseActions';
         }
 
         let formatted = [];
-        for(let fieldKey of Object.keys(fieldValues)) {
-            let fieldObject = fieldValues[fieldKey];
-            if(!fieldObject){
-                continue;
-            }
-            let fieldValue = fieldObject[Object.keys(fieldObject)[0]];
+        for(let fieldValue of fieldValues) {
             if(!fieldValue){
                 continue;
             }
             formatted.push(fieldValue);
-        };
+        }
 
         values[fieldPrefix] = formatted;
         return values;

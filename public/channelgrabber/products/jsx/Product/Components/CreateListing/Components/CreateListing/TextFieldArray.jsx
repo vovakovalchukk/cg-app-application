@@ -12,8 +12,6 @@ const Input = styled.input`
 `;
 
 const FieldInput = ({input, label, type, meta: {touched, error}}) => {
-    console.log('status: ', {input, meta});
-
     return (
         <span>
         <div>
@@ -47,11 +45,11 @@ const AddButton = ({shouldRender, onButtonClick, buttonText}) => {
     );
 };
 
-const TextArrayInput = ({namePrefix, index, itemPlaceholder, validatorMethod}) => {
+const TextArrayInput = ({itemName, index, itemPlaceholder, validatorMethod}) => {
     return (<span>
         <Field
             type="text"
-            name={`${namePrefix}.field${index + 1}`}
+            name={itemName}
             component={FieldInput}
             label={`${itemPlaceholder} ${index + 1}`}
             validate={[validatorMethod]}
@@ -59,7 +57,10 @@ const TextArrayInput = ({namePrefix, index, itemPlaceholder, validatorMethod}) =
     </span>);
 };
 
-const TextFieldArray = ({fields, displayTitle, itemPlaceholder, meta, itemLimit, itemPrefix, maxCharLength}) => {
+// declare this outside the component otherwise we see rendering issues
+let maxLengthValidatorMethods = {};
+
+const TextFieldArray = ({fields, meta: {error, submitFailed}, displayTitle, itemPlaceholder, meta, itemLimit, identifier, maxCharLength}) => {
     if (!fields.length) {
         fields.push();
     }
@@ -68,21 +69,22 @@ const TextFieldArray = ({fields, displayTitle, itemPlaceholder, meta, itemLimit,
         if (fields.length >= 5) {
             return;
         }
-        fields.push({});
+        fields.push();
     };
 
-    const maxLengthValidatorMethod = validators.maxLength(maxCharLength);
-
-    console.log('maxLengthValidatorMethod: ', maxLengthValidatorMethod);
+    if (!maxLengthValidatorMethods[identifier]) {
+        maxLengthValidatorMethods[identifier] = validators.maxLength(maxCharLength);
+    }
 
     const renderInputRow = (item, index) => {
         return (
             <div className={'u-flex-v-center u-margin-top-xsmall'}>
                 <TextArrayInput
-                    namePrefix={item}
+                    itemName={item}
                     index={index}
                     itemPlaceholder={itemPlaceholder}
-                    validatorMethod={maxLengthValidatorMethod}
+                    validatorMethod={maxLengthValidatorMethods[identifier]}
+
                 />
                 <RemoveButton
                     buttonTitle={`Remove ${itemPlaceholder}`}

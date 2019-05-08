@@ -9,6 +9,7 @@ class AmazonChannelFormComponent extends React.Component {
             <section>
                 {this.renderConditionNoteField()}
 
+                {this.renderBulletPointFields()}
 
                 {this.renderSearchTermFields()}
             </section>
@@ -23,6 +24,7 @@ class AmazonChannelFormComponent extends React.Component {
                 itemPlaceholder={"search term"}
                 itemLimit={5}
                 maxCharLength={250}
+                identifier={'searchTerm'}
             />
         </div>;
     }
@@ -35,6 +37,7 @@ class AmazonChannelFormComponent extends React.Component {
                 itemPlaceholder={"bullet"}
                 itemLimit={5}
                 maxCharLength={500}
+                identifier={'bullet'}
             />
         </div>;
     }
