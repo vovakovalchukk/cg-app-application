@@ -54,7 +54,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.4.2",
-        "channelgrabber/order": "~1.44.1",
+        "channelgrabber/order": "~1.44.2",
         "channelgrabber/payment": "dev-CGIV-10519-create-invoice-for-discounted-subscriptios as 1.14.2",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
