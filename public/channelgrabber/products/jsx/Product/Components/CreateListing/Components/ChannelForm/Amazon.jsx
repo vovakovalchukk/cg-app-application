@@ -9,7 +9,6 @@ class AmazonChannelFormComponent extends React.Component {
             <section>
                 {this.renderConditionNoteField()}
 
-                {this.renderBulletPointFields()}
 
                 {this.renderSearchTermFields()}
             </section>

@@ -17,6 +17,8 @@
         },
         maxLength: function(max){
             return function(value){
+                console.log('value: ', value);
+                
                 return value && value.length > max ? `Must be ${max} characters or less` : undefined
             }
         }
