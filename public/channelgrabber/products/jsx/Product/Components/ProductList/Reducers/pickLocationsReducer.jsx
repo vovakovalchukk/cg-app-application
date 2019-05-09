@@ -15,6 +15,7 @@ let pickLocationsReducer = reducerCreator(initialState, {
     "PICK_LOCATION_SET_VALUES": function(state, action) {
         let values = action.values;
         return Object.assign({}, state, {values});
+    },
     "PICK_LOCATION_SET_PRODUCT_SUCCESS": function(state, action) {
         n.success("Picking location assigned to product.");
         let {productId, productPickLocations, level, value} = action;
