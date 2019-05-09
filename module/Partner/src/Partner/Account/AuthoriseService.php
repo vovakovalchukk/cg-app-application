@@ -38,6 +38,7 @@ class AuthoriseService implements LoggerAwareInterface
     const LOG_MESSAGE_NO_SIGNATURE = 'No signature has been provided ';
     const LOG_MESSAGE_INVALID_SIGNATURE = 'The provided signature is not valid. User signature: %s . Computed signature %s';
     const LOG_MESSAGE_VALID_URL = 'The provided URL is valid: %s';
+    const LOG_MESSAGE_ACCOUNT_REQUEST_EXTRA_FIELD_SETTER_ERROR = 'There was an error while trying to set the field %s with value %s on the AccountRequest entity with ID %s';
     const LOG_ACCOUNT_REQUEST_CONFLICT = 'Conflict occurred while marking the accountRequest with ID %s, retry number %s, as status failed';
 
     /** @var AccountRequestService */
@@ -131,11 +132,12 @@ class AuthoriseService implements LoggerAwareInterface
     public function fetchPartnerSuccessRedirectUrlFromSession(Account $account): string
     {
         $accountRequest = $this->fetchAccountRequestFromSession();
+        $this->markAccountRequestAsSuccessful($accountRequest, $account);
+
         /** @var Partner $partner */
         $partner = $this->partnerStorage->fetch($accountRequest->getId());
 
         $this->notificationService->notifyPartner($partner, $accountRequest, $account);
-        $this->markAccountRequestAsSuccessful($accountRequest);
 
         return $partner->getAccountSuccessRedirectUrl();
     }
@@ -239,25 +241,46 @@ class AuthoriseService implements LoggerAwareInterface
         $this->updateAccountRequestStatus($accountRequest, AccountRequest::STATUS_FAILED);
     }
 
-    protected function markAccountRequestAsSuccessful(AccountRequest $accountRequest): void
+    protected function markAccountRequestAsSuccessful(AccountRequest $accountRequest, Account $account): void
     {
-        $this->updateAccountRequestStatus($accountRequest, AccountRequest::STATUS_CREATED);
+        $this->updateAccountRequestStatus($accountRequest, AccountRequest::STATUS_CREATED, [
+            'accountId' => $account->getId()
+        ]);
     }
 
-    protected function updateAccountRequestStatus(AccountRequest $accountRequest, string $status): void
-    {
+    protected function updateAccountRequestStatus(
+        AccountRequest $accountRequest,
+        string $status,
+        array $extraFields = []
+    ): void {
         for ($retry = 0; $retry < static::MAX_SAVE_RETRIES; $retry++) {
             try {
                 $accountRequest->setStatus($status);
+                $this->setAdditionalFieldsOnAccountRequest($accountRequest, $extraFields);
                 $this->accountRequestService->save($accountRequest);
                 return;
             } catch (NotModified $e) {
-                // Nothing to do, entity already marked as failed
                 return;
             } catch (Conflict $e) {
                 /** @var AccountRequest $accountRequest */
                 $accountRequest = $this->accountRequestService->fetch($accountRequest->getId());
                 $this->logWarningException($e, static::LOG_ACCOUNT_REQUEST_CONFLICT, [$accountRequest->getId(), $retry], static::LOG_CODE);
+            }
+        }
+    }
+
+    protected function setAdditionalFieldsOnAccountRequest(AccountRequest $accountRequest, array $fields): void
+    {
+        foreach ($fields as $field => $value) {
+            $setter = 'set' . ucfirst(strtolower($field));
+            if (!method_exists($accountRequest, $setter)) {
+                continue;
+            }
+
+            try {
+                $accountRequest->{$setter}($value);
+            } catch (\Throwable $exception) {
+                $this->logDebug(static::LOG_MESSAGE_ACCOUNT_REQUEST_EXTRA_FIELD_SETTER_ERROR, [$field, $value, $accountRequest->getId()]);
             }
         }
     }

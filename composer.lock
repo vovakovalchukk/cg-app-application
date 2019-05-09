@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9511defb4fab173031ecf0fc126a296",
+    "content-hash": "55c097742381e06cea8b4e2f14956a69",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -712,16 +712,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.17",
+            "version": "dev-TAC-393-connect-accounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7ba9f152143094a49253e4a559b3516cdd36d603"
+                "reference": "362ccd94d9c6fbb59c01b9d1303f65b63b6dff6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.17-eed0b2.zip",
-                "reference": "7ba9f152143094a49253e4a559b3516cdd36d603",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-393-connect-accounts-38c281.zip",
+                "reference": "362ccd94d9c6fbb59c01b9d1303f65b63b6dff6b",
                 "shasum": null
             },
             "require": {
@@ -790,7 +790,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-05-03T13:58:00+00:00"
+            "time": "2019-05-09T14:15:39+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -11398,6 +11398,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.42.18",
+            "alias_normalized": "1.42.18.0",
+            "version": "dev-TAC-393-connect-accounts",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-TAC-393-connect-accounts",
@@ -11412,6 +11418,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/partner": 20,
         "channelgrabber/zf2-permission": 20,
