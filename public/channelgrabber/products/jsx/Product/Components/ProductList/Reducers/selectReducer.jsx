@@ -5,7 +5,8 @@ import reducerCreator from 'Common/Reducers/creator';
 let initialState = {
     activeSelect: {
         columnKey: '',
-        productId: ''
+        productId: '',
+        index: ''
     }
 };
 
