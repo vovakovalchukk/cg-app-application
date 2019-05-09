@@ -54,6 +54,8 @@ class AuthoriseService implements LoggerAwareInterface
     protected $ssoClient;
     /** @var ChannelService */
     protected $channelService;
+    /** @var NotificationService */
+    protected $notificationService;
 
     public function __construct(
         AccountRequestService $accountRequestService,
@@ -62,7 +64,8 @@ class AuthoriseService implements LoggerAwareInterface
         SessionManager $sessionManager,
         LoginService $loginService,
         SsoClient $ssoClient,
-        ChannelService $channelService
+        ChannelService $channelService,
+        NotificationService $notificationService
     ) {
         $this->accountRequestService = $accountRequestService;
         $this->partnerStorage = $partnerStorage;
@@ -71,6 +74,7 @@ class AuthoriseService implements LoggerAwareInterface
         $this->loginService = $loginService;
         $this->ssoClient = $ssoClient;
         $this->channelService = $channelService;
+        $this->notificationService = $notificationService;
     }
 
     public function connectAccount(
@@ -130,12 +134,13 @@ class AuthoriseService implements LoggerAwareInterface
         /** @var Partner $partner */
         $partner = $this->partnerStorage->fetch($accountRequest->getId());
 
-        /** @TOOD: before return, notify the partner with the successfully create account ID in here */
+        $this->notificationService->notifyPartner($partner, $accountRequest, $account);
+        $this->markAccountRequestAsSuccessful($accountRequest);
 
         return $partner->getAccountSuccessRedirectUrl();
     }
 
-    public function fetchAccountRequestFromSession(): AccountRequest
+    protected function fetchAccountRequestFromSession(): AccountRequest
     {
         $session = $this->sessionManager->getStorage();
         if (!isset($session[PermissionService::PARTNER_MANAGED_LOGIN])
@@ -146,14 +151,6 @@ class AuthoriseService implements LoggerAwareInterface
 
         $accountRequestId = $session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE];
         return $this->accountRequestService->fetch($accountRequestId);
-    }
-
-    public function isPartnerManagedLogin(): bool
-    {
-        $session = $this->sessionManager->getStorage();
-        return isset($session[PermissionService::PARTNER_MANAGED_LOGIN])
-            && is_array($session[PermissionService::PARTNER_MANAGED_LOGIN])
-            && isset($session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE]);
     }
 
     protected function validateAccountRequest(AccountRequest $request, Partner $partner): void
@@ -239,9 +236,19 @@ class AuthoriseService implements LoggerAwareInterface
 
     protected function markAccountRequestAsFailed(AccountRequest $accountRequest): void
     {
+        $this->updateAccountRequestStatus($accountRequest, AccountRequest::STATUS_FAILED);
+    }
+
+    protected function markAccountRequestAsSuccessful(AccountRequest $accountRequest): void
+    {
+        $this->updateAccountRequestStatus($accountRequest, AccountRequest::STATUS_CREATED);
+    }
+
+    protected function updateAccountRequestStatus(AccountRequest $accountRequest, string $status): void
+    {
         for ($retry = 0; $retry < static::MAX_SAVE_RETRIES; $retry++) {
             try {
-                $accountRequest->setStatus(AccountRequest::STATUS_FAILED);
+                $accountRequest->setStatus($status);
                 $this->accountRequestService->save($accountRequest);
                 return;
             } catch (NotModified $e) {

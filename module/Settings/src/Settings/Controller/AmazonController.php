@@ -13,6 +13,7 @@ use CG\Amazon\RegionFactory;
 use CG\Channel\Type as ChannelType;
 use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -69,13 +70,13 @@ class AmazonController extends ChannelControllerAbstract implements
             array_merge($this->params()->fromPost(), $this->params()->fromRoute())
         );
 
-        if ($url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity)) {
-            $this->plugin('redirect')->toUrl($url);
-            return false;
+        try {
+            $url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity);
+        } catch (NotFound $exception) {
+            $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
+            $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
         }
 
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
-        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
         $this->plugin('redirect')->toUrl($url);
         return false;
     }
