@@ -78,6 +78,7 @@ class TestPackGenerator
             $addressData['line2'],
             $addressData['line3'],
             $addressData['line4'],
+            $addressData['line5'],
             $addressData['postCode'],
             $addressData['country'] ?? '',
             $addressData['ISOAlpha2CountryCode'] ?? static::DEFAULT_COUNTRY_CODE,
