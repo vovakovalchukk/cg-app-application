@@ -23,23 +23,28 @@ class CellWrapper extends React.Component {
             )
         }
 
-        let cellIdentifier = stateUtility.getCellIdentifier(
-            this.props.products,
-            this.props.rowIndex,
-            this.props.columnKey
-        );
-
-        cellNodes[cellIdentifier] = ReactDOM.findDOMNode(this);
+        let cellIdentifier = this.setCellIdentifier();
 
         return (
             <CellContent
                 {...this.props}
                 rowData={rowData[rowIndex]}
-                ref={(component) => cellRefs[cellIdentifier] = component}
                 cellNode = {cellNodes[cellIdentifier]}
             />
         )
     };
+    setCellIdentifier() {
+        if(!this.props.products.visibleRows.length){
+            return;
+        }
+        let cellIdentifier = stateUtility.getCellIdentifier(
+            this.props.products,
+            this.props.rowIndex,
+            this.props.columnKey
+        );
+        cellNodes[cellIdentifier] = ReactDOM.findDOMNode(this);
+        return cellIdentifier;
+    }
     isFirstCell() {
         return this.props.rowIndex === 0 && (this.props.columnKey === columnKeys.productExpand);
     }

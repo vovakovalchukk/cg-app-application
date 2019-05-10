@@ -41,8 +41,10 @@ class LowStockCell extends React.Component {
     };
 
     getPortalSettingsForType = (type) => {
-        let containerElement = this.props.cellNode;
-
+        let containerElement;
+        if(type !== elementTypes.INPUT_SAFE_SUBMITS){
+            containerElement = this.props.cellNode;
+        }
         return portalSettingsFactory.createPortalSettings({
             elemType: type,
             rowIndex: this.props.rowIndex,

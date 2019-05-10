@@ -1,5 +1,6 @@
 import React from 'react';
 import elementTypes from 'Product/Components/ProductList/Portal/elementTypes'
+import constants from "../Config/constants";
 
 const distanceDimensionMap = {
     height: 20,
@@ -31,6 +32,10 @@ const translateElementMap = {
     [elementTypes.INPUT_SAFE_SUBMITS]: 'translateX(-50%)',
     [elementTypes.STOCK_MODE_SELECT_DROPDOWN]: ''
 };
+const elementSubmits = [
+    elementTypes.INPUT_SAFE_SUBMITS,
+    elementTypes.DIMENSIONS_INPUT_SUBMITS
+]
 
 let portalSettingsFactory = (function() {
     return {
@@ -49,8 +54,8 @@ let portalSettingsFactory = (function() {
                 return;
             }
 
-            let domNodeForSubmits = document.body;
-            if (!domNodeForSubmits) {
+            let domNodeToPortalTo = getDomNodeToPortalTo(rowIndex, elemType);
+            if (!domNodeToPortalTo) {
                 return;
             }
 
@@ -72,7 +77,7 @@ let portalSettingsFactory = (function() {
             return {
                 id: rowIndex,
                 usePortal: true,
-                domNodeForSubmits,
+                domNodeForSubmits: domNodeToPortalTo,
                 PortalWrapper: WrapperForPortal
             };
         }
@@ -137,4 +142,22 @@ export default portalSettingsFactory
 
 function getAddedDistanceForDimensionInput(dimension) {
     return distanceDimensionMap[dimension];
+}
+
+function getDomNodeToPortalTo(rowIndex, elemType) {
+    if(!elementSubmits.includes(elemType)){
+        return document.body;
+    }
+
+    let targetClass = getClassOfCurrentRow(rowIndex);
+    let targetRow = document.querySelector(targetClass);
+    if (!targetRow) {
+            return;
+        }
+    return targetRow.parentNode;
+}
+
+
+function getClassOfCurrentRow(rowIndex) {
+    return '.' + constants.ROW_CLASS_PREFIX + '-' + rowIndex;
 }
