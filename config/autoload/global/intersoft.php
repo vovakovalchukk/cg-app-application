@@ -44,8 +44,11 @@ return [
                             'BPL2' => [
                                 'displayName' => 'Royal Mail 2nd Class'
                             ],
-                            'BPR' => [
-                                'displayName' => 'Royal Mail 1st/2nd Class Signed For'
+                            'BPR1' => [
+                                'displayName' => 'Royal Mail 1st Class Signed For'
+                            ],
+                            'BPR2' => [
+                                'displayName' => 'Royal Mail 2nd Class Signed For'
                             ],
                             'CRL1' => [
                                 'displayName' => 'Royal Mail 24 Standard/Signed For (Parcel - Daily Rate Service)'
@@ -757,6 +760,28 @@ return [
                             ],
                             [
                                 'serviceOffering' => 'BPL2',
+                                'serviceTypes' => [
+                                    '2'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'L','F','P'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BPR1',
+                                'serviceTypes' => [
+                                    '1'
+                                ],
+                                'shipmentClass' => DomesticLetterLargeLetterParcelShipment::class,
+                                'serviceFormats' => [
+                                    'L','F','P'
+                                ],
+                                'serviceAddOns' => [],
+                            ],
+                            [
+                                'serviceOffering' => 'BPR2',
                                 'serviceTypes' => [
                                     '2'
                                 ],
