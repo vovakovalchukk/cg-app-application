@@ -39,7 +39,7 @@ class AuthoriseService implements LoggerAwareInterface
     const LOG_MESSAGE_INVALID_SIGNATURE = 'The provided signature is not valid. User signature: %s . Computed signature %s';
     const LOG_MESSAGE_VALID_URL = 'The provided URL is valid: %s';
     const LOG_MESSAGE_ACCOUNT_REQUEST_EXTRA_FIELD_SETTER_ERROR = 'There was an error while trying to set the field %s with value %s on the AccountRequest entity with ID %s';
-    const LOG_ACCOUNT_REQUEST_CONFLICT = 'Conflict occurred while marking the accountRequest with ID %s, retry number %s, as status failed';
+    const LOG_ACCOUNT_REQUEST_CONFLICT = 'Conflict occurred while updating the accountRequest with ID %s, retry number %s';
 
     /** @var AccountRequestService */
     protected $accountRequestService;
@@ -135,7 +135,7 @@ class AuthoriseService implements LoggerAwareInterface
         $this->markAccountRequestAsSuccessful($accountRequest, $account);
 
         /** @var Partner $partner */
-        $partner = $this->partnerStorage->fetch($accountRequest->getId());
+        $partner = $this->partnerStorage->fetch($accountRequest->getPartnerId());
 
         $this->notificationService->notifyPartner($partner, $accountRequest, $account);
 
@@ -145,13 +145,17 @@ class AuthoriseService implements LoggerAwareInterface
     protected function fetchAccountRequestFromSession(): AccountRequest
     {
         $session = $this->sessionManager->getStorage();
+
         if (!isset($session[PermissionService::PARTNER_MANAGED_LOGIN])
             || !is_array($session[PermissionService::PARTNER_MANAGED_LOGIN])
-            || !isset($session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE])) {
+            || !isset(
+                $session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE],
+                $session[PermissionService::PARTNER_MANAGED_LOGIN][static::SESSION_KEY_ACCOUNT_REQUEST_ID]
+            )) {
             throw new NotFound('The account request ID could not be found in the session data');
         }
 
-        $accountRequestId = $session[PermissionService::PARTNER_MANAGED_LOGIN][PermissionService::PARTNER_MANAGED_ACCOUNT_AUTHORISE];
+        $accountRequestId = $session[PermissionService::PARTNER_MANAGED_LOGIN][static::SESSION_KEY_ACCOUNT_REQUEST_ID];
         return $this->accountRequestService->fetch($accountRequestId);
     }
 

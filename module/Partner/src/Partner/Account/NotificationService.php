@@ -14,11 +14,16 @@ class NotificationService implements LoggerAwareInterface
     use LogTrait;
 
     const LOG_MESSAGE_NOTIFICATION_SUCCESSFUL = 'Partner %s was notified successfully with account ID %s and account request ID %s';
-    const LOG_MESSAGE_EXCEPTION = 'We\'ve encountered an exception while notifying our partner that the account has been successfully create';
+    const LOG_MESSAGE_EXCEPTION = 'We\'ve encountered an exception while notifying our partner that the account has been successfully created';
     const LOG_CODE = 'PartnerAccountNotificationService';
 
     /** @var NotificationClient */
     protected $notificationClient;
+
+    public function __construct(NotificationClient $notificationClient)
+    {
+        $this->notificationClient = $notificationClient;
+    }
 
     public function notifyPartner(Partner $partner, AccountRequest $accountRequest, Account $account): void
     {

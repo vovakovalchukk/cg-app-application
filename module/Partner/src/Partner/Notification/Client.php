@@ -24,6 +24,11 @@ class Client implements LoggerAwareInterface
     /** @var GuzzleClient */
     protected $guzzle;
 
+    public function __construct(GuzzleClient $guzzle)
+    {
+        $this->guzzle = $guzzle;
+    }
+
     public function sendRequest(Partner $partner, NotificationRequest $request): GuzzleResponse
     {
         for ($retry = 0; $retry < static::MAX_RETRIES; $retry++) {
