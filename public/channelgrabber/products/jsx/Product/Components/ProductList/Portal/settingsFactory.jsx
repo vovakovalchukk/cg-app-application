@@ -157,7 +157,6 @@ function getDomNodeToPortalTo(rowIndex, elemType) {
     return targetRow.parentNode;
 }
 
-
 function getClassOfCurrentRow(rowIndex) {
     return '.' + constants.ROW_CLASS_PREFIX + '-' + rowIndex;
 }
