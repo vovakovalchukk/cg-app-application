@@ -89,7 +89,6 @@ define([
     CourierManifest.URL_GET_HISTORIC = '/orders/courier/manifest/historic';
     CourierManifest.URL_GENERATE = '/orders/courier/manifest';
     CourierManifest.POPUP_WIDTH_PX = 500;
-    CourierManifest.POPUP_HEIGHT_PX = 180;
     CourierManifest.SELECTOR_GENERATE_SECTION = '.courier-manifest-generate';
     CourierManifest.SELECTOR_GENERATE_FORM = '.courier-manifest-generate-form';
     CourierManifest.SELECTOR_HISTORIC_SECTION = '.courier-manifest-historic';
@@ -110,7 +109,7 @@ define([
     {
         var self = this;
         this.getNotificationHandler().notice('Loading manifest details');
-        var popup = new Popup('', CourierManifest.POPUP_WIDTH_PX, CourierManifest.POPUP_HEIGHT_PX);
+        var popup = new Popup('', CourierManifest.POPUP_WIDTH_PX);
         this.setPopup(popup);
 
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_ACCOUNTS, {}, function(response)
