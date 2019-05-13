@@ -118,11 +118,18 @@ class DeliveryService implements DeliveryServiceInterface
      */
     public function isISOAlpha2CountryCodeSupported($isoAlpha2CountryCode)
     {
-        CountryCode::ensureValidCountryCode($isoAlpha2CountryCode);
+        $isoAlpha2CountryCode = CountryCode::ensureValidCountryCode($isoAlpha2CountryCode);
+
         if (($this->isInternationalServiceType($this->getServiceType()) || $this->isArmedForcesServiceType($this->getServiceType()))
             && $this->isCountryCodeUkOrGb($isoAlpha2CountryCode)) {
             return false;
         }
+
+        if ((!$this->isInternationalServiceType($this->getServiceType()) && !$this->isArmedForcesServiceType($this->getServiceType()))
+            && !$this->isCountryCodeUkOrGb($isoAlpha2CountryCode)) {
+            return false;
+        }
+
         return true;
     }
 
