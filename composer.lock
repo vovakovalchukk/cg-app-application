@@ -4368,6 +4368,12 @@
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
                 "reference": "da47dddf7113a1ddb108574befb54086511d437b"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-CGIV-10603-requesting-a-password-reset-does-not-display-errors-correctly-d4fd7f.zip",
+                "reference": "da47dddf7113a1ddb108574befb54086511d437b",
+                "shasum": null
+            },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
