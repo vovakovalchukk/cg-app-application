@@ -1302,7 +1302,7 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => Shipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
                                     'E','G','N','P'
                                 ],
@@ -1313,7 +1313,7 @@ return [
                                 'serviceTypes' => [
                                     'I'
                                 ],
-                                'shipmentClass' => Shipment::class,
+                                'shipmentClass' => InternationalLetterLargeLetterShipment::class,
                                 'serviceFormats' => [
                                     'E','G','N','P'
                                 ],
