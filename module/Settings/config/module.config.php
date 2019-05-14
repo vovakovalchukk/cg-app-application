@@ -42,7 +42,9 @@ use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
 use Settings\Controller\CategoryTemplatesController;
 use Settings\Controller\CategoryTemplatesJsonController;
+use Settings\Controller\ListingTemplatesController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\ListingController;
 use Settings\Controller\CreateListingsController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
@@ -175,6 +177,11 @@ return [
                         'title' => 'Manage the category templates',
                         'route' => Module::ROUTE . '/Category/' . CategoryTemplatesController::ROUTE_INDEX
                     ],
+                    [
+                        'label' => 'Listing Templates',
+                        'title' => 'Manage the listing templates',
+                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROUTE_INDEX
+                    ],
                 ]
             ],
             'Advanced' => [
@@ -225,6 +232,30 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    ListingController::ROUTE =>[
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing',
+                            'defaults' => [
+                                'controller' => ChannelController::class,
+                                //todo - make the index action redirect to one of the child routes
+                                'action' => 'index',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ListingTemplatesController::ROUTE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/templates',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'index',
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
                     ChannelController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
