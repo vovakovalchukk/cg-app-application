@@ -1,13 +1,13 @@
 <?php
 $channelName = ucfirst($this->channel) . ($this->region ? ' ' . $this->region : '');
-$this->headTitle('Please wait while we are connecting your' . $channelName . ' account');
+$this->headTitle('Connecting your' . $channelName . ' account');
 ?>
 
-<?php $this->inlineScript()->captureStart(); ?>
+<?php $this->headScript()->captureStart(); ?>
     window.setTimeout(function() {
         window.location.replace("<?= $this->channelRedirectUrl ?>");
     }, 5000);
-<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headScript()->captureEnd(); ?>
 
 <div class="overlay-container _display-flex _align_items_center">
     <div class="authorise-account _align_center _pull_up_100">
