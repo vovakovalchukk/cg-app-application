@@ -237,7 +237,7 @@ return [
                         'options' => [
                             'route' => '/listing',
                             'defaults' => [
-                                'controller' => ChannelController::class,
+                                'controller' => ListingController::class,
                                 //todo - make the index action redirect to one of the child routes
                                 'action' => 'index',
                             ]

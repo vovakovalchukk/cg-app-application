@@ -30,17 +30,17 @@ class ListingTemplatesController extends AbstractActionController
 
     public function indexAction()
     {
-        $ou = $this->userOuService->getRootOuByActiveUser();
-        try {
-            $accounts = $this->categoryTemplateService->fetchAccounts($ou);
-            $categories = $this->categoryTemplateService->fetchCategoryRoots($ou);
-        } catch (\Throwable $e) {
-            $accounts = $categories = [];
-        }
-        $template = $this->newViewModel()
-            ->setVariable('accounts', $accounts)
-            ->setVariable('categories', $categories);
-        return $template;
+        $view = $this->newViewModel();
+        $view->setTemplate('settings/listing/index');
+
+//        $view->setVariable('title', $this->getRouteName())
+//            ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_CREATE, ['type' => $this->params('type')])
+//            ->setVariable('type', $this->params('type'))
+//            ->addChild($this->getAccountList(), 'accountList')
+//            ->addChild($this->getAddChannelSelect(), 'addChannelSelect');
+        $view->setVariable('isHeaderBarVisible', true);
+        $view->setVariable('subHeaderHide', true);
+        return $view;
     }
 
     /**
