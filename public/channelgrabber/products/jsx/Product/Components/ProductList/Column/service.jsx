@@ -96,7 +96,7 @@ let stockColumns = [
     {
         key: 'onPurchaseOrder',
         width: 80,
-        headerText: 'Purchase Order',
+        headerText: 'Stock on Order',
         fixed: false,
         tab: 'stock',
         align: 'center'
@@ -104,7 +104,7 @@ let stockColumns = [
     {
         key: 'includePurchaseOrdersInAvailable',
         width: 200,
-        headerText: 'Include quantity on Purchase Orders in available stock',
+        headerText: 'Add Stock on Order to Available Stock',
         fixed: false,
         tab: 'stock',
         align: 'center',
@@ -113,7 +113,7 @@ let stockColumns = [
     {
         key: 'lowStock',
         width: 200,
-        headerText: 'Low stock threshold',
+        headerText: 'Low Stock Threshold',
         fixed: false,
         tab: 'stock',
         align: 'center',
