@@ -49,9 +49,9 @@ class AccountController extends AbstractJsonController
         } catch (\Throwable $e) {
             // This catch block prevents any undesired behaviour on this page if something goes wrong
             $this->logErrorException($e);
+            return $this->buildErrorResponse('Invalid request');
         }
 
-        return $this->buildErrorResponse('Invalid request');
     }
 
     protected function buildAccountConnectionViewModel(
