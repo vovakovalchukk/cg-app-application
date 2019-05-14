@@ -268,6 +268,7 @@ class AuthoriseService implements LoggerAwareInterface
             } catch (Conflict $e) {
                 /** @var AccountRequest $accountRequest */
                 $accountRequest = $this->accountRequestService->fetch($accountRequest->getId());
+                $accountRequest->setLocalETag($accountRequest->getStoredETag());
                 $this->logWarningException($e, static::LOG_ACCOUNT_REQUEST_CONFLICT, [$accountRequest->getId(), $retry], static::LOG_CODE);
             }
         }
