@@ -130,6 +130,7 @@
         "post-install-cmd": "@setup",
         "post-update-cmd": "@setup",
         "setup": [
+            "Composer\\Config::disableProcessTimeout",
             "@composer -o dump-autoload",
             "@php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "yarn install",
