@@ -2,9 +2,10 @@
 namespace CourierAdapter\Controller;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Type as ChannelType;
-use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\CredentialRequest\TestPackInterface;
+use CG\CourierAdapter\Account\CredentialRequestInterface;
 use CG\CourierAdapter\Account\LocalAuthInterface;
 use CG\CourierAdapter\Exception\InvalidCredentialsException;
 use CG\CourierAdapter\Provider\Account as CAAccountSetup;
@@ -13,13 +14,17 @@ use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Address\Mapper as CAAddressMapper;
 use CG\CourierAdapter\Provider\Implementation\PrepareAdapterImplementationFieldsTrait;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
+use CG\CourierAdapter\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\ValidationException;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CourierAdapter\Account\Email\Service as SupportEmailService;
 use CourierAdapter\Account\Service as CAModuleAccountService;
+use CourierAdapter\Form\Factory as FormFactory;
+use CourierAdapter\FormInterface;
 use CourierAdapter\Module;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
@@ -36,6 +41,7 @@ class AccountController extends AbstractActionController
     const ROUTE_REQUEST_SEND = 'Send';
     const ROUTE_SAVE_CONFIG = 'Save Config';
     const ROUTE_TEST_PACK_FILE = 'Test Pack File';
+    const ROUTE_REQUEST_CONNECTION = 'Request Connection';
 
     /** @var AdapterImplementationService */
     protected $adapterImplementationService;
@@ -57,6 +63,12 @@ class AccountController extends AbstractActionController
     protected $accountService;
     /** @var CAAccountMapper */
     protected $caAccountMapper;
+    /** @var FormFactory */
+    protected $formFactory;
+    /** @var SupportEmailService */
+    protected $supportEmailService;
+    /** @var StorageInterface */
+    protected $storage;
 
     public function __construct(
         AdapterImplementationService $adapterImplementationService,
@@ -68,7 +80,10 @@ class AccountController extends AbstractActionController
         CAAddressMapper $caAddressMapper,
         OrganisationUnitService $organisationUnitService,
         AccountService $accountService,
-        CAAccountMapper $caAccountMapper
+        CAAccountMapper $caAccountMapper,
+        FormFactory $formFactory,
+        SupportEmailService $supportEmailService,
+        StorageInterface $storage
     ) {
         $this->setAdapterImplementationService($adapterImplementationService)
             ->setAccountCreationService($accountCreationService)
@@ -79,46 +94,32 @@ class AccountController extends AbstractActionController
             ->setCAAddressMapper($caAddressMapper)
             ->setOrganisationUnitService($organisationUnitService)
             ->setAccountService($accountService)
-            ->setCAAccountMapper($caAccountMapper);
+            ->setCAAccountMapper($caAccountMapper)
+            ->setFormFactory($formFactory)
+            ->setSupportEmailService($supportEmailService)
+            ->setStorage($storage);
     }
 
     public function setupAction()
     {
         $channelName = $this->params('channel');
         $accountId = $this->params()->fromQuery('accountId');
-        $adapter = $this->adapterImplementationService->getAdapterImplementationByChannelName($channelName);
+
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForChannel(
             $channelName, LocalAuthInterface::class
         );
 
+        $requestUri = null;
         if (!$accountId && $courierInstance instanceof CredentialRequestInterface) {
             $requestUri = $this->url()->fromRoute(Module::ROUTE . '/' . CAAccountSetup::ROUTE_REQUEST, ['channel' => $channelName]);
-            $preInstructions = '<h1>Do you need to request your ' . $adapter->getDisplayName() . ' credentials?</h1>';
-            $preInstructions .= '<p><a href="' . $requestUri . '">Request your credentials</a></p>';
         }
 
-        $form = $courierInstance->getCredentialsForm();
-        $values = [];
-        if ($accountId) {
-            $values = $this->caModuleAccountService->getCredentialsArrayForAccount($accountId);
-        }
-        $this->prepareAdapterImplementationFormForDisplay($form, $values);
-
+        $goBackUrl = $this->getPluginManager()->get('url')->fromRoute($this->getAccountRoute(), ['type' => ChannelType::SHIPPING]);
         $saveRoute = implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_SAVE]);
-
-        $view = $this->getAdapterFieldsView(
-            $form,
-            $channelName,
-            $saveRoute,
-            'Saving credentials',
-            'Credentials saved',
-            $accountId
-        );
-        if (isset($preInstructions)) {
-            $view->setVariable('preInstructions', $preInstructions);
-        }
-
-        return $view;
+        $saveUrl = $this->url()->fromRoute($saveRoute, ['channel' => $channelName]);
+        /** @var FormInterface $formService */
+        $formService = ($this->formFactory)($channelName);
+        return $formService->getFormView($channelName, $goBackUrl, $saveUrl, $accountId, $requestUri);
     }
 
     public function requestCredentialsAction()
@@ -246,11 +247,23 @@ class AccountController extends AbstractActionController
 
     protected function connectAccountAndGetRedirectUrl(array $params)
     {
+        $accountEntity = $this->connectAccount($params);
+        $url = $this->getRedirectUrlForAccount($accountEntity);
+        return $url;
+    }
+
+    protected function connectAccount(array $params): AccountEntity
+    {
         $accountEntity = $this->accountCreationService->connectAccount(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             (isset($params['account']) ? $params['account'] : null),
             $params
         );
+        return $accountEntity;
+    }
+
+    protected function getRedirectUrlForAccount(AccountEntity $accountEntity): string
+    {
         $url = $this->plugin('url')->fromRoute($this->getAccountRoute(), ["account" => $accountEntity->getId(), "type" => ChannelType::SHIPPING]);
         $url .= '/' . $accountEntity->getId();
         return $url;
@@ -343,6 +356,21 @@ class AccountController extends AbstractActionController
         return $this->dataUriToFileResponse($dataUri, $testPackFile->getName());
     }
 
+    public function requestConnectionAction()
+    {
+        $params = $this->params()->fromPost();
+        $view = $this->jsonModelFactory->newInstance();
+        $account = $this->connectAccount($params);
+        $account->setActive(false);
+        $account->setPending(false);
+        $this->accountService->save($account);
+        $this->storage->set($this->getRequestConnectionStorageKey($account), json_encode($params));
+        $this->supportEmailService->sendAccountConnectionRequestEmail($account, $params);
+        $url = $this->getRedirectUrlForAccount($account);
+        $view->setVariable('redirectUrl', $url);
+        return $view;
+    }
+
     protected function fetchTestPackFile($fileReference, TestPackInterface $courierInstance)
     {
         foreach ($courierInstance->getTestPackFileList() as $testPackFile) {
@@ -429,5 +457,28 @@ class AccountController extends AbstractActionController
     {
         $this->caAccountMapper = $caAccountMapper;
         return $this;
+    }
+
+    protected function setFormFactory(FormFactory $formFactory): AccountController
+    {
+        $this->formFactory= $formFactory;
+        return $this;
+    }
+
+    protected function setSupportEmailService(SupportEmailService $supportEmailService): AccountController
+    {
+        $this->supportEmailService = $supportEmailService;
+        return $this;
+    }
+
+    protected function setStorage(StorageInterface $storage): AccountController
+    {
+        $this->storage = $storage;
+        return $this;
+    }
+
+    protected function getRequestConnectionStorageKey(AccountEntity $account)
+    {
+        return sprintf(StorageInterface::SHIPPING_ACCOUNT_REQUEST_STORAGE_KEY_TEMPLATE, $account->getOrganisationUnitId(), $account->getId());
     }
 }

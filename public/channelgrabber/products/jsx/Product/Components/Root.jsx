@@ -4,6 +4,7 @@ import CreateListingPopupRoot from 'Product/Components/CreateListing/CreateListi
 import CreateProductRoot from 'Product/Components/CreateProduct/CreateProductRoot'
 import AccountSelectionRoot from 'Product/Components/CreateListing/AccountSelectionRoot'
 import ProductListProvider from 'Product/Components/ProductList/Provider'
+
 "use strict";
 
 const NEW_PRODUCT_VIEW = 'NEW_PRODUCT_VIEW';

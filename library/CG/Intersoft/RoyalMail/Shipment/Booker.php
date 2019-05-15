@@ -3,6 +3,7 @@ namespace CG\Intersoft\RoyalMail\Shipment;
 
 use CG\CourierAdapter\Account as CourierAdapterAccount;
 use CG\CourierAdapter\Exception\OperationFailed;
+use CG\CourierAdapter\Exception\UserError;
 use CG\CourierAdapter\LabelInterface;
 use CG\CourierAdapter\Provider\Implementation\Label;
 use CG\Intersoft\Client;
@@ -13,10 +14,12 @@ use CG\Intersoft\RoyalMail\Shipment;
 use CG\Intersoft\RoyalMail\Shipment\Documents\Generator as DocumentsGenerator;
 use function CG\Stdlib\mergePdfData;
 use CG\Intersoft\RoyalMail\Package as RoyalMailPackage;
+use CG\Stdlib\Exception\Storage as StorageException;
 
 class Booker
 {
     const DOMESTIC_COUNTRY = 'GB';
+    const COUNTRY_CODE_USA = 'US';
     const ONE_D_BARCODE_PATTERN = '/[A-Z]{2}[0-9]{9}GB/';
     const SHIP_NO_SEP = '|';
 
@@ -50,12 +53,19 @@ class Booker
         return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::DOMESTIC_COUNTRY);
     }
 
+    protected function isUsShipment(Shipment $shipment): bool
+    {
+        return ($shipment->getDeliveryAddress()->getISOAlpha2CountryCode() == static::COUNTRY_CODE_USA);
+    }
+
     protected function sendRequest(CreateRequest $request, CourierAdapterAccount $account): CreateResponse
     {
         try {
             /** @var Client $client */
             $client = ($this->clientFactory)($account);
             return $client->send($request);
+        } catch (StorageException $e) {
+            $this->handleUserErrors($e);
         } catch (\Exception $e) {
             throw new OperationFailed($e->getMessage(), $e->getCode(), $e);
         }
@@ -78,7 +88,8 @@ class Booker
                 break;
             }
             $label = $response->getLabelImage();
-            if (!$this->isDomesticShipment($shipment)) {
+            // We do not want to request a CN23 for US shipments as it is merged with the label by Intersoft already
+            if (!$this->isDomesticShipment($shipment) && !$this->isUsShipment($shipment)) {
                 $documentData = $this->fetchInternationalDocumentsForShipmentItem($rmPackage->getTrackingNumber(), $shipment);
                 $label = $this->mergeInternationalDocumentsIntoLabel($label, $documentData);
             }
@@ -113,5 +124,13 @@ class Booker
         }
         // Fallback to the 2D barcode number
         return $shipmentItem->getItemId();
+    }
+
+    protected function handleUserErrors(\Exception $exception): void
+    {
+        if ($exception->getCode() === 500) {
+            throw $exception;
+        }
+        throw new UserError($exception->getMessage(), $exception->getCode(), $exception);
     }
 }

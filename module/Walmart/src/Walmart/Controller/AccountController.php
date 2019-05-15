@@ -53,6 +53,7 @@ class AccountController extends AbstractActionController
     {
         $accountId = $this->params()->fromQuery('accountId');
         $credentials = null;
+        $externalData = [];
 
         $view = $this->getBasicIndexView($accountId);
         $view
@@ -64,6 +65,7 @@ class AccountController extends AbstractActionController
             $goBackUrl .= '/'.$accountId;
             $account = $this->accountService->fetch($accountId);
             $credentials = $this->cryptor->decrypt($account->getCredentials());
+            $externalData = $account->getExternalData();
         }
         $view->setVariable('goBackUrl', $goBackUrl);
 
@@ -71,7 +73,7 @@ class AccountController extends AbstractActionController
         $saveUrl = $this->url()->fromRoute($saveRoute);
         $view->setVariable('saveUrl', $saveUrl);
 
-        $this->addFieldsToView($view, $credentials);
+        $this->addFieldsToView($view, $credentials, $externalData);
         
         return $view;
     }
@@ -92,13 +94,15 @@ class AccountController extends AbstractActionController
         return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS]);
     }
 
-    protected function addFieldsToView(ViewModel $view, Credentials $credentials = null): ViewModel
+    protected function addFieldsToView(ViewModel $view, Credentials $credentials = null, $externalData = []): ViewModel
     {
         $clientIdField = $this->getTextView('clientId', 'Client ID', $credentials ? $credentials->getClientId() : '');
         $clientSecretField = $this->getPasswordView('clientSecret', 'Client Secret', $credentials ? $credentials->getClientSecret() : '');
+        $fulfillmentLagTime = $this->getTextView('fulfillmentLagTime', 'Fulfillment Lag Time', isset($externalData['fulfillmentLagTime']) ? $externalData['fulfillmentLagTime'] : '1');
         $view
             ->addChild($clientIdField, 'clientId')
-            ->addChild($clientSecretField, 'clientSecret');
+            ->addChild($clientSecretField, 'clientSecret')
+            ->addChild($fulfillmentLagTime, 'fulfillmentLagTime');
         return $view;
     }
 
