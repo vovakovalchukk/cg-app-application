@@ -277,6 +277,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            ListingTemplatesController::PREVIEW_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ListingTemplatesController::ROUTE_PREVIEW_URI,
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'preview'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     ChannelController::ROUTE => [

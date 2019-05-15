@@ -12,10 +12,12 @@ class ListingTemplatesController extends AbstractActionController
     const ROOT_INDEX = 'Templates';
     const SAVE_INDEX = 'Save';
     const DELETE_INDEX = 'Delete';
+    const PREVIEW_INDEX = 'Preview';
 
     const ROUTE_INDEX_URI = '/templates';
     const ROUTE_SAVE_URI = '/save';
     const ROUTE_DELETE_URI = '/delete';
+    const ROUTE_PREVIEW_URI = '/preview';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
@@ -59,7 +61,23 @@ class ListingTemplatesController extends AbstractActionController
         // todo - replace with non dummy data as part of TAC-433
         $response = $this->newJsonModel();
         $response->setVariable('success', [
-           "message" => "You have successfully saved your template."
+            "message" => "You have successfully saved your template."
+        ]);
+        return $response;
+    }
+
+    public function previewAction()
+    {
+        // todo - replace with non dummy data as part of TAC-433
+        $response = $this->newJsonModel();
+        $html = "<h2>Perfect Product</h2><p>This is the description of your perfect product</p>";
+
+        $response->setVariable('success', [
+            "message" => "You have successfully received your preview data.",
+            "data" =>
+                [
+                    "html" => $html
+                ]
         ]);
         return $response;
     }
