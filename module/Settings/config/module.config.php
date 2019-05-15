@@ -181,7 +181,7 @@ return [
                     [
                         'label' => 'Listing Templates',
                         'title' => 'Manage the listing templates',
-                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROUTE_INDEX,
+                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROOT_INDEX,
                         'feature-flag' => ListingTemplateService::FEATURE_FLAG
                     ],
                 ]
@@ -237,7 +237,7 @@ return [
                     ListingController::ROUTE =>[
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/listing',
+                            'route' => ListingController::ROUTE_INDEX_URI,
                             'defaults' => [
                                 'controller' => ListingController::class,
                                 'action' => 'index',
@@ -245,16 +245,38 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            ListingTemplatesController::ROUTE_INDEX => [
+                            ListingTemplatesController::ROOT_INDEX => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/templates',
+                                    'route' => ListingTemplatesController::ROUTE_INDEX_URI,
                                     'defaults' => [
                                         'controller' => ListingTemplatesController::class,
                                         'action' => 'index',
                                     ]
                                 ]
-                            ]
+                            ],
+                            ListingTemplatesController::SAVE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ListingTemplatesController::ROUTE_SAVE_URI,
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            ListingTemplatesController::DELETE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ListingTemplatesController::ROUTE_DELETE_URI,
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'delete'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     ChannelController::ROUTE => [

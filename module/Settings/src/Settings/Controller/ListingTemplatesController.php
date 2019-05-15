@@ -1,55 +1,88 @@
 <?php
+
 namespace Settings\Controller;
 
-use CG\User\OrganisationUnit\Service as UserOUService;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Settings\Category\Template\Service as CategoryTemplateService;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Settings\ListingTemplate\Service as ListingTemplateService;
 
 class ListingTemplatesController extends AbstractActionController
 {
-    const ROUTE_INDEX = 'Templates';
+    const ROOT_INDEX = 'Templates';
+    const SAVE_INDEX = 'Save';
+    const DELETE_INDEX = 'Delete';
+
+    const ROUTE_INDEX_URI = '/templates';
+    const ROUTE_SAVE_URI = '/save';
+    const ROUTE_DELETE_URI = '/delete';
 
     /** @var ViewModelFactory */
     protected $viewModelFactory;
-    /** @var CategoryTemplateService */
-    protected $categoryTemplateService;
-    /** @var UserOUService */
-    protected $userOuService;
+    /** @var JsonModelFactory */
+    protected $jsonModelFactory;
+    protected $listingTemplateService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
-        CategoryTemplateService $categoryTemplateService,
-        UserOUService $userOuService
+        JsonModelFactory $jsonModelFactory,
+        ListingTemplateService $listingTemplateService
     ) {
         $this->viewModelFactory = $viewModelFactory;
-        $this->categoryTemplateService = $categoryTemplateService;
-        $this->userOuService = $userOuService;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->listingTemplateService = $listingTemplateService;
     }
 
     public function indexAction()
     {
         $view = $this->newViewModel();
         $view->setTemplate('settings/listing/index');
-
-//        $view->setVariable('title', $this->getRouteName())
-//            ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_CREATE, ['type' => $this->params('type')])
-//            ->setVariable('type', $this->params('type'))
-//            ->addChild($this->getAccountList(), 'accountList')
-//            ->addChild($this->getAddChannelSelect(), 'addChannelSelect');
+        $view->setVariable('listingTemplateTags', $this->getListingTemplateTags());
+        $view->setVariable('templates', $this->getUsersTemplates());
         $view->setVariable('isHeaderBarVisible', true);
         $view->setVariable('subHeaderHide', true);
+
         return $view;
     }
 
-    /**
-     * @param $variables
-     * @param $options
-     * @return ViewModel
-     */
+    public function deleteAction()
+    {
+        $response = $this->newJsonModel();
+        $response->setVariable('success', [
+            "message" => "You have successfully deleted your template."
+        ]);
+        return $response;
+    }
+
+    public function saveAction()
+    {
+        // todo - replace with non dummy data as part of TAC-433
+        $response = $this->newJsonModel();
+        $response->setVariable('success', [
+           "message" => "You have successfully saved your template."
+        ]);
+        return $response;
+    }
+
+    protected function newJsonModel()
+    {
+        return $this->jsonModelFactory->newInstance();
+    }
+
     protected function newViewModel($variables = null, $options = null)
     {
         return $this->viewModelFactory->newInstance($variables, $options);
+    }
+
+    protected function getListingTemplateTags()
+    {
+        $templateTags = $this->listingTemplateService->getListingTemplateTags();
+        return json_encode($templateTags);
+    }
+
+    protected function getUsersTemplates()
+    {
+        $usersTemplates = $this->listingTemplateService->getUsersTemplates();
+        return json_encode($usersTemplates, JSON_UNESCAPED_SLASHES);
     }
 }
