@@ -40,7 +40,8 @@ class Factory
     protected function createNewClient(CourierAdapterAccount $account): Client
     {
         $credentials = Credentials::fromArray($account->getCredentials());
-        return $this->di->newInstance('intersoft_live_client', ['account' => $account, 'credentials' => $credentials]);
+        $clientClass = ENVIRONMENT !== 'live' ? 'intersoft_test_client' : 'intersoft_live_client';
+        return $this->di->newInstance($clientClass, ['account' => $account, 'credentials' => $credentials]);
     }
 
     protected function cacheClient(Client $client, CourierAdapterAccount $account): void

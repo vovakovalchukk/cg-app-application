@@ -106,6 +106,7 @@ require(["tooltip"], function(Tooltip) {
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js/dataTableFilters.js'); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($filters); ?>
 <?php

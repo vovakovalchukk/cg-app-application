@@ -111,6 +111,16 @@ var actionCreators = (function() {
         dispatch(stockActions.storeLowStockThreshold(data.products));
     };
 
+    const handleSkuSpecificSearch = (data, searchTerm, dispatch) => {
+        for (let product of data.products) {
+            for (let productVariation of product.variations) {
+                if (productVariation.sku === searchTerm) {
+                    dispatch(actionCreators.expandProduct(product.id));
+                }
+            }
+        }
+    };
+
     return {
         storeAccountFeatures: (features) => {
             return {
@@ -142,9 +152,19 @@ var actionCreators = (function() {
                 pageNumber = pageNumber || 1;
                 searchTerm = getState.customGetters.getCurrentSearchTerm() || '';
                 skuList = skuList || [];
-                let filter = new ProductFilter(searchTerm, null, null, skuList);
+                let filter = new ProductFilter(
+                    searchTerm,
+                    null,
+                    null,
+                    skuList
+                );
                 filter.setPage(pageNumber);
                 filter.setLimit(getState.customGetters.getPaginationLimit());
+
+                if (searchTerm) {
+                    filter.setEmbedVariationsAsLinks(false);
+                }
+
                 let data = {};
                 try {
                     dispatch(getProductsRequestStart());
@@ -159,6 +179,11 @@ var actionCreators = (function() {
                 dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
+
+                if (isLikelyASkuSearch(data)) {
+                    handleSkuSpecificSearch(data, searchTerm, dispatch);
+                }
+
                 if (!data.products.length) {
                     return data;
                 }
@@ -323,4 +348,8 @@ function getSkusFromData(data) {
 
 function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
     return !!variationsByParent[productId]
+}
+
+function isLikelyASkuSearch(data) {
+    return data.products.length < 5;
 }
