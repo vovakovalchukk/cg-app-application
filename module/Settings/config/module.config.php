@@ -19,6 +19,7 @@ use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\Product\Client\Service as ProductService;
+use Settings\ListingTemplate\Service as ListingTemplateService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
@@ -180,7 +181,8 @@ return [
                     [
                         'label' => 'Listing Templates',
                         'title' => 'Manage the listing templates',
-                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROUTE_INDEX
+                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROUTE_INDEX,
+                        'feature-flag' => ListingTemplateService::FEATURE_FLAG
                     ],
                 ]
             ],
@@ -238,7 +240,6 @@ return [
                             'route' => '/listing',
                             'defaults' => [
                                 'controller' => ListingController::class,
-                                //todo - make the index action redirect to one of the child routes
                                 'action' => 'index',
                             ]
                         ],
