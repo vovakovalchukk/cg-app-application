@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86c35a0783aedd8348a9a8a130afa6a2",
+    "content-hash": "a9253bfb7d3522da2b03ff2ce65cf492",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -705,7 +705,7 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-MIG-3-CreateClassicAccount",
+            "version": "dev-MIG-8-ClassicOrderMigrationQA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
@@ -713,7 +713,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-MIG-3-CreateClassicAccount-b93907.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-MIG-8-ClassicOrderMigrationQA-b93907.zip",
                 "reference": "11ef961a8b97faf331278bb6701ac763af977ce8"
             },
             "require": {
@@ -818,19 +818,19 @@
         },
         {
             "name": "channelgrabber/classic",
-            "version": "dev-MIG-3-CreateClassicAccount",
+            "version": "dev-MIG-8-ClassicOrderMigrationQA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-classic.git",
-                "reference": "93e2860691eb0b9b3a9e0a49a40f7f29a5b552d4"
+                "reference": "57b433446441acc702a0dfbe3ac898229914f9de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/classic/channelgrabber-classic-dev-MIG-3-CreateClassicAccount-bbe826.zip",
-                "reference": "93e2860691eb0b9b3a9e0a49a40f7f29a5b552d4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/classic/channelgrabber-classic-dev-MIG-8-ClassicOrderMigrationQA-39fbf3.zip",
+                "reference": "57b433446441acc702a0dfbe3ac898229914f9de"
             },
             "require": {
-                "channelgrabber/channel": "dev-MIG-3-CreateClassicAccount as 1.42.18",
+                "channelgrabber/channel": "dev-MIG-8-ClassicOrderMigrationQA as 1.42.18",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "^2.16.7",
                 "php": ">=7.1"
@@ -850,7 +850,7 @@
                     "CG\\Classic\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-05-08T08:35:16+00:00"
+            "time": "2019-05-15T14:17:11+00:00"
         },
         {
             "name": "channelgrabber/clearbooks",
@@ -4837,7 +4837,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-MIG-3-CreateClassicAccount",
+            "version": "dev-MIG-8-ClassicOrderMigrationQA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -4845,7 +4845,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-3-CreateClassicAccount-5a54b9.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-8-ClassicOrderMigrationQA-5a54b9.zip",
                 "reference": "140f739c2fddfb197139e3a6688c4d21af3cbeb9"
             },
             "require": {
@@ -11122,19 +11122,19 @@
         {
             "alias": "1.42.18",
             "alias_normalized": "1.42.18.0",
-            "version": "dev-MIG-3-CreateClassicAccount",
+            "version": "dev-MIG-8-ClassicOrderMigrationQA",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-MIG-3-CreateClassicAccount",
+            "version": "dev-MIG-8-ClassicOrderMigrationQA",
             "package": "channelgrabber/classic"
         },
         {
             "alias": "1.26.15",
             "alias_normalized": "1.26.15.0",
-            "version": "dev-MIG-3-CreateClassicAccount",
+            "version": "dev-MIG-8-ClassicOrderMigrationQA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
