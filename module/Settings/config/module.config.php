@@ -238,17 +238,13 @@ return [
                         'type' => Literal::class,
                         'options' => [
                             'route' => ListingController::ROUTE_INDEX_URI,
-                            'defaults' => [
-                                'controller' => ListingController::class,
-                                'action' => 'index',
-                            ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
                             ListingTemplatesController::ROOT_INDEX => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => ListingTemplatesController::ROUTE_INDEX_URI,
+                                    'route' => '/templates',
                                     'defaults' => [
                                         'controller' => ListingTemplatesController::class,
                                         'action' => 'index',
@@ -258,7 +254,7 @@ return [
                             ListingTemplatesController::SAVE_INDEX => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => ListingTemplatesController::ROUTE_SAVE_URI,
+                                    'route' => '/save',
                                     'defaults' => [
                                         'controller' => ListingTemplatesController::class,
                                         'action' => 'save'
@@ -269,7 +265,7 @@ return [
                             ListingTemplatesController::DELETE_INDEX => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => ListingTemplatesController::ROUTE_DELETE_URI,
+                                    'route' => '/delete',
                                     'defaults' => [
                                         'controller' => ListingTemplatesController::class,
                                         'action' => 'delete'
@@ -280,7 +276,7 @@ return [
                             ListingTemplatesController::PREVIEW_INDEX => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => ListingTemplatesController::ROUTE_PREVIEW_URI,
+                                    'route' => '/preview',
                                     'defaults' => [
                                         'controller' => ListingTemplatesController::class,
                                         'action' => 'preview'

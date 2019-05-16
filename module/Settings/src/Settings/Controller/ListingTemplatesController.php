@@ -14,15 +14,11 @@ class ListingTemplatesController extends AbstractActionController
     const DELETE_INDEX = 'Delete';
     const PREVIEW_INDEX = 'Preview';
 
-    const ROUTE_INDEX_URI = '/templates';
-    const ROUTE_SAVE_URI = '/save';
-    const ROUTE_DELETE_URI = '/delete';
-    const ROUTE_PREVIEW_URI = '/preview';
-
     /** @var ViewModelFactory */
     protected $viewModelFactory;
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var ListingTemplateService */
     protected $listingTemplateService;
 
     public function __construct(
