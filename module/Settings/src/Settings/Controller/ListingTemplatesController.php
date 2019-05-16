@@ -6,6 +6,8 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\ListingTemplate\Service as ListingTemplateService;
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 class ListingTemplatesController extends AbstractActionController
 {
@@ -31,7 +33,7 @@ class ListingTemplatesController extends AbstractActionController
         $this->listingTemplateService = $listingTemplateService;
     }
 
-    public function indexAction()
+    public function indexAction(): ViewModel
     {
         $view = $this->newViewModel();
         $view->setTemplate('settings/listing/index');
@@ -43,7 +45,7 @@ class ListingTemplatesController extends AbstractActionController
         return $view;
     }
 
-    public function deleteAction()
+    public function deleteAction(): JsonModel
     {
         $response = $this->newJsonModel();
         $response->setVariable('success', [
@@ -52,7 +54,7 @@ class ListingTemplatesController extends AbstractActionController
         return $response;
     }
 
-    public function saveAction()
+    public function saveAction(): JsonModel
     {
         // todo - replace with non dummy data as part of TAC-433
         $response = $this->newJsonModel();
@@ -62,7 +64,7 @@ class ListingTemplatesController extends AbstractActionController
         return $response;
     }
 
-    public function previewAction()
+    public function previewAction(): ViewModel
     {
         // todo - replace with non dummy data as part of TAC-433
         $response = $this->newJsonModel();
@@ -78,23 +80,23 @@ class ListingTemplatesController extends AbstractActionController
         return $response;
     }
 
-    protected function newJsonModel()
+    protected function newJsonModel(): JsonModel
     {
         return $this->jsonModelFactory->newInstance();
     }
 
-    protected function newViewModel($variables = null, $options = null)
+    protected function newViewModel($variables = null,  $options = null): ViewModel
     {
         return $this->viewModelFactory->newInstance($variables, $options);
     }
 
-    protected function getListingTemplateTags()
+    protected function getListingTemplateTags(): array
     {
         $templateTags = $this->listingTemplateService->getListingTemplateTags();
         return json_encode($templateTags);
     }
 
-    protected function getUsersTemplates()
+    protected function getUsersTemplates(): array
     {
         $usersTemplates = $this->listingTemplateService->getUsersTemplates();
         return json_encode($usersTemplates, JSON_UNESCAPED_SLASHES);
