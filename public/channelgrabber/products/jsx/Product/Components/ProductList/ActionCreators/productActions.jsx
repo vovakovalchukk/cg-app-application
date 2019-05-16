@@ -183,7 +183,6 @@ var actionCreators = (function() {
 
                 dispatch(getProductsSuccess(data));
 
-
                 if (isExpandableSkuSearch(data, searchTerm)) {
                     handleSkuSpecificSearch(data, searchTerm, dispatch);
                 }
