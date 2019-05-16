@@ -64,7 +64,7 @@ class ListingTemplatesController extends AbstractActionController
         return $response;
     }
 
-    public function previewAction(): ViewModel
+    public function previewAction(): JsonModel
     {
         // todo - replace with non dummy data as part of TAC-433
         $response = $this->newJsonModel();
