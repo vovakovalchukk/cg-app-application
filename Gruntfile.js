@@ -229,5 +229,7 @@ function getDevAdjustedWebpackConfig(webpackConfig){
     });
 
     config.resolve.alias.react = path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'umd', 'react.development.js');
+    config.resolve.alias["react-dom"] = path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-dom', 'umd', 'react-dom.development.js');
+
     return config;
 }

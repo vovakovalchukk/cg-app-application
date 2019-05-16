@@ -7,27 +7,28 @@ require.config({
     }
 });
 $(document).ready(function() {
-
     let rootNode = document.getElementById('listing-templates-root');
-
-
-    debugger;
     require([
         "Listing/ListingTemplates",
     ],
         function(
             ListingTemplates
         ) {
-            var listingTemplates = new ListingTemplates({
-                rootNode
-            });
+            var listingTemplates = new ListingTemplates(
+                rootNode,
+                <?= $this->templates ?>,
+                <?= $this->listingTemplateTags ?>
+            );
         }
     );
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 
-<div>
-    <h1>Listing Templates</h1>
-
-    <div id="listing-templates-root"></div>
+<div id="breadcrumbs" class="floatLeftClear">
+    <span class="heading-large">
+        Ebay Listing Templates
+    </span>
+</div>
+<div class="module clearfix">
+    <div id="listing-templates-root" class="u-clear-both u-margin-top-med"></div>
 </div>
