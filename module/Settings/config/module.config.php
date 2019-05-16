@@ -234,10 +234,10 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    ListingController::ROUTE =>[
+                    'Listing' => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => ListingController::ROUTE_INDEX_URI,
+                            'route' => '/listing'
                         ],
                         'may_terminate' => true,
                         'child_routes' => [

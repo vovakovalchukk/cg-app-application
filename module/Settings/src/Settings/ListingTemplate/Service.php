@@ -5,7 +5,7 @@ class Service
 {
     const FEATURE_FLAG = 'Ebay Listing Templates';
 
-    public function getListingTemplateTags()
+    public function getListingTemplateTags(): array
     {
         return [
             ['id'=> 1, 'tag' => 'title'],
@@ -30,7 +30,7 @@ class Service
         ];
     }
 
-    public function getUsersTemplates()
+    public function getUsersTemplates(): array
     {
         // todo - replace with non dummy data as part of TAC-433
         return [

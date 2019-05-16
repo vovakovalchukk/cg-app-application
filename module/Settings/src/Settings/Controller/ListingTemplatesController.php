@@ -90,13 +90,13 @@ class ListingTemplatesController extends AbstractActionController
         return $this->viewModelFactory->newInstance($variables, $options);
     }
 
-    protected function getListingTemplateTags(): array
+    protected function getListingTemplateTags(): string
     {
         $templateTags = $this->listingTemplateService->getListingTemplateTags();
         return json_encode($templateTags);
     }
 
-    protected function getUsersTemplates(): array
+    protected function getUsersTemplates(): string
     {
         $usersTemplates = $this->listingTemplateService->getUsersTemplates();
         return json_encode($usersTemplates, JSON_UNESCAPED_SLASHES);
