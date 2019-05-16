@@ -1,8 +1,33 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
+
 <?php $this->inlineScript()->captureStart(); ?>
-//todo - get React injected in here as part of TAC-432
+require.config({
+    paths: {
+        'Listing': '<?= $this->basePath() . '/cg-built/settings/js/Listing'?>'
+    }
+});
+$(document).ready(function() {
+
+    let rootNode = document.getElementById('listing-templates-root');
+
+
+    debugger;
+    require([
+        "Listing/ListingTemplates",
+    ],
+        function(
+            ListingTemplates
+        ) {
+            var listingTemplates = new ListingTemplates({
+                rootNode
+            });
+        }
+    );
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 
 <div>
     <h1>Listing Templates</h1>
+
+    <div id="listing-templates-root"></div>
 </div>
