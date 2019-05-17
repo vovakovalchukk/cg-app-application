@@ -1,51 +1,59 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 
 import LoadTemplate from 'Settings/jsx/Listing/ListingTemplates/Components/LoadTemplate';
 import NameTemplate from 'Settings/jsx/Listing/ListingTemplates/Components/NameTemplate';
 import NewTemplate from 'Settings/jsx/Listing/ListingTemplates/Components/NewTemplate';
 
-let RootComponent = props => {
-    const templateName = useFormInput('');
-    const newTemplateName = useFormInput('');
-    const selectedTemplate = useSelectInput();
+import templateReducer from 'Settings/jsx/Listing/ListingTemplates/Reducers/template';
+import templateActions from 'Settings/jsx/Listing/ListingTemplates/Actions/template';
 
+const initialState = {
+    initialised: false,
+    templateName: '',
+    selectedLoadTemplateOption: {},
+    editorHtml: '',
+    newTemplateName : '',
+    userTemplates: []
+};
+
+let RootComponent = props => {
+    const [state, dispatch] = useReducer(templateReducer, initialState);
+
+
+    // todo put this behind a use effect to achieve the similar effect of ComponentDidMount. Look at notes for details.
+    dispatch(templateActions.storeUserTemplates(props.tempalates));
+
+    console.log('this.props: ',       props);
+    
+    
     return (
         <div>
             <LoadTemplate
-                {...selectedTemplate}
+                onOptionChange={option => {
+                    dispatch(templateActions.changeLoadTemplateOption(option))
+                }}
+                selectedOption={state.selectedLoadTemplateOption}
             />
 
             <NameTemplate
-                {...templateName}
+                onChange={(e) => {
+                    dispatch(templateActions.changeTemplateName(e))
+                }}
+                value={state.templateName}
+                shouldShow={
+                    state.initialised
+                }
             />
 
             <NewTemplate
-                {...newTemplateName}
+                onChange={(e) => {
+                    dispatch(templateActions.changeNewTemplateName(e))
+                }}
+                value={state.newTemplateName}
             />
+            <button onClick={()=>{dispatch(templateActions.addNewTemplate)}}>new</button>
         </div>
     );
 };
 
 export default RootComponent;
-
-function useFormInput(initialValue) {
-    const [value, setValue] = useState(initialValue);
-    function onChange(e) {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange
-    }
-}
-
-function useSelectInput() {
-    const [value, setValue] = useState();
-    function onChange(option) {
-        setValue(option);
-    }
-    return {
-        selectedOption: value,
-        onOptionChange: onChange
-    }
-}

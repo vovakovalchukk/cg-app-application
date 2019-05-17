@@ -4,7 +4,7 @@ import FieldWrapper from 'Common/Components/FieldWrapper';
 
 export default function NewTemplate(props) {
     return (
-        <FieldWrapper label={'New Template'}>
+        <FieldWrapper label={'Add Template'}>
             <Input
                 onChange={props.onChange}
                 value={props.value}
