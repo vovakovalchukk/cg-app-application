@@ -27,7 +27,7 @@ class NotificationService implements LoggerAwareInterface
 
     public function notifyPartner(Partner $partner, AccountRequest $accountRequest, Account $account): void
     {
-        $this->addGlobalLogEventParams(['partnerId' => $partner->getId(), 'accountId' => $account->getId(), 'accountRequestId' => $accountRequest->getId()]);
+        $this->addGlobalLogEventParams(['partnerId' => $partner->getId(), 'accountId' => $account->getId(), 'accountRequestId' => $accountRequest->getId(), 'ou' => $account->getOrganisationUnitId()]);
 
         try {
             $this->notificationClient->sendRequest(
