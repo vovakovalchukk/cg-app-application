@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0386ca210b9ebe6fdde89e01b93bfc41",
+    "content-hash": "77ab1ef40d8133ed6fc219b7757bcde4",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -818,16 +818,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.12.0",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "44176244d83edda33544dd856507616d0fab5841"
+                "reference": "feed260694332e49e4d7234bfa29b750290c025b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-1.12.0-648b50.zip",
-                "reference": "44176244d83edda33544dd856507616d0fab5841"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-1.12.2-5b4e63.zip",
+                "reference": "feed260694332e49e4d7234bfa29b750290c025b"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.1",
@@ -835,7 +835,7 @@
                 "channelgrabber/currency": "^1.0.0",
                 "channelgrabber/di": "^2.2.1",
                 "channelgrabber/locale": "^1.0.19",
-                "channelgrabber/payment": "^1.12.0",
+                "channelgrabber/payment": "^1.14.2",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/stdlib": "^2.14.1",
                 "channelgrabber/user": "^1.25.0",
@@ -857,7 +857,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2018-10-18T08:07:10+00:00"
+            "time": "2019-05-17T08:56:50+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -2131,16 +2131,16 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.14.0",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e"
+                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.0-dc7a9f.zip",
-                "reference": "c0db4e8289fbae53945a6deafe4914fe95e5413e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.2-559c96.zip",
+                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.3",
@@ -2182,7 +2182,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-03-22T11:57:34+00:00"
+            "time": "2019-05-17T08:47:53+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -3913,16 +3913,16 @@
         },
         {
             "name": "channelgrabber/zf2-billing",
-            "version": "1.2.7",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/billing-module.git",
-                "reference": "48fcb68ecc7c29ce7146df7f01508cc763687efd"
+                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.7-62dbe7.zip",
-                "reference": "48fcb68ecc7c29ce7146df7f01508cc763687efd"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-billing/channelgrabber-zf2-billing-1.2.9-32881f.zip",
+                "reference": "add2f1e092d25955fadf1e3c771213bbf93bd798"
             },
             "require": {
                 "channelgrabber/billing": "^1.17.5",
@@ -3959,7 +3959,7 @@
                 ]
             },
             "description": "Billing module",
-            "time": "2019-01-24T16:31:07+00:00"
+            "time": "2019-05-17T08:48:18+00:00"
         },
         {
             "name": "channelgrabber/zf2-channel",
