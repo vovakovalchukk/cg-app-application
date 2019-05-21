@@ -97,7 +97,7 @@
         "channelgrabber/zf2-go-cardless": "~2.0.1",
         "channelgrabber/zf2-hal": "~1.0.7",
         "channelgrabber/zf2-logclient": "~1.5.1",
-        "channelgrabber/zf2-login": "~1.6.7",
+        "channelgrabber/zf2-login": "dev-TAC-390-authorize-account as 1.6.8",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.1.0",
         "channelgrabber/zf2-permission": "~1.2.4",

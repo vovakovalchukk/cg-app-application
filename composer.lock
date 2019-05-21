@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77ab1ef40d8133ed6fc219b7757bcde4",
+    "content-hash": "5e6e4d93c8e32c07374bfb29f674b597",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -560,8 +560,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cache/channelgrabber-cache-2.5.4-ff1414.zip",
-                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a",
-                "shasum": null
+                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a"
             },
             "require": {
                 "channelgrabber/di": "^2.2.0",
@@ -706,16 +705,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.16",
+            "version": "1.42.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "421c5e4ec27d6ea563a6d089abb6ef5f99747fc2"
+                "reference": "7ba9f152143094a49253e4a559b3516cdd36d603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.16-acc804.zip",
-                "reference": "421c5e4ec27d6ea563a6d089abb6ef5f99747fc2"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.17-eed0b2.zip",
+                "reference": "7ba9f152143094a49253e4a559b3516cdd36d603"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -783,7 +782,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-04-30T12:31:46+00:00"
+            "time": "2019-05-03T13:58:00+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2136,19 +2135,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-partner.git",
-                "reference": "a7b66f917db2ffe28157460613dec02635bd1a42"
+                "reference": "40ea4b5f976a0ac928c2ae13045b3863010ecc59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-390-authorize-account-214602.zip",
-                "reference": "a7b66f917db2ffe28157460613dec02635bd1a42",
-                "shasum": null
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/partner/channelgrabber-partner-dev-TAC-390-authorize-account-3cddd8.zip",
+                "reference": "40ea4b5f976a0ac928c2ae13045b3863010ecc59"
             },
             "require": {
                 "channelgrabber/cache": "^2.5.4",
                 "channelgrabber/cg-predis": "^0.8.8",
                 "channelgrabber/etag": "^1.6.0",
-                "channelgrabber/predis": "dev-TAC-396-partner-authentication as 1.1.3",
+                "channelgrabber/predis": "^1.1.3",
                 "channelgrabber/stdlib": "^2.16.0",
                 "php": ">=7.1"
             },
@@ -2166,7 +2164,7 @@
                     "CG\\Partner\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-04-15T08:22:04+00:00"
+            "time": "2019-05-15T07:48:30+00:00"
         },
         {
             "name": "channelgrabber/payment",
@@ -4306,16 +4304,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.6.7",
+            "version": "dev-TAC-390-authorize-account",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "40270fa5db21ac66c5e52a3b020f9785294adabe"
+                "reference": "d6ea5ef1996d6c3abd737e0d127076d2a08137ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.7-5763e6.zip",
-                "reference": "40270fa5db21ac66c5e52a3b020f9785294adabe"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-TAC-390-authorize-account-025c84.zip",
+                "reference": "d6ea5ef1996d6c3abd737e0d127076d2a08137ab"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -4360,7 +4358,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-05-10T10:19:15+00:00"
+            "time": "2019-05-21T07:54:05+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -7168,58 +7166,6 @@
         {
             "name": "psr/http-factory",
             "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
-                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0",
-                "psr/http-message": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Message\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
-            "keywords": [
-                "factory",
-                "http",
-                "message",
-                "psr",
-                "psr-17",
-                "psr-7",
-                "request",
-                "response"
-            ],
-            "time": "2018-07-30T21:54:04+00:00"
-        },
-        {
-            "name": "psr/http-message",
-            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
@@ -11284,30 +11230,23 @@
     ],
     "aliases": [
         {
-            "alias": "1.42.14",
-            "alias_normalized": "1.42.14.0",
-            "version": "dev-TAC-389-account-request-endpoint",
-            "package": "channelgrabber/channel"
-        },
-        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-TAC-390-authorize-account",
             "package": "channelgrabber/partner"
         },
         {
-            "alias": "1.1.3",
-            "alias_normalized": "1.1.3.0",
-            "version": "dev-TAC-396-partner-authentication",
-            "package": "channelgrabber/predis"
+            "alias": "1.6.8",
+            "alias_normalized": "1.6.8.0",
+            "version": "dev-TAC-390-authorize-account",
+            "package": "channelgrabber/zf2-login"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/partner": 20,
-        "channelgrabber/predis": 20,
+        "channelgrabber/zf2-login": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
