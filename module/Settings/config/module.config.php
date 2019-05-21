@@ -20,6 +20,7 @@ use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\Product\Client\Service as ProductService;
+use Settings\ListingTemplate\Service as ListingTemplateService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
@@ -43,7 +44,9 @@ use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
 use Settings\Controller\CategoryTemplatesController;
 use Settings\Controller\CategoryTemplatesJsonController;
+use Settings\Controller\ListingTemplatesController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\ListingController;
 use Settings\Controller\CreateListingsController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
@@ -176,6 +179,12 @@ return [
                         'title' => 'Manage the category templates',
                         'route' => Module::ROUTE . '/Category/' . CategoryTemplatesController::ROUTE_INDEX
                     ],
+                    [
+                        'label' => 'Listing Templates',
+                        'title' => 'Manage the listing templates',
+                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROOT_INDEX,
+                        'feature-flag' => ListingTemplateService::FEATURE_FLAG
+                    ],
                 ]
             ],
             'Advanced' => [
@@ -226,6 +235,58 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'Listing' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing'
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ListingTemplatesController::ROOT_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/templates',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'index',
+                                    ]
+                                ]
+                            ],
+                            ListingTemplatesController::SAVE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            ListingTemplatesController::DELETE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/delete',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'delete'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            ListingTemplatesController::PREVIEW_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/preview',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'preview'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
                     ChannelController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [

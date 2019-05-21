@@ -113,6 +113,9 @@ var actionCreators = (function() {
 
     const handleSkuSpecificSearch = (data, searchTerm, dispatch) => {
         for (let product of data.products) {
+            if(!product.variationCount){
+                continue;
+            }
             for (let productVariation of product.variations) {
                 if (productVariation.sku === searchTerm) {
                     dispatch(actionCreators.expandProduct(product.id));
@@ -180,7 +183,7 @@ var actionCreators = (function() {
 
                 dispatch(getProductsSuccess(data));
 
-                if (isLikelyASkuSearch(data)) {
+                if (isExpandableSkuSearch(data, searchTerm)) {
                     handleSkuSpecificSearch(data, searchTerm, dispatch);
                 }
 
@@ -350,6 +353,6 @@ function variationsHaveAlreadyBeenRequested(variationsByParent, productId) {
     return !!variationsByParent[productId]
 }
 
-function isLikelyASkuSearch(data) {
-    return data.products.length < 5;
+function isExpandableSkuSearch(data, searchTerm) {
+    return data.products.length < 5 && searchTerm;
 }

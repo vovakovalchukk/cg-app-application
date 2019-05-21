@@ -20,7 +20,8 @@ if (typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         latency: 0,
-        name: 'ProductsList'
+        name: 'ProductsList',
+        trace: true
     })(applyMiddleware(
         thunk
     ));
