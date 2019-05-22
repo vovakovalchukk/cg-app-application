@@ -42,7 +42,20 @@ let stateUtility = function() {
             }
             return cellData;
         },
-        isCurrentActiveSelect(product, select, columnKey, index){
+        shouldShowSelect({product, select, columnKey, containerElement, scroll, rows, selectIndexOfCell}) {
+            let isCurrentActive = self.isCurrentActiveSelect(product, select, columnKey, selectIndexOfCell);
+            if (!containerElement) {
+                return false;
+            }
+            let elementRect = containerElement.getBoundingClientRect();
+
+            if (!isCurrentActive || scroll.userScrolling || !rows.initialModifyHasOccurred || hasTheElementBeenObscuredByTableElements(elementRect)) {
+                return false;
+            }
+
+            return true;
+        },
+        isCurrentActiveSelect(product, select, columnKey, index) {
             return select.activeSelect.productId === product.id &&
                 select.activeSelect.columnKey === columnKey &&
                 doesIndexMatch(select, index);
@@ -85,13 +98,13 @@ let stateUtility = function() {
             return variationsByParent;
         },
         getDefaultStockModeFromProducts(products) {
-            if(!products.length){
+            if (!products.length) {
                 return;
             }
             return products[0].stockModeDefault;
         },
         getDefaultStockLevelFromProducts(products) {
-            if(!products.length){
+            if (!products.length) {
                 return;
             }
             return products[0].stockLevelDefault;
@@ -111,6 +124,10 @@ let stateUtility = function() {
                 toggle: stock.lowStockThresholdToggle[product.id] ? stock.lowStockThresholdToggle[product.id] : null,
                 value: stock.lowStockThresholdValue[product.id] ? stock.lowStockThresholdValue[product.id] : null
             }
+        },
+        getCellIdentifier(products, rowIndex, columnKey) {
+            const row = self.getRowData(products, rowIndex);
+            return columnKey + row.id;
         }
     };
 
@@ -130,6 +147,18 @@ function getImageData(row) {
     };
 }
 
-function doesIndexMatch(select, index){
+function doesIndexMatch(select, index) {
     return index === select.activeSelect.index
+}
+
+function isTableHeaderObscuringElement(elementRect) {
+    return elementRect.top < 130;
+}
+
+function isTableFooterObscuringElement(elementRect) {
+    return (document.documentElement.scrollHeight - elementRect.bottom) < 0;
+}
+
+function hasTheElementBeenObscuredByTableElements(elementRect) {
+    return isTableHeaderObscuringElement(elementRect) || isTableFooterObscuringElement(elementRect);
 }

@@ -6,7 +6,9 @@ import elementTypes from "../Portal/elementTypes";
 import {StockModeCellContainer} from "./StockMode";
 
 class LowStockCell extends React.Component {
-    static defaultProps = {};
+    static defaultProps = {
+        cellNode: null
+    };
 
     renderLowStockInputs = (product, portalSettingsForDropdown, getPortalSettingsForSubmits) => {
         return <LowStockInputs
@@ -19,6 +21,7 @@ class LowStockCell extends React.Component {
             select={this.props.select}
             scroll={this.props.scroll}
             rows={this.props.rows}
+            cellNode={this.props.cellNode}
         />
     };
 
@@ -38,12 +41,17 @@ class LowStockCell extends React.Component {
     };
 
     getPortalSettingsForType = (type) => {
+        let containerElement;
+        if(type !== elementTypes.INPUT_SAFE_SUBMITS){
+            containerElement = this.props.cellNode;
+        }
         return portalSettingsFactory.createPortalSettings({
             elemType: type,
             rowIndex: this.props.rowIndex,
             distanceFromLeftSideOfTableToStartOfCell: this.props.distanceFromLeftSideOfTableToStartOfCell,
             width: this.props.width,
-            allRows: this.props.rows.allIds
+            allRows: this.props.rows.allIds,
+            containerElement
         });
     };
 

@@ -16,13 +16,6 @@ let pickLocationsReducer = reducerCreator(initialState, {
         let values = action.values;
         return Object.assign({}, state, {values});
     },
-    "PICK_LOCATION_TOGGLE_SELECT": function(state, action) {
-        let selected = action.selected;
-        if (state.selected && state.selected.productId === selected.productId && state.selected.level === selected.level) {
-            selected = null;
-        }
-        return Object.assign({}, state, {selected});
-    },
     "PICK_LOCATION_SET_PRODUCT_SUCCESS": function(state, action) {
         n.success("Picking location assigned to product.");
         let {productId, productPickLocations, level, value} = action;
