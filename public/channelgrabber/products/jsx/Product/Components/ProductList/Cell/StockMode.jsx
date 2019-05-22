@@ -28,7 +28,8 @@ class StockModeCell extends React.Component {
     static defaultProps = {
         products: {},
         rowIndex: null,
-        stock: {}
+        stock: {},
+        cellNode: null
     };
 
     state = {
@@ -41,14 +42,12 @@ class StockModeCell extends React.Component {
     };
 
     submitInput = () => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
         this.props.actions.saveStockModeToBackend(row);
     };
 
     cancelInput = () => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
         this.props.actions.cancelStockModeEdit(row);
     };
 
@@ -61,19 +60,20 @@ class StockModeCell extends React.Component {
     };
 
     onStockPropChange = (propToChange, event) => {
-        const {products, rowIndex} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
         let value = propToChange === 'stockMode' ? event.value : event.target.value;
         this.props.actions.changeStockMode(row, value, propToChange);
     };
 
-    getStockModeSelectActive(product) {
-        let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
-
-        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            return false;
-        }
-        return true;
+    getStockModeSelectActive(product, containerElement) {
+        return stateUtility.shouldShowSelect({
+            product,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement,
+            scroll: this.props.scroll,
+            rows: this.props.rows
+        });
     };
 
     selectToggle(productId) {
@@ -125,13 +125,13 @@ class StockModeCell extends React.Component {
     };
     render() {
         const {
-            products,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            cellNode
         } = this.props;
 
-        const row = stateUtility.getRowData(products, rowIndex);
+        const row = this.props.rowData;
 
         if (!row) {
             return <span />
@@ -146,14 +146,19 @@ class StockModeCell extends React.Component {
             return <span/>
         }
 
-        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+        let containerElement = cellNode;
+
+        let portalSettingsParams = {
             elemType: elementTypes.STOCK_MODE_SELECT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows: this.props.rows.allIds
-        });
-        
+            allRows: this.props.rows.allIds,
+            containerElement
+        };
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings(portalSettingsParams);
+
         let Submits = this.createSubmits({rowIndex, distanceFromLeftSideOfTableToStartOfCell, width, isEditing});
 
         let {
@@ -168,7 +173,7 @@ class StockModeCell extends React.Component {
             <StockModeCellContainer className={this.props.className}>
                 <DataTablesStockModeInputs
                     inputId={row.id}
-                    selectActive={this.getStockModeSelectActive(row)}
+                    selectActive={this.getStockModeSelectActive(row, containerElement)}
                     stockModeOptions={this.props.stock.stockModeOptions}
                     stockModeType={{
                         input: {

@@ -125,8 +125,9 @@ abstract class Create extends PostAbstract
         return [
             'addressLine1' => $deliveryAddress->getLine1(),
             'addressLine2' => $deliveryAddress->getLine2(),
-            'postTown' => $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2() ?: $deliveryAddress->getLine4(),
-            'county' => $deliveryAddress->getLine4() ?: $deliveryAddress->getLine3() ?: $deliveryAddress->getLine2(),
+            'addressLine3' => $deliveryAddress->getLine3(),
+            'postTown' => $deliveryAddress->getLine4() ?: $deliveryAddress->getLine3() ?: $deliveryAddress->getLine5(),
+            'county' => $deliveryAddress->getLine5() ?: $deliveryAddress->getLine4() ?: $deliveryAddress->getLine3(),
             'postCode' => $deliveryAddress->getPostCode(),
             'countryCode' => strtoupper($deliveryAddress->getISOAlpha2CountryCode()),
         ];
