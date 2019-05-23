@@ -1,4 +1,5 @@
 import rowActions from 'Product/Components/ProductList/ActionCreators/rowActions'
+import selectActions from 'Product/Components/ProductList/ActionCreators/selectActions'
 
 let tabActions = (function() {
     return {
@@ -13,7 +14,8 @@ let tabActions = (function() {
                         numberOfVisibleFixedColumns
                     }
                 });
-                dispatch(rowActions.modifyZIndexOfRows);
+                dispatch(selectActions.removeActiveSelect());
+                dispatch(rowActions.modifyZIndexOfRows());
             }
         },
         showStockTab: () => {
