@@ -8,12 +8,17 @@ class PickingLocationCell extends React.Component {
     static defaultProps = {
         products: {},
         rowIndex: null,
-        pickLocations: null
+        pickLocations: null,
+        selectWidth: null,
+        rowData: [],
+        distanceFromLeftSideOfTableToStartOfCell: null,
+        padding: null,
+        cellNode: null
     };
 
     render() {
-        const {products, rowIndex, pickLocations} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
+        const {rowIndex, pickLocations} = this.props;
+        const row = this.props.rowData;
 
         if (!stateUtility.isSimpleProduct(row) && !stateUtility.isVariation(row)) {
             return (
@@ -28,43 +33,36 @@ class PickingLocationCell extends React.Component {
         );
     }
     getPickLocationActive(pickLocations, row, index) {
-        let isActive = stateUtility.isCurrentActiveSelect(row, this.props.select, this.props.columnKey, index);
-
-        if (!isActive ||
-            this.props.scroll.userScrolling ||
-            !this.props.rows.initialModifyHasOccurred
-        ) {
-            return false;
-        }
-
-        return true;
-    };
-    renderPickLocation(name, index, row, rowIndex) {
-        const {distanceFromLeftSideOfTableToStartOfCell, pickLocations, padding, selectWidth} = this.props;
-
-        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
-            elemType: elementTypes.SELECT_DROPDOWN,
-            rowIndex,
-            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + padding + (selectWidth * index),
-            width: selectWidth,
-            allRows: this.props.rows.allIds
+        return stateUtility.shouldShowSelect({
+            product: this.props.rowData,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement: this.props.cellNode,
+            scroll: this.props.scroll,
+            rows: this.props.rows,
+            selectIndexOfCell: index
         });
+    };
+    renderPickLocation(name, index, row) {
+        const {pickLocations, selectWidth} = this.props;
+
+        let portalSettingsForDropdown = this.getPortalSettings(index);
 
         let selected = null;
         if (pickLocations.byProductId.hasOwnProperty(row.id) && pickLocations.byProductId[row.id].hasOwnProperty(index)) {
             selected = pickLocations.byProductId[row.id][index];
         } else if (row.pickingLocations.hasOwnProperty(index)) {
-                selected = row.pickingLocations[index];
+            selected = row.pickingLocations[index];
         }
 
-        let select = React.createRef();
+        let selectRef = React.createRef();
 
         return (
             <StatelessSelectComponent
-                ref={select}
+                ref={selectRef}
                 title={name}
                 prefix={name}
-                active={ this.getPickLocationActive(pickLocations, row, index) }
+                active={this.getPickLocationActive(pickLocations, row, index)}
                 options={(pickLocations.values[index] || []).map((value) => {
                     return {name: value, value};
                 })}
@@ -73,7 +71,7 @@ class PickingLocationCell extends React.Component {
                 })(selected)}
                 selectToggle={() => {
                     this.props.actions.selectActiveToggle(this.props.columnKey, row.id, index);
-                    select.current.setFilter("");
+                    selectRef.current.setFilter("");
                 }}
                 onOptionChange={(selectedOption) => {
                     let exactMatch = (pickLocations.values[index] || []).find((pickLocation) => {
@@ -87,19 +85,34 @@ class PickingLocationCell extends React.Component {
                     widthOfInput: selectWidth - 22
                 }}
             >
-                {this.renderPickLocationCustomOption(select)}
+                {this.renderPickLocationCustomOption(selectRef)}
             </StatelessSelectComponent>
         );
     }
+    getPortalSettings(index) {
+        const {distanceFromLeftSideOfTableToStartOfCell, padding, selectWidth, rowIndex} = this.props;
 
-    renderPickLocationCustomOption(select) {
+        let containerElement = this.props.cellNode;
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+            elemType: elementTypes.SELECT_DROPDOWN,
+            rowIndex,
+            distanceFromLeftSideOfTableToStartOfCell: distanceFromLeftSideOfTableToStartOfCell + padding + (selectWidth * index),
+            width: selectWidth,
+            allRows: this.props.rows.allIds,
+            containerElement
+        });
+
+        return portalSettingsForDropdown;
+    }
+    renderPickLocationCustomOption(selectRef) {
         let onKeyUp = (event) => {
             let value = event.target.value.trim();
             if (event.keyCode === 13 && value.length > 0) {
-                select.current.onOptionSelected(value);
-                select.current.onComponentClick();
+                selectRef.current.onOptionSelected(value);
+                selectRef.current.onComponentClick();
             } else {
-                select.current.setFilter(value);
+                selectRef.current.setFilter(value);
             }
         };
 

@@ -216,7 +216,32 @@ class Service implements
             'shippingService' => $this->getShippingMethodsForAccount($account->getRootOrganisationUnitId()),
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),
-            'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account)
+            'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account),
+
+            //todo - to be implemented with no dummy data as part of TAC-433
+            'templates' => json_encode([
+                [
+                    'id' => 1,
+                    'name' => 'template1',
+                    'html' => "<h1>Template 1 Title</h1>
+                    some content in the template
+                "
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'template2',
+                    'html' => "<h1>Template 2 Title</h1>
+                    some content in the template
+                "
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'template3',
+                    'html' => "<h1>Template 3 Title</h1>
+                    some content in the template
+                "
+                ]
+            ])
         ];
     }
 

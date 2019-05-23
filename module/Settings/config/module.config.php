@@ -1,4 +1,5 @@
 <?php
+
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 use CG\Account\Client\Storage\Api as AccountStorage;
@@ -19,6 +20,7 @@ use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodApiStorage;
 use CG\Order\Client\Shipping\Method\Storage\Cache as ShippingMethodCacheStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\Product\Client\Service as ProductService;
+use Settings\ListingTemplate\Service as ListingTemplateService;
 use CG\Settings\PickList\Service as PickListService;
 use CG\Settings\PickList\Storage\Api as PickListStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
@@ -33,16 +35,18 @@ use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
 use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
+use CG_Permission\Service as PermissionService;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
 use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
 use Settings\Controller\CategoryTemplatesController;
 use Settings\Controller\CategoryTemplatesJsonController;
+use Settings\Controller\ListingTemplatesController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\ListingController;
 use Settings\Controller\CreateListingsController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
@@ -175,6 +179,12 @@ return [
                         'title' => 'Manage the category templates',
                         'route' => Module::ROUTE . '/Category/' . CategoryTemplatesController::ROUTE_INDEX
                     ],
+                    [
+                        'label' => 'Listing Templates',
+                        'title' => 'Manage the listing templates',
+                        'route' => Module::ROUTE . '/Listing/' . ListingTemplatesController::ROOT_INDEX,
+                        'feature-flag' => ListingTemplateService::FEATURE_FLAG
+                    ],
                 ]
             ],
             'Advanced' => [
@@ -225,6 +235,58 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'Listing' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/listing'
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ListingTemplatesController::ROOT_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/templates',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'index',
+                                    ]
+                                ]
+                            ],
+                            ListingTemplatesController::SAVE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            ListingTemplatesController::DELETE_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/delete',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'delete'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            ListingTemplatesController::PREVIEW_INDEX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/preview',
+                                    'defaults' => [
+                                        'controller' => ListingTemplatesController::class,
+                                        'action' => 'preview'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
                     ChannelController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
@@ -302,7 +364,8 @@ return [
                                             'route' => '/ebay',
                                             'defaults' => [
                                                 'controller' => EbayController::class,
-                                                'action' => 'save'
+                                                'action' => 'save',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'child_routes' => [
@@ -342,7 +405,8 @@ return [
                                             'route' => '/amazon/:region',
                                             'defaults' => [
                                                 'controller' => AmazonController::class,
-                                                'action' => 'save'
+                                                'action' => 'save',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'may_terminate' => true
