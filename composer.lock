@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b159e57e8ad21d4ccd31042f962c5e0e",
+    "content-hash": "f4792162d1dacd122e5f87f31b45867a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4400,16 +4400,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-10603-requesting-a-password-reset-does-not-display-errors-correctly",
+            "version": "1.6.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "6ecac8b4204f6c49326c2edd0b62fc6449a9a87f"
+                "reference": "ae30dbf2017e5bd9f79b1b484fde0c26903feb85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-dev-CGIV-10603-requesting-a-password-reset-does-not-display-errors-correctly-f9659f.zip",
-                "reference": "6ecac8b4204f6c49326c2edd0b62fc6449a9a87f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-login/channelgrabber-zf2-login-1.6.9-3a193a.zip",
+                "reference": "ae30dbf2017e5bd9f79b1b484fde0c26903feb85",
                 "shasum": null
             },
             "require": {
@@ -4455,7 +4455,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2019-05-23T08:17:30+00:00"
+            "time": "2019-05-23T12:55:54+00:00"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -11338,18 +11338,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.8",
-            "alias_normalized": "1.6.8.0",
-            "version": "dev-CGIV-10603-requesting-a-password-reset-does-not-display-errors-correctly",
-            "package": "channelgrabber/zf2-login"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
