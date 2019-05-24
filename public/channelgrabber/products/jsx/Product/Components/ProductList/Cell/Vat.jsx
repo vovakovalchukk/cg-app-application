@@ -20,9 +20,8 @@ class VatCell extends React.Component {
     state = {};
 
     changeVat = (e) => {
-        const {products, rowIndex, countryCode} = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
-        this.props.actions.updateVat(row.id, countryCode, e.value);
+        const {countryCode, rowData} = this.props;
+        this.props.actions.updateVat(rowData.id, countryCode, e.value);
     };
 
     generateOptionsFromVatRates = (vatRates) => {
@@ -36,30 +35,30 @@ class VatCell extends React.Component {
     selectToggle(productId) {
         this.props.actions.selectActiveToggle(this.props.columnKey, productId);
     };
-    getVatSelectActive(product) {
-        let isCurrentActive = stateUtility.isCurrentActiveSelect(product, this.props.select, this.props.columnKey);
-
-        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            return false;
-        }
-
-        return true;
+    getVatSelectActive(product, containerElement) {
+        return stateUtility.shouldShowSelect({
+            product,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement,
+            scroll: this.props.scroll,
+            rows: this.props.rows
+        })
     };
     render() {
         const {
-            products,
             rowIndex,
             countryCode,
             distanceFromLeftSideOfTableToStartOfCell,
-            width
+            width,
+            rowData
         } = this.props;
-        const row = stateUtility.getRowData(products, rowIndex);
 
-        if (stateUtility.isVariation(row)) {
+        if (stateUtility.isVariation(rowData)) {
             return <span></span>
         }
 
-        let productVat = this.props.vat.productsVat[countryCode].byProductId[row.id];
+        let productVat = this.props.vat.productsVat[countryCode].byProductId[rowData.id];
 
         if(!productVat){
             return (
@@ -82,13 +81,19 @@ class VatCell extends React.Component {
             name: selectedLabel,
             value: selectedVatKey
         };
-        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings({
+
+        let containerElement = this.props.cellNode;
+
+        let portalSettingsParams = {
             elemType: elementTypes.SELECT_VAT_DROPDOWN,
             rowIndex,
             distanceFromLeftSideOfTableToStartOfCell,
             width,
-            allRows: this.props.rows.allIds
-        });
+            allRows: this.props.rows.allIds,
+            containerElement
+        };
+
+        let portalSettingsForDropdown = portalSettingsFactory.createPortalSettings(portalSettingsParams);
 
         return (
             <div className={this.props.className}>
@@ -98,8 +103,8 @@ class VatCell extends React.Component {
                     onOptionChange={this.changeVat}
                     classNames={'u-width-140px'}
                     portalSettingsForDropdown={portalSettingsForDropdown}
-                    selectToggle={this.selectToggle.bind(this, row.id, countryCode)}
-                    active={this.getVatSelectActive(row)}
+                    selectToggle={this.selectToggle.bind(this, rowData.id, countryCode)}
+                    active={this.getVatSelectActive(rowData, containerElement)}
                     styleVars={{
                         widthOfInput: 110,
                         widthOfDropdown: 130

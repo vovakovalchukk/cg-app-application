@@ -13,11 +13,13 @@ use CG\Amazon\RegionFactory;
 use CG\Channel\Type as ChannelType;
 use CG\FeatureFlags\Service as FeatureFlagsService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Exception;
 use GearmanClient;
+use Partner\Account\AuthoriseService as PartnerAuthoriseService;
 use Settings\Module;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -44,13 +46,14 @@ class AmazonController extends ChannelControllerAbstract implements
         ViewModelFactory $viewModelFactory,
         FeatureFlagsService $featureFlagsService,
         OrganisationUnitService $organisationUnitService,
+        PartnerAuthoriseService $partnerAuthoriseService,
         AccountAddressGenerator $accountAddressGenerator,
         Cryptor $cryptor,
         RegionFactory $regionFactory,
         GearmanClient $gearmanClient
     ) {
         parent::__construct(
-            $accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory, $featureFlagsService, $organisationUnitService
+            $accountCreationService, $activeUserContainer, $jsonModelFactory, $viewModelFactory, $featureFlagsService, $organisationUnitService, $partnerAuthoriseService
         );
         $this
             ->setAccountAddressGenerator($accountAddressGenerator)
@@ -66,8 +69,14 @@ class AmazonController extends ChannelControllerAbstract implements
             $this->params()->fromQuery('accountId'),
             array_merge($this->params()->fromPost(), $this->params()->fromRoute())
         );
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
-        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
+
+        try {
+            $url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity);
+        } catch (NotFound $exception) {
+            $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
+            $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
+        }
+
         $this->plugin('redirect')->toUrl($url);
         return false;
     }

@@ -42,6 +42,7 @@ return array (
     37 => 'CG_GoCardless',
     38 => 'CG_Sagepay',
     39 => 'Tideways',
+    40 => 'Partner'
   ),
   'module_listener_options' => 
   array (

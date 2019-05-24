@@ -24,7 +24,6 @@ const columnSpecificPropsMap = {
     productExpand: ['expand'],
     cost: ['rows', 'detail', 'scroll']
 };
-const columnNoWrapper = [columnKeys.stockMode];
 const alignFlexMap = {
     'center': 'center',
     'left': 'flex-start',
@@ -74,13 +73,9 @@ function getCell(column) {
         console.error("cannot create cell in column factory for column: ", column);
     }
 
-    let CellToRender;
-    if (columnNoWrapper.includes(column.key)) {
-        CellToRender = <CellContent {...column} />;
-    } else {
-        let StyledCellWrapper = cellWrappers[column.columnKey];
-        CellToRender = <StyledCellWrapper {...column} CellContent={CellContent}/>;
-    }
+    let StyledCellWrapper = cellWrappers[column.columnKey];
+    let CellToRender = <StyledCellWrapper {...column} CellContent={CellContent}/>;
+
     return CellToRender;
 }
 

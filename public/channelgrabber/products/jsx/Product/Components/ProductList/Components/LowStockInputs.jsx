@@ -32,7 +32,8 @@ class LowStockInputs extends React.Component {
                 value: null,
                 editedValue: null
             }
-        }
+        },
+        cellNode: null
     };
 
     static optionValueDefault = 'default';
@@ -88,13 +89,14 @@ class LowStockInputs extends React.Component {
     };
 
     isToggleActive = () => {
-        let isCurrentActive = stateUtility.isCurrentActiveSelect(this.props.product, this.props.select, this.props.columnKey);
-
-        if (!isCurrentActive || this.props.scroll.userScrolling || !this.props.rows.initialModifyHasOccurred) {
-            return false;
-        }
-
-        return true;
+        return stateUtility.shouldShowSelect({
+            product: this.props.product,
+            select: this.props.select,
+            columnKey: this.props.columnKey,
+            containerElement: this.props.cellNode,
+            scroll: this.props.scroll,
+            rows: this.props.rows
+        });
     };
 
     getSelectedOption = () => {
