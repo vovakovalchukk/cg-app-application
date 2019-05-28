@@ -1,4 +1,5 @@
 <?php
+
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 use CG\Account\Client\Storage\Api as AccountStorage;
@@ -34,9 +35,9 @@ use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
 use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
+use CG_Permission\Service as PermissionService;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
 use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
@@ -363,7 +364,8 @@ return [
                                             'route' => '/ebay',
                                             'defaults' => [
                                                 'controller' => EbayController::class,
-                                                'action' => 'save'
+                                                'action' => 'save',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'child_routes' => [
@@ -403,7 +405,8 @@ return [
                                             'route' => '/amazon/:region',
                                             'defaults' => [
                                                 'controller' => AmazonController::class,
-                                                'action' => 'save'
+                                                'action' => 'save',
+                                                PermissionService::PARTNER_MANAGED_ROUTE_WHITELIST => true
                                             ]
                                         ],
                                         'may_terminate' => true

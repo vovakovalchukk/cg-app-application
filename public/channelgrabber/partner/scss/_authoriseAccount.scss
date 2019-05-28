@@ -1,0 +1,56 @@
+.overlay-container {
+    background-color: $color-linkblue;
+    width: 100%;
+    height: 100%;
+}
+
+.authorise-account {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+    color: white;
+
+    .title {
+
+    }
+
+    .partnerlogo {
+        > img {
+            max-width: 100%;
+        }
+        max-width: 500px;
+        max-height: 250px;
+    }
+}
+
+.powered-by-cg {
+    width: 400px;
+    display: flex;
+    align-items: center;
+
+    .logoimage {
+        width: 250px;
+        margin-left: 10px;
+        > img {
+            max-width: 100%;
+        }
+    }
+}
+
+._padding-large {
+    padding: 20px;
+}
+._display-flex {
+    display: flex;
+}
+._align_items_center {
+    align-items: center;
+}
+._align_center {
+    margin-left: auto;
+    margin-right: auto;
+}
+._pull_up_100 {
+    margin-top: -100px;
+}

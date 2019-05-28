@@ -1,0 +1,31 @@
+<?php
+$channelName = ucfirst($this->channel) . ($this->region ? ' ' . $this->region : '');
+$this->headTitle('Connecting your' . $channelName . ' account');
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+    window.setTimeout(function() {
+        window.location.replace("<?= $this->channelRedirectUrl ?>");
+    }, 5000);
+<?php $this->headScript()->captureEnd(); ?>
+
+<div class="overlay-container _display-flex _align_items_center">
+    <div class="authorise-account _align_center _pull_up_100">
+        <?php if ($this->partnerLogoUrl): ?>
+            <div class="partnerlogo _padding-large">
+                <img src="<?= $this->partnerLogoUrl ?>" alt="<?= $this->partnerName ?>">
+            </div>
+        <?php endif ?>
+
+        <div class="title _padding-large">
+            Please wait while we are connecting your <strong><?= $channelName ?></strong> account...
+        </div>
+
+        <div class="powered-by-cg _padding-large _content-vertical-align-middle">
+            Powered by
+            <div class="logoimage">
+                <img src="/channelgrabber/zf2-v4-ui/img/channelgrabber-logo-white-large.png" class="logo-image">
+            </div>
+         </div>
+    </div>
+</div>
