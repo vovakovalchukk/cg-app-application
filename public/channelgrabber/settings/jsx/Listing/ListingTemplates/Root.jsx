@@ -1,59 +1,109 @@
-import React, {useState, useReducer} from 'react';
+import React, {useState} from 'react';
+import Select from 'Common/Components/Select';
+import Input from 'Common/Components/Input';
+import FieldWrapper from 'Common/Components/FieldWrapper';
 
-import LoadTemplate from 'Settings/jsx/Listing/ListingTemplates/Components/LoadTemplate';
-import NameTemplate from 'Settings/jsx/Listing/ListingTemplates/Components/NameTemplate';
-import NewTemplate from 'Settings/jsx/Listing/ListingTemplates/Components/NewTemplate';
+const RootComponent = props => {
+    const templateName = useFormInput('');
+    const newTemplateName = useFormInput('');
 
-import templateReducer from 'Settings/jsx/Listing/ListingTemplates/Reducers/template';
-import templateActions from 'Settings/jsx/Listing/ListingTemplates/Actions/template';
+    const [templateInitialised, setTemplateInitialised] = useState();
+    const [templateSelectValue, setTemplateSelectValue] = useState();
 
-const initialState = {
-    initialised: false,
-    templateName: '',
-    selectedLoadTemplateOption: {},
-    editorHtml: '',
-    newTemplateName : '',
-    userTemplates: []
-};
+    const templateHTML = useTemplateHtml('');
 
-let RootComponent = props => {
-    const [state, dispatch] = useReducer(templateReducer, initialState);
+    const options = [
+        {name: 'option1', label: 'option1', value: 'option1'},
+        {name: 'option2', label: 'option2', value: 'option2'},
+        {name: 'option3', label: 'option3', value: 'option3'},
+    ];
 
-
-    // todo put this behind a use effect to achieve the similar effect of ComponentDidMount. Look at notes for details.
-    dispatch(templateActions.storeUserTemplates(props.tempalates));
-
-    console.log('this.props: ',       props);
-    
-    
     return (
         <div>
-            <LoadTemplate
-                onOptionChange={option => {
-                    dispatch(templateActions.changeLoadTemplateOption(option))
-                }}
-                selectedOption={state.selectedLoadTemplateOption}
-            />
+            <FieldWrapper label={'Load Template'} className={'u-margin-top-small'}>
+                <Select
+                    options={options}
+                    autoSelectFirst={false}
+                    title={'choose your template to load'}
+                    customOptions={true}
+                    selectedOption={templateSelectValue}
+                    onOptionChange={(option)=>{
+                        console.log('option change... ', option);
+                        setTemplateSelectValue(option);
+                        setTemplateInitialised(true);
+                        console.log('about to set value to.... ', option.name);
+                        templateName.setValue(option.name)
+                    }}
+                />
+            </FieldWrapper>
 
-            <NameTemplate
-                onChange={(e) => {
-                    dispatch(templateActions.changeTemplateName(e))
-                }}
-                value={state.templateName}
-                shouldShow={
-                    state.initialised
-                }
-            />
+            <fieldset className={'u-margin-top-small'}>
+                <label className="u-inline-block">{props.label}</label>
+                <span className="u-inline-block">
+                    <FieldWrapper label={'Add Template'}>
+                        <Input
+                            {...newTemplateName}
+                        />
+                    </FieldWrapper>
+                </span>
+                <button title={'Add Template'}
+                        onClick={() => {
+                            setTemplateInitialised(true);
+                            templateName.setValue(newTemplateName.value);
+                            templateHTML.setValue('');
+                        }}
+                        className={'u-float-block'}
+                >
+                    new
+                </button>
+            </fieldset>
 
-            <NewTemplate
-                onChange={(e) => {
-                    dispatch(templateActions.changeNewTemplateName(e))
-                }}
-                value={state.newTemplateName}
-            />
-            <button onClick={()=>{dispatch(templateActions.addNewTemplate)}}>new</button>
+            {templateInitialised &&
+                <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
+                    <Input
+                        {...templateName}
+                    />
+                </FieldWrapper>
+            }
+
+            {templateInitialised &&
+                <div className={'u-margin-top-med'}>
+                    <h3>Ebay Listing Template Designer</h3>
+                    <textarea
+                        className={'u-margin-top-small'}
+                        style={{width:'500px'}}
+                        value={templateHTML.value}
+                        onChange={templateHTML.onChange}
+                    />
+                </div>
+            }
         </div>
     );
 };
 
 export default RootComponent;
+
+function useFormInput(initialValue) {
+    const [value, setValue] = useState(initialValue);
+    function onChange(e) {
+        setValue(e.target.value);
+    }
+    return {
+        value,
+        onChange,
+        setValue
+    }
+}
+
+function useTemplateHtml(initialValue){
+    const [value, setValue] = useState(initialValue);
+    function onChange(e){
+        setValue(e.target.value);
+    }
+    return {
+        value,
+        onChange,
+        setValue
+    }
+
+}
