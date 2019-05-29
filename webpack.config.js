@@ -84,6 +84,7 @@ module.exports = {
             Reports: path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6', 'Reports'),
             InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),
             Settings: path.resolve(__dirname, 'public', 'channelgrabber', 'settings'),
+            ListingTemplates: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'jsx', 'Listing', 'ListingTemplates'),
             SetupWizard: path.resolve(__dirname, 'public', 'channelgrabber', 'setup-wizard', 'jsx'),
             Common: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'dist', 'js', 'Common'),
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
