@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.2",
         "channelgrabber/communication": "~1.0.11",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-CGIV-10635-parcelforce-departments as 1.1.17",
+        "channelgrabber/courier": "~1.1.17",
         "channelgrabber/courieradapter": "~1.5.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
