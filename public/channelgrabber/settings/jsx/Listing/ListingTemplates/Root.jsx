@@ -12,6 +12,8 @@ const InitialFormSection = styled.section`
   max-width: 700px
 `;
 
+let previewWindow = null;
+
 const RootComponent = props => {
     const templateName = useFormInput('');
     const newTemplateName = useFormInput('');
@@ -41,11 +43,11 @@ const RootComponent = props => {
                 </FieldWrapper>
 
                 <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
-                    setTemplateInitialised(true);
-                    templateName.setValue(newTemplateName.value);
-                    templateHTML.setValue('');
-                    setTemplateSelectValue({});
-                }}
+                        setTemplateInitialised(true);
+                        templateName.setValue(newTemplateName.value);
+                        templateHTML.setValue('');
+                        setTemplateSelectValue({});
+                    }}
                 />
 
                 {templateInitialised &&
@@ -63,10 +65,25 @@ const RootComponent = props => {
             }
 
             {templateInitialised &&
-                <button className={"u-margin-top-med"}>save</button>
+                <div>
+                    <button className={"u-margin-top-med"} onClick={openPreview}>preview</button>
+                    <button className={"u-margin-top-med u-margin-left-small"}>save</button>
+                </div>
             }
         </div>
     );
+
+    function openPreview(){
+        if(!templateHTML.value){
+            return;
+        }
+        if(!previewWindow || previewWindow.closed){
+            previewWindow = window.open("", "previewWindow", "width=700,height=700");
+        }
+        previewWindow.document.open("text/html", "replace");
+        previewWindow.document.write(templateHTML.value);
+        previewWindow.focus();
+    }
 };
 
 export default RootComponent;
