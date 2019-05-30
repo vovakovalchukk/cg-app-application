@@ -9,7 +9,7 @@ const dummyOptions = [
 
 function TemplateEditor(props) {
     const [textEditorPosition, setTextEditorPosition] = useState(dummyOptions[0]);
-    const [tagSelectValue, setTagSelectValue] = useState({});
+    const [tagSelectValue, setTagSelectValue] = useState(dummyOptions[0]);
 
     return (<div className={"u-margin-top-med"}>
         <h3>Template Designer</h3>

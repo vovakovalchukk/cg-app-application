@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
+import styled from 'styled-components';
+
 import Select from 'Common/Components/Select';
 import Input from 'Common/Components/Input';
 import FieldWrapper from 'Common/Components/FieldWrapper';
 
+import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
+
+const InitialFormSection = styled.section`
+  max-width: 700px
+`;
 
 const RootComponent = props => {
     const templateName = useFormInput('');
@@ -21,51 +28,39 @@ const RootComponent = props => {
     ];
 
     return (
-        <div className={"u-margin-top-med"}>
-            <FieldWrapper label={'Load Template'} className={'u-margin-top-small'}>
-                <Select
-                    options={options}
-                    autoSelectFirst={false}
-                    title={'choose your template to load'}
-                    selectedOption={templateSelectValue}
-                    onOptionChange={(option)=>{
-                        setTemplateSelectValue(option);
-                        setTemplateInitialised(true);
-                        templateName.setValue(option.name);
-                        templateHTML.setValue(option.template);
-                    }}
-                />
-            </FieldWrapper>
-
-            <fieldset className={'u-margin-top-small'}>
-                <label className="u-inline-block">{props.label}</label>
-                <span className="u-inline-block">
-                    <FieldWrapper label={'Add Template'}>
-                        <Input
-                            {...newTemplateName}
-                        />
-                    </FieldWrapper>
-                </span>
-                <button title={'Add Template'}
-                        onClick={() => {
+        <div className={"u-margin-top-xxlarge"}>
+            <InitialFormSection>
+                <FieldWrapper label={'Load Template'} className={'u-margin-top-small'}>
+                    <Select
+                        options={options}
+                        autoSelectFirst={false}
+                        title={'choose your template to load'}
+                        selectedOption={templateSelectValue}
+                        onOptionChange={(option) => {
+                            setTemplateSelectValue(option);
                             setTemplateInitialised(true);
-                            templateName.setValue(newTemplateName.value);
-                            templateHTML.setValue('');
-                            setTemplateSelectValue({});
+                            templateName.setValue(option.name);
+                            templateHTML.setValue(option.template);
                         }}
-                        className={'u-float-block'}
-                >
-                    new
-                </button>
-            </fieldset>
-
-            {templateInitialised &&
-                <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
-                    <Input
-                        {...templateName}
                     />
                 </FieldWrapper>
-            }
+
+                <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
+                    setTemplateInitialised(true);
+                    templateName.setValue(newTemplateName.value);
+                    templateHTML.setValue('');
+                    setTemplateSelectValue({});
+                }}/>
+
+                {templateInitialised &&
+                    <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
+                        <Input
+                            {...templateName}
+                        />
+                    </FieldWrapper>
+                }
+            </InitialFormSection>
+
 
             {templateInitialised &&
                 <TemplateEditor templateHTML={templateHTML}/>
@@ -105,7 +100,7 @@ function useTemplateHtml(initialValue){
         let newStr = `${value.slice(0, position)} {${tag}} ${value.slice(position)}`;
         setValue(newStr);
     }
-    
+
     return {
         value,
         onChange,
