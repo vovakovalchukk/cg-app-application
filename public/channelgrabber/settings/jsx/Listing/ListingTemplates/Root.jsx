@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
-import Select from 'Common/Components/Select';
 import Input from 'Common/Components/Input';
 import FieldWrapper from 'Common/Components/FieldWrapper';
 
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
+import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
+
 
 const InitialFormSection = styled.section`
   max-width: 700px
@@ -32,49 +33,43 @@ const RootComponent = props => {
     return (
         <div className={"u-margin-top-xxlarge"}>
             <InitialFormSection>
-                <FieldWrapper label={'Load Template'} className={'u-margin-top-small'}>
-                    <Select
-                        options={formattedTemplates}
-                        filterable={true}
-                        autoSelectFirst={false}
-                        title={'choose your template to load'}
-                        selectedOption={templateSelectValue}
-                        onOptionChange={(option) => {
-                            setTemplateSelectValue(option);
-                            setTemplateInitialised(true);
-                            templateName.setValue(option.name);
-                            templateHTML.setValue(option.html);
-                        }}
-                    />
-                </FieldWrapper>
+                <TemplateSelect options={formattedTemplates} selectedOption={templateSelectValue}
+                    onOptionChange={(option) => {
+                        setTemplateSelectValue(option);
+                        setTemplateInitialised(true);
+                        templateName.setValue(option.name);
+                        templateHTML.setValue(option.html);
+                    }}
+                    deleteTemplate={deleteTemplate}
+                />
 
                 <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
-                        setTemplateInitialised(true);
-                        templateName.setValue(newTemplateName.value);
-                        templateHTML.setValue('');
-                        setTemplateSelectValue({});
-                    }}
+                    setTemplateInitialised(true);
+                    templateName.setValue(newTemplateName.value);
+                    templateHTML.setValue('');
+                    setTemplateSelectValue({});
+                }}
                 />
 
                 {templateInitialised &&
-                    <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
-                        <Input
-                            {...templateName}
-                        />
-                    </FieldWrapper>
+                <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
+                    <Input
+                        {...templateName}
+                    />
+                </FieldWrapper>
                 }
             </InitialFormSection>
 
 
             {templateInitialised &&
-                <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
+            <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
             }
 
             {templateInitialised &&
-                <div>
-                    <button className={"u-margin-top-med"} onClick={openPreview}>preview</button>
-                    <button className={"u-margin-top-med u-margin-left-small"}>save</button>
-                </div>
+            <div>
+                <button className={"u-margin-top-med"} onClick={openPreview}>preview</button>
+                <button className={"u-margin-top-med u-margin-left-small"} onClick={save}>save</button>
+            </div>
             }
         </div>
     );
@@ -105,6 +100,35 @@ const RootComponent = props => {
         previewWindow.document.open("text/html", "replace");
         previewWindow.document.write(htmlToRender);
         previewWindow.focus();
+    }
+
+    async function save(){
+        const params = {
+            html: templateHTML.value,
+            id: templateSelectValue && templateSelectValue.id,
+            name: templateName.value
+        };
+        await $.ajax({
+            url: '/settings/listing/save',
+            type: 'POST',
+            dataType: 'json',
+            data: params
+        }).then((response) => {
+            if(response.success){
+                n.success(response.success.message);
+                return;
+            }
+            if(!response.error || response.error.message){
+                return;
+            }
+            n.error(response.error.message);
+        });
+    }
+    
+    async function deleteTemplate(){
+        console.log('in delete template');
+        
+        
     }
 };
 

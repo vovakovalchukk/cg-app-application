@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Select from 'Common/Components/Select';
 
 function TemplateEditor(props) {
+
     const formattedTemplateTags = props.listingTemplateTags.map(tag => {
         return {
             ...tag,
