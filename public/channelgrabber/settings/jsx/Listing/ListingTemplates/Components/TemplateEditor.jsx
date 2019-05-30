@@ -1,32 +1,35 @@
 import React, {useState} from "react";
 import Select from 'Common/Components/Select';
 
-const dummyOptions = [
-    {name: 'option1', label: 'option1', value: 'option1', template: '<div>this is option1</div>'},
-    {name: 'option2', label: 'option2', value: 'option2', template: 'this is option 2'},
-    {name: 'option3', label: 'option3', value: 'option3', template: '<h2> this is option 3 </h2>'}
-];
-
 function TemplateEditor(props) {
-    const [textEditorPosition, setTextEditorPosition] = useState(dummyOptions[0]);
-    const [tagSelectValue, setTagSelectValue] = useState(dummyOptions[0]);
+    const formattedTemplateTags = props.listingTemplateTags.map(tag => {
+        return {
+            ...tag,
+            value: tag.tag,
+            name: tag.tag
+        };
+    });
 
+    const [textEditorPosition, setTextEditorPosition] = useState();
+    const [tagSelectValue, setTagSelectValue] = useState(formattedTemplateTags[0]);
+    
     return (<div className={"u-margin-top-med"}>
         <h3>Template Designer</h3>
 
         <div className={"u-margin-top-small u-flex-v-center"}>
             <Select
                 autoSelectFirst={true}
+                filterable={true}
                 title={'choose your tag'}
                 selectedOption={tagSelectValue}
                 onOptionChange={(option) => {
                     setTagSelectValue(option);
                 }
                 }
-                options={dummyOptions}
+                options={formattedTemplateTags}
             />
             <button onClick={() => {
-                props.templateHTML.setTag(tagSelectValue.value, textEditorPosition)
+                props.templateHTML.setTag(tagSelectValue.tag, textEditorPosition)
             }}
                 className={'u-margin-left-small'}
             >

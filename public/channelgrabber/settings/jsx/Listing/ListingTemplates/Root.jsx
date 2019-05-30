@@ -21,18 +21,13 @@ const RootComponent = props => {
 
     const templateHTML = useTemplateHtml('');
 
-    const options = [
-        {name: 'option1', label: 'option1', value: 'option1', template: '<div>this is option1</div>'},
-        {name: 'option2', label: 'option2', value: 'option2', template: 'this is option 2'},
-        {name: 'option3', label: 'option3', value: 'option3', template: '<h2> this is option 3 </h2>'},
-    ];
-
     return (
         <div className={"u-margin-top-xxlarge"}>
             <InitialFormSection>
                 <FieldWrapper label={'Load Template'} className={'u-margin-top-small'}>
                     <Select
-                        options={options}
+                        options={props.templates}
+                        filterable={true}
                         autoSelectFirst={false}
                         title={'choose your template to load'}
                         selectedOption={templateSelectValue}
@@ -40,7 +35,7 @@ const RootComponent = props => {
                             setTemplateSelectValue(option);
                             setTemplateInitialised(true);
                             templateName.setValue(option.name);
-                            templateHTML.setValue(option.template);
+                            templateHTML.setValue(option.html);
                         }}
                     />
                 </FieldWrapper>
@@ -50,7 +45,8 @@ const RootComponent = props => {
                     templateName.setValue(newTemplateName.value);
                     templateHTML.setValue('');
                     setTemplateSelectValue({});
-                }}/>
+                }}
+                />
 
                 {templateInitialised &&
                     <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
@@ -63,7 +59,7 @@ const RootComponent = props => {
 
 
             {templateInitialised &&
-                <TemplateEditor templateHTML={templateHTML}/>
+                <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
             }
 
             {templateInitialised &&
@@ -97,7 +93,7 @@ function useTemplateHtml(initialValue){
         if(!position || !tag){
             return;
         }
-        let newStr = `${value.slice(0, position)} {${tag}} ${value.slice(position)}`;
+        let newStr = `${value.slice(0, position)} {{ ${tag} }} ${value.slice(position)}`;
         setValue(newStr);
     }
 

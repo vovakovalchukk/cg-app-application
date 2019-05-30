@@ -26,7 +26,7 @@ const AddTemplate = function(props) {
 
 AddTemplate.propTypes = {
     newTemplateName: PropTypes.shape({onChange: PropTypes.func, setValue: PropTypes.any, value: PropTypes.string}),
-    onAddClick: PropTypes.func
+    onAddClick: PropTypes.func,
 };
 
 AddTemplate.defaultProps = {
