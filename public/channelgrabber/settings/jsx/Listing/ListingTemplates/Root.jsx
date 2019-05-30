@@ -15,6 +15,12 @@ const InitialFormSection = styled.section`
 let previewWindow = null;
 
 const RootComponent = props => {
+    const formattedTemplates = props.templates.map(template => {
+        return {
+            ...template,
+            value: template.name
+        };
+    });
     const templateName = useFormInput('');
     const newTemplateName = useFormInput('');
 
@@ -28,7 +34,7 @@ const RootComponent = props => {
             <InitialFormSection>
                 <FieldWrapper label={'Load Template'} className={'u-margin-top-small'}>
                     <Select
-                        options={props.templates}
+                        options={formattedTemplates}
                         filterable={true}
                         autoSelectFirst={false}
                         title={'choose your template to load'}
@@ -73,15 +79,31 @@ const RootComponent = props => {
         </div>
     );
 
-    function openPreview(){
+    async function openPreview(){
         if(!templateHTML.value){
             return;
         }
+        let htmlToRender = null;
+        await $.ajax({
+            url: '/settings/listing/preview',
+            type: 'POST',
+            dataType: 'json',
+            data: {html: templateHTML.value}
+        }).then((response) => {
+            if(response.success){
+                htmlToRender = response.success.data.html;
+            }
+        });
+
+        if(!htmlToRender){
+            return;
+        }
+
         if(!previewWindow || previewWindow.closed){
             previewWindow = window.open("", "previewWindow", "width=700,height=700");
         }
         previewWindow.document.open("text/html", "replace");
-        previewWindow.document.write(templateHTML.value);
+        previewWindow.document.write(htmlToRender);
         previewWindow.focus();
     }
 };
