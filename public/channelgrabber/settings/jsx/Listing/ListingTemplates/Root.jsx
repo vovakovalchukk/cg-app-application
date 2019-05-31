@@ -8,7 +8,6 @@ import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
 import TemplateSelect from 'ListingTemplates/Components/TemplateSelect';
 
-
 const InitialFormSection = styled.section`
   max-width: 700px
 `;
@@ -16,12 +15,7 @@ const InitialFormSection = styled.section`
 let previewWindow = null;
 
 const RootComponent = props => {
-    const formattedTemplates = props.templates.map(template => {
-        return {
-            ...template,
-            value: template.name
-        };
-    });
+    const {templates, setTemplates, deleteTemplateInState} = useTemplates(props.templates);
     const templateName = useFormInput('');
     const newTemplateName = useFormInput('');
 
@@ -33,14 +27,14 @@ const RootComponent = props => {
     return (
         <div className={"u-margin-top-xxlarge"}>
             <InitialFormSection>
-                <TemplateSelect options={formattedTemplates} selectedOption={templateSelectValue}
+                <TemplateSelect options={templates} selectedOption={templateSelectValue}
                     onOptionChange={(option) => {
                         setTemplateSelectValue(option);
                         setTemplateInitialised(true);
                         templateName.setValue(option.name);
                         templateHTML.setValue(option.html);
                     }}
-                    deleteTemplate={deleteTemplate}
+                    deleteTemplate={deleteTemplateHandler}
                 />
 
                 <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
@@ -62,7 +56,7 @@ const RootComponent = props => {
 
 
             {templateInitialised &&
-            <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
+              <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
             }
 
             {templateInitialised &&
@@ -79,16 +73,17 @@ const RootComponent = props => {
             return;
         }
         let htmlToRender = null;
-        await $.ajax({
+
+        let response = await $.ajax({
             url: '/settings/listing/preview',
             type: 'POST',
             dataType: 'json',
             data: {html: templateHTML.value}
-        }).then((response) => {
-            if(response.success){
-                htmlToRender = response.success.data.html;
-            }
         });
+
+        if(response.success){
+            htmlToRender = response.success.data.html;
+        }
 
         if(!htmlToRender){
             return;
@@ -108,31 +103,75 @@ const RootComponent = props => {
             id: templateSelectValue && templateSelectValue.id,
             name: templateName.value
         };
-        await $.ajax({
+        let response = await $.ajax({
             url: '/settings/listing/save',
             type: 'POST',
             dataType: 'json',
             data: params
-        }).then((response) => {
-            if(response.success){
-                n.success(response.success.message);
-                return;
-            }
-            if(!response.error || response.error.message){
-                return;
-            }
-            n.error(response.error.message);
         });
+
+        if(response.success){
+            n.success(response.success.message);
+            return;
+        }
+        if(!response.error || response.error.message){
+            return;
+        }
+        n.error(response.error.message);
     }
     
-    async function deleteTemplate(){
-        console.log('in delete template');
-        
-        
+    async function deleteTemplateHandler(){
+        if(!templateSelectValue){
+            return;
+        }
+        let response = await $.ajax({
+            url: '/settings/listing/delete',
+            type: 'POST',
+            dataType: 'json',
+            data: {id: templateSelectValue.id}
+        });
+            
+       if(response.success){
+           n.success(response.success.message);
+           deleteTemplateInState(templateSelectValue);
+           templateName.setValue('');
+           templateHTML.setValue('');
+           return;
+       }
+
+       if(!response.error || response.error.message){
+           return;
+       }
+       n.error(response.error.message);
     }
 };
 
 export default RootComponent;
+
+function useTemplates(initialTemplates){
+    const formattedTemplates = initialTemplates.map(template => {
+        return {
+            ...template,
+            value: template.name
+        };
+    });
+    const [templates, setTemplates] = useState(formattedTemplates);
+
+    function deleteTemplateInState(template){
+        if(!template){
+            return;
+        }
+        let newTemplates = templates.slice();
+        let templateIndex = newTemplates.findIndex(temp => temp === template);
+        newTemplates.splice(templateIndex,1);
+        setTemplates(newTemplates);
+    }
+    return {
+        templates,
+        setTemplates,
+        deleteTemplateInState
+    };
+}
 
 function useFormInput(initialValue) {
     const [value, setValue] = useState(initialValue);
