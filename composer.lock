@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d5ad09085994b4958c1965cce7706ce",
+    "content-hash": "42fb4c3e710286f7108fa120240d1653",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3545,16 +3545,16 @@
         },
         {
             "name": "channelgrabber/usage-check",
-            "version": "dev-CGIV-10629-TrialAccess",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
-                "reference": "95ec925536d04b4d5d92ae82b6bcafe4b52c4260"
+                "reference": "46a99a436de831ce59877644a4f00059c7c0a8f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-dev-CGIV-10629-TrialAccess-326623.zip",
-                "reference": "95ec925536d04b4d5d92ae82b6bcafe4b52c4260"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/usage-check/channelgrabber-usage-check-1.2.4-168ad7.zip",
+                "reference": "46a99a436de831ce59877644a4f00059c7c0a8f5"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.9",
@@ -3580,7 +3580,7 @@
                 }
             },
             "description": "Check usage against limits",
-            "time": "2019-05-30T13:36:36+00:00"
+            "time": "2019-05-31T10:45:44+00:00"
         },
         {
             "name": "channelgrabber/user",
@@ -11263,18 +11263,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.4",
-            "alias_normalized": "1.2.4.0",
-            "version": "dev-CGIV-10629-TrialAccess",
-            "package": "channelgrabber/usage-check"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/usage-check": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
