@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42fb4c3e710286f7108fa120240d1653",
+    "content-hash": "90cdd14798ac59eded7ceebae9d24e59",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -854,16 +854,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "1.12.2",
+            "version": "dev-CGIV-10643-IncorrectInvoiceTotalForOneOff",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "feed260694332e49e4d7234bfa29b750290c025b"
+                "reference": "c741914ab1c8c18bf021525c7fcaa087c1972e94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-1.12.2-5b4e63.zip",
-                "reference": "feed260694332e49e4d7234bfa29b750290c025b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-dev-CGIV-10643-IncorrectInvoiceTotalForOneOff-0f0ad8.zip",
+                "reference": "c741914ab1c8c18bf021525c7fcaa087c1972e94"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.1",
@@ -893,7 +893,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2019-05-17T08:56:50+00:00"
+            "time": "2019-06-03T11:20:32+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -11263,9 +11263,17 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.12.3",
+            "alias_normalized": "1.12.3.0",
+            "version": "dev-CGIV-10643-IncorrectInvoiceTotalForOneOff",
+            "package": "channelgrabber/clearbooks"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
