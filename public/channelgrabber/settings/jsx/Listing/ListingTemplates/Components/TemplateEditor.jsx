@@ -1,8 +1,14 @@
 import React, {useState} from "react";
 import Select from 'Common/Components/Select';
+import styled from 'styled-components';
+
+const TextArea = styled.textarea`
+  width: 600px;
+  min-height: 300px;   
+  resize: both;
+`;
 
 function TemplateEditor(props) {
-
     const formattedTemplateTags = props.listingTemplateTags.map(tag => {
         return {
             ...tag,
@@ -32,14 +38,13 @@ function TemplateEditor(props) {
             <button onClick={() => {
                 props.templateHTML.setTag(tagSelectValue.tag, textEditorPosition)
             }}
-                className={'u-margin-left-small'}
+                className={'button u-margin-left-small'}
             >
                 add tag
             </button>
         </div>
-        <div className={"u-margin-top-small"}>
-            <textarea
-                style={{width: "600px", minHeight: '300px'}}
+        <fieldset className={"u-margin-top-small"}>
+            <TextArea
                 value={props.templateHTML.value}
                 onChange={props.templateHTML.onChange}
                 onBlur={(e) => {
@@ -47,7 +52,7 @@ function TemplateEditor(props) {
                 }
                 }
             />
-        </div>
+        </fieldset>
     </div>);
 }
 

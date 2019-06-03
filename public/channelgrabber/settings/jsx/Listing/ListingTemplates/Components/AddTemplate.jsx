@@ -14,7 +14,7 @@ const AddTemplate = function(props) {
                     />
                     <button title={"Add Template"}
                             onClick={props.onAddClick}
-                            className={'u-margin-left-small'}
+                            className={'button u-margin-left-small'}
                     >
                         new
                     </button>
