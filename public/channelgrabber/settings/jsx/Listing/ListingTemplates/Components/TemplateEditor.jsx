@@ -9,13 +9,7 @@ const TextArea = styled.textarea`
 `;
 
 function TemplateEditor(props) {
-    const formattedTemplateTags = props.listingTemplateTags.map(tag => {
-        return {
-            ...tag,
-            value: tag.tag,
-            name: tag.tag
-        };
-    });
+    const formattedTemplateTags = formatTemplateTags(props.listingTemplateTags);
 
     const [textEditorPosition, setTextEditorPosition] = useState();
     const [tagSelectValue, setTagSelectValue] = useState(formattedTemplateTags[0]);
@@ -61,3 +55,16 @@ TemplateEditor.defaultProps = {
 };
 
 export default TemplateEditor;
+
+function formatTemplateTags(listingTemplateTags){
+    if(!listingTemplateTags || !Array.isArray(listingTemplateTags)){
+        return [];
+    }
+    return listingTemplateTags.map(tag => {
+        return {
+            ...tag,
+            value: tag.tag,
+            name: tag.tag
+        };
+    });
+}

@@ -19,7 +19,7 @@ const RootComponent = props => {
     const templateName = useFormInput('');
     const newTemplateName = useFormInput('');
 
-    const [templateInitialised, setTemplateInitialised] = useState();
+    const [templateInitialised, setTemplateInitialised] = useState(false);
     const [templateSelectValue, setTemplateSelectValue] = useState({});
 
     const templateHTML = useTemplateHtml('');
@@ -114,7 +114,7 @@ const RootComponent = props => {
             n.success(response.success.message);
             return;
         }
-        if (!response.error || response.error.message) {
+        if (!response.error || !response.error.message) {
             return;
         }
         n.error(response.error.message);
@@ -139,7 +139,7 @@ const RootComponent = props => {
             return;
         }
 
-        if (!response.error || response.error.message) {
+        if (!response.error || !response.error.message) {
             return;
         }
         n.error(response.error.message);
@@ -149,6 +149,7 @@ const RootComponent = props => {
 export default RootComponent;
 
 function useTemplates(initialTemplates) {
+    initialTemplates = Array.isArray(initialTemplates) ? initialTemplates : [];
     const formattedTemplates = initialTemplates.map(template => {
         return {
             ...template,
@@ -192,7 +193,7 @@ function useTemplateHtml(initialValue) {
     }
 
     function setTag(tag, position) {
-        if (!position || !tag) {
+        if (position === undefined || !tag) {
             return;
         }
         let newStr = `${value.slice(0, position)} {{${tag}}} ${value.slice(position)}`;
