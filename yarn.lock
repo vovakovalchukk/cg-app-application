@@ -1555,9 +1555,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.31":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-432-create-custom-ebay-template-ui":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#fc18a7dc61cc4f5b59def5ab81d9ce867d1bafb4"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#0ab36131dd29710286c73bea61c68d54b80b5416"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
