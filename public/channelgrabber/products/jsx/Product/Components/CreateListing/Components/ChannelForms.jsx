@@ -38,22 +38,24 @@ class ChannelFormsComponent extends React.Component {
         var channelsData = {};
         for (var categoryTemplateId in categoryTemplates) {
             var categoryTemplate = categoryTemplates[categoryTemplateId];
-            for (var categoryId in categoryTemplate.categories) {
-                var category = categoryTemplate.categories[categoryId];
-                if (!this.isAccountSelected(category.accountId)) {
+
+            for (let accountId in categoryTemplate.accounts){
+                let categoryAccount = categoryTemplate.accounts[accountId]
+
+                if (!this.isAccountSelected(accountId)) {
                     continue;
                 }
-                if (!this.isChannelSpecificFormPresent(category.channel)) {
+                if (!this.isChannelSpecificFormPresent(categoryAccount.channel)) {
                     continue;
                 }
-                channelsData[category.channel] = category;
+                channelsData[categoryAccount.channel] = categoryAccount;
             }
         }
         return channelsData;
     };
 
     isAccountSelected = (accountId) => {
-        return (this.props.accounts.indexOf(accountId) >= 0);
+        return (this.props.accounts.indexOf(parseInt(accountId)) >= 0);
     };
 
     isChannelSpecificFormPresent = (channel) => {

@@ -187,10 +187,20 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('lengthUnit', LocaleLength::getForLocale($locale));
         $view->setVariable('pickLocations', $this->pickListService->getPickListSettings($rootOuId)->getLocationNames());
         $view->setVariable('pickLocationValues', $this->pickListService->getPickListValues($rootOuId));
+        $view->setVariable('listingTemplates', $this->getListingTemplates());
 
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;
+    }
+
+    protected function getListingTemplates()
+    {
+        return array(
+            ["id" => 1, "name" => "template1", "value" => "template1"],
+            ["id" => 2, "name" => "template2", "value" => "template2"],
+            ["id" => 3, "name" => "template3", "value" => "template3"]
+        );
     }
 
     protected function getDetailsSidebar()
