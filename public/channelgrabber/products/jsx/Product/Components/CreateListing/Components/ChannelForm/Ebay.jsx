@@ -2,6 +2,7 @@ import React from 'react';
 import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import CurrencyInput from 'Common/Components/CurrencyInput';
+import Select from 'Common/Components/Select';
 import ShippingService from './Ebay/ShippingService';
 import VariationImagePicker from './Ebay/VariationImagePicker';
 import Validators from '../../Validators';
@@ -66,10 +67,47 @@ class EbayChannelFormComponent extends React.Component {
             variationsDataForProduct={this.props.variationsDataForProduct}
         />
     };
+    findSelectedOption = (value, options) => {
+        var selectedOption = {
+            name: '',
+            value: ''
+        };
+        options.forEach(function(option) {
+            if (option.value == value) {
+                selectedOption = option;
+            }
+        });
+        return selectedOption;
+    };
 
+    renderListingTemplateSelect = (field) =>{
+        return <label className="input-container">
+            <span className={"inputbox-label"}>{field.displayTitle}</span>
+            <div className={"order-inputbox-holder"}>
+                <Select
+                    autoSelectFirst={false}
+                    onOptionChange={(option) => {
+                        field.input.onChange(option.value);
+                    }}
+                    options={field.options}
+                    selectedOption={
+                        this.findSelectedOption(field.input.value, field.options)
+                    }
+                    classNames={'u-width-300px'}
+                />
+            </div>
+        </label>;
+    };
+    
     render() {
+        let options = [
+            {name:'dummy', value:'dummy'},
+            {name:'dummy2', value:'dummy2'}
+        ];
+        
         return (
             <div className="ebay-channel-form-container channel-form-container">
+                <Field name="listingTemplate" component={this.renderListingTemplateSelect} options={options} displayTitle={"Listing Template"}/>
                 {this.renderVariationImagePicker()}
                 <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
                 {/** We have to hide the shipping service and shipping price, as new we will show a per category
