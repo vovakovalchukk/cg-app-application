@@ -28,13 +28,13 @@ const RootComponent = props => {
         <div className={"u-margin-top-xxlarge"}>
             <InitialFormSection>
                 <TemplateSelect options={templates} selectedOption={templateSelectValue}
-                    onOptionChange={(option) => {
-                        setTemplateSelectValue(option);
-                        setTemplateInitialised(true);
-                        templateName.setValue(option.name);
-                        templateHTML.setValue(option.html);
-                    }}
-                    deleteTemplate={deleteTemplateHandler}
+                                onOptionChange={(option) => {
+                                    setTemplateSelectValue(option);
+                                    setTemplateInitialised(true);
+                                    templateName.setValue(option.name);
+                                    templateHTML.setValue(option.html);
+                                }}
+                                deleteTemplate={deleteTemplateHandler}
                 />
 
                 <AddTemplate newTemplateName={newTemplateName} onAddClick={() => {
@@ -56,20 +56,20 @@ const RootComponent = props => {
 
 
             {templateInitialised &&
-              <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
+            <TemplateEditor templateHTML={templateHTML} listingTemplateTags={props.listingTemplateTags}/>
             }
 
             {templateInitialised &&
             <div>
-                <button className={"u-margin-top-med"} onClick={openPreview}>preview</button>
-                <button className={"u-margin-top-med u-margin-left-small"} onClick={save}>save</button>
+                <button className={"u-margin-top-med button"} onClick={openPreview}>preview</button>
+                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>save</button>
             </div>
             }
         </div>
     );
 
-    async function openPreview(){
-        if(!templateHTML.value){
+    async function openPreview() {
+        if (!templateHTML.value) {
             return;
         }
         let htmlToRender = null;
@@ -81,15 +81,15 @@ const RootComponent = props => {
             data: {html: templateHTML.value}
         });
 
-        if(response.success){
+        if (response.success) {
             htmlToRender = response.success.data.html;
         }
 
-        if(!htmlToRender){
+        if (!htmlToRender) {
             return;
         }
 
-        if(!previewWindow || previewWindow.closed){
+        if (!previewWindow || previewWindow.closed) {
             previewWindow = window.open("", "previewWindow", "width=700,height=700");
         }
         previewWindow.document.open("text/html", "replace");
@@ -97,7 +97,7 @@ const RootComponent = props => {
         previewWindow.focus();
     }
 
-    async function save(){
+    async function save() {
         const params = {
             html: templateHTML.value,
             id: templateSelectValue && templateSelectValue.id,
@@ -110,18 +110,18 @@ const RootComponent = props => {
             data: params
         });
 
-        if(response.success){
+        if (response.success) {
             n.success(response.success.message);
             return;
         }
-        if(!response.error || response.error.message){
+        if (!response.error || response.error.message) {
             return;
         }
         n.error(response.error.message);
     }
-    
-    async function deleteTemplateHandler(){
-        if(!templateSelectValue){
+
+    async function deleteTemplateHandler() {
+        if (!templateSelectValue) {
             return;
         }
         let response = await $.ajax({
@@ -130,25 +130,25 @@ const RootComponent = props => {
             dataType: 'json',
             data: {id: templateSelectValue.id}
         });
-            
-       if(response.success){
-           n.success(response.success.message);
-           deleteTemplateInState(templateSelectValue);
-           templateName.setValue('');
-           templateHTML.setValue('');
-           return;
-       }
 
-       if(!response.error || response.error.message){
-           return;
-       }
-       n.error(response.error.message);
+        if (response.success) {
+            n.success(response.success.message);
+            deleteTemplateInState(templateSelectValue);
+            templateName.setValue('');
+            templateHTML.setValue('');
+            return;
+        }
+
+        if (!response.error || response.error.message) {
+            return;
+        }
+        n.error(response.error.message);
     }
 };
 
 export default RootComponent;
 
-function useTemplates(initialTemplates){
+function useTemplates(initialTemplates) {
     const formattedTemplates = initialTemplates.map(template => {
         return {
             ...template,
@@ -157,13 +157,13 @@ function useTemplates(initialTemplates){
     });
     const [templates, setTemplates] = useState(formattedTemplates);
 
-    function deleteTemplateInState(template){
-        if(!template){
+    function deleteTemplateInState(template) {
+        if (!template) {
             return;
         }
         let newTemplates = templates.slice();
         let templateIndex = newTemplates.findIndex(temp => temp === template);
-        newTemplates.splice(templateIndex,1);
+        newTemplates.splice(templateIndex, 1);
         setTemplates(newTemplates);
     }
     return {
@@ -185,17 +185,17 @@ function useFormInput(initialValue) {
     }
 }
 
-function useTemplateHtml(initialValue){
+function useTemplateHtml(initialValue) {
     const [value, setValue] = useState(initialValue);
-    function onChange(e){
+    function onChange(e) {
         setValue(e.target.value);
     }
 
-    function setTag(tag, position){
-        if(!position || !tag){
+    function setTag(tag, position) {
+        if (!position || !tag) {
             return;
         }
-        let newStr = `${value.slice(0, position)} {{ ${tag} }} ${value.slice(position)}`;
+        let newStr = `${value.slice(0, position)} {{${tag}}} ${value.slice(position)}`;
         setValue(newStr);
     }
 
