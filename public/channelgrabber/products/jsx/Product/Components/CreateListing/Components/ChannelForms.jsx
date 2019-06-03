@@ -9,7 +9,7 @@ const channelFormMap = {
     'amazon': AmazonForm
 };
 
-let productContextProps = {};
+let productContextProps = null;
 
 class ChannelFormsComponent extends React.Component {
     static defaultProps = {
@@ -77,7 +77,7 @@ class ChannelFormsComponent extends React.Component {
 
     render() {
         return (
-            <ProductContext.Consumer >
+            <ProductContext.Consumer>
                 {this.renderInContext}
             </ProductContext.Consumer>
         );

@@ -67,16 +67,17 @@ class EbayChannelFormComponent extends React.Component {
             variationsDataForProduct={this.props.variationsDataForProduct}
         />
     };
-    findSelectedOption = (value, options) => {
+    findSelectedOption = (id, options) => {
         var selectedOption = {
             name: '',
             value: ''
         };
         options.forEach(function(option) {
-            if (option.value == value) {
+            if (option.id == id) {
                 selectedOption = option;
             }
         });
+
         return selectedOption;
     };
 
@@ -87,7 +88,7 @@ class EbayChannelFormComponent extends React.Component {
                 <Select
                     autoSelectFirst={false}
                     onOptionChange={(option) => {
-                        field.input.onChange(option.value);
+                        field.input.onChange(option.id);
                     }}
                     options={field.options}
                     selectedOption={

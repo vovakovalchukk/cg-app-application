@@ -60,6 +60,7 @@ import ResponseActions from './ResponseActions';
                 channel: channelName
             }));
         }
+
         return details;
     };
 
