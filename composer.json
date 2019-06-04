@@ -29,7 +29,7 @@
         "channelgrabber/channel": "~1.42.19",
         "channelgrabber/cilex": "~1.2.2",
         "channelgrabber/classic": "~1.0.0",
-        "channelgrabber/clearbooks": "dev-CGIV-10643-IncorrectInvoiceTotalForOneOff as 1.12.3",
+        "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.0.11",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/courier": "~1.1.17",

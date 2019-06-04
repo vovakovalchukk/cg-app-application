@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "816069bc967710e2f7e9ade27fb84a61",
+    "content-hash": "06a0887f93a6756cf3e93d63a96caa25",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -864,16 +864,16 @@
         },
         {
             "name": "channelgrabber/clearbooks",
-            "version": "dev-CGIV-10643-IncorrectInvoiceTotalForOneOff",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-clearbooks.git",
-                "reference": "c741914ab1c8c18bf021525c7fcaa087c1972e94"
+                "reference": "a87433556ac33ecb84e9ae81177ea6136787f58a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-dev-CGIV-10643-IncorrectInvoiceTotalForOneOff-0f0ad8.zip",
-                "reference": "c741914ab1c8c18bf021525c7fcaa087c1972e94",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/clearbooks/channelgrabber-clearbooks-1.12.3-0619cb.zip",
+                "reference": "a87433556ac33ecb84e9ae81177ea6136787f58a",
                 "shasum": null
             },
             "require": {
@@ -904,7 +904,7 @@
                     "CG\\Clearbooks\\Test\\": "tests"
                 }
             },
-            "time": "2019-06-03T11:20:32+00:00"
+            "time": "2019-06-04T14:28:20+00:00"
         },
         {
             "name": "channelgrabber/communication",
@@ -11375,17 +11375,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.12.3",
-            "alias_normalized": "1.12.3.0",
-            "version": "dev-CGIV-10643-IncorrectInvoiceTotalForOneOff",
-            "package": "channelgrabber/clearbooks"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/clearbooks": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
