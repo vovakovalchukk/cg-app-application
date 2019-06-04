@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90cdd14798ac59eded7ceebae9d24e59",
+    "content-hash": "eba77e1607b1d7e36df15f5a562b973d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -358,7 +358,7 @@
                 "channelgrabber/email": "^1.0.9",
                 "channelgrabber/exchangerate": "^1.1.1",
                 "channelgrabber/gearman": "^1.5.0",
-                "channelgrabber/http": ">=1.3.0,<2.0.0",
+                "channelgrabber/http": ">=1.3.0,2.0.0",
                 "channelgrabber/image": "^1.2.2",
                 "channelgrabber/listing": "^1.18.4",
                 "channelgrabber/locale": "^1.1.3",
@@ -490,16 +490,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.9",
+            "version": "1.20.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "0090545bbacc8de2b7923fc1bdbdbfefe037d0b3"
+                "reference": "cf474066e9ba4cd853ffbfac5b026c35a0b9067f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.9-64ee9b.zip",
-                "reference": "0090545bbacc8de2b7923fc1bdbdbfefe037d0b3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.11-ac4cd3.zip",
+                "reference": "cf474066e9ba4cd853ffbfac5b026c35a0b9067f"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -547,7 +547,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-03-20T13:06:33+00:00"
+            "time": "2019-06-03T12:49:54+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -9983,7 +9983,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
