@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29d5493147262c0b10c37e3724b095f0",
+    "content-hash": "2d9b49a2ad3d50ed7abc292d19d82b89",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -4983,16 +4983,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-10656-fix-load-more-orders",
+            "version": "1.26.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "95ed51806140106f29b84b7f38edd405b1951133"
+                "reference": "0574d3231dd5b48a5af0d51ee61e4bae91d7a3fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-CGIV-10656-fix-load-more-orders-0c4822.zip",
-                "reference": "95ed51806140106f29b84b7f38edd405b1951133",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.16-967407.zip",
+                "reference": "0574d3231dd5b48a5af0d51ee61e4bae91d7a3fb",
                 "shasum": null
             },
             "require": {
@@ -5044,7 +5044,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-06-05T12:59:36+00:00"
+            "time": "2019-06-05T14:23:52+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11375,18 +11375,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.26.16",
-            "alias_normalized": "1.26.16.0",
-            "version": "dev-CGIV-10656-fix-load-more-orders",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
