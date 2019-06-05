@@ -7,7 +7,8 @@ define([
     'InvoiceDesigner/Template/Inspector/Font',
     'InvoiceDesigner/Template/Inspector/Border',
     'InvoiceDesigner/Template/Inspector/OrderTableOptions',
-    'InvoiceDesigner/Template/Inspector/Barcode'
+    'InvoiceDesigner/Template/Inspector/Barcode',
+    'InvoiceDesigner/Template/Inspector/LinkedProducts'
 ], function(
     Collection,
     // Inspector variables here
@@ -17,7 +18,8 @@ define([
     font,
     border,
     orderTableOptions,
-    barcode
+    barcode,
+    linkedProducts
 ) {
     var Service = function()
     {
@@ -55,7 +57,8 @@ define([
             font,
             border,
             orderTableOptions,
-            barcode
+            barcode,
+            linkedProducts
         ];
 
         for (var key in inspectorsToAdd) {
@@ -66,6 +69,9 @@ define([
 
     Service.prototype.initInspector = function(template, inspector)
     {
+//        if(inspector.getId()==='linkedProducts'){
+//            debugger;
+//        }
         if (!inspector.hasMethods(Service.REQUIRED_INSPECTOR_METHODS)) {
             throw 'InvalidArgumentException: InvoiceDesigner\\Template\\Inspector\\Service::init() encountered an invalid inspector';
         }
@@ -86,6 +92,7 @@ define([
     Service.prototype.showForElement = function(element)
     {
         this.hideAll();
+        // this is where we see the inspectors
         var inspectors = this.getForElement(element);
         heading.showForElement(element, this.getTemplate(), this);
         inspectors.each(function(inspector)

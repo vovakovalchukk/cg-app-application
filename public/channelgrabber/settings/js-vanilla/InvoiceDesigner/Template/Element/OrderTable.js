@@ -6,7 +6,8 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         var minHeight = 200; // px
 
         var additionalData = {
-            showVat: false
+            showVat: false,
+            linkedProductsDisplay: null
         };
 
         ElementAbstract.call(this, additionalData);
