@@ -1555,9 +1555,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10583-amazon-listings-frontend-work-to-display-bullet-points-and-search-terms":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.32":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#0a9cfdad891405b0a8d536d901492c30ed08cdc0"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#e307c43dc65ba9350caeddc764af46dee7b7ca7b"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"

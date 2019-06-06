@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10583-amazon-listings-frontend-work-to-display-bullet-points-and-search-terms",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.32",
     "chart.js": "^2.7.0",
     "create-react-class": "^15.6.3",
     "css-toggle-switch": "^4.1.0",
