@@ -1,3 +1,3 @@
 <div class="center">
-    <input class="tag" type="checkbox" data-url="{{tag_url}}" data-datatable="{{datatable}}" data-tag="{{column}}" data-orders="[&quot;{{id}}&quot;]"{{#hasTag}}{{column}}{{/hasTag}}>
+    <input class="tag" type="checkbox" data-url="{{tag_url}}" data-datatable="{{datatable}}" data-tag="{{#decode}}{{column}}{{/decode}}" data-orders="[&quot;{{id}}&quot;]"{{#hasTag}}{{#decode}}{{column}}{{/decode}}{{/hasTag}}>
 </div>
