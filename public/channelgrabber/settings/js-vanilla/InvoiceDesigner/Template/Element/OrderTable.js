@@ -19,6 +19,18 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             .setMaxWidth(elementWidth)
             .setMinHeight(minHeight);
 
+
+        this.getLinkedProductsDisplay = function()
+        {
+            return this.get('linkedProductsDisplay');
+        };
+
+        this.setLinkedProductsDisplay = function(newLinkedProductsDisplay)
+        {
+            this.set('linkedProductsDisplay', newLinkedProductsDisplay);
+            return this;
+        };
+
         this.getShowVat = function()
         {
             return this.get('showVat');
