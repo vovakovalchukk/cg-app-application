@@ -20,7 +20,7 @@
     },
     "require": {
         "alcaeus/mongo-php-adapter": "~1.0.6",
-        "channelgrabber/amazon": "dev-MIG-7-amazon-bulletpoints-searchterms as 1.28.20",
+        "channelgrabber/amazon": "~1.28.20",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.4.1",
         "channelgrabber/billing": "~1.20.11",
