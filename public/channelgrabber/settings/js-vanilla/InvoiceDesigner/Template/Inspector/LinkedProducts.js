@@ -9,7 +9,7 @@ define([
 ) {
     var LinkedProducts = function() {
         InspectorAbstract.call(this);
-        
+
         this.setId('linkedProducts');
         this.setInspectedAttributes(['linkedProductsDisplay']);
     };
@@ -17,18 +17,18 @@ define([
     LinkedProducts.LINKED_PRODUCTS_INSPECTOR_SELECTOR = '#linkedProducts-inspector';
     LinkedProducts.LINKED_PRODUCTS_INSPECTOR_DELETE_ID = 'linked-products-delete-button';
     LinkedProducts.LINKED_PRODUCTS_DISPLAY_SETTING_SELECT_ID = 'linked-products-display-setting-select';
-    
+
     LinkedProducts.prototype = Object.create(InspectorAbstract.prototype);
 
     LinkedProducts.prototype.hide = function() {
         this.getDomManipulator().render(LinkedProducts.LINKED_PRODUCTS_INSPECTOR_SELECTOR, "");
     };
 
-    LinkedProducts.prototype.getLinkedProductsDisplaySettingSelect = function(){
+    LinkedProducts.prototype.getLinkedProductsDisplaySettingSelect = function() {
         return LinkedProducts.LINKED_PRODUCTS_DISPLAY_SETTING_SELECT_ID;
     };
 
-    LinkedProducts.prototype.showForElement = async function(element, template, service) {
+    LinkedProducts.prototype.showForElement = function(element, template, service) {
         let self = this;
         const templateUrlMap = {
             linkedProducts: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/linkedProducts.mustache',
@@ -36,14 +36,14 @@ define([
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
 
-        await CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
+        CGMustache.get().fetchTemplates(templateUrlMap, (templates, cgmustache) => {
             const displaySelect = cgmustache.renderTemplate(templates,
-                self.getSelectFields(),
+                self.getSelectFields(element),
                 "select"
             );
             const linkedProducts = cgmustache.renderTemplate(templates,
                 {'type': element.getType()},
-                "linkedProducts", { 'displaySelect': displaySelect}
+                "linkedProducts", {'displaySelect': displaySelect}
             );
             const collapsibleInspector = cgmustache.renderTemplate(templates, {
                 'display': true,
@@ -52,17 +52,18 @@ define([
             }, "collapsible", {'content': linkedProducts});
 
             self.getDomManipulator().render(LinkedProducts.LINKED_PRODUCTS_INSPECTOR_SELECTOR, collapsibleInspector);
+            linkedProductsDomListener.init(self, template, element, service);
         });
-
-        linkedProductsDomListener.init(self, template, element, service);
     };
 
-    LinkedProducts.prototype.getSelectFields = function() {
-        const options = [
-            {title: 'dummy', value: 'dummy'},
-            {title: 'dummy2', value: 'dummy2'}
+    LinkedProducts.prototype.getSelectFields = function(element) {
+        let options = [
+            {title: 'Purchased Sku', value: 'Purchased Sku', id: 'Purchased Sku'},
+            {title: 'Components Only', value: 'Components Only', id: 'Components Only'},
+            {title: 'Purchased SKU + Components', value: 'Purchased SKU + Components', id: 'Purchased SKU + Components'}
         ];
-
+        const savedOptionIndex = options.findIndex(option => option.value === element.getLinkedProductsDisplay());
+        options[savedOptionIndex].selected = true;
         return {
             initialTitle: 'Display Setting',
             id: LinkedProducts.LINKED_PRODUCTS_DISPLAY_SETTING_SELECT_ID,
@@ -77,6 +78,10 @@ define([
 
     LinkedProducts.prototype.getHeadingInspectorDeleteId = function() {
         return LinkedProducts.LINKED_PRODUCTS_INSPECTOR_DELETE_ID;
+    };
+
+    LinkedProducts.prototype.setLinkedProductsDisplay = function(element, optionId) {
+        element.setLinkedProductsDisplay(optionId);
     };
 
     return new LinkedProducts();

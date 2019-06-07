@@ -4,26 +4,14 @@ define([
     $
 ) {
 
-    var LinkedProducts = function()
-    {
+    var LinkedProducts = function() {
     };
 
-    LinkedProducts.prototype.init = function(inspector, template, element, service)
-    {
-//        debugger;
-        console.log('inspector: ', inspector);
+    LinkedProducts.prototype.init = function(inspector, template, element, service) {
         let selectId = inspector.getLinkedProductsDisplaySettingSelect();
-        let selectElement = $('#' + selectId);
-        selectElement.off('change').on('change', function(event, selectBox, optionId) {
-            console.log('event in change: ', event);
-            debugger;
-
-            // ID is the desired value
-            element.setLinkedProductsDisplay(optionId);
+        $('#' + selectId).off('change').on('change', function(event, selectBox, optionId) {
+            inspector.setLinkedProductsDisplay(element, optionId);
         });
-
-
-
     };
 
     return new LinkedProducts();

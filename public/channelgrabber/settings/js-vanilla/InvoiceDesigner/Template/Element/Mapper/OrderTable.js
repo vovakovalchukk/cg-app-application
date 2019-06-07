@@ -5,21 +5,18 @@ define([
     MapperAbstract,
     OrderTableElement
 ) {
-    var OrderTable = function()
-    {
+    var OrderTable = function() {
         MapperAbstract.call(this);
 
         var optionalAttribs = ['x', 'y'];
-        this.getOptionalAttribs = function()
-        {
+        this.getOptionalAttribs = function() {
             return optionalAttribs;
         };
     };
 
     OrderTable.prototype = Object.create(MapperAbstract.prototype);
 
-    OrderTable.prototype.getHtmlContents = function(element)
-    {
+    OrderTable.prototype.getHtmlContents = function(element) {
         var tableStyles = [];
         var tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
         tableStyles = this.addOptionalDomStyles(element, tableAttributes, tableStyles);
@@ -28,7 +25,7 @@ define([
         }
         var cssStyle = tableStyles.join('; ');
 
-        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'orderTable.mustache';
+        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH + 'orderTable.mustache';
         var data = {
             tableStyles: cssStyle,
             tableHeaderStyles: cssStyle,
@@ -38,8 +35,7 @@ define([
         return html;
     };
 
-    OrderTable.prototype.createElement = function()
-    {
+    OrderTable.prototype.createElement = function() {
         return new OrderTableElement();
     };
 
