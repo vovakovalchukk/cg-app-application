@@ -178,6 +178,7 @@ class RootComponent extends React.Component {
         return <CreateListingPopupRoot
             {...this.state.createListingData}
             conditionOptions={this.formatConditionOptions()}
+            categoryTemplateOptions={this.props.categoryTemplateOptions}
             variationsDataForProduct={variationData}
             accountsData={this.state.accounts}
             defaultCurrency={this.props.defaultCurrency}
