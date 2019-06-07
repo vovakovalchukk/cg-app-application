@@ -3,7 +3,6 @@ define([
 ], function(
     $
 ) {
-
     var LinkedProducts = function() {
     };
 
