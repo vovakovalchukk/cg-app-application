@@ -15,14 +15,14 @@ const InitialFormSection = styled.section`
 let previewWindow = null;
 
 const RootComponent = props => {
-    const {templates, setTemplates, deleteTemplateInState} = useTemplates(props.templates);
-    const templateName = useFormInput('');
-    const newTemplateName = useFormInput('');
+    const {templates, setTemplates, deleteTemplateInState} = useTemplatesState(props.templates);
+    const templateName = useFormInputState('');
+    const newTemplateName = useFormInputState('');
 
     const [templateInitialised, setTemplateInitialised] = useState(false);
     const [templateSelectValue, setTemplateSelectValue] = useState({});
 
-    const templateHTML = useTemplateHtml('');
+    const templateHTML = useTemplateHtmlState('');
 
     return (
         <div className={"u-margin-top-xxlarge"}>
@@ -148,7 +148,7 @@ const RootComponent = props => {
 
 export default RootComponent;
 
-function useTemplates(initialTemplates) {
+function useTemplatesState(initialTemplates) {
     initialTemplates = Array.isArray(initialTemplates) ? initialTemplates : [];
     const formattedTemplates = initialTemplates.map(template => {
         return {
@@ -174,7 +174,7 @@ function useTemplates(initialTemplates) {
     };
 }
 
-function useFormInput(initialValue) {
+function useFormInputState(initialValue) {
     const [value, setValue] = useState(initialValue);
     function onChange(e) {
         setValue(e.target.value);
@@ -186,7 +186,7 @@ function useFormInput(initialValue) {
     }
 }
 
-function useTemplateHtml(initialValue) {
+function useTemplateHtmlState(initialValue) {
     const [value, setValue] = useState(initialValue);
     function onChange(e) {
         setValue(e.target.value);
