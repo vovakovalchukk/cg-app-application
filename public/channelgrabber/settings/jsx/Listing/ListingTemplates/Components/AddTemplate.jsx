@@ -1,13 +1,13 @@
 import React from 'react';
 import Input from 'Common/Components/Input';
-import FieldWrapper from 'Common/Components/FieldWrapper';
+import FieldWithLabel from 'Common/Components/FieldWithLabel';
 import * as PropTypes from "prop-types";
 
 const AddTemplate = function(props) {
     return (
        <fieldset className={"u-margin-top-small"}>
             <span>
-                <FieldWrapper label={"Add Template"}>
+                <FieldWithLabel label={"Add Template"}>
                     <Input
                         {...props.newTemplateName}
                         classNames={'u-inline-block'}
@@ -18,7 +18,7 @@ const AddTemplate = function(props) {
                     >
                         new
                     </button>
-                </FieldWrapper>
+                </FieldWithLabel>
             </span>
        </fieldset>
     );

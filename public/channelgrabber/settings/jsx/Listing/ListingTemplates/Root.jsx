@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 
 import Input from 'Common/Components/Input';
-import FieldWrapper from 'Common/Components/FieldWrapper';
+import FieldWithLabel from 'Common/Components/FieldWithLabel';
 
 import AddTemplate from 'ListingTemplates/Components/AddTemplate';
 import TemplateEditor from 'ListingTemplates/Components/TemplateEditor';
@@ -46,11 +46,11 @@ const RootComponent = props => {
                 />
 
                 {templateInitialised &&
-                <FieldWrapper label={'Template Name'} className={'u-margin-top-small'}>
+                <FieldWithLabel label={'Template Name'} className={'u-margin-top-small'}>
                     <Input
                         {...templateName}
                     />
-                </FieldWrapper>
+                </FieldWithLabel>
                 }
             </InitialFormSection>
 
