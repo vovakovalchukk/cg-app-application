@@ -63,7 +63,9 @@ define([
             {title: 'Purchased SKU + Components', value: 'Purchased SKU + Components', id: 'Purchased SKU + Components'}
         ];
         const savedOptionIndex = options.findIndex(option => option.value === element.getLinkedProductsDisplay());
-        options[savedOptionIndex].selected = true;
+        if (savedOptionIndex >= 0) {
+            options[savedOptionIndex].selected = true;
+        }
         return {
             initialTitle: 'Display Setting',
             id: LinkedProducts.LINKED_PRODUCTS_DISPLAY_SETTING_SELECT_ID,
