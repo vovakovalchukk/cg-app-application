@@ -69,6 +69,12 @@ class SpecificsAjax
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment', 'deliveryExperience'];
 
+    protected $parcelFieldsDefaults = [
+        'width' => 0,
+        'height' => 0,
+        'length' => 0
+    ];
+
     public function __construct(
         OrderService $orderService,
         AccountService $accountService,
@@ -406,7 +412,7 @@ class SpecificsAjax
             $parcelData['itemImageText'] = 'Package ' . $parcel;
             $parcelData['requiredFields'] = $this->getFieldsRequirementStatus($options, $carrierOptions);
             foreach ($options as $option) {
-                $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
+                $parcelData[$option] = $this->getParcelOptionData($option, $orderData);
             }
 
             if ($parcelsInputData && $parcelsInputData->getParcels()->containsId($parcel)) {
@@ -417,6 +423,15 @@ class SpecificsAjax
             $parcelsData[] = $parcelData;
         }
         return $parcelsData;
+    }
+
+    protected function getParcelOptionData(string $option, array $orderData)
+    {
+        if ($value = $orderData[$option] ?? null) {
+            return $value;
+        }
+
+        return isset($this->parcelFieldsDefaults[$option]) ? $this->parcelFieldsDefaults[$option] : '';
     }
 
     protected function performSumsOnSpecificsListData(array $data, array $options)
