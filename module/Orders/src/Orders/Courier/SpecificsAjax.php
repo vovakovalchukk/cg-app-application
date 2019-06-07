@@ -322,7 +322,11 @@ class SpecificsAjax
         }
 
         if (!($productDetail instanceof ProductDetail)) {
-            return $data;
+            return array_merge($data, [
+                'width' => 0,
+                'height' => 0,
+                'length' => 0
+            ]);
         }
 
         $locale = $this->userOuService->getActiveUserContainer()->getLocale();
