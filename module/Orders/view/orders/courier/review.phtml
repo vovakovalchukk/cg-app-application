@@ -11,9 +11,32 @@ $(document).ready(function()
 
     var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds, templateMap);
 
+
+
+
+
     require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
     {
         var service = new Service($('#datatable'));
+
+
+
+        //todo - move this somewhere better
+        const selectElement = document.querySelector('.bulk-select');
+        selectElement.addEventListener('change', (event) => {
+            console.log('in bulk onchange', event.target.value);
+            //todo - trigger the selection of things from here
+
+            service.bulkChangeAllOrderCouriers();
+            
+
+            
+
+
+
+        });
+
+
     });
 });
 </script>
@@ -27,6 +50,15 @@ $(document).ready(function()
             <?= $this->continueButton; ?>
         </div>
     </span>
+
+    <div>
+        above form
+        <select class="bulk-select">
+            <option value="something">something</option>
+            <option value="something-else">something else</option>
+        </select>
+    </div>
+
     <form id="continue-form" method="POST" action="<?=$this->specificsUrl;?>">
         <div id="datatable-container">
             <?= $this->reviewTable; ?>

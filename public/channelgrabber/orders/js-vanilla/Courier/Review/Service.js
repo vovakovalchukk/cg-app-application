@@ -37,6 +37,36 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     Service.SELECTOR_ORDER_ROWS = '#datatable tbody tr';
     Service.SELECTOR_ORDER_FORM = '#continue-form';
 
+    //todo - remove the duplication here and eventHandler
+    Service.SELECTOR_COURIER_SELECT = '.courier-courier-custom-select';
+
+    Service.prototype.bulkChangeAllOrderCouriers = function()
+    {
+        console.log('in bulkChangeAllOrderCourier');
+        console.log('$( Service.SELECTOR_COURIER_SELECT): ', $( Service.SELECTOR_COURIER_SELECT));
+
+
+        $( Service.SELECTOR_COURIER_SELECT).each(function(index, value){
+//
+            console.log('in each', {index, value});
+
+            if(!value.hasAttribute('data-element-name')){
+                return;
+            }
+            console.log('conintuing on....');
+
+
+
+            $( Service.SELECTOR_COURIER_SELECT)
+                .trigger('change', [value, "10"]);
+        });
+
+
+
+//
+    };
+
+
     Service.prototype.courierChanged = function(orderId, courierId)
     {
         this.getShippingServices().loadServicesSelectForOrder(orderId, courierId);
