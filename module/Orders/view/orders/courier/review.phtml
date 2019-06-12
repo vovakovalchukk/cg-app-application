@@ -1,65 +1,108 @@
 <?php /* The following scripts can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/DataTableAbstract.js"></script>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/DataTable.js"></script>
+<script type="text/javascript" src="<?= Orders\Module::PUBLIC_FOLDER; ?>js/Courier/DataTableAbstract.js"></script>
+<script type="text/javascript" src="<?= Orders\Module::PUBLIC_FOLDER; ?>js/Courier/Review/DataTable.js"></script>
+<?php $this->headLink()->appendStylesheet($this->basePath() . '/cg-built/vendor/cg-common/dist/css/default.css',
+    ['screen', 'print']) ?>
+
 <script type="text/javascript">
-$(document).ready(function()
-{
-    var orderIds = <?=json_encode($this->orderIds);?>;
-    var templateMap = {
-        "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
-    };
-
-    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds, templateMap);
-
-
-
-
-
-    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
-    {
-        var service = new Service($('#datatable'));
-
-
-
-        //todo - move this somewhere better
-        const selectElement = document.querySelector('.bulk-select');
-        selectElement.addEventListener('change', (event) => {
-            console.log('in bulk onchange', event.target.value);
-            //todo - trigger the selection of things from here
-
-            service.bulkChangeAllOrderCouriers();
-            
-
-            
-
-
-
-        });
-
-
+    require.config({
+        paths: {
+            'Courier': '<?=Orders\Module::PUBLIC_FOLDER;?>jsx/Courier'
+        }
     });
-});
+
+    $(document).ready(function reviewDocumentReady() {
+        var orderIds = <?=json_encode($this->orderIds);?>;
+        var templateMap = {
+            "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
+        };
+        var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds, templateMap);
+
+        require([
+            'react',
+            'react-dom',
+            '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js',
+            '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/CourierReview.js'
+        ], function(
+            React,
+            ReactDom,
+            Service,
+            CourierReviewRoot
+        ) {
+            const ajaxRoute = '<?=$this->reviewAjaxRoute?>';
+            const service = new Service($('#datatable'));
+
+            $(document).on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
+                debugger;
+                if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
+                    return;
+                }
+
+                let records = xhr.responseJSON.Records;
+                if (!records) {
+                    return;
+                }
+
+                let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
+
+
+
+            });
+            const mountNode = document.getElementById('courierReviewMount');
+            new CourierReviewRoot({
+                CourierReviewService: service,
+                orderIds,
+                mountNode
+            });
+
+            function getAllPossibleCourierOptions() {
+                let allPossibleCourierOptions = [];
+                for (let record of data) {
+                    if (!record.courierOptions || !record.courierOptions.options) {
+                        continue;
+                    }
+                    let courierOptions = record.courierOptions.options;
+                    allPossibleCourierOptions = attachUniqueCourierOptions(allPossibleCourierOptions, courierOptions);
+                }
+                return allPossibleCourierOptions;
+            }
+
+            function attachUniqueCourierOptions(allPossibleCourierOptions, courierOptions) {
+                for (let option of courierOptions) {
+                    if (allPossibleCourierOptions.findIndex(option) < 0) {
+                        continue;
+                    }
+                    allPossibleCourierOptions.push(option);
+                }
+                return allPossibleCourierOptions;
+            }
+
+            //todo - move this somewhere better
+//        const selectElement = document.querySelector('.bulk-select');
+//        selectElement.addEventListener('change', (event) => {
+//            console.log('in bulk onchange', event.target.value);
+//            //todo - trigger the selection of things from here
+//            service.bulkChangeAllOrderCouriers();
+//        });
+        });
+    });
 </script>
 <div id="main" class="no-sidebar courier-review">
     <span class="heading-large">
-        <?= $this->translate('Review Orders') ?>
+        <span><?= $this->translate('Review Orders') ?></span>
+
         <div class="heading-buttons">
             <div class="backorders_btn button-holder">
-                <a href="<?= $this->goBackUrl ?>" class="button"><?=$this->translate('Back To Orders');?></a>
+                <a href="<?= $this->goBackUrl ?>" class="button"><?= $this->translate('Back To Orders'); ?></a>
             </div>
+
             <?= $this->continueButton; ?>
         </div>
+
+        <span id="courierReviewMount"></span>
     </span>
 
-    <div>
-        above form
-        <select class="bulk-select">
-            <option value="something">something</option>
-            <option value="something-else">something else</option>
-        </select>
-    </div>
-
-    <form id="continue-form" method="POST" action="<?=$this->specificsUrl;?>">
+    <form id="continue-form" method="POST" action="<?= $this->specificsUrl; ?>">
         <div id="datatable-container">
             <?= $this->reviewTable; ?>
         </div>
@@ -67,9 +110,9 @@ $(document).ready(function()
 </div>
 
 <style>
-<?php /* This is a hack to hide the sidebar away for now */ ?>
-#main-wrapper {
-    margin-left:0px;
-    width:100%;
-}
+    <?php /* This is a hack to hide the sidebar away for now */ ?>
+    #main-wrapper {
+        margin-left: 0px;
+        width: 100%;
+    }
 </style>
