@@ -11,6 +11,7 @@ export default function createCourierReviewRoot({
     }) {
     ReactDOM.render(
         <Root
+            CourierReviewService={CourierReviewService}
             courierAjaxRoute={courierAjaxRoute}
             servicesAjaxRoute={servicesAjaxRoute}
         />,

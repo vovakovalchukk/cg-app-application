@@ -40,17 +40,12 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     //todo - remove the duplication here and eventHandler
     Service.SELECTOR_COURIER_SELECT = 'div.courier-courier-custom-select';
 
-    Service.prototype.bulkChangeAllOrderCouriers = function()
+    Service.prototype.bulkChangeAllOrderCouriers = function(valueOfOptionToChangeTo)
     {
-        console.log('in bulkChangeAllOrderCourier');
-        console.log('bulkChangeAll... $( Service.SELECTOR_COURIER_SELECT): ', $( Service.SELECTOR_COURIER_SELECT));
-        $( Service.SELECTOR_COURIER_SELECT).each(function(index, value){
-            console.log('in each', {index, value});
-//            if(!value.hasAttribute('data-element-name')){
-//                return;
-//            }
-
-            $(value).find('li[data-value=10]').click();
+        $( Service.SELECTOR_COURIER_SELECT).each(function(index, selectElement){
+            let selectOption = $(selectElement).find(`li[data-value=${valueOfOptionToChangeTo}]`);
+            selectOption.click();
+            selectElement.classList.remove('active');
         });
     };
 
@@ -58,13 +53,13 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     Service.prototype.courierChanged = function(orderId, courierId)
     {   
         console.log('courier change start...');
-        
-        
+
+
         this.getShippingServices().loadServicesSelectForOrder(orderId, courierId);
         this.getDataTable().cgDataTable('adjustTable');
         console.log('courier change end...');
-        
-        
+
+
         return this;
     };
 

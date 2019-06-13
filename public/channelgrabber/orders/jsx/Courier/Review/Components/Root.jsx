@@ -26,32 +26,12 @@ const Root = props => {
     };
 
     $(document).on('ajaxComplete', function getDataFromAjax(event, xhr, settings) {
-        console.log('in ajaxComplete ', settings.url);
         let url = settings.url.toLowerCase();
-        debugger;
-        if( url !== courierAjaxRoute && url !== servicesAjaxRoute){
+        if (url !== courierAjaxRoute && url !== servicesAjaxRoute) {
             return;
         }
-
-        ajaxRouteCallbackMap[url](event,xhr,settings);
+        ajaxRouteCallbackMap[url](event, xhr, settings);
     });
-
-    function courierAjaxCallback(event, xhr, settings){
-        console.log('in courierAjaxCallback');
-        let records = xhr.responseJSON.Records;
-        if (!records) {
-            return;
-        }
-        let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
-        allPossibleCourierOptions.map(option => option.name = option.title);
-        courierState.setOptions(allPossibleCourierOptions);
-    }
-
-    function serviceAjaxCallback(event, xhr, settings){
-        console.log('in serviceAjaxCallback');
-        debugger;
-        
-    }
 
     return (
         <BulkActions>
@@ -61,6 +41,7 @@ const Root = props => {
                     <StyledSelect
                         filterable={true}
                         options={courierState.options}
+                        onOptionChange={onCourierOptionChange}
                     />
                 </div>
 
@@ -94,6 +75,26 @@ const Root = props => {
             setOptions
         };
     }
+
+    function courierAjaxCallback(event, xhr, settings) {
+        console.log('in courierAjaxCallback');
+        let records = xhr.responseJSON.Records;
+        if (!records) {
+            return;
+        }
+        let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
+        allPossibleCourierOptions.map(option => option.name = option.title);
+        courierState.setOptions(allPossibleCourierOptions);
+    }
+
+    function serviceAjaxCallback(event, xhr, settings) {
+        console.log('in serviceAjaxCallback');
+        debugger;
+    }
+
+    function onCourierOptionChange(option) {
+        props.CourierReviewService.bulkChangeAllOrderCouriers(option.value);
+    }
 };
 
 export default Root;
@@ -113,12 +114,12 @@ function getAllPossibleCourierOptions(records) {
 function attachUniqueCourierOptions(allPossibleCourierOptions, courierOptions) {
     for (let option of courierOptions) {
         let foundOptionIndex = allPossibleCourierOptions.findIndex(alreadySavedOption => {
-            if(option.value === alreadySavedOption.value){
+            if (option.value === alreadySavedOption.value) {
                 return true;
             }
         });
 
-        if(foundOptionIndex >= 0){
+        if (foundOptionIndex >= 0) {
             continue;
         }
 
