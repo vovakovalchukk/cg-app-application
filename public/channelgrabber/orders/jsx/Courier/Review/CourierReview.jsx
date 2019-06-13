@@ -1,76 +1,41 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
-import Select from 'Common/Components/Select.js';
-
-const BulkActions = styled.span`
-    margin-right: 4rem;
-    display: inline-block;
-    float: right;
-`;
-
-const StyledSelect = styled(Select)`
-    display: inline-block;
-    width: 160px;
-`;
-
-const App = props => {
-    let courierState = useSelect();
-    let serviceState = useSelect();
-
-    return (
-        <BulkActions>
-            <div className={"u-flex-center"}>
-                <span>Bulk Apply</span>
-                <div className={"u-inline-block u-margin-left-small"}>
-                    <StyledSelect
-                        filterable={true}
-//                        selectedOption={courierState.selected}
-//                        onOptionChange={option => {
-//                            courierState.setOption(option);
-//                        }}
-                    />
-                </div>
-
-                {courierState.selected &&
-                <div className={"u-inline-block u-margin-left-small"}>
-                    <StyledSelect
-                        filterable={true}
-//                        selectedOption={serviceState.selected}
-//                        onOptionChange={option => {
-//                            serviceState.setOption(option);
-//                        }}
-                    />
-                </div>
-                }
-            </div>
-        </BulkActions>
-    );
-
-    function useSelect(initialValue) {
-        let [selected, setOption] = useState(initialValue);
-        let getOptionName = () => {
-            if (!value || typeof value !== "object") {
-                return null;
-            }
-            return value.name;
-        };
-        return {
-            selected,
-            setOption,
-            getOptionName
-        };
-    }
-};
-
+import Root from 'Courier/Review/Components/Root';
+////
 export default function({
-                            CourierReviewService,
-                            orderIds,
-                            mountNode,
-                            continueButton
-                        }) {
+        CourierReviewService,
+        orderIds,
+        mountNode,
+        continueButton,
+        ajaxRoute
+    }) {
+//
+//    console.log('in function call... for creating the thing', {
+//        CourierReviewService,
+//        orderIds,
+//        mountNode,
+//        continueButton,
+//        ajaxRoute
+//    });
+
+//    document.on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
+//        if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
+//            return;
+//        }
+//
+//        let records = xhr.responseJSON.Records;
+//        console.log('records: ', records);
+//        debugger;
+//        if (!records) {
+//            return;
+//        }
+//        let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
+//        console.log('allPossibleCourierOptions: ', allPossibleCourierOptions);
+//    });
+
+    //
     ReactDOM.render(
-        <App
+        <Root
             continueButton={continueButton}
         />,
         mountNode

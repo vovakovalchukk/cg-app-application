@@ -5,12 +5,6 @@
     ['screen', 'print']) ?>
 
 <script type="text/javascript">
-    require.config({
-        paths: {
-            'Courier': '<?=Orders\Module::PUBLIC_FOLDER;?>jsx/Courier'
-        }
-    });
-
     $(document).ready(function reviewDocumentReady() {
         var orderIds = <?=json_encode($this->orderIds);?>;
         var templateMap = {
@@ -23,7 +17,7 @@
             'react-dom',
             '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js',
             '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/CourierReview.js'
-        ], function(
+    ], function(
             React,
             ReactDom,
             Service,
@@ -32,50 +26,27 @@
             const ajaxRoute = '<?=$this->reviewAjaxRoute?>';
             const service = new Service($('#datatable'));
 
-            $(document).on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
-                debugger;
-                if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
-                    return;
-                }
-
-                let records = xhr.responseJSON.Records;
-                if (!records) {
-                    return;
-                }
-
-                let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
-
-
-
-            });
+            var CourierRoot = null;
+//            $(document).on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
+//                if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
+//                    return;
+//                }
+//
+//                let records = xhr.responseJSON.Records;
+//                if (!records) {
+//                    return;
+//                }
+//                let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
+//            });
             const mountNode = document.getElementById('courierReviewMount');
-            new CourierReviewRoot({
+            CourierRoot = new CourierReviewRoot({
                 CourierReviewService: service,
                 orderIds,
                 mountNode
             });
 
-            function getAllPossibleCourierOptions() {
-                let allPossibleCourierOptions = [];
-                for (let record of data) {
-                    if (!record.courierOptions || !record.courierOptions.options) {
-                        continue;
-                    }
-                    let courierOptions = record.courierOptions.options;
-                    allPossibleCourierOptions = attachUniqueCourierOptions(allPossibleCourierOptions, courierOptions);
-                }
-                return allPossibleCourierOptions;
-            }
 
-            function attachUniqueCourierOptions(allPossibleCourierOptions, courierOptions) {
-                for (let option of courierOptions) {
-                    if (allPossibleCourierOptions.findIndex(option) < 0) {
-                        continue;
-                    }
-                    allPossibleCourierOptions.push(option);
-                }
-                return allPossibleCourierOptions;
-            }
+
 
             //todo - move this somewhere better
 //        const selectElement = document.querySelector('.bulk-select');
