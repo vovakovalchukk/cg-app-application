@@ -136,6 +136,7 @@ class CourierController extends AbstractActionController
         $view->setVariable('orderIds', $orderIds);
         $view->setVariable('specificsUrl', $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS));
         $view->setVariable('reviewAjaxRoute', '/' . Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_REVIEW . CourierJsonController::ROUTE_REVIEW_LIST_URI);
+        $view->setVariable('servicesAjaxRoute', '/' . Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_REVIEW . '/services');
 
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');

@@ -6,13 +6,13 @@ export default function createCourierReviewRoot({
         CourierReviewService,
         orderIds,
         mountNode,
-        continueButton,
-        ajaxRoute
+        courierAjaxRoute,
+        servicesAjaxRoute
     }) {
     ReactDOM.render(
         <Root
-            continueButton={continueButton}
-            ajaxRoute={ajaxRoute}
+            courierAjaxRoute={courierAjaxRoute}
+            servicesAjaxRoute={servicesAjaxRoute}
         />,
         mountNode
     );

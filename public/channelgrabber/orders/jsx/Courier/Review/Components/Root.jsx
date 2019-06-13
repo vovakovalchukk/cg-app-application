@@ -13,29 +13,45 @@ const StyledSelect = styled(Select)`
     width: 160px;
 `;
 
-
 const Root = props => {
     let courierState = useSelect();
-    let serviceState = useSelect();
+    let servicesState = useSelect();
 
-    let {ajaxRoute} = props;
+    const courierAjaxRoute = props.courierAjaxRoute.toLowerCase();
+    const servicesAjaxRoute = props.servicesAjaxRoute.toLowerCase();
 
-    $(document).on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
-        if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
+    const ajaxRouteCallbackMap = {
+        [courierAjaxRoute]: courierAjaxCallback,
+        [servicesAjaxRoute]: serviceAjaxCallback
+    };
+
+    $(document).on('ajaxComplete', function getDataFromAjax(event, xhr, settings) {
+        console.log('in ajaxComplete ', settings.url);
+        let url = settings.url.toLowerCase();
+        debugger;
+        if( url !== courierAjaxRoute && url !== servicesAjaxRoute){
             return;
         }
 
+        ajaxRouteCallbackMap[url](event,xhr,settings);
+    });
+
+    function courierAjaxCallback(event, xhr, settings){
+        console.log('in courierAjaxCallback');
         let records = xhr.responseJSON.Records;
         if (!records) {
             return;
         }
-
-        debugger;
-
         let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
         allPossibleCourierOptions.map(option => option.name = option.title);
         courierState.setOptions(allPossibleCourierOptions);
-    });
+    }
+
+    function serviceAjaxCallback(event, xhr, settings){
+        console.log('in serviceAjaxCallback');
+        debugger;
+        
+    }
 
     return (
         <BulkActions>

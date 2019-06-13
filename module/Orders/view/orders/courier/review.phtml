@@ -25,7 +25,8 @@
             Service,
             CourierReviewRoot
         ) {
-            const ajaxRoute = '<?=$this->reviewAjaxRoute?>';
+            const courierAjaxRoute = '<?=$this->reviewAjaxRoute?>';
+            const servicesAjaxRoute = '<?=$this->servicesAjaxRoute?>';
             const service = new Service($('#datatable'));
 
             const mountNode = document.getElementById('courierReviewMount');
@@ -33,10 +34,9 @@
                 CourierReviewService: service,
                 orderIds,
                 mountNode,
-                ajaxRoute
+                courierAjaxRoute,
+                servicesAjaxRoute
             });
-
-
             //todo - move this somewhere better
 //        const selectElement = document.querySelector('.bulk-select');
 //        selectElement.addEventListener('change', (event) => {
