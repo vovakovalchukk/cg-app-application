@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Select from 'Common/Components/Select.js';
 
@@ -13,9 +13,29 @@ const StyledSelect = styled(Select)`
     width: 160px;
 `;
 
+
 const Root = props => {
     let courierState = useSelect();
     let serviceState = useSelect();
+
+    let {ajaxRoute} = props;
+
+    $(document).on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
+        if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
+            return;
+        }
+
+        let records = xhr.responseJSON.Records;
+        if (!records) {
+            return;
+        }
+
+        debugger;
+
+        let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
+        allPossibleCourierOptions.map(option => option.name = option.title);
+        courierState.setOptions(allPossibleCourierOptions);
+    });
 
     return (
         <BulkActions>
@@ -24,10 +44,7 @@ const Root = props => {
                 <div className={"u-inline-block u-margin-left-small"}>
                     <StyledSelect
                         filterable={true}
-                        //                        selectedOption={courierState.selected}
-                        //                        onOptionChange={option => {
-                        //                            courierState.setOption(option);
-                        //                        }}
+                        options={courierState.options}
                     />
                 </div>
 
@@ -35,10 +52,6 @@ const Root = props => {
                 <div className={"u-inline-block u-margin-left-small"}>
                     <StyledSelect
                         filterable={true}
-                        //                        selectedOption={serviceState.selected}
-                        //                        onOptionChange={option => {
-                        //                            serviceState.setOption(option);
-                        //                        }}
                     />
                 </div>
                 }
@@ -48,25 +61,30 @@ const Root = props => {
 
     function useSelect(initialValue) {
         let [selected, setOption] = useState(initialValue);
+        let [options, setOptions] = useState();
+
         let getOptionName = () => {
             if (!value || typeof value !== "object") {
                 return null;
             }
             return value.name;
         };
+
         return {
             selected,
             setOption,
-            getOptionName
+            getOptionName,
+            options,
+            setOptions
         };
     }
 };
 
 export default Root;
 
-function getAllPossibleCourierOptions() {
+function getAllPossibleCourierOptions(records) {
     let allPossibleCourierOptions = [];
-    for (let record of data) {
+    for (let record of records) {
         if (!record.courierOptions || !record.courierOptions.options) {
             continue;
         }
@@ -78,9 +96,16 @@ function getAllPossibleCourierOptions() {
 
 function attachUniqueCourierOptions(allPossibleCourierOptions, courierOptions) {
     for (let option of courierOptions) {
-        if (allPossibleCourierOptions.findIndex(option) < 0) {
+        let foundOptionIndex = allPossibleCourierOptions.findIndex(alreadySavedOption => {
+            if(option.value === alreadySavedOption.value){
+                return true;
+            }
+        });
+
+        if(foundOptionIndex >= 0){
             continue;
         }
+
         allPossibleCourierOptions.push(option);
     }
     return allPossibleCourierOptions;

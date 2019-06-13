@@ -5,6 +5,8 @@
     ['screen', 'print']) ?>
 
 <script type="text/javascript">
+    document.body.addEventListener('testevent', function(){});
+
     $(document).ready(function reviewDocumentReady() {
         var orderIds = <?=json_encode($this->orderIds);?>;
         var templateMap = {
@@ -26,26 +28,13 @@
             const ajaxRoute = '<?=$this->reviewAjaxRoute?>';
             const service = new Service($('#datatable'));
 
-            var CourierRoot = null;
-//            $(document).on('ajaxComplete', function getDataFromReviewAjax(event, xhr, settings) {
-//                if (typeof ajaxRoute !== "string" || settings.url.toLowerCase() !== ajaxRoute.toLocaleLowerCase()) {
-//                    return;
-//                }
-//
-//                let records = xhr.responseJSON.Records;
-//                if (!records) {
-//                    return;
-//                }
-//                let allPossibleCourierOptions = getAllPossibleCourierOptions(records);
-//            });
             const mountNode = document.getElementById('courierReviewMount');
-            CourierRoot = new CourierReviewRoot({
+            var CourierRoot = new CourierReviewRoot({
                 CourierReviewService: service,
                 orderIds,
-                mountNode
+                mountNode,
+                ajaxRoute
             });
-
-
 
 
             //todo - move this somewhere better
