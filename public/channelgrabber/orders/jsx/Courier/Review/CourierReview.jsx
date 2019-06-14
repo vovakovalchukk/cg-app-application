@@ -14,6 +14,7 @@ export default function createCourierReviewRoot({
             CourierReviewService={CourierReviewService}
             courierAjaxRoute={courierAjaxRoute}
             servicesAjaxRoute={servicesAjaxRoute}
+            orderIds={orderIds}
         />,
         mountNode
     );

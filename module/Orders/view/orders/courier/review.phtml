@@ -19,7 +19,7 @@
             'react-dom',
             '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js',
             '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/CourierReview.js'
-    ], function(
+        ], function(
             React,
             ReactDom,
             Service,
@@ -34,15 +34,9 @@
                 CourierReviewService: service,
                 mountNode,
                 courierAjaxRoute,
-                servicesAjaxRoute
+                servicesAjaxRoute,
+                orderIds: <?=json_encode($this->orderIds);?>
             });
-            //todo - move this somewhere better
-//        const selectElement = document.querySelector('.bulk-select');
-//        selectElement.addEventListener('change', (event) => {
-//            console.log('in bulk onchange', event.target.value);
-//            //todo - trigger the selection of things from here
-//            service.bulkChangeAllOrderCouriers();
-//        });
         });
     });
 </script>

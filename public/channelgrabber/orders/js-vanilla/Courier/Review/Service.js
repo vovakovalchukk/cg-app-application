@@ -37,28 +37,27 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     Service.SELECTOR_ORDER_ROWS = '#datatable tbody tr';
     Service.SELECTOR_ORDER_FORM = '#continue-form';
 
-    //todo - remove the duplication here and eventHandler
+    // todo - try to remove this duplication in the ElementWatcher
     Service.SELECTOR_COURIER_SELECT = 'div.courier-courier-custom-select';
+    Service.SELECTOR_SERVICE_SELECT = 'div.courier-service-select';
 
     Service.prototype.bulkChangeAllOrderCouriers = function(valueOfOptionToChangeTo)
     {
         $( Service.SELECTOR_COURIER_SELECT).each(function(index, selectElement){
-            let selectOption = $(selectElement).find(`li[data-value=${valueOfOptionToChangeTo}]`);
-            selectOption.click();
-            selectElement.classList.remove('active');
+            clickElement(selectElement, valueOfOptionToChangeTo);
         });
     };
 
+    Service.prototype.bulkChangeAllServices = function(valueOfOptionToChangeTo){
+        $( Service.SELECTOR_SERVICE_SELECT).each(function(index, selectElement){
+            clickElement(selectElement, valueOfOptionToChangeTo);
+        });
+    };
 
     Service.prototype.courierChanged = function(orderId, courierId)
     {   
-        console.log('courier change start...');
-
-
         this.getShippingServices().loadServicesSelectForOrder(orderId, courierId);
         this.getDataTable().cgDataTable('adjustTable');
-        console.log('courier change end...');
-
 
         return this;
     };
@@ -94,4 +93,10 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     };
 
     return Service;
+
+    function clickElement(selectElement, valueOfOptionToChangeTo) {
+        let selectOption = $(selectElement).find(`li[data-value=${valueOfOptionToChangeTo}]`);
+        selectOption.click();
+        selectElement.classList.remove('active');
+    }
 });
