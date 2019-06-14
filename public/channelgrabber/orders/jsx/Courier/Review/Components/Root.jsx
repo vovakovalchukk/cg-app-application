@@ -37,7 +37,7 @@ const Root = props => {
 
     let uniqueServices = [];
     let serviceEventsCount = 0;
-    
+
     return (
         <BulkActions>
             <div className={"u-flex-center"}>
@@ -77,16 +77,15 @@ const Root = props => {
     }
 
     function serviceAjaxCallback(event, xhr, settings) {
-        console.log('in serviceAjaxCallback');
         let services = xhr.responseJSON.serviceOptions;
         serviceEventsCount++;
-        if(!services){
+        if (!services) {
             return;
         }
 
         uniqueServices = addUniqueOptions(uniqueServices, services);
 
-        if(serviceEventsCount === props.orderIds.length){
+        if (serviceEventsCount === props.orderIds.length) {
             uniqueServices.forEach(service => service.name = service.title);
             servicesState.setOptions(uniqueServices);
             uniqueServices = [];
@@ -99,7 +98,7 @@ const Root = props => {
         courierState.setOption(option);
     }
 
-    function onServiceOptionChange(option){
+    function onServiceOptionChange(option) {
         props.CourierReviewService.bulkChangeAllServices(option.value);
         servicesState.setOption(option);
     }

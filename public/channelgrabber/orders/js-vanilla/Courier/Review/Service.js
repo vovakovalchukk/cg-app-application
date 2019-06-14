@@ -37,9 +37,8 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     Service.SELECTOR_ORDER_ROWS = '#datatable tbody tr';
     Service.SELECTOR_ORDER_FORM = '#continue-form';
 
-    // todo - try to remove this duplication in the ElementWatcher
-    Service.SELECTOR_COURIER_SELECT = 'div.courier-courier-custom-select';
-    Service.SELECTOR_SERVICE_SELECT = 'div.courier-service-select';
+    Service.SELECTOR_COURIER_SELECT = `div${EventHandler.SELECTOR_COURIER_SELECT}`;
+    Service.SELECTOR_SERVICE_SELECT = `div${EventHandler.SELECTOR_SERVICE_SELECT}`;
 
     Service.prototype.bulkChangeAllOrderCouriers = function(valueOfOptionToChangeTo)
     {
@@ -55,7 +54,7 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     };
 
     Service.prototype.courierChanged = function(orderId, courierId)
-    {   
+    {
         this.getShippingServices().loadServicesSelectForOrder(orderId, courierId);
         this.getDataTable().cgDataTable('adjustTable');
 

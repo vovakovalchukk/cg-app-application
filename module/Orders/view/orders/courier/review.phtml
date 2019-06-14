@@ -5,8 +5,6 @@
     ['screen', 'print']) ?>
 
 <script type="text/javascript">
-    document.body.addEventListener('testevent', function(){});
-
     $(document).ready(function reviewDocumentReady() {
         var orderIds = <?=json_encode($this->orderIds);?>;
         var templateMap = {
