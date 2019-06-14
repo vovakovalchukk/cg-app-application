@@ -38,9 +38,6 @@ const Root = props => {
     let uniqueServices = [];
     let serviceEventsCount = 0;
     
-    console.log('courierState.selectedOption: ', courierState.selectedOption);
-    
-    
     return (
         <BulkActions>
             <div className={"u-flex-center"}>

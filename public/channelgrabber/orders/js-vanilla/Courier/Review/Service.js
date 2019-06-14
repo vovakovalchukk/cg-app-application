@@ -95,7 +95,10 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     return Service;
 
     function clickElement(selectElement, valueOfOptionToChangeTo) {
-        let selectOption = $(selectElement).find(`li[data-value=${valueOfOptionToChangeTo}]`);
+        let selectOption = $(selectElement).find(`li[data-value='${valueOfOptionToChangeTo}']`);
+        if(!selectOption.context){
+            return;
+        }
         selectOption.click();
         selectElement.classList.remove('active');
     }
