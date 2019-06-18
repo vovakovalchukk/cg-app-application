@@ -223,8 +223,9 @@ class ShippingController extends AbstractActionController
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
             'id' => 'shipping-account-custom-select-' . $alias->getId(),
-            'class' => 'shipping-account-select',
+            'class' => 'shipping-account-select u-margin-top-small',
             'options' => $options
+//            'content-type' => 'open-content-base u-width-100pc'
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');
         return $customSelect;
@@ -272,11 +273,16 @@ class ShippingController extends AbstractActionController
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-service-custom-select-' . $alias->getId(),
             'id' => 'shipping-service-custom-select-' . $alias->getId(),
+//            'class' => 'shipping-service-select u-margin-top-small',
             'class' => 'shipping-service-select',
+            'sizeClass' => 'u-width-100pc',
             'searchField' => true,
             'options' => $options
+            //
+//            'content-type' => 'open-content-base u-width-100pc'
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');
+
         return $customSelect;
     }
 

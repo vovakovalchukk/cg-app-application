@@ -11,6 +11,9 @@ define([
 ) {
     var DomManipulator = function()
     {
+        console.log('in DomManipulator');
+        
+        
     };
 
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
@@ -160,8 +163,11 @@ define([
                 isOptional: 'true',
                 id: 'shipping-service-custom-select-' + aliasId,
                 name: 'shipping-service-custom-select-' + aliasId,
-                class: 'shipping-service-select',
-                options: services
+                class: 'shipping-service-select u-margin-top-small',
+                sizeClass: 'u-width-100pc',
+//                contentType : 'open-content-base u-width-100pc',
+                options: services,
+                searchField: true
             }, "customSelect");
 
             if($("#shipping-alias-" + aliasId).length) {
