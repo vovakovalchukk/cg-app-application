@@ -51,6 +51,7 @@ function(
         var self = this;
         $(document).on('change', ServiceChange.SELECTOR_SERVICE, function(event, element, value)
         {
+
             debugger;
             var accountId = $(element).closest('.shipping-alias').find('.shipping-account input').val();
 
