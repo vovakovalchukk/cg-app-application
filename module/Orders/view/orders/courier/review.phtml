@@ -1,33 +1,59 @@
 <?php /* The following scripts can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/DataTableAbstract.js"></script>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/DataTable.js"></script>
+<script type="text/javascript" src="<?= Orders\Module::PUBLIC_FOLDER; ?>js/Courier/DataTableAbstract.js"></script>
+<script type="text/javascript" src="<?= Orders\Module::PUBLIC_FOLDER; ?>js/Courier/Review/DataTable.js"></script>
+<?php $this->headLink()->appendStylesheet($this->basePath() . '/cg-built/vendor/cg-common/dist/css/default.css',
+    ['screen', 'print']) ?>
+
 <script type="text/javascript">
-$(document).ready(function()
-{
-    var orderIds = <?=json_encode($this->orderIds);?>;
-    var templateMap = {
-        "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
-    };
+    $(document).ready(function reviewDocumentReady() {
+        var orderIds = <?=json_encode($this->orderIds);?>;
+        var templateMap = {
+            "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
+        };
+        var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds, templateMap);
 
-    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds, templateMap);
+        require([
+            'react',
+            'react-dom',
+            '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js',
+            '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/CourierReview.js'
+        ], function(
+            React,
+            ReactDom,
+            Service,
+            CourierReviewRoot
+        ) {
+            const courierAjaxRoute = '<?=$this->reviewAjaxRoute?>';
+            const servicesAjaxRoute = '<?=$this->servicesAjaxRoute?>';
+            const service = new Service($('#datatable'));
 
-    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
-    {
-        var service = new Service($('#datatable'));
+            const mountNode = document.getElementById('courierReviewMount');
+            var CourierRoot = new CourierReviewRoot({
+                CourierReviewService: service,
+                mountNode,
+                courierAjaxRoute,
+                servicesAjaxRoute,
+                orderIds: <?=json_encode($this->orderIds);?>
+            });
+        });
     });
-});
 </script>
 <div id="main" class="no-sidebar courier-review">
     <span class="heading-large">
-        <?= $this->translate('Review Orders') ?>
+        <span><?= $this->translate('Review Orders') ?></span>
+
         <div class="heading-buttons">
             <div class="backorders_btn button-holder">
-                <a href="<?= $this->goBackUrl ?>" class="button"><?=$this->translate('Back To Orders');?></a>
+                <a href="<?= $this->goBackUrl ?>" class="button"><?= $this->translate('Back To Orders'); ?></a>
             </div>
+
             <?= $this->continueButton; ?>
         </div>
+
+        <span id="courierReviewMount"></span>
     </span>
-    <form id="continue-form" method="POST" action="<?=$this->specificsUrl;?>">
+
+    <form id="continue-form" method="POST" action="<?= $this->specificsUrl; ?>">
         <div id="datatable-container">
             <?= $this->reviewTable; ?>
         </div>
@@ -35,9 +61,9 @@ $(document).ready(function()
 </div>
 
 <style>
-<?php /* This is a hack to hide the sidebar away for now */ ?>
-#main-wrapper {
-    margin-left:0px;
-    width:100%;
-}
+    <?php /* This is a hack to hide the sidebar away for now */ ?>
+    #main-wrapper {
+        margin-left: 0px;
+        width: 100%;
+    }
 </style>

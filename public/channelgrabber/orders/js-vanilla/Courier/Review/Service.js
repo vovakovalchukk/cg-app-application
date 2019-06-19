@@ -37,10 +37,27 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     Service.SELECTOR_ORDER_ROWS = '#datatable tbody tr';
     Service.SELECTOR_ORDER_FORM = '#continue-form';
 
+    Service.SELECTOR_COURIER_SELECT = `div${EventHandler.SELECTOR_COURIER_SELECT}`;
+    Service.SELECTOR_SERVICE_SELECT = `div${EventHandler.SELECTOR_SERVICE_SELECT}`;
+
+    Service.prototype.bulkChangeAllOrderCouriers = function(valueOfOptionToChangeTo)
+    {
+        $( Service.SELECTOR_COURIER_SELECT).each(function(index, selectElement){
+            clickElement(selectElement, valueOfOptionToChangeTo);
+        });
+    };
+
+    Service.prototype.bulkChangeAllServices = function(valueOfOptionToChangeTo){
+        $( Service.SELECTOR_SERVICE_SELECT).each(function(index, selectElement){
+            clickElement(selectElement, valueOfOptionToChangeTo);
+        });
+    };
+
     Service.prototype.courierChanged = function(orderId, courierId)
     {
         this.getShippingServices().loadServicesSelectForOrder(orderId, courierId);
         this.getDataTable().cgDataTable('adjustTable');
+
         return this;
     };
 
@@ -75,4 +92,13 @@ define(['./EventHandler.js', '../ShippingServices.js'], function(EventHandler, s
     };
 
     return Service;
+
+    function clickElement(selectElement, valueOfOptionToChangeTo) {
+        let selectOption = $(selectElement).find(`li[data-value='${valueOfOptionToChangeTo}']`);
+        if(!selectOption.context){
+            return;
+        }
+        selectOption.click();
+        selectElement.classList.remove('active');
+    }
 });
