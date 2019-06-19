@@ -22,6 +22,7 @@ define([], function()
     EventHandler.prototype.listenForCourierChange = function()
     {
         var service = this.getService();
+
         $(document).on('change', EventHandler.SELECTOR_COURIER_SELECT, function(event, element, value)
         {
             var orderId = $(element).attr('data-element-name').split('_').pop();

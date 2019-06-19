@@ -24,18 +24,19 @@
     "rimraf": "^2.5.4",
     "user-home": "^1.1.1",
     "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "prop-types": "^15.7.2"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.31",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.32",
     "chart.js": "^2.7.0",
     "create-react-class": "^15.6.3",
     "css-toggle-switch": "^4.1.0",
     "deepmerge": "^3.2.0",
     "fixed-data-table-2": "^0.8.13",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "16.8.6",
+    "react-dom": "^16.8.6",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

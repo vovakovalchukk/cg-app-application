@@ -1,26 +1,50 @@
 import React from 'react';
-import {Field} from 'redux-form';
-import TextArea from 'Common/Components/TextArea';
+import {Field, FieldArray} from 'redux-form';
+import TextFieldArray from 'Product/Components/CreateListing/Components/CreateListing/TextFieldArray';
+import ConditionNote from 'Product/Components/ConditionNote';
 
 class AmazonChannelFormComponent extends React.Component {
-    renderConditionNote = (field) => {
-        return <label className="input-container">
-            <span className={"inputbox-label"}>{field.displayTitle}</span>
-            <div className={"order-inputbox-holder"}>
-                <TextArea
-                    {...field.input}
-                    className={"textarea-description"}
-                />
-            </div>
-        </label>;
-    };
-
     render() {
         return (
-            <div className="amazon-channel-form-container channel-form-container">
-                <Field name="conditionNote" component={this.renderConditionNote} displayTitle="Condition note"/>
-            </div>
+            <section>
+                {this.renderConditionNoteField()}
+
+                {this.renderBulletPointFields()}
+
+                {this.renderSearchTermFields()}
+            </section>
         );
+    }
+    renderSearchTermFields() {
+        return <div className="amazon-channel-form-container channel-form-container">
+            <FieldArray
+                component={TextFieldArray}
+                name="searchTerm"
+                displayTitle="Search Terms"
+                itemPlaceholder={"search term"}
+                itemLimit={5}
+                maxCharLength={250}
+                identifier={'searchTerm'}
+            />
+        </div>;
+    }
+    renderBulletPointFields() {
+        return <div className="amazon-channel-form-container channel-form-container">
+            <FieldArray
+                component={TextFieldArray}
+                name="bulletPoint"
+                displayTitle="Bullet Points"
+                itemPlaceholder={"bullet"}
+                itemLimit={5}
+                maxCharLength={500}
+                identifier={'bullet'}
+            />
+        </div>;
+    }
+    renderConditionNoteField() {
+        return <div className="amazon-channel-form-container channel-form-container">
+            <Field name="conditionNote" component={ConditionNote} displayTitle="Condition note"/>
+        </div>;
     }
 }
 
