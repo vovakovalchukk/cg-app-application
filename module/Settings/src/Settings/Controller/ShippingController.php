@@ -223,7 +223,8 @@ class ShippingController extends AbstractActionController
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-account-custom-select-' . $alias->getId(),
             'id' => 'shipping-account-custom-select-' . $alias->getId(),
-            'class' => 'shipping-account-select u-margin-top-small',
+            'class' => 'shipping-account-select',
+//            'class' => 'shipping-account-select u-margin-top-small',
             'options' => $options
 //            'content-type' => 'open-content-base u-width-100pc'
         ]);
