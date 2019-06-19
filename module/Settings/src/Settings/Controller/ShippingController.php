@@ -225,8 +225,8 @@ class ShippingController extends AbstractActionController
             'id' => 'shipping-account-custom-select-' . $alias->getId(),
             'class' => 'shipping-account-select',
             'marginClass' => 'u-margin-top-small',
-            'options' => $options
-//            'content-type' => 'open-content-base u-width-100pc'
+            'options' => $options,
+            'content-type' => 'open-content u-max-width-initial u-width-100pc'
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');
         return $customSelect;
@@ -253,6 +253,7 @@ class ShippingController extends AbstractActionController
     protected function getServiceCustomSelectView(AliasEntity $alias)
     {
         $shippingServices = $this->getShippingServices($alias->getAccountId());
+
         $options = [];
         foreach($shippingServices as $serviceKey => $serviceVal) {
             $options[] = [
@@ -271,17 +272,18 @@ class ShippingController extends AbstractActionController
             $options[$index]['selected'] = true;
         }
 
+        $title = array_column($options, 'title');
+        array_multisort($title, SORT_ASC, $options);
+
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-service-custom-select-' . $alias->getId(),
             'id' => 'shipping-service-custom-select-' . $alias->getId(),
-//            'class' => 'shipping-service-select',
             'class' => 'shipping-service-select',
             'marginClass' => 'u-margin-top-small',
             'sizeClass' => 'u-width-100pc',
             'searchField' => true,
-            'options' => $options
-            //
-//            'content-type' => 'open-content-base u-width-100pc'
+            'options' => $options,
+            'content-type' => 'open-content u-max-width-initial u-width-100pc'
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');
 

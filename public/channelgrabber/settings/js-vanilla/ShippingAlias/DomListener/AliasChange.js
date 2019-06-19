@@ -94,13 +94,10 @@ function(domManipulator, eventCollator, DeferredQueue)
         const aliasInUse = $('#' + alias);
         const aliasInUseVanilla = document.getElementById(alias);
 
-        debugger;
-
         var aliasID = aliasInUse.find('input[name=shipping-alias-id]').val();
         var storedETag = aliasInUse.find('input[name=shipping-alias-storedETag]').val();
         var aliasName = aliasInUse.find('.shipping-alias-name-holder .inputbox').val();
         var aliasAccount = aliasInUseVanilla.querySelector('input.shipping-account-select').value;
-//        var aliasService = aliasInUse.find('input[class=shipping-service-select][type=hidden]').val();
         var aliasService = aliasInUseVanilla.querySelector('input.shipping-service-select').value;
         var aliasServiceOptions = aliasInUse.find('.shipping-service-options input[type=hidden]');
         var hiddenCheckBoxes = aliasInUse.find('.channel-shipping-methods input[type=hidden]');
