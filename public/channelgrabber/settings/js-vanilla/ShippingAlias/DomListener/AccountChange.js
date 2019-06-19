@@ -12,7 +12,7 @@ function($,domManipulator)
     {
         var self = this;
         $(document).on('change', AccountChange.ACCOUNT_SELECTOR, function(e){
-            var accountId = $(this).find('input[class=shipping-account-select][type=hidden]').val();
+            let accountId = e.target.querySelector('input.shipping-account-select').value;
             var aliasId = e.target.id.split('-').pop();
             self.fetchServices(accountId, function(services){
                 if(services !== null) {
