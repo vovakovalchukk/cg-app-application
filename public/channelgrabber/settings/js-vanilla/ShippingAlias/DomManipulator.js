@@ -11,9 +11,6 @@ define([
 ) {
     var DomManipulator = function()
     {
-        console.log('in DomManipulator');
-        
-        
     };
 
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
@@ -66,8 +63,6 @@ define([
             var hasAccounts = false;
 
             var accountCustomSelectOptions = accountCollection.getItems();
-
-            //todo - might need to look into what this is doing as you may need to change.
             if (accountCustomSelectOptions.length > 1) {
                 aliasTemplateParameters['accountCustomSelect'] = cgmustache.renderTemplate(templates, {
                     isOptional: 'true',
@@ -165,11 +160,11 @@ define([
                 isOptional: 'true',
                 id: 'shipping-service-custom-select-' + aliasId,
                 name: 'shipping-service-custom-select-' + aliasId,
-//                class: 'shipping-service-select',
+                class: 'shipping-service-select',
                 options: services,
                 searchField: true,
-                sizeClass: 'u-width-100pc',
-                  class: 'shipping-service-select u-margin-top-small',
+//                sizeClass: 'u-width-100pc',
+//                  class: 'shipping-service-select u-margin-top-small',
                 //  contentType : 'open-content-base u-width-100pc',
             }, "customSelect");
 
