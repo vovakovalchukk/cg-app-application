@@ -164,7 +164,7 @@ define([
                 searchField: true,
                 sizeClass: 'u-width-100pc',
                 marginClass : 'u-margin-top-small',
-                class: 'shipping-service',
+                class: 'shipping-service-select',
             }, "customSelect");
 
             if($("#shipping-alias-" + aliasId).length) {
