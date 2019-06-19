@@ -59,7 +59,6 @@ function(domManipulator, eventCollator, DeferredQueue)
         });
 
         $(document).on(eventCollator.getQueueTimeoutEventPrefix() + 'shippingAlias', function(event, data) {
-//            debugger;/
             self.validateAndSaveAliases(data);
         });
     };

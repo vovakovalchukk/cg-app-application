@@ -159,7 +159,6 @@ define([
             return a.title - b.title
         });
 
-
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
             var serviceCustomSelect = cgmustache.renderTemplate(templates, {
