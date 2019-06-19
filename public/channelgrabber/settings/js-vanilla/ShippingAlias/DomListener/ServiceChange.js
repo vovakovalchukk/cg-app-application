@@ -51,7 +51,12 @@ function(
         var self = this;
         $(document).on('change', ServiceChange.SELECTOR_SERVICE, function(event, element, value)
         {
+            debugger;
             var accountId = $(element).closest('.shipping-alias').find('.shipping-account input').val();
+
+//            let accountId = event.target.querySelector('input.shipping-account-select').value;
+
+
             var aliasId = $(element).attr('id').split('-').pop();
             self.fetchServiceOptions(accountId, value)
                 .then(function(response)
