@@ -76,6 +76,10 @@ return [
                 'InvoiceEmailJavascript' => ViewModel::class,
                 'DispatchJavascript' => ViewModel::class,
                 'TagJavascript' => ViewModel::class,
+
+                'PDFExportJavascript' => ViewModel::class,
+                'PDFExportDataView' => ViewModel::class,
+
                 'BatchJavascript' => ViewModel::class,
                 'BatchRemoveJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
@@ -126,7 +130,8 @@ return [
                         ['action' => Action\ToCsv::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Batch::class],
-                        ['action' => Action\Archive::class]
+                        ['action' => Action\Archive::class],
+                        ['action' => Action\PDFExport::class]
                     ],
                 ],
             ],
@@ -246,6 +251,33 @@ return [
                     'template' => 'orders/orders/bulk-actions/tag.js',
                 ],
             ],
+
+
+            Action\PDFExport::class => [
+                'parameters' => [
+                    'urlView' => 'PDFExportDataView',
+                    'title' => 'PDF Export',
+                    'action' => 'PDFExport',
+                    'elementData' => [
+//                         This is arbitrary data to set on the button element as DOM data attributes
+                        'pdf' => 'datatable' // will become: <span ... data-datatable="datatable" ...>
+                    ],
+                    'javascript' => 'PDFExportJavascript'
+                ]
+            ],
+            'PDFExportDataView' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url', //This will most likely not change between the different UrlDataViews
+                ]
+            ],
+            'PDFExportJavascript' => [
+                'parameters'=> [
+                    'template' => 'orders/orders/bulk-actions/pdfExport.js',
+                ]
+            ],
+
+
+
             BulkActions\CourierAction::class => [
                 'injections' => [
                     'addSubAction' => [

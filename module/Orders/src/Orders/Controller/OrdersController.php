@@ -34,6 +34,7 @@ use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Invoice\Settings as InvoiceSettings;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -82,6 +83,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderTableUserPreferences;
     /** @var OrdersTableHelper $orderTableHelper */
     protected $orderTableHelper;
+    /** @var InvoiceSettings $invoiceSettings */
+    protected $invoiceSettings;
 
     public function __construct(
         UsageService $usageService,
@@ -101,7 +104,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         CurrencyFormat $currencyFormat,
         TableService $tableService,
         OrdersTableUserPreferences $orderTableUserPreferences,
-        OrdersTableHelper $orderTableHelper
+        OrdersTableHelper $orderTableHelper,
+        InvoiceSettings $invoiceSettings
     ) {
         $this->currencyFormat = $currencyFormat;
         $this->usageService = $usageService;
@@ -120,6 +124,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->tableService = $tableService;
         $this->orderTableUserPreferences = $orderTableUserPreferences;
         $this->orderTableHelper = $orderTableHelper;
+        $this->invoiceSettings = $invoiceSettings;
     }
 
     public function indexAction()
@@ -148,6 +153,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));
         $view->addChild($ordersTable, 'ordersTable');
+
         $bulkActions = $this->getBulkActionsViewModel();
         $bulkAction = $this->viewModelFactory->newInstance()->setTemplate('orders/orders/bulk-actions/index');
         $bulkAction->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
@@ -155,8 +161,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $bulkAction,
             'afterActions'
         );
-
         $view->addChild($bulkActions, 'bulkItems');
+
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
@@ -165,11 +171,26 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ),
             'storedFiltersSidebar'
         );
+
         $view->addChild($this->getBatches(), 'batches');
+
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
+
+        //todo to be reworked as part of TAC-350
+        $invoices = $this->invoiceSettings->getInvoices();
+        $view->setVariable('pdfExportOptions', json_encode($invoices));
+
         return $view;
+    }
+
+
+    protected function pdfExportAction()
+    {
+        // todo - make this better once you can confirm the action is being hit
+
+        return 'something';
     }
 
     protected function getStatusFilters()
