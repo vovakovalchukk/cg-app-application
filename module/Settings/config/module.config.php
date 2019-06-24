@@ -547,6 +547,16 @@ return [
                                             ]
                                         ]
                                     ],
+                                    InvoiceController::ROUTE_SAVE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'saveSettings',
+                                            ]
+                                        ]
+                                    ],
                                     InvoiceController::ROUTE_AJAX => [
                                         'type' => Literal::class,
                                         'options' => [
@@ -627,6 +637,39 @@ return [
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/delete',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'deleteTemplate'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/add-favourite',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'addFavourite'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/remove-favourite',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'removeFavourite'
                                     ]
                                 ],
                                 'may_terminate' => true

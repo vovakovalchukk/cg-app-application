@@ -294,6 +294,24 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return false;
     }
 
+    public function deleteTemplateAction()
+    {
+        //todo to be replaced with actual functionality as part of TAC-350
+        return 'something';
+    }
+
+    public function addFavouriteAction()
+    {
+        //todo to be replaced with actual functionality as part of TAC-350
+        return 'something';
+    }
+
+    public function removeFavouriteAction()
+    {
+        //todo to be replaced with actual functionality as part of TAC-350
+        return 'something';
+    }
+
     public function getUserAmazonAccountSite(){
         try {
             $filter = (new Filter())
