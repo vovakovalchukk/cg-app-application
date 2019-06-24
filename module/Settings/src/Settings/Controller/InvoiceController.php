@@ -51,6 +51,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_SAVE = 'Save';
     const ROUTE_SAVE_MAPPING = 'Save Mapping';
     const ROUTE_VERIFY = 'Verify';
+    const ROUTE_ADD_FAVOURITE = 'Add Favourite';
+    const ROUTE_DELETE_TEMPLATE = 'Delete Template';
+    const ROUTE_REMOVE_FAVOURITE = 'Remove Favourite';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
 
@@ -297,19 +300,34 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function deleteTemplateAction()
     {
         //todo to be replaced with actual functionality as part of TAC-350
-        return 'something';
+        $templateId = $this->params()->fromPost('templateId');
+        $response = $this->getJsonModelFactory()->newInstance([
+            'success' => true,
+            "message" => "You have successfully deleted your template."
+        ]);
+        return $response;
     }
 
     public function addFavouriteAction()
     {
         //todo to be replaced with actual functionality as part of TAC-350
-        return 'something';
+        $templateId = $this->params()->fromPost('templateId');
+        $response = $this->getJsonModelFactory()->newInstance([
+            'success' => true,
+            "message" => "You have successfully added your template as a favourite."
+        ]);
+        return $response;
     }
 
     public function removeFavouriteAction()
     {
         //todo to be replaced with actual functionality as part of TAC-350
-        return 'something';
+        $templateId = $this->params()->fromPost('templateId');
+        $response = $this->getJsonModelFactory()->newInstance([
+            'success' => true,
+            "message" => "You have successfully removed your template as a favourite."
+        ]);
+        return $response;
     }
 
     public function getUserAmazonAccountSite(){

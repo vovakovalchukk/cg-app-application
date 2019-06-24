@@ -641,10 +641,10 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
-                            InvoiceController::ROUTE_SAVE => [
+                            InvoiceController::ROUTE_DELETE_TEMPLATE => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/delete',
+                                    'route' => '/deleteTemplate',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'deleteTemplate'
@@ -652,10 +652,10 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
-                            InvoiceController::ROUTE_SAVE => [
+                            InvoiceController::ROUTE_ADD_FAVOURITE => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/add-favourite',
+                                    'route' => '/addFavourite',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'addFavourite'
@@ -663,10 +663,10 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
-                            InvoiceController::ROUTE_SAVE => [
+                            InvoiceController::ROUTE_REMOVE_FAVOURITE => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/remove-favourite',
+                                    'route' => '/removeFavourite',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'removeFavourite'
