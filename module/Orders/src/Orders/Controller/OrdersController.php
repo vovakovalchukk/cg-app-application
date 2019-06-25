@@ -178,17 +178,33 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
 
-        //todo to be reworked as part of TAC-350
-//        $invoices = $this->invoiceSettings->getInvoices();
-//        $view->setVariable('pdfExportOptions', json_encode($invoices));
+        $pdfExportOptions = $this->getTemplateOptionsForPDFExport();
+        $view->setVariable('pdfExportOptions', $pdfExportOptions);
 
         return $view;
     }
 
+    protected function getTemplateOptionsForPDFExport()
+    {
+        $invoices = $this->invoiceSettings->getInvoices();
+        $formatted = array();
+        foreach($invoices as $key => $value)
+        {
+            $formatted[$key] = [
+                'index' => $key,
+                'name' => $value->getName(),
+                'favourite' => $key === 0
+            ];
+        }
+        return $formatted;
+    }
 
     protected function pdfExportAction()
     {
         // todo - make this better once you can confirm the action is being hit
+
+
+        //todo - hit the check endpoint.... maybe from the frontend?
 
         return 'something';
     }
