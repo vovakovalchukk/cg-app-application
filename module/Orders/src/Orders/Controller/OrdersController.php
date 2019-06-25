@@ -179,8 +179,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
 
         //todo to be reworked as part of TAC-350
-        $invoices = $this->invoiceSettings->getInvoices();
-        $view->setVariable('pdfExportOptions', json_encode($invoices));
+//        $invoices = $this->invoiceSettings->getInvoices();
+//        $view->setVariable('pdfExportOptions', json_encode($invoices));
 
         return $view;
     }
