@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d192b6c2b4a8645770ff8b7c8f79ca5",
+    "content-hash": "07b9e3f6fa91d47314222301e6c36764",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -490,16 +490,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-CGIV-10702-pricing_14_us",
+            "version": "1.20.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "4c712e3a247d65dd404b70159a28f650ca6a8c08"
+                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10702-pricing_14_us-d9406b.zip",
-                "reference": "4c712e3a247d65dd404b70159a28f650ca6a8c08"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.12-bcd659.zip",
+                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -547,7 +547,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-06-24T10:29:21+00:00"
+            "time": "2019-06-25T14:42:45+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -9983,8 +9983,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11264,17 +11263,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.12",
-            "alias_normalized": "1.20.12.0",
-            "version": "dev-CGIV-10702-pricing_14_us",
-            "package": "channelgrabber/billing"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
