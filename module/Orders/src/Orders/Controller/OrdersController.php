@@ -35,6 +35,8 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Invoice\Settings as InvoiceSettings;
+// todo - likely will need to be removed during TAC-450
+use CG\Zend\Stdlib\Http\FileResponse as Response;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -201,12 +203,15 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function pdfExportAction()
     {
-        // todo - make this better once you can confirm the action is being hit
+        $mimeType = "application/pdf";
+        $fileName = "dummy.pdf";
+        $data = file_get_contents('dummy-template.pdf');
 
-
-        //todo - hit the check endpoint.... maybe from the frontend?
-
-        return 'something';
+        return new Response(
+            $mimeType,
+            $fileName,
+            $data
+        );
     }
 
     protected function getStatusFilters()
