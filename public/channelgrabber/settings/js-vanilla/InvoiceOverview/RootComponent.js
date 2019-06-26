@@ -9,7 +9,7 @@ class RootComponent extends React.Component {
                 SectionComponent,
                 {
                     className: 'invoice-template-section module',
-                    sectionHeader: 'Create New Invoice',
+                    sectionHeader: 'Create New Template',
                     invoiceData: this.props.system
                 }
             ),

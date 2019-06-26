@@ -39,8 +39,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     use LogTrait;
 
     const ROUTE = 'Invoice';
-    const ROUTE_SETTINGS = 'Invoice Settings';
-    const ROUTE_DESIGNER = 'Invoice Designer';
+    const ROUTE_SETTINGS = 'Template Settings';
+    const ROUTE_DESIGNER = 'Template Designer';
     const ROUTE_DESIGNER_ID = 'Invoice Designer View';
     const ROUTE_TEMPLATES = 'Invoice Templates';
     const ROUTE_TEMPLATES_NEW = 'Invoice Templates New';

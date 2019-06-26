@@ -110,7 +110,7 @@ return [
                 ]
             ],
             'Invoices' => [
-                'label' => 'Invoice Management',
+                'label' => 'Template Management',
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
