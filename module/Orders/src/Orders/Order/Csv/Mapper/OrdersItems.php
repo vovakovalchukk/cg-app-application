@@ -251,7 +251,8 @@ class OrdersItems implements MapperInterface
     protected function updateProductCollectionForOrders(Products $products, OrderCollection $orders): void
     {
         $orderItemSkus = $this->getOrderItemSkusFromOrders($orders);
-        $skusToFetch = array_filter(array_diff($orderItemSkus, $products->getArrayOf('sku')));
+        $productSkus = $this->getAllProductSkus($products);
+        $skusToFetch = array_diff($orderItemSkus, $productSkus);
         if (empty($skusToFetch)) {
             return;
         }
@@ -275,6 +276,20 @@ class OrdersItems implements MapperInterface
         foreach ($orders as $order) {
             $skus += $order->getItems()->getArrayOf('itemSku');
         }
-        return array_values($skus);
+        return array_filter(array_unique($skus));
+    }
+
+    protected function getAllProductSkus(Products $products): array
+    {
+        $skus = [];
+        $skus += $products->getArrayOf('sku');
+        /** @var Product $product */
+        foreach ($products as $product) {
+            if (!$product->isParent()) {
+                continue;
+            }
+            $skus += $product->getVariations()->getArrayOf('sku');
+        }
+        return array_filter(array_unique($skus));
     }
 }
