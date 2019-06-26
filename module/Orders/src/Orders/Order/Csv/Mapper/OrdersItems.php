@@ -261,7 +261,7 @@ class OrdersItems implements MapperInterface
             ->setSku($skusToFetch)
             ->setEmbeddedDataToReturn([Product::EMBEDDED_DATA_TYPE_VARIATION, Product::EMBEDDED_DATA_TYPE_PRODUCT_DETAIL]);
         try {
-            $products->addAll($this->productService->fetchCollectionByFilter($productFilter));
+            $products->attachAll($this->productService->fetchCollectionByFilter($productFilter));
             $this->productFormatter->setProducts($products);
         } catch (NotFound $e){
             //no-op
