@@ -10,7 +10,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Product\Collection as Products;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
-use CG\Product\Service\Service as ProductService;
+use CG\Product\Client\Service as ProductService;
 use CG\Stdlib;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
