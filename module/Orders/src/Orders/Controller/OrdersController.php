@@ -34,9 +34,11 @@ use Orders\Order\TableService;
 use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
-use Settings\Invoice\Settings as InvoiceSettings;
+
 // todo - likely will need to be removed during TAC-450
+use Settings\Invoice\Settings as InvoiceSettings;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
+
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -180,12 +182,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
 
+        // todo - rework this in TAC-450
         $pdfExportOptions = $this->getTemplateOptionsForPDFExport();
         $view->setVariable('pdfExportOptions', $pdfExportOptions);
 
         return $view;
     }
 
+    // todo - rework this in TAC-450
     protected function getTemplateOptionsForPDFExport()
     {
         $invoices = $this->invoiceSettings->getInvoices();
@@ -201,8 +205,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $formatted;
     }
 
+    // todo - rework this in TAC-450
     protected function pdfExportAction()
     {
+        $orderIds = $this->params()->fromPost('orderIds');
+        $templateIds = $this->params()->fromPost('templateIds');
+
         $mimeType = "application/pdf";
         $fileName = "dummy.pdf";
         $data = file_get_contents('dummy-template.pdf');
