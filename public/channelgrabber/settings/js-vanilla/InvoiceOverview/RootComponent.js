@@ -1,28 +1,36 @@
 import React from 'react';
 import SectionComponent from 'InvoiceOverview/SectionComponent';
+import normalize from 'InvoiceOverview/normalizeService';
 
 
 class RootComponent extends React.Component {
     render() {
-        var rootElement = React.createElement('div', {},
-            React.createElement(
-                SectionComponent,
-                {
-                    className: 'invoice-template-section module',
-                    sectionHeader: 'Create New Template',
-                    invoiceData: this.props.system
-                }
-            ),
-            React.createElement(
-                SectionComponent,
-                {
-                    className: 'invoice-template-section module',
-                    sectionHeader: 'Edit Existing Invoice',
-                    invoiceData: this.props.user
-                }
-            )
+        let {system, user} = this.props;
+        let {templates, templateActions, favourites, TEMPLATE_SOURCES} = normalize.normalizeTemplateData(system, user);
+        debugger;
+
+        //todo - delete method needs to come from up here as it will affect what templates we have.
+
+
+
+        return (
+                <div>
+                    <SectionComponent
+                        className={'invoice-template-section module'}
+                        sectionHeader={'Create New Template'}
+                        templates={templates}
+                        templateActions={templateActions}
+                        source={TEMPLATE_SOURCES.system}
+                    />
+                    <SectionComponent
+                        className={'invoice-template-section module'}
+                        sectionHeader={'Edit Existing Template'}
+                        templates={templates}
+                        templateActions={templateActions}
+                        source={TEMPLATE_SOURCES.user}
+                    />
+                </div>
         );
-        return rootElement;
     }
 }
 
