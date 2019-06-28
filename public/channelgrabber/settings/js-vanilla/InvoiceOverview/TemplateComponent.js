@@ -10,9 +10,9 @@ const Thumbnail = props => {
     //todo - this is no good this shouldnt be read from properties
     let thumbnailProps = {};
     thumbnailProps['src'] = imageUrl;
-    for(let actionName in actions){
+    for (let actionName in actions) {
         let currentAction = actions[actionName];
-        if(currentAction.name !== 'create' || currentAction.name !== 'edit'){
+        if (currentAction.name !== 'create' || currentAction.name !== 'edit') {
             continue;
         }
         thumbnailProps['href'] = currentAction.linkHref;
@@ -24,15 +24,13 @@ const Thumbnail = props => {
     return <img {...thumbnailProps}/>
 };
 
-
-
 class TemplateComponent extends React.Component {
     render() {
         let {id, imageUrl, templateActions} = this.props;
         return (<div className={"invoice-template-element"}>
             <div className={'invoice-template-thumb'}>
                 <Thumbnail imageUrl={imageUrl} actions={templateActions}/>
-                <div className={'invoice-template-actions'}>
+                <div className={'template-overview-actions-container'}>
                     <TemplateActions actions={templateActions}/>
                 </div>
             </div>

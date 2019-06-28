@@ -7,11 +7,6 @@ class RootComponent extends React.Component {
     render() {
         let {system, user} = this.props;
         let {templates, templateActions, favourites, TEMPLATE_SOURCES} = normalize.normalizeTemplateData(system, user);
-        debugger;
-
-        //todo - delete method needs to come from up here as it will affect what templates we have.
-
-
 
         return (
                 <div>

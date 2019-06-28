@@ -29,21 +29,49 @@
                 max-height: 40px;
                 overflow-y: auto;
             }
-            .invoice-template-actions {
-                position: absolute;
-                display: flex;
-                justify-content: space-around;
-                width: 100%;
-                bottom: 0;
-                box-sizing: border-box;
-                .invoice-template-action-link {
-                    width:40px;
-                    height:40px;
-                    text-decoration: underline;
-                    margin-bottom: 5px;
-                    cursor: pointer;
-                }
-            }
         }
     }
+}
+
+.template-action-icon-extend{
+    height: 25px;
+    width: 25px;
+    fill:blue;
+    cursor:pointer;
+    &:hover{
+        fill: green;
+    }
+}
+
+.template-overview-actions-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    box-sizing: border-box;
+    bottom: 5px;
+}
+
+.template-overview-favourite-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-edit-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-duplicate-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-create-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-delete-icon {
+    @extend .template-action-icon-extend;
+}
+
+.template-overview-buy-icon {
+    @extend .template-action-icon-extend;
 }

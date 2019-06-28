@@ -51,6 +51,10 @@ module.exports = {
             {
                 test: /thenBy/,
                 use: 'exports-loader?firstBy'
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
             }
         ]
     },
@@ -89,6 +93,7 @@ module.exports = {
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'umd', 'react.production.min.js'),
+            'zf2-v4-ui': path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui'),
             'react-with-addons': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'dist', 'react-with-addons.min.js'),
             'react-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-dom', 'umd', 'react-dom.production.min.js'),
             'react-redux': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-redux', 'dist', 'react-redux.min.js'),
