@@ -13,8 +13,6 @@ const IconActionMap = {
 };
 
 let LinkAction = props => {
-    console.log('in link action');
-
     let {className, href, trimmedName} = props;
 
     let Icon = IconActionMap[trimmedName];

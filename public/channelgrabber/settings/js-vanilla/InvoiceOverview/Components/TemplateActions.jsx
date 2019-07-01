@@ -24,19 +24,13 @@ const Actions = props => {
 
     for (let actionKey in actions) {
         let action = actions[actionKey];
-        // pass action props to component
+
         let trimmedName = action.name.toLowerCase().split(' ')[0];
-        
-        console.log('trimmedName: ', trimmedName);
-        
-        
+
         let ActionIcon = actionIconMap[trimmedName];
         if (!ActionIcon) {
             continue;
         }
-        
-        console.log('ActionIcon: ', ActionIcon);
-        
         
         result.push(<ActionIcon
             className={`template-overview-${trimmedName}-icon`}

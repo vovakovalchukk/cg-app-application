@@ -4,16 +4,18 @@ import Icon from 'zf2-v4-ui/img/icons/star.svg';
 
 let FavouriteTemplate = function(props) {
     let {className, trimmedName, templateId} = props;
-//    let favouriteState = useFavourites();
+    let favouriteState = useFavourites();
 
     let iconClassName = '';
-//    if (favouriteState.isFavourite(templateId)) {
-//        iconClassName = '-active-favourite';
-//    }
+
+    if (favouriteState.isFavourite(templateId)) {
+        iconClassName = '-active-favourite';
+    }
 
     return (
         <a
             className={className}
+            onClick={favouriteState.toggleFavourite}
         >
             <Icon
                 className={`template-overview-${trimmedName}-icon ${iconClassName}`}
@@ -24,7 +26,7 @@ let FavouriteTemplate = function(props) {
     function useFavourites() {
         let [favourites, setFavourites] = useState([]);
 
-        function toggleFavourite(templateId) {
+        function toggleFavourite() {
             let indexOfTemplateId = favourites.indexOf(templateId);
 
             let newFavourites = favourites.slice();
