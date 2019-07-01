@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 
-import LinkAction from 'InvoiceOverview/Components/LinkAction';
+import LinkAction from 'InvoiceOverview/TemplateActions/LinkAction';
 
-import FavouriteTemplate from 'InvoiceOverview/Components/FavouriteTemplate';
-import DeleteTemplate from 'InvoiceOverview/Components/DeleteTemplate';
+import FavouriteTemplate from 'InvoiceOverview/TemplateActions/FavouriteTemplate';
+import DeleteTemplate from 'InvoiceOverview/TemplateActions/DeleteTemplate';
 
 const actionIconMap = {
     'favourite': FavouriteTemplate,
@@ -41,7 +41,6 @@ const Actions = props => {
     }
 
     return result;
-
 //
 //    function getLinkPropsForFavourite(templateId) {
 //        let linkProps = {};
@@ -69,8 +68,6 @@ const Actions = props => {
 //        };
 //        return linkProps;
 //    }
-
-
 };
 
 export default Actions;

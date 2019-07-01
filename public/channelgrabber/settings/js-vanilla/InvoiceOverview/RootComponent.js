@@ -12,6 +12,7 @@ let RootComponent = function(props) {
 
     //todo handle the deletion of components here
     return (
+        <RootContext.Provider value={templatesState}>
             <div>
                 <SectionComponent
                     className={'invoice-template-section module'}
@@ -28,6 +29,7 @@ let RootComponent = function(props) {
                     source={TEMPLATE_SOURCES.user}
                 />
             </div>
+        </RootContext.Provider>
     );
 
     function useTemplates(initialTemplates) {
@@ -48,3 +50,4 @@ let RootComponent = function(props) {
 };
 
 export default RootComponent;
+export {RootContext};

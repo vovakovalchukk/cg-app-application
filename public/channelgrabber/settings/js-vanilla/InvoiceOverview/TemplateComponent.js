@@ -1,5 +1,5 @@
 import React from 'react';
-import TemplateActions from 'InvoiceOverview/Components/TemplateActions';
+import TemplateActions from 'InvoiceOverview/TemplateActions/TemplateActions';
 
 const Thumbnail = props => {
     let {imageUrl, actions} = props;
