@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5d417c0d8427c0ff76e475de31da2ce",
+    "content-hash": "f09c9c5b60a8509d3449e1b6b14944b5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.12",
+            "version": "dev-CGIV-10638-sagepay-mark-tokens-expired",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427"
+                "reference": "03d5cfb243ae2d09968eb21a3f5ded42110cbedb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.12-bcd659.zip",
-                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10638-sagepay-mark-tokens-expired-4c65d6.zip",
+                "reference": "03d5cfb243ae2d09968eb21a3f5ded42110cbedb",
                 "shasum": null
             },
             "require": {
@@ -518,6 +518,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
                 "channelgrabber/phinx": "~0.3.2",
+                "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stdlib": "^2.16.1",
@@ -536,6 +537,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-10638-sagepay-mark-tokens-expired": "1.20.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -551,7 +557,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-06-25T14:42:45+00:00"
+            "time": "2019-07-01T15:28:23+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -2936,16 +2942,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "cf6479871581ed17e342ea8af3487d2a0760a141"
+                "reference": "bb833986577a0500c312d03b8182d0b9a6a3091c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/sagepay/channelgrabber-sagepay-dev-CGIV-10638-sagepay-mark-tokens-expired-6768f5.zip",
-                "reference": "cf6479871581ed17e342ea8af3487d2a0760a141",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/sagepay/channelgrabber-sagepay-dev-CGIV-10638-sagepay-mark-tokens-expired-d36711.zip",
+                "reference": "bb833986577a0500c312d03b8182d0b9a6a3091c",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.20.1",
+                "channelgrabber/billing": "dev-CGIV-10638-sagepay-mark-tokens-expired as 1.20.13",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/log": "^2.0.17",
@@ -2975,7 +2981,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2019-06-27T10:52:49+00:00"
+            "time": "2019-07-01T15:34:21+00:00"
         },
         {
             "name": "channelgrabber/scraper",
@@ -11377,6 +11383,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.20.13",
+            "alias_normalized": "1.20.13.0",
+            "version": "dev-CGIV-10638-sagepay-mark-tokens-expired",
+            "package": "channelgrabber/billing"
+        },
+        {
             "alias": "1.1.25",
             "alias_normalized": "1.1.25.0",
             "version": "dev-CGIV-10638-sagepay-mark-tokens-expired",
@@ -11385,6 +11397,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/sagepay": 20,
         "phpish/link_header": 20,

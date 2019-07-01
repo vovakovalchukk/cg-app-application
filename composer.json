@@ -23,7 +23,7 @@
         "channelgrabber/amazon": "~1.28.20",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/bigcommerce": "~1.4.1",
-        "channelgrabber/billing": "~1.20.12",
+        "channelgrabber/billing": "dev-CGIV-10638-sagepay-mark-tokens-expired as 1.20.13",
         "channelgrabber/cache": "~2.5.2",
         "channelgrabber/cglib": "~1.16.14",
         "channelgrabber/channel": "~1.42.19",
