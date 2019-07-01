@@ -26,8 +26,6 @@ require(["tooltip"], function(Tooltip) {
     //todo - do something useful with this in TAC-448
     const pdfExportOptions = <?= json_encode($pdfExportOptions) ?>;
 
-    console.log(pdfExportOptions);
-
     var buyerMessageTooltip = new Tooltip(
         "#datatable-container",
         ".buyer-message-holder",
