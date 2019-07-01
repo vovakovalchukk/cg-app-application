@@ -54,6 +54,10 @@
 
 .template-overview-favourite-icon {
     @extend .template-action-icon-extend;
+
+    &.-active-favourite{
+        fill: red;
+    }
 }
 
 .template-overview-edit-icon {

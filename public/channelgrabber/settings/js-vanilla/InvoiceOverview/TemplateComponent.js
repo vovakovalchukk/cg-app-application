@@ -31,7 +31,7 @@ class TemplateComponent extends React.Component {
             <div className={'invoice-template-thumb'}>
                 <Thumbnail imageUrl={imageUrl} actions={templateActions}/>
                 <div className={'template-overview-actions-container'}>
-                    <TemplateActions actions={templateActions}/>
+                    <TemplateActions actions={templateActions} templateId={id}/>
                 </div>
             </div>
             <div className={'invoice-template-name'}>

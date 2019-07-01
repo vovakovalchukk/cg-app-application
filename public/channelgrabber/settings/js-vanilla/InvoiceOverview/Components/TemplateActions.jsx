@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import FavouriteIcon from 'zf2-v4-ui/img/icons/star.svg';
 import EditIcon from 'zf2-v4-ui/img/icons/edit.svg';
@@ -17,31 +17,30 @@ const actionIconMap = {
 };
 
 const Actions = props => {
-    let {actions} = props;
+    let {actions, templateId} = props;
     if (!actions) {
         return null;
     }
 
     let result = [];
 
+    let favouriteState = useFavourites();
+
     for (let actionKey in actions) {
         let action = actions[actionKey];
 
-        let linkProps = getLinkPropsForAction(action);
+        let linkProps = getLinkPropsForAction(action, templateId);
 
         let trimmedName = action.name.toLowerCase().split(' ')[0];
         let ActionIcon = actionIconMap[trimmedName];
         if (!ActionIcon) {
             continue;
         }
-        
-        console.log('actions: ', actions);
-
 
         result.push(
             <a {...linkProps}>
                 <ActionIcon
-                    className={`template-overview-${trimmedName}-icon`}
+                    className={`template-overview-${trimmedName}-icon ${linkProps.iconClassName}`}
                 />
             </a>
         )
@@ -49,7 +48,7 @@ const Actions = props => {
 
     return result;
 
-    function getLinkPropsForAction(action) {
+    function getLinkPropsForAction(action, templateId) {
         let linkProps = {};
 
         let getLinkPropsMap = {
@@ -57,29 +56,70 @@ const Actions = props => {
             'deleteTemplate': getLinkPropsForDelete
         };
 
-        //todo do something different for favourite
         if (typeof getLinkPropsMap[action.name] == 'function') {
-            return getLinkPropsMap[action.name]();
+            return getLinkPropsMap[action.name](templateId);
         }
 
         linkProps['href'] = action.linkHref;
         return linkProps;
     }
 
-    function getLinkPropsForFavourite() {
+    function getLinkPropsForFavourite(templateId) {
         let linkProps = {};
         linkProps.onClick = function() {
-            console.log('on favourite click');
+            console.log('on favourite click ', templateId);
+
+            // todo do something better here.
+            console.log('favouriteState: ', favouriteState);
+
+            //todo seewhats happening
+            favouriteState.toggleFavourite(templateId);
+        };
+
+        if(favouriteState.isFavourite(templateId)){
+            linkProps.iconClassName = '-active-favourite';
+        }
+
+        return linkProps;
+    }
+
+    function getLinkPropsForDelete(templateId) {
+        let linkProps = {};
+        linkProps.onClick = function() {
+            console.log('on delete click', templateId);
         };
         return linkProps;
     }
 
-    function getLinkPropsForDelete() {
-        let linkProps = {};
-        linkProps.onClick = function() {
-            console.log('on delete click');
-        };
-        return linkProps;
+    function useFavourites() {
+        let [favourites, setFavourites] = useState([]);
+
+        function toggleFavourite(templateId) {
+            let indexOfTemplateId = favourites.indexOf(templateId);
+
+            let newFavourites = favourites.slice();
+
+            if(indexOfTemplateId > -1){
+                newFavourites.splice(indexOfTemplateId, 1);
+                setFavourites(newFavourites);
+                return;
+            }
+
+            newFavourites.push(templateId);
+            setFavourites(newFavourites);
+            return;
+        }
+
+        function isFavourite(templateId) {
+            return favourites.indexOf(templateId) > -1
+        }
+
+        return {
+            favourites,
+            setFavourites,
+            isFavourite,
+            toggleFavourite
+        }
     }
 };
 
