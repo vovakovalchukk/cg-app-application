@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef548475ed18466f95d5b4b49bcc2d60",
+    "content-hash": "f69c63595888b1740bc29979859ff1cd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.11",
+            "version": "1.20.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "cf474066e9ba4cd853ffbfac5b026c35a0b9067f"
+                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.11-ac4cd3.zip",
-                "reference": "cf474066e9ba4cd853ffbfac5b026c35a0b9067f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.12-bcd659.zip",
+                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427",
                 "shasum": null
             },
             "require": {
@@ -551,7 +551,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-06-03T12:49:54+00:00"
+            "time": "2019-06-25T14:42:45+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -3496,7 +3496,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "73c818620d9b7f9cc6ea54197d2783b00b1907fd"
+                "reference": "76553222248c225b11884f728c132440caa21afa"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -4977,16 +4977,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.16",
+            "version": "1.26.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0574d3231dd5b48a5af0d51ee61e4bae91d7a3fb"
+                "reference": "fd3ddc40b670ef10c25b19634163345dc8ebaa41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.16-967407.zip",
-                "reference": "0574d3231dd5b48a5af0d51ee61e4bae91d7a3fb",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.17-cc941e.zip",
+                "reference": "fd3ddc40b670ef10c25b19634163345dc8ebaa41",
                 "shasum": null
             },
             "require": {
@@ -5038,7 +5038,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-06-05T14:23:52+00:00"
+            "time": "2019-06-25T09:59:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

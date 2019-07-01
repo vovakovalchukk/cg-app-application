@@ -154,15 +154,24 @@ define([
         var aliasUrlMap = {
             customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache'
         };
+
+        services = services.sort((a, b) => {
+            return a.title - b.title
+        });
+
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
             var serviceCustomSelect = cgmustache.renderTemplate(templates, {
                 isOptional: 'true',
                 id: 'shipping-service-custom-select-' + aliasId,
                 name: 'shipping-service-custom-select-' + aliasId,
+                options: services,
+                searchField: true,
+                sizeClass: 'u-width-100pc',
+                marginClass : 'u-margin-top-small',
                 class: 'shipping-service-select',
-                options: services
-            }, "customSelect");
+                ['content-type'] : 'open-content u-max-width-initial u-width-100pc'
+        }, "customSelect");
 
             if($("#shipping-alias-" + aliasId).length) {
                 $("#shipping-alias-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
