@@ -10,21 +10,20 @@ let RootComponent = function(props) {
 
     let templatesState = useTemplates(templates);
 
-    //todo handle the deletion of components here
     return (
-        <RootContext.Provider value={templatesState}>
+        <RootContext.Provider value={{templatesState}}>
             <div>
                 <SectionComponent
                     className={'invoice-template-section module'}
                     sectionHeader={'Create New Template'}
-                    templates={templates}
+                    templates={templatesState.templates}
                     templateActions={templateActions}
                     source={TEMPLATE_SOURCES.system}
                 />
                 <SectionComponent
                     className={'invoice-template-section module'}
                     sectionHeader={'Edit Existing Template'}
-                    templates={templates}
+                    templates={templatesState.templates}
                     templateActions={templateActions}
                     source={TEMPLATE_SOURCES.user}
                 />
@@ -36,9 +35,16 @@ let RootComponent = function(props) {
         let [templates, setTemplates] = useState(initialTemplates);
 
         function deleteTemplate(templateId){
-            console.log('in deleteTemplate');
+            if(!templates){
+                return;
+            }
             let newTemplates = templates.slice();
-            console.log('newTemplates: ', newTemplates);
+            let templateIndex = newTemplates.findIndex(template => (template.id === templateId));
+            if(templateIndex < 0){
+                return;
+            }
+            newTemplates.splice(templateIndex, 1);
+            setTemplates(newTemplates);
         }
 
         return {
