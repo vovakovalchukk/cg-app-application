@@ -303,7 +303,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $templateId = $this->params()->fromPost('templateId');
         $response = $this->getJsonModelFactory()->newInstance([
             'success' => true,
-            "message" => "You have successfully deleted your template."
+            "message" => 'You have successfully deleted your template.'
         ]);
         return $response;
     }

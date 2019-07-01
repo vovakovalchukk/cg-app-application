@@ -39,7 +39,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Invoice\Settings as InvoiceSettings;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 
-
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
@@ -183,8 +182,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
 
         // todo - rework this in TAC-450
-        $pdfExportOptions = $this->getTemplateOptionsForPDFExport();
-        $view->setVariable('pdfExportOptions', $pdfExportOptions);
+        $view->setVariable('pdfExportOptions', $this->getTemplateOptionsForPDFExport());
 
         return $view;
     }
@@ -193,8 +191,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getTemplateOptionsForPDFExport()
     {
         $invoices = $this->invoiceSettings->getInvoices();
-        $formatted = array();
-        foreach($invoices as $key => $value)
+        $formatted = [];
+        foreach ($invoices as $key => $value)
         {
             $formatted[$key] = [
                 'index' => $key,
@@ -211,8 +209,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $orderIds = $this->params()->fromPost('orderIds');
         $templateIds = $this->params()->fromPost('templateIds');
 
-        $mimeType = "application/pdf";
-        $fileName = "dummy.pdf";
+        $mimeType = 'application/pdf';
+        $fileName = 'dummy.pdf';
         $data = file_get_contents('dummy-template.pdf');
 
         return new Response(
