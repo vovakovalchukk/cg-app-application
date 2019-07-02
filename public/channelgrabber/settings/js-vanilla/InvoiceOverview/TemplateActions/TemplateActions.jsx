@@ -41,33 +41,6 @@ const Actions = props => {
     }
 
     return result;
-//
-//    function getLinkPropsForFavourite(templateId) {
-//        let linkProps = {};
-//        linkProps.onClick = function() {
-//            console.log('on favourite click ', templateId);
-//
-//            // todo do something better here.
-//            console.log('favouriteState: ', favouriteState);
-//
-//            //todo seewhats happening
-//            favouriteState.toggleFavourite(templateId);
-//        };
-//
-//        if (favouriteState.isFavourite(templateId)) {
-//            linkProps.iconClassName = '-active-favourite';
-//        }
-//
-//        return linkProps;
-//    }
-
-//    function getLinkPropsForDelete(templateId) {
-//        let linkProps = {};
-//        linkProps.onClick = function() {
-//            console.log('on delete click', templateId);
-//        };
-//        return linkProps;
-//    }
 };
 
 export default Actions;

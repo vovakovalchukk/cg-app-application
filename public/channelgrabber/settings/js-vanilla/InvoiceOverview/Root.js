@@ -4,14 +4,14 @@ import normalize from 'InvoiceOverview/normalizeService';
 
 const RootContext = React.createContext({});
 
-let RootComponent = function(props) {
+let Root = props => {
     let {system, user} = props;
     let {templates, templateActions, favourites, TEMPLATE_SOURCES} = normalize.normalizeTemplateData(system, user);
 
     let templatesState = useTemplates(templates);
 
     return (
-        <RootContext.Provider value={{templatesState}}>
+        <RootContext.Provider value={{templatesState, favourites}}>
             <div>
                 <SectionComponent
                     className={'invoice-template-section module'}
@@ -55,5 +55,5 @@ let RootComponent = function(props) {
     }
 };
 
-export default RootComponent;
+export default Root;
 export {RootContext};

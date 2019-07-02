@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RootComponent from 'InvoiceOverview/RootComponent';
+import InvoiceOverviewRoot from 'InvoiceOverview/Root';
 
 var InvoiceOverview = function(mountingNode, invoiceData)
 {
-    ReactDOM.render(React.createElement(RootComponent, invoiceData), mountingNode);
+    ReactDOM.render(React.createElement(InvoiceOverviewRoot, invoiceData), mountingNode);
 };
 
 export default InvoiceOverview;

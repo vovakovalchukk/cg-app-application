@@ -36,13 +36,10 @@ export default (function normalizeService() {
                 actions['favourite'] = {
                     key: 'favourite',
                     name:'favourite',
-                    //todo - do something better here
-                    iconUrl: ''
                 };
                 actions['delete'] = {
                     key: 'delete',
                     name: 'delete',
-                    iconUrl: ''
                 };
             }
         }
@@ -53,26 +50,13 @@ export default (function normalizeService() {
 
     return {
         normalizeTemplateData : (systemTemplates, userTemplates) => {
-            const actionTypes = {
-                byId: {
-                    'favourite': {
-                        name: 'favourite',
-                        icon: '...'
-                    },
-                    'create': {name: 'create'},
-                    'edit': {name: 'edit'},
-                    'deleteTemplate': {name: 'deleteTemplate'},
-                    'duplicate': {name: '...'},
-                    'buy label': {name: 'sdfsdf'}
-                }
-            };
-
             let normalizedTemplates = [];
             let templateActions = {
                 byTemplateId: {
                     //1: {href} ...
                 }
             };
+            let favourites = [];
 
             normalizeTemplates({
                 source: TEMPLATE_SOURCES.system,
@@ -87,6 +71,7 @@ export default (function normalizeService() {
             return {
                 templates: normalizedTemplates,
                 templateActions,
+                favourites,
                 TEMPLATE_SOURCES
             };
 
@@ -105,6 +90,9 @@ export default (function normalizeService() {
                     delete newTemplate.invoiceId;
                     delete newTemplate.templateId;
                     buildActions({newTemplate, templateActions, source});
+                    if(newTemplate.favourite){
+                        favourites.push(newTemplate.id);
+                    }
                     normalizedTemplates.push(newTemplate);
                 }
             }

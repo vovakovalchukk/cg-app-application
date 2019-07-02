@@ -1,10 +1,14 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import Icon from 'zf2-v4-ui/img/icons/star.svg';
+import service from 'InvoiceOverview/service';
+import {RootContext} from "InvoiceOverview/Root";
 
 let FavouriteTemplate = function(props) {
+    const rootContext = useContext(RootContext);
     let {className, trimmedName, templateId} = props;
-    let favouriteState = useFavourites();
+
+    let favouriteState = useFavourites(rootContext.favourites);
 
     let iconClassName = '';
 
@@ -23,20 +27,27 @@ let FavouriteTemplate = function(props) {
         </a>
     );
 
-    function useFavourites() {
-        let [favourites, setFavourites] = useState([]);
+    function useFavourites(initialFavourites) {
+        let [favourites, setFavourites] = useState(initialFavourites);
 
-        function toggleFavourite() {
+        async function toggleFavourite() {
             let indexOfTemplateId = favourites.indexOf(templateId);
 
             let newFavourites = favourites.slice();
 
             if (indexOfTemplateId > -1) {
+                let response = await service.removeFavourite(templateId);
+                if(!response.success){
+                    return;
+                }
                 newFavourites.splice(indexOfTemplateId, 1);
                 setFavourites(newFavourites);
                 return;
             }
-
+            let response = await service.addFavourite(templateId);
+            if(!response.success){
+                return;
+            }
             newFavourites.push(templateId);
             setFavourites(newFavourites);
             return;
