@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07b9e3f6fa91d47314222301e6c36764",
+    "content-hash": "cb668008bab6914954f1a951f10a5db5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2406,16 +2406,16 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.2.0",
+            "version": "dev-CGIV-10657-pickinglist-overlapping",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "2ea1fd1d4645c312710102d48449149bd975d46b"
+                "reference": "d741afab6463686e5105fa170eb624969e06a45b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.0-cde0e6.zip",
-                "reference": "2ea1fd1d4645c312710102d48449149bd975d46b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-dev-CGIV-10657-pickinglist-overlapping-2ce7f5.zip",
+                "reference": "d741afab6463686e5105fa170eb624969e06a45b"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2445,7 +2445,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-13T12:25:49+00:00"
+            "time": "2019-07-02T13:45:14+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -9983,7 +9983,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -11263,10 +11264,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
+            "version": "dev-CGIV-10657-pickinglist-overlapping",
+            "package": "channelgrabber/picklist"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/picklist": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

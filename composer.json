@@ -60,7 +60,7 @@
         "channelgrabber/payment": "~1.14.2",
         "channelgrabber/permission": "~1.0.2",
         "channelgrabber/phinx": "~0.3.8",
-        "channelgrabber/picklist": "~1.2.0",
+        "channelgrabber/picklist": "dev-CGIV-10657-pickinglist-overlapping as 1.2.1",
         "channelgrabber/predis": "~1.1.5",
         "channelgrabber/product": "~1.16.18",
         "channelgrabber/profiling": "^1.1",
