@@ -547,13 +547,33 @@ return [
                                             ]
                                         ]
                                     ],
-                                    InvoiceController::ROUTE_SAVE => [
+                                    InvoiceController::ROUTE_DELETE_TEMPLATE => [
                                         'type' => Literal::class,
                                         'options' => [
                                             'route' => '/delete',
                                             'defaults' => [
                                                 'controller' => InvoiceController::class,
-                                                'action' => 'saveSettings',
+                                                'action' => 'deleteTemplate'
+                                            ]
+                                        ]
+                                    ],
+                                    InvoiceController::ROUTE_ADD_FAVOURITE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/addFavourite',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'addFavourite'
+                                            ]
+                                        ]
+                                    ],
+                                    InvoiceController::ROUTE_REMOVE_FAVOURITE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/removeFavourite',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'removeFavourite'
                                             ]
                                         ]
                                     ],
