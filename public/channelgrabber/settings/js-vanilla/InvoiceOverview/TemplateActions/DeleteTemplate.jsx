@@ -18,7 +18,33 @@ let DeleteTemplate = function(props){
         if(!templates){
             return;
         }
-        rootContext.templatesState.deleteTemplate(templateId);
+
+        $.ajax({
+//            "url" : '/orders/pdf-export',
+            "url" : '/settings/invoice/settings/delete',
+//            "url" : '/settings/invoice/settings/removeFavourite',
+
+
+
+            "type" : "POST",
+            'dataType' : 'json',
+            "data" : {
+                templateId: templateId
+            },
+            "complete" : function() {
+                console.log('complete!');
+                
+                
+            },
+            "success" : function(data) {
+                console.log('success !data: ', data);
+                rootContext.templatesState.deleteTemplate(templateId);
+            },
+            "error" : function() {
+                console.log('error...');
+            }
+        });
+
     }
 };
 
