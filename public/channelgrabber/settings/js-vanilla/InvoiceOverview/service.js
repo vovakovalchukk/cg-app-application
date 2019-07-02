@@ -16,7 +16,6 @@ export default (function invoiceOverviewService() {
                     n.error('Template could not be deleted.')
                 }
             });
-
         },
         addFavourite: async function addFavourite(templateId) {
             n.notice('adding favourite...');
