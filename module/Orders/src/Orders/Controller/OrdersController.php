@@ -195,7 +195,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         foreach ($invoices as $key => $value)
         {
             $formatted[$key] = [
-                'index' => $key,
+                'id' => $key,
                 'name' => $value->getName(),
                 'favourite' => $key === 0
             ];
