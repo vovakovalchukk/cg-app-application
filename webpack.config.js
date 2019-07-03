@@ -89,6 +89,7 @@ module.exports = {
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
+            Orders: path.resolve(__dirname, 'public', 'channelgrabber', 'orders'),
             Courier: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'Courier'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             Reports: path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6', 'Reports'),

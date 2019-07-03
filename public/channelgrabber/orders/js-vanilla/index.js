@@ -1,6 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
 import filterCollection from 'Filters/js/FilterCollection';
+
+import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
 
 const ordersIndex = (function ordersIndex() {
     return {
@@ -13,9 +18,23 @@ const ordersIndex = (function ordersIndex() {
             createToolTip();
             renderGiftMessageTemplate();
             setupDataTableListeners();
+            renderBulkTemplateExport(pdfExportOptions);
         }
     };
 
+    function renderBulkTemplateExport(pdfExportOptions){
+        let bulkActionBar = document.getElementById('bulk-actions');
+        let templateExportMount = document.createElement("div");
+        templateExportMount.id = 'bulk-template-export-mount';
+        bulkActionBar.appendChild(templateExportMount);
+        ReactDOM.render(
+            <TemplateExportBulkAction
+                pdfExportOptions={pdfExportOptions}
+            />,
+            templateExportMount
+        )
+    }
+    
     function createToolTip() {
         var buyerMessageTooltip = new Tooltip(
             "#datatable-container",

@@ -5,25 +5,12 @@ require.config({
         'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
     }
 });
-require(["Filters/FilterCollection"], function(filterCollection) {
-    var filterNames = {
-<?php
-    foreach ($filterNames as $index => $filterName) {
-        echo $filterName . ": '" . $filterName . "', ";
-    }
-?>
-    };
-    filterCollection.setFilters(filterNames);
-});
-
 require([
     "Orders/index"
 ], function(
     ordersIndex,
 ) {
-    //todo - do something useful with this in TAC-448
     const pdfExportOptions = <?= json_encode($pdfExportOptions) ?>;
-
     var filterNames = {
         <?php
             foreach ($filterNames as $index => $filterName) {
@@ -31,7 +18,6 @@ require([
             }
         ?>
     };
-
     ordersIndex.init({
         pdfExportOptions,
         filterNames
