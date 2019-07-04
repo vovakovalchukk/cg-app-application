@@ -6,6 +6,7 @@ use CG\Channel\Type as ChannelType;
 use CG\Ebay\Account\CreationService as EbayCreationService;
 use CG\Ebay\CodeType\ListingDuration;
 use CG\Ebay\CodeType\PaymentMethod;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Products\Module as ProductsModule;
 use Settings\Module;
 use Zend\View\Model\ViewModel;
@@ -27,8 +28,14 @@ class EbayController extends ChannelControllerAbstract implements AddChannelSpec
             $this->params()->fromQuery('accountId'),
             $this->params()->fromQuery()
         );
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
-        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
+
+        try {
+            $url = $this->partnerAuthoriseService->fetchPartnerSuccessRedirectUrlFromSession($accountEntity);
+        } catch (NotFound $e) {
+            $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
+            $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
+        }
+
         $this->plugin('redirect')->toUrl($url);
         return false;
     }

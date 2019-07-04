@@ -18,6 +18,7 @@ module.exports = {
         "zf2-register/js/Components/CompanyDetails/CountySelector": "./public/channelgrabber/zf2-register/jsx/Components/CompanyDetails/CountySelector.jsx",
         "reports/js/Reports/Application": "./public/channelgrabber/reports/es6/Reports/Application.js",
         "walmart/js/Setup/Service": "./public/channelgrabber/walmart/js-vanilla/Setup/Service.js",
+        "orders/js/Courier/Review/CourierReview": "./public/channelgrabber/orders/jsx/Courier/Review/CourierReview.jsx",
     },
     module: {
         rules: [
@@ -79,6 +80,7 @@ module.exports = {
             //Product: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'Product'),
             CategoryMapper: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'CategoryMapper'),
             PurchaseOrders: path.resolve(__dirname, 'public', 'channelgrabber', 'products', 'jsx', 'PurchaseOrders'),
+            Courier: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'Courier'),
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             Reports: path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6', 'Reports'),
             InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),

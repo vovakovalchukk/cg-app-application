@@ -34,13 +34,15 @@ return array (
     29 => 'Ekm',
     30 => 'Etsy',
     31 => 'Walmart',
-    32 => 'Reports',
-    33 => 'ShipStation',
-    34 => 'CourierExport',
-    35 => 'CG_Billing',
-    36 => 'CG_GoCardless',
-    37 => 'CG_Sagepay',
-    38 => 'Tideways',
+    32 => 'Classic',
+    33 => 'Reports',
+    34 => 'ShipStation',
+    35 => 'CourierExport',
+    36 => 'CG_Billing',
+    37 => 'CG_GoCardless',
+    38 => 'CG_Sagepay',
+    39 => 'Tideways',
+    40 => 'Partner'
   ),
   'module_listener_options' => 
   array (

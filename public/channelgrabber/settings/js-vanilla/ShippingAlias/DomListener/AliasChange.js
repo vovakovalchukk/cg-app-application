@@ -90,12 +90,16 @@ function(domManipulator, eventCollator, DeferredQueue)
 
     AliasChange.prototype.save = function(alias)
     {
-        var aliasInUse = $('#' + alias);
+        const aliasInUse = $('#' + alias);
+        const aliasInUseVanilla = document.getElementById(alias);
+
+        let serviceNode = aliasInUseVanilla.querySelector('input.shipping-service-select');
+
         var aliasID = aliasInUse.find('input[name=shipping-alias-id]').val();
         var storedETag = aliasInUse.find('input[name=shipping-alias-storedETag]').val();
         var aliasName = aliasInUse.find('.shipping-alias-name-holder .inputbox').val();
-        var aliasAccount = aliasInUse.find('input[class=shipping-account-select][type=hidden]').val();
-        var aliasService = aliasInUse.find('input[class=shipping-service-select][type=hidden]').val();
+        var aliasAccount = aliasInUseVanilla.querySelector('input.shipping-account-select').value;
+        var aliasService = serviceNode ? serviceNode.value : "";
         var aliasServiceOptions = aliasInUse.find('.shipping-service-options input[type=hidden]');
         var hiddenCheckBoxes = aliasInUse.find('.channel-shipping-methods input[type=hidden]');
         var checkBoxValues = [];

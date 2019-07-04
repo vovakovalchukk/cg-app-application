@@ -201,15 +201,27 @@ class Create extends PostAbstract
         $packages = $this->shipment->getPackages();
         $packagesXml = $xml->addChild('packages');;
         $packageId = 1;
+
         /** @var Package $package */
         foreach ($packages as $package) {
             $packageXml = $packagesXml->addChild('package');
             $packageXml->addChild('packageId', $packageId++);
+
             $packageXml->addChild('weight', $package->getWeight());
-            $packageXml->addChild('length', $this->convertLength($package->getLength()));
-            $packageXml->addChild('width', $this->convertLength($package->getWidth()));
-            $packageXml->addChild('height', $this->convertLength($package->getHeight()));
+
+            $length = $this->convertLength($package->getLength());
+            $width = $this->convertLength($package->getWidth());
+            $height = $this->convertLength($package->getHeight());
+
+            if ($length == 0 || $width == 0 || $height == 0) {
+                continue;
+            }
+
+            $packageXml->addChild('length', $length);
+            $packageXml->addChild('width', $width);
+            $packageXml->addChild('height', $height);
         }
+
         return $xml;
     }
 
@@ -276,7 +288,7 @@ class Create extends PostAbstract
         if ($string === null) {
             return '';
         }
-        return htmlspecialchars(substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT));
+        return htmlspecialchars(mb_substr($string, 0, $maxLength ?? static::MAX_LEN_DEFAULT));
     }
 
     protected function getDeliveryPhoneNumber(): string

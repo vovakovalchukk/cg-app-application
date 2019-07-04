@@ -1,12 +1,11 @@
 <?php
 namespace Settings;
 
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\ViewModel;
-use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
 use Zend\Config\Factory as ConfigFactory;
-use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\Di\Di;
+use Zend\Mvc\MvcEvent;
+use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 
 class Module

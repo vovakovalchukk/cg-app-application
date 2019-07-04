@@ -1,6 +1,5 @@
 import ResponseActions from './ResponseActions';
 
-
     var formatFormValuesForSubmission = function(values, props) {
         return {
             accountIds: props.accounts,
@@ -63,6 +62,24 @@ import ResponseActions from './ResponseActions';
         return details;
     };
 
+    let formatTextArrayValues = function(values, fieldPrefix) {
+        let fieldValues = values[fieldPrefix];
+        if(!fieldValues){
+            return values;
+        }
+
+        let formatted = [];
+        for(let fieldValue of fieldValues) {
+            if(!fieldValue){
+                continue;
+            }
+            formatted.push(fieldValue);
+        }
+
+        values[fieldPrefix] = formatted;
+        return values;
+    };
+
     let formatProductChannelDataForChannel = function(values, props) {
         values = Object.assign({}, values);
         if (values.attributeImageMap && Object.keys(values.attributeImageMap).length > 0) {
@@ -84,6 +101,9 @@ import ResponseActions from './ResponseActions';
         if (Object.keys(variationToEpid).length > 0) {
             values.variationToEpid = variationToEpid;
         }
+
+        values = formatTextArrayValues(values, 'bulletPoint');
+        values = formatTextArrayValues(values, 'searchTerm');
 
         return values;
     };

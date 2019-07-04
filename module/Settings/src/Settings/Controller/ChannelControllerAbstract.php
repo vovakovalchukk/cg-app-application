@@ -9,6 +9,7 @@ use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Partner\Account\AuthoriseService as PartnerAuthoriseService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 abstract class ChannelControllerAbstract extends AbstractActionController
@@ -25,6 +26,8 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     protected $featureFlagsService;
     /** @var OrganisationUnitService */
     protected $organisationUnitService;
+    /** @var PartnerAuthoriseService */
+    protected $partnerAuthoriseService;
 
     public function __construct(
         AccountCreationService $accountCreationService,
@@ -32,23 +35,16 @@ abstract class ChannelControllerAbstract extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         FeatureFlagsService $featureFlagsService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        PartnerAuthoriseService $partnerAuthoriseService
     ) {
-        $this->setAccountCreationService($accountCreationService)
-            ->setActiveUserContainer($activeUserContainer)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory)
-            ->setFeatureFlagsService($featureFlagsService)
-            ->setOrganisationUnitService($organisationUnitService);
-    }
-
-    /**
-     * @return self
-     */
-    protected function setAccountCreationService(AccountCreationService $accountCreationService)
-    {
         $this->accountCreationService = $accountCreationService;
-        return $this;
+        $this->activeUserContainer = $activeUserContainer;
+        $this->jsonModelFactory = $jsonModelFactory;
+        $this->viewModelFactory = $viewModelFactory;
+        $this->featureFlagsService = $featureFlagsService;
+        $this->organisationUnitService = $organisationUnitService;
+        $this->partnerAuthoriseService = $partnerAuthoriseService;
     }
 
     /**
@@ -57,15 +53,6 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     protected function getAccountCreationService()
     {
         return $this->accountCreationService;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
     }
 
     /**
@@ -90,15 +77,6 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     }
 
     /**
-     * @return self
-     */
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    /**
      * @return JsonModelFactory
      */
     protected function getJsonModelFactory()
@@ -107,31 +85,10 @@ abstract class ChannelControllerAbstract extends AbstractActionController
     }
 
     /**
-     * @return self
-     */
-    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    /**
      * @return ViewModelFactory
      */
     protected function getViewModelFactory()
     {
         return $this->viewModelFactory;
-    }
-
-    protected function setFeatureFlagsService(FeatureFlagsService $featureFlagsService): ChannelControllerAbstract
-    {
-        $this->featureFlagsService = $featureFlagsService;
-        return $this;
-    }
-
-    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService): ChannelControllerAbstract
-    {
-        $this->organisationUnitService = $organisationUnitService;
-        return $this;
     }
 }
