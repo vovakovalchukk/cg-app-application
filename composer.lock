@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "58d3c89e556f8f9a56e84aed52910334",
+    "content-hash": "22f517cee5266d932f4bb0aa942fcef9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3497,12 +3497,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3fa680643700a293ef5f91301814fd820e1a0512"
+                "reference": "46a6ba3eafaeca4b7579164652ea2fd018562be8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-442-invoice-generation-update-43de0d.zip",
-                "reference": "3fa680643700a293ef5f91301814fd820e1a0512",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-442-invoice-generation-update-de29f6.zip",
+                "reference": "46a6ba3eafaeca4b7579164652ea2fd018562be8",
                 "shasum": null
             },
             "require": {
@@ -3549,7 +3549,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-03T11:08:24+00:00"
+            "time": "2019-07-04T09:35:15+00:00"
         },
         {
             "name": "channelgrabber/transaction",
