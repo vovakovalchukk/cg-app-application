@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f69c63595888b1740bc29979859ff1cd",
+    "content-hash": "58d3c89e556f8f9a56e84aed52910334",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.12",
+            "version": "1.20.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427"
+                "reference": "9cf21a4496fb46c6bdb92bb17c524af331e3370b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.12-bcd659.zip",
-                "reference": "ae2db3d2050fb455ab93886b07ae4665afbd1427",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.13-c40694.zip",
+                "reference": "9cf21a4496fb46c6bdb92bb17c524af331e3370b",
                 "shasum": null
             },
             "require": {
@@ -518,6 +518,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
                 "channelgrabber/phinx": "~0.3.2",
+                "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stdlib": "^2.16.1",
@@ -551,7 +552,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-06-25T14:42:45+00:00"
+            "time": "2019-07-04T08:44:11+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -2453,23 +2454,23 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "2ea1fd1d4645c312710102d48449149bd975d46b"
+                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.0-cde0e6.zip",
-                "reference": "2ea1fd1d4645c312710102d48449149bd975d46b",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/picklist/channelgrabber-picklist-1.2.1-e98dbd.zip",
+                "reference": "37de6ac6ec762e5b8a218d86f7812ada9a9fd061",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.0.0",
                 "channelgrabber/settings": "^1.3.1",
-                "channelgrabber/template": "^1.6.8",
+                "channelgrabber/template": "^1.6.9",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
                 "zendframework/zendpdf": "2.0.2.2"
@@ -2493,7 +2494,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-02-13T12:25:49+00:00"
+            "time": "2019-07-03T11:12:34+00:00"
         },
         {
             "name": "channelgrabber/predis",
@@ -2932,20 +2933,20 @@
         },
         {
             "name": "channelgrabber/sagepay",
-            "version": "1.1.24",
+            "version": "1.1.25.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sagepay.git",
-                "reference": "9014eda97b482aae189c96abd314afaf4437d52f"
+                "reference": "adf65a7e2ce8de8d7a1aa1aaa2d6113fbaae0fde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/sagepay/channelgrabber-sagepay-1.1.24-9f3906.zip",
-                "reference": "9014eda97b482aae189c96abd314afaf4437d52f",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/sagepay/channelgrabber-sagepay-1.1.25.1-89abcb.zip",
+                "reference": "adf65a7e2ce8de8d7a1aa1aaa2d6113fbaae0fde",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.20.1",
+                "channelgrabber/billing": "^1.20.13",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/log": "^2.0.17",
@@ -2975,7 +2976,7 @@
                     "CG\\SagePay\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2018-10-29T14:07:16+00:00"
+            "time": "2019-07-04T08:50:10+00:00"
         },
         {
             "name": "channelgrabber/scraper",
@@ -3548,7 +3549,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-02T06:49:44+00:00"
+            "time": "2019-07-03T11:08:24+00:00"
         },
         {
             "name": "channelgrabber/transaction",
