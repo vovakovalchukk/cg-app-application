@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ButtonSelect from 'Common/Components/ButtonSelect';
+import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
 import OrdersBulkActionAbstract from 'Orders/js-vanilla/OrdersBulkActionAbstract';
 
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
@@ -11,15 +11,11 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
             option.favourite=true;
         }
     });
-    console.log('pdfExportOptions (post hack): ', JSON.stringify(pdfExportOptions,null,1));
-
 
     let options = prepareOptions(pdfExportOptions);
 
-    console.log('options (after prepared): ', JSON.stringify(options,null,1));
-
-
-    return (<ButtonSelect
+    return (<ButtonMultiSelect
+        componentId={'template-export'}
         options={options}
         buttonTitle={'Template Export'}
         spriteClass={'sprite-invoice-22-black'}
@@ -36,7 +32,10 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         let result = pdfExportOptions.sort((a,b) => {
            return b.favourite - a.favourite;
         });
-
+        result.splice(0,0,{
+           id: 'defaultInvoice',
+           name: 'Default Invoice'
+        });
         return result;
     }
 };
