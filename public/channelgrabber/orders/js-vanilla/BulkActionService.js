@@ -6,7 +6,6 @@ define([
 
     BulkActionService.BULK_ACTION_CONTAINER_SELECTOR = '.bulk-actions-holder.order-detail > #bulk-actions';
 
-
     BulkActionService.prototype.refresh = function (bulkActions) {
         $(bulkActions).find('.bulk-action').each(function (index, element) {
             var isDisabled = $(element).hasClass('disabled');
@@ -15,6 +14,9 @@ define([
         });
     };
 
+    BulkActionService.prototype.getSelectedOrders = function(){
+        return $('#datatable').cgDataTable("selected", ".checkbox-id");
+    };
 
     return new BulkActionService;
 });

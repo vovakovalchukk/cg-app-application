@@ -34,7 +34,7 @@ const ordersIndex = (function ordersIndex() {
             templateExportMount
         )
     }
-    
+
     function createToolTip() {
         var buyerMessageTooltip = new Tooltip(
             "#datatable-container",
