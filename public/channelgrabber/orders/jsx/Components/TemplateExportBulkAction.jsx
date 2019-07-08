@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
 import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
 import BulkActionService from 'Orders/js-vanilla/BulkActionService';
+import dateUtility from 'Common/Utils/date';
 
+console.log('dateUtility: ', dateUtility);
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
+    
+    
+    console.log('dataUtility.getCurrentDate: ', dateUtility.getCurrentDate);
+    //
+    
+    
     pdfExportOptions.forEach((option, index) => {
         if (index === 2) {
             option.favourite = true;
@@ -46,50 +54,33 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         return result;
     }
 
+    //////////
+    // todo - move this PDF request stuff into UTILS
     async function producePDFAjaxRequest(orderIds, templateIds) {
         n.notice('creating templates...');
-        debugger;
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(data){
             if (this.readyState == 4 && this.status == 200){
-                //this.response is what you're looking for
                 debugger;
-
-                console.log(this.response, typeof this.response);
                 var url = window.URL || window.webkitURL;
                 var objectUrl = url.createObjectURL(this.response);
 
                 let link  = document.createElement('a');
                 link.href = objectUrl;
-                link.download = `PDF-${PDF}`;
+                let formattedDate = `${dateUtility.getCurrentDate()}.pdf`;
+                link.download = `${formattedDate}.pdf`;
+////////
                 link.click();
+                n.success('PDF has been successfully downloaded.');
             }
-        }
+        };
         xhr.open('POST', '/orders/pdf-export');
-        xhr.responseType = 'arraybuffer';
-//        xhr.responseType = 'blob';
+        xhr.responseType = 'blob';
         xhr.send({
             orderIds,
             templateIds
         });
-
-
-//        return $.ajax({
-//            "url": '/orders/pdf-export',
-//            "data": {
-//                orderIds,
-//                templateIds
-//            },
-//            "type": "POST",
-//            'dataType': 'json',
-//            "success": function() {
-//                n.success('Templates have been successfully created.')
-//            },
-//            "error": function() {
-//                n.error('Templates could not be created.')
-//            }
-//        });
     }
 };
 
