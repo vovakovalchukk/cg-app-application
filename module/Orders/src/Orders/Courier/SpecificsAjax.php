@@ -348,7 +348,7 @@ class SpecificsAjax
     protected function processWeightFromProductDetails($value, Item $item)
     {
         if ($value === null) {
-            return '';
+            return 0;
         }
         return $value * $item->getItemQuantity();
     }
@@ -357,7 +357,7 @@ class SpecificsAjax
     {
         // Impossible to tell how to multiply dimensions
         if ($value === null || $item->getItemQuantity() > 1) {
-            return '';
+            return 0;
         }
         return $value;
     }
