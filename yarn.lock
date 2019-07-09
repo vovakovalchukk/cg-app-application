@@ -2411,14 +2411,18 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
+<<<<<<< HEAD
 ccount@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/ccount/-/ccount-1.0.4.tgz#9cf2de494ca84060a2a8d2854edd6dfb0445f386"
   integrity sha512-fpZ81yYfzentuieinmGnphk0pLkOTMm6MZdVqwd77ROvhko6iujLNGrHH5E7utq3ygWklwfmwuG+A7P+NpqT6w==
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.33":
+=======
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-452-create-space-for-js-utilities-in-cg-common":
+>>>>>>> origin/TAC-452-create-space-for-js-utilities-in-cg-common
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#ad32093d17819582ccb405d8d285ecee887dda39"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#294706444245bde19407a309c6fd4fcd5e57812c"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
