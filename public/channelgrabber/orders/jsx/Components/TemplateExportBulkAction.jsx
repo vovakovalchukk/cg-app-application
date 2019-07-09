@@ -3,14 +3,7 @@ import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
 import BulkActionService from 'Orders/js-vanilla/BulkActionService';
 import dateUtility from 'Common/Utils/date';
 
-console.log('dateUtility: ', dateUtility);
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
-    
-    
-    console.log('dataUtility.getCurrentDate: ', dateUtility.getCurrentDate);
-    //
-    
-    
     pdfExportOptions.forEach((option, index) => {
         if (index === 2) {
             option.favourite = true;
@@ -18,7 +11,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
     });
 
     let options = prepareOptions(pdfExportOptions);
-
+    
     return (<ButtonMultiSelect
         options={options}
         buttonTitle={'Template Export'}
@@ -39,8 +32,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         }
 
         let response = await producePDFAjaxRequest(orderIds, optionIds);
-        console.log('response: ', response);
-        
+        //todo - do something useful here
     }
 
     function prepareOptions(pdfExportOptions) {
@@ -54,7 +46,6 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         return result;
     }
 
-    //////////
     // todo - move this PDF request stuff into UTILS
     async function producePDFAjaxRequest(orderIds, templateIds) {
         n.notice('creating templates...');
@@ -62,7 +53,6 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(data){
             if (this.readyState == 4 && this.status == 200){
-                debugger;
                 var url = window.URL || window.webkitURL;
                 var objectUrl = url.createObjectURL(this.response);
 
@@ -70,7 +60,6 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                 link.href = objectUrl;
                 let formattedDate = `${dateUtility.getCurrentDate()}.pdf`;
                 link.download = `${formattedDate}.pdf`;
-////////
                 link.click();
                 n.success('PDF has been successfully downloaded.');
             }
