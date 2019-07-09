@@ -283,7 +283,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveAction()
     {
-        try{
+        try {
             $template = $this->templateService->saveFromJson($this->params()->fromPost('template'));
             $this->notifyOfSave();
             $view = $this->jsonModelFactory->newInstance(["template" => json_encode($template)]);
