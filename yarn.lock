@@ -1605,7 +1605,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10770-fix-for-frontend-listing-frontend-breaks":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#b6d8910ab1e6f9ae77992a2974c9113bea8e438b"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#56e218ca2d782e707cf9eb6fc1af738936378a1f"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
