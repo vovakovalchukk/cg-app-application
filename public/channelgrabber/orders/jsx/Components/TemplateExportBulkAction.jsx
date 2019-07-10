@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
 import BulkActionService from 'Orders/js-vanilla/BulkActionService';
 import dateUtility from 'Common/Utils/date';
+import fileDownload from 'CommonSrc/js-vanilla/Common/Utils/xhr/fileDownload';
 
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
     pdfExportOptions.forEach((option, index) => {
@@ -19,20 +20,38 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         onButtonClick={requestTemplateExport}
     />);
 
-    async function requestTemplateExport(optionIds) {
+    async function requestTemplateExport(templateIds) {
         let orderIds = BulkActionService.getSelectedOrders();
-        console.log('in requestTemplateExport', {optionIds, orderIds});
 
-        if (!Array.isArray(optionIds) ||
+        if (!Array.isArray(templateIds) ||
             !Array.isArray(orderIds) ||
-            !optionIds.length ||
+            !templateIds.length ||
             !orderIds.length
         ){
             return;
         }
 
-        let response = await producePDFAjaxRequest(orderIds, optionIds);
-        //todo - do something useful here
+        let handleError = () => {
+            n.error('PDF could not be successfully downloaded.')
+        };
+
+        try {
+            n.notice('creating templates...');
+            let response = await fileDownload.downloadBlob({
+                url: '/orders/pdf-export',
+                desiredFilename: `${dateUtility.getCurrentDate()}.pdf`,
+                data: {
+                    orderIds,
+                    templateIds
+                }
+            });
+            if(response.status !== 200){
+                return handleError();
+            }
+            n.success('PDF has been successfully downloaded.');
+        } catch(err){
+            handleError();
+        }
     }
 
     function prepareOptions(pdfExportOptions) {
@@ -44,32 +63,6 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
             name: 'Default Invoice'
         });
         return result;
-    }
-
-    // todo - move this PDF request stuff into UTILS
-    async function producePDFAjaxRequest(orderIds, templateIds) {
-        n.notice('creating templates...');
-
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(data){
-            if (this.readyState == 4 && this.status == 200){
-                var url = window.URL || window.webkitURL;
-                var objectUrl = url.createObjectURL(this.response);
-
-                let link  = document.createElement('a');
-                link.href = objectUrl;
-                let formattedDate = `${dateUtility.getCurrentDate()}.pdf`;
-                link.download = `${formattedDate}.pdf`;
-                link.click();
-                n.success('PDF has been successfully downloaded.');
-            }
-        };
-        xhr.open('POST', '/orders/pdf-export');
-        xhr.responseType = 'blob';
-        xhr.send({
-            orderIds,
-            templateIds
-        });
     }
 };
 
