@@ -21,15 +21,15 @@
     "grunt-webpack": "^3.1.3",
     "imports-loader": "^0.8.0",
     "load-grunt-tasks": "^3.5.0",
+    "prop-types": "^15.7.2",
     "rimraf": "^2.5.4",
     "user-home": "^1.1.1",
     "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.0",
-    "prop-types": "^15.7.2"
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
-    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.34",
+    "cg-common": "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#CGIV-10770-fix-for-frontend-listing-frontend-breaks",
     "chart.js": "^2.7.0",
     "create-react-class": "^15.6.3",
     "css-toggle-switch": "^4.1.0",
