@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 import LinkAction from 'InvoiceOverview/TemplateActions/LinkAction';
-
 import FavouriteTemplate from 'InvoiceOverview/TemplateActions/FavouriteTemplate';
 import DeleteTemplate from 'InvoiceOverview/TemplateActions/DeleteTemplate';
 
