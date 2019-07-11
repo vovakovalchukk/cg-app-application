@@ -5,13 +5,13 @@ const TEMPLATE_SOURCES = {
 
 export default (function normalizeService() {
     function getTemplateId(template) {
-        if(template.key==='blank'){
+        if (template.key === 'blank') {
             return 'blank';
         }
         return template.invoiceId || template.templateId || template.id;
     }
 
-    function buildActions({newTemplate, templateActions, source}){
+    function buildActions({newTemplate, templateActions, source}) {
         if (!newTemplate.links) {
             return;
         }
@@ -21,7 +21,7 @@ export default (function normalizeService() {
                 continue;
             }
 
-            if(!templateActions.byTemplateId[newTemplate.id]){
+            if (!templateActions.byTemplateId[newTemplate.id]) {
                 templateActions.byTemplateId[newTemplate.id] = {};
             }
 
@@ -32,14 +32,14 @@ export default (function normalizeService() {
             actions[link.name].linkTarget = link.properties.target;
             delete actions[link.name].properties;
 
-            if(source===TEMPLATE_SOURCES.user){
+            if (source === TEMPLATE_SOURCES.user) {
                 actions['favourite'] = {
                     key: 'favourite',
-                    name:'favourite',
+                    name: 'favourite'
                 };
                 actions['delete'] = {
                     key: 'delete',
-                    name: 'delete',
+                    name: 'delete'
                 };
             }
         }
@@ -47,9 +47,8 @@ export default (function normalizeService() {
         delete newTemplate.links;
     }
 
-
     return {
-        normalizeTemplateData : (systemTemplates, userTemplates) => {
+        normalizeTemplateData: (systemTemplates, userTemplates) => {
             let normalizedTemplates = [];
             let templateActions = {
                 byTemplateId: {
@@ -90,7 +89,7 @@ export default (function normalizeService() {
                     delete newTemplate.invoiceId;
                     delete newTemplate.templateId;
                     buildActions({newTemplate, templateActions, source});
-                    if(newTemplate.favourite){
+                    if (newTemplate.favourite) {
                         favourites.push(newTemplate.id);
                     }
                     normalizedTemplates.push(newTemplate);

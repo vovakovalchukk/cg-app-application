@@ -21,16 +21,27 @@ const Actions = props => {
 
     let result = [];
 
+    let actionsArray = [];
     for (let actionKey in actions) {
         let action = actions[actionKey];
+        actionsArray.push(action)
+    }
 
-        let trimmedName = action.name.toLowerCase().split(' ')[0];
+    actionsArray = actionsArray.sort((a, b) => {
+        if (trimName(a.name) === 'delete') {
+            return 1
+        }
+        return -1;
+    });
+
+    for (let action of actionsArray) {
+        let trimmedName = trimName(action.name);
 
         let ActionIcon = actionIconMap[trimmedName];
         if (!ActionIcon) {
             continue;
         }
-        
+
         result.push(<ActionIcon
             className={`template-overview-${trimmedName}-icon`}
             trimmedName={trimmedName}
@@ -43,3 +54,7 @@ const Actions = props => {
 };
 
 export default Actions;
+
+function trimName(name) {
+    return name.toLowerCase().split(' ')[0];
+}
