@@ -5,13 +5,17 @@ import dateUtility from 'Common/Utils/date';
 import fileDownload from 'CommonSrc/js-vanilla/Common/Utils/xhr/fileDownload';
 
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
-    pdfExportOptions.forEach((option, index) => {
-        if (index === 2) {
-            option.favourite = true;
-        }
-    });
+    let options = [];
 
-    let options = prepareOptions(pdfExportOptions);
+    if (pdfExportOptions) {
+        pdfExportOptions.forEach((option, index) => {
+            if (index === 2) {
+                option.favourite = true;
+            }
+        });
+
+        options = prepareOptions(pdfExportOptions);
+    }
 
     return (<ButtonMultiSelect
         options={options}

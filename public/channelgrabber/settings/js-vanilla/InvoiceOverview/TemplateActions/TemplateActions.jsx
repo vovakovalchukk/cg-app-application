@@ -13,7 +13,7 @@ const actionIconMap = {
     'buy': LinkAction
 };
 
-const Actions = props => {
+const TemplateActions = props => {
     let {actions, templateId} = props;
     if (!actions) {
         return null;
@@ -53,7 +53,7 @@ const Actions = props => {
     return result;
 };
 
-export default Actions;
+export default TemplateActions;
 
 function trimName(name) {
     return name.toLowerCase().split(' ')[0];
