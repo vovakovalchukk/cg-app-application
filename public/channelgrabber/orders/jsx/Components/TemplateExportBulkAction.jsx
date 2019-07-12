@@ -15,7 +15,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
     
     return (<ButtonMultiSelect
         options={options}
-        buttonTitle={'Download PDF'}
+        buttonTitle={'Download'}
         spriteClass={'sprite-download-pdf-22'}
         onButtonClick={requestTemplateExport}
     />);
