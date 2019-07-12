@@ -167,6 +167,16 @@ return [
                         ],
                         'may_terminate' => true
                     ],
+                    'pdf-export' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pdf-export',
+                            'defaults' => [
+                                'action' => 'pdfExport'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
                     'batch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(

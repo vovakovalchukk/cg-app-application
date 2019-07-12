@@ -1,7 +1,6 @@
 import React from 'react';
 import SectionComponent from 'InvoiceOverview/SectionComponent';
 
-
 class RootComponent extends React.Component {
     render() {
         var rootElement = React.createElement('div', {},

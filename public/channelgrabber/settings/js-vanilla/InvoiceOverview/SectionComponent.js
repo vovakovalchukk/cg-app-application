@@ -2,7 +2,6 @@ import React from 'react';
 import $ from 'jquery';
 import TemplateComponent from 'InvoiceOverview/TemplateComponent';
 
-
 class SectionComponent extends React.Component {
     render() {
         var invoiceElements = [];

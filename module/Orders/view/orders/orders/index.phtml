@@ -22,6 +22,10 @@ require(["Filters/FilterCollection"], function(filterCollection) {
     filterCollection.setFilters(filterNames);
 });
 require(["tooltip"], function(Tooltip) {
+
+    //todo - do something useful with this in TAC-448
+    const pdfExportOptions = <?= json_encode($pdfExportOptions) ?>;
+
     var buyerMessageTooltip = new Tooltip(
         "#datatable-container",
         ".buyer-message-holder",

@@ -35,6 +35,10 @@ use Orders\Order\TableService\OrdersTableUserPreferences;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\Controller\AbstractActionController;
 
+// todo - likely will need to be removed during TAC-450
+use Settings\Invoice\Settings as InvoiceSettings;
+use CG\Zend\Stdlib\Http\FileResponse as Response;
+
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
@@ -82,6 +86,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderTableUserPreferences;
     /** @var OrdersTableHelper $orderTableHelper */
     protected $orderTableHelper;
+    /** @var InvoiceSettings $invoiceSettings */
+    protected $invoiceSettings;
 
     public function __construct(
         UsageService $usageService,
@@ -101,7 +107,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         CurrencyFormat $currencyFormat,
         TableService $tableService,
         OrdersTableUserPreferences $orderTableUserPreferences,
-        OrdersTableHelper $orderTableHelper
+        OrdersTableHelper $orderTableHelper,
+        InvoiceSettings $invoiceSettings
     ) {
         $this->currencyFormat = $currencyFormat;
         $this->usageService = $usageService;
@@ -120,6 +127,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->tableService = $tableService;
         $this->orderTableUserPreferences = $orderTableUserPreferences;
         $this->orderTableHelper = $orderTableHelper;
+        $this->invoiceSettings = $invoiceSettings;
     }
 
     public function indexAction()
@@ -148,6 +156,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));
         $view->addChild($ordersTable, 'ordersTable');
+
         $bulkActions = $this->getBulkActionsViewModel();
         $bulkAction = $this->viewModelFactory->newInstance()->setTemplate('orders/orders/bulk-actions/index');
         $bulkAction->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
@@ -155,8 +164,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $bulkAction,
             'afterActions'
         );
-
         $view->addChild($bulkActions, 'bulkItems');
+
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
@@ -165,11 +174,50 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ),
             'storedFiltersSidebar'
         );
+
         $view->addChild($this->getBatches(), 'batches');
+
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
+
+        // todo - rework this in TAC-450
+        $view->setVariable('pdfExportOptions', $this->getTemplateOptionsForPDFExport());
+
         return $view;
+    }
+
+    // todo - rework this in TAC-450
+    protected function getTemplateOptionsForPDFExport()
+    {
+        $invoices = $this->invoiceSettings->getInvoices();
+        $formatted = [];
+        foreach ($invoices as $key => $value)
+        {
+            $formatted[$key] = [
+                'id' => $key,
+                'name' => $value->getName(),
+                'favourite' => $key === 0
+            ];
+        }
+        return $formatted;
+    }
+
+    // todo - rework this in TAC-450
+    protected function pdfExportAction()
+    {
+        $orderIds = $this->params()->fromPost('orderIds');
+        $templateIds = $this->params()->fromPost('templateIds');
+
+        $mimeType = 'application/pdf';
+        $fileName = 'dummy.pdf';
+        $data = file_get_contents('dummy-template.pdf');
+
+        return new Response(
+            $mimeType,
+            $fileName,
+            $data
+        );
     }
 
     protected function getStatusFilters()
