@@ -12,7 +12,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
     });
 
     let options = prepareOptions(pdfExportOptions);
-    
+
     return (<ButtonMultiSelect
         options={options}
         buttonTitle={'Download'}
@@ -27,7 +27,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
             !Array.isArray(orderIds) ||
             !templateIds.length ||
             !orderIds.length
-        ){
+        ) {
             return;
         }
 
@@ -45,11 +45,11 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                     templateIds
                 }
             });
-            if(response.status !== 200){
+            if (response.status !== 200) {
                 return handleError();
             }
             n.success('PDF has been successfully downloaded.');
-        } catch(err){
+        } catch (err) {
             handleError();
         }
     }
