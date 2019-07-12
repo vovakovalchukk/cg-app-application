@@ -34,13 +34,13 @@ let Root = props => {
     function useTemplates(initialTemplates) {
         let [templates, setTemplates] = useState(initialTemplates);
 
-        function deleteTemplate(templateId){
-            if(!templates){
+        function deleteTemplate(templateId) {
+            if (!templates) {
                 return;
             }
             let newTemplates = templates.slice();
             let templateIndex = newTemplates.findIndex(template => (template.id === templateId));
-            if(templateIndex < 0){
+            if (templateIndex < 0) {
                 return;
             }
             newTemplates.splice(templateIndex, 1);

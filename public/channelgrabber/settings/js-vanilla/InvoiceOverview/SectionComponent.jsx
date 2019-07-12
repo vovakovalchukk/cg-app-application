@@ -5,7 +5,7 @@ class SectionComponent extends React.Component {
     render() {
         let {templates, templateActions, source} = this.props;
         if (templates.length === 0) {
-           return null;
+            return null;
         }
         return (<div className={'invoice-template-section module'}>
             <div className={'heading-large'}>
@@ -13,7 +13,7 @@ class SectionComponent extends React.Component {
             </div>
             <div>
                 {templates.map(template => {
-                    if(source !== template.source){
+                    if (source !== template.source) {
                         return;
                     }
                     return <TemplateComponent

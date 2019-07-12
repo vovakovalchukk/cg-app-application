@@ -14,13 +14,13 @@ let DeleteTemplate = props => {
         </a>
     );
 
-    async function deleteClick(){
+    async function deleteClick() {
         let {templates} = rootContext.templatesState;
-        if(!templates){
+        if (!templates) {
             return;
         }
         let response = await service.deleteTemplate(templateId);
-        if(!response.success){
+        if (!response.success) {
             return;
         }
         rootContext.templatesState.deleteTemplate(templateId);

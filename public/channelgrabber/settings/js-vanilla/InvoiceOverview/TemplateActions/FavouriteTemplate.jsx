@@ -37,7 +37,7 @@ let FavouriteTemplate = function(props) {
 
             if (indexOfTemplateId > -1) {
                 let response = await service.removeFavourite(templateId);
-                if(!response.success){
+                if (!response.success) {
                     return;
                 }
                 newFavourites.splice(indexOfTemplateId, 1);
@@ -45,7 +45,7 @@ let FavouriteTemplate = function(props) {
                 return;
             }
             let response = await service.addFavourite(templateId);
-            if(!response.success){
+            if (!response.success) {
                 return;
             }
             newFavourites.push(templateId);

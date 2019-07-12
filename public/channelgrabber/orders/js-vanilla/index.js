@@ -10,9 +10,9 @@ import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAc
 const ordersIndex = (function ordersIndex() {
     return {
         init: ({
-           pdfExportOptions,
-           filterNames
-        }) => {
+               pdfExportOptions,
+               filterNames
+           }) => {
             var orderPage = new showHideFilters();
             filterCollection.setFilters(filterNames);
             createToolTip();
@@ -22,7 +22,7 @@ const ordersIndex = (function ordersIndex() {
         }
     };
 
-    function renderBulkTemplateExport(pdfExportOptions){
+    function renderBulkTemplateExport(pdfExportOptions) {
         let bulkActionBar = document.getElementById('bulk-actions');
         let templateExportMount = document.createElement("div");
         templateExportMount.id = 'bulk-template-export-mount';
