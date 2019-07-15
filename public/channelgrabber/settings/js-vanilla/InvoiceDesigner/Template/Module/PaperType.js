@@ -42,7 +42,16 @@ define([
     PaperType.prototype.init = function(template, templateService)
     {
         ModuleAbstract.prototype.init.call(this, template, templateService);
-        this.setAvailablePaperTypes(this.getStorage().fetchAll());
+
+        debugger;
+        console.log('in init');
+        
+        
+        let fetched = this.getStorage().fetchAll();
+
+        this.setAvailablePaperTypes(fetched);
+
+
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
         var currentPaperType = template.getPaperPage().getPaperType() || PaperType.DEFAULT_ID;
         domManipulator.populateCustomSelect(
