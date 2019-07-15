@@ -9,8 +9,7 @@ define([
     paperTypeStorage,
     domManipulator
 ) {
-    var PaperType = function()
-    {
+    var PaperType = function() {
         ModuleAbstract.call(this);
         var storage = paperTypeStorage;
 
@@ -18,18 +17,15 @@ define([
 
         this.setDomListener(new PaperTypeListener());
 
-        this.getStorage = function()
-        {
+        this.getStorage = function() {
             return storage;
         };
 
-        this.setAvailablePaperTypes = function(newAvailablePaperTypes)
-        {
+        this.setAvailablePaperTypes = function(newAvailablePaperTypes) {
             availablePaperTypes = newAvailablePaperTypes;
         };
 
-        this.getAvailablePaperTypes = function()
-        {
+        this.getAvailablePaperTypes = function() {
             return availablePaperTypes;
         };
     };
@@ -39,18 +35,11 @@ define([
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
-    PaperType.prototype.init = function(template, templateService)
-    {
+    PaperType.prototype.init = function(template, templateService) {
         ModuleAbstract.prototype.init.call(this, template, templateService);
 
-        debugger;
-        console.log('in init');
-        
-        
         let fetched = this.getStorage().fetchAll();
-
         this.setAvailablePaperTypes(fetched);
-
 
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
         var currentPaperType = template.getPaperPage().getPaperType() || PaperType.DEFAULT_ID;
@@ -64,11 +53,18 @@ define([
         );
 
         this.selectionMade(currentPaperType, currentInverseCheckbox, true);
-
     };
 
-    PaperType.prototype.selectionMade = function(id, isInverse, initialise)
-    {
+    PaperType.prototype.changePaperDimension = function(property, newValue) {
+        let templatePage = this.getTemplate().getPaperPage();
+        if (property === 'height') {
+            templatePage.setHeight(newValue);
+            return;
+        }
+        templatePage.setWidth(newValue);
+    };
+
+    PaperType.prototype.selectionMade = function(id, isInverse, initialise) {
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
             if (paperType.getId() == id) {
@@ -85,20 +81,38 @@ define([
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
         var templatePage = this.getTemplate().getPaperPage();
 
+        let height = selectedPaperType.getHeight();
+        let width = selectedPaperType.getWidth();
+        let paperTypeId = selectedPaperType.getId()
+
+        //todo - set values of input
+        setPaperDimensionFields({height, width});
+
+        //todo - move these setters somewhere else ... setProp that looks at initialise
         if (initialise) {
-            templatePage.set('height', selectedPaperType.getHeight(), true);
-            templatePage.set('width', selectedPaperType.getWidth(), true);
+            templatePage.set('height', height, true);
+            templatePage.set('width', width, true);
             templatePage.set('backgroundImage', backgroundImage, true);
-            templatePage.set('paperType', selectedPaperType.getId(), true);
+            templatePage.set('paperType', paperTypeId, true);
             templatePage.set('inverse', isInverse, true);
             return;
         }
-        templatePage.setHeight(selectedPaperType.getHeight());
-        templatePage.setWidth(selectedPaperType.getWidth());
+        templatePage.setHeight(height);
+        templatePage.setWidth(width);
         templatePage.setBackgroundImage(backgroundImage);
-        templatePage.setPaperType(selectedPaperType.getId());
+        templatePage.setPaperType(paperTypeId);
         templatePage.setInverse(isInverse);
     };
 
     return new PaperType();
+
+    function setPaperDimensionFields({height, width}) {
+        console.log('in setDimensionFields');
+        let heightInput = document.getElementById('paperHeight');
+        let widthInput = document.getElementById('paperWidth');
+
+        heightInput.value = height;
+        widthInput.value = width;
+        console.log('{heightInput,widthInput}: ', {heightInput, widthInput});
+    }
 });
