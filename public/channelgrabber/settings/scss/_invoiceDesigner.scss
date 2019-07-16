@@ -116,6 +116,22 @@
     @include transform(skew(5deg) rotate(5deg));
     z-index: -1;
 }
+
+.printpage-fields-container{
+    display: grid;
+    //grid-template-columns: [col1] 50%  [col2] 50%;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-gap: 5px 20px;
+}
+.printpage-field-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.printpage-input{
+    width: 50px;
+}
+
 .template-element-ordertable{
     border: dashed 2px $color-mgrey;
 

@@ -35,6 +35,9 @@ function(
         .draggable({
             containment: 'parent',
             stop: function(event, $ui) {
+                console.log('in second stop', $ui.position);
+                
+                
                 var position = elementService.addDomWrapperGapToDimensions($ui.position);
                 domManipulator.triggerElementMovedEvent('{{id}}', position);
             }

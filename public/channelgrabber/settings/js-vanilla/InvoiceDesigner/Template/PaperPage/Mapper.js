@@ -20,6 +20,9 @@ define([
 
     Mapper.prototype.toHtml = function(paperPage)
     {
+        console.log('in toHtml of paperPage mapper');
+
+
         var domId = MapperAbstract.getDomId(paperPage);
         var cssClasses = this.getDomClasses(paperPage).join(' ');
         var cssStyle = this.getDomStyles(paperPage).join('; ');
