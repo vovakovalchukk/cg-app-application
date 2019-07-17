@@ -53,29 +53,21 @@ $(document).ready(function() {
             <div>
                 <div class="printpage-fields-container">
                 <span class="printpage-field-container">
-                    Top: <input id="printPageTopMargin" class="printpage-input"/>
+                    Top: <input id="printPageTopMargin" class="printpage-input" type="number"/>
                 </span>
                     <span class="printpage-field-container">
-                    Bottom: <input id="printPageLeftMargin" class="printpage-input">
+                    Bottom: <input id="printPageBottomMargin" class="printpage-input" type="number">
                 </span>
                     <span class="printpage-field-container">
-                    Left: <input id="printPageTopMargin" class="printpage-input"/>
+                    Left: <input id="printPageLeftMargin" class="printpage-input" type="number"/>
                 </span>
                     <span class="printpage-field-container">
-                    Right: <input id="printPageLeftMargin" class="printpage-input">
+                    Right: <input id="printPageRightMargin" class="printpage-input" type="number">
                 </span>
                 </div>
             </div>
 
         </div>
-
-
-
-
-
-
-
-
 
         <div class="addInvoiceElement template-module">
             <span class="heading-small">Add Element</span>
@@ -93,8 +85,8 @@ $(document).ready(function() {
         </div>
     </div>
     <div id="invoice-template-container" class="invoice-template-container">
+        <!-- todo - put an intermediary wrapper for the print margin -->
     </div>
-
 </div>
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <div class="scrollable-sidebar">
