@@ -56,12 +56,12 @@ define([
     };
 
     PaperType.prototype.changePaperDimension = function(property, newValue) {
-        let templatePage = this.getTemplate().getPaperPage();
+        let paperPage = this.getTemplate().getPaperPage();
         if (property === 'height') {
-            templatePage.setHeight(newValue);
+            paperPage.setHeight(newValue);
             return;
         }
-        templatePage.setWidth(newValue);
+        paperPage.setWidth(newValue);
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse, initialise) {
@@ -107,12 +107,10 @@ define([
     return new PaperType();
 
     function setPaperDimensionFields({height, width}) {
-        console.log('in setDimensionFields');
         let heightInput = document.getElementById('paperHeight');
         let widthInput = document.getElementById('paperWidth');
 
         heightInput.value = height;
         widthInput.value = width;
-        console.log('{heightInput,widthInput}: ', {heightInput, widthInput});
     }
 });
