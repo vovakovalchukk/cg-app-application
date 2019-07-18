@@ -54,9 +54,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         CAAccountMapper $caAccountMapper,
         LabelCancelService $labelCancelService
     ) {
-        $this->setAdapterImplementationService($adapterImplementationService)
-            ->setCAAccountMapper($caAccountMapper)
-            ->setLabelCancelService($labelCancelService);
+        $this->adapterImplementationService = $adapterImplementationService;
+        $this->caAccountMapper = $caAccountMapper;
+        $this->labelCancelService = $labelCancelService;
     }
 
     /**
@@ -264,23 +264,5 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     public function isProvidedChannel($channelName)
     {
         return $this->adapterImplementationService->isProvidedChannel($channelName);
-    }
-
-    protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
-    {
-        $this->adapterImplementationService = $adapterImplementationService;
-        return $this;
-    }
-
-    protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
-    {
-        $this->caAccountMapper = $caAccountMapper;
-        return $this;
-    }
-
-    protected function setLabelCancelService(LabelCancelService $labelCancelService)
-    {
-        $this->labelCancelService = $labelCancelService;
-        return $this;
     }
 }
