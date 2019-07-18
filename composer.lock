@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4d64426af0a3be22bf0425a25e9ee5d",
+    "content-hash": "b829d556873246e40e1088391438b3a0",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -552,20 +552,20 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.5.4",
+            "version": "2.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a"
+                "reference": "f47d6fbdbe121b70f0ff4d35f23c6a3fcdcdf5e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cache/channelgrabber-cache-2.5.4-ff1414.zip",
-                "reference": "1dea4f93f6fde5d78dadf47ec9818dfd0026779a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/cache/channelgrabber-cache-2.6.2-063051.zip",
+                "reference": "f47d6fbdbe121b70f0ff4d35f23c6a3fcdcdf5e8"
             },
             "require": {
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/predis": "^1.0.3",
+                "channelgrabber/predis": "^1.1.0",
                 "channelgrabber/queue": "^1.0.0",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.48",
@@ -588,7 +588,7 @@
                     "CG\\Cache\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-06-21T11:43:26+00:00"
+            "time": "2019-02-27T16:13:10+00:00"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -2005,16 +2005,16 @@
         },
         {
             "name": "channelgrabber/notification",
-            "version": "1.2.2",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-notification.git",
-                "reference": "bfcd8d33f35b7e95c65a4db9d1f7555900618573"
+                "reference": "7193009a5cf5e6e5e4ada0509fe8c29129b72bd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/notification/channelgrabber-notification-1.2.2-d19a48.zip",
-                "reference": "bfcd8d33f35b7e95c65a4db9d1f7555900618573"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/notification/channelgrabber-notification-1.4.0-e666ee.zip",
+                "reference": "7193009a5cf5e6e5e4ada0509fe8c29129b72bd4"
             },
             "require": {
                 "channelgrabber/billing": "^1.8.0",
@@ -2025,10 +2025,12 @@
                 "channelgrabber/settings": "^1.3.7",
                 "channelgrabber/stdlib": "^2.12.7",
                 "channelgrabber/user": "^1.19.0",
+                "channelgrabber/webhook-server": "^1.0.0",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "jakeasmith/http_build_url": "~1.0",
                 "php": ">=7.1",
-                "zendframework/zend-config": "~2.3"
+                "zendframework/zend-config": "~2.3",
+                "zendframework/zend-di": "~2.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.0",
@@ -2051,7 +2053,7 @@
                     "CG\\Notification\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2018-10-22T14:13:45+00:00"
+            "time": "2019-05-22T13:22:46+00:00"
         },
         {
             "name": "channelgrabber/opsgenie",
@@ -2084,16 +2086,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.44.2",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "0b8b9536c96c7f854e2ad396314ac37e9a3a01d3"
+                "reference": "3881ba5c2241210830a4c0249b55ee080df0959a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.44.2-25332f.zip",
-                "reference": "0b8b9536c96c7f854e2ad396314ac37e9a3a01d3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-16-royal-mail-intersoft-package-types-improvements-ab4b84.zip",
+                "reference": "3881ba5c2241210830a4c0249b55ee080df0959a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2102,6 +2104,7 @@
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/courieradapter": "dev-MIG-16-royal-mail-intersoft-package-types-improvements as 1.6.0",
                 "channelgrabber/db": "^1.0.9",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.1",
@@ -2115,7 +2118,8 @@
                 "channelgrabber/location": "^1.2.2",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.1.1",
-                "channelgrabber/notification": "^1.2.2",
+                "channelgrabber/notification": "^1.3.0",
+                "channelgrabber/opsgenie": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
                 "channelgrabber/product": "^1.16.7",
@@ -2124,12 +2128,13 @@
                 "channelgrabber/settings": "^1.6.4",
                 "channelgrabber/slim": "^1.15.3",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
-                "channelgrabber/stdlib": "^2.12.47",
+                "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
                 "channelgrabber/template": "^1.4.27",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
+                "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
@@ -2164,7 +2169,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-05-07T15:29:23+00:00"
+            "time": "2019-07-18T13:30:23+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3229,16 +3234,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.7",
+            "version": "2.16.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "b9a5be011bc5b964b994bf87c476d9bb9281f243"
+                "reference": "e14316e6e1784c553632e7ed1569dcb677db6d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.7-4e639b.zip",
-                "reference": "b9a5be011bc5b964b994bf87c476d9bb9281f243"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.9-94ec4a.zip",
+                "reference": "e14316e6e1784c553632e7ed1569dcb677db6d19"
             },
             "require": {
                 "php": ">=7.1",
@@ -3272,7 +3277,8 @@
                 "files": [
                     "src/Utilities.php",
                     "src/polyfill_70.php",
-                    "src/polyfill_71.php"
+                    "src/polyfill_71.php",
+                    "src/polyfill_73.php"
                 ]
             },
             "autoload-dev": {
@@ -3281,7 +3287,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-02-13T12:22:45+00:00"
+            "time": "2019-06-12T10:20:38+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -3821,6 +3827,45 @@
                 }
             },
             "time": "2016-08-12T07:55:48+00:00"
+        },
+        {
+            "name": "channelgrabber/webhook-server",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-webhook-server.git",
+                "reference": "71359f9e7523a9cdd89bb24dc70edd8f69d9b100"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/webhook-server/channelgrabber-webhook-server-1.0.0-bdebd7.zip",
+                "reference": "71359f9e7523a9cdd89bb24dc70edd8f69d9b100"
+            },
+            "require": {
+                "channelgrabber/cache": "^2.6.2",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/etag": "^1.7.1",
+                "channelgrabber/http": "^1.3.33",
+                "channelgrabber/permission": "^1.0.2",
+                "channelgrabber/slim": "^1.15.3",
+                "channelgrabber/stdlib": "^2.16.7",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\WebhookServer\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\WebhookServer\\Test\\": "tests/src/"
+                }
+            },
+            "time": "2019-05-13T12:30:40+00:00"
         },
         {
             "name": "channelgrabber/woocommerce",
@@ -11276,6 +11321,12 @@
             "alias_normalized": "1.6.0.0",
             "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "package": "channelgrabber/courieradapter"
+        },
+        {
+            "alias": "1.44.3",
+            "alias_normalized": "1.44.3.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
+            "package": "channelgrabber/order"
         }
     ],
     "minimum-stability": "stable",
@@ -11283,6 +11334,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20

@@ -4,6 +4,7 @@ namespace CG\Intersoft\RoyalMail;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
+use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
@@ -12,6 +13,7 @@ use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\Intersoft\RoyalMail\PackageType\Suitability\Factory as PackageTypeSuitabilityFactory;
 use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 use CG\Intersoft\RoyalMail\Shipment\Package;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -236,7 +238,17 @@ class Shipment implements
     /**
      * @inheritdoc
      */
-    public static function getPackageTypes()
+    public static function getPackageTypes(WeightAndDimensionsInterface $weightAndDimensions = null)
+    {
+        $packageTypes = static::getAllPackageTypes();
+        if (!$weightAndDimensions) {
+            return $packageTypes;
+        }
+        $packageTypesSuitability = PackageTypeSuitabilityFactory::getForShipmentClass(static::class);
+        return $packageTypesSuitability($packageTypes, $weightAndDimensions);
+    }
+
+    protected static function getAllPackageTypes(): array
     {
         $packageTypes = [];
         foreach (static::$packageTypes as $packageReference => $packageDisplayName) {
