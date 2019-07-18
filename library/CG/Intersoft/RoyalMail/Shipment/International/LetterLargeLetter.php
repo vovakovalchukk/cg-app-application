@@ -1,9 +1,9 @@
 <?php
 namespace CG\Intersoft\RoyalMail\Shipment\International;
 
-use CG\Intersoft\RoyalMail\Shipment;
+use CG\Intersoft\RoyalMail\Shipment\InternationalAbstract;
 
-class LetterLargeLetter extends Shipment
+class LetterLargeLetter extends InternationalAbstract
 {
     protected static $packageTypes = [
         'P' => 'Letter',

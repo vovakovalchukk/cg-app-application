@@ -282,4 +282,14 @@ class Shipment implements
     {
         return $this->collectionAddress;
     }
+
+    public static function isDomestic(): bool
+    {
+        return true;
+    }
+
+    public static function isInternational(): bool
+    {
+        return !static::isDomestic();
+    }
 }
