@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2a7a36a411919627f437cb18f6daf97",
+    "content-hash": "e4d64426af0a3be22bf0425a25e9ee5d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -969,19 +969,19 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.17",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "ac5b2796d3d7ad62d9c01092b2776346bd125929"
+                "reference": "d386934988ec05c45b35bca22dcb00000a85599d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.17-b66641.zip",
-                "reference": "ac5b2796d3d7ad62d9c01092b2776346bd125929"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-MIG-16-royal-mail-intersoft-package-types-improvements-8db44f.zip",
+                "reference": "d386934988ec05c45b35bca22dcb00000a85599d"
             },
             "require": {
-                "channelgrabber/courieradapter": "~1.5.0",
+                "channelgrabber/courieradapter": "dev-MIG-16-royal-mail-intersoft-package-types-improvements as 1.6.0",
                 "channelgrabber/locale": "^1.0.17",
                 "channelgrabber/stdlib": "^2.0.0",
                 "guzzlehttp/guzzle": "^5.0.0",
@@ -1011,20 +1011,20 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-05-30T10:00:25+00:00"
+            "time": "2019-07-18T09:04:02+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
-            "version": "1.5.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "1f234f1b2469700fed7b2091729ea2daa18fffff"
+                "reference": "c9a2d90f10e18bd5a8c57d7b30fc9b7a0c7ae315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-1.5.0-da9a06.zip",
-                "reference": "1f234f1b2469700fed7b2091729ea2daa18fffff"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-MIG-16-royal-mail-intersoft-package-types-improvements-cf0e85.zip",
+                "reference": "c9a2d90f10e18bd5a8c57d7b30fc9b7a0c7ae315"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1048,7 +1048,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-05-07T09:32:26+00:00"
+            "time": "2019-07-18T08:51:34+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -11264,10 +11264,25 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.18",
+            "alias_normalized": "1.1.18.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
+            "package": "channelgrabber/courier"
+        },
+        {
+            "alias": "1.6.0",
+            "alias_normalized": "1.6.0.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
+            "package": "channelgrabber/courieradapter"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
+        "channelgrabber/courieradapter": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
