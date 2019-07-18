@@ -3,19 +3,16 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface as CarrierBookingOptionsInterface;
-use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Package\SupportedField as PackageField;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
-use CG\CourierAdapter\PackageInterface;
-use CG\CourierAdapter\Package\SupportedField as PackageField;
-use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
+use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
-use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 
 class CarrierBookingOptions implements CarrierBookingOptionsInterface
 {
@@ -91,9 +88,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     protected function getCarrierBookingOptionsForService(
         AccountEntity $account,
-        $serviceCode,
+        string $serviceCode,
         CourierInterface $courierInstance = null
-    ) {
+    ): array {
         if (isset($this->carrierBookingOptionsForService[$account->getId()][$serviceCode])) {
             return $this->carrierBookingOptionsForService[$account->getId()][$serviceCode];
         }
@@ -117,19 +114,19 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $options;
     }
 
-    protected function getCarrierBookingOptionsForShipmentClass($shipmentClass)
+    protected function getCarrierBookingOptionsForShipmentClass(string $shipmentClass): array
     {
         $map = $this->optionInterfacesToOptionNameMap['shipment'];
         return $this->getCarrierBookingOptionsForDeliveryClass($shipmentClass, $map);
     }
 
-    protected function getCarrierBookingOptionsForPackageClass($packageClass)
+    protected function getCarrierBookingOptionsForPackageClass(string $packageClass): array
     {
         $map = $this->optionInterfacesToOptionNameMap['package'];
         return $this->getCarrierBookingOptionsForDeliveryClass($packageClass, $map);
     }
 
-    protected function getCarrierBookingOptionsForDeliveryClass($className, array $map)
+    protected function getCarrierBookingOptionsForDeliveryClass(string $className, array $map): array
     {
         $options = [];
         foreach ($map as $interface => $optionNames) {
@@ -175,7 +172,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function mapServiceFromListArrayRow(array $row)
+    protected function mapServiceFromListArrayRow(array $row): ?string
     {
         if ($row['orderRow']) {
             $this->orderServiceMap[$row['orderId']] = $row['service'];
@@ -203,10 +200,10 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     protected function getDataForDeliveryServiceOption(
         AccountEntity $account,
-        $serviceCode,
-        $option,
+        string $serviceCode,
+        string $option,
         CourierInterface $courierInstance = null
-    ) {
+    ): ?array {
         $data = [];
         if (isset($this->carrierBookingOptionData[$account->getId()][$serviceCode][$option])) {
             return $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option];
@@ -233,7 +230,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function getDataForPackageTypesOption($shipmentClass)
+    protected function getDataForPackageTypesOption(string $shipmentClass): array
     {
         $packageTypes = call_user_func([$shipmentClass, 'getPackageTypes']);
         $data = [];
@@ -243,7 +240,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function getDataForInsuranceOptionsOption($shipmentClass)
+    protected function getDataForInsuranceOptionsOption(string $shipmentClass): array
     {
         $insuranceOptions = call_user_func([$shipmentClass, 'getAvailableInsuranceOptions']);
         $data = [];
