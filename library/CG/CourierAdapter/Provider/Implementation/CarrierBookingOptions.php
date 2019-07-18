@@ -10,6 +10,7 @@ use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationSe
 use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
@@ -162,7 +163,11 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
                 if ($optionType == 'packageType') {
                     $optionType = 'packageTypes';
                 }
-                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $courierInstance);
+                $parcelData = null;
+                if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    $parcelData = ParcelData::fromArray($row);
+                }
+                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $parcelData, $courierInstance);
                 if (!$options) {
                     continue;
                 }
@@ -202,6 +207,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         AccountEntity $account,
         string $serviceCode,
         string $option,
+        ParcelData $parcelData = null,
         CourierInterface $courierInstance = null
     ): ?array {
         $data = [];
@@ -221,7 +227,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $deliveryService = $courierInstance->fetchDeliveryServiceByReference($serviceCode);
         $shipmentClass = $deliveryService->getShipmentClass();
         if ($option == 'packageTypes') {
-            $data = $this->getDataForPackageTypesOption($shipmentClass);
+            $data = $this->getDataForPackageTypesOption($shipmentClass, $parcelData);
         } elseif ($option == 'insuranceOptions' && isset(class_implements($shipmentClass)[InsuranceOptionsInterface::class])) {
             $data = $this->getDataForInsuranceOptionsOption($shipmentClass);
         }
@@ -230,9 +236,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function getDataForPackageTypesOption(string $shipmentClass): array
+    protected function getDataForPackageTypesOption(string $shipmentClass, ParcelData $parcelData = null): array
     {
-        $packageTypes = call_user_func([$shipmentClass, 'getPackageTypes']);
+        $packageTypes = $shipmentClass::getPackageTypes($parcelData);
         $data = [];
         foreach ($packageTypes as $packageType) {
             $data[$packageType->getReference()] = $packageType->getDisplayName();
