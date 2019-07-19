@@ -166,6 +166,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
                 $parcelData = null;
                 if (isset($row['parcelRow']) && $row['parcelRow']) {
                     $parcelData = ParcelData::fromArray($row);
+                    $parcelData->sortDimensions();
                 }
                 $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $parcelData, $courierInstance);
                 if (!$options) {
@@ -201,6 +202,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         ProductDetailCollection $productDetails
     ) {
         $parcelData = ParcelData::fromOrderAndProductDetails($order, $productDetails);
+        $parcelData->sortDimensions();
         return $this->getDataForDeliveryServiceOption($account, $service, $option, $parcelData);
     }
 

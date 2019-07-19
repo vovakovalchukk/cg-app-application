@@ -2090,12 +2090,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "62ed69faa95c4de13ffba3a0a0b3142928a8fe2e"
+                "reference": "a712d835323fe9fadce8c9b4264161d365bf881e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-16-royal-mail-intersoft-package-types-improvements-db7346.zip",
-                "reference": "62ed69faa95c4de13ffba3a0a0b3142928a8fe2e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-16-royal-mail-intersoft-package-types-improvements-54c363.zip",
+                "reference": "a712d835323fe9fadce8c9b4264161d365bf881e"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2169,7 +2169,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-07-19T09:04:37+00:00"
+            "time": "2019-07-19T10:09:25+00:00"
         },
         {
             "name": "channelgrabber/partner",
