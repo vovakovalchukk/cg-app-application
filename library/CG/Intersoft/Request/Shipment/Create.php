@@ -309,7 +309,7 @@ class Create extends PostAbstract
     protected function shortenPhoneNumber(string $phoneNumber): string
     {
         $phoneNumber = str_replace('-', '', $phoneNumber);
-        return preg_replace('|([^0-9\+]+)|', '-', str_replace(['-', ' '], '', $phoneNumber));
+        return preg_replace('|[^0-9\+]+|', '-', str_replace(['-', ' '], '', $phoneNumber));
     }
 
     protected function getTotalPackageWeight(): float
