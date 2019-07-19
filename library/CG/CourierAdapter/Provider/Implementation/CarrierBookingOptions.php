@@ -10,6 +10,7 @@ use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationSe
 use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -148,8 +149,13 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     /**
      * @return array 
      */
-    public function addCarrierSpecificDataToListArray(array $data, AccountEntity $account)
-    {
+    public function addCarrierSpecificDataToListArray(
+        array $data,
+        AccountEntity $account,
+        OrganisationUnit $rootOu,
+        OrderCollection $orders,
+        ProductDetailCollection $productDetails
+    ) {
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         foreach ($data as &$row) {
             $service = $this->mapServiceFromListArrayRow($row);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b829d556873246e40e1088391438b3a0",
+    "content-hash": "20958d27b1334e8b5acf59bfffd5d8fd",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,22 +336,22 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.28.20",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "3e133d35bef03520cf6760aa3ba58e8e7b29c1b4"
+                "reference": "07141a90a0c543a1f9cac7b0061dd54e6b98d2e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.28.20-daaf38.zip",
-                "reference": "3e133d35bef03520cf6760aa3ba58e8e7b29c1b4"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-16-royal-mail-intersoft-package-types-improvements-8dd97b.zip",
+                "reference": "07141a90a0c543a1f9cac7b0061dd54e6b98d2e9"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
                 "channelgrabber/cache": "^2.4.2",
                 "channelgrabber/cglib": "^1.14.0",
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "dev-MIG-16-royal-mail-intersoft-package-types-improvements as 1.43.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -399,7 +399,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-06-06T12:35:34+00:00"
+            "time": "2019-07-19T11:05:30+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -706,16 +706,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.42.19",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f898272e50f4fe883429edfb46e9d497cad1b491"
+                "reference": "f741f6c31d34d312d94995063011639d72a03438"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.42.19-dfafe9.zip",
-                "reference": "f898272e50f4fe883429edfb46e9d497cad1b491"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-MIG-16-royal-mail-intersoft-package-types-improvements-0ba8c8.zip",
+                "reference": "f741f6c31d34d312d94995063011639d72a03438"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -783,7 +783,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-05-29T12:59:23+00:00"
+            "time": "2019-07-19T10:59:17+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1952,19 +1952,19 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.4.2",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "f6e434e7683df7de8bf12313029dc186b4975576"
+                "reference": "3bf90292cb2e9974a9a81cb74e2532fb6323ced7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-1.4.2-d2602b.zip",
-                "reference": "f6e434e7683df7de8bf12313029dc186b4975576"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/netdespatch/channelgrabber-netdespatch-dev-MIG-16-royal-mail-intersoft-package-types-improvements-6c8a05.zip",
+                "reference": "3bf90292cb2e9974a9a81cb74e2532fb6323ced7"
             },
             "require": {
-                "channelgrabber/channel": "^1.42.6",
+                "channelgrabber/channel": "dev-MIG-16-royal-mail-intersoft-package-types-improvements as 1.43.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.3.1",
                 "channelgrabber/email": "^1.1.1",
@@ -2001,7 +2001,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2019-01-07T09:49:02+00:00"
+            "time": "2019-07-19T11:34:18+00:00"
         },
         {
             "name": "channelgrabber/notification",
@@ -11311,6 +11311,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.28.21",
+            "alias_normalized": "1.28.21.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.42.20",
+            "alias_normalized": "1.42.20.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.1.18",
             "alias_normalized": "1.1.18.0",
             "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
@@ -11323,6 +11335,12 @@
             "package": "channelgrabber/courieradapter"
         },
         {
+            "alias": "1.4.3",
+            "alias_normalized": "1.4.3.0",
+            "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "1.44.3",
             "alias_normalized": "1.44.3.0",
             "version": "dev-MIG-16-royal-mail-intersoft-package-types-improvements",
@@ -11331,9 +11349,12 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/courier": 20,
         "channelgrabber/courieradapter": 20,
+        "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
