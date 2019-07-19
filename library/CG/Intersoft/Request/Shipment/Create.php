@@ -30,6 +30,7 @@ class Create extends PostAbstract
     const MAX_LEN_CONTACT = 40;
     const MAX_LEN_DESCRIPTION_OF_GOODS = 70;
     const MAX_LEN_DESCRIPTION = 255;
+    const MAX_LEN_DELIVERY_PHONE_NUMBER = 20;
     const MIN_FINANCIAL_VALUE = 0.01;
 
     const ENHANCEMENT_SIGNATURE = 6;
@@ -294,10 +295,21 @@ class Create extends PostAbstract
     protected function getDeliveryPhoneNumber(): string
     {
         // Intersoft REQUIRE a phone number but it is not enforced by us / most of our channels
-        if (!strlen($this->shipment->getDeliveryAddress()->getPhoneNumber()) > 0) {
+        $phoneNumber = $this->shipment->getDeliveryAddress()->getPhoneNumber();
+        $phoneNumberLength = strlen($phoneNumber);
+        if (!$phoneNumberLength > 0) {
             return '00000000000';
         }
+        if ($phoneNumberLength >= 20) {
+            return $this->shortenPhoneNumber($phoneNumber);
+        }
         return $this->shipment->getDeliveryAddress()->getPhoneNumber();
+    }
+
+    protected function shortenPhoneNumber(string $phoneNumber): string
+    {
+        $phoneNumber = str_replace('-', '', $phoneNumber);
+        return preg_replace('|([^0-9\+]+)|', '-', str_replace(['-', ' '], '', $phoneNumber));
     }
 
     protected function getTotalPackageWeight(): float
