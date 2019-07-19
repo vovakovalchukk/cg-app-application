@@ -245,7 +245,8 @@ class Shipment implements
             return $packageTypes;
         }
         $packageTypeDecider = PackageTypeDeciderFactory::getForShipmentClass(static::class);
-        return $packageTypeDecider($packageTypes, $weightAndDimensions);
+        $selectedPackageType = $packageTypeDecider($packageTypes, $weightAndDimensions);
+        return self::sortSelectedPackageTypeToTheFront($packageTypes, $selectedPackageType);
     }
 
     protected static function getAllPackageTypes(): array
@@ -260,6 +261,14 @@ class Shipment implements
             );
         }
         return $packageTypes;
+    }
+
+    protected static function sortSelectedPackageTypeToTheFront(array $packageTypes, PackageType $selectedPackageType): array
+    {
+        $otherPackageTypes = array_filter($packageTypes, function ($packageType) use ($selectedPackageType) {
+            return ($packageType->getReference() != $selectedPackageType->getReference());
+        });
+        return array_merge([$selectedPackageType], $otherPackageTypes);
     }
 
     /**

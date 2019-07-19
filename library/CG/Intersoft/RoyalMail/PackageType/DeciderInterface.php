@@ -2,8 +2,14 @@
 namespace CG\Intersoft\RoyalMail\PackageType;
 
 use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
+use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 
 interface DeciderInterface
 {
-    public function __invoke(array $availableTypes, WeightAndDimensionsInterface $weightAndDimensions): array;
+    /**
+     * @param PackageType[] $availableTypes
+     * @param WeightAndDimensionsInterface $weightAndDimensions
+     * @return PackageType
+     */
+    public function __invoke(array $availableTypes, WeightAndDimensionsInterface $weightAndDimensions): PackageType;
 }

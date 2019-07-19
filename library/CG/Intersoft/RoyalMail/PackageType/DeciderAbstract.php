@@ -6,19 +6,23 @@ use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 
 abstract class DeciderAbstract implements DeciderInterface
 {
-    public function __invoke(array $availableTypes, WeightAndDimensionsInterface $weightAndDimensions): array
+    /**
+     * @inheritDoc
+     */
+    public function __invoke(array $availableTypes, WeightAndDimensionsInterface $weightAndDimensions): PackageType
     {
         $suitableTypes = [];
         $packageTypeLimits = $this->getLimits();
         /** @var PackageType $packageType */
         foreach ($availableTypes as $packageType) {
-            if (!isset($packageTypeLimits[$packageType->getReference()]) ||
+            if (isset($packageTypeLimits[$packageType->getReference()]) &&
                 $this->isWithinLimits($weightAndDimensions, $packageTypeLimits[$packageType->getReference()])
             ) {
-                $suitableTypes[] = $packageType;
+                return $packageType;
             }
         }
-        return $suitableTypes;
+        // Default to the last which should be the biggest
+        return array_pop($availableTypes);
     }
 
     protected function isWithinLimits(WeightAndDimensionsInterface $weightAndDimensions, array $limits): bool
