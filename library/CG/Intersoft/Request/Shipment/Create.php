@@ -300,7 +300,7 @@ class Create extends PostAbstract
         if (!$phoneNumberLength > 0) {
             return '00000000000';
         }
-        if ($phoneNumberLength >= 20) {
+        if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
             return $this->shortenPhoneNumber($phoneNumber);
         }
         return $this->shipment->getDeliveryAddress()->getPhoneNumber();
