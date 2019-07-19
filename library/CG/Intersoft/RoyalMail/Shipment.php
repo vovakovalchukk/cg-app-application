@@ -13,7 +13,7 @@ use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
-use CG\Intersoft\RoyalMail\PackageType\Suitability\Factory as PackageTypeSuitabilityFactory;
+use CG\Intersoft\RoyalMail\PackageType\Decider\Factory as PackageTypeDeciderFactory;
 use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 use CG\Intersoft\RoyalMail\Shipment\Package;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -244,8 +244,8 @@ class Shipment implements
         if (!$weightAndDimensions) {
             return $packageTypes;
         }
-        $packageTypesSuitability = PackageTypeSuitabilityFactory::getForShipmentClass(static::class);
-        return $packageTypesSuitability($packageTypes, $weightAndDimensions);
+        $packageTypeDecider = PackageTypeDeciderFactory::getForShipmentClass(static::class);
+        return $packageTypeDecider($packageTypes, $weightAndDimensions);
     }
 
     protected static function getAllPackageTypes(): array

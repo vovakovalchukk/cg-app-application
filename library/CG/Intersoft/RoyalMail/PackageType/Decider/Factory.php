@@ -1,15 +1,15 @@
 <?php
-namespace CG\Intersoft\RoyalMail\PackageType\Suitability;
+namespace CG\Intersoft\RoyalMail\PackageType\Decider;
 
-use CG\Intersoft\RoyalMail\PackageType\SuitabilityInterface;
+use CG\Intersoft\RoyalMail\PackageType\DeciderInterface;
 
 class Factory
 {
     /**
      * @param string $shipmentClass Must be a class of type CG\Intersoft\RoyalMail\Shipment
-     * @return SuitabilityInterface
+     * @return DeciderInterface
      */
-    public static function getForShipmentClass(string $shipmentClass): SuitabilityInterface
+    public static function getForShipmentClass(string $shipmentClass): DeciderInterface
     {
         if ($shipmentClass::isInternational()) {
             // As we're currently in a static context we can't (easily) use DI so have to resort to calling new

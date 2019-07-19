@@ -4,7 +4,7 @@ namespace CG\Intersoft\RoyalMail\PackageType;
 use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
 use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 
-abstract class SuitabilityAbstract implements SuitabilityInterface
+abstract class DeciderAbstract implements DeciderInterface
 {
     public function __invoke(array $availableTypes, WeightAndDimensionsInterface $weightAndDimensions): array
     {
