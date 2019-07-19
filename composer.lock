@@ -973,12 +973,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "d386934988ec05c45b35bca22dcb00000a85599d"
+                "reference": "58d945a0aa889b5ffa4a5d6d694f06045100170c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-MIG-16-royal-mail-intersoft-package-types-improvements-8db44f.zip",
-                "reference": "d386934988ec05c45b35bca22dcb00000a85599d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-MIG-16-royal-mail-intersoft-package-types-improvements-7ea4e0.zip",
+                "reference": "58d945a0aa889b5ffa4a5d6d694f06045100170c"
             },
             "require": {
                 "channelgrabber/courieradapter": "dev-MIG-16-royal-mail-intersoft-package-types-improvements as 1.6.0",
@@ -1011,7 +1011,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-07-18T09:04:02+00:00"
+            "time": "2019-07-19T12:54:48+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -1019,12 +1019,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-courier-adapter.git",
-                "reference": "c9a2d90f10e18bd5a8c57d7b30fc9b7a0c7ae315"
+                "reference": "7876982b8fca6c77d43d410097eacd50aad4999f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-MIG-16-royal-mail-intersoft-package-types-improvements-cf0e85.zip",
-                "reference": "c9a2d90f10e18bd5a8c57d7b30fc9b7a0c7ae315"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courieradapter/channelgrabber-courieradapter-dev-MIG-16-royal-mail-intersoft-package-types-improvements-754238.zip",
+                "reference": "7876982b8fca6c77d43d410097eacd50aad4999f"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -1048,7 +1048,7 @@
                 }
             ],
             "description": "A suite of interfaces that describe courier functionality",
-            "time": "2019-07-18T08:51:34+00:00"
+            "time": "2019-07-19T12:50:24+00:00"
         },
         {
             "name": "channelgrabber/currency",
@@ -2090,12 +2090,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a712d835323fe9fadce8c9b4264161d365bf881e"
+                "reference": "fdc0ecb6382e4b5a37d3e80bc1dea217e6a43291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-16-royal-mail-intersoft-package-types-improvements-54c363.zip",
-                "reference": "a712d835323fe9fadce8c9b4264161d365bf881e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-16-royal-mail-intersoft-package-types-improvements-39cdec.zip",
+                "reference": "fdc0ecb6382e4b5a37d3e80bc1dea217e6a43291"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2169,7 +2169,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-07-19T10:09:25+00:00"
+            "time": "2019-07-19T13:21:50+00:00"
         },
         {
             "name": "channelgrabber/partner",

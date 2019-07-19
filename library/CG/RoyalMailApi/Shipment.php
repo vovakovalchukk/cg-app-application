@@ -230,7 +230,7 @@ class Shipment implements
     /**
      * @inheritdoc
      */
-    public static function getPackageTypes(WeightAndDimensionsInterface $weightAndDimensions = null)
+    public static function getPackageTypes(array $weightAndDimensions = null)
     {
         $packageTypes = [];
         foreach (static::$packageTypes as $packageReference => $packageDisplayName) {

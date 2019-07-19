@@ -11,10 +11,11 @@ use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
 use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData\Collection as ParcelDataCollection;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\Product\Detail\Entity as ProductDetail;
 
 class CarrierBookingOptions implements CarrierBookingOptionsInterface
 {
@@ -169,12 +170,12 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
                 if ($optionType == 'packageType') {
                     $optionType = 'packageTypes';
                 }
-                $parcelData = null;
+                $productDetails = null;
                 if (isset($row['parcelRow']) && $row['parcelRow']) {
-                    $parcelData = ParcelData::fromArray($row);
-                    $parcelData->sortDimensions();
+                    $order = $orders->getById($row['orderId']);
+                    $orderProductDetails = $this->getProductDetailsForOrder($productDetails, $order);
                 }
-                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $parcelData, $courierInstance);
+                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $order, $orderProductDetails, $courierInstance);
                 if (!$options) {
                     continue;
                 }
@@ -196,6 +197,19 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return null;
     }
 
+    protected function getProductDetailsForOrder(ProductDetailCollection $productDetails, OrderEntity $order): ProductDetailCollection
+    {
+        $itemSkus = $order->getItems()->getArrayOf('itemSku');
+        $orderProductDetails = new ProductDetailCollection(ProductDetail::class, __FUNCTION__, ['orderId' => $order->getId()]);
+        foreach ($productDetails as $productDetail) {
+            if (!in_array($productDetail->getSku(), $itemSkus)) {
+                continue;
+            }
+            $orderProductDetails->attach($productDetail);
+        }
+        return $orderProductDetails;
+    }
+
     /**
      * @return mixed
      */
@@ -207,20 +221,19 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
-        $parcelData = ParcelData::fromOrderAndProductDetails($order, $productDetails);
-        $parcelData->sortDimensions();
-        return $this->getDataForDeliveryServiceOption($account, $service, $option, $parcelData);
+        return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
     }
 
     protected function getDataForDeliveryServiceOption(
         AccountEntity $account,
         string $serviceCode,
         string $option,
-        ParcelData $parcelData = null,
+        OrderEntity $order = null,
+        ProductDetailCollection $productDetails = null,
         CourierInterface $courierInstance = null
     ): ?array {
         $data = [];
-        if (!$parcelData && isset($this->carrierBookingOptionData[$account->getId()][$serviceCode][$option])) {
+        if (!$productDetails && isset($this->carrierBookingOptionData[$account->getId()][$serviceCode][$option])) {
             return $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option];
         }
         if ($option != 'packageTypes' && $option != 'insuranceOptions') {
@@ -236,7 +249,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $deliveryService = $courierInstance->fetchDeliveryServiceByReference($serviceCode);
         $shipmentClass = $deliveryService->getShipmentClass();
         if ($option == 'packageTypes') {
-            $data = $this->getDataForPackageTypesOption($shipmentClass, $parcelData);
+            $data = $this->getDataForPackageTypesOption($shipmentClass, $order, $productDetails);
         } elseif ($option == 'insuranceOptions' && isset(class_implements($shipmentClass)[InsuranceOptionsInterface::class])) {
             $data = $this->getDataForInsuranceOptionsOption($shipmentClass);
         }
@@ -246,9 +259,18 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function getDataForPackageTypesOption(string $shipmentClass, ParcelData $parcelData = null): array
-    {
-        $packageTypes = $shipmentClass::getPackageTypes($parcelData);
+    protected function getDataForPackageTypesOption(
+        string $shipmentClass,
+        OrderEntity $order = null,
+        ProductDetailCollection $productDetails = null
+    ): array {
+        $parcelDataArray = null;
+        if ($order && $productDetails) {
+            $parcelDataCollection = ParcelDataCollection::fromOrderAndProductDetails($order, $productDetails);
+            $parcelDataCollection->sortDimensions();
+            $parcelDataArray = $parcelDataCollection->toArrayOfObjects();
+        }
+        $packageTypes = $shipmentClass::getPackageTypes($parcelDataArray);
         $data = [];
         foreach ($packageTypes as $packageType) {
             $data[$packageType->getReference()] = $packageType->getDisplayName();
