@@ -200,7 +200,8 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
-        return $this->getDataForDeliveryServiceOption($account, $service, $option);
+        $parcelData = ParcelData::fromOrderAndProductDetails($order, $productDetails);
+        return $this->getDataForDeliveryServiceOption($account, $service, $option, $parcelData);
     }
 
     protected function getDataForDeliveryServiceOption(
