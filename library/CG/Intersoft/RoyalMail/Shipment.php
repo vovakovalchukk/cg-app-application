@@ -241,11 +241,11 @@ class Shipment implements
     public static function getPackageTypes(array $weightAndDimensions = null)
     {
         $packageTypes = static::getAllPackageTypes();
-        if (!$weightAndDimensions) {
+        if (empty($weightAndDimensions)) {
             return $packageTypes;
         }
         $packageTypeDecider = PackageTypeDeciderFactory::getForShipmentClass(static::class);
-        $selectedPackageType = $packageTypeDecider($packageTypes, $weightAndDimensions[0] ?? null);
+        $selectedPackageType = $packageTypeDecider($packageTypes, $weightAndDimensions);
         return self::sortSelectedPackageTypeToTheFront($packageTypes, $selectedPackageType);
     }
 

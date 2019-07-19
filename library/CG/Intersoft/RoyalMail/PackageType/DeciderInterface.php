@@ -8,8 +8,8 @@ interface DeciderInterface
 {
     /**
      * @param PackageType[] $availableTypes
-     * @param WeightAndDimensionsInterface $weightAndDimensions
+     * @param WeightAndDimensionsInterface[] $weightAndDimensions
      * @return PackageType
      */
-    public function __invoke(array $availableTypes, WeightAndDimensionsInterface $weightAndDimensions): PackageType;
+    public function __invoke(array $availableTypes, array $weightAndDimensions): PackageType;
 }
