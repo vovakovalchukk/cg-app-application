@@ -99,6 +99,6 @@ class ListingTemplatesController extends AbstractActionController
     protected function getUsersTemplates(): string
     {
         $usersTemplates = $this->listingTemplateService->getUsersTemplates();
-        return json_encode($usersTemplates, JSON_UNESCAPED_SLASHES);
+        return json_encode($usersTemplates->toArray(), JSON_UNESCAPED_SLASHES);
     }
 }

@@ -1,9 +1,27 @@
 <?php
 namespace Settings\ListingTemplate;
 
+use CG\Listing\Template\Collection as ListingTemplateCollection;
+use CG\Listing\Template\Entity as ListingTemplate;
+use CG\Listing\Template\Filter as ListingTemplateFilter;
+use CG\Listing\Template\Service as ListingTemplateService;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
+
 class Service
 {
     const FEATURE_FLAG = 'Ebay Listing Templates';
+
+    /** @var ListingTemplateService */
+    protected $listingTemplateService;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
+
+    public function __construct(ListingTemplateService $listingTemplateService, ActiveUserInterface $activeUserContainer)
+    {
+        $this->listingTemplateService = $listingTemplateService;
+        $this->activeUserContainer = $activeUserContainer;
+    }
 
     public function getListingTemplateTags(): array
     {
@@ -30,31 +48,17 @@ class Service
         ];
     }
 
-    public function getUsersTemplates(): array
+    public function getUsersTemplates(): ListingTemplateCollection
     {
-        // todo - replace with non dummy data as part of TAC-433
-        return [
-            [
-                'id' => 1,
-                'name' => 'template1',
-                'html' => "<h1>Template 1 Title</h1>
-                    some content in the template
-                "
-            ],
-            [
-                'id' => 2,
-                'name' => 'template2',
-                'html' => "<h1>Template 2 Title</h1>
-                    some content in the template
-                "
-            ],
-            [
-                'id' => 3,
-                'name' => 'template3',
-                'html' => "<h1>Template 3 Title</h1>
-                    some content in the template
-                "
-            ]
-        ];
+        try {
+            $filter = (new ListingTemplateFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()]);
+
+            return $this->listingTemplateService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new ListingTemplateCollection(ListingTemplate::class, 'empty');
+        }
     }
 }
