@@ -297,7 +297,7 @@ class Create extends PostAbstract
         // Intersoft REQUIRE a phone number but it is not enforced by us / most of our channels
         $phoneNumber = $this->shipment->getDeliveryAddress()->getPhoneNumber();
         $phoneNumberLength = strlen($phoneNumber);
-        if (!$phoneNumberLength > 0) {
+        if (!$phoneNumberLength > 0 || !preg_match('|[0-9]+|', $phoneNumber)) {
             return '00000000000';
         }
         if ($phoneNumberLength >= static::MAX_LEN_DELIVERY_PHONE_NUMBER) {
