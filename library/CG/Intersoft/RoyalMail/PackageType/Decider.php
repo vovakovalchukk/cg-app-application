@@ -7,13 +7,21 @@ use CG\Product\Detail\Entity as ProductDetail;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 
-abstract class DeciderAbstract implements DeciderInterface
+class Decider
 {
     const UNIT_MASS = 'kg';
     const UNIT_LENGTH = 'cm';
 
+    /** @var array */
+    protected $typeLimits;
+
     protected $totalFields = ['weight', 'total'];
     protected $dimensionFields = ['length', 'width', 'height'];
+
+    public function __construct(array $typeLimits)
+    {
+        $this->typeLimits = $typeLimits;
+    }
 
     /**
      * @inheritDoc
@@ -47,11 +55,10 @@ abstract class DeciderAbstract implements DeciderInterface
      */
     protected function forSingleItem(array $availableTypes, WeightAndDimensionsInterface $item): PackageType
     {
-        $packageTypeLimits = $this->getLimits();
         /** @var PackageType $packageType */
         foreach ($availableTypes as $packageType) {
-            if (isset($packageTypeLimits[$packageType->getReference()]) &&
-                $this->isWithinLimits($item, $packageTypeLimits[$packageType->getReference()])
+            if (isset($this->typeLimits[$packageType->getReference()]) &&
+                $this->isWithinLimits($item, $this->typeLimits[$packageType->getReference()])
             ) {
                 return $packageType;
             }
@@ -85,7 +92,7 @@ abstract class DeciderAbstract implements DeciderInterface
         if ($packageType->getReference() == $biggestPossiblePackageType->getReference()) {
             return $packageType;
         }
-        $packageTypeLimits = $this->getLimits()[$packageType->getReference()];
+        $packageTypeLimits = $this->typeLimits[$packageType->getReference()];
         $spaceRemaining = $this->deductItemFromWeightAndDimensions($biggestItem, $packageTypeLimits);
         foreach ($remainingItems as $item) {
             $enoughLeftInTotals = $this->isEnoughLeftInWeightAndTotal($item, $spaceRemaining);
@@ -145,7 +152,7 @@ abstract class DeciderAbstract implements DeciderInterface
      */
     protected function getBiggestPossible(array $availableTypes): PackageType
     {
-        $sortedTypeReferences = array_keys($this->getLimits());
+        $sortedTypeReferences = array_keys($this->typeLimits);
         usort($availableTypes, function(PackageType $typeA, PackageType $typeB) use ($sortedTypeReferences)
         {
             $relativeSizeA = array_search($typeA->getReference(), $sortedTypeReferences);
@@ -223,6 +230,4 @@ abstract class DeciderAbstract implements DeciderInterface
         // This shouldn't happen as, separately, we're testing if we hit the biggest type
         throw new \OutOfRangeException('There are no types bigger than ' . $currentPackageType->getDisplayName());
     }
-
-    abstract protected function getLimits(): array;
 }

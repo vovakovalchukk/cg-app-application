@@ -1,9 +1,9 @@
 <?php
-namespace CG\Intersoft\RoyalMail\PackageType\Decider;
+namespace CG\Intersoft\RoyalMail\PackageType\Limits;
 
-use CG\Intersoft\RoyalMail\PackageType\DeciderAbstract;
+use CG\Intersoft\RoyalMail\PackageType\LimitsInterface;
 
-class Domestic extends DeciderAbstract
+class Domestic implements LimitsInterface
 {
     // Keep these in size order, smallest to biggest
     // Weight in kg, dimensions in cm to match user input
@@ -22,7 +22,7 @@ class Domestic extends DeciderAbstract
         ],
     ];
 
-    protected function getLimits(): array
+    public function getLimits(): array
     {
         return $this->limits;
     }
