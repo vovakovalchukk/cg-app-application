@@ -6,7 +6,8 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         var minHeight = 200; // px
 
         var additionalData = {
-            showVat: false
+            showVat: false,
+            linkedProductsDisplay: null
         };
 
         ElementAbstract.call(this, additionalData);
@@ -17,6 +18,18 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             .setMinWidth(elementWidth)
             .setMaxWidth(elementWidth)
             .setMinHeight(minHeight);
+
+
+        this.getLinkedProductsDisplay = function()
+        {
+            return this.get('linkedProductsDisplay');
+        };
+
+        this.setLinkedProductsDisplay = function(newLinkedProductsDisplay)
+        {
+            this.set('linkedProductsDisplay', newLinkedProductsDisplay);
+            return this;
+        };
 
         this.getShowVat = function()
         {

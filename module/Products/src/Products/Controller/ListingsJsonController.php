@@ -129,24 +129,8 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
 
             /** @var UnimportedListingCollection $listings */
             $listings = $this->listingService->fetchListings($requestFilter);
-
-            $currentUserChannels = $listings->getArrayOf('channel');
-            // These changes are to be removed after TAC-347 goes live in full.
-            if (isset($currentUserChannels[static::CHANNEL_WALMART]) && !$this->featureFlagService->isActive('Walmart Listings', $this->getOuEntity())) {
-
-                $listingsToReturn = new UnimportedListingCollection(UnimportedListingEntity::class, 'ListingsToReturn');
-                /** @var UnimportedListingEntity $listing */
-                $listings->rewind();
-                foreach ($listings as $listing) {
-                    if ($listing->getChannel() != static::CHANNEL_WALMART) {
-                        $listingsToReturn->attach($listing);
-                    }
-                }
-            }
-            $listingsToReturn = $listingsToReturn ?? $listings;
-
-            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listingsToReturn->count();
-            $listings = $this->listingService->alterListingTable($listingsToReturn, $this->getEvent());
+            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
+            $listings = $this->listingService->alterListingTable($listings, $this->getEvent());
 
             foreach ($pageLimit->getPageData($listings) as $listing) {
                 $data['Records'][] = $listing;
@@ -270,7 +254,7 @@ class ListingsJsonController extends AbstractActionController implements LoggerA
         $requestFilter = $this->params()->fromPost('filter', []);
         $requestFilter = $this->ensureHiddenFilterApplied($requestFilter);
 
-        $listingFilter = $this->filterMapper->fromArray($requestFilter);        
+        $listingFilter = $this->filterMapper->fromArray($requestFilter);
         $success = $this->listingService->importListingsByFilter($listingFilter);
 
         return $this->jsonModelFactory->newInstance(['import' => $success]);

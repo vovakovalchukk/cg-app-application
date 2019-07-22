@@ -89,6 +89,7 @@ module.exports = {
             ListingTemplates: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'jsx', 'Listing', 'ListingTemplates'),
             SetupWizard: path.resolve(__dirname, 'public', 'channelgrabber', 'setup-wizard', 'jsx'),
             Common: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'dist', 'js', 'Common'),
+            CommonSrc: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'src'),
             jquery: path.resolve(__dirname, 'public', 'channelgrabber', 'zf2-v4-ui', 'js', 'jquery.min.js'),
             // React stuff exists in a few places, specify which to use
             react: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'umd', 'react.production.min.js'),

@@ -266,7 +266,7 @@ return [
                         'options' => [
                             'route' => '/:order',
                             'constraints' => [
-                                'order' => '[0-9]*\-[a-zA-Z0-9_-]*'
+                                'order' => '[0-9]*\-[a-zA-Z0-9_\- ]*'
                             ],
                             'defaults' => [
                                 'controller' => OrderDetailsController::class,
