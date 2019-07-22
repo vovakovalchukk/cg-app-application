@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2a7a36a411919627f437cb18f6daf97",
+    "content-hash": "ed9de977013cb730f08540be947ff6e9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1701,16 +1701,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.19.2",
+            "version": "dev-MIG-11-ebay-listing-templates-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "e3469dee3489610d736f706a11619f35f5911bbf"
+                "reference": "99014f8c1962c38b1c8c67c115f9a00981d54270"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-1.19.2-e52383.zip",
-                "reference": "e3469dee3489610d736f706a11619f35f5911bbf"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/listing/channelgrabber-listing-dev-MIG-11-ebay-listing-templates-backend-1f2cf8.zip",
+                "reference": "99014f8c1962c38b1c8c67c115f9a00981d54270"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1750,7 +1750,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2019-04-24T12:45:37+00:00"
+            "time": "2019-07-22T14:34:09+00:00"
         },
         {
             "name": "channelgrabber/locale",
@@ -11264,10 +11264,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.4",
+            "alias_normalized": "1.19.4.0",
+            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
