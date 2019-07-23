@@ -196,7 +196,7 @@ function useTemplateHtmlState(initialValue) {
         if (position === undefined || !tag) {
             return;
         }
-        let newStr = `${value.slice(0, position)} {{${tag}}} ${value.slice(position)}`;
+        let newStr = `${value.slice(0, position)} ${tag} ${value.slice(position)}`;
         setValue(newStr);
     }
 

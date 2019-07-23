@@ -21,7 +21,7 @@ function TemplateEditor(props) {
             <Select
                 autoSelectFirst={true}
                 filterable={true}
-                title={'choose your tag'}
+                title={'Choose your tag'}
                 selectedOption={tagSelectValue}
                 onOptionChange={(option) => {
                     setTagSelectValue(option);
@@ -30,7 +30,7 @@ function TemplateEditor(props) {
                 options={formattedTemplateTags}
             />
             <button onClick={() => {
-                props.templateHTML.setTag(tagSelectValue.tag, textEditorPosition)
+                props.templateHTML.setTag(tagSelectValue.value, textEditorPosition)
             }}
                 className={'button u-margin-left-small'}
             >
@@ -56,15 +56,15 @@ TemplateEditor.defaultProps = {
 
 export default TemplateEditor;
 
-function formatTemplateTags(listingTemplateTags){
-    if(!listingTemplateTags || !Array.isArray(listingTemplateTags)){
+function formatTemplateTags(listingTemplateTags) {
+    if (!listingTemplateTags || !Array.isArray(listingTemplateTags)) {
         return [];
     }
     return listingTemplateTags.map(tag => {
         return {
             ...tag,
-            value: tag.tag,
-            name: tag.tag
+            value: tag.value,
+            name: tag.name
         };
     });
 }
