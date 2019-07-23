@@ -78,7 +78,7 @@ const RootComponent = props => {
             url: '/settings/listing/preview',
             type: 'POST',
             dataType: 'json',
-            data: {html: templateHTML.value}
+            data: {template: templateHTML.value}
         });
 
         if (response.success) {

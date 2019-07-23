@@ -3424,12 +3424,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "834d998a511ea089c6bad5749aa12ac532ff83cb"
+                "reference": "5911637f8eeaa3fa1da0aa72fbbd1a0654159fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-MIG-11-ebay-listing-templates-backend-a2712d.zip",
-                "reference": "834d998a511ea089c6bad5749aa12ac532ff83cb"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-MIG-11-ebay-listing-templates-backend-1aacad.zip",
+                "reference": "5911637f8eeaa3fa1da0aa72fbbd1a0654159fa5"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3475,7 +3475,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-23T10:48:28+00:00"
+            "time": "2019-07-23T14:02:41+00:00"
         },
         {
             "name": "channelgrabber/transaction",

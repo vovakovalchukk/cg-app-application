@@ -76,16 +76,13 @@ class ListingTemplatesController extends AbstractActionController
 
     public function previewAction(): JsonModel
     {
-        // todo - replace with non dummy data as part of TAC-433
+        $html = $this->listingTemplateService->renderPreviewHtml($this->params()->fromPost('template'));
         $response = $this->newJsonModel();
-        $html = "<h2>Perfect Product</h2><p>This is the description of your perfect product</p>";
-
         $response->setVariable('success', [
-            "message" => "You have successfully received your preview data.",
-            "data" =>
-                [
-                    "html" => $html
-                ]
+            'message' => 'Preview rendered successfully.',
+            'data' => [
+                'html' => $html
+            ]
         ]);
         return $response;
     }

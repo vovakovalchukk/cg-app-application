@@ -7,7 +7,8 @@ use CG\Listing\Template\Filter as ListingTemplateFilter;
 use CG\Listing\Template\Mapper as ListingTemplateMapper;
 use CG\Listing\Template\Service as ListingTemplateService;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Template\TagReplace\Product as ProductTagReplacer;
+use CG\Template\Element\SimpleString as SimpleStringElement;
+use CG\Template\ReplaceManager\Product as ProductTagReplacer;
 use CG\User\ActiveUserInterface;
 
 class Service
@@ -97,5 +98,15 @@ class Service
     {
         $template = $this->listingTemplateService->fetch($id);
         $this->listingTemplateService->remove($template);
+    }
+
+    public function renderPreviewHtml(string $template): string
+    {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $element = new SimpleStringElement($template);
+        $product = new PreviewProduct($rootOuId);
+        $productDetail = new PreviewProductDetail($rootOuId);
+        $element = $this->productTagReplacer->replaceTagsOnElementForProductAndDetail($element, $product, $productDetail);
+        return $element->getReplacedText();
     }
 }
