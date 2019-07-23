@@ -101,6 +101,7 @@ const RootComponent = props => {
         const params = {
             template: templateHTML.value,
             id: templateSelectValue && templateSelectValue.id,
+            etag: templateSelectValue && templateSelectValue.etag,
             name: templateName.value
         };
         let response = await $.ajax({
@@ -111,6 +112,10 @@ const RootComponent = props => {
         });
 
         if (response.success) {
+            setTemplateSelectValue({
+                id: response.success.id,
+                etag: response.success.etag
+            });
             n.success(response.success.message);
             return;
         }

@@ -2,6 +2,7 @@
 
 namespace Settings\Controller;
 
+use CG\Http\Exception\Exception4xx\Conflict;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -56,11 +57,19 @@ class ListingTemplatesController extends AbstractActionController
 
     public function saveAction(): JsonModel
     {
-        // todo - replace with non dummy data as part of TAC-433
         $response = $this->newJsonModel();
-        $response->setVariable('success', [
-            "message" => "You have successfully saved your template."
-        ]);
+        try {
+            $template = $this->listingTemplateService->saveFromPostData($this->params()->fromPost());
+            $response->setVariable('success', [
+                'message' => 'Template saved successfully.',
+                'id' => $template->getId(),
+                'etag' => $template->getStoredETag(),
+            ]);
+        } catch (Conflict $e) {
+            $response->setVariable('error', [
+                'message' => 'Someone else has changed this template. Please refresh the page and try again.'
+            ]);
+        }
         return $response;
     }
 
@@ -99,6 +108,12 @@ class ListingTemplatesController extends AbstractActionController
     protected function getUsersTemplates(): string
     {
         $usersTemplates = $this->listingTemplateService->getUsersTemplates();
-        return json_encode($usersTemplates->toArray(), JSON_UNESCAPED_SLASHES);
+        $userTemplatesArray = [];
+        foreach ($usersTemplates as $template) {
+            $templateArray = $template->toArray();
+            $templateArray['etag'] = $template->getStoredETag();
+            $userTemplatesArray[] = $templateArray;
+        }
+        return json_encode($userTemplatesArray, JSON_UNESCAPED_SLASHES);
     }
 }
