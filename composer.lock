@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed9de977013cb730f08540be947ff6e9",
+    "content-hash": "2afccdcbac8de4d103526ae421ff6530",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3420,16 +3420,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.6.10",
+            "version": "dev-MIG-11-ebay-listing-templates-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ee3efd5dbcb3d43410d923432920f8ae99f2bd69"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-1.6.10-f6e70b.zip",
-                "reference": "ee3efd5dbcb3d43410d923432920f8ae99f2bd69"
+                "reference": "cdc30deed0de9fa7d1e8b31d7f5bef82a39acdbd"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -11270,15 +11265,22 @@
             "alias_normalized": "1.19.4.0",
             "version": "dev-MIG-11-ebay-listing-templates-backend",
             "package": "channelgrabber/listing"
+        },
+        {
+            "alias": "1.6.11",
+            "alias_normalized": "1.6.11.0",
+            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "package": "channelgrabber/template"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
+        "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
