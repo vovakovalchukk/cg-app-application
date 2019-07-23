@@ -92,4 +92,10 @@ class Service
         // Annoyingly save doesn't return an etag, have to fetch
         return $this->listingTemplateService->fetch($savedTemplate->getId());
     }
+
+    public function delete(int $id): void
+    {
+        $template = $this->listingTemplateService->fetch($id);
+        $this->listingTemplateService->remove($template);
+    }
 }

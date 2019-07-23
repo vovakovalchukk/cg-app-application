@@ -48,9 +48,10 @@ class ListingTemplatesController extends AbstractActionController
 
     public function deleteAction(): JsonModel
     {
+        $this->listingTemplateService->delete($this->params()->fromPost('id'));
         $response = $this->newJsonModel();
         $response->setVariable('success', [
-            "message" => "You have successfully deleted your template."
+            'message' => 'Template deleted successfully.'
         ]);
         return $response;
     }
