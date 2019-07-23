@@ -32,7 +32,7 @@ const RootComponent = props => {
                                     setTemplateSelectValue(option);
                                     setTemplateInitialised(true);
                                     templateName.setValue(option.name);
-                                    templateHTML.setValue(option.html);
+                                    templateHTML.setValue(option.template);
                                 }}
                                 deleteTemplate={deleteTemplateHandler}
                 />
@@ -99,7 +99,7 @@ const RootComponent = props => {
 
     async function save() {
         const params = {
-            html: templateHTML.value,
+            template: templateHTML.value,
             id: templateSelectValue && templateSelectValue.id,
             name: templateName.value
         };
