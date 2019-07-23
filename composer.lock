@@ -3426,6 +3426,11 @@
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
                 "reference": "cdc30deed0de9fa7d1e8b31d7f5bef82a39acdbd"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-MIG-11-ebay-listing-templates-backend-ccb449.zip",
+                "reference": "cdc30deed0de9fa7d1e8b31d7f5bef82a39acdbd"
+            },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -3470,7 +3475,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-05T08:50:45+00:00"
+            "time": "2019-07-23T08:57:02+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11279,8 +11284,8 @@
         "channelgrabber/listing": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
-        "phpspec/phpspec": 20,
-        "realityking/hash_equals": 20
+        "realityking/hash_equals": 20,
+        "phpspec/phpspec": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
