@@ -39,12 +39,12 @@ class Decider
     {
         foreach ($weightAndDimensions as $item) {
             if (ProductDetail::UNIT_MASS != static::UNIT_MASS) {
-                $item->setWeight((new Mass($item->getWeight(), ProductDetail::UNIT_MASS))->toUnit(static::UNIT_MASS));
+                $item->setWeight((new Mass((float)$item->getWeight(), ProductDetail::UNIT_MASS))->toUnit(static::UNIT_MASS));
             }
             if (ProductDetail::UNIT_LENGTH != static::UNIT_LENGTH) {
-                $item->setLength((new Length($item->getLength(), ProductDetail::UNIT_LENGTH))->toUnit(static::UNIT_LENGTH));
-                $item->setWidth((new Length($item->getWidth(), ProductDetail::UNIT_LENGTH))->toUnit(static::UNIT_LENGTH));
-                $item->setHeight((new Length($item->getHeight(), ProductDetail::UNIT_LENGTH))->toUnit(static::UNIT_LENGTH));
+                $item->setLength((new Length((float)$item->getLength(), ProductDetail::UNIT_LENGTH))->toUnit(static::UNIT_LENGTH));
+                $item->setWidth((new Length((float)$item->getWidth(), ProductDetail::UNIT_LENGTH))->toUnit(static::UNIT_LENGTH));
+                $item->setHeight((new Length((float)$item->getHeight(), ProductDetail::UNIT_LENGTH))->toUnit(static::UNIT_LENGTH));
             }
         }
         return $weightAndDimensions;
