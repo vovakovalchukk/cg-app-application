@@ -34,7 +34,7 @@ function TemplateEditor(props) {
             }}
                 className={'button u-margin-left-small'}
             >
-                add tag
+                Add tag
             </button>
         </div>
         <fieldset className={"u-margin-top-small"}>

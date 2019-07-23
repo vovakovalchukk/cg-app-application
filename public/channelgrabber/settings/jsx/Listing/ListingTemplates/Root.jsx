@@ -61,8 +61,8 @@ const RootComponent = props => {
 
             {templateInitialised &&
             <div>
-                <button className={"u-margin-top-med button"} onClick={openPreview}>preview</button>
-                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>save</button>
+                <button className={"u-margin-top-med button"} onClick={openPreview}>Preview</button>
+                <button className={"u-margin-top-med u-margin-left-small button"} onClick={save}>Save</button>
             </div>
             }
         </div>

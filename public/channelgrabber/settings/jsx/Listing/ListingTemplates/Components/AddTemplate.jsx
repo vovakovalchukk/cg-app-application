@@ -16,7 +16,7 @@ const AddTemplate = function(props) {
                             onClick={props.onAddClick}
                             className={'button u-margin-left-small'}
                     >
-                        new
+                        New
                     </button>
                 </FieldWithLabel>
             </span>
