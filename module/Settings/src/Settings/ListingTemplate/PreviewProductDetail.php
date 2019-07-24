@@ -28,7 +28,7 @@ class PreviewProductDetail extends ProductDetail
             static::WIDTH,
             static::HEIGHT,
             static::LENGTH,
-            null,
+            PHP_INT_MAX,
             static::DESCRIPTION,
             static::EAN,
             static::BRAND,

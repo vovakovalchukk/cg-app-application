@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2afccdcbac8de4d103526ae421ff6530",
+    "content-hash": "49fe10610259ef0dbf56f76d908b34c8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2086,16 +2086,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.46.3",
+            "version": "dev-MIG-11-ebay-listing-templates-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8aece91a8bc9ce1ec80b343503d6b8e345a1b030"
+                "reference": "014379fbb9b5a89e900eb90c7c8bc5f0d30588a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.3-2dbd5c.zip",
-                "reference": "8aece91a8bc9ce1ec80b343503d6b8e345a1b030"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-11-ebay-listing-templates-backend-a7ff32.zip",
+                "reference": "014379fbb9b5a89e900eb90c7c8bc5f0d30588a1"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2169,7 +2169,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-07-24T10:06:05+00:00"
+            "time": "2019-07-24T11:31:48+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3430,12 +3430,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "5911637f8eeaa3fa1da0aa72fbbd1a0654159fa5"
+                "reference": "381f48c4fc1d7daf48abaf720fb32c430575834b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-MIG-11-ebay-listing-templates-backend-1aacad.zip",
-                "reference": "5911637f8eeaa3fa1da0aa72fbbd1a0654159fa5"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-MIG-11-ebay-listing-templates-backend-70b3c6.zip",
+                "reference": "381f48c4fc1d7daf48abaf720fb32c430575834b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3446,7 +3446,7 @@
                 "channelgrabber/image": "^1.2.3",
                 "channelgrabber/locale": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.35.1",
+                "channelgrabber/order": "dev-MIG-11-ebay-listing-templates-backend as 1.46.4",
                 "channelgrabber/product": "^1.10.1",
                 "channelgrabber/settings": "^1.6.5",
                 "channelgrabber/stdlib": "^2.12.47",
@@ -3481,7 +3481,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-23T14:02:41+00:00"
+            "time": "2019-07-24T11:40:13+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11317,6 +11317,12 @@
             "package": "channelgrabber/listing"
         },
         {
+            "alias": "1.46.4",
+            "alias_normalized": "1.46.4.0",
+            "version": "dev-MIG-11-ebay-listing-templates-backend",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.6.11",
             "alias_normalized": "1.6.11.0",
             "version": "dev-MIG-11-ebay-listing-templates-backend",
@@ -11327,6 +11333,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,

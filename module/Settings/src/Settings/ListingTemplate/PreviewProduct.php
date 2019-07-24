@@ -19,6 +19,7 @@ class PreviewProduct extends Product
             0,
             false
         );
+        $this->setId(PHP_INT_MAX);
         $this->setName(static::NAME);
         $this->setPreviewImages();
     }
