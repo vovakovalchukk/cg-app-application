@@ -182,9 +182,6 @@ class VariationTableComponent extends React.PureComponent {
     };
 
     render() {
-        console.log('in renderVariationTable');
-        
-        
         return (
             <div className={"variation-picker " + this.props.containerCssClasses}>
                 <table className={this.props.tableCssClasses}>
@@ -204,4 +201,3 @@ class VariationTableComponent extends React.PureComponent {
 }
 
 export default VariationTableComponent;
-

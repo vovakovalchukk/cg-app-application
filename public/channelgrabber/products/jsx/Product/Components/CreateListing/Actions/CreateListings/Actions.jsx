@@ -307,7 +307,6 @@ import ResponseActions from './ResponseActions';
             };
         },
         submitListingsForm: function(dispatch, formValues, props) {
-
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',
