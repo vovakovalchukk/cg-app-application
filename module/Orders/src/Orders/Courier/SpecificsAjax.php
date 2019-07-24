@@ -165,7 +165,7 @@ class SpecificsAjax
         }
         $specificsListData = $this->performSumsOnSpecificsListData($specificsListData, $options);
         $specificsListData = $this->courierService->getCarrierOptionsProvider($courierAccount)
-            ->addCarrierSpecificDataToListArray($specificsListData, $courierAccount);
+            ->addCarrierSpecificDataToListArray($specificsListData, $courierAccount, $rootOu, $orders, $productDetails);
         return $specificsListData;
     }
 
