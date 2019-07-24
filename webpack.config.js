@@ -94,7 +94,7 @@ module.exports = {
             'react-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-dom', 'umd', 'react-dom.production.min.js'),
             'react-redux': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-redux', 'dist', 'react-redux.min.js'),
             'redux': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux', 'dist', 'redux.min.js'),
-            'redux-form': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux-form', 'dist', 'redux-form.js'),
+            'redux-form': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux-form', 'dist', 'redux-form.min.js'),
             'redux-thunk': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'redux-thunk', 'dist', 'redux-thunk.min.js'),
             'react-router': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router', 'umd', 'react-router.min.js'),
             'react-router-dom': path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-router-dom', 'umd', 'react-router-dom.min.js'),
