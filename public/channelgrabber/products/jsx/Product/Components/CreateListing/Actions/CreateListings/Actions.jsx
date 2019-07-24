@@ -302,7 +302,9 @@ import ResponseActions from './ResponseActions';
                 }
             };
         },
-        submitListingsForm: function(dispatch, formValues, props) {
+        submitListingsForm: function(dispatch, formValues, props, dimensionsState) {
+            console.log('in submitListingForm dimensionsState ', dimensionsState);
+
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Field, FieldArray, FormSection, reduxForm, resetSection, submit, formValueSelector} from 'redux-form';
 import Input from 'Common/Components/Input';
@@ -5348,8 +5348,6 @@ let dimensionsProps = {
 
 const DimensionsSection = React.memo(props => {
     console.log('rendering DIMENSIONSSECTION');
-    
-    
     return (
         <span>
             <span className="heading-large heading-table">Dimensions</span>
@@ -5360,6 +5358,32 @@ const DimensionsSection = React.memo(props => {
     );
 });
 
+
+
+// dimensionsState is passed by reference to DimensionsHOC
+let dimensionsState = {};
+function submitForm (values, dispatch, props){
+    dispatch(Actions.submitListingsForm(
+        dispatch,
+        values,
+        props,
+        dimensionsState
+    ));
+}
+
+// jigsawing React based forms in after deciding to migrate from redux-form
+const DimensionsHOC = (props) => {
+    let {children} = props;
+    dimensionsState.stateValue = useState();
+    return children({
+        ...props
+    });
+};
+
+const DimensionsComponent = (props) => {
+    console.log('in DimensionsComponent ', props);
+    return <div>DimensionsComponent</div>
+};
 
 class CreateListingPopup extends React.Component {
     static defaultProps = {
@@ -5399,6 +5423,42 @@ class CreateListingPopup extends React.Component {
         }
     }
 
+    renderForm = () => {
+        console.log('dimensionsState going into render form', dimensionsState);
+
+
+        return <form>
+            <DimensionsHOC
+                dimensionsState={dimensionsState}
+                outsideIn={'outsideProp'}
+            >
+                {(props) => {
+                    return <DimensionsComponent
+                        {...props}
+                    />
+                }}
+            </DimensionsHOC>
+        </form>
+
+//        return <form>
+//            {this.renderProductIdentifiers()}
+//            {this.renderDimensions()}
+//        </form>
+
+//        return <form>
+//            <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
+//            <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+//            <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
+//            <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions} validate={Validators.required} />
+//            <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
+//            {this.renderChannelFormInputs()}
+//            {this.renderCategoryFormInputs()}
+//            {this.renderProductIdentifiers()}
+//            {this.renderDimensions()}
+//            {this.renderProductPrices()}
+//        </form>
+    };
+
     findSearchAccountId = () => {
         let accountId = this.props.accounts.find(function(accountId) {
             let accountData = this.props.accountsData[accountId];
@@ -5429,26 +5489,6 @@ class CreateListingPopup extends React.Component {
         }
 
         return !!this.props.searchAccountId;
-    };
-
-    renderForm = () => {
-        return <form>
-            {this.renderProductIdentifiers()}
-            {this.renderDimensions()}
-        </form>
-
-//        return <form>
-//            <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
-//            <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
-//            <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
-//            <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions} validate={Validators.required} />
-//            <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
-//            {this.renderChannelFormInputs()}
-//            {this.renderCategoryFormInputs()}
-//            {this.renderProductIdentifiers()}
-//            {this.renderDimensions()}
-//            {this.renderProductPrices()}
-//        </form>
     };
 
     renderInputComponent = (field) => {
@@ -11093,9 +11133,7 @@ CreateListingPopup = reduxForm({
     enableReinitialize: true,
     // This is required to make the images in the variation table show correctly
     keepDirtyOnReinitialize: true,
-    onSubmit: function(values, dispatch, props) {
-        dispatch(Actions.submitListingsForm(dispatch, values, props));
-    },
+    onSubmit: submitForm,
 })(CreateListingPopup);
 
 const mapStateToProps = function(state) {
