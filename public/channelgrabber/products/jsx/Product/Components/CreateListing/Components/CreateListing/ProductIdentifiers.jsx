@@ -13,41 +13,41 @@ var identifiers = [
         "name": "ean",
         "displayTitle": "EAN (European barcode)",
         "type": "number",
-        "validate": function(value) {
-            if (!value) {
-                return undefined;
-            }
-            if (value.length < 8 || value.length > 13) {
-                return 'Must be between 8 and 13 digits long';
-            }
-            return undefined;
-        },
-        "normalize": function(value, previousValue) {
-            if (value.length > 14) {
-                return previousValue;
-            }
-            return value;
-        }
+//        "validate": function(value) {
+//            if (!value) {
+//                return undefined;
+//            }
+//            if (value.length < 8 || value.length > 13) {
+//                return 'Must be between 8 and 13 digits long';
+//            }
+//            return undefined;
+//        },
+//        "normalize": function(value, previousValue) {
+//            if (value.length > 14) {
+//                return previousValue;
+//            }
+//            return value;
+//        }
     },
     {
         "name": "upc",
         "displayTitle": "UPC (Widely used in NA)",
         "type": "number",
-        "validate": function(value) {
-            if (!value) {
-                return undefined;
-            }
-            if (value.length < 8 || value.length > 13) {
-                return 'Must be between 8 and 13 digits long';
-            }
-            return undefined;
-        },
-        "normalize": function(value, previousValue) {
-            if (value.length > 13) {
-                return previousValue;
-            }
-            return value;
-        }
+//        "validate": function(value) {
+//            if (!value) {
+//                return undefined;
+//            }
+//            if (value.length < 8 || value.length > 13) {
+//                return 'Must be between 8 and 13 digits long';
+//            }
+//            return undefined;
+//        },
+//        "normalize": function(value, previousValue) {
+//            if (value.length > 13) {
+//                return previousValue;
+//            }
+//            return value;
+//        }
     },
     {
         "name": "mpn",
@@ -56,21 +56,21 @@ var identifiers = [
     {
         "name": "isbn",
         "displayTitle": "ISBN (if applicable)",
-        "validate": function(value) {
-            if (!value) {
-                return undefined;
-            }
-            if (value.length !== 13 && value.length !== 10) {
-                return 'Must be exactly 10 or 13 digits long';
-            }
-            return undefined;
-        },
-        "normalize": function(value, previousValue) {
-            if (value.length > 13) {
-                return previousValue;
-            }
-            return value;
-        },
+//        "validate": function(value) {
+//            if (!value) {
+//                return undefined;
+//            }
+//            if (value.length !== 13 && value.length !== 10) {
+//                return 'Must be exactly 10 or 13 digits long';
+//            }
+//            return undefined;
+//        },
+//        "normalize": function(value, previousValue) {
+//            if (value.length > 13) {
+//                return previousValue;
+//            }
+//            return value;
+//        },
     },
     {
         "name": "barcodeNotApplicable",
@@ -78,6 +78,37 @@ var identifiers = [
         "type": "checkbox"
     },
 ];
+
+let Identifier = props => {
+    let {inputComponent, variation, identifier} = props;
+    return <td>
+        <Field
+            name={"identifiers." + variation.id + "." + identifier.name}
+            component={inputComponent}
+            validate={identifier.validate ? [identifier.validate] : undefined}
+            normalize={identifier.normalize ? identifier.normalize : value => value}
+            inputType={identifier.type ? identifier.type : 'input'}
+        />
+    </td>;
+};
+//todo - see if this is necessary
+Identifier = React.memo(Identifier);
+
+let InputWrapper = (props) => {
+    let {InputForType, field, onChange, errors} = props;
+    let onChangeHandler = (value)=>{
+        onChange(field.input, value );
+    };
+    return <InputForType
+        field={field}
+        onChange={onChangeHandler}
+        errors={errors}
+        className={"product-identifier-input"}
+        errorBoxClassName={"product-input-error"}
+        InputForType={InputForType}
+    />
+};
+//InputWrapper = React.memo(InputWrapper)
 
 class ProductIdentifiers extends React.Component {
     static defaultProps = {
@@ -92,42 +123,50 @@ class ProductIdentifiers extends React.Component {
         renderStaticImageFromFormValues: false
     };
 
+    renderHeader = identifier => {
+        return <th
+            title={identifier.displayTitle}
+            className={"with-title"}
+        >
+            {identifier.display || identifier.name.toUpperCase()}
+        </th>;
+    };
+
     renderIdentifierHeaders = () => {
-        return identifiers.map(function(identifier) {
-            return <th
-                title={identifier.displayTitle}
-                className={"with-title"}
-            >
-                {identifier.display || identifier.name.toUpperCase()}
-            </th>;
-        });
+        console.log('in renderIdentifierHeaders');
+        
+        
+        return identifiers.map(this.renderHeader);
     };
 
     renderIdentifierColumns = (variation) => {
-        return identifiers.map(function(identifier) {
-            return (<td>
-                <Field
-                    name={"identifiers." + variation.id + "." + identifier.name}
-                    component={this.renderInputComponent}
-                    validate={identifier.validate ? [identifier.validate] : undefined}
-                    normalize={identifier.normalize ? identifier.normalize : value => value}
-                    inputType={identifier.type ? identifier.type : 'input'}
-                />
-            </td>)
-        }.bind(this));
+        return identifiers.map((identifier) => {
+            return <Identifier
+                identifier={identifier}
+                variation={variation}
+                inputComponent={this.renderInputComponent}
+            />
+        });
     };
 
     renderInputComponent = (field) => {
+        console.log('in render input component (Identifiers)', field);
         var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
-        var InputForType = (typeof inputTypeComponents[field.inputType] != 'undefined' ? inputTypeComponents[field.inputType] : Input);
-        return <InputForType
-            {...field.input}
-            onChange={this.onInputChange.bind(this, field.input)}
+        var InputForType = this.getInput(field);
+
+        return <InputWrapper
+            field={field}
+            onChange={this.onInputChange}
             errors={errors}
-            className={"product-identifier-input"}
-            errorBoxClassName={"product-input-error"}
-            inputType={field.inputType}
-        />;
+            InputForType={InputForType}
+        />
+    };
+
+    getInput = (field) => {
+        if(typeof inputTypeComponents[field.inputType] !== 'undefined' ){
+            return inputTypeComponents[field.inputType]
+        }
+        return Input;
     };
 
     onInputChange = (input, value) => {
@@ -156,4 +195,3 @@ class ProductIdentifiers extends React.Component {
 }
 
 export default ProductIdentifiers;
-
