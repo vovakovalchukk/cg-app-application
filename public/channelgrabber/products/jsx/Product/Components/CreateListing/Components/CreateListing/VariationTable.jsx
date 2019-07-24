@@ -1,8 +1,31 @@
 import React from 'react';
 import {Field} from 'redux-form';
 import ImageDropDown from 'Product/Components/CreateListing/Form/Shared/ImageDropDown';
+import * as PropTypes from "prop-types";
 
-class VariationTableComponent extends React.Component {
+const AttributeColumn = props => (
+    <td>{props.attribute}</td>
+);
+
+const AttributeHeader = props => (
+    <th
+        className="attribute-header with-title"
+        title={props.attributeNameText}
+    >
+        {props.attributeNameText}
+    </th>
+);
+
+const VariationRow = props => (
+    <tr>
+        <td>{props.imageColumn}</td>
+        <td>{props.variation.sku}</td>
+        {props.attributeColumns}
+        {props.customTableRows}
+    </tr>
+);
+
+class VariationTableComponent extends React.PureComponent {
     static defaultProps = {
         variationsDataForProduct: [],
         product: {},
@@ -28,26 +51,26 @@ class VariationTableComponent extends React.Component {
     };
 
     renderAttributeHeaders = () => {
-        return this.props.attributeNames.map(function(attributeName) {
+        return this.props.attributeNames.map(attributeName => {
             var attributeNameText = this.props.attributeNameMap[attributeName] ? this.props.attributeNameMap[attributeName] : attributeName;
-            return <th
+            return <AttributeHeader
+                attributeNameText={attributeNameText}
                 className="attribute-header with-title"
-                title={attributeNameText}
-            >
-                {attributeNameText}
-            </th>;
-        }.bind(this));
+            />
+        });
     };
 
+    renderRow = variation => (
+        <VariationRow
+            imageColumn={this.renderImageColumn(variation)}
+            variation={variation}
+            attributeColumns={this.renderAttributeColumns(variation)}
+            customTableRows={this.props.renderCustomTableRows(variation)}
+        />
+    );
+
     renderVariationRows = () => {
-        return this.props.variationsDataForProduct.map(function(variation) {
-            return <tr>
-                <td>{this.renderImageColumn(variation)}</td>
-                <td>{variation.sku}</td>
-                {this.renderAttributeColumns(variation)}
-                {this.props.renderCustomTableRows(variation)}
-            </tr>
-        }.bind(this));
+        return this.props.variationsDataForProduct.map(this.renderRow);
     };
 
     renderImageColumn = (variation) => {
@@ -99,11 +122,16 @@ class VariationTableComponent extends React.Component {
 
     renderImageField = (field) => {
         const selected = (field.variation.images.length > 0 ? field.variation.images[0] : this.props.product.images[0]);
+
+        let onChange = (image) => {
+            this.onImageSelected(field, image)
+        };
+
         return <ImageDropDown
             selected={selected}
             autoSelectFirst={false}
             images={this.props.product.images}
-            onChange={this.onImageSelected.bind(this, field)}
+            onChange={onChange}
             dropdownDisabled={this.props.imageDropdownsDisabled}
         />
     };
@@ -142,8 +170,10 @@ class VariationTableComponent extends React.Component {
     };
 
     renderAttributeColumns = (variation) => {
-        return this.props.attributeNames.map(function(attributeName) {
-            return <td>{variation.attributeValues[attributeName]}</td>
+        return this.props.attributeNames.map(attributeName => {
+            return <AttributeColumn
+                attribute={variation.attributeValues[attributeName]}
+            />
         });
     };
 
@@ -152,6 +182,9 @@ class VariationTableComponent extends React.Component {
     };
 
     render() {
+        console.log('in renderVariationTable');
+        
+        
         return (
             <div className={"variation-picker " + this.props.containerCssClasses}>
                 <table className={this.props.tableCssClasses}>
