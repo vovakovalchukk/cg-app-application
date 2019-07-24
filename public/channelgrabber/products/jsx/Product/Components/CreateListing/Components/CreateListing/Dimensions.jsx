@@ -29,6 +29,19 @@ var channelDimensionsValidatorMap = {
     }
 };
 
+function DimensionColumn(props) {
+    return <td>
+        <Field
+            name={"dimensions." + props.variation.id + "." + props.dimension.name}
+            component={props.component}
+            validate={props.validatorsForDimensionAndChannel}
+            dimensionName={props.dimension.name}
+            variation={props.variation}
+        />
+    </td>;
+}
+
+
 class DimensionsComponent extends React.Component {
     static defaultProps = {
         variationsDataForProduct: [],
@@ -58,16 +71,16 @@ class DimensionsComponent extends React.Component {
 
     setTouchedDimensionsFromInitialDimensions = (props) => {
         var touchedDimensions = {};
-        dimensions.map(function (dimension) {
+        dimensions.map(dimension => {
             touchedDimensions[dimension.name] = {};
-            this.props.variationsDataForProduct.map(function (variation) {
+            this.props.variationsDataForProduct.map(variation => {
                 var isTouched = false;
                 if (props.initialDimensions[variation.sku] && props.initialDimensions[variation.sku][dimension.name]) {
                     isTouched = true;
                 }
                 touchedDimensions[dimension.name][variation.sku] = isTouched;
-            }.bind(this));
-        }.bind(this));
+            });
+        });
 
         this.setState({
             touchedDimensions: touchedDimensions
@@ -75,6 +88,7 @@ class DimensionsComponent extends React.Component {
     };
 
     renderDimensionHeaders = () => {
+        console.log('renderDimensionHeaders');
         let self = this;
         return dimensions.map(function (identifier) {
             let label = identifier.displayTitle;
@@ -85,25 +99,45 @@ class DimensionsComponent extends React.Component {
     };
 
     renderDimensionColumns = (variation) => {
-        return dimensions.map(function (dimension) {
+        console.log('renderDimensionsColumns ');
+        return dimensions.map(dimension => {
             var accounts = this.props.accounts;
-            return (<td>
-                <Field
-                    name={"dimensions." + variation.id + "." + dimension.name}
-                    component={this.renderInputComponent}
-                    validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
-                    dimensionName={dimension.name}
-                    variation={variation}
-                />
-            </td>)
-        }.bind(this));
+            let validatorsForDimensionAndChannel = this.getValidatorsForDimensionAndChannel(accounts, dimension);
+            return (<DimensionColumn
+                variation={variation}
+                dimension={dimension}
+                component={this.renderInputComponent}
+                validatorsForDimensionAndChannel={validatorsForDimensionAndChannel}
+            />)
+        });
+
+
+        //todo - reinstate validators
+//        return dimensions.map(dimension => {
+//            var accounts = this.props.accounts;
+//            return (<td>
+//                <Field
+//                    name={"dimensions." + variation.id + "." + dimension.name}
+//                    component={this.renderInputComponent}
+//                    validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
+//                    dimensionName={dimension.name}
+//                    variation={variation}
+//                />
+//            </td>)
+//        });
     };
 
     renderInputComponent = (field) => {
+        console.log('renderInputComponent');
         var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
+
+        let onChange = (value) => {
+            this.onInputChange(field.input, field.dimensionName, field.variation.sku, value);
+        };
+
         return <Input
             {...field.input}
-            onChange={this.onInputChange.bind(this, field.input, field.dimensionName, field.variation.sku)}
+            onChange={onChange}
             errors={errors}
             className={"product-dimension-input"}
             errorBoxClassName={"product-input-error"}
@@ -113,6 +147,8 @@ class DimensionsComponent extends React.Component {
 
     onInputChange = (input, dimension, sku, value) => {
         input.onChange(value.target.value);
+
+        //todo - reinstate this
         if (this.isFirstVariationRow(sku)) {
             this.copyDimensionFromFirstRowToUntouchedRows(dimension, sku, value.target.value);
         } else {
@@ -128,7 +164,7 @@ class DimensionsComponent extends React.Component {
     };
 
     copyDimensionFromFirstRowToUntouchedRows = (dimension, sku, value) => {
-        this.props.variationsDataForProduct.map(function (variation) {
+        this.props.variationsDataForProduct.map(variation => {
             if (sku == variation.sku) {
                 return;
             }
@@ -138,10 +174,11 @@ class DimensionsComponent extends React.Component {
                 return;
             }
             this.props.change("dimensions." + variation.id + "." + dimension, value);
-        }.bind(this));
+        });
     };
 
     markDimensionAsTouchedForSku = (sku, dimension) => {
+        console.log('in markDimensionAsTouchedForSku');
         if (this.state.touchedDimensions[dimension][sku]) {
             return;
         }
