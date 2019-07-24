@@ -67,7 +67,7 @@ import reducerCreator from 'Common/Reducers/creator';
     var getProductIdentifiers = function(variationData) {
         var identifiers = {};
         variationData.forEach(function(variation) {
-            identifiers[variation.id] = {
+            identifiers[`id${variation.id}`] = {
                 ean: variation.details.ean,
                 upc: variation.details.upc,
                 isbn: variation.details.isbn,
@@ -86,7 +86,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
             var dimensions = {};
             variationData.map(function(variation) {
-                dimensions[variation.id] = {
+                dimensions[`id${variation.id}`] = {
                     length: variation.details.length,
                     width: variation.details.width,
                     height: variation.details.height,
