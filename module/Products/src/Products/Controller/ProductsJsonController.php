@@ -270,8 +270,6 @@ class ProductsJsonController extends AbstractActionController
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
             'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
-            'activeSalesAccounts' => $activeSalesAccounts,
-            'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockLevelDefault' => $this->stockSettingsService->getStockLevelDefault(),
             'lowStockThresholdDefault' => [
