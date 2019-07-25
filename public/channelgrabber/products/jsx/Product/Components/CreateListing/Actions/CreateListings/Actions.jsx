@@ -334,10 +334,6 @@ import ResponseActions from './ResponseActions';
                     formValues: formValues
                 }
             };
-
-            function checkIfDataIsValid(data){
-
-            }
         },
         refreshAccountPolicies: function (dispatch, accountId) {
             $.ajax({
