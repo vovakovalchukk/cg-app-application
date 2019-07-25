@@ -105,7 +105,7 @@ class EbayChannelFormComponent extends React.Component {
         
         return (
             <div className="ebay-channel-form-container channel-form-container">
-                <Field name="listingTemplate" component={this.renderListingTemplateSelect} options={listingTemplates} displayTitle={"Listing Template"}/>
+                <Field name="listingTemplateId" component={this.renderListingTemplateSelect} options={listingTemplates} displayTitle={"Listing Template"}/>
                 {this.renderVariationImagePicker()}
                 <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
                 {/** We have to hide the shipping service and shipping price, as new we will show a per category
