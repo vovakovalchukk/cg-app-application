@@ -36,7 +36,7 @@
         "channelgrabber/courieradapter": "~1.6.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
-        "channelgrabber/ebay": "~1.19.0",
+        "channelgrabber/ebay": "dev-MIG-11-ebay-listing-templates-backend as 1.20.1",
         "channelgrabber/ekm": "~1.10.14",
         "channelgrabber/email": "~1.1.1",
         "channelgrabber/etag": "~1.7.1",
