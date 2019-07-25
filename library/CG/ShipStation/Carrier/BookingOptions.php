@@ -5,6 +5,7 @@ use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptions\CreateAllActionDescriptionInterface;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
@@ -39,8 +40,13 @@ class BookingOptions implements BookingOptionsInterface, CreateActionDescription
         return $this->service->getCarrierForAccount($account)->getBookingOptions();
     }
 
-    public function addCarrierSpecificDataToListArray(array $data, AccountEntity $account)
-    {
+    public function addCarrierSpecificDataToListArray(
+        array $data,
+        AccountEntity $account,
+        OrganisationUnit $rootOu,
+        OrderCollection $orders,
+        ProductDetailCollection $productDetails
+    ) {
         $carrierSpecificDataProvider = ($this->carrierSpecificDataFactory)($account->getChannel());
         $data = $carrierSpecificDataProvider->getCarrierSpecificData($data, $account);
         return $data;

@@ -96,8 +96,13 @@ class Provider implements ChannelsInterface, ShippingOptionsInterface, BookingOp
         return $this->factory->getExportOptionsForAccount($account)->getDefaultExportOptions($serviceCode);
     }
 
-    public function addCarrierSpecificDataToListArray(array $data, Account $account)
-    {
+    public function addCarrierSpecificDataToListArray(
+        array $data,
+        Account $account,
+        OrganisationUnit $rootOu,
+        OrderCollection $orders,
+        ProductDetailCollection $productDetails
+    ) {
         return $this->factory->getExportOptionsForAccount($account)->addCarrierSpecificDataToListArray($data);
     }
 
