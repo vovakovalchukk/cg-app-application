@@ -307,10 +307,13 @@ import ResponseActions from './ResponseActions';
             };
         },
         submitListingsForm: function(dispatch, formValues, props) {
+            debugger;
+            let data = formatFormValuesForSubmission(formValues, props);
+
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',
-                data: formatFormValuesForSubmission(formValues, props),
+                data,
                 success: function(response) {
                     if (response.allowed) {
                         dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid, response.processGuid));
@@ -333,6 +336,10 @@ import ResponseActions from './ResponseActions';
                     formValues: formValues
                 }
             };
+
+            function checkIfDataIsValid(data){
+
+            }
         },
         refreshAccountPolicies: function (dispatch, accountId) {
             $.ajax({

@@ -3,6 +3,7 @@ import {Field} from 'redux-form';
 import CurrencyInput from 'Common/Components/CurrencyInput';
 import VariationTable from './VariationTable';
 import Validators from '../../Validators';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 class ProductPriceComponent extends React.Component {
     static defaultProps = {
@@ -60,7 +61,7 @@ class ProductPriceComponent extends React.Component {
         return this.props.accounts.map(function (account) {
             return (<td>
                 <Field
-                    name={"prices." + variation.id + "." + account.id}
+                    name={`prices.${fieldService.getVariationIdWithPrefix(variation.id)}.account.id`}
                     component={this.renderInputComponent}
                     sku={variation.sku}
                     accountId={account.id}

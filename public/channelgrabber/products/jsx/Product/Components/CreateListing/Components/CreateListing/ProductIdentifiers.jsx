@@ -3,6 +3,7 @@ import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import Checkbox from 'Common/Components/Checkbox';
 import VariationTable from './VariationTable';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 var inputTypeComponents = {
     "checkbox": Checkbox
@@ -83,7 +84,7 @@ let Identifier = props => {
     let {inputComponent, variation, identifier} = props;
     return <td>
         <Field
-            name={`identifiers.id${variation.id}.${identifier.name}`}
+            name={`identifiers.${fieldService.getVariationIdWithPrefix(variation.id)}.${identifier.name}`}
             component={inputComponent}
             validate={identifier.validate ? [identifier.validate] : undefined}
             normalize={identifier.normalize ? identifier.normalize : value => value}

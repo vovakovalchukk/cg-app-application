@@ -3,6 +3,7 @@ import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import VariationTable from './VariationTable';
 import Validators from '../../Validators';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 var dimensions = [
     {
@@ -32,7 +33,7 @@ var channelDimensionsValidatorMap = {
 function DimensionColumn(props) {
     return <td>
         <Field
-            name={"dimensions." + `id${props.variation.id}` + "." + props.dimension.name}
+            name={`dimensions.${fieldService.getVariationIdWithPrefix(props.variation.id)}.${props.dimension.name}`}
             component={props.component}
             validate={props.validatorsForDimensionAndChannel}
             dimensionName={props.dimension.name}
