@@ -376,10 +376,10 @@ class Settings
         }
     }
 
-    public function getExistingInvoicesForView()
+    public function getExistingTemplatesForView()
     {
-        $userInvoices = [];
-        $systemInvoices[] = $this->getBlankTemplate();
+        $userTemplates = [];
+        $systemTemplates[] = $this->getBlankTemplate();
 
         $favouritedFirst = false;
         $templates = $this->getInvoices();
@@ -394,12 +394,12 @@ class Settings
             }
 
             if ($template instanceof SystemTemplate) {
-                $systemInvoices[] = $templateViewDataElement;
+                $systemTemplates[] = $templateViewDataElement;
             } else {
-                $userInvoices[] = $templateViewDataElement;
+                $userTemplates[] = $templateViewDataElement;
             }
         }
-        return ['system' => $systemInvoices, 'user' => $userInvoices];
+        return ['system' => $systemTemplates, 'user' => $userTemplates];
     }
 
     protected function getBlankTemplate()
@@ -407,7 +407,7 @@ class Settings
         return [
             'name' => 'Blank',
             'key' => 'blank',
-            'invoiceId' => '',
+            'templateId' => '',
             'imageUrl' => Module::PUBLIC_FOLDER . static::TEMPLATE_THUMBNAIL_PATH . 'blank.png',
             'links' => [
                 [
@@ -425,7 +425,7 @@ class Settings
     {
         $templateViewDataElement['name'] = $template->getName();
         $templateViewDataElement['key'] = $template->getId();
-        $templateViewDataElement['invoiceId'] = $template->getId();
+        $templateViewDataElement['templateId'] = $template->getId();
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
         $templateViewDataElement['links'] = $template->getViewLinks();
 

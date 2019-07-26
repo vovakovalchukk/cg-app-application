@@ -9,8 +9,8 @@ $(document).ready(function() {
     require(['InvoiceOverview/InvoiceOverview'], function(InvoiceOverview)
     {
         var mountingNode = document.getElementById('invoice-overview-mount');
-        var invoiceData = <?= $invoiceData ?>;
-        new InvoiceOverview(mountingNode, invoiceData);
+        var existingTemplates = <?= json_encode($existingTemplates) ?>;
+        new InvoiceOverview(mountingNode, existingTemplates);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

@@ -133,11 +133,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function indexAction()
     {
         $invoiceSettings = $this->invoiceSettings->getSettings();
-        $existingInvoices = $this->invoiceSettings->getExistingInvoicesForView();
+        $existingTemplates = $this->invoiceSettings->getExistingTemplatesForView();
 
         return $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
-            ->setVariable('invoiceData', json_encode($existingInvoices))
+            ->setVariable('existingTemplates', $existingTemplates)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
