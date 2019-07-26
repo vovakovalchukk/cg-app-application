@@ -82,6 +82,13 @@ let detailsColumns = [
         fixed: false,
         align: 'center',
         feature: 'costPriceEnabled'
+    },
+    {
+        key: 'fulfillmentLatency',
+        width: 80,
+        headerText: 'Fulfilment Latency',
+        fixed: false,
+        align: 'center'
     }
 ];
 
