@@ -8,13 +8,8 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
     let options = [];
 
     if (pdfExportOptions) {
-        pdfExportOptions.forEach((option, index) => {
-            if (index === 2) {
-                option.favourite = true;
-            }
-        });
-
-        options = prepareOptions(pdfExportOptions);
+        options = organiseOptionsByFavourite(pdfExportOptions);
+        options = appendDefaultInvoiceOption(options)
     }
 
     return (<ButtonMultiSelect
@@ -58,15 +53,18 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         }
     }
 
-    function prepareOptions(pdfExportOptions) {
-        let result = pdfExportOptions.sort((a, b) => {
+    function organiseOptionsByFavourite(options){
+        return options.sort((a, b) => {
             return b.favourite - a.favourite;
         });
-        result.splice(0, 0, {
+    }
+
+    function appendDefaultInvoiceOption(options){
+        options.splice(0, 0, {
             id: 'defaultInvoice',
             name: 'Default Invoice'
         });
-        return result;
+        return options;
     }
 };
 

@@ -4,6 +4,7 @@ namespace CG\Intersoft\RoyalMail;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
+use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
@@ -12,6 +13,7 @@ use CG\CourierAdapter\Shipment\SupportedField\PackageTypesInterface;
 use CG\CourierAdapter\Shipment\SupportedField\SignatureRequiredInterface;
 use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionAddressInterface;
+use CG\Intersoft\RoyalMail\PackageType\Decider\Factory as PackageTypeDeciderFactory;
 use CG\Intersoft\RoyalMail\Shipment\Package\Type as PackageType;
 use CG\Intersoft\RoyalMail\Shipment\Package;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -236,7 +238,18 @@ class Shipment implements
     /**
      * @inheritdoc
      */
-    public static function getPackageTypes()
+    public static function getPackageTypes(array $weightAndDimensions = null)
+    {
+        $packageTypes = static::getAllPackageTypes();
+        if (empty($weightAndDimensions)) {
+            return $packageTypes;
+        }
+        $packageTypeDecider = PackageTypeDeciderFactory::getForShipmentClass(static::class);
+        $selectedPackageType = $packageTypeDecider($packageTypes, $weightAndDimensions);
+        return self::sortSelectedPackageTypeToTheFront($packageTypes, $selectedPackageType);
+    }
+
+    protected static function getAllPackageTypes(): array
     {
         $packageTypes = [];
         foreach (static::$packageTypes as $packageReference => $packageDisplayName) {
@@ -248,6 +261,14 @@ class Shipment implements
             );
         }
         return $packageTypes;
+    }
+
+    protected static function sortSelectedPackageTypeToTheFront(array $packageTypes, PackageType $selectedPackageType): array
+    {
+        $otherPackageTypes = array_filter($packageTypes, function ($packageType) use ($selectedPackageType) {
+            return ($packageType->getReference() != $selectedPackageType->getReference());
+        });
+        return array_merge([$selectedPackageType], $otherPackageTypes);
     }
 
     /**
@@ -281,5 +302,15 @@ class Shipment implements
     public function getCollectionAddress()
     {
         return $this->collectionAddress;
+    }
+
+    public static function isDomestic(): bool
+    {
+        return true;
+    }
+
+    public static function isInternational(): bool
+    {
+        return !static::isDomestic();
     }
 }
