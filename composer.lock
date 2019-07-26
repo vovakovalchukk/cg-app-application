@@ -4641,12 +4641,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "f8f24968d00e53f8271aa409ce4637579b91e470"
+                "reference": "d1e8ff4967c801ef62c6a6f8fc290b9c4f1724d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-dev-CGIV-10799-prevent-free-user-billing-and-allow-access-0e212c.zip",
-                "reference": "f8f24968d00e53f8271aa409ce4637579b91e470",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-dev-CGIV-10799-prevent-free-user-billing-and-allow-access-575ffb.zip",
+                "reference": "d1e8ff4967c801ef62c6a6f8fc290b9c4f1724d2",
                 "shasum": null
             },
             "require": {
@@ -4683,7 +4683,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2019-07-26T14:02:42+00:00"
+            "time": "2019-07-26T14:18:33+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
