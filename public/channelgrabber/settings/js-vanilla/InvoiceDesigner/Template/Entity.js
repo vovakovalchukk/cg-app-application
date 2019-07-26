@@ -17,6 +17,7 @@ define([
         var state;
         var stateId;
         var paperPage;
+        var initialised;
 
         // Member vars to watch for changes
         var data = {
@@ -140,6 +141,10 @@ define([
             return this;
         };
 
+        this.setInitialised = function(){
+            initialised = true;
+        };
+
         this.isEditable = function()
         {
             return this.get('editable');
@@ -202,6 +207,7 @@ define([
     {
         this.getElements().detach(element);
         element.unsubscribe(this);
+
         this.getDomManipulator().triggerElementDeletedEvent(element);
         this.notifyOfChange();
         return this;

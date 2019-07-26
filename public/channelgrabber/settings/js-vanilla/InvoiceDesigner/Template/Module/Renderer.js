@@ -45,6 +45,8 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template, service);
         this.templateChanged(template);
+        domManipulator.triggerTemplateSetInitialised(template);
+        template.setInitialised();
     };
 
     Renderer.prototype.elementSelected = function(element)

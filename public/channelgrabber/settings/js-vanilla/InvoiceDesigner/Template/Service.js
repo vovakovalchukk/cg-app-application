@@ -188,7 +188,8 @@ define([
     Service.prototype.render = function(template)
     {
         var html = this.getMapper().toHtml(template);
-        this.getDomManipulator().insertTemplateHtml(html);
+        let domManipulator = this.getDomManipulator();
+        domManipulator.insertTemplateHtml(html);
         return this;
     };
 

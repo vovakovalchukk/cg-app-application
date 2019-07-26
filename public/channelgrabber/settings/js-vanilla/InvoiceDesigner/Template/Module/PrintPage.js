@@ -86,16 +86,22 @@ define([
         ModuleAbstract.prototype.init.call(this, template, templateService);
 
         // todo - this is not useful because the Dom hasn't loaded. Maybe need to pub       sub that?
-
+////////
+        //
         const paperPage = this.getTemplate().getPaperPage();
-        initialiseMarginIndicatorElement.call(this)
-        this.setDimension("height", paperPage.getHeight());
-        this.setDimension("width", paperPage.getWidth());
-        this.setMargin("top", 0);
-        this.setMargin("bottom", 0);
-        this.setMargin("left", 0);
-        this.setMargin("right", 0);
-        this.setVisibility(false);
+
+        //todo - figure out why we wanted to do this (suspect this is because of the reset
+//        initialiseMarginIndicatorElement.call(this);
+
+        //todo - need to figure out how to set this or why I wanted to set this from the start
+//
+//        this.setDimension("height", paperPage.getHeight());
+//        this.setDimension("width", paperPage.getWidth());
+//        this.setMargin("top", 0);
+//        this.setMargin("bottom", 0);
+//        this.setMargin("left", 0);
+//        this.setMargin("right", 0);
+//        this.setVisibility(false);
     };
 
     PrintPage.prototype.getNewDimensionValueFromMargin = function(direction,value){
@@ -120,6 +126,9 @@ define([
         const template = this.getTemplate();
         const paperPage = template.getPaperPage();
         const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
+
+
+        // todo - figure out whether this is right
         let templatePageElement = document.getElementById(templatePageElementId);
 
         if(!templatePageElement){
