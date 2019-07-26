@@ -66,8 +66,8 @@ return [
                 'BulkActions' => BulkActions::class,
                 'OrderDetailBulkActions' => BulkActions::class,
                 'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
+                'InvoiceByTitleBulkAction' => SubAction\InvoiceByTitle::class,
                 'InvoiceEmailBulkAction' => SubAction\EmailInvoice::class,
-                'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'ToCsvOrderDataOnlyBulkAction' => SubAction\ToCsvOrderDataOnly::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
@@ -88,6 +88,7 @@ return [
                 'CourierManifestJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
+                'UrlDataViewInvoiceByTitle' => ViewModel::class,
                 'UrlDataViewEmailInvoice' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
@@ -160,6 +161,7 @@ return [
                 'injections' => [
                     'addSubAction' => [
                         ['subAction' => 'InvoiceBySkuBulkAction'],
+                        ['subAction' => 'InvoiceByTitleBulkAction'],
                         ['subAction' => 'InvoiceEmailBulkAction'],
                     ],
                 ],
@@ -212,6 +214,17 @@ return [
                     'javascript' => 'InvoiceJavascript', 
                 ],
             ],
+            'InvoiceByTitleBulkAction' => [
+                'parameters' => [
+                    'title' => 'by Title',
+                    'action' => 'invoices-title',
+                    'urlView' => 'UrlDataViewInvoiceByTitle',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'InvoiceJavascript',
+                ],
+            ],
             'InvoiceEmailBulkAction' => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewEmailInvoice',
@@ -224,12 +237,6 @@ return [
             'InvoiceEmailJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/email-invoice.js',
-                ],
-            ],
-            'InvoiceByTitleBulkAction' => [
-                'parameters' => [
-                    'title' => 'by Title',
-                    'action' => 'invoices-title'
                 ],
             ],
             Action\Tag::class => [
@@ -467,6 +474,11 @@ return [
                 ],
             ],
             'UrlDataViewInvoiceBySku' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewInvoiceByTitle' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
