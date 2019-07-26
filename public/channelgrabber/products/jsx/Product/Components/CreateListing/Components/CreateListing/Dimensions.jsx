@@ -153,7 +153,7 @@ class DimensionsComponent extends React.Component {
                 && this.state.touchedDimensions[dimension][variation.sku]) {
                 return;
             }
-            this.props.change("dimensions." + variation.id + "." + dimension, value);
+            this.props.change("dimensions." + fieldService.getVariationIdWithPrefix(variation.id) + "." + dimension, value);
         });
     };
 

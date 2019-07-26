@@ -110,7 +110,7 @@ import fieldService from 'Product/Components/CreateListing/Service/field';
 
             var skus = {};
             variationData.map(function(variation) {
-                skus[variation.id] = variation.sku;
+                skus[fieldService.getVariationIdWithPrefix(variation.id)] = variation.sku;
             });
 
             return {
