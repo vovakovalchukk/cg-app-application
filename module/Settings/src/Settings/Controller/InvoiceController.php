@@ -299,11 +299,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function deleteTemplateAction()
     {
-        //todo to be replaced with actual functionality as part of TAC-350
         $templateId = $this->params()->fromPost('templateId');
+        $template = $this->templateService->fetch($templateId);
+        $this->templateService->remove($template);
         $response = $this->getJsonModelFactory()->newInstance([
             'success' => true,
-            "message" => 'You have successfully deleted your template.'
+            'message' => 'Template deleted successfully.'
         ]);
         return $response;
     }
