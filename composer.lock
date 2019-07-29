@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf218f63eda14c51dee08658206397e9",
+    "content-hash": "3ab7676d8f04f6bdc95ff7e87ab108b8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -493,16 +493,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "dev-CGIV-10799-prevent-free-user-billing-and-allow-access",
+            "version": "1.20.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "450c84803af1b5b31ca18c6dff9afe5e32994bf9"
+                "reference": "ac230c33086de37bdba750b3ea4d404df6eec089"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-dev-CGIV-10799-prevent-free-user-billing-and-allow-access-4c3ead.zip",
-                "reference": "450c84803af1b5b31ca18c6dff9afe5e32994bf9",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.16-8c4ca7.zip",
+                "reference": "ac230c33086de37bdba750b3ea4d404df6eec089",
                 "shasum": null
             },
             "require": {
@@ -557,7 +557,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-07-26T10:03:51+00:00"
+            "time": "2019-07-29T14:33:28+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -2258,20 +2258,20 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.14.2",
+            "version": "1.14.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e"
+                "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.2-559c96.zip",
-                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.4-6ac4ff.zip",
+                "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "^1.20.3",
+                "channelgrabber/billing": "^1.20.16",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -2310,7 +2310,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-05-17T08:47:53+00:00"
+            "time": "2019-07-29T14:40:11+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -4637,20 +4637,20 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "dev-CGIV-10799-prevent-free-user-billing-and-allow-access",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "d1e8ff4967c801ef62c6a6f8fc290b9c4f1724d2"
+                "reference": "b05bd22afdd5c7ed3d11f47d3493c51411fb3b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-dev-CGIV-10799-prevent-free-user-billing-and-allow-access-575ffb.zip",
-                "reference": "d1e8ff4967c801ef62c6a6f8fc290b9c4f1724d2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.6-5bd1ab.zip",
+                "reference": "b05bd22afdd5c7ed3d11f47d3493c51411fb3b8f",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": "dev-CGIV-10799-prevent-free-user-billing-and-allow-access as 1.20.16",
+                "channelgrabber/billing": "^1.20.16",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/stdlib": "^2.13.0",
@@ -4683,7 +4683,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2019-07-26T14:18:33+00:00"
+            "time": "2019-07-29T14:46:22+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -11437,25 +11437,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.14",
-            "alias_normalized": "1.20.14.0",
-            "version": "dev-CGIV-10799-prevent-free-user-billing-and-allow-access",
-            "package": "channelgrabber/billing"
-        },
-        {
-            "alias": "1.2.6",
-            "alias_normalized": "1.2.6.0",
-            "version": "dev-CGIV-10799-prevent-free-user-billing-and-allow-access",
-            "package": "channelgrabber/zf2-permission"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-permission": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
