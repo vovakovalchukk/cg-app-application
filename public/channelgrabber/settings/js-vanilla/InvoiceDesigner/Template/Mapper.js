@@ -11,6 +11,7 @@ define([
     'InvoiceDesigner/Template/Element/Mapper/Barcode',
     'InvoiceDesigner/Template/Entity',
     'InvoiceDesigner/Template/PaperPage/Entity',
+    'InvoiceDesigner/Template/PrintPage/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper'
 ], function(require)
 {
@@ -23,6 +24,7 @@ define([
     Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS = 'InvoiceDesigner/Template/Element/Mapper/';
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
+    Mapper.PATH_TO_PRINT_PAGE_ENTITY = 'InvoiceDesigner/Template/PrintPage/Entity';
 
     Mapper.prototype.createNewTemplate = function()
     {
@@ -31,6 +33,9 @@ define([
         var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
         var paperPage = new PaperPageClass();
         template.setPaperPage(paperPage);
+        var PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
+        var printPage = new PrintPageClass();
+        template.setPrintPage(printPage);
         return template;
     };
 
@@ -41,6 +46,7 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
         var json = JSON.parse(JSON.stringify(json));
+        debugger;
 
         var template = this.createNewTemplate();
         var populating = true;
@@ -50,9 +56,24 @@ define([
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
+
+
+        //TODO - getvariables from here.
+
         var paperPage = template.getPaperPage();
         this.hydratePaperPageFromJson(paperPage, json.paperPage, populating);
         template.setPaperPage(paperPage).setEditable(!! json.editable);
+
+
+        //TODO - setup printpage entity ... why? - because we can store the print page and multi page guidelines in here. Separation of concerns.
+
+        debugger;
+        // do not need a storage. keep this simple.
+        let printPage = template.getPrintPage();
+        this.hydratePrintPageFromJson(printPage, json.printPage, populating);
+        template.setPrintPage(printPage).setEditable(!! json.editable);
+
+
         return template;
     };
 
@@ -64,10 +85,6 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
-//        console.log('in elementFromJson');
-
-        debugger;
-
         var elementType = elementData.type.ucfirst();
         elementData.x = Number(elementData.x).ptToMm();
         elementData.y = Number(elementData.y).ptToMm();
@@ -96,6 +113,12 @@ define([
         json.height = Number(json.height).ptToMm();
 
         paperPage.hydrate(json, populating);
+    };
+
+    Mapper.prototype.hydratePrintPageFromJson = function(paperPage, json, populating)
+    {
+        console.log('in hydratePrintPageFromJson');
+        printPage.hydrate(json, populating);
     };
 
     Mapper.prototype.toJson = function(template)

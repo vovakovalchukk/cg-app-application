@@ -98,6 +98,7 @@ define([
 
         this.set = function(field, value, populating)
         {
+            debugger;
             data[field] = value;
 
             if (populating) {
@@ -131,10 +132,8 @@ define([
         };
     };
 
-    var combinedPrototype = EntityHydrateAbstract.prototype;
-    for (var key in PubSubAbstract.prototype) {
-        combinedPrototype[key] = PubSubAbstract.prototype[key];
-    }
+    let combinedPrototype = createPrototype();
+
     Entity.prototype = Object.create(combinedPrototype);
 
     Entity.prototype.toJson = function()
@@ -146,4 +145,12 @@ define([
     };
 
     return Entity;
+
+    function createPrototype() {
+        let combinedPrototype = EntityHydrateAbstract.prototype;
+        for (var key in PubSubAbstract.prototype) {
+            combinedPrototype[key] = PubSubAbstract.prototype[key];
+        }
+        return combinedPrototype;
+    }
 });

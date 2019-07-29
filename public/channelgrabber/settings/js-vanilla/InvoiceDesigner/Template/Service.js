@@ -92,6 +92,10 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\\Template\\Service::fetch must be passed a template ID';
         }
         var template = this.getStorage().fetch(id);
+        console.log('template got back from fetch', template);
+
+        //todo - maybe hack something in here
+
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
         this.getDomManipulator().hideSaveDiscardBar(template)

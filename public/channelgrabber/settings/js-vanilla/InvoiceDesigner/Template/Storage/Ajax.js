@@ -21,7 +21,19 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'dataType' : 'json',
             'async' : false,
             'success' : function(data) {
-                template = self.getMapper().fromJson(JSON.parse(data['template']));
+                let jsonTemplate = JSON.parse(data['template']);
+
+                //TODO - remove this hack as part of...
+                jsonTemplate.printPage = {
+                  margin: {
+                      top: 5,
+                      bottom: 10,
+                      left: 15,
+                      right: 20,
+                  }
+                };
+
+                template = self.getMapper().fromJson(jsonTemplate);
             },
             'error' : function () {
                 throw 'Unable to load template';

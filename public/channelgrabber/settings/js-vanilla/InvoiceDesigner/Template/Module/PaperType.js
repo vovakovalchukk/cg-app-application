@@ -79,7 +79,7 @@ define([
         }
 
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
-        var templatePage = this.getTemplate().getPaperPage();
+        let paperPage = this.getTemplate().getPaperPage();
 
         let height = selectedPaperType.getHeight();
         let width = selectedPaperType.getWidth();
@@ -90,18 +90,18 @@ define([
 
         //todo - move these setters somewhere else ... setProp that looks at initialise
         if (initialise) {
-            templatePage.set('height', height, true);
-            templatePage.set('width', width, true);
-            templatePage.set('backgroundImage', backgroundImage, true);
-            templatePage.set('paperType', paperTypeId, true);
-            templatePage.set('inverse', isInverse, true);
+            paperPage.set('height', height, true);
+            paperPage.set('width', width, true);
+            paperPage.set('backgroundImage', backgroundImage, true);
+            paperPage.set('paperType', paperTypeId, true);
+            paperPage.set('inverse', isInverse, true);
             return;
         }
-        templatePage.setHeight(height);
-        templatePage.setWidth(width);
-        templatePage.setBackgroundImage(backgroundImage);
-        templatePage.setPaperType(paperTypeId);
-        templatePage.setInverse(isInverse);
+        paperPage.setHeight(height);
+        paperPage.setWidth(width);
+        paperPage.setBackgroundImage(backgroundImage);
+        paperPage.setPaperType(paperTypeId);
+        paperPage.setInverse(isInverse);
     };
 
     return new PaperType();

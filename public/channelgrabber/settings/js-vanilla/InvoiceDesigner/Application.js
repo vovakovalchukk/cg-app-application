@@ -37,7 +37,6 @@ define([
         }
         this.setOrganisationUnitId(organisationUnitId);
         var modules = this.getModules();
-
         for (var key in modules) {
             modules[key].init(this, templateId);
         }

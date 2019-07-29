@@ -12,12 +12,13 @@ define([
     {
         EntityHydrateAbstract.call(this);
 
-        var elements = new Collection();
-        var manipulator = domManipulator;
-        var state;
-        var stateId;
-        var paperPage;
-        var initialised;
+        let elements = new Collection();
+        let manipulator = domManipulator;
+        let state;
+        let stateId;
+        let paperPage;
+        let printPage;
+        let initialised;
 
         // Member vars to watch for changes
         var data = {
@@ -49,6 +50,18 @@ define([
         {
             paperPage = newPaperPage;
             paperPage.subscribe(this);
+            return this;
+        };
+
+        this.getPrintPage = function()
+        {
+            return printPage;
+        };
+
+        this.setPrintPage = function(newPrintPage)
+        {
+            printPage = newPrintPage;
+            printPage.subscribe(this);
             return this;
         };
 
