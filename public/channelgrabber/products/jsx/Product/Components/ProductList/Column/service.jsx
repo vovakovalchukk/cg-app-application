@@ -55,13 +55,6 @@ let coreColumns = [
 
 let detailsColumns = [
     {
-        key: 'stockMode',
-        width: 200,
-        headerText: 'Stock Mode',
-        fixed: false,
-        align: 'center'
-    },
-    {
         key: 'weight',
         width: 80,
         headerText: 'Weight',
@@ -82,17 +75,17 @@ let detailsColumns = [
         fixed: false,
         align: 'center',
         feature: 'costPriceEnabled'
-    },
-    {
-        key: 'fulfillmentLatency',
-        width: 80,
-        headerText: 'Fulfilment Latency',
-        fixed: false,
-        align: 'center'
     }
 ];
 
 let stockColumns = [
+    {
+        key: 'stockMode',
+        width: 200,
+        headerText: 'Stock Mode',
+        fixed: false,
+        align: 'center'
+    },
     {
         key: 'allocated',
         width: 80,
@@ -131,7 +124,8 @@ let stockColumns = [
 let columnService = (function() {
     return {
         generateColumnSettings: function(features, accounts, vat, pickLocationNames) {
-            const listingsColumns = generateListingsColumnsFromAccounts(accounts);
+            const listingsColumns = generateFulfilmentLatencyColumnsFromAccounts(accounts)
+                .concat(generateListingsColumnsFromAccounts(accounts));
             const vatColumns = generateVatColumns(vat);
 
             let tab = (tab, columns) => {
@@ -191,6 +185,29 @@ function generateVatColumns(vat) {
             }
         }
     });
+}
+
+function generateFulfilmentLatencyColumnsFromAccounts(accounts) {
+    if (typeof accounts === "string") {
+        return [];
+    }
+
+    let amazonAccounts = Object.keys(accounts).filter(accountKey => {
+        let account = accounts[accountKey];
+        return account.type.includes('sales') && account.channel === 'amazon';
+    });
+
+    if (amazonAccounts.length <= 0) {
+        return [];
+    }
+
+    return [{
+        key: 'fulfillmentLatency',
+        width: 80,
+        headerText: 'Fulfilment Latency',
+        fixed: false,
+        align: 'center'
+    }];
 }
 
 function generateListingsColumnsFromAccounts(accounts) {
