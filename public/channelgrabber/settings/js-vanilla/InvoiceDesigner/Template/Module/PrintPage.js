@@ -84,24 +84,69 @@ define([
 
     PrintPage.prototype.init = function(template, templateService) {
         ModuleAbstract.prototype.init.call(this, template, templateService);
+        debugger;
 
-        // todo - this is not useful because the Dom hasn't loaded. Maybe need to pub       sub that?
-////////
-        //
-        const paperPage = this.getTemplate().getPaperPage();
+        console.log('this before anonymous callback: ', this);
 
-        //todo - figure out why we wanted to do this (suspect this is because of the reset
-//        initialiseMarginIndicatorElement.call(this);
+        $(document).on(domManipulator.getTemplateInitialisedEvent(), (event, template) => {
+            this.initialiseMarginIndicatorElement(event, template)
+        });
 
-        //todo - need to figure out how to set this or why I wanted to set this from the start
+//        $(document).on(domManipulator.getTemplateInitialisedEvent(), (event, template) => {
+//            debugger;
+////
+//            const paperPage = template.getPaperPage();
+//            initialiseMarginIndicatorElement.call(this);
 //
-//        this.setDimension("height", paperPage.getHeight());
-//        this.setDimension("width", paperPage.getWidth());
-//        this.setMargin("top", 0);
-//        this.setMargin("bottom", 0);
-//        this.setMargin("left", 0);
-//        this.setMargin("right", 0);
-//        this.setVisibility(false);
+//            this.setDimension("height", paperPage.getHeight());
+//            this.setDimension("width", paperPage.getWidth());
+//
+//            //todo - only do this if nothing is set
+//            this.setMargin("top", 0);
+//            this.setMargin("bottom", 0);
+//            this.setMargin("left", 0);
+//            this.setMargin("right", 0);
+//
+//            this.setVisibility(false);
+//        });
+    };
+
+    function createMarginIndicatorElement() {
+        let marginIndicatorElement = document.createElement('div');
+        //todo - move some of this into css
+        marginIndicatorElement.id = 'templateMarginIndicator';
+        marginIndicatorElement.style.position = 'absolute';
+        marginIndicatorElement.style.width = '100%';
+        marginIndicatorElement.style.height = '100%';
+        marginIndicatorElement.style.border = '2px dashed red';
+        marginIndicatorElement.style.boxSizing = 'border-box';
+        return marginIndicatorElement;
+    }
+
+    PrintPage.prototype.initialiseMarginIndicatorElement = function(event, template) {
+        debugger;
+        const paperPage = template.getPaperPage();
+        const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
+
+        let templatePageElement = document.getElementById(templatePageElementId);
+        let marginIndicatorElement = createMarginIndicatorElement();
+        templatePageElement.prepend(marginIndicatorElement);
+
+        this.setMarginIndicatorElement(marginIndicatorElement);
+
+        //todo - identify what properties can come from backend or not
+        //
+        //  this.setMarginProperties(paperPage);
+        this.setDimension("height", paperPage.getHeight());
+        this.setDimension("width", paperPage.getWidth());
+
+        //todo - only do this if nothing is set
+        this.setMargin("top", 0);
+        this.setMargin("bottom", 0);
+        this.setMargin("left", 0);
+        this.setMargin("right", 0);
+
+        this.setVisibility(false);
     };
 
     PrintPage.prototype.getNewDimensionValueFromMargin = function(direction,value){
@@ -122,32 +167,7 @@ define([
         this.setDimension("height", dimensionValue);
     };
 
-    function initialiseMarginIndicatorElement() {
-        const template = this.getTemplate();
-        const paperPage = template.getPaperPage();
-        const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
 
-
-        // todo - figure out whether this is right
-        let templatePageElement = document.getElementById(templatePageElementId);
-
-        if(!templatePageElement){
-            return
-        }
-
-        let marginIndicatorElement = document.createElement('div');
-        //todo - move some of this into css
-        marginIndicatorElement.id = 'templateMarginIndicator';
-        marginIndicatorElement.style.position = 'absolute';
-        marginIndicatorElement.style.width = '100%';
-        marginIndicatorElement.style.height = '100%';
-        marginIndicatorElement.style.border = '2px dashed red';
-        marginIndicatorElement.style.boxSizing = 'border-box';
-
-        templatePageElement.prepend(marginIndicatorElement);
-
-        this.setMarginIndicatorElement(marginIndicatorElement);
-    }
 
     return new PrintPage();
 });

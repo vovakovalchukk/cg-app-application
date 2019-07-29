@@ -37,9 +37,6 @@ define([
     Mapper.prototype.fromJson = function(json)
     {
         console.log('in fromJSON');
-        
-        
-        
         if (typeof json !== 'object') {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
@@ -67,11 +64,10 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
-        
-        console.log('in elementFromJson');
-        
-        
-        
+//        console.log('in elementFromJson');
+
+        debugger;
+
         var elementType = elementData.type.ucfirst();
         elementData.x = Number(elementData.x).ptToMm();
         elementData.y = Number(elementData.y).ptToMm();

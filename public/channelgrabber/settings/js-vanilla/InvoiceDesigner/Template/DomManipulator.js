@@ -40,8 +40,8 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateSetInitialised = function(template){
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_SELECTED, [template]);
+    DomManipulator.prototype.triggerTemplateInitialised = function(template){
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_INITIALISED, [template]);
     };
 
     DomManipulator.prototype.triggerTemplateSelectedEvent = function (template)
@@ -220,6 +220,11 @@ define([
     DomManipulator.prototype.getTemplateSelectedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_SELECTED;
+    };
+
+    DomManipulator.prototype.getTemplateInitialisedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_INITIALISED;
     };
 
     DomManipulator.prototype.getTemplateChangedEvent = function()

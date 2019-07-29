@@ -45,7 +45,7 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template, service);
         this.templateChanged(template);
-        domManipulator.triggerTemplateSetInitialised(template);
+        domManipulator.triggerTemplateInitialised(template);
         template.setInitialised();
     };
 
