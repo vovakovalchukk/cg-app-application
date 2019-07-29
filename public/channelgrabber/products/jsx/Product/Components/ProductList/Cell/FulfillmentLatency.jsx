@@ -78,8 +78,8 @@ class FulfillmentLatencyCell extends React.Component {
             }
         }
 
-        if ('fulfillmentLatency' in rowData.details && typeof rowData.details['fulfillmentLatency'] === 'string') {
-            return rowData.details['fulfillmentLatency'];
+        if ('fulfillmentLatency' in rowData.details) {
+            return rowData.details['fulfillmentLatency'] || '';
         }
 
         return '';
