@@ -381,17 +381,10 @@ class Settings
         $userTemplates = [];
         $systemTemplates[] = $this->getBlankTemplate();
 
-        $favouritedFirst = false;
         $templates = $this->getInvoices();
 
         foreach ($templates as $template) {
-            // todo - remove this hack in TAC-450
-            if(!($template instanceof SystemTemplate) && !$favouritedFirst){
-                $favouritedFirst = true;
-                $templateViewDataElement = $this->getTemplateViewData($template, true);
-            }else{
-                $templateViewDataElement = $this->getTemplateViewData($template, false);
-            }
+            $templateViewDataElement = $this->getTemplateViewData($template);
 
             if ($template instanceof SystemTemplate) {
                 $systemTemplates[] = $templateViewDataElement;
@@ -421,19 +414,12 @@ class Settings
         ];
     }
 
-    protected function getTemplateViewData($template, $makeFavourite)
+    protected function getTemplateViewData(Template $template): array
     {
-        $templateViewDataElement['name'] = $template->getName();
+        $templateViewDataElement = $template->toArray();
         $templateViewDataElement['key'] = $template->getId();
-        $templateViewDataElement['templateId'] = $template->getId();
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
         $templateViewDataElement['links'] = $template->getViewLinks();
-
-        //todo - remove this hack in TAC-450
-        if($makeFavourite){
-            $templateViewDataElement['favourite'] = true;
-        }
-
         return $templateViewDataElement;
     }
 

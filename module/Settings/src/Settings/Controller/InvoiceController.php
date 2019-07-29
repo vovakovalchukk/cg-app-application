@@ -311,24 +311,40 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function addFavouriteAction()
     {
-        //todo to be replaced with actual functionality as part of TAC-350
-        $templateId = $this->params()->fromPost('templateId');
-        $response = $this->getJsonModelFactory()->newInstance([
-            'success' => true,
-            "message" => "You have successfully added your template as a favourite."
-        ]);
-        return $response;
+        return $this->toggleFavourite(true);
     }
 
     public function removeFavouriteAction()
     {
-        //todo to be replaced with actual functionality as part of TAC-350
-        $templateId = $this->params()->fromPost('templateId');
-        $response = $this->getJsonModelFactory()->newInstance([
-            'success' => true,
-            "message" => "You have successfully removed your template as a favourite."
-        ]);
-        return $response;
+        return $this->toggleFavourite(false);
+    }
+
+    protected function toggleFavourite(bool $favourite): ViewModel
+    {
+        $text = $favourite ? 'added' : 'removed';
+        $response = ['success' => false, 'message' => ''];
+        try {
+            $template = $this->templateService->fetch($this->params()->fromPost('templateId'));
+            $template->setFavourite($favourite);
+            $this->templateService->save($template);
+            $response = [
+                'success' => true,
+                'message' => 'Template successfully ' . $text . ' as a favourite.'
+            ];
+        } catch (NotModified $e) {
+            // No-op
+            $response = [
+                'success' => true,
+                'message' => 'Template already ' . $text . ' as a favourite.'
+            ];
+        } catch (\Exception $e) {
+            $this->logErrorException($e, 'Error: template not ' . $text . ' as favourite', [], static::ROUTE_ADD_FAVOURITE);
+            $response = [
+                'success' => true,
+                'message' => 'There was a problem, template has not been ' . $text . ' as a favourite.'
+            ];
+        }
+        return $this->getJsonModelFactory()->newInstance($response);
     }
 
     public function getUserAmazonAccountSite(){
