@@ -23,7 +23,7 @@ const columnSpecificPropsMap = {
     name: ['rows', 'name', 'focus'],
     productExpand: ['expand'],
     cost: ['rows', 'detail', 'scroll'],
-    fulfillmentLatency: ['rows']
+    fulfillmentLatency: ['rows', 'detail', 'scroll']
 };
 const alignFlexMap = {
     'center': 'center',

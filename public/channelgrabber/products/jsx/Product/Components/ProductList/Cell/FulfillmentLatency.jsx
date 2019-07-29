@@ -5,10 +5,6 @@ import elementTypes from "../Portal/elementTypes";
 import stateUtility from 'Product/Components/ProductList/stateUtility';
 
 class FulfillmentLatencyCell extends React.Component {
-    getUniqueInputId = () => {
-        return this.props.rowData.id + '-' + this.props.columnKey
-    };
-
     render() {
         let rowData = this.props.rowData;
 
@@ -24,19 +20,74 @@ class FulfillmentLatencyCell extends React.Component {
             allRows: this.props.rows.allIds
         });
 
+        let isEditing = false;
+        if (rowData.id in this.props.detail['fulfillmentLatency'].byProductId) {
+            isEditing = this.props.detail['fulfillmentLatency'].byProductId[rowData.id].isEditing
+        }
+
         return (
             <span className={this.props.className}>
                 <SafeInputStateless
                     name='fulfillmentLatency'
+                    step='1'
                     key={this.getUniqueInputId()}
-                    setIsEditing={false}
+                    submitCallback={this.saveDetail}
+                    cancelInput={this.cancelInput}
+                    setIsEditing={this.setIsEditing}
+                    onValueChange={this.changeDetailValue}
+                    value={this.getValue()}
                     submitsPortalSettings={portalSettings}
                     width={45}
-                    shouldRenderSubmits={false}
+                    isEditing={isEditing}
+                    shouldRenderSubmits={this.shouldRenderSubmits}
                 />
             </span>
         );
     }
+
+    getUniqueInputId = () => {
+        return this.props.rowData.id + '-' + this.props.columnKey
+    };
+
+    saveDetail = () => {
+        this.props.actions.saveDetail(this.props.rowData, 'fulfillmentLatency');
+    };
+
+    cancelInput = () => {
+        this.props.actions.cancelInput(this.props.rowData, 'fulfillmentLatency');
+    };
+
+    setIsEditing = (isEditing) => {
+        this.props.actions.setIsEditing(this.props.rowData.id, 'fulfillmentLatency', isEditing);
+    };
+
+    changeDetailValue = (event) => {
+        this.props.actions.changeDetailValue(this.props.rowData.id, 'fulfillmentLatency', event);
+    };
+
+    getValue = () => {
+        let rowData = this.props.rowData;
+
+        if (rowData.id in this.props.detail['fulfillmentLatency'].byProductId) {
+            let fulfillmentLatency = this.props.detail['fulfillmentLatency'].byProductId[rowData.id];
+            if (typeof fulfillmentLatency.valueEdited === 'string') {
+                return fulfillmentLatency.valueEdited;
+            }
+            if (typeof fulfillmentLatency.value === 'string') {
+                return fulfillmentLatency.value;
+            }
+        }
+
+        if ('fulfillmentLatency' in rowData.details && typeof rowData.details['fulfillmentLatency'] === 'string') {
+            return rowData.details['fulfillmentLatency'];
+        }
+
+        return '';
+    };
+
+    shouldRenderSubmits = () => {
+        return !this.props.scroll.userScrolling;
+    };
 }
 
 export default FulfillmentLatencyCell
