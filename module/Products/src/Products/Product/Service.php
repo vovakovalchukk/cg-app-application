@@ -3,6 +3,7 @@ namespace Products\Product;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
+use CG\Amazon\Product\ChannelDetail\External as AmazonExternalData;
 use CG\Channel\Type as ChannelType;
 use CG\ETag\Exception\NotModified;
 use CG\FeatureFlags\Service as FeatureFlagsService;
@@ -13,18 +14,21 @@ use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\VATRelevant;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\ChannelDetail\Mapper as ProductChannelDetailMapper;
+use CG\Product\ChannelDetail\Service as ProductChannelDetailService;
+use CG\Product\ChannelDetail\Entity as ProductChannelDetail;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
 use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Entity as Product;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
-use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
-use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
+use CG\Product\Link\Entity as ProductLink;
+use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Settings\Product\Entity as ProductSettings;
@@ -40,8 +44,8 @@ use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
 use CG\Stock\Collection as StockCollection;
-use CG\Stock\Filter;
 use CG\Stock\Entity as Stock;
+use CG\Stock\Filter;
 use CG\Stock\Location\StorageInterface as StockLocationStorage;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
@@ -126,6 +130,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $productLinkNodeService;
     /** @var ProductSettingsService */
     protected $productSettingsService;
+    /** @var ProductChannelDetailService */
+    protected $productChannelDetailService;
+    /** @var ProductChannelDetailMapper */
+    protected $productChannelDetailMapper;
 
     public function __construct(
         UserService $userService,
@@ -148,7 +156,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         FeatureFlagsService $featureFlagsService,
         UserOuService $userOuService,
         ProductLinkNodeService $productLinkNodeService,
-        ProductSettingsService $productSettingsService
+        ProductSettingsService $productSettingsService,
+        ProductChannelDetailService $productChannelDetailService,
+        ProductChannelDetailMapper $productChannelDetailMapper
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -171,6 +181,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->userOuService = $userOuService;
         $this->productLinkNodeService = $productLinkNodeService;
         $this->productSettingsService = $productSettingsService;
+        $this->productChannelDetailService = $productChannelDetailService;
+        $this->productChannelDetailMapper = $productChannelDetailMapper;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -222,6 +234,47 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setSku($skus)
             ->setOrganisationUnitId([$ouId]);
         return $this->stockStorage->fetchCollectionByFilter($stockFilter);
+    }
+
+    public function fetchProductDetails(Product $product, string $locale): array
+    {
+        $detailsEntity = $product->getDetails();
+        if (!$detailsEntity) {
+            return [
+                'sku' => $product->getSku()
+            ];
+        }
+
+        return [
+            'id' => $detailsEntity->getId(),
+            'sku' => $detailsEntity->getSku(),
+            'weight' => $detailsEntity->getDisplayWeight($locale),
+            'width' => $detailsEntity->getDisplayWidth($locale),
+            'height' => $detailsEntity->getDisplayHeight($locale),
+            'length' => $detailsEntity->getDisplayLength($locale),
+            'price' => $detailsEntity->getPrice(),
+            'description' => $detailsEntity->getDescription(),
+            'condition' => $detailsEntity->getCondition(),
+            'brand' => $detailsEntity->getBrand(),
+            'mpn' => $detailsEntity->getMpn(),
+            'ean' => $detailsEntity->getEan(),
+            'upc' => $detailsEntity->getUpc(),
+            'isbn' => $detailsEntity->getIsbn(),
+            'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
+            'cost' => $detailsEntity->getDisplayCost(),
+        ];
+    }
+
+    public function appendAmazonProductDetails(Product $product, array &$productDetails): void
+    {
+        try {
+            $amazonDetails = $this->productChannelDetailService->fetch($product->getId() . '-amazon')->getExternal();
+            if ($amazonDetails instanceof AmazonExternalData) {
+                $productDetails['fulfillmentLatency'] = $amazonDetails->getFulfillmentLatency();
+            }
+        } catch (NotFound $exception) {
+            // No Amazon product details
+        }
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
@@ -441,6 +494,30 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
 
         return $id;
+    }
+
+    public function saveProductAmazonDetail(int $productId, string $detailType, $value): void
+    {
+        try {
+            /** @var ProductChannelDetail $productChannelDetail */
+            $productChannelDetail = $this->productChannelDetailService->fetch($productId . '-amazon');
+        } catch (NotFound $exception) {
+            $productChannelDetail = $this->productChannelDetailMapper->fromArray([
+                'productId' => $productId,
+                'channel' => 'amazon',
+                'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+            ]);
+        }
+
+        $amazonDetails = $productChannelDetail->getExternal();
+        if (!($amazonDetails instanceof AmazonExternalData)) {
+            $amazonDetails = new AmazonExternalData;
+        }
+
+        $amazonDetails->{'set' . ucfirst($detailType)}($value ?: null);
+        $productChannelDetail->setExternal($amazonDetails);
+
+        $this->productChannelDetailService->save($productChannelDetail);
     }
 
     public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock
