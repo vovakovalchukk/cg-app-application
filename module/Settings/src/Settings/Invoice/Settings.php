@@ -11,6 +11,7 @@ use CG\Settings\Invoice\Shared\Entity;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Template\Collection as TemplateCollection;
 use CG\Template\Entity as Template;
 use CG\Template\Service as TemplateService;
 use CG\Template\SystemTemplateEntity as SystemTemplate;
@@ -361,18 +362,26 @@ class Settings
         return $this->activeUserContainer->getActiveUser()->getOrganisationUnitId();
     }
 
-    public function getInvoices()
+    /**
+     * @deprecated use fetchTemplates()
+     */
+    public function getInvoices(): array
+    {
+        return iterator_to_array($this->fetchTemplates());
+    }
+
+    public function fetchTemplates(): TemplateCollection
     {
         $organisationUnits = [
             $this->activeUserContainer->getActiveUser()->getOrganisationUnitId()
         ];
 
         try {
-            return iterator_to_array($this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
+            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
                 $organisationUnits
-            ));
+            );
         } catch (NotFound $e) {
-            return [];
+            return new TemplateCollection(Template::class, 'empty');
         }
     }
 
@@ -381,7 +390,7 @@ class Settings
         $userTemplates = [];
         $systemTemplates[] = $this->getBlankTemplate();
 
-        $templates = $this->getInvoices();
+        $templates = $this->fetchTemplates();
 
         foreach ($templates as $template) {
             $templateViewDataElement = $this->getTemplateViewData($template);
@@ -421,6 +430,20 @@ class Settings
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
         $templateViewDataElement['links'] = $template->getViewLinks();
         return $templateViewDataElement;
+    }
+
+    public function getTemplateOptions(): array
+    {
+        $options = [];
+        $templates = $this->fetchTemplates();
+        foreach ($templates as $template) {
+            $options[] = [
+                'id' => $template->getId(),
+                'name' => $template->getName(),
+                'favourite' => $template->isFavourite(),
+            ];
+        }
+        return $options;
     }
 
     /**
