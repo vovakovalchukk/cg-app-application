@@ -98,7 +98,6 @@ define([
 
         this.set = function(field, value, populating)
         {
-            debugger;
             data[field] = value;
 
             if (populating) {

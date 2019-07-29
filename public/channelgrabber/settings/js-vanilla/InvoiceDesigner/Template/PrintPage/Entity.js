@@ -11,20 +11,21 @@ define([
         EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
 
-        let margins = {
-            top: null,
-            bottom: null,
-            left: null,
-            right: null
+        let data = {
+            margin: {
+                top: null,
+                bottom: null,
+                left: null,
+                right: null
+            },
+            dimension: {
+                height: null,
+                width: null
+            },
+            measurement: 'mm',
+            visibility: false
         };
-
-        let dimensions = {
-            height: null,
-            width: null
-        };
-
         let marginIndicatorElement = null;
-        let visibility = false;
 
         this.setMarginIndicatorElement = function(element) {
             marginIndicatorElement = element;
@@ -39,33 +40,45 @@ define([
             if (value < 0) {
                 return;
             }
-            margins[direction] = value;
-            marginIndicatorElement.style[direction] = value + measurement;
+            data.margin[direction] = value;
+            marginIndicatorElement.style[direction] = value + data.measurement;
         };
 
         this.getMargin = function(direction) {
-            return margins[direction];
+            return data.margin[direction];
         };
 
         this.setDimension = function(dimension, value) {
             // todo - this is where you apply the px/mm change
             let marginIndicatorElement = this.getMarginIndicatorElement();
 
-            dimensions[dimension] = value;
-            marginIndicatorElement.style[dimension] = value + measurement;
+            dimension[dimension] = value;
+            marginIndicatorElement.style[dimension] = value + data.measurement;
         };
 
         this.getDimension = function(dimension) {
-            return dimensions[dimension]
+            return dimension[dimension]
         };
 
         this.setVisibility = function(isVisible){
-            visibility = isVisible;
+            data.visibility = isVisible;
         }
+
+        this.get = function(field)
+        {
+            return data[field];
+        };
+
+        this.set = function(field, value, populating)
+        {
+            data[field] = value;
+
+            if (populating) {
+                return;
+            }
+            this.publish();
+        };
     };
-
-
-
 
     let combinedPrototype = createPrototype();
 
@@ -80,6 +93,4 @@ define([
         }
         return combinedPrototype;
     }
-
-
 });

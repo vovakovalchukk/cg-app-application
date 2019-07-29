@@ -73,7 +73,6 @@ define([
         this.hydratePrintPageFromJson(printPage, json.printPage, populating);
         template.setPrintPage(printPage).setEditable(!! json.editable);
 
-
         return template;
     };
 
@@ -115,7 +114,7 @@ define([
         paperPage.hydrate(json, populating);
     };
 
-    Mapper.prototype.hydratePrintPageFromJson = function(paperPage, json, populating)
+    Mapper.prototype.hydratePrintPageFromJson = function(printPage, json, populating)
     {
         console.log('in hydratePrintPageFromJson');
         printPage.hydrate(json, populating);
