@@ -227,13 +227,12 @@ class Service extends ClientService implements StatsAwareInterface
     public function generateInvoiceForCollection(Collection $collection, Template $template = null, $key = null)
     {
         $this->key = $key;
-        $this->count = 0;
+        $this->resetGenerationProgress();
         return $this->generateInvoicesForOrders($collection, $template);
     }
 
     protected function generateInvoicesForOrders(Collection $collection, Template $template = null): string
     {
-        $this->updateGenerationProgress();
         $result = parent::generateInvoiceForCollection($collection, $template);
         $this->notifyOfInvoiceGeneration();
         return $result;
@@ -242,6 +241,17 @@ class Service extends ClientService implements StatsAwareInterface
     protected function generateDocumentForOrder(Order $order, Template $template = null)
     {
         parent::generateDocumentForOrder($order, $template);
+        $this->incrementGenerationProgress();
+    }
+
+    protected function resetGenerationProgress(): void
+    {
+        $this->count = 0;
+        $this->updateGenerationProgress();
+    }
+
+    protected function incrementGenerationProgress(): void
+    {
         $this->count++;
         $this->updateGenerationProgress();
     }
@@ -300,7 +310,7 @@ class Service extends ClientService implements StatsAwareInterface
     public function generatePdfsForOrders(Collection $orders, TemplateCollection $templates, string $key = null): string
     {
         $this->key = $key;
-        $this->count = 0;
+        $this->resetGenerationProgress();
         $isInvoiced = false;
         $pdfs = [];
         /** @var Template $template */
