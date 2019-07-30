@@ -2086,16 +2086,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.46.3",
+            "version": "dev-CGIV-10761-shopify-discounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8aece91a8bc9ce1ec80b343503d6b8e345a1b030"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.3-2dbd5c.zip",
-                "reference": "8aece91a8bc9ce1ec80b343503d6b8e345a1b030"
+                "reference": "3069829132deabbc51b0ea774869882c6275562d"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -11309,13 +11304,21 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.46.4",
+            "alias_normalized": "1.46.4.0",
+            "version": "dev-CGIV-10761-shopify-discounts",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "phpish/link_header": 20,
-        "realityking/hash_equals": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "realityking/hash_equals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
