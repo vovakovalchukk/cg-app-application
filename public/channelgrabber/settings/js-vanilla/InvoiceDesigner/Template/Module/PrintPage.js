@@ -69,13 +69,12 @@ define([
         let marginValues = printPage.getState().margin;
         let inputs = this.getDomListener().getInputs();
         for(let marginDirection in marginValues){
-            domManipulator.setMarginValueToInput(inputs[marginDirection], marginValues[marginDirection])
+            domManipulator.setMarginValueToInput(inputs[marginDirection], marginValues[marginDirection]);
         }
     };
 
     PrintPage.prototype.initialiseMargins = function(printPage){
         let state = printPage.getState();
-
         for(let margin in state.margin){
             let marginValue = state.margin[margin];
             let desiredValue = typeof marginValue === "number" ? marginValue : 0;
@@ -98,9 +97,12 @@ define([
         const printPage = template.getPrintPage();
 
         printPage.setVisibility(true);
+
+        debugger;
+
         printPage.setMargin(direction, value);
 
-        let dimensionValue = this.getNewDimensionValueFromMargin(direction);
+        let dimensionValue = this.getNewDimensionValueFromMargin(direction, value);
 
         printPage.setDimension(MARGIN_TO_DIMENSION[direction], dimensionValue);
     };

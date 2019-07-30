@@ -44,6 +44,7 @@ define([
             if (value < 0) {
                 return;
             }
+            value = parseInt(value);
             state.margin[direction] = value;
             marginIndicatorElement.style[direction] = value + state.measurement;
         };

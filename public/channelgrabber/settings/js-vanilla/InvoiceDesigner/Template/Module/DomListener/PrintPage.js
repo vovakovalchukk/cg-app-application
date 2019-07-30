@@ -5,7 +5,7 @@ define([
     requireModule,
     DomListenerAbstract
 ) {
-    var PrintPage = function()
+    let PrintPage = function()
     {
         DomListenerAbstract.call(this);
     };
@@ -33,8 +33,7 @@ define([
         inputs.bottom = document.getElementById(PrintPage.BOTTOM_MARGIN_INPUT_SELECTOR);
         inputs.left = document.getElementById(PrintPage.LEFT_MARGIN_INPUT_SELECTOR);
         inputs.right = document.getElementById(PrintPage.RIGHT_MARGIN_INPUT_SELECTOR);
-        ////
-        console.log('yo')
+
         inputs.top.addEventListener('change', event => {
             const value = event.target.value;
             self.getModule().setPrintPageMargin('top', value);
@@ -56,7 +55,7 @@ define([
         });
     };
 
-    PrintPage.prototype.getInputs = function(direction){
+    PrintPage.prototype.getInputs = function(){
         return inputs;
     };
 
