@@ -498,14 +498,9 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.16-8c4ca7.zip",
                 "reference": "ac230c33086de37bdba750b3ea4d404df6eec089",
                 "shasum": null
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.13-c40694.zip",
-                "reference": "9cf21a4496fb46c6bdb92bb17c524af331e3370b"
->>>>>>> TAC-450: Template Designer - expanded on the work from TAC-449 to actually mark templates as favourites when requested
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -2229,14 +2224,9 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.4-6ac4ff.zip",
                 "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335",
                 "shasum": null
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.2-559c96.zip",
-                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e"
->>>>>>> TAC-450: Template Designer - expanded on the work from TAC-449 to actually mark templates as favourites when requested
             },
             "require": {
                 "channelgrabber/billing": "^1.20.16",
@@ -2315,14 +2305,9 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/phinx/channelgrabber-phinx-0.5.2-ed4619.zip",
                 "reference": "560febcf8cc704fcd025885ee0b07a0e4b935c69",
                 "shasum": null
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/phinx/channelgrabber-phinx-0.3.8.2-dde0a9.zip",
-                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73"
->>>>>>> TAC-450: Template Designer - expanded on the work from TAC-449 to actually mark templates as favourites when requested
             },
             "require": {
                 "php": ">=5.4",
@@ -3463,12 +3448,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "cf7aec67508ba077847a0d1c3d0babbca8dce12d"
+                "reference": "54644e3a9bde3d5a2ef1aefcdee80398a74fdb2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-450-invoice-designer-improvements-backend-a4542c.zip",
-                "reference": "cf7aec67508ba077847a0d1c3d0babbca8dce12d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-450-invoice-designer-improvements-backend-d8db60.zip",
+                "reference": "54644e3a9bde3d5a2ef1aefcdee80398a74fdb2c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3515,7 +3500,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-30T08:20:57+00:00"
+            "time": "2019-07-30T13:55:04+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4563,14 +4548,9 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.7-c490a5.zip",
                 "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6",
                 "shasum": null
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.5-598719.zip",
-                "reference": "a12dda83c1d38dd1b9f6aad9a0bd7cc32394ae27"
->>>>>>> TAC-450: Template Designer - expanded on the work from TAC-449 to actually mark templates as favourites when requested
             },
             "require": {
                 "channelgrabber/billing": "^1.20.16",
@@ -4762,14 +4742,9 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-1.2.1.2-1aabdd.zip",
                 "reference": "bd6924eaad4782274469092fbcef69fd65e89d12",
                 "shasum": null
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-1.2.1-c8e4d1.zip",
-                "reference": "b6200c628fa4552c521b482adb9882853b90c56c"
->>>>>>> TAC-450: Template Designer - expanded on the work from TAC-449 to actually mark templates as favourites when requested
             },
             "require": {
                 "channelgrabber/di": "^2.1.0",
@@ -4974,14 +4949,9 @@
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-253404.zip",
                 "reference": "9167798f9450eb0473269f53a3ed301d9cf6ad09",
                 "shasum": null
-=======
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-448-invoice-designer-to-template-designer-ui-changes-b84c80.zip",
-                "reference": "bbc68dc6e343e52c8119d399cbb25bbc7ee55452"
->>>>>>> TAC-450: Template Designer - expanded on the work from TAC-449 to actually mark templates as favourites when requested
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
