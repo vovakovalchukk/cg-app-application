@@ -225,20 +225,25 @@ class Service extends ClientService implements StatsAwareInterface
     {
         $this->key = $key;
         $this->count = 0;
-        $this->updateInvoiceGenerationProgress();
+        return $this->generateInvoicesForOrders($collection, $template);
+    }
+
+    protected function generateInvoicesForOrders(Collection $collection, Template $template = null): string
+    {
+        $this->updateGenerationProgress();
         $result = parent::generateInvoiceForCollection($collection, $template);
-        $this->notifyOfGeneration();
+        $this->notifyOfInvoiceGeneration();
         return $result;
     }
 
-    protected function generateInvoiceForOrder(Order $order, Template $template = null)
+    protected function generateDocumentForOrder(Order $order, Template $template = null)
     {
-        parent::generateInvoiceForOrder($order, $template);
+        parent::generateDocumentForOrder($order, $template);
         $this->count++;
-        $this->updateInvoiceGenerationProgress();
+        $this->updateGenerationProgress();
     }
 
-    protected function updateInvoiceGenerationProgress()
+    protected function updateGenerationProgress()
     {
         if (!$this->key) {
             return $this;
@@ -248,7 +253,7 @@ class Service extends ClientService implements StatsAwareInterface
         return $this;
     }
 
-    protected function notifyOfGeneration()
+    protected function notifyOfInvoiceGeneration()
     {
         $event = new IntercomEvent(static::EVENT_INVOICES_PRINTED, $this->activeUserContainer->getActiveUser()->getId());
         $this->intercomEventService->save($event);
