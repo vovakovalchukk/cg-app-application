@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "286240197b918fbb43605153d1fed29d",
+    "content-hash": "da107bc97c98cfb14a0af4f08351d020",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -711,16 +711,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.0",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e7ffd3a02cd4e764f9ff2963da8447ae48fd8216"
+                "reference": "7be8e0ecfd778844a441bb88b7e31a983faae849"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.0-fc4290.zip",
-                "reference": "e7ffd3a02cd4e764f9ff2963da8447ae48fd8216"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-MIG-19-AmazonProductDetailFulfilmentLatency-950ac9.zip",
+                "reference": "7be8e0ecfd778844a441bb88b7e31a983faae849"
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -788,7 +788,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-07-24T09:46:37+00:00"
+            "time": "2019-07-30T12:39:13+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3968,21 +3968,21 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.5",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "733470a8c18de0bc99151014837597af395ed70d"
+                "reference": "5d2ab9bab6192a22edd4a15e719a5078ec3dd52b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.5-1fe8eb.zip",
-                "reference": "733470a8c18de0bc99151014837597af395ed70d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-MIG-19-AmazonProductDetailFulfilmentLatency-8612e7.zip",
+                "reference": "5d2ab9bab6192a22edd4a15e719a5078ec3dd52b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.19.25",
-                "channelgrabber/channel": "^1.17.12",
+                "channelgrabber/channel": "dev-MIG-19-AmazonProductDetailFulfilmentLatency as 1.43.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
@@ -4009,7 +4009,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-12-20T12:37:05+00:00"
+            "time": "2019-07-30T15:08:29+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -6217,9 +6217,9 @@
             "authors": [
                 {
                     "name": "Ignace Nyamagana Butera",
-                    "role": "Developer",
                     "email": "nyamsprod@gmail.com",
-                    "homepage": "https://github.com/nyamsprod/"
+                    "homepage": "https://github.com/nyamsprod/",
+                    "role": "Developer"
                 }
             ],
             "description": "Csv data manipulation made easy in PHP",
@@ -6537,8 +6537,8 @@
             "authors": [
                 {
                     "name": "Ne-Lexa",
-                    "role": "Developer",
-                    "email": "alexey@nelexa.ru"
+                    "email": "alexey@nelexa.ru",
+                    "role": "Developer"
                 }
             ],
             "description": "PhpZip is a php-library for extended work with ZIP-archives. Open, create, update, delete, extract and get info tool. Supports appending to existing ZIP files, WinZip AES encryption, Traditional PKWARE Encryption, ZipAlign tool, BZIP2 compression, external file attributes and ZIP64 extensions. Alternative ZipArchive. It does not require php-zip extension.",
@@ -7054,28 +7054,28 @@
             "authors": [
                 {
                     "name": "Jim Wigginton",
-                    "role": "Lead Developer",
-                    "email": "terrafrost@php.net"
+                    "email": "terrafrost@php.net",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Patrick Monnerat",
-                    "role": "Developer",
-                    "email": "pm@datasphere.ch"
+                    "email": "pm@datasphere.ch",
+                    "role": "Developer"
                 },
                 {
                     "name": "Andreas Fischer",
-                    "role": "Developer",
-                    "email": "bantu@phpbb.com"
+                    "email": "bantu@phpbb.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Hans-Jürgen Petrich",
-                    "role": "Developer",
-                    "email": "petrich@tronic-media.com"
+                    "email": "petrich@tronic-media.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Graham Campbell",
-                    "role": "Developer",
-                    "email": "graham@alt-three.com"
+                    "email": "graham@alt-three.com",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
@@ -8934,8 +8934,8 @@
             "authors": [
                 {
                     "name": "Niels Leenheer",
-                    "role": "Developer",
-                    "email": "niels@leenheer.nl"
+                    "email": "niels@leenheer.nl",
+                    "role": "Developer"
                 }
             ],
             "description": "Useragent sniffing library for PHP",
@@ -9173,14 +9173,14 @@
             "authors": [
                 {
                     "name": "Jon Rohan",
-                    "role": "Developer",
-                    "homepage": "http://jonrohan.me/"
+                    "homepage": "http://jonrohan.me/",
+                    "role": "Developer"
                 },
                 {
                     "name": "James M. Greene",
-                    "role": "Developer",
                     "email": "james.m.greene@gmail.com",
-                    "homepage": "http://jamesgreene.net/"
+                    "homepage": "http://jamesgreene.net/",
+                    "role": "Developer"
                 }
             ],
             "description": "The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.",
@@ -9678,9 +9678,9 @@
             "authors": [
                 {
                     "name": "Alex Bilbie",
-                    "role": "Developer",
                     "email": "hello@alexbilbie.com",
-                    "homepage": "http://www.alexbilbie.com"
+                    "homepage": "http://www.alexbilbie.com",
+                    "role": "Developer"
                 }
             ],
             "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
@@ -10239,8 +10239,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sb@sebastian-bergmann.de"
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -10507,8 +10507,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -11334,17 +11334,31 @@
             "package": "channelgrabber/amazon"
         },
         {
+            "alias": "1.43.1",
+            "alias_normalized": "1.43.1.0",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.17.2",
             "alias_normalized": "1.17.2.0",
             "version": "dev-MIG-18-AmazonProductDetailFulfilmentLatency",
             "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.1.6",
+            "alias_normalized": "1.1.6.0",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
+            "package": "channelgrabber/zf2-amazon"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
+        "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
