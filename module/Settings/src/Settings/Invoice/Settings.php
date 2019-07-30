@@ -13,8 +13,10 @@ use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\Collection as TemplateCollection;
 use CG\Template\Entity as Template;
+use CG\Template\Filter as TemplateFilter;
 use CG\Template\Service as TemplateService;
 use CG\Template\SystemTemplateEntity as SystemTemplate;
+use CG\Template\Type as TemplateType;
 use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG_UI\View\DataTable;
@@ -367,19 +369,25 @@ class Settings
      */
     public function getInvoices(): array
     {
-        return iterator_to_array($this->fetchTemplates());
+        return iterator_to_array($this->fetchTemplates([TemplateType::INVOICE]));
     }
 
-    public function fetchTemplates(): TemplateCollection
+    public function fetchTemplates(array $types = null): TemplateCollection
     {
-        $organisationUnits = [
-            $this->activeUserContainer->getActiveUser()->getOrganisationUnitId()
-        ];
-
         try {
-            return $this->templateService->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
-                $organisationUnits
-            );
+            $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+            $filter = (new TemplateFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrganisationUnitId([$organisationUnitId]);
+            if (!empty($types)) {
+                $filter->setType($types);
+            }
+
+            $templates = $this->templateService->fetchCollectionByFilter($filter);
+            $defaults = $this->templateService->getDefaultTemplates($organisationUnitId);
+            $templates->addAll($defaults);
+            return $templates;
         } catch (NotFound $e) {
             return new TemplateCollection(Template::class, 'empty');
         }
