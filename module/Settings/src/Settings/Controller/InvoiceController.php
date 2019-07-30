@@ -17,6 +17,7 @@ use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Template\Type as TemplateType;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -266,6 +267,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
         $view->setVariable('showToPdfButton', $showToPdfButton);
+        $view->setVariable('typeOptions', TemplateType::getTypeOptions());
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
 

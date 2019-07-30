@@ -3463,12 +3463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "34bb6e37969d06700dfa17616bae8a4aae8f2b33"
+                "reference": "cf7aec67508ba077847a0d1c3d0babbca8dce12d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-450-invoice-designer-improvements-backend-d4d2bd.zip",
-                "reference": "34bb6e37969d06700dfa17616bae8a4aae8f2b33"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-450-invoice-designer-improvements-backend-a4542c.zip",
+                "reference": "cf7aec67508ba077847a0d1c3d0babbca8dce12d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3515,7 +3515,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-29T13:52:05+00:00"
+            "time": "2019-07-30T08:20:57+00:00"
         },
         {
             "name": "channelgrabber/transaction",
