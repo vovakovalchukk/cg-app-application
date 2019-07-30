@@ -33,10 +33,12 @@ use Products\Controller\PurchaseOrdersController;
 use Products\Controller\PurchaseOrdersJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Csv\Stock\ProgressStorage as StockCsvProgressStorage;
 use Products\Listing\Channel\Amazon\Service as ListingAmazonService;
 use Products\Listing\Channel\Ebay\Service as ListingEbayService;
+use Products\Product\Details\ChannelInterface as ProductChannelDetails;
+use Products\Product\Details\Amazon as ProductAmazonDetails;
 use Products\Product\Service as ModuleProductService;
-use Products\Csv\Stock\ProgressStorage as StockCsvProgressStorage;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 use Zend\View\Model\ViewModel;
@@ -677,6 +679,18 @@ return [
         ]
     ],
     'di' => [
+        'definition' => [
+            'class' => [
+                ModuleProductService::class => [
+                    'methods' => [
+                        'registerChannelDetail' => [
+                            'channel' => ['required' => true],
+                            'details' => ['type' => ProductChannelDetails::class, 'required' => true],
+                        ],
+                    ],
+                ],
+            ],
+        ],
         'instance' => [
             'aliases' => [
                 'ListingList' => DataTable::class,
@@ -1377,6 +1391,13 @@ return [
                 'parameters' => [
                     'cryptor' => 'amazon_cryptor',
                 ]
+            ],
+            ModuleProductService::class => [
+                'injections' => [
+                    'registerChannelDetail' => [
+                        ['channel' => ProductAmazonDetails::CHANNEL, 'details' => ProductAmazonDetails::class],
+                    ],
+                ],
             ],
         ],
     ],

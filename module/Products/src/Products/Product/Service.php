@@ -3,7 +3,6 @@ namespace Products\Product;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
-use CG\Amazon\Product\ChannelDetail\External as AmazonExternalData;
 use CG\Channel\Type as ChannelType;
 use CG\ETag\Exception\NotModified;
 use CG\FeatureFlags\Service as FeatureFlagsService;
@@ -14,9 +13,6 @@ use CG\Locale\Length as LocaleLength;
 use CG\Locale\Mass as LocaleMass;
 use CG\Locale\VATRelevant;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Product\ChannelDetail\Mapper as ProductChannelDetailMapper;
-use CG\Product\ChannelDetail\Service as ProductChannelDetailService;
-use CG\Product\ChannelDetail\Entity as ProductChannelDetail;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Detail\Client\Service as DetailService;
 use CG\Product\Detail\Entity as Details;
@@ -54,6 +50,7 @@ use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use GearmanClient;
+use Products\Product\Details\ChannelInterface as ChannelDetails;
 use Zend\Di\Di;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 
@@ -130,10 +127,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $productLinkNodeService;
     /** @var ProductSettingsService */
     protected $productSettingsService;
-    /** @var ProductChannelDetailService */
-    protected $productChannelDetailService;
-    /** @var ProductChannelDetailMapper */
-    protected $productChannelDetailMapper;
+    /** @var ChannelDetails[] */
+    protected $channelDetails;
 
     public function __construct(
         UserService $userService,
@@ -156,9 +151,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         FeatureFlagsService $featureFlagsService,
         UserOuService $userOuService,
         ProductLinkNodeService $productLinkNodeService,
-        ProductSettingsService $productSettingsService,
-        ProductChannelDetailService $productChannelDetailService,
-        ProductChannelDetailMapper $productChannelDetailMapper
+        ProductSettingsService $productSettingsService
     ) {
         $this->productService = $productService;
         $this->userService = $userService;
@@ -181,8 +174,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->userOuService = $userOuService;
         $this->productLinkNodeService = $productLinkNodeService;
         $this->productSettingsService = $productSettingsService;
-        $this->productChannelDetailService = $productChannelDetailService;
-        $this->productChannelDetailMapper = $productChannelDetailMapper;
+        $this->channelDetails = [];
+    }
+
+    /**
+     * @return self
+     */
+    public function registerChannelDetail(string $channel, ChannelDetails $details)
+    {
+        $this->channelDetails[$channel] = $details;
+        return $this;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -265,15 +266,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ];
     }
 
-    public function appendAmazonProductDetails(Product $product, array &$productDetails): void
+    public function appendChannelDetails(Product $product, array &$productDetails): void
     {
-        try {
-            $amazonDetails = $this->productChannelDetailService->fetch($product->getId() . '-amazon')->getExternal();
-            if ($amazonDetails instanceof AmazonExternalData) {
-                $productDetails['fulfillmentLatency'] = $amazonDetails->getFulfillmentLatency();
-            }
-        } catch (NotFound $exception) {
-            // No Amazon product details
+        foreach ($this->channelDetails as $details) {
+            $details->appendDetails($product->getId(), $productDetails);
         }
     }
 
@@ -471,53 +467,48 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService->fetchByFilter($filter);
     }
 
-    public function saveProductDetail($sku, $detailType, $value, $id = null)
+    public function saveProductDetail(string $sku, string $detail, $value, int $id = null): int
     {
-        if ($this->doesDetailTypeHaveUOM($detailType)) {
-            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detailType, $value);
-        }
+        return $this->saveProductDetails($sku, [$detail => $value], $id);
+    }
+
+    public function saveProductDetails(string $sku, array $details, int $id = null): int
+    {
+        array_walk($details, function(&$value, string $detail) {
+            if ($this->doesDetailTypeHaveUOM($detail)) {
+                $value = $this->convertDetailValueToInternalUnitOfMeasurement($detail, $value);
+            }
+        });
 
         if ($id) {
-            $this->detailService->patchEntity($id, [$detailType => $value]);
+            $this->detailService->patchEntity($id, $details);
         } else {
-            /** @var Details $details */
-            $details = $this->detailService->save(
-                $this->detailMapper->fromArray(
+            $id = $this->detailService->save(
+                $this->detailMapper->fromArray(array_merge(
+                    $details,
                     [
                         'organisationUnitId' => $this->getActiveUserRootOu(),
                         'sku' => $sku,
-                        $detailType => $value,
                     ]
-                )
-            );
-            $id = $details->getId();
+                ))
+            )->getId();
         }
 
         return $id;
     }
 
-    public function saveProductAmazonDetail(int $productId, string $detailType, $value): void
+    public function saveProductChannelDetail(int $productId, string $channel, string $detail, $value): void
     {
-        try {
-            /** @var ProductChannelDetail $productChannelDetail */
-            $productChannelDetail = $this->productChannelDetailService->fetch($productId . '-amazon');
-        } catch (NotFound $exception) {
-            $productChannelDetail = $this->productChannelDetailMapper->fromArray([
-                'productId' => $productId,
-                'channel' => 'amazon',
-                'organisationUnitId' => $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            ]);
+        $this->saveProductChannelDetails($productId, $channel, [$detail => $value]);
+    }
+
+    public function saveProductChannelDetails(int $productId, string $channel, array $details): void
+    {
+        if (!isset($this->channelDetails[$channel])) {
+            throw new \RuntimeException(sprintf('No %s channel details service registered', $channel));
         }
 
-        $amazonDetails = $productChannelDetail->getExternal();
-        if (!($amazonDetails instanceof AmazonExternalData)) {
-            $amazonDetails = new AmazonExternalData;
-        }
-
-        $amazonDetails->{'set' . ucfirst($detailType)}($value ?: null);
-        $productChannelDetail->setExternal($amazonDetails);
-
-        $this->productChannelDetailService->save($productChannelDetail);
+        $this->channelDetails[$channel]->saveDetails($productId,  $details);
     }
 
     public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock

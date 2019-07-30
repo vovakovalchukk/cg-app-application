@@ -331,7 +331,7 @@ class ProductsJsonController extends AbstractActionController
             $rootOrganisationUnit->getLocale()
         );
 
-        $this->productService->appendAmazonProductDetails($productEntity, $product['details']);
+        $this->productService->appendChannelDetails($productEntity, $product['details']);
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
@@ -687,9 +687,9 @@ class ProductsJsonController extends AbstractActionController
         $detail = $this->params()->fromPost('detail');
 
         if (isset(static::PRODUCT_DETAIL_CHANNEL_MAP[$detail])) {
-            $channel = static::PRODUCT_DETAIL_CHANNEL_MAP[$detail];
-            $this->productService->{'saveProduct' . ucfirst($channel) . 'Detail'}(
+            $this->productService->saveProductChannelDetail(
                 $this->params()->fromPost('productId'),
+                static::PRODUCT_DETAIL_CHANNEL_MAP[$detail],
                 $detail,
                 $this->params()->fromPost('value')
             );
