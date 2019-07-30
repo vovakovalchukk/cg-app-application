@@ -54,13 +54,10 @@ define([
 
         printPage.setMarginIndicatorElement(marginIndicatorElement);
 
-        //todo - identify what properties can come from backend or not
         printPage.setDimension("height", paperPage.getHeight());
         printPage.setDimension("width", paperPage.getWidth());
 
-        //todo - only do this if nothing is set
         this.initialiseMargins(printPage);
-//        this.initialiseDimensions(printPage);
 
         printPage.setVisibility(false);
     };
@@ -75,14 +72,7 @@ define([
         }
     };
 
-    PrintPage.prototype.initialiseDimensions = function(printPage){
-//        debugger;
-        //
-    };
-
     PrintPage.prototype.getNewDimensionValueFromMargin = function(direction, value){
-        //todo - this needs rethinking completely.
-        // heights should be caluclated based on other margins and not added on top of each other
         const template = this.getTemplate();
         const paperPage = template.getPaperPage();
         const printPage = template.getPrintPage();
@@ -100,8 +90,6 @@ define([
         printPage.setMargin(direction, value);
 
         let dimensionValue = this.getNewDimensionValueFromMargin(direction);
-        //todo - stop this being fixed
-
 
         printPage.setDimension(MARGIN_TO_DIMENSION[direction], dimensionValue);
     };
