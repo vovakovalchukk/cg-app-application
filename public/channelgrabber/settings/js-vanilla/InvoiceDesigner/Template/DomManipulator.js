@@ -88,6 +88,10 @@ define([
         return this;
     };
 
+    DomManipulator.prototype.setMarginValueToInput = function(selector, value){
+        selector.value = value;
+    };
+
     DomManipulator.prototype.populateCustomSelect = function(selector, data, selectedValue)
     {
         var container = $(selector).parent().parent();

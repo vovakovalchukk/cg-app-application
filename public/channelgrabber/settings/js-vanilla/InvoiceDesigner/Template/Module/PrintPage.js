@@ -40,6 +40,8 @@ define([
         $(document).on(domManipulator.getTemplateInitialisedEvent(), (event, template) => {
             this.initialiseMarginIndicatorElement(event, template)
         });
+
+        this.initialiseMarginInputs(template);
     };
 
     PrintPage.prototype.initialiseMarginIndicatorElement = function(event, template) {
@@ -60,6 +62,15 @@ define([
         this.initialiseMargins(printPage);
 
         printPage.setVisibility(false);
+    };
+
+    PrintPage.prototype.initialiseMarginInputs = function(template) {
+        let printPage = template.getPrintPage();
+        let marginValues = printPage.getState().margin;
+        let inputs = this.getDomListener().getInputs();
+        for(let marginDirection in marginValues){
+            domManipulator.setMarginValueToInput(inputs[marginDirection], marginValues[marginDirection])
+        }
     };
 
     PrintPage.prototype.initialiseMargins = function(printPage){

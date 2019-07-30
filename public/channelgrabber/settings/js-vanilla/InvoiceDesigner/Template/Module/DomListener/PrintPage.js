@@ -17,37 +17,47 @@ define([
     PrintPage.LEFT_MARGIN_INPUT_SELECTOR = 'printPageLeftMargin';
     PrintPage.RIGHT_MARGIN_INPUT_SELECTOR = 'printPageRightMargin';
 
+    let inputs = {
+        top: null,
+        bottom: null,
+        left: null,
+        right: null
+    };
 
     PrintPage.prototype.init = function(module)
     {
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-
-        this.topMarginInput = document.getElementById(PrintPage.TOP_MARGIN_INPUT_SELECTOR);
-        this.bottomMarginInput = document.getElementById(PrintPage.BOTTOM_MARGIN_INPUT_SELECTOR);
-        this.leftMarginInput = document.getElementById(PrintPage.LEFT_MARGIN_INPUT_SELECTOR);
-        this.rightMarginInput = document.getElementById(PrintPage.RIGHT_MARGIN_INPUT_SELECTOR);
-
-
-        this.topMarginInput.addEventListener('change', event => {
+        //
+        inputs.top = document.getElementById(PrintPage.TOP_MARGIN_INPUT_SELECTOR);
+        inputs.bottom = document.getElementById(PrintPage.BOTTOM_MARGIN_INPUT_SELECTOR);
+        inputs.left = document.getElementById(PrintPage.LEFT_MARGIN_INPUT_SELECTOR);
+        inputs.right = document.getElementById(PrintPage.RIGHT_MARGIN_INPUT_SELECTOR);
+        ////
+        console.log('yo')
+        inputs.top.addEventListener('change', event => {
             const value = event.target.value;
             self.getModule().setPrintPageMargin('top', value);
         });
 
-        this.bottomMarginInput.addEventListener('change', event => {
+        inputs.bottom.addEventListener('change', event => {
             const value = event.target.value;
             self.getModule().setPrintPageMargin('bottom', value);
         });
 
-        this.leftMarginInput.addEventListener('change', event => {
+        inputs.left.addEventListener('change', event => {
             const value = event.target.value;
             self.getModule().setPrintPageMargin('left', value);
         });
 
-        this.rightMarginInput.addEventListener('change', event => {
+        inputs.right.addEventListener('change', event => {
             const value = event.target.value;
             self.getModule().setPrintPageMargin('right', value);
         });
+    };
+
+    PrintPage.prototype.getInputs = function(direction){
+        return inputs;
     };
 
     return PrintPage;
