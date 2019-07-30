@@ -642,6 +642,30 @@ return [
                                     ],
                                 ],
                             ],
+                            'invoice_bytitle' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/byTitle',
+                                    'defaults' => [
+                                        'action' => 'invoiceOrderIdsByTitle'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_filter_bytitle' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'invoiceFilterIdByTitle'
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
                             'invoice_email' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
