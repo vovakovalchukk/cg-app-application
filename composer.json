@@ -55,7 +55,7 @@
         "channelgrabber/log": "~2.3.5",
         "channelgrabber/manual-order": "~1.0.1",
         "channelgrabber/netdespatch": "~1.5.0",
-        "channelgrabber/order": "~1.46.3",
+        "channelgrabber/order": "dev-TAC-450-invoice-designer-improvements-backend as 1.46.4",
         "channelgrabber/partner": "~1.0.3",
         "channelgrabber/payment": "~1.14.4",
         "channelgrabber/permission": "~1.0.2",

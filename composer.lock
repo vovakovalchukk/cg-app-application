@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc6f2c11526b8b2e8f08c3ee09e7398f",
+    "content-hash": "9092293be80a15d52c151c356b9a4979",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2097,16 +2097,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.46.3",
+            "version": "dev-TAC-450-invoice-designer-improvements-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8aece91a8bc9ce1ec80b343503d6b8e345a1b030"
+                "reference": "b0b740c006bf05d06efa378469f8f51c7c693a8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.3-2dbd5c.zip",
-                "reference": "8aece91a8bc9ce1ec80b343503d6b8e345a1b030"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-450-invoice-designer-improvements-backend-2c8abe.zip",
+                "reference": "b0b740c006bf05d06efa378469f8f51c7c693a8a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2180,7 +2180,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-07-24T10:06:05+00:00"
+            "time": "2019-07-30T12:51:46+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11363,6 +11363,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.46.4",
+            "alias_normalized": "1.46.4.0",
+            "version": "dev-TAC-450-invoice-designer-improvements-backend",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.6.11",
             "alias_normalized": "1.6.11.0",
             "version": "dev-TAC-450-invoice-designer-improvements-backend",
@@ -11378,6 +11384,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpish/link_header": 20,

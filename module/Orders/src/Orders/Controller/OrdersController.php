@@ -185,23 +185,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $view;
     }
 
-    // todo - rework this in TAC-450
-    protected function pdfExportAction()
-    {
-        $orderIds = $this->params()->fromPost('orderIds');
-        $templateIds = $this->params()->fromPost('templateIds');
-
-        $mimeType = 'application/pdf';
-        $fileName = 'dummy.pdf';
-        $data = file_get_contents('dummy-template.pdf');
-
-        return new Response(
-            $mimeType,
-            $fileName,
-            $data
-        );
-    }
-
     protected function getStatusFilters()
     {
         $view = $this->viewModelFactory->newInstance(

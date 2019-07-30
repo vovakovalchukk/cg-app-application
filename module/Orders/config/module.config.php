@@ -172,6 +172,7 @@ return [
                         'options' => [
                             'route' => '/pdf-export',
                             'defaults' => [
+                                'controller' => BulkActionsController::class,
                                 'action' => 'pdfExport'
                             ]
                         ],

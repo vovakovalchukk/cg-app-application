@@ -20,12 +20,15 @@ use CG\Settings\InvoiceMapping\Service as InvoiceMappingService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
+use CG\Template\Collection as TemplateCollection;
 use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\Entity as Template;
 use CG\Template\PaperPage;
+use CG\Template\Type as TemplateType;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 use Orders\Order\Service as OrderService;
+use function CG\Stdlib\mergePdfData;
 
 class Service extends ClientService implements StatsAwareInterface
 {
@@ -292,5 +295,28 @@ class Service extends ClientService implements StatsAwareInterface
     {
         $invoiceValidator = $this->invoiceValidator;
         $invoiceValidator($order);
+    }
+
+    public function generatePdfsForOrders(Collection $orders, TemplateCollection $templates, string $key = null): string
+    {
+        $this->key = $key;
+        $this->count = 0;
+        $isInvoiced = false;
+        $pdfs = [];
+        /** @var Template $template */
+        foreach ($templates as $template) {
+            if ($template->getType() != TemplateType::INVOICE) {
+                $pdfs[] = $this->generateDocumentForOrders($orders, $template);
+                continue;
+            }
+            // Invoices require special treatment
+            $pdfs[] = $this->generateInvoicesForOrders($orders, $template);
+            if (!$isInvoiced) {
+                $this->markOrdersAsPrintedFromOrderCollection($orders);
+                $isInvoiced = true;
+            }
+        }
+
+        return mergePdfData($pdfs);
     }
 }
