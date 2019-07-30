@@ -31,11 +31,11 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         }
 
         let handleError = () => {
-            n.error('PDF could not be successfully downloaded.')
+            n.error('Documents could not be generated successfully.')
         };
 
         try {
-            n.notice('creating templates...');
+            n.notice('Generating documents...');
             let response = await fileDownload.downloadBlob({
                 url: '/orders/pdf-export',
                 desiredFilename: `${dateUtility.getCurrentDate()}.pdf`,
@@ -47,7 +47,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
             if (response.status !== 200) {
                 return handleError();
             }
-            n.success('PDF has been successfully downloaded.');
+            n.success('Documents generated successfully.');
         } catch (err) {
             handleError();
         }
