@@ -11,7 +11,7 @@ define([
         EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
 
-        let data = {
+        let state = {
             margin: {
                 top: null,
                 bottom: null,
@@ -27,6 +27,10 @@ define([
         };
         let marginIndicatorElement = null;
 
+        this.getState = function(){
+            return state;
+        };
+
         this.setMarginIndicatorElement = function(element) {
             marginIndicatorElement = element;
         };
@@ -40,12 +44,12 @@ define([
             if (value < 0) {
                 return;
             }
-            data.margin[direction] = value;
-            marginIndicatorElement.style[direction] = value + data.measurement;
+            state.margin[direction] = value;
+            marginIndicatorElement.style[direction] = value + state.measurement;
         };
 
         this.getMargin = function(direction) {
-            return data.margin[direction];
+            return state.margin[direction];
         };
 
         this.setDimension = function(dimension, value) {
@@ -53,7 +57,7 @@ define([
             let marginIndicatorElement = this.getMarginIndicatorElement();
 
             dimension[dimension] = value;
-            marginIndicatorElement.style[dimension] = value + data.measurement;
+            marginIndicatorElement.style[dimension] = value + state.measurement;
         };
 
         this.getDimension = function(dimension) {
@@ -61,17 +65,17 @@ define([
         };
 
         this.setVisibility = function(isVisible){
-            data.visibility = isVisible;
-        }
+            state.visibility = isVisible;
+        };
 
         this.get = function(field)
         {
-            return data[field];
+            return state[field];
         };
 
         this.set = function(field, value, populating)
         {
-            data[field] = value;
+            state[field] = value;
 
             if (populating) {
                 return;
