@@ -33,10 +33,13 @@ use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+use function CG\Stdlib\mergePdfData;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const DEFAULT_INVOICE_ID = 'defaultInvoice';
 
     const TYPE_ORDER_IDS = 'orderIds';
     const TYPE_ORDER_IDS_LINKED = 'orderIdsLinked';
@@ -878,9 +881,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->checkUsage();
         try {
             $templateIds = $this->params()->fromPost('templateIds');
+            $progressKey = $this->getInvoiceProgressKey();
             $templates = $this->fetchTemplatesByIds($templateIds);
             $orders = $this->getOrdersFromInputWithLinked();
-            $pdf = $this->invoiceService->generatePdfsForOrders($orders, $templates, $this->getInvoiceProgressKey());
+            $pdf = $this->invoiceService->generatePdfsForOrders($orders, $templates, $progressKey);
+            if ($this->isDefaultInvoiceRequested($templateIds)) {
+                $defaultInvoicePdf = $this->invoiceService->generateInvoicesForOrders($orders, null, $progressKey);
+                $pdf = mergePdfData([$defaultInvoicePdf, $pdf]);
+            }
             $filename = date('Y-m-d Hi') . ' documents.pdf';
             return new FileResponse('application/pdf', $filename, $pdf);
         } catch (NotFound $exception) {
@@ -899,6 +907,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         } catch (NotFound $e) {
             return new TemplateCollection(Template::class, 'empty');
         }
+    }
+
+    protected function isDefaultInvoiceRequested(array $templateIds): bool
+    {
+        return in_array(static::DEFAULT_INVOICE_ID, $templateIds);
     }
 
     protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)

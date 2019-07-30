@@ -228,11 +228,12 @@ class Service extends ClientService implements StatsAwareInterface
     {
         $this->key = $key;
         $this->resetGenerationProgress();
-        return $this->generateInvoicesForOrders($collection, $template);
+        return $this->generateInvoicesForOrders($collection, $template, $key);
     }
 
-    protected function generateInvoicesForOrders(Collection $collection, Template $template = null): string
+    public function generateInvoicesForOrders(Collection $collection, Template $template = null, string $key = null): string
     {
+        $this->key = $key;
         $result = parent::generateInvoiceForCollection($collection, $template);
         $this->notifyOfInvoiceGeneration();
         return $result;
