@@ -20,12 +20,12 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
     />);
 
     async function requestTemplateExport(templateIds) {
-        let orderIds = BulkActionService.getSelectedOrders();
+        let orders = BulkActionService.getSelectedOrders();
 
         if (!Array.isArray(templateIds) ||
-            !Array.isArray(orderIds) ||
+            !Array.isArray(orders) ||
             !templateIds.length ||
-            !orderIds.length
+            !orders.length
         ) {
             return;
         }
@@ -40,7 +40,7 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                 url: '/orders/pdf-export',
                 desiredFilename: `${dateUtility.getCurrentDate()}.pdf`,
                 data: {
-                    orderIds,
+                    orders,
                     templateIds
                 }
             });
