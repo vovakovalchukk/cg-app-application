@@ -21,8 +21,19 @@ class FulfillmentLatencyCell extends React.Component {
         });
 
         let isEditing = false;
-        if (rowData.id in this.props.detail['fulfillmentLatency'].byProductId) {
-            isEditing = this.props.detail['fulfillmentLatency'].byProductId[rowData.id].isEditing
+        if (this.props.account) {
+            let account = this.props.account;
+            isEditing = this.lookupValue(
+                this.props.detail['fulfillmentLatency'].byAccountId,
+                [account.id, rowData.id, 'isEditing'],
+                isEditing
+            );
+        } else {
+            isEditing = this.lookupValue(
+                this.props.detail['fulfillmentLatency'].byProductId,
+                [rowData.id, 'isEditing'],
+                isEditing
+            );
         }
 
         return (
@@ -36,6 +47,7 @@ class FulfillmentLatencyCell extends React.Component {
                     setIsEditing={this.setIsEditing}
                     onValueChange={this.changeDetailValue}
                     value={this.getValue()}
+                    placeholder={this.getPlaceholder()}
                     submitsPortalSettings={portalSettings}
                     width={45}
                     isEditing={isEditing}
@@ -45,44 +57,81 @@ class FulfillmentLatencyCell extends React.Component {
         );
     }
 
+    lookupValue = (prop, ids, fallback) => {
+        let noMatch = ids.some(id => {
+            if (!(id in prop)) {
+                return true;
+            }
+            prop = prop[id];
+        });
+
+        return noMatch ? fallback : prop || fallback;
+    };
+
     getUniqueInputId = () => {
-        return this.props.rowData.id + '-' + this.props.columnKey
+        let inputId = this.props.rowData.id + '-' + this.props.columnKey;
+        if (this.props.account) {
+            inputId += '-' + this.props.account.id;
+        }
+        return inputId;
     };
 
     saveDetail = () => {
-        this.props.actions.saveDetail(this.props.rowData, 'fulfillmentLatency');
+        this.props.actions.saveDetail(this.props.rowData, 'fulfillmentLatency', {
+            accountId: this.props.account ? this.props.account.id : null
+        });
     };
 
     cancelInput = () => {
-        this.props.actions.cancelInput(this.props.rowData, 'fulfillmentLatency');
+        this.props.actions.cancelInput(this.props.rowData, 'fulfillmentLatency', {
+            accountId: this.props.account ? this.props.account.id : null
+        });
     };
 
     setIsEditing = (isEditing) => {
-        this.props.actions.setIsEditing(this.props.rowData.id, 'fulfillmentLatency', isEditing);
+        this.props.actions.setIsEditing(this.props.rowData.id, 'fulfillmentLatency', isEditing, {
+            accountId: this.props.account ? this.props.account.id : null
+        });
     };
 
     changeDetailValue = (event) => {
-        this.props.actions.changeDetailValue(this.props.rowData.id, 'fulfillmentLatency', event);
+        this.props.actions.changeDetailValue(this.props.rowData.id, 'fulfillmentLatency', event, {
+            accountId: this.props.account ? this.props.account.id : null
+        });
     };
 
     getValue = () => {
         let rowData = this.props.rowData;
 
-        if (rowData.id in this.props.detail['fulfillmentLatency'].byProductId) {
-            let fulfillmentLatency = this.props.detail['fulfillmentLatency'].byProductId[rowData.id];
-            if (typeof fulfillmentLatency.valueEdited === 'string') {
-                return fulfillmentLatency.valueEdited;
-            }
-            if (typeof fulfillmentLatency.value === 'string') {
-                return fulfillmentLatency.value;
-            }
+        let fulfillmentLatency;
+        if (this.props.account) {
+            let account = this.props.account;
+            fulfillmentLatency = this.lookupValue(
+                this.props.detail['fulfillmentLatency'].byAccountId,
+                [account.id, rowData.id],
+                {'value': rowData.details['fulfillmentLatency-' + account.id] || ''}
+            );
+        } else {
+            fulfillmentLatency = this.lookupValue(
+                this.props.detail['fulfillmentLatency'].byProductId,
+                [rowData.id],
+                {'value': rowData.details['fulfillmentLatency'] || ''}
+            );
         }
 
-        if ('fulfillmentLatency' in rowData.details) {
-            return rowData.details['fulfillmentLatency'] || '';
+        if (typeof fulfillmentLatency.valueEdited === 'string') {
+            return fulfillmentLatency.valueEdited;
+        }
+
+        if (typeof fulfillmentLatency.value === 'string') {
+            return fulfillmentLatency.value;
         }
 
         return '';
+    };
+
+    getPlaceholder = () => {
+        return this.props.account ? this.props.account.externalData.fulfillmentLatency : '';
     };
 
     shouldRenderSubmits = () => {

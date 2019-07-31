@@ -201,13 +201,32 @@ function generateFulfilmentLatencyColumnsFromAccounts(accounts) {
         return [];
     }
 
-    return [{
+    let columns = [{
         key: 'fulfillmentLatency',
         width: 80,
         headerText: 'Fulfilment Latency',
         fixed: false,
         align: 'center'
     }];
+
+    amazonAccounts.forEach(accountKey => {
+        let account = accounts[accountKey];
+        if (!account.externalData.fulfillmentLatencyPerProduct) {
+            return;
+        }
+
+        columns.push({
+            account,
+            key: 'fulfillmentLatency' + account.id,
+            type: 'fulfillmentLatency',
+            width: 80,
+            headerText: 'FL - ' + account.displayName,
+            fixed: false,
+            align: 'center'
+        });
+    });
+
+    return columns;
 }
 
 function generateListingsColumnsFromAccounts(accounts) {
