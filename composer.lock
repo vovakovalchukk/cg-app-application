@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9092293be80a15d52c151c356b9a4979",
+    "content-hash": "9c8981b65a603c38ccd3f8b8d1af466e",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -499,8 +499,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.16-8c4ca7.zip",
-                "reference": "ac230c33086de37bdba750b3ea4d404df6eec089",
-                "shasum": null
+                "reference": "ac230c33086de37bdba750b3ea4d404df6eec089"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
@@ -2092,16 +2091,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-450-invoice-designer-improvements-backend",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b0b740c006bf05d06efa378469f8f51c7c693a8a"
+                "reference": "e968440be932f6084ddb363a6efeb6d01b831c6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-450-invoice-designer-improvements-backend-2c8abe.zip",
-                "reference": "b0b740c006bf05d06efa378469f8f51c7c693a8a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-c13d96.zip",
+                "reference": "e968440be932f6084ddb363a6efeb6d01b831c6a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2175,7 +2174,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-07-30T12:51:46+00:00"
+            "time": "2019-07-31T08:22:40+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2225,8 +2224,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.4-6ac4ff.zip",
-                "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335",
-                "shasum": null
+                "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.16",
@@ -2306,8 +2304,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/phinx/channelgrabber-phinx-0.5.2-ed4619.zip",
-                "reference": "560febcf8cc704fcd025885ee0b07a0e4b935c69",
-                "shasum": null
+                "reference": "560febcf8cc704fcd025885ee0b07a0e4b935c69"
             },
             "require": {
                 "php": ">=5.4",
@@ -3444,7 +3441,7 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-450-invoice-designer-improvements-backend",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
@@ -3452,7 +3449,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-450-invoice-designer-improvements-backend-d8db60.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-d8db60.zip",
                 "reference": "54644e3a9bde3d5a2ef1aefcdee80398a74fdb2c"
             },
             "require": {
@@ -4549,8 +4546,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.7-c490a5.zip",
-                "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6",
-                "shasum": null
+                "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6"
             },
             "require": {
                 "channelgrabber/billing": "^1.20.16",
@@ -4743,8 +4739,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-1.2.1.2-1aabdd.zip",
-                "reference": "bd6924eaad4782274469092fbcef69fd65e89d12",
-                "shasum": null
+                "reference": "bd6924eaad4782274469092fbcef69fd65e89d12"
             },
             "require": {
                 "channelgrabber/di": "^2.1.0",
@@ -4950,8 +4945,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-253404.zip",
-                "reference": "9167798f9450eb0473269f53a3ed301d9cf6ad09",
-                "shasum": null
+                "reference": "9167798f9450eb0473269f53a3ed301d9cf6ad09"
             },
             "require": {
                 "cache/apcu-adapter": "~1.0.0",
@@ -11335,13 +11329,13 @@
         {
             "alias": "1.46.4",
             "alias_normalized": "1.46.4.0",
-            "version": "dev-TAC-450-invoice-designer-improvements-backend",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/order"
         },
         {
             "alias": "1.6.11",
             "alias_normalized": "1.6.11.0",
-            "version": "dev-TAC-450-invoice-designer-improvements-backend",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/template"
         },
         {
