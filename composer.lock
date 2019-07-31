@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca707d087e63f72889d2116874e90dae",
+    "content-hash": "b90ce4d04b27c395ee3f4cb8fc879b53",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2091,16 +2091,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-10761-shopify-discounts",
+            "version": "1.46.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "93c2f2a421c14999bef758266323afc6b3560059"
+                "reference": "f97d8773693422ea8c3d0002243cab14ce37af71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-CGIV-10761-shopify-discounts-11e394.zip",
-                "reference": "93c2f2a421c14999bef758266323afc6b3560059"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.5-2e121d.zip",
+                "reference": "f97d8773693422ea8c3d0002243cab14ce37af71"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2174,7 +2174,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-07-30T13:22:00+00:00"
+            "time": "2019-07-31T11:24:49+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -11324,18 +11324,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.46.4",
-            "alias_normalized": "1.46.4.0",
-            "version": "dev-CGIV-10761-shopify-discounts",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
