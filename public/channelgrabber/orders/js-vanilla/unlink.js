@@ -5,13 +5,13 @@ define([
     OrdersBulkActionAbstract,
     BulkActionService
 ) {
-    function Pay() {
+    function Unlink() {
         OrdersBulkActionAbstract.call(this);
     }
 
-    Pay.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+    Unlink.prototype = Object.create(OrdersBulkActionAbstract.prototype);
 
-    Pay.prototype.invoke = function () {
+    Unlink.prototype.invoke = function () {
         var orders = this.getOrders();
         if (!orders.length) {
             return;
@@ -44,5 +44,5 @@ define([
         });
     };
 
-    return Pay;
+    return Unlink;
 });
