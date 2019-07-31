@@ -7,6 +7,14 @@ define([
     EntityHydrateAbstract,
     PubSubAbstract
 ) {
+
+    const MARGIN_TO_DIMENSION = {
+        top: 'height',
+        bottom: 'height',
+        left: 'width',
+        right: 'width'
+    };
+
     let Entity = function() {
         EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
@@ -31,11 +39,71 @@ define([
             return state;
         };
 
+        this.render = function(template, templatePageElement) {
+            let marginIndicatorElement = this.createMarginIndicatorElement();
+            templatePageElement.prepend(marginIndicatorElement);
+            this.setMarginIndicatorElement(marginIndicatorElement);
+
+            const paperPage = template.getPaperPage();
+
+            let storedHeightDimension = this.calculateHeightDimensionFromMargins(template);
+            let storedWidthDimension = this.calculateWidthDimensionFromMargins(template);
+            let height =  storedHeightDimension ? storedHeightDimension : paperPage.getHeight();
+            let width =  storedWidthDimension ? storedWidthDimension : paperPage.getWidth();
+
+            this.setDimension("height", height);
+            this.setDimension("width", width);
+
+            let state = this.getState();
+            for(let margin in state.margin){
+                let marginValue = state.margin[margin];
+                let desiredValue = typeof marginValue === "number" ? marginValue : 0;
+                //initialise single margin
+                this.setVisibility(true);
+                this.setMargin(margin, desiredValue, true);
+                let dimensionValue = this.getNewDimensionValueFromMargin(margin, template);
+                this.setDimension(MARGIN_TO_DIMENSION[margin], dimensionValue);
+            }
+
+            this.setVisibility(false);
+        };
+
+        this.getNewDimensionValueFromMargin = function(direction, template){
+            if(MARGIN_TO_DIMENSION[direction] === 'height'){
+                return this.calculateHeightDimensionFromMargins(template);
+            }
+            return this.calculateWidthDimensionFromMargins(template);
+        };
+
+        this.calculateHeightDimensionFromMargins = function(template){
+            const paperPage = template.getPaperPage();
+            const printPage = template.getPrintPage();
+            return paperPage.getHeight() - (printPage.getMargin("top") + printPage.getMargin("bottom"));
+        };
+
+        this.calculateWidthDimensionFromMargins = function(template){
+            const paperPage = template.getPaperPage();
+            const printPage = template.getPrintPage();
+            return paperPage.getWidth() - (printPage.getMargin("left") + printPage.getMargin("right"))
+        };
+
         this.setMarginIndicatorElement = function(element) {
             marginIndicatorElement = element;
         };
 
         this.getMarginIndicatorElement = function() {
+            return marginIndicatorElement;
+        };
+
+        this.createMarginIndicatorElement = function() {
+            let marginIndicatorElement = document.createElement('div');
+            marginIndicatorElement.id = 'templateMarginIndicator';
+            marginIndicatorElement.style.position = 'absolute';
+            marginIndicatorElement.style.width = '100%';
+            marginIndicatorElement.style.height = '100%';
+            marginIndicatorElement.style.border = '2px dashed red';
+            marginIndicatorElement.style.boxSizing = 'border-box';
+            marginIndicatorElement.style.zIndex = 100;
             return marginIndicatorElement;
         };
 
@@ -55,7 +123,7 @@ define([
 
             let newMarginState = Object.assign({}, state.margin);
             newMarginState[direction] = value;
-            this.set(newMarginState, value);
+            this.set("margin", newMarginState);
         };
 
         this.getMargin = function(direction) {
@@ -71,7 +139,7 @@ define([
         };
 
         this.getDimension = function(dimension) {
-            return dimension[dimension]
+            return state.dimension[dimension]
         };
 
         this.setVisibility = function(isVisible){
@@ -85,9 +153,8 @@ define([
 
         this.set = function(field, value, populating)
         {
-            debugger;
             state[field] = value;
-
+//
             if (populating) {
                 return;
             }

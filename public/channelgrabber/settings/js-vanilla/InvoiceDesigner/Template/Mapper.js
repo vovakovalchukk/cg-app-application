@@ -46,7 +46,6 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
         var json = JSON.parse(JSON.stringify(json));
-        debugger;
 
         var template = this.createNewTemplate();
         var populating = true;
@@ -57,17 +56,12 @@ define([
             template.addElement(element, populating);
         }
 
-
         //TODO - getvariables from here.
-
         var paperPage = template.getPaperPage();
         this.hydratePaperPageFromJson(paperPage, json.paperPage, populating);
         template.setPaperPage(paperPage).setEditable(!! json.editable);
 
-
         //TODO - setup printpage entity ... why? - because we can store the print page and multi page guidelines in here. Separation of concerns.
-
-        debugger;
         // do not need a storage. keep this simple.
         let printPage = template.getPrintPage();
         this.hydratePrintPageFromJson(printPage, json.printPage, populating);
@@ -145,6 +139,7 @@ define([
     Mapper.prototype.toHtml = function(template)
     {
         var paperPage = template.getPaperPage();
+        let printPage = template.getPrintPage();
         var pageMapper = require(Mapper.PATH_TO_PAGE_MAPPER);
 
         var elementsHtml = '';

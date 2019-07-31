@@ -189,11 +189,21 @@ define([
         return template;
     };
 
+
     Service.prototype.render = function(template)
     {
-        var html = this.getMapper().toHtml(template);
+        const paperPage = template.getPaperPage();
+        const printPage = template.getPrintPage();
+        const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
+
+        let html = this.getMapper().toHtml(template);
         let domManipulator = this.getDomManipulator();
         domManipulator.insertTemplateHtml(html);
+
+        let templatePageElement = document.getElementById(templatePageElementId);
+
+        printPage.render(template, templatePageElement);
+
         return this;
     };
 
