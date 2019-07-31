@@ -6215,9 +6215,9 @@
             "authors": [
                 {
                     "name": "Ignace Nyamagana Butera",
+                    "role": "Developer",
                     "email": "nyamsprod@gmail.com",
-                    "homepage": "https://github.com/nyamsprod/",
-                    "role": "Developer"
+                    "homepage": "https://github.com/nyamsprod/"
                 }
             ],
             "description": "Csv data manipulation made easy in PHP",
@@ -6535,8 +6535,8 @@
             "authors": [
                 {
                     "name": "Ne-Lexa",
-                    "email": "alexey@nelexa.ru",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "alexey@nelexa.ru"
                 }
             ],
             "description": "PhpZip is a php-library for extended work with ZIP-archives. Open, create, update, delete, extract and get info tool. Supports appending to existing ZIP files, WinZip AES encryption, Traditional PKWARE Encryption, ZipAlign tool, BZIP2 compression, external file attributes and ZIP64 extensions. Alternative ZipArchive. It does not require php-zip extension.",
@@ -7052,28 +7052,28 @@
             "authors": [
                 {
                     "name": "Jim Wigginton",
-                    "email": "terrafrost@php.net",
-                    "role": "Lead Developer"
+                    "role": "Lead Developer",
+                    "email": "terrafrost@php.net"
                 },
                 {
                     "name": "Patrick Monnerat",
-                    "email": "pm@datasphere.ch",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "pm@datasphere.ch"
                 },
                 {
                     "name": "Andreas Fischer",
-                    "email": "bantu@phpbb.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "bantu@phpbb.com"
                 },
                 {
                     "name": "Hans-Jürgen Petrich",
-                    "email": "petrich@tronic-media.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "petrich@tronic-media.com"
                 },
                 {
                     "name": "Graham Campbell",
-                    "email": "graham@alt-three.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "graham@alt-three.com"
                 }
             ],
             "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
@@ -8932,8 +8932,8 @@
             "authors": [
                 {
                     "name": "Niels Leenheer",
-                    "email": "niels@leenheer.nl",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "niels@leenheer.nl"
                 }
             ],
             "description": "Useragent sniffing library for PHP",
@@ -9171,14 +9171,14 @@
             "authors": [
                 {
                     "name": "Jon Rohan",
-                    "homepage": "http://jonrohan.me/",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "http://jonrohan.me/"
                 },
                 {
                     "name": "James M. Greene",
+                    "role": "Developer",
                     "email": "james.m.greene@gmail.com",
-                    "homepage": "http://jamesgreene.net/",
-                    "role": "Developer"
+                    "homepage": "http://jamesgreene.net/"
                 }
             ],
             "description": "The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.",
@@ -9676,9 +9676,9 @@
             "authors": [
                 {
                     "name": "Alex Bilbie",
+                    "role": "Developer",
                     "email": "hello@alexbilbie.com",
-                    "homepage": "http://www.alexbilbie.com",
-                    "role": "Developer"
+                    "homepage": "http://www.alexbilbie.com"
                 }
             ],
             "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
@@ -10237,8 +10237,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -10505,8 +10505,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
