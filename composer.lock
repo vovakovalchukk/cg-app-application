@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da107bc97c98cfb14a0af4f08351d020",
+    "content-hash": "062ea4010009a253b0650eb054f19521",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-MIG-18-AmazonProductDetailFulfilmentLatency",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2c7904e5799aade95a19da9b09f103f65e8c8360"
+                "reference": "7ce5e4b66286bf96791acc49f770d0a641df658d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-18-AmazonProductDetailFulfilmentLatency-add126.zip",
-                "reference": "2c7904e5799aade95a19da9b09f103f65e8c8360"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-19-AmazonProductDetailFulfilmentLatency-5ea993.zip",
+                "reference": "7ce5e4b66286bf96791acc49f770d0a641df658d"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -366,7 +366,7 @@
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/product": "dev-MIG-18-AmazonProductDetailFulfilmentLatency as 1.17.2",
+                "channelgrabber/product": "dev-MIG-19-AmazonProductDetailFulfilmentLatency as 1.17.2",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -399,7 +399,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-07-29T15:19:14+00:00"
+            "time": "2019-08-01T08:01:43+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -2550,16 +2550,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-MIG-18-AmazonProductDetailFulfilmentLatency",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "759bdcaeac24196e92cc3c4f9920283c41359a5f"
+                "reference": "39b3ad4457642cda5fdd60b20e124e6b54d0c535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-MIG-18-AmazonProductDetailFulfilmentLatency-ad9fc2.zip",
-                "reference": "759bdcaeac24196e92cc3c4f9920283c41359a5f"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-MIG-19-AmazonProductDetailFulfilmentLatency-a65661.zip",
+                "reference": "39b3ad4457642cda5fdd60b20e124e6b54d0c535"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2613,7 +2613,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-26T11:13:00+00:00"
+            "time": "2019-07-30T10:13:24+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11330,7 +11330,7 @@
         {
             "alias": "1.29.1",
             "alias_normalized": "1.29.1.0",
-            "version": "dev-MIG-18-AmazonProductDetailFulfilmentLatency",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "package": "channelgrabber/amazon"
         },
         {
@@ -11342,7 +11342,7 @@
         {
             "alias": "1.17.2",
             "alias_normalized": "1.17.2.0",
-            "version": "dev-MIG-18-AmazonProductDetailFulfilmentLatency",
+            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "package": "channelgrabber/product"
         },
         {

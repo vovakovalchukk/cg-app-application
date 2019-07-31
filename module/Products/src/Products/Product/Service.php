@@ -266,10 +266,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ];
     }
 
-    public function appendChannelDetails(Product $product, array &$productDetails): void
+    public function appendChannelDetails(Product $product, array &$productDetails, array $accounts): void
     {
-        foreach ($this->channelDetails as $details) {
-            $details->appendDetails($product->getId(), $productDetails);
+        foreach ($this->channelDetails as $channel => $details) {
+            $details->appendDetails(
+                $product->getId(),
+                $productDetails,
+                array_keys(array_filter($accounts, function(array $account) use($channel) {
+                    return $account['channel'] === $channel;
+                }))
+            );
         }
     }
 
@@ -497,18 +503,18 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $id;
     }
 
-    public function saveProductChannelDetail(int $productId, string $channel, string $detail, $value): void
+    public function saveProductChannelDetail(int $productId, string $channel, string $detail, $value, int $accountId = null): void
     {
-        $this->saveProductChannelDetails($productId, $channel, [$detail => $value]);
+        $this->saveProductChannelDetails($productId, $channel, [$detail => $value], $accountId);
     }
 
-    public function saveProductChannelDetails(int $productId, string $channel, array $details): void
+    public function saveProductChannelDetails(int $productId, string $channel, array $details, int $accountId = null): void
     {
         if (!isset($this->channelDetails[$channel])) {
             throw new \RuntimeException(sprintf('No %s channel details service registered', $channel));
         }
 
-        $this->channelDetails[$channel]->saveDetails($productId,  $details);
+        $this->channelDetails[$channel]->saveDetails($productId,  $details, $accountId);
     }
 
     public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock
