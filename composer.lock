@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77917d1fee37d79688ed89d029fe4427",
+    "content-hash": "35049d1cf16271595ad1e141ccdbb8a5",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
+                    "homepage": "https://github.com/Nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -490,21 +490,21 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.20.13",
+            "version": "1.20.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "9cf21a4496fb46c6bdb92bb17c524af331e3370b"
+                "reference": "ac230c33086de37bdba750b3ea4d404df6eec089"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.13-c40694.zip",
-                "reference": "9cf21a4496fb46c6bdb92bb17c524af331e3370b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/billing/channelgrabber-billing-1.20.16-8c4ca7.zip",
+                "reference": "ac230c33086de37bdba750b3ea4d404df6eec089"
             },
             "require": {
                 "channelgrabber/cache": "^2.4.3",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/currency": "~1.0.2",
+                "channelgrabber/currency": "^1.0.2",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.1.2",
                 "channelgrabber/etag": "^1.5.4",
@@ -513,14 +513,14 @@
                 "channelgrabber/locale": "^1.0.19",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.2",
-                "channelgrabber/phinx": "~0.3.2",
+                "channelgrabber/phinx": "^0.5.2",
                 "channelgrabber/predis": "^1.1.4",
                 "channelgrabber/settings": "^1.6.2",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stdlib": "^2.16.1",
                 "channelgrabber/user": "^1.26.4",
                 "channelgrabber/zf2-email-template": "^1.0.23",
-                "channelgrabber/zf2-v4-ui": "^1.23.5",
+                "channelgrabber/zf2-v4-ui": "^1.26.0",
                 "php": ">=7.1",
                 "zendframework/zend-di": ">=2.2.5"
             },
@@ -533,6 +533,11 @@
                 "phpunit/phpunit": "~6.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-10250-failed-payments-find-missed-payments": "1.20.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
@@ -548,7 +553,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2019-07-04T08:44:11+00:00"
+            "time": "2019-07-29T14:33:28+00:00"
         },
         {
             "name": "channelgrabber/cache",
@@ -2210,19 +2215,19 @@
         },
         {
             "name": "channelgrabber/payment",
-            "version": "1.14.2",
+            "version": "1.14.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-payment.git",
-                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e"
+                "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.2-559c96.zip",
-                "reference": "1823a42df8f2c890226f86f0546af408448a8c4e"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/payment/channelgrabber-payment-1.14.4-6ac4ff.zip",
+                "reference": "3405d7d0fa4f4b25e853122b9df711fc98441335"
             },
             "require": {
-                "channelgrabber/billing": "^1.20.3",
+                "channelgrabber/billing": "^1.20.16",
                 "channelgrabber/cglib": "^1.16.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -2261,7 +2266,7 @@
                     "CG\\Billing\\Test\\": "vendor/channelgrabber/billing/tests"
                 }
             },
-            "time": "2019-05-17T08:47:53+00:00"
+            "time": "2019-07-29T14:40:11+00:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -2290,38 +2295,42 @@
         },
         {
             "name": "channelgrabber/phinx",
-            "version": "0.3.8.2",
+            "version": "0.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/phinx.git",
-                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73"
+                "reference": "560febcf8cc704fcd025885ee0b07a0e4b935c69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/phinx/channelgrabber-phinx-0.3.8.2-dde0a9.zip",
-                "reference": "aeaeba35d79ecb3982c9ee2ef6a168231f6eab73"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/phinx/channelgrabber-phinx-0.5.2-ed4619.zip",
+                "reference": "560febcf8cc704fcd025885ee0b07a0e4b935c69"
             },
             "require": {
-                "php": ">=5.3.2",
-                "symfony/class-loader": "2.*",
-                "symfony/config": "2.*",
-                "symfony/console": "2.*",
-                "symfony/yaml": "2.*"
+                "php": ">=5.4",
+                "symfony/class-loader": "~2.8|~3.0",
+                "symfony/config": "~2.8|~3.0",
+                "symfony/console": "~2.8|~3.0",
+                "symfony/yaml": "~2.8|~3.0"
             },
             "replace": {
                 "robmorgan/phinx": "*"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "squizlabs/php_codesniffer": "dev-phpcs-fixer"
+                "phpunit/phpunit": "^3.7|^4.0|^5.0"
             },
             "bin": [
                 "bin/phinx"
             ],
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Phinx": "src/"
+                "psr-4": {
+                    "Phinx\\": "src/Phinx"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Test\\Phinx\\": "tests/Phinx"
                 }
             },
             "license": [
@@ -2333,10 +2342,16 @@
                     "email": "robbym@gmail.com",
                     "homepage": "http://robmorgan.id.au",
                     "role": "Lead Developer"
+                },
+                {
+                    "name": "Woody Gilk",
+                    "email": "woody.gilk@gmail.com",
+                    "homepage": "http://shadowhand.me",
+                    "role": "Developer"
                 }
             ],
             "description": "Phinx makes it ridiculously easy to manage the database migrations for your PHP app.",
-            "homepage": "http://phinx.org",
+            "homepage": "https://phinx.org",
             "keywords": [
                 "database",
                 "database migrations",
@@ -2344,7 +2359,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2016-10-11T15:35:33+00:00"
+            "time": "2019-07-11T07:59:51+00:00"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -4521,19 +4536,19 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.2.5",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "a12dda83c1d38dd1b9f6aad9a0bd7cc32394ae27"
+                "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.5-598719.zip",
-                "reference": "a12dda83c1d38dd1b9f6aad9a0bd7cc32394ae27"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-permission/channelgrabber-zf2-permission-1.2.7-c490a5.zip",
+                "reference": "9aabe47223c6ad445d777994d396d4a29cfcf0e6"
             },
             "require": {
-                "channelgrabber/billing": "^1.10.0",
+                "channelgrabber/billing": "^1.20.16",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/stdlib": "^2.13.0",
@@ -4566,7 +4581,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2019-05-22T07:22:54+00:00"
+            "time": "2019-07-31T07:06:22+00:00"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -4714,20 +4729,20 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.2.1",
+            "version": "1.2.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "b6200c628fa4552c521b482adb9882853b90c56c"
+                "reference": "bd6924eaad4782274469092fbcef69fd65e89d12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-1.2.1-c8e4d1.zip",
-                "reference": "b6200c628fa4552c521b482adb9882853b90c56c"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-sessions/channelgrabber-zf2-sessions-1.2.1.2-1aabdd.zip",
+                "reference": "bd6924eaad4782274469092fbcef69fd65e89d12"
             },
             "require": {
                 "channelgrabber/di": "^2.1.0",
-                "channelgrabber/phinx": "^0.3.2.3",
+                "channelgrabber/phinx": "^0.5.2",
                 "channelgrabber/stdlib": "^2.14.1",
                 "cilex/cilex": "~1.0.1",
                 "php": ">=7.1",
@@ -4749,7 +4764,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2018-02-09T10:32:23+00:00"
+            "time": "2019-07-26T12:29:09+00:00"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",

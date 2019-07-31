@@ -19,6 +19,14 @@ import SectionData from 'Common/SectionData';
 
 const FormSelector = formValueSelector('createListing');
 
+function submitForm (values, dispatch, props){
+    dispatch(Actions.submitListingsForm(
+        dispatch,
+        values,
+        props
+    ));
+}
+
 class CreateListingPopup extends React.Component {
     static defaultProps = {
         product: {},
@@ -57,6 +65,21 @@ class CreateListingPopup extends React.Component {
         }
     }
 
+    renderForm = () => {
+        return <form>
+            <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
+            <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
+            <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
+            <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions} validate={Validators.required} />
+            <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
+            {this.renderChannelFormInputs()}
+            {this.renderCategoryFormInputs()}
+            {this.renderProductIdentifiers()}
+            {this.renderDimensions()}
+            {this.renderProductPrices()}
+        </form>
+    };
+
     findSearchAccountId = () => {
         let accountId = this.props.accounts.find(function(accountId) {
             let accountData = this.props.accountsData[accountId];
@@ -87,21 +110,6 @@ class CreateListingPopup extends React.Component {
         }
 
         return !!this.props.searchAccountId;
-    };
-
-    renderForm = () => {
-        return <form>
-            <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
-            <Field name="description" component={this.renderTextAreaComponent} displayTitle={"Description:"}/>
-            <Field name="brand" component={this.renderInputComponent} displayTitle={"Brand (if applicable):"}/>
-            <Field name="condition" component={this.renderSelectComponent} displayTitle={"Item Condition:"} options={this.props.conditionOptions} validate={Validators.required} />
-            <Field name="imageId" component={this.renderImagePickerField} validate={Validators.required} />
-            {this.renderChannelFormInputs()}
-            {this.renderCategoryFormInputs()}
-            {this.renderProductIdentifiers()}
-            {this.renderDimensions()}
-            {this.renderProductPrices()}
-        </form>
     };
 
     renderInputComponent = (field) => {
@@ -283,9 +291,9 @@ class CreateListingPopup extends React.Component {
 
     getSelectedAccountsData = () => {
         let accounts = [];
-        this.props.accounts.map(function(accountId) {
+        this.props.accounts.map(accountId => {
             accounts.push(this.props.accountsData[accountId]);
-        }.bind(this));
+        });
         return accounts;
     };
 
@@ -445,9 +453,7 @@ CreateListingPopup = reduxForm({
     enableReinitialize: true,
     // This is required to make the images in the variation table show correctly
     keepDirtyOnReinitialize: true,
-    onSubmit: function(values, dispatch, props) {
-        dispatch(Actions.submitListingsForm(dispatch, values, props));
-    },
+    onSubmit: submitForm,
 })(CreateListingPopup);
 
 const mapStateToProps = function(state) {
