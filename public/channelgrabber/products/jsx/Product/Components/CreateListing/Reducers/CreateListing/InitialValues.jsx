@@ -1,4 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
+import fieldService from 'Product/Components/CreateListing/Service/field';
+
     var initialState = {};
 
     var getDetailForProduct = function(detailName, productDetails, variationData) {
@@ -67,7 +69,7 @@ import reducerCreator from 'Common/Reducers/creator';
     var getProductIdentifiers = function(variationData) {
         var identifiers = {};
         variationData.forEach(function(variation) {
-            identifiers[variation.id] = {
+            identifiers[fieldService.getVariationIdWithPrefix(variation.id)] = {
                 ean: variation.details.ean,
                 upc: variation.details.upc,
                 isbn: variation.details.isbn,
@@ -86,7 +88,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
             var dimensions = {};
             variationData.map(function(variation) {
-                dimensions[variation.id] = {
+                dimensions[fieldService.getVariationIdWithPrefix(variation.id)] = {
                     length: variation.details.length,
                     width: variation.details.width,
                     height: variation.details.height,
@@ -101,14 +103,14 @@ import reducerCreator from 'Common/Reducers/creator';
                     var price = parseFloat(variation.details.price).toFixed(2);
                     pricesForVariation[accountId] = isNaN(price) ? null : price;
                 });
-                prices[variation.id] = pricesForVariation;
+                prices[fieldService.getVariationIdWithPrefix(variation.id)] = pricesForVariation;
             });
 
             var productDetails = product.detail ? product.details : {};
 
             var skus = {};
             variationData.map(function(variation) {
-                skus[variation.id] = variation.sku;
+                skus[fieldService.getVariationIdWithPrefix(variation.id)] = variation.sku;
             });
 
             return {

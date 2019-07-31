@@ -3,6 +3,7 @@ import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import VariationTable from './VariationTable';
 import Validators from '../../Validators';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 var dimensions = [
     {
@@ -28,6 +29,18 @@ var channelDimensionsValidatorMap = {
         "weight": Validators.required
     }
 };
+
+function DimensionColumn(props) {
+    return <td>
+        <Field
+            name={`dimensions.${fieldService.getVariationIdWithPrefix(props.variation.id)}.${props.dimension.name}`}
+            component={props.component}
+            validate={props.validatorsForDimensionAndChannel}
+            dimensionName={props.dimension.name}
+            variation={props.variation}
+        />
+    </td>;
+}
 
 class DimensionsComponent extends React.Component {
     static defaultProps = {
@@ -58,16 +71,16 @@ class DimensionsComponent extends React.Component {
 
     setTouchedDimensionsFromInitialDimensions = (props) => {
         var touchedDimensions = {};
-        dimensions.map(function (dimension) {
+        dimensions.map(dimension => {
             touchedDimensions[dimension.name] = {};
-            this.props.variationsDataForProduct.map(function (variation) {
+            this.props.variationsDataForProduct.map(variation => {
                 var isTouched = false;
                 if (props.initialDimensions[variation.sku] && props.initialDimensions[variation.sku][dimension.name]) {
                     isTouched = true;
                 }
                 touchedDimensions[dimension.name][variation.sku] = isTouched;
-            }.bind(this));
-        }.bind(this));
+            });
+        });
 
         this.setState({
             touchedDimensions: touchedDimensions
@@ -85,25 +98,28 @@ class DimensionsComponent extends React.Component {
     };
 
     renderDimensionColumns = (variation) => {
-        return dimensions.map(function (dimension) {
+        return dimensions.map(dimension => {
             var accounts = this.props.accounts;
-            return (<td>
-                <Field
-                    name={"dimensions." + variation.id + "." + dimension.name}
-                    component={this.renderInputComponent}
-                    validate={this.getValidatorsForDimensionAndChannel(accounts, dimension)}
-                    dimensionName={dimension.name}
-                    variation={variation}
-                />
-            </td>)
-        }.bind(this));
+            let validatorsForDimensionAndChannel = this.getValidatorsForDimensionAndChannel(accounts, dimension);
+            return (<DimensionColumn
+                variation={variation}
+                dimension={dimension}
+                component={this.renderInputComponent}
+                validatorsForDimensionAndChannel={validatorsForDimensionAndChannel}
+            />)
+        });
     };
 
     renderInputComponent = (field) => {
         var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
+
+        let onChange = (value) => {
+            this.onInputChange(field.input, field.dimensionName, field.variation.sku, value);
+        };
+
         return <Input
             {...field.input}
-            onChange={this.onInputChange.bind(this, field.input, field.dimensionName, field.variation.sku)}
+            onChange={onChange}
             errors={errors}
             className={"product-dimension-input"}
             errorBoxClassName={"product-input-error"}
@@ -128,7 +144,7 @@ class DimensionsComponent extends React.Component {
     };
 
     copyDimensionFromFirstRowToUntouchedRows = (dimension, sku, value) => {
-        this.props.variationsDataForProduct.map(function (variation) {
+        this.props.variationsDataForProduct.map(variation => {
             if (sku == variation.sku) {
                 return;
             }
@@ -137,8 +153,8 @@ class DimensionsComponent extends React.Component {
                 && this.state.touchedDimensions[dimension][variation.sku]) {
                 return;
             }
-            this.props.change("dimensions." + variation.id + "." + dimension, value);
-        }.bind(this));
+            this.props.change("dimensions." + fieldService.getVariationIdWithPrefix(variation.id) + "." + dimension, value);
+        });
     };
 
     markDimensionAsTouchedForSku = (sku, dimension) => {
