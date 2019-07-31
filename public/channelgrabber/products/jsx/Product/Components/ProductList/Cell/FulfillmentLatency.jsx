@@ -102,20 +102,20 @@ class FulfillmentLatencyCell extends React.Component {
 
     getValue = () => {
         let rowData = this.props.rowData;
+        let account = this.props.account;
 
         let fulfillmentLatency;
-        if (this.props.account) {
-            let account = this.props.account;
+        if (account) {
             fulfillmentLatency = this.lookupValue(
                 this.props.detail['fulfillmentLatency'].byAccountId,
                 [account.id, rowData.id],
-                {'value': rowData.details['fulfillmentLatency-' + account.id] || ''}
+                {}
             );
         } else {
             fulfillmentLatency = this.lookupValue(
                 this.props.detail['fulfillmentLatency'].byProductId,
                 [rowData.id],
-                {'value': rowData.details['fulfillmentLatency'] || ''}
+                {}
             );
         }
 
@@ -127,7 +127,7 @@ class FulfillmentLatencyCell extends React.Component {
             return fulfillmentLatency.value;
         }
 
-        return '';
+        return (account ? rowData.details['fulfillmentLatency-' + account.id] : rowData.details['fulfillmentLatency']) || '';
     };
 
     getPlaceholder = () => {
