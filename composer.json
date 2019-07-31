@@ -101,7 +101,7 @@
         "channelgrabber/zf2-login": "~1.6.9",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.1.0",
-        "channelgrabber/zf2-permission": "dev-CGIV-10808-hotfix-for-transactionids as 1.2.7",
+        "channelgrabber/zf2-permission": "~1.2.7",
         "channelgrabber/zf2-register": "~1.6.19",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sagepay": "~1.0.7",
