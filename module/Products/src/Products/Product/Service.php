@@ -237,7 +237,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->stockStorage->fetchCollectionByFilter($stockFilter);
     }
 
-    public function fetchProductDetails(Product $product, string $locale): array
+    public function fetchProductDetails(Product $product, string $locale, array $channelDetails = []): array
     {
         $detailsEntity = $product->getDetails();
         if (!$detailsEntity) {
@@ -246,7 +246,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ];
         }
 
-        return [
+        return array_merge([
             'id' => $detailsEntity->getId(),
             'sku' => $detailsEntity->getSku(),
             'weight' => $detailsEntity->getDisplayWeight($locale),
@@ -263,20 +263,21 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             'isbn' => $detailsEntity->getIsbn(),
             'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
             'cost' => $detailsEntity->getDisplayCost(),
-        ];
+        ], $channelDetails);
     }
 
-    public function appendChannelDetails(Product $product, array &$productDetails, array $accounts): void
+    public function fetchChannelDetails(array $productIds, array $accounts): array
     {
+        $channelDetails = [];
         foreach ($this->channelDetails as $channel => $details) {
-            $details->appendDetails(
-                $product->getId(),
-                $productDetails,
+            $channelDetails += $this->channelDetails[$channel]->fetchChannelDetails(
+                $productIds,
                 array_keys(array_filter($accounts, function(array $account) use($channel) {
                     return $account['channel'] === $channel;
                 }))
             );
         }
+        return $channelDetails;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
