@@ -39,14 +39,23 @@ define([
             return marginIndicatorElement;
         };
 
-        this.setMargin = function(direction, value) {
+        this.setMargin = function(direction, value, populating) {
             let marginIndicatorElement = this.getMarginIndicatorElement();
             if (value < 0) {
                 return;
             }
             value = parseInt(value);
-            state.margin[direction] = value;
+
             marginIndicatorElement.style[direction] = value + state.measurement;
+
+            if(populating){
+                state.margin[direction] = value;
+                return;
+            }
+
+            let newMarginState = Object.assign({}, state.margin);
+            newMarginState[direction] = value;
+            this.set(newMarginState, value);
         };
 
         this.getMargin = function(direction) {
@@ -76,11 +85,13 @@ define([
 
         this.set = function(field, value, populating)
         {
+            debugger;
             state[field] = value;
 
             if (populating) {
                 return;
             }
+
             this.publish();
         };
     };

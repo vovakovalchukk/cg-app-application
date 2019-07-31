@@ -10,7 +10,6 @@ define(function()
 
     EntityHydrateAbstract.prototype.hydrate = function(data, populating)
     {
-
         for (var field in data)
         {
             if (!this.shouldFieldBeHydrated(field)) {

@@ -78,7 +78,7 @@ define([
         for(let margin in state.margin){
             let marginValue = state.margin[margin];
             let desiredValue = typeof marginValue === "number" ? marginValue : 0;
-            this.setPrintPageMargin(margin, desiredValue);
+            this.setPrintPageMargin(margin, desiredValue, true);
         }
     };
 
@@ -92,15 +92,12 @@ define([
         return paperPage.getWidth() - (printPage.getMargin("left") + printPage.getMargin("right"));
     };
 
-    PrintPage.prototype.setPrintPageMargin = function(direction, value) {
+    PrintPage.prototype.setPrintPageMargin = function(direction, value, populating) {
         const template = this.getTemplate();
         const printPage = template.getPrintPage();
 
         printPage.setVisibility(true);
-
-        debugger;
-
-        printPage.setMargin(direction, value);
+        printPage.setMargin(direction, value, populating);
 
         let dimensionValue = this.getNewDimensionValueFromMargin(direction, value);
 
