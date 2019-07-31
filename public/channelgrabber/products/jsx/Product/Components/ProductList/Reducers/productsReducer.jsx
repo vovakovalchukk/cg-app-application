@@ -331,9 +331,7 @@ function fetchVariationsFromParents(state, products) {
         if (!stateUtility.isParentProduct(product)) {
             continue;
         }
-        console.log(product);
         variationsByParent[product.id] = product.variations;
     }
-    console.log(variationsByParent);
     return variationsByParent;
 }
