@@ -75,6 +75,38 @@ let detailsColumns = [
         fixed: false,
         align: 'center',
         feature: 'costPriceEnabled'
+    },
+    {
+        key: 'ean',
+        type: 'barcode',
+        width: 150,
+        headerText: 'EAN',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'upc',
+        type: 'barcode',
+        width: 150,
+        headerText: 'UPC',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'mpn',
+        type: 'barcode',
+        width: 150,
+        headerText: 'MPN',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'isbn',
+        type: 'barcode',
+        width: 150,
+        headerText: 'ISBN',
+        fixed: false,
+        align: 'center'
     }
 ];
 

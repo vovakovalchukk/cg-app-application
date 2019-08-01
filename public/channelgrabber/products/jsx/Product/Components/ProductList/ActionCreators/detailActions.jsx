@@ -33,7 +33,7 @@ let detailActions = (function() {
                 }
                 let state = getState();
                 let value;
-                if (additional.accountId) {
+                if (additional && additional.accountId) {
                     value = lookup(state.detail[detail].byAccountId, [additional.accountId, row.id, 'valueEdited']);
                 } else {
                     value = lookup(state.detail[detail].byProductId, [row.id, 'valueEdited'])

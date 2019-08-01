@@ -13,5 +13,6 @@ export default {
     lowStock: 'lowStock',
     pickingLocation: 'pickingLocation',
     cost: 'cost',
-    fulfillmentLatency: 'fulfillmentLatency'
+    fulfillmentLatency: 'fulfillmentLatency',
+    barcode: 'barcode'
 };

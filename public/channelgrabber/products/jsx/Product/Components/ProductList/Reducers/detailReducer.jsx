@@ -19,6 +19,18 @@ let initialState = {
     fulfillmentLatency: {
         byProductId: {},
         byAccountId: {}
+    },
+    ean: {
+        byProductId: {}
+    },
+    upc: {
+        byProductId: {}
+    },
+    mpn: {
+        byProductId: {}
+    },
+    isbn: {
+        byProductId: {}
     }
 };
 
