@@ -15,6 +15,9 @@ let initialState = {
     },
     cost: {
         byProductId: {}
+    },
+    fulfillmentLatency: {
+        byProductId: {}
     }
 };
 
