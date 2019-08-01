@@ -46,7 +46,7 @@ define([
 
     PrintPage.prototype.initialiseMarginInputs = function(template) {
         let printPage = template.getPrintPage();
-        let marginValues = printPage.getState().margin;
+        let marginValues = printPage.getData().margin;
         let inputs = this.getDomListener().getInputs();
         for(let marginDirection in marginValues){
             domManipulator.setMarginValueToInput(inputs[marginDirection], marginValues[marginDirection]);
@@ -57,8 +57,7 @@ define([
         const template = this.getTemplate();
         const printPage = template.getPrintPage();
 
-        printPage.setVisibility(true);
-        printPage.setMargin(direction, value, populating);
+        printPage.setMargin(template, direction, value, populating);
 
         let dimensionValue = printPage.getNewDimensionValueFromMargin(direction, template);
 

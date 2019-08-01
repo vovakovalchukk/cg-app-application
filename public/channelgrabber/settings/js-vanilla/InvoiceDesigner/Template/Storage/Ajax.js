@@ -23,7 +23,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'success' : function(data) {
                 let jsonTemplate = JSON.parse(data['template']);
 
-                //TODO - remove this hack as part of...
+                //TODO - remove this hack
                 jsonTemplate.printPage = {
                   margin: {
                       top: 5,

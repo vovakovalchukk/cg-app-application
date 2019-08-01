@@ -124,6 +124,7 @@ define([
             name: template.getName(),
             organisationUnitId: template.getOrganisationUnitId(),
             paperPage: template.getPaperPage().toJson(),
+            printPage: template.getPrintPage().toJson(),
             elements: [],
             editable: template.isEditable()
         };

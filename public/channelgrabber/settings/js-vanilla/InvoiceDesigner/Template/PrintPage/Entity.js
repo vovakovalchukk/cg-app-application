@@ -19,7 +19,7 @@ define([
         EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
 
-        let state = {
+        let data = {
             margin: {
                 top: null,
                 bottom: null,
@@ -35,12 +35,28 @@ define([
         };
         let marginIndicatorElement = null;
 
-        this.getState = function(){
-            return state;
+        this.getData = function(){
+            return data;
+        };
+
+        this.setVisibilityFromData = function(data) {
+            for (let direction in data.margin) {
+                if (!data.margin[direction]) {
+                    continue;
+                }
+                this.setVisibility(true);
+                break;
+            }
+        };
+
+        this.setVisibility = function(value){
+            data.visibility = value;
         };
 
         this.render = function(template, templatePageElement) {
-            let marginIndicatorElement = this.createMarginIndicatorElement();
+            let data = this.getData();
+            this.setVisibilityFromData(data);
+            let marginIndicatorElement = this.createMarginIndicatorElement(data);
             templatePageElement.prepend(marginIndicatorElement);
             this.setMarginIndicatorElement(marginIndicatorElement);
 
@@ -54,13 +70,10 @@ define([
             this.setDimension("height", height);
             this.setDimension("width", width);
 
-            let state = this.getState();
-            for(let margin in state.margin){
-                let marginValue = state.margin[margin];
+            for(let margin in data.margin){
+                let marginValue = data.margin[margin];
                 let desiredValue = typeof marginValue === "number" ? marginValue : 0;
-                //initialise single margin
-                this.setVisibility(true);
-                this.setMargin(margin, desiredValue, true);
+                this.setMargin(template, margin, desiredValue, true);
                 let dimensionValue = this.getNewDimensionValueFromMargin(margin, template);
                 this.setDimension(MARGIN_TO_DIMENSION[margin], dimensionValue);
             }
@@ -95,7 +108,7 @@ define([
             return marginIndicatorElement;
         };
 
-        this.createMarginIndicatorElement = function() {
+        this.createMarginIndicatorElement = function({visibility}) {
             let marginIndicatorElement = document.createElement('div');
             marginIndicatorElement.id = 'templateMarginIndicator';
             marginIndicatorElement.style.position = 'absolute';
@@ -104,30 +117,32 @@ define([
             marginIndicatorElement.style.border = '2px dashed red';
             marginIndicatorElement.style.boxSizing = 'border-box';
             marginIndicatorElement.style.zIndex = 100;
+            marginIndicatorElement.style.visibility = visibility ? 'visible' : 'hidden';
             return marginIndicatorElement;
         };
 
-        this.setMargin = function(direction, value, populating) {
+        this.setMargin = function(template, direction, value, populating) {
             let marginIndicatorElement = this.getMarginIndicatorElement();
+
             if (value < 0) {
                 return;
             }
             value = parseInt(value);
 
-            marginIndicatorElement.style[direction] = value + state.measurement;
+            marginIndicatorElement.style[direction] = value + data.measurement;
 
             if(populating){
-                state.margin[direction] = value;
+                data.margin[direction] = value;
                 return;
             }
 
-            let newMarginState = Object.assign({}, state.margin);
+            let newMarginState = Object.assign({}, data.margin);
             newMarginState[direction] = value;
             this.set("margin", newMarginState);
         };
 
         this.getMargin = function(direction) {
-            return state.margin[direction];
+            return data.margin[direction];
         };
 
         this.setDimension = function(dimension, value) {
@@ -135,26 +150,26 @@ define([
             let marginIndicatorElement = this.getMarginIndicatorElement();
 
             dimension[dimension] = value;
-            marginIndicatorElement.style[dimension] = value + state.measurement;
+            marginIndicatorElement.style[dimension] = value + data.measurement;
         };
 
         this.getDimension = function(dimension) {
-            return state.dimension[dimension]
+            return data.dimension[dimension]
         };
 
         this.setVisibility = function(isVisible){
-            state.visibility = isVisible;
+            data.visibility = isVisible;
         };
 
         this.get = function(field)
         {
-            return state[field];
+            return data[field];
         };
 
         this.set = function(field, value, populating)
         {
-            state[field] = value;
-//
+            data[field] = value;
+
             if (populating) {
                 return;
             }
@@ -166,6 +181,14 @@ define([
     let combinedPrototype = createPrototype();
 
     Entity.prototype = Object.create(combinedPrototype);
+
+    Entity.prototype.toJson = function(){
+        let data = Object.assign({}, this.getData());
+        delete data.visibility;
+        delete data.dimension;
+        let json = JSON.parse(JSON.stringify(data));
+        return json;
+    };
 
     return Entity;
 
