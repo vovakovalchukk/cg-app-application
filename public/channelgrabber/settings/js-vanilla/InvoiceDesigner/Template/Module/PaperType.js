@@ -52,7 +52,7 @@ define([
             currentInverseCheckbox
         );
 
-        this.selectionMade(currentPaperType, currentInverseCheckbox, true);
+        this.paperTypeSelectionMade(currentPaperType, currentInverseCheckbox, true);
     };
 
     PaperType.prototype.changePaperDimension = function(property, newValue) {
@@ -64,7 +64,7 @@ define([
         paperPage.setWidth(newValue);
     };
 
-    PaperType.prototype.selectionMade = function(id, isInverse, initialise) {
+    PaperType.prototype.paperTypeSelectionMade = function(id, isInverse, initialise) {
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
             if (paperType.getId() == id) {
@@ -78,6 +78,8 @@ define([
             throw 'InvalidSelectionException: InvoiceDesigner/Template/Module/PaperType.selectionMade() received an id which does not exist';
         }
 
+
+        // todo - guard clause selectedPaperType
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
         let paperPage = this.getTemplate().getPaperPage();
 

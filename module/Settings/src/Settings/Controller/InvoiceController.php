@@ -613,7 +613,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     protected function getPaperTypeModule()
     {
-        $dropDownConfig = [
+        $paperTypeModule = $this->viewModelFactory->newInstance();
+
+        $paperTypeDropDownConfig = [
             "isOptional" => false,
             "id" => static::PAPER_TYPE_DROPDOWN_ID,
             "name" => static::PAPER_TYPE_DROPDOWN_ID,
@@ -621,10 +623,22 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             "options" => []
         ];
 
-        $paperTypeModule = $this->viewModelFactory->newInstance();
-        $select = $this->viewModelFactory->newInstance($dropDownConfig);
-        $select->setTemplate('elements/custom-select.mustache');
-        $paperTypeModule->addChild($select, 'select');
+        $paperTypeSelect = $this->viewModelFactory->newInstance($paperTypeDropDownConfig);
+        $paperTypeSelect->setTemplate('elements/custom-select.mustache');
+
+        $measurementUnitDropDownConfig = [
+            "isOptional" => false,
+            "id" => static::PAPER_TYPE_DROPDOWN_ID,
+            "name" => static::PAPER_TYPE_DROPDOWN_ID,
+            "class" => "",
+            "options" => []
+        ];
+
+        $measurementUnitSelect = $this->viewModelFactory->newInstance($measurementUnitDropDownConfig);
+        $measurementUnitSelect->setTemplate('elements/custom-select.mustache');
+
+        $paperTypeModule->addChild($paperTypeSelect, 'paperTypeSelect');
+        $paperTypeModule->addChild($measurementUnitSelect, 'measurementUnitSelect');
         $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
 
         return $paperTypeModule;

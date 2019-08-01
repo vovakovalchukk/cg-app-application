@@ -22,19 +22,17 @@ define([
 
     PaperType.prototype.init = function(module)
     {
-//        debugger;
-
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
+
+        debugger;
         $(document).on('change', paperTypeDropdownId, function (event, selectBox, id) {
             var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().selectionMade(id, isInverse);
+            self.getModule().paperTypeSelectionMade(id, isInverse);
         });
 
         $(document).on('change', `#${PaperType.HEIGHT_ID}`, (event) => {
             console.log('in height change');
-            
-            
            let desiredValue = event.target.value;
            self.getModule().changePaperDimension("height", desiredValue);
         });
@@ -47,7 +45,7 @@ define([
         $("#" + PaperType.CHECKBOX_ID).click(function() {
             var selectedId = $("#" + PaperType.CONTAINER_ID + " input[type=hidden]").val();
             var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().selectionMade(selectedId, isInverse);
+            self.getModule().paperTypeSelectionMade(selectedId, isInverse);
         });
     };
 

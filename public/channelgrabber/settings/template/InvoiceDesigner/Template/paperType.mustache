@@ -1,18 +1,21 @@
 <div id="paperTypeModule" class="template-module">
     <div class="heading-small">Paper Type</div>
     <div class="paper-type-select">
-        {{> select}}
+        {{> paperTypeSelect}}
     </div>
 
-
-    <div>
-
-        <input id="paperWidth" type="number"/>
+    <!--todo - move these inline styled into classes (might not need the widths)-->
+    <div class="u-float-left" style="float:left;">
+        <div class="u-flex-v-center" style="display:flex; align-items: center;">
+            <input id="paperWidth" type="number" class="inputbox" style="width:60px"/>
             x
-        <input id="paperHeight" type="number"/>
+            <input id="paperHeight" type="number" class="inputbox" style="width:60px"/>
 
+            <div class="measurement-unit-select" style="width:60px; top: 4px; position: relative;">
+                {{> measurementUnitSelect}}
+            </div>
+        </div>
     </div>
-
 
     <div class="paper-type-checkbox">
         <div class="std-checkbox">
