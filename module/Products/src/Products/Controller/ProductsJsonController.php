@@ -231,9 +231,13 @@ class ProductsJsonController extends AbstractActionController
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
         }
+        if (!isset($filterParams['embeddedDataToReturn']) || !is_array($filterParams['embeddedDataToReturn'])) {
+            $filterParams['embeddedDataToReturn'] = null;
+        }
 
         $requestFilter = $this->filterMapper->fromArray($filterParams)
             ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
+            ->setEmbeddedDataToReturn($filterParams['embeddedDataToReturn'])
             ->setLimit($limit)
             ->setPage($page);
 
