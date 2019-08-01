@@ -363,7 +363,7 @@ class Service implements
     protected function getVariationsEnabledFromEbayCategoryData(?Data $ebayData): bool
     {
         try {
-            return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : false;
+            return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
         } catch (\InvalidArgumentException $e) {
             $this->logWarningException($e);
             return false;
