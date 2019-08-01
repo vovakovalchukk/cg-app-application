@@ -107,6 +107,13 @@ let detailsColumns = [
         headerText: 'ISBN',
         fixed: false,
         align: 'center'
+    },
+    {
+        key: 'barcodeNotApplicable',
+        width: 100,
+        headerText: 'Barcode Not Applicable',
+        fixed: false,
+        align: 'center'
     }
 ];
 

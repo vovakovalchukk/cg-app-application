@@ -31,6 +31,9 @@ let initialState = {
     },
     isbn: {
         byProductId: {}
+    },
+    barcodeNotApplicable: {
+        byProductId: {}
     }
 };
 

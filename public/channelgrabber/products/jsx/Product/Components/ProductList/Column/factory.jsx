@@ -24,7 +24,8 @@ const columnSpecificPropsMap = {
     productExpand: ['expand'],
     cost: ['rows', 'detail', 'scroll'],
     fulfillmentLatency: ['rows', 'detail', 'scroll'],
-    barcode: ['rows', 'detail', 'scroll']
+    barcode: ['rows', 'detail', 'scroll'],
+    barcodeNotApplicable: ['rows', 'detail', 'scroll']
 };
 const alignFlexMap = {
     'center': 'center',

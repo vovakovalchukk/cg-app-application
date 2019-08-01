@@ -22,6 +22,7 @@ import IncludePurchaseOrdersInAvailableCell from 'Product/Components/ProductList
 import CostCell from 'Product/Components/ProductList/Cell/Cost';
 import FulfillmentLatencyCell from 'Product/Components/ProductList/Cell/FulfillmentLatency';
 import BarcodeCell from 'Product/Components/ProductList/Cell/Barcode';
+import BarcodeNotApplicableCell from 'Product/Components/ProductList/Cell/BarcodeNotApplicableCell';
 
 "use strict";
 
@@ -49,7 +50,8 @@ let cells = {
     lowStock: LowStock,
     cost: CostCell,
     fulfillmentLatency: FulfillmentLatencyCell,
-    barcode: BarcodeCell
+    barcode: BarcodeCell,
+    barcodeNotApplicable: BarcodeNotApplicableCell
 };
 
 export default (function() {

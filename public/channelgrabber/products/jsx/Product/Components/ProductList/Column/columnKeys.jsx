@@ -14,5 +14,6 @@ export default {
     pickingLocation: 'pickingLocation',
     cost: 'cost',
     fulfillmentLatency: 'fulfillmentLatency',
-    barcode: 'barcode'
+    barcode: 'barcode',
+    barcodeNotApplicable: 'barcodeNotApplicable'
 };
