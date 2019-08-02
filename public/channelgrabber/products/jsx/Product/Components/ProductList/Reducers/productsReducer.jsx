@@ -56,7 +56,8 @@ var ProductsReducer = reducerCreator(initialState, {
         return newState;
     },
     "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
-        let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
+        let productsWithListings = applyListingsToProducts(action.payload.products.slice(), action.payload.listings);
+        let newVariationsByParent = Object.assign({}, state.variationsByParent, stateUtility.sortVariationsByParentId(productsWithListings));
         let newState = Object.assign({}, state, {
             variationsByParent: newVariationsByParent
         });
