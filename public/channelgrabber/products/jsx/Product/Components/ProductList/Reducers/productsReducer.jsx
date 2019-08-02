@@ -21,13 +21,13 @@ const {LINK_STATUSES, EXPAND_STATUSES} = constants;
 
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
-        let productsWithListings = applyListingsToProducts(action.payload.products, action.payload.listings);
+        let productsWithListings = applyListingsToProducts(action.payload.products.slice(), action.payload.listings);
         let newState = Object.assign({}, state, {
             completeInitialLoads: {
                 simpleAndParentProducts: true
             },
-            simpleAndParentProducts: action.payload.products,
-            visibleRows: action.payload.products,
+            simpleAndParentProducts: productsWithListings,
+            visibleRows: productsWithListings,
             haveFetched: true,
             fetching: false
         });
@@ -338,12 +338,11 @@ function fetchVariationsFromParents(state, products) {
 }
 
 function applyListingsToProducts(products, listings) {
-    let productsWithListings = {};
+    let productsWithListings = [];
     for (var index in products) {
         let product = products[index];
-        let listingsData = getListingsData(product, listings);
-        product.listings = listingsData;
-        productsWithListings[index] = product;
+        product.listings = getListingsData(product, listings);
+        productsWithListings.push(product);
     }
     return productsWithListings;
 }
