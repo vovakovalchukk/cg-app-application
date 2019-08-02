@@ -25,6 +25,12 @@ var actionCreators = (function() {
             payload: variationsByParent
         };
     };
+    const getProductPrefetchedVariationsRequestSuccess = (variationsByParent) => {
+        return {
+            type: 'PRODUCT_PREFETCHED_VARIATIONS_GET_REQUEST_SUCCESS',
+            payload: variationsByParent
+        };
+    };
     const expandProductSuccess = (productIdToExpand) => {
         return {
             type: 'PRODUCT_EXPAND_SUCCESS',
@@ -288,7 +294,7 @@ var actionCreators = (function() {
             });
         },
         dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
-            dispatch(getProductVariationsRequestSuccess(variationsByParent));
+            dispatch(getProductPrefetchedVariationsRequestSuccess(variationsByParent));
             dispatch(expandProductSuccess(productRowIdToExpand));
             let data = {
                 products: variationsByParent[productRowIdToExpand]

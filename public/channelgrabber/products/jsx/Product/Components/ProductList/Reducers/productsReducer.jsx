@@ -63,6 +63,13 @@ var ProductsReducer = reducerCreator(initialState, {
         });
         return newState;
     },
+    "PRODUCT_PREFETCHED_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
+        let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
+        let newState = Object.assign({}, state, {
+            variationsByParent: newVariationsByParent
+        });
+        return newState;
+    },
     "PRODUCT_EXPAND_REQUEST": function(state, action) {
         let currentVisibleProducts = state.visibleRows.slice();
         currentVisibleProducts = changeExpandStatusForId(
