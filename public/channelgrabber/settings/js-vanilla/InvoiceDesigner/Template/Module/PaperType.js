@@ -2,12 +2,14 @@ define([
     'InvoiceDesigner/Template/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/PaperType',
     'InvoiceDesigner/Template/PaperType/Storage/Ajax',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Constants'
 ], function(
     ModuleAbstract,
     PaperTypeListener,
     paperTypeStorage,
-    domManipulator
+    domManipulator,
+    Constants
 ) {
     var PaperType = function() {
         ModuleAbstract.call(this);
@@ -30,26 +32,49 @@ define([
         };
     };
 
-    PaperType.DEFAULT_ID = 1;
+    PaperType.DEFAULT_PAPER_TYPE_ID = 1;
     PaperType.PAPERTYPE_CHECKBOX = '#inverseLabelPosition';
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
     PaperType.prototype.init = function(template, templateService) {
+        const paperPage = template.getPaperPage();
         ModuleAbstract.prototype.init.call(this, template, templateService);
 
         let fetched = this.getStorage().fetchAll();
         this.setAvailablePaperTypes(fetched);
 
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
-        var currentPaperType = template.getPaperPage().getPaperType() || PaperType.DEFAULT_ID;
-        domManipulator.populateCustomSelect(
-            paperTypeDropdownId, this.getAvailablePaperTypes(), currentPaperType
+        var currentPaperType = paperPage.getPaperType() || PaperType.DEFAULT_PAPER_TYPE_ID;
+
+        debugger;
+        domManipulator.populatePaperTypeSelect(
+            Constants.PAPER_TYPE_DROPDOWN_ID,
+            this.getAvailablePaperTypes(),
+            currentPaperType
         );
-        var currentInverseCheckbox = template.getPaperPage().getInverse();
+
+        var currentInverseCheckbox = paperPage.getInverse();
         domManipulator.changeCheckBoxState(
             PaperType.PAPERTYPE_CHECKBOX,
             currentInverseCheckbox
+        );
+
+        //todo - implement this
+//        let currentMeasurementUnit = paperPage.getCurrentMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
+
+        //equates to - measurement-unit-dropdown
+        const measurements = [
+            {title:'mm', value:'1'},
+            {title: 'inches', value: '2'}
+        ];
+        domManipulator.populateCustomSelect(
+            Constants.MEASUREMENT_UNIT_DROPDOWN_ID,
+            measurements,
+            "2",
+            {
+                sizeClass: 'small',
+            }
         );
 
         this.paperTypeSelectionMade(currentPaperType, currentInverseCheckbox, true);

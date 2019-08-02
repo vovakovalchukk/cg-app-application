@@ -56,6 +56,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_DELETE_TEMPLATE = 'Delete Template';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
+    const MEASUREMENT_UNIT_DROPDOWN_ID = "measurement-unit-dropdown";
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
 
@@ -265,6 +266,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
+        $view->setVariable('measurementUnitDropdownId', static::MEASUREMENT_UNIT_DROPDOWN_ID);
         $view->setVariable('showToPdfButton', $showToPdfButton);
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
@@ -619,21 +621,18 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             "isOptional" => false,
             "id" => static::PAPER_TYPE_DROPDOWN_ID,
             "name" => static::PAPER_TYPE_DROPDOWN_ID,
-            "class" => "",
             "options" => []
         ];
-
         $paperTypeSelect = $this->viewModelFactory->newInstance($paperTypeDropDownConfig);
         $paperTypeSelect->setTemplate('elements/custom-select.mustache');
 
         $measurementUnitDropDownConfig = [
             "isOptional" => false,
-            "id" => static::PAPER_TYPE_DROPDOWN_ID,
-            "name" => static::PAPER_TYPE_DROPDOWN_ID,
-            "class" => "",
+            "id" => static::MEASUREMENT_UNIT_DROPDOWN_ID,
+            "name" => static::MEASUREMENT_UNIT_DROPDOWN_ID,
+            "sizeClass" => 'small',
             "options" => []
         ];
-
         $measurementUnitSelect = $this->viewModelFactory->newInstance($measurementUnitDropDownConfig);
         $measurementUnitSelect->setTemplate('elements/custom-select.mustache');
 

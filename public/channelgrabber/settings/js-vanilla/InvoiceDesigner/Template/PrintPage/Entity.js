@@ -118,6 +118,7 @@ define([
             marginIndicatorElement.style.boxSizing = 'border-box';
             marginIndicatorElement.style.zIndex = 100;
             marginIndicatorElement.style.visibility = visibility ? 'visible' : 'hidden';
+            marginIndicatorElement.style.pointerEvents = 'none';
             return marginIndicatorElement;
         };
 

@@ -91,32 +91,61 @@ define([
     DomManipulator.prototype.setMarginValueToInput = function(selector, value){
         selector.value = value;
     };
+//
+//    DomManipulator.prototype.populatePaperTypeSelect = function(selectId, data, selectedValue) {
+//        const idWithHash = `#${selectId}`;
+//        const settings = {
+//            isOptional: $(idWithHash).hasClass("filter-optional"),
+//            name: $(idWithHash + " input:first").attr('name'),
+//            class: $(idWithHash + " input:first").attr('class'),
+//        };
+//        const formattedOptions = data.map(option => (
+//            {
+//                title: option.getName(),
+//                value: option.getId()
+//            }
+//        ));
+//        this.populateCustomSelect(selectId, formattedOptions, selectedValue, settings);
+//    };
 
-    DomManipulator.prototype.populateCustomSelect = function(selector, data, selectedValue)
-    {
-        var container = $(selector).parent().parent();
+    DomManipulator.prototype.populatePaperTypeSelect = function(selectId, data, selectedValue) {
+          const idWithHash = `#${selectId}`;
+          const settings = {
+                isOptional: $(idWithHash).hasClass("filter-optional"),
+                name: $(idWithHash + " input:first").attr('name'),
+                class: $(idWithHash + " input:first").attr('class'),
+          };
+          const formattedOptions = data.map(option => (
+              {
+                  title: option.getName(),
+                  value: option.getId()
+              }
+          ));
+          this.populateCustomSelect(selectId, formattedOptions, selectedValue, settings);
+    };
 
-        var view = {
-            isOptional: $(selector).hasClass("filter-optional"),
-            id: $(selector).attr('id'),
-            name: $(selector + " input:first").attr('name'),
-            class: $(selector + " input:first").attr('class'),
-            options: []
+    DomManipulator.prototype.populateCustomSelect = function(selectId, options, selectedValue, settings) {
+        let container = document.getElementById(selectId).parentNode;
+
+        let view = {
+            id: selectId,
+            options: applySelectedToOptions(),
+            ...settings
         };
 
-        var isFirstElement = true;
-        data.forEach(function(element) {
-            view['options'].push({
-                title: element.getName(),
-                value: element.getId(),
-                selected: ((!selectedValue && isFirstElement) || element.getId() === selectedValue)
-            });
-            isFirstElement = false;
-        });
+        CGMustache.get().fetchTemplate(DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH, renderNewSelect);
 
-        CGMustache.get().fetchTemplate(DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH, function(template, cgmustache) {
-            container.empty().html(cgmustache.renderTemplate(template, view));
-        });
+        function applySelectedToOptions() {
+            return options.map(({title, value}, index) => ({
+                title,
+                value,
+                selected: ((!selectedValue && index === 0) || value === selectedValue)
+            }));
+        };
+
+        function renderNewSelect (template, cgmustache) {
+            container.innerHTML = cgmustache.renderTemplate(template, view);
+        };
     };
 
     DomManipulator.prototype.enable = function(selector)

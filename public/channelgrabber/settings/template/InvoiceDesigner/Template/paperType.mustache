@@ -5,13 +5,13 @@
     </div>
 
     <!--todo - move these inline styled into classes (might not need the widths)-->
-    <div class="u-float-left" style="float:left;">
-        <div class="u-flex-v-center" style="display:flex; align-items: center;">
-            <input id="paperWidth" type="number" class="inputbox" style="width:60px"/>
+    <div class="u-float-left" style="float:left; width:100%;">
+        <div class="u-flex-v-center" style="display:flex; align-items: center; justify-content: space-between">
+            <input id="paperWidth" type="number" class="inputbox" style="width:45px"/>
             x
-            <input id="paperHeight" type="number" class="inputbox" style="width:60px"/>
+            <input id="paperHeight" type="number" class="inputbox" style="width:45px"/>
 
-            <div class="measurement-unit-select" style="width:60px; top: 4px; position: relative;">
+            <div class="measurement-unit-select" style="position: relative;">
                 {{> measurementUnitSelect}}
             </div>
         </div>

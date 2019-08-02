@@ -1,11 +1,13 @@
 define([
     'module',
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'element/customSelect'
+    'element/customSelect',
+    'InvoiceDesigner/Constants'
 ], function(
     requireModule,
     DomListenerAbstract,
-    CustomSelect
+    CustomSelect,
+    Constants
 ) {
 
     var PaperType = function()
@@ -25,8 +27,7 @@ define([
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
 
-        debugger;
-        $(document).on('change', paperTypeDropdownId, function (event, selectBox, id) {
+        $(document).on('change', `#${Constants.PAPER_TYPE_DROPDOWN_ID}`, function (event, selectBox, id) {
             var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
             self.getModule().paperTypeSelectionMade(id, isInverse);
         });

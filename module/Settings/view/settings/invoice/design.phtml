@@ -1,7 +1,6 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css', ['screen', 'print']); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
-var paperTypeDropdownId = "#<?= $paperTypeDropdownId; ?>";
 
 $(document).ready(function() {
     require.config({
@@ -12,14 +11,22 @@ $(document).ready(function() {
     });
     require([
         'InvoiceDesigner/Application',
-        'InvoiceDesigner/Template/Inspector/Text'
+        'InvoiceDesigner/Template/Inspector/Text',
+        'InvoiceDesigner/Constants',
     ], function(
         designerApp,
-        textInspector
+        textInspector,
+        Constants
     ) {
         textInspector.setDataFieldOptions(<?=json_encode($dataFieldOptions);?>);
 
-        designerApp.init(<?=$rootOuId;?>, '<?=$templateId;?>');
+        Constants.MEASUREMENT_UNIT_DROPDOWN_ID = "<?= $measurementUnitDropdownId; ?>";
+        Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>"
+
+        designerApp.init(
+            <?=$rootOuId;?>,
+            '<?=$templateId;?>'
+        );
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
@@ -46,7 +53,6 @@ $(document).ready(function() {
         </div>
 
         <?= $paperTypeModule ?>
-
 
         <div id="printPageModule" class="template-module">
             <div class="heading-small">Page Print Margins</div>
