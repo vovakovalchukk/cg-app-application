@@ -119,9 +119,6 @@ function getMostNegativeListing(listings) {
         return null;
     }
     let mostNegativeListing = listings[0];
-    if (typeof mostNegativeListing === 'undefined') {
-        return;
-    }
     listings.forEach((listing) => {
         let relevantListingStatus = LISTING_STATUSES_BY_PRIORITY.find(status => {
             return listing.status === status.status;

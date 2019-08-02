@@ -13,10 +13,6 @@ let stateUtility = function() {
         getRowData: (products, rowIndex) => {
             return products.visibleRows[rowIndex];
         },
-        assignListingsDataToRowData: (rowData, listings) => {
-            rowData.listings = getListingsData(rowData, listings);
-            return rowData;
-        },
         getVisibleProducts: (products) => {
             return products.visibleRows;
         },
