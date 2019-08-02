@@ -296,6 +296,7 @@ class EditorContainer extends React.Component {
             filter.limit = 500;
             filter.replaceVariationWithParent = true;
             filter.embedVariationsAsLinks = false;
+            filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
             AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
         });
     };
