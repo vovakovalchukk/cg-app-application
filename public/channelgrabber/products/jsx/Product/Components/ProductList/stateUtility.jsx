@@ -13,6 +13,10 @@ let stateUtility = function() {
         getRowData: (products, rowIndex) => {
             return products.visibleRows[rowIndex];
         },
+        assignListingsDataToRowData: (rowData, listings) => {
+            rowData.listings = getListingsData(rowData, listings);
+            return rowData;
+        },
         getVisibleProducts: (products) => {
             return products.visibleRows;
         },
@@ -161,4 +165,13 @@ function isTableFooterObscuringElement(elementRect) {
 
 function hasTheElementBeenObscuredByTableElements(elementRect) {
     return isTableHeaderObscuringElement(elementRect) || isTableFooterObscuringElement(elementRect);
+}
+
+function getListingsData(product, listings) {
+    let fullListingsData = {};
+    for (var index in product.listings) {
+        let listingId = listings[index].id;
+        fullListingsData[listingId] = Object.assign({}, product.listings[index], listings[index]);
+    }
+    return fullListingsData;
 }

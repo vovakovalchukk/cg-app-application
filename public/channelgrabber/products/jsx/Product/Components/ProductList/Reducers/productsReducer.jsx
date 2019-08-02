@@ -28,7 +28,8 @@ var ProductsReducer = reducerCreator(initialState, {
             simpleAndParentProducts: action.payload.products,
             visibleRows: action.payload.products,
             haveFetched: true,
-            fetching: false
+            fetching: false,
+            listings: action.payload.listings
         });
         return newState;
     },
