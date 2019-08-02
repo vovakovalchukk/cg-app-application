@@ -13,7 +13,7 @@ var initialState = {
     variationsByParent: [],
     allProductsLinks: {},
     visibleRows: [],
-    haveFetched: false,         
+    haveFetched: false,
     fetching: false
 };
 
@@ -179,6 +179,12 @@ var ProductsReducer = reducerCreator(initialState, {
         return Object.assign({}, state, {
             visibleRows: visibleRowsCopy
         });
+    },
+    "GET_VARIATIONS_FROM_PRODUCTS": function(state, action) {
+        let newState = Object.assign({}, state, {
+            variationsByParent: fetchVariationsFromParents(state, action.payload.products)
+        });
+        return newState;
     }
 });
 
@@ -317,4 +323,15 @@ function collapseSingleProduct(currentVisibleProducts, productRowId, state) {
         'collapsed'
     );
     return currentVisibleProducts;
+}
+
+function fetchVariationsFromParents(state, products) {
+    let variationsByParent = [];
+    for (let product of products) {
+        if (!stateUtility.isParentProduct(product)) {
+            continue;
+        }
+        variationsByParent[product.id] = product.variations;
+    }
+    return variationsByParent;
 }

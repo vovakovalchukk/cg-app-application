@@ -66,6 +66,9 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_CREATE = 'Create';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
+    protected const PRODUCT_DETAIL_CHANNEL_MAP = [
+        'fulfillmentLatency' => 'amazon',
+    ];
 
     /** @var ProductService $productService */
     protected $productService;
@@ -274,8 +277,6 @@ class ProductsJsonController extends AbstractActionController
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
             'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
-            'activeSalesAccounts' => $activeSalesAccounts,
-            'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockLevelDefault' => $this->stockSettingsService->getStockLevelDefault(),
             'lowStockThresholdDefault' => [
@@ -327,30 +328,12 @@ class ProductsJsonController extends AbstractActionController
                 ->toArray()
         ]);
 
-        $detailsEntity = $productEntity->getDetails();
-        if ($detailsEntity) {
-            $locale = $rootOrganisationUnit->getLocale();
-            $product['details'] = [
-                'id' => $detailsEntity->getId(),
-                'sku' => $detailsEntity->getSku(),
-                'weight' => $detailsEntity->getDisplayWeight($locale),
-                'width' => $detailsEntity->getDisplayWidth($locale),
-                'height' => $detailsEntity->getDisplayHeight($locale),
-                'length' => $detailsEntity->getDisplayLength($locale),
-                'price' => $detailsEntity->getPrice(),
-                'description' => $detailsEntity->getDescription(),
-                'condition' => $detailsEntity->getCondition(),
-                'brand' => $detailsEntity->getBrand(),
-                'mpn' => $detailsEntity->getMpn(),
-                'ean' => $detailsEntity->getEan(),
-                'upc' => $detailsEntity->getUpc(),
-                'isbn' => $detailsEntity->getIsbn(),
-                'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
-                'cost' => $detailsEntity->getDisplayCost(),
-            ];
-        } else {
-            $product['details'] = ['sku' => $productEntity->getSku()];
-        }
+        $product['details'] = $this->productService->fetchProductDetails(
+            $productEntity,
+            $rootOrganisationUnit->getLocale()
+        );
+
+        $this->productService->appendChannelDetails($productEntity, $product['details']);
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
@@ -703,15 +686,23 @@ class ProductsJsonController extends AbstractActionController
         $this->checkUsage();
 
         $view = $this->jsonModelFactory->newInstance();
-        $view->setVariable(
-            'id',
-            $this->productService->saveProductDetail(
+        $detail = $this->params()->fromPost('detail');
+
+        if (isset(static::PRODUCT_DETAIL_CHANNEL_MAP[$detail])) {
+            $this->productService->saveProductChannelDetail(
+                $this->params()->fromPost('productId'),
+                static::PRODUCT_DETAIL_CHANNEL_MAP[$detail],
+                $detail,
+                $this->params()->fromPost('value')
+            );
+        } else {
+            $view->setVariable('id', $this->productService->saveProductDetail(
                 $this->params()->fromPost('sku'),
-                $this->params()->fromPost('detail'),
+                $detail,
                 $this->params()->fromPost('value'),
                 $this->params()->fromPost('id')
-            )
-        );
+            ));
+        }
 
         return $view;
     }

@@ -348,8 +348,6 @@ class EditorContainer extends React.Component {
         delete product.eTag;
         delete product.listings;
         delete product.listingsPerAccount;
-        delete product.activeSalesAccounts;
-        delete product.accounts;
         delete product.stockModeDefault;
         delete product.stockLevelDefault;
         delete product.lowStockThresholdDefault;

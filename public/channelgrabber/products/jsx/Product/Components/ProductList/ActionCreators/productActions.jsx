@@ -57,6 +57,12 @@ var actionCreators = (function() {
             payload: data
         }
     };
+    const getVariationsFromProducts = function(data) {
+        return {
+            type: "GET_VARIATIONS_FROM_PRODUCTS",
+            payload: data
+        }
+    };
     const getProductsError = function() {
         return {
             type: "PRODUCTS_GET_REQUEST_ERROR"
@@ -163,6 +169,7 @@ var actionCreators = (function() {
                 );
                 filter.setPage(pageNumber);
                 filter.setLimit(getState.customGetters.getPaginationLimit());
+                filter.setEmbedVariationsAsLinks(false);
 
                 if (searchTerm) {
                     filter.setEmbedVariationsAsLinks(false);
@@ -182,6 +189,7 @@ var actionCreators = (function() {
                 dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
+                dispatch(getVariationsFromProducts(data));
 
                 if (isExpandableSkuSearch(data, searchTerm)) {
                     handleSkuSpecificSearch(data, searchTerm, dispatch);
@@ -239,7 +247,6 @@ var actionCreators = (function() {
                     }
                 });
                 let variationsByParent = getState().products.variationsByParent;
-
                 if (variationsHaveAlreadyBeenRequested(variationsByParent, productRowIdToExpand)) {
                     actionCreators.dispatchExpandVariationWithoutAjaxRequest(dispatch, variationsByParent, productRowIdToExpand);
                     return;
