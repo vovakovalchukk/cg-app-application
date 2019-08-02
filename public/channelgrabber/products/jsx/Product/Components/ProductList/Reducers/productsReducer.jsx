@@ -21,6 +21,7 @@ const {LINK_STATUSES, EXPAND_STATUSES} = constants;
 
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
+        let productsWithListings = applyListingsToProducts(action.payload.products, action.payload.listings);
         let newState = Object.assign({}, state, {
             completeInitialLoads: {
                 simpleAndParentProducts: true
@@ -28,8 +29,7 @@ var ProductsReducer = reducerCreator(initialState, {
             simpleAndParentProducts: action.payload.products,
             visibleRows: action.payload.products,
             haveFetched: true,
-            fetching: false,
-            listings: action.payload.listings
+            fetching: false
         });
         return newState;
     },
@@ -335,4 +335,24 @@ function fetchVariationsFromParents(state, products) {
         variationsByParent[product.id] = product.variations;
     }
     return variationsByParent;
+}
+
+function applyListingsToProducts(products, listings) {
+    let productsWithListings = {};
+    for (var index in products) {
+        let product = products[index];
+        let listingsData = getListingsData(product, listings);
+        product.listings = listingsData;
+        productsWithListings[index] = product;
+    }
+    return productsWithListings;
+}
+
+function getListingsData(product, listings) {
+    let fullListingsData = {};
+    for (var index in product.listings) {
+        let listingId = listings[index].id;
+        fullListingsData[listingId] = Object.assign({}, product.listings[index], listings[index]);
+    }
+    return fullListingsData;
 }

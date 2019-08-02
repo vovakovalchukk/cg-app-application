@@ -55,8 +55,7 @@ class ListingAccountCell extends React.Component {
     };
 
     render() {
-        let product = stateUtility.getRowData(this.props.products, this.props.rowIndex);
-        let row = stateUtility.assignListingsDataToRowData(product, this.props.products.listings);
+        let row = stateUtility.getRowData(this.props.products, this.props.rowIndex);
         let listingsForAccount = getListingsForAccount(row, this.props.listingAccountId);
         let mostNegativeListing = getMostNegativeListing(listingsForAccount);
         let mostNegativeListingStateFromListings = getMostNegativeListingStatusFromListings(mostNegativeListing);
