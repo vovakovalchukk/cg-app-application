@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0f9e38c96431a9777278c59fa2b9a5e",
+    "content-hash": "c2eb71ae59db43ecdfa8658f22133722",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -974,16 +974,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.18",
+            "version": "dev-TAC-470-parcelforce-cancel-labels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "80f96deb9a1f9aaebbabd32a306d2f2c246930b3"
+                "reference": "f85490f49782fd41f4a3d9eebd12d535913c174d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.18-9e0b40.zip",
-                "reference": "80f96deb9a1f9aaebbabd32a306d2f2c246930b3"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-TAC-470-parcelforce-cancel-labels-a9ed56.zip",
+                "reference": "f85490f49782fd41f4a3d9eebd12d535913c174d"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.0",
@@ -1016,7 +1016,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-07-24T10:05:44+00:00"
+            "time": "2019-08-05T09:59:31+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -11326,10 +11326,18 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.19",
+            "alias_normalized": "1.1.19.0",
+            "version": "dev-TAC-470-parcelforce-cancel-labels",
+            "package": "channelgrabber/courier"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/courier": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
