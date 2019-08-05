@@ -181,7 +181,7 @@ var filterOutEmptyAccountSettingsData = function(accountSettings) {
 };
 
 const getSearchAccountId = function(props) {
-    let accounts = props.product.accounts;
+    let accounts = props.accounts;
 
     let accountIndex = Object.keys(accounts).findIndex(accountId=> {
         let accountData =  accounts[accountId];

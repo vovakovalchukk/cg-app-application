@@ -73,7 +73,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         if (isset($this->carrierBookingOptionsForAccount[$account->getId()])) {
             return $this->carrierBookingOptionsForAccount[$account->getId()];
         }
-        
+
         $options = [];
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         $caAccount = $this->caAccountMapper->fromOHAccount($account);
@@ -148,7 +148,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     }
 
     /**
-     * @return array 
+     * @return array
      */
     public function addCarrierSpecificDataToListArray(
         array $data,
@@ -227,7 +227,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     protected function getDataForDeliveryServiceOption(
         AccountEntity $account,
-        string $serviceCode,
+        ?string $serviceCode,
         string $option,
         OrderEntity $order = null,
         ProductDetailCollection $productDetails = null,

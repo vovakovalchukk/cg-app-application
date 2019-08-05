@@ -296,6 +296,7 @@ class EditorContainer extends React.Component {
             filter.limit = 500;
             filter.replaceVariationWithParent = true;
             filter.embedVariationsAsLinks = false;
+            filter.embeddedDataToReturn = ['stock', 'variation', 'image'];
             AjaxHandler.fetchByFilter(filter, this.populateWithLowStockProducts);
         });
     };
@@ -347,8 +348,6 @@ class EditorContainer extends React.Component {
         delete product.eTag;
         delete product.listings;
         delete product.listingsPerAccount;
-        delete product.activeSalesAccounts;
-        delete product.accounts;
         delete product.stockModeDefault;
         delete product.stockLevelDefault;
         delete product.lowStockThresholdDefault;

@@ -22,7 +22,8 @@ const columnSpecificPropsMap = {
     pickingLocation: ['rows', 'scroll', 'pickLocations', 'pickLocationsSelect', 'select'],
     name: ['rows', 'name', 'focus'],
     productExpand: ['expand'],
-    cost: ['rows', 'detail', 'scroll']
+    cost: ['rows', 'detail', 'scroll'],
+    fulfillmentLatency: ['rows', 'detail', 'scroll']
 };
 const alignFlexMap = {
     'center': 'center',
