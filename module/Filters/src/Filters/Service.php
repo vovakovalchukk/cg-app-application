@@ -9,6 +9,7 @@ use Orders\Controller\OrdersController;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
 use Orders\Order\Filter\Batch;
+use Orders\Order\Filter\Marketplace;
 use Orders\Order\Filter\Shipping;
 use Orders\Order\TableService\OrdersTableFulfilmentChannelColumns;
 use Orders\Order\TableService\OrdersTableTagColumns;
@@ -38,6 +39,7 @@ class Service
     const FILTER_ORDER_GIFT_MESSAGE = 'orderGiftMessage';
     const FILTER_ORDER_STATE_FILTERS = 'orderFilterStateFilters';
     const FILTER_ORDER_IS_DISPATCHABLE = 'orderIsDispatchable';
+    const FILTER_ORDER_MARKETPLACE = 'orderMarketplace';
 
     static protected function getOrderFilters()
     {
@@ -426,7 +428,20 @@ class Service
                         ]
                     )
                 ],
-            ]
+            ],
+            self::FILTER_ORDER_MARKETPLACE => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'marketplace',
+                    'title' => 'Site / Marketplace',
+                    'searchField' => true,
+                    'isOptional' => true,
+                    'concatenate' => true,
+                    'options' => []
+                ],
+                'optionsProvider' => Marketplace::class,
+            ],
         ];
     }
 
