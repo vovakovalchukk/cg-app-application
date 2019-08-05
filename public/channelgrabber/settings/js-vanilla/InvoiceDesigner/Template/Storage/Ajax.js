@@ -32,7 +32,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                       right: 20,
                   }
                 };
-                jsonTemplate.paperPage.measurementUnit = "in";
+                jsonTemplate.paperPage.measurementUnit = "mm";
 
                 template = self.getMapper().fromJson(jsonTemplate);
             },

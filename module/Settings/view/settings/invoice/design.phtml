@@ -30,80 +30,84 @@ $(document).ready(function() {
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
-    <div class="scrollable-sidebar">
-        <div class="template-module invoice-action-buttons">
-            <a href="/settings/invoice" class="button">Back to Templates</a>
-        </div>
-        <?php if($this->showToPdfButton) : ?>
-        <div id="template-topdf-container" class="template-module template-topdf-container">
-            <div class="pdf-btn">
-                <form method="post" action="/orders/invoice/preview" class="button toPdfButton">
-                    To PDF
-                    <input name="template" type="hidden" />
-                </form>
-            </div>
-        </div>
-        <?php endif; ?>
-        <div id="template-name-container" class="template-module template-name-container">
-            <div class="heading-small"><?= $this->translate('Template Name'); ?></div>
-            <div class="template-inputbox-holder">
-                <?= $templateName; ?>
-            </div>
-        </div>
 
-        <?= $paperTypeModule ?>
-
-        <div id="printPageModule" class="template-module">
-            <div class="heading-small">Page Print Margins</div>
-            <div>
-                <div class="printpage-fields-container">
-                <span class="printpage-field-container">
-                    Top: <input id="printPageTopMargin" class="printpage-input" type="number"/>
-                </span>
-                    <span class="printpage-field-container">
-                    Bottom: <input id="printPageBottomMargin" class="printpage-input" type="number">
-                </span>
-                    <span class="printpage-field-container">
-                    Left: <input id="printPageLeftMargin" class="printpage-input" type="number"/>
-                </span>
-                    <span class="printpage-field-container">
-                    Right: <input id="printPageRightMargin" class="printpage-input" type="number">
-                </span>
+<div class="invoice-designer-container">
+    <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
+        <div class="scrollable-sidebar">
+            <div class="template-module invoice-action-buttons">
+                <a href="/settings/invoice" class="button">Back to Templates</a>
+            </div>
+            <?php if($this->showToPdfButton) : ?>
+            <div id="template-topdf-container" class="template-module template-topdf-container">
+                <div class="pdf-btn">
+                    <form method="post" action="/orders/invoice/preview" class="button toPdfButton">
+                        To PDF
+                        <input name="template" type="hidden" />
+                    </form>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div id="template-name-container" class="template-module template-name-container">
+                <div class="heading-small"><?= $this->translate('Template Name'); ?></div>
+                <div class="template-inputbox-holder">
+                    <?= $templateName; ?>
                 </div>
             </div>
 
-        </div>
+            <?= $paperTypeModule ?>
 
-        <div class="addInvoiceElement template-module">
-            <span class="heading-small">Add Element</span>
-        </div>
-    </div>
-</div>
-<div id="invoice-template" class="invoice-template">
-    <div class="save-template">
-        <div class="save-template-inner fixedElement">
-            <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
-            <div class="save-template-buttons">
-                <?= $templateDiscardButton ?>
-                <?= $templateSaveButton ?>
+            <div id="printPageModule" class="template-module">
+                <div class="heading-small">Page Print Margins</div>
+                <div>
+                    <div class="printpage-fields-container">
+                    <span class="printpage-field-container">
+                        Top: <input id="printPageTopMargin" class="printpage-input" type="number"/>
+                    </span>
+                        <span class="printpage-field-container">
+                        Bottom: <input id="printPageBottomMargin" class="printpage-input" type="number">
+                    </span>
+                        <span class="printpage-field-container">
+                        Left: <input id="printPageLeftMargin" class="printpage-input" type="number"/>
+                    </span>
+                        <span class="printpage-field-container">
+                        Right: <input id="printPageRightMargin" class="printpage-input" type="number">
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="addInvoiceElement template-module">
+                <span class="heading-small">Add Element</span>
             </div>
         </div>
     </div>
-    <div id="invoice-template-container" class="invoice-template-container">
-        <!-- todo - put an intermediary wrapper for the print margin -->
+    <div id="invoice-template" class="invoice-template">
+        <div class="save-template">
+            <div class="save-template-inner fixedElement">
+                <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
+                <div class="save-template-buttons">
+                    <?= $templateDiscardButton ?>
+                    <?= $templateSaveButton ?>
+                </div>
+            </div>
+        </div>
+        <div id="invoice-template-container" class="invoice-template-container"></div>
     </div>
-</div>
-<div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
-    <div class="scrollable-sidebar">
-        <!--Element Inspectors-->
-        <div id="heading-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="text-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="font-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="border-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="positioning-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="orderTableOptions-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="barcode-inspector" class="floatLeftClear inspector-module"></div>
-        <div id="linkedProducts-inspector" class="floatLeftClear inspector-module"></div>
+    <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
+        <div class="scrollable-sidebar">
+            <!--Element Inspectors-->
+            <div id="heading-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="text-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="font-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="border-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="positioning-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="orderTableOptions-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="barcode-inspector" class="floatLeftClear inspector-module"></div>
+            <div id="linkedProducts-inspector" class="floatLeftClear inspector-module"></div>
+        </div>
     </div>
+
 </div>
+
+
