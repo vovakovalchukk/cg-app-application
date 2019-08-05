@@ -56,13 +56,10 @@ define([
             template.addElement(element, populating);
         }
 
-        //TODO - getvariables from here.
         var paperPage = template.getPaperPage();
         this.hydratePaperPageFromJson(paperPage, json.paperPage, populating);
         template.setPaperPage(paperPage).setEditable(!! json.editable);
 
-        //TODO - setup printpage entity ... why? - because we can store the print page and multi page guidelines in here. Separation of concerns.
-        // do not need a storage. keep this simple.
         let printPage = template.getPrintPage();
         this.hydratePrintPageFromJson(printPage, json.printPage, populating);
         template.setPrintPage(printPage).setEditable(!! json.editable);

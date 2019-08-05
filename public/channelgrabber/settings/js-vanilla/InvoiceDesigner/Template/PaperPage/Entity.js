@@ -19,7 +19,8 @@ define([
             width: undefined,
             paperType: undefined,
             backgroundImage: undefined,
-            inverse: undefined
+            inverse: undefined,
+            measurementUnit: undefined
         };
 
         this.getId = function()
@@ -88,6 +89,17 @@ define([
         this.setBackgroundImage = function(newBackgroundImage)
         {
             this.set('backgroundImage', newBackgroundImage);
+            return this;
+        };
+
+        this.getMeasurementUnit = function()
+        {
+            return this.get('measurementUnit');
+        };
+
+        this.setMeasurementUnit = function(id)
+        {
+            this.set('measurementUnit', id);
             return this;
         };
 

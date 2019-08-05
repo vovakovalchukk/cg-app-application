@@ -40,7 +40,6 @@ define([
         $(document).on(domManipulator.getTemplateInitialisedEvent(), (event, template) => {
 //            this.initialiseMarginIndicatorElement(event, template)
         });
-
         this.initialiseMarginInputs(template);
     };
 
@@ -61,7 +60,7 @@ define([
 
         let dimensionValue = printPage.getNewDimensionValueFromMargin(direction, template);
 
-        printPage.setDimension(MARGIN_TO_DIMENSION[direction], dimensionValue);
+        printPage.setDimension(template, MARGIN_TO_DIMENSION[direction], dimensionValue);
     };
 
     return new PrintPage();

@@ -34,6 +34,7 @@ define([
 
     PaperType.DEFAULT_PAPER_TYPE_ID = 1;
     PaperType.PAPERTYPE_CHECKBOX = '#inverseLabelPosition';
+    PaperType.DEFAULT_MEASUREMENT_UNIT = 'mm';
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
@@ -47,7 +48,6 @@ define([
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
         var currentPaperType = paperPage.getPaperType() || PaperType.DEFAULT_PAPER_TYPE_ID;
 
-        debugger;
         domManipulator.populatePaperTypeSelect(
             Constants.PAPER_TYPE_DROPDOWN_ID,
             this.getAvailablePaperTypes(),
@@ -60,18 +60,14 @@ define([
             currentInverseCheckbox
         );
 
-        //todo - implement this
-//        let currentMeasurementUnit = paperPage.getCurrentMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
-
-        //equates to - measurement-unit-dropdown
-        const measurements = [
-            {title:'mm', value:'1'},
-            {title: 'inches', value: '2'}
-        ];
+        var currentMeasurementUnit = paperPage.getMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
+        let measurementUnits = [{}, {}];
+        measurementUnits[0].title = measurementUnits[0].value = 'mm';
+        measurementUnits[1].title = measurementUnits[1].value = 'in';
         domManipulator.populateCustomSelect(
             Constants.MEASUREMENT_UNIT_DROPDOWN_ID,
-            measurements,
-            "2",
+            measurementUnits,
+            currentMeasurementUnit,
             {
                 sizeClass: 'small',
             }
@@ -87,6 +83,12 @@ define([
             return;
         }
         paperPage.setWidth(newValue);
+    };
+
+    PaperType.prototype.changeMeasurementUnit = function(value) {
+        let paperPage = this.getTemplate().getPaperPage();
+        console.log('in changeMeasurementUnit')
+        paperPage.setMeasurementUnit(value);
     };
 
     PaperType.prototype.paperTypeSelectionMade = function(id, isInverse, initialise) {

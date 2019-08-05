@@ -23,7 +23,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'success' : function(data) {
                 let jsonTemplate = JSON.parse(data['template']);
 
-                //TODO - remove this hack
+                //TODO - remove these hacks before PR
                 jsonTemplate.printPage = {
                   margin: {
                       top: 5,
@@ -32,6 +32,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                       right: 20,
                   }
                 };
+                jsonTemplate.paperPage.measurementUnit = "in";
 
                 template = self.getMapper().fromJson(jsonTemplate);
             },

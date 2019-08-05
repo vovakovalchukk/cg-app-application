@@ -30,7 +30,6 @@ define([
                 height: null,
                 width: null
             },
-            measurement: 'mm',
             visibility: false
         };
         let marginIndicatorElement = null;
@@ -67,15 +66,15 @@ define([
             let height =  storedHeightDimension ? storedHeightDimension : paperPage.getHeight();
             let width =  storedWidthDimension ? storedWidthDimension : paperPage.getWidth();
 
-            this.setDimension("height", height);
-            this.setDimension("width", width);
+            this.setDimension(template, "height", height);
+            this.setDimension(template,"width", width);
 
             for(let margin in data.margin){
                 let marginValue = data.margin[margin];
                 let desiredValue = typeof marginValue === "number" ? marginValue : 0;
                 this.setMargin(template, margin, desiredValue, true);
                 let dimensionValue = this.getNewDimensionValueFromMargin(margin, template);
-                this.setDimension(MARGIN_TO_DIMENSION[margin], dimensionValue);
+                this.setDimension(template, MARGIN_TO_DIMENSION[margin], dimensionValue);
             }
 
             this.setVisibility(false);
@@ -124,13 +123,14 @@ define([
 
         this.setMargin = function(template, direction, value, populating) {
             let marginIndicatorElement = this.getMarginIndicatorElement();
+            const measurementUnit = template.getPaperPage().getMeasurementUnit();
 
             if (value < 0) {
                 return;
             }
             value = parseInt(value);
 
-            marginIndicatorElement.style[direction] = value + data.measurement;
+            marginIndicatorElement.style[direction] = value + measurementUnit;
 
             if(populating){
                 data.margin[direction] = value;
@@ -146,12 +146,11 @@ define([
             return data.margin[direction];
         };
 
-        this.setDimension = function(dimension, value) {
-            // todo - this is where you apply the px/mm change
+        this.setDimension = function(template, dimension, value) {
+            const measurementUnit = template.getPaperPage().getMeasurementUnit();
             let marginIndicatorElement = this.getMarginIndicatorElement();
-
             dimension[dimension] = value;
-            marginIndicatorElement.style[dimension] = value + data.measurement;
+            marginIndicatorElement.style[dimension] = value + measurementUnit;
         };
 
         this.getDimension = function(dimension) {

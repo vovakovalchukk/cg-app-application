@@ -32,6 +32,10 @@ define([
             self.getModule().paperTypeSelectionMade(id, isInverse);
         });
 
+        $(document).on('change', `#${Constants.MEASUREMENT_UNIT_DROPDOWN_ID}`, function (event, selectBox, id) {
+            self.getModule().changeMeasurementUnit(id);
+        });
+
         $(document).on('change', `#${PaperType.HEIGHT_ID}`, (event) => {
             console.log('in height change');
            let desiredValue = event.target.value;
