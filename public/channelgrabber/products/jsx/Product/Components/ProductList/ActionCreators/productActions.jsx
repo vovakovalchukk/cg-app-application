@@ -307,8 +307,7 @@ var actionCreators = (function() {
                 let filter = new ProductFilter(null, parentProductId);
                 let data = await AjaxHandler.fetchByFilter(filter);
 
-                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
+                dispatch(getProductVariationsRequestSuccess(data));
                 return data;
             }
         },
