@@ -20,6 +20,7 @@ import PickingLocationCell from 'Product/Components/ProductList/Cell/PickingLoca
 import OnPurchaseOrderCell from 'Product/Components/ProductList/Cell/OnPurchaseOrder';
 import IncludePurchaseOrdersInAvailableCell from 'Product/Components/ProductList/Cell/IncludePurchaseOrdersInAvailable';
 import CostCell from 'Product/Components/ProductList/Cell/Cost';
+import FulfillmentLatencyCell from 'Product/Components/ProductList/Cell/FulfillmentLatency';
 
 "use strict";
 
@@ -45,7 +46,8 @@ let cells = {
     onPurchaseOrder: OnPurchaseOrderCell,
     includePurchaseOrdersInAvailable: IncludePurchaseOrdersInAvailableCell,
     lowStock: LowStock,
-    cost: CostCell
+    cost: CostCell,
+    fulfillmentLatency: FulfillmentLatencyCell
 };
 
 export default (function() {
