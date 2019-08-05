@@ -1,5 +1,4 @@
 import React from 'react';
-   
 
     var service = {
         findAccountIndexForAccountId: function(accountId, props) {
@@ -60,7 +59,7 @@ import React from 'react';
                     });
                 }
 
-                var accountData = props.product.accounts[accountId];
+                var accountData = props.accounts[accountId];
                 if (accountData.channel == 'ebay') {
                     siteId = siteId ? siteId : accountData.siteId;
                     if (siteId !== accountData.siteId) {
