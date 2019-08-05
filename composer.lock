@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "062ea4010009a253b0650eb054f19521",
+    "content-hash": "3b447610ce7632e347ded4a409a8b0df",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -340,12 +340,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7ce5e4b66286bf96791acc49f770d0a641df658d"
+                "reference": "4177709452d100237e0b2be02864f48ca6e5c26d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-19-AmazonProductDetailFulfilmentLatency-5ea993.zip",
-                "reference": "7ce5e4b66286bf96791acc49f770d0a641df658d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-19-AmazonProductDetailFulfilmentLatency-027749.zip",
+                "reference": "4177709452d100237e0b2be02864f48ca6e5c26d"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -366,7 +366,7 @@
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/product": "dev-MIG-19-AmazonProductDetailFulfilmentLatency as 1.17.2",
+                "channelgrabber/product": "dev-MIG-19-AmazonProductDetailFulfilmentLatency as 1.17.3",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -399,7 +399,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-08-01T08:01:43+00:00"
+            "time": "2019-08-05T12:47:58+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -2554,12 +2554,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "39b3ad4457642cda5fdd60b20e124e6b54d0c535"
+                "reference": "baa1c38d879c58ca0e26be0b57b5c6d28f91c8ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-MIG-19-AmazonProductDetailFulfilmentLatency-a65661.zip",
-                "reference": "39b3ad4457642cda5fdd60b20e124e6b54d0c535"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-MIG-19-AmazonProductDetailFulfilmentLatency-293492.zip",
+                "reference": "baa1c38d879c58ca0e26be0b57b5c6d28f91c8ca"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2613,7 +2613,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-07-30T10:13:24+00:00"
+            "time": "2019-08-05T12:47:11+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -11328,8 +11328,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.29.1",
-            "alias_normalized": "1.29.1.0",
+            "alias": "1.29.2",
+            "alias_normalized": "1.29.2.0",
             "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "package": "channelgrabber/amazon"
         },
@@ -11340,8 +11340,8 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.17.2",
-            "alias_normalized": "1.17.2.0",
+            "alias": "1.17.3",
+            "alias_normalized": "1.17.3.0",
             "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
             "package": "channelgrabber/product"
         },

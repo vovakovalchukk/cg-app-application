@@ -39,7 +39,7 @@ var actionCreators = (function() {
             }
         }
     };
-    
+
     return {
         getLinkedProducts: (productSkus) => {
             return async function(dispatch, getState) {
@@ -47,16 +47,14 @@ var actionCreators = (function() {
                 if (!state.accounts.getFeatures(state).linkedProducts) {
                     return;
                 }
-                
                 let skusToFindLinkedProductsFor = [];
                 if (!productSkus) {
                     skusToFindLinkedProductsFor = getSkusToFindLinkedProductsFor(state.products);
                 } else {
                     skusToFindLinkedProductsFor = productSkus;
                 }
-                
                 dispatch(fetchingProductLinksStart(skusToFindLinkedProductsFor));
-                
+
                 let formattedSkus = formatSkusForLinkApi(skusToFindLinkedProductsFor);
                 try {
                     let response = await getProductLinksRequest(formattedSkus);
