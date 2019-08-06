@@ -54,6 +54,8 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_GIFT_MESSAGE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_DISPATCHABLE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_MARKETPLACE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_PRINTED),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_EMAILED),
                     ]
                 ]
             ],
