@@ -11,6 +11,11 @@ define([
     domManipulator,
     Constants
 ) {
+    const measurementUnits = [
+        {title: 'mm', value: 'mm'},
+        {title: 'in', value: 'in'}
+    ];
+
     var PaperType = function() {
         ModuleAbstract.call(this);
         var storage = paperTypeStorage;
@@ -60,20 +65,21 @@ define([
             currentInverseCheckbox
         );
 
-        var currentMeasurementUnit = paperPage.getMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
-        let measurementUnits = [{}, {}];
-        measurementUnits[0].title = measurementUnits[0].value = 'mm';
-        measurementUnits[1].title = measurementUnits[1].value = 'in';
+        let currentMeasurementUnit = paperPage.getMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
+        this.populateMeasurementUnitSelect(currentMeasurementUnit);
+
+        this.paperTypeSelectionMade(currentPaperType, currentInverseCheckbox, true);
+    };
+
+    PaperType.prototype.populateMeasurementUnitSelect = function(selected) {
         domManipulator.populateCustomSelect(
             Constants.MEASUREMENT_UNIT_DROPDOWN_ID,
             measurementUnits,
-            currentMeasurementUnit,
+            selected,
             {
-                sizeClass: 'small',
+                sizeClass: 'small'
             }
         );
-
-        this.paperTypeSelectionMade(currentPaperType, currentInverseCheckbox, true);
     };
 
     PaperType.prototype.changePaperDimension = function(property, newValue) {
@@ -105,7 +111,6 @@ define([
             throw 'InvalidSelectionException: InvoiceDesigner/Template/Module/PaperType.selectionMade() received an id which does not exist';
         }
 
-
         // todo - guard clause selectedPaperType
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
         let paperPage = this.getTemplate().getPaperPage();
@@ -126,6 +131,10 @@ define([
             paperPage.set('inverse', isInverse, true);
             return;
         }
+
+        paperPage.setMeasurementUnit('mm');
+        this.populateMeasurementUnitSelect('mm');
+
         paperPage.setHeight(height);
         paperPage.setWidth(width);
         paperPage.setBackgroundImage(backgroundImage);

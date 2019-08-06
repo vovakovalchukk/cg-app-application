@@ -97,9 +97,9 @@ define([
             return this.get('measurementUnit');
         };
 
-        this.setMeasurementUnit = function(id)
+        this.setMeasurementUnit = function(value)
         {
-            this.set('measurementUnit', id);
+            this.set('measurementUnit', value);
             return this;
         };
 
