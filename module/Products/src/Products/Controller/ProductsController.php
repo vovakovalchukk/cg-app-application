@@ -4,6 +4,7 @@ namespace Products\Controller;
 use CG\Channel\ItemCondition\Map as ChannelItemConditionMap;
 use CG\Currency\Formatter as CurrencyFormatter;
 use CG\Ebay\Site\Map as EbaySiteMap;
+use CG\Etsy\Resource\Listing;
 use CG\FeatureFlags\Lookup\Service as FeatureFlagsService;
 use CG\Locale\CurrencyCode;
 use CG\Locale\DemoLink;
@@ -30,6 +31,7 @@ use Products\Stock\Settings\Service as StockSettingsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Settings\Controller\StockController;
 use Settings\PickList\Service as PickListService;
+use Settings\ListingTemplate\Service as ListingTemplateService;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -48,6 +50,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $viewModelFactory;
     /** @var ProductService */
     protected $productService;
+    /** @var ListingTemplateService */
+    protected $listingTemplateService;
     /** @var BulkActionsService */
     protected $bulkActionsService;
     /** @var Translator */
@@ -87,7 +91,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         CategoryService $categoryService,
         OrganisationUnitService $organisationUnitService,
         ProductListingService $productListingService,
-        PickListService $pickListService
+        PickListService $pickListService,
+        ListingTemplateService $listingTemplateService
     ) {
         $this->viewModelFactory = $viewModelFactory;
         $this->productService = $productService;
@@ -103,6 +108,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $this->organisationUnitService = $organisationUnitService;
         $this->productListingService = $productListingService;
         $this->pickListService = $pickListService;
+        $this->listingTemplateService = $listingTemplateService;
     }
 
     public function indexAction()
@@ -129,6 +135,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('searchTerm', $this->params()->fromQuery('search', ''));
         $view->setVariable('activeUserRootOu', $rootOuId);
         $view->setVariable('featureFlagJson', json_encode([
+            'listingTemplates' => $this->featureFlagService->featureEnabledForOu(
+                ListingTemplateService::FEATURE_FLAG,
+                $rootOuId,
+                $rootOu
+            ),
             'linkedProducts' => $this->featureFlagService->featureEnabledForOu(
                 ProductClientService::FEATURE_FLAG_LINKED_PRODUCTS,
                 $rootOuId,
