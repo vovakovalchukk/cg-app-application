@@ -81,10 +81,15 @@ class EbayChannelFormComponent extends React.Component {
         return selectedOption;
     };
     renderListingTemplatesField(listingTemplates, featureFlagEnabled) {
-        if(!featureFlagEnabled){
+        if(!featureFlagEnabled) {
             return null;
         }
-        return <Field name="listingTemplate" component={this.renderListingTemplateSelect} options={listingTemplates} displayTitle={"Listing Template"}/>;
+        return <Field
+            name="listingTemplate"
+            component={this.renderListingTemplateSelect}
+            options={listingTemplates}
+            displayTitle={"Listing Template"}
+        />;
     }
     renderListingTemplateSelect = (field) =>{
         return <label className="input-container">
