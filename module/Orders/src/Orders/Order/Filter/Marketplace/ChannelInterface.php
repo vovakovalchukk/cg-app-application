@@ -2,8 +2,12 @@
 namespace Orders\Order\Filter\Marketplace;
 
 use CG\Account\Shared\Entity as Account;
+use CG_UI\View\Filters\SelectOptions\TitleValue;
 
 interface ChannelInterface
 {
+    /**
+     * @return TitleValue[]
+     */
     public function __invoke(Account $account): array;
 }

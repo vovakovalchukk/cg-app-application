@@ -7,11 +7,11 @@ use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Filters\SelectOptionsInterface;
+use CG_UI\View\Filters\SelectOptionsAsTitleValuesInterface;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Filter\Marketplace\Channel\Factory as ChannelFactory;
 
-class Marketplace implements SelectOptionsInterface
+class Marketplace implements SelectOptionsAsTitleValuesInterface
 {
     /** @var AccountService */
     protected $accountService;
@@ -27,7 +27,10 @@ class Marketplace implements SelectOptionsInterface
         $this->channelFactory = $channelFactory;
     }
 
-    public function getSelectOptions()
+    /**
+     * @inheritDoc
+     */
+    public function getSelectOptionsAsTitleValues(): array
     {
         $options = [];
         $accounts = $this->fetchSalesAccounts();

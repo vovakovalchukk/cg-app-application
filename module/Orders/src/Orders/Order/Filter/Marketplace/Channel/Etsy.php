@@ -2,6 +2,7 @@
 namespace Orders\Order\Filter\Marketplace\Channel;
 
 use CG\Account\Shared\Entity as Account;
+use CG_UI\View\Filters\SelectOptions\TitleValue;
 use Orders\Order\Filter\Marketplace\ChannelInterface;
 
 class Etsy implements ChannelInterface
@@ -14,7 +15,7 @@ class Etsy implements ChannelInterface
             return $options;
         }
         foreach ($marketplaces as $id => $name) {
-            $options[$id] = 'Etsy ' . $name;
+            $options[] = new TitleValue('Etsy ' . $name, $id);
         }
         return $options;
     }
