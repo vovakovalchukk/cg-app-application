@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c8981b65a603c38ccd3f8b8d1af466e",
+    "content-hash": "af03c9635676da2f8c4f197dd48ff56d",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5046,16 +5046,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-453-template-designer-ui-changes-to-accomodate-changing-page-sizes-and-workable-area",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9167798f9450eb0473269f53a3ed301d9cf6ad09"
+                "reference": "d9bd6b30249599031c957c5069e510e1e68577fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-447-invoice-designer-improvements-253404.zip",
-                "reference": "9167798f9450eb0473269f53a3ed301d9cf6ad09",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-453-template-designer-ui-changes-to-accomodate-changing-page-sizes-and-workable-area-e195d3.zip",
+                "reference": "d9bd6b30249599031c957c5069e510e1e68577fe",
                 "shasum": null
             },
             "require": {
@@ -5107,7 +5107,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-07-30T15:06:57+00:00"
+            "time": "2019-08-06T08:59:20+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11454,7 +11454,7 @@
         {
             "alias": "1.26.18",
             "alias_normalized": "1.26.18.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-453-template-designer-ui-changes-to-accomodate-changing-page-sizes-and-workable-area",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
