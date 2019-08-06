@@ -2095,12 +2095,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "58465bb54094ff9f869ef1a29138863c079c8740"
+                "reference": "2664fa4d0c4efddc7886ca5ecb654112f7bf8d00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-21-order-filters-for-site-printed-emailed-181988.zip",
-                "reference": "58465bb54094ff9f869ef1a29138863c079c8740"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-21-order-filters-for-site-printed-emailed-211c6c.zip",
+                "reference": "2664fa4d0c4efddc7886ca5ecb654112f7bf8d00"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2174,7 +2174,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-08-06T11:47:29+00:00"
+            "time": "2019-08-06T12:54:46+00:00"
         },
         {
             "name": "channelgrabber/partner",

@@ -43,6 +43,7 @@ class Service
     const FILTER_ORDER_PRINTED = 'orderIsPrinted';
     const FILTER_ORDER_EMAILED = 'orderIsEmailed';
     const FILTER_ORDER_LABEL_PRINTED = 'orderLabelIsPrinted';
+    const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
 
     static protected function getOrderFilters()
     {
@@ -507,6 +508,28 @@ class Service
                             'value' => false,
                             'title' => 'No',
                             'selected' => true
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_HAS_CUSTOMISATION => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'hasCustomisation',
+                    'title' => 'Has Customisations',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes',
+                            'selected' => true
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No'
                         ],
                     ]
                 ],
