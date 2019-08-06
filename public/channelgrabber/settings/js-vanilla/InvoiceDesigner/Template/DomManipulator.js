@@ -91,22 +91,6 @@ define([
     DomManipulator.prototype.setMarginValueToInput = function(selector, value){
         selector.value = value;
     };
-//
-//    DomManipulator.prototype.populatePaperTypeSelect = function(selectId, data, selectedValue) {
-//        const idWithHash = `#${selectId}`;
-//        const settings = {
-//            isOptional: $(idWithHash).hasClass("filter-optional"),
-//            name: $(idWithHash + " input:first").attr('name'),
-//            class: $(idWithHash + " input:first").attr('class'),
-//        };
-//        const formattedOptions = data.map(option => (
-//            {
-//                title: option.getName(),
-//                value: option.getId()
-//            }
-//        ));
-//        this.populateCustomSelect(selectId, formattedOptions, selectedValue, settings);
-//    };
 
     DomManipulator.prototype.populatePaperTypeSelect = function(selectId, data, selectedValue) {
           const idWithHash = `#${selectId}`;
@@ -141,11 +125,11 @@ define([
                 value,
                 selected: ((!selectedValue && index === 0) || value === selectedValue)
             }));
-        };
+        }
 
         function renderNewSelect (template, cgmustache) {
             container.innerHTML = cgmustache.renderTemplate(template, view);
-        };
+        }
     };
 
     DomManipulator.prototype.enable = function(selector)

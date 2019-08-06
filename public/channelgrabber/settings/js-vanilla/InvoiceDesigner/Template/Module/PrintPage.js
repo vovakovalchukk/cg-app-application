@@ -37,9 +37,6 @@ define([
 
     PrintPage.prototype.init = function(template, templateService) {
         ModuleAbstract.prototype.init.call(this, template, templateService);
-        $(document).on(domManipulator.getTemplateInitialisedEvent(), (event, template) => {
-//            this.initialiseMarginIndicatorElement(event, template)
-        });
         this.initialiseMarginInputs(template);
     };
 

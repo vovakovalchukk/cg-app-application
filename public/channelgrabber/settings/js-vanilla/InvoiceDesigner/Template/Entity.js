@@ -18,7 +18,6 @@ define([
         let stateId;
         let paperPage;
         let printPage;
-        let initialised;
 
         // Member vars to watch for changes
         var data = {
@@ -152,10 +151,6 @@ define([
         {
             stateId = newStateId;
             return this;
-        };
-
-        this.setInitialised = function(){
-            initialised = true;
         };
 
         this.isEditable = function()
