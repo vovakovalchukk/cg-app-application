@@ -10,7 +10,10 @@ use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Template\Collection as TemplateCollection;
 use CG\Template\Entity as Template;
+use CG\Template\Filter as TemplateFilter;
+use CG\Template\Service as TemplateService;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
@@ -30,10 +33,13 @@ use Settings\Controller\InvoiceController as InvoiceSettings;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+use function CG\Stdlib\mergePdfData;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const DEFAULT_INVOICE_ID = 'defaultInvoice';
 
     const TYPE_ORDER_IDS = 'orderIds';
     const TYPE_ORDER_IDS_LINKED = 'orderIdsLinked';
@@ -67,6 +73,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $invoiceSettingsService;
     /** @var InvoiceEmailAddress $invoiceEmailAddress */
     protected $invoiceEmailAddress;
+    /** @var TemplateService */
+    protected $templateService;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS        => 'getOrdersFromInput',
@@ -86,7 +94,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         TimelineService $timelineService,
         BulkActionsService $bulkActionService,
         InvoiceSettingsService $invoiceSettingsService,
-        InvoiceEmailAddress $invoiceEmailAddress
+        InvoiceEmailAddress $invoiceEmailAddress,
+        TemplateService $templateService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -101,6 +110,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->invoiceSettingsService = $invoiceSettingsService;
         $this->invoiceEmailAddress = $invoiceEmailAddress;
         $this->bulkActionService = $bulkActionService;
+        $this->templateService = $templateService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -344,6 +354,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->invoiceOrderIdsAction('itemSku');
     }
 
+    public function invoiceOrderIdsByTitleAction()
+    {
+        return $this->invoiceOrderIdsAction('itemTitle');
+    }
+
     public function emailInvoiceAction()
     {
         return $this->performActionOnOrderIdsWithLinked(
@@ -367,6 +382,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceFilterIdBySkuAction()
     {
         return $this->invoiceFilterIdAction('itemSku');
+    }
+
+    public function invoiceFilterIdByTitleAction()
+    {
+        return $this->invoiceFilterIdAction('itemTitle');
     }
 
     public function emailInvoiceFilterAction()
@@ -854,6 +874,44 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         // Getting the orders will trigger the 'OrdersToOperatorOn' invokable which will save the filter
         $orders = $this->getOrdersFromInput();
         return $this->getJsonModelFactory()->newInstance(['filterId' => $orders->getFilterId()]);
+    }
+
+    public function pdfExportAction()
+    {
+        $this->checkUsage();
+        try {
+            $templateIds = $this->params()->fromPost('templateIds');
+            $progressKey = $this->getInvoiceProgressKey();
+            $templates = $this->fetchTemplatesByIds($templateIds);
+            $orders = $this->getOrdersFromInputWithLinked();
+            $pdf = $this->invoiceService->generatePdfsForOrders($orders, $templates, $progressKey);
+            if ($this->isDefaultInvoiceRequested($templateIds)) {
+                $defaultInvoicePdf = $this->invoiceService->generateInvoicesForOrders($orders, null, $progressKey);
+                $pdf = mergePdfData([$defaultInvoicePdf, $pdf]);
+            }
+            $filename = date('Y-m-d Hi') . ' documents.pdf';
+            return new FileResponse('application/pdf', $filename, $pdf);
+        } catch (NotFound $exception) {
+            throw new \RuntimeException('No orders were found to generate PDFs for', $exception->getCode(), $exception);
+        }
+    }
+
+    protected function fetchTemplatesByIds(array $ids): TemplateCollection
+    {
+        try {
+            $filter = (new TemplateFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setId($ids);
+            return $this->templateService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new TemplateCollection(Template::class, 'empty');
+        }
+    }
+
+    protected function isDefaultInvoiceRequested(array $templateIds): bool
+    {
+        return in_array(static::DEFAULT_INVOICE_ID, $templateIds);
     }
 
     protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)

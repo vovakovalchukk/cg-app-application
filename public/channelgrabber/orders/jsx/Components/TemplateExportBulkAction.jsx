@@ -20,34 +20,34 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
     />);
 
     async function requestTemplateExport(templateIds) {
-        let orderIds = BulkActionService.getSelectedOrders();
+        let orders = BulkActionService.getSelectedOrders();
 
         if (!Array.isArray(templateIds) ||
-            !Array.isArray(orderIds) ||
+            !Array.isArray(orders) ||
             !templateIds.length ||
-            !orderIds.length
+            !orders.length
         ) {
             return;
         }
 
         let handleError = () => {
-            n.error('PDF could not be successfully downloaded.')
+            n.error('Documents could not be generated successfully.')
         };
 
         try {
-            n.notice('creating templates...');
+            n.notice('Generating documents...');
             let response = await fileDownload.downloadBlob({
                 url: '/orders/pdf-export',
                 desiredFilename: `${dateUtility.getCurrentDate()}.pdf`,
                 data: {
-                    orderIds,
+                    orders,
                     templateIds
                 }
             });
             if (response.status !== 200) {
                 return handleError();
             }
-            n.success('PDF has been successfully downloaded.');
+            n.success('Documents generated successfully.');
         } catch (err) {
             handleError();
         }

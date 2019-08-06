@@ -17,6 +17,7 @@ use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Template\Type as TemplateType;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -134,11 +135,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function indexAction()
     {
         $invoiceSettings = $this->invoiceSettings->getSettings();
-        $existingInvoices = $this->invoiceSettings->getExistingInvoicesForView();
+        $existingTemplates = $this->invoiceSettings->getExistingTemplatesForView();
 
         return $this->viewModelFactory->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
-            ->setVariable('invoiceData', json_encode($existingInvoices))
+            ->setVariable('existingTemplates', $existingTemplates)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
@@ -268,6 +269,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
         $view->setVariable('measurementUnitDropdownId', static::MEASUREMENT_UNIT_DROPDOWN_ID);
         $view->setVariable('showToPdfButton', $showToPdfButton);
+        $view->setVariable('typeOptions', TemplateType::getTypeOptions());
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
 
@@ -301,35 +303,52 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function deleteTemplateAction()
     {
-        //todo to be replaced with actual functionality as part of TAC-350
         $templateId = $this->params()->fromPost('templateId');
+        $template = $this->templateService->fetch($templateId);
+        $this->templateService->remove($template);
         $response = $this->getJsonModelFactory()->newInstance([
             'success' => true,
-            "message" => 'You have successfully deleted your template.'
+            'message' => 'Template deleted successfully.'
         ]);
         return $response;
     }
 
     public function addFavouriteAction()
     {
-        //todo to be replaced with actual functionality as part of TAC-350
-        $templateId = $this->params()->fromPost('templateId');
-        $response = $this->getJsonModelFactory()->newInstance([
-            'success' => true,
-            "message" => "You have successfully added your template as a favourite."
-        ]);
-        return $response;
+        return $this->toggleFavourite(true);
     }
 
     public function removeFavouriteAction()
     {
-        //todo to be replaced with actual functionality as part of TAC-350
-        $templateId = $this->params()->fromPost('templateId');
-        $response = $this->getJsonModelFactory()->newInstance([
-            'success' => true,
-            "message" => "You have successfully removed your template as a favourite."
-        ]);
-        return $response;
+        return $this->toggleFavourite(false);
+    }
+
+    protected function toggleFavourite(bool $favourite): ViewModel
+    {
+        $text = $favourite ? 'added' : 'removed';
+        $response = ['success' => false, 'message' => ''];
+        try {
+            $template = $this->templateService->fetch($this->params()->fromPost('templateId'));
+            $template->setFavourite($favourite);
+            $this->templateService->save($template);
+            $response = [
+                'success' => true,
+                'message' => 'Template successfully ' . $text . ' as a favourite.'
+            ];
+        } catch (NotModified $e) {
+            // No-op
+            $response = [
+                'success' => true,
+                'message' => 'Template already ' . $text . ' as a favourite.'
+            ];
+        } catch (\Exception $e) {
+            $this->logErrorException($e, 'Error: template not ' . $text . ' as favourite', [], static::ROUTE_ADD_FAVOURITE);
+            $response = [
+                'success' => true,
+                'message' => 'There was a problem, template has not been ' . $text . ' as a favourite.'
+            ];
+        }
+        return $this->getJsonModelFactory()->newInstance($response);
     }
 
     public function getUserAmazonAccountSite(){

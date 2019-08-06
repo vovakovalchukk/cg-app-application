@@ -2468,9 +2468,9 @@ ccount@^1.0.3:
   resolved "https://registry.yarnpkg.com/ccount/-/ccount-1.0.4.tgz#9cf2de494ca84060a2a8d2854edd6dfb0445f386"
   integrity sha512-fpZ81yYfzentuieinmGnphk0pLkOTMm6MZdVqwd77ROvhko6iujLNGrHH5E7utq3ygWklwfmwuG+A7P+NpqT6w==
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-448-invoice-designer-to-template-designer-ui-changes":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-450-invoice-designer-improvements-backend":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#a12d5bd1be27933e5eef3949a888b6de9fffdf48"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#2142b42375e4ba0738cb87614e382d09d0be7bf4"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"

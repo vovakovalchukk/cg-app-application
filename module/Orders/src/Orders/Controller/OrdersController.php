@@ -180,44 +180,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isSidebarVisible', $this->orderTableUserPreferences->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->orderTableUserPreferences->isFilterBarVisible());
         $view->setVariable('filterNames', $this->uiFiltersService->getFilterNames(static::FILTER_TYPE));
-
-        // todo - rework this in TAC-450
-        $view->setVariable('pdfExportOptions', $this->getTemplateOptionsForPDFExport());
+        $view->setVariable('pdfExportOptions', $this->invoiceSettings->getTemplateOptions());
 
         return $view;
-    }
-
-    // todo - rework this in TAC-450
-    protected function getTemplateOptionsForPDFExport()
-    {
-        $invoices = $this->invoiceSettings->getInvoices();
-        $formatted = [];
-        foreach ($invoices as $key => $value)
-        {
-            $formatted[$key] = [
-                'id' => $key,
-                'name' => $value->getName(),
-                'favourite' => $key === 0
-            ];
-        }
-        return $formatted;
-    }
-
-    // todo - rework this in TAC-450
-    protected function pdfExportAction()
-    {
-        $orderIds = $this->params()->fromPost('orderIds');
-        $templateIds = $this->params()->fromPost('templateIds');
-
-        $mimeType = 'application/pdf';
-        $fileName = 'dummy.pdf';
-        $data = file_get_contents('dummy-template.pdf');
-
-        return new Response(
-            $mimeType,
-            $fileName,
-            $data
-        );
     }
 
     protected function getStatusFilters()
