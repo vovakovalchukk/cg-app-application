@@ -3,6 +3,7 @@ import {Field} from 'redux-form';
 import CurrencyInput from 'Common/Components/CurrencyInput';
 import VariationTable from './VariationTable';
 import Validators from '../../Validators';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 class ProductPriceComponent extends React.Component {
     static defaultProps = {
@@ -27,15 +28,17 @@ class ProductPriceComponent extends React.Component {
 
     setTouchedPricesFromInitialPrices = (props) => {
         var touchedPrices = {};
-
         props.accounts.map(function(account) {
             var touchedPricesForAccount = {};
             props.variationsDataForProduct.map(function(variation) {
                 var isTouched = false;
-                if (props.initialPrices[variation.id] && props.initialPrices[variation.id][account.id]) {
+
+                let formattedId = fieldService.getVariationIdWithPrefix(variation.id);
+
+                if (props.initialPrices[formattedId] && props.initialPrices[formattedId][account.id]) {
                     isTouched = true;
                 }
-                touchedPricesForAccount[variation.id] = isTouched;
+                touchedPricesForAccount[formattedId] = isTouched;
             });
             touchedPrices[account.id] = touchedPricesForAccount
         });
@@ -57,17 +60,17 @@ class ProductPriceComponent extends React.Component {
     };
 
     renderPriceColumns = (variation) => {
-        return this.props.accounts.map(function (account) {
+        return this.props.accounts.map(account => {
             return (<td>
                 <Field
-                    name={"prices." + variation.id + "." + account.id}
+                    name={`prices.${fieldService.getVariationIdWithPrefix(variation.id)}.${account.id}`}
                     component={this.renderInputComponent}
                     sku={variation.sku}
                     accountId={account.id}
                     validate={Validators.required}
                 />
             </td>)
-        }.bind(this));
+        });
     };
 
     renderInputComponent = (field) => {
@@ -91,7 +94,7 @@ class ProductPriceComponent extends React.Component {
     };
 
     copyPriceFromFirstRowToUntouchedRows = (accountId, sku, value) => {
-        this.props.variationsDataForProduct.map(function (variation) {
+        this.props.variationsDataForProduct.map(variation => {
             if (sku == variation.sku) {
                 return;
             }
@@ -100,8 +103,8 @@ class ProductPriceComponent extends React.Component {
                 && this.state.touchedPrices[accountId][variation.sku]) {
                 return;
             }
-            this.props.change("prices." + variation.id + "." + accountId, value);
-        }.bind(this));
+            this.props.change("prices." + fieldService.getVariationIdWithPrefix(variation.id) + "." + accountId, value);
+        });
     };
 
     isFirstVariationRow = (sku) => {

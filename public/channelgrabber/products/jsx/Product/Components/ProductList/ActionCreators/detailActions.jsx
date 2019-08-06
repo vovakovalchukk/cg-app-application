@@ -75,6 +75,7 @@ async function setDetail(variation, detail, value) {
         dataType: 'json',
         data: {
             id: variation.details.id,
+            productId: variation.id,
             detail: detail,
             value: value,
             sku: variation.sku

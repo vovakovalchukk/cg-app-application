@@ -362,7 +362,12 @@ class Service implements
 
     protected function getVariationsEnabledFromEbayCategoryData(?Data $ebayData): bool
     {
-        return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
+        try {
+            return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
+        } catch (\InvalidArgumentException $e) {
+            $this->logWarningException($e);
+            return false;
+        }
     }
 
     protected function getItemSpecificsFromEbayCategoryData(?Data $ebayData): array
