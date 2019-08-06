@@ -42,6 +42,7 @@ class Service
     const FILTER_ORDER_MARKETPLACE = 'orderMarketplace';
     const FILTER_ORDER_PRINTED = 'orderIsPrinted';
     const FILTER_ORDER_EMAILED = 'orderIsEmailed';
+    const FILTER_ORDER_LABEL_PRINTED = 'orderLabelIsPrinted';
 
     static protected function getOrderFilters()
     {
@@ -473,6 +474,28 @@ class Service
                     'isBoolean' => true,
                     'name' => 'invoiceEmailed',
                     'title' => 'Invoice Emailed',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes'
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No',
+                            'selected' => true
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_LABEL_PRINTED => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'labelPrinted',
+                    'title' => 'Label Printed',
                     'isOptional' => true,
                     'emptyValue' => true,
                     'options' => [

@@ -56,6 +56,7 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_MARKETPLACE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_PRINTED),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_EMAILED),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_LABEL_PRINTED),
                     ]
                 ]
             ],
