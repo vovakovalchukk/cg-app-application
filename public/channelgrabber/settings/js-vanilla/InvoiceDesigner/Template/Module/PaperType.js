@@ -59,6 +59,7 @@ define([
         );
 
         let currentMeasurementUnit = paperPage.getMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
+        paperPage.setMeasurementUnit(currentMeasurementUnit, true);
         this.populateMeasurementUnitSelect(currentMeasurementUnit);
 
         this.paperTypeSelectionMade(currentPaperType, true);
@@ -109,10 +110,8 @@ define([
         let width = selectedPaperType.getWidth();
         let paperTypeId = selectedPaperType.getId()
 
-        //todo - set values of input
         setPaperDimensionFields({height, width});
 
-        //todo - move these setters somewhere else ... setProp that looks at initialise
         if (initialise) {
             paperPage.set('height', height, true);
             paperPage.set('width', width, true);
