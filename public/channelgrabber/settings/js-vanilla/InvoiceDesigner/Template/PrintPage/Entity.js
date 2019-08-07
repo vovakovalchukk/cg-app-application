@@ -123,14 +123,6 @@ define([
             let marginIndicatorElement = document.createElement('div');
             marginIndicatorElement.id = 'templateMarginIndicator';
             marginIndicatorElement.className = 'template-margin-indicator-element';
-            marginIndicatorElement.style.position = 'absolute';
-            marginIndicatorElement.style.width = '100%';
-            marginIndicatorElement.style.height = '100%';
-            marginIndicatorElement.style.border = '2px dashed red';
-            marginIndicatorElement.style.boxSizing = 'border-box';
-            marginIndicatorElement.style.zIndex = 100;
-            marginIndicatorElement.style.pointerEvents = 'none';
-
             marginIndicatorElement.style.visibility = visibility ? 'visible' : 'hidden';
             return marginIndicatorElement;
         };
