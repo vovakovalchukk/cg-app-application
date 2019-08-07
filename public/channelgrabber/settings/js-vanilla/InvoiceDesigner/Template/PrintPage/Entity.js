@@ -7,7 +7,6 @@ define([
     EntityHydrateAbstract,
     PubSubAbstract
 ) {
-
     const MARGIN_TO_DIMENSION = {
         top: 'height',
         bottom: 'height',
@@ -38,20 +37,6 @@ define([
             return data;
         };
 
-        this.setVisibilityFromData = function(data) {
-            for (let direction in data.margin) {
-                if (!data.margin[direction]) {
-                    continue;
-                }
-                this.setVisibility(true);
-                break;
-            }
-        };
-
-        this.setVisibility = function(value){
-            data.visibility = value;
-        };
-
         this.render = function(template, templatePageElement) {
             let data = this.getData();
             this.setVisibilityFromData(data);
@@ -78,6 +63,20 @@ define([
             }
 
             this.setVisibility(false);
+        };
+
+        this.setVisibilityFromData = function(data) {
+            for (let direction in data.margin) {
+                if (!data.margin[direction]) {
+                    continue;
+                }
+                this.setVisibility(true);
+                break;
+            }
+        };
+
+        this.setVisibility = function(value){
+            data.visibility = value;
         };
 
         this.getNewDimensionValueFromMargin = function(direction, template){

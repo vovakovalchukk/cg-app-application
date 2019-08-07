@@ -20,21 +20,9 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'method' : 'POST',
             'dataType' : 'json',
             'async' : false,
-            'success' : function(data) {
-                let jsonTemplate = JSON.parse(data['template']);
-
-                //TODO - remove these hacks before PR
-                jsonTemplate.printPage = {
-                  margin: {
-                      top: 5,
-                      bottom: 10,
-                      left: 15,
-                      right: 20,
-                  }
-                };
-                jsonTemplate.paperPage.measurementUnit = "mm";
-
-                template = self.getMapper().fromJson(jsonTemplate);
+            'success' : function invoiceFetchSuccess(data) {
+                let templateData = JSON.parse(data['template']);
+                template = self.getMapper().fromJson(templateData);
             },
             'error' : function () {
                 throw 'Unable to load template';

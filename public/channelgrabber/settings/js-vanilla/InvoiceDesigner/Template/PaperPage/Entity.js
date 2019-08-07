@@ -73,9 +73,9 @@ define([
             return this.get('measurementUnit');
         };
 
-        this.setMeasurementUnit = function(value)
+        this.setMeasurementUnit = function(value, populating)
         {
-            this.set('measurementUnit', value);
+            this.set('measurementUnit', value, populating);
             return this;
         };
 

@@ -44,7 +44,7 @@ define([
         let printPage = template.getPrintPage();
         let marginValues = printPage.getData().margin;
         let inputs = this.getDomListener().getInputs();
-        for(let marginDirection in marginValues){
+        for (let marginDirection in marginValues) {
             domManipulator.setMarginValueToInput(inputs[marginDirection], marginValues[marginDirection]);
         }
     };
@@ -61,6 +61,5 @@ define([
     };
 
     return new PrintPage();
-
 
 });

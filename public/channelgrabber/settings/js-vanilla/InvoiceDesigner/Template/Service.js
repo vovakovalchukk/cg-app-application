@@ -184,7 +184,6 @@ define([
         return template;
     };
 
-
     Service.prototype.render = function(template)
     {
         const paperPage = template.getPaperPage();
