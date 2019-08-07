@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks)
+    var Entity = function (searchTerm, parentProductId, id, sku, skuThatProductsCantLinkFrom, limit, replaceVariationWithParent, embedVariationsAsLinks, embeddedDataToReturn)
     {
         this.page = 1;
         this.searchTerm = searchTerm;
@@ -11,6 +11,7 @@ define([
         this.limit = limit;
         this.replaceVariationWithParent = replaceVariationWithParent;
         this.embedVariationsAsLinks = embedVariationsAsLinks;
+        this.embeddedDataToReturn = embeddedDataToReturn;
 
         this.getSkuThatProductsCantLinkFrom = function() {
             return this.skuThatProductsCantLinkFrom;
@@ -46,12 +47,12 @@ define([
             this.page = newPage;
             return this;
         };
-        
+
         this.getLimit = function()
         {
             return this.limit;
         };
-        
+
         this.setLimit = function(newLimit)
         {
             this.limit = newLimit;
@@ -71,6 +72,17 @@ define([
         this.getEmbedVariationsAsLinks = function()
         {
             return this.embedVariationsAsLinks;
+        }
+
+        this.getEmbeddedDataToReturn = function()
+        {
+            return this.embeddedDataToReturn;
+        }
+
+        this.setEmbeddedDataToReturn = function(embeddedDataToReturn)
+        {
+            this.embeddedDataToReturn = embeddedDataToReturn;
+            return this;
         }
     };
 
@@ -99,7 +111,7 @@ define([
         if (sku) {
             object['sku'] = sku;
         }
-        
+
         let limit = this.getLimit();
         if(limit){
             object["limit"] = limit;
@@ -115,6 +127,11 @@ define([
 
         if (typeof this.getEmbedVariationsAsLinks() === 'boolean') {
             object['embedVariationsAsLinks'] = this.getEmbedVariationsAsLinks();
+        }
+
+        let embeddedDataToReturn = this.getEmbeddedDataToReturn();
+        if (Array.isArray(embeddedDataToReturn) && embeddedDataToReturn !== []) {
+            object['embeddedDataToReturn'] = embeddedDataToReturn;
         }
 
         return object;

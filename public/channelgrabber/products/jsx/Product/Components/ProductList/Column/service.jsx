@@ -188,26 +188,27 @@ function generateVatColumns(vat) {
 }
 
 function generateFulfilmentLatencyColumnsFromAccounts(accounts) {
-    if (typeof accounts === "string") {
-        return [];
-    }
-
-    let amazonAccounts = Object.keys(accounts).filter(accountKey => {
-        let account = accounts[accountKey];
-        return account.type.includes('sales') && account.channel === 'amazon';
-    });
-
-    if (amazonAccounts.length <= 0) {
-        return [];
-    }
-
-    return [{
-        key: 'fulfillmentLatency',
-        width: 80,
-        headerText: 'Fulfilment Latency',
-        fixed: false,
-        align: 'center'
-    }];
+    return [];
+    // if (typeof accounts === "string") {
+    //     return [];
+    // }
+    //
+    // let amazonAccounts = Object.keys(accounts).filter(accountKey => {
+    //     let account = accounts[accountKey];
+    //     return account.type.includes('sales') && account.channel === 'amazon';
+    // });
+    //
+    // if (amazonAccounts.length <= 0) {
+    //     return [];
+    // }
+    //
+    // return [{
+    //     key: 'fulfillmentLatency',
+    //     width: 80,
+    //     headerText: 'Fulfilment Latency',
+    //     fixed: false,
+    //     align: 'center'
+    // }];
 }
 
 function generateListingsColumnsFromAccounts(accounts) {
