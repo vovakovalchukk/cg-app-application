@@ -12,5 +12,6 @@ export default {
     dimensions: 'dimensions',
     lowStock: 'lowStock',
     pickingLocation: 'pickingLocation',
-    cost: 'cost'
+    cost: 'cost',
+    fulfillmentLatency: 'fulfillmentLatency'
 };
