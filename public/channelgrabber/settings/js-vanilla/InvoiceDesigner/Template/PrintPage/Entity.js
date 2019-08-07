@@ -90,13 +90,25 @@ define([
         this.calculateHeightDimensionFromMargins = function(template){
             const paperPage = template.getPaperPage();
             const printPage = template.getPrintPage();
-            return paperPage.getHeight() - (printPage.getMargin("top") + printPage.getMargin("bottom"));
+
+            let margins = printPage.getData().margin;
+
+            let topMargin = margins.top ? margins.top : 0;
+            let bottomMargin = margins.bottom ? margins.bottom : 0;
+
+            return paperPage.getHeight() - (topMargin + bottomMargin);
         };
 
         this.calculateWidthDimensionFromMargins = function(template){
             const paperPage = template.getPaperPage();
             const printPage = template.getPrintPage();
-            return paperPage.getWidth() - (printPage.getMargin("left") + printPage.getMargin("right"))
+
+            let margins = printPage.getData().margin;
+
+            let leftMargin = margins.left ? margins.left : 0;
+            let rightMargin = margins.right ? margins.right : 0;
+
+            return paperPage.getWidth() - (leftMargin + rightMargin)
         };
 
         this.setMarginIndicatorElement = function(element) {
@@ -142,10 +154,6 @@ define([
             let newMarginState = Object.assign({}, data.margin);
             newMarginState[direction] = value;
             this.set("margin", newMarginState);
-        };
-
-        this.getMargin = function(direction) {
-            return data.margin[direction];
         };
 
         this.setDimension = function(template, dimension, value) {
