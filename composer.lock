@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "56840b59bb2d46756bbb11ec961a4df5",
+    "content-hash": "4241415c1df92135e59794cd48470923",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.29.1",
+            "version": "1.29.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8a31fc2b2ca2845435d5c7fa18575be104ceb230"
+                "reference": "253828709c99e2bcdd5cd5a6bb9f084184610603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.1-e068f3.zip",
-                "reference": "8a31fc2b2ca2845435d5c7fa18575be104ceb230",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.2-8fafb1.zip",
+                "reference": "253828709c99e2bcdd5cd5a6bb9f084184610603",
                 "shasum": null
             },
             "require": {
@@ -367,7 +367,7 @@
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/product": "^1.17.2",
+                "channelgrabber/product": "~1.17.2",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-08-01T13:15:01+00:00"
+            "time": "2019-08-01T15:24:33+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -11442,8 +11442,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.46.5",
-            "alias_normalized": "1.46.5.0",
+            "alias": "1.46.6",
+            "alias_normalized": "1.46.6.0",
             "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/order"
         },

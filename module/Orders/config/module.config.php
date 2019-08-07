@@ -460,6 +460,16 @@ return [
                             ]
                         ]
                     ],
+                    'unlink' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/unlink',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'unlinkOrder'
+                            ]
+                        ]
+                    ],
                     'dispatch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
