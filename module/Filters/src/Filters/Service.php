@@ -18,6 +18,7 @@ class Service
     const FILTER_ORDER_DATE_RANGE = 'orderDateRange';
     const FILTER_ORDER_STATUS = 'orderStatus';
     const FILTER_ORDER_SEARCH = 'orderSearch';
+    const FILTER_ORDER_SEARCH_FIELDS = 'orderSearchFields';
     const FILTER_ORDER_MORE = 'orderMoreButton';
     const FILTER_ORDER_BUTTONS = 'orderButtons';
     const FILTER_ORDER_BUTTON_APPLY = 'orderButtonApply';
@@ -102,6 +103,25 @@ class Service
                     'placeholder' => 'Search for...',
                     'class' => '',
                     'value' => ''
+                ],
+            ],
+            self::FILTER_ORDER_SEARCH_FIELDS => [
+                'filterType' => 'customSelectGroup',
+                'variables' => [
+                    'name' => 'searchField',
+                    'title' => 'Search Fields',
+                    'searchField' => true,
+                    'emptyTitle' => 'Select fields',
+                    'options' => [
+                        ['value' => 'order.externalId',         'title' => 'Order ID', 'selected' => true],
+                        ['value' => 'order.id',                 'title' => 'CG Order ID'],
+                        ['value' => 'item.itemSku',             'title' => 'SKU'],
+                        ['value' => 'item.itemName',            'title' => 'Product Name'],
+                        ['value' => 'billing.addressFullName',  'title' => 'Buyer Name'],
+                        ['value' => 'order.externalUsername',   'title' => 'Username'],
+                        ['value' => 'shipping.addressFullName', 'title' => 'Recipient Name'],
+                        ['value' => 'shipping.addressPostcode', 'title' => 'Postcode'],
+                    ]
                 ],
             ],
             self::FILTER_ORDER_MORE => [
