@@ -48,13 +48,13 @@ define([
 
             let storedHeightDimension = this.calculateHeightDimensionFromMargins(template);
             let storedWidthDimension = this.calculateWidthDimensionFromMargins(template);
-            let height =  storedHeightDimension ? storedHeightDimension : paperPage.getHeight();
-            let width =  storedWidthDimension ? storedWidthDimension : paperPage.getWidth();
+            let height = storedHeightDimension ? storedHeightDimension : paperPage.getHeight();
+            let width = storedWidthDimension ? storedWidthDimension : paperPage.getWidth();
 
             this.setDimension(template, "height", height);
-            this.setDimension(template,"width", width);
+            this.setDimension(template, "width", width);
 
-            for(let margin in data.margin){
+            for (let margin in data.margin) {
                 let marginValue = data.margin[margin];
                 let desiredValue = typeof marginValue === "number" ? marginValue : 0;
                 this.setMargin(template, margin, desiredValue, true);
