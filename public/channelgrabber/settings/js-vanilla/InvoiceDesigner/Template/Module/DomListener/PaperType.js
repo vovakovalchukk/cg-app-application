@@ -9,8 +9,7 @@ define([
     CustomSelect,
     Constants
 ) {
-
-    var PaperType = function()
+    let PaperType = function()
     {
         DomListenerAbstract.call(this);
     };
@@ -23,30 +22,24 @@ define([
 
     PaperType.prototype.init = function(module)
     {
-        var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
 
-        $(document).on('change', `#${Constants.PAPER_TYPE_DROPDOWN_ID}`, function(event, selectBox, id) {
-            self.getModule().paperTypeSelectionMade(id);
+        $(document).on('change', `#${Constants.PAPER_TYPE_DROPDOWN_ID}`, (event, selectBox, id) => {
+            this.getModule().paperTypeSelectionMade(id);
         });
 
-        $(document).on('change', `#${Constants.MEASUREMENT_UNIT_DROPDOWN_ID}`, function(event, selectBox, id) {
-            self.getModule().changeMeasurementUnit(id);
+        $(document).on('change', `#${Constants.MEASUREMENT_UNIT_DROPDOWN_ID}`, (event, selectBox, id) => {
+            this.getModule().changeMeasurementUnit(id);
         });
 
         $(document).on('change', `#${PaperType.HEIGHT_ID}`, (event) => {
             let desiredValue = event.target.value;
-            self.getModule().changePaperDimension("height", desiredValue);
+            this.getModule().changePaperDimension("height", desiredValue);
         });
 
         $(document).on('change', `#${PaperType.WIDTH_ID}`, (event) => {
             let desiredValue = event.target.value;
-            self.getModule().changePaperDimension("width", desiredValue);
-        });
-
-        $("#" + PaperType.CHECKBOX_ID).click(function() {
-            var selectedId = $("#" + PaperType.CONTAINER_ID + " input[type=hidden]").val();
-            self.getModule().paperTypeSelectionMade(selectedId);
+            this.getModule().changePaperDimension("width", desiredValue);
         });
     };
 
