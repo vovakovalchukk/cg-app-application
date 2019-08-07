@@ -12,6 +12,7 @@ define([
     'InvoiceDesigner/Template/Entity',
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/PrintPage/Entity',
+    'InvoiceDesigner/Template/TemplateType/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper'
 ], function(require)
 {
@@ -25,17 +26,25 @@ define([
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
     Mapper.PATH_TO_PRINT_PAGE_ENTITY = 'InvoiceDesigner/Template/PrintPage/Entity';
+    Mapper.PATH_TO_TEMPLATE_TYPE_ENTITY = 'InvoiceDesigner/Template/TemplateType/Entity';
 
     Mapper.prototype.createNewTemplate = function()
     {
         var TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
         var template = new TemplateClass();
+
         var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
         var paperPage = new PaperPageClass();
         template.setPaperPage(paperPage);
+
         var PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
         var printPage = new PrintPageClass();
         template.setPrintPage(printPage);
+
+        var TemplateTypeClass = require(Mapper.PATH_TO_TEMPLATE_TYPE_ENTITY);
+        var templateType = new TemplateTypeClass();
+        template.setTemplateType(templateType);
+
         return template;
     };
 
@@ -54,6 +63,11 @@ define([
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
+        debugger;
+        //
+        let templateType = template.getTemplateType();
+        this.hydrateTemplateTypeFromJson(templateType, {type: json.type}, populating);
+        template.setTemplateType(templateType).setEditable(!json.editable)
 
         let paperPage = template.getPaperPage();
         this.hydratePaperPageFromJson(paperPage, json.paperPage, populating);
@@ -91,6 +105,11 @@ define([
         }
         element.hydrate(elementData, populating);
         return element;
+    };
+
+    Mapper.prototype.hydrateTemplateTypeFromJson = function(templatePage, json, populating)
+    {
+        templatePage.hydrate(json, populating);
     };
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating)

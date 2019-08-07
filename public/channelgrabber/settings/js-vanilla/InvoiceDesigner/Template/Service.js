@@ -188,15 +188,18 @@ define([
     {
         const paperPage = template.getPaperPage();
         const printPage = template.getPrintPage();
+        const templateType = template.getTemplateType();
+
         const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
 
         let html = this.getMapper().toHtml(template);
         let domManipulator = this.getDomManipulator();
         domManipulator.insertTemplateHtml(html);
-
-        let templatePageElement = document.getElementById(templatePageElementId);
+        const templatePageElement = document.getElementById(templatePageElementId);
 
         printPage.render(template, templatePageElement);
+
+        templateType.render(template)
 
         return this;
     };
