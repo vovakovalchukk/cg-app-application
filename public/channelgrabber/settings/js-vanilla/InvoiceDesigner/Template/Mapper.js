@@ -55,13 +55,13 @@ define([
             template.addElement(element, populating);
         }
 
-        var paperPage = template.getPaperPage();
+        let paperPage = template.getPaperPage();
         this.hydratePaperPageFromJson(paperPage, json.paperPage, populating);
-        template.setPaperPage(paperPage).setEditable(!! json.editable);
+        template.setPaperPage(paperPage).setEditable(!!json.editable);
 
         let printPage = template.getPrintPage();
         this.hydratePrintPageFromJson(printPage, json.printPage, populating);
-        template.setPrintPage(printPage).setEditable(!! json.editable);
+        template.setPrintPage(printPage).setEditable(!!json.editable);
 
         return template;
     };

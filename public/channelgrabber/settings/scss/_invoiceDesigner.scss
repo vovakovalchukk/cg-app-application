@@ -344,6 +344,16 @@
     clear:both;
     margin-bottom: 8px;
 }
+.paper-type-dimensions-container {
+    float: left;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.paper-type-dimensions-input {
+    width: 45px;
+}
 .med-element {
     width: 100%;
     float: left;
@@ -367,20 +377,6 @@
     width: 94%;
     float: left;
     clear:both;
-}
-.paper-type-checkbox {
-  margin-bottom: 7px;
-}
-.paper-type-checkbox, .remove-blank-lines-checkbox, .show-vat-checkbox{
-    .std-checkbox {
-        left: -10px;
-    }
-    .checkbox_label {
-        left: 35px;
-    }
-}
-.paper-type-checkbox .checkbox_label {
-  top: 7px;
 }
 #heading-inspector {
     width: 100%;

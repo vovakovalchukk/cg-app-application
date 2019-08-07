@@ -88,27 +88,30 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.setMarginValueToInput = function(selector, value){
+    DomManipulator.prototype.setMarginValueToInput = function(selector, value) {
         selector.value = value;
     };
 
     DomManipulator.prototype.populatePaperTypeSelect = function(selectId, data, selectedValue) {
-          const idWithHash = `#${selectId}`;
-          const settings = {
-                isOptional: $(idWithHash).hasClass("filter-optional"),
-                name: $(idWithHash + " input:first").attr('name'),
-                class: $(idWithHash + " input:first").attr('class'),
-          };
-          const formattedOptions = data.map(option => (
-              {
-                  title: option.getName(),
-                  value: option.getId()
-              }
-          ));
-          this.populateCustomSelect(selectId, formattedOptions, selectedValue, settings);
+        const idWithHash = `#${selectId}`;
+        const settings = {
+            isOptional: $(idWithHash).hasClass("filter-optional"),
+            name: $(idWithHash + " input:first").attr('name'),
+            class: $(idWithHash + " input:first").attr('class')
+        };
+        const formattedOptions = data.map(option => (
+            {
+                title: option.getName(),
+                value: option.getId()
+            }
+        ));
+        this.populateCustomSelect(selectId, formattedOptions, selectedValue, settings);
     };
 
     DomManipulator.prototype.populateCustomSelect = function(selectId, options, selectedValue, settings) {
+        if (!Array.isArray(options)) {
+            return;
+        }
         let container = document.getElementById(selectId).parentNode;
 
         let view = {
@@ -127,7 +130,7 @@ define([
             }));
         }
 
-        function renderNewSelect (template, cgmustache) {
+        function renderNewSelect(template, cgmustache) {
             container.innerHTML = cgmustache.renderTemplate(template, view);
         }
     };
