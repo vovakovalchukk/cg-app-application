@@ -4,25 +4,13 @@
         {{> paperTypeSelect}}
     </div>
 
-    <!--todo - move these inline styled into classes (might not need the widths)-->
-    <div class="u-float-left" style="float:left; width:100%;">
-        <div class="u-flex-v-center" style="display:flex; align-items: center; justify-content: space-between">
-            <input id="paperWidth" type="number" class="inputbox" style="width:45px"/>
-            x
-            <input id="paperHeight" type="number" class="inputbox" style="width:45px"/>
+    <div class="paper-type-dimensions-container">
+        <input id="paperWidth" type="number" min="0" class="paper-type-dimensions-input inputbox" oninput="validity.valid||(value='');"/>
+        x
+        <input id="paperHeight" type="number" min="0" class="paper-type-dimensions-input inputbox" oninput="validity.valid||(value='');"/>
 
-            <div class="measurement-unit-select" style="position: relative;">
-                {{> measurementUnitSelect}}
-            </div>
-        </div>
-    </div>
-
-    <div class="paper-type-checkbox">
-        <div class="std-checkbox">
-            <input id="inverseLabelPosition" type="checkbox" value="inverseLabelPosition" name="check" {{#selected}} checked="checked"{{/selected}}/>
-            <label for="inverseLabelPosition">
-                <span class="checkbox_label">Inverse Label Position</span>
-            </label>
+        <div class="measurement-unit-select u-position-relative">
+            {{> measurementUnitSelect}}
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css', ['screen', 'print']); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() .'/cg-built/vendor/cg-common/dist/css/default.css', ['screen', 'print']) ?>
 <?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
 
@@ -12,7 +13,7 @@ $(document).ready(function() {
     require([
         'InvoiceDesigner/Application',
         'InvoiceDesigner/Template/Inspector/Text',
-        'InvoiceDesigner/Constants',
+        'InvoiceDesigner/Constants'
     ], function(
         designerApp,
         textInspector,
@@ -21,7 +22,7 @@ $(document).ready(function() {
         textInspector.setDataFieldOptions(<?=json_encode($dataFieldOptions);?>);
 
         Constants.MEASUREMENT_UNIT_DROPDOWN_ID = "<?= $measurementUnitDropdownId; ?>";
-        Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>"
+        Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>";
 
         designerApp.init(
             <?=$rootOuId;?>,
@@ -60,21 +61,24 @@ $(document).ready(function() {
                 <div class="heading-small">Page Print Margins</div>
                 <div>
                     <div class="printpage-fields-container">
-                    <span class="printpage-field-container">
-                        Top: <input id="printPageTopMargin" class="inputbox printpage-input" type="number"/>
-                    </span>
                         <span class="printpage-field-container">
-                        Bottom: <input id="printPageBottomMargin" class="inputbox printpage-input" type="number">
-                    </span>
+                            <label for="printPageTopMargin">Top: </label>
+                            <input id="printPageTopMargin" class="inputbox printpage-input" type="number" min="0" oninput="validity.valid||(value='');"/>
+                        </span>
                         <span class="printpage-field-container">
-                        Left: <input id="printPageLeftMargin" class="inputbox printpage-input" type="number"/>
-                    </span>
+                             <label for="printPageBottomMargin">Bottom: </label>
+                            <input id="printPageBottomMargin" class="inputbox printpage-input" type="number" min="0" oninput="validity.valid||(value='');"/>
+                        </span>
                         <span class="printpage-field-container">
-                        Right: <input id="printPageRightMargin" class="inputbox printpage-input" type="number">
-                    </span>
+                            <label for="printPageLeftMargin">Left: </label>
+                            <input id="printPageLeftMargin" class="inputbox printpage-input" type="number" min="0" oninput="validity.valid||(value='');"/>
+                        </span>
+                        <span class="printpage-field-container">
+                            <label for="printPageRightMargin">Right:</label>
+                            <input id="printPageRightMargin" class="inputbox printpage-input" type="number" min="0" oninput="validity.valid||(value='');"/>
+                        </span>
                     </div>
                 </div>
-
             </div>
 
             <div class="addInvoiceElement template-module">
