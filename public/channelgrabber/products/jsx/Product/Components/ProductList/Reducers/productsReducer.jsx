@@ -21,12 +21,13 @@ const {LINK_STATUSES, EXPAND_STATUSES} = constants;
 
 var ProductsReducer = reducerCreator(initialState, {
     "PRODUCTS_GET_REQUEST_SUCCESS": function(state, action) {
+        let productsWithListings = applyListingsToProducts(action.payload.products.slice(), action.payload.listings);
         let newState = Object.assign({}, state, {
             completeInitialLoads: {
                 simpleAndParentProducts: true
             },
-            simpleAndParentProducts: action.payload.products,
-            visibleRows: action.payload.products,
+            simpleAndParentProducts: productsWithListings,
+            visibleRows: productsWithListings,
             haveFetched: true,
             fetching: false
         });
@@ -55,6 +56,14 @@ var ProductsReducer = reducerCreator(initialState, {
         return newState;
     },
     "PRODUCT_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
+        let productsWithListings = applyListingsToProducts(action.payload.products.slice(), action.payload.listings);
+        let newVariationsByParent = Object.assign({}, state.variationsByParent, stateUtility.sortVariationsByParentId(productsWithListings));
+        let newState = Object.assign({}, state, {
+            variationsByParent: newVariationsByParent
+        });
+        return newState;
+    },
+    "PRODUCT_PREFETCHED_VARIATIONS_GET_REQUEST_SUCCESS": function(state, action) {
         let newVariationsByParent = Object.assign({}, state.variationsByParent, action.payload);
         let newState = Object.assign({}, state, {
             variationsByParent: newVariationsByParent
@@ -334,4 +343,23 @@ function fetchVariationsFromParents(state, products) {
         variationsByParent[product.id] = product.variations;
     }
     return variationsByParent;
+}
+
+function applyListingsToProducts(products, listings) {
+    let productsWithListings = [];
+    for (var index in products) {
+        let product = products[index];
+        product.listings = getListingsData(product, listings);
+        productsWithListings.push(product);
+    }
+    return productsWithListings;
+}
+
+function getListingsData(product, listings) {
+    let fullListingsData = {};
+    for (var index in product.listings) {
+        let listingId = listings[index].id;
+        fullListingsData[listingId] = Object.assign({}, product.listings[index], listings[index]);
+    }
+    return fullListingsData;
 }

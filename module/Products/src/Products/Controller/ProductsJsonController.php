@@ -13,6 +13,7 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Collection as Products;
 use CG\Product\Csv\Link\Service as ProductLinkCsvService;
 use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
@@ -162,6 +163,7 @@ class ProductsJsonController extends AbstractActionController
         $productsArray = [];
         try {
             $products = $this->productService->fetchProducts($requestFilter, $requestFilter->getLimit(), $requestFilter->getPage());
+            $listingsArray = $this->getListingsArrayFromProducts($products);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->fetchAccounts($organisationUnitIds);
             $accountsArray = $this->getAccountsIndexedById($accounts);
@@ -202,10 +204,12 @@ class ProductsJsonController extends AbstractActionController
             $accountsArray = [];
             $productSearchActive = false;
             $productSearchActiveForVariations = false;
+            $listingsArray = [];
         }
 
         $view
             ->setVariable('products', $productsArray)
+            ->setVariable('listings', $listingsArray)
             ->setVariable('accounts', $accountsArray)
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
@@ -245,6 +249,22 @@ class ProductsJsonController extends AbstractActionController
             ->setPage($page);
 
         return $requestFilter;
+    }
+
+    protected function getListingsArrayFromProducts(Products $products): array
+    {
+        $listings = [];
+        /** @var ProductEntity $product */
+        foreach ($products as $product) {
+            /** @var ListingEntity $listing */
+            foreach ($product->getListings() as $listing) {
+                if (isset($listings[$listing->getId()])) {
+                    continue;
+                }
+                $listings[$listing->getId()] = $listing->toArray();
+            }
+        }
+        return $listings;
     }
 
     protected function fetchAccounts($organisationUnitIds): AccountCollection
@@ -374,8 +394,9 @@ class ProductsJsonController extends AbstractActionController
         /** @var ListingEntity $listing */
         foreach ($productEntity->getListings() as $listing) {
             $id = $listing->getId();
-            $listingData = $listing->toArray();
+            $listingData = [];
             $listingData['message'] = '';
+            $listingData['status'] = $listing->getStatus();
 
             $statusHistory = $listing->getStatusHistory();
             $statusHistory->rewind();

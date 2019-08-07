@@ -25,6 +25,12 @@ var actionCreators = (function() {
             payload: variationsByParent
         };
     };
+    const getProductPrefetchedVariationsRequestSuccess = (variationsByParent) => {
+        return {
+            type: 'PRODUCT_PREFETCHED_VARIATIONS_GET_REQUEST_SUCCESS',
+            payload: variationsByParent
+        };
+    };
     const expandProductSuccess = (productIdToExpand) => {
         return {
             type: 'PRODUCT_EXPAND_SUCCESS',
@@ -104,9 +110,8 @@ var actionCreators = (function() {
 
     const handleNewVariations = (data, productIds, dispatch, isMultipleProducts, shouldNotExpand) => {
         $('#products-loading-message').hide();
-        let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-        dispatch(getProductVariationsRequestSuccess(variationsByParent));
 
+        dispatch(getProductVariationsRequestSuccess(data));
         expandHandler(shouldNotExpand, isMultipleProducts, dispatch, productIds);
 
         let skusFromData = getSkusFromData(data);
@@ -169,7 +174,7 @@ var actionCreators = (function() {
                 );
                 filter.setPage(pageNumber);
                 filter.setLimit(getState.customGetters.getPaginationLimit());
-                filter.setEmbedVariationsAsLinks(false);
+                filter.setEmbedVariationsAsLinks(true);
 
                 if (searchTerm) {
                     filter.setEmbedVariationsAsLinks(false);
@@ -189,7 +194,7 @@ var actionCreators = (function() {
                 dispatch(nameActions.extractNamesFromProducts(data.products));
 
                 dispatch(getProductsSuccess(data));
-                dispatch(getVariationsFromProducts(data));
+                //dispatch(getVariationsFromProducts(data));
 
                 if (isExpandableSkuSearch(data, searchTerm)) {
                     handleSkuSpecificSearch(data, searchTerm, dispatch);
@@ -289,7 +294,7 @@ var actionCreators = (function() {
             });
         },
         dispatchExpandVariationWithoutAjaxRequest: async (dispatch, variationsByParent, productRowIdToExpand) => {
-            dispatch(getProductVariationsRequestSuccess(variationsByParent));
+            dispatch(getProductPrefetchedVariationsRequestSuccess(variationsByParent));
             dispatch(expandProductSuccess(productRowIdToExpand));
             let data = {
                 products: variationsByParent[productRowIdToExpand]
@@ -302,8 +307,7 @@ var actionCreators = (function() {
                 let filter = new ProductFilter(null, parentProductId);
                 let data = await AjaxHandler.fetchByFilter(filter);
 
-                let variationsByParent = stateUtility.sortVariationsByParentId(data.products);
-                dispatch(getProductVariationsRequestSuccess(variationsByParent));
+                dispatch(getProductVariationsRequestSuccess(data));
                 return data;
             }
         },

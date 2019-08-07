@@ -269,7 +269,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function appendChannelDetails(Product $product, array &$productDetails): void
     {
         foreach ($this->channelDetails as $details) {
-            $details->appendDetails($product->getId(), $productDetails);
+//            $details->appendDetails($product->getId(), $productDetails);
         }
     }
 
