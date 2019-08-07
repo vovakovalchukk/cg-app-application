@@ -24,7 +24,6 @@ define([
             module.save();
         });
         $(AddDiscardBar.DISCARD_TEMPLATE_SELECTOR).off('click').click(() => {
-            console.log('in discard')
             const module = this.getModule();
             module.discard();
         });

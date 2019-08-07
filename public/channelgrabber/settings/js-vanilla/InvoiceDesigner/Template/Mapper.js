@@ -41,7 +41,6 @@ define([
 
     Mapper.prototype.fromJson = function(json)
     {
-        console.log('in fromJSON');
         if (typeof json !== 'object') {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
@@ -96,9 +95,6 @@ define([
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating)
     {
-        console.log('in hydratePaperPageFromJson');
-        ////
-        
         json.width = Number(json.width).ptToMm();
         json.height = Number(json.height).ptToMm();
 
@@ -107,7 +103,6 @@ define([
 
     Mapper.prototype.hydratePrintPageFromJson = function(printPage, json, populating)
     {
-        console.log('in hydratePrintPageFromJson');
         printPage.hydrate(json, populating);
     };
 

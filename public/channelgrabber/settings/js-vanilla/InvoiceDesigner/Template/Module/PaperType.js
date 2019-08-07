@@ -86,7 +86,6 @@ define([
 
     PaperType.prototype.changeMeasurementUnit = function(value) {
         let paperPage = this.getTemplate().getPaperPage();
-        console.log('in changeMeasurementUnit')
         paperPage.setMeasurementUnit(value);
     };
 

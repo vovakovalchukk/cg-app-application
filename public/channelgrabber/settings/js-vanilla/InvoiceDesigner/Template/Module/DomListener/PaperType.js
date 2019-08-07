@@ -35,7 +35,6 @@ define([
         });
 
         $(document).on('change', `#${PaperType.HEIGHT_ID}`, (event) => {
-            console.log('in height change');
            let desiredValue = event.target.value;
            self.getModule().changePaperDimension("height", desiredValue);
         });
