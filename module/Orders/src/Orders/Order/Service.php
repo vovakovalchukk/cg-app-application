@@ -848,4 +848,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $event = new IntercomEvent($eventName, $this->getActiveUser()->getId());
         $this->intercomEventService->save($event);
     }
+
+    public function unlinkOrders(OrderCollection $orders): void
+    {
+        foreach ($orders as $order) {
+            $this->orderLinker->removeLinksPermenantly($order);
+        }
+    }
 }
