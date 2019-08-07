@@ -121,6 +121,7 @@ class Service
                         ['value' => 'order.externalUsername',   'title' => 'Username'],
                         ['value' => 'shipping.addressFullName', 'title' => 'Recipient Name'],
                         ['value' => 'shipping.addressPostcode', 'title' => 'Postcode'],
+                        ['value' => 'tracking.number',          'title' => 'Tracking Number'],
                     ]
                 ],
             ],
