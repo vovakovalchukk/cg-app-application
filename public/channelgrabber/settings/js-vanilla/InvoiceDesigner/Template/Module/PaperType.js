@@ -38,7 +38,6 @@ define([
     };
 
     PaperType.DEFAULT_PAPER_TYPE_ID = 1;
-    PaperType.PAPERTYPE_CHECKBOX = '#inverseLabelPosition';
     PaperType.DEFAULT_MEASUREMENT_UNIT = 'mm';
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
@@ -59,16 +58,10 @@ define([
             currentPaperType
         );
 
-        var currentInverseCheckbox = paperPage.getInverse();
-        domManipulator.changeCheckBoxState(
-            PaperType.PAPERTYPE_CHECKBOX,
-            currentInverseCheckbox
-        );
-
         let currentMeasurementUnit = paperPage.getMeasurementUnit() || PaperType.DEFAULT_MEASUREMENT_UNIT;
         this.populateMeasurementUnitSelect(currentMeasurementUnit);
 
-        this.paperTypeSelectionMade(currentPaperType, currentInverseCheckbox, true);
+        this.paperTypeSelectionMade(currentPaperType, true);
     };
 
     PaperType.prototype.populateMeasurementUnitSelect = function(selected) {
@@ -97,7 +90,7 @@ define([
         paperPage.setMeasurementUnit(value);
     };
 
-    PaperType.prototype.paperTypeSelectionMade = function(id, isInverse, initialise) {
+    PaperType.prototype.paperTypeSelectionMade = function(id, initialise) {
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
             if (paperType.getId() == id) {
@@ -111,8 +104,6 @@ define([
             throw 'InvalidSelectionException: InvoiceDesigner/Template/Module/PaperType.selectionMade() received an id which does not exist';
         }
 
-        // todo - guard clause selectedPaperType
-        var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
         let paperPage = this.getTemplate().getPaperPage();
 
         let height = selectedPaperType.getHeight();
@@ -126,9 +117,7 @@ define([
         if (initialise) {
             paperPage.set('height', height, true);
             paperPage.set('width', width, true);
-            paperPage.set('backgroundImage', backgroundImage, true);
             paperPage.set('paperType', paperTypeId, true);
-            paperPage.set('inverse', isInverse, true);
             return;
         }
 
@@ -137,9 +126,7 @@ define([
 
         paperPage.setHeight(height);
         paperPage.setWidth(width);
-        paperPage.setBackgroundImage(backgroundImage);
         paperPage.setPaperType(paperTypeId);
-        paperPage.setInverse(isInverse);
     };
 
     return new PaperType();

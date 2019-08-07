@@ -84,7 +84,6 @@ define([
     Service.FETCHED_STATE = 'fetchAndLoadModules';
     Service.DUPLICATED_STATE = 'fetchAndDuplicate';
     Service.CREATED_STATE = 'createForOu';
-    Service.INVERSE_CHECKBOX_ID = '#inverseLabelPosition';
 
     Service.prototype.fetch = function(id)
     {
@@ -142,7 +141,6 @@ define([
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template)
             .triggerTemplateSelectedEvent(template);
-        this.getDomManipulator().resetCheckbox(Service.INVERSE_CHECKBOX_ID);
 
         return template;
     };

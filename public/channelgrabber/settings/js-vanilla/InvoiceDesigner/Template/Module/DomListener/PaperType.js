@@ -16,7 +16,6 @@ define([
     };
 
     PaperType.CONTAINER_ID = 'paperTypeModule';
-    PaperType.CHECKBOX_ID = 'inverseLabelPosition';
     PaperType.HEIGHT_ID = 'paperHeight';
     PaperType.WIDTH_ID = 'paperWidth';
 
@@ -28,8 +27,7 @@ define([
         DomListenerAbstract.prototype.init.call(this, module);
 
         $(document).on('change', `#${Constants.PAPER_TYPE_DROPDOWN_ID}`, function (event, selectBox, id) {
-            var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().paperTypeSelectionMade(id, isInverse);
+            self.getModule().paperTypeSelectionMade(id);
         });
 
         $(document).on('change', `#${Constants.MEASUREMENT_UNIT_DROPDOWN_ID}`, function (event, selectBox, id) {
@@ -49,8 +47,7 @@ define([
 
         $("#" + PaperType.CHECKBOX_ID).click(function() {
             var selectedId = $("#" + PaperType.CONTAINER_ID + " input[type=hidden]").val();
-            var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().paperTypeSelectionMade(selectedId, isInverse);
+            self.getModule().paperTypeSelectionMade(selectedId);
         });
     };
 

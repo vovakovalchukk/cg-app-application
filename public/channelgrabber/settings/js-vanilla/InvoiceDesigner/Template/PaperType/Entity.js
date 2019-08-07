@@ -15,8 +15,6 @@ define([
             name: undefined,
             height: undefined,
             width: undefined,
-            backgroundImage: undefined,
-            backgroundImageInverse: undefined
         };
 
         this.getService = function()
@@ -66,28 +64,6 @@ define([
         this.getWidth = function()
         {
             return this.get('width');
-        }
-
-        this.getBackgroundImage = function()
-        {
-            return this.get('backgroundImage');
-        };
-
-        this.setBackgroundImage = function(newBackgroundImage)
-        {
-            this.set('backgroundImage', newBackgroundImage);
-            return this;
-        };
-
-        this.getBackgroundImageInverse = function()
-        {
-            return this.get('backgroundImageInverse');
-        }
-
-        this.setBackgroundImageInverse = function(newBackgroundImageInverse)
-        {
-            this.set('backgroundImageInverse', newBackgroundImageInverse);
-            return this;
         }
 
         this.get = function(field)

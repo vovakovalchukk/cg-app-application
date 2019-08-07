@@ -18,8 +18,6 @@ define([
             height: undefined,
             width: undefined,
             paperType: undefined,
-            backgroundImage: undefined,
-            inverse: undefined,
             measurementUnit: undefined
         };
 
@@ -34,17 +32,6 @@ define([
         this.setId = function(newId)
         {
             this.set('id', newId);
-            return this;
-        };
-
-        this.getInverse = function()
-        {
-            return this.get('inverse');
-        };
-
-        this.setInverse = function(inverse)
-        {
-            this.set('inverse', inverse);
             return this;
         };
 
@@ -78,17 +65,6 @@ define([
         this.setPaperType = function(newPaperType)
         {
             this.set('paperType', newPaperType);
-            return this;
-        };
-
-        this.getBackgroundImage = function()
-        {
-            return this.get('backgroundImage');
-        };
-
-        this.setBackgroundImage = function(newBackgroundImage)
-        {
-            this.set('backgroundImage', newBackgroundImage);
             return this;
         };
 

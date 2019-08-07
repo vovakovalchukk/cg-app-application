@@ -48,8 +48,7 @@ define([
         let measurementUnit = paperPage.getMeasurementUnit();
         var domStyles = [
             'width: '+paperPage.getWidth() + measurementUnit,
-            'height: '+paperPage.getHeight() + measurementUnit,
-            'background-image: url('+paperPage.getBackgroundImage()+')'
+            'height: '+paperPage.getHeight() + measurementUnit
         ];
         return domStyles;
     };
