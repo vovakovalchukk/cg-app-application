@@ -101,15 +101,7 @@ class Importer implements LoggerAwareInterface
 
     protected function importProduct(Importer\Status $status, $lineId, array $productLine)
     {
-        $errors = [];
-        foreach (static::HEADERS as $header => $validator) {
-            try {
-                $this->{$validator}($productLine[$header]);
-            } catch (\InvalidArgumentException $exception) {
-                $errors[$header] = $exception->getMessage();
-            }
-        }
-
+        $errors = $this->validateProductLine($productLine);
         if (!empty($errors)) {
             $status->lineFailed($lineId, $errors);
             return;
@@ -121,6 +113,19 @@ class Importer implements LoggerAwareInterface
         );
 
         $status->lineProcessed();
+    }
+
+    protected function validateProductLine(array $productLine): array
+    {
+        $errors = [];
+        foreach (static::HEADERS as $header => $validator) {
+            try {
+                $this->{$validator}($productLine[$header]);
+            } catch (\InvalidArgumentException $exception) {
+                $errors[$header] = $exception->getMessage();
+            }
+        }
+        return $errors;
     }
 
     protected function validateString(&$stringValue)
