@@ -19,6 +19,8 @@ class Importer implements LoggerAwareInterface
     public const HEADER_TITLE = 'Title';
     public const HEADER_SKU = 'SKU';
     public const HEADER_QTY = 'Stock Quantity';
+    public const HEADER_VARIATION_SET = 'Variation Set';
+    public const HEADER_VARIATION_ATTR_REGEX = '/^Variation:\s*(\S+.*)$/';
 
     protected const HEADERS = [
         self::HEADER_TITLE => 'validateString',
@@ -95,8 +97,23 @@ class Importer implements LoggerAwareInterface
                 $status->headerMissing($header);
             }
         }
+        if (in_array(static::HEADER_VARIATION_SET, $headers)) {
+            $hasMissingVariationHeaders = $this->validateVariationHeaders($status, $headers);
+            $hasMissingHeaders = ($hasMissingHeaders || $hasMissingVariationHeaders);
+        }
 
         return !$hasMissingHeaders;
+    }
+
+    protected function validateVariationHeaders(Importer\Status $status, array $headers): bool
+    {
+        foreach ($headers as $header) {
+            if (preg_match(static::HEADER_VARIATION_ATTR_REGEX, $header)) {
+                return true;
+            }
+        }
+        $status->headerMissing('Variation Name(s)');
+        return false;
     }
 
     protected function importProduct(Importer\Status $status, $lineId, array $productLine)
@@ -121,6 +138,31 @@ class Importer implements LoggerAwareInterface
         foreach (static::HEADERS as $header => $validator) {
             try {
                 $this->{$validator}($productLine[$header]);
+            } catch (\InvalidArgumentException $exception) {
+                $errors[$header] = $exception->getMessage();
+            }
+        }
+        if ($this->isVariationLine($productLine)) {
+            $variationErrors = $this->validateVariationLine($productLine);
+            $errors = array_merge($errors, $variationErrors);
+        }
+        return $errors;
+    }
+
+    protected function isVariationLine(array $productLine): bool
+    {
+        return (isset($productLine[static::HEADER_VARIATION_SET]) && trim($productLine[static::HEADER_VARIATION_SET]) != '');
+    }
+
+    protected function validateVariationLine(array $variationLine): array
+    {
+        $errors = [];
+        foreach ($variationLine as $header => $value) {
+            if ($header != static::HEADER_VARIATION_SET && !preg_match(static::HEADER_VARIATION_ATTR_REGEX, $header)) {
+                continue;
+            }
+            try {
+                $this->validateString($variationLine[$header]);
             } catch (\InvalidArgumentException $exception) {
                 $errors[$header] = $exception->getMessage();
             }
