@@ -18,7 +18,6 @@ define([
         let stateId;
         let paperPage;
         let printPage;
-        let templateType;
 
         // Member vars to watch for changes
         var data = {
@@ -39,18 +38,6 @@ define([
         this.getManipulator = function()
         {
             return manipulator;
-        };
-
-        this.getTemplateType = function()
-        {
-            return templateType;
-        };
-
-        this.setTemplateType = function(newTemplateType)
-        {
-            templateType = newTemplateType;
-            templateType.subscribe(this);
-            return this;
         };
 
         this.getPaperPage = function()

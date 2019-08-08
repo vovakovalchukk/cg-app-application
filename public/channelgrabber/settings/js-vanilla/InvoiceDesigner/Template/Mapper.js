@@ -25,7 +25,6 @@ define([
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
     Mapper.PATH_TO_PRINT_PAGE_ENTITY = 'InvoiceDesigner/Template/PrintPage/Entity';
-    Mapper.PATH_TO_TEMPLATE_TYPE_ENTITY = 'InvoiceDesigner/Template/TemplateType/Entity';
 
     Mapper.prototype.createNewTemplate = function()
     {
