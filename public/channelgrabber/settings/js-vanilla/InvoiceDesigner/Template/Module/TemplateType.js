@@ -45,7 +45,10 @@ define([
         domManipulator.populateCustomSelect(
             Constants.TEMPLATE_TYPE_DROPDOWN_ID,
             options,
-            selected
+            selected,
+            {
+                sizeClass: 'u-width-100pc'
+            }
         );
     };
 

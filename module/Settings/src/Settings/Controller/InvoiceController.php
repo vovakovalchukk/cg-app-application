@@ -689,9 +689,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             "isOptional" => false,
             "id" => static::TEMPLATE_TYPE_DROPDOWN_ID,
             "name" => static::TEMPLATE_TYPE_DROPDOWN_ID,
-            "sizeClass" => 'small',
-            //todo - maybe see if we can prepopulate with the above options. Doesn't really matter if not
-            "options" => []
+            "sizeClass" => 'u-width-100pc',
         ];
         $templateTypeDropdown = $this->viewModelFactory->newInstance($templateTypeDropdownConfig);
         $templateTypeDropdown->setTemplate('elements/custom-select.mustache');
