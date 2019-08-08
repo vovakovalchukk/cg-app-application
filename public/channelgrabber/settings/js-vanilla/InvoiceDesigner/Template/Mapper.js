@@ -63,8 +63,7 @@ define([
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
-        debugger;
-        //
+
         let templateType = template.getTemplateType();
         this.hydrateTemplateTypeFromJson(templateType, {type: json.type}, populating);
         template.setTemplateType(templateType).setEditable(!json.editable)

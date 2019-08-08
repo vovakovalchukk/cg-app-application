@@ -8,24 +8,14 @@ define([
     PubSubAbstract
 ) {
     let Entity = function() {
-        console.log('in TemplateTYPE eNTITY')
-//
-//        EntityHydrateAbstract.call(this);
+        EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
-
-        // todo - set default
-        let data = {
-            type: undefined
-        };
 
         this.getData = function(){
             return data;
         };
 
         this.render = function(template) {
-            console.log('in render');
-            
-            
             let data = this.getData();
         };
 

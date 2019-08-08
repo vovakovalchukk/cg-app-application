@@ -23,6 +23,8 @@ $(document).ready(function() {
 
         Constants.MEASUREMENT_UNIT_DROPDOWN_ID = "<?= $measurementUnitDropdownId; ?>";
         Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>";
+        Constants.TEMPLATE_TYPE_DROPDOWN_ID = "<?= $templateTypeDropdownId; ?>";
+        Constants.TEMPLATE_TYPE_OPTIONS = <?= json_encode($typeOptions);  ?>;
 
         designerApp.init(
             <?=$rootOuId;?>,
@@ -52,6 +54,13 @@ $(document).ready(function() {
                 <div class="heading-small"><?= $this->translate('Template Name'); ?></div>
                 <div class="template-inputbox-holder">
                     <?= $templateName; ?>
+                </div>
+            </div>
+
+            <div id="templateTypeModule" class="template-module">
+                <div class="heading-small"><?= $this->translate('Template Type'); ?></div>
+                <div>
+                    <?= $templateTypeDropdown ?>
                 </div>
             </div>
 

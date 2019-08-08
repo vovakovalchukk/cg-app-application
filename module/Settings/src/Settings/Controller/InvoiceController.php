@@ -58,6 +58,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
     const MEASUREMENT_UNIT_DROPDOWN_ID = "measurement-unit-dropdown";
+    const TEMPLATE_TYPE_DROPDOWN_ID = "template-type-dropdown";
 
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
 
@@ -268,10 +269,14 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
         $view->setVariable('measurementUnitDropdownId', static::MEASUREMENT_UNIT_DROPDOWN_ID);
+        $view->setVariable('templateTypeDropdownId', static::TEMPLATE_TYPE_DROPDOWN_ID);
+
         $view->setVariable('showToPdfButton', $showToPdfButton);
         $view->setVariable('typeOptions', TemplateType::getTypeOptions());
-
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
+
+        $templateTypeDropdown = $this->getTemplateTypeDropdown();
+        $view->addChild($templateTypeDropdown, 'templateTypeDropdown');
 
         $view->setVariable('dataFieldOptions', $this->orderTagManager->getAvailableTags());
 
@@ -676,5 +681,20 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function getTranslator()
     {
         return $this->translator;
+    }
+
+    protected function getTemplateTypeDropdown(): ViewModel
+    {
+        $templateTypeDropdownConfig = [
+            "isOptional" => false,
+            "id" => static::TEMPLATE_TYPE_DROPDOWN_ID,
+            "name" => static::TEMPLATE_TYPE_DROPDOWN_ID,
+            "sizeClass" => 'small',
+            //todo - maybe see if we can prepopulate with the above options. Doesn't really matter if not
+            "options" => []
+        ];
+        $templateTypeDropdown = $this->viewModelFactory->newInstance($templateTypeDropdownConfig);
+        $templateTypeDropdown->setTemplate('elements/custom-select.mustache');
+        return $templateTypeDropdown;
     }
 }

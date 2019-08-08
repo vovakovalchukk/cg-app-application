@@ -6,6 +6,7 @@ define([
     'InvoiceDesigner/Template/Element/MapperAbstract',
     // Template Module requires here
     'InvoiceDesigner/Template/Module/PaperType',
+    'InvoiceDesigner/Template/Module/TemplateType',
     'InvoiceDesigner/Template/Module/PrintPage',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
@@ -31,6 +32,7 @@ define([
         var modules = [
             // Template Modules require() paths here
             'InvoiceDesigner/Template/Module/PaperType',
+            'InvoiceDesigner/Template/Module/TemplateType',
             'InvoiceDesigner/Template/Module/PrintPage',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
