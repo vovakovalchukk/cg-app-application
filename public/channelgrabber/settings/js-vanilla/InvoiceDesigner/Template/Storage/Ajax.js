@@ -22,10 +22,6 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'async' : false,
             'success' : function invoiceFetchSuccess(data) {
                 let templateData = JSON.parse(data['template']);
-
-                //todo - remove this hack after testing type is set properly
-                templateData.type = 'picklist';
-//
                 template = self.getMapper().fromJson(templateData);
             },
             'error' : function () {
