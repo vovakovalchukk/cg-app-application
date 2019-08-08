@@ -6,13 +6,13 @@ use Products\Product\Importer;
 
 class Mapper
 {
-    public function importLineToUnimportedProduct(array $productLine): UnimportedProduct
+    public function importLineToUnimportedProduct(array $productLine, ?array $variations = []): UnimportedProduct
     {
         return new UnimportedProduct(
             $productLine[Importer::HEADER_TITLE],
             $productLine[Importer::HEADER_SKU],
             $productLine[Importer::HEADER_QTY],
-            $productLine[Importer::HEADER_VARIATION_SET] ?? null,
+            $variations,
             $this->importLineToVariationAttributes($productLine)
         );
     }

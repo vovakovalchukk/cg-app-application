@@ -2,6 +2,7 @@
 namespace Products\Product;
 
 use CG\Channel\Gearman\Generator\UnimportedProduct\Import as UnimportedProductImportGenerator;
+use CG\Product\Unimported\Entity as UnimportedProduct;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
@@ -58,34 +59,55 @@ class Importer implements LoggerAwareInterface
             $this->logDebug(static::LOG_MSG_IMPORT_STARTED, ['user' => $this->activeUser->getActiveUser()->getId()], static::LOG_CODE_IMPORT_STARTED);
 
             $headers = null;
-            foreach ($productIterator as $index => $productLine) {
-                $productLineArray = array_filter(str_getcsv($productLine) ?? []);
-                if (empty($productLineArray)) {
-                    continue;
-                }
-
+            $previousLine = null;
+            $variations = [];
+            foreach ($this->getValidCsvLines($productIterator) as $index => $productLine) {
                 if ($headers === null) {
-                    if (!$this->validateHeaders($status, $headers = $productLineArray)) {
+                    if (!$this->validateHeaders($status, $headers = $productLine)) {
                         break;
                     }
                     continue;
                 }
 
-                if (count($headers) < count($productLineArray)) {
-                    array_splice($productLineArray, count($headers));
+                $productLine = $this->normaliseProductLine($productLine, $headers);
+                $lineId = $index + 1;
+
+                if ($this->hasVariationSetChanged($productLine, $previousLine, $variations)) {
+                    $this->importProduct($status, $lineId - 1, $previousLine, $variations);
+                    $variations = [];
                 }
 
-                $this->importProduct(
-                    $status,
-                    $index + 1,
-                    array_combine($headers, array_pad($productLineArray, count($headers), ''))
-                );
+                if ($this->isVariationLine($productLine)) {
+                    $variations[] = $this->prepareVariation($status, $lineId, $productLine);
+                    $status->lineProcessed();
+                    $previousLine = $productLine;
+                    continue;
+                }
+
+                $this->importProduct($status, $lineId, $productLine);
+                $status->lineProcessed();
+                $previousLine = $productLine;
+            }
+            // Handle the last line being part of a variation set
+            if (!empty($variations)) {
+                $this->importProduct($status, $lineId, $productLine, $variations);
             }
         } finally {
             $this->logDebug(static::LOG_MSG_IMPORT_FINISHED . PHP_EOL . PHP_EOL . $status, ['user' => $this->activeUser->getActiveUser()->getId()], static::LOG_CODE_IMPORT_FINISHED);
             $this->removeGlobalLogEventParam('ou');
         }
         return $status;
+    }
+
+    protected function getValidCsvLines(iterable $productIterator): \Generator
+    {
+        foreach ($productIterator as $index => $productLine) {
+            $productLineArray = array_filter(str_getcsv($productLine) ?? []);
+            if (empty($productLineArray)) {
+                continue;
+            }
+            yield $productLineArray;
+        }
     }
 
     protected function validateHeaders(Importer\Status $status, array $headers): bool
@@ -116,7 +138,38 @@ class Importer implements LoggerAwareInterface
         return false;
     }
 
-    protected function importProduct(Importer\Status $status, $lineId, array $productLine)
+    protected function normaliseProductLine(array $productLine, array $headers): array
+    {
+        if (count($headers) < count($productLine)) {
+            array_splice($productLine, count($headers));
+        }
+        return array_combine($headers, array_pad($productLine, count($headers), ''));
+    }
+
+    protected function hasVariationSetChanged(array $productLine, ?array $previousLine, array $variations): bool
+    {
+        return ($previousLine && !empty($variations) && !$this->isSameVariationSet($productLine, $previousLine));
+    }
+
+    protected function isSameVariationSet(array $currentProductLine, array $previousProductLine): bool
+    {
+        return (
+            isset($currentProductLine[static::HEADER_VARIATION_SET]) &&
+            $currentProductLine[static::HEADER_VARIATION_SET] == $previousProductLine[static::HEADER_VARIATION_SET]
+        );
+    }
+
+    protected function prepareVariation(Importer\Status $status, $lineId, array $variationLine): UnimportedProduct
+    {
+        $errors = $this->validateProductLine($variationLine);
+        if (!empty($errors)) {
+            $status->lineFailed($lineId, $errors);
+            return;
+        }
+        return $this->mapper->importLineToUnimportedProduct($variationLine);
+    }
+
+    protected function importProduct(Importer\Status $status, $lineId, array $productLine, array $variations = []): void
     {
         $errors = $this->validateProductLine($productLine);
         if (!empty($errors)) {
@@ -126,10 +179,8 @@ class Importer implements LoggerAwareInterface
 
         ($this->unimportedProductImportGenerator)(
             $this->activeUser->getCompanyId(),
-            $this->mapper->importLineToUnimportedProduct($productLine)
+            $this->mapper->importLineToUnimportedProduct($productLine, $variations)
         );
-
-        $status->lineProcessed();
     }
 
     protected function validateProductLine(array $productLine): array
