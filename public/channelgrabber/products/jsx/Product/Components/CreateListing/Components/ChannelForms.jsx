@@ -2,11 +2,14 @@ import React from 'react';
 import {FormSection} from 'redux-form';
 import EbayForm from './ChannelForm/Ebay';
 import AmazonForm from './ChannelForm/Amazon';
+import {ProductContext} from "../../Root";
 
-const channelToFormMap = {
+const channelFormMap = {
     'ebay': EbayForm,
     'amazon': AmazonForm
 };
+
+let productContextProps = null;
 
 class ChannelFormsComponent extends React.Component {
     static defaultProps = {
@@ -21,13 +24,14 @@ class ChannelFormsComponent extends React.Component {
         var channelsData = this.getChannelsDataFromCategoryTemplates(this.props.categoryTemplates);
         for (var channel in channelsData) {
             var channelData = channelsData[channel];
-            var ChannelForm = channelToFormMap[channel];
+            var ChannelForm = channelFormMap[channel];
             output.push(<FormSection
                 name={channel}
                 component={ChannelForm}
                 product={this.props.product}
                 variationsDataForProduct={this.props.variationsDataForProduct}
                 currency={this.props.currency}
+                productContextProps={productContextProps}
                 {...channelData.fieldValues}
             />);
         }
@@ -59,14 +63,23 @@ class ChannelFormsComponent extends React.Component {
     };
 
     isChannelSpecificFormPresent = (channel) => {
-        return (typeof channelToFormMap[channel] != 'undefined');
+        return (typeof channelFormMap[channel] != 'undefined');
     };
 
-    render() {
+    renderInContext = (contextValue) => {
+        productContextProps = contextValue;
         return (
             <div className="channel-forms-container">
                 {this.renderForCategoryTemplates()}
             </div>
+        )
+    };
+
+    render() {
+        return (
+            <ProductContext.Consumer>
+                {this.renderInContext}
+            </ProductContext.Consumer>
         );
     }
 }

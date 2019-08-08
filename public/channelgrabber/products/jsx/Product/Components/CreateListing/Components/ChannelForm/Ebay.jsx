@@ -2,6 +2,7 @@ import React from 'react';
 import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import CurrencyInput from 'Common/Components/CurrencyInput';
+import Select from 'Common/Components/Select';
 import ShippingService from './Ebay/ShippingService';
 import VariationImagePicker from './Ebay/VariationImagePicker';
 import Validators from '../../Validators';
@@ -66,12 +67,55 @@ class EbayChannelFormComponent extends React.Component {
             variationsDataForProduct={this.props.variationsDataForProduct}
         />
     };
+    findSelectedOption = (id, options) => {
+        var selectedOption = {
+            name: '',
+            value: ''
+        };
+        options.forEach(function(option) {
+            if (option.id == id) {
+                selectedOption = option;
+            }
+        });
 
+        return selectedOption;
+    };
+    renderListingTemplatesField(listingTemplates, featureFlagEnabled) {
+        if(!featureFlagEnabled) {
+            return null;
+        }
+        return <Field
+            name="listingTemplate"
+            component={this.renderListingTemplateSelect}
+            options={listingTemplates}
+            displayTitle={"Listing Template"}
+        />;
+    }
+    renderListingTemplateSelect = (field) =>{
+        return <label className="input-container">
+            <span className={"inputbox-label"}>{field.displayTitle}</span>
+            <div className={"order-inputbox-holder"}>
+                <Select
+                    autoSelectFirst={false}
+                    onOptionChange={(option) => {
+                        field.input.onChange(option.id);
+                    }}
+                    options={field.options}
+                    selectedOption={
+                        this.findSelectedOption(field.input.value, field.options)
+                    }
+                    classNames={'u-width-300px'}
+                />
+            </div>
+        </label>;
+    };
     render() {
+        let {listingTemplates, features} = this.props.productContextProps;
         return (
             <div className="ebay-channel-form-container channel-form-container">
+                {this.renderListingTemplatesField(listingTemplates, features.listingTemplates)}
                 {this.renderVariationImagePicker()}
-                <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required} />
+                <Field name="dispatchTimeMax" component={this.renderDispatchTimeMax} validate={Validators.required}/>
                 {/** We have to hide the shipping service and shipping price, as new we will show a per category
                  shipping policy instead. We don't remove it completely as we might implement it again later */}
                 {/*<ShippingService shippingServices={this.props.shippingMethods} />*/}

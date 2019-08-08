@@ -1,5 +1,6 @@
 const webpackConfig = require('./webpack.config.js');
 const chalk = require('chalk');
+const path = require('path');
 
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
@@ -217,7 +218,7 @@ function getWebpackConfig(env) {
 }
 
 function getDevAdjustedWebpackConfig(webpackConfig){
-    return Object.assign(webpackConfig, {
+    let config = Object.assign(webpackConfig, {
         mode: 'development',
         watch: true,
         watchOptions: {
@@ -225,5 +226,10 @@ function getDevAdjustedWebpackConfig(webpackConfig){
             aggregateTimeout: 1500,
             poll: true
         }
-    })
+    });
+
+    config.resolve.alias.react = path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react', 'umd', 'react.development.js');
+    config.resolve.alias["react-dom"] = path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'react-dom', 'umd', 'react-dom.development.js');
+
+    return config;
 }
