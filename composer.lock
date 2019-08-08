@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4241415c1df92135e59794cd48470923",
+    "content-hash": "442f103dbb8fcbde1b130d732f6671f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -987,16 +987,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.18",
+            "version": "1.1.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "80f96deb9a1f9aaebbabd32a306d2f2c246930b3"
+                "reference": "454984f9280a8c2465580bc8b442bdeb407edac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.18-9e0b40.zip",
-                "reference": "80f96deb9a1f9aaebbabd32a306d2f2c246930b3",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.19-32c4c2.zip",
+                "reference": "454984f9280a8c2465580bc8b442bdeb407edac4",
                 "shasum": null
             },
             "require": {
@@ -1030,7 +1030,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-07-24T10:05:44+00:00"
+            "time": "2019-08-08T09:14:44+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -5052,12 +5052,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d9bd6b30249599031c957c5069e510e1e68577fe"
+                "reference": "a8f0a04d9f59771971448413f269afcace9cc7e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-453-template-designer-ui-changes-to-accomodate-changing-page-sizes-and-workable-area-e195d3.zip",
-                "reference": "d9bd6b30249599031c957c5069e510e1e68577fe",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-TAC-453-template-designer-ui-changes-to-accomodate-changing-page-sizes-and-workable-area-25a5c7.zip",
+                "reference": "a8f0a04d9f59771971448413f269afcace9cc7e7",
                 "shasum": null
             },
             "require": {
@@ -5109,7 +5109,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-08-06T08:59:20+00:00"
+            "time": "2019-08-07T13:39:59+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

@@ -15,8 +15,10 @@ module.exports = {
 
         "settings/js/InvoiceOverview/InvoiceOverview": "./public/channelgrabber/settings/js-vanilla/InvoiceOverview/InvoiceOverview.js",
         "settings/js/PickListSettings/PickListSettings": "./public/channelgrabber/settings/jsx/PickListSettings/PickListSettings.jsx",
-
-        "setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
+        
+	"settings/js/Listing/ListingTemplates": "./public/channelgrabber/settings/jsx/Listing/ListingTemplates/ListingTemplates.jsx",
+        
+	"setup-wizard/js/Component/Payment/PackageSelector": "./public/channelgrabber/setup-wizard/jsx/Component/Payment/PackageSelector.jsx",
         "setup-wizard/js/Payment/Locale/en-GB": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-GB.jsx",
         "setup-wizard/js/Payment/Locale/en-US": "./public/channelgrabber/setup-wizard/jsx/Payment/Locale/en-US.jsx",
 
@@ -94,6 +96,8 @@ module.exports = {
             ManualOrder: path.resolve(__dirname, 'public', 'channelgrabber', 'orders', 'jsx', 'ManualOrder'),
             Reports: path.resolve(__dirname, 'public', 'channelgrabber', 'reports', 'es6', 'Reports'),
             InvoiceOverview: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'js-vanilla', 'InvoiceOverview'),
+            Settings: path.resolve(__dirname, 'public', 'channelgrabber', 'settings'),
+            ListingTemplates: path.resolve(__dirname, 'public', 'channelgrabber', 'settings', 'jsx', 'Listing', 'ListingTemplates'),
             SetupWizard: path.resolve(__dirname, 'public', 'channelgrabber', 'setup-wizard', 'jsx'),
             Filters: path.resolve(__dirname, 'public', 'channelgrabber', 'filters'),
             Common: path.resolve(__dirname, 'public', 'channelgrabber', 'vendor', 'cg-common', 'dist', 'js', 'Common'),
