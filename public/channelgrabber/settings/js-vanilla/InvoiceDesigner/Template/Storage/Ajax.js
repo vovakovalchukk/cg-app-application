@@ -25,7 +25,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
 
                 //todo - remove this hack after testing type is set properly
                 templateData.type = 'picklist';
-
+//
                 template = self.getMapper().fromJson(templateData);
             },
             'error' : function () {

@@ -31,8 +31,7 @@ define([
     };
 
     TemplateType.prototype.initialiseSelect = function(template) {
-        let templateType = template.getTemplateType();
-        let value = templateType.getData().value;
+        let value = template.get('type');
 
         let currentTemplateType = value || TemplateType.DEFAULT_TEMPLATE_TYPE;
 
@@ -54,8 +53,6 @@ define([
         if (!value || !Constants.TEMPLATE_TYPE_OPTIONS.find(option => option.value === value)) {
             return;
         }
-
-        let templateType = this.getTemplate().getTemplateType();
         this.getTemplate().set('type', value, populating);
     };
 

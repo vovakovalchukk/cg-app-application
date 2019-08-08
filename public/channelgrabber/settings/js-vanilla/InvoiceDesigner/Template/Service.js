@@ -190,7 +190,6 @@ define([
     {
         const paperPage = template.getPaperPage();
         const printPage = template.getPrintPage();
-        const templateType = template.getTemplateType();
 
         const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
 
@@ -200,8 +199,6 @@ define([
         const templatePageElement = document.getElementById(templatePageElementId);
 
         printPage.render(template, templatePageElement);
-
-        templateType.render(template)
 
         return this;
     };
