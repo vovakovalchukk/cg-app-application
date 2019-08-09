@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+//
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
 import filterCollection from 'Filters/js/FilterCollection';
-import ProgressCheckAbstract from 'zf2-v4-ui/js/BulkAction/ProgressCheckAbstract';
-import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
-///
-
+import progressService from 'CommonSrc/js-vanilla/Common/progressService';
+import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction';
+console.log('progressService: ', progressService);
 //define(['Orders/ProgressCheckAbstract'],
 //    function(ProgressCheckAbstract)
 //    {

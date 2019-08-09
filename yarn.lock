@@ -2447,9 +2447,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-447-invoice-designer-improvements":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-468-poll-the-check-endpoint-for-template-generation":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#97b0358f616d2c1926fb42ba2c30c3fdfaeeb6fb"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#743a56f1c53ab50d1b4e750f26ec5eb3b89cfbd5"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
