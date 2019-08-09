@@ -8,7 +8,14 @@
         <p>
             To upload products you will need to create a CSV file with the following headers:<br/>
             <samp>Title,SKU,Stock Quantity</samp><br/>
-            The stock quantity should be the quantity available for sale, i.e. the total quantity you have displayed online.<br/>
+            The stock quantity should be the quantity available for sale, i.e. the total quantity you have displayed online.
+        </p>
+        <p>
+            If you have variation products you may also include the <samp>Variation Set</samp> header with each row of the same variation set
+            having the same value as each other.<br/>
+            You should also specify one or more variation names with "Variation:X" columns e.g. <samp>Variation:Size</samp>
+            with each row having the appropriate value e.g. "Small".<br/>
+            Variation set rows must be grouped together.
         </p>
         <p><a download="example.csv" href="{{exampleFile}}">Download example file.</a></p>
         <p><strong>Note:</strong> If you upload a product with a SKU that already exists the product will be ignored. Bulk stock updates can be performed via the stock import functionality.</p>
