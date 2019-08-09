@@ -4,21 +4,8 @@ import ReactDOM from 'react-dom';
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
 import filterCollection from 'Filters/js/FilterCollection';
-import ProgressCheckAbstract from 'zf2-v4-ui/js/BulkAction/ProgressCheckAbstract';
+
 import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
-///
-
-//define(['Orders/ProgressCheckAbstract'],
-//    function(ProgressCheckAbstract)
-//    {
-//        var InvoiceBulkAction = function(
-//            startMessage,
-//            progressMessage,
-//            endMessage
-//        ) {
-//            ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage);
-//        };
-
 
 const ordersIndex = (function ordersIndex() {
     return {
