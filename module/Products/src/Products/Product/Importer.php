@@ -78,13 +78,20 @@ class Importer implements LoggerAwareInterface
                 }
 
                 if ($this->isVariationLine($productLine)) {
-                    $variations[] = $this->prepareVariation($status, $lineId, $productLine);
+                    $variation = $this->prepareVariation($status, $lineId, $productLine);
+                    if (!$variation) {
+                        continue;
+                    }
+                    $variations[] = $variation;
                     $status->lineProcessed();
                     $previousLine = $productLine;
                     continue;
                 }
 
-                $this->importProduct($status, $lineId, $productLine);
+                $success = $this->importProduct($status, $lineId, $productLine);
+                if (!$success) {
+                    continue;
+                }
                 $status->lineProcessed();
                 $previousLine = $productLine;
             }
@@ -120,7 +127,7 @@ class Importer implements LoggerAwareInterface
             }
         }
         if (in_array(static::HEADER_VARIATION_SET, $headers)) {
-            $hasMissingVariationHeaders = $this->validateVariationHeaders($status, $headers);
+            $hasMissingVariationHeaders = !$this->validateVariationHeaders($status, $headers);
             $hasMissingHeaders = ($hasMissingHeaders || $hasMissingVariationHeaders);
         }
 
@@ -159,28 +166,29 @@ class Importer implements LoggerAwareInterface
         );
     }
 
-    protected function prepareVariation(Importer\Status $status, $lineId, array $variationLine): UnimportedProduct
+    protected function prepareVariation(Importer\Status $status, $lineId, array $variationLine): ?UnimportedProduct
     {
         $errors = $this->validateProductLine($variationLine);
         if (!empty($errors)) {
             $status->lineFailed($lineId, $errors);
-            return;
+            return null;
         }
         return $this->mapper->importLineToUnimportedProduct($variationLine);
     }
 
-    protected function importProduct(Importer\Status $status, $lineId, array $productLine, array $variations = []): void
+    protected function importProduct(Importer\Status $status, $lineId, array $productLine, array $variations = []): bool
     {
         $errors = $this->validateProductLine($productLine);
         if (!empty($errors)) {
             $status->lineFailed($lineId, $errors);
-            return;
+            return false;
         }
 
         ($this->unimportedProductImportGenerator)(
             $this->activeUser->getCompanyId(),
             $this->mapper->importLineToUnimportedProduct($productLine, $variations)
         );
+        return true;
     }
 
     protected function validateProductLine(array $productLine): array
