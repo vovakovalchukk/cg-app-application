@@ -10,6 +10,7 @@ var AccountSelectionRoot = function(
     allowedChannels,
     allowedVariationChannels,
     productSearchActive,
+    productSearchActiveForVariations,
     onCreateListingClose,
     ebaySiteOptions,
     categoryTemplateOptions,
@@ -74,6 +75,7 @@ var AccountSelectionRoot = function(
                         salesPhoneNumber={salesPhoneNumber}
                         demoLink={demoLink}
                         productSearchActive={productSearchActive}
+                        productSearchActiveForVariations={productSearchActiveForVariations}
                     />
                 </Provider>
             );
