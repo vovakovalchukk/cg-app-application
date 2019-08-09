@@ -13,7 +13,7 @@ async function getGUIDFromCheck() {
     });
     return data.guid;
 }
-
+//
 //todo - need to put this in a map otherwise we are going to see issues
 let timeout = null;
 async function initialiseProgressCheck(guid) {
