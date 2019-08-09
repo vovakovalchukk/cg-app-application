@@ -12,6 +12,15 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         options = appendDefaultInvoiceOption(options)
     }
 
+    //todo - remove this - just for speeding up testing process
+    requestTemplateExport([
+        "2",
+        "3"
+    ],[
+        "7-1000",
+        "7-1172"
+    ]);
+
     return (<ButtonMultiSelect
         options={options}
         buttonTitle={'Download'}
@@ -19,8 +28,19 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         onButtonClick={requestTemplateExport}
     />);
 
-    async function requestTemplateExport(templateIds) {
-        let orders = BulkActionService.getSelectedOrders();
+    //todo - HACK - remove orders Ids
+    async function requestTemplateExport(templateIds, orderIds) {
+        let orders = orderIds || BulkActionService.getSelectedOrders();
+
+        //todo - HACK - remove
+        templateIds = [
+            "2",
+            "3"
+        ];
+        orders = [
+            "7-1000",
+            "7-1172"
+        ];
 
         if (!Array.isArray(templateIds) ||
             !Array.isArray(orders) ||
