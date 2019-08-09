@@ -25,7 +25,7 @@ class Mapper
         }
         foreach ($variationLine as $header => $value) {
             $matches = [];
-            if ($header != Importer::HEADER_VARIATION_SET && !preg_match(Importer::HEADER_VARIATION_ATTR_REGEX, $header, $matches)) {
+            if (!preg_match(Importer::HEADER_VARIATION_ATTR_REGEX, $header, $matches) || trim($value) == '') {
                 continue;
             }
             $attributeName = trim($matches[1]);

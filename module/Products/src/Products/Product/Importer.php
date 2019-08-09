@@ -22,6 +22,7 @@ class Importer implements LoggerAwareInterface
     public const HEADER_QTY = 'Stock Quantity';
     public const HEADER_VARIATION_SET = 'Variation Set';
     public const HEADER_VARIATION_ATTR_REGEX = '/^Variation:\s*(\S+.*)$/';
+    public const HEADER_VARIATION_ATTR_GENERIC = 'Variation Name(s)';
 
     protected const HEADERS = [
         self::HEADER_TITLE => 'validateString',
@@ -141,7 +142,7 @@ class Importer implements LoggerAwareInterface
                 return true;
             }
         }
-        $status->headerMissing('Variation Name(s)');
+        $status->headerMissing(static::HEADER_VARIATION_ATTR_GENERIC);
         return false;
     }
 
@@ -216,15 +217,15 @@ class Importer implements LoggerAwareInterface
     protected function validateVariationLine(array $variationLine): array
     {
         $errors = [];
-        foreach ($variationLine as $header => $value) {
-            if ($header != static::HEADER_VARIATION_SET && !preg_match(static::HEADER_VARIATION_ATTR_REGEX, $header)) {
-                continue;
-            }
-            try {
-                $this->validateString($variationLine[$header]);
-            } catch (\InvalidArgumentException $exception) {
-                $errors[$header] = $exception->getMessage();
-            }
+        try {
+            $this->validateString($variationLine[static::HEADER_VARIATION_SET]);
+        } catch (\InvalidArgumentException $exception) {
+            $errors[static::HEADER_VARIATION_SET] = $exception->getMessage();
+        }
+        try {
+            $this->validateVariationAttributes($variationLine);
+        } catch (\InvalidArgumentException $exception) {
+            $errors[static::HEADER_VARIATION_ATTR_GENERIC] = $exception->getMessage();
         }
         return $errors;
     }
@@ -256,5 +257,25 @@ class Importer implements LoggerAwareInterface
         }
 
         $intValue = intval($intValue);
+    }
+
+    protected function validateVariationAttributes(array $variationLine): void
+    {
+        $atLeastOneAttributeSet = false;
+        foreach ($variationLine as $header => $value) {
+            if (!preg_match(static::HEADER_VARIATION_ATTR_REGEX, $header)) {
+                continue;
+            }
+            try {
+                $this->validateString($variationLine[$header]);
+                $atLeastOneAttributeSet = true;
+                break;
+            } catch (\InvalidArgumentException $exception) {
+                // No-op. Continue.
+            }
+        }
+        if (!$atLeastOneAttributeSet) {
+            throw new \InvalidArgumentException('At least one variation value must be specified');
+        }
     }
 }
