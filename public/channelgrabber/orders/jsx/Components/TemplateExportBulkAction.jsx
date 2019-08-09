@@ -42,7 +42,6 @@ async function initialiseProgressCheck(guid) {
             || data.progressCount === 100
 //            || data.progressCount == this.getRecordCountForProgress()
         ) {
-            debugger;
             clearTimeout(timeout);
             n.success("end message", true);
             return;
@@ -119,7 +118,6 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                 }
             }).then((response) => {
                 if (response.status !== 200) {
-                    debugger;
 
                     return handleError();
                 }
