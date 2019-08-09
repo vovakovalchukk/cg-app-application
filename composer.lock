@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b447610ce7632e347ded4a409a8b0df",
+    "content-hash": "f8cfcbef6b91c05e94a899073132fa78",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -198,7 +198,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "Common classes for PSR-6 adapters",
@@ -267,7 +267,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 }
             ],
             "description": "A PSR-6 cache implementation using apcu. This implementation supports tags",
@@ -316,7 +316,7 @@
                 {
                     "name": "Tobias Nyholm",
                     "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
+                    "homepage": "https://github.com/nyholm"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -336,16 +336,17 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
+            "version": "1.29.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4177709452d100237e0b2be02864f48ca6e5c26d"
+                "reference": "968e1cbcec248ac2347832aa3cb1e0865ed706e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-dev-MIG-19-AmazonProductDetailFulfilmentLatency-027749.zip",
-                "reference": "4177709452d100237e0b2be02864f48ca6e5c26d"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.4-1249c2.zip",
+                "reference": "968e1cbcec248ac2347832aa3cb1e0865ed706e4",
+                "shasum": null
             },
             "require": {
                 "aws/aws-sdk-php": "^3.19",
@@ -366,7 +367,7 @@
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/product": "dev-MIG-19-AmazonProductDetailFulfilmentLatency as 1.17.3",
+                "channelgrabber/product": "^1.17.5",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -399,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-08-05T12:47:58+00:00"
+            "time": "2019-08-09T14:56:55+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -717,16 +718,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
+            "version": "1.43.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7be8e0ecfd778844a441bb88b7e31a983faae849"
+                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-MIG-19-AmazonProductDetailFulfilmentLatency-950ac9.zip",
-                "reference": "7be8e0ecfd778844a441bb88b7e31a983faae849"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.1-688775.zip",
+                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.19.7",
@@ -794,7 +796,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-07-30T12:39:13+00:00"
+            "time": "2019-08-09T13:38:23+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2598,16 +2600,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
+            "version": "1.17.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "baa1c38d879c58ca0e26be0b57b5c6d28f91c8ca"
+                "reference": "86486fdc7c150bc53dc8cd5b6c6797d3ecc45819"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-dev-MIG-19-AmazonProductDetailFulfilmentLatency-293492.zip",
-                "reference": "baa1c38d879c58ca0e26be0b57b5c6d28f91c8ca"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.17.5-344477.zip",
+                "reference": "86486fdc7c150bc53dc8cd5b6c6797d3ecc45819",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2624,7 +2627,7 @@
                 "channelgrabber/notification": "^1.3.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/stdlib": "^2.16.10",
                 "channelgrabber/stock": "^1.13.0",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -2661,7 +2664,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-08-05T12:47:11+00:00"
+            "time": "2019-08-09T13:38:45+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3317,16 +3320,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.9",
+            "version": "2.16.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "e14316e6e1784c553632e7ed1569dcb677db6d19"
+                "reference": "b8a7f82810db7d450686b1f76cf10f7eb36764bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.9-94ec4a.zip",
-                "reference": "e14316e6e1784c553632e7ed1569dcb677db6d19",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.10-4a1122.zip",
+                "reference": "b8a7f82810db7d450686b1f76cf10f7eb36764bc",
                 "shasum": null
             },
             "require": {
@@ -3371,7 +3374,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-06-12T10:20:38+00:00"
+            "time": "2019-08-07T10:15:49+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -4052,21 +4055,22 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "5d2ab9bab6192a22edd4a15e719a5078ec3dd52b"
+                "reference": "d11a0a56dff87e964e29e7904a0c316ded3aaacb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-dev-MIG-19-AmazonProductDetailFulfilmentLatency-8612e7.zip",
-                "reference": "5d2ab9bab6192a22edd4a15e719a5078ec3dd52b"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.6-d023e3.zip",
+                "reference": "d11a0a56dff87e964e29e7904a0c316ded3aaacb",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.19.25",
-                "channelgrabber/channel": "dev-MIG-19-AmazonProductDetailFulfilmentLatency as 1.43.1",
+                "channelgrabber/channel": "^1.43.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
@@ -4093,7 +4097,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2019-07-30T15:08:29+00:00"
+            "time": "2019-08-09T14:56:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -11435,39 +11439,10 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.29.2",
-            "alias_normalized": "1.29.2.0",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.43.1",
-            "alias_normalized": "1.43.1.0",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.17.3",
-            "alias_normalized": "1.17.3.0",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.1.6",
-            "alias_normalized": "1.1.6.0",
-            "version": "dev-MIG-19-AmazonProductDetailFulfilmentLatency",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/zf2-amazon": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
         "phpspec/phpspec": 20
