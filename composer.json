@@ -62,7 +62,7 @@
         "channelgrabber/phinx": "~0.5.2",
         "channelgrabber/picklist": "~1.2.1",
         "channelgrabber/predis": "~1.1.5",
-        "channelgrabber/product": "dev-TAC-471-product-csv-upload-variations as 1.17.4",
+        "channelgrabber/product": "dev-TAC-471-product-csv-upload-variations as 1.18.0",
         "channelgrabber/profiling": "^1.1",
         "channelgrabber/purchase-order": "~1.0.2",
         "channelgrabber/redis": "~0.1.0",
