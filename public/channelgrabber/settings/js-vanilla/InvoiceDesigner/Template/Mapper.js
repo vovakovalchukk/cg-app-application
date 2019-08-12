@@ -12,6 +12,7 @@ define([
     'InvoiceDesigner/Template/Entity',
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/PrintPage/Entity',
+    'InvoiceDesigner/Template/MultiPage/Entity',
     'InvoiceDesigner/Template/PaperPage/Mapper'
 ], function(require)
 {
@@ -25,6 +26,7 @@ define([
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
     Mapper.PATH_TO_PRINT_PAGE_ENTITY = 'InvoiceDesigner/Template/PrintPage/Entity';
+    Mapper.PATH_TO_MULTI_PAGE_ENTITY = 'InvoiceDesigner/Template/MultiPage/Entity';
 
     Mapper.prototype.createNewTemplate = function()
     {
@@ -38,6 +40,10 @@ define([
         var PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
         var printPage = new PrintPageClass();
         template.setPrintPage(printPage);
+
+        var MultiPageClass = require(Mapper.PATH_TO_MULTI_PAGE_ENTITY);
+        var multiPage = new PrintPageClass();
+        template.setPrintPage(multiPage);
 
         return template;
     };

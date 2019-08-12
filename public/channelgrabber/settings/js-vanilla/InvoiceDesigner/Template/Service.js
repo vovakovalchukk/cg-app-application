@@ -8,6 +8,7 @@ define([
     'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/TemplateType',
     'InvoiceDesigner/Template/Module/PrintPage',
+    'InvoiceDesigner/Template/Module/MultiPage',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
     'InvoiceDesigner/Template/Module/ElementManager',
@@ -34,6 +35,7 @@ define([
             'InvoiceDesigner/Template/Module/PaperType',
             'InvoiceDesigner/Template/Module/TemplateType',
             'InvoiceDesigner/Template/Module/PrintPage',
+            'InvoiceDesigner/Template/Module/MultiPage',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/ElementManager',
@@ -190,6 +192,7 @@ define([
     {
         const paperPage = template.getPaperPage();
         const printPage = template.getPrintPage();
+        const multiPage = template.getMultiPage();
 
         const templatePageElementId = ElementMapperAbstract.getDomId(paperPage);
 
@@ -197,6 +200,8 @@ define([
         let domManipulator = this.getDomManipulator();
         domManipulator.insertTemplateHtml(html);
         const templatePageElement = document.getElementById(templatePageElementId);
+
+        printPage.render(template, templatePageElement);
 
         printPage.render(template, templatePageElement);
 

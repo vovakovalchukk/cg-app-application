@@ -18,6 +18,7 @@ define([
         let stateId;
         let paperPage;
         let printPage;
+        let multiPage;
 
         // Member vars to watch for changes
         var data = {
@@ -61,6 +62,18 @@ define([
         {
             printPage = newPrintPage;
             printPage.subscribe(this);
+            return this;
+        };
+
+        this.getMultiPage = function()
+        {
+            return multiPage;
+        };
+
+        this.setMultiPage = function(newMultiPage)
+        {
+            multiPage = newMultiPage;
+            multiPage.subscribe(this);
             return this;
         };
 

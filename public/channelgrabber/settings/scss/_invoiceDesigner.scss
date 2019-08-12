@@ -122,22 +122,21 @@
     z-index: -1;
 }
 
-.printpage-fields-container{
+.invoice-designer-2x2-grid-container{
     display: grid;
-    //grid-template-columns: [col1] 50%  [col2] 50%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-gap: 5px 15px;
     width: 100%;
-    grid-gap: 5px 20px;
 }
 
-.printpage-field-container{
+.invoice-designer-grid-cell {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.printpage-input{
-    width: 50px;
+.invoice-designer-grid-input{
+    width: 40px;
 }
 
 .template-margin-indicator-element{
