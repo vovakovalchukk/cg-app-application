@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7ebc0a2a8b42226a6726e959bb5edc0",
+    "content-hash": "f8cfcbef6b91c05e94a899073132fa78",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -336,16 +336,16 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.29.2",
+            "version": "1.29.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "253828709c99e2bcdd5cd5a6bb9f084184610603"
+                "reference": "968e1cbcec248ac2347832aa3cb1e0865ed706e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.2-8fafb1.zip",
-                "reference": "253828709c99e2bcdd5cd5a6bb9f084184610603",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/amazon/channelgrabber-amazon-1.29.4-1249c2.zip",
+                "reference": "968e1cbcec248ac2347832aa3cb1e0865ed706e4",
                 "shasum": null
             },
             "require": {
@@ -367,7 +367,7 @@
                 "channelgrabber/log": "^2.1.1",
                 "channelgrabber/order": "^1.43.16",
                 "channelgrabber/predis": "^1.1.1",
-                "channelgrabber/product": "~1.17.2",
+                "channelgrabber/product": "^1.17.5",
                 "channelgrabber/scraper": "^1.1.1",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
@@ -400,7 +400,7 @@
                     "CG\\CGLib\\Test\\": "vendor/channelgrabber/cglib/tests/"
                 }
             },
-            "time": "2019-08-01T15:24:33+00:00"
+            "time": "2019-08-09T14:56:55+00:00"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -718,16 +718,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.0",
+            "version": "1.43.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e7ffd3a02cd4e764f9ff2963da8447ae48fd8216"
+                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.0-fc4290.zip",
-                "reference": "e7ffd3a02cd4e764f9ff2963da8447ae48fd8216",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.1-688775.zip",
+                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce",
                 "shasum": null
             },
             "require": {
@@ -796,7 +796,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-07-24T09:46:37+00:00"
+            "time": "2019-08-09T13:38:23+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2600,16 +2600,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.17.2",
+            "version": "1.17.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "b549fa7bfeef6e8657f13b76c487acacb740d721"
+                "reference": "86486fdc7c150bc53dc8cd5b6c6797d3ecc45819"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.17.2-606e8b.zip",
-                "reference": "b549fa7bfeef6e8657f13b76c487acacb740d721",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.17.5-344477.zip",
+                "reference": "86486fdc7c150bc53dc8cd5b6c6797d3ecc45819",
                 "shasum": null
             },
             "require": {
@@ -2627,7 +2627,7 @@
                 "channelgrabber/notification": "^1.3.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/stdlib": "^2.16.10",
                 "channelgrabber/stock": "^1.13.0",
                 "channelgrabber/webhook-server": "^1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -2664,7 +2664,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-08-01T13:03:17+00:00"
+            "time": "2019-08-09T13:38:45+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3320,16 +3320,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.9",
+            "version": "2.16.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "e14316e6e1784c553632e7ed1569dcb677db6d19"
+                "reference": "b8a7f82810db7d450686b1f76cf10f7eb36764bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.9-94ec4a.zip",
-                "reference": "e14316e6e1784c553632e7ed1569dcb677db6d19",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.10-4a1122.zip",
+                "reference": "b8a7f82810db7d450686b1f76cf10f7eb36764bc",
                 "shasum": null
             },
             "require": {
@@ -3374,7 +3374,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-06-12T10:20:38+00:00"
+            "time": "2019-08-07T10:15:49+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -4055,22 +4055,22 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "733470a8c18de0bc99151014837597af395ed70d"
+                "reference": "d11a0a56dff87e964e29e7904a0c316ded3aaacb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.5-1fe8eb.zip",
-                "reference": "733470a8c18de0bc99151014837597af395ed70d",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-amazon/channelgrabber-zf2-amazon-1.1.6-d023e3.zip",
+                "reference": "d11a0a56dff87e964e29e7904a0c316ded3aaacb",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.19.25",
-                "channelgrabber/channel": "^1.17.12",
+                "channelgrabber/channel": "^1.43.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/feature-flags": "^2.0.1",
@@ -4097,7 +4097,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2017-12-20T12:37:05+00:00"
+            "time": "2019-08-09T14:56:37+00:00"
         },
         {
             "name": "channelgrabber/zf2-api",
