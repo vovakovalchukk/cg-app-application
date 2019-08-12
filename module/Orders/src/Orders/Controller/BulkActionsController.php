@@ -344,6 +344,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->invoiceOrderIdsAction('itemSku');
     }
 
+    public function invoiceOrderIdsByTitleAction()
+    {
+        return $this->invoiceOrderIdsAction('itemTitle');
+    }
+
     public function emailInvoiceAction()
     {
         return $this->performActionOnOrderIdsWithLinked(
@@ -367,6 +372,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceFilterIdBySkuAction()
     {
         return $this->invoiceFilterIdAction('itemSku');
+    }
+
+    public function invoiceFilterIdByTitleAction()
+    {
+        return $this->invoiceFilterIdAction('itemTitle');
     }
 
     public function emailInvoiceFilterAction()
@@ -711,6 +721,19 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function unarchiveOrdersByFilter(Filter $filter)
     {
         $this->orderService->archiveOrdersByFilter($filter, false);
+    }
+
+    public function unlinkOrderAction()
+    {
+        return $this->performActionOnOrderIds(
+            'unlinking',
+            [$this, 'unlinkOrder']
+        );
+    }
+
+    public function unlinkOrder(OrderCollection $orders): void
+    {
+        $this->orderService->unlinkOrders($orders);
     }
 
     public function checkInvoicePrintingAllowedAction(): JsonModel

@@ -449,6 +449,16 @@ return [
                             ]
                         ]
                     ],
+                    'unlink' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/unlink',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'unlinkOrder'
+                            ]
+                        ]
+                    ],
                     'dispatch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
@@ -627,6 +637,30 @@ return [
                                             ],
                                             'defaults' => [
                                                 'action' => 'invoiceFilterIdBySku'
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            'invoice_bytitle' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/byTitle',
+                                    'defaults' => [
+                                        'action' => 'invoiceOrderIdsByTitle'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_filter_bytitle' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'invoiceFilterIdByTitle'
                                             ]
                                         ],
                                     ],

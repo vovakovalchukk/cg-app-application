@@ -19,12 +19,12 @@ use CG\Product\Detail\Entity as Details;
 use CG\Product\Detail\Mapper as DetailMapper;
 use CG\Product\Entity as Product;
 use CG\Product\Exception\ProductLinkBlockingProductDeletionException;
-use CG\Product\LinkNode\Service as ProductLinkNodeService;
-use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
-use CG\Product\Link\Entity as ProductLink;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Gearman\Workload\Remove as ProductRemoveWorkload;
+use CG\Product\Link\Entity as ProductLink;
+use CG\Product\LinkNode\Filter as ProductLinkNodeFilter;
+use CG\Product\LinkNode\Service as ProductLinkNodeService;
 use CG\Product\Remove\ProgressStorage as RemoveProgressStorage;
 use CG\Product\StockMode;
 use CG\Settings\Product\Entity as ProductSettings;
@@ -40,8 +40,8 @@ use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Auditor as StockAuditor;
 use CG\Stock\Collection as StockCollection;
-use CG\Stock\Filter;
 use CG\Stock\Entity as Stock;
+use CG\Stock\Filter;
 use CG\Stock\Location\StorageInterface as StockLocationStorage;
 use CG\Stock\StorageInterface as StockStorage;
 use CG\User\ActiveUserInterface;
@@ -50,6 +50,7 @@ use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use GearmanClient;
+use Products\Product\Details\ChannelInterface as ChannelDetails;
 use Zend\Di\Di;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 
@@ -126,6 +127,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $productLinkNodeService;
     /** @var ProductSettingsService */
     protected $productSettingsService;
+    /** @var ChannelDetails[] */
+    protected $channelDetails;
 
     public function __construct(
         UserService $userService,
@@ -171,6 +174,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->userOuService = $userOuService;
         $this->productLinkNodeService = $productLinkNodeService;
         $this->productSettingsService = $productSettingsService;
+        $this->channelDetails = [];
+    }
+
+    /**
+     * @return self
+     */
+    public function registerChannelDetail(string $channel, ChannelDetails $details)
+    {
+        $this->channelDetails[$channel] = $details;
+        return $this;
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -222,6 +235,49 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setSku($skus)
             ->setOrganisationUnitId([$ouId]);
         return $this->stockStorage->fetchCollectionByFilter($stockFilter);
+    }
+
+    public function fetchProductDetails(Product $product, string $locale, array $channelDetails = []): array
+    {
+        $detailsEntity = $product->getDetails();
+        if (!$detailsEntity) {
+            return [
+                'sku' => $product->getSku()
+            ];
+        }
+
+        return array_merge([
+            'id' => $detailsEntity->getId(),
+            'sku' => $detailsEntity->getSku(),
+            'weight' => $detailsEntity->getDisplayWeight($locale),
+            'width' => $detailsEntity->getDisplayWidth($locale),
+            'height' => $detailsEntity->getDisplayHeight($locale),
+            'length' => $detailsEntity->getDisplayLength($locale),
+            'price' => $detailsEntity->getPrice(),
+            'description' => $detailsEntity->getDescription(),
+            'condition' => $detailsEntity->getCondition(),
+            'brand' => $detailsEntity->getBrand(),
+            'mpn' => $detailsEntity->getMpn(),
+            'ean' => $detailsEntity->getEan(),
+            'upc' => $detailsEntity->getUpc(),
+            'isbn' => $detailsEntity->getIsbn(),
+            'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
+            'cost' => $detailsEntity->getDisplayCost(),
+        ], $channelDetails);
+    }
+
+    public function fetchChannelDetails(array $productIds, array $accounts): array
+    {
+        $channelDetails = [];
+        foreach ($this->channelDetails as $channel => $details) {
+            $channelDetails += $this->channelDetails[$channel]->fetchChannelDetails(
+                $productIds,
+                array_keys(array_filter($accounts, function(array $account) use($channel) {
+                    return $account['channel'] === $channel;
+                }))
+            );
+        }
+        return $channelDetails;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
@@ -418,29 +474,48 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService->fetchByFilter($filter);
     }
 
-    public function saveProductDetail($sku, $detailType, $value, $id = null)
+    public function saveProductDetail(string $sku, string $detail, $value, int $id = null): int
     {
-        if ($this->doesDetailTypeHaveUOM($detailType)) {
-            $value = $this->convertDetailValueToInternalUnitOfMeasurement($detailType, $value);
-        }
+        return $this->saveProductDetails($sku, [$detail => $value], $id);
+    }
+
+    public function saveProductDetails(string $sku, array $details, int $id = null): int
+    {
+        array_walk($details, function(&$value, string $detail) {
+            if ($this->doesDetailTypeHaveUOM($detail)) {
+                $value = $this->convertDetailValueToInternalUnitOfMeasurement($detail, $value);
+            }
+        });
 
         if ($id) {
-            $this->detailService->patchEntity($id, [$detailType => $value]);
+            $this->detailService->patchEntity($id, $details);
         } else {
-            /** @var Details $details */
-            $details = $this->detailService->save(
-                $this->detailMapper->fromArray(
+            $id = $this->detailService->save(
+                $this->detailMapper->fromArray(array_merge(
+                    $details,
                     [
                         'organisationUnitId' => $this->getActiveUserRootOu(),
                         'sku' => $sku,
-                        $detailType => $value,
                     ]
-                )
-            );
-            $id = $details->getId();
+                ))
+            )->getId();
         }
 
         return $id;
+    }
+
+    public function saveProductChannelDetail(int $productId, string $channel, string $detail, $value, int $accountId = null): void
+    {
+        $this->saveProductChannelDetails($productId, $channel, [$detail => $value], $accountId);
+    }
+
+    public function saveProductChannelDetails(int $productId, string $channel, array $details, int $accountId = null): void
+    {
+        if (!isset($this->channelDetails[$channel])) {
+            throw new \RuntimeException(sprintf('No %s channel details service registered', $channel));
+        }
+
+        $this->channelDetails[$channel]->saveDetails($productId,  $details, $accountId);
     }
 
     public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock

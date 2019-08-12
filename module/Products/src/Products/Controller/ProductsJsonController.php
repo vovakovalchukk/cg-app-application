@@ -13,6 +13,7 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Collection as Products;
 use CG\Product\Csv\Link\Service as ProductLinkCsvService;
 use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
@@ -66,6 +67,9 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_CREATE = 'Create';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
+    protected const PRODUCT_DETAIL_CHANNEL_MAP = [
+        'fulfillmentLatency' => 'amazon',
+    ];
 
     /** @var ProductService $productService */
     protected $productService;
@@ -159,6 +163,7 @@ class ProductsJsonController extends AbstractActionController
         $productsArray = [];
         try {
             $products = $this->productService->fetchProducts($requestFilter, $requestFilter->getLimit(), $requestFilter->getPage());
+            $listingsArray = $this->getListingsArrayFromProducts($products);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->fetchAccounts($organisationUnitIds);
             $accountsArray = $this->getAccountsIndexedById($accounts);
@@ -166,6 +171,10 @@ class ProductsJsonController extends AbstractActionController
             $merchantLocationIds = $this->locationService->fetchIdsByType(
                 [LocationType::MERCHANT],
                 $rootOrganisationUnit->getId()
+            );
+            $channelDetails = $this->productService->fetchChannelDetails(
+                $this->getAllProductIds($products),
+                $accountsArray
             );
 
             $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit);
@@ -175,7 +184,8 @@ class ProductsJsonController extends AbstractActionController
                     $product,
                     $accountsArray,
                     $rootOrganisationUnit,
-                    $merchantLocationIds
+                    $merchantLocationIds,
+                    $channelDetails
                 );
             }
             $total = $products->getTotal();
@@ -199,10 +209,12 @@ class ProductsJsonController extends AbstractActionController
             $accountsArray = [];
             $productSearchActive = false;
             $productSearchActiveForVariations = false;
+            $listingsArray = [];
         }
 
         $view
             ->setVariable('products', $productsArray)
+            ->setVariable('listings', $listingsArray)
             ->setVariable('accounts', $accountsArray)
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
@@ -210,6 +222,21 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('productSearchActiveForVariations', $productSearchActiveForVariations)
             ->setVariable('pagination', ['page' => (int) $requestFilter->getPage(), 'limit' => (int) $requestFilter->getLimit(), 'total' => (int)$total]);
         return $view;
+    }
+
+    /**
+     * @param ProductEntity[] $products
+     */
+    protected function getAllProductIds(iterable $products): array
+    {
+        $productIds = [];
+        foreach ($products as $product) {
+            $productIds[$product->getId()] = $product->getId();
+            if ($variations = $product->getVariations()) {
+                $productIds = array_merge($productIds, $this->getAllProductIds($variations));
+            }
+        }
+        return $productIds;
     }
 
     protected function buildFilter(array $filterParams): ProductFilter
@@ -231,13 +258,33 @@ class ProductsJsonController extends AbstractActionController
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
         }
+        if (!isset($filterParams['embeddedDataToReturn']) || !is_array($filterParams['embeddedDataToReturn'])) {
+            $filterParams['embeddedDataToReturn'] = null;
+        }
 
         $requestFilter = $this->filterMapper->fromArray($filterParams)
             ->setEmbedVariationsAsLinks($embedVariationsAsLinks)
+            ->setEmbeddedDataToReturn($filterParams['embeddedDataToReturn'])
             ->setLimit($limit)
             ->setPage($page);
 
         return $requestFilter;
+    }
+
+    protected function getListingsArrayFromProducts(Products $products): array
+    {
+        $listings = [];
+        /** @var ProductEntity $product */
+        foreach ($products as $product) {
+            /** @var ListingEntity $listing */
+            foreach ($product->getListings() as $listing) {
+                if (isset($listings[$listing->getId()])) {
+                    continue;
+                }
+                $listings[$listing->getId()] = $listing->toArray();
+            }
+        }
+        return $listings;
     }
 
     protected function fetchAccounts($organisationUnitIds): AccountCollection
@@ -259,7 +306,8 @@ class ProductsJsonController extends AbstractActionController
         ProductEntity $productEntity,
         array $accounts,
         OrganisationUnit $rootOrganisationUnit,
-        array $merchantLocationIds
+        array $merchantLocationIds,
+        array $channelDetails
     ) {
         $product = $productEntity->toArray();
 
@@ -270,8 +318,6 @@ class ProductsJsonController extends AbstractActionController
             'images' => [],
             'listings' => $this->getProductListingsArray($productEntity),
             'listingsPerAccount' => $this->getProductListingsPerAccountArray($productEntity, $activeSalesAccounts),
-            'activeSalesAccounts' => $activeSalesAccounts,
-            'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockLevelDefault' => $this->stockSettingsService->getStockLevelDefault(),
             'lowStockThresholdDefault' => [
@@ -308,7 +354,13 @@ class ProductsJsonController extends AbstractActionController
         if (count($productEntity->getVariationIds()) > 0) {
             /** @var ProductEntity $variation */
             foreach ($productEntity->getVariations() as $variation) {
-                $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts, $rootOrganisationUnit, $merchantLocationIds);
+                $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData(
+                    $variation,
+                    $accounts,
+                    $rootOrganisationUnit,
+                    $merchantLocationIds,
+                    $channelDetails
+                );
             }
         }
 
@@ -323,35 +375,17 @@ class ProductsJsonController extends AbstractActionController
                 ->toArray()
         ]);
 
-        $detailsEntity = $productEntity->getDetails();
-        if ($detailsEntity) {
-            $locale = $rootOrganisationUnit->getLocale();
-            $product['details'] = [
-                'id' => $detailsEntity->getId(),
-                'sku' => $detailsEntity->getSku(),
-                'weight' => $detailsEntity->getDisplayWeight($locale),
-                'width' => $detailsEntity->getDisplayWidth($locale),
-                'height' => $detailsEntity->getDisplayHeight($locale),
-                'length' => $detailsEntity->getDisplayLength($locale),
-                'price' => $detailsEntity->getPrice(),
-                'description' => $detailsEntity->getDescription(),
-                'condition' => $detailsEntity->getCondition(),
-                'brand' => $detailsEntity->getBrand(),
-                'mpn' => $detailsEntity->getMpn(),
-                'ean' => $detailsEntity->getEan(),
-                'upc' => $detailsEntity->getUpc(),
-                'isbn' => $detailsEntity->getIsbn(),
-                'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
-                'cost' => $detailsEntity->getDisplayCost(),
-            ];
-        } else {
-            $product['details'] = ['sku' => $productEntity->getSku()];
-        }
+        $product['details'] = $this->productService->fetchProductDetails(
+            $productEntity,
+            $rootOrganisationUnit->getLocale(),
+            $channelDetails[$productEntity->getId()] ?? []
+        );
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
+
         return $product;
     }
 
@@ -387,8 +421,9 @@ class ProductsJsonController extends AbstractActionController
         /** @var ListingEntity $listing */
         foreach ($productEntity->getListings() as $listing) {
             $id = $listing->getId();
-            $listingData = $listing->toArray();
+            $listingData = [];
             $listingData['message'] = '';
+            $listingData['status'] = $listing->getStatus();
 
             $statusHistory = $listing->getStatusHistory();
             $statusHistory->rewind();
@@ -699,15 +734,24 @@ class ProductsJsonController extends AbstractActionController
         $this->checkUsage();
 
         $view = $this->jsonModelFactory->newInstance();
-        $view->setVariable(
-            'id',
-            $this->productService->saveProductDetail(
+        $detail = $this->params()->fromPost('detail');
+
+        if (isset(static::PRODUCT_DETAIL_CHANNEL_MAP[$detail])) {
+            $this->productService->saveProductChannelDetail(
+                $this->params()->fromPost('productId'),
+                static::PRODUCT_DETAIL_CHANNEL_MAP[$detail],
+                $detail,
+                $this->params()->fromPost('value'),
+                $this->params()->fromPost('accountId') ?: null
+            );
+        } else {
+            $view->setVariable('id', $this->productService->saveProductDetail(
                 $this->params()->fromPost('sku'),
-                $this->params()->fromPost('detail'),
+                $detail,
                 $this->params()->fromPost('value'),
                 $this->params()->fromPost('id')
-            )
-        );
+            ));
+        }
 
         return $view;
     }
