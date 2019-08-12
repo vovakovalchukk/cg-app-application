@@ -1603,9 +1603,9 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.35":
+"cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#1.0.36":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#6cc13cc47fc10f19b12aae4ee1c1e66697fd71db"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#af55a69140018abe6dcec3609428d434a3092406"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
