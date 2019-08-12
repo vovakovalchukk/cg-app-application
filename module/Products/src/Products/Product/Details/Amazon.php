@@ -114,7 +114,9 @@ class Amazon implements ChannelInterface
         $productAccountDetailFilter = new ProductAccountDetailFilter('all', 1);
         foreach (array_chunk($productAccountDetailIds, static::PRODUCT_ACCOUNT_DETAIL_CHUNK_LIMIT) as $idBatch) {
             try {
-                $productAccountDetails->attachAll($productAccountDetailFilter->setId($idBatch));
+                $productAccountDetails->attachAll($this->productAccountDetailService->fetchCollectionByFilter(
+                    $productAccountDetailFilter->setId($idBatch))
+                );
             } catch (NotFound $e) {
                 //no-op
             }
