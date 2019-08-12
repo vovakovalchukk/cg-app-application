@@ -13,6 +13,7 @@ use CG\Location\Service as LocationService;
 use CG\Location\Type as LocationType;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Collection as Products;
 use CG\Product\Csv\Link\Service as ProductLinkCsvService;
 use CG\Product\Csv\Stock\Service as StockCsvService;
 use CG\Product\Entity as ProductEntity;
@@ -162,6 +163,7 @@ class ProductsJsonController extends AbstractActionController
         $productsArray = [];
         try {
             $products = $this->productService->fetchProducts($requestFilter, $requestFilter->getLimit(), $requestFilter->getPage());
+            $listingsArray = $this->getListingsArrayFromProducts($products);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->fetchAccounts($organisationUnitIds);
             $accountsArray = $this->getAccountsIndexedById($accounts);
@@ -169,6 +171,10 @@ class ProductsJsonController extends AbstractActionController
             $merchantLocationIds = $this->locationService->fetchIdsByType(
                 [LocationType::MERCHANT],
                 $rootOrganisationUnit->getId()
+            );
+            $channelDetails = $this->productService->fetchChannelDetails(
+                $this->getAllProductIds($products),
+                $accountsArray
             );
 
             $allowedCreateListingChannels = $this->listingChannelService->getAllowedCreateListingsChannels($rootOrganisationUnit);
@@ -178,7 +184,8 @@ class ProductsJsonController extends AbstractActionController
                     $product,
                     $accountsArray,
                     $rootOrganisationUnit,
-                    $merchantLocationIds
+                    $merchantLocationIds,
+                    $channelDetails
                 );
             }
             $total = $products->getTotal();
@@ -202,10 +209,12 @@ class ProductsJsonController extends AbstractActionController
             $accountsArray = [];
             $productSearchActive = false;
             $productSearchActiveForVariations = false;
+            $listingsArray = [];
         }
 
         $view
             ->setVariable('products', $productsArray)
+            ->setVariable('listings', $listingsArray)
             ->setVariable('accounts', $accountsArray)
             ->setVariable('createListingsAllowedChannels', $allowedCreateListingChannels)
             ->setVariable('createListingsAllowedVariationChannels', $allowedCreateListingVariationsChannels)
@@ -213,6 +222,21 @@ class ProductsJsonController extends AbstractActionController
             ->setVariable('productSearchActiveForVariations', $productSearchActiveForVariations)
             ->setVariable('pagination', ['page' => (int) $requestFilter->getPage(), 'limit' => (int) $requestFilter->getLimit(), 'total' => (int)$total]);
         return $view;
+    }
+
+    /**
+     * @param ProductEntity[] $products
+     */
+    protected function getAllProductIds(iterable $products): array
+    {
+        $productIds = [];
+        foreach ($products as $product) {
+            $productIds[$product->getId()] = $product->getId();
+            if ($variations = $product->getVariations()) {
+                $productIds = array_merge($productIds, $this->getAllProductIds($variations));
+            }
+        }
+        return $productIds;
     }
 
     protected function buildFilter(array $filterParams): ProductFilter
@@ -247,6 +271,22 @@ class ProductsJsonController extends AbstractActionController
         return $requestFilter;
     }
 
+    protected function getListingsArrayFromProducts(Products $products): array
+    {
+        $listings = [];
+        /** @var ProductEntity $product */
+        foreach ($products as $product) {
+            /** @var ListingEntity $listing */
+            foreach ($product->getListings() as $listing) {
+                if (isset($listings[$listing->getId()])) {
+                    continue;
+                }
+                $listings[$listing->getId()] = $listing->toArray();
+            }
+        }
+        return $listings;
+    }
+
     protected function fetchAccounts($organisationUnitIds): AccountCollection
     {
         return $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');
@@ -266,7 +306,8 @@ class ProductsJsonController extends AbstractActionController
         ProductEntity $productEntity,
         array $accounts,
         OrganisationUnit $rootOrganisationUnit,
-        array $merchantLocationIds
+        array $merchantLocationIds,
+        array $channelDetails
     ) {
         $product = $productEntity->toArray();
 
@@ -313,7 +354,13 @@ class ProductsJsonController extends AbstractActionController
         if (count($productEntity->getVariationIds()) > 0) {
             /** @var ProductEntity $variation */
             foreach ($productEntity->getVariations() as $variation) {
-                $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts, $rootOrganisationUnit, $merchantLocationIds);
+                $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData(
+                    $variation,
+                    $accounts,
+                    $rootOrganisationUnit,
+                    $merchantLocationIds,
+                    $channelDetails
+                );
             }
         }
 
@@ -330,15 +377,15 @@ class ProductsJsonController extends AbstractActionController
 
         $product['details'] = $this->productService->fetchProductDetails(
             $productEntity,
-            $rootOrganisationUnit->getLocale()
+            $rootOrganisationUnit->getLocale(),
+            $channelDetails[$productEntity->getId()] ?? []
         );
-
-        $this->productService->appendChannelDetails($productEntity, $product['details']);
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
+
         return $product;
     }
 
@@ -374,8 +421,9 @@ class ProductsJsonController extends AbstractActionController
         /** @var ListingEntity $listing */
         foreach ($productEntity->getListings() as $listing) {
             $id = $listing->getId();
-            $listingData = $listing->toArray();
+            $listingData = [];
             $listingData['message'] = '';
+            $listingData['status'] = $listing->getStatus();
 
             $statusHistory = $listing->getStatusHistory();
             $statusHistory->rewind();
@@ -693,7 +741,8 @@ class ProductsJsonController extends AbstractActionController
                 $this->params()->fromPost('productId'),
                 static::PRODUCT_DETAIL_CHANNEL_MAP[$detail],
                 $detail,
-                $this->params()->fromPost('value')
+                $this->params()->fromPost('value'),
+                $this->params()->fromPost('accountId') ?: null
             );
         } else {
             $view->setVariable('id', $this->productService->saveProductDetail(

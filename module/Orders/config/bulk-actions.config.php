@@ -82,6 +82,7 @@ return [
                 'CancelJavascript' => ViewModel::class,
                 'PayJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
+                'UnlinkJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
                 'ToCsvJavascript' => ViewModel::class,
                 'CourierJavascript' => ViewModel::class,
@@ -98,6 +99,7 @@ return [
                 'UrlDataViewBatchRemove' => ViewModel::class,
                 'UrlDataViewPay' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
+                'UrlDataViewUnlink' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
                 'UrlDataViewToCsv' => ViewModel::class,
                 'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
@@ -147,6 +149,7 @@ return [
                         ['action' => Action\Cancel::class],
                         ['action' => Action\Pay::class],
                         ['action' => Action\Refund::class],
+                        ['action' => Action\Unlink::class],
                     ],
                 ],
             ],
@@ -367,6 +370,15 @@ return [
                     'javascript' => 'RefundJavascript',
                 ],
             ],
+            Action\Unlink::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewUnlink',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'UnlinkJavascript',
+                ],
+            ],
             Action\PickList::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewPickList',
@@ -464,6 +476,16 @@ return [
                 ],
             ],
             'UrlDataViewCancelRefund' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UnlinkJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/unlink.js',
+                ],
+            ],
+            'UrlDataViewUnlink' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],

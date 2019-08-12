@@ -723,6 +723,19 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->orderService->archiveOrdersByFilter($filter, false);
     }
 
+    public function unlinkOrderAction()
+    {
+        return $this->performActionOnOrderIds(
+            'unlinking',
+            [$this, 'unlinkOrder']
+        );
+    }
+
+    public function unlinkOrder(OrderCollection $orders): void
+    {
+        $this->orderService->unlinkOrders($orders);
+    }
+
     public function checkInvoicePrintingAllowedAction(): JsonModel
     {
         $viewModel = $this->getUsageViewModel();
