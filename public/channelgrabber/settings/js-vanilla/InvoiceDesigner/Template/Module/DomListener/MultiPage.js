@@ -33,12 +33,12 @@ define([
 
         inputs.rows.addEventListener('change', event => {
             const value = event.target.value;
-            this.getModule().setRow(value);
+            this.getModule().setRows(value);
         });
 
         inputs.columns.addEventListener('change', event => {
             const value = event.target.value;
-            this.getModule().setColumn(value);
+            this.getModule().setColumns(value);
         });
 
         inputs.width.addEventListener('change', event => {

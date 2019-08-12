@@ -202,8 +202,7 @@ define([
         const templatePageElement = document.getElementById(templatePageElementId);
 
         printPage.render(template, templatePageElement);
-
-        printPage.render(template, templatePageElement);
+        multiPage.render(template, templatePageElement);
 
         return this;
     };

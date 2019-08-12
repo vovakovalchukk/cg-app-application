@@ -30,20 +30,20 @@ define([
 
     Mapper.prototype.createNewTemplate = function()
     {
-        var TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
-        var template = new TemplateClass();
+        const TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
+        const template = new TemplateClass();
 
-        var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
-        var paperPage = new PaperPageClass();
+        const PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
+        const paperPage = new PaperPageClass();
         template.setPaperPage(paperPage);
 
-        var PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
-        var printPage = new PrintPageClass();
+        const PrintPageClass = require(Mapper.PATH_TO_PRINT_PAGE_ENTITY);
+        const printPage = new PrintPageClass();
         template.setPrintPage(printPage);
 
-        var MultiPageClass = require(Mapper.PATH_TO_MULTI_PAGE_ENTITY);
-        var multiPage = new PrintPageClass();
-        template.setPrintPage(multiPage);
+        const MultiPageClass = require(Mapper.PATH_TO_MULTI_PAGE_ENTITY);
+        const multiPage = new MultiPageClass();
+        template.setMultiPage(multiPage);
 
         return template;
     };

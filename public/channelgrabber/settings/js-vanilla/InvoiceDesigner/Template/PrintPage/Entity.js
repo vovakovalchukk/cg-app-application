@@ -14,7 +14,7 @@ define([
         right: 'width'
     };
 
-    let Entity = function() {
+    const Entity = function() {
         EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
 
