@@ -7,6 +7,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Filter as AccountFilter;
 use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG_UI\View\Filters\SelectOptions\TitleValue;
 use CG_UI\View\Filters\SelectOptionsAsTitleValuesInterface;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Filter\Marketplace\Channel\Factory as ChannelFactory;
@@ -32,13 +33,9 @@ class Marketplace implements SelectOptionsAsTitleValuesInterface
      */
     public function getSelectOptionsAsTitleValues(): array
     {
-        $options = [];
         $accounts = $this->fetchSalesAccounts();
-        foreach ($accounts as $account) {
-            $accountOptions = $this->getOptionsForAccount($account);
-            $options = array_merge($options, $accountOptions);
-        }
-        return $options;
+        $optionsByChannel = $this->getUniqueOptionsByChannel($accounts);
+        return $this->combineOptionsByChannel($optionsByChannel);
     }
     
     protected function fetchSalesAccounts(): AccountCollection
@@ -57,6 +54,24 @@ class Marketplace implements SelectOptionsAsTitleValuesInterface
         }
     }
 
+    /**
+     * @return array [channel => TitleValue[]]
+     */
+    protected function getUniqueOptionsByChannel(AccountCollection $accounts): array
+    {
+        $optionsByChannel = [];
+        foreach ($accounts as $account) {
+            $accountOptions = $this->getOptionsForAccount($account);
+            if (!isset($optionsByChannel[$account->getChannel()])) {
+                $optionsByChannel[$account->getChannel()] = [];
+            }
+            // This gives us unique options per channel as they are keyed on value
+            // We DONT want them to be unique across all channels as e.g. both Amazon and eBay have a "UK" marketplace
+            $optionsByChannel[$account->getChannel()] = array_merge($optionsByChannel[$account->getChannel()], $accountOptions);
+        }
+        return $optionsByChannel;
+    }
+
     protected function getOptionsForAccount(Account $account): array
     {
         try {
@@ -66,5 +81,19 @@ class Marketplace implements SelectOptionsAsTitleValuesInterface
             // Unsupported channel
             return [];
         }
+    }
+
+    /**
+     * @param $optionsByChannel [channel => TitleValue[]]
+     * @return TitleValue[]
+     */
+    protected function combineOptionsByChannel(array $optionsByChannel): array
+    {
+        $allOptions = [];
+        foreach ($optionsByChannel as $channel => $options) {
+            // The options themselves are keyed but we don't want those keys now
+            $allOptions = array_merge($allOptions, array_values($options));
+        }
+        return $allOptions;
     }
 }

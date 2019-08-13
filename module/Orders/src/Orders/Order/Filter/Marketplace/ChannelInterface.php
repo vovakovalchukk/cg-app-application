@@ -7,7 +7,7 @@ use CG_UI\View\Filters\SelectOptions\TitleValue;
 interface ChannelInterface
 {
     /**
-     * @return TitleValue[]
+     * @return TitleValue[] keyed on value
      */
     public function __invoke(Account $account): array;
 }

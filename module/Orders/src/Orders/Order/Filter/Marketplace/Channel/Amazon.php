@@ -23,7 +23,7 @@ class Amazon implements ChannelInterface
         $marketplaces = array_keys($regionClass->getMarketplaces());
         $options = [];
         foreach ($marketplaces as $marketplace) {
-            $options[] = new TitleValue('Amazon ' . $marketplace, $marketplace);
+            $options[$marketplace] = new TitleValue('Amazon ' . $marketplace, $marketplace);
         }
         return $options;
     }

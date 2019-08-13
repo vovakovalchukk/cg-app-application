@@ -15,7 +15,7 @@ class Etsy implements ChannelInterface
             return $options;
         }
         foreach ($marketplaces as $id => $name) {
-            $options[] = new TitleValue('Etsy ' . $name, $id);
+            $options[$id] = new TitleValue('Etsy ' . $name, $id);
         }
         return $options;
     }

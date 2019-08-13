@@ -14,7 +14,7 @@ class Ebay implements ChannelInterface
         $sites = SiteMap::getIdToNameMap();
         $options = [];
         foreach ($sites as $siteName) {
-            $options[] = new TitleValue('eBay ' . $siteName, $siteName);
+            $options[$siteName] = new TitleValue('eBay ' . $siteName, $siteName);
         }
         return $options;
     }
