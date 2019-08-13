@@ -48,6 +48,8 @@ class Marketplace implements SelectOptionsAsTitleValuesInterface
                 ->setLimit('all')
                 ->setPage(1)
                 ->setRootOrganisationUnitId([$this->activeUserContainer->getActiveUserRootOrganisationUnitId()])
+                ->setActive(true)
+                ->setDeleted(false)
                 ->setType(ChannelType::SALES);
             return $this->accountService->fetchByFilter($filter);
         } catch (NotFound $e) {
