@@ -11,6 +11,7 @@ const AddTemplate = function(props) {
                     <Input
                         {...props.newTemplateName}
                         classNames={'u-inline-block'}
+                        inputClassNames={'inputbox u-border-box'}
                     />
                     <button title={"Add Template"}
                             onClick={props.onAddClick}

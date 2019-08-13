@@ -49,6 +49,7 @@ const RootComponent = props => {
                 <FieldWithLabel label={'Template Name'} className={'u-margin-top-small'}>
                     <Input
                         {...templateName}
+                        inputClassNames={'inputbox u-border-box'}
                     />
                 </FieldWithLabel>
                 }
@@ -198,8 +199,11 @@ function useTemplateHtmlState(initialValue) {
     }
 
     function setTag(tag, position) {
-        if (position === undefined || !tag) {
+        if (!tag) {
             return;
+        }
+        if(!position){
+            position = 0;
         }
         let newStr = `${value.slice(0, position)} ${tag} ${value.slice(position)}`;
         setValue(newStr);
