@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c80bd92ef5cda4834f726d5bb3cb49b",
+    "content-hash": "442f103dbb8fcbde1b130d732f6671f9",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -3443,7 +3443,7 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-TAC-474-order-pdf-export-check-and-progress-endpoints",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
@@ -3451,7 +3451,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-474-order-pdf-export-check-and-progress-endpoints-d0b9ab.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-447-invoice-designer-improvements-d0b9ab.zip",
                 "reference": "bf54a8b5bba3603197a706fd0a667b540bec07c5"
             },
             "require": {
@@ -11337,7 +11337,7 @@
         {
             "alias": "1.6.11",
             "alias_normalized": "1.6.11.0",
-            "version": "dev-TAC-474-order-pdf-export-check-and-progress-endpoints",
+            "version": "dev-TAC-447-invoice-designer-improvements",
             "package": "channelgrabber/template"
         },
         {
