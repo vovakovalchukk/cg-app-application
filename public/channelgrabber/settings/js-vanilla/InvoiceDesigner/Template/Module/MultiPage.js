@@ -21,17 +21,19 @@ define([
     MultiPage.prototype = Object.create(ModuleAbstract.prototype);
 
     MultiPage.prototype.init = function(template, templateService) {
-        console.log('in MultiPage module .init');
-        
-        //
-        console.log('template.getData(): ', template.getData());
-        
         ModuleAbstract.prototype.init.call(this, template, templateService);
-//        this.initialiseMarginInputs(template);
+        this.initialiseMultiPageInputs (template);
+    };
+
+    MultiPage.prototype.initialiseMultiPageInputs = function(template){
+        let multiPageData = template.getMultiPage().getData();
+        let inputs = this.getDomListener().getInputs();
+        for (let property in multiPageData) {
+            domManipulator.setValueToInput(inputs[property], multiPageData[property]);
+        }
     };
 
     MultiPage.prototype.setRows = function(value){
-        console.log('in setRows');
         let template = this.getTemplate();
         let multiPage = this.getTemplate().getMultiPage();
 

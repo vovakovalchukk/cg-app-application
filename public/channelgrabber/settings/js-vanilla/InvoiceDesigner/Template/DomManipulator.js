@@ -88,7 +88,7 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.setMarginValueToInput = function(selector, value) {
+    DomManipulator.prototype.setValueToInput = function(selector, value) {
         selector.value = value;
     };
 
