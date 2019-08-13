@@ -14,6 +14,7 @@ use CG\Template\Collection as TemplateCollection;
 use CG\Template\Entity as Template;
 use CG\Template\Filter as TemplateFilter;
 use CG\Template\Service as TemplateService;
+use CG\Template\Type as TemplateType;
 use CG\Zend\Stdlib\Http\FileResponse;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
@@ -889,9 +890,27 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->getJsonModelFactory()->newInstance(['filterId' => $orders->getFilterId()]);
     }
 
+    public function checkPdfExportAllowedAction(): JsonModel
+    {
+        $viewModel = $this->getUsageViewModel();
+        try {
+            $orders = $this->getOrdersFromInputWithLinked();
+            $templateIds = $this->params()->fromPost('templateIds');
+            $templates = $this->fetchTemplatesByIds($templateIds);
+            if (!$templates->containsType(TemplateType::INVOICE)) {
+                return $viewModel;
+            }
+        } catch (NotFound $e) {
+            return $viewModel;
+        }
+        foreach ($orders as $order) {
+            $this->invoiceService->canInvoiceOrder($order);
+        }
+        return $viewModel;
+    }
+
     public function pdfExportAction()
     {
-        $this->checkUsage();
         try {
             $templateIds = $this->params()->fromPost('templateIds');
             $progressKey = $this->getInvoiceProgressKey();
@@ -907,6 +926,15 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         } catch (NotFound $exception) {
             throw new \RuntimeException('No orders were found to generate PDFs for', $exception->getCode(), $exception);
         }
+    }
+
+    public function checkPdfExportGenerationProgressAction()
+    {
+        $progressKey = $this->getInvoiceProgressKey();
+        $count = $this->getInvoiceService()->checkInvoiceGenerationProgress($progressKey);
+        return $this->getJsonModelFactory()->newInstance(
+            ["progressCount" => $count]
+        );
     }
 
     protected function fetchTemplatesByIds(array $ids): TemplateCollection
