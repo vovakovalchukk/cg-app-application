@@ -24,6 +24,8 @@ define([
         console.log('in MultiPage module .init');
         
         //
+        console.log('template.getData(): ', template.getData());
+        
         ModuleAbstract.prototype.init.call(this, template, templateService);
 //        this.initialiseMarginInputs(template);
     };

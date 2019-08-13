@@ -72,6 +72,11 @@ define([
         this.hydratePrintPageFromJson(printPage, json.printPage, populating);
         template.setPrintPage(printPage).setEditable(!!json.editable);
 
+        //get multipage mapped
+        let multiPage = template.getMultiPage();
+        this.hydratePaperPageFromJson(multiPage, json.multiPage, populating);
+        template.setMultiPage(multiPage).setEditable(!!json.editable);
+
         return template;
     };
 

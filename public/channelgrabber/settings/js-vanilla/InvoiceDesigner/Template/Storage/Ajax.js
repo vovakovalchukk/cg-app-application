@@ -22,6 +22,15 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'async' : false,
             'success' : function invoiceFetchSuccess(data) {
                 let templateData = JSON.parse(data['template']);
+
+                //todo - remove this hack
+                templateData.multiPage = {
+                    rows: 2,
+                    columns: 4,
+                    width: 200,
+                    height: 150
+                };
+
                 template = self.getMapper().fromJson(templateData);
             },
             'error' : function () {
