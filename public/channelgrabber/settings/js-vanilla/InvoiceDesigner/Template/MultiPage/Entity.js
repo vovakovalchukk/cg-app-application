@@ -11,6 +11,7 @@ define([
         height: 'rows',
         width: 'columns'
     };
+    const TRACK_TO_DIMENSION = getKeyValueReverse(DIMENSION_TO_TRACK);
 
     const Entity = function() {
         EntityHydrateAbstract.call(this);
@@ -85,8 +86,26 @@ define([
             return data[track];
         };
 
+        this.getRelevantDimensionFromTrack = function(trackProperty) {
+            return TRACK_TO_DIMENSION[trackProperty];
+        };
+
         this.get = function(field) {
             return data[field];
+        };
+
+        this.setMultiple = function(fields, populating) {
+            console.log('in multiSet');
+            let oldData = Object.assign({}, data);
+            data = {
+                ...oldData,
+                ...fields
+            };
+
+            if (populating) {
+                return;
+            }
+            this.publish();
         };
 
         this.set = function(field, value, populating) {
@@ -124,11 +143,12 @@ define([
         return printPageDimension ? printPageDimension : paperPageDimension;
     };
 
-    Entity.prototype.calculateMaxDimensionValue = function(template, trackProperty, ajaxJson) {
-        let trackValue = ajaxJson[relevantTrackProperty] ?
-            ajaxJson[relevantTrackProperty] : this.getTrackValue(relevantTrackProperty);
+    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, trackValue) {
+        let trackProperty = DIMENSION_TO_TRACK[dimension];
 
-        let dimensionValueToBeRelativeTo = this.getDimensionValueToBeRelativeTo(template, dimension);
+        let relevantDimension = TRACK_TO_DIMENSION[trackProperty];
+
+        let dimensionValueToBeRelativeTo = this.getDimensionValueToBeRelativeTo(template, relevantDimension);
 
         let maxDimension = Math.floor(dimensionValueToBeRelativeTo / trackValue);
 
@@ -149,5 +169,15 @@ define([
             combinedPrototype[key] = PubSubAbstract.prototype[key];
         }
         return combinedPrototype;
+    }
+
+    function getKeyValueReverse(forwardObject) {
+        let reversed = {};
+        for (let key in forwardObject) {
+            if (forwardObject.hasOwnProperty(key)) {
+                reversed[forwardObject[key]] = key;
+            }
+        }
+        return reversed;
     }
 });

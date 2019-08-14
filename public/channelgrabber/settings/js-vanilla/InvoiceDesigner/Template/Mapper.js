@@ -119,13 +119,16 @@ define([
             width: multiPage.getWidth()
         };
 
-        let heightTrackProperty = DIMENSION_TO_TRACK['height'];
-        let widthTrackProperty = DIMENSION_TO_TRACK['width'];
+
+        //todo - need to feed track value in to calculate
+        let heightTrackValue = json['rows'] ? json['rows'] : multiPage.getTrackValue('rows');
+        let widthTrackValue = json['columns'] ? json['columns'] : multiPage.getTrackValue('columns');
+
 
         let height = multiPageDimensions['height'] ?
-            multiPageDimensions['height'] : multiPage.calculateMaxDimensionValue(template, heightTrackProperty, json);
+            multiPageDimensions['height'] : multiPage.calculateMaxDimensionValue(template, 'height', heightTrackValue);
         let width = multiPageDimensions['width'] ?
-            multiPageDimensions['width'] : multiPage.calculateMaxDimensionValue(template, widthTrackProperty, json);
+            multiPageDimensions['width'] : multiPage.calculateMaxDimensionValue(template, 'width', widthTrackValue);
 
         json['height'] = height;
         json['width'] = width;
