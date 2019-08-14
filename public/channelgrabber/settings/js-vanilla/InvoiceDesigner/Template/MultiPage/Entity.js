@@ -7,20 +7,6 @@ define([
     EntityHydrateAbstract,
     PubSubAbstract
 ) {
-
-    function getWidth() {
-        let multiPageWidth = this.getWidth();
-        if (!multiPageWidth) {
-            //            calculateMaxDimensionFromTrackValue
-//            let topMargin = printPage.getMargin('top');
-//            let bottomMargin = printPage.getMargin('bottom');
-//
-//            let paperHeight = paperPage.getHeight();
-            return;
-        }
-        return multiPageWidth;
-    }
-
     const DIMENSION_TO_TRACK = {
         height: 'rows',
         width: 'columns'
@@ -138,8 +124,7 @@ define([
         return printPageDimension ? printPageDimension : paperPageDimension;
     };
 
-    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, ajaxJson) {
-        let relevantTrackProperty = DIMENSION_TO_TRACK[dimension];
+    Entity.prototype.calculateMaxDimensionValue = function(template, trackProperty, ajaxJson) {
         let trackValue = ajaxJson[relevantTrackProperty] ?
             ajaxJson[relevantTrackProperty] : this.getTrackValue(relevantTrackProperty);
 
