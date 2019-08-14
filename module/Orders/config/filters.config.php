@@ -23,6 +23,7 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_DATE_RANGE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_STATUS),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SEARCH),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_SEARCH_FIELDS),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_MORE),
                         FilterConfigService::getFilter(
                             FilterConfigService::FILTER_ORDER_BUTTONS,
