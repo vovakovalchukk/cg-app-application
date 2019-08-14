@@ -37,7 +37,7 @@ define([
         let template = this.getTemplate();
         let multiPage = this.getTemplate().getMultiPage();
 
-        let height = multiPage.getMaxDimensionFromTrackValue(template,'rows', value);
+        let height = multiPage.calculateMaxDimensionValue(template,'rows', value);
 
         // note - need to have this as the user might only want 2 very thin rows on the page for whatever reason
         multiPage.set('rows', value);

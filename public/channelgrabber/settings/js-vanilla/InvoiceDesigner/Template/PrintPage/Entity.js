@@ -126,6 +126,10 @@ define([
             return marginIndicatorElement;
         };
 
+        this.getMargin = function(direction){
+            return data[margin][direction];
+        };
+
         this.setMargin = function(template, direction, value, populating) {
             let marginIndicatorElement = this.getMarginIndicatorElement();
             const measurementUnit = template.getPaperPage().getMeasurementUnit();
@@ -156,6 +160,14 @@ define([
 
         this.getDimension = function(dimension) {
             return data.dimension[dimension]
+        };
+
+        this.getHeight = function() {
+            return data.height;
+        };
+
+        this.getWidth = function() {
+            return data.width;
         };
 
         this.setVisibility = function(isVisible){

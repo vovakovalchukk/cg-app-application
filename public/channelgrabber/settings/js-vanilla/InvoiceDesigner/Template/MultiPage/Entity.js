@@ -1,19 +1,29 @@
 define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/PubSubAbstract'
 ], function(
     templateService,
     EntityHydrateAbstract,
     PubSubAbstract
 ) {
-    function getHeight(multiPageData,paperPageData){
-        return '300px';
+
+    function getWidth() {
+        let multiPageWidth = this.getWidth();
+        if (!multiPageWidth) {
+            //            calculateMaxDimensionFromTrackValue
+//            let topMargin = printPage.getMargin('top');
+//            let bottomMargin = printPage.getMargin('bottom');
+//
+//            let paperHeight = paperPage.getHeight();
+            return;
+        }
+        return multiPageWidth;
     }
 
-    const TRACK_TO_DIMENSION = {
-        rows: 'height',
-        columns: 'width'
+    const DIMENSION_TO_TRACK = {
+        height: 'rows',
+        width: 'columns'
     };
 
     const Entity = function() {
@@ -28,7 +38,7 @@ define([
         };
         let workableAreaIndicatorElement = null;
 
-        this.getData = function(){
+        this.getData = function() {
             return data;
         };
 
@@ -41,14 +51,15 @@ define([
             this.setWorkableAreaIndicatorElement(workableAreaIndicatorElement);
         };
 
-        this.createWorkableAreaIndicator = function(template){
-            let multiPageData = this.getData();
-            const paperPageData = template.getPaperPage().getData();
+        this.createWorkableAreaIndicator = function(template) {
+            const paperPage = template.getPaperPage();
+            const printPage = template.getPrintPage();
             console.log('in createWorkableArea...', data);
+
             let element = document.createElement('div');
             element.id = 'workableAreaIndicator';
             element.className = 'test';
-            element.style.height = getHeight(multiPageData, paperPageData);
+            element.style.height = '300px';
             element.style.width = '300px';
             element.style.border = '1px sold red';
             element.style.boxSizing = 'border-box';
@@ -65,17 +76,29 @@ define([
             return element;
         };
 
-        this.setWorkableAreaIndicatorElement = function(newElement){
+        this.setWorkableAreaIndicatorElement = function(newElement) {
             workableAreaIndicatorElement = newElement;
         };
 
-        this.get = function(field)
-        {
+        this.getHeight = function() {
+            return data['height'];
+        };
+
+        this.getWidth = function() {
+            return data['width'];
+        };
+
+        this.getTrackValue = function(track) {
+            return data[track];
+        };
+
+        this.get = function(field) {
             return data[field];
         };
 
-        this.set = function(field, value, populating)
-        {
+        this.set = function(field, value, populating) {
+            console.log('in set ', {field, value});
+
             data[field] = value;
 
             if (populating) {
@@ -90,21 +113,37 @@ define([
 
     Entity.prototype = Object.create(combinedPrototype);
 
-    Entity.prototype.getMaxDimensionFromTrackValue = function(template, track, value){
+    Entity.prototype.getDimensionValueToBeRelativeTo = function(template, dimension) {
         const paperPage = template.getPaperPage();
-        const dimensionProperty = TRACK_TO_DIMENSION[track];
+        const printPage = template.getPrintPage();
 
-        const paperPageData = paperPage.getData();
+        let printPageDimension;
+        let paperPageDimension;
 
-        let maxDimension = Math.floor(paperPageData[dimensionProperty] / value);
+        if (dimension === 'width') {
+            paperPageDimension = paperPage.getWidth();
+            printPageDimension = printPage.getWidth();
+        } else {
+            paperPageDimension = paperPage.getHeight();
+            printPageDimension = printPage.getHeight();
+        }
 
-
-        console.log('in getMaxDimension...');
-
-        // todo - need to get the relvant property from paperPage and divide by dimension
+        return printPageDimension ? printPageDimension : paperPageDimension;
     };
 
-    Entity.prototype.toJson = function(){
+    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, ajaxJson) {
+        let relevantTrackProperty = DIMENSION_TO_TRACK[dimension];
+        let trackValue = ajaxJson[relevantTrackProperty] ?
+            ajaxJson[relevantTrackProperty] : this.getTrackValue(relevantTrackProperty);
+
+        let dimensionValueToBeRelativeTo = this.getDimensionValueToBeRelativeTo(template, dimension);
+
+        let maxDimension = Math.floor(dimensionValueToBeRelativeTo / trackValue);
+
+        return maxDimension;
+    };
+
+    Entity.prototype.toJson = function() {
         let data = Object.assign({}, this.getData());
         let json = JSON.parse(JSON.stringify(data));
         return json;

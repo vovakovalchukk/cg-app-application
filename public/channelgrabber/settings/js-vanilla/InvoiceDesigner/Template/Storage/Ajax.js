@@ -27,11 +27,14 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                 templateData.multiPage = {
                     rows: 2,
                     columns: 4,
-                    width: 200,
-                    height: 150
+//                    width: 200,
+//                    height: 150
                 };
 
                 template = self.getMapper().fromJson(templateData);
+                console.log('templateFromAjax', template);
+
+
             },
             'error' : function () {
                 throw 'Unable to load template';
