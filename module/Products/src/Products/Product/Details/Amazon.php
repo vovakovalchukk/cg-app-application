@@ -24,6 +24,7 @@ class Amazon implements ChannelInterface
 
     protected const CHANNEL_ID = '%d-%s';
     protected const ACCOUNT_ID = '%d-%d';
+    protected const PRODUCT_ACCOUNT_DETAIL_CHUNK_LIMIT = 500;
 
     /** @var ProductChannelDetailService */
     protected $productChannelDetailService;
@@ -101,15 +102,26 @@ class Amazon implements ChannelInterface
             throw new NotFound();
         }
 
-        return $this->productAccountDetailService->fetchCollectionByFilter(
-            (new ProductAccountDetailFilter('all', 1))->setId(array_merge(...array_map(function(int $productId) use($accountIds) {
-                $ids = [];
-                foreach ($accountIds as $accountId) {
-                    $ids[] = sprintf(static::ACCOUNT_ID, $productId, $accountId);
-                }
-                return $ids;
-            }, $productIds)))
-        );
+        $productAccountDetailIds = array_merge(...array_map(function(int $productId) use($accountIds) {
+            $ids = [];
+            foreach ($accountIds as $accountId) {
+                $ids[] = sprintf(static::ACCOUNT_ID, $productId, $accountId);
+            }
+            return $ids;
+        }, $productIds));
+
+        $productAccountDetails = new ProductAccountDetails(ProductAccountDetail::class, __METHOD__, ['id' => $productAccountDetailIds]);
+        $productAccountDetailFilter = new ProductAccountDetailFilter('all', 1);
+        foreach (array_chunk($productAccountDetailIds, static::PRODUCT_ACCOUNT_DETAIL_CHUNK_LIMIT) as $idBatch) {
+            try {
+                $productAccountDetails->attachAll($this->productAccountDetailService->fetchCollectionByFilter(
+                    $productAccountDetailFilter->setId($idBatch))
+                );
+            } catch (NotFound $e) {
+                //no-op
+            }
+        }
+        return $productAccountDetails;
     }
 
     protected function appendProductAccountDetails(array &$channelDetails, array $productIds, array $accountIds): void
