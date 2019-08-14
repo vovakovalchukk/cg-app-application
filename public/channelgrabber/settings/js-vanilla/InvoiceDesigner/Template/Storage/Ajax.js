@@ -25,8 +25,8 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
 
                 //todo - remove this hack
                 templateData.multiPage = {
-                    rows: 2,
-                    columns: 4,
+                    rows: 4,
+                    columns: 2,
 //                    width: 200,
 //                    height: 150
                 };

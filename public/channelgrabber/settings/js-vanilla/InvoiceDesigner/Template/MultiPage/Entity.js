@@ -56,11 +56,18 @@ define([
             const printPage = template.getPrintPage();
             console.log('in createWorkableArea...', data);
 
+            const measurementUnit = paperPage.getMeasurementUnit();
+
             let element = document.createElement('div');
+
+            let height = this.getHeight() + measurementUnit;
+            let width = this.getWidth() + measurementUnit;
+
+            //todo - apply top and left based on printPage left and top margins
             element.id = 'workableAreaIndicator';
             element.className = 'test';
-            element.style.height = '300px';
-            element.style.width = '300px';
+            element.style.height = height;
+            element.style.width = width;
             element.style.border = '1px sold red';
             element.style.boxSizing = 'border-box';
             element.style.position = 'relative';
