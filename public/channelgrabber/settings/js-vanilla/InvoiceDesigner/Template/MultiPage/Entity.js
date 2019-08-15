@@ -87,6 +87,10 @@ define([
             return data['width'];
         };
 
+        this.setDimension = function(dimension, value) {
+            this.set(dimension, value);
+        };
+
         this.getTrackValue = function(track) {
             return data[track];
         };

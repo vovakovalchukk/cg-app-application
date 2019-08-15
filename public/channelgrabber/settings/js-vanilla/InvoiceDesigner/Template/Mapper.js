@@ -68,7 +68,6 @@ define([
         this.hydratePrintPageFromJson(template, printPage, json.printPage, populating);
         template.setPrintPage(printPage).setEditable(!!json.editable);
 
-        //get multipage mapped
         let multiPage = template.getMultiPage();
         this.hydrateMultiPageFromJson(template, multiPage, json.multiPage, populating);
         template.setMultiPage(multiPage).setEditable(!!json.editable);
@@ -110,7 +109,6 @@ define([
     };
 
     Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
-        // this is where you set the width d height
         let height = printPage.calculateHeightDimensionFromMargins(template, json.margin);
         let width = printPage.calculateWidthDimensionFromMargins(template, json.margin);
 
@@ -118,7 +116,6 @@ define([
         json['width'] = width;
 
         printPage.hydrate(json, populating);
-//        printPage.setDimensionsFromMargins(json, template);
     };
 
     Mapper.prototype.hydrateMultiPageFromJson = function(template, multiPage, json, populating) {

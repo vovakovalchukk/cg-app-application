@@ -34,7 +34,6 @@ define([
     };
 
     MultiPage.prototype.setTrack = function(value, track){
-        console.log('in set Rows');
         const template = this.getTemplate();
         const multiPage = this.getTemplate().getMultiPage();
         const inputs = this.getDomListener().getInputs();
@@ -42,22 +41,18 @@ define([
         const dimensionProperty = multiPage.getRelevantDimensionFromTrack(track);
         const maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
 
-        // todo value to input... once yo have them.
-        //
-
         domManipulator.setValueToInput(inputs[dimensionProperty], maxDimensionValue);
-
 
         multiPage.setMultiple({
             [track] : value,
             [dimensionProperty]: maxDimensionValue
         });
-//        multiPage.set(track, value);
-//        multiPage.set(dimensionProperty, maxDimensionValue);
     };
 
     MultiPage.prototype.setDimension = function(dimension, value){
         console.log('in setDimension');
+
+        this.getTemplate().getMultiPage().setDimension(dimension, value);
         // note - do not need to setRows from this. this will will create circularity
         
     };
