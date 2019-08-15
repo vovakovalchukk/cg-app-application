@@ -93,12 +93,12 @@ class EditorContainer extends React.Component {
         });
 
         this.setState({
-            purchaseOrderItems: purchaseOrderItems
+            purchaseOrderItems
         });
     };
 
     addItemRow = (product, sku, quantity) => {
-        var purchaseOrderItems = this.state.purchaseOrderItems.slice();
+        let purchaseOrderItems = this.state.purchaseOrderItems.slice();
 
         var alreadyAddedToForm = purchaseOrderItems.find(function (row) {
             if (row.sku === sku) {
@@ -303,25 +303,48 @@ class EditorContainer extends React.Component {
 
     populateWithLowStockProducts = (response) => {
         let products = response.products.slice();
-
         response = undefined;
+
+        let lowStockProducts = [];
 
         for (let product of products) {
             this.cleanupProductData(product);
 
             if (product.variationCount === 0) {
-                this.onProductSelected({
-                    detail: {
-                        product: product,
-                        sku: product.sku,
-                        quantity: 1
-                    }
+                lowStockProducts.push({
+                    product: product,
+                    sku: product.sku,
+                    quantity: 1
                 });
                 continue;
             }
 
-            this.populateWithLowStockVariations(product);
+            let lowStockVariations = this.getLowStockVariationsFromProduct(product);
+            lowStockProducts = lowStockProducts.concat(lowStockVariations);
         }
+
+        if(lowStockProducts.length === 0){
+            return;
+        }
+
+        this.addItemRowMulti(lowStockProducts)
+    };
+
+    getLowStockVariationsFromProduct = product => {
+        let lowStockVariations = [];
+        let variations = product.variations.slice();
+        for (let variation of variations) {
+            if (!variation.stock || !variation.stock.lowStockThresholdTriggered) {
+                continue;
+            }
+            this.cleanupProductData(variation);
+            lowStockVariations.push({
+                product: product,
+                sku: variation.sku,
+                quantity: 1
+            });
+        }
+        return lowStockVariations;
     };
 
     populateWithLowStockVariations = (product) => {
