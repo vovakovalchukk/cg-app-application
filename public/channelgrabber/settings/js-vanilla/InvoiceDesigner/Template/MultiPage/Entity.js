@@ -166,6 +166,11 @@ define([
 
     Entity.prototype.toJson = function() {
         let data = Object.assign({}, this.getData());
+        delete data.rows;
+        delete data.columns;
+        if(!data.width || !data.height){
+            return {};
+        }
         let json = JSON.parse(JSON.stringify(data));
         return json;
     };
