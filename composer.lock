@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19d6fd2dba1539364639636d45fdbdae",
+    "content-hash": "13375d89fa96167335ab38356f8f4de2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -718,16 +718,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.1",
+            "version": "1.43.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce"
+                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.1-688775.zip",
-                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.2-b92d70.zip",
+                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d",
                 "shasum": null
             },
             "require": {
@@ -796,7 +796,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-08-09T13:38:23+00:00"
+            "time": "2019-08-15T14:08:50+00:00"
         },
         {
             "name": "channelgrabber/cilex",
