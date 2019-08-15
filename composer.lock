@@ -978,12 +978,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "5325f1883c5c8efdc93bb3c509bc80bd733d6522"
+                "reference": "ba3f40ff832bf87a429eb425b5eab0feb2407313"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-MIG-24-dpd-cancel-unmanifested-labels-1179ea.zip",
-                "reference": "5325f1883c5c8efdc93bb3c509bc80bd733d6522"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-dev-MIG-24-dpd-cancel-unmanifested-labels-3e35f9.zip",
+                "reference": "ba3f40ff832bf87a429eb425b5eab0feb2407313"
             },
             "require": {
                 "channelgrabber/courieradapter": "^1.6.0",
@@ -992,6 +992,7 @@
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
                 "maennchen/zipstream-php": "~0.3.1",
+                "php": ">=7.1",
                 "phpseclib/phpseclib": "~2.0.0",
                 "zendframework/zend-servicemanager": "^2.3"
             },
@@ -1016,7 +1017,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-08-14T13:39:33+00:00"
+            "time": "2019-08-15T14:51:08+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
