@@ -119,23 +119,6 @@ define([
     };
 
     Mapper.prototype.hydrateMultiPageFromJson = function(template, multiPage, json, populating) {
-        const multiPageDimensions = {
-            height: multiPage.getHeight(),
-            width: multiPage.getWidth()
-        };
-
-        //todo - need to feed track value in to calculate
-        let heightTrackValue = json['rows'] ? json['rows'] : multiPage.getTrackValue('rows');
-        let widthTrackValue = json['columns'] ? json['columns'] : multiPage.getTrackValue('columns');
-
-        let height = multiPageDimensions['height'] ?
-            multiPageDimensions['height'] : multiPage.calculateMaxDimensionValue(template, 'height', heightTrackValue);
-        let width = multiPageDimensions['width'] ?
-            multiPageDimensions['width'] : multiPage.calculateMaxDimensionValue(template, 'width', widthTrackValue);
-
-        json['height'] = height;
-        json['width'] = width;
-
         multiPage.hydrate(json, populating);
     };
 
