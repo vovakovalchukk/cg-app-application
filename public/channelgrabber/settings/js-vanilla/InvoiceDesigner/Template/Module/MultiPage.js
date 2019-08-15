@@ -25,15 +25,20 @@ define([
         this.initialiseMultiPageInputs(template);
     };
 
-    MultiPage.prototype.initialiseMultiPageInputs = function(template){
+    MultiPage.prototype.initialiseMultiPageInputs = function(template) {
         let multiPageData = template.getMultiPage().getData();
         let inputs = this.getDomListener().getInputs();
         for (let property in multiPageData) {
-            domManipulator.setValueToInput(inputs[property], multiPageData[property]);
+            let input = inputs[property];
+            let value = multiPageData[property];
+            if (!input || !value) {
+                continue;
+            }
+            domManipulator.setValueToInput(input, value);
         }
     };
 
-    MultiPage.prototype.setTrack = function(value, track){
+    MultiPage.prototype.setTrack = function(value, track) {
         const template = this.getTemplate();
         const multiPage = this.getTemplate().getMultiPage();
         const inputs = this.getDomListener().getInputs();
@@ -44,12 +49,12 @@ define([
         domManipulator.setValueToInput(inputs[dimensionProperty], maxDimensionValue);
 
         multiPage.setMultiple({
-            [track] : value,
+            [track]: value,
             [dimensionProperty]: maxDimensionValue
         });
     };
 
-    MultiPage.prototype.setDimension = function(dimension, value){
+    MultiPage.prototype.setDimension = function(dimension, value) {
         this.getTemplate().getMultiPage().setDimension(dimension, value);
     };
 

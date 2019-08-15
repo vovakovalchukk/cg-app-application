@@ -108,6 +108,13 @@ define([
     };
 
     Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
+        if(!json){
+            json = {
+                'height': null,
+                'width': null
+            };
+        }
+
         let height = printPage.calculateHeightDimensionFromMargins(template, json.margin);
         let width = printPage.calculateWidthDimensionFromMargins(template, json.margin);
 
@@ -118,6 +125,9 @@ define([
     };
 
     Mapper.prototype.hydrateMultiPageFromJson = function(template, multiPage, json, populating) {
+        if(!json) {
+            json = {};
+        }
         multiPage.hydrate(json, populating);
     };
 

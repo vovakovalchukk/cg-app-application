@@ -21,7 +21,8 @@ define([
             rows: null,
             columns: null,
             width: null,
-            height: null
+            height: null,
+            visibility: false
         };
         let workableAreaIndicatorElement = null;
 
@@ -30,7 +31,16 @@ define([
         };
 
         this.render = function(template, templatePageElement) {
+            this.setVisibilityFromData(this.getHeight(), this.getWidth());
             this.renderWorkableAreaIndicator(template, templatePageElement);
+        };
+
+        this.setVisibilityFromData = function(height, width) {
+            if (!height || !width) {
+                this.setVisiblity(false);
+                return;
+            }
+            this.setVisiblity(true);
         };
 
         this.renderWorkableAreaIndicator = function(template, templatePageElement) {
@@ -47,6 +57,7 @@ define([
 
             let element = document.createElement('div');
 
+            let visibility = this.getVisibility();
             let height = this.getHeight() + measurementUnit;
             let width = this.getWidth() + measurementUnit;
             let top = printPage.getMargin('top') + measurementUnit;
@@ -58,12 +69,21 @@ define([
             element.style.width = width;
             element.style.top = top;
             element.style.left = left;
+            element.style.visibility = visibility ? 'visible' : 'hidden';
 
             return element;
         };
 
         this.setWorkableAreaIndicatorElement = function(newElement) {
             workableAreaIndicatorElement = newElement;
+        };
+
+        this.setVisiblity = function(value) {
+            data['visibility'] = value;
+        };
+
+        this.getVisibility = function() {
+            return data['visibility'];
         };
 
         this.getHeight = function() {
@@ -87,7 +107,6 @@ define([
         };
 
         this.setMultiple = function(fields, populating) {
-            console.log('in multiSet');
             let oldData = Object.assign({}, data);
             data = {
                 ...oldData,
@@ -140,6 +159,12 @@ define([
 
         let dimensionValueToBeRelativeTo = this.getDimensionValueToBeRelativeTo(template, relevantDimension);
 
+        trackValue = parseInt(trackValue);
+
+        if (!trackValue) {
+            return dimensionValueToBeRelativeTo;
+        }
+
         let maxDimension = Math.floor(dimensionValueToBeRelativeTo / trackValue);
 
         return maxDimension;
@@ -149,6 +174,7 @@ define([
         let data = Object.assign({}, this.getData());
         delete data.rows;
         delete data.columns;
+        delete data.visibility;
         if (!data.width || !data.height) {
             return {};
         }

@@ -45,6 +45,11 @@ define([
         let marginValues = printPage.getData().margin;
         let inputs = this.getDomListener().getInputs();
         for (let marginDirection in marginValues) {
+            let value = marginValues[marginDirection];
+            let input = inputs[marginDirection];
+            if (!value || !input) {
+                continue;
+            }
             domManipulator.setValueToInput(inputs[marginDirection], marginValues[marginDirection]);
         }
     };

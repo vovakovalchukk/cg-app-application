@@ -50,8 +50,8 @@ define([
         };
 
         this.setVisibilityFromData = function(data) {
-            for (let direction in data.margin) {
-                if (!data.margin[direction]) {
+            for (let direction in this.getMargins()) {
+                if (!this.getMargin(direction)) {
                     continue;
                 }
                 this.setVisibility(true);
@@ -75,6 +75,10 @@ define([
         this.calculateHeightDimensionFromMargins = function(template, margins) {
             const paperPage = template.getPaperPage();
 
+            if(!margins){
+                return paperPage.getHeight();
+            }
+
             let topMargin = margins.top ? margins.top : 0;
             let bottomMargin = margins.bottom ? margins.bottom : 0;
 
@@ -83,6 +87,10 @@ define([
 
         this.calculateWidthDimensionFromMargins = function(template, margins) {
             const paperPage = template.getPaperPage();
+
+            if(!margins){
+                return paperPage.getWidth();
+            }
 
             let leftMargin = margins.left ? margins.left : 0;
             let rightMargin = margins.right ? margins.right : 0;
@@ -108,8 +116,12 @@ define([
             marginIndicatorElement.style.height = this.getHeight() + measurementUnit;
             marginIndicatorElement.style.width = this.getWidth() + measurementUnit;
 
-            for (let margin in data.margin) {
-                let marginValue = data.margin[margin];
+            if(!data.margin){
+                return marginIndicatorElement;
+            }
+
+            for (let margin in this.getMargins()) {
+                let marginValue = this.getMargin(margin);
                 let desiredValue = typeof marginValue === "number" ? marginValue : 0;
                 if (desiredValue < 0) {
                     continue;
