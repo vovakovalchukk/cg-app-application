@@ -52,26 +52,13 @@ define([
             let top = printPage.getMargin('top') + measurementUnit;
             let left = printPage.getMargin('left') + measurementUnit;
 
-            //todo - apply top and left based on printPage left and top margins
             element.id = 'workableAreaIndicator';
-            element.className = 'test';
+            element.className = 'template-workable-area-indicator-element';
             element.style.height = height;
             element.style.width = width;
             element.style.top = top;
             element.style.left = left;
-            element.style.border = '1px sold red';
-            element.style.boxSizing = 'border-box';
-            element.style.position = 'relative';
-            element.style.background = 'none';
-            element.style.zIndex = '10';
-            element.style.boxShadow = 'rgba(137, 137, 137, 0.3) 0px 0px 0px 1000in';
-            element.style.pointerEvents = 'none';
-//            element.style = {
-//                height: '300px',
-//                width: '300px',
-//                border: '1px solid red',
-//                boxSizing: 'border-box'
-//            };
+
             return element;
         };
 
@@ -89,10 +76,6 @@ define([
 
         this.setDimension = function(dimension, value) {
             this.set(dimension, value);
-        };
-
-        this.getTrackValue = function(track) {
-            return data[track];
         };
 
         this.getRelevantDimensionFromTrack = function(trackProperty) {

@@ -29,10 +29,10 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                 templateData.height = 20;
                 templateData.width = 20;
                 templateData.multiPage = {
-                    rows: 4,
-                    columns: 2,
-//                    width: 200,
-//                    height: 150
+//                    rows: 4,
+//                    columns: 2,
+                    width: 200,
+                    height: 150
                 };
                 templateData.printPage = {
                     margin: {
