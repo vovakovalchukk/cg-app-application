@@ -50,11 +50,7 @@ define([
     };
 
     MultiPage.prototype.setDimension = function(dimension, value){
-        console.log('in setDimension');
-
         this.getTemplate().getMultiPage().setDimension(dimension, value);
-        // note - do not need to setRows from this. this will will create circularity
-        
     };
 
     return new MultiPage();

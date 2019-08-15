@@ -6,33 +6,34 @@
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
 
 $(document).ready(function() {
-require.config({
-paths: {
-'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js',
-'InvoiceDesigner': "<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner'; ?>"
-}
-});
-require([
-'InvoiceDesigner/Application',
-'InvoiceDesigner/Template/Inspector/Text',
-'InvoiceDesigner/Constants'
-], function(
-designerApp,
-textInspector,
-Constants
-) {
-textInspector.setDataFieldOptions(<?= json_encode($dataFieldOptions); ?>);
+    require.config({
+        paths: {
+            'Common': '<?= $this->basePath() ?>/cg-built/vendor/cg-common/dist/js',
+            'InvoiceDesigner': "<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner'; ?>"
+        }
+    });
+    require([
+        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Inspector/Text',
+        'InvoiceDesigner/Constants'
+    ], function(
+        designerApp,
+        textInspector,
+        Constants
+    ) {
 
-Constants.MEASUREMENT_UNIT_DROPDOWN_ID = "<?= $measurementUnitDropdownId; ?>";
-Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>";
-Constants.TEMPLATE_TYPE_DROPDOWN_ID = "<?= $templateTypeDropdownId; ?>";
-Constants.TEMPLATE_TYPE_OPTIONS = <?= json_encode($typeOptions); ?>;
+        textInspector.setDataFieldOptions(<?= json_encode($dataFieldOptions); ?>);
 
-designerApp.init(
-<?= $rootOuId; ?>,
-'<?= $templateId; ?>'
-);
-});
+        Constants.MEASUREMENT_UNIT_DROPDOWN_ID = "<?= $measurementUnitDropdownId; ?>";
+        Constants.PAPER_TYPE_DROPDOWN_ID = "<?= $paperTypeDropdownId; ?>";
+        Constants.TEMPLATE_TYPE_DROPDOWN_ID = "<?= $templateTypeDropdownId; ?>";
+        Constants.TEMPLATE_TYPE_OPTIONS = <?= json_encode($typeOptions); ?>;
+
+        designerApp.init(
+            <?= $rootOuId; ?>,
+            '<?= $templateId; ?>'
+        );
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 

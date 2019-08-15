@@ -22,31 +22,7 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'async' : false,
             'success' : function invoiceFetchSuccess(data) {
                 let templateData = JSON.parse(data['template']);
-
-
-                //todo - remove this hack
-
-                templateData.height = 20;
-                templateData.width = 20;
-                templateData.multiPage = {
-//                    rows: 4,
-//                    columns: 2,
-                    width: 200,
-                    height: 150
-                };
-                templateData.printPage = {
-                    margin: {
-                        top: 5,
-                        bottom: 5,
-                        left:5,
-                        right:5
-                    }
-                };
-
                 template = self.getMapper().fromJson(templateData);
-                console.log('templateFromAjax', template);
-
-
             },
             'error' : function () {
                 throw 'Unable to load template';

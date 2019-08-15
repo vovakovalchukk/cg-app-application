@@ -101,8 +101,6 @@ define([
         };
 
         this.set = function(field, value, populating) {
-            console.log('in set ', {field, value});
-
             data[field] = value;
 
             if (populating) {
@@ -151,7 +149,7 @@ define([
         let data = Object.assign({}, this.getData());
         delete data.rows;
         delete data.columns;
-        if(!data.width || !data.height){
+        if (!data.width || !data.height) {
             return {};
         }
         let json = JSON.parse(JSON.stringify(data));

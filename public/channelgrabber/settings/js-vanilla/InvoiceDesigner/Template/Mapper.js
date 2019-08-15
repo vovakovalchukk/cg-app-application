@@ -101,7 +101,6 @@ define([
     };
 
     Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating) {
-        //todo - potentially remove this. need to verify
         json.width = Number(json.width).ptToMm();
         json.height = Number(json.height).ptToMm();
 
