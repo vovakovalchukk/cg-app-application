@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9432bffdb36e96c4170c6ba336d6362",
+    "content-hash": "13375d89fa96167335ab38356f8f4de2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -718,16 +718,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-TAC-476-uk-mail-tracking-website",
+            "version": "1.43.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6fc193508e4bb76509db557f11575618178ba9e4"
+                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-dev-TAC-476-uk-mail-tracking-website-65e663.zip",
-                "reference": "6fc193508e4bb76509db557f11575618178ba9e4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.2-b92d70.zip",
+                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d",
                 "shasum": null
             },
             "require": {
@@ -796,7 +796,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-08-13T15:34:48+00:00"
+            "time": "2019-08-15T14:08:50+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -11439,17 +11439,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.43.2",
-            "alias_normalized": "1.43.2.0",
-            "version": "dev-TAC-476-uk-mail-tracking-website",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
