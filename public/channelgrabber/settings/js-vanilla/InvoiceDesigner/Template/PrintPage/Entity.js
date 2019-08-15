@@ -38,39 +38,15 @@ define([
         };
 
         this.render = function(template, templatePageElement) {
-            console.log('in render PrintPage (is this called more than once? I imagine 4 times due to loop)');
-
-
             let data = this.getData();
             this.setVisibilityFromData(data);
+            this.renderMarginIndicatorElement(template, data, templatePageElement);
+        };
+
+        this.renderMarginIndicatorElement = function(template, data, templatePageElement) {
             let marginIndicatorElement = this.createMarginIndicatorElement(template, data);
             templatePageElement.prepend(marginIndicatorElement);
             this.setMarginIndicatorElement(marginIndicatorElement);
-
-//            const paperPage = template.getPaperPage();
-
-            // a lot of this needs to be reworked. Needs to only be concerned with rendering the indicator element. the createMarginIndicator method could cover most of this
-
-//            let heightDimensionFromMargins = this.calculateHeightDimensionFromMargins(template);
-//            let widthDimensionFromMargins = this.calculateWidthDimensionFromMargins(template);
-//            let height = heightDimensionFromMargins ? heightDimensionFromMargins : paperPage.getHeight();
-//            let width = widthDimensionFromMargins ? widthDimensionFromMargins : paperPage.getWidth();
-
-            this.setDimensionsFromMargins(data, template);
-
-            this.setVisibility(false);
-        };
-
-        this.setDimensionsFromMargins = function(data, template) {
-            //
-            for (let margin in data.margin) {
-                // need to see if we can scrap the setMargins... doesn't feel right instantiating in the render method.
-//                let marginValue = data.margin[margin];
-//                let desiredValue = typeof marginValue === "number" ? marginValue : 0;
-//                this.setMargin(template, margin, desiredValue, true);
-                let dimensionValue = this.getNewDimensionValueFromMargin(margin, template);
-                this.setDimension(template, MARGIN_TO_DIMENSION[margin], dimensionValue);
-            }
         };
 
         this.setVisibilityFromData = function(data) {
@@ -88,17 +64,16 @@ define([
         };
 
         this.getNewDimensionValueFromMargin = function(direction, template){
+            let margins = template.getPrintPage().getMargins();
+
             if(MARGIN_TO_DIMENSION[direction] === 'height'){
-                return this.calculateHeightDimensionFromMargins(template);
+                return this.calculateHeightDimensionFromMargins(template, margins);
             }
-            return this.calculateWidthDimensionFromMargins(template);
+            return this.calculateWidthDimensionFromMargins(template, margins);
         };
 
-        this.calculateHeightDimensionFromMargins = function(template){
+        this.calculateHeightDimensionFromMargins = function(template, margins){
             const paperPage = template.getPaperPage();
-            const printPage = template.getPrintPage();
-
-            let margins = printPage.getData().margin;
 
             let topMargin = margins.top ? margins.top : 0;
             let bottomMargin = margins.bottom ? margins.bottom : 0;
@@ -106,11 +81,8 @@ define([
             return paperPage.getHeight() - (topMargin + bottomMargin);
         };
 
-        this.calculateWidthDimensionFromMargins = function(template){
+        this.calculateWidthDimensionFromMargins = function(template, margins){
             const paperPage = template.getPaperPage();
-            const printPage = template.getPrintPage();
-
-            let margins = printPage.getData().margin;
 
             let leftMargin = margins.left ? margins.left : 0;
             let rightMargin = margins.right ? margins.right : 0;
@@ -127,44 +99,23 @@ define([
         };
 
         this.createMarginIndicatorElement = function(template, {visibility}) {
-            let marginIndicatorElement = document.createElement('div');
-
+            const marginIndicatorElement = document.createElement('div');
             const measurementUnit = template.getPaperPage().getMeasurementUnit();
 
             marginIndicatorElement.id = 'templateMarginIndicator';
             marginIndicatorElement.className = 'template-margin-indicator-element';
             marginIndicatorElement.style.visibility = visibility ? 'visible' : 'hidden';
+            marginIndicatorElement.style.height = this.getHeight() + measurementUnit;
+            marginIndicatorElement.style.width = this.getWidth() + measurementUnit;
 
             for (let margin in data.margin) {
-                // need to see if we can scrap the setMargins... doesn't feel right instantiating in the render method.
                 let marginValue = data.margin[margin];
                 let desiredValue = typeof marginValue === "number" ? marginValue : 0;
                 if (desiredValue < 0) {
                     continue;
                 }
-//                desiredValue = parseInt(desiredValue);
                 marginIndicatorElement.style[margin] = desiredValue + measurementUnit;
             }
-//            let marginIndicatorElement = this.getMarginIndicatorElement();
-//            const measurementUnit = template.getPaperPage().getMeasurementUnit();
-//
-//            if (value < 0) {
-//                return;
-//            }
-//            value = parseInt(value);
-//
-//            marginIndicatorElement.style[direction] = value + measurementUnit;
-//
-//            if(populating){
-//                data.margin[direction] = value;
-//                return;
-//            }
-//
-//            let newMarginState = Object.assign({}, data.margin);
-//            newMarginState[direction] = value;
-//            this.set("margin", newMarginState);
-
-
 
             return marginIndicatorElement;
         };
@@ -173,8 +124,11 @@ define([
             return data['margin'][direction];
         };
 
+        this.getMargins = function(){
+            return this.getData().margin;
+        };
+
         this.setMargin = function(template, direction, value, populating) {
-            // todo - purge a lot of this
             let marginIndicatorElement = this.getMarginIndicatorElement();
             const measurementUnit = template.getPaperPage().getMeasurementUnit();
 
@@ -196,7 +150,6 @@ define([
         };
 
         this.setDimension = function(template, dimension, value) {
-            debugger;
             const measurementUnit = template.getPaperPage().getMeasurementUnit();
             let marginIndicatorElement = this.getMarginIndicatorElement();
             dimension[dimension] = value;

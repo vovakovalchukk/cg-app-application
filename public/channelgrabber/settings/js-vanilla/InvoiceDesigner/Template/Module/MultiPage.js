@@ -22,7 +22,7 @@ define([
 
     MultiPage.prototype.init = function(template, templateService) {
         ModuleAbstract.prototype.init.call(this, template, templateService);
-        this.initialiseMultiPageInputs (template);
+        this.initialiseMultiPageInputs(template);
     };
 
     MultiPage.prototype.initialiseMultiPageInputs = function(template){
@@ -35,13 +35,19 @@ define([
 
     MultiPage.prototype.setTrack = function(value, track){
         console.log('in set Rows');
-        let template = this.getTemplate();
-        let multiPage = this.getTemplate().getMultiPage();
+        const template = this.getTemplate();
+        const multiPage = this.getTemplate().getMultiPage();
+        const inputs = this.getDomListener().getInputs();
 
-        let dimensionProperty = multiPage.getRelevantDimensionFromTrack(track);
-        let maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
+        const dimensionProperty = multiPage.getRelevantDimensionFromTrack(track);
+        const maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
 
-        //todo - need to set
+        // todo value to input... once yo have them.
+        //
+
+        domManipulator.setValueToInput(inputs[dimensionProperty], maxDimensionValue);
+
+
         multiPage.setMultiple({
             [track] : value,
             [dimensionProperty]: maxDimensionValue

@@ -30,9 +30,10 @@ define([
         };
 
         this.render = function(template, templatePageElement) {
-            let data = this.getData();
-            // initialise workable area element
-            console.log('in multipage render');
+            this.renderWorkableAreaIndicator(template, templatePageElement);
+        };
+
+        this.renderWorkableAreaIndicator = function(template, templatePageElement) {
             let workableAreaIndicatorElement = this.createWorkableAreaIndicator(template);
             templatePageElement.prepend(workableAreaIndicatorElement);
             this.setWorkableAreaIndicatorElement(workableAreaIndicatorElement);
@@ -41,7 +42,6 @@ define([
         this.createWorkableAreaIndicator = function(template) {
             const paperPage = template.getPaperPage();
             const printPage = template.getPrintPage();
-            console.log('in createWorkableArea...', data);
 
             const measurementUnit = paperPage.getMeasurementUnit();
 
@@ -49,18 +49,23 @@ define([
 
             let height = this.getHeight() + measurementUnit;
             let width = this.getWidth() + measurementUnit;
+            let top = printPage.getMargin('top') + measurementUnit;
+            let left = printPage.getMargin('left') + measurementUnit;
 
             //todo - apply top and left based on printPage left and top margins
             element.id = 'workableAreaIndicator';
             element.className = 'test';
             element.style.height = height;
             element.style.width = width;
+            element.style.top = top;
+            element.style.left = left;
             element.style.border = '1px sold red';
             element.style.boxSizing = 'border-box';
             element.style.position = 'relative';
             element.style.background = 'none';
             element.style.zIndex = '10';
-            element.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 0px 0px 1000px';
+            element.style.boxShadow = 'rgba(137, 137, 137, 0.3) 0px 0px 0px 1000in';
+            element.style.pointerEvents = 'none';
 //            element.style = {
 //                height: '300px',
 //                width: '300px',
