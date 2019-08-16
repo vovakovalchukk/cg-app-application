@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13375d89fa96167335ab38356f8f4de2",
+    "content-hash": "9c2c879374079f889549e32c80f1c1dc",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -987,16 +987,16 @@
         },
         {
             "name": "channelgrabber/courier",
-            "version": "1.1.19",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/courier.git",
-                "reference": "454984f9280a8c2465580bc8b442bdeb407edac4"
+                "reference": "76110c5502016a7f2d948337fb64098e4e186cfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.1.19-32c4c2.zip",
-                "reference": "454984f9280a8c2465580bc8b442bdeb407edac4",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/courier/channelgrabber-courier-1.2.0-91e6a1.zip",
+                "reference": "76110c5502016a7f2d948337fb64098e4e186cfa",
                 "shasum": null
             },
             "require": {
@@ -1006,6 +1006,7 @@
                 "guzzlehttp/guzzle": "^5.0.0",
                 "iio/libmergepdf": "~3.0",
                 "maennchen/zipstream-php": "~0.3.1",
+                "php": ">=7.1",
                 "phpseclib/phpseclib": "~2.0.0",
                 "zendframework/zend-servicemanager": "^2.3"
             },
@@ -1030,7 +1031,7 @@
                 }
             ],
             "description": "Courier",
-            "time": "2019-08-08T09:14:44+00:00"
+            "time": "2019-08-16T14:58:56+00:00"
         },
         {
             "name": "channelgrabber/courieradapter",
@@ -2132,16 +2133,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.46.7",
+            "version": "1.46.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9c27492fda2acf405e1b79f0e768ac7c09688b3e"
+                "reference": "005e4a96a0eabedc0f2178714fd78742e5418a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.7-2bff8c.zip",
-                "reference": "9c27492fda2acf405e1b79f0e768ac7c09688b3e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-1.46.8-cbb757.zip",
+                "reference": "005e4a96a0eabedc0f2178714fd78742e5418a55",
                 "shasum": null
             },
             "require": {
@@ -2216,7 +2217,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-08-14T08:34:24+00:00"
+            "time": "2019-08-16T12:01:30+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -5047,16 +5048,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.26.19",
+            "version": "1.26.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b4de733cc4f853127563933e12dea9ec7817f99e"
+                "reference": "0d8fc3fd364c5453837630609795ccc0c5a3b278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.19-01eab3.zip",
-                "reference": "b4de733cc4f853127563933e12dea9ec7817f99e",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-1.26.20-cc0870.zip",
+                "reference": "0d8fc3fd364c5453837630609795ccc0c5a3b278",
                 "shasum": null
             },
             "require": {
@@ -5108,7 +5109,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-08-14T08:34:47+00:00"
+            "time": "2019-08-16T12:03:49+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
