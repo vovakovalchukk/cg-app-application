@@ -53,7 +53,12 @@ return [
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_ARCHIVED),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_BUYER_MESSAGE),
                         FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_GIFT_MESSAGE),
-                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_DISPATCHABLE)
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_IS_DISPATCHABLE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_MARKETPLACE),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_PRINTED),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_EMAILED),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_LABEL_PRINTED),
+                        FilterConfigService::getFilter(FilterConfigService::FILTER_ORDER_HAS_CUSTOMISATION),
                     ]
                 ]
             ],
