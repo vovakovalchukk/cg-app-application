@@ -122,17 +122,19 @@ class ProductDropdown extends React.Component {
         window.triggerEvent('productSelection', data);
     };
 
+    renderDetailRow = product => {
+        return <DetailRow
+            product={product}
+            onAddClicked={this.onOptionSelected}
+            nonLinkableSkus={this.state.nonLinkableSkus}
+        />
+    };
+
     getDropdown = () => {
         var productsList = null;
 
         if (this.state.products.length) {
-            productsList = this.state.products.map(function (product) {
-                return <DetailRow
-                    product={product}
-                    onAddClicked={this.onOptionSelected}
-                    nonLinkableSkus={this.state.nonLinkableSkus}
-                />
-            }.bind(this));
+            productsList = this.state.products.map(this.renderDetailRow);
         }
         return (
             <div className="detail-dropdown-popup">
