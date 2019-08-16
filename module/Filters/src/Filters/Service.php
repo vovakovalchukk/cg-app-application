@@ -118,6 +118,7 @@ class Service
                         ['value' => 'item.itemSku',             'title' => 'SKU'],
                         ['value' => 'item.itemName',            'title' => 'Product Name'],
                         ['value' => 'billing.addressFullName',  'title' => 'Buyer Name'],
+                        ['value' => 'billing.emailAddress',     'title' => 'Buyer Email'],
                         ['value' => 'order.externalUsername',   'title' => 'Username'],
                         ['value' => 'shipping.addressFullName', 'title' => 'Recipient Name'],
                         ['value' => 'shipping.addressPostcode', 'title' => 'Postcode'],
