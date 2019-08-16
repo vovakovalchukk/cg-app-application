@@ -32,7 +32,7 @@
         "channelgrabber/clearbooks": "~1.12.3",
         "channelgrabber/communication": "~1.0.11",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/courier": "dev-MIG-24-dpd-cancel-unmanifested-labels as 1.1.20",
+        "channelgrabber/courier": "~1.2.0",
         "channelgrabber/courieradapter": "~1.6.0",
         "channelgrabber/currency": "~1.0.2",
         "channelgrabber/di": "~2.3.1",
