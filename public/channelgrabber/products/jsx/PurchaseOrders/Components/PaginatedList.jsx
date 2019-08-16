@@ -15,6 +15,10 @@ const PaginatedList = props => {
     let {items, editable, renderRow, className} = props;
     const limit = 50;
 
+    if(!items || items.length < 1){
+        return null;
+    }
+
     let maxPages = Math.ceil(items.length / limit);
     let [currentPage, setCurrentPage] = useState(1);
 
