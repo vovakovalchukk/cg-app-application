@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "86a31e1ba52ba485fb0fc87f16927e51",
+    "content-hash": "b42aaf3b5a985e984d12ef6a8ab565a6",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -718,16 +718,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.43.1",
+            "version": "1.43.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce"
+                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.1-688775.zip",
-                "reference": "bff92d264d542885cabecfb1a1ea0d53d745c2ce",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/channel/channelgrabber-channel-1.43.2-b92d70.zip",
+                "reference": "8ac18ab5c0d3001b046526ba9ff483eb30b2825d",
                 "shasum": null
             },
             "require": {
@@ -796,7 +796,7 @@
                     "CG\\Gearman\\Test\\": "vendor/channelgrabber/gearman/tests/src"
                 }
             },
-            "time": "2019-08-09T13:38:23+00:00"
+            "time": "2019-08-15T14:08:50+00:00"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1163,22 +1163,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.19.9",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "1fac5427ffee986cfe7b1f6a63aac2b2a82a7db1"
+                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.19.9-d225a5.zip",
-                "reference": "1fac5427ffee986cfe7b1f6a63aac2b2a82a7db1",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.19.0-92d52e.zip",
+                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.42.11",
+                "channelgrabber/channel": "^1.39.2",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1187,7 +1187,7 @@
                 "channelgrabber/listing": "^1.18.3",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.43.16",
+                "channelgrabber/order": "^1.28.7",
                 "channelgrabber/product": "^1.12.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
@@ -1224,7 +1224,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-05-31T07:58:32+00:00"
+            "time": "2019-02-06T11:31:29+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -2136,12 +2136,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "471c7bc15da828c4c5e155301f8f17e192772baa"
+                "reference": "ca4720d37912e90335e1a644eab411a12a82cac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-21-order-filters-for-site-printed-emailed-5dfd5c.zip",
-                "reference": "471c7bc15da828c4c5e155301f8f17e192772baa",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-MIG-21-order-filters-for-site-printed-emailed-8ee988.zip",
+                "reference": "ca4720d37912e90335e1a644eab411a12a82cac7",
                 "shasum": null
             },
             "require": {
@@ -2216,7 +2216,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-08-12T09:21:54+00:00"
+            "time": "2019-08-16T08:26:26+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -2600,16 +2600,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.17.5",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "86486fdc7c150bc53dc8cd5b6c6797d3ecc45819"
+                "reference": "d7030a00fe145f5856e575f7ff6742f45570c3b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.17.5-344477.zip",
-                "reference": "86486fdc7c150bc53dc8cd5b6c6797d3ecc45819",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/product/channelgrabber-product-1.18.0-2d3ab4.zip",
+                "reference": "d7030a00fe145f5856e575f7ff6742f45570c3b9",
                 "shasum": null
             },
             "require": {
@@ -2664,7 +2664,7 @@
                     "CG\\Product\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-08-09T13:38:45+00:00"
+            "time": "2019-08-15T11:01:41+00:00"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -5051,12 +5051,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1627b4d27da52084d181983001f6506063140467"
+                "reference": "3ae6508d0f14651eb71571aa8c5894882835e7f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-21-order-filters-for-site-printed-emailed-488d25.zip",
-                "reference": "1627b4d27da52084d181983001f6506063140467",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-v4-ui/channelgrabber-zf2-v4-ui-dev-MIG-21-order-filters-for-site-printed-emailed-9ba3c8.zip",
+                "reference": "3ae6508d0f14651eb71571aa8c5894882835e7f0",
                 "shasum": null
             },
             "require": {
@@ -5108,7 +5108,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2019-08-12T09:24:24+00:00"
+            "time": "2019-08-16T08:27:24+00:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -11441,14 +11441,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.46.7",
-            "alias_normalized": "1.46.7.0",
+            "alias": "1.46.8",
+            "alias_normalized": "1.46.8.0",
             "version": "dev-MIG-21-order-filters-for-site-printed-emailed",
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.26.19",
-            "alias_normalized": "1.26.19.0",
+            "alias": "1.26.20",
+            "alias_normalized": "1.26.20.0",
             "version": "dev-MIG-21-order-filters-for-site-printed-emailed",
             "package": "channelgrabber/zf2-v4-ui"
         }

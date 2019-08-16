@@ -127,6 +127,10 @@ class FulfillmentLatencyCell extends React.Component {
             return fulfillmentLatency.value;
         }
 
+        if (!rowData.details) {
+            return '';
+        }
+
         return (account ? rowData.details['fulfillmentLatency-' + account.id] : rowData.details['fulfillmentLatency']) || '';
     };
 
