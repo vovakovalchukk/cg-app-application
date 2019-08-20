@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf6867224f6eac2a924e32f56de3e58c",
+    "content-hash": "d031e0dcd62f9aae40d2d71fe8152179",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -2092,16 +2092,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-472-template-printpage-and-multipage-backend",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "74eb971a143fa2e2f19e6c69c13dff9dc8805589"
+                "reference": "7376ad7f245c3ba6af4753f511a508af76378a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-447-invoice-designer-improvements-1f684f.zip",
-                "reference": "74eb971a143fa2e2f19e6c69c13dff9dc8805589"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/order/channelgrabber-order-dev-TAC-472-template-printpage-and-multipage-backend-8d8ee4.zip",
+                "reference": "7376ad7f245c3ba6af4753f511a508af76378a7e"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -2137,7 +2137,7 @@
                 "channelgrabber/stdlib": "^2.16.9",
                 "channelgrabber/stock": "^1.12.3",
                 "channelgrabber/tax": "^1.0.2",
-                "channelgrabber/template": "^1.4.27",
+                "channelgrabber/template": "dev-TAC-472-template-printpage-and-multipage-backend as 1.7.0",
                 "channelgrabber/transaction": "^1.2.1",
                 "channelgrabber/user": "^1.22.9",
                 "channelgrabber/webhook-server": "^1.0.0",
@@ -2147,6 +2147,7 @@
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.10",
                 "php": ">=7.1",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5"
             },
@@ -2175,7 +2176,7 @@
                     "CG\\Test\\": "vendor/channelgrabber/channel/tests/assets"
                 }
             },
-            "time": "2019-08-16T12:50:39+00:00"
+            "time": "2019-08-20T15:39:28+00:00"
         },
         {
             "name": "channelgrabber/partner",
@@ -3448,12 +3449,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f146dba7c64f3b5b65456227ca77c6caf2f549df"
+                "reference": "f0d73c89a874872055e98b0b8f1ee74649fdf74a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-472-template-printpage-and-multipage-backend-f7164c.zip",
-                "reference": "f146dba7c64f3b5b65456227ca77c6caf2f549df"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/template/channelgrabber-template-dev-TAC-472-template-printpage-and-multipage-backend-b6bdba.zip",
+                "reference": "f0d73c89a874872055e98b0b8f1ee74649fdf74a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3501,7 +3502,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2019-08-20T07:52:28+00:00"
+            "time": "2019-08-20T12:53:52+00:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -11333,7 +11334,7 @@
         {
             "alias": "1.46.9",
             "alias_normalized": "1.46.9.0",
-            "version": "dev-TAC-447-invoice-designer-improvements",
+            "version": "dev-TAC-472-template-printpage-and-multipage-backend",
             "package": "channelgrabber/order"
         },
         {
