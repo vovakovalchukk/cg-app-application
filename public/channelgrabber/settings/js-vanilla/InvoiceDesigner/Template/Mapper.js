@@ -108,19 +108,6 @@ define([
     };
 
     Mapper.prototype.hydratePrintPageFromJson = function(template, printPage, json, populating) {
-        if (!json){
-            json = {
-                'height': null,
-                'width': null
-            };
-        }
-
-        let height = printPage.calculateHeightDimensionFromMargins(template, json.margin);
-        let width = printPage.calculateWidthDimensionFromMargins(template, json.margin);
-
-        json['height'] = height;
-        json['width'] = width;
-
         printPage.hydrate(json, populating);
     };
 

@@ -11,13 +11,6 @@ define([
     ElementMapperAbstract,
     domManipulator
 ) {
-    const MARGIN_TO_DIMENSION = {
-        top: 'height',
-        bottom: 'height',
-        left: 'width',
-        right: 'width'
-    };
-
     let PrintPage = function() {
         ModuleAbstract.call(this);
         this.setDomListener(new PrintPageListener());
@@ -49,12 +42,7 @@ define([
     PrintPage.prototype.setPrintPageMargin = function(direction, value, populating) {
         const template = this.getTemplate();
         const printPage = template.getPrintPage();
-
         printPage.setMargin(template, direction, value, populating);
-
-        let dimensionValue = printPage.getNewDimensionValueFromMargin(direction, template);
-
-        printPage.setDimension(template, MARGIN_TO_DIMENSION[direction], dimensionValue);
     };
 
     return new PrintPage();

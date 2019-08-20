@@ -58,8 +58,8 @@ define([
             let element = document.createElement('div');
 
             let visibility = this.getVisibility();
-            let height = this.getHeight() + measurementUnit;
-            let width = this.getWidth() + measurementUnit;
+            let height = this.getHeight(template) + measurementUnit;
+            let width = this.getWidth(template) + measurementUnit;
             let top = printPage.getMargin('top') + measurementUnit;
             let left = printPage.getMargin('left') + measurementUnit;
 
@@ -143,10 +143,10 @@ define([
 
         if (dimension === 'width') {
             paperPageDimension = paperPage.getWidth();
-            printPageDimension = printPage.getWidth();
+            printPageDimension = printPage.getWidth(template);
         } else {
             paperPageDimension = paperPage.getHeight();
-            printPageDimension = printPage.getHeight();
+            printPageDimension = printPage.getHeight(template);
         }
 
         return printPageDimension ? printPageDimension : paperPageDimension;
