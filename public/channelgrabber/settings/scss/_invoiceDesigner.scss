@@ -1,3 +1,5 @@
+$module-grid-gap: 5px 15px;
+
 .invoice-designer-container {
   height: 100vh;
 }
@@ -123,11 +125,47 @@
     z-index: -1;
 }
 
-.invoice-designer-2x2-grid-container{
+.invoice-designer-2x2-grid-container {
+    display: grid;
+    grid-gap: $module-grid-gap;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+}
+
+.invoice-designer-multi-page-module-container{
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-gap: 5px 15px;
+    grid-gap: $module-grid-gap;
+    grid-template-areas:
+            "header1 header1"
+            "rowsInput colsInput"
+            "header2 header2"
+            "heightInput widthInput";
     width: 100%;
+}
+
+.invoice-designer-multi-page-rows-input{
+    grid-area: rowsInput;
+}
+
+.invoice-designer-multi-page-cols-input{
+    grid-area: colsInput;
+}
+
+.invoice-designer-multi-page-height-input{
+    grid-area: heightInput;
+}
+
+.invoice-designer-multi-page-width-input{
+    grid-area: widthInput;
+}
+
+.invoice-designer-multi-page-header{
+    grid-area: header1;
+}
+
+.invoice-designer-multi-page-header2{
+    grid-area: header2;
 }
 
 .invoice-designer-grid-cell {
