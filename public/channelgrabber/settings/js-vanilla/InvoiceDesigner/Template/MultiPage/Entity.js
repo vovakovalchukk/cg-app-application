@@ -33,6 +33,7 @@ define([
         this.render = function(template, templatePageElement) {
             this.setVisibilityFromData(this.getHeight(), this.getWidth());
             this.renderWorkableAreaIndicator(template, templatePageElement);
+            this.renderMultiPageGuidelines(template, templatePageElement);
         };
 
         this.setVisibilityFromData = function(height, width) {
@@ -47,6 +48,35 @@ define([
             let workableAreaIndicatorElement = this.createWorkableAreaIndicator(template);
             templatePageElement.prepend(workableAreaIndicatorElement);
             this.setWorkableAreaIndicatorElement(workableAreaIndicatorElement);
+            return workableAreaIndicatorElement;
+        };
+
+        this.renderMultiPageGuidelines = function(template, templatePageElement) {
+            let gridContainer = document.createElement('div');
+            gridContainer.className = 'template-multi-page-guidelines-element';
+            gridContainer.style.width = '100%';
+            gridContainer.style.height = '100%';
+            gridContainer.style.boxSizing = 'border-box';
+            gridContainer.style.display = 'grid';
+            gridContainer.style.gridTemplateColumns = 'minmax(0, 1fr) '.repeat(this.get('columns'));
+            gridContainer.style.position = 'absolute';
+            gridContainer.style.top = '0';
+            gridContainer.style.left = '0';
+            gridContainer.style.zIndex = '10';
+
+            let numberOfCells = this.get('columns') * this.get('rows');
+
+            for (let i = 0; i < numberOfCells; i++) {
+                let cell = document.createElement('div');
+                // todo - base this on measurementUnit
+//                cell.style.width = '200px';
+//                cell.style.height = '200px';
+                cell.style.border = 'dashed 1px blue';
+                cell.style.boxSizing = 'border-box';
+                gridContainer.prepend(cell);
+            }
+
+            templatePageElement.prepend(gridContainer);
         };
 
         this.createWorkableAreaIndicator = function(template) {
