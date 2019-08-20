@@ -237,7 +237,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->stockStorage->fetchCollectionByFilter($stockFilter);
     }
 
-    public function fetchProductDetails(Product $product, string $locale): array
+    public function fetchProductDetails(Product $product, string $locale, array $channelDetails = []): array
     {
         $detailsEntity = $product->getDetails();
         if (!$detailsEntity) {
@@ -246,7 +246,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ];
         }
 
-        return [
+        return array_merge([
             'id' => $detailsEntity->getId(),
             'sku' => $detailsEntity->getSku(),
             'weight' => $detailsEntity->getDisplayWeight($locale),
@@ -263,14 +263,21 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             'isbn' => $detailsEntity->getIsbn(),
             'barcodeNotApplicable' => $detailsEntity->isBarcodeNotApplicable(),
             'cost' => $detailsEntity->getDisplayCost(),
-        ];
+        ], $channelDetails);
     }
 
-    public function appendChannelDetails(Product $product, array &$productDetails): void
+    public function fetchChannelDetails(array $productIds, array $accounts): array
     {
-        foreach ($this->channelDetails as $details) {
-//            $details->appendDetails($product->getId(), $productDetails);
+        $channelDetails = [];
+        foreach ($this->channelDetails as $channel => $details) {
+            $channelDetails += $this->channelDetails[$channel]->fetchChannelDetails(
+                $productIds,
+                array_keys(array_filter($accounts, function(array $account) use($channel) {
+                    return $account['channel'] === $channel;
+                }))
+            );
         }
+        return $channelDetails;
     }
 
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
@@ -497,18 +504,18 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $id;
     }
 
-    public function saveProductChannelDetail(int $productId, string $channel, string $detail, $value): void
+    public function saveProductChannelDetail(int $productId, string $channel, string $detail, $value, int $accountId = null): void
     {
-        $this->saveProductChannelDetails($productId, $channel, [$detail => $value]);
+        $this->saveProductChannelDetails($productId, $channel, [$detail => $value], $accountId);
     }
 
-    public function saveProductChannelDetails(int $productId, string $channel, array $details): void
+    public function saveProductChannelDetails(int $productId, string $channel, array $details, int $accountId = null): void
     {
         if (!isset($this->channelDetails[$channel])) {
             throw new \RuntimeException(sprintf('No %s channel details service registered', $channel));
         }
 
-        $this->channelDetails[$channel]->saveDetails($productId,  $details);
+        $this->channelDetails[$channel]->saveDetails($productId,  $details, $accountId);
     }
 
     public function saveStockIncludePurchaseOrdersForProduct(Product $product, ?bool $includePurchaseOrders): Stock
