@@ -75,7 +75,7 @@ define([
         this.calculateHeightDimensionFromMargins = function(template, margins) {
             const paperPage = template.getPaperPage();
 
-            if(!margins){
+            if (!margins) {
                 return paperPage.getHeight();
             }
 
@@ -88,7 +88,7 @@ define([
         this.calculateWidthDimensionFromMargins = function(template, margins) {
             const paperPage = template.getPaperPage();
 
-            if(!margins){
+            if (!margins) {
                 return paperPage.getWidth();
             }
 
@@ -116,7 +116,7 @@ define([
             marginIndicatorElement.style.height = this.getHeight() + measurementUnit;
             marginIndicatorElement.style.width = this.getWidth() + measurementUnit;
 
-            if(!data.margin){
+            if (!data.margin) {
                 return marginIndicatorElement;
             }
 

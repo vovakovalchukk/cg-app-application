@@ -17,7 +17,7 @@ define([
         left: 'width',
         right: 'width'
     };
-//
+
     let PrintPage = function() {
         ModuleAbstract.call(this);
         this.setDomListener(new PrintPageListener());
@@ -58,5 +58,4 @@ define([
     };
 
     return new PrintPage();
-
 });
