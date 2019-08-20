@@ -156,7 +156,7 @@ class ProductIdentifiers extends React.Component {
     };
 
     onInputChange = (input, value) => {
-        input.onChange(value.target.value);
+        input.onChange(value);
     };
 
     render() {
