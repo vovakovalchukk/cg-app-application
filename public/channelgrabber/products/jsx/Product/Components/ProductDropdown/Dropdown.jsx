@@ -111,7 +111,7 @@ class ProductDropdown extends React.Component {
         });
     };
 
-    onKeyPress = (e) => {
+    onKeyDown = (e) => {
         if (e.key === 'Enter') {
             this.submitInput();
         }
@@ -122,17 +122,19 @@ class ProductDropdown extends React.Component {
         window.triggerEvent('productSelection', data);
     };
 
+    renderDetailRow = product => {
+        return <DetailRow
+            product={product}
+            onAddClicked={this.onOptionSelected}
+            nonLinkableSkus={this.state.nonLinkableSkus}
+        />
+    };
+
     getDropdown = () => {
         var productsList = null;
 
         if (this.state.products.length) {
-            productsList = this.state.products.map(function (product) {
-                return <DetailRow
-                    product={product}
-                    onAddClicked={this.onOptionSelected}
-                    nonLinkableSkus={this.state.nonLinkableSkus}
-                />
-            }.bind(this));
+            productsList = this.state.products.map(this.renderDetailRow);
         }
         return (
             <div className="detail-dropdown-popup">
@@ -148,7 +150,7 @@ class ProductDropdown extends React.Component {
                 <div className={"detail-dropdown-wrapper "+ (this.state.hasFocus && this.state.showResults && (! this.state.fetchingData) ? 'active' : '')}>
                     <div className="detail-dropdown-searchbox">
                         <div className="sprite-search-18-black"></div>
-                        <input disabled={this.props.disabled} onChange={this.onChange} value={this.state.searchTerm} onKeyPress={this.onKeyPress} onClick={this.onClick}/>
+                        <input disabled={this.props.disabled} onChange={this.onChange} value={this.state.searchTerm} onKeyDown={this.onKeyDown} onClick={this.onClick}/>
                         <button className={"detail-search-btn button "+((this.state.fetchingData || this.props.disabled) ? 'disabled' : '')} onClick={this.submitInput}>{this.state.fetchingData ? 'Fetching...' : 'Search'}</button>
                     </div>
                     {this.getDropdown()}

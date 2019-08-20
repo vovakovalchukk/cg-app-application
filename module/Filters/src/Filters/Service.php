@@ -9,6 +9,7 @@ use Orders\Controller\OrdersController;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
 use Orders\Order\Filter\Batch;
+use Orders\Order\Filter\Marketplace;
 use Orders\Order\Filter\Shipping;
 use Orders\Order\TableService\OrdersTableFulfilmentChannelColumns;
 use Orders\Order\TableService\OrdersTableTagColumns;
@@ -18,6 +19,7 @@ class Service
     const FILTER_ORDER_DATE_RANGE = 'orderDateRange';
     const FILTER_ORDER_STATUS = 'orderStatus';
     const FILTER_ORDER_SEARCH = 'orderSearch';
+    const FILTER_ORDER_SEARCH_FIELDS = 'orderSearchFields';
     const FILTER_ORDER_MORE = 'orderMoreButton';
     const FILTER_ORDER_BUTTONS = 'orderButtons';
     const FILTER_ORDER_BUTTON_APPLY = 'orderButtonApply';
@@ -38,6 +40,11 @@ class Service
     const FILTER_ORDER_GIFT_MESSAGE = 'orderGiftMessage';
     const FILTER_ORDER_STATE_FILTERS = 'orderFilterStateFilters';
     const FILTER_ORDER_IS_DISPATCHABLE = 'orderIsDispatchable';
+    const FILTER_ORDER_MARKETPLACE = 'orderMarketplace';
+    const FILTER_ORDER_PRINTED = 'orderIsPrinted';
+    const FILTER_ORDER_EMAILED = 'orderIsEmailed';
+    const FILTER_ORDER_LABEL_PRINTED = 'orderLabelIsPrinted';
+    const FILTER_ORDER_HAS_CUSTOMISATION = 'orderHasCustomisation';
 
     static protected function getOrderFilters()
     {
@@ -102,6 +109,27 @@ class Service
                     'placeholder' => 'Search for...',
                     'class' => '',
                     'value' => ''
+                ],
+            ],
+            self::FILTER_ORDER_SEARCH_FIELDS => [
+                'filterType' => 'customSelectGroup',
+                'variables' => [
+                    'name' => 'searchField',
+                    'title' => 'Search Fields',
+                    'searchField' => true,
+                    'emptyTitle' => 'Select fields',
+                    'options' => [
+                        ['value' => 'order.externalId',         'title' => 'Order ID', 'selected' => true],
+                        ['value' => 'order.id',                 'title' => 'CG Order ID'],
+                        ['value' => 'item.itemSku',             'title' => 'SKU'],
+                        ['value' => 'item.itemName',            'title' => 'Product Name'],
+                        ['value' => 'billing.addressFullName',  'title' => 'Buyer Name'],
+                        ['value' => 'billing.emailAddress',     'title' => 'Buyer Email'],
+                        ['value' => 'order.externalUsername',   'title' => 'Username'],
+                        ['value' => 'shipping.addressFullName', 'title' => 'Recipient Name'],
+                        ['value' => 'shipping.addressPostcode', 'title' => 'Postcode'],
+                        ['value' => 'tracking.number',          'title' => 'Tracking Number'],
+                    ]
                 ],
             ],
             self::FILTER_ORDER_MORE => [
@@ -426,7 +454,108 @@ class Service
                         ]
                     )
                 ],
-            ]
+            ],
+            self::FILTER_ORDER_MARKETPLACE => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'name' => 'marketplace',
+                    'title' => 'Site / Marketplace',
+                    'searchField' => true,
+                    'isOptional' => true,
+                    'concatenate' => true,
+                    'options' => []
+                ],
+                'optionsProvider' => Marketplace::class,
+            ],
+            self::FILTER_ORDER_PRINTED => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'invoicePrinted',
+                    'title' => 'Invoice Printed',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes'
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No',
+                            'selected' => true
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_EMAILED => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'invoiceEmailed',
+                    'title' => 'Invoice Emailed',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes'
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No',
+                            'selected' => true
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_LABEL_PRINTED => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'labelPrinted',
+                    'title' => 'Label Printed',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes'
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No',
+                            'selected' => true
+                        ],
+                    ]
+                ],
+            ],
+            self::FILTER_ORDER_HAS_CUSTOMISATION => [
+                'filterType' => 'customSelectGroup',
+                'visible' => false,
+                'variables' => [
+                    'isBoolean' => true,
+                    'name' => 'hasCustomisation',
+                    'title' => 'Has Customisations',
+                    'isOptional' => true,
+                    'emptyValue' => true,
+                    'options' => [
+                        [
+                            'value' => true,
+                            'title' => 'Yes',
+                            'selected' => true
+                        ],
+                        [
+                            'value' => false,
+                            'title' => 'No'
+                        ],
+                    ]
+                ],
+            ],
         ];
     }
 
