@@ -3,6 +3,7 @@ import EditableFieldWithSubmit from 'Common/Components/EditableFieldWithSubmit';
 import Button from 'Common/Components/Button';
 import ProductDropdown from 'Product/Components/ProductDropdown/Dropdown';
 import ItemRow from 'Common/Components/ItemRow';
+import PaginatedList from "PurchaseOrders/Components/PaginatedList";
     
 
     export default class extends React.Component {
@@ -19,20 +20,24 @@ import ItemRow from 'Common/Components/ItemRow';
                         <Button disabled={!this.props.editable} onClick={this.props.onSaveClicked} sprite="sprite-save-22-black" text="Save"/>
                     </div>
                     <ProductDropdown disabled={!this.props.editable} />
-                    <div className="product-list" disabled={!this.props.editable}>
-                        {this.props.purchaseOrderItems.map(function (row) {
-                            return (
-                                <ItemRow row={row}
-                                    disabled={!this.props.editable}
-                                    onSkuChange={this.props.onSkuChanged}
-                                    onStockQuantityUpdate={this.props.onStockQuantityUpdated}
-                                    onRowRemove={this.props.onRowRemove}
-                                    showStockColumn={true}
-                                />
-                            );
-                        }.bind(this))}
-                        </div>
+                    <PaginatedList
+                        items={this.props.purchaseOrderItems}
+                        editable={this.props.editable}
+                        renderRow={this.renderRow}
+                        className={"u-margin-top-large"}
+                    />
                 </div>
+            );
+        }
+        renderRow = row => {
+            return (
+                <ItemRow row={row}
+                         disabled={!this.props.editable}
+                         onSkuChange={this.props.onSkuChanged}
+                         onStockQuantityUpdate={this.props.onStockQuantityUpdated}
+                         onRowRemove={this.props.onRowRemove}
+                         showStockColumn={true}
+                />
             );
         }
     }
