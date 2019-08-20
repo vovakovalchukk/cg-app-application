@@ -3,14 +3,12 @@ define([
     'InvoiceDesigner/Template/Module/DomListener/PrintPage',
     'InvoiceDesigner/Template/PaperType/Entity',
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/PrintPage/Storage/Ajax',
     'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
     PrintPageListener,
     PaperType,
     ElementMapperAbstract,
-    printPageStorage,
     domManipulator
 ) {
     const MARGIN_TO_DIMENSION = {
@@ -19,16 +17,10 @@ define([
         left: 'width',
         right: 'width'
     };
-
+//
     let PrintPage = function() {
         ModuleAbstract.call(this);
-        let storage = printPageStorage;
-
         this.setDomListener(new PrintPageListener());
-
-        this.getStorage = function() {
-            return storage;
-        };
     };
 
     PrintPage.MODULE_SELECTOR = '#printPageModule';
