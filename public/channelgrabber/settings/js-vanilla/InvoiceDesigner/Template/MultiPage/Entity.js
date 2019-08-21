@@ -1,17 +1,15 @@
 define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract'
+    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/Constants'
 ], function(
     templateService,
     EntityHydrateAbstract,
-    PubSubAbstract
+    PubSubAbstract,
+    Constants
 ) {
-    const DIMENSION_TO_TRACK = {
-        height: 'rows',
-        width: 'columns'
-    };
-    const TRACK_TO_DIMENSION = getKeyValueReverse(DIMENSION_TO_TRACK);
+    let {DIMENSION_TO_TRACK, TRACK_TO_DIMENSION} = Constants;
 
     const Entity = function() {
         EntityHydrateAbstract.call(this);
@@ -52,25 +50,29 @@ define([
         };
 
         this.renderMultiPageGuidelines = function(template, templatePageElement) {
+            const paperPage = template.getPaperPage();
+            const printPage = template.getPrintPage();
+
+            const measurementUnit = paperPage.getMeasurementUnit();
+
             let gridContainer = document.createElement('div');
             gridContainer.className = 'template-multi-page-guidelines-element';
-            gridContainer.style.width = '100%';
-            gridContainer.style.height = '100%';
+            gridContainer.style.height = printPage.getHeight(template) + measurementUnit;
+            gridContainer.style.width = printPage.getWidth(template) + measurementUnit;
             gridContainer.style.boxSizing = 'border-box';
             gridContainer.style.display = 'grid';
             gridContainer.style.gridTemplateColumns = 'minmax(0, 1fr) '.repeat(this.get('columns'));
             gridContainer.style.position = 'absolute';
-            gridContainer.style.top = '0';
-            gridContainer.style.left = '0';
+            gridContainer.style.top = printPage.getMargin('top') + measurementUnit;
+            gridContainer.style.left = printPage.getMargin('left') + measurementUnit;
+            gridContainer.style.bottom = printPage.getMargin('bottom') + measurementUnit;
+            gridContainer.style.right = printPage.getMargin('right') + measurementUnit;
             gridContainer.style.zIndex = '10';
+            gridContainer.style.pointerEvents = 'none';
 
             let numberOfCells = this.get('columns') * this.get('rows');
-
             for (let i = 0; i < numberOfCells; i++) {
                 let cell = document.createElement('div');
-                // todo - base this on measurementUnit
-//                cell.style.width = '200px';
-//                cell.style.height = '200px';
                 cell.style.border = 'dashed 1px blue';
                 cell.style.boxSizing = 'border-box';
                 gridContainer.prepend(cell);
@@ -122,6 +124,10 @@ define([
 
         this.getWidth = function() {
             return data['width'];
+        };
+
+        this.getTrack = function(track) {
+            return data[track];
         };
 
         this.setDimension = function(dimension, value) {
@@ -220,15 +226,5 @@ define([
             combinedPrototype[key] = PubSubAbstract.prototype[key];
         }
         return combinedPrototype;
-    }
-
-    function getKeyValueReverse(forwardObject) {
-        let reversed = {};
-        for (let key in forwardObject) {
-            if (forwardObject.hasOwnProperty(key)) {
-                reversed[forwardObject[key]] = key;
-            }
-        }
-        return reversed;
     }
 });

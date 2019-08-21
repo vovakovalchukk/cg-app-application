@@ -3,13 +3,15 @@ define([
     'InvoiceDesigner/Template/Module/DomListener/PrintPage',
     'InvoiceDesigner/Template/PaperType/Entity',
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Constants'
 ], function(
     ModuleAbstract,
     PrintPageListener,
     PaperType,
     ElementMapperAbstract,
-    domManipulator
+    domManipulator,
+    Constants
 ) {
     let PrintPage = function() {
         ModuleAbstract.call(this);
@@ -39,10 +41,18 @@ define([
         }
     };
 
-    PrintPage.prototype.setPrintPageMargin = function(direction, value, populating) {
+    PrintPage.prototype.setPrintPageMargin = function(direction, value) {
         const template = this.getTemplate();
         const printPage = template.getPrintPage();
-        printPage.setMargin(template, direction, value, populating);
+        const multiPage = template.getMultiPage();
+
+        printPage.setMargin(template, direction, value);
+
+        let dimension = Constants.MARGIN_TO_DIMENSION[direction];
+        let track = Constants.DIMENSION_TO_TRACK[dimension];
+        let trackValue = multiPage.getTrack(track);
+        let maxValue = multiPage.calculateMaxDimensionValue(template, dimension, trackValue);
+        multiPage.setDimension(dimension, maxValue);
     };
 
     return new PrintPage();
