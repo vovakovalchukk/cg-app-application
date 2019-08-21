@@ -196,7 +196,7 @@ class Service
             OrdersModule::ROUTE,
             [],
             [
-                'query' => ['search' => $externalUsername, 'searchField' => ['order.externalUsername']]
+                'query' => ['search' => $externalUsername, 'searchField' => ['order.externalUsername', 'billing.emailAddress']]
             ]
         );
 
