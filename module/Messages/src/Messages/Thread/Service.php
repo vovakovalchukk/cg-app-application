@@ -36,6 +36,10 @@ class Service
     const ASSIGNEE_ASSIGNED = 'assigned';
     const ASSIGNEE_UNASSIGNED = 'unassigned';
     const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
+    protected const CHANNEL_TO_ORDER_SEARCH_FIELD_MAP = [
+        Thread::CHANNEL_EBAY => 'order.externalUsername',
+        Thread::CHANNEL_AMAZON => 'billing.emailAddress',
+    ];
 
     /** @var ThreadService $threadService */
     protected $threadService;
@@ -196,7 +200,7 @@ class Service
             OrdersModule::ROUTE,
             [],
             [
-                'query' => ['search' => $externalUsername, 'searchField' => ['order.externalUsername', 'billing.emailAddress']]
+                'query' => ['search' => $externalUsername, 'searchField' => $this->getSearchField($thread)]
             ]
         );
 
@@ -212,6 +216,14 @@ class Service
         }
 
         return $threadData;
+    }
+
+    protected function getSearchField(Thread $thread): array
+    {
+        if (isset(static::CHANNEL_TO_ORDER_SEARCH_FIELD_MAP[$thread->getChannel()])) {
+            return [static::CHANNEL_TO_ORDER_SEARCH_FIELD_MAP[$thread->getChannel()]];
+        }
+        return ['order.externalUsername'];
     }
 
     public function getOrderCountForId($id)
