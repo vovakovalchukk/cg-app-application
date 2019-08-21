@@ -56,25 +56,19 @@ define([
             const measurementUnit = paperPage.getMeasurementUnit();
 
             let gridContainer = document.createElement('div');
-            gridContainer.className = 'template-multi-page-guidelines-element';
+            gridContainer.className = 'template-multi-page-guidelines-container-element';
             gridContainer.style.height = printPage.getHeight(template) + measurementUnit;
             gridContainer.style.width = printPage.getWidth(template) + measurementUnit;
-            gridContainer.style.boxSizing = 'border-box';
-            gridContainer.style.display = 'grid';
             gridContainer.style.gridTemplateColumns = 'minmax(0, 1fr) '.repeat(this.get('columns'));
-            gridContainer.style.position = 'absolute';
             gridContainer.style.top = printPage.getMargin('top') + measurementUnit;
             gridContainer.style.left = printPage.getMargin('left') + measurementUnit;
             gridContainer.style.bottom = printPage.getMargin('bottom') + measurementUnit;
             gridContainer.style.right = printPage.getMargin('right') + measurementUnit;
-            gridContainer.style.zIndex = '10';
-            gridContainer.style.pointerEvents = 'none';
 
             let numberOfCells = this.get('columns') * this.get('rows');
             for (let i = 0; i < numberOfCells; i++) {
                 let cell = document.createElement('div');
-                cell.style.border = 'dashed 1px blue';
-                cell.style.boxSizing = 'border-box';
+                cell.className = 'template-multi-page-guidelines-cell-element';
                 gridContainer.prepend(cell);
             }
 

@@ -1,4 +1,5 @@
 $module-grid-gap: 5px 15px;
+$indicator-border-color: #1477aa94;
 
 .invoice-designer-container {
   height: 100vh;
@@ -182,7 +183,7 @@ $module-grid-gap: 5px 15px;
     position : absolute;
     width : 100%;
     height : 100%;
-    border : 2px dashed lightskyblue;
+    border : 1px dashed $indicator-border-color;
     box-sizing : border-box;
     z-index : 100;
     pointer-events : none;
@@ -195,6 +196,19 @@ $module-grid-gap: 5px 15px;
     z-index: 10;
     box-shadow: rgba(137, 137, 137, 0.3) 0px 0px 0px 1000in;
     pointer-events: none;
+}
+
+.template-multi-page-guidelines-container-element {
+    z-index: 10;
+    pointer-events: none;
+    position: absolute;
+    box-sizing: border-box;
+    display: grid;
+}
+
+.template-multi-page-guidelines-cell-element {
+    border: dashed 1px $indicator-border-color;
+    box-sizing: border-box;
 }
 
 .template-element-ordertable{
