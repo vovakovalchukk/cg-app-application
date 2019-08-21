@@ -1,4 +1,5 @@
 import {submit as reduxFormSubmit} from 'redux-form';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 var submitForm = reduxFormSubmit('createProductForm');
 
@@ -116,7 +117,8 @@ var submitForm = reduxFormSubmit('createProductForm');
             productIdentifiers = {};
         }
         let skuMatch = Object.keys(productIdentifiers).find((key) => {
-            return key === formattedVariation.id
+            let prefixedId = fieldService.getVariationIdWithPrefix(formattedVariation.id);
+            return key === prefixedId;
         });
 
         if (!skuMatch) {
@@ -127,7 +129,7 @@ var submitForm = reduxFormSubmit('createProductForm');
         delete variationIdentifiers.id;
 
         let mergedVariation = Object.assign(formattedVariation, variationIdentifiers);
-        delete mergedVariation.id
+        delete mergedVariation.id;
         return mergedVariation;
     }
 

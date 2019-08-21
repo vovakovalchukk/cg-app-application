@@ -58,7 +58,7 @@ class Service implements
         return [
             'categories' => $this->categoryService->fetchRootCategoriesForAccount(
                 $account,
-                false,
+                true,
                 $this->getMarketplaceForAccount($account),
                 false
             )
