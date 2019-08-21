@@ -82,10 +82,11 @@ define([
             const measurementUnit = paperPage.getMeasurementUnit();
 
             let element = document.createElement('div');
-
             let visibility = this.getVisibility();
+
             let height = this.getHeight(template) + measurementUnit;
             let width = this.getWidth(template) + measurementUnit;
+
             let top = printPage.getMargin('top') + measurementUnit;
             let left = printPage.getMargin('left') + measurementUnit;
 
@@ -195,7 +196,7 @@ define([
             return dimensionValueToBeRelativeTo;
         }
 
-        let maxDimension = Math.floor(dimensionValueToBeRelativeTo / trackValue);
+        let maxDimension = dimensionValueToBeRelativeTo / trackValue;
 
         return maxDimension;
     };
