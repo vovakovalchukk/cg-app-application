@@ -82,30 +82,16 @@ var identifiers = [
 
 let Identifier = props => {
     let {inputComponent, variation, identifier} = props;
-    return <td>
+    let variationIdWithPrefix = fieldService.getVariationIdWithPrefix(variation.id);
+    return <td className={'u-width-120px'}>
         <Field
-            name={`identifiers.${fieldService.getVariationIdWithPrefix(variation.id)}.${identifier.name}`}
+            name={`identifiers.${variationIdWithPrefix}.${identifier.name}`}
             component={inputComponent}
             validate={identifier.validate ? [identifier.validate] : undefined}
             normalize={identifier.normalize ? identifier.normalize : value => value}
             inputType={identifier.type ? identifier.type : 'input'}
         />
     </td>;
-};
-
-let InputWrapper = (props) => {
-    let {InputForType, field, onChange, errors} = props;
-    let onChangeHandler = value => {
-        onChange(field.input, value );
-    };
-    return <InputForType
-        field={field}
-        onChange={onChangeHandler}
-        errors={errors}
-        className={"product-identifier-input"}
-        errorBoxClassName={"product-input-error"}
-        InputForType={InputForType}
-    />
 };
 
 class ProductIdentifiers extends React.Component {
@@ -145,14 +131,20 @@ class ProductIdentifiers extends React.Component {
     };
 
     renderInputComponent = (field) => {
-        var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
-        var InputForType = this.getInput(field);
+        const errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
+        const InputForType = this.getInput(field);
 
-        return <InputWrapper
-            field={field}
-            onChange={this.onInputChange}
+        const onChangeHandler = value => {
+            this.onInputChange(field.input, value );
+        };
+
+        return <InputForType
+            {...field.input}
+            onChange={onChangeHandler}
             errors={errors}
-            InputForType={InputForType}
+            className={"product-identifier-input"}
+            errorBoxClassName={"product-input-error"}
+            inputType={"number"}
         />
     };
 
