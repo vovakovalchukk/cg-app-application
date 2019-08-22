@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c432b5431a8110d9991ca1db7344cf6c",
+    "content-hash": "739cc80264e93f32fac9e3b24b1d4652",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -914,16 +914,16 @@
         },
         {
             "name": "channelgrabber/communication",
-            "version": "dev-CGIV-10864-messages-search-orders-by-buyer-email",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "bec9a04f3524724d0fff9a409a9f9d2d3b463c8c"
+                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-dev-CGIV-10864-messages-search-orders-by-buyer-email-883de4.zip",
-                "reference": "bec9a04f3524724d0fff9a409a9f9d2d3b463c8c",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/communication/channelgrabber-communication-1.1.0-04b629.zip",
+                "reference": "6f2f04f6099d0f8ef38343b7a21b74c4217f4eb9",
                 "shasum": null
             },
             "require": {
@@ -954,7 +954,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2019-08-21T13:35:33+00:00"
+            "time": "2019-08-22T12:52:54+00:00"
         },
         {
             "name": "channelgrabber/constants",
@@ -1165,22 +1165,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.19.0",
+            "version": "1.19.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2"
+                "reference": "1fac5427ffee986cfe7b1f6a63aac2b2a82a7db1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.19.0-92d52e.zip",
-                "reference": "33e3588bf7bce20880821207da08f02b2a0117c2",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/ebay/channelgrabber-ebay-1.19.9-d225a5.zip",
+                "reference": "1fac5427ffee986cfe7b1f6a63aac2b2a82a7db1",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.15.1",
-                "channelgrabber/channel": "^1.39.2",
+                "channelgrabber/channel": "^1.42.11",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -1189,7 +1189,7 @@
                 "channelgrabber/listing": "^1.18.3",
                 "channelgrabber/locale": "^1.0.9",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "^1.28.7",
+                "channelgrabber/order": "^1.43.16",
                 "channelgrabber/product": "^1.12.2",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
@@ -1226,7 +1226,7 @@
                     "CG\\Product\\Test\\": "vendor/channelgrabber/product/tests/src/"
                 }
             },
-            "time": "2019-02-06T11:31:29+00:00"
+            "time": "2019-05-31T07:58:32+00:00"
         },
         {
             "name": "channelgrabber/ekm",
@@ -11441,17 +11441,9 @@
             "time": "2015-11-25T15:29:49+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.0",
-            "alias_normalized": "1.1.0.0",
-            "version": "dev-CGIV-10864-messages-search-orders-by-buyer-email",
-            "package": "channelgrabber/communication"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "phpish/link_header": 20,
         "realityking/hash_equals": 20,
