@@ -1,16 +1,21 @@
 define([
     'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/EntityHydrateAbstract',
     'InvoiceDesigner/PubSub/Abstract',
-    'InvoiceDesigner/Constants'
+    'InvoiceDesigner/Constants',
+    'InvoiceDesigner/utility'
 ], function(
     templateService,
+    EntityAbstract,
     EntityHydrateAbstract,
     PubSubAbstract,
-    Constants
+    Constants,
+    utility
 ) {
     const Entity = function() {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
 
         let data = {
@@ -23,7 +28,6 @@ define([
             visibility: false
         };
         let marginIndicatorElement = null;
-        let ENTITY_NAME = 'printPage';
 
         this.getData = function() {
             return data;
@@ -33,10 +37,6 @@ define([
             let data = this.getData();
             this.setVisibilityFromData(data);
             this.renderMarginIndicatorElement(template, data, templatePageElement);
-        };
-
-        this.getEntityName = function() {
-            return ENTITY_NAME;
         };
 
         this.renderMarginIndicatorElement = function(template, data, templatePageElement) {
@@ -151,34 +151,13 @@ define([
         this.setVisibility = function(isVisible) {
             data.visibility = isVisible;
         };
-
-        this.get = function(field) {
-            return data[field];
-        };
-
-        this.set = function(field, value, populating, topicPublishSettings) {
-            data[field] = value;
-
-            if (populating) {
-                return;
-            }
-
-            if(!Array.isArray(topicPublishSettings)){
-                this.publish();
-                return;
-            }
-
-            for(let settings of topicPublishSettings){
-                this.publishTopic(settings.topicName, settings)
-            }
-
-            this.publish();
-        };
     };
 
-    let combinedPrototype = createPrototype();
-
-    Entity.prototype = Object.create(combinedPrototype);
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
     Entity.prototype.toJson = function() {
         let data = Object.assign({}, this.getData());
@@ -189,12 +168,4 @@ define([
     };
 
     return Entity;
-
-    function createPrototype() {
-        let combinedPrototype = EntityHydrateAbstract.prototype;
-        for (var key in PubSubAbstract.prototype) {
-            combinedPrototype[key] = PubSubAbstract.prototype[key];
-        }
-        return combinedPrototype;
-    }
 });

@@ -1,6 +1,6 @@
 define([
     'InvoiceDesigner/Template/Service',
-    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/EntityHydrateAbstract'
 ], function(
     templateService,
     EntityHydrateAbstract
