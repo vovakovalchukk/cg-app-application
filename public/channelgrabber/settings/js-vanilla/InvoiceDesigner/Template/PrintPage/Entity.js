@@ -1,11 +1,13 @@
 define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract'
+    'InvoiceDesigner/PubSub/Abstract',
+    'InvoiceDesigner/Constants'
 ], function(
     templateService,
     EntityHydrateAbstract,
-    PubSubAbstract
+    PubSubAbstract,
+    Constants
 ) {
     const Entity = function() {
         EntityHydrateAbstract.call(this);
@@ -21,6 +23,7 @@ define([
             visibility: false
         };
         let marginIndicatorElement = null;
+        let ENTITY_NAME = 'printPage';
 
         this.getData = function() {
             return data;
@@ -30,6 +33,10 @@ define([
             let data = this.getData();
             this.setVisibilityFromData(data);
             this.renderMarginIndicatorElement(template, data, templatePageElement);
+        };
+
+        this.getEntityName = function() {
+            return ENTITY_NAME;
         };
 
         this.renderMarginIndicatorElement = function(template, data, templatePageElement) {
@@ -112,7 +119,13 @@ define([
 
             let newMarginState = Object.assign({}, data.margin);
             newMarginState[direction] = value;
-            this.set("margin", newMarginState);
+
+            this.set("margin", newMarginState, false, [{
+                topicName: this.getTopicNames().paperSpace,
+                template,
+                dimensionAffected: Constants.MARGIN_TO_DIMENSION[direction],
+                populating: false
+            }]);
         };
 
         this.getHeight = function(template) {
@@ -143,11 +156,20 @@ define([
             return data[field];
         };
 
-        this.set = function(field, value, populating) {
+        this.set = function(field, value, populating, topicPublishSettings) {
             data[field] = value;
 
             if (populating) {
                 return;
+            }
+
+            if(!Array.isArray(topicPublishSettings)){
+                this.publish();
+                return;
+            }
+
+            for(let settings of topicPublishSettings){
+                this.publishTopic(settings.topicName, settings)
             }
 
             this.publish();

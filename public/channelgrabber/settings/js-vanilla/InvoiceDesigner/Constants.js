@@ -1,6 +1,5 @@
 define([], function() {
     const Constants = (function() {
-
         let MARGIN_TO_DIMENSION = {
             top: 'height',
             bottom: 'height',

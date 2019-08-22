@@ -1,7 +1,7 @@
 define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/PubSub/Abstract',
     'InvoiceDesigner/Constants'
 ], function(
     templateService,
@@ -33,6 +33,18 @@ define([
             this.renderWorkableAreaIndicator(template, templatePageElement);
             this.renderMultiPageGuidelines(template, templatePageElement);
         };
+
+        this.updateDimensionsToMaxValues = (publishRecord) => {
+            let {template, dimensionAffected, populating} = publishRecord;
+            const multiPage = template.getMultiPage();
+            const trackValue = multiPage.getTrack(Constants.DIMENSION_TO_TRACK[dimensionAffected]);
+
+            let maxValue = this.calculateMaxDimensionValue(template, dimensionAffected, trackValue)
+
+            this.set(dimensionAffected, maxValue, populating)
+        };
+
+        this.subscribeToTopic(this.getTopicNames().paperSpace, this.updateDimensionsToMaxValues);
 
         this.setVisibilityFromData = function(height, width) {
             if (!height || !width) {
