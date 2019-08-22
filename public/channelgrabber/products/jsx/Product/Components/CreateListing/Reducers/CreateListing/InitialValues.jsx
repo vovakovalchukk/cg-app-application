@@ -154,6 +154,7 @@ import fieldService from 'Product/Components/CreateListing/Service/field';
         },
         "CLEAR_SELECTED_PRODUCT": function(state, action) {
             let productId = action.payload.productId,
+                productIdKey = fieldService.getVariationIdWithPrefix(productId),
                 variation = action.payload.variationData.find(function(variation) {
                     return variation.id == productId;
                 }),
@@ -161,7 +162,7 @@ import fieldService from 'Product/Components/CreateListing/Service/field';
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: Object.assign({}, state.identifiers[productId], {
+                    [productIdKey]: Object.assign({}, state.identifiers[productIdKey], {
                         ean: identifier.ean,
                         upc: identifier.upc,
                         isbn: identifier.isbn,
