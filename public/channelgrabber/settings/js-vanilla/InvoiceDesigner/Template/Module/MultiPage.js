@@ -27,26 +27,28 @@ define([
 
         $(document).on(
             templateDomManipulator.getTemplateChangedEvent(),
-            (event, template, performedUpdates) => {
-                if (!performedUpdates) {
-                    return;
-                }
-                let multiPageUpdate = performedUpdates.find(update => (
-                    update.entity === template.getMultiPage().getEntityName()
-                ));
-                if (!multiPageUpdate) {
-                    return;
-                }
-
-                let inputs = this.getDomListener().getInputs();
-                let inputToChange = inputs[multiPageUpdate.field];
-                let valueToApply = multiPageUpdate.value;
-                if (!inputToChange || (typeof valueToApply === "undefined")) {
-                    return;
-                }
-                domManipulator.setValueToInput(inputToChange, valueToApply);
-            }
+            this.reactToTemplateChange.bind(this)
         );
+    };
+
+    MultiPage.prototype.reactToTemplateChange = function(event, template, performedUpdates) {
+        if (!performedUpdates) {
+            return;
+        }
+        let multiPageUpdate = performedUpdates.find(update => (
+            update.entity === template.getMultiPage().getEntityName()
+        ));
+        if (!multiPageUpdate) {
+            return;
+        }
+
+        let inputs = this.getDomListener().getInputs();
+        let inputToChange = inputs[multiPageUpdate.field];
+        let valueToApply = multiPageUpdate.value;
+        if (!inputToChange || (typeof valueToApply === "undefined")) {
+            return;
+        }
+        domManipulator.setValueToInput(inputToChange, valueToApply);
     };
 
     MultiPage.prototype.initialiseMultiPageInputs = function(template) {
