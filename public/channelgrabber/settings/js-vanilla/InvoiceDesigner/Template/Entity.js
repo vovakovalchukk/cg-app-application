@@ -30,6 +30,10 @@ define([
             editable: true
         };
 
+        this.getEntityName = function() {
+            return 'Template';
+        };
+
         this.getElements = function()
         {
             return elements;

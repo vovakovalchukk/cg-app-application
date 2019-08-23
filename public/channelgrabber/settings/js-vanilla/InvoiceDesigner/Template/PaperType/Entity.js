@@ -22,6 +22,10 @@ define([
             return service;
         };
 
+        this.getEntityName = function() {
+            return 'PaperType';
+        };
+
         this.getId = function()
         {
             return this.get('id');

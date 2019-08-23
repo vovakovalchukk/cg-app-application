@@ -26,6 +26,10 @@ define([
             measurementUnit: undefined
         };
 
+        this.getEntityName = function() {
+            return 'PaperPage';
+        };
+
         this.getId = function()
         {
             if (!this.get('id')) {

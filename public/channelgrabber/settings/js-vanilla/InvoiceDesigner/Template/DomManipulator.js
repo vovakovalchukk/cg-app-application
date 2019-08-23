@@ -53,17 +53,7 @@ define([
     DomManipulator.prototype.triggerTemplateChangeEvent = function (template, performedUpdates)
     {
         this.showSaveDiscardBar();
-
-
-        debugger;
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template, performedUpdates]);
-
-
-        //todo - add separate event per update?
-
-
-
-
         return this;
     };
 
