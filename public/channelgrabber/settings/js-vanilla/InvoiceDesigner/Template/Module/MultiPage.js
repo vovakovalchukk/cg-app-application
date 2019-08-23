@@ -50,8 +50,10 @@ define([
     };
 
     MultiPage.prototype.initialiseMultiPageInputs = function(template) {
-        let multiPageData = template.getMultiPage().getData();
-        let inputs = this.getDomListener().getInputs();
+        const multiPage = template.getMultiPage();
+        const multiPageData = multiPage.getData();
+        const inputs = this.getDomListener().getInputs();
+
         for (let property in multiPageData) {
             let input = inputs[property];
             let value = multiPageData[property];

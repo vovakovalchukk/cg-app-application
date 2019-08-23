@@ -70,13 +70,13 @@ define([
             gridContainer.className = 'template-multi-page-guidelines-container-element';
             gridContainer.style.height = printPage.getHeight(template) + measurementUnit;
             gridContainer.style.width = printPage.getWidth(template) + measurementUnit;
-            gridContainer.style.gridTemplateColumns = 'minmax(0, 1fr) '.repeat(this.get('columns'));
+            gridContainer.style.gridTemplateColumns = 'minmax(0, 1fr) '.repeat(Math.floor(this.get('columns')));
             gridContainer.style.top = printPage.getMargin('top') + measurementUnit;
             gridContainer.style.left = printPage.getMargin('left') + measurementUnit;
             gridContainer.style.bottom = printPage.getMargin('bottom') + measurementUnit;
             gridContainer.style.right = printPage.getMargin('right') + measurementUnit;
 
-            let numberOfCells = this.get('columns') * this.get('rows');
+            let numberOfCells = Math.floor(this.get('columns')) * Math.floor(this.get('rows'));
             for (let i = 0; i < numberOfCells; i++) {
                 let cell = document.createElement('div');
                 cell.className = 'template-multi-page-guidelines-cell-element';
@@ -157,7 +157,7 @@ define([
             this.publish();
         };
 
-        function updateDimensionsToMaxValues (publishSettings) {
+        function updateDimensionsToMaxValues(publishSettings) {
             let {template, dimensionAffected, populating} = publishSettings;
             const multiPage = template.getMultiPage();
             const trackValue = multiPage.getTrack(Constants.DIMENSION_TO_TRACK[dimensionAffected]);
@@ -216,6 +216,15 @@ define([
         return maxDimension;
     };
 
+    Entity.prototype.getTrackValueFromDimension = function(template, dimension, dimensionValue) {
+        if (!dimensionValue) {
+            return;
+        }
+        let maximumArea = this.getDimensionValueToBeRelativeTo(template, dimension);
+        let trackValue = maximumArea / dimensionValue;
+        return trackValue;
+    };
+
     Entity.prototype.toJson = function() {
         let data = Object.assign({}, this.getData());
         delete data.rows;
@@ -229,12 +238,4 @@ define([
     };
 
     return Entity;
-
-    function createPrototype() {
-        let combinedPrototype = EntityHydrateAbstract.prototype;
-        for (var key in PubSubAbstract.prototype) {
-            combinedPrototype[key] = PubSubAbstract.prototype[key];
-        }
-        return combinedPrototype;
-    }
 });

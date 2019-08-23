@@ -115,6 +115,10 @@ define([
         if (!json) {
             json = {};
         }
+
+        json['columns'] = multiPage.getTrackValueFromDimension(template, 'width', json['width']);
+        json['rows'] = multiPage.getTrackValueFromDimension(template, 'height', json['height']);
+
         multiPage.hydrate(json, populating);
     };
 
