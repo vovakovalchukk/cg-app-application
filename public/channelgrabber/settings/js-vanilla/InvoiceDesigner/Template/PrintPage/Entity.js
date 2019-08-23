@@ -39,6 +39,10 @@ define([
             this.renderMarginIndicatorElement(template, data, templatePageElement);
         };
 
+        this.getEntityName = function() {
+            return 'PrintPage';
+        };
+
         this.renderMarginIndicatorElement = function(template, data, templatePageElement) {
             let marginIndicatorElement = this.createMarginIndicatorElement(template, data);
             templatePageElement.prepend(marginIndicatorElement);

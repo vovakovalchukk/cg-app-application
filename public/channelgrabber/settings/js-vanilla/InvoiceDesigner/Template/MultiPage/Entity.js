@@ -1,19 +1,26 @@
 define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/PubSub/Abstract',
-    'InvoiceDesigner/Constants'
+    'InvoiceDesigner/Constants',
+    'InvoiceDesigner/utility'
 ], function(
     templateService,
     EntityHydrateAbstract,
+    EntityAbstract,
     PubSubAbstract,
-    Constants
+    Constants,
+    utility
 ) {
     let {DIMENSION_TO_TRACK, TRACK_TO_DIMENSION} = Constants;
 
     const Entity = function() {
         EntityHydrateAbstract.call(this);
+        EntityAbstract.call(this);
         PubSubAbstract.call(this);
+
+        this.subscribeToTopic(this.getTopicNames().paperSpace, updateDimensionsToMaxValues.bind(this));
 
         let data = {
             rows: null,
@@ -34,17 +41,9 @@ define([
             this.renderMultiPageGuidelines(template, templatePageElement);
         };
 
-        this.updateDimensionsToMaxValues = (publishRecord) => {
-            let {template, dimensionAffected, populating} = publishRecord;
-            const multiPage = template.getMultiPage();
-            const trackValue = multiPage.getTrack(Constants.DIMENSION_TO_TRACK[dimensionAffected]);
-
-            let maxValue = this.calculateMaxDimensionValue(template, dimensionAffected, trackValue)
-
-            this.set(dimensionAffected, maxValue, populating)
+        this.getEntityName = function() {
+            return 'MultiPage';
         };
-
-        this.subscribeToTopic(this.getTopicNames().paperSpace, this.updateDimensionsToMaxValues);
 
         this.setVisibilityFromData = function(height, width) {
             if (!height || !width) {
@@ -145,10 +144,6 @@ define([
             return TRACK_TO_DIMENSION[trackProperty];
         };
 
-        this.get = function(field) {
-            return data[field];
-        };
-
         this.setMultiple = function(fields, populating) {
             let oldData = Object.assign({}, data);
             data = {
@@ -162,20 +157,28 @@ define([
             this.publish();
         };
 
-        this.set = function(field, value, populating) {
-            data[field] = value;
+        function updateDimensionsToMaxValues (publishSettings) {
+            let {template, dimensionAffected, populating} = publishSettings;
+            const multiPage = template.getMultiPage();
+            const trackValue = multiPage.getTrack(Constants.DIMENSION_TO_TRACK[dimensionAffected]);
 
-            if (populating) {
-                return;
-            }
+            let maxValue = this.calculateMaxDimensionValue(template, dimensionAffected, trackValue);
 
-            this.publish();
-        };
+            this.set(dimensionAffected, maxValue, populating);
+
+            publishSettings.recordEntityUpdate({
+                entity: this.getEntityName(),
+                field: dimensionAffected,
+                value: maxValue
+            })
+        }
     };
 
-    let combinedPrototype = createPrototype();
-
-    Entity.prototype = Object.create(combinedPrototype);
+    Entity.prototype = Object.create(utility.createPrototype([
+        EntityHydrateAbstract,
+        PubSubAbstract,
+        EntityAbstract
+    ]));
 
     Entity.prototype.getDimensionValueToBeRelativeTo = function(template, dimension) {
         const paperPage = template.getPaperPage();

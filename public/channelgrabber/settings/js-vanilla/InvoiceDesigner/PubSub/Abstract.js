@@ -59,26 +59,26 @@ define([
         return this;
     };
 
-    PubSubAbstract.prototype.publish = function()
+    PubSubAbstract.prototype.publish = function(performedUpdates)
     {
         var subscribers = this.getSubscribers();
         for (var key in subscribers) {
-            subscribers[key][PubSubAbstract.PUBLISH_METHOD](this);
+            subscribers[key][PubSubAbstract.PUBLISH_METHOD](this, performedUpdates);
         }
         return this;
     };
 
-    PubSubAbstract.prototype.publishTopic = function(topic, publishRecord) {
+    PubSubAbstract.prototype.publishTopic = function(topic, settings) {
         const topics = this.getTopics();
         if(!topics[topic]){
             return;
         }
 
-        let topicCallbacks = topics[ topic ];
-        publishRecord = publishRecord || [];
+        let topicCallbacks = topics[topic];
+        settings = settings || [];
 
         for (let callback of topicCallbacks ) {
-            callback(publishRecord);
+            callback(settings);
         }
     };
 

@@ -2,7 +2,6 @@ define([
     'InvoiceDesigner/Template/Element/Collection',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/Template/Entity'
 ], function(
     Collection,
     domManipulator,
@@ -197,9 +196,9 @@ define([
             return manipulator;
         };
 
-        this.notifyOfChange = function()
+        this.notifyOfChange = function(topicUpdates)
         {
-            this.getDomManipulator().triggerTemplateChangeEvent(this);
+            this.getDomManipulator().triggerTemplateChangeEvent(this, topicUpdates);
         };
     };
 
@@ -234,9 +233,9 @@ define([
         return this;
     };
 
-    Entity.prototype.publisherUpdate = function(element)
+    Entity.prototype.publisherUpdate = function(element, topicUpdates)
     {
-        this.notifyOfChange();
+        this.notifyOfChange(topicUpdates);
     };
 
     return Entity;

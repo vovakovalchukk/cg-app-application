@@ -23,6 +23,30 @@ define([
     MultiPage.prototype.init = function(template, templateService) {
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.initialiseMultiPageInputs(template);
+        let templateDomManipulator = template.getDomManipulator();
+
+        $(document).on(
+            templateDomManipulator.getTemplateChangedEvent(),
+            (event, template, performedUpdates) => {
+                if (!performedUpdates) {
+                    return;
+                }
+                let multiPageUpdate = performedUpdates.find(update => (
+                    update.entity === template.getMultiPage().getEntityName()
+                ));
+                if (!multiPageUpdate) {
+                    return;
+                }
+
+                let inputs = this.getDomListener().getInputs();
+                let inputToChange = inputs[multiPageUpdate.field];
+                let valueToApply = multiPageUpdate.value;
+                if (!inputToChange || (typeof valueToApply === "undefined")) {
+                    return;
+                }
+                domManipulator.setValueToInput(inputToChange, valueToApply);
+            }
+        );
     };
 
     MultiPage.prototype.initialiseMultiPageInputs = function(template) {
