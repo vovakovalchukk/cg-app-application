@@ -4,9 +4,7 @@ import ReactDOM from 'react-dom';
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
 import filterCollection from 'Filters/js/FilterCollection';
-import progressService from 'CommonSrc/js-vanilla/Common/progressService';
 import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
-console.log('progressService: ', progressService);
 
 const ordersIndex = (function ordersIndex() {
     return {
