@@ -5,19 +5,8 @@ import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
 import filterCollection from 'Filters/js/FilterCollection';
 import progressService from 'CommonSrc/js-vanilla/Common/progressService';
-import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction';
+import TemplateExportBulkAction from 'Orders/jsx/Components/TemplateExportBulkAction'
 console.log('progressService: ', progressService);
-//define(['Orders/ProgressCheckAbstract'],
-//    function(ProgressCheckAbstract)
-//    {
-//        var InvoiceBulkAction = function(
-//            startMessage,
-//            progressMessage,
-//            endMessage
-//        ) {
-//            ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage);
-//        };
-
 
 const ordersIndex = (function ordersIndex() {
     return {

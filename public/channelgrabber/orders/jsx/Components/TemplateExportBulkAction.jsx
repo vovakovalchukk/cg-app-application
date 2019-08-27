@@ -3,10 +3,11 @@ import ButtonMultiSelect from 'Common/Components/ButtonMultiSelect';
 import BulkActionService from 'Orders/js-vanilla/BulkActionService';
 import dateUtility from 'Common/Utils/date';
 import fileDownload from 'CommonSrc/js-vanilla/Common/Utils/xhr/fileDownload';
-import progressService from 'CommonSrc/js-vanilla/Common/progressService';
+//import progressService from 'CommonSrc/js-vanilla/Common/progressService';
 
 const TemplateExportBulkAction = ({pdfExportOptions}) => {
     let options = [];
+
     if (pdfExportOptions) {
         options = organiseOptionsByFavourite(pdfExportOptions);
         options = appendDefaultInvoiceOption(options)
@@ -19,20 +20,9 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         onButtonClick={requestTemplateExport}
     />);
 
-    //todo - HACK - remove orders Ids
     async function requestTemplateExport(templateIds) {
-        console.log('in render');
-        //
         let orders = BulkActionService.getSelectedOrders();
-        //todo - HACK - remove
-//        templateIds = [
-//            "2",
-//            "3"
-//        ];
-//        orders = [
-//            "7-1000",
-//            "7-1172"
-//        ];
+
         if (!Array.isArray(templateIds) ||
             !Array.isArray(orders) ||
             !templateIds.length ||
@@ -40,13 +30,15 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         ) {
             return;
         }
+
         let handleError = () => {
             n.error('Documents could not be generated successfully.')
         };
+
         try {
             let {guid} = await progressService.callCheck( '/orders/invoice/check');
-
-            let response = fileDownload.downloadBlob({
+            n.notice('Generating documents...');
+            let response = await fileDownload.downloadBlob({
                 url: '/orders/pdf-export',
                 desiredFilename: `${dateUtility.getCurrentDate()}.pdf`,
                 data: {
@@ -54,29 +46,31 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                     templateIds,
                     invoiceProgressKey: guid
                 }
-            }).then((response) => {
-                if (response.status !== 200) {
-                    return handleError();
-                }
             });
-            
-            console.log('response: ', response);
-            
-            
+
+            debugger;
             progressService.runProgressCheck(guid, "orders/invoice/progress" );
 //            n.success('Documents generated successfully.');
+//                    templateIds
+//                }
+//            });
+
+            if (response.status !== 200) {
+                return handleError();
+            }
+            n.success('Documents generated successfully.');
         } catch (err) {
             handleError();
         }
     }
 
-    function organiseOptionsByFavourite(options) {
+    function organiseOptionsByFavourite(options){
         return options.sort((a, b) => {
             return b.favourite - a.favourite;
         });
     }
 
-    function appendDefaultInvoiceOption(options) {
+    function appendDefaultInvoiceOption(options){
         options.splice(0, 0, {
             id: 'defaultInvoice',
             name: 'Default Invoice'

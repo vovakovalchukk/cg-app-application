@@ -75,6 +75,45 @@ let detailsColumns = [
         fixed: false,
         align: 'center',
         feature: 'costPriceEnabled'
+    },
+    {
+        key: 'ean',
+        type: 'barcode',
+        width: 150,
+        headerText: 'EAN',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'upc',
+        type: 'barcode',
+        width: 150,
+        headerText: 'UPC',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'mpn',
+        type: 'barcode',
+        width: 150,
+        headerText: 'MPN',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'isbn',
+        type: 'barcode',
+        width: 150,
+        headerText: 'ISBN',
+        fixed: false,
+        align: 'center'
+    },
+    {
+        key: 'barcodeNotApplicable',
+        width: 100,
+        headerText: 'Barcode Not Applicable',
+        fixed: false,
+        align: 'center'
     }
 ];
 
@@ -188,27 +227,45 @@ function generateVatColumns(vat) {
 }
 
 function generateFulfilmentLatencyColumnsFromAccounts(accounts) {
-    return [];
-    // if (typeof accounts === "string") {
-    //     return [];
-    // }
-    //
-    // let amazonAccounts = Object.keys(accounts).filter(accountKey => {
-    //     let account = accounts[accountKey];
-    //     return account.type.includes('sales') && account.channel === 'amazon';
-    // });
-    //
-    // if (amazonAccounts.length <= 0) {
-    //     return [];
-    // }
-    //
-    // return [{
-    //     key: 'fulfillmentLatency',
-    //     width: 80,
-    //     headerText: 'Fulfilment Latency',
-    //     fixed: false,
-    //     align: 'center'
-    // }];
+    if (typeof accounts === "string") {
+        return [];
+    }
+
+    let amazonAccounts = Object.keys(accounts).filter(accountKey => {
+        let account = accounts[accountKey];
+        return account.type.includes('sales') && account.channel === 'amazon';
+    });
+
+    if (amazonAccounts.length <= 0) {
+        return [];
+    }
+
+    let columns = [{
+        key: 'fulfillmentLatency',
+        width: 80,
+        headerText: 'Fulfilment Latency',
+        fixed: false,
+        align: 'center'
+    }];
+
+    amazonAccounts.forEach(accountKey => {
+        let account = accounts[accountKey];
+        if (!account.externalData.fulfillmentLatencyPerProduct) {
+            return;
+        }
+
+        columns.push({
+            account,
+            key: 'fulfillmentLatency' + account.id,
+            type: 'fulfillmentLatency',
+            width: 80,
+            headerText: 'FL - ' + account.displayName,
+            fixed: false,
+            align: 'center'
+        });
+    });
+
+    return columns;
 }
 
 function generateListingsColumnsFromAccounts(accounts) {

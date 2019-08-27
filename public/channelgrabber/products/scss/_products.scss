@@ -837,3 +837,6 @@ $tabs-container-height: 50px;
     height: $tabs-container-height;
 }
 
+.safe-input-box .submit-input input.no-max-width {
+    max-width: unset;
+}
