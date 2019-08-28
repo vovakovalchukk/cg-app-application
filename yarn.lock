@@ -2449,7 +2449,7 @@ caseless@~0.12.0:
 
 "cg-common@git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#TAC-468-poll-the-check-endpoint-for-template-generation":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#9e7964a239055f16351d2ec681513e870b1da3a2"
+  resolved "git+ssh://git@bitbucket.org:channelgrabber/cg-np-common.git#043794d24ad29349ec72091129e683dac1a0ee0f"
   dependencies:
     babel-plugin-styled-components "^1.10.0"
     chalk "^2.4.1"
