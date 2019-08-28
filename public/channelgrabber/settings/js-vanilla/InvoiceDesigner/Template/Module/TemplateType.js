@@ -3,7 +3,6 @@ define([
     'InvoiceDesigner/Template/Module/DomListener/TemplateType',
     'InvoiceDesigner/Template/PaperType/Entity',
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/PrintPage/Storage/Ajax',
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Constants'
 ], function(
@@ -11,7 +10,6 @@ define([
     TemplateTypeListener,
     PaperType,
     ElementMapperAbstract,
-    printPageStorage,
     domManipulator,
     Constants
 ) {
