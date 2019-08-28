@@ -58,6 +58,8 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
 
     async function requestTemplateExport(templateIds, orders) {
         orders = orders || BulkActionService.getSelectedOrders();
+        const baseMessage = 'Generating templates...';
+        const maxProgress = templateIds.length * orders.length;
 
         if (!Array.isArray(templateIds) ||
             !Array.isArray(orders) ||
@@ -67,17 +69,27 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
             return;
         }
 
-        let handleError = () => {
-            n.error('Documents could not be generated successfully.')
+        const handleError = () => {
+            n.error('Templates could not be generated successfully.')
         };
         try {
-            // this is th check
-            let {guid} = await progressService.callCheck(
+            const {guid} = await progressService.callCheck(
                 '/orders/pdf-export/check',
                 templateIds,
                 orders
             );
-            n.notice('Generating documents...');
+            n.notice(baseMessage);
+
+            progressService.runProgressCheck({
+                guid,
+                url: "/orders/pdf-export/progress",
+                maxProgress,
+                successCallback: () => {
+                },
+                progressCallback: progressCount => {
+                    n.notice(`${baseMessage} ${progressCount} out of ${maxProgress} complete.`, false, false, false);
+                }
+            });
 
             fileDownload.downloadBlob({
                 url: '/orders/pdf-export',
@@ -91,11 +103,8 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
                 if (response.status !== 200) {
                     return handleError();
                 }
+                n.success('Templates generated successfully.');
             });
-
-            progressService.runProgressCheck(guid, "/orders/pdf-export/progress" );
-
-            n.success('Documents generated successfully.');
         } catch (err) {
             handleError();
         }
