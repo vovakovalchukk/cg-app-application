@@ -1,11 +1,13 @@
 define([
     'InvoiceDesigner/Template/Module/DomListenerAbstract',
     'jquery',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Template/Element/Service'
 ], function(
     DomListenerAbstract,
     $,
-    domManipulator
+    domManipulator,
+    elementService
 ) {
     var Renderer = function()
     {
@@ -16,7 +18,11 @@ define([
 
     Renderer.prototype.init = function(module)
     {
+        console.log('in renderer init');
+        
+        
         DomListenerAbstract.prototype.init.call(this, module);
+        this.initElementDeselectedListener();
         this.initElementSelectedListener()
             .initElementDeselectedListener()
             .initTemplateChangeListener();
@@ -34,11 +40,19 @@ define([
 
     Renderer.prototype.initElementDeselectedListener = function()
     {
-        var self = this;
-        $(document).on(domManipulator.getElementDeselectedEvent(), function(event, element)
+        $(document).on(domManipulator.getElementDeselectedEvent(), (event, element) =>
         {
-            self.getModule().elementDeselected(element);
+            this.getModule().elementDeselected(element);
         });
+
+        document.addEventListener('click', event => {
+            const elementClasses = '.' + elementService.getElementDomWrapperClass();
+            if (event.target.closest(elementClasses)) {
+                return;
+            }
+            this.getModule().elementDeselected();
+        });
+
         return this;
     };
 
