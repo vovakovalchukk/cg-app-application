@@ -85,7 +85,7 @@ class EbayChannelFormComponent extends React.Component {
             return null;
         }
         return <Field
-            name="listingTemplate"
+            name="listingTemplateId"
             component={this.renderListingTemplateSelect}
             options={listingTemplates}
             displayTitle={"Listing Template"}
