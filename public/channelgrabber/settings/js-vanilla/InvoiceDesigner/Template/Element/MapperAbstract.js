@@ -149,8 +149,9 @@ define([
             width: element.getWidth().mmToPx(),
             height: element.getHeight().mmToPx()
         };
+
         size = this.getService().addDomWrapperGapToDimensions(size);
-        size = this.getService().addDomWrapperGapToDimensions(size);
+
         var domStyles = [
             'width: ' + size.width.pxToMm() + 'mm',
             'height: ' + size.height.pxToMm() + 'mm'
