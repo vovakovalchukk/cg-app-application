@@ -2,9 +2,8 @@ define([
     'InvoiceDesigner/PubSub/Topics'
 ], function(
     Topics
-){
-    var PubSubAbstract = function()
-    {
+) {
+    var PubSubAbstract = function() {
         let subscribers = [];
 
         this.getSubscribers = function() {
@@ -22,22 +21,20 @@ define([
 
     PubSubAbstract.PUBLISH_METHOD = 'publisherUpdate';
 
-    PubSubAbstract.prototype.subscribe = function(subscriber)
-    {
+    PubSubAbstract.prototype.subscribe = function(subscriber) {
         if (!subscriber.hasMethods([PubSubAbstract.PUBLISH_METHOD, 'getId'])) {
-            throw 'InvalidArgumentException: InvoiceDesigner\PubSub\Abstract::subscribe() '+
-                'must be passed a valid subscriber object';
+            throw 'InvalidArgumentException: InvoiceDesigner\PubSub\Abstract::subscribe() ' +
+            'must be passed a valid subscriber object';
         }
 
         this.getSubscribers().push(subscriber);
         return this;
     };
 
-    PubSubAbstract.prototype.subscribeToTopic = function(topic, callback)
-    {
+    PubSubAbstract.prototype.subscribeToTopic = function(topic, callback) {
         const topics = this.getTopics();
-        if ( !topics[ topic ] ) {
-            topics[ topic ] = [];
+        if (!topics[topic]) {
+            topics[topic] = [];
         }
         topics[topic].push(callback);
 
@@ -47,8 +44,7 @@ define([
         };
     };
 
-    PubSubAbstract.prototype.unsubscribe = function(subscriber)
-    {
+    PubSubAbstract.prototype.unsubscribe = function(subscriber) {
         var subscribers = this.getSubscribers();
         for (var key in subscribers) {
             if (subscribers[key].getId() == subscriber.getId()) {
@@ -59,8 +55,7 @@ define([
         return this;
     };
 
-    PubSubAbstract.prototype.publish = function(performedUpdates)
-    {
+    PubSubAbstract.prototype.publish = function(performedUpdates) {
         var subscribers = this.getSubscribers();
         for (var key in subscribers) {
             subscribers[key][PubSubAbstract.PUBLISH_METHOD](this, performedUpdates);
@@ -70,14 +65,14 @@ define([
 
     PubSubAbstract.prototype.publishTopic = function(topic, settings) {
         const topics = this.getTopics();
-        if(!topics[topic]){
+        if (!topics[topic]) {
             return;
         }
 
         let topicCallbacks = topics[topic];
         settings = settings || [];
 
-        for (let callback of topicCallbacks ) {
+        for (let callback of topicCallbacks) {
             callback(settings);
         }
     };
