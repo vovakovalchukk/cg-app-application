@@ -132,6 +132,8 @@ define([
     Entity.prototype.toJson = function()
     {
         var json = JSON.parse(JSON.stringify(this.getData()));
+        json.height = Number(json.height);
+        json.width = Number(json.width);
         return json;
     };
 
