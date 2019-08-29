@@ -2,7 +2,7 @@ define([
     'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/EntityAbstract',
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSub/Abstract',
+    'InvoiceDesigner/PubSubAbstract',
     'InvoiceDesigner/Constants',
     'InvoiceDesigner/utility'
 ], function(

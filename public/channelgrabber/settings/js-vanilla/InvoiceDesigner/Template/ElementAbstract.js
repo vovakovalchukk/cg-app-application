@@ -1,6 +1,6 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSub/Abstract',
+    'InvoiceDesigner/PubSubAbstract',
     'Common/IdGenerator'
 ], function(
     EntityHydrateAbstract,
