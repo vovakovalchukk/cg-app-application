@@ -10,6 +10,7 @@ var AccountSelectionRoot = function(
     allowedChannels,
     allowedVariationChannels,
     productSearchActive,
+    productSearchActiveForVariations,
     onCreateListingClose,
     ebaySiteOptions,
     categoryTemplateOptions,
@@ -30,12 +31,18 @@ var AccountSelectionRoot = function(
         for (var accountId in accounts) {
             var account = accounts[accountId];
             if (CreateListingUtils.productCanListToAccount(account, channels)) {
-                data[accountId] = {name: account.displayName, id: account.id, channel: account.channel};
+                data[accountId] = {
+                    name: account.displayName,
+                    id: account.id,
+                    channel: account.channel,
+                    listingsAuthActive: account.listingsAuthActive,
+                    authTokenInitialisationUrl: account.authTokenInitialisationUrl
+                };
             }
         }
         return data;
     };
-    
+
     var buildCategoryTemplateOptions = function(categoryTemplateOptions) {
         var categories = {};
         for (var categoryId in categoryTemplateOptions) {
@@ -74,6 +81,7 @@ var AccountSelectionRoot = function(
                         salesPhoneNumber={salesPhoneNumber}
                         demoLink={demoLink}
                         productSearchActive={productSearchActive}
+                        productSearchActiveForVariations={productSearchActiveForVariations}
                     />
                 </Provider>
             );
