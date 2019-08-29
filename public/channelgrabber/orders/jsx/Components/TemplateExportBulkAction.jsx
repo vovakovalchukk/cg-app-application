@@ -76,13 +76,13 @@ const TemplateExportBulkAction = ({pdfExportOptions}) => {
         }
     }
 
-    function organiseOptionsByFavourite(options){
+    function organiseOptionsByFavourite(options) {
         return options.sort((a, b) => {
             return b.favourite - a.favourite;
         });
     }
 
-    function appendDefaultInvoiceOption(options){
+    function appendDefaultInvoiceOption(options) {
         options.splice(0, 0, {
             id: 'defaultInvoice',
             name: 'Default Invoice'

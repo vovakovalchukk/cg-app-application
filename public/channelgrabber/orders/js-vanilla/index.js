@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//
 import Tooltip from 'tooltip';
 import showHideFilters from 'showHideFilters';
 import filterCollection from 'Filters/js/FilterCollection';
