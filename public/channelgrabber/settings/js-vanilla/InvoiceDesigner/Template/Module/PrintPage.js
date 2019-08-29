@@ -49,9 +49,9 @@ define([
         printPage.setMargin(template, direction, value);
 
         let dimension = Constants.MARGIN_TO_DIMENSION[direction];
-        let track = Constants.DIMENSION_TO_TRACK[dimension];
-        let trackValue = multiPage.getTrack(track);
-        let maxValue = multiPage.calculateMaxDimensionValue(template, dimension, trackValue);
+        let gridTrack = Constants.DIMENSION_TO_GRID_TRACK[dimension];
+        let gridTrackValue = multiPage.getGridTrack(gridTrack);
+        let maxValue = multiPage.calculateMaxDimensionValue(template, dimension, gridTrackValue);
         multiPage.setDimension(dimension, maxValue);
     };
 

@@ -33,12 +33,12 @@ define([
 
         inputs.rows.addEventListener('change', event => {
             const value = event.target.value;
-            this.getModule().setTrack(value, 'rows');
+            this.getModule().setGridTrack(value, 'rows');
         });
 
         inputs.columns.addEventListener('change', event => {
             const value = event.target.value;
-            this.getModule().setTrack(value, 'columns');
+            this.getModule().setGridTrack(value, 'columns');
         });
 
         inputs.width.addEventListener('change', event => {

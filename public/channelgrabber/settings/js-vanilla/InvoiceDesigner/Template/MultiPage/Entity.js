@@ -13,7 +13,7 @@ define([
     Constants,
     utility
 ) {
-    let {DIMENSION_TO_TRACK, TRACK_TO_DIMENSION} = Constants;
+    let {DIMENSION_TO_GRID_TRACK, GRID_TRACK_TO_DIMENSION} = Constants;
 
     const Entity = function() {
         EntityHydrateAbstract.call(this);
@@ -132,16 +132,16 @@ define([
             return data['width'];
         };
 
-        this.getTrack = function(track) {
-            return data[track];
+        this.getGridTrack = function(gridTrack) {
+            return data[gridTrack];
         };
 
         this.setDimension = function(dimension, value) {
             this.set(dimension, value);
         };
 
-        this.getRelevantDimensionFromTrack = function(trackProperty) {
-            return TRACK_TO_DIMENSION[trackProperty];
+        this.getRelevantDimensionFromGridTrack = function(gridTrackProperty) {
+            return GRID_TRACK_TO_DIMENSION[gridTrackProperty];
         };
 
         this.setMultiple = function(fields, populating) {
@@ -160,9 +160,9 @@ define([
         function updateDimensionsToMaxValues(publishSettings) {
             let {template, dimensionAffected, populating} = publishSettings;
             const multiPage = template.getMultiPage();
-            const trackValue = multiPage.getTrack(Constants.DIMENSION_TO_TRACK[dimensionAffected]);
+            const gridTrackValue = multiPage.getGridTrack(Constants.DIMENSION_TO_GRID_TRACK[dimensionAffected]);
 
-            let maxValue = this.calculateMaxDimensionValue(template, dimensionAffected, trackValue);
+            let maxValue = this.calculateMaxDimensionValue(template, dimensionAffected, gridTrackValue);
 
             this.set(dimensionAffected, maxValue, populating);
 
@@ -198,31 +198,31 @@ define([
         return printPageDimension ? printPageDimension : paperPageDimension;
     };
 
-    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, trackValue) {
-        let trackProperty = DIMENSION_TO_TRACK[dimension];
+    Entity.prototype.calculateMaxDimensionValue = function(template, dimension, gridTrackValue) {
+        let gridTrackProperty = DIMENSION_TO_GRID_TRACK[dimension];
 
-        let relevantDimension = TRACK_TO_DIMENSION[trackProperty];
+        let relevantDimension = GRID_TRACK_TO_DIMENSION[gridTrackProperty];
 
         let dimensionValueToBeRelativeTo = this.getDimensionValueToBeRelativeTo(template, relevantDimension);
 
-        trackValue = parseInt(trackValue);
+        gridTrackValue = parseInt(gridTrackValue);
 
-        if (!trackValue) {
+        if (!gridTrackValue) {
             return dimensionValueToBeRelativeTo;
         }
 
-        let maxDimension = dimensionValueToBeRelativeTo / trackValue;
+        let maxDimension = dimensionValueToBeRelativeTo / gridTrackValue;
 
         return maxDimension;
     };
 
-    Entity.prototype.getTrackValueFromDimension = function(template, dimension, dimensionValue) {
+    Entity.prototype.getGridTrackValueFromDimension = function(template, dimension, dimensionValue) {
         if (!dimensionValue) {
             return;
         }
         let maximumArea = this.getDimensionValueToBeRelativeTo(template, dimension);
-        let trackValue = maximumArea / dimensionValue;
-        return trackValue;
+        let gridTrackValue = maximumArea / dimensionValue;
+        return gridTrackValue;
     };
 
     Entity.prototype.toJson = function() {

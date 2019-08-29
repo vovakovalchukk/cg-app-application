@@ -66,18 +66,18 @@ define([
         }
     };
 
-    MultiPage.prototype.setTrack = function(value, track) {
+    MultiPage.prototype.setGridTrack = function(value, gridTrack) {
         const template = this.getTemplate();
         const multiPage = this.getTemplate().getMultiPage();
         const inputs = this.getDomListener().getInputs();
 
-        const dimensionProperty = multiPage.getRelevantDimensionFromTrack(track);
+        const dimensionProperty = multiPage.getRelevantDimensionFromGridTrack(gridTrack);
         const maxDimensionValue = multiPage.calculateMaxDimensionValue(template, dimensionProperty, value);
 
         domManipulator.setValueToInput(inputs[dimensionProperty], maxDimensionValue);
 
         multiPage.setMultiple({
-            [track]: value,
+            [gridTrack]: value,
             [dimensionProperty]: maxDimensionValue
         });
     };

@@ -6,16 +6,16 @@ define([], function() {
             left: 'width',
             right: 'width'
         };
-        let DIMENSION_TO_TRACK = {
+        let DIMENSION_TO_GRID_TRACK = {
             height: 'rows',
             width: 'columns'
         };
-        let TRACK_TO_DIMENSION = getKeyValueReverse(DIMENSION_TO_TRACK);
+        let GRID_TRACK_TO_DIMENSION = getKeyValueReverse(DIMENSION_TO_GRID_TRACK);
 
         return {
             MARGIN_TO_DIMENSION,
-            DIMENSION_TO_TRACK,
-            TRACK_TO_DIMENSION
+            DIMENSION_TO_GRID_TRACK,
+            GRID_TRACK_TO_DIMENSION
         };
     }());
 
