@@ -2,12 +2,14 @@ define([
     'InvoiceDesigner/Template/Module/DomListenerAbstract',
     'jquery',
     'InvoiceDesigner/Template/DomManipulator',
-    'InvoiceDesigner/Template/Element/Service'
+    'InvoiceDesigner/Template/Element/Service',
+    'InvoiceDesigner/Template/Element/MapperAbstract'
 ], function(
     DomListenerAbstract,
     $,
     domManipulator,
-    elementService
+    elementService,
+    ElementMapperAbstract
 ) {
     var Renderer = function()
     {
@@ -22,7 +24,6 @@ define([
         
         
         DomListenerAbstract.prototype.init.call(this, module);
-        this.initElementDeselectedListener();
         this.initElementSelectedListener()
             .initElementDeselectedListener()
             .initTemplateChangeListener();
@@ -46,11 +47,11 @@ define([
         });
 
         document.addEventListener('click', event => {
-            const elementClasses = '.' + elementService.getElementDomWrapperClass();
-            if (event.target.closest(elementClasses)) {
+            if (isAnElementClick(event)) {
                 return;
             }
             this.getModule().elementDeselected();
+            domManipulator.markAsInactive('.'+ElementMapperAbstract.ELEMENT_DOM_WRAPPER_CLASS);
         });
 
         return this;
@@ -77,4 +78,9 @@ define([
     };
 
     return new Renderer();
+
+    function isAnElementClick(event) {
+        const elementClasses = '.' + elementService.getElementDomWrapperClass();
+        return event.target.closest(elementClasses);
+    }
 });
