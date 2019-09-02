@@ -466,22 +466,23 @@ $indicator-border-color: #1477aa;
     display: inline-block;
     width: 2rem;
     height: 2rem;
-    border: 2px solid #afafaf;
+    border: 1px solid #afafaf;
     border-radius: 4px;
+    cursor: pointer;
     &-left {
-        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-left-30.png');
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-left-30.png');
         background-position: center;
     }
     &-center {
-        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-center-30.png');
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-center-30.png');
         background-position: center;
     }
     &-right {
-        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-right-30.png');
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-right-30.png');
         background-position: center;
     }
     &-justified {
-        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-justify-30.png');
+        background-image: url('/channelgrabber/zf2-v4-ui/img/sprite/align-justify-30.png');
         background-position: center;
     }
 }
