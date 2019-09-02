@@ -163,9 +163,9 @@ define([
             return this;
         };
 
-        this.setDisplayOnAllPages = function(desiredValue)
+        this.setDisplayOnAllPages = function(desiredValue, populating)
         {
-            this.set('allPagesDisplay', desiredValue);
+            this.set('allPagesDisplay', desiredValue, populating);
             return this;
         };
 
@@ -340,6 +340,7 @@ define([
         this.setX(data.x, populating);
         this.setY(data.y, populating);
         this.setBorderWidth(data.borderWidth, populating);
+        this.setDisplayOnAllPages(data.allPagesDisplay, populating)
     };
 
     return ElementAbstract;
