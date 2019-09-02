@@ -12,6 +12,8 @@ const ACCOUNT_SELECTION_VIEW = 'ACCOUNT_SELECTION_VIEW';
 const NEW_LISTING_VIEW = 'NEW_LISTING_VIEW';
 const PRODUCT_LIST_VIEW = 'PRODUCT_LIST_VIEW';
 
+const ProductContext = React.createContext({});
+
 class RootComponent extends React.Component {
     static defaultProps = {
         searchAvailable: true,
@@ -121,7 +123,8 @@ class RootComponent extends React.Component {
             this.state.accounts,
             this.state.createListing.createListingsAllowedChannels,
             this.state.createListing.createListingsAllowedVariationChannels,
-            this.state.createListing.productSearchActive,
+            this.props.features.productSearchActive,
+            this.props.features.productSearchActiveForVariations,
             this.onCreateListingClose,
             this.props.ebaySiteOptions,
             this.props.categoryTemplateOptions,
@@ -238,7 +241,13 @@ class RootComponent extends React.Component {
     render() {
         let viewRenderers = this.getViewRenderers();
         let viewRenderer = viewRenderers[this.state.currentView];
-        return viewRenderer();
+        let view = viewRenderer();
+
+        return <ProductContext.Provider value={{
+            ...this.props
+        }}>
+            {view}
+        </ProductContext.Provider>
     }
 }
 
@@ -249,3 +258,4 @@ RootComponent.childContextTypes = {
 };
 
 export default RootComponent;
+export {ProductContext};

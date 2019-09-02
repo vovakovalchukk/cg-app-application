@@ -40,7 +40,12 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/ElementCollection'], fu
                     'title': 'Upload products',
                     'exampleFile': URL.createObjectURL(
                         new Blob(
-                            ['"Title","SKU","Stock Quantity"' + "\r\n" + '"Example product title","EXAMPLE_SKU",2'],
+                            [
+                                '"Title","SKU","Stock Quantity","Variation Set","Variation:Size","Variation:Colour"' + "\r\n" +
+                                '"Example product title","EXAMPLE_SKU",2' + "\r\n" +
+                                '"Example variation set","VAR_SKU_1",1,"Var set 1","Small","Red"' + "\r\n" +
+                                '"Example variation set","VAR_SKU_2",2,"Var set 1","Medium","Red"' + "\r\n"
+                            ],
                             {type : 'text/csv'}
                         )
                     ),

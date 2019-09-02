@@ -217,31 +217,6 @@ class Service implements
             'currency' => $this->getCurrencySymbolForAccount($account),
             'sites' => SiteMap::getIdToNameMap(),
             'defaultSiteId' => $this->fetchDefaultSiteIdForAccount($account),
-
-            //todo - to be implemented with no dummy data as part of TAC-433
-            'templates' => json_encode([
-                [
-                    'id' => 1,
-                    'name' => 'template1',
-                    'html' => "<h1>Template 1 Title</h1>
-                    some content in the template
-                "
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'template2',
-                    'html' => "<h1>Template 2 Title</h1>
-                    some content in the template
-                "
-                ],
-                [
-                    'id' => 3,
-                    'name' => 'template3',
-                    'html' => "<h1>Template 3 Title</h1>
-                    some content in the template
-                "
-                ]
-            ])
         ];
     }
 
@@ -362,7 +337,12 @@ class Service implements
 
     protected function getVariationsEnabledFromEbayCategoryData(?Data $ebayData): bool
     {
-        return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
+        try {
+            return $ebayData ? (new FeatureHelper($ebayData))->isFeatureEnabled('VariationsEnabled') : true;
+        } catch (\InvalidArgumentException $e) {
+            $this->logWarningException($e);
+            return false;
+        }
     }
 
     protected function getItemSpecificsFromEbayCategoryData(?Data $ebayData): array

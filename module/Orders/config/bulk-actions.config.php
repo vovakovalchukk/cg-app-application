@@ -66,8 +66,8 @@ return [
                 'BulkActions' => BulkActions::class,
                 'OrderDetailBulkActions' => BulkActions::class,
                 'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
+                'InvoiceByTitleBulkAction' => SubAction\InvoiceByTitle::class,
                 'InvoiceEmailBulkAction' => SubAction\EmailInvoice::class,
-                'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'ToCsvOrderDataOnlyBulkAction' => SubAction\ToCsvOrderDataOnly::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
@@ -82,12 +82,14 @@ return [
                 'CancelJavascript' => ViewModel::class,
                 'PayJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
+                'UnlinkJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
                 'ToCsvJavascript' => ViewModel::class,
                 'CourierJavascript' => ViewModel::class,
                 'CourierManifestJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
+                'UrlDataViewInvoiceByTitle' => ViewModel::class,
                 'UrlDataViewEmailInvoice' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
@@ -97,6 +99,7 @@ return [
                 'UrlDataViewBatchRemove' => ViewModel::class,
                 'UrlDataViewPay' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
+                'UrlDataViewUnlink' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
                 'UrlDataViewToCsv' => ViewModel::class,
                 'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
@@ -146,6 +149,7 @@ return [
                         ['action' => Action\Cancel::class],
                         ['action' => Action\Pay::class],
                         ['action' => Action\Refund::class],
+                        ['action' => Action\Unlink::class],
                     ],
                 ],
             ],
@@ -160,6 +164,7 @@ return [
                 'injections' => [
                     'addSubAction' => [
                         ['subAction' => 'InvoiceBySkuBulkAction'],
+                        ['subAction' => 'InvoiceByTitleBulkAction'],
                         ['subAction' => 'InvoiceEmailBulkAction'],
                     ],
                 ],
@@ -212,6 +217,17 @@ return [
                     'javascript' => 'InvoiceJavascript', 
                 ],
             ],
+            'InvoiceByTitleBulkAction' => [
+                'parameters' => [
+                    'title' => 'by Title',
+                    'action' => 'invoices-title',
+                    'urlView' => 'UrlDataViewInvoiceByTitle',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'InvoiceJavascript',
+                ],
+            ],
             'InvoiceEmailBulkAction' => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewEmailInvoice',
@@ -224,12 +240,6 @@ return [
             'InvoiceEmailJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/email-invoice.js',
-                ],
-            ],
-            'InvoiceByTitleBulkAction' => [
-                'parameters' => [
-                    'title' => 'by Title',
-                    'action' => 'invoices-title'
                 ],
             ],
             Action\Tag::class => [
@@ -360,6 +370,15 @@ return [
                     'javascript' => 'RefundJavascript',
                 ],
             ],
+            Action\Unlink::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewUnlink',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'UnlinkJavascript',
+                ],
+            ],
             Action\PickList::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewPickList',
@@ -461,12 +480,27 @@ return [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
             ],
+            'UnlinkJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/unlink.js',
+                ],
+            ],
+            'UrlDataViewUnlink' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
             'UrlDataViewInvoice' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
             ],
             'UrlDataViewInvoiceBySku' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewInvoiceByTitle' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],

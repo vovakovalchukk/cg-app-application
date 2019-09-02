@@ -3,19 +3,19 @@ namespace CG\CourierAdapter\Provider\Implementation;
 
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\Channel\Shipping\Provider\BookingOptionsInterface as CarrierBookingOptionsInterface;
-use CG\CourierAdapter\Account as CAAccount;
 use CG\CourierAdapter\CourierInterface;
+use CG\CourierAdapter\Package\SupportedField as PackageField;
 use CG\CourierAdapter\Provider\Account\Mapper as CAAccountMapper;
 use CG\CourierAdapter\Provider\Implementation\Service as AdapterImplementationService;
 use CG\CourierAdapter\Provider\Label\Cancel as LabelCancelService;
-use CG\CourierAdapter\PackageInterface;
-use CG\CourierAdapter\Package\SupportedField as PackageField;
-use CG\CourierAdapter\ShipmentInterface;
 use CG\CourierAdapter\Shipment\SupportedField as ShipmentField;
+use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
+use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Courier\Label\OrderParcelsData\ParcelData\Collection as ParcelDataCollection;
 use CG\Order\Shared\ShippableInterface as OrderEntity;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Collection as ProductDetailCollection;
-use CG\CourierAdapter\Shipment\SupportedField\InsuranceOptionsInterface;
+use CG\Product\Detail\Entity as ProductDetail;
 
 class CarrierBookingOptions implements CarrierBookingOptionsInterface
 {
@@ -57,9 +57,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         CAAccountMapper $caAccountMapper,
         LabelCancelService $labelCancelService
     ) {
-        $this->setAdapterImplementationService($adapterImplementationService)
-            ->setCAAccountMapper($caAccountMapper)
-            ->setLabelCancelService($labelCancelService);
+        $this->adapterImplementationService = $adapterImplementationService;
+        $this->caAccountMapper = $caAccountMapper;
+        $this->labelCancelService = $labelCancelService;
     }
 
     /**
@@ -73,7 +73,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         if (isset($this->carrierBookingOptionsForAccount[$account->getId()])) {
             return $this->carrierBookingOptionsForAccount[$account->getId()];
         }
-        
+
         $options = [];
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         $caAccount = $this->caAccountMapper->fromOHAccount($account);
@@ -91,9 +91,9 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
 
     protected function getCarrierBookingOptionsForService(
         AccountEntity $account,
-        $serviceCode,
+        string $serviceCode,
         CourierInterface $courierInstance = null
-    ) {
+    ): array {
         if (isset($this->carrierBookingOptionsForService[$account->getId()][$serviceCode])) {
             return $this->carrierBookingOptionsForService[$account->getId()][$serviceCode];
         }
@@ -117,19 +117,19 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $options;
     }
 
-    protected function getCarrierBookingOptionsForShipmentClass($shipmentClass)
+    protected function getCarrierBookingOptionsForShipmentClass(string $shipmentClass): array
     {
         $map = $this->optionInterfacesToOptionNameMap['shipment'];
         return $this->getCarrierBookingOptionsForDeliveryClass($shipmentClass, $map);
     }
 
-    protected function getCarrierBookingOptionsForPackageClass($packageClass)
+    protected function getCarrierBookingOptionsForPackageClass(string $packageClass): array
     {
         $map = $this->optionInterfacesToOptionNameMap['package'];
         return $this->getCarrierBookingOptionsForDeliveryClass($packageClass, $map);
     }
 
-    protected function getCarrierBookingOptionsForDeliveryClass($className, array $map)
+    protected function getCarrierBookingOptionsForDeliveryClass(string $className, array $map): array
     {
         $options = [];
         foreach ($map as $interface => $optionNames) {
@@ -148,10 +148,15 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     }
 
     /**
-     * @return array 
+     * @return array
      */
-    public function addCarrierSpecificDataToListArray(array $data, AccountEntity $account)
-    {
+    public function addCarrierSpecificDataToListArray(
+        array $data,
+        AccountEntity $account,
+        OrganisationUnit $rootOu,
+        OrderCollection $orders,
+        ProductDetailCollection $productDetails
+    ) {
         $courierInstance = $this->adapterImplementationService->getAdapterImplementationCourierInstanceForAccount($account);
         foreach ($data as &$row) {
             $service = $this->mapServiceFromListArrayRow($row);
@@ -165,7 +170,13 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
                 if ($optionType == 'packageType') {
                     $optionType = 'packageTypes';
                 }
-                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $courierInstance);
+                $order = null;
+                $orderProductDetails = null;
+                if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    $order = $orders->getById($row['orderId']);
+                    $orderProductDetails = $this->getProductDetailsForOrder($productDetails, $order);
+                }
+                $options = $this->getDataForDeliveryServiceOption($account, $service, $optionType, $order, $orderProductDetails, $courierInstance);
                 if (!$options) {
                     continue;
                 }
@@ -175,7 +186,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function mapServiceFromListArrayRow(array $row)
+    protected function mapServiceFromListArrayRow(array $row): ?string
     {
         if ($row['orderRow']) {
             $this->orderServiceMap[$row['orderId']] = $row['service'];
@@ -185,6 +196,19 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
             return $this->orderServiceMap[$row['orderId']];
         }
         return null;
+    }
+
+    protected function getProductDetailsForOrder(ProductDetailCollection $productDetails, OrderEntity $order): ProductDetailCollection
+    {
+        $itemSkus = $order->getItems()->getArrayOf('itemSku');
+        $orderProductDetails = new ProductDetailCollection(ProductDetail::class, __FUNCTION__, ['orderId' => $order->getId()]);
+        foreach ($productDetails as $productDetail) {
+            if (!in_array($productDetail->getSku(), $itemSkus)) {
+                continue;
+            }
+            $orderProductDetails->attach($productDetail);
+        }
+        return $orderProductDetails;
     }
 
     /**
@@ -198,17 +222,19 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         OrganisationUnit $rootOu,
         ProductDetailCollection $productDetails
     ) {
-        return $this->getDataForDeliveryServiceOption($account, $service, $option);
+        return $this->getDataForDeliveryServiceOption($account, $service, $option, $order, $productDetails);
     }
 
     protected function getDataForDeliveryServiceOption(
         AccountEntity $account,
-        $serviceCode,
-        $option,
+        ?string $serviceCode,
+        string $option,
+        OrderEntity $order = null,
+        ProductDetailCollection $productDetails = null,
         CourierInterface $courierInstance = null
-    ) {
+    ): ?array {
         $data = [];
-        if (isset($this->carrierBookingOptionData[$account->getId()][$serviceCode][$option])) {
+        if (!$productDetails && isset($this->carrierBookingOptionData[$account->getId()][$serviceCode][$option])) {
             return $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option];
         }
         if ($option != 'packageTypes' && $option != 'insuranceOptions') {
@@ -224,18 +250,28 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         $deliveryService = $courierInstance->fetchDeliveryServiceByReference($serviceCode);
         $shipmentClass = $deliveryService->getShipmentClass();
         if ($option == 'packageTypes') {
-            $data = $this->getDataForPackageTypesOption($shipmentClass);
+            $data = $this->getDataForPackageTypesOption($shipmentClass, $order, $productDetails);
         } elseif ($option == 'insuranceOptions' && isset(class_implements($shipmentClass)[InsuranceOptionsInterface::class])) {
             $data = $this->getDataForInsuranceOptionsOption($shipmentClass);
         }
-
-        $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option] = $data;
+        if (!$productDetails) {
+            $this->carrierBookingOptionData[$account->getId()][$serviceCode][$option] = $data;
+        }
         return $data;
     }
 
-    protected function getDataForPackageTypesOption($shipmentClass)
-    {
-        $packageTypes = call_user_func([$shipmentClass, 'getPackageTypes']);
+    protected function getDataForPackageTypesOption(
+        string $shipmentClass,
+        OrderEntity $order = null,
+        ProductDetailCollection $productDetails = null
+    ): array {
+        $parcelDataArray = null;
+        if ($order && $productDetails) {
+            $parcelDataCollection = ParcelDataCollection::fromOrderAndProductDetails($order, $productDetails);
+            $parcelDataCollection->sortDimensions();
+            $parcelDataArray = $parcelDataCollection->toArrayOfObjects();
+        }
+        $packageTypes = $shipmentClass::getPackageTypes($parcelDataArray);
         $data = [];
         foreach ($packageTypes as $packageType) {
             $data[$packageType->getReference()] = $packageType->getDisplayName();
@@ -243,7 +279,7 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
         return $data;
     }
 
-    protected function getDataForInsuranceOptionsOption($shipmentClass)
+    protected function getDataForInsuranceOptionsOption(string $shipmentClass): array
     {
         $insuranceOptions = call_user_func([$shipmentClass, 'getAvailableInsuranceOptions']);
         $data = [];
@@ -267,23 +303,5 @@ class CarrierBookingOptions implements CarrierBookingOptionsInterface
     public function isProvidedChannel($channelName)
     {
         return $this->adapterImplementationService->isProvidedChannel($channelName);
-    }
-
-    protected function setAdapterImplementationService(AdapterImplementationService $adapterImplementationService)
-    {
-        $this->adapterImplementationService = $adapterImplementationService;
-        return $this;
-    }
-
-    protected function setCAAccountMapper(CAAccountMapper $caAccountMapper)
-    {
-        $this->caAccountMapper = $caAccountMapper;
-        return $this;
-    }
-
-    protected function setLabelCancelService(LabelCancelService $labelCancelService)
-    {
-        $this->labelCancelService = $labelCancelService;
-        return $this;
     }
 }

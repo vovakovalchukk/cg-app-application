@@ -4,6 +4,7 @@ namespace CG\RoyalMailApi;
 use CG\CourierAdapter\Account;
 use CG\CourierAdapter\AddressInterface;
 use CG\CourierAdapter\DeliveryServiceInterface;
+use CG\CourierAdapter\Package\SupportedField\WeightAndDimensionsInterface;
 use CG\CourierAdapter\PackageInterface;
 use CG\CourierAdapter\Shipment\SupportedField\CollectionDateInterface;
 use CG\CourierAdapter\Shipment\SupportedField\DeliveryInstructionsInterface;
@@ -229,7 +230,7 @@ class Shipment implements
     /**
      * @inheritdoc
      */
-    public static function getPackageTypes()
+    public static function getPackageTypes(array $weightAndDimensions = null)
     {
         $packageTypes = [];
         foreach (static::$packageTypes as $packageReference => $packageDisplayName) {

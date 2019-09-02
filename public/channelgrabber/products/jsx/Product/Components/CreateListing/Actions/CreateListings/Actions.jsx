@@ -22,19 +22,23 @@ import ResponseActions from './ResponseActions';
     };
 
     var formatVariationData = function(values, props) {
-        var variations = [];
-        for (var id in values.identifiers) {
-            variations.push(
-                Object.assign(
-                    values.identifiers[id],
-                    values.dimensions[id],
-                    {
-                        sku: values.skus[id],
-                        productAccountDetail: formatProductAccountDetailsPrices(values.prices[id])
-                    }
-                )
+        let variations = [];
+        for (let id in values.identifiers) {
+            let identifier = values.identifiers[id];
+            let dimension = values.dimensions[id];
+
+            let variationObject = Object.assign(
+                identifier,
+                dimension,
+                {
+                    sku: values.skus[id],
+                    productAccountDetail: formatProductAccountDetailsPrices(values.prices[id])
+                }
             );
+
+            variations.push(variationObject);
         }
+
         return variations;
     };
 
@@ -59,6 +63,7 @@ import ResponseActions from './ResponseActions';
                 channel: channelName
             }));
         }
+
         return details;
     };
 
@@ -303,10 +308,11 @@ import ResponseActions from './ResponseActions';
             };
         },
         submitListingsForm: function(dispatch, formValues, props) {
+            let data = formatFormValuesForSubmission(formValues, props);
             $.ajax({
                 url: '/products/listing/submitMultiple',
                 type: 'POST',
-                data: formatFormValuesForSubmission(formValues, props),
+                data,
                 success: function(response) {
                     if (response.allowed) {
                         dispatch(ResponseActions.listingFormSubmittedSuccessfully(response.guid, response.processGuid));

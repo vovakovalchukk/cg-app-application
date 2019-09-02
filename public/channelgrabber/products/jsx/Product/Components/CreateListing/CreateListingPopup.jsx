@@ -19,6 +19,14 @@ import SectionData from 'Common/SectionData';
 
 const FormSelector = formValueSelector('createListing');
 
+function submitForm (values, dispatch, props){
+    dispatch(Actions.submitListingsForm(
+        dispatch,
+        values,
+        props
+    ));
+}
+
 class CreateListingPopup extends React.Component {
     static defaultProps = {
         product: {},
@@ -57,38 +65,6 @@ class CreateListingPopup extends React.Component {
         }
     }
 
-    findSearchAccountId = () => {
-        let accountId = this.props.accounts.find(function(accountId) {
-            let accountData = this.props.accountsData[accountId];
-            return accountData.channel == 'ebay' && accountData.listingsAuthActive;
-        }, this);
-
-        return accountId > 0 ? accountId : null;
-    };
-
-    renderProductSearchComponent = () => {
-        if (!this.shouldRenderProductSearchComponent()) {
-            return null;
-        }
-
-        return <ProductSearch
-            accountId={this.props.searchAccountId}
-            mainProduct={this.props.product}
-            variationsDataForProduct={this.props.variationsDataForProduct}
-            clearSelectedProduct={this.props.clearSelectedProduct}
-            variationImages={this.props.variationImages}
-            defaultProductImage={this.props.defaultProductImage}
-        />;
-    };
-
-    shouldRenderProductSearchComponent = () => {
-        if (!this.props.productSearchActive) {
-            return false;
-        }
-
-        return !!this.props.searchAccountId;
-    };
-
     renderForm = () => {
         return <form>
             <Field name="title" component={this.renderInputComponent} displayTitle={"Listing Title:"}/>
@@ -102,6 +78,39 @@ class CreateListingPopup extends React.Component {
             {this.renderDimensions()}
             {this.renderProductPrices()}
         </form>
+    };
+
+    findSearchAccountId = () => {
+        let accountId = Object.keys(this.props.accountsData).find((accountId) => {
+            let accountData = this.props.accountsData[accountId];
+            return accountData.channel === 'ebay' && accountData.listingsAuthActive;
+        });
+
+        return accountId > 0 ? accountId : null;
+    };
+
+    renderProductSearchComponent = () => {
+        let searchAccountId = this.findSearchAccountId();
+        if (!this.shouldRenderProductSearchComponent(searchAccountId)) {
+            return null;
+        }
+
+        return <ProductSearch
+            accountId={searchAccountId}
+            mainProduct={this.props.product}
+            variationsDataForProduct={this.props.variationsDataForProduct}
+            clearSelectedProduct={this.props.clearSelectedProduct}
+            variationImages={this.props.variationImages}
+            defaultProductImage={this.props.defaultProductImage}
+        />;
+    };
+
+    shouldRenderProductSearchComponent = (searchAccountId) => {
+        if (!this.props.productSearchActive) {
+            return false;
+        }
+
+        return !!searchAccountId;
     };
 
     renderInputComponent = (field) => {
@@ -283,9 +292,9 @@ class CreateListingPopup extends React.Component {
 
     getSelectedAccountsData = () => {
         let accounts = [];
-        this.props.accounts.map(function(accountId) {
+        this.props.accounts.map(accountId => {
             accounts.push(this.props.accountsData[accountId]);
-        }.bind(this));
+        });
         return accounts;
     };
 
@@ -445,9 +454,7 @@ CreateListingPopup = reduxForm({
     enableReinitialize: true,
     // This is required to make the images in the variation table show correctly
     keepDirtyOnReinitialize: true,
-    onSubmit: function(values, dispatch, props) {
-        dispatch(Actions.submitListingsForm(dispatch, values, props));
-    },
+    onSubmit: submitForm,
 })(CreateListingPopup);
 
 const mapStateToProps = function(state) {

@@ -12,5 +12,8 @@ export default {
     dimensions: 'dimensions',
     lowStock: 'lowStock',
     pickingLocation: 'pickingLocation',
-    cost: 'cost'
+    cost: 'cost',
+    fulfillmentLatency: 'fulfillmentLatency',
+    barcode: 'barcode',
+    barcodeNotApplicable: 'barcodeNotApplicable'
 };

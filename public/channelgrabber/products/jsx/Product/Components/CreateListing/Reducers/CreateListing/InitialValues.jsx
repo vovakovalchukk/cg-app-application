@@ -1,4 +1,6 @@
 import reducerCreator from 'Common/Reducers/creator';
+import fieldService from 'Product/Components/CreateListing/Service/field';
+
     var initialState = {};
 
     var getDetailForProduct = function(detailName, productDetails, variationData) {
@@ -67,7 +69,7 @@ import reducerCreator from 'Common/Reducers/creator';
     var getProductIdentifiers = function(variationData) {
         var identifiers = {};
         variationData.forEach(function(variation) {
-            identifiers[variation.id] = {
+            identifiers[fieldService.getVariationIdWithPrefix(variation.id)] = {
                 ean: variation.details.ean,
                 upc: variation.details.upc,
                 isbn: variation.details.isbn,
@@ -86,7 +88,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
             var dimensions = {};
             variationData.map(function(variation) {
-                dimensions[variation.id] = {
+                dimensions[fieldService.getVariationIdWithPrefix(variation.id)] = {
                     length: variation.details.length,
                     width: variation.details.width,
                     height: variation.details.height,
@@ -101,14 +103,14 @@ import reducerCreator from 'Common/Reducers/creator';
                     var price = parseFloat(variation.details.price).toFixed(2);
                     pricesForVariation[accountId] = isNaN(price) ? null : price;
                 });
-                prices[variation.id] = pricesForVariation;
+                prices[fieldService.getVariationIdWithPrefix(variation.id)] = pricesForVariation;
             });
 
             var productDetails = product.detail ? product.details : {};
 
             var skus = {};
             variationData.map(function(variation) {
-                skus[variation.id] = variation.sku;
+                skus[fieldService.getVariationIdWithPrefix(variation.id)] = variation.sku;
             });
 
             return {
@@ -135,11 +137,12 @@ import reducerCreator from 'Common/Reducers/creator';
         "ASSIGN_SEARCH_PRODUCT_TO_CG_PRODUCT": function(state, action) {
             let searchProduct = action.payload.searchProduct,
                 productId = action.payload.cgProduct,
-                identifier = state.identifiers[productId];
+                productIdKey = fieldService.getVariationIdWithPrefix(productId),
+                identifier = state.identifiers[productIdKey];
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: Object.assign({}, state.identifiers[productId], {
+                    [productIdKey]: Object.assign({}, state.identifiers[productId], {
                         ean: identifier.ean ? identifier.ean : searchProduct.ean,
                         upc: identifier.upc ? identifier.upc : searchProduct.upc,
                         isbn: identifier.isbn ? identifier.isbn : searchProduct.isbn,
@@ -151,6 +154,7 @@ import reducerCreator from 'Common/Reducers/creator';
         },
         "CLEAR_SELECTED_PRODUCT": function(state, action) {
             let productId = action.payload.productId,
+                productIdKey = fieldService.getVariationIdWithPrefix(productId),
                 variation = action.payload.variationData.find(function(variation) {
                     return variation.id == productId;
                 }),
@@ -158,7 +162,7 @@ import reducerCreator from 'Common/Reducers/creator';
 
             return Object.assign({}, state, {
                 identifiers: Object.assign({}, state.identifiers, {
-                    [productId]: Object.assign({}, state.identifiers[productId], {
+                    [productIdKey]: Object.assign({}, state.identifiers[productIdKey], {
                         ean: identifier.ean,
                         upc: identifier.upc,
                         isbn: identifier.isbn,

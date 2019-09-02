@@ -3,6 +3,7 @@ import {Field} from 'redux-form';
 import Input from 'Common/Components/Input';
 import Checkbox from 'Common/Components/Checkbox';
 import VariationTable from './VariationTable';
+import fieldService from 'Product/Components/CreateListing/Service/field';
 
 var inputTypeComponents = {
     "checkbox": Checkbox
@@ -51,7 +52,8 @@ var identifiers = [
     },
     {
         "name": "mpn",
-        "displayTitle": "MPN (if applicable)"
+        "displayTitle": "MPN (if applicable)",
+        "type": "text"
     },
     {
         "name": "isbn",
@@ -79,6 +81,20 @@ var identifiers = [
     },
 ];
 
+let Identifier = props => {
+    let {inputComponent, variation, identifier} = props;
+    let variationIdWithPrefix = fieldService.getVariationIdWithPrefix(variation.id);
+    return <td className={'u-width-120px'}>
+        <Field
+            name={`identifiers.${variationIdWithPrefix}.${identifier.name}`}
+            component={inputComponent}
+            validate={identifier.validate ? [identifier.validate] : undefined}
+            normalize={identifier.normalize ? identifier.normalize : value => value}
+            inputType={identifier.type ? identifier.type : 'input'}
+        />
+    </td>;
+};
+
 class ProductIdentifiers extends React.Component {
     static defaultProps = {
         variationsDataForProduct: [],
@@ -92,42 +108,52 @@ class ProductIdentifiers extends React.Component {
         renderStaticImageFromFormValues: false
     };
 
+    renderHeader = identifier => {
+        return <th
+            title={identifier.displayTitle}
+            className={"with-title"}
+        >
+            {identifier.display || identifier.name.toUpperCase()}
+        </th>;
+    };
+
     renderIdentifierHeaders = () => {
-        return identifiers.map(function(identifier) {
-            return <th
-                title={identifier.displayTitle}
-                className={"with-title"}
-            >
-                {identifier.display || identifier.name.toUpperCase()}
-            </th>;
-        });
+        return identifiers.map(this.renderHeader);
     };
 
     renderIdentifierColumns = (variation) => {
-        return identifiers.map(function(identifier) {
-            return (<td>
-                <Field
-                    name={"identifiers." + variation.id + "." + identifier.name}
-                    component={this.renderInputComponent}
-                    validate={identifier.validate ? [identifier.validate] : undefined}
-                    normalize={identifier.normalize ? identifier.normalize : value => value}
-                    inputType={identifier.type ? identifier.type : 'input'}
-                />
-            </td>)
-        }.bind(this));
+        return identifiers.map((identifier) => {
+            return <Identifier
+                identifier={identifier}
+                variation={variation}
+                inputComponent={this.renderInputComponent}
+            />
+        });
     };
 
     renderInputComponent = (field) => {
-        var errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
-        var InputForType = (typeof inputTypeComponents[field.inputType] != 'undefined' ? inputTypeComponents[field.inputType] : Input);
+        const errors = field.meta.error && field.meta.dirty ? [field.meta.error] : [];
+        const InputForType = this.getInput(field);
+
+        const onChangeHandler = value => {
+            this.onInputChange(field.input, value );
+        };
+
         return <InputForType
             {...field.input}
-            onChange={this.onInputChange.bind(this, field.input)}
+            onChange={onChangeHandler}
             errors={errors}
             className={"product-identifier-input"}
             errorBoxClassName={"product-input-error"}
             inputType={field.inputType}
-        />;
+        />
+    };
+
+    getInput = (field) => {
+        if(typeof inputTypeComponents[field.inputType] !== 'undefined' ){
+            return inputTypeComponents[field.inputType]
+        }
+        return Input;
     };
 
     onInputChange = (input, value) => {
@@ -156,4 +182,3 @@ class ProductIdentifiers extends React.Component {
 }
 
 export default ProductIdentifiers;
-

@@ -32,7 +32,7 @@ import React from 'react';
                         </div>
                     </div>
                     <div className="body">
-                        {this.props.purchaseOrders.filter(this.filterPurchaseOrders).sort(this.sortPurchaseOrders).map(function (purchaseOrder) {
+                        {this.props.purchaseOrders.filter(this.filterPurchaseOrders).sort(this.sortPurchaseOrders).map(purchaseOrder => {
                             const statusClass = purchaseOrder.status.replace(" ", "_").toLowerCase();
                             return (
                                 <div className="row hoverable" onClick={this.onRowClick.bind(this, purchaseOrder)}>
@@ -41,8 +41,7 @@ import React from 'react';
                                     <div className="cell">{purchaseOrder.externalId}</div>
                                 </div>
                             );
-
-                        }.bind(this))}
+                        })}
                     </div>
                 </div>
             );
