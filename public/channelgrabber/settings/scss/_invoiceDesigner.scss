@@ -456,6 +456,40 @@ $indicator-border-color: #1477aa;
 .inspector-module {
     width: 100%;
 }
+.inspector-text-align-radio {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.inspector-text-align-label {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #afafaf;
+    border-radius: 4px;
+    &-left {
+        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-left-30.png');
+        background-position: center;
+    }
+    &-center {
+        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-center-30.png');
+        background-position: center;
+    }
+    &-right {
+        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-right-30.png');
+        background-position: center;
+    }
+    &-justified {
+        background: url('/channelgrabber/zf2-v4-ui/img/sprite/align-justify-30.png');
+        background-position: center;
+    }
+}
+.inspector-text-align-radio:checked + .inspector-text-align-label {
+    background-color: #fff;
+    border-color: #9a9a9a;
+}
+
 #text-inspector-data-fields {
     margin-top: 10px;
     margin-bottom:15px;
@@ -464,6 +498,7 @@ $indicator-border-color: #1477aa;
         max-width: 235px;
     }
 }
+
 
 .align_buttons {
     float: left;
